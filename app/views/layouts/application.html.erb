@@ -7,6 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav class="navbar nav">
+    <ul class='navbar bav'>
+      <li><%= link_to 'Home', root_path %></li>
+      <li><%= link_to 'All Areas', areas_path %></li>
+      <li><%= link_to 'New Area', new_area_path %></li>
+    </ul>
+  </nav>
 <div class="container">
   <%= yield %>
 </div>

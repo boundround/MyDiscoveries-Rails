@@ -1,16 +1,17 @@
 <h1>Create New Area</h1>
-<%= simple_nested_form_for @area do |f| %>
-  <%= simple_fields_for :area, @photo do |pf| %>
-    <%= pf.input :title %>
-    <%= pf.file_field :path %>
-    <%= pf.input :credit %>
-  <% end %>
-  <%= f.input :display_name, label: 'Area Name' %>
-  <%= f.input :code, label: 'Airport Code' %>
-  <%= f.input :identifier, label: 'Identifier' %>
-  <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
-  <%= f.input :short_intro, label: 'Short Intro' %>
-  <%= f.text_area :description %>
-  <%= f.button :submit%>
-<%end%>
+
+  <%= simple_form_for @area do |f| %>
+    <%= f.simple_fields_for :photos do |ff| %>
+      <%= ff.input :title %>
+      <%= ff.file_field :path %>
+      <%= ff.input :credit %>
+    <% end %>
+    <%= f.input :display_name, label: 'Area Name' %>
+    <%= f.input :code, label: 'Airport Code' %>
+    <%= f.input :identifier, label: 'Identifier' %>
+    <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
+    <%= f.input :short_intro, label: 'Short Intro' %>
+    <%= f.text_area :description, label: 'Description' %>
+    <%= f.submit :submit %>
+  <%end%>
 <p></p>

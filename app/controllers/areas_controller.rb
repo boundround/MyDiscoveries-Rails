@@ -9,10 +9,12 @@ class AreasController < ApplicationController
 
   def create
     @area = Area.new(area_params)
-    @photo = @area.photos.build
-    @area.save
-    @photo.save
 
+    if @area.save
+      redirect_to(areas_path, notice: 'Area succesfully saved')
+    else
+      redirect_to 'areas#new'
+    end
   end
 
   def new
@@ -28,6 +30,6 @@ class AreasController < ApplicationController
 
   private
     def area_params
-      params.require(:area).permit(:code, :identifier, :country, :display_name, :short_intro, :description, photo_attributes: [:title, :credit, :path])
+      params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description, photos_attributes: [:title, :path, :credit])
     end
 end
