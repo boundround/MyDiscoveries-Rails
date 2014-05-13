@@ -1,5 +1,10 @@
 <h1>Create New Area</h1>
 <%= simple_form_for @area do |f| %>
+    <%= simple_fields_for @photo do |pf| %>
+    <%= pf.input :title %>
+    <%= pf.file_field :path %>
+    <%= pf.input :credit %>
+    <% end %>
   <%= f.input :display_name, label: 'Area Name' %>
   <%= f.input :code, label: 'Airport Code' %>
   <%= f.input :identifier, label: 'Identifier' %>

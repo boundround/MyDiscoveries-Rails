@@ -13,6 +13,7 @@ class AreasController < ApplicationController
 
   def new
     @area = Area.new
+    @photo = Photo.new
   end
 
   def edit
