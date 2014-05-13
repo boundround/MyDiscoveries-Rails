@@ -1,0 +1,7 @@
+<h1><%= @area.display_name %></h1>
+
+<% @area.photos.each do |photo| %>
+<li> <%= photo.title %> - <%= image_tag photo.path_url(:mobile) %> </li>
+<li> <%= photo.title %> - <%= image_tag photo.path_url(:tablet) %> </li>
+
+<% end %>
