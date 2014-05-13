@@ -1,0 +1,11 @@
+<h1>Create New Area</h1>
+<%= simple_form_for @area do |f| %>
+  <%= f.input :display_name, label: 'Area Name' %>
+  <%= f.input :code, label: 'Airport Code' %>
+  <%= f.input :identifier, label: 'Identifier' %>
+  <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
+  <%= f.input :short_intro, label: 'Short Intro' %>
+  <%= f.text_area :description %>
+  <%= f.button :submit%>
+<%end%>
+<p></p>
