@@ -1,18 +1,41 @@
 <h1>Create New Area</h1>
 
-  <%= simple_form_for @area do |f| %>
+  <%= simple_form_for @area, html: { role: 'form'} do |f| %>
     <%= f.simple_fields_for :photos do |ff| %>
-      <%= ff.input :title %>
-      <%= ff.file_field :path %>
-      <%= ff.input :credit %>
+      <div class="form-group">
+        <%= ff.input :title %>
+      </div>
+      <div class="form-group">
+        <%= ff.file_field :path %>
+      </div>
+      <div class="form-group">
+        <%= ff.input :credit %>
+      </div>
     <% end %>
-    <%= f.input :display_name, label: 'Area Name' %>
-    <%= f.input :code, label: 'Airport Code' %>
-    <%= f.input :identifier, label: 'Identifier' %>
-    <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
-    <%= f.input :short_intro, label: 'Short Intro' %>
-    <%= f.text_area :description, label: 'Description' %>
-    <%= f.submit :submit %>
+    <div class="form-group">
+      <%= f.input :display_name, label: 'Area Name' %>
+    </div>
+    <div class="form-group">
+      <%= f.input :code, label: 'Airport Code' %>
+    </div>
+    <div class="form-group">
+      <%= f.input :identifier, label: 'Identifier' %>
+    </div>
+    <div class="form-group">
+      <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
+    </div>
+    <div class="form-group">
+      <%= f.input :short_intro, label: 'Short Intro' %>
+    </div>
+    <div class="form-group">
+      <%= f.text_area :description, placeholder: 'Description' %>
+    </div>
+    <div class="form-group">
+      <%= f.text_area :address, placeholder: 'Address' %>
+    </div>
+    <div class="form-group">
+      <%= f.submit :submit %>
+    </div>
   <%end%>
 
 <p></p>

@@ -72,6 +72,7 @@ GEM
     fog-json (1.0.0)
       multi_json (~> 1.0)
     formatador (0.2.4)
+    geocoder (1.2.1)
     hike (1.2.3)
     hirb (0.7.1)
     i18n (0.6.9)
@@ -172,6 +173,7 @@ DEPENDENCIES
   country_select
   figaro
   fog
+  geocoder
   hirb
   jbuilder (~> 2.0)
   jquery-rails
