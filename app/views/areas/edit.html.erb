@@ -1,2 +1,42 @@
-<h1>Areas#edit</h1>
-<p>Find me in app/views/areas/edit.html.erb</p>
+<h1>Edit Area</h1>
+
+<%= simple_form_for @area, html: { role: 'form'} do |f| %>
+    <% @area.photos.each do |photo| %>
+      <%= f.simple_fields_for :photos do |ff| %>
+        <%= image_tag photo.path_url(:tablet) %>
+        <div class="form-group">
+          <%= ff.input :title %>
+        </div>
+        <div class="form-group">
+          <%= ff.file_field :path %>
+        </div>
+        <div class="form-group">
+          <%= ff.input :credit %>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="form-group">
+      <%= f.input :display_name, label: 'Area Name' %>
+    </div>
+    <div class="form-group">
+      <%= f.input :code, label: 'Airport Code' %>
+    </div>
+    <div class="form-group">
+      <%= f.input :identifier, label: 'Identifier' %>
+    </div>
+    <div class="form-group">
+      <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
+    </div>
+    <div class="form-group">
+      <%= f.input :short_intro, label: 'Short Intro' %>
+    </div>
+    <div class="form-group">
+      <%= f.text_area :description, placeholder: 'Description' %>
+    </div>
+    <div class="form-group">
+      <%= f.text_area :address, placeholder: 'Address' %>
+    </div>
+    <div class="form-group">
+      <%= f.submit :submit %>
+    </div>
+  <%end%>

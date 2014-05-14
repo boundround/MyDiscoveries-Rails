@@ -23,6 +23,21 @@ class AreasController < ApplicationController
   end
 
   def edit
+    @area = Area.find(params[:id])
+  end
+
+  def update
+    @area = Area.find(params[:id])
+
+    respond_to do |format|
+      if @area.update(area_params)
+        format.html { redirect_to @area, notice: 'Post was successfully updated.' }
+        format.json { render :show, status: :ok, location: @area }
+      else
+        format.html { render :edit }
+        format.json { render json: @area.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -30,6 +45,6 @@ class AreasController < ApplicationController
 
   private
     def area_params
-      params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description, :address, photos_attributes: [:title, :path, :credit])
+      params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description, :address, photos_attributes: [:id, :title, :path, :credit])
     end
 end
