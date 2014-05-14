@@ -26,6 +26,7 @@ class AreasController < ApplicationController
     @area = Area.find(params[:id])
   end
 
+
   def update
     @area = Area.find(params[:id])
 
