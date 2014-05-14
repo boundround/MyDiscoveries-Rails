@@ -20,10 +20,12 @@ class AreasController < ApplicationController
   def new
     @area = Area.new
     @area.photos.build
+
   end
 
   def edit
     @area = Area.find(params[:id])
+
   end
 
 
