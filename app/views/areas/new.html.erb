@@ -3,8 +3,9 @@
   <%= simple_form_for @area, html: { role: 'form'} do |f| %>
     <%= f.simple_fields_for :photos do |ff| %>
       <div class="form-group">
-        <%= ff.input :title %>
+        <%= ff.input :title, label: 'Photo Title' %>
       </div>
+
       <div class="form-group">
         <%= ff.file_field :path %>
       </div>
@@ -15,6 +16,20 @@
     <div class="form-group">
       <%= f.input :display_name, label: 'Area Name' %>
     </div>
+
+    <input id="pac-input" class="controls" type="text"
+        placeholder="Enter a location">
+
+    <div class="map-container">
+      <div class="map-canvas"></div>
+    </div>
+
+    <div class="form-group lat-lng">
+      <%= f.input :latitude, :input_html => { "data-geo" => "lat" } %>
+      <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
+      <%= f.input :address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address" } %>
+    </div>
+
     <div class="form-group">
       <%= f.input :code, label: 'Airport Code' %>
     </div>
@@ -30,9 +45,7 @@
     <div class="form-group">
       <%= f.text_area :description, placeholder: 'Description' %>
     </div>
-    <div class="form-group">
-      <%= f.text_area :address, placeholder: 'Address' %>
-    </div>
+
     <div class="form-group">
       <%= f.submit :submit %>
     </div>
