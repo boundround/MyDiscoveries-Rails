@@ -1,20 +1,23 @@
 <h1>Edit Area</h1>
 <%= render "photo_form" %>
-<%= simple_form_for @area, html: { role: 'form'} do |f| %>
-    <% @area.photos.each do |photo| %>
-      <%= f.simple_fields_for :photos do |ff| %>
+<% @area.photos.each do |photo| %>
+      <%= simple_form_for [@area, photo] do |f| %>
         <%= image_tag photo.path_url(:tablet) %>
         <div class="form-group">
-          <%= ff.input :title %>
+          <%= f.input :title %>
         </div>
         <div class="form-group">
-          <%= ff.file_field :path %>
+          <%= f.file_field :path %>
         </div>
         <div class="form-group">
-          <%= ff.input :credit %>
+          <%= f.input :credit %>
+          <%= f.input :area_id %>
+          <%= f.submit :submit %>
         </div>
       <% end %>
     <% end %>
+<%= simple_form_for @area, html: { role: 'form'} do |f| %>
+
     <div class="form-group">
       <%= f.input :display_name, label: 'Area Name' %>
     </div>
