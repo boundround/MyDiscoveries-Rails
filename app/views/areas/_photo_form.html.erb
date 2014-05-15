@@ -9,7 +9,7 @@
     <%= f.input :credit %>
   </div>
   <div class="form-group">
-    <%= f.input :area_id %>
+    <%= f.input :area_id, as: :hidden, input_html: { value: '5'} %>
   </div>
   <div class="form-group">
     <%= f.submit :submit %>
