@@ -44,8 +44,6 @@ gem 'mini_magick'
 
 gem 'fog'
 
-gem 'geocoder'
-
 gem 'geocomplete_rails'
 
 
