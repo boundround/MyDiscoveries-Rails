@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  resources :areas
+  get 'photos/new'
+
+  get 'photos/create'
+
+  get 'photos/destroy'
+
+  resources :areas do
+    resources :photos
+  end
 
   root 'areas#index'
 

@@ -1,4 +1,5 @@
 <h1><%= @area.display_name %></h1>
+<p><%= @area.latitude %>, <%= @area.longitude %></p>
 
 <% @area.photos.each do |photo| %>
 <li> <%= photo.title %> - <%= image_tag photo.path_url(:mobile) %> </li>

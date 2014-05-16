@@ -72,6 +72,8 @@ GEM
     fog-json (1.0.0)
       multi_json (~> 1.0)
     formatador (0.2.4)
+    geocomplete_rails (1.5.0.1)
+      railties (>= 3.1)
     hike (1.2.3)
     hirb (0.7.1)
     i18n (0.6.9)
@@ -87,7 +89,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    mini_magick (3.7.0)
+    mini_magick (3.6.0)
       subexec (~> 0.2.1)
     mini_portile (0.5.3)
     minitest (5.3.3)
@@ -172,6 +174,7 @@ DEPENDENCIES
   country_select
   figaro
   fog
+  geocomplete_rails
   hirb
   jbuilder (~> 2.0)
   jquery-rails
