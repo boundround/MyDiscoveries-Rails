@@ -65,25 +65,25 @@
 <%= simple_form_for @area, html: { role: 'form'} do |f| %>
 
     <div class="form-group">
-      <%= f.input :display_name, label: 'Area Name' %>
+      <%= f.input :display_name, label: 'Area Name', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :code, label: 'Airport Code' %>
+      <%= f.input :code, label: 'Airport Code', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :identifier, label: 'Identifier' %>
+      <%= f.input :identifier, label: 'Identifier', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
       <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
     </div>
     <div class="form-group">
-      <%= f.input :short_intro, label: 'Short Intro' %>
+      <%= f.input :short_intro, label: 'Short Intro', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.text_area :description, placeholder: 'Description', label: 'Description' %>
+      <%= f.input :description, as: :text, placeholder: 'Description', label: 'Description', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.text_area :address, placeholder: 'Address' %>
+      <%= f.input :address, as: :text, placeholder: 'Address', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
       <%= f.submit :submit %>
