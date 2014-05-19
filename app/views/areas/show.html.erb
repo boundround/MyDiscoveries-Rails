@@ -1,8 +1,12 @@
 <h1><%= @area.display_name %></h1>
+<p><%= link_to 'Edit Area', edit_area_path %></p>
 <p><%= @area.latitude %>, <%= @area.longitude %></p>
 
 <% @area.photos.each do |photo| %>
-<li> <%= photo.title %> - <%= image_tag photo.path_url(:mobile) %> </li>
-<li> <%= photo.title %> - <%= image_tag photo.path_url(:tablet) %> </li>
+<div>
+  <li><p><%= photo.title %></p>
+      <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc small-photo' %>
+  </li>
+</div>
 
 <% end %>

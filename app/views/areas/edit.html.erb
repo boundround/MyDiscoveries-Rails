@@ -8,15 +8,17 @@
           <% if index == 0 %>
             <div class="item active">
               <%= simple_form_for [@area, photo] do |f| %>
-                <%= image_tag photo.path_url(:tablet), class: 'carousel-image' %>
+                <div class="carousel-image">
+                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc small-photo' %>
+                </div>
                 <div class="form-group">
-                  <%= f.input :title %>
+                  <%= f.input :title, input_html: { class: 'form-control' } %>
                 </div>
                 <div class="form-group">
                   <%= f.file_field :path, as: :file %>
                 </div>
                 <div class="form-group">
-                  <%= f.input :credit %>
+                  <%= f.input :credit, input_html: { class: 'form-control' } %>
                   <%= f.input :area_id, as: :hidden %>
                   <%= f.submit :submit %>
                 </div>
@@ -25,15 +27,17 @@
           <% else %>
             <div class="item">
               <%= simple_form_for [@area, photo] do |f| %>
-                <%= image_tag photo.path_url(:tablet) %>
+                <div class="carousel-image">
+                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc small-photo' %>
+                </div>
                 <div class="form-group">
-                  <%= f.input :title %>
+                  <%= f.input :title, input_html: { class: 'form-control' } %>
                 </div>
                 <div class="form-group">
                   <%= f.file_field :path, as: :file %>
                 </div>
                 <div class="form-group">
-                  <%= f.input :credit %>
+                  <%= f.input :credit, input_html: { class: 'form-control' } %>
                   <%= f.input :area_id, as: :hidden %>
                   <%= f.submit :submit %>
                 </div>
@@ -41,7 +45,7 @@
             </div>
           <% end %>
         <% end %>
-        <div class="item">
+        <div class="item carousel-style">
           <%= render "photo_form" %>
         </div>
       </div>
