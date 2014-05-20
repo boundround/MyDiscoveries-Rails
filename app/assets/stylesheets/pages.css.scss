@@ -1,0 +1,28 @@
+
+#map {
+  height: 400px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.full-screen {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:99;
+}
+
+
+.modal-dialog {
+  width: 98%;
+  height: 92%;
+  padding: 0;
+}
+
+.modal-content {
+  height: 99%;
+}
+
