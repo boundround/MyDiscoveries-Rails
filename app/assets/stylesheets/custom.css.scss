@@ -1,6 +1,27 @@
 @import 'bootstrap';
 
-.carousel .item {
+.place-photo {
+  width: 75%;
+}
+
+.small-photo {
+  width: 300px;
+}
+
+#area-carousel {
+  min-height: 700px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.photo-form {
+  margin-top: 200px;
+}
+
+.carousel-image {
   text-align: center;
 }
 
+.carousel-inner {
+  padding: 0 50px;
+}

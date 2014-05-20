@@ -8,15 +8,17 @@
           <% if index == 0 %>
             <div class="item active">
               <%= simple_form_for [@area, photo] do |f| %>
-                <%= image_tag photo.path_url(:tablet), class: 'carousel-image' %>
+                <div class="carousel-image">
+                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc small-photo' %>
+                </div>
                 <div class="form-group">
-                  <%= f.input :title %>
+                  <%= f.input :title, input_html: { class: 'form-control' } %>
                 </div>
                 <div class="form-group">
                   <%= f.file_field :path, as: :file %>
                 </div>
                 <div class="form-group">
-                  <%= f.input :credit %>
+                  <%= f.input :credit, input_html: { class: 'form-control' } %>
                   <%= f.input :area_id, as: :hidden %>
                   <%= f.submit :submit %>
                 </div>
@@ -25,15 +27,17 @@
           <% else %>
             <div class="item">
               <%= simple_form_for [@area, photo] do |f| %>
-                <%= image_tag photo.path_url(:tablet) %>
+                <div class="carousel-image">
+                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc small-photo' %>
+                </div>
                 <div class="form-group">
-                  <%= f.input :title %>
+                  <%= f.input :title, input_html: { class: 'form-control' } %>
                 </div>
                 <div class="form-group">
                   <%= f.file_field :path, as: :file %>
                 </div>
                 <div class="form-group">
-                  <%= f.input :credit %>
+                  <%= f.input :credit, input_html: { class: 'form-control' } %>
                   <%= f.input :area_id, as: :hidden %>
                   <%= f.submit :submit %>
                 </div>
@@ -41,7 +45,7 @@
             </div>
           <% end %>
         <% end %>
-        <div class="item">
+        <div class="item carousel-style">
           <%= render "photo_form" %>
         </div>
       </div>
@@ -61,25 +65,25 @@
 <%= simple_form_for @area, html: { role: 'form'} do |f| %>
 
     <div class="form-group">
-      <%= f.input :display_name, label: 'Area Name' %>
+      <%= f.input :display_name, label: 'Area Name', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :code, label: 'Airport Code' %>
+      <%= f.input :code, label: 'Airport Code', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :identifier, label: 'Identifier' %>
+      <%= f.input :identifier, label: 'Identifier', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
       <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
     </div>
     <div class="form-group">
-      <%= f.input :short_intro, label: 'Short Intro' %>
+      <%= f.input :short_intro, label: 'Short Intro', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.text_area :description, placeholder: 'Description', label: 'Description' %>
+      <%= f.input :description, as: :text, placeholder: 'Description', label: 'Description', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.text_area :address, placeholder: 'Address' %>
+      <%= f.input :address, as: :text, placeholder: 'Address', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
       <%= f.submit :submit %>
