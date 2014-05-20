@@ -14,6 +14,12 @@
         <li><%= link_to 'All Areas', areas_path %></li>
         <li><%= link_to 'New Area', new_area_path %></li>
       </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to 'Sign In', user_registration_path %></li>
+        <li><%= link_to 'Facebook Sign In', user_omniauth_authorize_path(:facebook) %></li>
+        <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+      </ul>
     </div>
   </nav>
 <div class="container">

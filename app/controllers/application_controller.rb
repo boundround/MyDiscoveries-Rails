@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    [:first_name, :last_name].each do |field|
+    [:name].each do |field|
       devise_parameter_sanitizer.for(:sign_up) << field
       devise_parameter_sanitizer.for(:account_update) << field
     end
