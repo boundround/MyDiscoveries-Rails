@@ -1,12 +1,59 @@
 <h1><%= @area.display_name %></h1>
-<p><%= link_to 'Edit Area', edit_area_path %></p>
-<p><%= @area.latitude %>, <%= @area.longitude %></p>
-
-<% @area.photos.each do |photo| %>
-<div>
-  <li><p><%= photo.title %></p>
-      <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc small-photo' %>
-  </li>
+<div class="container">
+  <ul class="nav nav-tabs">
+  <li class="active"><a href="#photos" data-toggle="tab">Photos</a></li>
+  <li><a href="#description" data-toggle="tab">Description</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="photos">
+      <div id="area-carousel" class="carousel slide">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <% @area.photos.each_with_index do |photo, index| %>
+            <% if index == 0 %>
+              <div class="item active">
+                  <div class="carousel-content">
+                    <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
+                  </div>
+                  <div class="carousel-caption">
+                    <%= photo.title %> - Credit: <%= photo.credit %>
+                  </div>
+              </div>
+            <% else %>
+              <div class="item">
+                <div class="carousel-content">
+                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
+                </div>
+                <div class="carousel-caption">
+                  <%= photo.title %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          <div class="item carousel-content">
+            <h4>Add New Photo</h4>
+            <%= render "photo_form" %>
+            <div class="carousel-caption">
+            </div>
+          </div>
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#area-carousel" data-slide="prev" data-interval="false">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#area-carousel" data-slide="next" data-interval="false">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="description">
+      <p></p>
+      <p><%= @area.short_intro %></p>
+      <p><%= @area.description %></p>
+      <p><%= @area.latitude %>, <%= @area.longitude %></p>
+    </div>
+  </div>
 </div>
 
-<% end %>
+<p><%= link_to 'Edit Area', edit_area_path %></p>
+

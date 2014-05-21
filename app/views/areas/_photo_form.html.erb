@@ -1,19 +1,19 @@
 <div class='photo-form'>
   <%= simple_form_for [@area, Photo.new] do |f| %>
     <div class="form-group">
-      <%= f.input :title %>
+      <%= f.input :title, label: "Photo Title" %>
     </div>
     <div class="form-group">
-      <%= f.file_field :path %>
+      <%= f.input :credit %><br />
     </div>
     <div class="form-group">
-      <%= f.input :credit %>
+      <p><%= f.input :path, as: :file, label: false, input_html: { class: "add-photo" } %></p>
     </div>
     <div class="form-group">
-      <%= f.input :area_id, as: :hidden, input_html: { value: '5'} %>
+      <%= f.input :area_id, as: :hidden, input_html: { value: @area.id } %>
     </div>
     <div class="form-group">
-      <%= f.submit :submit %>
+      <%= f.button :submit%>
     </div>
 </div>
   <% end %>
