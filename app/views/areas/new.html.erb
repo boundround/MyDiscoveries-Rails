@@ -3,18 +3,18 @@
   <%= simple_form_for @area, html: { role: 'form'} do |f| %>
     <%= f.simple_fields_for :photos do |ff| %>
       <div class="form-group">
-        <%= ff.input :title, label: 'Photo Title' %>
+        <%= ff.input :title, label: 'Photo Title', required: true %>
       </div>
 
       <div class="form-group">
-        <%= ff.file_field :path %>
+        <%= ff.file_field :path, required: true %>
       </div>
       <div class="form-group">
-        <%= ff.input :credit %>
+        <%= ff.input :credit, required: true %>
       </div>
     <% end %>
     <div class="form-group">
-      <%= f.input :display_name, label: 'Area Name' %>
+      <%= f.input :display_name, label: 'Area Name', required: true %>
     </div>
 
     <input id="pac-input" class="controls" type="text"
@@ -40,10 +40,10 @@
       <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
     </div>
     <div class="form-group">
-      <%= f.input :short_intro, label: 'Short Intro' %>
+      <%= f.input :short_intro, label: 'Short Intro', required: true %>
     </div>
     <div class="form-group">
-      <%= f.text_area :description, placeholder: 'Description' %>
+      <%= f.text_area :description, placeholder: 'Description', required: true %>
     </div>
 
     <div class="form-group">
