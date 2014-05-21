@@ -1,7 +1,43 @@
 class AreasController < ApplicationController
   def index
     @areas = Area.all
+
+    # geojson for MapBox map
+    @geojson = Array.new
+
+    @areas.each do |area|
+      @geojson << {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [area.longitude, area.latitude]
+        },
+        properties: {
+          "icon" => {
+            "iconUrl" => ActionController::Base.helpers.asset_path("marmite.JPG", type: :image),
+            # size of the icon
+            "iconSize" => [50, 50],
+            # point of the icon which will correspond to marker location
+            "iconAnchor" => [25, 25],
+            # point from which the popup should open relative to the iconAnchor
+            "popupAnchor" => [0, -25],
+          }
+        }
+        # address: area.address,
+        # :'marker-color' => '#00607d',
+        # :'marker-symbol' => 'airplane',
+        # :'marker-size' => 'medium'
+        # }
+      }
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @geojson }  # respond with the created JSON object
+    end
   end
+
+
 
   def show
     @area = Area.find(params[:id])
@@ -45,12 +81,13 @@ class AreasController < ApplicationController
   def destroy
   end
 
+
   private
     def area_params
-      params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description, :address, photos_attributes: [:id, :title, :path, :credit])
+      params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description, :latitude, :longitude, :address, photos_attributes: [:id, :title, :path, :credit])
     end
 
     def area_update_params
-      params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description, :address, photo: [:id, :title, :path, :credit, :area_id])
+      params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description, :latitude, :longitude, :address, photo: [:id, :title, :path, :credit, :area_id])
     end
 end
