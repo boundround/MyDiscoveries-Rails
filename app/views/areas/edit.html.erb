@@ -8,8 +8,11 @@
           <% if index == 0 %>
             <div class="item active">
               <%= simple_form_for [@area, photo] do |f| %>
-                <div class="carousel-image">
-                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc small-photo' %>
+                <div class="carousel-content">
+                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
+                </div>
+                <div class="photo-caption">
+                  <%= photo.title %>
                 </div>
                 <div class="form-group">
                   <%= f.input :title, input_html: { class: 'form-control' } %>
@@ -19,16 +22,17 @@
                 </div>
                 <div class="form-group">
                   <%= f.input :credit, input_html: { class: 'form-control' } %>
-                  <%= f.input :area_id, as: :hidden %>
-                  <%= f.submit :submit %>
+                  <%= f.input :area_id, as: :hidden %><br />
+                  <%= f.button :submit %>
                 </div>
               <% end %>
             </div>
           <% else %>
-            <div class="item">
+            <div class="item carousel-content">
               <%= simple_form_for [@area, photo] do |f| %>
-                <div class="carousel-image">
-                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc small-photo' %>
+                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
+                <div class="photo-caption">
+                  <%= photo.title %>
                 </div>
                 <div class="form-group">
                   <%= f.input :title, input_html: { class: 'form-control' } %>
@@ -39,14 +43,18 @@
                 <div class="form-group">
                   <%= f.input :credit, input_html: { class: 'form-control' } %>
                   <%= f.input :area_id, as: :hidden %>
-                  <%= f.submit :submit %>
+                  <%= f.button :submit %>
                 </div>
               <% end %>
             </div>
           <% end %>
         <% end %>
-        <div class="item carousel-style">
+        <div class="item carousel-content">
+          <h4>Add New Photo</h4>
           <%= render "photo_form" %>
+        <div class="carousel-caption">
+
+        </div>
         </div>
       </div>
 

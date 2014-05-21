@@ -1,7 +1,9 @@
 @import 'bootstrap';
+@import 'font-awesome';
 
 .place-photo {
-  width: 75%;
+  width: auto;
+  max-height: 600px;
 }
 
 .small-photo {
@@ -15,13 +17,41 @@
 }
 
 .photo-form {
-  margin-top: 200px;
+  margin-top: 100px;
 }
 
-.carousel-image {
+.carousel-content {
   text-align: center;
 }
 
 .carousel-inner {
   padding: 0 50px;
+}
+
+.carousel-caption {
+  position: static;
+  text-shadow: none;
+  font-family: Arial, sans-serif;
+  color: black;
+  margin-top: -48px;
+  font-size: 14px;
+}
+
+.add-photo {
+  margin-left: 38%;
+}
+
+.carousel-control {
+  height: 100px;
+  margin-top: 20%;
+  background-image: none !important;
+  color: dodgerblue;
+}
+
+.left {
+  margin-left: -50px;
+}
+
+.right {
+  margin-right: -70px;
 }
