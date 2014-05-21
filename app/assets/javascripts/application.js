@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require geocomplete
-//= require_tree .
+//= require area
+//= require pages

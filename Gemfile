@@ -12,6 +12,9 @@ gem 'sass-rails', '~> 4.0.3'
 # User Font Awesome for icons
 gem "font-awesome-rails"
 
+# Mercury HTML5 Editor for WYSIWYG capability
+gem 'mercury-rails', git: 'https://github.com/jejacks0n/mercury.git'
+
 # 12 Factor Gem for Heroku Deploy
 gem 'rails_12factor', group: :production
 # Use Uglifier as compressor for JavaScript assets

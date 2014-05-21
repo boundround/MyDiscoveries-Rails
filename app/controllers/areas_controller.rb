@@ -67,7 +67,6 @@ class AreasController < ApplicationController
 
   def update
     @area = Area.find(params[:id])
-
     respond_to do |format|
       if @area.update(area_update_params)
         redirect_to 'areas#index'
@@ -79,6 +78,13 @@ class AreasController < ApplicationController
   end
 
   def destroy
+  end
+
+  def mercury_update
+    area = Area.find(params[:id])
+    area.description = params[:content]['area-content'][:value]
+    area.save!
+    render text: ""
   end
 
 

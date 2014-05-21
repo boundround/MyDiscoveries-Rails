@@ -48,12 +48,13 @@
     </div>
     <div class="tab-pane fade" id="description">
       <p></p>
-      <p><%= @area.short_intro %></p>
-      <p><%= @area.description %></p>
+        <p><%= @area.short_intro %></p>
+      <div id="area-content" class="mercury-region" data-type="editable" data-mercury="full">
+        <p><%= raw @area.description %></p>
+      </div>
       <p><%= @area.latitude %>, <%= @area.longitude %></p>
     </div>
   </div>
 </div>
-
+<p><%= link_to "WYSIWYG Editor", "/editor" + request.path, id: "edit-link", data: { save_url: mercury_update_area_path(@area) } %>
 <p><%= link_to 'Edit Area', edit_area_path %></p>
-

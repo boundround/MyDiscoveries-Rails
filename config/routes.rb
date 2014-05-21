@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  mount Mercury::Engine => '/'
+  Mercury::Engine.routes
   resources :areas do
     resources :photos
+    member { put :mercury_update }
   end
 
   resources :pages
