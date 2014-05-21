@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     resources :photos
   end
 
+  resources :pages
+
   root 'areas#index'
 
   devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
