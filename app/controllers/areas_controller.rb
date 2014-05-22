@@ -3,38 +3,13 @@ class AreasController < ApplicationController
     @areas = Area.all
 
     # geojson for MapBox map
-    @geojson = Array.new
-
-    @areas.each do |area|
-      @geojson << {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [area.longitude, area.latitude]
-        },
-        properties: {
-          "icon" => {
-            "iconUrl" => ActionController::Base.helpers.asset_path("marmite.JPG", type: :image),
-            # size of the icon
-            "iconSize" => [50, 50],
-            # point of the icon which will correspond to marker location
-            "iconAnchor" => [25, 25],
-            # point from which the popup should open relative to the iconAnchor
-            "popupAnchor" => [0, -25],
-          }
-        }
-        # address: area.address,
-        # :'marker-color' => '#00607d',
-        # :'marker-symbol' => 'airplane',
-        # :'marker-size' => 'medium'
-        # }
-      }
-    end
+    @geojson = Area.all_geojson
 
     respond_to do |format|
       format.html
       format.json { render json: @geojson }  # respond with the created JSON object
     end
+
   end
 
 
