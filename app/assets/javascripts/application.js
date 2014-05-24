@@ -16,3 +16,4 @@
 //= require geocomplete
 //= require area
 //= require pages
+//= require responsive-tabs

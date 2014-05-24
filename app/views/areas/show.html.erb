@@ -1,11 +1,11 @@
 <h1><%= @area.display_name %></h1>
 <div class="container">
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs responsive" id="area-tabs">
   <li class="active"><a href="#photos" data-toggle="tab">Photos</a></li>
   <li><a href="#description" data-toggle="tab">Description</a></li>
   </ul>
   <div class="tab-content">
-    <div class="tab-pane fade in active" id="photos">
+    <div class="tab-pane fade in active responsive" id="photos">
       <div id="area-carousel" class="carousel slide">
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
@@ -58,3 +58,4 @@
 </div>
 <p><%= link_to "WYSIWYG Editor", "/editor" + request.path, id: "edit-link", data: { save_url: mercury_update_area_path(@area) } %>
 <p><%= link_to 'Edit Area', edit_area_path %></p>
+
