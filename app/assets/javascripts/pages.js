@@ -45,7 +45,7 @@ var markClust = function (geojson) {
   for (var i = 0; i < geojson.length; i++) {
     var a = geojson[i];
     var marker = L.marker(new L.LatLng(a.geometry.coordinates[1], a.geometry.coordinates[0]), {
-        icon: L.mapbox.marker.icon({'marker-symbol': 'star', 'marker-color': '0044FF'}),
+        icon: L.icon({iconUrl: 'assets/orange_plane.png', iconSize: [43, 26]})
     });
     markers.addLayer(marker);
 }
