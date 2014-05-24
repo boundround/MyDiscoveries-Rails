@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :pages
 
-  root 'areas#index'
+  root 'pages#index'
 
   devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
 
