@@ -7,7 +7,7 @@ map = L.mapbox.map('map', 'oztexan.map-m8oepi17', {
         noWrap: true
       },
     zoomControl: false,
-    maxBounds: [[85,-180],[-85,180]],
+    maxBounds: [[85,-250],[-85,250]],
     minZoom: 2,
     maxZoom: 15
     });
@@ -31,9 +31,6 @@ $.ajax({
   }
 });
 
-areaLayer.on('click', function(e) {
-    $('#myModal').modal({remote: '/areas/1.html', show: 'true'});
-});
 
 
 // markecluster code
@@ -53,3 +50,8 @@ var markClust = function (geojson) {
 map.addLayer(markers);
 
 };
+
+markers.on('click', function(e) {
+    $('#myModal').modal({remote: '/areas/1.html', show: 'true'});
+});
+
