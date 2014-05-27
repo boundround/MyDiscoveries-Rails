@@ -5,7 +5,7 @@ class Area < ActiveRecord::Base
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
   validates :code, uniqueness: { case_sensitive: false }, presence: true, length: {is: 3}
   validates :short_intro, length: {maximum: 90}, presence: true
-  validates :description, length: {maximum: 400}, presence: true
+  validates :description, length: {maximum: 500}, presence: true
 
   def Area.all_geojson
     geojson = Array.new

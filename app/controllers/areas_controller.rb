@@ -1,4 +1,8 @@
 class AreasController < ApplicationController
+  # before_action :authenticate_user!, :only => [:new, :edit, :create, :destroy]
+
+  before_filter :verify_admin, :only => [:new, :edit, :create, :destroy]
+
   def index
     @areas = Area.all
 
@@ -35,12 +39,14 @@ class AreasController < ApplicationController
   end
 
   def edit
+
     @area = Area.find(params[:id])
 
   end
 
 
   def update
+
     @area = Area.find(params[:id])
     respond_to do |format|
       if @area.update(area_update_params)
@@ -70,5 +76,9 @@ class AreasController < ApplicationController
 
     def area_update_params
       params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description, :latitude, :longitude, :address, photo: [:id, :title, :path, :credit, :area_id])
+    end
+
+    def verify_admin
+      (current_user.nil?) ? redirect_to(root_path) : (redirect_to(root_path) unless current_user.admin?)
     end
 end
