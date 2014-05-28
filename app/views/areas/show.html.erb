@@ -13,7 +13,7 @@
             <% if index == 0 %>
               <div class="item active">
                   <div class="carousel-content">
-                    <%= image_tag "/assets/fun_fact_button.png", class: 'fun-fact-icon' %>
+                    <%= image_tag "https://s3.amazonaws.com/donovan-bucket/fun_fact_button.png", class: 'fun-fact-icon' %>
                     <div id="fun-fact-<%= index %>" class="fun-fact"><%= photo.fun_fact %></div>
                     <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
                   </div>
