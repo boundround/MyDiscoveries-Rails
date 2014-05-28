@@ -13,6 +13,8 @@
             <% if index == 0 %>
               <div class="item active">
                   <div class="carousel-content">
+                    <%= image_tag "/assets/fun_fact_button.png", class: 'fun-fact-icon' %>
+                    <div id="fun-fact-<%= index %>" class="fun-fact"><%= photo.fun_fact %></div>
                     <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
                   </div>
                   <div class="carousel-caption">
@@ -22,6 +24,8 @@
             <% else %>
               <div class="item">
                 <div class="carousel-content">
+                  <%= image_tag "/assets/fun_fact_button.png", class: 'fun-fact-icon' %>
+                  <div class="fun-fact mercury-region" data-type="editable" data-mercury="full"><%= raw photo.fun_fact %></div>
                   <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
                 </div>
                 <div class="carousel-caption">
@@ -58,4 +62,8 @@
 </div>
 <p><%= link_to "WYSIWYG Editor", "/editor" + request.path, id: "edit-link", data: { save_url: mercury_update_area_path(@area) } %>
 <p><%= link_to 'Edit Area', edit_area_path %></p>
+
+<script>
+
+</script>
 
