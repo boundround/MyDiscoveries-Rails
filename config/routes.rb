@@ -6,11 +6,11 @@ Rails.application.routes.draw do
     member { put :mercury_update }
   end
 
+  devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
+
   resources :pages
 
   root 'pages#index'
-
-  devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
 
 
   # The priority is based upon order of creation: first created -> highest priority.
