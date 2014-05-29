@@ -1,3 +1,4 @@
+
 map = L.mapbox.map('map', 'oztexan.map-m8oepi17', {
     // these options apply to the tile layer in the map
     tileLayer: {
@@ -18,6 +19,13 @@ L.control.zoomslider().addTo(map);
 
 var areaLayer = L.mapbox.featureLayer().addTo(map);
 
+areaLayer.on('layeradd', function(e) {
+    var marker = e.layer,
+        feature = marker.feature;
+
+    marker.setIcon(L.icon(feature.properties.icon));
+});
+
 var addMarkers = function(geojson, layer) {
   layer.setGeoJSON(window.geojson);
 };
@@ -26,32 +34,37 @@ $.ajax({
   url: '/areas.json',
   success: function(data) {
     window.geojson = data;
-    // addMarkers(data, areaLayer);
-    markClust(data);
+    addMarkers(data, window.areaLayer);
+    // markClust(data);
   }
 });
 
+var lastLoaded = 0
 
-
-// markecluster code
-
-
-var markers = new L.MarkerClusterGroup();
-
-var markClust = function (geojson) {
-  for (var i = 0; i < geojson.length; i++) {
-    var a = geojson[i];
-    var marker = L.marker(new L.LatLng(a.geometry.coordinates[1], a.geometry.coordinates[0]), {
-        icon: L.icon({iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png', iconSize: [43, 26]})
+areaLayer.on('click', function(e) {
+  if (e.layer.feature.properties.id !== lastLoaded) {
+    $.ajax({
+      url: '/areas/' + e.layer.feature.properties.id + '.html',
+      success: function(data) {
+        $('.modal-content').html(data);
+      }
     });
-    markers.addLayer(marker);
-}
-
-map.addLayer(markers);
-
-};
-
-markers.on('click', function(e) {
-    $('#myModal').modal({remote: '/areas/1.html', show: 'true'});
+  }
+  window.lastLoaded = e.layer.feature.properties.id;
+  $('#myModal').modal();
 });
+
+// // markecluster code
+// var markers = new L.MarkerClusterGroup();
+
+// var markClust = function (geojson) {
+//   for (var i = 0; i < geojson.length; i++) {
+//     var a = geojson[i];
+//     var marker = L.marker(new L.LatLng(a.geometry.coordinates[1], a.geometry.coordinates[0]), {
+//         icon: L.icon({iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png', iconSize: [43, 26]})
+//     });
+//   markers.addLayer(marker);
+//   };
+//   map.addLayer(markers);
+// };
 

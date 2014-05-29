@@ -13,13 +13,18 @@ class AreasController < ApplicationController
       format.html
       format.json { render json: @geojson }  # respond with the created JSON object
     end
-
   end
 
 
 
   def show
     @area = Area.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @area }
+    end
+
   end
 
   def create
