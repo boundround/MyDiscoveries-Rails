@@ -2,7 +2,7 @@
 @import 'font-awesome';
 
 .place-photo {
-  width: auto;
+  width: 100%;
   max-height: 600px;
 }
 
@@ -70,4 +70,8 @@
 .fun-fact-icon {
   position: absolute;
   margin-top: 4px;
+}
+
+.area-description-input {
+  min-height: 100px;
 }

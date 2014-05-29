@@ -9,18 +9,16 @@
             <div class="item active">
               <%= simple_form_for [@area, photo] do |f| %>
                 <div class="carousel-content">
+                  <%= image_tag "https://s3.amazonaws.com/donovan-bucket/fun_fact_button.png", class: 'fun-fact-icon' %>
+                  <div id="fun-fact-<%= index %>" class="fun-fact"><%= photo.fun_fact %></div>
                   <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
                 </div>
-                <div class="photo-caption">
-                  <%= photo.title %>
-                </div>
-                <div class="form-group">
-                  <%= f.input :title, input_html: { class: 'form-control' } %>
-                </div>
+                <p></p>
                 <div class="form-group">
                   <%= f.file_field :path, as: :file %>
                 </div>
                 <div class="form-group">
+                  <%= f.input :fun_fact, input_html: { class: 'form-control'} %>
                   <%= f.input :credit, input_html: { class: 'form-control' } %>
                   <%= f.input :area_id, as: :hidden %><br />
                   <%= f.button :submit %>
@@ -30,17 +28,14 @@
           <% else %>
             <div class="item carousel-content">
               <%= simple_form_for [@area, photo] do |f| %>
-                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
-                <div class="photo-caption">
-                  <%= photo.title %>
-                </div>
-                <div class="form-group">
-                  <%= f.input :title, input_html: { class: 'form-control' } %>
-                </div>
+                <%= image_tag "https://s3.amazonaws.com/donovan-bucket/fun_fact_button.png", class: 'fun-fact-icon' %>
+                <div id="fun-fact-<%= index %>" class="fun-fact"><%= photo.fun_fact %></div>
+                <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
                 <div class="form-group">
                   <%= f.file_field :path, as: :file %>
                 </div>
                 <div class="form-group">
+                  <%= f.input :fun_fact, input_html: { class: 'form-control'} %>
                   <%= f.input :credit, input_html: { class: 'form-control' } %>
                   <%= f.input :area_id, as: :hidden %>
                   <%= f.button :submit %>
@@ -75,7 +70,7 @@
     <div class="form-group">
       <%= f.input :display_name, label: 'Area Name', input_html: { class: 'form-control' } %>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <%= f.input :code, label: 'Airport Code', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
@@ -86,15 +81,15 @@
     </div>
     <div class="form-group">
       <%= f.input :short_intro, label: 'Short Intro', input_html: { class: 'form-control' } %>
-    </div>
+    </div> -->
     <div class="form-group">
-      <%= f.input :description, as: :text, placeholder: 'Description', label: 'Description', input_html: { class: 'form-control' } %>
+      <%= f.input :description, as: :text, label: 'Description', input_html: { class: 'form-control area-description-input' } %>
     </div>
     <div class="form-group">
       <%= f.input :address, as: :text, placeholder: 'Address', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.submit :submit %>
+      <%= f.button :submit, 'Update Area' %>
     </div>
   <%end%>
 </div>

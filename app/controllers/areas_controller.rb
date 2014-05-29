@@ -48,14 +48,11 @@ class AreasController < ApplicationController
   def update
 
     @area = Area.find(params[:id])
-    respond_to do |format|
-      if @area.update(area_update_params)
-        redirect_to 'areas#index'
-      else
-        format.html { render :edit }
-        format.json { render json: @area.errors, status: :unprocessable_entity }
-      end
+
+    if @area.update(area_update_params)
+      redirect_to areas_path
     end
+
   end
 
   def destroy
@@ -75,7 +72,7 @@ class AreasController < ApplicationController
     end
 
     def area_update_params
-      params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description, :latitude, :longitude, :address, photo: [:id, :title, :path, :credit, :area_id])
+      params.require(:area).permit(:display_name, :short_intro, :description, :address, photo: [:id, :title, :path, :credit, :area_id])
     end
 
     def verify_admin
