@@ -65,6 +65,9 @@ class AreasController < ApplicationController
     area = Area.find(params[:id])
     area.description = params[:content]['area-content'][:value]
     area.save!
+    photo = Photo.find(params[:content]['photo-id'][:value])
+    photo.fun_fact = params[:content]['fun-fact-text'][:value]
+    photo.save!
     render text: ""
   end
 
