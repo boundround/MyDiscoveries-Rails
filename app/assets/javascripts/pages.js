@@ -43,8 +43,9 @@ var lastLoaded = 0
 
 areaLayer.on('click', function(e) {
   if (e.layer.feature.properties.id !== lastLoaded) {
+    $('.modal-content').empty();
     $.ajax({
-      url: '/areas/' + e.layer.feature.properties.id + '.html',
+      url: '/areas/' + e.layer.feature.properties.id,
       success: function(data) {
         $('.modal-content').html(data);
       }
