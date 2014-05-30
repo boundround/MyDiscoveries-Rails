@@ -20,24 +20,23 @@ class Area < ActiveRecord::Base
           coordinates: [area.longitude, area.latitude]
         },
         properties: {
+          "title" => area.display_name,
+          "id" => area.id,
           "icon" => {
-            "iconUrl" => ActionController::Base.helpers.asset_path("marmite.jpg", type: :image),
+            "iconUrl" => 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
             # size of the icon
-            "iconSize" => [50, 50],
+            "iconSize" => [43, 26],
             # point of the icon which will correspond to marker location
-            "iconAnchor" => [25, 25],
+            "iconAnchor" => [0, 0],
             # point from which the popup should open relative to the iconAnchor
             "popupAnchor" => [0, -25]
           }
         }
-        # address: area.address,
-        # :'marker-color' => '#00607d',
-        # :'marker-symbol' => 'airplane',
-        # :'marker-size' => 'medium'
-        # }
       }
     end
 
     return geojson
   end
 end
+
+

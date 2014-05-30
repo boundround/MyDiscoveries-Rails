@@ -1,7 +1,7 @@
 class AreasController < ApplicationController
   # before_action :authenticate_user!, :only => [:new, :edit, :create, :destroy]
 
-  before_filter :verify_admin, :only => [:new, :edit, :create, :destroy]
+  # before_filter :verify_admin, :only => [:new, :edit, :create, :destroy]
 
   def index
     @areas = Area.all
@@ -13,13 +13,15 @@ class AreasController < ApplicationController
       format.html
       format.json { render json: @geojson }  # respond with the created JSON object
     end
-
   end
-
-
 
   def show
     @area = Area.find(params[:id])
+
+    respond_to do |format|
+      format.html { render 'show', :layout => false }
+    end
+
   end
 
   def create
@@ -35,7 +37,6 @@ class AreasController < ApplicationController
   def new
     @area = Area.new
     @area.photos.build
-
   end
 
   def edit
