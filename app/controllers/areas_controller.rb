@@ -3,6 +3,7 @@ class AreasController < ApplicationController
 
   # before_filter :verify_admin, :only => [:new, :edit, :create, :destroy]
 
+
   def index
     @areas = Area.all
 
@@ -19,7 +20,8 @@ class AreasController < ApplicationController
     @area = Area.friendly.find(params[:id])
 
     respond_to do |format|
-      format.html { render 'show', :layout => false }
+      format.html { render 'show', :layout => !request.xhr? }
+      format.json
     end
 
   end
