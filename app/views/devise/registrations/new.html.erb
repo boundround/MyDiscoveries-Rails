@@ -1,5 +1,11 @@
 <h2>Sign up</h2>
 
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <a href="<%= omniauth_authorize_path(resource_name, provider) %>"><img class="facebook-sign-in" src="/assets/images/facebook_sign_in.png"></a><br />
+  <% end -%>
+<% end -%>
+OR<br />
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 
