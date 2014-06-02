@@ -1,4 +1,8 @@
 class Area < ActiveRecord::Base
+  include FriendlyId
+  friendly_id :display_name, :use => :slugged
+  validates_presence_of :display_name, :slug
+
   has_many :photos
   accepts_nested_attributes_for :photos
 

@@ -16,7 +16,7 @@ class AreasController < ApplicationController
   end
 
   def show
-    @area = Area.find(params[:id])
+    @area = Area.friendly.find(params[:id])
 
     respond_to do |format|
       format.html { render 'show', :layout => false }

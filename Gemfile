@@ -59,6 +59,10 @@ gem 'fog'
 
 gem 'geocomplete_rails'
 
+# FriendlyId is the "Swiss Army bulldozer" of slugging and permalink plugins for Active Record.
+# It lets you create pretty URLs and work with human-friendly strings as if they were numeric ids.
+gem 'friendly_id'
+
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
