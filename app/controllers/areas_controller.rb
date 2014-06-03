@@ -71,6 +71,10 @@ class AreasController < ApplicationController
     render text: ""
   end
 
+  def import
+    Area.import(params[:file])
+    redirect_to areas_path, notice: "Areas imported."
+  end
 
   private
     def area_params

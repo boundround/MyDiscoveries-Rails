@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :areas do
     resources :photos
     member { put :mercury_update }
+    collection { post :import }
   end
 
   devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
