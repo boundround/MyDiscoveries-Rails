@@ -1,3 +1,12 @@
+<div class='map-page'>
+  <div id='map'></div>
+</div>
+
+<% if !@request_xhr %>
+  <div class="modal fade" id="areaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+<% end %>
 <h1><%= @area.display_name %></h1>
 <div class="container">
   <ul class="nav nav-tabs responsive" id="area-tabs">
@@ -70,4 +79,11 @@
 <script>
 
 </script>
+
+<% if !@request_xhr %>
+   </div>
+  </div>
+</div>
+
+<% end %>
 

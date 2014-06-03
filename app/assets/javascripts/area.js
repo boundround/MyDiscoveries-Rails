@@ -5,8 +5,12 @@ $("#pac-input").geocomplete({
   detailsAttribute: "data-geo"
 });
 
+$('#areaModal').modal();
+
 $(document).ready(function(){
-    $('.fun-fact-icon').on('click', function() {
-      $(this).next('.fun-fact').toggle("slow");
-    });
+
+  $('.fun-fact-icon').on('click', function() {
+    $(this).next('.fun-fact').toggle("slow");
   });
+});
+

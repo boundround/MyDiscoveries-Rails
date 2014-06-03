@@ -52,7 +52,7 @@ areaLayer.on('click', function(e) {
     });
   }
   window.lastLoaded = e.layer.feature.properties.id;
-  $('#myModal').modal();
+  $('#areaModal').modal();
 });
 
 // // markecluster code

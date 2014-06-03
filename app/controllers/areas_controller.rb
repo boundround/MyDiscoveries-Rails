@@ -18,10 +18,10 @@ class AreasController < ApplicationController
 
   def show
     @area = Area.friendly.find(params[:id])
+    @request_xhr = request.xhr?
 
     respond_to do |format|
       format.html { render 'show', :layout => !request.xhr? }
-      format.json
     end
 
   end
