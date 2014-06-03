@@ -45,12 +45,14 @@
               </div>
             <% end %>
           <% end %>
-          <div class="item carousel-content">
-            <h4>Add New Photo</h4>
-            <%= render "photo_form" %>
-            <div class="carousel-caption">
+          <% if current_user.try(:admin) %>
+            <div class="item carousel-content">
+              <h4>Add New Photo</h4>
+              <%= render "photo_form" %>
+              <div class="carousel-caption">
+              </div>
             </div>
-          </div>
+          <% end %>
         </div>
         <!-- Controls -->
         <a class="left carousel-control" href="#area-carousel" data-slide="prev" data-interval="false">
@@ -63,11 +65,9 @@
     </div>
     <div class="tab-pane fade" id="description">
       <p></p>
-        <p><%= @area.short_intro %></p>
       <div id="area-content" class="mercury-region" data-type="editable" data-mercury="full">
         <p><%= raw @area.description %></p>
       </div>
-      <p><%= @area.latitude %>, <%= @area.longitude %></p>
     </div>
   </div>
 </div>
