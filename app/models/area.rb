@@ -8,8 +8,8 @@ class Area < ActiveRecord::Base
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
   validates :code, uniqueness: { case_sensitive: false }, presence: true, length: {is: 3}
-  validates :short_intro, length: {maximum: 90}, presence: true
-  validates :description, length: {maximum: 500}, presence: true
+  validates :short_intro, length: {maximum: 90}
+  validates :description, length: {maximum: 500}
 
   def Area.all_geojson
     geojson = Array.new
@@ -41,6 +41,13 @@ class Area < ActiveRecord::Base
 
     return geojson
   end
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+    Area.create!(row.to_h)
+    end
+  end
+
 end
 
 

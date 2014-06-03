@@ -4,3 +4,10 @@
     <li><%= link_to area.display_name, area %></li>
   <% end %>
 </ul>
+
+<% if current_user.try(:admin) %>
+  <%= form_tag import_areas_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+  <% end %>
+<% end %>
