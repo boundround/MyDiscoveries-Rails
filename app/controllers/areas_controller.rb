@@ -1,7 +1,6 @@
 class AreasController < ApplicationController
-  # before_action :authenticate_user!, :only => [:new, :edit, :create, :destroy]
 
-  # before_filter :verify_admin, :only => [:new, :edit, :create, :destroy]
+  before_filter :verify_admin, :only => [:new, :edit, :create, :destroy]
 
 
   def index
