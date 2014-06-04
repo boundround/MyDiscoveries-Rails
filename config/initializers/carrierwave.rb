@@ -1,8 +1,10 @@
 CarrierWave.configure do |config|
   config.fog_credentials = {
-    provider: "AWS",
-    aws_access_key_id: ENV['AS3_ACCESS_KEY'],
-    aws_secret_access_key: ENV['AS3_SECRET_ACCESS_KEY']
+    provider:           "Rackspace",
+    rackspace_username: ENV['RACKSPACE_USERNAME'],
+    rackspace_api_key:  ENV['RACKSPACE_KEY'],
+    rackspace_region:   :syd
   }
-  config.fog_directory = ENV['AS3_BUCKET_NAME']
+  config.fog_directory = ENV['RACKSPACE_DIRECTORY']
+  config.asset_host    = ENV['RACKSPACE_HOST']
 end

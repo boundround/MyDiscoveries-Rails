@@ -1,6 +1,6 @@
 class AreasController < ApplicationController
 
-  before_filter :verify_admin, :only => [:new, :edit, :create, :destroy]
+  # before_filter :verify_admin, :only => [:new, :edit, :create, :destroy]
 
 
   def index
@@ -31,7 +31,7 @@ class AreasController < ApplicationController
     if @area.save
       redirect_to(areas_path, notice: 'Area succesfully saved')
     else
-      redirect_to 'areas#new'
+      redirect_to '/areas#new', notice: 'Area not saved!'
     end
   end
 
