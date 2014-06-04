@@ -9,6 +9,10 @@ gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 
+# Roo for importing Excel documents
+gem 'roo'
+gem 'iconv'
+
 # User Font Awesome for icons
 gem "font-awesome-rails"
 
@@ -63,9 +67,13 @@ gem 'geocomplete_rails'
 # It lets you create pretty URLs and work with human-friendly strings as if they were numeric ids.
 gem 'friendly_id'
 
+group :development do
+  gem "better_errors"
 
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
