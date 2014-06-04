@@ -1,14 +1,16 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://www.boundround.com"
+SitemapGenerator::Sitemap.default_host = "http://blooming-earth-8066.herokuapp.com/"
+SitemapGenerator::Sitemap.sitemaps_host = ENV['RACKSPACE_HOST']
+SitemapGenerator::Sitemap.public_path = 'tmp/'
+SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
+SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
 
 SitemapGenerator::Sitemap.create do
   # Add all areas:
-
   Area.find_each do |area|
     add area_path(area), :lastmod => area.updated_at
   end
-
-
+end
 
   # Put links creation logic here.
   #
@@ -32,4 +34,4 @@ SitemapGenerator::Sitemap.create do
   #   Article.find_each do |article|
   #     add article_path(article), :lastmod => article.updated_at
   #   end
-end
+
