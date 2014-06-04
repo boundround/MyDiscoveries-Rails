@@ -5,7 +5,7 @@ $("#pac-input").geocomplete({
   detailsAttribute: "data-geo"
 });
 
-$('#areaModal').modal();
+$('#showAreaModal').modal();
 
 $(document).ready(function(){
 

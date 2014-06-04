@@ -63,6 +63,7 @@ gem 'geocomplete_rails'
 # It lets you create pretty URLs and work with human-friendly strings as if they were numeric ids.
 gem 'friendly_id'
 
+gem 'sitemap_generator'
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
