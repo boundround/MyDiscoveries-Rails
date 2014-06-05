@@ -89,10 +89,17 @@
   <p><%= link_to 'Edit Area', edit_area_path %></p>
 <% end %>
 
+
 <script>
+  resrc = {
+    options: {
+      server: "trial.resrc.it"
+    }
+  };
+
+  fakewaffle.responsiveTabs(['xs', 'sm']);
 
 </script>
-
 <% if !@request_xhr %>
    </div>
   </div>
