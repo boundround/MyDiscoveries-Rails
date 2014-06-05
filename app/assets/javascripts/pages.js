@@ -1,4 +1,3 @@
-
 map = L.mapbox.map('map', 'oztexan.map-m8oepi17', {
     // these options apply to the tile layer in the map
     tileLayer: {
@@ -7,11 +6,14 @@ map = L.mapbox.map('map', 'oztexan.map-m8oepi17', {
         // this option disables loading tiles outside of the world bounds.
         noWrap: true
       },
-    zoomControl: false,
-    maxBounds: [[85,-250],[-85,250]],
-    minZoom: 2,
-    maxZoom: 15
+      zoomControl: false,
+      maxBounds: [[85,-250],[-85,250]],
+      minZoom: 2,
+      maxZoom: 15
     });
+
+window.initialCenter = $('.modal-content').data();
+map.setView([initialCenter.lat, initialCenter.long], 6);
 
 L.control.zoomslider().addTo(map);
 
@@ -38,6 +40,7 @@ $.ajax({
     // markClust(data);
   }
 });
+
 
 var lastLoaded = 0
 

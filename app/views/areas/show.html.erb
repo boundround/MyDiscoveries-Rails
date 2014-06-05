@@ -5,7 +5,7 @@
 <% if !@request_xhr %>
   <div class="modal fade" id="showAreaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+    <div class="modal-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
 <% end %>
 <h1><%= @area.display_name %></h1>
 <div class="container">
