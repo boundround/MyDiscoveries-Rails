@@ -56,7 +56,7 @@
             <% end %>
           </div>
           <!-- Controls -->
-           <% if !current_user.try(:admin) && @area.photos.length <= 1 %>
+           <% if (!current_user.try(:admin) && @area.photos.length > 1) || current_user.try(:admin) %>
             <a class="left carousel-control" href="#area-carousel" data-slide="prev" data-interval="false">
               <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
