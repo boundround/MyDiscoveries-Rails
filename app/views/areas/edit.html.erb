@@ -11,7 +11,7 @@
                 <div class="carousel-content">
                   <%= image_tag "https://s3.amazonaws.com/donovan-bucket/fun_fact_button.png", class: 'fun-fact-icon' %>
                   <div id="fun-fact-<%= index %>" class="fun-fact"><%= photo.fun_fact %></div>
-                  <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
+                  <%= image_tag photo.path_url, class: 'resrc place-photo' %>
                 </div>
                 <p></p>
                 <div class="form-group">
@@ -30,7 +30,7 @@
               <%= simple_form_for [@area, photo] do |f| %>
                 <%= image_tag "https://s3.amazonaws.com/donovan-bucket/fun_fact_button.png", class: 'fun-fact-icon' %>
                 <div id="fun-fact-<%= index %>" class="fun-fact"><%= photo.fun_fact %></div>
-                <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
+                <%= image_tag photo.path_url, class: 'resrc place-photo' %>
                 <div class="form-group">
                   <%= f.file_field :path, as: :file %>
                 </div>

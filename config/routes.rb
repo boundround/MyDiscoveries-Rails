@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   resources :pages
   root 'pages#index'
 
+  resources :photos do
+    collection { post :import }
+  end
+
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
   end
