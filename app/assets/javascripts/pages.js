@@ -13,7 +13,9 @@ map = L.mapbox.map('map', 'oztexan.map-m8oepi17', {
     });
 
 window.initialCenter = $('.modal-content').data();
-map.setView([initialCenter.lat, initialCenter.long], 6);
+if (window.initialCenter.lat) {
+  map.setView([initialCenter.lat, initialCenter.long], 6);
+};
 
 L.control.zoomslider().addTo(map);
 
