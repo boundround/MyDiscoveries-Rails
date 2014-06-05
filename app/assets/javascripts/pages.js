@@ -48,11 +48,11 @@ var lastLoaded = 0
 
 areaLayer.on('click', function(e) {
   if (e.layer.feature.properties.id !== lastLoaded) {
-    $('.modal-content').empty();
+    $('.area-content').empty();
     $.ajax({
       url: '/areas/' + e.layer.feature.properties.id + ".html",
       success: function(data) {
-        $('.modal-content').html(data);
+        $('.area-content').html(data);
       }
     });
   }
