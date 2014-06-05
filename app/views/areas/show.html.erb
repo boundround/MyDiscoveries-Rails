@@ -28,7 +28,7 @@
                       <div id="fun-fact-text"class="fun-fact mercury-region" data-type="editable" data-mercury="full">
                         <%= raw photo.fun_fact %></div>
                       <div id="photo-id" class="hide mercury-region" data-type="editable" data-mercury="full"><%= photo.id %></div>
-                      <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
+                      <%= image_tag photo.path_url, class: 'place-photo' %>
                     </div>
                     <div class="carousel-caption">
                       <%= photo.title %> - Credit: <%= photo.credit %>
@@ -39,7 +39,7 @@
                   <div class="carousel-content">
                     <%= image_tag "/assets/fun_fact_button.png", class: 'fun-fact-icon' %>
                     <div id="fun-fact-<%= index %>" class="fun-fact mercury-region" data-type="editable" data-mercury="full"><%= raw photo.fun_fact %></div>
-                    <%= image_tag "http://trial.resrc.it/" + photo.path_url, class: 'resrc place-photo' %>
+                    <%= image_tag photo.path_url, class: 'place-photo' %>
                   </div>
                   <div class="carousel-caption">
                     <%= photo.title %>

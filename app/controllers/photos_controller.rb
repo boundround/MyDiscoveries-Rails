@@ -18,15 +18,19 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     if @photo.update(photo_params)
-      redirect_to 'areas#index'
+      redirect_to areas_path
     end
   end
 
+  def import
+    Photo.import(params[:file])
+    redirect_to areas_path, notice: "Photos imported."
+  end
 
   private
 
     def photo_params
-      params.require(:photo).permit(:title, :path, :credit, :area_id, :id)
+      params.require(:photo).permit(:title, :path, :credit, :area_id, :fun_fact, :id)
     end
 
 

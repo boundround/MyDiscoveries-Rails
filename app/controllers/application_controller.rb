@@ -5,6 +5,13 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  rescue_from CarrierWave::DownloadError, :with => :carrierwave_download_error
+
+  def carrierwave_download_error
+    flash[:error] = "There was an error trying to download that remote file for upload. Please try again or download to your computer first."
+    redirect_to :back
+  end
+
   protected
 
   def configure_permitted_parameters
