@@ -85,7 +85,4 @@ class AreasController < ApplicationController
       params.require(:area).permit(:display_name, :short_intro, :description, :address, photo: [:id, :title, :path, :credit, :fun_fact, :area_id])
     end
 
-    def verify_admin
-      (current_user.nil?) ? redirect_to(root_path) : (redirect_to(root_path) unless current_user.admin?)
-    end
 end
