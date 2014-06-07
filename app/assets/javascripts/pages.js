@@ -53,6 +53,8 @@ areaLayer.on('click', function(e) {
       url: '/areas/' + e.layer.feature.properties.id + ".html",
       success: function(data) {
         $('.area-content').html(data);
+        setTimeout(function(){fakewaffle.responsiveTabs()}, 200);
+
       }
     });
   }

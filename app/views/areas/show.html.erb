@@ -8,8 +8,8 @@
     <div class="modal-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
       <div class="area-content">
 <% end %>
-<h1><%= @area.display_name %></h1>
 <div class="container">
+  <h1><%= @area.display_name %></h1>
   <ul class="nav nav-tabs responsive" id="area-tabs">
   <li class="active"><a href="#photos" data-toggle="tab">Photos</a></li>
   <li><a href="#description" data-toggle="tab">Description</a></li>
@@ -90,17 +90,6 @@
   <p><%= link_to 'Edit Area', edit_area_path %></p>
 <% end %>
 
-<script>
-  resrc = {
-    options: {
-      server: "trial.resrc.it"
-    }
-  };
-
-  fakewaffle.responsiveTabs(['xs', 'sm']);
-
-</script>
-
 <% if !@request_xhr %>
     </div>
    </div>
@@ -108,4 +97,3 @@
 </div>
 
 <% end %>
-
