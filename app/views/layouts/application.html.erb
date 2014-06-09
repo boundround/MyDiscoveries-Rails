@@ -55,10 +55,18 @@
 </div>
 <%= javascript_include_tag 'application' %>
 
-
 <script src="//use.resrc.it"></script>
 <script src="/assets/js/responsive-tabs.js" type="text/javascript"></script>
 
+<script>
+  resrc = {
+    options: {
+      server: "trial.resrc.it"
+    }
+  };
 
+  fakewaffle.responsiveTabs(['xs', 'sm']);
+
+</script>
 </body>
 </html>
