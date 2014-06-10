@@ -38,8 +38,8 @@ $.ajax({
   url: '/areas.json',
   success: function(data) {
     window.geojson = data;
-    addMarkers(data, window.areaLayer);
-    // markClust(data);
+    // addMarkers(data, window.areaLayer);
+    markClust(data);
   }
 });
 
@@ -62,17 +62,21 @@ areaLayer.on('click', function(e) {
   $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
 });
 
-// // markecluster code
-// var markers = new L.MarkerClusterGroup();
+// markecluster code
+var markers = new L.MarkerClusterGroup();
 
-// var markClust = function (geojson) {
-//   for (var i = 0; i < geojson.length; i++) {
-//     var a = geojson[i];
-//     var marker = L.marker(new L.LatLng(a.geometry.coordinates[1], a.geometry.coordinates[0]), {
-//         icon: L.icon({iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png', iconSize: [43, 26]})
-//     });
-//   markers.addLayer(marker);
-//   };
-//   map.addLayer(markers);
-// };
+var markerArray = [];
+
+var markClust = function (geojson) {
+  for (var i = 0; i < geojson.length; i++) {
+    var area = geojson[i];
+    var marker = L.marker(new L.LatLng(area.geometry.coordinates[1], area.geometry.coordinates[0]), {
+        icon: L.icon({iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png', iconSize: [43, 26], popupAnchor: [-3, -76]})
+    });
+    marker.bindLabel(area.properties.title, { noHide: true })
+    markerArray.push(marker);
+  };
+  markers.addLayers(markerArray);
+  map.addLayer(markers);
+};
 

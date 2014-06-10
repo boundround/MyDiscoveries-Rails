@@ -23,6 +23,7 @@ class Area < ActiveRecord::Base
           coordinates: [area.longitude, area.latitude]
         },
         properties: {
+          "title"=> area.display_name,
           "id" => area.id,
           "icon" => {
             "iconUrl" => 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
