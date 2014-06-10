@@ -75,7 +75,6 @@ markers.on('click', function(e) {
       success: function(data) {
         $('.area-content').html(data);
         setTimeout(function(){fakewaffle.responsiveTabs()}, 200);
-
       }
     });
   }
