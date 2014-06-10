@@ -44,23 +44,6 @@ $.ajax({
 });
 
 
-var lastLoaded = 0
-
-areaLayer.on('click', function(e) {
-  if (e.layer.feature.properties.id !== lastLoaded) {
-    $('.area-content').empty();
-    $.ajax({
-      url: '/areas/' + e.layer.feature.properties.id + ".html",
-      success: function(data) {
-        $('.area-content').html(data);
-        setTimeout(function(){fakewaffle.responsiveTabs()}, 200);
-
-      }
-    });
-  }
-  window.lastLoaded = e.layer.feature.properties.id;
-  $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
-});
 
 // markecluster code
 var markers = new L.MarkerClusterGroup();
@@ -71,7 +54,7 @@ var markClust = function (geojson) {
   for (var i = 0; i < geojson.length; i++) {
     var area = geojson[i];
     var marker = L.marker(new L.LatLng(area.geometry.coordinates[1], area.geometry.coordinates[0]), {
-        icon: L.icon({iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png', iconSize: [43, 26], popupAnchor: [-3, -76]})
+        icon: L.icon({iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png', iconSize: [43, 26], className: area.properties.id, popupAnchor: [-3, -76]})
     });
     marker.bindLabel(area.properties.title, { noHide: true })
     markerArray.push(marker);
@@ -79,4 +62,24 @@ var markClust = function (geojson) {
   markers.addLayers(markerArray);
   map.addLayer(markers);
 };
+
+// marker click
+var lastLoaded = 0
+
+markers.on('click', function(e) {
+  console.log(e.layer._icon.classList[1]);
+  if (e.layer._icon.classList[1] !== lastLoaded) {
+    $('.area-content').empty();
+    $.ajax({
+      url: '/areas/' + e.layer._icon.classList[1] + ".html",
+      success: function(data) {
+        $('.area-content').html(data);
+        setTimeout(function(){fakewaffle.responsiveTabs()}, 200);
+
+      }
+    });
+  }
+  window.lastLoaded = e.layer._icon.classList[1];
+  $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+});
 
