@@ -24,7 +24,7 @@
               <% if index == 0 %>
                 <div class="item active">
                     <div class="carousel-content">
-                      <%= image_tag "/assets/fun_fact_button.png", class: 'fun-fact-icon' %>
+                      <%= image_tag asset_path('fun_fact_button.png'), class: 'fun-fact-icon' %>
                       <div id="fun-fact-text"class="fun-fact mercury-region" data-type="editable" data-mercury="full">
                         <%= raw photo.fun_fact %></div>
                       <div id="photo-id" class="hide mercury-region" data-type="editable" data-mercury="full"><%= photo.id %></div>
@@ -37,9 +37,9 @@
               <% else %>
                 <div class="item">
                   <div class="carousel-content">
-                    <%= image_tag "/assets/fun_fact_button.png", class: 'fun-fact-icon' %>
+                    <%= image_tag asset_path('fun_fact_button.png'), class: 'fun-fact-icon' %>
                     <div id="fun-fact-<%= index %>" class="fun-fact mercury-region" data-type="editable" data-mercury="full"><%= raw photo.fun_fact %></div>
-                    <img sizes="(min-width: 40em) 80vw, 100vw" class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 375w, <%= photo.path_url(:medium) %> 480w, <%= photo.path_url(:large) %> 768w" />
+                    <img sizes="(min-width: 40em) 80vw, 100vw" class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
                   </div>
                   <div class="carousel-caption">
                     <%= photo.title %>
