@@ -106,3 +106,13 @@ body {
 .marker-cluster-small div {
   background-color: sandybrown !important;
 }
+
+.close {
+  width: 110px;
+  margin-top: 10px;
+}
+.close.button {
+  width: 35px;
+  height: 35px;
+  margin-top: -5px;
+}
