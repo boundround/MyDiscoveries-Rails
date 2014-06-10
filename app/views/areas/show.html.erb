@@ -24,11 +24,11 @@
               <% if index == 0 %>
                 <div class="item active">
                     <div class="carousel-content">
-                      <%= image_tag "https://s3.amazonaws.com/donovan-bucket/fun_fact_button.png", class: 'fun-fact-icon' %>
+                      <%= image_tag "/assets/fun_fact_button.png", class: 'fun-fact-icon' %>
                       <div id="fun-fact-text"class="fun-fact mercury-region" data-type="editable" data-mercury="full">
                         <%= raw photo.fun_fact %></div>
                       <div id="photo-id" class="hide mercury-region" data-type="editable" data-mercury="full"><%= photo.id %></div>
-                      <%= image_tag photo.path_url, class: 'place-photo' %>
+                      <img sizes="(min-width: 40em) 80vw, 100vw" class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
                     </div>
                     <div class="carousel-caption">
                       <%= photo.title %> - Credit: <%= photo.credit %>
@@ -39,7 +39,7 @@
                   <div class="carousel-content">
                     <%= image_tag "/assets/fun_fact_button.png", class: 'fun-fact-icon' %>
                     <div id="fun-fact-<%= index %>" class="fun-fact mercury-region" data-type="editable" data-mercury="full"><%= raw photo.fun_fact %></div>
-                    <%= image_tag photo.path_url, class: 'place-photo' %>
+                    <img sizes="(min-width: 40em) 80vw, 100vw" class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 375w, <%= photo.path_url(:medium) %> 480w, <%= photo.path_url(:large) %> 768w" />
                   </div>
                   <div class="carousel-caption">
                     <%= photo.title %>
@@ -89,6 +89,16 @@
   <p><%= link_to "WYSIWYG Editor", "/editor" + request.path, id: "edit-link", data: { save_url: mercury_update_area_path(@area) } %>
   <p><%= link_to 'Edit Area', edit_area_path %></p>
 <% end %>
+
+<script>
+  fakewaffle.responsiveTabs(['xs', 'sm']);
+</script>
+
+<script>
+  // Picture element HTML5 shiv
+  document.createElement( "picture" );
+</script>
+<script src="/assets/js/picturefill.js" async></script>
 
 <% if !@request_xhr %>
     </div>
