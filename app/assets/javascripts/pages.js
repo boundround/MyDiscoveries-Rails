@@ -46,7 +46,7 @@ $.ajax({
 
 
 // markecluster code
-var markers = new L.MarkerClusterGroup();
+var markers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 
 var markerArray = [];
 
