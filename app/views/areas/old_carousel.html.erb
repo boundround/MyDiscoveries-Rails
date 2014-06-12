@@ -1,0 +1,60 @@
+<% if @area.photos.length > 0 %>
+        <div id="area-carousel" class="carousel slide">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <% @area.photos.each_with_index do |photo, index| %>
+              <% if index == 0 %>
+                <div class="item active">
+                    <div class="carousel-content">
+                      <%= image_tag asset_path('fun_fact_button.png'), class: 'fun-fact-icon' %>
+                      <div id="fun-fact-text"class="fun-fact mercury-region" data-type="editable" data-mercury="full">
+                        <%= raw photo.fun_fact %></div>
+                      <div id="photo-id" class="hide mercury-region" data-type="editable" data-mercury="full"><%= photo.id %></div>
+                      <img sizes="(min-width: 40em) 80vw, 100vw" class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
+                    </div>
+                    <div class="carousel-caption">
+                      <%= photo.title %> - Credit: <%= photo.credit %>
+                    </div>
+                </div>
+              <% else %>
+                <div class="item">
+                  <div class="carousel-content">
+                    <%= image_tag asset_path('fun_fact_button.png'), class: 'fun-fact-icon' %>
+                    <div id="fun-fact-<%= index %>" class="fun-fact mercury-region" data-type="editable" data-mercury="full"><%= raw photo.fun_fact %></div>
+                    <img sizes="(min-width: 40em) 80vw, 100vw" class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
+                  </div>
+                  <div class="carousel-caption">
+                    <%= photo.title %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+            <% if current_user.try(:admin) %>
+              <div class="item carousel-content">
+                <h4>Add New Photo</h4>
+                <%= render "photo_form" %>
+                <div class="carousel-caption">
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <!-- Controls -->
+           <% if (!current_user.try(:admin) && @area.photos.length > 1) || current_user.try(:admin) %>
+            <a class="left carousel-control" href="#area-carousel" data-slide="prev" data-interval="false">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#area-carousel" data-slide="next" data-interval="false">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+          <% end %>
+        </div>
+      <% else %>
+        <% if current_user.try(:admin) %>
+          <div class="item carousel-content">
+            <h4>Add New Photo</h4>
+            <%= render "photo_form" %>
+            <div class="carousel-caption">
+            </div>
+          </div>
+        <% end %>
+      <% end %>
