@@ -80,5 +80,13 @@ markers.on('click', function(e) {
   }
   window.lastLoaded = e.layer._icon.classList[1];
   $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+
+  $('#areaModal').on('shown.bs.modal', function (e) {
+    var msnry = new Masonry( '#photos-masonry', {
+      columnWidth: 200,
+      itemSelector: '.photo'
+    });
+  })
+
 });
 
