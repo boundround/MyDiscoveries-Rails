@@ -4,7 +4,7 @@
   <div id="photos-masonry">
     <div class="grid-sizer"></div>
     <% @area.photos.each_with_index do |photo, index| %>
-        <div class="item">
+        <div class="item photo">
           <img class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
         </div>
     <% end %>
