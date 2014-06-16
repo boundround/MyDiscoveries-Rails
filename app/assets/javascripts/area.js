@@ -5,12 +5,9 @@ $("#pac-input").geocomplete({
   detailsAttribute: "data-geo"
 });
 
-$('#showAreaModal').modal();
 
 $(document).ready(function(){
   $('.fun-fact-icon').on('click', function() {
     $(this).next('.fun-fact').toggle("slow");
   });
 });
-
-
