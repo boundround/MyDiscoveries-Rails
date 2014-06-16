@@ -1,6 +1,8 @@
 <% if @area.photos.length > 0 %>
-  <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
-  <h3>Photos</h3>
+  <div class="row">
+    <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
+    <h3>Photos</h3>
+  </div>
   <div id="photos-masonry">
     <div class="grid-sizer"></div>
     <% @area.photos.each_with_index do |photo, index| %>
