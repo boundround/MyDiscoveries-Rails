@@ -83,15 +83,41 @@ markers.on('click', function(e) {
 });
 
 $('#areaModal').on('shown.bs.modal', function (e) {
-    var $container = $('#photos-masonry');
-    // init
-    $container.imagesLoaded( function() {
-      $container.isotope({
-        layoutMode: 'masonry',
-        itemSelector: '.item ',
-        masonry: {
-          columnWidth: $container.find('.grid-sizer')[0]
-        }
-      });
+  var $container = $('#photos-masonry');
+  // init
+  $container.imagesLoaded( function() {
+    $container.isotope({
+      layoutMode: 'masonry',
+      itemSelector: '.item ',
+      masonry: {
+        columnWidth: $container.find('.grid-sizer')[0]
+      }
     });
-  })
+  });
+
+  $('#menu').on( 'click', 'button', function() {
+    var filterValue = $(this).attr('data-filter');
+    $container.isotope({ filter: filterValue });
+  });
+})
+
+$('#showAreaModal').modal('show');
+
+$('#showAreaModal').on('showmn.bs.modal', function (e) {
+  var $container = $('#photos-masonry');
+  // init
+  $container.imagesLoaded( function() {
+    $container.isotope({
+      layoutMode: 'masonry',
+      itemSelector: '.item ',
+      masonry: {
+        columnWidth: $container.find('.grid-sizer')[0]
+      }
+    });
+  });
+
+  $('#menu').on( 'click', 'button', function() {
+    var filterValue = $(this).attr('data-filter');
+    $container.isotope({ filter: filterValue });
+  });
+})
