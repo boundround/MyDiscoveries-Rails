@@ -67,26 +67,31 @@ var markClust = function (geojson) {
 var lastLoaded = 0
 
 markers.on('click', function(e) {
-  console.log(e.layer._icon.classList[1]);
   if (e.layer._icon.classList[1] !== lastLoaded) {
     $('.area-content').empty();
     $.ajax({
       url: '/areas/' + e.layer._icon.classList[1] + ".html",
       success: function(data) {
         $('.area-content').html(data);
-        setTimeout(function(){fakewaffle.responsiveTabs()}, 200);
       }
     });
   }
   window.lastLoaded = e.layer._icon.classList[1];
   $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
 
-  $('#areaModal').on('shown.bs.modal', function (e) {
-    var msnry = new Masonry( '#photos-masonry', {
-      columnWidth: 200,
-      itemSelector: '.photo'
-    });
-  })
 
 });
 
+$('#areaModal').on('shown.bs.modal', function (e) {
+    var $container = $('#photos-masonry');
+    // init
+    $container.imagesLoaded( function() {
+      $container.isotope({
+        layoutMode: 'masonry',
+        itemSelector: '.item ',
+        masonry: {
+          columnWidth: $container.find('.grid-sizer')[0]
+        }
+      });
+    });
+  })
