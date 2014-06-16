@@ -9,12 +9,19 @@
       <div class="area-content">
 <% end %>
 <div class="container">
-  <div class="close" data-dismiss="modal">Back to <img src='http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/256/Very-Basic-Globe-icon.png' class="close button"></div>
-  <h1><%= @area.display_name %></h1>
-  <div id="area-content" class="mercury-region" data-type="editable" data-mercury="full">
-    <p><%= raw @area.description %></p>
+  <div class="menu pull-right">
+    <button class="fa fa-bars fa-2x menu-button"></button>
   </div>
+  <h1 class="title"><%= @area.display_name %></h1>
+  <div class="about">
+    <h3>About <%= @area.display_name %></h3>
+    <div id="area-content" class="mercury-region" data-type="editable" data-mercury="full">
+      <p><%= raw @area.description %></p>
+    </div>
+  </div>
+  <div class="vertical-space"></div>
   <%= render partial:'photos_masonry' %>
+  <div class="close" data-dismiss="modal">Back to <img src='http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/256/Very-Basic-Globe-icon.png' class="close button"></div>
 </div>
 <% if current_user.try(:admin?) %>
   <p><%= link_to "WYSIWYG Editor", "/editor" + request.path, id: "edit-link", data: { save_url: mercury_update_area_path(@area) } %>

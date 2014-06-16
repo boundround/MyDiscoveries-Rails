@@ -1,7 +1,3 @@
-body {
-
-}
-
 #map {
   position: absolute;
   left: 0;
@@ -30,9 +26,12 @@ body {
 
 .modal-content {
   height: 97%;
+  overflow: scroll;
+  background-color: #de4652;
 }
 
 .area-content {
-  background-color: white;
+  background-color: #de4652;
   height: 99%;
+  color: white;
 }

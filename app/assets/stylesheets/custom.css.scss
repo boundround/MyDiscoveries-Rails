@@ -7,6 +7,33 @@ body {
   height: 0px;
 }
 
+.title {
+  text-align: center;
+}
+
+.menu {
+  margin-top: 28px;
+}
+
+.menu-button {
+  background-color: transparent;
+  border: none;
+}
+
+.icon {
+  float: left;
+  margin-right: 5px;
+}
+
+.vertical-space {
+  height: 25px;
+}
+
+.about {
+  background-color: #EA9087;
+  padding: 1px 10px 5px 10px;
+}
+
 #area-carousel {
   max-width: 800px;
   margin: 0 auto;
@@ -77,9 +104,6 @@ body {
   min-height: 100px;
 }
 
-.modal-content {
-  overflow: scroll;
-}
 
 .facebook-sign-in {
   width: 200px;
@@ -102,6 +126,7 @@ body {
   width: 110px;
   margin-top: 10px;
 }
+
 .close.button {
   width: 35px;
   height: 35px;
@@ -109,14 +134,11 @@ body {
 }
 
 .item {
-  border-radius: 3px;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.18);
-  background: #fff;
+  margin-top: 10px;
 }
 
 #photos-masonry {
   padding: 0;
-  margin: 0 auto;
   width: 75%;
 
 }
