@@ -73,7 +73,6 @@ markers.on('click', function(e) {
       url: '/areas/' + e.layer._icon.classList[1] + ".html",
       success: function(data) {
         $('.area-content').html(data);
-        setTimeout(function(){fakewaffle.responsiveTabs()}, 200);
       }
     });
   }

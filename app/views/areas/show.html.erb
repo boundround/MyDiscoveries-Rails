@@ -11,22 +11,10 @@
 <div class="container">
   <div class="close" data-dismiss="modal">Back to <img src='http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/256/Very-Basic-Globe-icon.png' class="close button"></div>
   <h1><%= @area.display_name %></h1>
-
-      <%= render partial:'photos_masonry' %>
-  <ul class="nav nav-tabs responsive" id="area-tabs">
-  <li class="active"><a href="#photos" data-toggle="tab">Photos</a></li>
-  <li><a href="#description" data-toggle="tab">Description</a></li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane fade in active responsive" id="photos">
-    </div>
-    <div class="tab-pane fade" id="description">
-      <p></p>
-      <div id="area-content" class="mercury-region" data-type="editable" data-mercury="full">
-        <p><%= raw @area.description %></p>
-      </div>
-    </div>
+  <div id="area-content" class="mercury-region" data-type="editable" data-mercury="full">
+    <p><%= raw @area.description %></p>
   </div>
+  <%= render partial:'photos_masonry' %>
 </div>
 <% if current_user.try(:admin?) %>
   <p><%= link_to "WYSIWYG Editor", "/editor" + request.path, id: "edit-link", data: { save_url: mercury_update_area_path(@area) } %>
