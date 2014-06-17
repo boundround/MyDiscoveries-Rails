@@ -94,6 +94,11 @@ $('#areaModal').on('shown.bs.modal', function (e) {
         columnWidth: $container.find('.grid-sizer')[0]
       }
     });
+    $container.on( 'click', '.photo-card', function() {
+      $(this).find('.fun-fact').toggle();
+      $( this ).toggleClass('photo-card-expanded');
+      $container.isotope({ layoutMode : 'masonry' });
+    });
   });
 
   $('#menu').on( 'click', 'a', function() {
@@ -118,21 +123,24 @@ $('#areaModal').on('shown.bs.modal', function (e) {
 
 $('#showAreaModal').modal('show');
 
-$('#showAreaModal').on('shown.bs.modal', function (e) {
-  var $container = $('#photos-masonry');
-  // init
-  $container.imagesLoaded( function() {
-    $container.isotope({
-      layoutMode: 'masonry',
-      itemSelector: '.item ',
-      masonry: {
-        columnWidth: $container.find('.grid-sizer')[0]
-      }
-    });
-  });
+// $('#showAreaModal').on('shown.bs.modal', function (e) {
+//   var $container = $('#photos-masonry');
+//   // init
+//   $container.imagesLoaded( function() {
+//     $container.isotope({
+//       layoutMode: 'masonry',
+//       itemSelector: '.item ',
+//       masonry: {
+//         columnWidth: $container.find('.grid-sizer')[0]
+//       }
+//     });
+//     $container.on( 'click', '.place-photo', function() {
+//         $( this ).toggleClass('place-photo-expanded');
+//       });
+//   });
 
-  $('#menu').on( 'click', 'a', function() {
-    var filterValue = $(this).attr('data-filter');
-    $container.isotope({ filter: filterValue });
-  });
-});
+//   $('#menu').on( 'click', 'a', function() {
+//     var filterValue = $(this).attr('data-filter');
+//     $container.isotope({ filter: filterValue });
+//   });
+// });

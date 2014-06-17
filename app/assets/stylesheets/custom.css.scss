@@ -41,23 +41,6 @@ body {
   border: none;
 }
 
-.photo-label {
-  height: auto;
-  width: 100%;
-  margin-bottom: -10px;
-}
-
-.about-hero {
-  height: auto;
-  width: 100%;
-}
-
-.hero-photo {
-  width: 100%;
-  height: auto;
-  border: 8px solid white;
-}
-
 .icon {
   float: left;
   margin-right: 5px;
@@ -91,23 +74,6 @@ body {
 .right {
   margin-right: -70px;
 }
-
-.fun-fact {
-  position: absolute;
-  background-color: white;
-  text-align: left;
-  margin-left: 5em;
-  margin-top: 4px;
-  height: 53px;
-  padding-left: 10px;
-  display: none;
-}
-
-.fun-fact-icon {
-  position: absolute;
-  margin-top: 4px;
-}
-
 
 .hide {
   display: hidden;
@@ -152,7 +118,8 @@ body {
 
 #photos-masonry {
   padding: 0;
-  width: 75%;
+  width: 60%;
+  margin: 0 auto;
 
 }
 
@@ -198,3 +165,19 @@ body {
   height: 99%;
   color: white;
 }
+
+@media (max-width: 900px) {
+
+  #photos-masonry {
+    width: 75%;
+  }
+}
+
+@media (max-width: 600px) {
+
+  #photos-masonry {
+    width: 100%;
+  }
+
+}
+

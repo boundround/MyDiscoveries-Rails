@@ -4,4 +4,48 @@
 
 .place-photo {
   border: 7px solid white;
+  width: 100%;
+  height: auto;
 }
+
+.photo-card {
+  width: 48%;
+}
+
+.photo-card-expanded {
+  min-width: 100%;
+  height: auto;
+}
+
+.photo-label {
+  height: auto;
+  width: 100%;
+  margin-bottom: -10px;
+}
+
+.about-hero {
+  height: auto;
+  width: 100%;
+}
+
+.hero-photo {
+  width: 100%;
+  height: auto;
+  border: 8px solid white;
+}
+
+.fun-fact {
+  display: none;
+  padding: 15px;
+}
+
+.fun-fact-icon {
+  position: absolute;
+  margin-top: 4px;
+}
+
+.photo-container {
+  background-color: #EA9087;
+}
+
+
