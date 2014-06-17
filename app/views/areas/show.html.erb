@@ -14,6 +14,12 @@
     </button>
     <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
       <li role="presentation">
+        <a role="menuitem" tabindex="-1" href="#" data-filter="*">
+          <%= image_tag(asset_path('washingmachine.png'), class: 'dropdown-menu-icon') %>
+          Show All
+        </a>
+      </li>
+      <li role="presentation">
         <a role="menuitem" tabindex="-1" href="#" data-filter=".about">
           <%= image_tag(asset_path('learn-more-purple.png'), class: 'dropdown-menu-icon') %>
           About <%= @area.display_name %>
@@ -29,13 +35,6 @@
   </div>
 
   <h1 class="title"><%= @area.display_name %></h1>
-  <div class="about">
-    <h3>About <%= @area.display_name %></h3>
-    <div id="area-content" class="mercury-region" data-type="editable" data-mercury="full">
-      <p><%= raw @area.description %></p>
-    </div>
-  </div>
-  <div class="vertical-space"></div>
   <%= render partial:'photos_masonry' %>
   <div class="close" data-dismiss="modal">Back to <img src='http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/256/Very-Basic-Globe-icon.png' class="close button"></div>
 </div>

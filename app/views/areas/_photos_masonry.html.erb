@@ -1,18 +1,27 @@
-<% if @area.photos.length > 0 %>
-  <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
-  <h3>Photos</h3>
+
   <div id="photos-masonry">
     <div class="grid-sizer"></div>
-    <div class="item filler">FILLER</div>
-    <div class="item filler">FILLER</div>
-    <div class="item filler">FILLER</div>
+    <div class="item about">
+    <div class="about-hero">
+      <img class="hero-photo" src="<%= @area.photos.first.path_url(:large) %>" srcset="<%= @area.photos.first.path_url(:small) %> 450w, <%= @area.photos.first.path_url(:medium) %> 640w, <%= @area.photos.first.path_url(:large) %> 960w" />
+    </div>
+    <div class="about-content">
+      <h3>About <%= @area.display_name %></h3>
+      <div id="area-content" class="mercury-region" data-type="editable" data-mercury="full">
+        <p><%= raw @area.description %></p>
+      </div>
+    </div>
+  </div>
+  <div class="vertical-space"></div>
+  <% if @area.photos.length > 0 %>
+    <div class="item photo photo-label">
+      <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
+      <h3>Photos</h3>
+    </div>
     <% @area.photos.each_with_index do |photo, index| %>
         <div class="item photo">
           <img class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
         </div>
     <% end %>
-    <div class="item filler">FILLER</div>
-    <div class="item filler">FILLER</div>
-    <div class="item filler">FILLER</div>
   </div>
 <% end %>
