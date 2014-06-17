@@ -41,6 +41,23 @@ body {
   border: none;
 }
 
+.photo-label {
+  height: auto;
+  width: 100%;
+  margin-bottom: -10px;
+}
+
+.about-hero {
+  height: auto;
+  width: 100%;
+}
+
+.hero-photo {
+  width: 100%;
+  height: auto;
+  border: 8px solid white;
+}
+
 .icon {
   float: left;
   margin-right: 5px;
@@ -52,8 +69,10 @@ body {
 
 .about {
   background-color: #EA9087;
-  padding: 1px 10px 5px 10px;
-  margin-top: 20px;
+}
+
+.about-content {
+  padding: 15px;
 }
 
 .photo-form {
