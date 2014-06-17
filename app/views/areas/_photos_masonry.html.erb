@@ -3,10 +3,16 @@
   <h3>Photos</h3>
   <div id="photos-masonry">
     <div class="grid-sizer"></div>
+    <div class="item filler">FILLER</div>
+    <div class="item filler">FILLER</div>
+    <div class="item filler">FILLER</div>
     <% @area.photos.each_with_index do |photo, index| %>
         <div class="item photo">
           <img class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
         </div>
     <% end %>
+    <div class="item filler">FILLER</div>
+    <div class="item filler">FILLER</div>
+    <div class="item filler">FILLER</div>
   </div>
 <% end %>

@@ -4,14 +4,30 @@
 
 <% if !@request_xhr %>
   <div class="modal fade" id="showAreaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
-      <div class="area-content">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
+        <div class="area-content">
 <% end %>
 <div class="container">
-  <div class="menu pull-right">
-    <button class="fa fa-bars fa-2x menu-button"></button>
+  <div class="dropdown pull-right">
+    <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    </button>
+    <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation">
+        <a role="menuitem" tabindex="-1" href="#" data-filter=".about">
+          <%= image_tag(asset_path('learn-more-purple.png'), class: 'dropdown-menu-icon') %>
+          About <%= @area.display_name %>
+        </a>
+      </li>
+      <li role="presentation">
+        <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
+          <%= image_tag(asset_path('washingmachine.png'), class: 'dropdown-menu-icon', data: { filter: '.photo'}) %>
+          Photos
+        </a>
+      </li>
+    </ul>
   </div>
+
   <h1 class="title"><%= @area.display_name %></h1>
   <div class="about">
     <h3>About <%= @area.display_name %></h3>
