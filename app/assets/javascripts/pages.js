@@ -99,11 +99,15 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     var filterValue = $(this).attr('data-filter');
     $container.isotope({ filter: filterValue });
   });
+
+  $('#areaModal').on('hide.bs.modal', function (e) {
+    $container.isotope({ filter: '' });
+  });
 })
 
 $('#showAreaModal').modal('show');
 
-$('#showAreaModal').on('showmn.bs.modal', function (e) {
+$('#showAreaModal').on('shown.bs.modal', function (e) {
   var $container = $('#photos-masonry');
   // init
   $container.imagesLoaded( function() {
@@ -120,4 +124,4 @@ $('#showAreaModal').on('showmn.bs.modal', function (e) {
     var filterValue = $(this).attr('data-filter');
     $container.isotope({ filter: filterValue });
   });
-})
+});
