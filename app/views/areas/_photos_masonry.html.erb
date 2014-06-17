@@ -3,7 +3,9 @@
     <div class="grid-sizer"></div>
     <div class="item about">
     <div class="about-hero">
-      <img class="hero-photo" src="<%= @area.photos.first.path_url(:large) %>" srcset="<%= @area.photos.first.path_url(:small) %> 450w, <%= @area.photos.first.path_url(:medium) %> 640w, <%= @area.photos.first.path_url(:large) %> 960w" />
+      <% if @area.photos.length > 0 %>
+        <img class="hero-photo" src="<%= @area.photos.first.path_url(:large) %>" srcset="<%= @area.photos.first.path_url(:small) %> 450w, <%= @area.photos.first.path_url(:medium) %> 640w, <%= @area.photos.first.path_url(:large) %> 960w" />
+      <% end %>
     </div>
     <div class="about-content">
       <h3>About <%= @area.display_name %></h3>
