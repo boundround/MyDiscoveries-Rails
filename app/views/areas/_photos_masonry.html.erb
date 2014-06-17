@@ -25,7 +25,7 @@
           <div class="photo-container">
             <img class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
             <div class="fun-fact" class="mercury-region" data-type="editable" data-mercury="full">
-              <p><%= raw @area.description %></p>
+              <p><%= raw photo.fun_fact %></p>
             </div>
           </div>
         </div>
