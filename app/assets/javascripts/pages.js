@@ -82,6 +82,7 @@ markers.on('click', function(e) {
 
 });
 
+
 $('#areaModal').on('shown.bs.modal', function (e) {
   var $container = $('#photos-masonry');
   // init
@@ -100,8 +101,19 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     $container.isotope({ filter: filterValue });
   });
 
+  var modal = this;
+  var hash = modal.id;
+  window.location.hash = hash;
+  window.onhashchange = function() {
+    if (!location.hash){
+      $(modal).modal('hide');
+    }
+  }
+
   $('#areaModal').on('hide.bs.modal', function (e) {
     $container.isotope({ filter: '' });
+    var hash = this.id;
+    history.pushState('', document.title, window.location.pathname);
   });
 })
 
