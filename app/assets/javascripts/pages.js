@@ -101,14 +101,13 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     $container.isotope({ filter: filterValue });
   });
 
-  var modal = this;
-  var hash = modal.id;
+  var hash = $('.title').text();
   window.location.hash = hash;
-  window.onhashchange = function() {
-    if (!location.hash){
-      $(modal).modal('hide');
-    }
-  }
+  // window.onhashchange = function() {
+  //   if (!location.hash){
+  //     $(modal).modal('hide');
+  //   }
+  // }
 
   $('#areaModal').on('hide.bs.modal', function (e) {
     $container.isotope({ filter: '' });
