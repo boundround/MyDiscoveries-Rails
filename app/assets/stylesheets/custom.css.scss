@@ -2,6 +2,7 @@
 @import 'font-awesome';
 
 
+
 body {
   font-family: 'Signika', sans-serif;
   height: 0px;
@@ -101,15 +102,34 @@ body {
   background-color: sandybrown !important;
 }
 
-.close {
-  width: 110px;
-  margin-top: 10px;
+.page-wrap {
+  min-height: 100%;
+  position: relative;
+  margin-bottom: -124px;
 }
 
-.close.button {
-  width: 35px;
-  height: 35px;
-  margin-top: -5px;
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+
+.footer, .page-wrap:after {
+  /* .push must be the same height as footer */
+  height: 124px;
+}
+
+.footer {
+  margin-top: 15px;
+  width: 100%;
+  background-color: #E98F87;
+  position: fixed;
+  bottom: 0px;
+  height: 109px;
+}
+
+.close-button {
+  width: 50;
+  height: 60;
 }
 
 .item {
@@ -180,4 +200,3 @@ body {
   }
 
 }
-

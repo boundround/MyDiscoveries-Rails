@@ -8,40 +8,47 @@
       <div class="modal-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
         <div class="area-content">
 <% end %>
-<div class="container">
-  <div class="dropdown pull-right">
-    <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
-    </button>
-    <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-      <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="#" data-filter="*">
-          <%= image_tag(asset_path('washingmachine.png'), class: 'dropdown-menu-icon') %>
-          Show All
-        </a>
-      </li>
-      <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="#" data-filter=".about">
-          <%= image_tag(asset_path('learn-more-purple.png'), class: 'dropdown-menu-icon') %>
-          About <%= @area.display_name %>
-        </a>
-      </li>
-      <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
-          <%= image_tag(asset_path('washingmachine.png'), class: 'dropdown-menu-icon', data: { filter: '.photo'}) %>
-          Photos
-        </a>
-      </li>
-    </ul>
+<div class="page-wrap">
+  <div class="container">
+    <div class="dropdown pull-right">
+      <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
+      </button>
+      <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter="*">
+            <%= image_tag(asset_path('washingmachine.png'), class: 'dropdown-menu-icon') %>
+            Show All
+          </a>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter=".about">
+            <%= image_tag(asset_path('learn-more-purple.png'), class: 'dropdown-menu-icon') %>
+            About <%= @area.display_name %>
+          </a>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
+            <%= image_tag(asset_path('washingmachine.png'), class: 'dropdown-menu-icon', data: { filter: '.photo'}) %>
+            Photos
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <h1 class="title"><%= @area.display_name %></h1>
+    <%= render partial:'photos_masonry' %>
   </div>
 
-  <h1 class="title"><%= @area.display_name %></h1>
-  <%= render partial:'photos_masonry' %>
-  <div class="close" data-dismiss="modal">Back to <img src='http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/256/Very-Basic-Globe-icon.png' class="close button"></div>
+  <div class="footer" data-dismiss="modal">
+    <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
+  </div>
 </div>
+
 <% if current_user.try(:admin?) %>
   <p><%= link_to "WYSIWYG Editor", "/editor" + request.path, id: "edit-link", data: { save_url: mercury_update_area_path(@area) } %>
   <p><%= link_to 'Edit Area', edit_area_path %></p>
 <% end %>
+
 
 
 <script>
