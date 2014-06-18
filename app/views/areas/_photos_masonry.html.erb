@@ -21,9 +21,15 @@
       <h3>Photos</h3>
     </div>
     <% @area.photos.each_with_index do |photo, index| %>
-        <div class="item photo">
-          <img class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
+        <div class="item photo photo-card">
+          <div class="photo-container">
+            <img class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
+            <div class="fun-fact" class="mercury-region" data-type="editable" data-mercury="full">
+              <p><%= raw photo.fun_fact %></p>
+            </div>
+          </div>
         </div>
+
     <% end %>
   </div>
 <% end %>
