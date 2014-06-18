@@ -36,12 +36,17 @@
 
   <h1 class="title"><%= @area.display_name %></h1>
   <%= render partial:'photos_masonry' %>
-  <div class="close" data-dismiss="modal">Back to <img src='http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/256/Very-Basic-Globe-icon.png' class="close button"></div>
 </div>
+
+<div class="footer" data-dismiss="modal">
+  <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
+</div>
+
 <% if current_user.try(:admin?) %>
   <p><%= link_to "WYSIWYG Editor", "/editor" + request.path, id: "edit-link", data: { save_url: mercury_update_area_path(@area) } %>
   <p><%= link_to 'Edit Area', edit_area_path %></p>
 <% end %>
+
 
 
 <script>

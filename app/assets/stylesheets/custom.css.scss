@@ -2,6 +2,7 @@
 @import 'font-awesome';
 
 
+
 body {
   font-family: 'Signika', sans-serif;
   height: 0px;
@@ -101,15 +102,16 @@ body {
   background-color: sandybrown !important;
 }
 
-.close {
-  width: 110px;
-  margin-top: 10px;
+.footer {
+  width: 100%;
+  background-color: #E98F87;
+  position: absolute;
+  bottom: 0px;
 }
 
-.close.button {
-  width: 35px;
-  height: 35px;
-  margin-top: -5px;
+.close-button {
+  width: 50;
+  height: 60;
 }
 
 .item {
@@ -180,4 +182,3 @@ body {
   }
 
 }
-
