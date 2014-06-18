@@ -8,9 +8,7 @@ body {
   height: 0px;
 }
 
-.title {
-  text-align: center;
-}
+
 
 .container {
   padding: 0 15px;
@@ -51,7 +49,7 @@ body {
   height: 25px;
 }
 
-.about {
+.about-wrapper {
   background-color: #EA9087;
 }
 
@@ -105,7 +103,7 @@ body {
 .page-wrap {
   min-height: 100%;
   position: relative;
-  margin-bottom: -124px;
+  margin-bottom: -65px;
 }
 
 .page-wrap:after {
@@ -115,7 +113,7 @@ body {
 
 .footer, .page-wrap:after {
   /* .push must be the same height as footer */
-  height: 124px;
+  height: 50px;
 }
 
 .footer {
@@ -123,13 +121,14 @@ body {
   width: 100%;
   background-color: #E98F87;
   position: fixed;
+  left: 0px;
   bottom: 0px;
-  height: 109px;
+  height: 50px;
 }
 
 .close-button {
-  width: 50;
-  height: 60;
+  width: auto;
+  height: 100%;
 }
 
 .item {
@@ -186,6 +185,34 @@ body {
   color: white;
 }
 
+.banner {
+  margin-top: 20px;
+  margin-right: -48px;
+  position: relative;
+  display: inline-block;
+}
+
+.banner-wrapper {
+  text-align: center;
+}
+
+.title {
+  position: absolute;
+  top: -15px;
+  width: 100%;
+}
+
+.dude {
+  width: 20%;
+  height: auto;
+  margin-top: -50px;
+  margin-bottom: -5%;
+}
+
+.dude-image {
+  width: 75%;
+}
+
 @media (max-width: 900px) {
 
   #photos-masonry {
@@ -193,10 +220,26 @@ body {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
 
   #photos-masonry {
     width: 100%;
+  }
+
+  .banner-wrapper {
+    width: 90%;
+  }
+
+  .banner {
+    width: inherit;
+  }
+
+  .blue-banner {
+    width: inherit;
+  }
+
+  .title {
+    font-size: 20px;
   }
 
 }

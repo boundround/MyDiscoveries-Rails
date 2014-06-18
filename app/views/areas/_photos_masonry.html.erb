@@ -2,22 +2,27 @@
   <div id="photos-masonry">
     <div class="grid-sizer"></div>
     <div class="item about">
-    <div class="about-hero">
-      <% if @video %>
-        <iframe class="hero-photo" src="//player.vimeo.com/video/<%= @video.vimeo_id %>" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-      <% else %>
-        <% unless @area.photos.empty? %>
-          <img class="hero-photo" src="<%= @area.photos.first.path_url(:large) %>" srcset="<%= @area.photos.first.path_url(:small) %> 450w, <%= @area.photos.first.path_url(:medium) %> 640w, <%= @area.photos.first.path_url(:large) %> 960w" />
-        <% end %>
-      <% end %>
-    </div>
-    <div class="about-content">
-      <h3>About <%= @area.display_name %></h3>
-      <div id="area-content" class="mercury-region" data-type="editable" data-mercury="full">
-        <p><%= raw @area.description %></p>
+      <div class="dude">
+        <img src="<%= asset_path('dude-01.svg') %>" class="dude-image">
+      </div>
+      <div class="about-wrapper">
+        <div class="about-hero">
+          <% if @video %>
+            <iframe class="hero-photo" src="//player.vimeo.com/video/<%= @video.vimeo_id %>" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          <% else %>
+            <% unless @area.photos.empty? %>
+              <img class="hero-photo" src="<%= @area.photos.first.path_url(:large) %>" srcset="<%= @area.photos.first.path_url(:small) %> 450w, <%= @area.photos.first.path_url(:medium) %> 640w, <%= @area.photos.first.path_url(:large) %> 960w" />
+            <% end %>
+          <% end %>
+        </div>
+        <div class="about-content">
+          <h3>About <%= @area.display_name %></h3>
+          <div id="area-content" class="mercury-region" data-type="editable" data-mercury="full">
+            <p><%= raw @area.description %></p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
   <div class="vertical-space"></div>
   <% unless @area.photos.empty? %>
     <div class="item photo photo-label">

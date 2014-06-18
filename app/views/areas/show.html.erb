@@ -34,8 +34,14 @@
         </li>
       </ul>
     </div>
-
-    <h1 class="title"><%= @area.display_name %></h1>
+    <div class="banner-wrapper">
+      <div class="banner">
+        <img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner">
+        <div class="title-wrapper">
+          <h1 class="title"><%= @area.display_name %></h1>
+        </div>
+      </div>
+    </div>
     <%= render partial:'photos_masonry' %>
   </div>
 
