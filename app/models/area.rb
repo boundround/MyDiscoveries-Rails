@@ -3,6 +3,8 @@ class Area < ActiveRecord::Base
   friendly_id :display_name, :use => :slugged
   validates_presence_of :display_name, :slug
 
+  has_one :video
+  
   has_many :photos
   accepts_nested_attributes_for :photos
 
@@ -58,5 +60,3 @@ class Area < ActiveRecord::Base
   end
 
 end
-
-
