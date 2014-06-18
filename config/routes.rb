@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :users
 
   mount Mercury::Engine => '/'
   Mercury::Engine.routes
@@ -21,6 +20,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
   end
+
+  resources :users
 
 
   # The priority is based upon order of creation: first created -> highest priority.
