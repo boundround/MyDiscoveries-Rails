@@ -17,7 +17,10 @@ gem 'iconv'
 gem "font-awesome-rails"
 
 # Mercury HTML5 Editor for WYSIWYG capability
-gem 'mercury-rails', git: 'https://github.com/jejacks0n/mercury.git'
+# gem 'mercury-rails', git: 'https://github.com/jejacks0n/mercury.git'
+
+# Bootsy WYSIWYG Editor
+gem 'bootsy'
 
 # 12 Factor Gem for Heroku Deploy
 gem 'rails_12factor', group: :production

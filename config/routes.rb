@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
 
-  mount Mercury::Engine => '/'
-  Mercury::Engine.routes
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
 
   resources :areas do
     resources :photos
-    member { put :mercury_update }
     collection { post :import }
   end
 

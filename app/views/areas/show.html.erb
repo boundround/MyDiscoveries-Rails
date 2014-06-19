@@ -48,13 +48,10 @@
   <div class="footer" data-dismiss="modal">
     <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
   </div>
+  <% if current_user.try(:admin?) %>
+    <p><%= link_to 'Edit Area', edit_area_path %></p>
+  <% end %>
 </div>
-
-<% if current_user.try(:admin?) %>
-  <p><%= link_to "WYSIWYG Editor", "/editor" + request.path, id: "edit-link", data: { save_url: mercury_update_area_path(@area) } %>
-  <p><%= link_to 'Edit Area', edit_area_path %></p>
-<% end %>
-
 
 
 <script>

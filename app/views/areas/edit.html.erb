@@ -1,32 +1,51 @@
-  <h1>Edit Area</h1>
-  <div class="container">
-    <h3>Add / Change Photos</h3>
-    <div id="area-carousel" class="carousel slide">
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-        <% @area.photos.each_with_index do |photo, index| %>
-          <% if index == 0 %>
-            <div class="item active">
-              <%= simple_form_for [@area, photo] do |f| %>
-                <div class="carousel-content">
-                  <%= image_tag photo.path_url, class: 'resrc place-photo' %>
-                </div>
-                <p></p>
-                <div class="form-group">
-                  <%= f.file_field :path, as: :file %>
-                </div>
-                <div class="form-group">
-                  <%= f.input :fun_fact, input_html: { class: 'form-control'} %>
-                  <%= f.input :credit, input_html: { class: 'form-control' } %>
-                  <%= f.input :area_id, as: :hidden %><br />
-                  <%= f.button :submit %>
-                </div>
+ <div class="area-content">
+  <div class="page-wrap">
+    <h1>Edit Area</h1>
+    <div class="container">
+      <div class="banner-wrapper">
+        <div class="banner">
+          <img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner">
+          <div class="title-wrapper">
+            <h1 class="title"><%= @area.display_name %></h1>
+          </div>
+        </div>
+      </div>
+      <%= simple_form_for @area, html: { role: 'form'} do |f| %>
+    <div id="photos-masonry">
+      <div class="grid-sizer"></div>
+      <div class="item about">
+        <div class="dude">
+          <img src="<%= asset_path('dude-01.svg') %>" class="dude-image">
+        </div>
+        <div class="about-wrapper">
+          <div class="about-hero">
+            <% if @video %>
+              <iframe class="hero-video" src="//player.vimeo.com/video/<%= @video.vimeo_id %>" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <% else %>
+              <% unless @area.photos.empty? %>
+                <img class="hero-photo" src="<%= @area.photos.first.path_url(:medium) %>" />
               <% end %>
+            <% end %>
+          </div>
+          <div class="about-content">
+            <h3>About <%= @area.display_name %></h3>
+            <div class="form-group">
+              <%= f.input :description, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control area-description-input' } %>
             </div>
-          <% else %>
-            <div class="item carousel-content">
-              <%= simple_form_for [@area, photo] do |f| %>
-                <%= image_tag photo.path_url, class: 'resrc place-photo' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.button :submit, 'Update Area' %>
+        </div>
+      <% end %>
+      </div>
+      <div class="vertical-space"></div>
+      <% unless @area.photos.empty? %>
+        <% @area.photos.each_with_index do |photo, index| %>
+          <%= simple_form_for [@area, photo] do |f| %>
+            <div class="">
+              <div class="photo-container">
+                <img class="place-photo" src="<%= photo.path_url(:small) %>" />
                 <div class="form-group">
                   <%= f.file_field :path, as: :file %>
                 </div>
@@ -36,56 +55,12 @@
                   <%= f.input :area_id, as: :hidden %>
                   <%= f.button :submit %>
                 </div>
-              <% end %>
+              </div>
             </div>
           <% end %>
         <% end %>
-        <div class="item carousel-content">
-          <h4>Add New Photo</h4>
-          <%= render "photo_form" %>
-        <div class="carousel-caption">
-
-        </div>
-        </div>
       </div>
-
-      <!-- Controls -->
-      <a class="left carousel-control" href="#area-carousel" data-slide="prev" data-interval="false">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-      </a>
-      <a class="right carousel-control" href="#area-carousel" data-slide="next" data-interval="false">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-      </a>
-    </div>
+      <% end %>
   </div>
-<br />
-<br />
-<h3>Add / Edit Area</h3>
-<%= simple_form_for @area, html: { role: 'form'} do |f| %>
-
-    <div class="form-group">
-      <%= f.input :display_name, label: 'Area Name', input_html: { class: 'form-control' } %>
-    </div>
-    <!-- <div class="form-group">
-      <%= f.input :code, label: 'Airport Code', input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
-      <%= f.input :identifier, label: 'Identifier', input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
-      <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
-    </div>
-    <div class="form-group">
-      <%= f.input :short_intro, label: 'Short Intro', input_html: { class: 'form-control' } %>
-    </div> -->
-    <div class="form-group">
-      <%= f.input :description, as: :text, label: 'Description', input_html: { class: 'form-control area-description-input' } %>
-    </div>
-    <div class="form-group">
-      <%= f.input :address, as: :text, placeholder: 'Address', input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
-      <%= f.button :submit, 'Update Area' %>
-    </div>
-  <%end%>
 </div>
+
