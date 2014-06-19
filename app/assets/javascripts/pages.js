@@ -73,14 +73,33 @@ markers.on('click', function(e) {
       url: '/areas/' + e.layer._icon.classList[1] + ".html",
       success: function(data) {
         $('.area-content').html(data);
+
+        //Grab video url for restarting on modal close
+        window.vimeoUrl = $('.hero-video').attr('src');
       }
     });
   }
   window.lastLoaded = e.layer._icon.classList[1];
+
+
+
   $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
 
 
 });
+
+
+//Stop and start area video on modal open/close
+$('#areaModal').on('hidden.bs.modal', function (e) {
+    $('.hero-video').attr('src', 'about:blank');
+});
+
+$('#areaModal').on('show.bs.modal', function (e) {
+    $('.hero-video').attr('src', window.vimeoUrl);
+})
+
+
+
 
 
 $('#areaModal').on('shown.bs.modal', function (e) {
