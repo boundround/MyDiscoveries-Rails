@@ -54,7 +54,7 @@ class AreasController < ApplicationController
     @area = Area.friendly.find(params[:id])
 
     if @area.update(area_update_params)
-      redirect_to areas_path
+      redirect_to :back
     end
 
   end
