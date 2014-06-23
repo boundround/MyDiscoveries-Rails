@@ -74,8 +74,27 @@ markers.on('click', function(e) {
       success: function(data) {
         $('.area-content').html(data);
 
-        //Grab video url for restarting on modal close
-        window.vimeoUrl = $('.hero-video').attr('src');
+        //Vimeo api code
+        var iframe = $('.hero-video')[0];
+        player = $f(iframe);
+
+        // When the player is ready, add listeners for pause, finish, and playProgress
+        player.addEvent('ready', function() {
+            player.addEvent('pause', onPause);
+            player.addEvent('finish', onFinish);
+            player.addEvent('playProgress', onPlayProgress);
+        });
+
+        // Call the API when a button is pressed
+        $('#dropdownMenu1').bind('click', function() {
+            player.api('pause');
+        });
+
+
+        //Stop  area video on modal close
+        $('#areaModal').on('hidden.bs.modal', function (e) {
+          player.api('pause');
+        });
       }
     });
   }
@@ -87,16 +106,6 @@ markers.on('click', function(e) {
 
 
 });
-
-
-//Stop and start area video on modal open/close
-$('#areaModal').on('hidden.bs.modal', function (e) {
-    $('.hero-video').attr('src', 'about:blank');
-});
-
-$('#areaModal').on('show.bs.modal', function (e) {
-    $('.hero-video').attr('src', window.vimeoUrl);
-})
 
 
 
