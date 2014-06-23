@@ -11,7 +11,7 @@
             <iframe class="hero-video" src="//player.vimeo.com/video/<%= @video.vimeo_id %>" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
           <% else %>
             <% unless @area.photos.empty? %>
-              <img class="hero-photo" src="<%= @area.photos.first.path_url(:large) %>" srcset="<%= @area.photos.first.path_url(:small) %> 450w, <%= @area.photos.first.path_url(:medium) %> 640w, <%= @area.photos.first.path_url(:large) %> 960w" />
+              <img class="hero-photo" src="<%= @area.photos.first.path_url(:large) %>" />
             <% end %>
           <% end %>
         </div>
@@ -32,8 +32,8 @@
     <% @area.photos.each_with_index do |photo, index| %>
         <div class="item photo photo-card">
           <div class="photo-container">
-            <img class="place-photo" src="<%= photo.path_url(:small) %>" srcset="<%= photo.path_url(:small) %> 450w, <%= photo.path_url(:medium) %> 640w, <%= photo.path_url(:large) %> 960w" />
-            <div class="fun-fact" class="mercury-region" data-type="editable" data-mercury="full">
+            <img class="place-photo" src="<%= photo.path_url(:large) %>" />
+            <div id="fun-fact-<%= index %>" class="fun-fact mercury-region" data-type="editable" data-mercury="full">
               <p><%= raw photo.fun_fact %></p>
             </div>
           </div>
