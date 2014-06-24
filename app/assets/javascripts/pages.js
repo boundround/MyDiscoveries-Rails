@@ -119,7 +119,13 @@ $('#areaModal').on('shown.bs.modal', function (e) {
         columnWidth: $container.find('.grid-sizer')[0]
       }
     });
+
     $container.on( 'click', '.photo-card', function() {
+      //close expanded photo card
+      $( this ).siblings('.photo-card-expanded').toggleClass('photo-card-expanded')
+        .find('.fun-fact').toggle();
+
+      //expand clicked photo card
       $(this).find('.fun-fact').toggle();
       $( this ).toggleClass('photo-card-expanded');
       $container.isotope({ layoutMode : 'masonry' });
@@ -160,6 +166,7 @@ $('#showAreaModal').on('shown.bs.modal', function (e) {
       }
     });
     $container.on( 'click', '.photo-card', function() {
+
       $(this).find('.fun-fact').toggle();
       $( this ).toggleClass('photo-card-expanded');
       $container.isotope({ layoutMode : 'masonry' });
