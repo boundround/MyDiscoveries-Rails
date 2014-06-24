@@ -44,10 +44,6 @@
     </div>
     <%= render partial:'photos_masonry' %>
   </div>
-
-  <div class="footer" data-dismiss="modal">
-    <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
-  </div>
   <% if current_user.try(:admin?) %>
     <p><%= link_to 'Edit Area', edit_area_path %></p>
   <% end %>
@@ -65,6 +61,9 @@
 <% if !@request_xhr %>
     </div>
    </div>
+     <div class="footer" data-dismiss="modal">
+      <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
+    </div>
   </div>
 </div>
 
