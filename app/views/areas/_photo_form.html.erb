@@ -1,16 +1,17 @@
-<div class='photo-form'>
+<div class="photo-container">
+  <h2>Add New Photo</h2>
   <%= simple_form_for [@area, Photo.new] do |f| %>
     <div class="form-group">
-      <%= f.input :title, label: "Photo Title" %>
+      <%= f.input :title, label: "Photo Title", input_html: { class: 'form-control'} %>
     </div>
     <div class="form-group">
-      <%= f.input :credit %><br />
+      <%= f.input :fun_fact, input_html: { class: 'form-control'} %><br />
     </div>
     <div class="form-group">
-      <%= f.input :fun_fact %><br />
+      <%= f.input :credit, input_html: { class: 'form-control'} %><br />
     </div>
     <div class="form-group">
-      <p><%= f.input :path, as: :file, label: false, input_html: { class: "add-photo" } %></p>
+      <p><%= f.input :path, as: :file, label: false%></p>
     </div>
     <div class="form-group">
       <%= f.input :area_id, as: :hidden, input_html: { value: @area.id } %>

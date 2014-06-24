@@ -60,18 +60,8 @@ class AreasController < ApplicationController
   end
 
   def destroy
-  end
 
-  # Functionality for Mercury Editor
-  # def mercury_update
-  #   area = Area.find(params[:id])
-  #   area.description = params[:content]['area-content'][:value]
-  #   area.save!
-  #   photo = Photo.find(params[:content]['photo-id'][:value])
-  #   photo.fun_fact = params[:content]['fun-fact-text'][:value]
-  #   photo.save!
-  #   render text: ""
-  # end
+  end
 
   def import
     Area.import(params[:file])

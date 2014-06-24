@@ -4,7 +4,7 @@ class Area < ActiveRecord::Base
   validates_presence_of :display_name, :slug
 
   has_one :video
-  
+
   has_many :photos
   accepts_nested_attributes_for :photos
 
