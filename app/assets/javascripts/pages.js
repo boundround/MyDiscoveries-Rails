@@ -34,6 +34,7 @@ var addMarkers = function(geojson, layer) {
   layer.setGeoJSON(window.geojson);
 };
 
+//Get all areas and add to map
 $.ajax({
   url: '/areas.json',
   success: function(data) {
@@ -43,6 +44,26 @@ $.ajax({
   }
 });
 
+//Get all places and add to map
+$.ajax({
+  url: '/places.json',
+  success: function(data) {
+    window.placesGeoJSON = data;
+    var placesLayer = L.mapbox.featureLayer()
+    .addTo(map);
+
+    // Set a custom icon on each marker based on feature properties.
+    placesLayer.on('layeradd', function(e) {
+      var marker = e.layer,
+      feature = marker.feature;
+
+      marker.setIcon(L.icon(feature.properties.icon));
+    });
+
+
+    placesLayer.setGeoJSON(data);
+  }
+});
 
 
 // markecluster code
