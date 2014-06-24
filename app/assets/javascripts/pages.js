@@ -80,9 +80,6 @@ markers.on('click', function(e) {
 
         // When the player is ready, add listeners for pause, finish, and playProgress
         player.addEvent('ready', function() {
-            player.addEvent('pause', onPause);
-            player.addEvent('finish', onFinish);
-            player.addEvent('playProgress', onPlayProgress);
         });
 
         // Call the API when a button is pressed

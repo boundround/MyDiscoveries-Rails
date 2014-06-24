@@ -8,7 +8,7 @@
       <div class="about-wrapper">
         <div class="about-hero">
           <% if @video %>
-            <iframe class="hero-video" src="//player.vimeo.com/video/<%= @video.vimeo_id %>?api=1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
           <% else %>
             <% unless @area.photos.empty? %>
               <img class="hero-photo" src="<%= @area.photos.first.path_url(:large) %>" />
