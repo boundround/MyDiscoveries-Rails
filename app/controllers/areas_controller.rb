@@ -17,6 +17,9 @@ class AreasController < ApplicationController
 
   def show
     @area = Area.friendly.find(params[:id])
+    @photoable = @area
+    @photos = @photoable.photos
+    @photo = Photo.new
     @video = @area.video
     @request_xhr = request.xhr?
 
@@ -44,7 +47,9 @@ class AreasController < ApplicationController
   def edit
 
     @area = Area.friendly.find(params[:id])
-
+    @photoable = @area
+    @photos = @photoable.photos
+    @photo = Photo.new
 
   end
 

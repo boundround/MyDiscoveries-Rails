@@ -5,7 +5,7 @@ class Area < ActiveRecord::Base
 
   has_one :video
 
-  has_many :photos
+  has_many :photos, as: :photoable
   accepts_nested_attributes_for :photos
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true

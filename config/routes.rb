@@ -8,12 +8,10 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
-  resources :pages
-  root 'pages#index'
 
-  resources :photos do
-    collection { post :import }
-  end
+  resources :pages
+
+  root 'pages#index'
 
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
@@ -21,7 +19,10 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :places
+  resources :places do
+    resources :photos
+    collection { post :import }
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

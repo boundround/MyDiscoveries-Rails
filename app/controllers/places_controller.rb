@@ -12,6 +12,16 @@ class PlacesController < ApplicationController
   end
 
   def show
+    @place = Place.friendly.find(params[:id])
+    @photoable = @place
+    @photos = @photoable.photos
+    @photo = Photo.new
+
+    @request_xhr = request.xhr?
+
+    respond_to do |format|
+      format.html { render 'show', :layout => !request.xhr? }
+    end
   end
 
   def create
@@ -32,6 +42,10 @@ class PlacesController < ApplicationController
 
   def edit
     @place = Place.friendly.find(params[:id])
+    @areas = Area.all
+    @photoable = @place
+    @photos = @photoable.photos
+    @photo = Photo.new
   end
 
   def update
