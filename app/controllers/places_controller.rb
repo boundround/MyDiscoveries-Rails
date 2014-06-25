@@ -18,9 +18,9 @@ class PlacesController < ApplicationController
     @place = Place.new(place_params)
 
     if @place.save
-      redirect_to(places_path, notice: 'Area succesfully saved')
+      redirect_to(places_path, notice: 'Place succesfully saved')
     else
-      redirect_to '/places#new', notice: 'Area not saved!'
+      redirect_to '/places#new', notice: 'Place not saved!'
     end
   end
 
