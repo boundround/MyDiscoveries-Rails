@@ -1,2 +1,70 @@
-<h1>Places#show</h1>
-<p>Find me in app/views/places/show.html.erb</p>
+<div class='map-page'>
+  <div id='map'></div>
+</div>
+
+<% if !@request_xhr %>
+  <div class="modal fade" id="showAreaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
+        <div class="area-content">
+<% end %>
+<div class="page-wrap">
+  <div class="container">
+    <div class="dropdown pull-right">
+      <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
+      </button>
+      <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter="*">
+            <%= image_tag(asset_path('washingmachine.png'), class: 'dropdown-menu-icon') %>
+            Show All
+          </a>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter=".about">
+            <%= image_tag(asset_path('learn-more-purple.png'), class: 'dropdown-menu-icon') %>
+            About <%= @place.display_name %>
+          </a>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
+            <%= image_tag(asset_path('washingmachine.png'), class: 'dropdown-menu-icon', data: { filter: '.photo'}) %>
+            Photos
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="banner-wrapper">
+      <div class="banner">
+        <img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner">
+        <div class="title-wrapper">
+          <h1 class="title"><%= @place.display_name %></h1>
+        </div>
+      </div>
+    </div>
+    <%= render partial:'photos_masonry' %>
+  </div>
+  <% if current_user.try(:admin?) %>
+    <p><%= link_to 'Edit Place', edit_place_path %></p>
+  <% end %>
+</div>
+
+
+<script>
+
+  // Picture element HTML5 shiv
+  document.createElement( "picture" );
+
+</script>
+<script src="/assets/js/picturefill.js" async></script>
+
+<% if !@request_xhr %>
+    </div>
+   </div>
+     <div class="footer" data-dismiss="modal">
+      <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
+    </div>
+  </div>
+</div>
+
+<% end %>

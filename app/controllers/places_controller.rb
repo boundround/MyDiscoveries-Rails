@@ -59,6 +59,11 @@ class PlacesController < ApplicationController
   def destroy
   end
 
+  def import
+    Place.import(params[:file])
+    redirect_to places_path, notice: "Places imported."
+  end
+
   private
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :subscription_level, :latitude, :longitude, :icon, :map_icon, :passport_icon, :address, :area_id, photos_attributes: [:id, :title, :path, :fun_fact, :credit])
