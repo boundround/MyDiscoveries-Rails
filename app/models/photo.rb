@@ -1,5 +1,6 @@
 class Photo < ActiveRecord::Base
   belongs_to :area
+  belongs_to :place
 
   mount_uploader :path, PhotoUploader
 
