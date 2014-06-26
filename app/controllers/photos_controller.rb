@@ -1,11 +1,22 @@
 class PhotosController < ApplicationController
+
+  before_filter :load_photoable
+
+  def index
+    @photos = @photoable.photos
+  end
+
   def new
-    @photo = Photo.new
+    @photo = @photoable.photos.new
   end
 
   def create
-    @photo = Photo.new(photo_params)
-    @photo.save
+    @photo = @photoable.photos.new(photo_params)
+    if @photo.save
+      redirect_to @photoable, notice: "Photo added."
+    else
+      render :new
+    end
   end
 
   def destroy
@@ -24,7 +35,7 @@ class PhotosController < ApplicationController
 
   def import
     Photo.import(params[:file])
-    redirect_to areas_path, notice: "Photos imported."
+    redirect_to :back, notice: "Photos imported."
   end
 
   private
@@ -33,5 +44,9 @@ class PhotosController < ApplicationController
       params.require(:photo).permit(:title, :path, :credit, :area_id, :fun_fact, :id)
     end
 
+    def load_photoable
+      resource, id = request.path.split('/')[1,2]
+      @photoable = resource.singularize.classify.constantize.friendly.find(id)
+    end
 
 end

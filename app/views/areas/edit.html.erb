@@ -52,18 +52,16 @@
                 <div class="form-group">
                   <%= f.input :fun_fact, input_html: { class: 'form-control'} %>
                   <%= f.input :credit, input_html: { class: 'form-control' } %>
-                  <%= f.input :area_id, as: :hidden %>
                   <%= f.button :submit %>
                 </div>
               </div>
             </div>
           <% end %>
         <% end %>
-        <div class="edit_photo">
-          <%= render "photo_form" %>
-        </div>
       </div>
       <% end %>
+      <div class="edit_photo">
+        <%= render "/photos/form" %>
+      </div>
   </div>
 </div>
-

@@ -10,26 +10,26 @@
           <% if @video %>
             <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
           <% else %>
-            <% unless @area.photos.empty? %>
-              <img class="hero-photo" src="<%= @area.photos.first.path_url(:large) %>" />
+            <% unless @place.photos.empty? %>
+              <img class="hero-photo" src="<%= @place.photos.first.path_url(:large) %>" />
             <% end %>
           <% end %>
         </div>
         <div class="about-content">
-          <h3>About <%= @area.display_name %></h3>
+          <h3>About <%= @place.display_name %></h3>
           <div id="area-content">
-            <p><%= raw @area.description %></p>
+            <p><%= raw @place.description %></p>
           </div>
         </div>
       </div>
     </div>
   <div class="vertical-space"></div>
-  <% unless @area.photos.empty? %>
+  <% unless @place.photos.empty? %>
     <div class="item photo photo-label">
       <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
       <h3>Photos</h3>
     </div>
-    <% @area.photos.each_with_index do |photo, index| %>
+    <% @place.photos.each_with_index do |photo, index| %>
         <div class="item photo photo-card">
           <div class="photo-container">
             <img class="place-photo" src="<%= photo.path_url(:large) %>" />
