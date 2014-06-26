@@ -19,28 +19,19 @@ if (window.initialCenter.lat) {
 
 L.control.zoomslider().addTo(map);
 
-// gilupstream.i8lde4kj
-
-var areaLayer = L.mapbox.featureLayer().addTo(map);
-
-areaLayer.on('layeradd', function(e) {
-    var marker = e.layer,
-        feature = marker.feature;
-
-    marker.setIcon(L.icon(feature.properties.icon));
-});
-
-var addMarkers = function(geojson, layer) {
-  layer.setGeoJSON(window.geojson);
-};
-
 //Get all areas and add to map
 $.ajax({
   url: '/areas.json',
   success: function(data) {
-    window.geojson = data;
-    // addMarkers(data, window.areaLayer);
-    markClust(data);
+    window.geoJSON = data;
+    window.markers = createMarkerCluster(data);
+
+    map.addLayer(markers);
+    addMarkersClickEvent();
+    //switch between areas and places
+    map.on('zoomend', function() {
+        map.getZoom() < 7 ? map.addLayer(markers): map.removeLayer(markers) ;
+    });
   }
 });
 
@@ -49,81 +40,123 @@ $.ajax({
   url: '/places.json',
   success: function(data) {
     window.placesGeoJSON = data;
-    var placesLayer = L.mapbox.featureLayer()
-    .addTo(map);
+    window.placesLayer = createMarkerCluster(data);
 
-    // Set a custom icon on each marker based on feature properties.
-    placesLayer.on('layeradd', function(e) {
-      var marker = e.layer,
-      feature = marker.feature;
-
-      marker.setIcon(L.icon(feature.properties.icon));
+    addPlacesMarkersClickEvent();
+    //switch between areas and places
+    map.on('zoomend', function() {
+        map.getZoom() < 7 ? map.removeLayer(placesLayer) : map.addLayer(placesLayer) ;
     });
-
-
-    placesLayer.setGeoJSON(data);
   }
 });
 
 
-// markecluster code
-var markers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
+//new markercluster
+var createMarkerCluster = function(geoJSON) {
+  var markerCluster = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
+  var markerArray = [];
 
-var markerArray = [];
-
-var markClust = function (geojson) {
-  for (var i = 0; i < geojson.length; i++) {
-    var area = geojson[i];
-    var marker = L.marker(new L.LatLng(area.geometry.coordinates[1], area.geometry.coordinates[0]), {
-        icon: L.icon({iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png', iconSize: [43, 26], className: area.properties.id, popupAnchor: [-3, -76]})
+  for (var i = 0; i < geoJSON.length; i++) {
+    var location = geoJSON[i];
+    var marker = L.marker(new L.LatLng(location.geometry.coordinates[1], location.geometry.coordinates[0]), {
+        icon: L.icon({iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png', iconSize: [43, 26], className: location.properties.id, popupAnchor: [-3, -76]})
     });
-    marker.bindLabel(area.properties.title, { noHide: true })
+
+    marker.bindLabel(location.properties.title, { noHide: true })
     markerArray.push(marker);
   };
-  markers.addLayers(markerArray);
-  map.addLayer(markers);
+
+markerCluster.addLayers(markerArray);
+return markerCluster;
 };
 
-// marker click
 var lastLoaded = 0
 
-markers.on('click', function(e) {
-  if (e.layer._icon.classList[1] !== lastLoaded) {
-    $('.area-content').empty();
-    $.ajax({
-      url: '/areas/' + e.layer._icon.classList[1] + ".html",
-      success: function(data) {
-        $('.area-content').html(data);
+// Launch place modals on clicks
+var addPlacesMarkersClickEvent = function() {
+  placesLayer.on('click', function(e) {
+    if (e.layer._icon.classList[1] !== lastLoaded) {
+      $('.area-content').empty();
+      $.ajax({
+        url: '/places/' + e.layer._icon.classList[1] + ".html",
+        success: function(data) {
+          $('.area-content').html(data);
 
-        //Vimeo api code
-        var iframe = $('.hero-video')[0];
-        player = $f(iframe);
+          //Vimeo api code
+          var iframe = $('.hero-video')[0];
+          player = $f(iframe);
 
-        // When the player is ready, add listeners for pause, finish, and playProgress
-        player.addEvent('ready', function() {
-        });
+          // When the player is ready, add listeners for pause, finish, and playProgress
+          player.addEvent('ready', function() {
+          });
 
-        // Call the API when a button is pressed
-        $('#dropdownMenu1').bind('click', function() {
+          // Call the API when a button is pressed
+          $('#dropdownMenu1').bind('click', function() {
+              player.api('pause');
+          });
+
+
+          //Stop  area video on modal close
+          $('#areaModal').on('hidden.bs.modal', function (e) {
             player.api('pause');
-        });
-
-
-        //Stop  area video on modal close
-        $('#areaModal').on('hidden.bs.modal', function (e) {
-          player.api('pause');
-        });
-      }
-    });
-  }
-  window.lastLoaded = e.layer._icon.classList[1];
+          });
+        }
+      });
+    }
+    window.lastLoaded = e.layer._icon.classList[1];
 
 
 
-  $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+    $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
 
 
-});
+  });
+};
+
+
+
+
+// Launch modals on clicks
+var addMarkersClickEvent = function() {
+  markers.on('click', function(e) {
+    if (e.layer._icon.classList[1] !== lastLoaded) {
+      $('.area-content').empty();
+      $.ajax({
+        url: '/areas/' + e.layer._icon.classList[1] + ".html",
+        success: function(data) {
+          $('.area-content').html(data);
+
+          //Vimeo api code
+          var iframe = $('.hero-video')[0];
+          player = $f(iframe);
+
+          // When the player is ready, add listeners for pause, finish, and playProgress
+          player.addEvent('ready', function() {
+          });
+
+          // Call the API when a button is pressed
+          $('#dropdownMenu1').bind('click', function() {
+              player.api('pause');
+          });
+
+
+          //Stop  area video on modal close
+          $('#areaModal').on('hidden.bs.modal', function (e) {
+            player.api('pause');
+          });
+        }
+      });
+    }
+    window.lastLoaded = e.layer._icon.classList[1];
+
+
+
+    $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+
+
+  });
+};
+
 
 
 
