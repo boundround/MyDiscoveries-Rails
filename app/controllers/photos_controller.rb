@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
 
-  # before_filter :load_photoable
+  before_filter :load_photoable
 
   def index
     @photos = @photoable.photos
@@ -44,9 +44,9 @@ class PhotosController < ApplicationController
       params.require(:photo).permit(:title, :path, :credit, :photoable_id, :photoable_type, :fun_fact, :id)
     end
 
-    # def load_photoable
-    #   resource, id = request.path.split('/')[1,2]
-    #   @photoable = resource.singularize.classify.constantize.friendly.find(id)
-    # end
+    def load_photoable
+      resource, id = request.path.split('/')[1,2]
+      @photoable = resource.singularize.classify.constantize.friendly.find(id)
+    end
 
 end
