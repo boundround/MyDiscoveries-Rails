@@ -2,11 +2,11 @@ class Place < ActiveRecord::Base
   include FriendlyId
   friendly_id :display_name, :use => :slugged
   validates_presence_of :display_name, :slug
-
+  belongs_to :area
   has_many :photos, as: :photoable
   accepts_nested_attributes_for :photos
 
-  belongs_to :area
+
 
   def Place.all_geojson
     geojson = Array.new
