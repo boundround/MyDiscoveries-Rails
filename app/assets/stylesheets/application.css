@@ -13,5 +13,6 @@
  *= require_tree .
  *= require_self
  *= require bootsy
+ *= require iconlabel
  *= require font-awesome
  */

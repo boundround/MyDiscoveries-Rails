@@ -1,0 +1,16 @@
+.leaflet-marker-icon-wrapper {
+	position: absolute
+}
+
+.leaflet-marker-iconlabel {
+	background: none;
+	display: block;
+	font: 12px/1.5 'Signika', sans-serif;
+  color: white;
+	padding: 4px 6px;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+}
