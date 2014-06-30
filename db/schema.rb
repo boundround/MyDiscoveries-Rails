@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630165146) do
+ActiveRecord::Schema.define(version: 20140630173134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 20140630165146) do
   end
 
   add_index "contents", ["place_id"], name: "index_contents_on_place_id", using: :btree
+
+  create_table "discounts", force: true do |t|
+    t.text     "description"
+    t.integer  "place_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "discounts", ["place_id"], name: "index_discounts_on_place_id", using: :btree
 
   create_table "games", force: true do |t|
     t.string   "url"
@@ -87,15 +96,6 @@ ActiveRecord::Schema.define(version: 20140630165146) do
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
-
-  create_table "specials", force: true do |t|
-    t.text     "description"
-    t.integer  "place_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "specials", ["place_id"], name: "index_specials_on_place_id", using: :btree
 
   create_table "users", force: true do |t|
     t.datetime "created_at"
