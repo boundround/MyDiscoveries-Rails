@@ -1,18 +1,6 @@
 <h1>Create New Place</h1>
 
   <%= simple_form_for @place, html: { role: 'form'} do |f| %>
-    <%= f.simple_fields_for :photos do |ff| %>
-      <div class="form-group">
-        <%= ff.input :title, label: 'Photo Title', required: true %>
-      </div>
-
-      <div class="form-group">
-        <%= ff.file_field :path, required: true %>
-      </div>
-      <div class="form-group">
-        <%= ff.input :credit, required: true %>
-      </div>
-    <% end %>
     <div class="form-group">
       <%= f.input :display_name, label: 'Place Name', required: true %>
     </div>
@@ -40,9 +28,21 @@
       <%= f.input :identifier, label: 'Identifier' %>
     </div>
     <div class="form-group">
-      <%= f.text_area :description, placeholder: 'Description', required: true %>
+      <%= f.input :description, as: :bootsy, editor_options: {lists: false}, placeholder: 'Description', required: true %>
     </div>
+    <%= f.simple_fields_for :photos do |ff| %>
+      <h3>Add Hero Photo</h3>
+      <div class="form-group">
+        <%= ff.input :title, label: 'Photo Title', required: true %>
+      </div>
 
+      <div class="form-group">
+        <%= ff.file_field :path, required: true %>
+      </div>
+      <div class="form-group">
+        <%= ff.input :credit, required: true %>
+      </div>
+    <% end %>
     <div class="form-group">
       <%= f.submit :submit %>
     </div>

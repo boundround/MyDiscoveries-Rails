@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626013924) do
+ActiveRecord::Schema.define(version: 20140630173134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,33 @@ ActiveRecord::Schema.define(version: 20140626013924) do
   end
 
   add_index "areas", ["slug"], name: "index_areas_on_slug", using: :btree
+
+  create_table "contents", force: true do |t|
+    t.text     "description"
+    t.integer  "place_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contents", ["place_id"], name: "index_contents_on_place_id", using: :btree
+
+  create_table "discounts", force: true do |t|
+    t.text     "description"
+    t.integer  "place_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "discounts", ["place_id"], name: "index_discounts_on_place_id", using: :btree
+
+  create_table "games", force: true do |t|
+    t.string   "url"
+    t.integer  "place_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "games", ["place_id"], name: "index_games_on_place_id", using: :btree
 
   create_table "photos", force: true do |t|
     t.string   "title"
@@ -97,8 +124,10 @@ ActiveRecord::Schema.define(version: 20140626013924) do
     t.integer  "area_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "place_id"
   end
 
   add_index "videos", ["area_id"], name: "index_videos_on_area_id", using: :btree
+  add_index "videos", ["place_id"], name: "index_videos_on_place_id", using: :btree
 
 end
