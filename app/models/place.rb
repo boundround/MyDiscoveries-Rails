@@ -4,6 +4,9 @@ class Place < ActiveRecord::Base
   validates_presence_of :display_name, :slug
   belongs_to :area
   has_many :photos, as: :photoable
+  has_many :specials
+  has_many :games
+  has_many :videos
   accepts_nested_attributes_for :photos
 
 
