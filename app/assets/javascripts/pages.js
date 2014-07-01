@@ -104,7 +104,7 @@ $.ajax({
         });
       }
     });
-    
+
   }
 });
 
@@ -154,6 +154,33 @@ var addMarkersClickEvent = function() {
         window.lastLoaded = markerID;
         $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
       } else {
+          $('.area-content').empty();
+          $.ajax({
+            url: '/' + markerType + 's/' + markerID + ".html",
+            success: function(data) {
+              $('.area-content').html(data);
+
+              //Vimeo api code
+              var iframe = $('.hero-video')[0];
+              player = $f(iframe);
+
+              // When the player is ready, add listeners for pause, finish, and playProgress
+              player.addEvent('ready', function() {
+              });
+
+              // Call the API when a button is pressed
+              $('#dropdownMenu1').bind('click', function() {
+                  player.api('pause');
+              });
+
+
+              //Stop  area video on modal close
+              $('#areaModal').on('hidden.bs.modal', function (e) {
+                player.api('pause');
+              });
+            }
+          });
+          window.lastLoaded = markerID;
           $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         }
   });
