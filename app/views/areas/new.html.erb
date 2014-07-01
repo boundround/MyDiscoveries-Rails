@@ -46,6 +46,15 @@
         <%= ff.input :credit, required: true %>
       </div>
     <% end %>
+    <%= f.simple_fields_for :videos do |ff| %>
+      <h3>Add Hero Video</h3>
+      <div class="form-group">
+        <%= ff.input :title, label: 'Vimeo ID' %>
+      </div>
+      <div class="form-group">
+        <%= ff.input :hero, as: :boolean, as: :hidden, :input_html => { :checked => true } %>
+      </div>
+    <% end %>
     <div class="form-group">
       <%= f.submit :submit %>
     </div>
