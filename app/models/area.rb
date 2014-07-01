@@ -3,8 +3,8 @@ class Area < ActiveRecord::Base
   friendly_id :display_name, :use => :slugged
   validates_presence_of :display_name, :slug
 
+  has_many :videos
   has_many :places
-  has_one :video
 
   has_many :photos, as: :photoable
   accepts_nested_attributes_for :photos

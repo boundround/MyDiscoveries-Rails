@@ -20,7 +20,7 @@ class AreasController < ApplicationController
     @photoable = @area
     @photos = @photoable.photos
     @photo = Photo.new
-    @video = @area.video
+    @hero_video = @area.videos.find_by(hero: true)
     @request_xhr = request.xhr?
 
     respond_to do |format|
