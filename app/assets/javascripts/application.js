@@ -15,6 +15,7 @@
 //= require bootsy
 //= require bootstrap
 //= require geocomplete
+//= require iconlabel
 //= require area
 //= require pages
 //= require photos

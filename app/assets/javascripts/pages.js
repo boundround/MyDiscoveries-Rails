@@ -19,56 +19,87 @@ if (window.initialCenter.lat) {
 
 L.control.zoomslider().addTo(map);
 
+window.markers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
+markers.addTo(map);
+
+var areaIcon = L.Icon.Label.extend({
+                options: {
+                  iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+                  shadowUrl: null,
+                  iconSize: new L.Point(43, 26),
+                  iconAnchor: new L.Point(0, 0),
+                  labelAnchor: new L.Point(47, 0),
+                  wrapperAnchor: new L.Point(21, 13),
+                  labelClassName: 'area-icon-label'
+                }
+              });
+
+var placeIcon = L.Icon.Label.extend({
+                options: {
+                  iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+                  shadowUrl: null,
+                  iconSize: new L.Point(43, 26),
+                  iconAnchor: new L.Point(0, 0),
+                  labelAnchor: new L.Point(47, 0),
+                  wrapperAnchor: new L.Point(21, 13),
+                  labelClassName: 'place-icon-label'
+                }
+              });
+//new marker array
+var createMarkerArray = function(geoJSON, markerType) {
+  var markerArray = [];   
+
+  for (var i = 0; i < geoJSON.length; i++) {
+    var location = geoJSON[i];
+
+    var icon = {
+      area: function() {return new areaIcon({ labelText: location.properties.title });},
+      place: function() {return new placeIcon({ labelText: location.properties.title });}
+    }
+
+    var marker = L.marker(new L.LatLng(location.geometry.coordinates[1], location.geometry.coordinates[0]),
+        {icon: icon[markerType]() }
+    );
+    markerArray.push(marker);
+  };
+
+  return markerArray;
+};
+
+
 //Get all areas and add to map
 $.ajax({
   url: '/areas.json',
   success: function(data) {
-    window.geoJSON = data;
-    window.markers = createMarkerCluster(data);
+    window.areasGeoJSON = data;
+    var areasArray = createMarkerArray(data, 'area');
 
-    map.addLayer(markers);
+    markers.addLayers(areasArray);
     addMarkersClickEvent();
+
     //switch between areas and places
     map.on('zoomend', function() {
-        map.getZoom() < 7 ? map.addLayer(markers): map.removeLayer(markers) ;
+        map.getZoom() < 7 ? markers.addLayers(areasArray) : markers.removeLayers(areasArray);
     });
   }
 });
 
+//
 //Get all places and add to map
 $.ajax({
   url: '/places.json',
   success: function(data) {
     window.placesGeoJSON = data;
-    window.placesLayer = createMarkerCluster(data);
+    var placesAndAreas = data.concat(areasGeoJSON);
+    var placesArray = createMarkerArray(placesAndAreas, 'place');
+    addMarkersClickEvent();
 
-    addPlacesMarkersClickEvent();
     //switch between areas and places
     map.on('zoomend', function() {
-        map.getZoom() < 7 ? map.removeLayer(placesLayer) : map.addLayer(placesLayer) ;
+        map.getZoom() < 7 ? markers.removeLayers(placesArray) : markers.addLayers(placesArray);
     });
   }
 });
-
-
-//new markercluster
-var createMarkerCluster = function(geoJSON) {
-  var markerCluster = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
-  var markerArray = [];
-
-  for (var i = 0; i < geoJSON.length; i++) {
-    var location = geoJSON[i];
-    var marker = L.marker(new L.LatLng(location.geometry.coordinates[1], location.geometry.coordinates[0]), {
-        icon: L.icon({iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png', iconSize: [43, 26], className: location.properties.id, popupAnchor: [-3, -76]})
-    });
-
-    marker.bindLabel(location.properties.title, { noHide: true })
-    markerArray.push(marker);
-  };
-
-markerCluster.addLayers(markerArray);
-return markerCluster;
-};
 
 var lastLoaded = 0
 
