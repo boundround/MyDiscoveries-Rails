@@ -55,7 +55,9 @@ var createMarkerArray = function(geoJSON, markerType) {
 
     var icon = {
       area: function() {return new areaIcon({ labelText: location.properties.title,
-                                              labelClassName: 'area-icon-label ' + location.properties.id
+                                              labelClassName: 'area-icon-label' + ' '
+                                              + location.properties.places + ' '
+                                              + location.properties.id
                                               });},
       place: function() {return new placeIcon({ labelText: location.properties.title,
                                               labelClassName: 'area-icon-label ' + location.properties.id
@@ -114,39 +116,43 @@ var addMarkersClickEvent = function() {
     var markerType = '';
     map.getZoom() < 7 ? (markerType = 'area') : (markerType = 'place');
     var markerID = e.layer.options.icon.options.labelClassName.split(" ").pop();
-    if (markerID !== lastLoaded) {
-      $('.area-content').empty();
-      $.ajax({
-        url: '/' + markerType + 's/' + markerID + ".html",
-        success: function(data) {
-          $('.area-content').html(data);
+    var hasPlaces = (e.layer.options.icon.options.labelClassName.split(" ").slice(-2)[0] === 'true');
+    if (markerType === 'area' && hasPlaces) {
+      var lat = e.latlng.lat;
+      var lng = e.latlng.lng;
+      map.setView([lat, lng], 7)
+    } else if (markerType === 'area' && markerID !== lastLoaded) {
+        $('.area-content').empty();
+        $.ajax({
+          url: '/' + markerType + 's/' + markerID + ".html",
+          success: function(data) {
+            $('.area-content').html(data);
 
-          //Vimeo api code
-          var iframe = $('.hero-video')[0];
-          player = $f(iframe);
+            //Vimeo api code
+            var iframe = $('.hero-video')[0];
+            player = $f(iframe);
 
-          // When the player is ready, add listeners for pause, finish, and playProgress
-          player.addEvent('ready', function() {
-          });
+            // When the player is ready, add listeners for pause, finish, and playProgress
+            player.addEvent('ready', function() {
+            });
 
-          // Call the API when a button is pressed
-          $('#dropdownMenu1').bind('click', function() {
+            // Call the API when a button is pressed
+            $('#dropdownMenu1').bind('click', function() {
+                player.api('pause');
+            });
+
+
+            //Stop  area video on modal close
+            $('#areaModal').on('hidden.bs.modal', function (e) {
               player.api('pause');
-          });
-
-
-          //Stop  area video on modal close
-          $('#areaModal').on('hidden.bs.modal', function (e) {
-            player.api('pause');
-          });
+            });
+          }
+        });
+        window.lastLoaded = markerID;
+        $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+      } else {
+          $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         }
-      });
-    window.lastLoaded = markerID;
-    }
-
-    $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
-
-
   });
 };
 
