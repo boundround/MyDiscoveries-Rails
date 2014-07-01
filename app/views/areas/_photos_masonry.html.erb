@@ -11,7 +11,7 @@
             <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
           <% else %>
             <% unless @area.photos.empty? %>
-              <img class="hero-photo" src="<%= @area.photos.find_by(hero: true).path_url(:large) %>" />
+              <img class="hero-photo" src="<%= @area.photos.first.path_url(:large) %>" />
             <% end %>
           <% end %>
         </div>
