@@ -44,13 +44,9 @@
         <h3>Games</h3>
       </div>
       <% @place.games.each do |game| %>
-        <div class="photo-card">
-          <div class="stretch-wrap">
-            <div class="item game game-card">
-              Expand/Shrink
-              <iframe class="fun-fact game-card" src="<%= game.url %>"></iframe>
-            </div>
-          </div>
+        <div class="item game photo-card">
+          <img class="game-thumbnail" src="http://placehold.it/328x249" />
+          <iframe class="fun-fact game-card" src="<%= game.url %>"></iframe>
         </div>
       <% end %>
     </div>
