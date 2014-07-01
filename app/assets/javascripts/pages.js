@@ -88,25 +88,28 @@ $.ajax({
     map.on('zoomend', function() {
         map.getZoom() < 7 ? markers.addLayers(areasArray) : markers.removeLayers(areasArray);
     });
+
+    //Get all places and add to map
+    $.ajax({
+      url: '/places.json',
+      success: function(data) {
+        window.placesGeoJSON = data;
+        var placesAndAreas = data.concat(areasGeoJSON);
+        var placesArray = createMarkerArray(placesAndAreas, 'place');
+        addMarkersClickEvent();
+
+        //switch between areas and places
+        map.on('zoomend', function() {
+            map.getZoom() < 7 ? markers.removeLayers(placesArray) : markers.addLayers(placesArray);
+        });
+      }
+    });
+    
   }
 });
 
 //
-//Get all places and add to map
-$.ajax({
-  url: '/places.json',
-  success: function(data) {
-    window.placesGeoJSON = data;
-    var placesAndAreas = data.concat(areasGeoJSON);
-    var placesArray = createMarkerArray(placesAndAreas, 'place');
-    addMarkersClickEvent();
 
-    //switch between areas and places
-    map.on('zoomend', function() {
-        map.getZoom() < 7 ? markers.removeLayers(placesArray) : markers.addLayers(placesArray);
-    });
-  }
-});
 
 var lastLoaded = 0
 
