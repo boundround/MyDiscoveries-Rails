@@ -17,10 +17,7 @@ class AreasController < ApplicationController
 
   def show
     @area = Area.friendly.find(params[:id])
-    @photoable = @area
-    @photos = @photoable.photos
-    @photo = Photo.new
-    @hero_video = @area.videos.find_by(hero: true)
+    @hero_video = @area.videos.find_by(priority: 1)
     @request_xhr = request.xhr?
 
     respond_to do |format|

@@ -13,9 +13,8 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.friendly.find(params[:id])
-    @photoable = @place
-    @photos = @photoable.photos
-    @photo = Photo.new
+    @videos = @place.videos.order(:priority)
+    @hero_video = @place.videos.find_by(priority: 1)
     @request_xhr = request.xhr?
 
     respond_to do |format|
