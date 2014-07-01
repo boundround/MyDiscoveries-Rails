@@ -30,7 +30,7 @@ var areaIcon = L.Icon.Label.extend({
                   iconAnchor: new L.Point(0, 0),
                   labelAnchor: new L.Point(47, 0),
                   wrapperAnchor: new L.Point(21, 13),
-                  labelClassName: 'area-icon-label'
+
                 }
               });
 
@@ -45,6 +45,7 @@ var placeIcon = L.Icon.Label.extend({
                   labelClassName: 'place-icon-label'
                 }
               });
+
 //new marker array
 var createMarkerArray = function(geoJSON, markerType) {
   var markerArray = [];   
@@ -53,8 +54,14 @@ var createMarkerArray = function(geoJSON, markerType) {
     var location = geoJSON[i];
 
     var icon = {
-      area: function() {return new areaIcon({ labelText: location.properties.title });},
-      place: function() {return new placeIcon({ labelText: location.properties.title });}
+      area: function() {return new areaIcon({ labelText: location.properties.title,
+                                              labelClassName: 'area-icon-label' + ' '
+                                              + location.properties.places + ' '
+                                              + location.properties.id
+                                              });},
+      place: function() {return new placeIcon({ labelText: location.properties.title,
+                                              labelClassName: 'area-icon-label ' + location.properties.id
+                                              });}
     }
 
     var marker = L.marker(new L.LatLng(location.geometry.coordinates[1], location.geometry.coordinates[0]),
@@ -103,88 +110,49 @@ $.ajax({
 
 var lastLoaded = 0
 
-// Launch place modals on clicks
-var addPlacesMarkersClickEvent = function() {
-  placesLayer.on('click', function(e) {
-    if (e.layer._icon.classList[1] !== lastLoaded) {
-      $('.area-content').empty();
-      $.ajax({
-        url: '/places/' + e.layer._icon.classList[1] + ".html",
-        success: function(data) {
-          $('.area-content').html(data);
-
-          //Vimeo api code
-          var iframe = $('.hero-video')[0];
-          player = $f(iframe);
-
-          // When the player is ready, add listeners for pause, finish, and playProgress
-          player.addEvent('ready', function() {
-          });
-
-          // Call the API when a button is pressed
-          $('#dropdownMenu1').bind('click', function() {
-              player.api('pause');
-          });
-
-
-          //Stop  area video on modal close
-          $('#areaModal').on('hidden.bs.modal', function (e) {
-            player.api('pause');
-          });
-        }
-      });
-    }
-    window.lastLoaded = e.layer._icon.classList[1];
-
-
-
-    $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
-
-
-  });
-};
-
-
-
-
 // Launch modals on clicks
 var addMarkersClickEvent = function() {
   markers.on('click', function(e) {
-    if (e.layer._icon.classList[1] !== lastLoaded) {
-      $('.area-content').empty();
-      $.ajax({
-        url: '/areas/' + e.layer._icon.classList[1] + ".html",
-        success: function(data) {
-          $('.area-content').html(data);
+    var markerType = '';
+    map.getZoom() < 7 ? (markerType = 'area') : (markerType = 'place');
+    var markerID = e.layer.options.icon.options.labelClassName.split(" ").pop();
+    var hasPlaces = (e.layer.options.icon.options.labelClassName.split(" ").slice(-2)[0] === 'true');
+    if (markerType === 'area' && hasPlaces) {
+      var lat = e.latlng.lat;
+      var lng = e.latlng.lng;
+      map.setView([lat, lng], 7)
+    } else if (markerType === 'area' && markerID !== lastLoaded) {
+        $('.area-content').empty();
+        $.ajax({
+          url: '/' + markerType + 's/' + markerID + ".html",
+          success: function(data) {
+            $('.area-content').html(data);
 
-          //Vimeo api code
-          var iframe = $('.hero-video')[0];
-          player = $f(iframe);
+            //Vimeo api code
+            var iframe = $('.hero-video')[0];
+            player = $f(iframe);
 
-          // When the player is ready, add listeners for pause, finish, and playProgress
-          player.addEvent('ready', function() {
-          });
+            // When the player is ready, add listeners for pause, finish, and playProgress
+            player.addEvent('ready', function() {
+            });
 
-          // Call the API when a button is pressed
-          $('#dropdownMenu1').bind('click', function() {
+            // Call the API when a button is pressed
+            $('#dropdownMenu1').bind('click', function() {
+                player.api('pause');
+            });
+
+
+            //Stop  area video on modal close
+            $('#areaModal').on('hidden.bs.modal', function (e) {
               player.api('pause');
-          });
-
-
-          //Stop  area video on modal close
-          $('#areaModal').on('hidden.bs.modal', function (e) {
-            player.api('pause');
-          });
+            });
+          }
+        });
+        window.lastLoaded = markerID;
+        $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+      } else {
+          $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         }
-      });
-    }
-    window.lastLoaded = e.layer._icon.classList[1];
-
-
-
-    $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
-
-
   });
 };
 
