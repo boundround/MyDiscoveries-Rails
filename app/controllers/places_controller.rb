@@ -16,7 +16,6 @@ class PlacesController < ApplicationController
     @photoable = @place
     @photos = @photoable.photos
     @photo = Photo.new
-
     @request_xhr = request.xhr?
 
     respond_to do |format|
