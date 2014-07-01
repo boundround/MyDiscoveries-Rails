@@ -4,6 +4,7 @@ class Area < ActiveRecord::Base
   validates_presence_of :display_name, :slug
 
   has_many :videos
+  has_many :places
 
   has_many :photos, as: :photoable
   accepts_nested_attributes_for :photos
@@ -27,6 +28,7 @@ class Area < ActiveRecord::Base
         properties: {
           "title"=> area.display_name,
           "id" => area.id,
+          "places" => !area.places.empty?,
           "icon" => {
             "iconUrl" => 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
             # size of the icon
