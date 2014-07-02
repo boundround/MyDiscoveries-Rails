@@ -115,14 +115,10 @@ var addMarkersClickEvent = function() {
     markerProps.shift().match(/area/) ? markerType = 'area' :  markerType = 'place';
     var markerID = markerProps.pop();
     var hasPlaces = markerProps.slice(-2)[0] === 'true';
-    var zoom = map.getZoom();
-
-    if (zoom < 7 ) {
+    if (map.getZoom() < 7 ) {
       if (hasPlaces) {
-        var lat = e.latlng.lat;
-        var lng = e.latlng.lng;
-        map.setView([lat, lng], 11);
-      } else if (markerID !== lastLoaded) {
+        map.setView([e.latlng.lat, e.latlng.lng], 7);
+      } else {
           $('.area-content').empty();
           $.ajax({
             url: '/' + markerType + 's/' + markerID + ".html",
@@ -151,7 +147,8 @@ var addMarkersClickEvent = function() {
           });
           window.lastLoaded = markerID;
           $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
-      }} else {
+        };
+      } else {
         if (markerType === 'area') {
           $('.area-content').empty();
           $.ajax({
