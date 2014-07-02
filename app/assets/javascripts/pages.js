@@ -60,7 +60,7 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               + location.properties.id
                                               });},
       place: function() {return new placeIcon({ labelText: location.properties.title,
-                                              labelClassName: 'area-icon-label ' + location.properties.id
+                                              labelClassName: 'place-icon-label ' + location.properties.id
                                               });}
     }
 
@@ -84,18 +84,12 @@ $.ajax({
     markers.addLayers(areasArray);
     addMarkersClickEvent();
 
-    //switch between areas and places
-    map.on('zoomend', function() {
-        map.getZoom() < 7 ? markers.addLayers(areasArray) : markers.removeLayers(areasArray);
-    });
-
     //Get all places and add to map
     $.ajax({
       url: '/places.json',
       success: function(data) {
         window.placesGeoJSON = data;
-        var placesAndAreas = data.concat(areasGeoJSON);
-        var placesArray = createMarkerArray(placesAndAreas, 'place');
+        var placesArray = createMarkerArray(data, 'place');
         addMarkersClickEvent();
 
         //switch between areas and places
@@ -116,44 +110,78 @@ var lastLoaded = 0
 // Launch modals on clicks
 var addMarkersClickEvent = function() {
   markers.on('click', function(e) {
+    var markerProps = e.layer.options.icon.options.labelClassName.split(" ");
     var markerType = '';
-    map.getZoom() < 7 ? (markerType = 'area') : (markerType = 'place');
-    var markerID = e.layer.options.icon.options.labelClassName.split(" ").pop();
-    var hasPlaces = (e.layer.options.icon.options.labelClassName.split(" ").slice(-2)[0] === 'true');
-    if (markerType === 'area' && hasPlaces) {
-      var lat = e.latlng.lat;
-      var lng = e.latlng.lng;
-      map.setView([lat, lng], 7)
-    } else if (markerType === 'area' && markerID !== lastLoaded) {
-        $('.area-content').empty();
-        $.ajax({
-          url: '/' + markerType + 's/' + markerID + ".html",
-          success: function(data) {
-            $('.area-content').html(data);
+    markerProps.shift().match(/area/) ? markerType = 'area' :  markerType = 'place';
+    var markerID = markerProps.pop();
+    var hasPlaces = markerProps.slice(-2)[0] === 'true';
+    var zoom = map.getZoom();
 
-            //Vimeo api code
-            var iframe = $('.hero-video')[0];
-            player = $f(iframe);
+    if (zoom < 7 ) {
+      if (hasPlaces) {
+        var lat = e.latlng.lat;
+        var lng = e.latlng.lng;
+        map.setView([lat, lng], 7);
+      } else if (markerID !== lastLoaded) {
+          $('.area-content').empty();
+          $.ajax({
+            url: '/' + markerType + 's/' + markerID + ".html",
+            success: function(data) {
+              $('.area-content').html(data);
 
-            // When the player is ready, add listeners for pause, finish, and playProgress
-            player.addEvent('ready', function() {
-            });
+              //Vimeo api code
+              var iframe = $('.hero-video')[0];
+              player = $f(iframe);
 
-            // Call the API when a button is pressed
-            $('#dropdownMenu1').bind('click', function() {
+              // When the player is ready, add listeners for pause, finish, and playProgress
+              player.addEvent('ready', function() {
+              });
+
+              // Call the API when a button is pressed
+              $('#dropdownMenu1').bind('click', function() {
+                  player.api('pause');
+              });
+
+
+              //Stop  area video on modal close
+              $('#areaModal').on('hidden.bs.modal', function (e) {
                 player.api('pause');
-            });
+              });
+            }
+          });
+          window.lastLoaded = markerID;
+          $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+      }} else {
+        if (markerType === 'area') {
+          $('.area-content').empty();
+          $.ajax({
+            url: '/' + markerType + 's/' + markerID + ".html",
+            success: function(data) {
+              $('.area-content').html(data);
+
+              //Vimeo api code
+              var iframe = $('.hero-video')[0];
+              player = $f(iframe);
+
+              // When the player is ready, add listeners for pause, finish, and playProgress
+              player.addEvent('ready', function() {
+              });
+
+              // Call the API when a button is pressed
+              $('#dropdownMenu1').bind('click', function() {
+                  player.api('pause');
+              });
 
 
-            //Stop  area video on modal close
-            $('#areaModal').on('hidden.bs.modal', function (e) {
-              player.api('pause');
-            });
-          }
-        });
-        window.lastLoaded = markerID;
-        $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
-      } else {
+              //Stop  area video on modal close
+              $('#areaModal').on('hidden.bs.modal', function (e) {
+                player.api('pause');
+              });
+            }
+          });
+          window.lastLoaded = markerID;
+          $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+        } else {
           $('.area-content').empty();
           $.ajax({
             url: '/' + markerType + 's/' + markerID + ".html",
@@ -183,6 +211,7 @@ var addMarkersClickEvent = function() {
           window.lastLoaded = markerID;
           $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         }
+      }
   });
 };
 
