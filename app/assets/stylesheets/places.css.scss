@@ -1,6 +1,7 @@
 .game-card {
   min-width: 130%;
   margin-left: -16%;
+  height: 400px;
 }
  .game-thumbnail {
    border: 7px solid white;
@@ -17,7 +18,11 @@
   width: 48%;
   height: auto;
   background-color: #EA9087;
+  padding: 0 15px;
+  min-height: 200px;
 }
+
+
 
  @media (max-width: 500px) {
    .game-card {
