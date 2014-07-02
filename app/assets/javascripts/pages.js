@@ -36,11 +36,11 @@ var areaIcon = L.Icon.Label.extend({
 
 var placeIcon = L.Icon.Label.extend({
                 options: {
-                  iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+                  iconUrl: 'http://09f1be2b4e79305414d1-e02ea5f9f7cbf68a786b2624900f7447.r95.cf4.rackcdn.com/icons20140522/Do_generic_yellow_m.png',
                   shadowUrl: null,
-                  iconSize: new L.Point(43, 26),
+                  iconSize: new L.Point(30, 26),
                   iconAnchor: new L.Point(0, 0),
-                  labelAnchor: new L.Point(47, 0),
+                  labelAnchor: new L.Point(34, 0),
                   wrapperAnchor: new L.Point(21, 13),
                   labelClassName: 'place-icon-label'
                 }
@@ -121,7 +121,7 @@ var addMarkersClickEvent = function() {
       if (hasPlaces) {
         var lat = e.latlng.lat;
         var lng = e.latlng.lng;
-        map.setView([lat, lng], 7);
+        map.setView([lat, lng], 11);
       } else if (markerID !== lastLoaded) {
           $('.area-content').empty();
           $.ajax({
