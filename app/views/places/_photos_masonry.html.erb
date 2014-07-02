@@ -7,8 +7,8 @@
       </div>
       <div class="about-wrapper">
         <div class="about-hero">
-          <% if @video %>
-            <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          <% if @hero_video %>
+            <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
           <% else %>
             <% unless @place.photos.empty? %>
               <img class="hero-photo" src="<%= @place.photos.first.path_url(:large) %>" />
@@ -24,6 +24,21 @@
       </div>
     </div>
     <div class="vertical-space"></div>
+
+    <%  unless @videos.empty? %>
+      <div class="item video photo-label">
+        <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
+        <h3>Videos</h3>
+      </div>
+      <% @videos.each do |video| %>
+        <div class="item video photo-card">
+          <div class="photo-container">
+            <iframe class="video video-player" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1&player_id=player1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
     <% unless @place.photos.empty? %>
       <div class="item photo photo-label">
         <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
@@ -39,18 +54,32 @@
             </div>
           </div>
       <% end %>
-      <% unless @place.games.empty? %>
-        <div class="item game photo-label">
-          <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
-          <h3>Games</h3>
-        </div>
-        <% @place.games.each do |game| %>
-          <div class="item game photo-card">
-            <img class="game-thumbnail" src="http://placehold.it/328x249" />
-            <iframe class="fun-fact game-card" src="<%= game.url %>"></iframe>
-          </div>
-        <% end %>
+    <% end %>
+
+    <% unless @place.games.empty? %>
+      <div class="item game photo-label">
+        <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
+        <h3>Games</h3>
       </div>
+      <% @place.games.each do |game| %>
+        <div class="item game photo-card">
+          <img class="game-thumbnail" src="http://placehold.it/328x249" />
+          <iframe class="fun-fact game-card" src="<%= game.url %>"></iframe>
+        </div>
       <% end %>
-  <% end %>
+    <% end %>
+
+    <% unless @place.discounts.empty? %>
+      <div class="item special photo-label">
+        <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
+        <h3>Discounts</h3>
+      </div>
+      <% @place.discounts.each do |discount| %>
+        <div class="item special discount-card photo-card">
+          <p><%= raw discount.description %></p>
+        </div>
+      <% end %>
+    <% end %>
+
+  </div>
 </div>

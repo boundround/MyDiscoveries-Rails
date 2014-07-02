@@ -8,6 +8,17 @@
    height: auto;
  }
 
+.video-player {
+    width: 100%;
+}
+
+.discount-card {
+  border: 7px solid white;
+  width: 48%;
+  height: auto;
+  background-color: #EA9087;
+}
+
  @media (max-width: 500px) {
    .game-card {
      min-width: 110%;
