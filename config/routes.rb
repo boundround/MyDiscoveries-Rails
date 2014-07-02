@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :areas do
     resources :photos
+    resources :videos
     collection { post :import }
   end
 
@@ -21,6 +22,8 @@ Rails.application.routes.draw do
 
   resources :places do
     resources :photos
+    resources :videos
+    resources :discounts
     collection { post :import }
   end
 

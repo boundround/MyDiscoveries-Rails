@@ -44,6 +44,9 @@ class PlacesController < ApplicationController
     @photoable = @place
     @photos = @photoable.photos
     @photo = Photo.new
+    @discountable = @place
+    @discounts = @discountable.discounts
+    @discount = Discount.new 
   end
 
   def update

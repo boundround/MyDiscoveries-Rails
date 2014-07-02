@@ -43,10 +43,10 @@
       </div>
     </div>
     <%= render partial:'photos_masonry' %>
+    <% if current_user.try(:admin?) %>
+      <p><%= link_to 'Edit Area', edit_area_path %></p>
+    <% end %>
   </div>
-  <% if current_user.try(:admin?) %>
-    <p><%= link_to 'Edit Area', edit_area_path %></p>
-  <% end %>
 </div>
 
 

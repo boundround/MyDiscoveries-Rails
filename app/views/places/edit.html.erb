@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <%= simple_form_for @place, html: { role: 'form'} do |f| %>
+    <%= simple_form_for @place, html: { role: 'form'} do |f| %>
     <div id="photos-masonry">
       <div class="grid-sizer"></div>
       <div class="item about">
@@ -41,8 +41,27 @@
           <%= f.button :submit, 'Update Place' %>
         </div>
       <% end %>
-      </div>
+    </div>
+
       <div class="vertical-space"></div>
+
+      <% unless @place.videos.empty? %>
+        <% @place.videos.each do |video| %>
+          <%= simple_form_for [@place, video] do |f| %>
+            <div class="">
+              <div class="photo-container">
+                <iframe class="video video-player" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1&player_id=player1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <div class="form-group">
+                  <%= f.input :vimeo_id, input_html: { class: 'form-control'} %>
+                  <%= f.input :priority, collection: 1..10 %>
+                  <%= f.button :submit %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+
       <% unless @place.photos.empty? %>
         <% @place.photos.each_with_index do |photo, index| %>
           <%= simple_form_for [@place, photo] do |f| %>
@@ -55,6 +74,7 @@
                 <div class="form-group">
                   <%= f.input :fun_fact, input_html: { class: 'form-control'} %>
                   <%= f.input :credit, input_html: { class: 'form-control' } %>
+                  <%= f.input :priority, collection: 1..10 %>
                   <%= f.button :submit %>
                 </div>
               </div>
@@ -62,9 +82,27 @@
           <% end %>
         <% end %>
       </div>
+    <% end %>
+
+    <% unless @place.discounts.empty? %>
+      <% @place.discounts.each do |discount| %>
+        <%= simple_form_for [@place, discount] do |f| %>
+          <div class="item special discount-card photo-card">
+            <div class="form-group">
+              <p><%= f.input :description, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'} %></p>
+              <%= f.button :submit %>
+            </div>
+          </div>
+        <% end %>
       <% end %>
-      <div class="edit_photo">
-        <%= render "/photos/form" %>
-      </div>
+    <% end %>
+
+    <div class="edit_photo">
+      <%= render "/photos/form" %>
+    </div>
+    <div class="edit_photo">
+      <%= render "/discounts/form" %>
+    </div>
+
   </div>
 </div>
