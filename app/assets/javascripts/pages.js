@@ -1,4 +1,4 @@
-map = L.mapbox.map('map', 'oztexan.map-m8oepi17', {
+map = L.mapbox.map('map', 'oztexan.ik2lcloh', {
     // these options apply to the tile layer in the map
     tileLayer: {
         // this map option disables world wrapping. by default, it is false.
