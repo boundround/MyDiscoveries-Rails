@@ -3,7 +3,6 @@
   min-width: 130%;
   margin-left: -16%;
   height: 400px;
-  border: 7px solid white;
 }
 
 .game-card {
@@ -33,6 +32,10 @@
   background-color: #EA9087;
   padding: 40px 15px 0px 15px;
   min-height: 200px;
+}
+
+.priority {
+  display: none;
 }
 
 

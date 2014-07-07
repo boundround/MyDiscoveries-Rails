@@ -221,14 +221,21 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       itemSelector: '.item ',
       masonry: {
         columnWidth: $container.find('.grid-sizer')[0]
-      }
+      },
+      getSortData: {
+        priority: '.priority'
+      },
+      sortBy: ['priority', 'original-order']
     });
 
     $container.on( 'click', '.photo-card', function() {
-      //close expanded photo card
+      //close expanded cards
+      $(this).siblings('.game-card').find('.game-divider').empty();
+      $(this).siblings('.photo-card-expanded').find('.icon').toggle();
       $(this).siblings('.photo-card-expanded').toggleClass('photo-card-expanded')
         .find('.fun-fact').toggle();
-      $(this).siblings('.photo-card-expanded').find('.icon').toggle();
+      $(this).siblings('.game-card-expanded').toggleClass('game-card-expanded')
+      .find('.game-thumbnail').toggle();
 
 
       //expand clicked photo card
@@ -241,17 +248,11 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     $container.on( 'click', '.game-card', function() {
 
       var gameURL = $(this).find('.game-data').data('url');
-      //close expanded game card
-      $(this).siblings('.game-card-expanded').toggleClass('game-card-expanded')
-      .find('.game-thumbnail').toggle();
-      $(this).siblings('.game-card-expanded').find('.icon').toggle();
-      $(this).siblings('.game-card').find('.game-divider').empty();
 
       //expand clicked game card
       $(this).find('.game-thumbnail').toggle();
       $(this).toggleClass('game-card-expanded');
       $(this).find('.game-divider').append('<iframe class="game-frame" src="' + gameURL + '" ></iframe>');
-      $(this).find('.icon').toggle();
       $container.isotope({ layoutMode : 'masonry' });
     });
 
