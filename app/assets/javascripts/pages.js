@@ -226,26 +226,32 @@ $('#areaModal').on('shown.bs.modal', function (e) {
 
     $container.on( 'click', '.photo-card', function() {
       //close expanded photo card
-      $( this ).siblings('.photo-card-expanded').toggleClass('photo-card-expanded')
+      $(this).siblings('.photo-card-expanded').toggleClass('photo-card-expanded')
         .find('.fun-fact').toggle();
+      $(this).siblings('.photo-card-expanded').find('.icon').toggle();
+
 
       //expand clicked photo card
       $(this).find('.fun-fact').toggle();
-      $( this ).toggleClass('photo-card-expanded');
+      $(this).toggleClass('photo-card-expanded');
+      $(this).find('.icon').toggle();
       $container.isotope({ layoutMode : 'masonry' });
     });
 
     $container.on( 'click', '.game-card', function() {
-      //close expanded game card
-      $( this ).siblings('.game-card-expanded').toggleClass('game-card-expanded')
-      .find('.game-thumbnail').toggle();
 
-      $( this ).siblings('.game-card').find('.game-divider').empty();
+      var gameURL = $(this).find('.game-data').data('url');
+      //close expanded game card
+      $(this).siblings('.game-card-expanded').toggleClass('game-card-expanded')
+      .find('.game-thumbnail').toggle();
+      $(this).siblings('.game-card-expanded').find('.icon').toggle();
+      $(this).siblings('.game-card').find('.game-divider').empty();
 
       //expand clicked game card
       $(this).find('.game-thumbnail').toggle();
-      $( this ).toggleClass('game-card-expanded');
-      $(this).find('.game-divider').append('<iframe class="game-frame" src="http://09f1be2b4e79305414d1-e02ea5f9f7cbf68a786b2624900f7447.r95.cf4.rackcdn.com/games/Jigsaw/fiji.html"></iframe>');
+      $(this).toggleClass('game-card-expanded');
+      $(this).find('.game-divider').append('<iframe class="game-frame" src="' + gameURL + '" ></iframe>');
+      $(this).find('.icon').toggle();
       $container.isotope({ layoutMode : 'masonry' });
     });
 
@@ -304,7 +310,7 @@ $('#showAreaModal').on('shown.bs.modal', function (e) {
       $(this).find('.game-divider').append('<iframe class="game-frame" src="http://09f1be2b4e79305414d1-e02ea5f9f7cbf68a786b2624900f7447.r95.cf4.rackcdn.com/games/Jigsaw/fiji.html"></iframe>');
       $container.isotope({ layoutMode : 'masonry' });
     });
-    
+
   });
 
   $('#menu').on( 'click', 'a', function() {
