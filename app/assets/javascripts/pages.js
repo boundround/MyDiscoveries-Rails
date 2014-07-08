@@ -19,6 +19,12 @@ if (window.initialCenter.lat) {
 
 L.control.zoomslider().addTo(map);
 
+map.on('zoomend', function() {
+    if (map.getZoom() < 7){
+      $('#svgdiv').show("medium");
+    };
+});
+
 window.markers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 markers.addTo(map);
 
@@ -50,8 +56,8 @@ var placeIcon = L.Icon.Label.extend({
 var createMarkerArray = function(geoJSON, markerType) {
   var markerArray = [];   
 
-  for (var i = 0; i < geoJSON.length; i++) {
-    var location = geoJSON[i];
+  for (var i = 0; i < geoJSON.features.length; i++) {
+    var location = geoJSON.features[i];
 
     var icon = {
       area: function() {return new areaIcon({ labelText: location.properties.title,

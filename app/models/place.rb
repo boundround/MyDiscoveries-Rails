@@ -13,12 +13,11 @@ class Place < ActiveRecord::Base
 
 
   def Place.all_geojson
-    geojson = Array.new
+    geojson = {"type" => "FeatureCollection","features" => []}
 
     places = Place.all
-
     places.each do |place|
-      geojson << {
+      geojson['features'] << {
         type: 'Feature',
         geometry: {
           type: 'Point',
