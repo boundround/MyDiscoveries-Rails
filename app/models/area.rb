@@ -14,12 +14,11 @@ class Area < ActiveRecord::Base
   validates :description, length: {maximum: 500}
 
   def Area.all_geojson
-    geojson = Array.new
+    geojson = {"type" => "FeatureCollection","features" => []}
 
     areas = Area.all
-
     areas.each do |area|
-      geojson << {
+      geojson['features'] << {
         type: 'Feature',
         geometry: {
           type: 'Point',

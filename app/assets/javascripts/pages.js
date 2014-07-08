@@ -1,4 +1,4 @@
-map = L.mapbox.map('map', 'oztexan.map-m8oepi17', {
+map = L.mapbox.map('map', 'oztexan.ik2lcloh', {
     // these options apply to the tile layer in the map
     tileLayer: {
         // this map option disables world wrapping. by default, it is false.
@@ -18,6 +18,12 @@ if (window.initialCenter.lat) {
 };
 
 L.control.zoomslider().addTo(map);
+
+map.on('zoomend', function() {
+    if (map.getZoom() < 7){
+      $('#svgdiv').show("medium");
+    };
+});
 
 window.markers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 markers.addTo(map);
@@ -50,8 +56,8 @@ var placeIcon = L.Icon.Label.extend({
 var createMarkerArray = function(geoJSON, markerType) {
   var markerArray = [];   
 
-  for (var i = 0; i < geoJSON.length; i++) {
-    var location = geoJSON[i];
+  for (var i = 0; i < geoJSON.features.length; i++) {
+    var location = geoJSON.features[i];
 
     var icon = {
       area: function() {return new areaIcon({ labelText: location.properties.title,

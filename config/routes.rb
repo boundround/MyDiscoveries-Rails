@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
+  get '/globe' => 'pages#globe'
+
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
   end
