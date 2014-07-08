@@ -28,11 +28,14 @@
 
 .discount-card {
   border: 7px solid white;
-  width: 48%;
   height: auto;
   background-color: #EA9087;
-  padding: 0 15px;
+  padding: 40px 15px 0px 15px;
   min-height: 200px;
+}
+
+.priority {
+  display: none;
 }
 
 

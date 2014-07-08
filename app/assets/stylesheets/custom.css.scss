@@ -71,9 +71,14 @@ carousel-control {
   border: none;
 }
 
-.icon {
+.icon-wrapper {
   float: left;
   margin-right: 5px;
+  position: absolute;
+}
+
+.icon {
+  width: 65%;
 }
 
 .vertical-space {

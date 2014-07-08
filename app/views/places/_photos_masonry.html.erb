@@ -9,9 +9,11 @@
         <div class="about-hero">
           <% if @hero_video %>
             <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <div class="priority">-1</div>
           <% else %>
             <% unless @place.photos.empty? %>
               <img class="hero-photo" src="<%= @place.photos.first.path_url(:large) %>" />
+              <div class="priority">-1</div>
             <% end %>
           <% end %>
         </div>
@@ -26,13 +28,11 @@
     <div class="vertical-space"></div>
 
     <%  unless @videos.empty? %>
-      <div class="item video photo-label">
-        <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
-        <h3>Videos</h3>
-      </div>
       <% @videos.each do |video| %>
         <div class="item video photo-card">
           <div class="video-player">
+            <div class="icon-wrapper"><%= image_tag(asset_path('washingmachine.png'), class: 'icon') %></div>
+            <div class="priority"><%= video.priority ? video.priority : 2 %></div>
             <iframe class="video place-photo" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1&player_id=player1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
           </div>
         </div>
@@ -40,13 +40,11 @@
     <% end %>
 
     <% unless @place.photos.empty? %>
-      <div class="item photo photo-label">
-        <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
-        <h3>Photos</h3>
-      </div>
       <% @place.photos.each_with_index do |photo, index| %>
           <div class="item photo photo-card">
             <div class="photo-container">
+              <div class="icon-wrapper"><%= image_tag(asset_path('washingmachine.png'), class: 'icon') %></div>
+              <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
               <img class="place-photo" src="<%= photo.path_url(:large) %>" />
               <div id="fun-fact-<%= index %>" class="fun-fact">
                 <p><%= raw photo.fun_fact %></p>
@@ -57,26 +55,27 @@
     <% end %>
 
     <% unless @place.games.empty? %>
-      <div class="item game photo-label">
-        <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
-        <h3>Games</h3>
-      </div>
       <% @place.games.each do |game| %>
-        <div class="item game game-card">
-          <div class="game-divider"></div>
+        <div class="item game game-card photo-card">
+          <div class="icon-wrapper"><%= image_tag(asset_path('washingmachine.png'), class: 'icon') %></div>
+          <div class="priority"><%= game.priority ? game.priority : 2 %></div>
+          <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
+          <% end %>
+          <div class="game-divider">
+          </div>
           <img class="game-thumbnail" src="http://placehold.it/328x249" />
         </div>
       <% end %>
     <% end %>
 
     <% unless @place.discounts.empty? %>
-      <div class="item special photo-label">
-        <div class="icon"><%= image_tag asset_path 'washingmachine.png' %></div>
-        <h3>Discounts</h3>
-      </div>
       <% @place.discounts.each do |discount| %>
-        <div class="item special discount-card photo-card">
-          <p><%= raw discount.description %></p>
+        <div class="item special photo-card">
+          <div class="icon-wrapper"><%= image_tag(asset_path('washingmachine.png'), class: 'icon') %></div>
+          <div class="priority"><%= discount.priority ? discount.priority : 2 %></div>
+          <div class="discount-card">
+            <p><%= raw discount.description %></p>
+          </div>
         </div>
       <% end %>
     <% end %>
