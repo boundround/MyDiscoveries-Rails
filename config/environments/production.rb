@@ -61,15 +61,15 @@ Rails.application.configure do
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
 
-  config.action_mailer.default_url_options = { :host => 'blooming-earth-8066.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'heroku.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :user_name            => ENV["EMAIL_ACCOUNT"],
-    :password             => ENV["EMAIL_PASSWORD"],
-    :authentication       => "plain",
-    :enable_starttls_auto => true
+    :address   => "smtp.mandrillapp.com",
+    :port      => '587', # ports 587 and 2525 are also supported with STARTTLS
+    :enable_starttls_auto => true, # detects and uses STARTTLS
+    :user_name => ENV["MANDRILL_USERNAME"],
+    :password  => ENV["MANDRILL_APIKEY"], # SMTP password is any valid API key
+    :authentication => 'plain', # Mandrill supports 'plain' or 'login'
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
