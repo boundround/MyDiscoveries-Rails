@@ -235,19 +235,19 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     });
 
     $container.on( 'click', '.photo-card', function() {
-      //close expanded cards
+      //close other expanded cards
       $(this).siblings('.game-card').find('.game-divider').empty();
-      $(this).siblings('.photo-card-expanded').find('.icon').toggle();
-      $(this).siblings('.photo-card-expanded').toggleClass('photo-card-expanded')
-        .find('.fun-fact').toggle();
-      $(this).siblings('.game-card-expanded').toggleClass('game-card-expanded')
-      .find('.game-thumbnail').toggle();
+      $(this).siblings('.photo-card-expanded').find('.icon').hide();
+      $(this).siblings('.photo-card-expanded').removeClass('photo-card-expanded')
+        .find('.fun-fact').hide();
+      $(this).siblings('.game-card-expanded').removeClass('game-card-expanded')
+        .find('.game-thumbnail').show();
 
 
       //expand clicked photo card
       $(this).find('.fun-fact').show();
       $(this).addClass('photo-card-expanded');
-      $(this).find('.icon').toggle();
+      $(this).find('.icon').show();
       $container.isotope({ layoutMode : 'masonry' });
     });
 
@@ -256,8 +256,8 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       var gameURL = $(this).find('.game-data').data('url');
 
       //expand clicked game card
-      $(this).find('.game-thumbnail').toggle();
-      $(this).toggleClass('game-card-expanded');
+      $(this).find('.game-thumbnail').hide();
+      $(this).addClass('game-card-expanded');
       $(this).find('.game-divider').append('<iframe class="game-frame" src="' + gameURL + '" ></iframe>');
       $container.isotope({ layoutMode : 'masonry' });
     });
