@@ -27,9 +27,9 @@ class Place < ActiveRecord::Base
           "title"=> place.display_name,
           "id" => place.id,
           "icon" => {
-            "iconUrl" => 'https://ae0fbee68772d543f2c5-e02ea5f9f7cbf68a786b2624900f7447.ssl.cf4.rackcdn.com/icons20140522/Do_generic_yellow_m.png',
+            "iconUrl" => "http://905b36b589a2b874c91c-45f6b5af0793f525f377b3a35890f483.r83.cf4.rackcdn.com/vector_icons/" + (place.map_icon || "ghost_m.svg"),
             # size of the icon
-            "iconSize" => [43, 26],
+            "iconSize" => [45, 45],
             # point of the icon which will correspond to marker location
             "iconAnchor" => [20, 0]
           }
