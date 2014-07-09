@@ -18,5 +18,12 @@
     <%= file_field_tag :file %>
     <%= submit_tag "Import" %>
   <% end %>
+  <br />
+  <br />
+  <h3>Import Games From Excel</h3>
+  <%= form_tag import_games_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
 
 <% end %>
