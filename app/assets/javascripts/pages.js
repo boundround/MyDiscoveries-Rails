@@ -66,7 +66,8 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               + location.properties.id
                                               });},
       place: function() {return new placeIcon({ labelText: location.properties.title,
-                                              labelClassName: 'place-icon-label ' + location.properties.id
+                                              labelClassName: 'place-icon-label ' + location.properties.id,
+                                              iconUrl: location.properties.icon.iconUrl 
                                               });}
     }
 
