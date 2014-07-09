@@ -51,29 +51,44 @@
               <img class="place-photo" src="<%= photo.path_url(:large) %>" />
               <div id="fun-fact-<%= index %>" class="fun-fact">
                 <p><%= raw photo.fun_fact %></p>
-                <div class="post-card-form">
-                  <h3>Send A Postcard!</h3>
-                  <%= form_tag(send_postcard_path) do %>
-                      <div class="form-group">
-                          <%= label_tag 'name', 'Name' %>
-                          <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Name' %>
+                <a href="#" data-toggle="modal" data-target="#postCardModal">
+                  <img class="postcard-icon" src="<%= asset_path ('postcard_icon-01.svg') %>"/>
+                </a>
+                <!-- Modal -->
+                <div class="modal post-modal fade" id="postCardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog postcard-dialog">
+                    <div class="modal-content postcard-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="postCardModal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Send A Postcard!</h4>
                       </div>
-                     <div class="form-group">
-                         <%= label_tag 'email', 'Send To' %>
-                         <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Email Address' %>
-                     </div>
-                     <div class="form-group">
-                         <%= label_tag 'message', 'Message' %>
-                         <%= text_area_tag 'message', nil, class: 'form-control', rows: 4 %>
-                         <%= hidden_field_tag 'photo', photo.path_url(:medium) %>
-                         <%= hidden_field_tag 'place', @place.display_name %>
-                         <%= hidden_field_tag 'area', @place.area.display_name %>
-                         <%= hidden_field_tag 'country', @place.area.country %>
-                     </div>
-                     <div class="form-group">
-                     <%= submit_tag 'Send', class: 'btn btn-default btn-about' %>
-                   </div>
-                  <% end %>
+                      <div class="modal-body">
+                        <div class="post-card-form">
+                          <%= form_tag(send_postcard_path) do %>
+                              <div class="form-group">
+                                  <%= label_tag 'name', 'Name' %>
+                                  <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Name' %>
+                              </div>
+                             <div class="form-group">
+                                 <%= label_tag 'email', 'Send To' %>
+                                 <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Email Address' %>
+                             </div>
+                             <div class="form-group">
+                                 <%= label_tag 'message', 'Message' %>
+                                 <%= text_area_tag 'message', nil, class: 'form-control', rows: 4 %>
+                                 <%= hidden_field_tag 'photo', photo.path_url(:medium) %>
+                                 <%= hidden_field_tag 'place', @place.display_name %>
+                                 <%= hidden_field_tag 'area', @place.area.display_name %>
+                                 <%= hidden_field_tag 'country', @place.area.country %>
+                             </div>
+                             <div class="form-group">
+                               <%= submit_tag 'Send', class: 'btn btn-default btn-about' %>
+                             </div>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
