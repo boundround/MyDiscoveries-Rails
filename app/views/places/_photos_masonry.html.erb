@@ -29,11 +29,14 @@
 
     <%  unless @videos.empty? %>
       <% @videos.each do |video| %>
-        <div class="item video photo-card">
-          <div class="video-player">
+        <div class="item video video-card photo-card">
+          <div class="video-wrapper">
             <div class="icon-wrapper"><%= image_tag(asset_path('washingmachine.png'), class: 'icon') %></div>
             <div class="priority"><%= video.priority ? video.priority : 2 %></div>
-            <iframe class="video place-photo" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1&player_id=player1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
+            <% end %>
+            <div class="game-divider"></div>
+            <img class="game-thumbnail" src="http://i.vimeocdn.com/video/481448060_640.jpg"/>
           </div>
         </div>
       <% end %>

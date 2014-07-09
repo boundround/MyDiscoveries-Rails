@@ -22,8 +22,13 @@
    height: auto;
  }
 
-.video-player {
-    width: 100%;
+.video-wrapper {
+  width: 100%;
+}
+
+.video-thumbnail {
+  width: 100%;
+  border: 7px solid white;
 }
 
 .discount-card {

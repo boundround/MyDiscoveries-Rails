@@ -67,7 +67,7 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               });},
       place: function() {return new placeIcon({ labelText: location.properties.title,
                                               labelClassName: 'place-icon-label ' + location.properties.id,
-                                              iconUrl: location.properties.icon.iconUrl 
+                                              iconUrl: location.properties.icon.iconUrl
                                               });}
     }
 
@@ -238,6 +238,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     $container.on( 'click', '.photo-card', function() {
       //close other expanded cards
       $(this).siblings('.game-card').find('.game-divider').empty();
+      $(this).siblings('.video-card').find('.game-divider').empty();
       $(this).siblings('.photo-card-expanded').find('.icon').hide();
       $(this).siblings('.photo-card-expanded').removeClass('photo-card-expanded')
         .find('.fun-fact').hide();
@@ -260,6 +261,17 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       $(this).find('.game-thumbnail').hide();
       $(this).addClass('game-card-expanded');
       $(this).find('.game-divider').append('<iframe class="game-frame" src="' + gameURL + '" ></iframe>');
+      $container.isotope({ layoutMode : 'masonry' });
+    });
+
+    $container.on( 'click', '.video-card', function() {
+
+      var vimeoId = $(this).find('.video-data').data('video-id');
+
+      //expand clicked game card
+      $(this).find('.game-thumbnail').hide();
+      $(this).addClass('game-card-expanded');
+      $(this).find('.game-divider').append('<iframe src=\"//player.vimeo.com/video/' + vimeoId + '\" width=\"640\" height=\"360\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
       $container.isotope({ layoutMode : 'masonry' });
     });
 
