@@ -15,6 +15,7 @@
 
 .game-frame {
   width: 100%;
+  border: 7px solid white;
 }
  .game-thumbnail {
    border: 7px solid white;
@@ -22,8 +23,19 @@
    height: auto;
  }
 
-.video-player {
-    width: 100%;
+.video-wrapper {
+  width: 100%;
+}
+
+.video-thumbnail {
+  width: 100%;
+  border: 7px solid white;
+}
+
+.vimeo-frame {
+  width: 100%;
+  min-height: 360px;
+  border: 7px solid white;
 }
 
 .discount-card {

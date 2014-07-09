@@ -44,8 +44,7 @@ class AreasController < ApplicationController
   def edit
 
     @area = Area.friendly.find(params[:id])
-    @photoable = @area
-    @photos = @photoable.photos
+    @photos = @area.photos
     @photo = Photo.new
 
   end
