@@ -274,7 +274,7 @@ function sizeContent() {
 						self.setLocation(d.geometry.coordinates[1],d.geometry.coordinates[0],joe[1] );
 					}
 					else
-						self.onMarkerTouch(d['properties'][self.placefieldid]);
+						self.onMarkerTouch(d['properties'][self.placefieldid], d.geometry.coordinates, d.properties.places);
 				}
 			}
 
@@ -893,9 +893,9 @@ function sizeContent() {
 			textsize: 12,
 			iconsize: 64,
 			patternsize: 128,
-			landjson: "assets/world-110m-36-topo/world-110m-36-land.json",
+			landjson: "assets/js/world-110m-36-topo/world-110m-36-land.json",
 //			countriesjson: "world-110m-36-topo/world-110m-36-countries.json",
-			countriesjson: "assets/world-110m-36-topo/world-110m-36-countries.json",
+			countriesjson: "assets/js/world-110m-36-topo/world-110m-36-countries.json",
 			countryfieldname: "name",
 			placesjson: "/areas.json",
 //			placesjson: "oneplace.json",
@@ -904,43 +904,49 @@ function sizeContent() {
 			includecountries: false,
 			includelabels: true,
       onMovementEnd: function(loc){
-        console.log(loc[1], loc[0])
-        map.setView([loc[1], loc[0]], 6)
+        map.setView([loc[1], loc[0]])
       },
   		onMaxZoom: function(){
         $('#svgdiv').hide("medium");
       },
-			onMarkerTouch: function(id){
-        $.ajax({
-          url: '/areas/' + id + ".html",
-          success: function(data) {
-            $('.area-content').html(data);
+			onMarkerTouch: function(id, latlng, hasPlaces){
+				if (hasPlaces) {
+					map.setView([latlng[1], latlng[0]], 7);
+					$('#svgdiv').hide("medium");
+				} else {
+					$('.area-content').empty();
+	        $.ajax({
+	          url: '/areas/' + id + ".html",
+	          success: function(data) {
+	            $('.area-content').html(data);
 
-            //Vimeo api code
-            var iframe = $('.hero-video')[0];
-            player = $f(iframe);
+	            //Vimeo api code
+	            var iframe = $('.hero-video')[0];
+	            player = $f(iframe);
 
-            // When the player is ready, add listeners for pause, finish, and playProgress
-            player.addEvent('ready', function() {
-            });
+	            // When the player is ready, add listeners for pause, finish, and playProgress
+	            player.addEvent('ready', function() {
+	            });
 
-            // Call the API when a button is pressed
-            $('#dropdownMenu1').bind('click', function() {
-                player.api('pause');
-            });
+	            // Call the API when a button is pressed
+	            $('#dropdownMenu1').bind('click', function() {
+	                player.api('pause');
+	            });
 
 
-            //Stop  area video on modal close
-            $('#areaModal').on('hidden.bs.modal', function (e) {
-              player.api('pause');
-            });
-          }
-        });
-        window.lastLoaded = id;
-        $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
-      },
+	            //Stop  area video on modal close
+	            $('#areaModal').on('hidden.bs.modal', function (e) {
+	              player.api('pause');
+	            });
+	          }
+	        });
+	        window.lastLoaded = id;
+	        $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+      	}
+			},
 			onCountryTouch: function(id){alert("You pressed country id = "+id);}
 	}
+
 	options.tileimage = "<%= image_url('green-tile128.png') %>"
 
 	brglobe.configureGlobe(options);
