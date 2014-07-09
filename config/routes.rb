@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'videos/import'
+
+  get 'games/import'
+
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
 
   resources :areas do
@@ -30,6 +34,14 @@ Rails.application.routes.draw do
   end
 
   resources :photos do
+    collection { post :import }
+  end
+
+  resources :videos do
+    collection { post :import }
+  end
+
+  resources :games do
     collection { post :import }
   end
 

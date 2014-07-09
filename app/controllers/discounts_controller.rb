@@ -36,6 +36,11 @@ class DiscountsController < ApplicationController
   def destroy
   end
 
+  def import
+    Discount.import(params[:file])
+    redirect_to :back, notice: "Discounts imported."
+  end
+
   private
 
     def discount_params

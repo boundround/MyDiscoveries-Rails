@@ -41,11 +41,9 @@ class PlacesController < ApplicationController
   def edit
     @place = Place.friendly.find(params[:id])
     @areas = Area.all
-    @photoable = @place
-    @photos = @photoable.photos
+    @photos = @place.photos
     @photo = Photo.new
-    @discountable = @place
-    @discounts = @discountable.discounts
+    @discounts = @place.discounts
     @discount = Discount.new
   end
 
