@@ -67,7 +67,7 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               });},
       place: function() {return new placeIcon({ labelText: location.properties.title,
                                               labelClassName: 'place-icon-label ' + location.properties.id,
-                                              iconUrl: location.properties.icon.iconUrl 
+                                              iconUrl: location.properties.icon.iconUrl
                                               });}
     }
 
@@ -261,6 +261,10 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       $(this).addClass('game-card-expanded');
       $(this).find('.game-divider').append('<iframe class="game-frame" src="' + gameURL + '" ></iframe>');
       $container.isotope({ layoutMode : 'masonry' });
+    });
+
+    $('.close').on('click', function () {
+      $(this).closest('#postCardModal').hide();
     });
 
   });

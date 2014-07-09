@@ -64,11 +64,11 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'heroku.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address   => "smtp.gmail.com",
+    :address   => "smtp.mandrillapp.com",
     :port      => 587, # ports 587 and 2525 are also supported with STARTTLS
     :enable_starttls_auto => true, # detects and uses STARTTLS
     :user_name => ENV["MANDRILL_USERNAME"],
-    :password  => ENV["EMAIL_PASSWORD"], # SMTP password is any valid API key
+    :password  => ENV["MANDRILL_APIKEY"], # SMTP password is any valid API key
     :authentication => 'plain', # Mandrill supports 'plain' or 'login'
   }
 
