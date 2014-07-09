@@ -239,7 +239,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       //close other expanded cards
       $(this).siblings('.game-card').find('.game-divider').empty();
       $(this).siblings('.video-card').find('.game-divider').empty();
-      $(this).siblings('.photo-card-expanded').find('.icon').hide();
+      $(this).siblings('.photo-card-expanded').find('.icon').show();
       $(this).siblings('.photo-card-expanded').removeClass('photo-card-expanded')
         .find('.fun-fact').hide();
       $(this).siblings('.game-card-expanded').removeClass('game-card-expanded')
@@ -249,7 +249,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       //expand clicked photo card
       $(this).find('.fun-fact').show();
       $(this).addClass('photo-card-expanded');
-      $(this).find('.icon').show();
+      $(this).find('.icon').hide();
       $container.isotope({ layoutMode : 'masonry' });
     });
 
@@ -271,7 +271,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       //expand clicked game card
       $(this).find('.game-thumbnail').hide();
       $(this).addClass('game-card-expanded');
-      $(this).find('.game-divider').append('<iframe src=\"//player.vimeo.com/video/' + vimeoId + '\" width=\"640\" height=\"360\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+      $(this).find('.game-divider').append('<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
       $container.isotope({ layoutMode : 'masonry' });
     });
 
