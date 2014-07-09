@@ -245,8 +245,8 @@ $('#areaModal').on('shown.bs.modal', function (e) {
 
 
       //expand clicked photo card
-      $(this).find('.fun-fact').toggle();
-      $(this).toggleClass('photo-card-expanded');
+      $(this).find('.fun-fact').show();
+      $(this).addClass('photo-card-expanded');
       $(this).find('.icon').toggle();
       $container.isotope({ layoutMode : 'masonry' });
     });
