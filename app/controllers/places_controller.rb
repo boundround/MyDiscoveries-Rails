@@ -46,7 +46,7 @@ class PlacesController < ApplicationController
     @photo = Photo.new
     @discountable = @place
     @discounts = @discountable.discounts
-    @discount = Discount.new 
+    @discount = Discount.new
   end
 
   def update
@@ -63,6 +63,18 @@ class PlacesController < ApplicationController
   def import
     Place.import(params[:file])
     redirect_to places_path, notice: "Places imported."
+  end
+
+  def send_postcard
+    name = params[:name]
+    email = params[:email]
+    message = params[:message]
+    photo = params[:photo]
+    place = params[:place]
+    area = params[:area]
+    country = params[:country]
+    Share.postcard(name, email, message, photo, place, area, country).deliver
+    redirect_to :back, notice: 'Postcard sent'
   end
 
   private

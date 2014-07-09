@@ -1,0 +1,58 @@
+<style>
+  .postcard {
+    border: 1px solid black;
+    padding: 8px;
+    width: 500px;
+  }
+
+  .post-card-wrapper {
+    font-family: Signika, sans-serif;
+  }
+
+  .area {
+    font-size: 2em;
+    display: inline-block;
+    float: left;
+    padding-top: 2%;
+  }
+
+  .br-logo {
+    text-align: right;
+    font-size: 1.5em;
+    float: right;
+    display:inline-block;
+  }
+
+  .clear:after {
+    content: " ";
+     visibility: hidden;
+     display: block;
+     height: 0;
+     clear: both;
+  }
+
+  .info-wrapper {
+    margin-top: 10px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+</style>
+
+<link href='http://fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
+
+
+<div class="post-card-wrapper">
+	<h3>Postcard from <%= @name %></h3>
+	<p><%= @message %></p>
+	<div class="postcard">
+		<img src="<%= @photo %>">
+    <div class="info-wrapper">
+  		<div class="area"><%= @place + ', ' + @area + ', ' + @country %></h2></div>
+      <div class="br-logo"><a href="http://boundround.com">Bound<br />Round</a></div>
+      <div class="clear"></div>
+    </div>
+	</div>
+</div>

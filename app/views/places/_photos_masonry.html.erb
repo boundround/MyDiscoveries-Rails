@@ -48,6 +48,30 @@
               <img class="place-photo" src="<%= photo.path_url(:large) %>" />
               <div id="fun-fact-<%= index %>" class="fun-fact">
                 <p><%= raw photo.fun_fact %></p>
+                <div class="post-card-form">
+                  <h3>Send A Postcard!</h3>
+                  <%= form_tag(send_postcard_path) do %>
+                      <div class="form-group">
+                          <%= label_tag 'name', 'Name' %>
+                          <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Name' %>
+                      </div>
+                     <div class="form-group">
+                         <%= label_tag 'email', 'Send To' %>
+                         <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Email Address' %>
+                     </div>
+                     <div class="form-group">
+                         <%= label_tag 'message', 'Message' %>
+                         <%= text_area_tag 'message', nil, class: 'form-control', rows: 4 %>
+                         <%= hidden_field_tag 'photo', photo.path_url(:medium) %>
+                         <%= hidden_field_tag 'place', @place.display_name %>
+                         <%= hidden_field_tag 'area', @place.area.display_name %>
+                         <%= hidden_field_tag 'country', @place.area.country %>
+                     </div>
+                     <div class="form-group">
+                     <%= submit_tag 'Send', class: 'btn btn-default btn-about' %>
+                   </div>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
