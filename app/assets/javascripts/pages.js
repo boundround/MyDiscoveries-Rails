@@ -270,17 +270,18 @@ $('#areaModal').on('shown.bs.modal', function (e) {
 
     $('.close').on('click', function () {
       $(this).closest('#postCardModal').hide();
-
-      $container.on( 'click', '.video-card', function() {
-
-        var vimeoId = $(this).find('.video-data').data('video-id');
-        //expand clicked game card
-        $(this).find('.game-thumbnail').hide();
-        $(this).addClass('game-card-expanded');
-        $(this).find('.game-divider').append('<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
-        $container.isotope({ layoutMode : 'masonry' });
-      });
     });
+
+    $container.on( 'click', '.video-card', function() {
+
+      var vimeoId = $(this).find('.video-data').data('video-id');
+      //expand clicked game card
+      $(this).find('.game-thumbnail').hide();
+      $(this).addClass('game-card-expanded');
+      $(this).find('.game-divider').append('<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
+      $container.isotope({ layoutMode : 'masonry' });
+    });
+    
   });
 
   $('#menu').on( 'click', 'a', function() {
