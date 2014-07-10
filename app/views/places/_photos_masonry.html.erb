@@ -36,7 +36,7 @@
             <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
             <% end %>
             <div class="game-divider"></div>
-            <img class="game-thumbnail" src="http://i.vimeocdn.com/video/481448060_640.jpg"/>
+            <img class="game-thumbnail" src="<%= asset_path('video-thumb.png') %>"/>
           </div>
         </div>
       <% end %>
@@ -105,7 +105,7 @@
           <% end %>
           <div class="game-divider">
           </div>
-          <img class="game-thumbnail" src="http://placehold.it/328x249" />
+          <img class="game-thumbnail" src="<%= asset_path('game-thumb.png') %>" />
         </div>
       <% end %>
     <% end %>
