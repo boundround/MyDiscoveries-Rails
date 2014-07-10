@@ -269,7 +269,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
 
 
     $('.close').on('click', function () {
-      $(this).closest('#postCardModal').hide();
+      $(this).closest('.modal').hide();
     });
 
     $container.on( 'click', '.video-card', function() {
@@ -281,7 +281,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       $(this).find('.game-divider').append('<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
       $container.isotope({ layoutMode : 'masonry' });
     });
-    
+
   });
 
   $('#menu').on( 'click', 'a', function() {

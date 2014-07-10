@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
 
   # uncomment after Excel upload
-  # before_filter :load_photoable
+  before_filter :load_photoable
 
   def index
     @photos = @photoable.photos

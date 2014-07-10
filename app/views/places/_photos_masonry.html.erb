@@ -51,11 +51,11 @@
               <img class="place-photo" src="<%= photo.path_url(:large) %>" />
               <div id="fun-fact-<%= index %>" class="fun-fact">
                 <p><%= raw photo.fun_fact %></p>
-                <a href="#" data-toggle="modal" data-target="#postCardModal">
+                <a href="#" data-toggle="modal" data-target="#postCardModal-<%= index %>">
                   <img class="postcard-icon" src="<%= asset_path ('postcard_icon-01.svg') %>"/>
                 </a>
                 <!-- Modal -->
-                <div class="modal post-modal fade" id="postCardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal post-modal fade" id="postCardModal-<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog postcard-dialog">
                     <div class="modal-content postcard-content">
                       <div class="modal-header">
