@@ -10,8 +10,7 @@ class Area < ActiveRecord::Base
   accepts_nested_attributes_for :photos
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
-  validates :short_intro, length: {maximum: 90}
-  validates :description, length: {maximum: 500}
+  
 
   def Area.all_geojson
     geojson = {"type" => "FeatureCollection","features" => []}
