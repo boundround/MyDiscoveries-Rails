@@ -21,10 +21,7 @@ L.control.zoomslider().addTo(map);
 
 map.on('zoomend', function() {
     if (map.getZoom() < 4){
-      console.log('Going to show Globe '+ map.getZoom());
       $('#svgdiv').show("medium");
-      console.log('Showed Globe');
-
     };
 });
 
