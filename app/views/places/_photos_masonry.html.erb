@@ -66,12 +66,12 @@
                         <div class="post-card-form">
                           <%= form_tag(send_postcard_path) do %>
                               <div class="form-group">
-                                  <%= label_tag 'name', 'Name' %>
-                                  <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Name' %>
+                                  <%= label_tag 'name', 'Your Email Address' %>
+                                  <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Email Address' %>
                               </div>
                              <div class="form-group">
-                                 <%= label_tag 'email', 'Send To' %>
-                                 <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Email Address' %>
+                                 <%= label_tag 'email', 'Send To: Email Address' %>
+                                 <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Recipient Email Address' %>
                              </div>
                              <div class="form-group">
                                  <%= label_tag 'message', 'Message' %>
