@@ -74,7 +74,9 @@ var createMarkerArray = function(geoJSON, markerType) {
     // Only create marker if it has lat and long
     if (location.geometry.coordinates[1] && location.geometry.coordinates[0]) {
       var marker = L.marker(new L.LatLng(location.geometry.coordinates[1], location.geometry.coordinates[0]),
-          {icon: icon[markerType]() }
+          {icon: icon[markerType](),
+           riseOnHover: true,
+           riseOffset: 500}
       );
       markerArray.push(marker);
     };
@@ -281,7 +283,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       $(this).find('.game-divider').append('<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
       $container.isotope({ layoutMode : 'masonry' });
     });
-    
+
   });
 
   $('#menu').on( 'click', 'a', function() {
