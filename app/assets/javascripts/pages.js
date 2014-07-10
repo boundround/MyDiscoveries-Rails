@@ -271,7 +271,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
 
 
     $('.close').on('click', function () {
-      $(this).closest('#postCardModal').hide();
+      $(this).closest('.modal').hide();
     });
 
     $container.on( 'click', '.video-card', function() {

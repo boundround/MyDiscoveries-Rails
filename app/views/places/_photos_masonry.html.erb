@@ -51,11 +51,11 @@
               <img class="place-photo" src="<%= photo.path_url(:large) %>" />
               <div id="fun-fact-<%= index %>" class="fun-fact">
                 <p><%= raw photo.fun_fact %></p>
-                <a href="#" data-toggle="modal" data-target="#postCardModal">
+                <a href="#" data-toggle="modal" data-target="#postCardModal-<%= index %>">
                   <img class="postcard-icon" src="<%= asset_path ('postcard_icon-01.svg') %>"/>
                 </a>
                 <!-- Modal -->
-                <div class="modal post-modal fade" id="postCardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal post-modal fade" id="postCardModal-<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog postcard-dialog">
                     <div class="modal-content postcard-content">
                       <div class="modal-header">
@@ -66,12 +66,12 @@
                         <div class="post-card-form">
                           <%= form_tag(send_postcard_path) do %>
                               <div class="form-group">
-                                  <%= label_tag 'name', 'Name' %>
-                                  <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Name' %>
+                                  <%= label_tag 'name', 'Your Email Address' %>
+                                  <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Email Address' %>
                               </div>
                              <div class="form-group">
-                                 <%= label_tag 'email', 'Send To' %>
-                                 <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Email Address' %>
+                                 <%= label_tag 'email', 'Send To: Email Address' %>
+                                 <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Recipient Email Address' %>
                              </div>
                              <div class="form-group">
                                  <%= label_tag 'message', 'Message' %>
