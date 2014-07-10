@@ -37,6 +37,8 @@ gem 'omniauth-facebook'
 
 gem 'mandrill-api'
 
+gem 'rails_admin'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
