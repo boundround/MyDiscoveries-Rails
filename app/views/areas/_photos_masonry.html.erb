@@ -28,7 +28,7 @@
       <% @area.photos.each_with_index do |photo, index| %>
         <div class="item photo photo-card">
           <div class="photo-container">
-            <div class="icon-wrapper"><%= image_tag(asset_path('washingmachine.png'), class: 'icon') %></div>
+            <div class="icon-wrapper"><%= image_tag(asset_path('photo_icon-01.svg'), class: 'icon') %></div>
             <img class="place-photo" src="<%= photo.path_url(:large) %>" />
             <div id="fun-fact-<%= index %>" class="fun-fact">
               <p><%= raw photo.fun_fact %></p>

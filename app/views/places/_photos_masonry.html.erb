@@ -31,7 +31,7 @@
       <% @videos.each do |video| %>
         <div class="item video video-card photo-card">
           <div class="video-wrapper">
-            <div class="icon-wrapper"><%= image_tag(asset_path('washingmachine.png'), class: 'icon') %></div>
+            <div class="icon-wrapper"><%= image_tag(asset_path('video_icon-01.svg'), class: 'icon') %></div>
             <div class="priority"><%= video.priority ? video.priority : 2 %></div>
             <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
             <% end %>
@@ -46,7 +46,7 @@
       <% @place.photos.each_with_index do |photo, index| %>
           <div class="item photo photo-card">
             <div class="photo-container">
-              <div class="icon-wrapper"><%= image_tag(asset_path('washingmachine.png'), class: 'icon') %></div>
+              <div class="icon-wrapper"><%= image_tag(asset_path('photo_icon-01.svg'), class: 'icon') %></div>
               <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
               <img class="place-photo" src="<%= photo.path_url(:large) %>" />
               <div id="fun-fact-<%= index %>" class="fun-fact">
@@ -99,7 +99,7 @@
     <% unless @place.games.empty? %>
       <% @place.games.each do |game| %>
         <div class="item game game-card photo-card">
-          <div class="icon-wrapper"><%= image_tag(asset_path('washingmachine.png'), class: 'icon') %></div>
+          <div class="icon-wrapper"><%= image_tag(asset_path('game_icon-01.svg'), class: 'icon') %></div>
           <div class="priority"><%= game.priority ? game.priority : 2 %></div>
           <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
           <% end %>
