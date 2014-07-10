@@ -20,8 +20,11 @@ if (window.initialCenter.lat) {
 L.control.zoomslider().addTo(map);
 
 map.on('zoomend', function() {
-    if (map.getZoom() < 7){
+    if (map.getZoom() < 4){
+      console.log('Going to show Globe '+ map.getZoom());
       $('#svgdiv').show("medium");
+      console.log('Showed Globe');
+
     };
 });
 
@@ -67,7 +70,7 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               });},
       place: function() {return new placeIcon({ labelText: location.properties.title,
                                               labelClassName: 'place-icon-label ' + location.properties.id,
-                                              iconUrl: location.properties.icon.iconUrl 
+                                              iconUrl: location.properties.icon.iconUrl
                                               });}
     }
 
