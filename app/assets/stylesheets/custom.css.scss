@@ -225,9 +225,15 @@ carousel-control {
 .banner {
   margin-top: 20px;
   margin-right: -48px;
+  width: 380px;
   position: relative;
   display: inline-block;
 }
+
+.title-wrapper {
+height: 150px;
+}
+
 
 .banner-wrapper {
   text-align: center;
@@ -237,6 +243,9 @@ carousel-control {
   position: absolute;
   top: -15px;
   width: 100%;
+  padding: 0% 10% 2% 10%;
+	background: url(/assets/title_banner-01_resizeable.svg);
+	background-size: 100% 100%;
 }
 
 .dude {
@@ -264,6 +273,7 @@ carousel-control {
 
   #photos-masonry {
     width: 75%;
+/*	margin: 25% auto;*/
   }
 }
 
@@ -271,10 +281,11 @@ carousel-control {
 
   #photos-masonry {
     width: 100%;
+/*	margin: 12% auto;*/
   }
 
   .banner-wrapper {
-    width: 90%;
+    width: 85%;
   }
 
   .banner {
@@ -283,6 +294,11 @@ carousel-control {
 
   .blue-banner {
     width: inherit;
+    height: 100%;
+  }
+
+  .title-wrapper {
+	height: 70px;
   }
 
   .title {
