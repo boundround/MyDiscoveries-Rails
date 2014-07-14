@@ -18,4 +18,4 @@
 //= require iconlabel
 //= require area
 //= require pages
-//= require photos
+//= require cards
