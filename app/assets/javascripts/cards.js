@@ -18,9 +18,9 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       //close other expanded cards
       $(this).siblings('.game-card').find('.game-divider').empty();
       $(this).siblings('.video-card').find('.game-divider').empty();
-      $(this).siblings('.photo-card-expanded').find('.icon').show();
+      $(this).siblings('.photo-card').find('.game-divider').empty();
       $(this).siblings('.photo-card-expanded').removeClass('photo-card-expanded')
-        .find('.fun-fact').hide();
+        .find('.fun-fact').hide().end().find('.game-thumbnail').show();
       $(this).siblings('.game-card-expanded').removeClass('game-card-expanded')
         .find('.game-thumbnail').show();
 
@@ -28,7 +28,6 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       //expand clicked photo card
       $(this).find('.fun-fact').show();
       $(this).addClass('photo-card-expanded');
-      $(this).find('.icon').hide();
       $container.isotope({ layoutMode : 'masonry' });
     });
 
@@ -53,6 +52,18 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       //expand clicked game card
       $(this).find('.game-thumbnail').hide();
       $(this).addClass('game-card-expanded');
+      $(divider).empty();
+      $(this).find('.game-divider').append(content);
+      $container.isotope({ layoutMode : 'masonry' });
+    });
+
+    $('.photo-thumb').on('click', function() {
+      var photoUrl = $(this).find('.photo-data').data('photo-url');
+      var content = '<img src=' + photoUrl + ' class="photo-frame">';
+      var divider = $(this).find('.game-divider');
+      // remove photo thumbnail and populate expanded divider with large image
+      $(this).find('.game-thumbnail').hide();
+      $(this).addClass('photo-card-expanded');
       $(divider).empty();
       $(this).find('.game-divider').append(content);
       $container.isotope({ layoutMode : 'masonry' });
