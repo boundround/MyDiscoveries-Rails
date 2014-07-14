@@ -26,9 +26,12 @@
     <div class="vertical-space"></div>
     <% unless @area.photos.empty? %>
     <% @area.photos.each_with_index do |photo, index| %>
-        <div class="item photo photo-card">
+        <div class="item photo photo-card photo-thumb">
           <div class="photo-container">
-            <div class="icon-wrapper"><%= image_tag(asset_path('photo_icon-01.svg'), class: 'icon') %></div>
+            <%= content_tag "div", class: "photo-data", data: {photo_url: photo.path_url(:large)} do %>
+            <% end %>
+            <div class="game-divider"></div>
+            <img class="game-thumbnail" src="<%= photo.path_url(:small) %>"/>
             <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
             <img class="place-photo" src="<%= photo.path_url(:large) %>" />
             <div id="fun-fact-<%= index %>" class="fun-fact">
