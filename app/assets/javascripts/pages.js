@@ -44,9 +44,9 @@ var placeIcon = L.Icon.Label.extend({
                 options: {
                   iconUrl: 'http://09f1be2b4e79305414d1-e02ea5f9f7cbf68a786b2624900f7447.r95.cf4.rackcdn.com/icons20140522/Do_generic_yellow_m.png',
                   shadowUrl: null,
-                  iconSize: new L.Point(80, 80),
+                  iconSize: new L.Point(55, 55),
                   iconAnchor: new L.Point(0, 0),
-                  labelAnchor: new L.Point(0, 80),
+                  labelAnchor: new L.Point(0, 55),
                   wrapperAnchor: new L.Point(0, 0),
                   labelClassName: 'place-icon-label'
                 }
