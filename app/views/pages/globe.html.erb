@@ -68,33 +68,27 @@ margin:0px;
 }
 
 #zoomminus{
-	background-image:asset_path("zoomminus.png", image);
 	position:absolute;
-	background-repeat:no-repeat;
-	background-size: 100% 100%;
-	top:47px;
+	top:28px;
 	left:0px;
-	width:45px;
-	height:45px;
+	width:28px;
+	height:28px;
 }
 #zoomminus :hover, #zoomminus:focus, #zoomminus:active {
-left: 2px;
-top: 49px;
+left: 1px;
+/*top: 0;*/
 }
 
 #zoomplus{
-	background-image:asset_path("zoomplus.png", image);
-	background-repeat:no-repeat;
-	background-size: 100% 100%;
 	position:absolute;
 	top:0px;
 	left:0px;
-	width:45px;
-	height:45px;
+	width:28px;
+	height:28px;
 }
 #zoomplus :hover, #zoomplus:focus, #zoomplus:active {
-left: 2px;
-top: 2px;
+left: 1px;
+/*top: 2px;*/
 }
 
 #zoomcontrol{
@@ -131,8 +125,8 @@ top: 2px;
 
 <div id="svgdiv">
 <div id="zoomcontrol">
-	<div id="zoomplus"></div>
-	<div id="zoomminus"></div>
+	<div id="zoomplus"><%=image_tag("zoomplus.png")%></div>
+	<div id="zoomminus"><%=image_tag("zoomminus.png")%></div>
 </div>
 </div>
 
