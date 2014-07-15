@@ -7,7 +7,10 @@ class Video < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
     row = Hash[[header, spreadsheet.row(i)].transpose]
-    Video.create!(row.to_h)
+    v = Video.new(row.to_h)
+    response = Unirest.get "http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + v.vimeo_id.to_s
+    v.vimeo_thumbnail = response.body["thumbnail_url"]
+    v.save
     end
   end
 

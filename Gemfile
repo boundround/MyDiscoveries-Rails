@@ -39,6 +39,8 @@ gem 'mandrill-api'
 
 gem 'rails_admin'
 
+gem 'unirest'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 

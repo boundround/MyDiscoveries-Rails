@@ -34,7 +34,7 @@
             <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
             <% end %>
             <div class="game-divider"></div>
-            <img class="game-thumbnail" src="<%= asset_path('video-thumb.png') %>"/>
+            <img class="game-thumbnail video-play-icon" src="<%= video.vimeo_thumbnail %>"/>
           </div>
         </div>
       <% end %>
