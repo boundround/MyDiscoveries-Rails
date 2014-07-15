@@ -1,5 +1,5 @@
 $('#areaModal').on('shown.bs.modal', function (e) {
-  var $container = $('#photos-masonry').imagesLoaded( function() {
+  var $container = $('#photos-masonry').imagesLoaded(function() {
     $container.isotope({
       layoutMode: 'masonry',
       itemSelector: '.item ',
@@ -11,66 +11,65 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       },
       sortBy: ['priority', 'original-order']
     });
+  });
 
-    $container.imagesLoaded(function () {
-      $container.isotope({ layoutMode : 'masonry' });
-    });
+  $container.imagesLoaded(function () {
+    $container.isotope({ layoutMode : 'masonry' });
+  });
 
-    $('.photo-card').on( 'click', function() {
-      //close other expanded cards
-      $(this).siblings('.game-card').find('.game-divider').empty();
-      $(this).siblings('.video-card').find('.game-divider').empty();
-      $(this).siblings('.photo-card').find('.game-divider').empty();
-      $(this).siblings('.photo-card-expanded').removeClass('photo-card-expanded')
-        .find('.fun-fact').hide().end().find('.game-thumbnail').show();
-      $(this).siblings('.game-card-expanded').removeClass('game-card-expanded')
-        .find('.game-thumbnail').show();
+  $('.photo-card').on( 'click', function() {
+    //close other expanded cards
+    $(this).siblings('.game-card').find('.game-divider').empty();
+    $(this).siblings('.video-card').find('.game-divider').empty();
+    $(this).siblings('.photo-card').find('.game-divider').empty();
+    $(this).siblings('.photo-card-expanded').removeClass('photo-card-expanded')
+      .find('.fun-fact').hide().end().find('.game-thumbnail').show();
+    $(this).siblings('.game-card-expanded').removeClass('game-card-expanded')
+      .find('.game-thumbnail').show();
 
 
-      //expand clicked photo card
-      $(this).find('.fun-fact').show();
-      $(this).addClass('photo-card-expanded');
-      $container.isotope({ layoutMode : 'masonry' });
-    });
+    //expand clicked photo card
+    $(this).find('.fun-fact').show();
+    $(this).addClass('photo-card-expanded');
+    $container.isotope({ layoutMode : 'masonry' });
+  });
 
-    $('.game-card').on( 'click', function() {
+  $('.game-card').on( 'click', function() {
 
-      var gameURL = $(this).find('.game-data').data('url');
-      var content = '<iframe class="game-frame" src="' + gameURL + '" ></iframe>'
-      var divider = $(this).find('.game-divider');
-      //expand clicked game card
-      $(this).find('.game-thumbnail').hide();
-      $(divider).empty();
-      $(divider).append(content);
-      $(this).addClass('game-card-expanded');
-      $container.isotope({ layoutMode : 'masonry' });
-    });
+    var gameURL = $(this).find('.game-data').data('url');
+    var content = '<iframe class="game-frame" src="' + gameURL + '" ></iframe>';
+    var divider = $(this).find('.game-divider');
+    //expand clicked game card
+    $(this).find('.game-thumbnail').hide();
+    $(divider).empty();
+    $(divider).append(content);
+    $(this).addClass('game-card-expanded');
+    $container.isotope({ layoutMode : 'masonry' });
+  });
 
-    $('.video-card').on( 'click', function() {
+  $('.video-card').on( 'click', function() {
 
-      var vimeoId = $(this).find('.video-data').data('video-id');
-      var content = '<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
-      var divider = $(this).find('.game-divider');
-      //expand clicked game card
-      $(this).find('.game-thumbnail').hide();
-      $(this).addClass('game-card-expanded');
-      $(divider).empty();
-      $(this).find('.game-divider').append(content);
-      $container.isotope({ layoutMode : 'masonry' });
-    });
+    var vimeoId = $(this).find('.video-data').data('video-id');
+    var content = '<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+    var divider = $(this).find('.game-divider');
+    //expand clicked game card
+    $(this).find('.game-thumbnail').hide();
+    $(this).addClass('game-card-expanded');
+    $(divider).empty();
+    $(this).find('.game-divider').append(content);
+    $container.isotope({ layoutMode : 'masonry' });
+  });
 
-    $('.photo-thumb').on('click', function() {
-      var photoUrl = $(this).find('.photo-data').data('photo-url');
-      var content = '<img src=' + photoUrl + ' class="photo-frame">';
-      var divider = $(this).find('.game-divider');
-      // remove photo thumbnail and populate expanded divider with large image
-      $(this).find('.game-thumbnail').hide();
-      $(this).addClass('photo-card-expanded');
-      $(divider).empty();
-      $(this).find('.game-divider').append(content);
-      $container.isotope({ layoutMode : 'masonry' });
-    });
-
+  $('.photo-thumb').on('click', function() {
+    var photoUrl = $(this).find('.photo-data').data('photo-url');
+    var content = '<img src=' + photoUrl + ' class="photo-frame">';
+    var divider = $(this).find('.game-divider');
+    // remove photo thumbnail and populate expanded divider with large image
+    $(this).find('.game-thumbnail').hide();
+    $(this).addClass('photo-card-expanded');
+    $(divider).empty();
+    $(this).find('.game-divider').append(content);
+    $container.isotope({ layoutMode : 'masonry' });
   });
 
   $('#menu').on( 'click', 'a', function() {
@@ -90,8 +89,12 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     $container.isotope({ filter: '' });
     var hash = this.id;
     history.pushState('', document.title, window.location.pathname);
-  });
-})
+  });  
+
+});
+
+
+
 // $('#showAreaModal').modal('show');
 //
 // $('#showAreaModal').on('shown.bs.modal', function (e) {
