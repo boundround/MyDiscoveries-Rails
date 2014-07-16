@@ -31,7 +31,9 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     //expand clicked photo card
     $(this).find('.fun-fact').show();
     $(this).addClass('photo-card-expanded');
-    $container.isotope({ layoutMode : 'masonry' });
+    $container.imagesLoaded(function () {
+      $container.isotope({ layoutMode : 'masonry' });
+    });
   });
 
   $('.game-card').on( 'click', function() {
@@ -44,7 +46,9 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     $(divider).empty();
     $(divider).append(content);
     $(this).addClass('game-card-expanded');
-    $container.isotope({ layoutMode : 'masonry' });
+    $container.imagesLoaded(function () {
+      $container.isotope({ layoutMode : 'masonry' });
+    });
   });
 
   $('.video-card').on( 'click', function() {
@@ -57,7 +61,9 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     $(this).addClass('game-card-expanded');
     $(divider).empty();
     $(this).find('.game-divider').append(content);
-    $container.isotope({ layoutMode : 'masonry' });
+    $container.imagesLoaded(function () {
+      $container.isotope({ layoutMode : 'masonry' });
+    });
   });
 
   $('.photo-thumb').on('click', function() {
@@ -69,7 +75,9 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     $(this).addClass('photo-card-expanded');
     $(divider).empty();
     $(this).find('.game-divider').append(content);
-    $container.isotope({ layoutMode : 'masonry' });
+    $container.imagesLoaded(function () {
+      $container.isotope({ layoutMode : 'masonry' });
+    });
   });
 
   $('#menu').on( 'click', 'a', function() {
@@ -89,7 +97,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     $container.isotope({ filter: '' });
     var hash = this.id;
     history.pushState('', document.title, window.location.pathname);
-  });  
+  });
 
 });
 
