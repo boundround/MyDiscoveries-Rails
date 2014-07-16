@@ -13,11 +13,11 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     });
   });
 
-  $(document).ready(function() {
+  window.onload = function() {
     $container.imagesLoaded(function () {
       $container.isotope({ layoutMode : 'masonry' });
     });
-  });
+  };
 
   $('.photo-card').on( 'click', function() {
     //close other expanded cards
