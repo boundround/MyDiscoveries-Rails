@@ -13,7 +13,7 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.friendly.find(params[:id])
-    @videos = @place.videos.order(:priority)
+    @videos = @place.videos.where.not(priority: 1)
     @hero_video = @place.videos.find_by(priority: 1)
     @request_xhr = request.xhr?
 
