@@ -13,8 +13,10 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     });
   });
 
-  $container.imagesLoaded(function () {
-    $container.isotope({ layoutMode : 'masonry' });
+  $(document).ready(function() {
+    $container.imagesLoaded(function () {
+      $container.isotope({ layoutMode : 'masonry' });
+    });
   });
 
   $('.photo-card').on( 'click', function() {
@@ -29,8 +31,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
 
 
     //expand clicked photo card
-    $(this).find('.fun-fact').show();
-    $(this).addClass('photo-card-expanded');
+
     $container.imagesLoaded(function () {
       $container.isotope({ layoutMode : 'masonry' });
     });
@@ -73,6 +74,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     // remove photo thumbnail and populate expanded divider with large image
     $(this).find('.game-thumbnail').hide();
     $(this).addClass('photo-card-expanded');
+    $(this).find('.fun-fact').show();
     $(divider).empty();
     $(this).find('.game-divider').append(content);
     $container.imagesLoaded(function () {
