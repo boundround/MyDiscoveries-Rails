@@ -12,14 +12,16 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       sortBy: ['priority', 'original-order']
     });
 
-    $container.imagesLoaded(function () {
-      $container.isotope({ layoutMode : 'masonry' });
-    });
+    window.onload = function() {
+      $container.imagesLoaded(function () {
+        $container.isotope({ layoutMode : 'masonry' });
+      });
+    };
 
   });
 
+  // Close expanded cards
   $('.photo-card').on( 'click', function() {
-    //close other expanded cards
     $(this).siblings('.game-card').find('.game-divider').empty();
     $(this).siblings('.video-card').find('.game-divider').empty();
     $(this).siblings('.photo-card').find('.game-divider').empty();
@@ -28,16 +30,13 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     $(this).siblings('.game-card-expanded').removeClass('game-card-expanded')
       .find('.game-thumbnail').show();
 
-
-    //expand clicked photo card
-
     $container.imagesLoaded(function () {
       $container.isotope({ layoutMode : 'masonry' });
     });
   });
 
+  // Expand Game Card
   $('.game-card').on( 'click', function() {
-
     var gameURL = $(this).find('.game-data').data('url');
     var content = '<iframe class="game-frame" src="' + gameURL + '" ></iframe>';
     var divider = $(this).find('.game-divider');
@@ -51,6 +50,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     });
   });
 
+  // Expand Video Card
   $('.video-card').on( 'click', function() {
 
     var vimeoId = $(this).find('.video-data').data('video-id');
@@ -66,6 +66,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     });
   });
 
+  // Expand Photo Card
   $('.photo-thumb').on('click', function() {
     var photoUrl = $(this).find('.photo-data').data('photo-url');
     var content = '<img src=' + photoUrl + ' class="photo-frame">';
