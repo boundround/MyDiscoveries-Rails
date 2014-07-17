@@ -104,7 +104,13 @@
           <% end %>
           <div class="game-divider">
           </div>
-          <img class="game-thumbnail" src="<%= asset_path('game-thumb.png') %>" />
+          <% if game.game_type == 'jigsaw puzzle' %>
+            <img class="game-thumbnail" src="<%= asset_path('jigsaw_thumb.png') %>" />
+          <% elsif game.game_type == 'slider' %>
+            <img class="game-thumbnail" src="<%= asset_path('slider_thumb.png') %>" />
+          <% else %>
+            <img class="game-thumbnail" src="<%= asset_path('word_search_thumb.png') %>" />
+          <% end %>
         </div>
       <% end %>
     <% end %>
