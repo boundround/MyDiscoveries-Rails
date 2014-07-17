@@ -8,8 +8,8 @@ map = L.mapbox.map('map', 'oztexan.ik2lcloh', {
       },
       zoomControl: false,
       maxBounds: [[85,-250],[-85,250]],
-      minZoom: 2,
-      maxZoom: 15
+      minZoom: 3,
+      maxZoom: 17
     });
 
 window.initialCenter = $('.modal-content').data();
@@ -25,8 +25,10 @@ map.on('zoomend', function() {
     };
 });
 
-window.markers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
-markers.addTo(map);
+window.placeMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
+placeMarkers.addTo(map);
+window.areaMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
+areaMarkers.addTo(map);
 
 var areaIcon = L.Icon.Label.extend({
                 options: {
@@ -93,8 +95,8 @@ $.ajax({
     window.areasGeoJSON = data;
     var areasArray = createMarkerArray(data, 'area');
 
-    markers.addLayers(areasArray);
-    addMarkersClickEvent();
+    areaMarkers.addLayers(areasArray);
+    addMarkersClickEvent(areaMarkers);
 
     //Get all places and add to map
     $.ajax({
@@ -102,11 +104,11 @@ $.ajax({
       success: function(data) {
         window.placesGeoJSON = data;
         var placesArray = createMarkerArray(data, 'place');
-        addMarkersClickEvent();
+        addMarkersClickEvent(placeMarkers);
 
         //switch between areas and places
         map.on('zoomend', function() {
-            map.getZoom() < 7 ? markers.removeLayers(placesArray) : markers.addLayers(placesArray);
+            map.getZoom() < 7 ? placeMarkers.removeLayers(placesArray) : placeMarkers.addLayers(placesArray);
         });
       }
     });
@@ -120,7 +122,7 @@ $.ajax({
 var lastLoaded = 0
 
 // Launch modals on clicks
-var addMarkersClickEvent = function() {
+var addMarkersClickEvent = function(markers) {
   markers.on('click', function(e) {
     var markerProps = e.layer.options.icon.options.labelClassName.split(" ");
     var markerType = '';
