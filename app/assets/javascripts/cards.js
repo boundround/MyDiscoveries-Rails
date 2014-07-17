@@ -43,7 +43,9 @@ window.onload = function() {
       $(divider).empty();
       $(divider).append(content);
       $(this).addClass('game-card-expanded');
-      $container.isotope({ layoutMode : 'masonry' });
+      $container.imagesLoaded(function () {
+        $container.isotope({ layoutMode : 'masonry' });
+      });
     });
 
     // Expand Video Card
@@ -57,7 +59,9 @@ window.onload = function() {
       $(this).addClass('game-card-expanded');
       $(divider).empty();
       $(this).find('.game-divider').append(content);
-      $container.isotope({ layoutMode : 'masonry' });
+      $container.imagesLoaded(function () {
+        $container.isotope({ layoutMode : 'masonry' });
+      });
     });
 
     // Expand Photo Card
@@ -71,7 +75,9 @@ window.onload = function() {
       $(this).find('.fun-fact').show();
       $(divider).empty();
       $(this).find('.game-divider').append(content);
-      $container.isotope({ layoutMode : 'masonry' });
+      $container.imagesLoaded(function () {
+        $container.isotope({ layoutMode : 'masonry' });
+      });
     });
 
     $('#menu').on( 'click', 'a', function() {
