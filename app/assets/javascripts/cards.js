@@ -12,10 +12,11 @@ window.onload = function() {
         },
         sortBy: ['priority', 'original-order']
       });
+    });
 
-      $container.imagesLoaded(function () {
-        $container.isotope({ layoutMode : 'masonry' });
-      });
+    $container.imagesLoaded(function () {
+      $container.isotope({ layoutMode : 'masonry' });
+    });
 
     });
 
