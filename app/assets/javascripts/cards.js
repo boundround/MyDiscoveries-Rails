@@ -18,8 +18,6 @@ window.onload = function() {
       $container.isotope({ layoutMode : 'masonry' });
     });
 
-    });
-
     // Close expanded cards
     $('.photo-card').on( 'click', function() {
       $(this).siblings('.game-card').find('.game-divider').empty();
