@@ -39,9 +39,9 @@ ActiveRecord::Schema.define(version: 20140717174937) do
     t.datetime "updated_at"
   end
 
-  create_table "categories_places", id: false, force: true do |t|
-    t.integer  "category"
-    t.integer  "place"
+  create_table "categorizations", id: false, force: true do |t|
+    t.integer  "category_id"
+    t.integer  "place_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
