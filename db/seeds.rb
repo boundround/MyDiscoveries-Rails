@@ -21,3 +21,17 @@ p = Photo.create({ title: "LA Skyline", credit: "Donovan Whitworth",
 p["path"] = "LA_Skyline_Mountains.jpg"
 p.save
 
+Area.create({ code: "CUL", identifier: "culvercity",
+              country: "United States of America",
+              display_name: "Culver City",
+              short_intro: "Culver City is coming on up",
+              description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              latitude: 34.02036809829769, longitude: -118.40171813964842,
+              address: "Los Angeles, CA, USA" })
+
+p = Photo.create({ title: "Culver City", credit: "Gilad Salmon",
+                  area_id: 2, fun_fact: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                  sound_sprite: nil})
+
+p["path"] = "Culver_Cuty.jpg"
+p.save
