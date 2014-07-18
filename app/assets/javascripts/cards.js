@@ -1,5 +1,5 @@
 $('#areaModal').on('shown.bs.modal', function (e) {
-  $(document).ready(function() {
+  $('#photos-masonry').imagesLoaded(function() {
 
     var $container = $('#photos-masonry').imagesLoaded(function() {
       $container.isotope({
