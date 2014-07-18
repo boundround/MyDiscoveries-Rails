@@ -25,7 +25,8 @@ $('#areaModal').on('shown.bs.modal', function (e) {
         .find('.fun-fact').hide().end()
         .find('.game-thumbnail').show();
       $(this).siblings('.game-card-expanded').removeClass('game-card-expanded')
-        .find('.game-thumbnail').show();
+        .find('.game-thumbnail').show().end()
+        .find('.fun-fact').hide();
       $container.imagesLoaded(function() {
         $container.isotope({ layoutMode : 'masonry' });
       });
