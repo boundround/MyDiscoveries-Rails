@@ -102,7 +102,9 @@
           <div class="priority"><%= game.priority ? game.priority : 2 %></div>
           <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
           <% end %>
-          <div class="game-divider">
+          <div class="game-divider"></div>
+          <div class="fun-fact">
+            <p><%= raw game.instructions %></p>
           </div>
           <% if game.game_type == 'jigsaw puzzle' %>
             <img class="game-thumbnail" src="<%= asset_path('jigsaw_thumb.png') %>" />

@@ -41,6 +41,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       $(divider).empty();
       $(divider).append(content);
       $(this).addClass('game-card-expanded');
+      $(this).find('.fun-fact').show();
       $container.imagesLoaded(function() {
         $container.isotope({ layoutMode : 'masonry' });
       });
