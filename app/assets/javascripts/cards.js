@@ -81,6 +81,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       });
     });
 
+
     $('#menu').on( 'click', 'a', function() {
       var filterValue = $(this).attr('data-filter');
       $container.isotope({ filter: filterValue });
