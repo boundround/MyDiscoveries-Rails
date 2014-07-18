@@ -1,6 +1,5 @@
-window.onload = function() {
-
-  $('#areaModal').on('shown.bs.modal', function (e) {
+$('#areaModal').on('shown.bs.modal', function (e) {
+  $(document).ready(function() {
 
     var $container = $('#photos-masonry').imagesLoaded(function() {
       $container.isotope({
@@ -100,9 +99,8 @@ window.onload = function() {
       var hash = this.id;
       history.pushState('', document.title, window.location.pathname);
     });
-
   });
-};
+});
 
 // $('#showAreaModal').modal('show');
 //
