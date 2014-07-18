@@ -91,7 +91,7 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       var hash = this.id;
       history.pushState('', document.title, window.location.pathname);
     });
-  }, 300);
+  }, 600);
 });
 
 // $('#showAreaModal').modal('show');
