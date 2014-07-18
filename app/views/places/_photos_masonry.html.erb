@@ -103,9 +103,6 @@
           <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
           <% end %>
           <div class="game-divider"></div>
-          <div class="fun-fact">
-            <p><%= raw game.instructions %></p>
-          </div>
           <% if game.game_type == 'jigsaw puzzle' %>
             <img class="game-thumbnail" src="<%= asset_path('jigsaw_thumb.png') %>" />
           <% elsif game.game_type == 'slider' %>
@@ -113,6 +110,9 @@
           <% else %>
             <img class="game-thumbnail" src="<%= asset_path('word_search_thumb.png') %>" />
           <% end %>
+          <div class="fun-fact">
+            <p><%= raw game.instructions %></p>
+          </div>
         </div>
       <% end %>
     <% end %>
