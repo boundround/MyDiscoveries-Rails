@@ -1,20 +1,7 @@
 window.onload = function() {
-  var $container = $('#photos-masonry').imagesLoaded(function() {
-    $container.isotope({
-      layoutMode: 'masonry',
-      itemSelector: '.item ',
-      masonry: {
-        columnWidth: $('#photos-masonry').find('.grid-sizer')[0]
-      },
-      getSortData: {
-        priority: '.priority'
-      },
-      sortBy: ['priority', 'original-order']
-    });
-  });
 
   $('#areaModal').on('shown.bs.modal', function (e) {
-    
+
     var $container = $('#photos-masonry').imagesLoaded(function() {
       $container.isotope({
         layoutMode: 'masonry',
