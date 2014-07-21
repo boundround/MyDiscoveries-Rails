@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :photos
     resources :videos
     resources :discounts
+    resources :games
     collection { post :import }
   end
 

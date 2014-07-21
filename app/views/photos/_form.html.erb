@@ -1,6 +1,6 @@
 <div class="photo-container">
   <h2>Add New Photo</h2>
-  <%= simple_form_for [@photo] do |f| %>
+  <%= simple_form_for @photo do |f| %>
     <div class="form-group">
       <%= f.input :title, label: "Photo Title", input_html: { class: 'form-control'} %>
     </div>
