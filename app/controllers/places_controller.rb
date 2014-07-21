@@ -15,6 +15,14 @@ class PlacesController < ApplicationController
     @place = Place.friendly.find(params[:id])
     @videos = @place.videos.where.not(priority: 1)
     @hero_video = @place.videos.find_by(priority: 1)
+    if !@place.photos.find_by(priority: 1)
+      @area_hero_video = @place.area.videos.find_by(priority: 1)
+    end
+    if @area_hero_video
+      @area_videos = @place.area.videos.where.not(priority: 1)
+    else
+      @area_videos = @place.area.videos
+    end
     @request_xhr = request.xhr?
 
     respond_to do |format|
