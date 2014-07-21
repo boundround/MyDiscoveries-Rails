@@ -4,6 +4,8 @@ class Place < ActiveRecord::Base
   validates_presence_of :display_name, :slug
 
   belongs_to :area
+  has_many :categorizations
+  has_many :categories, through: :categorizations
   has_many :photos
   has_many :discounts
   has_many :games
