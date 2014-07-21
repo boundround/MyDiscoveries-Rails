@@ -1,13 +1,20 @@
 <h1>All Places</h1>
 <ul>
   <% @places.each do |place| %>
-    <li><%= link_to place.display_name, place %></li>
+    <li><%= link_to place.display_name, edit_place_path(place) %></li>
   <% end %>
 </ul>
 
 <% if current_user.try(:admin) %>
-  <h3>Import Areas From Excel</h3>
+  <h3>Import Places From Excel</h3>
   <%= form_tag import_places_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+  <br />
+  <br />
+  <h3>Import Videos From Excel</h3>
+  <%= form_tag import_videos_path, multipart: true do %>
     <%= file_field_tag :file %>
     <%= submit_tag "Import" %>
   <% end %>
@@ -18,5 +25,11 @@
     <%= file_field_tag :file %>
     <%= submit_tag "Import" %>
   <% end %>
-
+  <br />
+  <br />
+  <h3>Import Games From Excel</h3>
+  <%= form_tag import_games_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
 <% end %>

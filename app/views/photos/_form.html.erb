@@ -1,6 +1,6 @@
 <div class="photo-container">
   <h2>Add New Photo</h2>
-  <%= simple_form_for [@photoable, @photo] do |f| %>
+  <%= simple_form_for [@photo] do |f| %>
     <div class="form-group">
       <%= f.input :title, label: "Photo Title", input_html: { class: 'form-control'} %>
     </div>
@@ -15,6 +15,11 @@
     </div>
     <div class="form-group">
       <p><%= f.input :path, as: :file, label: false%></p>
+      <% if @area %>
+        <%= f.input :area_id, as: :hidden, input_html: {value: @area.id } %>
+      <% elsif @place %>
+        <%= f.input :place_id, as: :hidden, input_html: {value: @place.id } %>
+      <% end %>
     </div>
     <div class="form-group">
       <%= f.button :submit%>

@@ -1,7 +1,7 @@
 <h1>All Areas</h1>
 <ul>
   <% @areas.each do |area| %>
-    <li><%= link_to area.display_name, area %></li>
+    <li><%= link_to area.display_name, edit_area_path(area) %></li>
   <% end %>
 </ul>
 
@@ -15,13 +15,6 @@
   <br />
   <h3>Import Photo URLs From Excel</h3>
   <%= form_tag import_photos_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
-  <br />
-  <br />
-  <h3>Import Games From Excel</h3>
-  <%= form_tag import_games_path, multipart: true do %>
     <%= file_field_tag :file %>
     <%= submit_tag "Import" %>
   <% end %>
