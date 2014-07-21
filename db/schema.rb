@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20140717174937) do
+=======
+ActiveRecord::Schema.define(version: 20140718185553) do
+>>>>>>> staging
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +76,7 @@ ActiveRecord::Schema.define(version: 20140717174937) do
     t.datetime "updated_at"
     t.integer  "priority"
     t.string   "game_type"
+    t.string   "instructions"
   end
 
   add_index "games", ["place_id"], name: "index_games_on_place_id", using: :btree
