@@ -89,6 +89,7 @@
         <%= simple_form_for [@place, discount] do |f| %>
           <div class="item special discount-card photo-card">
             <div class="form-group">
+              <h4>Edit Discount</h4>
               <p><%= f.input :description, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'} %></p>
               <%= f.button :submit %>
             </div>
@@ -97,11 +98,35 @@
       <% end %>
     <% end %>
 
+    <% unless @place.games.empty? %>
+      <% @place.games.each do |game| %>
+        <%= simple_form_for [@place, game] do |f| %>
+          <div class="item special discount-card photo-card">
+            <div class="form-group">
+              <h3>Edit Game</h3>
+              <%= f.input :url, label: "Game URL", input_html: { class: 'form-control' } %>
+              <%= f.input :priority, collection: 1..10 %>
+              <%= f.button :submit %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <div class="edit_photo">
+      <%= render "/videos/form" %>
+    </div>
+
     <div class="edit_photo">
       <%= render "/photos/form" %>
     </div>
+
     <div class="edit_photo">
-      <!-- add discount form goes here -->
+      <%= render "/discounts/form" %>
+    </div>
+
+    <div class="edit_photo">
+      <%= render "/games/form" %>
     </div>
 
   </div>

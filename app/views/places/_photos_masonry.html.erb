@@ -120,7 +120,6 @@
     <% unless @place.discounts.empty? %>
       <% @place.discounts.each do |discount| %>
         <div class="item special photo-card">
-          <div class="icon-wrapper"><%= image_tag(asset_path('washingmachine.png'), class: 'icon') %></div>
           <div class="priority"><%= discount.priority ? discount.priority : 2 %></div>
           <div class="discount-card">
             <p><%= raw discount.description %></p>

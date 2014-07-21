@@ -1,20 +1,17 @@
 class PhotosController < ApplicationController
 
-  # uncomment after Excel upload
-  # before_filter :load_photoable
-
   def index
-    @photos = @photoable.photos
+    @photos = Photo.all
   end
 
   def new
-    @photo = @photoable.photos.new
+    @photo = Photo.new
   end
 
   def create
-    @photo = @photoable.photos.new(photo_params)
+    @photo = Photo.new(photo_params)
     if @photo.save
-      redirect_to @photoable, notice: "Photo added."
+      redirect_to :back, notice: "Photo added."
     else
       render :new
     end
@@ -42,12 +39,7 @@ class PhotosController < ApplicationController
   private
 
     def photo_params
-      params.require(:photo).permit(:title, :path, :credit, :photoable_id, :photoable_type, :fun_fact, :id)
-    end
-
-    def load_photoable
-      resource, id = request.path.split('/')[1,2]
-      @photoable = resource.singularize.classify.constantize.friendly.find(id)
+      params.require(:photo).permit(:title, :path, :credit, :area_id, :place_id, :fun_fact, :id)
     end
 
 end

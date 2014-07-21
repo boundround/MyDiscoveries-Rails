@@ -43,6 +43,8 @@ class PlacesController < ApplicationController
     @areas = Area.all
     @photos = @place.photos
     @photo = Photo.new
+    @games = @place.games
+    @videos = @place.videos
     @discounts = @place.discounts
     @discount = Discount.new
   end

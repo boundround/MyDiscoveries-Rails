@@ -1,0 +1,19 @@
+<div class="photo-container">
+  <h2>Add New Video</h2>
+  <%= simple_form_for Video.new do |f| %>
+    <div class="form-group">
+      <%= f.input :vimeo_id, label: "Enter Vimeo ID", input_html: { class: 'form-control'}  %>
+    </div>
+    <div class="form-group">
+      <%= f.input :priority, label: "Enter Vimeo ID", collection: 1..10, input_html: { class: 'form-control'}  %>
+      <% if @area %>
+        <%= f.input :area_id, as: :hidden, input_html: {value: @area.id } %>
+      <% elsif @place %>
+        <%= f.input :place_id, as: :hidden, input_html: {value: @place.id } %>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= f.button :submit%>
+    </div>
+</div>
+  <% end %>
