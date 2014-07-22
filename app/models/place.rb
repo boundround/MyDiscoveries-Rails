@@ -28,6 +28,7 @@ class Place < ActiveRecord::Base
         properties: {
           "title"=> place.display_name,
           "id" => place.id,
+          "category" => place.categories[0],
           "icon" => {
             "iconUrl" => "http://905b36b589a2b874c91c-45f6b5af0793f525f377b3a35890f483.r83.cf4.rackcdn.com/vector_icons/" + (place.map_icon || "ghost_m.svg"),
             # size of the icon
