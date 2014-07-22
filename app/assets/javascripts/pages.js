@@ -30,6 +30,36 @@ placeMarkers.addTo(map);
 window.areaMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 areaMarkers.addTo(map);
 
+window.placeLayers = {
+  all: [],
+  beach: [],
+  park: [],
+  animals: [],
+  sport: [],
+  museum: [],
+  activity: [],
+  theme_park: [],
+  sights: [],
+  eat: [],
+  stay: [],
+  shopping: [],
+};
+
+window.areaLayers = {
+  havePlaces: [],
+  noPlaces: []
+}
+
+
+$('#menu-ui').on('click', 'a', function(e) {
+  console.log(this);
+  category = $(this).data('category');
+  $(this).siblings().removeClass('active');
+  $(this).addClass('active');
+  placeMarkers.clearLayers();
+  placeMarkers.addLayers(placeLayers[category]);
+});
+
 var areaIcon = L.Icon.Label.extend({
                 options: {
                   iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
@@ -38,7 +68,6 @@ var areaIcon = L.Icon.Label.extend({
                   iconAnchor: new L.Point(0, 0),
                   labelAnchor: new L.Point(47, 0),
                   wrapperAnchor: new L.Point(21, 13),
-
                 }
               });
 
@@ -81,9 +110,19 @@ var createMarkerArray = function(geoJSON, markerType) {
            riseOffset: 500}
       );
       markerArray.push(marker);
+      if (markerType == 'place') {
+        if (location.properties.category) {
+          window.placeLayers[location.properties.category].push(marker);
+        };
+      };
+      if (markerType == 'area') {
+        location.properties.places ? window.areaLayers.havePlaces.push(marker) : window.areaLayers.noPlaces.push(marker);
+      };
     };
   };
-
+  if (markerType == 'place') {
+    window.placeLayers.all = markerArray;
+  }
   return markerArray;
 };
 
@@ -95,7 +134,9 @@ $.ajax({
     window.areasGeoJSON = data;
     var areasArray = createMarkerArray(data, 'area');
 
-    areaMarkers.addLayers(areasArray);
+    areaMarkers.addLayers(window.areaLayers.havePlaces);
+    areaMarkers.addLayers(window.areaLayers.noPlaces);
+
     addMarkersClickEvent(areaMarkers);
 
     //Get all places and add to map
@@ -104,11 +145,26 @@ $.ajax({
       success: function(data) {
         window.placesGeoJSON = data;
         var placesArray = createMarkerArray(data, 'place');
+        placeLayers.animals = placesArray;
         addMarkersClickEvent(placeMarkers);
 
         //switch between areas and places
+        map.on('zoomstart', function() {
+          window.previousZoom = map.getZoom();
+          console.log(previousZoom);
+        });
         map.on('zoomend', function() {
-            map.getZoom() < 7 ? placeMarkers.removeLayers(placesArray) : placeMarkers.addLayers(placesArray);
+            var newZoom = map.getZoom();
+            console.log(newZoom);
+            if (previousZoom >= 7 && newZoom < 7) {
+              placeMarkers.removeLayers(placesArray);
+              areaMarkers.addLayers(window.areaLayers.havePlaces)
+              $('#menu-ui').css("visibility", "hidden");
+            } else if (previousZoom < 7 && newZoom >= 7){
+              areaMarkers.removeLayers(window.areaLayers.havePlaces)
+              placeMarkers.addLayers(placesArray);
+              $('#menu-ui').css("visibility", "visible");
+            };
         });
       }
     });
@@ -124,6 +180,7 @@ var lastLoaded = 0
 // Launch modals on clicks
 var addMarkersClickEvent = function(markers) {
   markers.on('click', function(e) {
+    console.log(e.layer);
     var markerProps = e.layer.options.icon.options.labelClassName.split(" ");
     var markerType = '';
     markerProps.shift().match(/area/) ? markerType = 'area' :  markerType = 'place';
