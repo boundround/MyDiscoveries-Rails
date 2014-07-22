@@ -39,10 +39,10 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       var divider = $(this).find('.game-divider');
       //expand clicked game card
       $(this).find('.game-thumbnail').hide();
-      $(divider).empty();
-      $(divider).append(content);
       $(this).addClass('game-card-expanded');
       $(this).find('.fun-fact').show();
+      $(divider).empty();
+      $(divider).append(content);
       $container.imagesLoaded(function() {
         $container.isotope({ layoutMode : 'masonry' });
       });
