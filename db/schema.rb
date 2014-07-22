@@ -33,14 +33,13 @@ ActiveRecord::Schema.define(version: 20140718185553) do
 
   add_index "areas", ["slug"], name: "index_areas_on_slug", using: :btree
 
-  create_table "categories", id: false, force: true do |t|
+  create_table "categories", force: true do |t|
     t.string   "name"
     t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
   add_index "categories", ["identifier"], name: "index_categories_on_identifier", unique: true, using: :btree
 
   create_table "categorizations", id: false, force: true do |t|
