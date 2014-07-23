@@ -112,6 +112,7 @@ var createMarkerArray = function(geoJSON, markerType) {
       markerArray.push(marker);
       if (markerType == 'place') {
         if (location.properties.category) {
+          console.log(location.properties.category);
           window.placeLayers[location.properties.category].push(marker);
         };
       };
@@ -145,7 +146,6 @@ $.ajax({
       success: function(data) {
         window.placesGeoJSON = data;
         var placesArray = createMarkerArray(data, 'place');
-        placeLayers.animals = placesArray;
         addMarkersClickEvent(placeMarkers);
 
         //switch between areas and places
