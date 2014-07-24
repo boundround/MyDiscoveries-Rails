@@ -69,7 +69,7 @@ margin:0px;
 
 #zoomminus{
 	position:absolute;
-	top:28px;
+	top:148px;
 	left:0px;
 	width:28px;
 	height:28px;
@@ -84,20 +84,28 @@ left: 1px;
 	top:0px;
 	left:0px;
 	width:28px;
-	height:28px;
+	height:27px;
 }
 #zoomplus :hover, #zoomplus:focus, #zoomplus:active {
 left: 1px;
 /*top: 2px;*/
 }
 
+#zoomscroller{
+	position:absolute;
+	top:27px;
+	left:0px;
+	width:28px;
+	height:122px;
+}
+
 #zoomcontrol{
 	background-color: transparent;
 	position:absolute;
-	top:30px;
-	left:15px;
-	width:45px;
-	height:90px;
+	top:10px;
+	left:10px;
+	width:28px;
+	height:117px;
 	z-index:99999999;
 }
 
@@ -126,6 +134,7 @@ left: 1px;
 <div id="svgdiv">
 <div id="zoomcontrol">
 	<div id="zoomplus"><%=image_tag("zoomplus.png")%></div>
+	<div id="zoomscroller"><%=image_tag("zoomscroller.png")%></div>
 	<div id="zoomminus"><%=image_tag("zoomminus.png")%></div>
 </div>
 </div>
@@ -263,12 +272,14 @@ function sizeContent() {
 //					self.onMarkerTouch(d.properties.nameascii);
 					if(d.clustercount)
 					{
-						ted = qscale(self.proj.scale());
-						joe = qscale.invertExtent(ted+1);
-						self.setLocation(d.geometry.coordinates[1],d.geometry.coordinates[0],joe[1] );
+							zoomlevel = qscale(self.proj.scale());
+ 							zoomscale = qscale.invertExtent(zoomlevel+1);
+							self.setLocationZ(d.geometry.coordinates[1],d.geometry.coordinates[0],zoomscale[1] );
 					}
-					else
+					else {
+						self.setLocation(d.geometry.coordinates[1],d.geometry.coordinates[0] );
 						self.onMarkerTouch(d['properties'][self.placefieldid], d.geometry.coordinates, d.properties.places);
+					}
 				}
 			}
 
@@ -303,6 +314,8 @@ function sizeContent() {
 			zscale = d3.scale.linear().domain(self.scaleextent).range(self.tiltextent);
 
 			self.svg = d3.select(self.svgdiv).append("svg")
+				.attr("width","100%")
+ 				.attr("height","100%")
 				.attr("viewBox","0,0,"+self.width+","+self.height);
 
 			//Define pseudo shadow ocean fill
@@ -378,7 +391,8 @@ function sizeContent() {
 /****************************************************************/
 			//Marker Clustering Capabilities
 
-			self.zoomindexes = [0,1,2,3,4,5];
+			// self.zoomindexes = [0,1,2,3,4,5];
+			self.zoomindexes = [0,1,2,3];
 			qscale = d3.scale.quantize().domain(self.scaleextent).range(self.zoomindexes);
 
 			self.resetClusteredPlaces = function() {
@@ -666,30 +680,38 @@ function sizeContent() {
 
 		self.upZoomIdx = function()
 		{
-			ted = qscale(self.proj.scale());
-			if(ted<self.zoomindexes.length-1)
+			zoomlevel = qscale(self.proj.scale());
+ 			if(zoomlevel<self.zoomindexes.length-1)
 			{
-				joe = qscale.invertExtent(ted+1);
-				if(joe)self.setZoom( self.proj.scale()+(joe[1]-joe[0]) );
+				zoomscale = qscale.invertExtent(zoomlevel+1);
+ 				if(zoomscale)self.setZoom( self.proj.scale()+(zoomscale[1]-zoomscale[0]) );
 			}
-			else
+			else if(zoomlevel==self.zoomindexes.length-1)
 			{
-				joe = qscale.invertExtent(self.zoomindexes.length-1);
-				if(joe)self.setZoom( joe[1] );
+				if(self.proj.scale() < self.scaleextent[1]-1)
+ 				{
+ 					zoomscale = qscale.invertExtent(self.zoomindexes.length-1);
+ 					if(zoomscale)self.setZoom( zoomscale[1]-1 );
+ 				}
+ 				else
+ 				{
+ 					self.onMaxZoom(self.proj.invert([self.width/2,self.height/2]));
+ 				}
 			}
 		}
 		self.downZoomIdx = function()
 		{
-			ted = qscale(self.proj.scale());
-			if(ted>0)
+			zoomlevel = qscale(self.proj.scale());
+ 			if(zoomlevel>0)
 			{
-				joe = qscale.invertExtent(ted-1);
-				if(joe)self.setZoom( self.proj.scale()-(joe[1]-joe[0]) );
+				zoomscale = qscale.invertExtent(zoomlevel-1);
+ 				if(zoomscale)self.setZoom( self.proj.scale()-(zoomscale[1]-zoomscale[0]) );
+
 			}
 			else
 			{
-				joe = qscale.invertExtent(0);
-				if(joe)self.setZoom( joe[0]);
+				zoomscale = qscale.invertExtent(0);
+ 				if(zoomscale)self.setZoom( zoomscale[0]);
 			}
 		}
 
@@ -713,13 +735,19 @@ function sizeContent() {
 					self.zoomidx = qscale(ts);
 
 					self.refresh();
-					if(ts >= self.scaleextent[1])self.onMaxZoom();
+					// if(ts >= self.scaleextent[1])self.onMaxZoom();
 					self.zooming = false;
 				}
 			}
 		}
 
-		self.setLocation = function(lat, lon, mapzoom) {
+		self.setLocation = function(lat, lon) {
+ 			self.proj.rotate([-lon,-lat]);
+			self.refresh();
+ 		};
+
+
+		self.setLocationZ = function(lat, lon, mapzoom) {
 				self.proj.rotate([-lon,-lat]);
 				self.setZoom(mapzoom);
 		};
@@ -730,16 +758,16 @@ function sizeContent() {
 				{
 					// uncomment for hover-able country outlines
 					//Make this optional for mobile
-					var ted = self.svg.selectAll(".country").data(topojson.object(self.countries, self.countries.objects.countries).geometries);
+					var tcountry = self.svg.selectAll(".country").data(topojson.object(self.countries, self.countries.objects.countries).geometries);
 
-					ted.enter()
+					tcountry.enter()
 						.append("path")
 							.attr("class","country")
 							.on("mousedown", self.countrymousedown)
 							.on("touchstart", self.countrymousedown)
 							.attr("d", self.path);
 
-					ted.exit().remove();
+					tcountry.exit().remove();
 
 				}
 				else
@@ -768,8 +796,8 @@ function sizeContent() {
 //					var joe= self.svg.selectAll(".rectlabel").data([]);
 //					joe.exit().remove();
 
-				var ted= self.svg.selectAll(".rectlabel").data(places);
-						ted.attr("class", "rectlabel")
+				var tlabel= self.svg.selectAll(".rectlabel").data(places);
+ 						tlabel.attr("class", "rectlabel")
 						.attr("width", function(d) {
 							if(d.clustercount > 1)
 								return self.grpiconsize
@@ -791,7 +819,7 @@ function sizeContent() {
 								return"url(#markerpattern)";
 						} );
 
-					ted.enter()
+					tlabel.enter()
 					.append("rect")
 						.attr("class", "rectlabel")
 						.attr("width",function(d) {
@@ -815,7 +843,7 @@ function sizeContent() {
 								return"url(#markerpattern)";
 						} );
 
-					ted.exit().remove();
+					tlabel.exit().remove();
 
 				if(self.includelabels)
 				{
@@ -823,31 +851,33 @@ function sizeContent() {
 //						var joe= self.svg.selectAll(".label").data([]);
 //						joe.exit().remove();
 
-					ted = self.svg.selectAll(".label").data(places);
+					tlabel = self.svg.selectAll(".label").data(places);
 
-							ted.attr("class", "label")
+							tlabel.attr("class", "label")
 							.on("mousedown", self.labelmousedown)
 							.on("touchstart", self.labelmousedown)
 							.text(function(d) { return d.properties[self.placefieldname] });
 
-						ted.enter()
+						tlabel.enter()
 						.append("text")
 							.attr("class", "label")
 							.on("mousedown", self.labelmousedown)
 							.on("touchstart", self.labelmousedown)
 							.text(function(d) { return d.properties[self.placefieldname] });
 
-						ted.exit().remove();
+						tlabel.exit().remove();
 				}
 
 			}
 			else if(!self.showingmarkers || self.hidemarkers)
 			{
-				var ted = self.svg.selectAll(".label").data({});
-				ted.exit().remove();
+				var tlabel = self.svg.selectAll(".label").data({});
+ 				tlabel.exit().remove();
 
-				ted = self.svg.selectAll(".rectlabel").data({});
-				ted.exit().remove();
+
+				tlabel = self.svg.selectAll(".rectlabel").data({});
+ 				tlabel.exit().remove();
+
 			}
 		}
 
@@ -897,15 +927,13 @@ function sizeContent() {
 			placefieldname: "title", //name to use on markers
 			includecountries: false,
 			includelabels: true,
-      onMovementEnd: function(loc){
-        map.setView([loc[1], loc[0]])
-      },
-  		onMaxZoom: function(){
+      onMaxZoom: function(loc){
         $('#svgdiv').hide("medium");
+       	map.setView([loc[1], loc[0]], transitionzoomlevel)
       },
 			onMarkerTouch: function(id, latlng, hasPlaces){
 				if (hasPlaces) {
-					map.setView([latlng[1], latlng[0]], 7);
+					map.setView([latlng[1], latlng[0]], transitionzoomlevel);
 					$('#svgdiv').hide("medium");
 				} else {
 					$('.area-content').empty();
@@ -944,6 +972,8 @@ function sizeContent() {
 	options.tileimage = "<%= image_url('green-tile128.png') %>"
 
 	brglobe.configureGlobe(options);
+	setTimeout(function(){brglobe.setLocation(-33.865143,151.2099);},1000);
+ 	brglobe.setLocation(-33.865143,151.2099);
 
 	//	2d		3d
 	//	 3		1000 (but still a lot of curvature)

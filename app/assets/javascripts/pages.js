@@ -8,22 +8,27 @@ map = L.mapbox.map('map', 'boundround.j0d79a3j', {
       },
       zoomControl: false,
       maxBounds: [[85,-250],[-85,250]],
-      minZoom: 3,
-      maxZoom: 17
+      minZoom: 5,
+      maxZoom: 18
     });
 
 window.initialCenter = $('.modal-content').data();
 if (window.initialCenter.lat) {
-  map.setView([initialCenter.lat, initialCenter.long], 6);
+  map.setView([initialCenter.lat, initialCenter.long], transitionzoomlevel);
 };
 
 L.control.zoomslider().addTo(map);
 
 map.on('zoomend', function() {
-    if (map.getZoom() < 4){
+    if (map.getZoom() < transitionzoomlevel){
       $('#svgdiv').show("medium");
+      var ll = map.getCenter();
+ 		  brglobe.setLocation(ll.lat,ll.lng);
+
     };
 });
+
+var transitionzoomlevel = 7;
 
 window.placeMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 placeMarkers.addTo(map);
@@ -156,7 +161,7 @@ $.ajax({
         map.on('zoomend', function() {
             var newZoom = map.getZoom();
             console.log(newZoom);
-            if (previousZoom >= 7 && newZoom < 7) {
+            if (previousZoom >= transitionzoomlevel && newZoom < transitionzoomlevel) {
               placeMarkers.removeLayers(placesArray);
               areaMarkers.addLayers(window.areaLayers.havePlaces)
               $('#menu-ui').css("visibility", "hidden");
@@ -186,7 +191,7 @@ var addMarkersClickEvent = function(markers) {
     markerProps.shift().match(/area/) ? markerType = 'area' :  markerType = 'place';
     var markerID = markerProps.pop();
     var hasPlaces = markerProps.slice(-2)[0] === 'true';
-    if (map.getZoom() < 7 ) {
+    if (map.getZoom() < transitionzoomlevel ) {
       if (hasPlaces) {
         map.setView([e.latlng.lat, e.latlng.lng], 7);
       } else {
@@ -221,7 +226,7 @@ var addMarkersClickEvent = function(markers) {
           // $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         };
       }
-      if (map.getZoom() >= 7 ) {
+      if (map.getZoom() >= transitionzoomlevel ) {
         if (markerType === 'area') {
           $('.area-content').empty();
           $.ajax({
