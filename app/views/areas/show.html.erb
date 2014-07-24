@@ -4,7 +4,6 @@
 
 <% if !@request_xhr %>
   <div class="modal fade" id="showAreaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
       <div class="modal-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
         <div class="area-content">
 <% end %>
@@ -64,7 +63,6 @@
      <div class="footer" data-dismiss="modal">
       <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
     </div>
-  </div>
 </div>
 
 <% end %>
