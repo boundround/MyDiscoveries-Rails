@@ -233,7 +233,8 @@ var addMarkersClickEvent = function(markers) {
             url: '/' + markerType + 's/' + markerID + ".html",
             success: function(data) {
               $('.area-content').html(data);
-
+              $('#areaModal').modal()
+              
               //Vimeo api code
               var iframe = $('.hero-video')[0];
               player = $f(iframe);
@@ -262,6 +263,7 @@ var addMarkersClickEvent = function(markers) {
             url: '/' + markerType + 's/' + markerID + ".html",
             success: function(data) {
               $('.area-content').html(data);
+              $('#areaModal').modal()
 
               //Vimeo api code
               var iframe = $('.hero-video')[0];
