@@ -35,6 +35,12 @@
             <div class="form-group">
               <%= f.input :area_id, label: 'Change Area', collection: @areas, as: :select, label_method: :display_name, value_method: :id, required: true %>
             </div>
+            <div class="field">
+              <% Category.all.each do |category| %>
+                <%= check_box_tag "place[category_ids][]", category.id %>
+                <%= category.name %><br/>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="form-group">
