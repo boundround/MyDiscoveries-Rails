@@ -37,8 +37,9 @@
             </div>
             <div class="field">
               <% Category.all.each do |category| %>
-                <%= check_box_tag "place[category_ids][]", category.id %>
-                <%= category.name %><br/>
+                <%= hidden_field_tag "place[category_ids][]", nil%>
+                <%= check_box_tag "place[category_ids][]", category.id, @place.category_ids.include?(category.id), id: dom_id(category) %>
+                <%= label_tag dom_id(category), category.name %><br/>
               <% end %>
             </div>
           </div>
