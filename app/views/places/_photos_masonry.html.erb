@@ -99,8 +99,8 @@
       <% end %>
     <% end %>
 
-    <% unless @place.games.empty? %>
-      <% @place.games.each do |game| %>
+    <% unless @games.empty? %>
+      <% @games.each do |game| %>
         <div class="item game game-card photo-card">
           <div class="priority"><%= game.priority ? game.priority : 2 %></div>
           <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
