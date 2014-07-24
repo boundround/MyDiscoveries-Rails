@@ -1,5 +1,4 @@
 $('#areaModal').on('shown.bs.modal', function (e) {
-  setTimeout(function () {
     var $container = $('#photos-masonry');
 
     $container.imagesLoaded(function() {
@@ -94,14 +93,13 @@ $('#areaModal').on('shown.bs.modal', function (e) {
     //   }
     // }
 
-    $('#areaModal').on('hide.bs.modal', function (e) {
-      $container.isotope({ filter: '' });
-      var hash = this.id;
-      history.pushState('', document.title, window.location.pathname);
-    });
-  }, 600);
 });
 
+$('#areaModal').on('hide.bs.modal', function (e) {
+  $('#photos-masonry').isotope({ filter: '' });
+  var hash = this.id;
+  history.pushState('', document.title, window.location.pathname);
+});
 // $('#showAreaModal').modal('show');
 //
 // $('#showAreaModal').on('shown.bs.modal', function (e) {

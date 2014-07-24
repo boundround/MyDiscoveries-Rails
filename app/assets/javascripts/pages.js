@@ -175,7 +175,7 @@ $.ajax({
 //
 
 
-var lastLoaded = 0
+var lastLoaded = 0;
 
 // Launch modals on clicks
 var addMarkersClickEvent = function(markers) {
@@ -190,12 +190,13 @@ var addMarkersClickEvent = function(markers) {
       if (hasPlaces) {
         map.setView([e.latlng.lat, e.latlng.lng], 7);
       } else {
+          console.log('hasPlaces');
           $('.area-content').empty();
           $.ajax({
             url: '/' + markerType + 's/' + markerID + ".html",
             success: function(data) {
               $('.area-content').html(data);
-
+              $('#areaModal').modal()
               //Vimeo api code
               var iframe = $('.hero-video')[0];
               player = $f(iframe);
@@ -217,9 +218,10 @@ var addMarkersClickEvent = function(markers) {
             }
           });
           window.lastLoaded = markerID;
-          $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+          // $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         };
-      } else {
+      }
+      if (map.getZoom() >= 7 ) {
         if (markerType === 'area') {
           $('.area-content').empty();
           $.ajax({
@@ -248,7 +250,7 @@ var addMarkersClickEvent = function(markers) {
             }
           });
           window.lastLoaded = markerID;
-          $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+          // $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         } else {
           $('.area-content').empty();
           $.ajax({
@@ -277,8 +279,8 @@ var addMarkersClickEvent = function(markers) {
             }
           });
           window.lastLoaded = markerID;
-          $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
-        }
-      }
+          // $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+        };
+      };
   });
 };
