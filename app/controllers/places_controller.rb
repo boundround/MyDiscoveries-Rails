@@ -13,8 +13,16 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.friendly.find(params[:id])
-    @videos = @place.videos.where.not(priority: 1)
-    @hero_video = @place.videos.find_by(priority: 1)
+
+    if @place.subscription_level == "Premium"
+      @videos = @place.videos.where.not(priority: 1)
+      @hero_video = @place.videos.find_by(priority: 1)
+      @games = @place.games
+    else
+      @videos = []
+      @games = []
+    end
+
     if !@place.photos.find_by(priority: 1)
       @area_hero_video = @place.area.videos.find_by(priority: 1)
     end

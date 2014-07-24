@@ -26,7 +26,7 @@
             About <%= @place.display_name %>
           </a>
         </li>
-        <% unless @place.videos.empty? %>
+        <% unless @videos.empty? %>
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="#" data-filter=".video">
               <%= image_tag(asset_path('video_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.video'}) %>
@@ -44,7 +44,7 @@
           </li>
         <% end %>
 
-        <% unless @place.games.empty? %>
+        <% unless @games.empty? %>
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="#" data-filter=".game">
               <%= image_tag(asset_path('game_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.game'}) %>
