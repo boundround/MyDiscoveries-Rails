@@ -8,7 +8,7 @@ map = L.mapbox.map('map', 'boundround.j0d79a3j', {
       },
       zoomControl: false,
       maxBounds: [[85,-250],[-85,250]],
-      minZoom: 5,
+      minZoom: 2,
       maxZoom: 18
     });
 
@@ -23,7 +23,7 @@ map.on('zoomend', function() {
     if (map.getZoom() < transitionzoomlevel){
       $('#svgdiv').show("medium");
       var ll = map.getCenter();
- 		  brglobe.setLocation(ll.lat,ll.lng);
+ 		 //  brglobe.setLocation(ll.lat,ll.lng);
 
     };
 });
@@ -60,8 +60,13 @@ $allFilters = $('#menu-ui').find('a');
 
 // Change filter menu based on markers visible in current view
 map.on('moveend', function() {
-    $('#menu-ui').show();
-    $allFilters.show();
+
+
+    if (map.getZoom() > transitionzoomlevel) {
+      currentCategory = $('a.active').data('category');
+      $('#menu-ui').show();
+      $allFilters.show();
+      placeMarkers.addLayers(placeLayers['all']);
 
     // Construct an empty list to fill with onscreen markers.
     inBoundCategories = {
@@ -94,6 +99,8 @@ map.on('moveend', function() {
     window.currentCategories = Object.keys(inBoundCategories);
     console.log(categories);
 
+    placeMarkers.clearLayers();
+    placeMarkers.addLayers(placeLayers[currentCategory]);
 
     var showFilterMenu = false;
     for (var category in inBoundCategories) {
@@ -110,7 +117,7 @@ map.on('moveend', function() {
     if (!showFilterMenu) {
       $('#menu-ui').hide();
     }
-
+  };
 });
 
 
