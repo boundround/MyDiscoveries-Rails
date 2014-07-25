@@ -15,7 +15,14 @@
             <div class="priority">-1</div>
           <% else %>
             <% unless @place.photos.empty? %>
-              <img class="hero-photo" src="<%= @place.photos.find_by(priority: 1).path_url(:large) %>" />
+              <% if @place.photos.find_by(priority: 1) %>
+                <picture>
+                  <!--[if IE 9]><video style="display: none;"><![endif]-->
+                  <source srcset="<%= @place.photos.find_by(priority: 1).path_url(:large) %>" media="(min-width: 800px)">
+                  <source srcset="<%= @place.photos.find_by(priority: 1).path_url(:medium) %>" media="(min-width: 500px)">
+                  <!--[if IE 9]></video><![endif]-->
+                  <img class="hero-photo srcset="<%= @place.photos.find_by(priority: 1).path_url(:small) %>">
+                </picture>
               <div class="priority">-1</div>
             <% end %>
           <% end %>
