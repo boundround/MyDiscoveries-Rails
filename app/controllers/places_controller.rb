@@ -96,10 +96,10 @@ class PlacesController < ApplicationController
 
   private
     def place_params
-      params.require(:place).permit(:code, :identifier, :display_name, :description, :subscription_level, :latitude, :longitude, :icon, :map_icon, :passport_icon, :address, :area_id, photos_attributes: [:id, :title, :path, :fun_fact, :credit], :category_ids => [])
+      params.require(:place).permit(:code, :identifier, :display_name, :description, :subscription_level, :latitude, :longitude, :icon, :map_icon, :passport_icon, :address, :area_id, photos_attributes: [:id, :title, :path, :caption, :credit])
     end
 
     def place_update_params
-      params.require(:place).permit(:display_name, :description, :address, :subscription_level, :area_id, photo: [:id, :title, :path, :credit, :fun_fact, :area_id], :category_ids => [])
+      params.require(:place).permit(:display_name, :description, :address, :subscription_level, photo: [:id, :title, :path, :credit, :caption, :area_id])
     end
 end
