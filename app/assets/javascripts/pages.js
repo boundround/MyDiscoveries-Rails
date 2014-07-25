@@ -116,7 +116,7 @@ var createMarkerArray = function(geoJSON, markerType) {
       );
       markerArray.push(marker);
       if (markerType == 'place') {
-        if (location.properties.category) {
+        if (placeLayers[location.properties.category]) {
           console.log(location.properties.category);
           window.placeLayers[location.properties.category].push(marker);
         };
@@ -234,7 +234,7 @@ var addMarkersClickEvent = function(markers) {
             success: function(data) {
               $('.area-content').html(data);
               $('#areaModal').modal()
-              
+
               //Vimeo api code
               var iframe = $('.hero-video')[0];
               player = $f(iframe);
