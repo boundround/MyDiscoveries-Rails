@@ -164,11 +164,11 @@
             <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
             <div id="fun-fact-<%= index %>" class="fun-fact">
               <p><%= raw photo.fun_fact %></p>
-              <a href="#" data-toggle="modal" data-target="#postCardModal-<%= index %>">
+              <a href="#" data-toggle="modal" data-target="#areaPostCardModal-<%= index %>">
                 <img class="postcard-icon" src="<%= asset_path ('postcard_icon-01.svg') %>"/>
               </a>
               <!-- Modal -->
-              <div class="modal post-modal fade" id="postCardModal-<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal post-modal fade" id="areaPostCardModal-<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog postcard-dialog">
                   <div class="modal-content postcard-content">
                     <div class="modal-header">
