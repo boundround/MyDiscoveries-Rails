@@ -6,6 +6,15 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+categories = ['Beach', 'Park', 'Animals',
+            'Sport', 'Museum', 'Activity',
+            'Theme Park', 'Sights', 'Place To Eat',
+            'Place To Stay', 'Shopping']
+
+categories.each do |category|
+  Category.create(name: category, identifier: category.delete(' ').underscore)
+end
+
 ind = 1
 
 cats = [6,6,6,5,5,8,8,10,4,8,8,2,8,6,1,4,6,2,2,2,6,2,1,3,6,3,11,2,11,3,3,
