@@ -19,6 +19,7 @@
                   <!--[if IE 9]></video><![endif]-->
                   <img class="hero-photo srcset="<%= @area.photos.find_by(priority: 1).path_url(:small) %>">
                 </picture>
+              <% end %>
             <% end %>
           <% end %>
         </div>
