@@ -6,32 +6,19 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Area.create({ code: "LAX", identifier: "losangeles",
-              country: "United States of America",
-              display_name: "Los Angeles",
-              short_intro: "Los Angeles is super rad",
-              description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-              latitude: 34.0522342, longitude: -118.2436849,
-              address: "Los Angeles, CA, USA" })
+ind = 1
 
-p = Photo.create({ title: "LA Skyline", credit: "Donovan Whitworth",
-                  area_id: 1, fun_fact: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                  sound_sprite: nil})
+cats = [6,6,6,5,5,8,8,10,4,8,8,2,8,6,1,4,6,2,2,2,6,2,1,3,6,3,11,2,11,3,3,
+        6,8,6,5,3,8,4,2,6,9,8,1,4,3,6,2,3,5,9,7,7,7,6,9,9,10,3,3,3,6,8,10,
+        8,6,8,2,4,2,8,8,9,9,9,9,4,6,2,6,5,8,3,8,5,2,6,5,4,4,10,8,4,9,3,8,
+        6,6,6,3,3,3,1,6,8,6,4,8,9,7,7,6,6,1,4,11,4,3,4,9,3,10,10,3,6,6,4,
+        3,5,5,3,2,4,8,6,6,8,7,5,11,2,2,6,5,4,6,3,1,4,10,6,7,6,5,11,6,6,10,
+        11,10,4,8,6,3,3,3,9,6,4,6,3,5,8,6,6,6,6,10,4,10,3,8,6,4,6,6,6,6,4,
+        6,5,6,3,3,7,10,8,6,6,6,6,3,6,6,2,6,10,9,6,2,2,6,4,1,6,4,1,10,1,10,
+        6,6,4,6,9,6,4,6,4,6,6,5,1,3,3,3,6,8,6,6,11,6,8,6,6,6,5,11,7,6,10,8,
+        2,5,6,6,4,7,3,7,7,7,3,3,7,7,5,3,4,9,4,8,9,8,6,4,2,2]
 
-p["path"] = "LA_Skyline_Mountains.jpg"
-p.save
-
-Area.create({ code: "CUL", identifier: "culvercity",
-              country: "United States of America",
-              display_name: "Culver City",
-              short_intro: "Culver City is coming on up",
-              description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-              latitude: 34.02036809829769, longitude: -118.40171813964842,
-              address: "Los Angeles, CA, USA" })
-
-p = Photo.create({ title: "Culver City", credit: "Gilad Salmon",
-                  area_id: 2, fun_fact: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                  sound_sprite: nil})
-
-p["path"] = "Culver_Cuty.jpg"
-p.save
+cats.each do |cat|
+  Category.create(category_id: cat, place_id: ind)
+  ind += 1
+end
