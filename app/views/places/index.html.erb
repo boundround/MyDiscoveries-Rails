@@ -1,7 +1,10 @@
 <h1>All Places</h1>
 <ul>
-  <% @places.each do |place| %>
-    <li><%= link_to place.display_name, edit_place_path(place) %></li>
+  <% @areas.each do |area| %>
+  <h3><%= area.display_name %></h3>
+    <% area.places.each do |place| %>
+      <li><%= link_to place.display_name, edit_place_path(place) %></li>
+    <% end %>
   <% end %>
 </ul>
 
