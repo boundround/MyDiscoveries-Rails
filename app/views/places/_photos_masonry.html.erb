@@ -24,6 +24,7 @@
                   <img class="hero-photo srcset="<%= @place.photos.find_by(priority: 1).path_url(:small) %>">
                 </picture>
               <div class="priority">-1</div>
+              <% end %>
             <% end %>
           <% end %>
         </div>
@@ -170,7 +171,7 @@
             <img class="game-thumbnail" src="<%= photo.path_url(:small) %>"/>
             <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
             <div id="fun-fact-<%= index %>" class="fun-fact">
-              <p><%= raw photo.fun_fact %></p>
+              <p><%= raw photo.caption %></p>
               <a href="#" data-toggle="modal" data-target="#areaPostCardModal-<%= index %>">
                 <img class="postcard-icon" src="<%= asset_path ('postcard_icon-01.svg') %>"/>
               </a>
