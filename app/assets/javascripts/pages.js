@@ -45,8 +45,8 @@ window.placeLayers = {
   activity: [],
   theme_park: [],
   sights: [],
-  eat: [],
-  stay: [],
+  place_to_eat: [],
+  place_to_stay: [],
   shopping: [],
 };
 
