@@ -1,6 +1,7 @@
 class PlacesController < ApplicationController
   def index
     @places = Place.all
+    @areas = Area.all
 
     # geojson for MapBox map
     @places_geojson = Place.all_geojson
