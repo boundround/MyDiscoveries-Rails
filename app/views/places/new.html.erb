@@ -7,6 +7,13 @@
     <div class="form-group">
       <%= f.input :area_id, label: 'Part Of What Area?', collection: @areas, as: :select, label_method: :display_name, value_method: :id, required: true %>
     </div>
+    <div class="form-group">
+      <% Category.all.each do |category| %>
+        <%= hidden_field_tag "place[category_ids][]", nil%>
+        <%= check_box_tag "place[category_ids][]", category.id, @place.category_ids.include?(category.id), id: dom_id(category) %>
+        <%= label_tag dom_id(category), category.name %><br/>
+      <% end %>
+    </div>
 
     <input id="pac-input" class="controls" type="text"
         placeholder="Enter a location">

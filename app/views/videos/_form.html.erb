@@ -5,7 +5,7 @@
       <%= f.input :vimeo_id, label: "Enter Vimeo ID", input_html: { class: 'form-control'}  %>
     </div>
     <div class="form-group">
-      <%= f.input :priority, label: "Enter Vimeo ID", collection: 1..10, input_html: { class: 'form-control'}  %>
+      <%= f.input :priority, label: "Priority", collection: 1..10, input_html: { class: 'form-control'}  %>
       <% if @area %>
         <%= f.input :area_id, as: :hidden, input_html: {value: @area.id } %>
       <% elsif @place %>
