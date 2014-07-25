@@ -56,6 +56,64 @@ window.areaLayers = {
 }
 
 
+$allFilters = $('#menu-ui').find('a');
+
+// Change filter menu based on markers visible in current view
+map.on('moveend', function() {
+    $('#menu-ui').show();
+    $allFilters.show();
+
+    // Construct an empty list to fill with onscreen markers.
+    inBoundCategories = {
+      all: false,
+      beach: false,
+      park: false,
+      animals: false,
+      sport: false,
+      museum: false,
+      activity: false,
+      theme_park: false,
+      sights: false,
+      eat: false,
+      stay: false,
+      shopping: false,
+    };
+    // Get the map bounds - the top-left and bottom-right locations.
+    var bounds = map.getBounds();
+
+    // For each marker, consider whether it is currently visible by comparing
+    // with the current map bounds.
+    placeMarkers.eachLayer(function(marker) {
+        if (bounds.contains(marker.getLatLng())) {
+            inBoundCategories[marker.options.category] = true;
+        }
+    });
+
+    // Hide filter menu buttons that don't relate to visible markers
+    var categories = Object.keys(inBoundCategories);
+    window.currentCategories = Object.keys(inBoundCategories);
+    console.log(categories);
+
+
+    var showFilterMenu = false;
+    for (var category in inBoundCategories) {
+      if( inBoundCategories.hasOwnProperty( category ) ) {
+        if (inBoundCategories[category]) {
+          console.log(inBoundCategories[category]);
+          showFilterMenu = true;
+        } else {
+          $('a[data-category=' + category + ']').hide();
+        };
+
+      }
+    }
+    if (!showFilterMenu) {
+      $('#menu-ui').hide();
+    }
+
+});
+
+
 $('#menu-ui').on('click', 'a', function(e) {
   console.log(this);
   category = $(this).data('category');
@@ -112,12 +170,14 @@ var createMarkerArray = function(geoJSON, markerType) {
       var marker = L.marker(new L.LatLng(location.geometry.coordinates[1], location.geometry.coordinates[0]),
           {icon: icon[markerType](),
            riseOnHover: true,
-           riseOffset: 500}
+           riseOffset: 500,
+           category: location.properties.category }
       );
       markerArray.push(marker);
       if (markerType == 'place') {
         if (location.properties.category) {
           console.log(location.properties.category);
+          console.log(marker)
           window.placeLayers[location.properties.category].push(marker);
         };
       };
@@ -185,7 +245,7 @@ var lastLoaded = 0;
 // Launch modals on clicks
 var addMarkersClickEvent = function(markers) {
   markers.on('click', function(e) {
-    console.log(e.layer);
+    console.log(e);
     var markerProps = e.layer.options.icon.options.labelClassName.split(" ");
     var markerType = '';
     markerProps.shift().match(/area/) ? markerType = 'area' :  markerType = 'place';
@@ -234,7 +294,7 @@ var addMarkersClickEvent = function(markers) {
             success: function(data) {
               $('.area-content').html(data);
               $('#areaModal').modal()
-              
+
               //Vimeo api code
               var iframe = $('.hero-video')[0];
               player = $f(iframe);
