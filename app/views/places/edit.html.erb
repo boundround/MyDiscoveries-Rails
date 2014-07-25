@@ -33,6 +33,12 @@
               <%= f.input :description, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control area-description-input' } %>
             </div>
             <div class="form-group">
+              <%= f.input :website, input_html: { class: 'form-control' } %>
+            </div>
+            <div class="form-group">
+              <%= f.input :phone_number, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control' } %>
+            </div>
+            <div class="form-group">
               <%= f.input :area_id, label: 'Change Area', collection: @areas, as: :select, label_method: :display_name, value_method: :id, required: true %>
             </div>
             <div class="field">
