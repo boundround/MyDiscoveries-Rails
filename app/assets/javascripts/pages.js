@@ -61,16 +61,19 @@ $allFilters = $('#menu-ui').find('a');
 // Change filter menu based on markers visible in current view
 map.on('moveend', function() {
 
-
     if (map.getZoom() > transitionzoomlevel) {
-      currentCategory = $('a.active').data('category');
+      currentCategory = 'all';
+      if ($('a.active').data('category') != 'all') {
+        currentCategory = $('a.active').data('category');
+      }
+      console.log(currentCategory);
       $('#menu-ui').show();
       $allFilters.show();
       placeMarkers.addLayers(placeLayers['all']);
 
     // Construct an empty list to fill with onscreen markers.
     inBoundCategories = {
-      all: false,
+      all: true,
       beach: false,
       park: false,
       animals: false,
@@ -95,12 +98,12 @@ map.on('moveend', function() {
     });
 
     // Hide filter menu buttons that don't relate to visible markers
-    var categories = Object.keys(inBoundCategories);
     window.currentCategories = Object.keys(inBoundCategories);
-    console.log(categories);
 
     placeMarkers.clearLayers();
-    placeMarkers.addLayers(placeLayers[currentCategory]);
+    if (currentCategory) {
+      placeMarkers.addLayers(placeLayers[currentCategory]);
+    };
 
     var showFilterMenu = false;
     for (var category in inBoundCategories) {
