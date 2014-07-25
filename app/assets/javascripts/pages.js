@@ -74,8 +74,8 @@ map.on('moveend', function() {
       activity: false,
       theme_park: false,
       sights: false,
-      eat: false,
-      stay: false,
+      place_to_eat: false,
+      place_to_stay: false,
       shopping: false,
     };
     // Get the map bounds - the top-left and bottom-right locations.
