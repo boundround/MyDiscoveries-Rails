@@ -55,71 +55,76 @@ window.areaLayers = {
   noPlaces: []
 }
 
+var getInboundCategories = function() {
+  // Construct an empty object to keep track of onscreen markers.
+  inboundCategories = {
+    all: true,
+    beach: false,
+    park: false,
+    animals: false,
+    sport: false,
+    museum: false,
+    activity: false,
+    theme_park: false,
+    sights: false,
+    place_to_eat: false,
+    place_to_stay: false,
+    shopping: false,
+  };
 
-$allFilters = $('#menu-ui').find('a');
+
+  // Get the map bounds - the top-left and bottom-right locations.
+  var bounds = map.getBounds();
+
+  // Temporarily add all place markers.
+  var tempMarkers = new L.MarkerClusterGroup();
+  tempMarkers.addLayers(placeLayers['all']);
+
+  // For each marker, consider whether it is currently visible by comparing
+  // with the current map bounds.
+  tempMarkers.eachLayer(function(marker) {
+      if (bounds.contains(marker.getLatLng())) {
+          inboundCategories[marker.options.category] = true;
+      }
+  });
+
+  // Remove all place markers.
+  tempMarkers.clearLayers();
+
+  return inboundCategories;
+};
+
+var setFilterButtons = function(inboundCategories) {
+  // Temporarily show menu and all buttons.
+  $('#menu-ui').show();
+  $('#menu-ui').find('a').show();
+
+  // Hide filter menu buttons that don't relate to visible markers.
+  var shownCategoryButtons = [];
+  for (var category in inboundCategories) {
+    if( inboundCategories.hasOwnProperty( category ) ) {
+      if (inboundCategories[category]) {
+        shownCategoryButtons.push(category);
+      } else {
+        $('a[data-category=' + category + ']').hide();
+      };
+    };
+  };
+  if (shownCategoryButtons.length < 2 ) {
+    $('#menu-ui').hide();
+  };
+};
+
 // Change filter menu based on markers visible in current view
 map.on('moveend', function() {
   if (map.getZoom() > transitionzoomlevel) {
-    var currentCategory = $('a.active').data('category');
-    console.log(currentCategory);
+    setFilterButtons(getInboundCategories());
+  };
+});
 
-    $('#menu-ui').show();
-    $allFilters.show();
-
-    // Construct an empty object to keep track of onscreen markers.
-    inBoundCategories = {
-      all: true,
-      beach: false,
-      park: false,
-      animals: false,
-      sport: false,
-      museum: false,
-      activity: false,
-      theme_park: false,
-      sights: false,
-      place_to_eat: false,
-      place_to_stay: false,
-      shopping: false,
-    };
-
-
-    // Get the map bounds - the top-left and bottom-right locations.
-    var bounds = map.getBounds();
-
-    // Temporarily add all place markers.
-    placeMarkers.addLayers(placeLayers['all']);
-
-    // For each marker, consider whether it is currently visible by comparing
-    // with the current map bounds.
-    placeMarkers.eachLayer(function(marker) {
-        if (bounds.contains(marker.getLatLng())) {
-            inBoundCategories[marker.options.category] = true;
-        }
-    });
-
-    // Remove all place markers.
-    placeMarkers.clearLayers();
-
-    // Add back place markers that match current filter.
-    if (currentCategory) {
-      placeMarkers.addLayers(placeLayers[currentCategory]);
-    };
-
-    // Hide filter menu buttons that don't relate to visible markers.
-    window.currentCategories = Object.keys(inBoundCategories);
-    var shownCategoryButtons = [];
-    for (var category in inBoundCategories) {
-      if( inBoundCategories.hasOwnProperty( category ) ) {
-        if (inBoundCategories[category]) {
-          shownCategoryButtons.push(category);
-        } else {
-          $('a[data-category=' + category + ']').hide();
-        };
-      }
-    }
-    if (shownCategoryButtons.length < 2 ) {
-      $('#menu-ui').hide();
-    }
+map.on('zoomend', function() {
+  if (map.getZoom() > transitionzoomlevel) {
+    setFilterButtons(getInboundCategories());
   };
 });
 
