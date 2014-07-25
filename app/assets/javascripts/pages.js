@@ -8,7 +8,7 @@ map = L.mapbox.map('map', 'boundround.j0d79a3j', {
       },
       zoomControl: false,
       maxBounds: [[85,-250],[-85,250]],
-      minZoom: 5,
+      minZoom: 2,
       maxZoom: 18
     });
 
@@ -23,7 +23,7 @@ map.on('zoomend', function() {
     if (map.getZoom() < transitionzoomlevel){
       $('#svgdiv').show("medium");
       var ll = map.getCenter();
- 		  brglobe.setLocation(ll.lat,ll.lng);
+ 		 //  brglobe.setLocation(ll.lat,ll.lng);
 
     };
 });
@@ -45,8 +45,8 @@ window.placeLayers = {
   activity: [],
   theme_park: [],
   sights: [],
-  eat: [],
-  stay: [],
+  place_to_eat: [],
+  place_to_stay: [],
   shopping: [],
 };
 
@@ -56,8 +56,76 @@ window.areaLayers = {
 }
 
 
+$allFilters = $('#menu-ui').find('a');
+// Change filter menu based on markers visible in current view
+map.on('moveend', function() {
+  if (map.getZoom() > transitionzoomlevel) {
+    var currentCategory = $('a.active').data('category');
+    console.log(currentCategory);
+
+    $('#menu-ui').show();
+    $allFilters.show();
+
+    // Construct an empty object to keep track of onscreen markers.
+    inBoundCategories = {
+      all: true,
+      beach: false,
+      park: false,
+      animals: false,
+      sport: false,
+      museum: false,
+      activity: false,
+      theme_park: false,
+      sights: false,
+      place_to_eat: false,
+      place_to_stay: false,
+      shopping: false,
+    };
+
+
+    // Get the map bounds - the top-left and bottom-right locations.
+    var bounds = map.getBounds();
+
+    // Temporarily add all place markers.
+    placeMarkers.addLayers(placeLayers['all']);
+
+    // For each marker, consider whether it is currently visible by comparing
+    // with the current map bounds.
+    placeMarkers.eachLayer(function(marker) {
+        if (bounds.contains(marker.getLatLng())) {
+            inBoundCategories[marker.options.category] = true;
+        }
+    });
+
+    // Remove all place markers.
+    placeMarkers.clearLayers();
+
+    // Add back place markers that match current filter.
+    if (currentCategory) {
+      placeMarkers.addLayers(placeLayers[currentCategory]);
+    };
+
+    // Hide filter menu buttons that don't relate to visible markers.
+    window.currentCategories = Object.keys(inBoundCategories);
+    var shownCategoryButtons = [];
+    for (var category in inBoundCategories) {
+      if( inBoundCategories.hasOwnProperty( category ) ) {
+        if (inBoundCategories[category]) {
+          shownCategoryButtons.push(category);
+        } else {
+          $('a[data-category=' + category + ']').hide();
+        };
+      }
+    }
+    if (shownCategoryButtons.length < 2 ) {
+      $('#menu-ui').hide();
+    }
+  };
+});
+
+
+
 $('#menu-ui').on('click', 'a', function(e) {
-  console.log(this);
   category = $(this).data('category');
   $(this).siblings().removeClass('active');
   $(this).addClass('active');
@@ -112,12 +180,12 @@ var createMarkerArray = function(geoJSON, markerType) {
       var marker = L.marker(new L.LatLng(location.geometry.coordinates[1], location.geometry.coordinates[0]),
           {icon: icon[markerType](),
            riseOnHover: true,
-           riseOffset: 500}
+           riseOffset: 500,
+           category: location.properties.category }
       );
       markerArray.push(marker);
       if (markerType == 'place') {
-        if (location.properties.category) {
-          console.log(location.properties.category);
+        if (placeLayers[location.properties.category]) {
           window.placeLayers[location.properties.category].push(marker);
         };
       };
@@ -156,11 +224,9 @@ $.ajax({
         //switch between areas and places
         map.on('zoomstart', function() {
           window.previousZoom = map.getZoom();
-          console.log(previousZoom);
         });
         map.on('zoomend', function() {
             var newZoom = map.getZoom();
-            console.log(newZoom);
             if (previousZoom >= transitionzoomlevel && newZoom < transitionzoomlevel) {
               placeMarkers.removeLayers(placesArray);
               areaMarkers.addLayers(window.areaLayers.havePlaces)
@@ -185,7 +251,6 @@ var lastLoaded = 0;
 // Launch modals on clicks
 var addMarkersClickEvent = function(markers) {
   markers.on('click', function(e) {
-    console.log(e.layer);
     var markerProps = e.layer.options.icon.options.labelClassName.split(" ");
     var markerType = '';
     markerProps.shift().match(/area/) ? markerType = 'area' :  markerType = 'place';
@@ -195,7 +260,6 @@ var addMarkersClickEvent = function(markers) {
       if (hasPlaces) {
         map.setView([e.latlng.lat, e.latlng.lng], 7);
       } else {
-          console.log('hasPlaces');
           $('.area-content').empty();
           $.ajax({
             url: '/' + markerType + 's/' + markerID + ".html",
@@ -234,7 +298,7 @@ var addMarkersClickEvent = function(markers) {
             success: function(data) {
               $('.area-content').html(data);
               $('#areaModal').modal()
-              
+
               //Vimeo api code
               var iframe = $('.hero-video')[0];
               player = $f(iframe);
