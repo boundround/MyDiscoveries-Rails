@@ -19,6 +19,6 @@ cats = [6,6,6,5,5,8,8,10,4,8,8,2,8,6,1,4,6,2,2,2,6,2,1,3,6,3,11,2,11,3,3,
         2,5,6,6,4,7,3,7,7,7,3,3,7,7,5,3,4,9,4,8,9,8,6,4,2,2]
 
 cats.each do |cat|
-  Category.create(category_id: cat, place_id: ind)
+  Categorization.create(category_id: cat, place_id: ind)
   ind += 1
 end
