@@ -95,8 +95,9 @@ var getInboundCategories = function() {
 };
 
 var setFilterButtons = function(inboundCategories) {
-  // Temporarily show menu and all buttons.
-  $('#menu-ui').show();
+  $('#no-places').remove();
+
+  // Temporarily show all buttons.
   $('#menu-ui').find('a').show();
 
   // Hide filter menu buttons that don't relate to visible markers.
@@ -110,23 +111,28 @@ var setFilterButtons = function(inboundCategories) {
       };
     };
   };
-  if (shownCategoryButtons.length < 2 ) {
-    $('#menu-ui').hide();
+  if (shownCategoryButtons.length <= 1 ) {
+    $('#menu-ui').find('a').hide();
+    $('#menu-ui').prepend("<a id='no-places'>No Places</a>");
   };
 };
 
 // Change filter menu based on markers visible in current view
-map.on('moveend', function() {
-  if (map.getZoom() > transitionzoomlevel) {
+map.on('moveend', function(event) {
+  if (map.getZoom() >= transitionzoomlevel) {
+    console.log(event);
+    console.log('move end fired');
     setFilterButtons(getInboundCategories());
   };
 });
 
-map.on('zoomend', function() {
-  if (map.getZoom() > transitionzoomlevel) {
-    setFilterButtons(getInboundCategories());
-  };
-});
+// map.on('zoom', function() {
+//   if (map.getZoom() > transitionzoomlevel) {
+//     console.log('zoom end fired');
+//
+//     setFilterButtons(getInboundCategories());
+//   };
+// });
 
 
 
