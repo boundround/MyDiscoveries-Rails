@@ -23,8 +23,9 @@ map.on('zoomend', function() {
     if (map.getZoom() < transitionzoomlevel){
       $('#svgdiv').show("medium");
       var ll = map.getCenter();
- 		 //  brglobe.setLocation(ll.lat,ll.lng);
-
+      if (typeof brglobe != 'undefined') {
+   		  brglobe.setLocation(ll.lat,ll.lng);
+      };
     };
 });
 
