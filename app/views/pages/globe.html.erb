@@ -736,7 +736,11 @@ function sizeContent() {
 				var cs = self.proj.scale();
 
 				if(ts<self.scaleextent[0])ts = self.scaleextent[0];
-				if(ts>self.scaleextent[1])ts = self.scaleextent[1];
+				if(ts>self.scaleextent[1]-1)
+				{
+					ts = self.scaleextent[1]-1;
+					self.onMaxZoom(self.proj.invert([self.width/2,self.height/2]));
+				}
 
 				if(Math.abs(ts-cs) > self.zoomstep)self.zooming = true;
 
