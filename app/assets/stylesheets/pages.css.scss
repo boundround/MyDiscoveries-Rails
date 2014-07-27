@@ -1,0 +1,16 @@
+.help-image {
+  width: 50%;
+  margin: 0 25%;
+}
+
+.dude-help {
+  position: absolute;
+  bottom: 2%;
+}
+
+@media (max-width: 700px) {
+  .help-image {
+    width: 100%;
+    margin: 0 5%;
+  }
+}

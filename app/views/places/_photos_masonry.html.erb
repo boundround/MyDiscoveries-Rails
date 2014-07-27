@@ -3,7 +3,9 @@
     <div class="grid-sizer"></div>
     <div class="item about">
       <div class="dude">
-        <img src="<%= asset_path('dude-01.svg') %>" class="dude-image">
+        <a href="#" data-toggle="modal" data-target="#helpModal">
+          <img src="<%= asset_path('dude-01.svg')%>">
+        </a>
       </div>
       <div class="about-wrapper">
         <div class="about-hero">
@@ -215,5 +217,16 @@
       <% end %>
     <% end %>
 
+  </div>
+</div>
+
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-body postcard-dialog">
+      <%= render '/pages/help' %>
+    </div>
+  </div>
+  <div class="footer" data-dismiss="modal">
+    <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
   </div>
 </div>
