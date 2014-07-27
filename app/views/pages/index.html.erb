@@ -17,10 +17,25 @@
   <a href='#' data-category='theme_park'>Theme Park</a>
 </nav>
 
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#helpModal">
+  Launch help modal
+</button>
+
 <div class="modal fade" id="areaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-content">
     <div class="area-content">
     ...
+    </div>
+  </div>
+  <div class="footer" data-dismiss="modal">
+    <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
+  </div>
+</div>
+
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-body">
+      <%= render '/pages/help' %>
     </div>
   </div>
   <div class="footer" data-dismiss="modal">
