@@ -70,6 +70,8 @@ gem 'mini_magick'
 
 gem 'fog'
 
+gem "browser"
+
 gem 'geocomplete_rails'
 
 # FriendlyId is the "Swiss Army bulldozer" of slugging and permalink plugins for Active Record.
