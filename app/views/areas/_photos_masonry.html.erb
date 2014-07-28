@@ -3,9 +3,7 @@
     <div class="grid-sizer"></div>
     <div class="item about">
       <div class="dude">
-        <a href="#" data-toggle="modal" data-target="#helpModal">
-          <img src="<%= asset_path('dude-01.svg')%>">
-        </a>
+        <img src="<%= asset_path('dude-01.svg')%>">
       </div>
       <div class="about-wrapper">
         <div class="about-hero">
@@ -19,7 +17,7 @@
                   <source srcset="<%= @area.photos.find_by(priority: 1).path_url(:large) %>" media="(min-width: 800px)">
                   <source srcset="<%= @area.photos.find_by(priority: 1).path_url(:medium) %>" media="(min-width: 500px)">
                   <!--[if IE 9]></video><![endif]-->
-                  <img class="hero-photo srcset="<%= @area.photos.find_by(priority: 1).path_url(:small) %>">
+                  <img class="hero-photo" srcset="<%= @area.photos.find_by(priority: 1).path_url(:small) %>">
                 </picture>
               <% end %>
             <% end %>
@@ -87,7 +85,7 @@
   <% end %>
 </div>
 
-<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-content">
     <div class="modal-body">
       <%= render '/pages/help' %>
@@ -96,4 +94,4 @@
   <div class="footer" data-dismiss="modal">
     <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
   </div>
-</div>
+</div> -->
