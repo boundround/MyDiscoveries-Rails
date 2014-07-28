@@ -19,7 +19,7 @@ class Place < ActiveRecord::Base
 
     places = Place.all
     places.each do |place|
-      next if place.subscription_level.downcase == "out" || "draft"
+      next if place.subscription_level.downcase == ("out" || "draft")
       geojson['features'] << {
         type: 'Feature',
         geometry: {
