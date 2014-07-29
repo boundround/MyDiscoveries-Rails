@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140724234350) do
+ActiveRecord::Schema.define(version: 20140729195119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140724234350) do
     t.datetime "updated_at"
     t.string   "address"
     t.string   "slug"
+    t.string   "published_status"
   end
 
   add_index "areas", ["slug"], name: "index_areas_on_slug", using: :btree

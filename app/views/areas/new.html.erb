@@ -33,6 +33,9 @@
   <div class="form-group">
     <%= f.input :description, as: :bootsy, editor_options: {lists: false}, placeholder: 'Description', required: true, input_html: { class: 'form-control' } %>
   </div>
+  <div class="form-group published-radio">
+    <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "live", "removed"], checked: ['draft'] %>
+  </div>
   <%= f.simple_fields_for :photos do |ff| %>
     <h3>Add Hero Photo</h3>
     <div class="form-group">
