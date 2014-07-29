@@ -1,3 +1,7 @@
+if ($('#notSupported').length > 0) {
+  $('#notSupported').modal();
+};
+
 map = L.mapbox.map('map', 'boundround.j0d79a3j', {
     // these options apply to the tile layer in the map
     tileLayer: {
