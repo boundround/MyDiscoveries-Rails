@@ -43,7 +43,7 @@ class PlacesController < ApplicationController
     @place = Place.new(place_params)
 
     if @place.save
-      redirect_to(places_path, notice: 'Place succesfully saved')
+      redirect_to(:back, notice: 'Place succesfully saved')
     else
       redirect_to '/places#new', notice: 'Place not saved!'
     end
@@ -96,10 +96,10 @@ class PlacesController < ApplicationController
 
   private
     def place_params
-      params.require(:place).permit(:code, :identifier, :display_name, :description, :subscription_level, :latitude, :longitude, :icon, :map_icon, :passport_icon, :address, :area_id, photos_attributes: [:id, :title, :path, :caption, :credit])
+      params.require(:place).permit(:code, :identifier, :display_name, :description, :subscription_level, :latitude, :longitude, :icon, :map_icon, :passport_icon, :address, :area_id, photos_attributes: [:place_id, :title, :path, :caption, :credit, :caption_source])
     end
 
     def place_update_params
-      params.require(:place).permit(:display_name, :description, :address, :subscription_level, photo: [:id, :title, :path, :credit, :caption, :area_id])
+      params.require(:place).permit(:display_name, :description, :address, :subscription_level, photo: [:title, :path, :credit, :caption, :place_id, :caption_source])
     end
 end

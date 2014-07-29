@@ -35,7 +35,7 @@
     <% @area.photos.each_with_index do |photo, index| %>
         <div class="item photo photo-card photo-thumb">
           <div class="game-divider"></div>
-          <%= content_tag "div", class: "photo-data", data: {photo_url: photo.path_url(:small)} do %>
+          <%= content_tag "div", class: "photo-data", data: {photo_url: photo.path_url(:large)} do %>
           <% end %>
           <img class="game-thumbnail" src="<%= photo.path_url(:small) %>"/>
           <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
