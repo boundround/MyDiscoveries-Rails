@@ -34,7 +34,7 @@
             <li><%= link_to 'All Places', places_path %></li>
             <li><%= link_to 'New Place', new_place_path %></li>
             <li><%= link_to 'Show/Edit Users', users_path %></li>
-            <li><%= link_to 'Facebook Sign Up', user_omniauth_authorize_path(:facebook) %></li>
+            <li><%= link_to 'Rails Admin', rails_admin_path %></li>
             <% if user_signed_in? %>
               <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
             <% end %>

@@ -39,6 +39,9 @@
               <%= f.input :phone_number, input_html: { class: 'form-control' } %>
             </div>
             <div class="form-group">
+              <%= f.input :subscription_level, collection: ["Premium", "standard", "basic", "out", "draft"], required: true %>
+            </div>
+            <div class="form-group">
               <%= f.input :area_id, label: 'Change Area', collection: @areas, as: :select, label_method: :display_name, value_method: :id, required: true %>
             </div>
             <div class="field">

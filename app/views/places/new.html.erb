@@ -14,6 +14,9 @@
       <%= f.input :phone_number, input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
+      <%= f.input :subscription_level, collection: ["Premium", "standard", "basic", "out", "draft"], required: true %>
+    </div>
+    <div class="form-group">
       <% Category.all.each do |category| %>
         <%= hidden_field_tag "place[category_ids][]", nil%>
         <%= check_box_tag "place[category_ids][]", category.id, @place.category_ids.include?(category.id), id: dom_id(category) %>
@@ -41,7 +44,7 @@
       <%= f.input :identifier, label: 'Identifier' %>
     </div>
     <div class="form-group">
-      <%= f.input :description, as: :bootsy, editor_options: {lists: false}, placeholder: 'Description', required: true %>
+      <%= f.input :description, as: :bootsy, editor_options: {lists: false}, placeholder: 'Description', required: true, input_html: { class: 'form-control' } %>
     </div>
     <%= f.simple_fields_for :photos do |ff| %>
       <h3>Add Hero Photo</h3>
