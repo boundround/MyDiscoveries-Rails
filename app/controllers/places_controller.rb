@@ -64,11 +64,6 @@ class PlacesController < ApplicationController
     @videos = @place.videos
     @discounts = @place.discounts
     @discount = Discount.new
-    if @place.save
-      redirect_to(:back, notice: 'Place succesfully saved')
-    else
-      redirect_to edit_place_path(@place), notice: 'Place not saved!'
-    end
   end
 
   def update
