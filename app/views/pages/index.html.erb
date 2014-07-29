@@ -2,20 +2,11 @@
   <div id='map'></div>
 </div>
 
-<nav id='menu-ui' class='menu-ui'>
-  <a href='#' class='active' data-category='all'>All Places</a>
-  <a href='#' data-category='activity'><%= image_tag "Activity_orange.png" %></a>
-  <a href='#' data-category='animals'><%= image_tag "Animals.png" %></a>
-  <a href='#' data-category='beach'><%= image_tag "Beach.png" %></a>
-  <a href='#' data-category='museum'><%= image_tag "Museums.png" %></a>
-  <a href='#' data-category='park'><%= image_tag "Park.png" %></a>
-  <a href='#' data-category='place_to_eat'><%= image_tag "Place_to_Eat.png" %></a>
-  <a href='#' data-category='place_to_stay'><%= image_tag "Place_to_Stay.png" %></a>
-  <a href='#' data-category='shopping'><%= image_tag "Shopping.png" %></a>
-  <a href='#' data-category='sights'><%= image_tag "Sights.png" %></a>
-  <a href='#' data-category='sport'><%= image_tag "Sport.png" %></a>
-  <a href='#' data-category='theme_park'><%= image_tag "Theme_Parks.png" %></a>
-</nav>
+<% if browser.ie? && browser.version.to_i < 9 %>
+  <%= render partial: 'unsupported' %>
+<% end %>
+
+<%= render partial: 'filter_menu' %>
 
 <!-- <a class="dude-help" href="#" data-toggle="modal" data-target="#helpModal">
   <img class="dude-help-icon" src="<%= asset_path('dude-01.svg')%>">
