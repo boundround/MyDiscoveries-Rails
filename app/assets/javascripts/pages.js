@@ -1,4 +1,6 @@
 map = L.mapbox.map('map', 'boundround.j0d79a3j', {
+
+  	worldCopyJump: true,
     // these options apply to the tile layer in the map
     tileLayer: {
         // this map option disables world wrapping. by default, it is false.
@@ -19,17 +21,21 @@ if (window.initialCenter.lat) {
 
 L.control.zoomslider().addTo(map);
 
+
 map.on('zoomend', function() {
     if (map.getZoom() < transitionzoomlevel){
-      $('#svgdiv').show("medium");
-      var ll = map.getCenter();
+      $('#svgdiv').fadeIn("fast");
+      var ll = window.previousLocation ? window.previousLocation : map.getCenter();
       if (typeof brglobe != 'undefined') {
    		  brglobe.setLocation(ll.lat,ll.lng);
       };
     };
 });
 
-var transitionzoomlevel = 7;
+//var transitionzoomlevel = 7;
+var transitionzoomlevel = 4; //2d zoom level transition to globe
+var areahidelevel = 7; //zoom level at which area icons that have places are replaced with cluster icons 
+var areatouchmagnification = 3; //number of levels to zoom when touch area with places
 
 window.placeMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 placeMarkers.addTo(map);
@@ -236,14 +242,15 @@ $.ajax({
         //switch between areas and places
         map.on('zoomstart', function() {
           window.previousZoom = map.getZoom();
+					window.previousLocation = map.getCenter();
         });
         map.on('zoomend', function() {
             var newZoom = map.getZoom();
-            if (previousZoom >= transitionzoomlevel && newZoom < transitionzoomlevel) {
+            if (previousZoom >= areahidelevel && newZoom < areahidelevel) {
               placeMarkers.removeLayers(placesArray);
               areaMarkers.addLayers(window.areaLayers.havePlaces)
               $('#menu-ui').css("visibility", "hidden");
-            } else if (previousZoom < 7 && newZoom >= 7){
+            } else if (previousZoom < areahidelevel && newZoom >= areahidelevel){
               areaMarkers.removeLayers(window.areaLayers.havePlaces)
               placeMarkers.addLayers(placesArray);
               $('#menu-ui').css("visibility", "visible");
@@ -268,9 +275,9 @@ var addMarkersClickEvent = function(markers) {
     markerProps.shift().match(/area/) ? markerType = 'area' :  markerType = 'place';
     var markerID = markerProps.pop();
     var hasPlaces = markerProps.slice(-2)[0] === 'true';
-    if (map.getZoom() < transitionzoomlevel ) {
+    if (map.getZoom() < areahidelevel ) {
       if (hasPlaces) {
-        map.setView([e.latlng.lat, e.latlng.lng], 7);
+        map.setView([e.latlng.lat, e.latlng.lng], areahidelevel+areatouchmagnification);
       } else {
           $('.area-content').empty();
           $.ajax({
@@ -301,8 +308,9 @@ var addMarkersClickEvent = function(markers) {
           window.lastLoaded = markerID;
           // $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         };
-      }
-      if (map.getZoom() >= transitionzoomlevel ) {
+    }
+		else//      if (map.getZoom() >= areahidelevel ) 
+		{
         if (markerType === 'area') {
           $('.area-content').empty();
           $.ajax({
