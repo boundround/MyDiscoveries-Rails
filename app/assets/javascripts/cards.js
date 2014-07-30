@@ -91,7 +91,6 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       $container.imagesLoaded(function() {
         $container.isotope({ layoutMode : 'masonry' });
       });
-      $(divider).html(content);
     });
 
 
