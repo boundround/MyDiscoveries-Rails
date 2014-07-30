@@ -57,14 +57,14 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       $(this).find('.game-thumbnail').hide();
       $(this).addClass('game-card-expanded');
       $(divider).empty();
-      $(this).find('.game-divider').append(content);
+      $(divider).append(content);
       $container.imagesLoaded(function() {
         $container.isotope({ layoutMode : 'masonry' });
       });
     });
 
     // Expand Photo Card
-    $('.photo-thumb').on('click', function() {
+    $('.photo-thumb').on('click', function(e) {
       var photoUrl = $(this).find('.photo-data').data('photo-url');
       var content = '<img src=' + photoUrl + ' class="photo-frame">';
       var divider = $(this).find('.game-divider');
@@ -73,10 +73,11 @@ $('#areaModal').on('shown.bs.modal', function (e) {
       $(this).addClass('photo-card-expanded');
       $(this).find('.fun-fact').show();
       $(divider).empty();
-      $(this).find('.game-divider').append(content);
+      $(divider).append('<img class="photo-frame "src="assets/images/16x9.png" />')
       $container.imagesLoaded(function() {
         $container.isotope({ layoutMode : 'masonry' });
       });
+      $(divider).html(content);
     });
 
 
