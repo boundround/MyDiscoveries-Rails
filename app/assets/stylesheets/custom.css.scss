@@ -231,7 +231,7 @@ body {
 }
 
 .title-wrapper {
-height: 150px;
+/*height: 150px;*/
 }
 
 
@@ -246,6 +246,7 @@ height: 150px;
   padding: 0% 10% 2% 10%;
 	background-image: url(asset_path('title_banner-01_resizeable.svg'));
 	background-size: 100% 100%;
+	z-index: 5;
 }
 
 .dude {
@@ -253,6 +254,7 @@ height: 150px;
   height: auto;
   margin-top: -50px;
   margin-bottom: -5%;
+  visibility: hidden;
 }
 
 .dude-image {
@@ -298,7 +300,7 @@ height: 150px;
   }
 
   .title-wrapper {
-	height: 70px;
+/*	height: 70px;*/
   }
 
   .title {
