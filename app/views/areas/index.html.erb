@@ -1,6 +1,6 @@
 <h1>All Areas</h1>
 <ul>
-  <% @areas.each do |area| %>
+  <% @areas.order(display_name: :asc).each do |area| %>
     <li><%= link_to area.display_name, edit_area_path(area) %></li>
   <% end %>
 </ul>

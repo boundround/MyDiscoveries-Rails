@@ -116,20 +116,8 @@ left: 1px;
 	<div id='map'></div>
 </div>
 
-<nav id='menu-ui' class='menu-ui'>
-	<a href='#' class='active' data-category='all'>All Places</a>
-	<a href='#' data-category='activity'>Activity</a>
-	<a href='#' data-category='animals'>Animals</a>
-	<a href='#' data-category='beach'>Beach</a>
-	<a href='#' data-category='museum'>Museum</a>
-	<a href='#' data-category='park'>Park</a>
-	<a href='#' data-category='place_to_eat'>Places to Eat</a>
-	<a href='#' data-category='place_to_stay'>Places to Stay</a>
-	<a href='#' data-category='shopping'>Shopping</a>
-	<a href='#' data-category='sights'>Sights</a>
-	<a href='#' data-category='sport'>Sport</a>
-	<a href='#' data-category='theme_park'>Theme Park</a>
-</nav>
+<%= render partial: 'filter_menu' %>
+
 
 <div class="modal fade" id="areaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-content">
@@ -151,7 +139,7 @@ left: 1px;
 </div>
 </div>
 
-<!-- <a class="dude-help" href="#" data-toggle="modal" data-target="#helpModal">
+<a class="dude-help" href="#" data-toggle="modal" data-target="#helpModal">
 	<img class="dude-help-icon" src="<%= asset_path('dude-01.svg')%>">
 </a>
 
@@ -164,7 +152,7 @@ left: 1px;
 	<div class="footer" data-dismiss="modal">
 		<%= image_tag(asset_path('back.jpg'), class: "close-button") %>
 	</div>
-</div> -->
+</div>
 
 <!-- Google Fonts embed code -->
 <script type="text/javascript">
