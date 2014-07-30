@@ -5,12 +5,34 @@
 
 .dude-help {
   position: absolute;
-  bottom: 2%;
+  bottom: -20px;
+  width: 12%;
   left: 2%;
+  a { text-decoration: none;
+      color: #de4652;
+    }
 }
 
 .dude-help-icon {
-  height: 80px;
+  width: 120%;
+  margin-left: -20%;
+  margin-top: -8%;
+}
+
+.dude-balloon {
+  width: 100%;
+}
+
+.help-balloon {
+  width: 180px;
+  height: 180px;
+  background: url(asset_path('dude-balloon-dialog.png')), no-repeat;
+  background-size: 100%;
+}
+
+.balloon-dialog {
+  text-align: center;
+  padding-top: 25%;
 }
 
 .feedback {
@@ -28,9 +50,28 @@
   margin-bottom: -5%;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
+  .dude-help {
+    position: absolute;
+    bottom: -20px;
+    width: 15%;
+    left: 2%;
+  }
+
   .help-image {
     width: 100%;
     margin: 0 5%;
+  }
+
+  .help-balloon {
+    width: 130px;
+    height: 130px;
+    background: url(asset_path('dude-balloon-dialog.png')), no-repeat;
+    background-size: 100%;
+  }
+
+  .balloon-dialog {
+    text-align: center;
+    padding-top: 22%;
   }
 }
