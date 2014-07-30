@@ -139,9 +139,18 @@ left: 1px;
 </div>
 </div>
 
-<a class="dude-help" href="#" data-toggle="modal" data-target="#helpModal">
-	<img class="dude-help-icon" src="<%= asset_path('dude-01.svg')%>">
-</a>
+<div class="dude-help">
+	<a href="#" data-toggle="modal" data-target="#helpModal">
+		<div class="help-balloon">
+			<div>
+				<p class="balloon-dialog">Hi there!<br />Click here for the Bound Round guide.</p>
+			</div>
+		</div>
+		<div class="dude-icon-wrapper">
+			<%= image_tag(asset_path("dude-help.png"), class: "dude-help-icon") %>
+		</div>
+	</a>
+</div>
 
 <a class="feedback" href="mailto:help@boundround.com">Send us your feedback!</a>
 
