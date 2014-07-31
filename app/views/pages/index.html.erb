@@ -18,14 +18,29 @@
     <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
   </div>
 </div>
+<div class="dude-help">
+  <div class="balloon-wrapper">
+    <a href="#" data-toggle="modal" data-target="#helpModal">
+      <div class="help-balloon">
+        <div>
+          <p class="balloon-dialog">Hi there!<br />Click here for the Bound Round guide.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="dude-icon-wrapper">
+    <%= image_tag(asset_path("dude-help.png"), class: "dude-help-icon") %>
+  </div>
+</div>
 
-<!-- <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-content">
     <div class="modal-body">
       <%= render '/pages/help' %>
     </div>
   </div>
-  <div class="footer" data-dismiss="modal">
-    <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
+  <div class="footer">
+    <%= image_tag(asset_path('back.jpg'), class: "close-button", data: {dismiss: "modal"}) %>
+    <a class="feedback" href="mailto:help@boundround.com">Send us your feedback!</a>
   </div>
-</div> -->
+</div>
