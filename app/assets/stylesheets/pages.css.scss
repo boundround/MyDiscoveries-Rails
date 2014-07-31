@@ -19,8 +19,6 @@
 
 .dude-help-icon {
   width: 120%;
-  margin-left: -20%;
-  margin-top: -8%;
 }
 
 .dude-balloon {
@@ -67,27 +65,22 @@
 }
 
 @media (max-width: 600px) {
-  .dude-help {
-    position: absolute;
-    bottom: -20px;
-    width: 15%;
-    left: 2%;
-  }
-
   .help-image {
     width: 100%;
     margin: 0 5%;
   }
 
-  .help-balloon {
-    width: 130px;
-    height: 130px;
-    background: url(asset_path('dude-balloon-dialog.png')), no-repeat;
-    background-size: 100%;
+  .dude-help {
+    position: absolute;
+    bottom: -20px;
+    width: 25%;
+    left: -18%;
+    a { text-decoration: none;
+        color: #de4652;
+      }
   }
 
-  .balloon-dialog {
-    text-align: center;
-    padding-top: 22%;
+  .dude-help-out {
+    left: 2%;
   }
 }
