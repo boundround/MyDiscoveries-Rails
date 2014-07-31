@@ -280,11 +280,11 @@ var addMarkersClickEvent = function(markers) {
         map.setView([e.latlng.lat, e.latlng.lng], areahidelevel+areatouchmagnification);
       } else {
           $('.area-content').empty();
+          $('#areaModal').modal()
           $.ajax({
             url: '/' + markerType + 's/' + markerID + ".html",
             success: function(data) {
               $('.area-content').html(data);
-              $('#areaModal').modal()
               //Vimeo api code
               var iframe = $('.hero-video')[0];
               player = $f(iframe);
@@ -313,11 +313,11 @@ var addMarkersClickEvent = function(markers) {
 		{
         if (markerType === 'area') {
           $('.area-content').empty();
+          $('#areaModal').modal()
           $.ajax({
             url: '/' + markerType + 's/' + markerID + ".html",
             success: function(data) {
               $('.area-content').html(data);
-              $('#areaModal').modal()
 
               //Vimeo api code
               var iframe = $('.hero-video')[0];
@@ -343,11 +343,11 @@ var addMarkersClickEvent = function(markers) {
           // $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         } else {
           $('.area-content').empty();
+          $('#areaModal').modal()
           $.ajax({
             url: '/' + markerType + 's/' + markerID + ".html",
             success: function(data) {
               $('.area-content').html(data);
-              $('#areaModal').modal()
 
               //Vimeo api code
               var iframe = $('.hero-video')[0];
