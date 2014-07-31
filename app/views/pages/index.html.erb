@@ -2,10 +2,6 @@
   <div id='map'></div>
 </div>
 
-<% if browser.ie? && browser.version.to_i < 9 %>
-  <%= render partial: 'unsupported' %>
-<% end %>
-
 <%= render partial: 'filter_menu' %>
 
 <!-- <a class="dude-help" href="#" data-toggle="modal" data-target="#helpModal">

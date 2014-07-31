@@ -1,7 +1,3 @@
-if ($('#notSupported').length > 0) {
-  $('#notSupported').modal();
-};
-
 map = L.mapbox.map('map', 'boundround.j0d79a3j', {
 
   	worldCopyJump: true,
@@ -38,7 +34,7 @@ map.on('zoomend', function() {
 
 //var transitionzoomlevel = 7;
 var transitionzoomlevel = 4; //2d zoom level transition to globe
-var areahidelevel = 7; //zoom level at which area icons that have places are replaced with cluster icons 
+var areahidelevel = 7; //zoom level at which area icons that have places are replaced with cluster icons
 var areatouchmagnification = 3; //number of levels to zoom when touch area with places
 
 window.placeMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
@@ -313,7 +309,7 @@ var addMarkersClickEvent = function(markers) {
           // $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         };
     }
-		else//      if (map.getZoom() >= areahidelevel ) 
+		else//      if (map.getZoom() >= areahidelevel )
 		{
         if (markerType === 'area') {
           $('.area-content').empty();
