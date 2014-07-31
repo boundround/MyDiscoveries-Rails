@@ -375,3 +375,8 @@ var addMarkersClickEvent = function(markers) {
       };
   });
 };
+
+$('.dude-help').on('click', function () {
+  $(this).find('.balloon-wrapper').toggleClass('balloon-wrapper-show');
+  $(this).toggleClass('dude-help-out');
+});

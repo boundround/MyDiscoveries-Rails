@@ -7,10 +7,14 @@
   position: absolute;
   bottom: -20px;
   width: 12%;
-  left: 2%;
+  left: -6%;
   a { text-decoration: none;
       color: #de4652;
     }
+}
+
+.dude-help-out {
+  left: 2%;
 }
 
 .dude-help-icon {
@@ -21,6 +25,14 @@
 
 .dude-balloon {
   width: 100%;
+}
+
+.balloon-wrapper {
+  display: none;
+}
+
+.balloon-wrapper-show {
+  display: block;
 }
 
 .help-balloon {
@@ -37,7 +49,7 @@
 
 .feedback {
   position: absolute;
-  bottom: 3%;
+  bottom: 25%;
   right: 2%;
 }
 
