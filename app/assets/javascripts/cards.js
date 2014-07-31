@@ -114,6 +114,12 @@ $('#areaModal').on('hide.bs.modal', function (e) {
   var hash = this.id;
   history.pushState('', document.title, window.location.pathname);
 });
+
+
+$('.photo-caption').keyup(function(){
+  var len = $(this).val().length;
+  $(this).closest('.control-group').next('.charCount').text(140 - len);
+});
 // $('#showAreaModal').modal('show');
 //
 // $('#showAreaModal').on('shown.bs.modal', function (e) {
@@ -144,7 +150,7 @@ $('#areaModal').on('hide.bs.modal', function (e) {
 //       //expand clicked game card
 //       $(this).find('.game-thumbnail').toggle();
 //       $( this ).toggleClass('game-card-expanded');
-//       $(this).find('.game-divider').append('<iframe class="game-frame" src="http://09f1be2b4e79305414d1-e02ea5f9f7cbf68a786b2624900f7447.r95.cf4.rackcdn.com/games/Jigsaw/fiji.html"></iframe>');
+//       $(this).find('.game-divider').append('<iframe class="game-frame" src="http://"></iframe>');
 //       $container.isotope({ layoutMode : 'masonry' });
 //     });
 //
