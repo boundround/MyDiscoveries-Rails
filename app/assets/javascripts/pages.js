@@ -386,18 +386,19 @@ $('.dude-help').on('click', function () {
 
 var loadIsotope = function() {
   var $container = $('#photos-masonry');
-
-  $container.imagesLoaded(function() {
-    $container.isotope({
-      layoutMode: 'masonry',
-      itemSelector: '.item ',
-      masonry: {
-        columnWidth: $container.find('.grid-sizer')[0]
-      },
-      getSortData: {
-        priority: '.priority'
-      },
-      sortBy: ['priority', 'original-order']
+  $('#areaModal').on('shown.bs.modal', function (e) {
+    $container.imagesLoaded(function() {
+      $container.isotope({
+        layoutMode: 'masonry',
+        itemSelector: '.item ',
+        masonry: {
+          columnWidth: $container.find('.grid-sizer')[0]
+        },
+        getSortData: {
+          priority: '.priority'
+        },
+        sortBy: ['priority', 'original-order']
+      });
     });
   });
 
