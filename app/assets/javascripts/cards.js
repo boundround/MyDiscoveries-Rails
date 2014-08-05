@@ -109,13 +109,6 @@ $('#areaModal').on('shown.bs.modal', function (e) {
 
 });
 
-$('#areaModal').on('hide.bs.modal', function (e) {
-  $('#photos-masonry').isotope({ filter: '' });
-  var hash = this.id;
-  history.pushState('', document.title, window.location.pathname);
-});
-
-
 $('.photo-caption').keyup(function(){
   var len = $(this).val().length;
   $(this).closest('.control-group').next('.charCount').text(140 - len);

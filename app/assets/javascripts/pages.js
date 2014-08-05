@@ -489,11 +489,6 @@ var loadIsotope = function() {
   window.location.hash = hash;
 
 
-  $('#areaModal').on('hide.bs.modal', function (e) {
-    $('#photos-masonry').isotope({ filter: '' });
-    var hash = this.id;
-    history.pushState('', document.title, window.location.pathname);
-  });
 
 
   $('.photo-caption').keyup(function(){
@@ -501,3 +496,15 @@ var loadIsotope = function() {
     $(this).closest('.control-group').next('.charCount').text(140 - len);
   });
 }
+
+$('#areaModal').on('hide.bs.modal', function (e) {
+  console.log('splinter');
+  $('#photos-masonry').isotope({ filter: '' });
+  var hash = this.id;
+  history.pushState('', document.title, window.location.pathname);
+});
+
+//Close all modals open when you click back on main modal.
+$('.footer').on('click', function() {
+  $('.modal').modal('hide');
+})
