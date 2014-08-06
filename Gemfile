@@ -74,6 +74,8 @@ gem "browser"
 
 gem 'geocomplete_rails'
 
+gem 'newrelic_rpm'
+
 # FriendlyId is the "Swiss Army bulldozer" of slugging and permalink plugins for Active Record.
 # It lets you create pretty URLs and work with human-friendly strings as if they were numeric ids.
 gem 'friendly_id'
