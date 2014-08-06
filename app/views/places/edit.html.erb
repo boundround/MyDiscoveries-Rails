@@ -38,6 +38,11 @@
             <div class="form-group">
               <%= f.input :phone_number, input_html: { class: 'form-control' } %>
             </div>
+            Current Map Icon: <%= label_tag @place.map_icon %><br />
+            Change Icon
+            <div class="form-group">
+              <%= f.file_field :map_icon, input_html: { class: 'form-control' } %>
+            </div>
             <div class="form-group">
               <%= f.input :subscription_level, collection: ["Premium", "standard", "basic", "out", "draft"], required: true %>
             </div>
