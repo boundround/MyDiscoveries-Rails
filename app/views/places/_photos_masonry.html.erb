@@ -32,10 +32,10 @@
           <h3>About <%= @place.display_name %></h3>
           <div id="area-content">
             <p><%= raw @place.description %></p>
-            <% if @place.website %>
+            <% unless @place.website.nil? %>
               <p>Website: <a href="<%= @place.website %>"> <%= @place.website.gsub('http://', '').gsub('https://', '') %></p></a>
             <% end %>
-            <% if @place.phone_number %>
+            <% unless @place.phone_number.nil? %>
               <p>Phone: <%= raw @place.phone_number %></p>
             <% end %>
           </div>
