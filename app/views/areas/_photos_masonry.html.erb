@@ -11,11 +11,11 @@
             <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
           <% else %>
             <% unless @area.photos.empty? %>
-              <% if @area.photos.find_by(priority: 1) %>
+              <% if @hero_photo %>
                 <picture>
                   <!--[if IE 9]><video style="display: none;"><![endif]-->
-                  <source srcset="<%= @area.photos.find_by(priority: 1).path_url(:large) %>" media="(min-width: 800px)">
-                  <source srcset="<%= @area.photos.find_by(priority: 1).path_url(:medium) %>" media="(min-width: 500px)">
+                  <source srcset="<%= @hero_photo.path_url(:large) %>" media="(min-width: 800px)">
+                  <source srcset="<%= @hero_photo.path_url(:medium) %>" media="(min-width: 500px)">
                   <!--[if IE 9]></video><![endif]-->
                   <img class="hero-photo" srcset="<%= @area.photos.find_by(priority: 1).path_url(:small) %>">
                 </picture>
@@ -31,8 +31,8 @@
         </div>
       </div>
     </div>
-    <% unless @area.photos.empty? %>
-    <% @area.photos.each_with_index do |photo, index| %>
+    <% unless @photos.empty? %>
+    <% @photos.each_with_index do |photo, index| %>
         <div class="item photo photo-card photo-thumb">
           <div class="game-divider"></div>
           <%= content_tag "div", class: "photo-data", data: {photo_url: photo.path_url(:large)} do %>

@@ -15,13 +15,13 @@
             <div class="priority">-1</div>
           <% else %>
             <% unless @place.photos.empty? %>
-              <% if @place.photos.find_by(priority: 1) %>
+              <% if @hero_photo %>
                 <picture>
                   <!--[if IE 9]><video style="display: none;"><![endif]-->
-                  <source srcset="<%= @place.photos.find_by(priority: 1).path_url(:large) %>" media="(min-width: 800px)">
-                  <source srcset="<%= @place.photos.find_by(priority: 1).path_url(:medium) %>" media="(min-width: 500px)">
+                  <source srcset="<%= @hero_photo.path_url(:large) %>" media="(min-width: 800px)">
+                  <source srcset="<%= @hero_photo.path_url(:medium) %>" media="(min-width: 500px)">
                   <!--[if IE 9]></video><![endif]-->
-                  <img class="hero-photo" srcset="<%= @place.photos.find_by(priority: 1).path_url(:small) %>">
+                  <img class="hero-photo" srcset="<%= @hero_photo.path_url(:small) %>">
                 </picture>
               <div class="priority">-1</div>
               <% end %>
@@ -60,8 +60,8 @@
       <% end %>
     <% end %>
 
-    <% unless @place.photos.empty? %>
-      <% @place.photos.each_with_index do |photo, index| %>
+    <% unless @photos.empty? %>
+      <% @photos.each_with_index do |photo, index| %>
           <div class="item photo photo-card photo-thumb">
             <div class="game-divider"></div>
             <%= content_tag "div", class: "photo-data", data: {photo_url: photo.path_url(:large)} do %>
