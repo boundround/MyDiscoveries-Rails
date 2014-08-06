@@ -12,6 +12,7 @@ class Place < ActiveRecord::Base
   has_many :videos
   accepts_nested_attributes_for :photos
 
+  mount_uploader :map_icon, IconUploader
 
 
   def Place.all_geojson
@@ -31,7 +32,7 @@ class Place < ActiveRecord::Base
           "id" => place.id,
           "category" => (place.categories[0] ? place.categories[0].identifier : 'sights'),
           "icon" => {
-            "iconUrl" => "http://905b36b589a2b874c91c-45f6b5af0793f525f377b3a35890f483.r83.cf4.rackcdn.com/vector_icons/" + (place.map_icon || "ghost_m.svg"),
+            "iconUrl" => (place.map_icon.url || "ghost_m.svg"),
             # size of the icon
             "iconSize" => [45, 45],
             # point of the icon which will correspond to marker location
