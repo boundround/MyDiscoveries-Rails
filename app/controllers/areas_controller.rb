@@ -18,6 +18,8 @@ class AreasController < ApplicationController
   def show
     @area = Area.friendly.find(params[:id])
     @hero_video = @area.videos.find_by(priority: 1)
+    @hero_photo = @area.photos.find_by(priority: 1)
+    @photos = @area.photos.where.not(priority: 1)
     @request_xhr = request.xhr?
 
     respond_to do |format|
