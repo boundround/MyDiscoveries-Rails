@@ -20,6 +20,14 @@ class Place < ActiveRecord::Base
     places = Place.all
     places.each do |place|
       next if place.subscription_level.downcase == ("out" || "draft")
+
+      # Assign icon based on 'premium' level and category
+      icon_file_name = map_icon_for(place.categories[0].identifier)
+
+      if place.subscription_level == "Premium"
+        icon_file_name = place.map_icon
+      end
+
       geojson['features'] << {
         type: 'Feature',
         geometry: {
@@ -31,7 +39,7 @@ class Place < ActiveRecord::Base
           "id" => place.id,
           "category" => (place.categories[0] ? place.categories[0].identifier : 'sights'),
           "icon" => {
-            "iconUrl" => "http://905b36b589a2b874c91c-45f6b5af0793f525f377b3a35890f483.r83.cf4.rackcdn.com/vector_icons/" + (place.map_icon || "ghost_m.svg"),
+            "iconUrl" => "http://d1w99recw67lvf.cloudfront.net/vector_icons/" + icon_file_name,
             # size of the icon
             "iconSize" => [45, 45],
             # point of the icon which will correspond to marker location
@@ -43,6 +51,32 @@ class Place < ActiveRecord::Base
 
     return geojson
   end
+
+  def self.map_icon_for(category)
+
+    if category.nil?
+      return "activity_m.svg"
+    end
+
+    icon_file_names = {
+    activity: "activity_m.svg",
+    animals: "animals_m.svg",
+    beach: "beach_m.svg",
+    museum: "museum_m.svg",
+    park: "park_m.svg",
+    place_to_eat: "place_to_eat_m.svg",
+    place_to_stay: "place_to_stay_m.svg",
+    shopping: "shopping_m.svg",
+    sights: "sights_m.svg",
+    sport: "sport_m.svg",
+    theme_park: "theme_park_m.svg"
+    }
+
+    return icon_file_names[category.to_sym]
+
+
+  end
+
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
