@@ -42,7 +42,7 @@ class GamesController < ApplicationController
   private
 
     def game_params
-      params.require(:game).permit(:url, :area_id, :place_id)
+      params.require(:game).permit(:url, :area_id, :place_id, :priority)
     end
 
 end
