@@ -18,6 +18,9 @@ class GamesController < ApplicationController
   end
 
   def destroy
+    @game = Game.find(params[:id])
+    @game.destroy
+    redirect_to :back, notice: "Game deleted"
   end
 
   def edit

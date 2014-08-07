@@ -17,6 +17,9 @@ class VideosController < ApplicationController
   end
 
   def destroy
+    @video = Video.find(params[:id])
+    @video.destroy
+    redirect_to :back, notice: "Video deleted."
   end
 
   def edit
