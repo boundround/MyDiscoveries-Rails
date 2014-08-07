@@ -488,11 +488,6 @@ var loadIsotope = function() {
   var hash = $('.title').text();
   window.location.hash = hash;
 
-  $('.caption').keyup(function(){
-    var len = $(this).val().length;
-    console.log(len);
-    $(this).find('.control-group').find('.charCount').text(140 - len);
-  });
 }
 
 $('#areaModal').on('hide.bs.modal', function (e) {
