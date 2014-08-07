@@ -25,7 +25,7 @@ class VideosController < ApplicationController
 
   def update
     @video = Video.find(params[:id])
-    if @video.update(photo_params)
+    if @video.update(video_params)
       redirect_to :back
     end
   end
