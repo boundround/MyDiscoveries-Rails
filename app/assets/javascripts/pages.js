@@ -488,12 +488,10 @@ var loadIsotope = function() {
   var hash = $('.title').text();
   window.location.hash = hash;
 
-
-
-
-  $('.photo-caption').keyup(function(){
+  $('.caption').keyup(function(){
     var len = $(this).val().length;
-    $(this).closest('.control-group').next('.charCount').text(140 - len);
+    console.log(len);
+    $(this).find('.control-group').find('.charCount').text(140 - len);
   });
 }
 
