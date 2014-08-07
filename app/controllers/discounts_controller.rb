@@ -25,6 +25,9 @@ class DiscountsController < ApplicationController
   end
 
   def destroy
+    @discount = Discount.find(params[:id])
+    @discount.destroy
+    redirect_to :back, notice: "Discount deleted"
   end
 
   def import
