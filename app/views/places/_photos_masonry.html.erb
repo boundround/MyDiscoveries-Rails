@@ -10,6 +10,9 @@
           <% if @hero_video %>
             <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             <div class="priority">-1</div>
+          <% elsif @area_hero_video %>
+            <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @area_hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <div class="priority">-1</div>
           <% else %>
             <% unless @place.photos.empty? %>
               <% if @hero_photo %>
@@ -43,13 +46,15 @@
     <%  unless @videos.empty? %>
       <% @videos.each do |video| %>
         <div class="item video video-card photo-card">
-          <div class="priority"><%= video.priority ? video.priority : 2 %></div>
-          <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
-          <% end %>
-          <div class="game-divider"></div>
-          <div class="game-thumbnail">
-            <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
-            <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
+          <div class="video-wrapper">
+            <div class="priority"><%= video.priority ? video.priority : 2 %></div>
+            <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
+            <% end %>
+            <div class="game-divider"></div>
+            <div class="game-thumbnail">
+              <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
+              <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
+            </div>
           </div>
         </div>
       <% end %>
@@ -143,13 +148,15 @@
     <%  unless @area_videos.empty? %>
       <% @area_videos.each do |video| %>
         <div class="item video video-card photo-card">
-          <div class="priority"><%= video.priority ? video.priority : 2 %></div>
-          <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
-          <% end %>
-          <div class="game-divider"></div>
-          <div class="game-thumbnail">
-            <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
-            <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
+          <div class="video-wrapper">
+            <div class="priority"><%= video.priority ? video.priority : 2 %></div>
+            <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
+            <% end %>
+            <div class="game-divider"></div>
+            <div class="game-thumbnail">
+              <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
+              <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
+            </div>
           </div>
         </div>
       <% end %>
