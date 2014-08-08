@@ -24,17 +24,14 @@ class PlacesController < ApplicationController
       @games = []
     end
 
-    @hero_photo = @place.photos.find_by(priority: 1)
-    @photos = @place.photos.where.not(priority: 1)
-
-    if !@place.photos.find_by(priority: 1)
-      @area_hero_video = @place.area.videos.find_by(priority: 1)
-    end
-    if @area_hero_video
-      @area_videos = @place.area.videos.where.not(priority: 1)
+    if @hero_video
+      @hero_photo = @place.photos.find_by(priority: 1)
+      @photos = @place.photos.where.not(priority: 1)
     else
-      @area_videos = @place.area.videos
+      @photos = @place.photos
     end
+
+    @area_videos = @place.area.videos
     @request_xhr = request.xhr?
 
     respond_to do |format|
