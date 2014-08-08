@@ -10,9 +10,6 @@
           <% if @hero_video %>
             <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             <div class="priority">-1</div>
-          <% elsif @area_hero_video %>
-            <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @area_hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            <div class="priority">-1</div>
           <% else %>
             <% unless @place.photos.empty? %>
               <% if @hero_photo %>
