@@ -9,6 +9,8 @@ class VideosController < ApplicationController
 
   def create
     @video = Video.new(video_params)
+    response = Unirest.get "http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s
+    @video.vimeo_thumbnail = response.body["thumbnail_url"]
     if @video.save
       redirect_to :back, notice: "Video added."
     else
@@ -29,6 +31,9 @@ class VideosController < ApplicationController
   def update
     @video = Video.find(params[:id])
     if @video.update(video_params)
+      response = Unirest.get "http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s
+      @video.vimeo_thumbnail = response.body["thumbnail_url"]
+      @video.save
       redirect_to :back
     end
   end
