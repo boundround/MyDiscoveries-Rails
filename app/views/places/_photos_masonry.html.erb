@@ -43,15 +43,13 @@
     <%  unless @videos.empty? %>
       <% @videos.each do |video| %>
         <div class="item video video-card photo-card">
-          <div class="video-wrapper">
-            <div class="priority"><%= video.priority ? video.priority : 2 %></div>
-            <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
-            <% end %>
-            <div class="game-divider"></div>
-            <div class="game-thumbnail">
-              <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
-              <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
-            </div>
+          <div class="priority"><%= video.priority ? video.priority : 2 %></div>
+          <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
+          <% end %>
+          <div class="game-divider"></div>
+          <div class="game-thumbnail">
+            <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
+            <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
           </div>
         </div>
       <% end %>
@@ -145,15 +143,13 @@
     <%  unless @area_videos.empty? %>
       <% @area_videos.each do |video| %>
         <div class="item video video-card photo-card">
-          <div class="video-wrapper">
-            <div class="priority"><%= video.priority ? video.priority : 2 %></div>
-            <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
-            <% end %>
-            <div class="game-divider"></div>
-            <div class="game-thumbnail">
-              <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
-              <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
-            </div>
+          <div class="priority"><%= video.priority ? video.priority : 2 %></div>
+          <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
+          <% end %>
+          <div class="game-divider"></div>
+          <div class="game-thumbnail">
+            <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
+            <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
           </div>
         </div>
       <% end %>
