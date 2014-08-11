@@ -189,7 +189,7 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               });},
       place: function() {return new placeIcon({ labelText: location.properties.title,
                                               labelClassName: 'place-icon-label ' + location.properties.id,
-                                              iconUrl: location.properties.icon.iconUrl.replace(/svg/, 'png') //temporary replace instead of svg
+                                              iconUrl: location.properties.icon.iconUrl
                                               });}
     }
 
