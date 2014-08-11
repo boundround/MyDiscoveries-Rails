@@ -40,11 +40,9 @@ class Place < ActiveRecord::Base
           "id" => place.id,
           "category" => (place.categories[0] ? place.categories[0].identifier : 'sights'),
           "icon" => {
-<<<<<<< HEAD
-            "iconUrl" => ("http://d1w99recw67lvf.cloudfront.net/vector_icons/" + icon_file_name).gsub(/ /, '%20'),
-=======
-            "iconUrl" => (place.map_icon.url || "ghost_m.svg"),
->>>>>>> staging
+
+            "iconUrl" => "http://d1w99recw67lvf.cloudfront.net/vector_icons/" + icon_file_name,
+
             # size of the icon
             "iconSize" => [45, 45],
             # point of the icon which will correspond to marker location
