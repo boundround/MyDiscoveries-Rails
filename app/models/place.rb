@@ -23,10 +23,10 @@ class Place < ActiveRecord::Base
       next if place.subscription_level.downcase == ("out" || "draft")
 
       # Assign icon based on 'premium' level and category
-      if place.categories[0].nil?
-        place.categories[0].identifier = 'sights'
+      place_category = 'sights'
+      unless place.categories[0].nil?
+        place_category = place.categories[0].identifier
       end
-
       icon_file_name = map_icon_for(place.categories[0].identifier)
 
       if place.subscription_level == "Premium" && place.map_icon.url
