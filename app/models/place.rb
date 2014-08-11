@@ -25,7 +25,7 @@ class Place < ActiveRecord::Base
       icon_file_name = map_icon_for(place.categories[0].identifier)
 
       if place.subscription_level == "Premium" && place.map_icon
-        icon_file_name = place.map_icon
+        icon_file_name = place.map_icon.gsub(/svg/, 'png')
       end
 
       geojson['features'] << {
@@ -39,7 +39,7 @@ class Place < ActiveRecord::Base
           "id" => place.id,
           "category" => (place.categories[0] ? place.categories[0].identifier : 'sights'),
           "icon" => {
-            "iconUrl" => ("http://d1w99recw67lvf.cloudfront.net/vector_icons/" + icon_file_name).gsub(/ /, '%20') ,
+            "iconUrl" => ("http://d1w99recw67lvf.cloudfront.net/vector_icons/" + icon_file_name).gsub(/ /, '%20'),
             # size of the icon
             "iconSize" => [45, 45],
             # point of the icon which will correspond to marker location
