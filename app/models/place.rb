@@ -27,7 +27,7 @@ class Place < ActiveRecord::Base
       unless place.categories[0].nil?
         place_category = place.categories[0].identifier
       end
-      icon_file_name = map_icon_for(place.categories[0].identifier)
+      icon_file_name = map_icon_for(place_category)
 
       if place.subscription_level == "Premium" && place.map_icon.url
         icon_file_name = place.map_icon.url.gsub('http://d1w99recw67lvf.cloudfront.net/vector_icons/', '').gsub(/svg/, 'png')
