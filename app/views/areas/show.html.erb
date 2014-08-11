@@ -25,12 +25,14 @@
             About <%= @area.display_name %>
           </a>
         </li>
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
-            <%= image_tag(asset_path('photo_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.photo'}) %>
-            Photos
-          </a>
-        </li>
+        <% unless @photos.empty? %>
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
+              <%= image_tag(asset_path('photo_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.photo'}) %>
+              Photos
+            </a>
+          </li>
+        <% end %>
       </ul>
     </div>
     <div class="banner-wrapper">

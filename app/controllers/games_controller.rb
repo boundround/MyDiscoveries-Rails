@@ -18,6 +18,9 @@ class GamesController < ApplicationController
   end
 
   def destroy
+    @game = Game.find(params[:id])
+    @game.destroy
+    redirect_to :back, notice: "Game deleted"
   end
 
   def edit
@@ -26,7 +29,7 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-    if @game.update(photo_params)
+    if @game.update(game_params)
       redirect_to :back
     end
   end
@@ -39,7 +42,7 @@ class GamesController < ApplicationController
   private
 
     def game_params
-      params.require(:game).permit(:url, :area_id, :place_id)
+      params.require(:game).permit(:url, :area_id, :place_id, :priority, :game_type)
     end
 
 end
