@@ -30,13 +30,18 @@
           <div class="about-content">
             <h3>About <%= @place.display_name %></h3>
             <div class="form-group">
-              <%= f.input :description, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control area-description-input' } %>
+              <%= f.input :description, as: :bootsy, label: false, input_html: { class: 'form-control area-description-input' } %>
             </div>
             <div class="form-group">
               <%= f.input :website, input_html: { class: 'form-control' } %>
             </div>
             <div class="form-group">
               <%= f.input :phone_number, input_html: { class: 'form-control' } %>
+            </div>
+            Current Map Icon: <%= label_tag @place.map_icon %><br />
+            Change Icon (PNG Only)
+            <div class="form-group">
+              <%= f.file_field :map_icon, input_html: { class: 'form-control' } %>
             </div>
             <div class="form-group">
               <%= f.input :subscription_level, collection: ["Premium", "standard", "basic", "out", "draft"], required: true %>
@@ -71,6 +76,8 @@
                   <%= f.input :vimeo_id, input_html: { class: 'form-control'} %>
                   <%= f.input :priority, collection: 1..10 %>
                   <%= f.button :submit %>
+                  <%= link_to "Delete", video, class: "btn btn-danger", method: :delete,
+                                     data: { confirm: "Are you sure?" } %>
                 </div>
               </div>
             </div>
@@ -88,14 +95,20 @@
                   <%= f.file_field :path, as: :file %>
                 </div>
                 <div class="form-group">
-                  <%= f.input :caption, input_html: { class: 'form-control photo-caption' } %>
-                  Characters remaining:
-                  <span class="charCount"><%= 140 - photo.caption.length %></span>
-                  <p></p>
+                  <%= f.input :caption, input_html: { class: 'form-control caption' } %>
+                    Characters remaining:
+                  <% unless photo.caption.nil? || photo.caption.length == 0 %>
+                    <span class="charCount"><%= 140 - photo.caption.length %></span>
+                  <% else %>
+                    <span class="charCount">140</span>
+                  <% end %>
+                    <p></p>
                   <%= f.input :caption_source, input_html: { class: 'form-control'} %>
                   <%= f.input :credit, input_html: { class: 'form-control' } %>
                   <%= f.input :priority, collection: 1..10 %>
                   <%= f.button :submit %>
+                  <%= link_to "Delete", photo, class: "btn btn-danger", method: :delete,
+                                     data: { confirm: "Are you sure?" } %>
                 </div>
               </div>
             </div>
@@ -112,6 +125,8 @@
               <h4>Edit Discount</h4>
               <p><%= f.input :description, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'} %></p>
               <%= f.button :submit %>
+              <%= link_to "Delete", discount, class: "btn btn-danger", method: :delete,
+                                 data: { confirm: "Are you sure?" } %>
             </div>
           </div>
         <% end %>
@@ -126,7 +141,13 @@
               <h3>Edit Game</h3>
               <%= f.input :url, label: "Game URL", input_html: { class: 'form-control' } %>
               <%= f.input :priority, collection: 1..10 %>
+              <p></p>
+              <div class="form-group published-radio">
+                <%= f.input :game_type, as: :radio_buttons, collection: ["jigsaw puzzle", "slider", "word search"], input_html: { class: 'form-control'} %><br />
+              </div>
               <%= f.button :submit %>
+              <%= link_to "Delete", game, class: "btn btn-danger", method: :delete,
+                                 data: { confirm: "Are you sure?" } %>
             </div>
           </div>
         <% end %>

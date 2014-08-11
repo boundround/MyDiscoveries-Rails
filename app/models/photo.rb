@@ -1,7 +1,8 @@
 class Photo < ActiveRecord::Base
-  belongs_to :photoable, :polymorphic => true
+  # belongs_to :photoable, :polymorphic => true
 
   mount_uploader :path, PhotoUploader
+  skip_callback :commit, :after, :remove_path!
 
 
   def self.import(file)
