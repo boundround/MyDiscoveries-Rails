@@ -24,14 +24,14 @@ class PlacesController < ApplicationController
       @games = []
     end
 
-    if !@place.photos.find_by(priority: 1)
-      @area_hero_video = @place.area.videos.find_by(priority: 1)
-    end
-    if @area_hero_video
-      @area_videos = @place.area.videos.where.not(priority: 1)
+    if @hero_video
+      @hero_photo = @place.photos.find_by(priority: 1)
+      @photos = @place.photos.where.not(priority: 1)
     else
-      @area_videos = @place.area.videos
+      @photos = @place.photos
     end
+
+    @area_videos = @place.area.videos
     @request_xhr = request.xhr?
 
     respond_to do |format|
@@ -96,10 +96,15 @@ class PlacesController < ApplicationController
 
   private
     def place_params
-      params.require(:place).permit(:code, :identifier, :display_name, :description, :subscription_level, :latitude, :longitude, :icon, :map_icon, :passport_icon, :address, :area_id, photos_attributes: [:place_id, :title, :path, :caption, :credit, :caption_source, :priority])
+      params.require(:place).permit(:code, :identifier, :display_name, :description, :subscription_level,
+                                    :latitude, :longitude, :logo, :phone_number, :website, :icon, :map_icon,
+                                    :passport_icon, :address, :area_id, photos_attributes: [:place_id, :title,
+                                      :path, :caption, :credit, :caption_source, :priority], category_ids: [])
     end
 
     def place_update_params
-      params.require(:place).permit(:display_name, :description, :address, :subscription_level, photo: [:title, :path, :credit, :caption, :place_id, :caption_source, :priority])
+      params.require(:place).permit(:display_name, :description, :address, :phone_number, :website, :logo,
+                                    :map_icon, :area_id, :subscription_level, photo: [:title, :path, :credit,
+                                      :caption, :place_id, :caption_source, :priority], category_ids: [])
     end
 end

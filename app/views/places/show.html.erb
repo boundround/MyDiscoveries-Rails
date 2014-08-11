@@ -35,7 +35,7 @@
           </li>
         <% end %>
 
-        <% unless @place.photos.empty? %>
+        <% unless @photos.empty? %>
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
               <%= image_tag(asset_path('photo_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.photo'}) %>

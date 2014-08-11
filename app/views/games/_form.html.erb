@@ -6,6 +6,12 @@
       <%= f.input :place_id, as: :hidden, input_html: {value: @place.id } %>
     </div>
     <div class="form-group">
+      <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
+    </div>
+    <div class="form-group published-radio">
+      <%= f.input :game_type, as: :radio_buttons, collection: ["jigsaw puzzle", "slider", "word search"], input_html: { class: 'form-control'} %><br />
+    </div>
+    <div class="form-group">
       <%= f.button :submit%>
     </div>
 </div>
