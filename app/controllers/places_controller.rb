@@ -36,6 +36,7 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       format.html { render 'show', :layout => !request.xhr? }
+      format.json { render json: @place }
     end
   end
 
