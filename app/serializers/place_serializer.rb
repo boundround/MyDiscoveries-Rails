@@ -125,6 +125,9 @@ class PlaceSerializer < ActiveModel::Serializer
   end
 
   def Game
+    areaName = object.area.display_name.downcase.gsub(' ', '')
+    photo = object.photos.where(priority: 1).first || object.photos.first
+    photo = photo.path.path.gsub('photos/', '')
     unless object.games.empty?
       if object.games.first.game_type = "jigsaw puzzle"
         game = {
@@ -132,7 +135,8 @@ class PlaceSerializer < ActiveModel::Serializer
                         "Photo",
                         "Pieces"
                       ],
-                     "Photo" => "../../../Documents/AirplaneMode/uluru/uluru.bundle/games/Helicopter_Puzzle.jpg",
+                     "Photo" => "../../../Documents/AirplaneMode/" + areaName +
+                                "/" + areaName + ".bundle/games/" + photo,
                      "Bundle" => "Main",
                      "Pieces" => "12",
                      "Path" => "Puzzles/Jigsaw/index.html",
@@ -148,36 +152,47 @@ class PlaceSerializer < ActiveModel::Serializer
         game = {
                      "Parameters" => [
                         "Photo",
-                        "Pieces"
+                        "Size"
                       ],
-                     "Photo" => "../../../Documents/AirplaneMode/uluru/uluru.bundle/games/Helicopter_Puzzle.jpg",
+                     "Photo" => "../../../Documents/AirplaneMode/" + areaName +
+                                "/" + areaName + ".bundle/games/" + photo,
                      "Bundle" => "Main",
-                     "Pieces" => "12",
-                     "Path" => "Puzzles/Jigsaw/index.html",
+                     "Size" => "3",
+                     "Path" => "Puzzles/Sliding/index.html",
                      "Type" => "Puzzle",
                      "Instructions" => [
-                        "Complete the Jigsaw Puzzle!",
-                        "Tap pieces to spin them",
-                        "Tap, hold and drag to move them"
+                        "Complete the Slider Puzzle!",
+                        "Slide pieces to reassemble the photo",
+                        "Drag each piece with your finger to move"
                       ]
                      }
            game.to_json
       elsif object.games.first.game_type = "word search"
         game = {
+                  "Game" => {
+                  "Background Color" => "EEEEEE",
+                  "Grid Size" => "12",
+                  "Border Color" => "999999",
+                  # "crap" => "camel,saddle,muster,outback,katatjuta,anangu,humps,sunset,uluru",
                   "Parameters" => [
-                     "Photo",
-                     "Pieces"
-                   ],
-                  "Photo" => "../../../Documents/AirplaneMode/uluru/uluru.bundle/games/Helicopter_Puzzle.jpg",
+                                    "Grid Size", "Font", "Font Color",
+                                    "Background Color", "Border Color", "Words"
+                                  ],
+                  "Font Color" => "0000FF",
                   "Bundle" => "Main",
-                  "Pieces" => "12",
-                  "Path" => "Puzzles/Jigsaw/index.html",
-                  "Type" => "Puzzle",
+                  "Words" =>  [
+                                "", "", "", "", "",
+                                "", "","", ""
+                              ],
+                  "Path" => "Puzzles/WordSearch/demo.html",
+                  "Font" => "Handlee",
+                  "Type" => "WordSearch",
                   "Instructions" => [
-                     "Complete the Jigsaw Puzzle!",
-                     "Tap pieces to spin them",
-                     "Tap, hold and drag to move them"
-                   ]
+                                      "Find all the words!",
+                                      "Tap and drag over hidden words",
+                                      "Tap the word in list for help"
+                                    ]
+         }
                   }
         game.to_json
       else
