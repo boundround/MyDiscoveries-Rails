@@ -21,7 +21,7 @@ class PlacesController < ApplicationController
       @games = []
     end
 
-    if @hero_video
+    if !@hero_video
       @hero_photo = @place.photos.find_by(priority: 1)
       @photos = @place.photos.where.not(priority: 1)
     else
