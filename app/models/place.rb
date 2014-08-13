@@ -45,7 +45,7 @@ class Place < ActiveRecord::Base
         properties: {
           "title"=> place.display_name,
           "id" => place.id,
-          "category" => place.categories[0].identifier,
+          "category" => place_type,
           "icon" => {
 
             "iconUrl" => "http://d1w99recw67lvf.cloudfront.net/vector_icons/" + icon_file_name,
