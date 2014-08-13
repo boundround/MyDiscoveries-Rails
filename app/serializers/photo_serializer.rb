@@ -38,7 +38,7 @@ class PhotoSerializer < ActiveModel::Serializer
   end
 
   def image_file_name
-    object.path.path.gsub('photos/', '').gsub(/\.(png|jpg)/, '')
+    object.path.path.gsub('photos/', '')
   end
 
   def sound_sprite_audio_file
