@@ -126,8 +126,12 @@ class PlaceSerializer < ActiveModel::Serializer
 
   def Game
     areaName = object.area.display_name.downcase.gsub(' ', '')
-    photo = object.photos.where(priority: 1).first || object.photos.first
-    photo = photo.path.path.gsub('photos/', '')
+    unless object.photos.empty?
+      photo = object.photos.where(priority: 1).first || object.photos.first
+      photo = photo.path.path.gsub('photos/', '')
+    else
+      photo = ''
+    end
     unless object.games.empty?
       if object.games.first.game_type = "jigsaw puzzle"
         game = {
