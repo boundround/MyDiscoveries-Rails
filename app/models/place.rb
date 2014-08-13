@@ -27,7 +27,7 @@ class Place < ActiveRecord::Base
       if place.categories[0].nil?
         place_type = 'sights'
       else
-        place_type = place.categories[0].indentifier
+        place_type = place.categories[0].identifier
       end
 
       icon_file_name = map_icon_for(place_type)
