@@ -25,10 +25,12 @@ class Place < ActiveRecord::Base
 
       # Assign icon based on 'premium' level and category
       if place.categories[0].nil?
-        place.categories[0].identifier = 'sights'
+        place_type = 'sights'
+      else
+        place_type = place.categories[0].indentifier
       end
 
-      icon_file_name = map_icon_for(place.categories[0].identifier || 'sights')
+      icon_file_name = map_icon_for(place_type)
 
       if place.subscription_level == "Premium" && place.map_icon.url
         icon_file_name = place.map_icon.url.gsub('http://d1w99recw67lvf.cloudfront.net/vector_icons/', '').gsub(/svg/, 'png')
