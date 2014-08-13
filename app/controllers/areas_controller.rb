@@ -6,12 +6,9 @@ class AreasController < ApplicationController
   def index
     @areas = Area.all
 
-    # geojson for MapBox map
-    @geojson = Area.all_geojson
-
     respond_to do |format|
       format.html
-      format.json { render json: @geojson }  # respond with the created JSON object
+      format.json { render json: @areas }  # respond with the created JSON object
     end
   end
 
@@ -24,6 +21,7 @@ class AreasController < ApplicationController
 
     respond_to do |format|
       format.html { render 'show', :layout => !request.xhr? }
+      format.json { render json: @area}
     end
 
   end
@@ -66,9 +64,25 @@ class AreasController < ApplicationController
 
   end
 
+  def mapdata
+    @areas = Area.all
+
+    # geojson for MapBox map
+    @geojson = Area.all_geojson
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @geojson }  # respond with the created JSON object
+    end
+  end
+
   def import
     Area.import(params[:file])
     redirect_to areas_path, notice: "Areas imported."
+  end
+
+  def default_serializer_options
+    {root: false}
   end
 
   private

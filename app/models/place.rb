@@ -10,6 +10,7 @@ class Place < ActiveRecord::Base
   has_many :discounts
   has_many :games
   has_many :videos
+  has_one :journal_info
   accepts_nested_attributes_for :photos
 
   mount_uploader :map_icon, IconUploader

@@ -221,7 +221,7 @@ var createMarkerArray = function(geoJSON, markerType) {
 
 //Get all areas and add to map
 $.ajax({
-  url: '/areas.json',
+  url: '/areas/mapdata.json',
   success: function(data) {
     window.areasGeoJSON = data;
     var areasArray = createMarkerArray(data, 'area');
@@ -233,7 +233,7 @@ $.ajax({
 
     //Get all places and add to map
     $.ajax({
-      url: '/places.json',
+      url: '/places/mapdata.json',
       success: function(data) {
         window.placesGeoJSON = data;
         var placesArray = createMarkerArray(data, 'place');
