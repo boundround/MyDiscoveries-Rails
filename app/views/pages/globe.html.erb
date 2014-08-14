@@ -1002,6 +1002,7 @@ function sizeContent() {
 	        });
 	        window.lastLoaded = id;
 	        $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
+					History.pushState({state: id}, id, ("?state=" + id));
       	}
 			},
 			onCountryTouch: function(id){alert("You pressed country id = "+id);}
