@@ -10,6 +10,7 @@ class Place < ActiveRecord::Base
   has_many :discounts
   has_many :games
   has_many :videos
+  has_one :journal_info
   accepts_nested_attributes_for :photos
 
   mount_uploader :map_icon, IconUploader
@@ -23,11 +24,13 @@ class Place < ActiveRecord::Base
       next if place.subscription_level.downcase == ("out" || "draft")
 
       # Assign icon based on 'premium' level and category
-      place_category = 'sights'
-      unless place.categories[0].nil?
-        place_category = place.categories[0].identifier
+      if place.categories[0].nil?
+        place_type = 'sights'
+      else
+        place_type = place.categories[0].identifier
       end
-      icon_file_name = map_icon_for(place_category)
+
+      icon_file_name = map_icon_for(place_type)
 
       if place.subscription_level == "Premium" && place.map_icon.url
         icon_file_name = place.map_icon.url.gsub('http://d1w99recw67lvf.cloudfront.net/vector_icons/', '').gsub(/svg/, 'png')
@@ -42,7 +45,8 @@ class Place < ActiveRecord::Base
         properties: {
           "title"=> place.display_name,
           "id" => place.id,
-          "category" => place_category,
+          "category" => place_type,
+
           "icon" => {
 
             "iconUrl" => "http://d1w99recw67lvf.cloudfront.net/vector_icons/" + icon_file_name,

@@ -2,6 +2,20 @@ class PhotosController < ApplicationController
 
   def index
     @photos = Photo.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @photos }
+    end
+  end
+
+  def show
+    @photo = Photo.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @photo }
+    end
   end
 
   def new

@@ -3,12 +3,9 @@ class PlacesController < ApplicationController
     @places = Place.all
     @areas = Area.all
 
-    # geojson for MapBox map
-    @places_geojson = Place.all_geojson
-
     respond_to do |format|
       format.html
-      format.json { render json: @places_geojson }  # respond with the created JSON object
+      format.json { render json: @places }  # respond with the created JSON object
     end
   end
 
@@ -36,6 +33,7 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       format.html { render 'show', :layout => !request.xhr? }
+      format.json { render json: @place }
     end
   end
 
@@ -92,6 +90,18 @@ class PlacesController < ApplicationController
     country = params[:country]
     Share.postcard(name, email, message, photo, place, area, country).deliver
     redirect_to :back, notice: 'Postcard sent'
+  end
+
+  def mapdata
+    @places = Place.all
+
+    # geojson for MapBox map
+    @places_geojson = Place.all_geojson
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @places_geojson }  # respond with the created JSON object
+    end
   end
 
   private
