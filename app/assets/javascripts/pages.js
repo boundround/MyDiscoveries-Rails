@@ -281,6 +281,7 @@ var addMarkersClickEvent = function(markers) {
       } else {
           $('.area-content').empty();
           $('#areaModal').modal();
+          History.pushState({state: markerID}, markerID, ("?state=" + markerID)); // logs {state:1}, "State 1", "?state=1"
           $.ajax({
             url: '/' + markerType + 's/' + markerID + ".html",
             success: function(data) {
@@ -315,7 +316,7 @@ var addMarkersClickEvent = function(markers) {
         if (markerType === 'area') {
           $('.area-content').empty();
           $('#areaModal').modal();
-
+          History.pushState({state: markerID}, markerID, ("?state=" + markerID)); // logs {state:1}, "State 1", "?state=1"
           $.ajax({
             url: '/' + markerType + 's/' + markerID + ".html",
             success: function(data) {
@@ -346,7 +347,7 @@ var addMarkersClickEvent = function(markers) {
         } else {
           $('.area-content').empty();
           $('#areaModal').modal();
-
+          History.pushState({state: markerID}, markerID, ("?state=" + markerID)); // logs {state:1}, "State 1", "?state=1"
           $.ajax({
             url: '/' + markerType + 's/' + markerID + ".html",
             success: function(data) {
@@ -485,16 +486,16 @@ var loadIsotope = function() {
     $container.isotope({ filter: filterValue });
   });
 
-  var hash = $('.title').text();
-  window.location.hash = hash;
+  // var hash = $('.title').text();
+  // window.location.hash = hash;
 
 }
 
 $('#areaModal').on('hide.bs.modal', function (e) {
-  console.log('splinter');
+  History.pushState({state: 'map'}, 'Map', ("map")); // logs {state:1}, "State 1", "?state=1"
   $('#photos-masonry').isotope({ filter: '' });
   var hash = this.id;
-  history.pushState('', document.title, window.location.pathname);
+  // history.pushState('', document.title, window.location.pathname);
 });
 
 //Close all modals open when you click back on main modal.
