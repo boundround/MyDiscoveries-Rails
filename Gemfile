@@ -41,6 +41,8 @@ gem 'rails_admin'
 
 gem 'unirest'
 
+gem 'wiselinks'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 

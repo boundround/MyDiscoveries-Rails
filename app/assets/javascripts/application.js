@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require geocomplete
 //= require iconlabel
+//= require history
 //= require area
 //= require pages
 //= require cards
