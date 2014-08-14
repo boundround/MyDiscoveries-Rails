@@ -76,7 +76,9 @@ class PlaceSerializer < ActiveModel::Serializer
       key = "bearer " + ENV["VIMEO_OAUTH_KEY"]
       response = Unirest.get "https://api.vimeo.com/videos/" + video.vimeo_id.to_s,
                               headers: { "Authorization" => key }
-      response.body["files"].last["link"]
+      if response.body["files"]
+        response.body["files"].last["link"]
+      end
     end
   end
 
