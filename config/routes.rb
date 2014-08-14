@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  
-  get 'videos/import'
-
-  get 'games/import'
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
+
+  get "areas/mapdata" => "areas#mapdata"
+
+  get "places/mapdata" => "places#mapdata"
 
   resources :areas do
     resources :photos
