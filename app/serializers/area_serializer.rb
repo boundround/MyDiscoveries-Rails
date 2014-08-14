@@ -9,6 +9,9 @@ class AreaSerializer < ActiveModel::Serializer
               :View_heading, :View_height, :View_latitude, :View_longitude, :identifier, :Northeast_latitude,
               :northeast_longitude, :southwest_latitude, :southeast_latitude
 
+  def places
+    object.places.where.not(subscription_level: "out").where.not(subscription_level: "draft")
+  end
 
   define_method("Area Intro sentence (max 90 characters)_Sound Sprite text") do
     object.short_intro

@@ -33,7 +33,9 @@ class PlaceSerializer < ActiveModel::Serializer
   end
 
   def Icon
-    object.map_icon.path.gsub('vector_icons/', '').gsub(/_.\.(png|svg)/, '')
+    unless object.map_icon.path.nil?
+      object.map_icon.path.gsub('vector_icons/', '').gsub(/_.\.(png|svg)/, '')
+    end
   end
 
   def Info_page
