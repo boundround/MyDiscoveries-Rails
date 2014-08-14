@@ -153,7 +153,8 @@ class PlaceSerializer < ActiveModel::Serializer
                         "Complete the Jigsaw Puzzle!",
                         "Tap pieces to spin them",
                         "Tap, hold and drag to move them"
-                      ]
+                      ],
+                      "gameURL" => object.games.first.url
                      }
            game.to_json
       elsif object.games.first.game_type = "slider"
@@ -172,12 +173,13 @@ class PlaceSerializer < ActiveModel::Serializer
                         "Complete the Slider Puzzle!",
                         "Slide pieces to reassemble the photo",
                         "Drag each piece with your finger to move"
-                      ]
+                      ],
+                      "gameURL" => object.games.first.url
                      }
            game.to_json
       elsif object.games.first.game_type = "word search"
         game = {
-                  "Game" => {
+
                   "Background Color" => "EEEEEE",
                   "Grid Size" => "12",
                   "Border Color" => "999999",
@@ -199,8 +201,8 @@ class PlaceSerializer < ActiveModel::Serializer
                                       "Find all the words!",
                                       "Tap and drag over hidden words",
                                       "Tap the word in list for help"
-                                    ]
-         }
+                                    ],
+                  "gameURL" => object.games.first.url
                   }
         game.to_json
       else
