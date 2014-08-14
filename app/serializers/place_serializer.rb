@@ -137,7 +137,7 @@ class PlaceSerializer < ActiveModel::Serializer
       photo = ''
     end
     unless object.games.empty?
-      if object.games.first.game_type = "jigsaw puzzle"
+      if object.games.first.game_type == "jigsaw puzzle"
         game = {
                      "Parameters" => [
                         "Photo",
@@ -157,7 +157,7 @@ class PlaceSerializer < ActiveModel::Serializer
                       "gameURL" => object.games.first.url
                      }
            game.to_json
-      elsif object.games.first.game_type = "slider"
+      elsif object.games.first.game_type == "slider"
         game = {
                      "Parameters" => [
                         "Photo",
@@ -177,7 +177,7 @@ class PlaceSerializer < ActiveModel::Serializer
                       "gameURL" => object.games.first.url
                      }
            game.to_json
-      elsif object.games.first.game_type = "word search"
+      elsif object.games.first.game_type == "word search"
         game = {
 
                   "Background Color" => "EEEEEE",
@@ -190,10 +190,7 @@ class PlaceSerializer < ActiveModel::Serializer
                                   ],
                   "Font Color" => "0000FF",
                   "Bundle" => "Main",
-                  "Words" =>  [
-                                "", "", "", "", "",
-                                "", "","", ""
-                              ],
+                  "Words" =>  [],
                   "Path" => "Puzzles/WordSearch/demo.html",
                   "Font" => "Handlee",
                   "Type" => "WordSearch",
