@@ -1,3 +1,4 @@
+
 map = L.mapbox.map('map', 'boundround.j0d79a3j', {
 
   	worldCopyJump: true,
@@ -14,12 +15,23 @@ map = L.mapbox.map('map', 'boundround.j0d79a3j', {
       maxZoom: 18
     });
 
+L.control.zoomslider().addTo(map);
+
+//Save starting path for history
+begin = location.href;
+
+//Open modal on page load if user visits direct 'show' path.
+$(window).load(function(){
+    $('#showModal').modal('show');
+});
+
 window.initialCenter = $('.modal-content').data();
+
 if (window.initialCenter.lat) {
+  console.log(initialCenter);
   map.setView([initialCenter.lat, initialCenter.long], transitionzoomlevel);
 };
 
-L.control.zoomslider().addTo(map);
 
 
 map.on('zoomend', function() {
@@ -32,7 +44,6 @@ map.on('zoomend', function() {
     };
 });
 
-//var transitionzoomlevel = 7;
 var transitionzoomlevel = 4; //2d zoom level transition to globe
 var areahidelevel = 7; //zoom level at which area icons that have places are replaced with cluster icons
 var areatouchmagnification = 3; //number of levels to zoom when touch area with places
@@ -132,16 +143,6 @@ map.on('moveend', function(event) {
     setFilterButtons(getInboundCategories());
   };
 });
-
-// map.on('zoom', function() {
-//   if (map.getZoom() > transitionzoomlevel) {
-//     console.log('zoom end fired');
-//
-//     setFilterButtons(getInboundCategories());
-//   };
-// });
-
-
 
 $('#menu-ui').on('click', 'a', function(e) {
   category = $(this).data('category');
@@ -267,6 +268,54 @@ $.ajax({
 
 var lastLoaded = 0;
 
+// var contentPathFor = function(markerType, id) {
+//   switch (markerType) {
+//     case "area":
+//       return '/areas/' + id + '.html';
+//       break;
+//     case "place":
+//       return '/places/' + id + '.html';
+//       break;
+//     default:
+//       console.log("This type of marker is not supported: " + markerType + ".");
+//   }
+// }
+
+var setModalContent = function(markerType, id) {
+  console.log(markerType + ' ' + id);
+  $('#areaModal').modal();
+  if (markerType != window.currentModalType || id != window.currentModalId) {
+    $('.area-content').text("Loading");
+    $.ajax({
+      url: '/' + markerType + 's/' + id + ".html",
+      success: function(data) {
+        $('.area-content').html(data);
+        loadIsotope();
+        //Vimeo api code
+        var iframe = $('.hero-video')[0];
+        player = $f(iframe);
+
+        // When the player is ready, add listeners for pause, finish, and playProgress
+        player.addEvent('ready', function() {
+        });
+
+        // Call the API when a button is pressed
+        $('#dropdownMenu1').bind('click', function() {
+            player.api('pause');
+        });
+
+
+        //Stop  area video on modal close
+        $('#areaModal').on('hidden.bs.modal', function (e) {
+          player.api('pause');
+        });
+      }
+    });
+  window.currentModalType = markerType;
+  window.currentModalId = id;
+  };
+};
+
 // Launch modals on clicks
 var addMarkersClickEvent = function(markers) {
   markers.on('click', function(e) {
@@ -279,102 +328,24 @@ var addMarkersClickEvent = function(markers) {
       if (hasPlaces) {
         map.setView([e.latlng.lat, e.latlng.lng], areahidelevel+areatouchmagnification);
       } else {
-          $('.area-content').empty();
-          $('#areaModal').modal();
-          History.pushState({state: markerID}, markerID, ("?state=" + markerID)); // logs {state:1}, "State 1", "?state=1"
-          $.ajax({
-            url: '/' + markerType + 's/' + markerID + ".html",
-            success: function(data) {
-              $('.area-content').html(data);
-              loadIsotope();
-              //Vimeo api code
-              var iframe = $('.hero-video')[0];
-              player = $f(iframe);
-
-              // When the player is ready, add listeners for pause, finish, and playProgress
-              player.addEvent('ready', function() {
-              });
-
-              // Call the API when a button is pressed
-              $('#dropdownMenu1').bind('click', function() {
-                  player.api('pause');
-              });
-
-
-              //Stop  area video on modal close
-              $('#areaModal').on('hidden.bs.modal', function (e) {
-                player.api('pause');
-              });
-            }
-          });
+          History.pushState({_index: History.getCurrentIndex(), state: markerID}, 'boundround', ('/' + markerType + 's/' + markerID));
+          // History.pushState({state: markerID}, markerID, ("?state=" + markerID)); // logs {state:1}, "State 1", "?state=1"
+          setModalContent(markerType, markerID);
           window.lastLoaded = markerID;
-          // $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         };
-    }
-		else//      if (map.getZoom() >= areahidelevel )
-		{
+    } else { //if (map.getZoom() >= areahidelevel )
         if (markerType === 'area') {
-          $('.area-content').empty();
-          $('#areaModal').modal();
-          History.pushState({state: markerID}, markerID, ("?state=" + markerID)); // logs {state:1}, "State 1", "?state=1"
-          $.ajax({
-            url: '/' + markerType + 's/' + markerID + ".html",
-            success: function(data) {
-              $('.area-content').html(data);
-              loadIsotope();
-              //Vimeo api code
-              var iframe = $('.hero-video')[0];
-              player = $f(iframe);
+          History.pushState({_index: History.getCurrentIndex(), state: markerID}, 'boundround', ('/' + markerType + 's/' + markerID));
 
-              // When the player is ready, add listeners for pause, finish, and playProgress
-              player.addEvent('ready', function() {
-              });
-
-              // Call the API when a button is pressed
-              $('#dropdownMenu1').bind('click', function() {
-                  player.api('pause');
-              });
-
-
-              //Stop  area video on modal close
-              $('#areaModal').on('hidden.bs.modal', function (e) {
-                player.api('pause');
-              });
-            }
-          });
+          // History.pushState({state: markerID}, markerID, ("?state=" + markerID)); // logs {state:1}, "State 1", "?state=1"
+          setModalContent(markerType, markerID);
           window.lastLoaded = markerID;
-          // $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         } else {
-          $('.area-content').empty();
-          $('#areaModal').modal();
-          History.pushState({state: markerID}, markerID, ("?state=" + markerID)); // logs {state:1}, "State 1", "?state=1"
-          $.ajax({
-            url: '/' + markerType + 's/' + markerID + ".html",
-            success: function(data) {
-              $('.area-content').html(data);
-              loadIsotope();
-              //Vimeo api code
-              var iframe = $('.hero-video')[0];
-              player = $f(iframe);
+          History.pushState({_index: History.getCurrentIndex(), state: markerID}, 'boundround', ('/' + markerType + 's/' + markerID));
 
-              // When the player is ready, add listeners for pause, finish, and playProgress
-              player.addEvent('ready', function() {
-              });
-
-              // Call the API when a button is pressed
-              $('#dropdownMenu1').bind('click', function() {
-                  player.api('pause');
-              });
-
-
-              //Stop  area video on modal close
-              $('#areaModal').on('hidden.bs.modal', function (e) {
-                player.api('pause');
-              });
-            }
-          });
+          // History.pushState({state: markerID}, markerID, ("?state=" + markerID)); // logs {state:1}, "State 1", "?state=1"
+          setModalContent(markerType, markerID);
           window.lastLoaded = markerID;
-          // $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
         };
       };
   });
@@ -485,14 +456,10 @@ var loadIsotope = function() {
     var filterValue = $(this).attr('data-filter');
     $container.isotope({ filter: filterValue });
   });
-
-  // var hash = $('.title').text();
-  // window.location.hash = hash;
-
 }
 
 $('#areaModal').on('hide.bs.modal', function (e) {
-  History.pushState({state: 'map'}, 'Map', ("map")); // logs {state:1}, "State 1", "?state=1"
+  History.pushState({state: 'map'}, 'Map', begin); // logs new history
   $('#photos-masonry').isotope({ filter: '' });
   var hash = this.id;
   // history.pushState('', document.title, window.location.pathname);
@@ -501,4 +468,4 @@ $('#areaModal').on('hide.bs.modal', function (e) {
 //Close all modals open when you click back on main modal.
 $('.footer').on('click', function() {
   $('.modal').modal('hide');
-})
+});
