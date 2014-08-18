@@ -10,6 +10,16 @@ History.Adapter.bind(window,'statechange',function(){
     } else {
       var tempMarkerType = pathArray[pathArray.length - 2].slice(0, -1);
       setModalContent(tempMarkerType, pathArray[pathArray.length - 1]);
+      $.ajax({
+        url: '/' + pathArray[pathArray.length - 2] + '/' + pathArray[pathArray.length - 1] + ".json",
+        success: function(data) {
+          if (tempMarkerType === 'place') {
+            map.setView([data.place.geolocation_latitude, data.place.geolocation_longitude], transitionzoomlevel);
+          } else {
+            map.setView([data.Centre_latitude, data.Centre_longitude], transitionzoomlevel);
+          }
+        }
+      });
     };
     // var id = State.url.match(/[^=]{1,3}$/);
     // if (id) {

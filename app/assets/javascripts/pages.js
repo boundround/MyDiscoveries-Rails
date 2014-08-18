@@ -316,6 +316,11 @@ var setModalContent = function(markerType, id) {
   };
 };
 
+
+var pushHistoryState = function () {
+
+};
+
 // Launch modals on clicks
 var addMarkersClickEvent = function(markers) {
   markers.on('click', function(e) {
