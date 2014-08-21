@@ -46,6 +46,7 @@ class Place < ActiveRecord::Base
           "title"=> place.display_name,
           "id" => place.id,
           "category" => place_type,
+          "url" => '/places/' + place.slug + '.html',
 
           "icon" => {
 

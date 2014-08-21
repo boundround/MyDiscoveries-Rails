@@ -1,15 +1,6 @@
-<div class='map-page'>
-  <div id='map'></div>
-</div>
-
-<% if !@request_xhr %>
-  <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
-        <div class="area-content">
-<% end %>
-<div class="page-wrap">
-  <div class="container">
+<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
+  <a href="/"><img class="globe-home" src="<%= asset_path('boundround-logo-globe-only.png') %>"></a>
+  <div class="page-wrap">
     <div class="dropdown pull-right">
       <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
       </button>
@@ -71,29 +62,16 @@
         </div>
       </div>
     </div>
-    <%= render partial:'photos_masonry' %>
+    <%= render partial: 'photos_masonry' %>
     <% if current_user.try(:admin?) %>
       <p><%= link_to 'Edit Place', edit_place_path %></p>
     <% end %>
   </div>
+
+  <script>
+    // Picture element HTML5 shiv
+    document.createElement( "picture" );
+  </script>
+  <script src="/assets/js/picturefill.js" async></script>
+
 </div>
-
-
-<script>
-
-  // Picture element HTML5 shiv
-  document.createElement( "picture" );
-
-</script>
-<script src="/assets/js/picturefill.js" async></script>
-
-<% if !@request_xhr %>
-    </div>
-   </div>
-     <div class="footer" data-dismiss="modal">
-      <%= image_tag(asset_path('back.jpg'), class: "close-button") %>
-    </div>
-  </div>
-</div>
-
-<% end %>
