@@ -1,5 +1,5 @@
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
-  <a href="/"><img class="globe-home" src="<%= asset_path('boundround-logo-globe-only.png') %>"></a>
+  <%= link_to image_tag("boundround-logo-globe-only.png"), root_path, class: 'globe-home' %>
   <div class="page-wrap">
     <div class="dropdown pull-right">
       <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
