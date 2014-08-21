@@ -33,6 +33,7 @@ map.on('zoomend', function() {
       var ll = window.previousLocation ? window.previousLocation : map.getCenter();
       if (typeof brglobe != 'undefined') {
    		  brglobe.setLocation(ll.lat,ll.lng);
+         console.log("WHAT");
       };
     };
 });
@@ -257,6 +258,9 @@ $.ajax({
 
   }
 });
+
+// Create leaflet hash object
+var hash = L.hash(map);
 
 // Redirect to areas or places on click
 var addMarkersClickEvent = function(markers) {
