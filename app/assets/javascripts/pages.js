@@ -18,24 +18,30 @@ map = L.mapbox.map('map', 'boundround.j0d79a3j', {
 L.control.zoomslider().addTo(map);
 
 
-// window.initialCenter = $('.area-content').data();
-//
-// if (window.initialCenter.lat) {
-//   console.log(initialCenter);
-//   map.setView([initialCenter.lat, initialCenter.long], transitionzoomlevel);
-// };
+// Create leaflet hash object
+var hash = L.hash(map);
+var hasharray = window.location.hash.substr(1).split('/');
+
+window.onload = function() {
+if (window.location.hash && hasharray[0] > 3) {
+  map.setView([hasharray[1], hasharray[2]], 6);
+  $('#svgdiv').fadeOut('fast');
+}
+}
+
+
 
 
 
 map.on('zoomend', function() {
-    if (map.getZoom() < transitionzoomlevel){
-      $('#svgdiv').fadeIn("fast");
-      var ll = window.previousLocation ? window.previousLocation : map.getCenter();
-      if (typeof brglobe != 'undefined') {
-   		  brglobe.setLocation(ll.lat,ll.lng);
-         console.log("WHAT");
-      };
-    };
+  if (map.getZoom() < transitionzoomlevel){
+    $('#svgdiv').fadeIn("fast");
+    var ll = window.previousLocation ? window.previousLocation : map.getCenter();
+    if (typeof brglobe != 'undefined') {
+ 		  brglobe.setLocation(ll.lat,ll.lng);
+       console.log("zoomend 1 fired");
+    }
+  }
 });
 
 var transitionzoomlevel = 4; //2d zoom level transition to globe
@@ -120,22 +126,21 @@ var setFilterButtons = function(inboundCategories) {
         shownCategoryButtons.push(category);
       } else {
         $('a[data-category=' + category + ']').hide();
-      };
-    };
-  };
+      }
+    }
+  }
   if (shownCategoryButtons.length <= 1 ) {
     $('#menu-ui').find('a').hide();
     $('#menu-ui').prepend("<a id='no-places'>No Places</a>");
-  };
+  }
 };
 
 // Change filter menu based on markers visible in current view
 map.on('moveend', function(event) {
   if (map.getZoom() >= transitionzoomlevel) {
-    console.log(event);
     console.log('move end fired');
     setFilterButtons(getInboundCategories());
-  };
+  }
 });
 
 $('#menu-ui').on('click', 'a', function(e) {
@@ -197,16 +202,16 @@ var createMarkerArray = function(geoJSON, markerType) {
            riseOnHover: true,
            riseOffset: 500,
            category: location.properties.category }
-      );
+      )
       markerArray.push(marker);
       if (markerType == 'place') {
         if (placeLayers[location.properties.category]) {
           window.placeLayers[location.properties.category].push(marker);
-        };
-      };
+        }
+      }
       if (markerType == 'area') {
         location.properties.places ? window.areaLayers.havePlaces.push(marker) : window.areaLayers.noPlaces.push(marker);
-      };
+      }
     };
   };
   if (markerType == 'place') {
@@ -240,27 +245,26 @@ $.ajax({
         map.on('zoomstart', function() {
           window.previousZoom = map.getZoom();
 					window.previousLocation = map.getCenter();
+          console.log('zoomstart fired');
         });
         map.on('zoomend', function() {
-            var newZoom = map.getZoom();
-            if (previousZoom >= areahidelevel && newZoom < areahidelevel) {
-              placeMarkers.removeLayers(placesArray);
-              areaMarkers.addLayers(window.areaLayers.havePlaces)
-              $('#menu-ui').css("visibility", "hidden");
-            } else if (previousZoom < areahidelevel && newZoom >= areahidelevel){
-              areaMarkers.removeLayers(window.areaLayers.havePlaces)
-              placeMarkers.addLayers(placesArray);
-              $('#menu-ui').css("visibility", "visible");
-            };
+          var newZoom = map.getZoom();
+          if (previousZoom >= areahidelevel && newZoom < areahidelevel) {
+            placeMarkers.removeLayers(placesArray);
+            areaMarkers.addLayers(window.areaLayers.havePlaces)
+            $('#menu-ui').css("visibility", "hidden");
+          } else if (previousZoom < areahidelevel && newZoom >= areahidelevel){
+            areaMarkers.removeLayers(window.areaLayers.havePlaces)
+            placeMarkers.addLayers(placesArray);
+            $('#menu-ui').css("visibility", "visible");
+          }
+          console.log('zoomend 2 fired');
         });
       }
     });
 
   }
 });
-
-// Create leaflet hash object
-var hash = L.hash(map);
 
 // Redirect to areas or places on click
 var addMarkersClickEvent = function(markers) {
