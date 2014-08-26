@@ -970,12 +970,20 @@ function sizeContent() {
 
 	options.tileimage = "<%= image_url('green-tile128.png') %>"
 
-	var hasharray = window.location.hash.substr(1).split('/');
+	if (window.location.hash) {
+		var hasharray = window.location.hash.substr(1).split('/');
+		brglobe.configureGlobe(options);
+		setTimeout(function(){brglobe.setLocation(hasharray[1], hasharray[2]);},1000);
+		brglobe.setLocation(hasharray[1], hasharray[2]);
 
-	brglobe.configureGlobe(options);
-	setTimeout(function(){brglobe.setLocation(-33.865143,151.2099);},1000);
- 	brglobe.setLocation(-33.865143,151.2099);
-	
+	} else {
+
+		brglobe.configureGlobe(options);
+		setTimeout(function(){brglobe.setLocation(-33.865143,151.2099);},1000);
+	 	brglobe.setLocation(-33.865143,151.2099);
+
+	}
+
 	//	2d		3d
 	//	 3		1000 (but still a lot of curvature)
 	//	 5		2400 (may be a good transition point)
