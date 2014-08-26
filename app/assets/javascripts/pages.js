@@ -252,7 +252,7 @@ $.ajax({
         if (window.location.hash && hasharray[0] > 3) {
           map.setView([hasharray[1], hasharray[2]], 6);
           $('#svgdiv').fadeOut('fast');
-          setTimeout(map.setZoom(hasharray[0]), 500);
+          setTimeout(map.setZoom(hasharray[0]), 2000);
         }
       }
     });
