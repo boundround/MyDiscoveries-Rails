@@ -250,9 +250,8 @@ $.ajax({
           console.log('zoomend 2 fired');
         });
         if (window.location.hash && hasharray[0] > 3) {
-          map.setView([hasharray[1], hasharray[2]], 6);
+          map.setView([hasharray[1], hasharray[2]], hasharray[0]);
           $('#svgdiv').fadeOut('fast');
-          setTimeout(map.setZoom(hasharray[0]), 2000);
         }
       }
     });
