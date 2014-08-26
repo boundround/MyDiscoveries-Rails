@@ -17,20 +17,9 @@ map = L.mapbox.map('map', 'boundround.j0d79a3j', {
 
 L.control.zoomslider().addTo(map);
 
-
 // Create leaflet hash object
 var hash = L.hash(map);
 var hasharray = window.location.hash.substr(1).split('/');
-
-window.onload = function() {
-if (window.location.hash && hasharray[0] > 3) {
-  map.setView([hasharray[1], hasharray[2]], 6);
-  $('#svgdiv').fadeOut('fast');
-}
-}
-
-
-
 
 
 map.on('zoomend', function() {
@@ -260,6 +249,16 @@ $.ajax({
           }
           console.log('zoomend 2 fired');
         });
+        if (window.location.hash && hasharray[0] > 3) {
+          if (window.navigator.vendor == 'Apple Computer, Inc.') {
+            map.setView([hasharray[1], hasharray[2]], 6);
+            $('#svgdiv').fadeOut('fast');
+            setTimeout(map.setZoom(hasharray[0]), 1000);
+          } else {
+            map.setView([hasharray[1], hasharray[2]], hasharray[0]);
+            $('#svgdiv').fadeOut('fast');
+          }
+        }
       }
     });
 
