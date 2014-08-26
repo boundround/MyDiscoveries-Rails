@@ -21,6 +21,10 @@ L.control.zoomslider().addTo(map);
 var hash = L.hash(map);
 var hasharray = window.location.hash.substr(1).split('/');
 
+function setMapViewFromHash(){
+  map.setView([hasharray[1], hasharray[2]], hasharray[0]);
+  $('#svgdiv').fadeOut('fast');
+};
 
 map.on('zoomend', function() {
   if (map.getZoom() < transitionzoomlevel){
@@ -250,8 +254,11 @@ $.ajax({
           console.log('zoomend 2 fired');
         });
         if (window.location.hash && hasharray[0] > 3) {
-          map.setView([hasharray[1], hasharray[2]], hasharray[0]);
-          $('#svgdiv').fadeOut('fast');
+          setMapViewFromHash();
+          addMarkersClickEvent(placeMarkers);
+          areaMarkers.removeLayers(window.areaLayers.havePlaces)
+          placeMarkers.addLayers(placesArray);
+          $('#menu-ui').css("visibility", "visible");
         }
       }
     });
