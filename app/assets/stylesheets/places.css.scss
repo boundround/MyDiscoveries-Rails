@@ -24,7 +24,9 @@
  }
 
 .globe-home {
-  width: 8%;
+  width: 6%;
+  position: absolute;
+  z-index: 100;
 }
 
 .video-wrapper {

@@ -120,4 +120,10 @@ $(document).ready(function(){
   $('#dropdownMenu1').bind('click', function() {
       player.api('pause');
   });
+
+  $('.globe-home').on('click', function(e) {
+    e.preventDefault();
+    window.history.back();
+    console.log('globe button pressed');
+  });
 });
