@@ -118,19 +118,6 @@ left: 1px;
 
 <%= render partial: 'filter_menu' %>
 
-
-<div class="modal fade" id="areaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-content">
-		<div class="area-content">
-		...
-		</div>
-	</div>
-	<div class="footer" data-dismiss="modal">
-		<%= image_tag(asset_path('back.jpg'), class: "close-button") %>
-	</div>
-</div>
-
-
 <div id="svgdiv">
 <div id="zoomcontrol">
 	<div id="zoomplus"><%=image_tag("zoomplus.png")%></div>
@@ -961,7 +948,7 @@ function sizeContent() {
 			countryfieldname: "name",
 			placesjson: "/areas/mapdata.json",
 //			placesjson: "oneplace.json",
-			placefieldid: "id", //id to pass return in onMarkerTouch callback
+			placefieldid: "url", //id to pass return in onMarkerTouch callback
 			placefieldname: "title", //name to use on markers
 			includecountries: false,
 			includelabels: true,
@@ -974,35 +961,8 @@ function sizeContent() {
 					map.setView([latlng[1], latlng[0]], transitionzoomlevel+3);
 					$('#svgdiv').fadeOut("fast");
 				} else {
-					$('.area-content').empty();
-	        $.ajax({
-	          url: '/areas/' + id + ".html",
-	          success: function(data) {
-	            $('.area-content').html(data);
-
-	            //Vimeo api code
-	            var iframe = $('.hero-video')[0];
-	            player = $f(iframe);
-
-	            // When the player is ready, add listeners for pause, finish, and playProgress
-	            player.addEvent('ready', function() {
-	            });
-
-	            // Call the API when a button is pressed
-	            $('#dropdownMenu1').bind('click', function() {
-	                player.api('pause');
-	            });
-
-
-	            //Stop  area video on modal close
-	            $('#areaModal').on('hidden.bs.modal', function (e) {
-	              player.api('pause');
-	            });
-	          }
-	        });
-	        window.lastLoaded = id;
-	        $('#showAreaModal').length < 1 ? $('#areaModal').modal() : $('#showAreaModal').modal();
-					History.pushState({state: id}, id, ("?state=" + id));
+					window.location.href = id;
+					console.log(id);
       	}
 			},
 			onCountryTouch: function(id){alert("You pressed country id = "+id);}
@@ -1010,9 +970,19 @@ function sizeContent() {
 
 	options.tileimage = "<%= image_url('green-tile128.png') %>"
 
-	brglobe.configureGlobe(options);
-	setTimeout(function(){brglobe.setLocation(-33.865143,151.2099);},1000);
- 	brglobe.setLocation(-33.865143,151.2099);
+	if (window.location.hash) {
+		var hasharray = window.location.hash.substr(1).split('/');
+		brglobe.configureGlobe(options);
+		setTimeout(function(){brglobe.setLocation(hasharray[1], hasharray[2]);},1000);
+		brglobe.setLocation(hasharray[1], hasharray[2]);
+
+	} else {
+
+		brglobe.configureGlobe(options);
+		setTimeout(function(){brglobe.setLocation(-33.865143,151.2099);},1000);
+	 	brglobe.setLocation(-33.865143,151.2099);
+
+	}
 
 	//	2d		3d
 	//	 3		1000 (but still a lot of curvature)

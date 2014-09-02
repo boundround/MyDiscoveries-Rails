@@ -26,11 +26,11 @@
 }
 
 .balloon-wrapper {
-  visibility: hidden;
+  display: none;
 }
 
 .balloon-wrapper-show {
-  visibility: visible;
+  display: block;
 }
 
 .help-balloon {

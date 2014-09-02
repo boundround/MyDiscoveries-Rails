@@ -40,8 +40,12 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new(place_params)
 
+    if @place.identifier == ''
+      @place.identifier = @place.display_name.gsub(/\W/, '').downcase
+    end
+
     if @place.save
-      redirect_to(:back, notice: 'Place succesfully saved')
+      redirect_to :back, notice: 'Place succesfully saved'
     else
       redirect_to '/places#new', notice: 'Place not saved!'
     end
@@ -68,7 +72,7 @@ class PlacesController < ApplicationController
     @place = Place.friendly.find(params[:id])
 
     if @place.update(place_update_params)
-      redirect_to :back
+      redirect_to :back, notice: 'Place succesfully updated'
     end
   end
 

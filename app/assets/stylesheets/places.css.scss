@@ -23,6 +23,12 @@
    height: auto;
  }
 
+.globe-home {
+  width: 6%;
+  position: absolute;
+  z-index: 100;
+}
+
 .video-wrapper {
   width: 100%;
 }
@@ -41,6 +47,7 @@
 .video-play {
   position:absolute;
   opacity: 0.4;
+  width: 100%;
 }
 
 .video-play-background {
@@ -79,5 +86,9 @@
    .game-card-expanded {
      min-width: 110%;
      margin-left: -4%;
+   }
+
+   .globe-home {
+     width: 12%;
    }
  }

@@ -26,6 +26,7 @@ class Area < ActiveRecord::Base
         },
         properties: {
           "title"=> area.display_name,
+          "url" => '/areas/' + area.slug + '.html',
           "id" => area.id,
           "places" => !area.places.where(subscription_level: ['Premium', 'standard', 'basic']).empty?,
           "icon" => {

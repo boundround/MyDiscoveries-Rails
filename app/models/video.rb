@@ -2,6 +2,8 @@ class Video < ActiveRecord::Base
   belongs_to :area
   belongs_to :place
 
+  # before_save :validate_vimeo_id
+
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
@@ -22,4 +24,16 @@ class Video < ActiveRecord::Base
       else raise "Unknown file type: #{file.original_filename}"
     end
   end
+
+  # def validate_vimeo_id
+  #   key = "bearer " + ENV["VIMEO_OAUTH_KEY"]
+  #   response = Unirest.get "https://api.vimeo.com/videos/" + vimeo_id.to_s,
+  #                           headers: { "Authorization" => key }
+  #   if response.body['user']['name'] == 'Bound Round'
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
+
 end

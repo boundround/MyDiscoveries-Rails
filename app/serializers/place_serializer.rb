@@ -33,7 +33,9 @@ class PlaceSerializer < ActiveModel::Serializer
   end
 
   def Icon
-    unless object.map_icon.path.nil?
+    if object.map_icon.path.nil?
+      object.categories[0].identifier
+    else
       object.map_icon.path.gsub('vector_icons/', '').gsub(/_.\.(png|svg)/, '')
     end
   end
@@ -76,7 +78,9 @@ class PlaceSerializer < ActiveModel::Serializer
       key = "bearer " + ENV["VIMEO_OAUTH_KEY"]
       response = Unirest.get "https://api.vimeo.com/videos/" + video.vimeo_id.to_s,
                               headers: { "Authorization" => key }
-      response.body["files"].last["link"]
+      if response.body["files"]
+        response.body["files"].last["link"]
+      end
     end
   end
 
@@ -135,7 +139,7 @@ class PlaceSerializer < ActiveModel::Serializer
       photo = ''
     end
     unless object.games.empty?
-      if object.games.first.game_type = "jigsaw puzzle"
+      if object.games.first.game_type == "jigsaw puzzle"
         game = {
                      "Parameters" => [
                         "Photo",
@@ -151,10 +155,11 @@ class PlaceSerializer < ActiveModel::Serializer
                         "Complete the Jigsaw Puzzle!",
                         "Tap pieces to spin them",
                         "Tap, hold and drag to move them"
-                      ]
+                      ],
+                      "gameURL" => object.games.first.url
                      }
            game.to_json
-      elsif object.games.first.game_type = "slider"
+      elsif object.games.first.game_type == "slider"
         game = {
                      "Parameters" => [
                         "Photo",
@@ -170,12 +175,13 @@ class PlaceSerializer < ActiveModel::Serializer
                         "Complete the Slider Puzzle!",
                         "Slide pieces to reassemble the photo",
                         "Drag each piece with your finger to move"
-                      ]
+                      ],
+                      "gameURL" => object.games.first.url
                      }
            game.to_json
-      elsif object.games.first.game_type = "word search"
+      elsif object.games.first.game_type == "word search"
         game = {
-                  "Game" => {
+
                   "Background Color" => "EEEEEE",
                   "Grid Size" => "12",
                   "Border Color" => "999999",
@@ -186,10 +192,7 @@ class PlaceSerializer < ActiveModel::Serializer
                                   ],
                   "Font Color" => "0000FF",
                   "Bundle" => "Main",
-                  "Words" =>  [
-                                "", "", "", "", "",
-                                "", "","", ""
-                              ],
+                  "Words" =>  [],
                   "Path" => "Puzzles/WordSearch/demo.html",
                   "Font" => "Handlee",
                   "Type" => "WordSearch",
@@ -197,8 +200,8 @@ class PlaceSerializer < ActiveModel::Serializer
                                       "Find all the words!",
                                       "Tap and drag over hidden words",
                                       "Tap the word in list for help"
-                                    ]
-         }
+                                    ],
+                  "gameURL" => object.games.first.url
                   }
         game.to_json
       else
