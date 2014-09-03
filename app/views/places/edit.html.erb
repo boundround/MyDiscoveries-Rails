@@ -11,7 +11,7 @@
         </div>
       </div>
     <%= simple_form_for @place, html: { role: 'form'} do |f| %>
-    <div id="photos-masonry">
+    <div id="edit-photos-masonry">
       <div class="grid-sizer"></div>
       <div class="item about">
         <div class="dude">
@@ -172,3 +172,14 @@
 
   </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+    setTimeout(function() {
+      $('.caption').on("keypress", function(){
+          var len = $(this).val().length;
+          $(this).closest('.control-group').next('.charCount').text(140 - len);
+      });
+    }, 2000);
+  });
+</script>
