@@ -4,7 +4,7 @@ class PlaceSerializer < ActiveModel::Serializer
   has_one :journal_info
 
   attributes :Area, :Area_Type, :Code, :Game_parameters, :Hero_image, :Hero_image_credit,
-              :Icon, :Info_page, :Logo_image, :Logo_image_credit, :PlaceID, :PlaceIntro_Narration_file,
+              :Icon, :Info_Page, :Logo_image, :Logo_image_credit, :PlaceID, :PlaceIntro_Narration_file,
               :PlaceIntro_Narrator, :PlaceIntro_Premium, :Video, :VideoLink, :address_directory,
               :description_directory, :discount_summary, :geolocation_latitude, :geolocation_longitude,
               :identifier, :opening_hours_directory, :phone_number_directory, :terms_and_conditions,
@@ -40,7 +40,7 @@ class PlaceSerializer < ActiveModel::Serializer
     end
   end
 
-  def Info_page
+  def Info_Page
     object.description
   end
 
