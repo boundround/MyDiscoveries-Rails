@@ -174,12 +174,10 @@
 </div>
 
 <script>
-  $(document).ready(function(){
-    setTimeout(function() {
-      $('.caption').on("keypress", function(){
-          var len = $(this).val().length;
-          $(this).closest('.control-group').next('.charCount').text(140 - len);
-      });
-    }, 2000);
-  });
+  window.onload = function() {
+    $('.caption').on("keypress", function(){
+        var len = $(this).val().length;
+        $(this).closest('.control-group').next('.charCount').text(140 - len);
+    });
+  }
 </script>

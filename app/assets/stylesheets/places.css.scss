@@ -24,7 +24,7 @@
  }
 
 .globe-home {
-  width: 6%;
+  width: 80px;
   position: absolute;
   z-index: 100;
 }
@@ -36,6 +36,10 @@
 .video-thumbnail {
   width: 100%;
   border: 7px solid white;
+}
+
+.feedback {
+  margin-left: 70%;
 }
 
 .vimeo-frame {

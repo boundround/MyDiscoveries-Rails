@@ -1,5 +1,5 @@
 <div class="area-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
-  <%= link_to image_tag("boundround-logo-globe-only.png"), root_path, class: 'globe-home' %>
+  <input type="image" src="<%= asset_path("back.jpg") %>" class="globe-home" onClick="window.history.back()">
   <div class="page-wrap">
     <div class="dropdown pull-right">
       <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -39,6 +39,8 @@
     <% if current_user.try(:admin?) %>
       <p><%= link_to 'Edit Area', edit_area_path %></p>
     <% end %>
+
+    <p><a href="mailto:help@boundround.com" class="feedback">Send Us Your Feedback!</a></p>
   </div>
 
 

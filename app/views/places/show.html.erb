@@ -1,5 +1,5 @@
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
-  <input type="image" src="<%= asset_path("boundround-logo-globe-only.png") %>" class="globe-home" onClick="window.history.back()">
+  <input type="image" src="<%= asset_path("back.jpg") %>" class="globe-home" onClick="window.history.back()">
   <div class="page-wrap">
     <div class="dropdown pull-right">
       <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -66,6 +66,8 @@
     <% if current_user.try(:admin?) %>
       <p><%= link_to 'Edit Place', edit_place_path %></p>
     <% end %>
+
+    <p><a href="mailto:help@boundround.com" class="feedback">Send Us Your Feedback!</a></p>
   </div>
 
   <script>
