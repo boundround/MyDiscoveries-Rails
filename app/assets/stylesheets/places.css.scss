@@ -17,16 +17,25 @@
   width: 100%;
   border: 7px solid white;
 }
- .game-thumbnail {
+
+.game-thumbnail {
    border: 7px solid white;
    width: 100%;
    height: auto;
  }
 
+.feedback-button {
+  color: white;
+  background-color: #EA9087;
+  margin-top: 10px;
+}
+
 .globe-home {
-  width: 80px;
+  width: 48px;
   position: absolute;
   z-index: 100;
+  top: 10px;
+  left: 10px;
 }
 
 .video-wrapper {
@@ -39,7 +48,7 @@
 }
 
 .feedback {
-  margin-left: 70%;
+
 }
 
 .vimeo-frame {
