@@ -45,6 +45,7 @@ class PlacesController < ApplicationController
     end
 
     if @place.save
+      JournalInfo.create(place_id: @place.id)
       redirect_to :back, notice: 'Place succesfully saved'
     else
       redirect_to '/places#new', notice: 'Place not saved!'
