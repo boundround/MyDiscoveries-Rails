@@ -15,7 +15,7 @@ class Area < ActiveRecord::Base
   def Area.all_geojson
     geojson = {"type" => "FeatureCollection","features" => []}
 
-    areas = Area.all
+    areas = Area.includes(:places)
     areas.each do |area|
       next if area.published_status == ('draft' || 'out')
       geojson['features'] << {
@@ -28,7 +28,7 @@ class Area < ActiveRecord::Base
           "title"=> area.display_name,
           "url" => '/areas/' + area.slug + '.html',
           "id" => area.id,
-          "places" => !area.places.where(subscription_level: ['Premium', 'standard', 'basic']).empty?,
+          "places" => !area.places.empty?,
           "icon" => {
             "iconUrl" => 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
             # size of the icon

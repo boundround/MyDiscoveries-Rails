@@ -65,8 +65,7 @@ class AreasController < ApplicationController
   end
 
   def mapdata
-    @areas = Area.all
-
+    
     # geojson for MapBox map
     @geojson = Area.all_geojson
 

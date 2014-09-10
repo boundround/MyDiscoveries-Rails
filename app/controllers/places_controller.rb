@@ -98,7 +98,6 @@ class PlacesController < ApplicationController
   end
 
   def mapdata
-    @places = Place.all
 
     # geojson for MapBox map
     @places_geojson = Place.all_geojson
