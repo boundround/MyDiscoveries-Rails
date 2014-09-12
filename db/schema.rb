@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812232718) do
+ActiveRecord::Schema.define(version: 20140912170236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,10 @@ ActiveRecord::Schema.define(version: 20140812232718) do
     t.string   "address"
     t.string   "slug"
     t.string   "published_status"
+    t.float    "view_latitude"
+    t.float    "view_longitude"
+    t.float    "view_height"
+    t.float    "view_heading"
   end
 
   add_index "areas", ["slug"], name: "index_areas_on_slug", using: :btree
