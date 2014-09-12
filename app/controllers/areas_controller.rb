@@ -87,11 +87,15 @@ class AreasController < ApplicationController
 
   private
     def area_params
-      params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description, :latitude, :longitude, :address, :published_status, photos_attributes: [:area_id, :title, :path, :caption, :credit, :caption_source, :priority])
+      params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description,
+                                    :latitude, :longitude, :address, :published_status, :view_latitude, :view_longitude,
+                                    :view_height, :view_heading, photos_attributes: [:area_id, :title, :path, :caption, :credit, :caption_source, :priority])
     end
 
     def area_update_params
-      params.require(:area).permit(:display_name, :short_intro, :description, :address, :published_status, photo: [:title, :path, :credit, :caption, :area_id, :caption_source, :priority])
+      params.require(:area).permit(:display_name, :short_intro, :description, :address,
+                                    :published_status, :view_latitude, :view_longitude, 
+                                    :view_height, :view_heading, photo: [:title, :path, :credit, :caption, :area_id, :caption_source, :priority])
     end
 
 end

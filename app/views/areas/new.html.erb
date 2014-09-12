@@ -18,11 +18,15 @@
     <%= f.input :address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address" } %>
   </div>
 
+  <div class="form-group ios-views">
+    <%= f.input :view_latitude %>
+    <%= f.input :view_longitude %>
+    <%= f.input :view_height %>
+    <%= f.input :view_heading %>
+  </div>
+
   <div class="form-group">
     <%= f.input :code, label: 'Airport Code' %>
-  </div>
-  <div class="form-group">
-    <%= f.input :identifier, label: 'Identifier' %>
   </div>
   <div class="form-group">
     <%= f.input :country, priority: ['', 'Australia', 'United States of America'] %>
