@@ -59,6 +59,23 @@
   margin-top: 100%;
 }
 
+.search-box {
+  z-index: 100;
+  position: absolute;
+  padding:6px 15px 6px 30px;
+	margin:3px;
+	background: white url(asset_path('search.png')) no-repeat 8px 8px;
+  border-radius:15px;
+  color:#bcbcbc;
+  background-size: 15px;
+  right: 80px;
+  top: 10px;
+  border: none;
+}
+
+.search-wrapper {
+}
+
 @media (max-width: 600px) {
   .help-image {
     width: 100%;
