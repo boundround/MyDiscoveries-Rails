@@ -86,19 +86,19 @@ class AreaSerializer < ActiveModel::Serializer
   end
 
   def View_heading
-    # object.view_heading
+    object.view_heading
   end
 
   def View_height
-    # object.view_height
+    object.view_height
   end
 
   def View_latitude
-    # object.view_latitude
+    object.view_latitude
   end
 
   def View_longitude
-    # object.view_longitude
+    object.view_longitude
   end
 
   def identifier
