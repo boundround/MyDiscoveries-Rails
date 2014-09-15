@@ -35,6 +35,12 @@
             <div class="form-group published-radio">
               <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "live", "removed"] %>
             </div>
+            <div class="form-group ios-views">
+              <%= f.input :view_latitude %>
+              <%= f.input :view_longitude %>
+              <%= f.input :view_height %>
+              <%= f.input :view_heading %>
+            </div>
           </div>
         </div>
         <div class="form-group">
