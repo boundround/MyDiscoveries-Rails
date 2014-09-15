@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
 
   get "areas/mapdata" => "areas#mapdata"
-
+  get "areas/search" => "areas#search"
   get "places/mapdata" => "places#mapdata"
+  get "places/search" => "places#search"
 
   resources :areas do
     resources :photos

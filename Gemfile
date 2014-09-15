@@ -45,6 +45,7 @@ gem 'wiselinks'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -87,7 +88,7 @@ gem 'sitemap_generator'
 
 group :development do
   gem 'railroady'
-
+  gem 'brakeman', :require => false
   gem "better_errors"
   gem 'binding_of_caller'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
