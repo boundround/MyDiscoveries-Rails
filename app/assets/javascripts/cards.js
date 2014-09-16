@@ -68,6 +68,7 @@ $(document).ready(function(){
     // Expand Photo Card
     $('.photo-thumb').on('click', function(e) {
       var photoUrl = $(this).find('.photo-data').data('photo-url');
+      var photoAlt = $(this).find('.photo-data').data('photo-alt');
       var divider = $(this).find('.game-divider');
       // remove photo thumbnail and populate expanded divider with large image
       $(this).find('.game-thumbnail').hide();
@@ -89,6 +90,7 @@ $(document).ready(function(){
         content2.hide();
       });
       content.attr("src",photoUrl);
+      content.attr("alt",photoAlt);
 
       $container.imagesLoaded(function() {
         $container.isotope({ layoutMode : 'masonry' });

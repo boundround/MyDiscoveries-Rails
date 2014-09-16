@@ -17,7 +17,7 @@
                   <source srcset="<%= @hero_photo.path_url(:large) %>" media="(min-width: 800px)">
                   <source srcset="<%= @hero_photo.path_url(:medium) %>" media="(min-width: 500px)">
                   <!--[if IE 9]></video><![endif]-->
-                  <img class="hero-photo" srcset="<%= @area.photos.find_by(priority: 1).path_url(:small) %>">
+                  <img class="hero-photo" srcset="<%= @hero_photo.path_url(:small) %>" alt="<%= @hero_photo.path.path.gsub('photos/', '') %>" />
                 </picture>
               <% end %>
             <% end %>
@@ -35,9 +35,9 @@
     <% @photos.each_with_index do |photo, index| %>
         <div class="item photo photo-card photo-thumb">
           <div class="game-divider"></div>
-          <%= content_tag "div", class: "photo-data", data: {photo_url: photo.path_url(:large)} do %>
+          <%= content_tag "div", class: "photo-data", data: {photo_url: photo.path_url(:large), photo_alt: photo.path.path.gsub('photos/', '')} do %>
           <% end %>
-          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>"/>
+          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= @hero_photo.path.path.gsub('photos/', '') %>" />
           <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
           <div id="fun-fact-<%= index %>" class="fun-fact">
             <p><%= raw photo.caption %></p>
