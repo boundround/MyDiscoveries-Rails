@@ -298,3 +298,90 @@ $('.dude-help').on('click', function () {
   $(this).find('.balloon-wrapper').toggleClass('balloon-wrapper-show');
   $(this).toggleClass('dude-help-out');
 });
+
+$('.search-box').autocomplete({
+  source: function( request, response ) {
+    console.log(request);
+    $.ajax({
+      url: '/places/search.json?term=' + request.term,
+      success: function( data ) {
+        console.log(data);
+        if ( data.length >= 1 ) {
+          response( $.map( data, function( item ) {
+            return {
+              label: item.display_name,
+              value: item.slug,
+              lat: item.latitude,
+              lng: item.longitude
+            }
+          }));
+        } else {
+          autoCompleteAreaSearch(request, response);
+        }
+      }
+    });
+
+    var autoCompleteAreaSearch = function(request, response) {
+      $.ajax({
+        url: '/areas/search.json?term=' + request.term,
+        success: function( data ) {
+          console.log(data);
+          if ( data.length >= 1 ) {
+            response( $.map( data, function( item ) {
+              return {
+                label: item.display_name,
+                value: item.slug,
+                lat: item.latitude,
+                lng: item.longitude
+              }
+            }));
+          } else {
+            geoNamesSearch(request, response);
+          }
+        }
+      });
+    };
+
+    var geoNamesSearch = function(request, response) {
+      $.ajax({
+        url: "http://ws.geonames.org/searchJSON?username=boundround",
+        dataType: "jsonp",
+        data: {
+          featureClass: "S",
+          style: "full",
+          maxRows: 12,
+          name_startsWith: request.term
+        },
+        success: function( data ) {
+          console.log(data);
+          response( $.map( data.geonames, function( item ) {
+            return {
+              label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+              value: item.name,
+              lat: item.lat,
+              lng: item.lng
+            }
+          }));
+        }
+      });
+    }
+
+  },
+  minLength: 2,
+  select: function( event, ui ) {
+    console.log( ui.item ?
+      "Selected: " + ui.item.label :
+      "Nothing selected, input was " + this.value);
+    map.setView( [ui.item.lat, ui.item.lng], map.getZoom() );
+    if (typeof brglobe != 'undefined') {
+       brglobe.setLocation(ui.item.lat, ui.item.lng);
+       console.log("zoomend 1 fired");
+    }
+  },
+  open: function() {
+    $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+  },
+  close: function() {
+    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+  }
+});

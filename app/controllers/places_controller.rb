@@ -9,6 +9,14 @@ class PlacesController < ApplicationController
     end
   end
 
+  def search
+    @places = Place.where(["display_name ILIKE ?", "%" + params[:term] + "%"])
+
+    respond_to do |format|
+      format.json { render json: @places.to_json }  # respond with the created JSON object
+    end
+  end
+
   def show
     @place = Place.friendly.find(params[:id])
 

@@ -12,6 +12,14 @@ class AreasController < ApplicationController
     end
   end
 
+  def search
+    @areas = Area.where(["display_name ILIKE ?", "%" + params[:term] + "%"])
+
+    respond_to do |format|
+      format.json { render json: @areas.to_json }  # respond with the created JSON object
+    end
+  end
+
   def show
     @area = Area.friendly.find(params[:id])
     @hero_video = @area.videos.find_by(priority: 1)
@@ -65,7 +73,7 @@ class AreasController < ApplicationController
   end
 
   def mapdata
-    
+
     # geojson for MapBox map
     @geojson = Area.all_geojson
 
