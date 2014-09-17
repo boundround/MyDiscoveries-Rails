@@ -6,7 +6,7 @@
 }
 
 .game-card {
-  width: 48%;
+  width: 30%;
 }
 
 .game-frame {
@@ -93,6 +93,11 @@
 
 }
 
+@media (max-width: 900px) {
+  .game-card {
+    width: 46%;
+  }
+}
 
 
  @media (max-width: 500px) {

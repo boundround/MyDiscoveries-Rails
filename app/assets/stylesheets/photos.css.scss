@@ -10,7 +10,7 @@
 
 
 .photo-card {
-  width: 48%;
+  width: 30%;
 }
 
 .photo-card-expanded {
@@ -39,9 +39,9 @@
 
 .about-hero {
   height: auto;
-  width: 100%;
-  background-color: black;
+  width: 100%%;
 }
+
 
 .hero-video {
   width: 100%;
@@ -49,11 +49,8 @@
 }
 
 .hero-photo {
-  max-width: 100%;
-  display: block;
-  max-height: 500px;
-  min-height: 400px;
-  margin: 0 auto;
+  width: 100%;
+  height: auto;
   border: 8px solid white;
 }
 
@@ -71,4 +68,15 @@
 
 .photo-container {
   background-color: #EA9087;
+}
+
+@media (max-width: 900px) {
+  .about-wrapper {
+    width: 100%;
+  }
+
+  .photo-card {
+    width: 46%;
+  }
+
 }

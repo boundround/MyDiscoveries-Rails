@@ -55,7 +55,7 @@ body {
 }
 
 .about {
-  width: 100%;
+  width: 63%;
 }
 
 .about-content {
@@ -124,17 +124,17 @@ body {
 }
 
 .item {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #photos-masonry {
   padding: 0;
-  width: 60%;
+  width: 65%;
   margin: 0 auto;
 
 }
 
-.grid-sizer { width: 50%; }
+.grid-sizer { width: 33%; }
 
 .modal-dialog {
   width: 100%;
@@ -197,8 +197,7 @@ body {
 }
 
 .title {
-  position: absolute;
-  top: -15px;
+  margin-top: -5px;
   width: 100%;
   padding: 0% 10% 2% 10%;
 	background-image: url(asset_path('title_banner-01_resizeable.svg'));
@@ -231,12 +230,19 @@ body {
 @media (max-width: 900px) {
 
   #photos-masonry {
-    width: 75%;
+    width: 85%;
 /*	margin: 25% auto;*/
+  }
+
+  .grid-sizer { width: 48%; }
+
+  .about {
+    width: 100%;
   }
 }
 
 @media (max-width: 500px) {
+
 
   #photos-masonry {
     width: 100%;
