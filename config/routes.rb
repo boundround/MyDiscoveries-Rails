@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
 
+  post 'searchqueries/create' => 'search_queries#create'
   get "areas/mapdata" => "areas#mapdata"
   get "areas/search" => "areas#search"
   get "places/mapdata" => "places#mapdata"
