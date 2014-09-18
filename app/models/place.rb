@@ -19,7 +19,8 @@ class Place < ActiveRecord::Base
   def Place.all_geojson
     geojson = {"type" => "FeatureCollection","features" => []}
 
-    places = Place.includes(:categories)
+    places = Place.includes(:categories).where("subscription_level != 'draft'")
+
     places.each do |place|
       next if place.subscription_level.downcase == ("out" || "draft")
 
