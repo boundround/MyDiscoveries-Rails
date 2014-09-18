@@ -1,8 +1,5 @@
 class AreasController < ApplicationController
 
-  # before_filter :verify_admin, :only => [:new, :edit, :create, :destroy]
-
-
   def index
     @areas = Area.all
 
@@ -101,7 +98,7 @@ class AreasController < ApplicationController
 
     def area_update_params
       params.require(:area).permit(:display_name, :short_intro, :description, :address,
-                                    :published_status, :view_latitude, :view_longitude, 
+                                    :published_status, :view_latitude, :view_longitude,
                                     :view_height, :view_heading, photo: [:title, :path, :credit, :caption, :area_id, :caption_source, :priority])
     end
 

@@ -12,10 +12,20 @@ class Area < ActiveRecord::Base
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 
 
+  after_update :flush_area_cache
+
+  def flush_area_cache
+    Rails.cache.delete('all_areas')
+  end
+
+  def Area.all_areas
+    Rails.cache.fetch("all_areas") { Area.includes(:places) }
+  end
+
   def Area.all_geojson
     geojson = {"type" => "FeatureCollection","features" => []}
 
-    areas = Area.includes(:places)
+    areas = self.all_areas
     areas.each do |area|
       next if area.published_status == ('draft' || 'out')
       geojson['features'] << {

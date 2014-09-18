@@ -43,6 +43,9 @@ gem 'unirest'
 
 gem 'wiselinks'
 
+# memcached with dalli
+gem 'dalli'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

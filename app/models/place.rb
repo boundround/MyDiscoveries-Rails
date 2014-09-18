@@ -15,11 +15,20 @@ class Place < ActiveRecord::Base
 
   mount_uploader :map_icon, IconUploader
 
+  after_update :flush_place_cache
+
+  def flush_place_cache
+    Rails.cache.delete('all_places')
+  end
+
+  def Place.all_places
+    Rails.cache.fetch("all_places") { Place.includes(:categories) }
+  end
 
   def Place.all_geojson
     geojson = {"type" => "FeatureCollection","features" => []}
 
-    places = Place.includes(:categories)
+    places = self.all_places
     places.each do |place|
       next if place.subscription_level.downcase == ("out" || "draft")
 
