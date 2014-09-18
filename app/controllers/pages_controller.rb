@@ -13,4 +13,5 @@ class PagesController < ApplicationController
   def globe
   end
 
+  
 end
