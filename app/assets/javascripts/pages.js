@@ -299,9 +299,15 @@ $('.dude-help').on('click', function () {
   $(this).toggleClass('dude-help-out');
 });
 
+
+// Search Box
+
+// Save User Location
 var userIP = $('#user-ip').data('ip');
 var userCity = '';
 var userCountry = '';
+
+var resultSource = '';
 
 $.ajax({
   url: 'http://freegeoip.net/json/' + userIP,
@@ -322,8 +328,8 @@ $('.search-box').autocomplete({
         if ( data.length >= 1 ) {
           response( $.map( data, function( item ) {
             return {
-              label: item.display_name,
-              value: item.slug,
+              label: item.display_name + (item.area.display_name ? ", " + item.area.display_name : "") + ", " + item.area.country,
+              value: item.display_name,
               lat: item.latitude,
               lng: item.longitude,
               resultType: 'place'
@@ -343,8 +349,8 @@ $('.search-box').autocomplete({
           if ( data.length >= 1 ) {
             response( $.map( data, function( item ) {
               return {
-                label: item.display_name,
-                value: item.slug,
+                label: item.display_name + (item.country ? ", " + item.country : ""),
+                value: item.display_name,
                 lat: item.latitude,
                 lng: item.longitude,
                 resultType: 'area'
@@ -352,10 +358,46 @@ $('.search-box').autocomplete({
             }));
           } else {
             geoNamesSearch(request, response);
+            // googlePlaceSearch(request, response);
           }
         }
       });
     };
+
+    // var googlePlaceSearch = function(request, response) {
+    //   function initialize() {
+    //     var service = new google.maps.places.AutocompleteService();
+    //     service.getQueryPredictions({ input: request.term }, callback);
+    //   }
+    //
+    //   function callback(predictions, status) {
+    //     if (status != google.maps.places.PlacesServiceStatus.OK) {
+    //       alert(status);
+    //       return;
+    //     }
+    //     response( $.map( predictions, function( item ) {
+    //       return {
+    //         label: item.description,
+    //         value: item.description,
+    //         lat: 0,
+    //         lng: 0,
+    //         resultType: 'Google'
+    //       }
+    //     }));
+    //     // var results = document.getElementById();
+    //     //
+    //     // for (var i = 0, prediction; prediction = predictions[i]; i++) {
+    //     //   results.innerHTML += '<li>' + prediction.description + '</li>';
+    //     // }
+    //     console.log(status);
+    //     console.log(predictions);
+    //
+    //
+    //   }
+    //
+    //   initialize();
+    // }
+
 
     var geoNamesSearch = function(request, response) {
       $.ajax({
@@ -385,16 +427,20 @@ $('.search-box').autocomplete({
   },
   minLength: 2,
   select: function( event, ui ) {
+    console.log(event);
+    console.log(ui);
     $.ajax({
       type: "POST",
       url: '/searchqueries/create',
       data: {search_query: {
         term: this.value,
+        source: ui.item.resultType,
         city: userCity,
         country: userCountry
       }},
       success: console.log('saved: ' + ui.item.label),
     });
+    console.log(this);
     console.log( ui.item ?
       "Selected: " + ui.item.label :
       "Nothing selected, input was " + this.value);
