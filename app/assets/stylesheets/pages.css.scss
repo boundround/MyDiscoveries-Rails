@@ -75,6 +75,16 @@
 .search-wrapper {
 }
 
+.br-corporate-link {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+.corporate-logo {
+  width: 120px;
+}
+
 @media (max-width: 600px) {
   .help-image {
     width: 100%;
