@@ -21,6 +21,16 @@ L.control.zoomslider().addTo(map);
 var hash = L.hash(map);
 var hasharray = window.location.hash.substr(1).split('/');
 
+/// Switch globe display on
+function globeShow() {
+  if (hasharray[0] < transitionzoomlevel) {
+    $('#svgdiv').removeAttr('display');
+    $('svg').removeAttr('display');
+    $('svg').css( 'display', 'block');
+  }
+}
+globeShow();
+
 function setMapViewFromHash(){
   map.setView([hasharray[1], hasharray[2]], hasharray[0]);
   $('#svgdiv').fadeOut('fast');

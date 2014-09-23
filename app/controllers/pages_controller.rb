@@ -11,7 +11,8 @@ class PagesController < ApplicationController
   end
 
   def globe
+    @initial_zoom = request.original_url
   end
 
-  
+
 end
