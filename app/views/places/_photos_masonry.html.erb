@@ -29,9 +29,12 @@
           <div id="area-content">
             <p><%= raw @place.description %></p>
             <% unless @place.website.nil? %>
-              <p>Website: <a href="<%= @place.website %>"> <%= @place.website.gsub('http://', '').gsub('https://', '') %></p></a>
+              <a href="<%= @place.website %>" class="feedback">
+                <button class="btn website-button">Visit Website</button>
+              </a>
             <% end %>
             <% unless @place.phone_number.nil? %>
+            <br /><br />
               <p>Phone: <%= raw @place.phone_number %></p>
             <% end %>
           </div>

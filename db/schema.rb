@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20140922171438) do
     t.string   "phone_number"
     t.string   "website"
     t.string   "logo"
+    t.string   "url"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
