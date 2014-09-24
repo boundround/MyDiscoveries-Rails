@@ -212,7 +212,10 @@ var createMarkerArray = function(geoJSON, markerType) {
   return markerArray;
 };
 
-
+// set 2d map to center over Oz
+$(document).ready(function(){
+  map.setView ([-33.865143, 151.2099], 3);
+});
 //Get all areas and add to map
 $.ajax({
   url: '/areas/mapdata.json',
@@ -232,7 +235,6 @@ $.ajax({
         window.placesGeoJSON = data;
         var placesArray = createMarkerArray(data, 'place');
         addMarkersClickEvent(placeMarkers);
-        map.setView ([-33.865143, 151.2099], 3)
 
         //switch between areas and places
         map.on('zoomstart', function() {
