@@ -17,6 +17,7 @@ map = L.mapbox.map('map', 'boundround.j0d79a3j', {
 
 L.control.zoomslider().addTo(map);
 
+
 // Create leaflet hash object
 var hash = L.hash(map);
 var hasharray = window.location.hash.substr(1).split('/');
@@ -27,8 +28,16 @@ function setMapViewFromHash(){
   $('#svgdiv').fadeOut('fast');
 };
 
+
+/// Switch globe display on
+var globeSwitch = function() {
+  if (hasharray[0] < 4) {
+    $('#svgdiv').css('visibility', 'visible');
+  }
+};
 map.on('zoomend', function() {
   if (map.getZoom() < transitionzoomlevel){
+    $('#svgdiv').css('visibility', 'visible');
     $('#svgdiv').fadeIn("fast");
     var ll = window.previousLocation ? window.previousLocation : map.getCenter();
     if (typeof brglobe != 'undefined') {
