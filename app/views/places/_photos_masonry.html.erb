@@ -12,13 +12,8 @@
           <% else %>
             <% unless @place.photos.empty? %>
               <% if @hero_photo %>
-                <picture>
-                  <!--[if IE 9]><video style="display: none;"><![endif]-->
-                  <source srcset="<%= @hero_photo.path_url(:large) %>" media="(min-width: 800px)">
-                  <source srcset="<%= @hero_photo.path_url(:medium) %>" media="(min-width: 500px)">
-                  <!--[if IE 9]></video><![endif]-->
-                  <img class="hero-photo" srcset="<%= @hero_photo.path_url(:small) %>" alt="<%= @hero_photo.path.path.gsub('photos/', '') %>" />
-                </picture>
+                <img class="hero-photo" srcset="<%= @hero_photo.path_url(:large) %> 900w, <%= @hero_photo.path_url(:medium) %> 600w, <%= @hero_photo.path_url(:small) %> 300w"
+                  sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= @hero_photo.path.path.gsub('photos/', '') %>" />
               <div class="priority">-1</div>
               <% end %>
             <% end %>
