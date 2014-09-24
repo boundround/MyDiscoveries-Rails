@@ -27,7 +27,7 @@ class Area < ActiveRecord::Base
 
     areas = self.all_areas
     areas.each do |area|
-      next if area.published_status == ('draft' || 'out')
+      next if area.published_status == 'draft' || area.published_status == 'out'
       geojson['features'] << {
         type: 'Feature',
         geometry: {
