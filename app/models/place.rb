@@ -29,6 +29,7 @@ class Place < ActiveRecord::Base
     geojson = {"type" => "FeatureCollection","features" => []}
 
     places = self.all_places
+
     places.each do |place|
       next if place.subscription_level.downcase == ("out" || "draft")
 

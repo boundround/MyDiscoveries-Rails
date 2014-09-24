@@ -232,6 +232,7 @@ $.ajax({
         window.placesGeoJSON = data;
         var placesArray = createMarkerArray(data, 'place');
         addMarkersClickEvent(placeMarkers);
+        
 
         //switch between areas and places
         map.on('zoomstart', function() {
