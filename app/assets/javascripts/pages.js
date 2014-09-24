@@ -17,10 +17,14 @@ map = L.mapbox.map('map', 'boundround.j0d79a3j', {
 
 L.control.zoomslider().addTo(map);
 
-
 // Create leaflet hash object
 var hash = L.hash(map);
 var hasharray = window.location.hash.substr(1).split('/');
+
+/// Switch globe display on
+  if (hasharray[0] < 4) {
+    $('#svgdiv').css('visibility', 'visible');
+  }
 
 
 function setMapViewFromHash(){
@@ -28,20 +32,15 @@ function setMapViewFromHash(){
   $('#svgdiv').fadeOut('fast');
 };
 
-
-/// Switch globe display on
-var globeSwitch = function() {
-  if (hasharray[0] < 4) {
-    $('#svgdiv').css('visibility', 'visible');
-  }
-};
 map.on('zoomend', function() {
-  if (map.getZoom() < transitionzoomlevel){
+  window.hasharray = window.location.hash.substr(1).split('/');
+  if (hasharray[0] < transitionzoomlevel){
     $('#svgdiv').css('visibility', 'visible');
     $('#svgdiv').fadeIn("fast");
     var ll = window.previousLocation ? window.previousLocation : map.getCenter();
     if (typeof brglobe != 'undefined') {
  		  brglobe.setLocation(ll.lat,ll.lng);
+       console.log("zoomend 1 fired");
     }
   }
 });
@@ -140,6 +139,7 @@ var setFilterButtons = function(inboundCategories) {
 // Change filter menu based on markers visible in current view
 map.on('moveend', function(event) {
   if (map.getZoom() >= transitionzoomlevel) {
+    console.log('move end fired');
     setFilterButtons(getInboundCategories());
   }
 });
@@ -241,12 +241,12 @@ $.ajax({
         window.placesGeoJSON = data;
         var placesArray = createMarkerArray(data, 'place');
         addMarkersClickEvent(placeMarkers);
-        map.setView ([-33.865143, 151.2099], 3)
 
         //switch between areas and places
         map.on('zoomstart', function() {
           window.previousZoom = map.getZoom();
 					window.previousLocation = map.getCenter();
+          console.log('zoomstart fired');
         });
         map.on('zoomend', function() {
           var newZoom = map.getZoom();
@@ -259,6 +259,7 @@ $.ajax({
             placeMarkers.addLayers(placesArray);
             $('#menu-ui').css("visibility", "visible");
           }
+          console.log('zoomend 2 fired');
         });
         if (window.location.hash && hasharray[0] > 3) {
           setMapViewFromHash();
@@ -319,6 +320,7 @@ var resultSource = '';
 $.ajax({
   url: 'http://freegeoip.net/json/' + userIP,
   success: function(data) {
+    console.log(data.city);
     userCity = data.city;
     userCountry = data.country_name;
   }
@@ -326,9 +328,11 @@ $.ajax({
 
 $('.search-box').autocomplete({
   source: function( request, response ) {
+    console.log(request);
     $.ajax({
       url: '/places/search.json?term=' + request.term,
       success: function( data ) {
+        console.log(data);
         if ( data.length >= 1 ) {
           response( $.map( data, function( item ) {
             return {
@@ -349,6 +353,7 @@ $('.search-box').autocomplete({
       $.ajax({
         url: '/areas/search.json?term=' + request.term,
         success: function( data ) {
+          console.log(data);
           if ( data.length >= 1 ) {
             response( $.map( data, function( item ) {
               return {
@@ -413,6 +418,7 @@ $('.search-box').autocomplete({
           name_startsWith: request.term
         },
         success: function( data ) {
+          console.log(data);
           response( $.map( data.geonames, function( item ) {
             return {
               label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
@@ -429,6 +435,8 @@ $('.search-box').autocomplete({
   },
   minLength: 2,
   select: function( event, ui ) {
+    console.log(event);
+    console.log(ui);
     $.ajax({
       type: "POST",
       url: '/searchqueries/create',
@@ -440,13 +448,15 @@ $('.search-box').autocomplete({
       }},
       success: console.log('saved: ' + ui.item.label),
     });
-    log( ui.item ?
+    console.log(this);
+    console.log( ui.item ?
       "Selected: " + ui.item.label :
       "Nothing selected, input was " + this.value);
     var newZoom = 7;
     if (ui.item.resultType === 'place') {
       newZoom = 13;
     }
+    console.log('new zoom' + newZoom);
     $('#svgdiv').fadeOut("fast");
     map.setView( [ui.item.lat, ui.item.lng], newZoom );
     if (typeof brglobe != 'undefined') {
