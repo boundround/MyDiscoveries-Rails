@@ -21,15 +21,6 @@ L.control.zoomslider().addTo(map);
 var hash = L.hash(map);
 var hasharray = window.location.hash.substr(1).split('/');
 
-/// Switch globe display on
-function globeShow() {
-  if (hasharray[0] < transitionzoomlevel) {
-    $('#svgdiv').removeAttr('display');
-    $('svg').removeAttr('display');
-    $('svg').css( 'display', 'block');
-  }
-}
-globeShow();
 
 function setMapViewFromHash(){
   map.setView([hasharray[1], hasharray[2]], hasharray[0]);
@@ -42,7 +33,6 @@ map.on('zoomend', function() {
     var ll = window.previousLocation ? window.previousLocation : map.getCenter();
     if (typeof brglobe != 'undefined') {
  		  brglobe.setLocation(ll.lat,ll.lng);
-       console.log("zoomend 1 fired");
     }
   }
 });
@@ -141,7 +131,6 @@ var setFilterButtons = function(inboundCategories) {
 // Change filter menu based on markers visible in current view
 map.on('moveend', function(event) {
   if (map.getZoom() >= transitionzoomlevel) {
-    console.log('move end fired');
     setFilterButtons(getInboundCategories());
   }
 });
@@ -248,7 +237,6 @@ $.ajax({
         map.on('zoomstart', function() {
           window.previousZoom = map.getZoom();
 					window.previousLocation = map.getCenter();
-          console.log('zoomstart fired');
         });
         map.on('zoomend', function() {
           var newZoom = map.getZoom();
@@ -261,7 +249,6 @@ $.ajax({
             placeMarkers.addLayers(placesArray);
             $('#menu-ui').css("visibility", "visible");
           }
-          console.log('zoomend 2 fired');
         });
         if (window.location.hash && hasharray[0] > 3) {
           setMapViewFromHash();
@@ -322,7 +309,6 @@ var resultSource = '';
 $.ajax({
   url: 'http://freegeoip.net/json/' + userIP,
   success: function(data) {
-    console.log(data.city);
     userCity = data.city;
     userCountry = data.country_name;
   }
@@ -330,11 +316,9 @@ $.ajax({
 
 $('.search-box').autocomplete({
   source: function( request, response ) {
-    console.log(request);
     $.ajax({
       url: '/places/search.json?term=' + request.term,
       success: function( data ) {
-        console.log(data);
         if ( data.length >= 1 ) {
           response( $.map( data, function( item ) {
             return {
@@ -355,7 +339,6 @@ $('.search-box').autocomplete({
       $.ajax({
         url: '/areas/search.json?term=' + request.term,
         success: function( data ) {
-          console.log(data);
           if ( data.length >= 1 ) {
             response( $.map( data, function( item ) {
               return {
@@ -420,7 +403,6 @@ $('.search-box').autocomplete({
           name_startsWith: request.term
         },
         success: function( data ) {
-          console.log(data);
           response( $.map( data.geonames, function( item ) {
             return {
               label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
@@ -437,8 +419,6 @@ $('.search-box').autocomplete({
   },
   minLength: 2,
   select: function( event, ui ) {
-    console.log(event);
-    console.log(ui);
     $.ajax({
       type: "POST",
       url: '/searchqueries/create',
@@ -450,15 +430,13 @@ $('.search-box').autocomplete({
       }},
       success: console.log('saved: ' + ui.item.label),
     });
-    console.log(this);
-    console.log( ui.item ?
+    log( ui.item ?
       "Selected: " + ui.item.label :
       "Nothing selected, input was " + this.value);
     var newZoom = 7;
     if (ui.item.resultType === 'place') {
       newZoom = 13;
     }
-    console.log('new zoom' + newZoom);
     $('#svgdiv').fadeOut("fast");
     map.setView( [ui.item.lat, ui.item.lng], newZoom );
     if (typeof brglobe != 'undefined') {
