@@ -232,7 +232,7 @@ $.ajax({
         window.placesGeoJSON = data;
         var placesArray = createMarkerArray(data, 'place');
         addMarkersClickEvent(placeMarkers);
-        
+        map.setView ([-33.865143, 151.2099], 3)
 
         //switch between areas and places
         map.on('zoomstart', function() {
