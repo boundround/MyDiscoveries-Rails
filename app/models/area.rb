@@ -38,7 +38,7 @@ class Area < ActiveRecord::Base
           "title"=> area.display_name,
           "url" => '/areas/' + area.slug + '.html',
           "id" => area.id,
-          "places" => !area.places.all? { |place| place.subscription_level == "draft" },
+          "places" => !area.places.all? { |place| place.subscription_level == "draft" || place.subscription_level == "out" },
           "icon" => {
             "iconUrl" => 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
             # size of the icon
