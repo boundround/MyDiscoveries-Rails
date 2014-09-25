@@ -433,14 +433,15 @@ $('.search-box').autocomplete({
       }},
       success: console.log('saved: ' + ui.item.label),
     });
-    log( ui.item ?
-      "Selected: " + ui.item.label :
-      "Nothing selected, input was " + this.value);
+    // log( ui.item ?
+    //   "Selected: " + ui.item.label :
+    //   "Nothing selected, input was " + this.value);
     var newZoom = 7;
     if (ui.item.resultType === 'place') {
       newZoom = 13;
     }
     $('#svgdiv').fadeOut("fast");
+    console.log('setting map view');
     map.setView( [ui.item.lat, ui.item.lng], newZoom );
     if (typeof brglobe != 'undefined') {
        brglobe.setLocation(ui.item.lat, ui.item.lng);
