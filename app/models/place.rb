@@ -31,7 +31,7 @@ class Place < ActiveRecord::Base
     places = self.all_places
 
     places.each do |place|
-      next if place.subscription_level.downcase == ("out" || "draft")
+      next if place.subscription_level.downcase == "out" || place.subscription_level.downcase == "draft"
 
       # Assign icon based on 'premium' level and category
       if place.categories[0].nil?
