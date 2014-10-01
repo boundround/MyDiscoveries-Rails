@@ -14,5 +14,15 @@ class PagesController < ApplicationController
     @initial_zoom = request.original_url
   end
 
+  def want_notification
+    @place = params[:place]
+    @city = params[:city]
+    @country = params[:country]
+
+    Want.notification(@place, @city, @country).deliver
+    render :nothing => true
+  end
+
+
 
 end
