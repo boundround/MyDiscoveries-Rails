@@ -438,8 +438,6 @@ $('.search-box').autocomplete({
   },
   minLength: 2,
   select: function( event, ui ) {
-    console.log(event);
-    console.log(ui);
     $.ajax({
       type: "POST",
       url: '/searchqueries/create',
@@ -451,17 +449,37 @@ $('.search-box').autocomplete({
       }},
       success: console.log('saved: ' + ui.item.label),
     });
-    console.log(this);
-    console.log( ui.item ?
-      "Selected: " + ui.item.label :
-      "Nothing selected, input was " + this.value);
     var newZoom = 7;
     if (ui.item.resultType === 'place') {
       newZoom = 13;
     }
-    console.log('new zoom' + newZoom);
     $('#svgdiv').fadeOut("fast");
     map.setView( [ui.item.lat, ui.item.lng], newZoom );
+
+    if (ui.item.resultType === 'geoNames') {
+      var popup = L.popup()
+        .setLatLng([ui.item.lat, ui.item.lng])
+        .setContent('<h3>' + ui.item.value + '</h3><br><button type="button" id="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
+        .openOn(map);
+    }
+
+    $('#want-button').on('click', function(e) {
+      $('#want-button').hide();
+      $('.leaflet-popup-content').append("Thanks we're on it!");
+
+      console.log('button click');
+      console.log(ui.item.value);
+      $.ajax({
+        type: "POST",
+        url: '/notification',
+        data: {place: ui.item.value,
+              city: userCity,
+              country: userCountry
+        },
+        success: console.log('sent: ' + ui.item.value),
+      });
+    });
+
     if (typeof brglobe != 'undefined') {
        brglobe.setLocation(ui.item.lat, ui.item.lng);
     }
