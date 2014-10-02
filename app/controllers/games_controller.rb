@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
   def index
-    @games = Game.all
+    @games = Game.includes(:place)
 
     respond_to do |format|
       format.html

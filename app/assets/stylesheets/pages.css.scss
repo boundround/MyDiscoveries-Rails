@@ -3,6 +3,53 @@
   margin: 0 25%;
 }
 
+#navModal {
+  width: 50%;
+  color: white;
+  text-align: center;
+  margin-top: 10%;
+  min-width: 325px;
+}
+
+#navModal a:hover {
+  text-decoration: none;
+}
+
+.small-modal {
+  min-height: 250px;
+}
+
+#icon-wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+.go-to {
+  width: 188px;
+  height: 145px;
+  display: inline-block;
+  margin: 0 auto;
+  color: white;
+  margin-top: 20px;
+}
+
+.go-to-games {
+  background: url(asset_path('game_icon-01.svg')), no-repeat;
+  background-size: contain;
+  margin-left: 20px;
+}
+
+.go-to-videos {
+  background: url(asset_path('video_icon-01.svg')), no-repeat;
+  background-size: contain;
+  margin-left: 20px;
+}
+
+.go-to-globe {
+  background: url(asset_path('game_icon-01.svg')), no-repeat;
+  background-size: contain;
+  margin-left: 20px;
+}
+
 .dude-help {
   position: absolute;
   bottom: -20px;
@@ -72,7 +119,9 @@
   border: none;
 }
 
-.search-wrapper {
+.pagination {
+  display: block;
+  text-align: center;
 }
 
 .br-corporate-link {

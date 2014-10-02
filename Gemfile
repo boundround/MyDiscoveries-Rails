@@ -43,6 +43,8 @@ gem 'unirest'
 
 gem 'wiselinks'
 
+gem 'will_paginate', '~> 3.0'
+
 # memcached with dalli
 gem 'dalli'
 

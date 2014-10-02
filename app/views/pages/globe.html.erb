@@ -162,8 +162,32 @@ left: 1px;
 		</div>
 	</div>
 	<div class="footer">
-		<%= image_tag(asset_path('back.jpg'), class: "close-button", data: {dismiss: "modal"}) %>
 		<a class="feedback" href="mailto:help@boundround.com">Send us your feedback!</a>
+	</div>
+</div>
+
+<div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-content small-modal">
+		<div class="modal-body">
+			<h3>I Would Like To</h3>
+			<div id="icon-wrapper">
+				<a href="/videos">
+					<div class="go-to go-to-videos">
+						Watch Videos
+					</div>
+				</a>
+				<a href="/games">
+					<div class="go-to go-to-games">
+					Play Games
+					</div>
+				</a>
+				<a href="#">
+					<div class="go-to go-to-globe">
+					Explore The World
+					</div>
+				</a>
+			</div>
+		</div>
 	</div>
 </div>
 
