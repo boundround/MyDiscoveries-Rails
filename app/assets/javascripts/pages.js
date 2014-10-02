@@ -1,6 +1,4 @@
-
 map = L.mapbox.map('map', 'boundround.j0d79a3j', {
-
   	worldCopyJump: true,
     // these options apply to the tile layer in the map
     tileLayer: {
@@ -14,27 +12,41 @@ map = L.mapbox.map('map', 'boundround.j0d79a3j', {
       minZoom: 2,
       maxZoom: 18
     });
+console.log('lllllllllll');
+console.log(location.hash);
+
+map.on('load', function() {
+  location.hash == '' ? location.hash = '#3/-33.865143/151.2099' : location.hash;
+  window.parsedHash = L.Hash.parseHash(location.hash);
+  map.setView(parsedHash.center, parsedHash.zoom);
+
+  /// Switch globe display on
+    if (parsedHash.zoom < 4) {
+      $('#svgdiv').css('visibility', 'visible');
+    };
+});
+
 
 L.control.zoomslider().addTo(map);
 
 // Create leaflet hash object
+console.log('ssssssssss');
+console.log(location.hash);
+console.log('ooooooooooo');
+
+console.log('ggggggggggg');
 var hash = L.hash(map);
-var hasharray = window.location.hash.substr(1).split('/');
-
-/// Switch globe display on
-  if (hasharray[0] < 4) {
-    $('#svgdiv').css('visibility', 'visible');
-  }
+console.log(location.hash);
+console.log('************');
+console.log(hash);
 
 
-function setMapViewFromHash(){
-  map.setView([hasharray[1], hasharray[2]], hasharray[0]);
-  $('#svgdiv').fadeOut('fast');
-};
 
 map.on('zoomend', function() {
-  window.hasharray = window.location.hash.substr(1).split('/');
-  if (hasharray[0] < transitionzoomlevel){
+  console.log("this mapzoom: " + map.getZoom())
+  window.parsedHash = L.Hash.parseHash(location.hash);
+  console.log(parsedHash.zoom);
+  if (window.parsedHash.zoom < transitionzoomlevel){
     $('#svgdiv').css('visibility', 'visible');
     $('#svgdiv').fadeIn("fast");
     var ll = window.previousLocation ? window.previousLocation : map.getCenter();
@@ -221,10 +233,6 @@ var createMarkerArray = function(geoJSON, markerType) {
   return markerArray;
 };
 
-// set 2d map to center over Oz
-$(document).ready(function(){
-  map.setView ([-33.865143, 151.2099], 3);
-});
 //Get all areas and add to map
 $.ajax({
   url: '/areas/mapdata.json',
@@ -264,8 +272,8 @@ $.ajax({
           }
           console.log('zoomend 2 fired');
         });
-        if (window.location.hash && hasharray[0] > 3) {
-          setMapViewFromHash();
+        if (window.location.hash > 3) {
+
           addMarkersClickEvent(placeMarkers);
           areaMarkers.removeLayers(window.areaLayers.havePlaces)
           placeMarkers.addLayers(placesArray);
@@ -288,6 +296,7 @@ var addMarkersClickEvent = function(markers) {
     var hasPlaces = markerProps.slice(-2)[0] === 'true';
     if (map.getZoom() < areahidelevel ) {
       if (hasPlaces) {
+        console.log(e.latlng);
         map.setView([e.latlng.lat, e.latlng.lng], areahidelevel+areatouchmagnification);
       } else {
           // setModalContent(markerType, markerID);
@@ -438,8 +447,6 @@ $('.search-box').autocomplete({
   },
   minLength: 2,
   select: function( event, ui ) {
-    console.log(event);
-    console.log(ui);
     $.ajax({
       type: "POST",
       url: '/searchqueries/create',
@@ -451,17 +458,40 @@ $('.search-box').autocomplete({
       }},
       success: console.log('saved: ' + ui.item.label),
     });
-    console.log(this);
-    console.log( ui.item ?
-      "Selected: " + ui.item.label :
-      "Nothing selected, input was " + this.value);
     var newZoom = 7;
     if (ui.item.resultType === 'place') {
       newZoom = 13;
     }
-    console.log('new zoom' + newZoom);
+    console.log("globe about to fade");
     $('#svgdiv').fadeOut("fast");
+    console.log("globe faded out");
+    console.log(ui.item.lat);
     map.setView( [ui.item.lat, ui.item.lng], newZoom );
+
+    if (ui.item.resultType === 'geoNames') {
+      var popup = L.popup()
+        .setLatLng([ui.item.lat, ui.item.lng])
+        .setContent('<h3>' + ui.item.value + '</h3><br><button type="button" id="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
+        .openOn(map);
+    }
+
+    $('#want-button').on('click', function(e) {
+      $('#want-button').hide();
+      $('.leaflet-popup-content').append("Thanks we're on it!");
+
+      console.log('button click');
+      console.log(ui.item.value);
+      $.ajax({
+        type: "POST",
+        url: '/notification',
+        data: {place: ui.item.value,
+              city: userCity,
+              country: userCountry
+        },
+        success: console.log('sent: ' + ui.item.value),
+      });
+    });
+
     if (typeof brglobe != 'undefined') {
        brglobe.setLocation(ui.item.lat, ui.item.lng);
     }
