@@ -986,12 +986,14 @@ function sizeContent() {
 	options.tileimage = "<%= image_url('green-tile128.png') %>"
 
 	if (window.location.hash) {
+		console.log('globe had hash');
 		var hasharray = window.location.hash.substr(1).split('/');
 		brglobe.configureGlobe(options);
 		setTimeout(function(){brglobe.setLocation(hasharray[1], hasharray[2]);},1000);
 		brglobe.setLocation(hasharray[1], hasharray[2]);
 
 	} else {
+		console.log('globe no hash');
 
 		brglobe.configureGlobe(options);
 		setTimeout(function(){brglobe.setLocation(-33.865143,151.2099);},1000);
