@@ -1,4 +1,5 @@
 <div class="area-content">
+  <input type="image" src="<%= asset_path("back-globe.png") %>" class="globe-home" onClick="window.history.back()">
   <div class="page-wrap">
     <div class="dropdown pull-right">
       <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -6,25 +7,25 @@
       <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="#" data-filter="*">
-            <%= image_tag(asset_path('all_icon-02.svg'), class: 'dropdown-menu-icon') %>
+            <%= image_tag 'all_icon-02.svg', class: 'dropdown-menu-icon' %>
             Show All
           </a>
         </li>
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="#" data-filter=".slider">
-            <%= image_tag(asset_path('game_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.word-search'}) %>
+            <%= image_tag 'game_icon-slider.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
             Slider
           </a>
         </li>
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="#" data-filter=".jigsaw">
-            <%= image_tag(asset_path('game_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.word-search'}) %>
+            <%= image_tag 'game_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
             Jigsaw
           </a>
         </li>
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="#" data-filter=".word">
-            <%= image_tag(asset_path('game_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.word-search'}) %>
+            <%= image_tag 'game_icon-wordsearch.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
             Word Search
           </a>
         </li>

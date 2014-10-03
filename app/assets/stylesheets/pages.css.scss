@@ -24,8 +24,8 @@
   margin: 0 auto;
 }
 .go-to {
-  width: 188px;
-  height: 145px;
+  width: 180px;
+  height: 139px;
   display: inline-block;
   margin: 0 auto;
   color: white;
@@ -33,19 +33,19 @@
 }
 
 .go-to-games {
-  background: url(asset_path('game_icon-01.svg')), no-repeat;
+  background: url(asset_path('game_icon-02.svg')), no-repeat;
   background-size: contain;
   margin-left: 20px;
 }
 
 .go-to-videos {
-  background: url(asset_path('video_icon-01.svg')), no-repeat;
+  background: url(asset_path('video_icon-02.svg')), no-repeat;
   background-size: contain;
   margin-left: 20px;
 }
 
 .go-to-globe {
-  background: url(asset_path('game_icon-01.svg')), no-repeat;
+  background: url(asset_path('explore_icon-01.svg')), no-repeat;
   background-size: contain;
   margin-left: 20px;
 }
