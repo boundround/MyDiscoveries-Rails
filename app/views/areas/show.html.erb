@@ -7,20 +7,20 @@
       <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="#" data-filter="*">
-            <%= image_tag(asset_path('all_icon-02.svg'), class: 'dropdown-menu-icon') %>
+            <%= image_tag 'all_icon-02.svg', class: 'dropdown-menu-icon' %>
             Show All
           </a>
         </li>
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="#" data-filter=".about">
-            <%= image_tag(asset_path('learn_icon-02.svg'), class: 'dropdown-menu-icon') %>
+            <%= image_tag 'learn_icon-02.svg', class: 'dropdown-menu-icon' %>
             About <%= @area.display_name %>
           </a>
         </li>
         <% unless @photos.empty? %>
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
-              <%= image_tag(asset_path('photo_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.photo'}) %>
+              <%= image_tag 'photo_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.photo'} %>
               Photos
             </a>
           </li>
