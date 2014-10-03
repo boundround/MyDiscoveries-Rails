@@ -7,20 +7,20 @@
       <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="#" data-filter="*">
-            <%= image_tag(asset_path('all_icon-02.svg'), class: 'dropdown-menu-icon') %>
+            <%= image_tag 'all_icon-02.svg', class: 'dropdown-menu-icon' %>
             Show All
           </a>
         </li>
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="#" data-filter=".about">
-            <%= image_tag(asset_path('learn_icon-02.svg'), class: 'dropdown-menu-icon') %>
+            <%= image_tag 'learn_icon-02.svg', class: 'dropdown-menu-icon' %>
             About <%= @place.display_name %>
           </a>
         </li>
         <% unless @videos.empty? %>
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="#" data-filter=".video">
-              <%= image_tag(asset_path('video_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.video'}) %>
+              <%= image_tag 'video_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.video'} %>
               Videos
             </a>
           </li>
@@ -29,7 +29,7 @@
         <% unless @photos.empty? %>
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
-              <%= image_tag(asset_path('photo_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.photo'}) %>
+              <%= image_tag 'photo_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.photo'} %>
               Photos
             </a>
           </li>
@@ -38,7 +38,7 @@
         <% unless @games.empty? %>
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="#" data-filter=".game">
-              <%= image_tag(asset_path('game_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.game'}) %>
+              <%= image_tag 'game_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.game'} %>
               Games
             </a>
           </li>
@@ -47,7 +47,7 @@
         <% unless @place.discounts.empty? %>
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="#" data-filter=".special">
-              <%= image_tag(asset_path('specials_icon-01.svg'), class: 'dropdown-menu-icon', data: { filter: '.special'}) %>
+              <%= image_tag 'specials_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.special'} %>
               Specials
             </a>
           </li>
@@ -56,7 +56,6 @@
     </div>
     <div class="banner-wrapper">
       <div class="banner">
-        <!--img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner"-->
         <div class="title-wrapper">
           <h1 class="title"><%= @place.display_name %></h1>
         </div>

@@ -503,3 +503,9 @@ $('.search-box').autocomplete({
     $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
   }
 });
+
+$('#navModal').modal('show');
+
+$('.go-to-globe').on('click', function(){
+  $('#navModal').modal('hide');
+});

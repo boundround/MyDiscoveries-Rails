@@ -1,0 +1,63 @@
+<div class="area-content">
+  <input type="image" src="<%= asset_path("back-globe.png") %>" class="globe-home" onClick="window.history.back()">
+  <div class="page-wrap">
+    <div class="dropdown pull-right">
+      <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
+      </button>
+      <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter="*">
+            <%= image_tag 'all_icon-02.svg', class: 'dropdown-menu-icon' %>
+            Show All
+          </a>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter=".slider">
+            <%= image_tag 'game_icon-slider.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
+            Slider
+          </a>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter=".jigsaw">
+            <%= image_tag 'game_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
+            Jigsaw
+          </a>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter=".word">
+            <%= image_tag 'game_icon-wordsearch.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
+            Word Search
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="banner-wrapper">
+      <div class="banner">
+        <div class="title-wrapper">
+          <h1 class="title">Games</h1>
+        </div>
+      </div>
+    </div>
+    <div id="photos-masonry">
+      <div class="grid-sizer"></div>
+      <% @games.each do |game| %>
+        <div class="item <%= game.game_type %> game-card photo-card">
+          <div class="priority"><%= game.priority ? game.priority : 2 %></div>
+          <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
+          <% end %>
+          <div class="game-divider"></div>
+          <% if game.game_type == 'jigsaw puzzle' %>
+            <img class="game-thumbnail" src="<%= asset_path('jigsaw_thumb.png') %>" />
+          <% elsif game.game_type == 'slider' %>
+            <img class="game-thumbnail" src="<%= asset_path('slider_thumb.png') %>" />
+          <% else %>
+            <img class="game-thumbnail" src="<%= asset_path('word_search_thumb.png') %>" />
+          <% end %>
+          <div class="fun-fact">
+            <p><%= raw game.instructions %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
