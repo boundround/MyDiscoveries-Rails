@@ -1,5 +1,5 @@
 <div class="area-content">
-  <input type="image" src="<%= asset_path("back-globe.png") %>" class="globe-home" onClick="window.history.back()">
+  <a href="<%= root_path %>"><input type="image" src="<%= asset_path("back-globe.png") %>" class="globe-home"></a>
   <div class="page-wrap">
     <div class="dropdown pull-right">
       <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -42,16 +42,20 @@
       <div class="grid-sizer"></div>
       <% @games.each do |game| %>
         <div class="item <%= game.game_type %> game-card photo-card">
+          <div class="video-label"><%= link_to game.place.display_name, place_path(game.place.id) %></div>
           <div class="priority"><%= game.priority ? game.priority : 2 %></div>
           <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
           <% end %>
           <div class="game-divider"></div>
           <% if game.game_type == 'jigsaw puzzle' %>
-            <img class="game-thumbnail" src="<%= asset_path('jigsaw_thumb.png') %>" />
+            <div class="video-play"><img class="video-play-background" src="<%= asset_path('jigsaw_thumb.png') %>"></div>
+            <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
           <% elsif game.game_type == 'slider' %>
-            <img class="game-thumbnail" src="<%= asset_path('slider_thumb.png') %>" />
+            <div class="video-play"><img class="video-play-background" src="<%= asset_path('slider_thumb.png') %>"></div>
+            <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
           <% else %>
-            <img class="game-thumbnail" src="<%= asset_path('word_search_thumb.png') %>" />
+            <div class="video-play"><img class="video-play-background" src="<%= asset_path('slider_thumb.png') %>"></div>
+            <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
           <% end %>
           <div class="fun-fact">
             <p><%= raw game.instructions %></p>
@@ -59,5 +63,6 @@
         </div>
       <% end %>
     </div>
+    <%= will_paginate @games %>
   </div>
 </div>

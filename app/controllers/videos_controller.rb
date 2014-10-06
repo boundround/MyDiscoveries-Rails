@@ -1,6 +1,6 @@
 class VideosController < ApplicationController
   def index
-    @videos = Video.paginate(:page => params[:page])
+    @videos = Video.includes(:area, :place).paginate(:page => params[:page])
   end
 
   def new
