@@ -103,7 +103,8 @@
         .find('.game-thumbnail').show();
       $(this).siblings('.game-card-expanded').removeClass('game-card-expanded')
         .find('.game-thumbnail').show().end()
-        .find('.fun-fact').hide();
+        .find('.fun-fact').hide().end()
+        .find('.video-play').show();
       $container.imagesLoaded(function() {
         $container.isotope({ layoutMode : 'masonry' });
       });
@@ -116,6 +117,7 @@
       var divider = $(this).find('.game-divider');
       //expand clicked game card
       $(this).find('.game-thumbnail').hide();
+      $(this).find('.video-play').hide();
       $(this).addClass('game-card-expanded');
       $(this).find('.fun-fact').show();
       $(divider).empty();

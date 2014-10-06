@@ -41,6 +41,7 @@ $(document).ready(function(){
       //expand clicked game card
       $(this).find('.game-thumbnail').hide();
       $(this).addClass('game-card-expanded');
+      $(this).find('.video-play').hide();
       $(this).find('.fun-fact').show();
       $(divider).empty();
       $(divider).append(content);
