@@ -19,6 +19,8 @@ SitemapGenerator::Sitemap.create do
   end
 end
 
+SitemapGenerator::Sitemap.ping_search_engines('https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz')
+
   # Put links creation logic here.
   #
   # The root path '/' and sitemap index file are added automatically for you.
