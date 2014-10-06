@@ -1,6 +1,6 @@
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "http://blooming-earth-8066.herokuapp.com/"
-SitemapGenerator::Sitemap.sitemaps_host = ENV['RACKSPACE_HOST']
+SitemapGenerator::Sitemap.sitemaps_host = "http://s3.amazonaws.com/#{ENV['AS3_BUCKET_NAME']}/"
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
@@ -8,7 +8,14 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
 SitemapGenerator::Sitemap.create do
   # Add all areas:
   Area.find_each do |area|
+    next if area.published_status == 'draft' || area.published_status == 'out'
     add area_path(area), :lastmod => area.updated_at
+  end
+
+  # Add all places:
+  Place.find_each do |place|
+    next if place.subscription_level.downcase == "out" || place.subscription_level.downcase == "draft"
+    add place_path(place), :lastmod => place.updated_at
   end
 end
 
@@ -34,4 +41,3 @@ end
   #   Article.find_each do |article|
   #     add article_path(article), :lastmod => article.updated_at
   #   end
-
