@@ -139,6 +139,37 @@ left: 1px;
 	</a>
 </div>
 
+<div class="dropdown pull-right">
+	<button class="dropdown-toggle fa fa-bars fa-3x map-menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
+	</button>
+	<ul id="menu" class="dropdown-menu map-menu" role="menu" aria-labelledby="dropdownMenu1">
+		<li role="presentation">
+			<a role="menuitem" tabindex="-1" href="/" data-filter="*">
+				<%= image_tag 'all_icon-02.svg', class: 'dropdown-menu-icon' %>
+				Home
+			</a>
+		</li>
+		<li role="presentation">
+			<a role="menuitem" tabindex="-1" href="/videos" data-filter=".slider">
+				<%= image_tag 'game_icon-slider.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
+				Watch Videos
+			</a>
+		</li>
+		<li role="presentation">
+			<a role="menuitem" tabindex="-1" href="/games" data-filter=".jigsaw">
+				<%= image_tag 'game_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
+				Play Games
+			</a>
+		</li>
+		<li role="presentation">
+			<a role="menuitem" tabindex="-1" href="http://boundround.com/new-home-demo/" data-filter=".word">
+				<%= image_tag 'game_icon-wordsearch.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
+				Corporate Site
+			</a>
+		</li>
+	</ul>
+</div>
+
 
 <div class="dude-help">
 	<div class="balloon-wrapper">
