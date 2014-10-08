@@ -281,6 +281,12 @@ $.ajax({
           $('#menu-ui').css("visibility", "visible");
         }
         $('#loadModal').modal('hide');
+        if ($.cookie('modal_shown') == null) {
+            $.cookie('modal_shown', 'yes', { expires: 1 });
+            $('#navModal').modal('show');
+        } else {
+          $('#navModal').modal('hide');
+        }
       }
     });
 
@@ -514,8 +520,6 @@ $('.search-box').autocomplete({
     $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
   }
 });
-
-$('#navModal').modal('show');
 
 $('.go-to-globe').on('click', function(){
   $('#navModal').modal('hide');
