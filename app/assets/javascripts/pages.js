@@ -235,6 +235,9 @@ var createMarkerArray = function(geoJSON, markerType) {
 
 //Get all areas and add to map
 $.ajax({
+  beforeSend: function(){
+    $('#loadModal').modal('show');
+  },
   url: '/areas/mapdata.json',
   success: function(data) {
     window.areasGeoJSON = data;
@@ -277,6 +280,7 @@ $.ajax({
           placeMarkers.addLayers(placesArray);
           $('#menu-ui').css("visibility", "visible");
         }
+        $('#loadModal').modal('hide');
       }
     });
 
