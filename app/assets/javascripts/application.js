@@ -18,5 +18,6 @@
 //= require geocomplete
 //= require iconlabel
 //= require cookie
+//= require loading-overlay
 //= require area
 //= require pages
