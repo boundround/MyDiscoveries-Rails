@@ -1,6 +1,9 @@
 class Place < ActiveRecord::Base
   include FriendlyId
-  friendly_id :display_name, :use => :slugged
+  friendly_id :display_name, :use => :slugged #show display_names in place routes
+
+  scope :active, -> { where.not(subscription_level: ['out', 'draft']) }
+
   validates_presence_of :display_name, :slug
 
   belongs_to :area
@@ -28,10 +31,9 @@ class Place < ActiveRecord::Base
   def Place.all_geojson
     geojson = {"type" => "FeatureCollection","features" => []}
 
-    places = self.all_places
+    places = self.active
 
     places.each do |place|
-      next if place.subscription_level.downcase == "out" || place.subscription_level.downcase == "draft"
 
       # Assign icon based on 'premium' level and category
       if place.categories[0].nil?
@@ -75,28 +77,25 @@ class Place < ActiveRecord::Base
   end
 
   def self.map_icon_for(category)
-
     if category.nil?
       return "activity_m.svg"
     end
 
     icon_file_names = {
-    activity: "activity_m.svg",
-    animals: "animals_m.svg",
-    beach: "beach_m.svg",
-    museum: "museum_m.svg",
-    park: "park_m.svg",
-    place_to_eat: "place_to_eat_m.svg",
-    place_to_stay: "place_to_stay_m.svg",
-    shopping: "shopping_m.svg",
-    sights: "sights_m.svg",
-    sport: "sport_m.svg",
-    theme_park: "theme_park_m.svg"
+      activity: "activity_m.svg",
+      animals: "animals_m.svg",
+      beach: "beach_m.svg",
+      museum: "museum_m.svg",
+      park: "park_m.svg",
+      place_to_eat: "place_to_eat_m.svg",
+      place_to_stay: "place_to_stay_m.svg",
+      shopping: "shopping_m.svg",
+      sights: "sights_m.svg",
+      sport: "sport_m.svg",
+      theme_park: "theme_park_m.svg"
     }
 
     return icon_file_names[category.to_sym]
-
-
   end
 
 
