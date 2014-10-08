@@ -46,7 +46,7 @@ map.on('zoomend', function() {
   console.log("this mapzoom: " + map.getZoom())
   window.parsedHash = L.Hash.parseHash(location.hash);
   console.log(parsedHash.zoom);
-  if (window.parsedHash.zoom < transitionzoomlevel){
+  if (map.getZoom() < transitionzoomlevel){
     $('#svgdiv').css('visibility', 'visible');
     $('#svgdiv').fadeIn("fast");
     var ll = window.previousLocation ? window.previousLocation : map.getCenter();
@@ -272,9 +272,7 @@ $.ajax({
           }
           console.log('zoomend 2 fired');
         });
-        if (window.location.hash > 3) {
-
-          addMarkersClickEvent(placeMarkers);
+        if (window.parsedHash.zoom > 3) {
           areaMarkers.removeLayers(window.areaLayers.havePlaces)
           placeMarkers.addLayers(placesArray);
           $('#menu-ui').css("visibility", "visible");
@@ -347,8 +345,17 @@ $('.search-box').autocomplete({
         console.log(data);
         if ( data.length >= 1 ) {
           response( $.map( data, function( item ) {
+            var areaDisplay = null;
+            if (item.area.display_name) {
+              if (item.area.display_name == item.area.country) {
+                areaDisplay = item.area.display_name;
+              } else {
+                areaDisplay = item.area.display_name + ", " + item.area.country;
+              };
+            };
+
             return {
-              label: item.display_name + (item.area.display_name ? ", " + item.area.display_name : "") + ", " + item.area.country,
+              label: item.display_name + (areaDisplay ? ", " + areaDisplay : ""),
               value: item.display_name,
               lat: item.latitude,
               lng: item.longitude,
