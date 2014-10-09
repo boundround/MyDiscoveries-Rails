@@ -19,8 +19,39 @@
     </a>
   </div>
   <div class="dude-icon-wrapper">
-    <%= image_tag(asset_path("dude-help.png"), class: "dude-help-icon") %>
+    <%= image_tag "dude-help.png", class: "dude-help-icon" %>
   </div>
+</div>
+
+<div class="dropdown pull-right">
+  <button class="dropdown-toggle fa fa-bars fa-3x map-menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
+  </button>
+  <ul id="menu" class="dropdown-menu map-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation">
+      <a role="menuitem" tabindex="-1" href="/" data-filter="*">
+        <%= image_tag 'home_icon-01.svg', class: 'dropdown-menu-icon' %>
+        Home
+      </a>
+    </li>
+    <li role="presentation">
+      <a role="menuitem" tabindex="-1" href="/videos" data-filter=".slider">
+        <%= image_tag 'video_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
+        Watch Videos
+      </a>
+    </li>
+    <li role="presentation">
+      <a role="menuitem" tabindex="-1" href="/games" data-filter=".jigsaw">
+        <%= image_tag 'game_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
+        Play Games
+      </a>
+    </li>
+    <li role="presentation">
+      <a role="menuitem" tabindex="-1" href="http://boundround.com/new-home-demo/" data-filter=".word">
+        <%= image_tag 'game_icon-wordsearch.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
+        Corporate Site
+      </a>
+    </li>
+  </ul>
 </div>
 
 <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -30,7 +61,7 @@
     </div>
   </div>
   <div class="footer">
-    <%= image_tag(asset_path('back.jpg'), class: "close-button", data: {dismiss: "modal"}) %>
+    <%= image_tag 'back.jpg', class: "close-button", data: {dismiss: "modal"} %>
     <a class="feedback" href="mailto:help@boundround.com">Send us your feedback!</a>
   </div>
 </div>

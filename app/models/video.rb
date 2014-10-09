@@ -2,6 +2,8 @@ class Video < ActiveRecord::Base
   belongs_to :area
   belongs_to :place
 
+  scope :ordered_by_place_name, -> { includes(:area, :place).order('places.display_name ASC') }#.reorder("areas.display_name ASC") }
+
   # before_save :validate_vimeo_id
 
   self.per_page = 9
