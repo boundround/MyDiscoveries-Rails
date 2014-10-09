@@ -2,7 +2,7 @@ class Video < ActiveRecord::Base
   belongs_to :area
   belongs_to :place
 
-  scope :ordered_by_place_name, -> { includes(:area, :place).order('places.display_name ASC') }#.reorder("areas.display_name ASC") }
+  scope :ordered_by_place_name, -> { includes(:area, :place).order('areas.display_name ASC') } #reorder("places.display_name ASC") }
 
   # before_save :validate_vimeo_id
 
