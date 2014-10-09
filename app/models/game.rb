@@ -1,6 +1,8 @@
 class Game < ActiveRecord::Base
   belongs_to :place
 
+  scope :ordered_by_place_name, -> { joins(:place).order('places.display_name') }
+
   self.per_page = 9
 
   def self.import(file)

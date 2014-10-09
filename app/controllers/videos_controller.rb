@@ -1,6 +1,7 @@
 class VideosController < ApplicationController
   def index
-    @videos = Video.includes(:area, :place).paginate(:page => params[:page])
+    # @videos = Video.ordered_by_area_name.paginate(:page => params[:page])
+    @videos = Video.ordered_by_place_name.paginate(:page => params[:page])
   end
 
   def new

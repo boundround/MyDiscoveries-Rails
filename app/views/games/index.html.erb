@@ -31,13 +31,13 @@
         </li>
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="/" data-filter="*">
-            <%= image_tag 'all_icon-02.svg', class: 'dropdown-menu-icon' %>
+            <%= image_tag 'home_icon-01.svg', class: 'dropdown-menu-icon' %>
             Home
           </a>
         </li>
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="/videos" data-filter=".slider">
-            <%= image_tag 'game_icon-slider.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
+            <%= image_tag 'video_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
             Watch Videos
           </a>
         </li>
@@ -60,19 +60,19 @@
       <div class="grid-sizer"></div>
       <% @games.each do |game| %>
         <div class="item <%= game.game_type %> game-card photo-card">
-          <div class="video-label"><%= link_to game.place.display_name, place_path(game.place.id) %></div>
+          <div class="video-label"><%= link_to (game.place.display_name + ', ' + game.place.area.display_name), place_path(game.place.id) %></div>
           <div class="priority"><%= game.priority ? game.priority : 2 %></div>
           <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
           <% end %>
           <div class="game-divider"></div>
           <% if game.game_type == 'jigsaw puzzle' %>
-            <div class="video-play"><img class="video-play-background" src="<%= asset_path('jigsaw_thumb.png') %>"></div>
+            <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('jigsaw_ds.png') %>"></div>
             <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
           <% elsif game.game_type == 'slider' %>
-            <div class="video-play"><img class="video-play-background" src="<%= asset_path('slider_thumb.png') %>"></div>
+            <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('slider_ds.png') %>"></div>
             <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
           <% else %>
-            <div class="video-play"><img class="video-play-background" src="<%= asset_path('slider_thumb.png') %>"></div>
+            <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('wordsearch_ds.png') %>"></div>
             <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
           <% end %>
           <div class="fun-fact">
