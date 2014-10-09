@@ -1,5 +1,13 @@
+#loadModal {
+  width: 100%;
+
+  // position: absolute;
+  // top: 0px;
+}
+
 .loadModal {
   background-color: rgba(40, 40, 40, 0.2);
+  min-height: 1000px !important;
 }
 
 .load-text {
