@@ -475,6 +475,7 @@ $('.search-box').autocomplete({
       }},
       success: console.log('saved: ' + ui.item.label),
     });
+
     var newZoom = 7;
     if (ui.item.resultType === 'place') {
       newZoom = 13;
@@ -483,6 +484,7 @@ $('.search-box').autocomplete({
     $('#svgdiv').fadeOut("fast");
     console.log("globe faded out");
     console.log(ui.item.lat);
+
     map.setView( [ui.item.lat, ui.item.lng], newZoom );
 
     if (ui.item.resultType === 'geoNames') {
