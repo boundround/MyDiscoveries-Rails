@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
   def index
-    @games = Game.ordered_by_place_name.paginate(:page => params[:page])
+    @games = Game.includes(:place => :area).order('areas.display_name ASC, places.display_name ASC').paginate(:page => params[:page])
 
     respond_to do |format|
       format.html
