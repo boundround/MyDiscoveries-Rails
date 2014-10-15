@@ -1,8 +1,10 @@
 class Area < ActiveRecord::Base
   include FriendlyId
   friendly_id :display_name, :use => :slugged
-  validates_presence_of :display_name, :slug
 
+  scope :active, -> { where.not(published_status: ['out', 'draft']) }
+
+  validates_presence_of :display_name, :slug
   has_many :videos
   has_many :places, -> { order(:display_name) }
 
@@ -12,45 +14,52 @@ class Area < ActiveRecord::Base
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 
 
-  after_update :flush_area_cache
+  after_update :flush_area_cache # May be able to be removed
+  after_update :flush_areas_geojson
 
-  def flush_area_cache
+
+  def flush_area_cache # May be able to be removed
     Rails.cache.delete('all_areas')
   end
 
-  def Area.all_areas
+  def Area.all_areas # May be able to be removed
     Rails.cache.fetch("all_areas") { Area.includes(:places) }
   end
 
-  def Area.all_geojson
-    geojson = {"type" => "FeatureCollection","features" => []}
+  def flush_places_geojson
+    Rails.cache.delete('areas_geojson')
+  end
 
-    areas = self.all_areas
-    areas.each do |area|
-      next if area.published_status == 'draft' || area.published_status == 'out'
-      geojson['features'] << {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [area.longitude, area.latitude]
-        },
-        properties: {
-          "title"=> area.display_name,
-          "url" => '/areas/' + area.slug + '.html',
-          "id" => area.id,
-          "places" => !area.places.all? { |place| place.subscription_level == "draft" || place.subscription_level == "out" },
-          "icon" => {
-            "iconUrl" => 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
-            # size of the icon
-            "iconSize" => [43, 26],
-            # point of the icon which will correspond to marker location
-            "iconAnchor" => [20, 0]
+  def Area.all_geojson
+    # Fetch place GeoJSON from cache or store it in the cache.
+    Rails.cache.fetch('areas_geojson') do
+      geojson = {"type" => "FeatureCollection","features" => []}
+      areas = self.active.includes(:places)
+      areas.each do |area|
+        geojson['features'] << {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [area.longitude, area.latitude]
+          },
+          properties: {
+            "title"=> area.display_name,
+            "url" => '/areas/' + area.slug + '.html',
+            "id" => area.id,
+            "places" => !area.places.all? { |place| place.subscription_level == "draft" },
+            "icon" => {
+              "iconUrl" => 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+              # size of the icon
+              "iconSize" => [43, 26],
+              # point of the icon which will correspond to marker location
+              "iconAnchor" => [20, 0]
+            }
           }
         }
-      }
-    end
+      end
 
-    return geojson
+      geojson
+    end
   end
 
   def self.import(file)
