@@ -31,9 +31,9 @@ L.control.zoomslider().addTo(map);
 
 var hash = L.hash(map);
 
-map.on('zoomend', function() {
-  window.parsedHash = L.Hash.parseHash(location.hash);
-  if (window.parsedHash.zoom < transitionzoomlevel){
+map.on('zoomstart', function() {
+  window.prevZoom = map.getZoom();
+  if (window.prevZoom < transitionzoomlevel){
     $('#svgdiv').css('visibility', 'visible');
     $('#svgdiv').fadeIn("fast");
     var ll = window.previousLocation ? window.previousLocation : map.getCenter();
@@ -244,6 +244,7 @@ $.ajax({
         //switch between areas and places
         map.on('zoomstart', function() {
           window.previousZoom = map.getZoom();
+          console.log('previousZoom' + previousZoom);
 					window.previousLocation = map.getCenter();
         });
         map.on('zoomend', function() {
