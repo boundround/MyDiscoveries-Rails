@@ -90,7 +90,7 @@ class Place < ActiveRecord::Base
     place_to_stay: "place_to_stay_m.svg",
     shopping: "shopping_m.svg",
     sights: "sights_m.svg",
-    sport: "sport_m.svg",
+    sport: "sport_map2.svg",
     theme_park: "theme_park_m.svg"
     }
 
