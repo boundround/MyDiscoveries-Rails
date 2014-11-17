@@ -88,17 +88,17 @@ class Place < ActiveRecord::Base
     end
 
     icon_file_names = {
-      activity: "activity_m.svg",
-      animals: "animals_m.svg",
-      beach: "beach_m.svg",
-      museum: "museum_m.svg",
-      park: "park_m.svg",
-      place_to_eat: "place_to_eat_m.svg",
-      place_to_stay: "place_to_stay_m.svg",
-      shopping: "shopping_m.svg",
-      sights: "sights_m.svg",
-      sport: "sport_m.svg",
-      theme_park: "theme_park_m.svg"
+    activity: "activity_m.svg",
+    animals: "animals_m.svg",
+    beach: "beach_m.svg",
+    museum: "museum_m.svg",
+    park: "park_m.svg",
+    place_to_eat: "place_to_eat_m.svg",
+    place_to_stay: "place_to_stay_m.svg",
+    shopping: "shopping_m.svg",
+    sights: "sights_m.svg",
+    sport: "sport_map2.svg",
+    theme_park: "theme_park_m.svg"
     }
 
     return icon_file_names[category.to_sym]
