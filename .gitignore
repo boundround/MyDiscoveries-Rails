@@ -4,6 +4,8 @@
 
 # Ignore uploaded files
 /public/uploads
+/public/videos
+/public/assets/photos
 
 # Ignore bundler config.
 /.bundle
