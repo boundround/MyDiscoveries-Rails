@@ -1,7 +1,7 @@
 <% if current_user.try(:admin?) %>
   <div class="area-content">
     <div class="page-wrap">
-      <h1>Edit Place</h1>
+      <h1>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
       <div class="container">
         <div class="banner-wrapper">
           <div class="banner">
