@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://blooming-earth-8066.herokuapp.com/"
+SitemapGenerator::Sitemap.default_host = "http://app.boundround.com/"
 SitemapGenerator::Sitemap.sitemaps_host = "http://s3.amazonaws.com/#{ENV['AS3_BUCKET_NAME']}/"
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'

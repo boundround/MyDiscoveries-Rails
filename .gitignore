@@ -4,7 +4,6 @@
 
 # Ignore uploaded files
 /public/uploads
-/public/videos
 /public/assets/photos
 
 # Ignore bundler config.
@@ -27,3 +26,6 @@ doc/
 .DS_Store
 .idea
 .secret
+
+# ignore videos for android apk
+/public/videos

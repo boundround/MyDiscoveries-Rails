@@ -12,7 +12,7 @@ class Photo < ActiveRecord::Base
     row = Hash[[header, spreadsheet.row(i)].transpose]
     rows = row.to_h
     photo = Photo.create!(rows)
-    photo.remote_path_url = "http://905b36b589a2b874c91c-45f6b5af0793f525f377b3a35890f483.r36.cf4.rackcdn.com/photos/" + rows['path']
+    photo.remote_path_url = "http://d1w99recw67lvf.cloudfront.net/photos/" + rows['path']
     photo.save!
 
     end
