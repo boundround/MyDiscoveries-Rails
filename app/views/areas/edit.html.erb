@@ -31,6 +31,9 @@
             <div class="about-content">
               <h3>About <%= @area.display_name %></h3>
               <div class="form-group">
+                <%= f.input :display_name, input_html: { class: 'form-control' } %>
+              </div>
+              <div class="form-group">
                 <%= f.input :description, as: :bootsy, label: false, input_html: { class: 'form-control area-description-input' } %>
               </div>
               <div class="form-group published-radio">
