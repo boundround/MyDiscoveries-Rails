@@ -1,7 +1,7 @@
 <% if current_user.try(:admin?) %>
   <div class="area-content">
     <div class="page-wrap">
-      <h1>Edit Area</h1>
+      <h1>Edit <%= @area.display_name + ' (ID: ' + @area.id.to_s + ')' %></h1>
       <div class="container">
         <div class="banner-wrapper">
           <div class="banner">
@@ -30,6 +30,9 @@
             </div>
             <div class="about-content">
               <h3>About <%= @area.display_name %></h3>
+              <div class="form-group">
+                <%= f.input :display_name, input_html: { class: 'form-control' } %>
+              </div>
               <div class="form-group">
                 <%= f.input :description, as: :bootsy, label: false, input_html: { class: 'form-control area-description-input' } %>
               </div>
@@ -107,3 +110,4 @@
 <% else %>
   <h2>Unauthorized Page</h2>
 <% end %>
+<% javascript_include_tag 'area.js' %>

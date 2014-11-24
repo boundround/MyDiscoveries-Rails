@@ -123,4 +123,8 @@ class Place < ActiveRecord::Base
     end
   end
 
+  def should_generate_new_friendly_id?
+    display_name_changed?
+  end
+
 end

@@ -1,73 +1,76 @@
-<h1>Create New Area</h1>
+<div class="container">
+  <h1>Create New Area</h1>
 
-<%= simple_form_for @area, html: { role: 'form'} do |f| %>
-  <div class="form-group">
-    <%= f.input :display_name, label: 'Area Name', required: true %>
-  </div>
+  <%= simple_form_for @area, html: { role: 'form'} do |f| %>
+    <div class="form-group">
+      <%= f.input :display_name, label: 'Area Name', required: true %>
+    </div>
 
-  <input id="pac-input" class="controls" type="text"
-      placeholder="Enter a location">
+    <input id="pac-input" class="controls" type="text"
+        placeholder="Enter a location">
 
-  <div class="map-container">
-    <div class="map-canvas"></div>
-  </div>
+    <div class="map-container">
+      <div class="map-canvas"></div>
+    </div>
 
-  <div class="form-group lat-lng">
-    <%= f.input :latitude, :input_html => { "data-geo" => "lat" } %>
-    <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
-    <%= f.input :address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address" } %>
-  </div>
+    <div class="form-group lat-lng">
+      <%= f.input :latitude, :input_html => { "data-geo" => "lat" } %>
+      <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
+      <%= f.input :address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address" } %>
+    </div>
 
-  <div class="form-group ios-views">
-    <%= f.input :view_latitude %>
-    <%= f.input :view_longitude %>
-    <%= f.input :view_height %>
-    <%= f.input :view_heading %>
-  </div>
+    <div class="form-group ios-views">
+      <%= f.input :view_latitude %>
+      <%= f.input :view_longitude %>
+      <%= f.input :view_height %>
+      <%= f.input :view_heading %>
+    </div>
 
-  <div class="form-group">
-    <%= f.input :code, label: 'Airport Code' %>
-  </div>
-  <div class="form-group">
-    <%= f.input :country, priority: ['Australia', 'United States of America'] %>
-  </div>
-  <div class="form-group">
-    <%= f.input :short_intro, label: 'Short Intro', required: true %>
-  </div>
-  <div class="form-group">
-    <%= f.input :description, as: :bootsy, placeholder: 'Description', required: true, input_html: { class: 'form-control' } %>
-  </div>
-  <div class="form-group published-radio">
-    <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "live", "removed"], checked: ['draft'] %>
-  </div>
-  <%= f.simple_fields_for :photos do |ff| %>
-    <h3>Add Hero Photo</h3>
     <div class="form-group">
-      <%= ff.input :title, label: 'Photo Title', required: true %>
+      <%= f.input :code, label: 'Airport Code' %>
     </div>
     <div class="form-group">
-      <%= ff.file_field :path, required: true %>
+      <%= f.input :country, priority: ['Australia', 'United States of America'] %>
     </div>
     <div class="form-group">
-      <%= ff.input :credit, required: true %>
+      <%= f.input :short_intro, label: 'Short Intro', required: true %>
     </div>
     <div class="form-group">
-      <%= ff.input :caption, input_html: { class: 'form-control'} %>
+      <%= f.input :description, as: :bootsy, placeholder: 'Description', required: true, input_html: { class: 'form-control' } %>
     </div>
+    <div class="form-group published-radio">
+      <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "live", "removed"], checked: ['draft'] %>
+    </div>
+    <%= f.simple_fields_for :photos do |ff| %>
+      <h3>Add Hero Photo</h3>
+      <div class="form-group">
+        <%= ff.input :title, label: 'Photo Title', required: true %>
+      </div>
+      <div class="form-group">
+        <%= ff.file_field :path, required: true %>
+      </div>
+      <div class="form-group">
+        <%= ff.input :credit, required: true %>
+      </div>
+      <div class="form-group">
+        <%= ff.input :caption, input_html: { class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= ff.input :caption_source, input_html: { class: 'form-control'} %>
+      </div>
+    <% end %>
+    <%= f.simple_fields_for :videos do |ff| %>
+      <h3>Add Hero Video</h3>
+      <div class="form-group">
+        <%= ff.input :title, label: 'Vimeo ID' %>
+      </div>
+      <div class="form-group">
+        <%= ff.input :hero, as: :boolean, as: :hidden, :input_html => { :checked => true } %>
+      </div>
+    <% end %>
     <div class="form-group">
-      <%= ff.input :caption_source, input_html: { class: 'form-control'} %>
+      <%= f.submit :submit %>
     </div>
-  <% end %>
-  <%= f.simple_fields_for :videos do |ff| %>
-    <h3>Add Hero Video</h3>
-    <div class="form-group">
-      <%= ff.input :title, label: 'Vimeo ID' %>
-    </div>
-    <div class="form-group">
-      <%= ff.input :hero, as: :boolean, as: :hidden, :input_html => { :checked => true } %>
-    </div>
-  <% end %>
-  <div class="form-group">
-    <%= f.submit :submit %>
-  </div>
-<%end%>
+  <%end%>
+</div>
+<%= javascript_include_tag 'area.js' %>
