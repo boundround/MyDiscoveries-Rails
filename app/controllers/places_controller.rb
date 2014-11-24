@@ -82,7 +82,8 @@ class PlacesController < ApplicationController
     @place = Place.friendly.find(params[:id])
 
     if @place.update(place_update_params)
-      redirect_to :back, notice: 'Place succesfully updated'
+      @place = Place.find(@place.id)
+      redirect_to edit_place_path(@place), notice: 'Place succesfully updated'
     end
   end
 

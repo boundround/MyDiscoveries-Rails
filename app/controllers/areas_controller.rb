@@ -60,7 +60,8 @@ class AreasController < ApplicationController
     @area = Area.friendly.find(params[:id])
 
     if @area.update(area_update_params)
-      redirect_to :back
+      @area = Area.find(@area.id)
+      redirect_to edit_area_path(@area), notice: 'Area succesfully updated'
     end
 
   end
