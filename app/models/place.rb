@@ -1,4 +1,6 @@
 class Place < ActiveRecord::Base
+  before_save :check_valid_url
+
   include FriendlyId
   friendly_id :display_name, :use => :slugged #show display_names in place routes
 
@@ -125,6 +127,12 @@ class Place < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     display_name_changed?
+  end
+
+  def check_valid_url
+    if !website.match(/^(http:\/\/)/i) || !website.match(/^(http:\/\/)/i)
+      website.prepend("http://")
+    end
   end
 
 end
