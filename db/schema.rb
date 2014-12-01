@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110183132) do
+ActiveRecord::Schema.define(version: 20141201192919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 20141110183132) do
   create_table "photos", force: true do |t|
     t.string   "title"
     t.string   "credit"
-    t.string   "path"
+    t.string   "path",           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "caption"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 20141110183132) do
     t.integer  "area_id"
     t.integer  "place_id"
     t.string   "caption_source"
+    t.string   "filename"
   end
 
   create_table "places", force: true do |t|
@@ -140,6 +141,7 @@ ActiveRecord::Schema.define(version: 20141110183132) do
     t.string   "website"
     t.string   "logo"
     t.string   "url"
+    t.string   "display_address"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
