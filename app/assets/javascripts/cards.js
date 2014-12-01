@@ -71,6 +71,8 @@ $(document).ready(function(){
       var photoUrl = $(this).find('.photo-data').data('photo-url');
       var photoAlt = $(this).find('.photo-data').data('photo-alt');
       var divider = $(this).find('.game-divider');
+      var photoCredit = $(this).find('.photo-data').data('photo-credit');
+      var creditDiv = $("<div class='photo-credit'>" + photoCredit + "</div>");
       // remove photo thumbnail and populate expanded divider with large image
       $(this).find('.game-thumbnail').hide();
       $(this).addClass('photo-card-expanded');
@@ -84,7 +86,7 @@ $(document).ready(function(){
       $(this).find('.game-divider').append(content2);
 
       var content = $('<img class="photo-frame">');
-      $(this).find('.game-divider').append(content);
+      divider.append(content);
       content.hide();
       content.load(function(){
         content.show();
@@ -92,6 +94,7 @@ $(document).ready(function(){
       });
       content.attr("src",photoUrl);
       content.attr("alt",photoAlt);
+      divider.append(creditDiv);
 
       $container.imagesLoaded(function() {
         $container.isotope({ layoutMode : 'masonry' });

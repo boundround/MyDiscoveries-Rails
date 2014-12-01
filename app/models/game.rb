@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
   belongs_to :place
+  belongs_to :area
 
   scope :ordered_by_place_name, -> { joins(:place).order('places.display_name') }
 
