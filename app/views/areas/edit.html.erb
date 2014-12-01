@@ -98,12 +98,37 @@
         </div>
         <% end %>
 
+        <% unless @area.games.empty? %>
+          <% @area.games.each do |game| %>
+            <%= simple_form_for [@area, game] do |f| %>
+              <div class="item special discount-card photo-card">
+                <div class="form-group">
+                  <h3>Edit Game</h3>
+                  <%= f.input :url, label: "Game URL", input_html: { class: 'form-control' } %>
+                  <%= f.input :priority, collection: 1..10 %>
+                  <p></p>
+                  <div class="form-group published-radio">
+                    <%= f.input :game_type, as: :radio_buttons, collection: ["jigsaw puzzle", "slider", "word search"], input_html: { class: 'form-control'} %><br />
+                  </div>
+                  <%= f.button :submit %>
+                  <%= link_to "Delete", game, class: "btn btn-danger", method: :delete,
+                                     data: { confirm: "Are you sure?" } %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+
         <div class="edit_photo">
           <%= render "/videos/form" %>
         </div>
 
         <div class="edit_photo">
           <%= render "/photos/form" %>
+        </div>
+
+        <div class="edit_photo">
+          <%= render "/games/form" %>
         </div>
     </div>
   </div>
