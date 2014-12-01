@@ -16,7 +16,7 @@ window.onload = function(){
   $("#pac-input")
     .geocomplete()
     .bind("geocode:dragged", function(event, result){
-      $("#place_latitude").val(result.lat());
-      $("#place_longitude").val(result.lng());
+      // repopulate lat long and address fields on marker drag
+      $("#pac-input").geocomplete("find", result.lat() + "," + result.lng());
     });
 }
