@@ -15,6 +15,7 @@ class Place < ActiveRecord::Base
   has_many :discounts
   has_many :games
   has_many :videos
+  has_many :fun_facts
   has_one :journal_info
   accepts_nested_attributes_for :photos
 
