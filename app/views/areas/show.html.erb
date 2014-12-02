@@ -25,6 +25,14 @@
             </a>
           </li>
         <% end %>
+        <% unless @area.fun_facts.empty? %>
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#" data-filter=".fun-fact-card">
+              <%= image_tag 'specials_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.fun-fact-card'} %>
+              Fun Facts
+            </a>
+          </li>
+        <% end %>
       </ul>
     </div>
     <div class="banner-wrapper">

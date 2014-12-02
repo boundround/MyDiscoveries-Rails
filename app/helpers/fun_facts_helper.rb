@@ -1,0 +1,2 @@
+module FunFactsHelper
+end
