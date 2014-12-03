@@ -119,22 +119,6 @@
           <% end %>
         <% end %>
 
-        <% unless @area.fun_facts.empty? %>
-        <% @area.fun_facts.each do |fun_fact| %>
-          <%= simple_form_for [@area, fun_fact] do |f| %>
-            <div class="item special discount-card photo-card">
-              <div class="form-group">
-                <h4>Edit Fun Fact</h4>
-                <p><%= f.input :text, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'} %></p>
-                <%= f.button :submit %>
-                <%= link_to "Delete", fun_fact, class: "btn btn-danger", method: :delete,
-                                   data: { confirm: "Are you sure?" } %>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-      <% end %>
-
         <div class="edit_photo">
           <%= render "/videos/form" %>
         </div>
@@ -147,9 +131,6 @@
           <%= render "/games/form" %>
         </div>
 
-        <div class="edit_photo">
-          <%= render "/fun_facts/form" %>
-        </div>
     </div>
   </div>
 <% else %>
