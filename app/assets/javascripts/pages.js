@@ -14,7 +14,7 @@ map = L.mapbox.map('map', 'boundround.j0d79a3j', {
     });
 
 map.on('load', function() {
-  location.hash == '' ? location.hash = '#3/-33.865143/151.2099' : location.hash;
+  location.hash == '' ? location.hash = '#3/-33.865143/151.2099' : location.hash = location.hash;
   window.parsedHash = L.Hash.parseHash(location.hash);
   map.setView(parsedHash.center, parsedHash.zoom);
 
@@ -31,14 +31,17 @@ L.control.zoomslider().addTo(map);
 
 var hash = L.hash(map);
 
-map.on('zoomstart', function() {
-  window.prevZoom = map.getZoom();
-  if (window.prevZoom < transitionzoomlevel){
+map.on('zoomend', function() {
+  console.log("this mapzoom: " + map.getZoom())
+  window.parsedHash = L.Hash.parseHash(location.hash);
+  console.log(parsedHash.zoom);
+  if (map.getZoom() < transitionzoomlevel){
     $('#svgdiv').css('visibility', 'visible');
     $('#svgdiv').fadeIn("fast");
     var ll = window.previousLocation ? window.previousLocation : map.getCenter();
     if (typeof brglobe != 'undefined') {
- 		  brglobe.setLocation(ll.lat,ll.lng);
+      brglobe.setLocation(ll.lat,ll.lng);
+       console.log("zoomend 1 fired");
     }
   }
 });
@@ -271,6 +274,8 @@ $.ajax({
         } else {
           $('#navModal').modal('hide');
         }
+        location.hash == "#3/-33.87/102.48" ? location.hash = '#3/-33.865143/151.2099' : location.hash;
+        brglobe.setLocation(-33.865, 151.209);
       }
     });
 
