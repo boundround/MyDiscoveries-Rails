@@ -2,6 +2,7 @@ class Photo < ActiveRecord::Base
   # belongs_to :photoable, :polymorphic => true
 
   mount_uploader :path, PhotoUploader
+  process_in_background :path
   skip_callback :commit, :after, :remove_path!
 
 
