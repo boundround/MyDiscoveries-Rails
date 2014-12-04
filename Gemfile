@@ -69,6 +69,8 @@ gem 'country_select'
 # Classier solution for file uploads for Rails.
 gem 'carrierwave'
 
+gem 'sidekiq'
+
 # Styling
 gem 'bootstrap-sass'
 
