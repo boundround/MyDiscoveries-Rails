@@ -319,186 +319,190 @@ $('.dude-help').on('click', function () {
 // Search Box
 
 // Save User Location
-var userIP = $('#user-ip').data('ip');
-var userCity = '';
-var userCountry = '';
 
-var resultSource = '';
+window.onload = function() {
+  var userIP = $('#user-ip').data('ip');
+  var userCity = '';
+  var userCountry = '';
 
-$.ajax({
-  url: 'http://freegeoip.net/json/' + userIP,
-  success: function(data) {
-    userCity = data.city;
-    userCountry = data.country_name;
-  }
-});
+  var resultSource = '';
 
-$('.search-box').autocomplete({
-  source: function( request, response ) {
-    $.ajax({
-      url: '/places/search.json?term=' + request.term,
-      success: function( data ) {
-        if ( data.length >= 1 ) {
-          response( $.map( data, function( item ) {
-            var areaDisplay = null;
-            if (item.area.display_name) {
-              if (item.area.display_name == item.area.country) {
-                areaDisplay = item.area.display_name;
-              } else {
-                areaDisplay = item.area.display_name + ", " + item.area.country;
-              };
-            };
+  $.ajax({
+    url: 'http://freegeoip.net/json/' + userIP,
+    success: function(data) {
+      userCity = data.city;
+      userCountry = data.country_name;
+    }
+  });
 
-            return {
-              label: item.display_name + (areaDisplay ? ", " + areaDisplay : ""),
-              value: item.display_name,
-              lat: item.latitude,
-              lng: item.longitude,
-              resultType: 'place'
-            }
-          }));
-        } else {
-          autoCompleteAreaSearch(request, response);
-        }
-      }
-    });
-
-    var autoCompleteAreaSearch = function(request, response) {
+  $('.search-box').autocomplete({
+    source: function( request, response ) {
       $.ajax({
-        url: '/areas/search.json?term=' + request.term,
+        url: '/places/search.json?term=' + request.term,
         success: function( data ) {
           if ( data.length >= 1 ) {
             response( $.map( data, function( item ) {
+              var areaDisplay = null;
+              if (item.area.display_name) {
+                if (item.area.display_name == item.area.country) {
+                  areaDisplay = item.area.display_name;
+                } else {
+                  areaDisplay = item.area.display_name + ", " + item.area.country;
+                };
+              };
+
               return {
-                label: item.display_name + (item.country ? ", " + item.country : ""),
+                label: item.display_name + (areaDisplay ? ", " + areaDisplay : ""),
                 value: item.display_name,
                 lat: item.latitude,
                 lng: item.longitude,
-                resultType: 'area'
+                resultType: 'place'
               }
             }));
           } else {
-            geoNamesSearch(request, response);
-            // googlePlaceSearch(request, response);
+            autoCompleteAreaSearch(request, response);
           }
         }
       });
-    };
 
-    // var googlePlaceSearch = function(request, response) {
-    //   function initialize() {
-    //     var service = new google.maps.places.AutocompleteService();
-    //     service.getQueryPredictions({ input: request.term }, callback);
-    //   }
-    //
-    //   function callback(predictions, status) {
-    //     if (status != google.maps.places.PlacesServiceStatus.OK) {
-    //       alert(status);
-    //       return;
-    //     }
-    //     response( $.map( predictions, function( item ) {
-    //       return {
-    //         label: item.description,
-    //         value: item.description,
-    //         lat: 0,
-    //         lng: 0,
-    //         resultType: 'Google'
-    //       }
-    //     }));
-    //     // var results = document.getElementById();
-    //     //
-    //     // for (var i = 0, prediction; prediction = predictions[i]; i++) {
-    //     //   results.innerHTML += '<li>' + prediction.description + '</li>';
-    //     // }
-    //     console.log(status);
-    //     console.log(predictions);
-    //
-    //
-    //   }
-    //
-    //   initialize();
-    // }
-
-
-    var geoNamesSearch = function(request, response) {
-      $.ajax({
-        url: "http://ws.geonames.org/searchJSON?username=boundround",
-        dataType: "jsonp",
-        data: {
-          featureClass: "S",
-          style: "full",
-          maxRows: 12,
-          name_startsWith: request.term
-        },
-        success: function( data ) {
-          response( $.map( data.geonames, function( item ) {
-            return {
-              label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
-              value: item.name,
-              lat: item.lat,
-              lng: item.lng,
-              resultType: 'geoNames'
+      var autoCompleteAreaSearch = function(request, response) {
+        $.ajax({
+          url: '/areas/search.json?term=' + request.term,
+          success: function( data ) {
+            if ( data.length >= 1 ) {
+              response( $.map( data, function( item ) {
+                return {
+                  label: item.display_name + (item.country ? ", " + item.country : ""),
+                  value: item.display_name,
+                  lat: item.latitude,
+                  lng: item.longitude,
+                  resultType: 'area'
+                }
+              }));
+            } else {
+              geoNamesSearch(request, response);
+              // googlePlaceSearch(request, response);
             }
-          }));
-        }
-      });
-    }
+          }
+        });
+      };
 
-  },
-  minLength: 2,
-  select: function( event, ui ) {
-    $.ajax({
-      type: "POST",
-      url: '/searchqueries/create',
-      data: {search_query: {
-        term: this.value,
-        source: ui.item.resultType,
-        city: userCity,
-        country: userCountry
-      }},
-      success: console.log('saved: ' + ui.item.label),
-    });
+      // var googlePlaceSearch = function(request, response) {
+      //   function initialize() {
+      //     var service = new google.maps.places.AutocompleteService();
+      //     service.getQueryPredictions({ input: request.term }, callback);
+      //   }
+      //
+      //   function callback(predictions, status) {
+      //     if (status != google.maps.places.PlacesServiceStatus.OK) {
+      //       alert(status);
+      //       return;
+      //     }
+      //     response( $.map( predictions, function( item ) {
+      //       return {
+      //         label: item.description,
+      //         value: item.description,
+      //         lat: 0,
+      //         lng: 0,
+      //         resultType: 'Google'
+      //       }
+      //     }));
+      //     // var results = document.getElementById();
+      //     //
+      //     // for (var i = 0, prediction; prediction = predictions[i]; i++) {
+      //     //   results.innerHTML += '<li>' + prediction.description + '</li>';
+      //     // }
+      //     console.log(status);
+      //     console.log(predictions);
+      //
+      //
+      //   }
+      //
+      //   initialize();
+      // }
 
-    var newZoom = 7;
-    if (ui.item.resultType === 'place') {
-      newZoom = 13;
-    }
-    $('#svgdiv').fadeOut("fast");
-    map.setView( [ui.item.lat, ui.item.lng], newZoom );
 
-    if (ui.item.resultType === 'geoNames') {
-      var popup = L.popup()
-        .setLatLng([ui.item.lat, ui.item.lng])
-        .setContent('<h3>' + ui.item.value + '</h3><br><button type="button" id="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
-        .openOn(map);
-    }
+      var geoNamesSearch = function(request, response) {
+        $.ajax({
+          url: "http://ws.geonames.org/searchJSON?username=boundround",
+          dataType: "jsonp",
+          data: {
+            featureClass: "S",
+            style: "full",
+            maxRows: 12,
+            name_startsWith: request.term
+          },
+          success: function( data ) {
+            response( $.map( data.geonames, function( item ) {
+              return {
+                label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+                value: item.name,
+                lat: item.lat,
+                lng: item.lng,
+                resultType: 'geoNames'
+              }
+            }));
+          }
+        });
+      }
 
-    $('#want-button').on('click', function(e) {
-      $('#want-button').hide();
-      $('.leaflet-popup-content').append("Thanks we're on it!");
-
+    },
+    minLength: 2,
+    select: function( event, ui ) {
       $.ajax({
         type: "POST",
-        url: '/notification',
-        data: {place: ui.item.value,
-              city: userCity,
-              country: userCountry
-        },
-        success: console.log('sent: ' + ui.item.value),
+        url: '/searchqueries/create',
+        data: {search_query: {
+          term: this.value,
+          source: ui.item.resultType,
+          city: userCity,
+          country: userCountry
+        }},
+        success: console.log('saved: ' + ui.item.label),
       });
-    });
 
-    if (typeof brglobe != 'undefined') {
-       brglobe.setLocation(ui.item.lat, ui.item.lng);
+
+      var newZoom = 7;
+      if (ui.item.resultType === 'place') {
+        newZoom = 13;
+      }
+      $('#svgdiv').fadeOut("fast");
+      map.setView( [ui.item.lat, ui.item.lng], newZoom );
+
+      if (ui.item.resultType === 'geoNames') {
+        var popup = L.popup()
+          .setLatLng([ui.item.lat, ui.item.lng])
+          .setContent('<h3>' + ui.item.value + '</h3><br><button type="button" id="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
+          .openOn(map);
+      }
+
+      $('#want-button').on('click', function(e) {
+        $('#want-button').hide();
+        $('.leaflet-popup-content').append("Thanks we're on it!");
+
+        $.ajax({
+          type: "POST",
+          url: '/notification',
+          data: {place: ui.item.value,
+                city: userCity,
+                country: userCountry
+          },
+          success: console.log('sent: ' + ui.item.value),
+        });
+      });
+
+      if (typeof brglobe != 'undefined') {
+         brglobe.setLocation(ui.item.lat, ui.item.lng);
+      }
+    },
+    open: function() {
+      $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+    },
+    close: function() {
+      $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
     }
-  },
-  open: function() {
-    $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-  },
-  close: function() {
-    $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+  });
   }
-});
 
 $('#navModal').modal('show');
 
