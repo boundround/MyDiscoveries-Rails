@@ -167,7 +167,7 @@
             <div class="game-divider"></div>
             <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
                                                               photo_alt: photo.path.path.gsub('photos/', ''),
-                                                              photo_credit: photo.credit
+                                                              photo_credit: "Credit: " + photo.credit
                                                               } do %>
             <% end %>
             <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
