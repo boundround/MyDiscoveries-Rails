@@ -63,8 +63,8 @@
                     <%= f.input :vimeo_id, input_html: { class: 'form-control'} %>
                     <%= f.input :priority, collection: 1..10 %>
                     <%= f.button :submit %>
-                    <%= link_to "Delete", video, class: "btn btn-danger", method: :delete,
-                                       data: { confirm: "Are you sure?" } %>
+                    <%= (link_to "Delete", video, class: "btn btn-danger", method: :delete,
+                                                           data: { confirm: "Are you sure?" }) if current_user.admin_level > 3 %>
                   </div>
                 </div>
               </div>
@@ -88,8 +88,8 @@
                   </div>
                     <%= f.input :credit, input_html: { class: 'form-control' } %>
                     <%= f.button :submit %>
-                    <%= link_to "Delete", photo, class: "btn btn-danger", method: :delete,
-                                       data: { confirm: "Are you sure?" } %>
+                    <%= (link_to "Delete", photo, class: "btn btn-danger", method: :delete,
+                                                           data: { confirm: "Are you sure?" }) if current_user.admin_level > 3 %>
                   </div>
                 </div>
               </div>

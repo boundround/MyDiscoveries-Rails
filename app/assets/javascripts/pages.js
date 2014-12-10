@@ -19,9 +19,9 @@ map.on('load', function() {
   map.setView(parsedHash.center, parsedHash.zoom);
 
   /// Switch globe display on
-    if (parsedHash.zoom < 4) {
-      $('#svgdiv').css('visibility', 'visible');
-    };
+  if (parsedHash.zoom < 4) {
+    $('#svgdiv').css('visibility', 'visible');
+  };
 });
 
 
@@ -241,32 +241,11 @@ $.ajax({
       url: '/places/mapdata.json',
       success: function(data) {
         window.placesGeoJSON = data;
-        var placesArray = createMarkerArray(data, 'place');
+        window.placesArray = createMarkerArray(data, 'place');
         addMarkersClickEvent(placeMarkers);
 
-        //switch between areas and places
-        map.on('zoomstart', function() {
-          window.previousZoom = map.getZoom();
-          console.log('previousZoom' + previousZoom);
-					window.previousLocation = map.getCenter();
-        });
-        map.on('zoomend', function() {
-          var newZoom = map.getZoom();
-          if (previousZoom >= areahidelevel && newZoom < areahidelevel) {
-            placeMarkers.removeLayers(placesArray);
-            areaMarkers.addLayers(window.areaLayers.havePlaces)
-            $('#menu-ui').css("visibility", "hidden");
-          } else if (previousZoom < areahidelevel && newZoom >= areahidelevel){
-            areaMarkers.removeLayers(window.areaLayers.havePlaces)
-            placeMarkers.addLayers(placesArray);
-            $('#menu-ui').css("visibility", "visible");
-          }
-        });
-        if (window.parsedHash.zoom > 3) {
-          areaMarkers.removeLayers(window.areaLayers.havePlaces)
-          placeMarkers.addLayers(placesArray);
-          $('#menu-ui').css("visibility", "visible");
-        }
+        areasPlacesSwitch();
+
         $('#loadModal').modal('hide');
         if ($.cookie('modal_shown') == null) {
             $.cookie('modal_shown', 'yes', { expires: 1 });
@@ -281,6 +260,33 @@ $.ajax({
 
   }
 });
+
+var areasPlacesSwitch = function() {
+  //switch between areas and places
+  map.on('zoomstart', function() {
+    window.previousZoom = map.getZoom();
+    console.log('previousZoom' + previousZoom);
+    window.previousLocation = map.getCenter();
+  });
+  map.on('zoomend', function() {
+    var newZoom = map.getZoom();
+    if (previousZoom >= areahidelevel && newZoom < areahidelevel) {
+      placeMarkers.removeLayers(placesArray);
+      areaMarkers.addLayers(window.areaLayers.havePlaces)
+      $('#menu-ui').css("visibility", "hidden");
+    } else if (previousZoom < areahidelevel && newZoom >= areahidelevel){
+      areaMarkers.removeLayers(window.areaLayers.havePlaces)
+      placeMarkers.addLayers(placesArray);
+      $('#menu-ui').css("visibility", "visible");
+    }
+  });
+  if (window.parsedHash && window.parsedHash.zoom > 3) {
+    areaMarkers.removeLayers(window.areaLayers.havePlaces)
+    placeMarkers.addLayers(placesArray);
+    $('#menu-ui').css("visibility", "visible");
+  }
+}
+
 
 // Redirect to areas or places on click
 var addMarkersClickEvent = function(markers) {
