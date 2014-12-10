@@ -16,6 +16,9 @@
   <div class="form-group">
     <%= f.input :admin %>
   </div>
+  <div class="form-group">
+    <%= f.input :role, collection: ["admin", "publisher", "editor", "contributor", "user"] %>
+  </div>
   <div class="actions">
     <%= f.submit 'Update User' %>
   </div>
