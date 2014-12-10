@@ -28,7 +28,7 @@ class Area < ActiveRecord::Base
     Rails.cache.fetch("all_areas") { Area.includes(:places) }
   end
 
-  def flush_places_geojson
+  def flush_areas_geojson
     Rails.cache.delete('areas_geojson')
   end
 
