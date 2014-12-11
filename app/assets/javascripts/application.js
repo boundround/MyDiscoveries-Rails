@@ -13,6 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require mapbox
+//= require leaflet.label
+//= require leaflet.markercluster
+//= require L.Control.Zoomslider
+//= require leaflet-hash
 //= require bootsy
 //= require bootstrap
 //= require geocomplete
