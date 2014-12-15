@@ -19,8 +19,14 @@ Rails.application.configure do
                      :password => ENV["MEMCACHIER_PASSWORD"],
                      :failover => true,
                      :socket_timeout => 1.5,
-                     :socket_failure_delay => 0.2
+                     :socket_failure_delay => 0.2,
+                     :value_max_bytes => 10485760
                     }
+  config.action_dispatch.rack_cache = {
+    :metastore    => client,
+    :entitystore  => client
+  }
+  config.static_cache_control = "public, max-age=2592000"
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
