@@ -46,6 +46,7 @@ gem 'wiselinks'
 gem 'will_paginate', '~> 3.0'
 
 # memcached with dalli
+gem 'memcachier'
 gem 'dalli'
 gem 'rack-cache'
 gem 'kgio'
