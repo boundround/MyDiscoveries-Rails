@@ -47,6 +47,8 @@ gem 'will_paginate', '~> 3.0'
 
 # memcached with dalli
 gem 'dalli'
+gem 'rack-cache'
+gem 'kgio'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
