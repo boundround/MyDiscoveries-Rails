@@ -22,6 +22,8 @@ Rails.application.configure do
                      :socket_failure_delay => 0.2
                     }
 
+  config.static_cache_control = 'public, s-maxage=2592000, maxage=86400'
+
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
@@ -63,7 +65,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = ENV['FASTLY_CDN_URL']
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
