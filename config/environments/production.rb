@@ -34,6 +34,7 @@ Rails.application.configure do
                            :value_max_bytes => 10485760)
 
   config.action_dispatch.rack_cache = {
+    :verbose      => true,
     :metastore    => client,
     :entitystore  => client
   }
