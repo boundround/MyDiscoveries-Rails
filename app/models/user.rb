@@ -24,4 +24,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def admin_level
+    if admin? && role == "admin"
+      5
+    elsif admin? && role == "publisher"
+      4
+    elsif admin? && role == "editor"
+      3
+    elsif admin? && role == "contributor"
+      2
+    else
+      1
+    end
+  end
+
 end

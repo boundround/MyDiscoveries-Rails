@@ -1,5 +1,5 @@
 <h1>All Users</h1>
-<% if current_user.try(:admin) %>
+<% if current_user.admin_level == 5 %>
     <% @users.each do |user| %>
         <p><%= user.email %></p>
         <p><%= link_to 'Edit', edit_user_path(user) %> | <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></p>
