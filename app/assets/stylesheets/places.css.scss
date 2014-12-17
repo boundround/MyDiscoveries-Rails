@@ -18,8 +18,9 @@
 .page-wrap {
 	min-width: 500px;
 }
+
 .game-frame {
-  min-width: 95%;
+  min-width: 100%;
   border: 7px solid white;
 }
 
@@ -114,10 +115,7 @@
 //     width: 500px;
      margin-left: 0%;
    }
-   .game-frame {
-     height: 400px;
-	 width: 500px;
-   }
+
    .globe-home {
      width: 12%;
    }
