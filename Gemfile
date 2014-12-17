@@ -14,7 +14,7 @@ gem 'roo'
 gem 'iconv'
 
 # User Font Awesome for icons
-gem "font-awesome-rails"
+# gem "font-awesome-rails"
 
 # Mercury HTML5 Editor for WYSIWYG capability
 # gem 'mercury-rails', git: 'https://github.com/jejacks0n/mercury.git'
