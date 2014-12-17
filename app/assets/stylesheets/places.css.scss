@@ -1,7 +1,8 @@
 .game-card-expanded {
   position: relative;
-  min-width: 130%;
-  margin-left: -16%;
+  min-width: 95%;
+//  margin-left: -16%;
+
   height: auto;
 }
 
@@ -10,11 +11,15 @@
 }
 
 .game-frame {
-  height: 400px;
+  height: 500px;
+  width: 500px;
 }
 
+.page-wrap {
+	min-width: 500px;
+}
 .game-frame {
-  width: 100%;
+  min-width: 95%;
   border: 7px solid white;
 }
 
@@ -106,10 +111,13 @@
 
  @media (max-width: 500px) {
    .game-card-expanded {
-     min-width: 110%;
-     margin-left: -4%;
+//     width: 500px;
+     margin-left: 0%;
    }
-
+   .game-frame {
+     height: 400px;
+	 width: 500px;
+   }
    .globe-home {
      width: 12%;
    }
