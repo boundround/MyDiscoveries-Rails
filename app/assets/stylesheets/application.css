@@ -16,4 +16,9 @@
  *= require bootsy
  *= require iconlabel
  *= require font-awesome
+ *= require leaflet.label
+ *= require L.Control.Zoomslider.css
+ *= require MarkerCluster.css
+ *= require MarkerCluster.Default.css
+ *= require mapbox.css
  */
