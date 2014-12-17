@@ -22,11 +22,6 @@ Rails.application.configure do
                      :socket_failure_delay => 0.2,
                      :value_max_bytes => 10485760
                     }
-  config.action_dispatch.rack_cache = {
-    :metastore    => client,
-    :entitystore  => client
-  }
-  config.static_cache_control = "public, max-age=2592000"
 
   config.static_cache_control = 'public, s-maxage=2592000, maxage=86400'
 
