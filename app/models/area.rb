@@ -8,7 +8,6 @@ class Area < ActiveRecord::Base
   has_many :videos
   has_many :places, -> { order(:display_name) }
   has_many :games
-  has_many :fun_facts
 
   has_many :photos
   accepts_nested_attributes_for :photos
