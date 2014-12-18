@@ -2,7 +2,7 @@ class Game < ActiveRecord::Base
   belongs_to :place
   belongs_to :area
 
-  before_create :add_instructions
+  before_save :add_instructions
 
   scope :ordered_by_place_name, -> { joins(:place).order('places.display_name') }
 
