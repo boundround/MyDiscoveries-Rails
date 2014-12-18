@@ -346,7 +346,6 @@ DEPENDENCIES
   devise
   figaro
   fog
-  font-awesome-rails
   friendly_id
   geocomplete_rails
   hirb
