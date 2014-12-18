@@ -44,13 +44,6 @@
       <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
       <%= f.input :address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address" }, label: "Marker Address" %>
     </div>
-
-    <div class="form-group">
-      <%= f.input :code, label: 'Three Letter Code' %>
-    </div>
-    <div class="form-group">
-      <%= f.input :identifier, label: 'Identifier' %>
-    </div>
     <div class="form-group">
       <%= f.input :description, as: :bootsy, placeholder: 'Description', required: true, input_html: { class: 'form-control' } %>
     </div>
@@ -65,9 +58,6 @@
       </div>
       <div class="form-group">
         <%= ff.input :credit, required: true %>
-      </div>
-      <div class="form-group">
-        <%= ff.input :caption_source %>
       </div>
     <% end %>
     <div class="form-group">
