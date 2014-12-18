@@ -45,6 +45,9 @@ gem 'wiselinks'
 
 gem 'will_paginate', '~> 3.0'
 
+# turn tables into jquery sortable searchable
+gem 'jquery-datatables-rails', '~> 3.1.1'
+
 # memcached with dalli
 gem 'memcachier'
 gem 'dalli'
