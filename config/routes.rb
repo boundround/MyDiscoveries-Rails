@@ -20,7 +20,6 @@ Rails.application.routes.draw do
     resources :photos
     resources :videos
     resources :games
-    resources :fun_facts
     collection { post :import }
   end
 
@@ -43,7 +42,6 @@ Rails.application.routes.draw do
     resources :videos
     resources :discounts
     resources :games
-    resources :fun_facts
     collection { post :import }
   end
 
@@ -58,8 +56,6 @@ Rails.application.routes.draw do
   resources :games do
     collection { post :import }
   end
-
-  resources :fun_facts
 
   resources :discounts
 
