@@ -46,6 +46,10 @@ map.on('zoomend', function() {
   }
 });
 
+map.on('moveend', function(){
+  showPlaceCards();
+});
+
 var transitionzoomlevel = 4; //2d zoom level transition to globe
 var areahidelevel = 7; //zoom level at which area icons that have places are replaced with cluster icons
 var areatouchmagnification = 3; //number of levels to zoom when touch area with places
@@ -141,6 +145,9 @@ var setFilterButtons = function(inboundCategories) {
 map.on('moveend', function(event) {
   if (map.getZoom() >= transitionzoomlevel) {
     setFilterButtons(getInboundCategories());
+    areaMarkers.addLayers(window.areaLayers.havePlaces);
+    showAreaCards();
+    //areaMarkers.removeLayers(window.areaLayers.havePlaces);
   }
 });
 
@@ -255,6 +262,7 @@ $.ajax({
         }
         location.hash == "#3/-33.87/102.48" ? location.hash = '#3/-33.865143/151.2099' : location.hash;
         brglobe.setLocation(-33.865, 151.209);
+        showAreaCards();
       }
     });
 
@@ -274,19 +282,45 @@ var areasPlacesSwitch = function() {
       placeMarkers.removeLayers(placesArray);
       areaMarkers.addLayers(window.areaLayers.havePlaces)
       $('#menu-ui').css("visibility", "hidden");
+      showAreaCards();
     } else if (previousZoom < areahidelevel && newZoom >= areahidelevel){
+      showAreaCards();
       areaMarkers.removeLayers(window.areaLayers.havePlaces)
       placeMarkers.addLayers(placesArray);
       $('#menu-ui').css("visibility", "visible");
+      showPlaceCards();
     }
   });
   if (window.parsedHash && window.parsedHash.zoom > 3) {
+    showAreaCards();
     areaMarkers.removeLayers(window.areaLayers.havePlaces)
     placeMarkers.addLayers(placesArray);
     $('#menu-ui').css("visibility", "visible");
+    showPlaceCards();
   }
 }
 
+var showAreaCards = function(){
+  var bounds = map.getBounds();
+  var text = '';
+  areaMarkers.eachLayer(function(marker) {
+    if (bounds.contains(marker.getLatLng())) {
+      text += marker.options.icon.options.labelText + '<br>'
+    }
+  });
+  $('#areas').html(text);
+}
+
+var showPlaceCards = function(){
+  var bounds = map.getBounds();
+  var text = ""
+  placeMarkers.eachLayer(function(marker) {
+    if (bounds.contains(marker.getLatLng())) {
+      text += marker.options.icon.options.labelText + '<br>'
+    }
+  });
+  $('#places').html(text);
+}
 
 // Redirect to areas or places on click
 var addMarkersClickEvent = function(markers) {

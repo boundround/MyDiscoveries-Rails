@@ -1,3 +1,11 @@
+#cards {
+  z-index: 1000;
+  height:100%;
+  width: 50%;
+  position:absolute;
+  background-color: white;
+}
+
 .help-image {
   width: 50%;
   margin: 0 25%;
@@ -120,13 +128,12 @@
 }
 
 .search-box {
-  z-index: 100;
-  position: absolute;
   padding:6px 15px 6px 30px;
-	margin: 0.5% 41.5%;
+	margin-left: 30%;
+  margin-top: 20px;
   width: 300px;
-	background: white url(asset_path('search.png')) no-repeat 8px 8px;
-  border-radius:15px;
+	background: #ededed url(asset_path('search.png')) no-repeat 8px 8px;
+  border-radius:4px;
   color:#bcbcbc;
   background-size: 15px;
   border: none;

@@ -20,7 +20,7 @@ svg {
   width: 100%;
   height: 100%;
   position: absolute;
-  left: 0px;
+  right: 0px;
   top: 0px;
 }
 
@@ -116,13 +116,17 @@ left: 1px;
 </style>
 
 <body>
+<div id="cards">
+	<div class="search-wrapper">
+		<input class="search-box"></input>
+	</div>
+	<div id="areas"></div>
+	<div id="places"></div>
+</div>
 <div class='map-page'>
 	<div id='map'></div>
 </div>
 
-<div class="search-wrapper">
-	<input class="search-box"></input>
-</div>
 
 <%= render partial: 'filter_menu' %>
 
@@ -279,7 +283,7 @@ $(window).resize(sizeContent);
 
 //Dynamically assign height
 function sizeContent() {
-	$("#svgdiv").width($(window).width());
+	$("#svgdiv").width($(window).width() / 2 );
 	$("#svgdiv").height($(window).height());
 
 //	$("#zoomcontrol").width(30);
