@@ -230,9 +230,6 @@ var createMarkerArray = function(geoJSON, markerType) {
 
 //Get all areas and add to map
 $.ajax({
-  beforeSend: function(){
-    $('#loadModal').modal('show');
-  },
   url: '/areas/mapdata.json',
   success: function(data) {
     window.areasGeoJSON = data;
@@ -253,16 +250,8 @@ $.ajax({
 
         areasPlacesSwitch();
 
-        $('#loadModal').modal('hide');
-        if ($.cookie('modal_shown') == null) {
-            $.cookie('modal_shown', 'yes', { expires: 1 });
-            $('#navModal').modal('show');
-        } else {
-          $('#navModal').modal('hide');
-        }
         location.hash == "#3/-33.87/102.48" ? location.hash = '#3/-33.865143/151.2099' : location.hash;
         brglobe.setLocation(-33.865, 151.209);
-        showAreaCards();
       }
     });
 
@@ -305,7 +294,7 @@ var showAreaCards = function(){
   var text = '';
   areaMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
-      text += marker.options.icon.options.labelText + '<br>'
+      text += '<div class="area-card"><a href="' + marker.options.icon.options.url + '">' + marker.options.icon.options.labelText + '</a></div><br>'
     }
   });
   $('#areas').html(text);
@@ -316,7 +305,7 @@ var showPlaceCards = function(){
   var text = ""
   placeMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
-      text += marker.options.icon.options.labelText + '<br>'
+      text += '<div class="place-card"><a href="' + marker.options.icon.options.url + '">' + marker.options.icon.options.labelText + '</a></div><br>'
     }
   });
   $('#places').html(text);

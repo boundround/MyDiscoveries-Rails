@@ -4,6 +4,11 @@
   width: 50%;
   position:absolute;
   background-color: white;
+  overflow: scroll;
+}
+
+.ui-front {
+  z-index: 1000 !important;
 }
 
 .help-image {
@@ -11,6 +16,23 @@
   margin: 0 25%;
 }
 
+#places, #areas {
+  padding: 0 12%;
+}
+
+.area-card {
+  background-color: lightgrey;
+  height: 50px;
+  margin-top: 10px;
+}
+
+.place-card {
+  background-color: #ededed;
+  width: 30%;
+  margin-right: 3.33%;
+  float: left;
+  margin-bottom: 10px;
+}
 #navModal {
   width: 50%;
   color: white;
