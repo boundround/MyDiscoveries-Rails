@@ -1,3 +1,8 @@
+var formatCategory = function(string) {
+  string = string.replace(/\_/g, " ");
+  return string = string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
 map = L.mapbox.map('map', 'boundround.j0d79a3j', {
   	worldCopyJump: true,
     // these options apply to the tile layer in the map
@@ -199,7 +204,11 @@ var createMarkerArray = function(geoJSON, markerType) {
       place: function() {return new placeIcon({ labelText: location.properties.title,
                                               labelClassName: 'place-icon-label ' + location.properties.id,
                                               iconUrl: location.properties.icon.iconUrl,
-                                              url: location.properties.url
+                                              url: location.properties.url,
+                                              imageCount: location.properties.imageCount,
+                                              videoCount: location.properties.videoCount,
+                                              gameCount: location.properties.gameCount,
+                                              heroImage: location.properties.heroImage
                                               });}
     }
 
@@ -302,10 +311,17 @@ var showAreaCards = function(){
 
 var showPlaceCards = function(){
   var bounds = map.getBounds();
-  var text = ""
+  var text = "";
   placeMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
-      text += '<div class="place-card"><a href="' + marker.options.icon.options.url + '">' + marker.options.icon.options.labelText + '</a></div><br>'
+      category = formatCategory(marker.options.category);
+      text += '<div class="place-card"><a class="no-anchor-decoration" href="' +
+      marker.options.icon.options.url + '"><div class="upper-card" style="background-image: url(' +
+      marker.options.icon.options.heroImage + ')">' + category + '</div></a><p class="place-title">' + marker.options.icon.options.labelText + '</p><br>Images: ' +
+      marker.options.icon.options.imageCount + ' Videos: ' +
+      marker.options.icon.options.videoCount +
+      ' Games: ' + marker.options.icon.options.gameCount +
+      '</div>'
     }
   });
   $('#places').html(text);

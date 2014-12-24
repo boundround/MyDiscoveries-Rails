@@ -75,7 +75,11 @@ class Place < ActiveRecord::Base
               "iconSize" => [45, 45],
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
-            }
+            },
+            "videoCount" => place.videos.length,
+            "gameCount" => place.games.length,
+            "imageCount" => place.photos.length,
+            "heroImage" => place.get_card_image
           }
         }
       end
@@ -127,6 +131,14 @@ class Place < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     display_name_changed?
+  end
+
+  def get_card_image
+    if photos.empty?
+      "http://placehold.it/350x150"
+    else
+      photos.order(:priority).first.path_url(:small)
+    end
   end
 
   def check_valid_url
