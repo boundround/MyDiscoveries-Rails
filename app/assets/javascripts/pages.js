@@ -314,14 +314,18 @@ var showPlaceCards = function(){
   var text = "";
   placeMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
-      category = formatCategory(marker.options.category);
-      text += '<div class="place-card"><a class="no-anchor-decoration" href="' +
-      marker.options.icon.options.url + '"><div class="upper-card" style="background-image: url(' +
-      marker.options.icon.options.heroImage + ')">' + category + '</div></a><p class="place-title">' + marker.options.icon.options.labelText + '</p><br>Images: ' +
-      marker.options.icon.options.imageCount + ' Videos: ' +
-      marker.options.icon.options.videoCount +
-      ' Games: ' + marker.options.icon.options.gameCount +
-      '</div>'
+      var category = marker.options.category;
+      var categoryText = formatCategory(category);
+      var url = marker.options.icon.options.url;
+      var heroImage = marker.options.icon.options.heroImage;
+      var imageCount = marker.options.icon.options.imageCount;
+      var videoCount = marker.options.icon.options.videoCount;
+      var gameCount = marker.options.icon.options.gameCount;
+      var placeTitle = marker.options.icon.options.labelText;
+      text += '<div class="place-card"><a class="no-anchor-decoration" href="' + url +
+      '"><div class="upper-card" style="background-image: url(' + heroImage + ')">' +
+      categoryText + '</div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a><div class="card-footer">Images: ' +
+      imageCount + ' Videos: ' + videoCount + ' Games: ' + gameCount + '</div></div>'
     }
   });
   $('#places').html(text);

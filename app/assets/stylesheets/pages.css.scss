@@ -5,7 +5,7 @@
   position:absolute;
   background-color: white;
   overflow: scroll;
-  background-color: rgba(253, 126, 86, 1);
+  background-color: #fd7e56;
 }
 
 .search-wrapper {
@@ -13,14 +13,58 @@
 }
 
 .upper-card {
-  background-size: cover;
+  background-size: 100% auto;
   height: 100px;
   border-radius: 4px 4px 0 0;
+}
+
+.sights {
+  color: #fc3d7d;
+}
+
+.park {
+  color: #00d81f;
+}
+
+.animals {
+  color: #fa634b;
+}
+
+.shopping {
+  color: #7c8ee1;
+}
+
+.activity {
+  color: #fd0000;
+}
+
+.beach {
+  color: #fda812;
+}
+
+.theme_park {
+  color: #44adef;
+}
+
+.place_to_stay {
+  color: #34d4ce;
+}
+
+.sport {
+  color: #c057ec;
+}
+
+.museum {
+  color: #365d88;
 }
 
 .place-title {
   text-align: center;
   padding: 0 10px 0 10px;
+}
+
+.place_to_eat {
+  color: #3c9500;
 }
 
 .no-anchor-decoration {
