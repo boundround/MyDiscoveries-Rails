@@ -20,7 +20,7 @@ svg {
   width: 100%;
   height: 100%;
   position: absolute;
-  left: 0px;
+  right: 0px;
   top: 0px;
 }
 
@@ -116,13 +116,17 @@ left: 1px;
 </style>
 
 <body>
+<div id="cards">
+	<div class="search-wrapper">
+		<input class="search-box"></input>
+	</div>
+	<div id="areas"></div>
+	<div id="places"></div>
+</div>
 <div class='map-page'>
 	<div id='map'></div>
 </div>
 
-<div class="search-wrapper">
-	<input class="search-box"></input>
-</div>
 
 <%= render partial: 'filter_menu' %>
 
@@ -133,49 +137,6 @@ left: 1px;
 	<div id="zoomminus"><%=image_tag("zoomminus.png")%></div>
 </div>
 </div>
-<div class="br-corporate-link">
-	<a href="http://boundround.com/new-home-demo/">
-		<img class="corporate-logo" src="<%= asset_path('BR_Logo.png')%>">
-	</a>
-</div>
-
-<div class="dropdown pull-right">
-	<button class="dropdown-toggle fa fa-bars fa-3x map-menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
-	</button>
-	<ul id="menu" class="dropdown-menu map-menu" role="menu" aria-labelledby="dropdownMenu1">
-		<li role="presentation">
-			<a role="menuitem" tabindex="-1" href="/" data-filter="*">
-				<%= image_tag 'corporate_icon-02.svg', class: 'dropdown-menu-icon' %>
-				Home
-			</a>
-		</li>
-		<li role="presentation">
-			<a role="menuitem" tabindex="-1" href="/videos" data-filter=".slider">
-				<%= image_tag 'video_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
-				Watch Videos
-			</a>
-		</li>
-		<li role="presentation">
-			<a role="menuitem" tabindex="-1" href="/games" data-filter=".jigsaw">
-				<%= image_tag 'game_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
-				Play Games
-			</a>
-		</li>
-		<li role="presentation">
-			<a role="menuitem" tabindex="-1" href="http://boundround.com/new-home-demo/" data-filter=".word">
-				<%= image_tag 'home_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
-				Corporate Site
-			</a>
-		</li>
-		<li role="presentation">
-			<a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#helpModal">
-				<%= image_tag 'learn_icon-02.svg', class: 'dropdown-menu-icon menu-help'%>
-				Help
-			</a>
-		</li>
-	</ul>
-</div>
-
 
 <div class="dude-help">
 	<div class="balloon-wrapper">
@@ -200,37 +161,6 @@ left: 1px;
 	</div>
 	<div class="footer">
 		<a class="feedback" href="mailto:help@boundround.com">Send us your feedback!</a>
-	</div>
-</div>
-
-<div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-content small-modal">
-		<div class="modal-body">
-			<h3>I Would Like To</h3>
-			<div id="icon-wrapper">
-				<a href="/videos">
-					<div class="go-to go-to-videos">
-					</div>
-				</a>
-				<a href="/games">
-					<div class="go-to go-to-games">
-					</div>
-				</a>
-				<a href="#">
-					<div class="go-to go-to-globe">
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="loadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-content loadModal">
-		<div class="modal-body">
-			<img class="plane-orbit" src="<%= asset_path('orange_plane_orbit.png')%>">
-			<p class="load-text">Loading...</p>
-		<div>
 	</div>
 </div>
 
@@ -279,7 +209,7 @@ $(window).resize(sizeContent);
 
 //Dynamically assign height
 function sizeContent() {
-	$("#svgdiv").width($(window).width());
+	$("#svgdiv").width($(window).width() / 2 );
 	$("#svgdiv").height($(window).height());
 
 //	$("#zoomcontrol").width(30);

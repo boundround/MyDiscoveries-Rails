@@ -1,3 +1,8 @@
+var formatCategory = function(string) {
+  string = string.replace(/\_/g, " ");
+  return string = string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
 map = L.mapbox.map('map', 'boundround.j0d79a3j', {
   	worldCopyJump: true,
     // these options apply to the tile layer in the map
@@ -44,6 +49,10 @@ map.on('zoomend', function() {
        console.log("zoomend 1 fired");
     }
   }
+});
+
+map.on('moveend', function(){
+  showPlaceCards();
 });
 
 var transitionzoomlevel = 4; //2d zoom level transition to globe
@@ -141,6 +150,9 @@ var setFilterButtons = function(inboundCategories) {
 map.on('moveend', function(event) {
   if (map.getZoom() >= transitionzoomlevel) {
     setFilterButtons(getInboundCategories());
+    areaMarkers.addLayers(window.areaLayers.havePlaces);
+    showAreaCards();
+    //areaMarkers.removeLayers(window.areaLayers.havePlaces);
   }
 });
 
@@ -192,7 +204,11 @@ var createMarkerArray = function(geoJSON, markerType) {
       place: function() {return new placeIcon({ labelText: location.properties.title,
                                               labelClassName: 'place-icon-label ' + location.properties.id,
                                               iconUrl: location.properties.icon.iconUrl,
-                                              url: location.properties.url
+                                              url: location.properties.url,
+                                              imageCount: location.properties.imageCount,
+                                              videoCount: location.properties.videoCount,
+                                              gameCount: location.properties.gameCount,
+                                              heroImage: location.properties.heroImage
                                               });}
     }
 
@@ -223,9 +239,6 @@ var createMarkerArray = function(geoJSON, markerType) {
 
 //Get all areas and add to map
 $.ajax({
-  beforeSend: function(){
-    $('#loadModal').modal('show');
-  },
   url: '/areas/mapdata.json',
   success: function(data) {
     window.areasGeoJSON = data;
@@ -246,13 +259,6 @@ $.ajax({
 
         areasPlacesSwitch();
 
-        $('#loadModal').modal('hide');
-        if ($.cookie('modal_shown') == null) {
-            $.cookie('modal_shown', 'yes', { expires: 1 });
-            $('#navModal').modal('show');
-        } else {
-          $('#navModal').modal('hide');
-        }
         location.hash == "#3/-33.87/102.48" ? location.hash = '#3/-33.865143/151.2099' : location.hash;
         brglobe.setLocation(-33.865, 151.209);
       }
@@ -274,19 +280,52 @@ var areasPlacesSwitch = function() {
       placeMarkers.removeLayers(placesArray);
       areaMarkers.addLayers(window.areaLayers.havePlaces)
       $('#menu-ui').css("visibility", "hidden");
+      showAreaCards();
     } else if (previousZoom < areahidelevel && newZoom >= areahidelevel){
+      showAreaCards();
       areaMarkers.removeLayers(window.areaLayers.havePlaces)
       placeMarkers.addLayers(placesArray);
       $('#menu-ui').css("visibility", "visible");
+      showPlaceCards();
     }
   });
   if (window.parsedHash && window.parsedHash.zoom > 3) {
+    showAreaCards();
     areaMarkers.removeLayers(window.areaLayers.havePlaces)
     placeMarkers.addLayers(placesArray);
     $('#menu-ui').css("visibility", "visible");
+    showPlaceCards();
   }
 }
 
+var showAreaCards = function(){
+  var bounds = map.getBounds();
+  var text = '';
+  areaMarkers.eachLayer(function(marker) {
+    if (bounds.contains(marker.getLatLng())) {
+      text += '<div class="area-card"><a href="' + marker.options.icon.options.url + '">' + marker.options.icon.options.labelText + '</a></div><br>'
+    }
+  });
+  $('#areas').html(text);
+}
+
+var showPlaceCards = function(){
+  var bounds = map.getBounds();
+  var text = "";
+  placeMarkers.eachLayer(function(marker) {
+    if (bounds.contains(marker.getLatLng())) {
+      category = formatCategory(marker.options.category);
+      text += '<div class="place-card"><a class="no-anchor-decoration" href="' +
+      marker.options.icon.options.url + '"><div class="upper-card" style="background-image: url(' +
+      marker.options.icon.options.heroImage + ')">' + category + '</div></a><p class="place-title">' + marker.options.icon.options.labelText + '</p><br>Images: ' +
+      marker.options.icon.options.imageCount + ' Videos: ' +
+      marker.options.icon.options.videoCount +
+      ' Games: ' + marker.options.icon.options.gameCount +
+      '</div>'
+    }
+  });
+  $('#places').html(text);
+}
 
 // Redirect to areas or places on click
 var addMarkersClickEvent = function(markers) {
