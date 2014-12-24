@@ -325,7 +325,7 @@ var showPlaceCards = function(){
       text += '<div class="place-card"><a class="no-anchor-decoration" href="' + url +
       '"><div class="upper-card" style="background-image: url(' + heroImage + ')">' +
       categoryText + '</div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a><div class="card-footer">Images: ' +
-      imageCount + ' Videos: ' + videoCount + ' Games: ' + gameCount + '</div></div>'
+      imageCount + ' Videos: ' + videoCount + ' Games: ' + gameCount + '</div></div>';
     }
   });
   $('#places').html(text);
