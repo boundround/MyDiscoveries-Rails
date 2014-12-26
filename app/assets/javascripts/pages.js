@@ -315,6 +315,10 @@ var showPlaceCards = function(){
   placeMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
       var category = marker.options.category;
+      var categoryIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/" + marker.options.category + "_icon.png' alt='" + marker.options.category + " icon'>";
+      var imageCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' alt='photo count'>";
+      var gameCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png' alt='games count'>";
+      var videoCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png' alt='videos count'>";
       var categoryText = formatCategory(category);
       var url = marker.options.icon.options.url;
       var heroImage = marker.options.icon.options.heroImage;
@@ -323,9 +327,9 @@ var showPlaceCards = function(){
       var gameCount = marker.options.icon.options.gameCount;
       var placeTitle = marker.options.icon.options.labelText;
       text += '<div class="place-card"><a class="no-anchor-decoration" href="' + url +
-      '"><div class="upper-card" style="background-image: url(' + heroImage + ')">' +
-      categoryText + '</div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a><div class="card-footer">Images: ' +
-      imageCount + ' Videos: ' + videoCount + ' Games: ' + gameCount + '</div></div>';
+      '"><div class="upper-card" style="background-image: url(' + heroImage + ')"><div class="card-category">' +
+      categoryIcon + categoryText + '</div></div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a><div class="card-footer">' +
+      imageCountIcon + imageCount + " "+ videoCountIcon + videoCount + ' ' + gameCountIcon + gameCount + '</div></div>';
     }
   });
   $('#places').html(text);
