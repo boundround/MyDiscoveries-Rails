@@ -54,7 +54,9 @@ class Area < ActiveRecord::Base
               "iconSize" => [43, 26],
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
-            }
+            },
+            "placeCount" => area.places.length,
+            "country" => area.country
           }
         }
       end
