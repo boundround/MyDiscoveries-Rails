@@ -166,9 +166,9 @@ $('#menu-ui').on('click', 'a', function(e) {
 
 var areaIcon = L.Icon.Label.extend({
                 options: {
-                  iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+                  iconUrl: 'http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png',
                   shadowUrl: null,
-                  iconSize: new L.Point(43, 26),
+                  iconSize: new L.Point(43, 43),
                   iconAnchor: new L.Point(0, 0),
                   labelAnchor: new L.Point(47, 0),
                   wrapperAnchor: new L.Point(21, 13),
@@ -199,7 +199,9 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               labelClassName: 'area-icon-label' + ' '
                                               + location.properties.places + ' '
                                               + location.properties.id,
-                                              url: location.properties.url
+                                              url: location.properties.url,
+                                              placeCount: location.properties.placeCount,
+                                              country: location.properties.country
                                               });},
       place: function() {return new placeIcon({ labelText: location.properties.title,
                                               labelClassName: 'place-icon-label ' + location.properties.id,
@@ -303,7 +305,21 @@ var showAreaCards = function(){
   var text = '';
   areaMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
-      text += '<div class="area-card"><a href="' + marker.options.icon.options.url + '">' + marker.options.icon.options.labelText + '</a></div><br>'
+      var url = marker.options.icon.options.url;
+      if (marker.options.icon.options.country != marker.options.icon.options.labelText){
+        var areaTitle = marker.options.icon.options.labelText + ', ' + marker.options.icon.options.country;
+      } else {
+        var areaTitle = marker.options.icon.options.labelText
+      }
+      if (marker.options.icon.options.placeCount > 0) {
+        var placeCountText = marker.options.icon.options.placeCount + ' places';
+      } else {
+        var placeCountText = '';
+      }
+      var pin = '<div class="area-card-pin"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>';
+
+      text += '<a class="no-anchor-decoration" href="' + url + '"><div class="area-card">' + pin + '<div class="area-title">' + areaTitle +
+        '<br><span class="place-count">' + placeCountText + '</span></div></div></a>'
     }
   });
   $('#areas').html(text);
@@ -316,9 +332,9 @@ var showPlaceCards = function(){
     if (bounds.contains(marker.getLatLng())) {
       var category = marker.options.category;
       var categoryIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/" + marker.options.category + "_icon.png' alt='" + marker.options.category + " icon'>";
-      var imageCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' alt='photo count'>";
-      var gameCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png' alt='games count'>";
-      var videoCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png' alt='videos count'>";
+      var imageCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' height='12px' alt='photo count'>";
+      var gameCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png' height='12px' alt='games count'>";
+      var videoCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png' height='12px' alt='videos count'>";
       var categoryText = formatCategory(category);
       var url = marker.options.icon.options.url;
       var heroImage = marker.options.icon.options.heroImage;
@@ -329,7 +345,9 @@ var showPlaceCards = function(){
       text += '<div class="place-card"><a class="no-anchor-decoration" href="' + url +
       '"><div class="upper-card" style="background-image: url(' + heroImage + ')"><div class="card-category">' +
       categoryIcon + categoryText + '</div></div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a><div class="card-footer">' +
-      imageCountIcon + imageCount + " "+ videoCountIcon + videoCount + ' ' + gameCountIcon + gameCount + '</div></div>';
+      imageCountIcon + '&nbsp;&nbsp;' + imageCount + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+      videoCountIcon + '&nbsp;&nbsp;' + videoCount + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+      gameCountIcon + '&nbsp;&nbsp;' + gameCount + '</div></div>';
     }
   });
   $('#places').html(text);
