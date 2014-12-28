@@ -1,17 +1,26 @@
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 
 <div id="cards">
+  <div class="search-wrapper">
+    <input class="search-box"></input>
+  </div>
+  <div id="areas"></div>
+  <div id="places"></div>
 </div>
-
 <div class='map-page'>
   <div id='map'></div>
 </div>
 
-<div class="search-wrapper">
-  <input class="search-box"></input>
-</div>
 
 <%= render partial: 'filter_menu' %>
+
+<div id="svgdiv">
+<div id="zoomcontrol">
+  <div id="zoomplus"><%=image_tag("zoomplus.png")%></div>
+  <div id="zoomscroller"><%=image_tag("zoomscroller2.png")%></div>
+  <div id="zoomminus"><%=image_tag("zoomminus.png")%></div>
+</div>
+</div>
 
 <div class="dude-help">
   <div class="balloon-wrapper">
@@ -28,43 +37,6 @@
   </div>
 </div>
 
-<div class="dropdown pull-right">
-  <button class="dropdown-toggle fa fa-bars fa-3x map-menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
-  </button>
-  <ul id="menu" class="dropdown-menu map-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="/" data-filter="*">
-        <%= image_tag 'home_icon-01.svg', class: 'dropdown-menu-icon' %>
-        Home
-      </a>
-    </li>
-    <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="/videos" data-filter=".slider">
-        <%= image_tag 'video_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
-        Watch Videos
-      </a>
-    </li>
-    <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="/games" data-filter=".jigsaw">
-        <%= image_tag 'game_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
-        Play Games
-      </a>
-    </li>
-    <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="http://boundround.com/new-home-demo/" data-filter=".word">
-        <%= image_tag 'corporate_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
-        Corporate Site
-      </a>
-    </li>
-    <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#helpModal">
-        <%= image_tag 'learn_icon-02.svg', class: 'dropdown-menu-icon menu-help'%>
-        Help
-      </a>
-    </li>
-  </ul>
-</div>
-
 <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-content">
     <div class="modal-body">
@@ -72,37 +44,8 @@
     </div>
   </div>
   <div class="footer">
-    <%= image_tag 'back.jpg', class: "close-button", data: {dismiss: "modal"} %>
     <a class="feedback" href="mailto:help@boundround.com">Send us your feedback!</a>
   </div>
 </div>
 
-
-<div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-content small-modal">
-    <div class="modal-body">
-      <h3>I Would Like To</h3>
-      <div id="icon-wrapper">
-        <a href="/videos">
-          <div class="go-to go-to-videos">
-          </div>
-        </a>
-        <a href="/games">
-          <div class="go-to go-to-games">
-          </div>
-        </a>
-        <a href="#">
-          <div class="go-to go-to-globe">
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="br-corporate-link">
-  <a href="http://boundround.com/new-home-demo/">
-    <img class="corporate-logo" src="<%= asset_path('BR_Logo.png')%>">
-  </a>
-</div>
 <div id='user-ip' data-ip=<%= request.remote_ip %>></div>
