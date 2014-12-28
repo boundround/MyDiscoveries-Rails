@@ -10,6 +10,35 @@
 
 .search-wrapper {
   margin-bottom: 20px;
+  width: 500px;
+  margin-left: 17%;
+}
+
+.search-box {
+  padding: 6px 15px 6px 30px;
+  margin-top: 20px;
+  width: 100%;
+  height: 50px;
+  border-radius: 2px;
+  color: #bcbcbc;
+  background-size: 15px;
+  border: none;
+  font-size: 20px;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #cdcdcd;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #cdcdcd;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #cdcdcd;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #cdcdcd;
 }
 
 .upper-card {
@@ -20,53 +49,9 @@
   font-size: 0.85em;
 }
 
-.sights {
-  color: #fc3d7d;
-}
-
-.park {
-  color: #00d81f;
-}
-
-.animals {
-  color: #fa634b;
-}
-
-.shopping {
-  color: #7c8ee1;
-}
-
-.activity {
-  color: #fd0000;
-}
-
-.beach {
-  color: #fda812;
-}
-
-.theme_park {
-  color: #44adef;
-}
-
-.place_to_stay {
-  color: #34d4ce;
-}
-
-.sport {
-  color: #c057ec;
-}
-
-.museum {
-  color: #365d88;
-}
-
 .place-title {
   text-align: center;
   padding: 0 10px 0 10px;
-}
-
-.place_to_eat {
-  color: #3c9500;
 }
 
 .no-anchor-decoration {
@@ -122,12 +107,16 @@
   float: left;
   margin-bottom: 10px;
   border-radius: 2px;
-  height: 200px;
+  height: 192px;
   position: relative;
 }
 
 .place-title {
   margin-top: 15px;
+}
+
+.leaflet-marker-iconlabel {
+  display: none !important;
 }
 
 .card-footer {
@@ -170,37 +159,6 @@
 #icon-wrapper {
   width: 100%;
   margin: 0 auto;
-}
-
-.game-ds {
-  width: 35% !important;
-}
-
-.go-to {
-  width: 180px;
-  height: 139px;
-  display: inline-block;
-  margin: 0 auto;
-  color: white;
-  margin-top: 20px;
-}
-
-.go-to-games {
-  background: url(asset_path('game_icon-02.svg')), no-repeat;
-  background-size: contain;
-  margin-left: 20px;
-}
-
-.go-to-videos {
-  background: url(asset_path('video_icon-02.svg')), no-repeat;
-  background-size: contain;
-  margin-left: 20px;
-}
-
-.go-to-globe {
-  background: url(asset_path('explore_icon-01.svg')), no-repeat;
-  background-size: contain;
-  margin-left: 20px;
 }
 
 .dude-help {
@@ -259,63 +217,56 @@
   margin-top: 100%;
 }
 
-.search-box {
-  padding: 6px 15px 6px 30px;
-	margin-left: 30%;
-  margin-top: 20px;
-  width: 300px;
-	background: #ededed url(asset_path('search.png')) no-repeat 8px 8px;
-  border-radius: 2px;
-  color: #bcbcbc;
-  background-size: 15px;
-  border: none;
-}
-
 .pagination {
   display: block;
   text-align: center;
 }
 
-.br-corporate-link {
-  position: absolute;
-  bottom: 20px;
-  right: 55px;
-  z-index: 100;
+.sights {
+  color: #fc3d7d;
 }
-.corporate-logo {
-  width: 120px;
+
+.park {
+  color: #00d81f;
+}
+
+.animals {
+  color: #fa634b;
+}
+
+.shopping {
+  color: #7c8ee1;
+}
+
+.activity {
+  color: #fd0000;
+}
+
+.beach {
+  color: #fda812;
+}
+
+.theme_park {
+  color: #44adef;
+}
+
+.place_to_stay {
+  color: #34d4ce;
+}
+
+.sport {
+  color: #c057ec;
+}
+
+.museum {
+  color: #365d88;
+}
+
+
+.place_to_eat {
+  color: #3c9500;
 }
 
 @media (max-width: 600px) {
-  .help-image {
-    width: 100%;
-    margin: 0 5%;
-  }
 
-  .dude-help {
-    position: absolute;
-    bottom: -20px;
-    width: 25%;
-    left: -18%;
-    a { text-decoration: none;
-        color: #de4652;
-      }
-  }
-
-  .dude-help-out {
-    left: 2%;
-  }
-
-  .search-box {
-    z-index: 100;
-    position: absolute;
-    padding:6px 15px 6px 30px;
-    margin-left: 40px;
-    width: 300px;
-    background: white url(asset_path('search.png')) no-repeat 8px 8px;
-    border-radius:15px;
-    color:#bcbcbc;
-    background-size: 15px;
-    border: none;
-  }
 }
