@@ -55,7 +55,7 @@ class Area < ActiveRecord::Base
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
             },
-            "placeCount" => area.places.length,
+            "placeCount" => area.count_live_places,
             "country" => area.country
           }
         }
@@ -85,6 +85,18 @@ class Area < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     display_name_changed?
+  end
+
+  def count_live_places
+    count = 0
+    unless places.empty?
+      places.each do |place|
+        unless place.subscription_level == "draft" || place.subscription_level == "out"
+          count += 1
+        end
+      end
+    end
+    count
   end
 
 end

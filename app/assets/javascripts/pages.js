@@ -314,12 +314,12 @@ var showAreaCards = function(){
       if (marker.options.icon.options.placeCount > 0) {
         var placeCountText = marker.options.icon.options.placeCount + ' places';
       } else {
-        var placeCountText = '';
+        var placeCountText = '&nbsp;';
       }
       var pin = '<div class="area-card-pin"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>';
 
       text += '<a class="no-anchor-decoration" href="' + url + '"><div class="area-card">' + pin + '<div class="area-title">' + areaTitle +
-        '<br><span class="place-count">' + placeCountText + '</span></div></div></a>'
+        '<br><span class="place-count">' + placeCountText + '</span></div></div></a>';
     }
   });
   $('#areas').html(text);
