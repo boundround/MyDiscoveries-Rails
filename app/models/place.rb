@@ -75,7 +75,8 @@ class Place < ActiveRecord::Base
             "videoCount" => place.videos.length,
             "gameCount" => place.games.length,
             "imageCount" => place.photos.length,
-            "heroImage" => place.get_card_image
+            "heroImage" => place.get_card_image,
+            "placeId" => place.slug
           }
         }
       end

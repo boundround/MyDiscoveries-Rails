@@ -210,7 +210,8 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               imageCount: location.properties.imageCount,
                                               videoCount: location.properties.videoCount,
                                               gameCount: location.properties.gameCount,
-                                              heroImage: location.properties.heroImage
+                                              heroImage: location.properties.heroImage,
+                                              placeId: location.properties.placeId
                                               });}
     }
 
@@ -342,7 +343,8 @@ var showPlaceCards = function(){
       var videoCount = marker.options.icon.options.videoCount;
       var gameCount = marker.options.icon.options.gameCount;
       var placeTitle = marker.options.icon.options.labelText;
-      text += '<div class="place-card"><a class="no-anchor-decoration" href="' + url +
+      var placeId = marker.options.icon.options.placeId;
+      text += '<div class="place-card" id="' + placeId + '"><a class="no-anchor-decoration" href="' + url +
       '"><div class="upper-card" style="background-image: url(' + heroImage + ')"><div class="card-category">' +
       categoryIcon + categoryText + '</div></div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a><div class="card-footer">' +
       imageCountIcon + '&nbsp;&nbsp;' + imageCount + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
@@ -427,7 +429,8 @@ window.onload = function() {
                 value: item.display_name,
                 lat: item.latitude,
                 lng: item.longitude,
-                resultType: 'place'
+                resultType: 'place',
+                placeId: item.slug
               }
             }));
           } else {
@@ -539,6 +542,9 @@ window.onload = function() {
       }
       $('#svgdiv').fadeOut("fast");
       map.setView( [ui.item.lat, ui.item.lng], newZoom );
+      var resultCard = $('#' + ui.item.placeId);
+      console.log("putting card at top");
+      $('#places').prepend(resultCard);
 
       if (ui.item.resultType === 'geoNames') {
         var popup = L.popup()
