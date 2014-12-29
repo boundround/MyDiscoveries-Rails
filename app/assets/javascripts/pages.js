@@ -51,10 +51,6 @@ map.on('zoomend', function() {
   }
 });
 
-map.on('moveend', function(){
-  showPlaceCards();
-});
-
 var transitionzoomlevel = 4; //2d zoom level transition to globe
 var areahidelevel = 7; //zoom level at which area icons that have places are replaced with cluster icons
 var areatouchmagnification = 3; //number of levels to zoom when touch area with places
@@ -152,6 +148,7 @@ map.on('moveend', function(event) {
     setFilterButtons(getInboundCategories());
     areaMarkers.addLayers(window.areaLayers.havePlaces);
     showAreaCards();
+    showPlaceCards();
     //areaMarkers.removeLayers(window.areaLayers.havePlaces);
   }
 });
