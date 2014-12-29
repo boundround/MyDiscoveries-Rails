@@ -16,7 +16,7 @@ svg {
 
 #svgdiv {
 	visibility: hidden;
-	background-color: black;
+	background-color: #6cb7ca;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -118,11 +118,28 @@ left: 1px;
 <body>
 
 <div id="cards">
+	<div class="br-logo-home"><%= image_tag('bound_round_logo.png', class: 'br-logo-home-icon') %></div>
 	<div class="search-wrapper">
 		<input class="search-box" placeholder="Where do you want to explore?"></input>
+		<div class="search-sidebar"></div>
 	</div>
 	<div id="areas"></div>
 	<div id="places"></div>
+	<div class="clearfix"></div>
+	<div class="video-game-buttons">
+		<button class="video-button button">
+			<%= image_tag("all_videos_icon.png", size: "20x15", class: "all-game-video-icon") %>
+			See All Videos
+		</button>
+		<button class="game-button button">
+			<%= image_tag("all_games_icon.png", size: "20x15", class: "all-game-video-icon") %>
+			Play All Games
+		</button>
+	</div>
+	<div class="home-footer">
+		<span class="top-footer"><p><a href="#">Traveling Families</a> <a href="#">The Travel Industry</a> <a href="#">Teachers</a></span></p>
+		<span class="bottom-footer"><a href="#">Traveling Families</a> <a href="#">The Travel Industry</a></span>
+	</div>
 </div>
 <div class='map-page'>
 	<div id='map'></div>
@@ -138,7 +155,7 @@ left: 1px;
 	<div id="zoomminus"><%=image_tag("zoomminus.png")%></div>
 </div>
 </div>
-
+<!--
 <div class="dude-help">
 	<div class="balloon-wrapper">
 		<a href="#" data-toggle="modal" data-target="#helpModal">
@@ -163,7 +180,7 @@ left: 1px;
 	<div class="footer">
 		<a class="feedback" href="mailto:help@boundround.com">Send us your feedback!</a>
 	</div>
-</div>
+</div> -->
 
 <div id='user-ip' data-ip=<%= request.remote_ip %>></div>
 <!-- Google Fonts embed code -->

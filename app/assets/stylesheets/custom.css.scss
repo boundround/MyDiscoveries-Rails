@@ -4,7 +4,6 @@
 
 body {
   font-family: 'Signika', sans-serif;
-  background-color: #73c7d2;
 }
 
 select {
@@ -116,24 +115,6 @@ select {
 .page-wrap:after {
   content: "";
   display: block;
-}
-
-.footer, .page-wrap:after {
-  /* .push must be the same height as footer */
-  height: 50px;
-}
-
-.footer {
-  width: 60%;
-  margin: 10px auto 0 auto;
-  text-align: right;
-  // margin-top: 15px;
-  // width: 100%;
-  // background-color: #E98F87;
-  // position: fixed;
-  // left: 0px;
-  // bottom: 0px;
-  // height: 50px;
 }
 
 .close-button {

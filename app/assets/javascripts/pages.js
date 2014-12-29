@@ -343,10 +343,10 @@ var showPlaceCards = function(){
       var placeId = marker.options.icon.options.placeId;
       text += '<div class="place-card" id="' + placeId + '"><a class="no-anchor-decoration" href="' + url +
       '"><div class="upper-card" style="background-image: url(' + heroImage + ')"><div class="card-category">' +
-      categoryIcon + categoryText + '</div></div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a><div class="card-footer">' +
-      imageCountIcon + '&nbsp;&nbsp;' + imageCount + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-      videoCountIcon + '&nbsp;&nbsp;' + videoCount + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
-      gameCountIcon + '&nbsp;&nbsp;' + gameCount + '</div></div>';
+      categoryIcon + categoryText + '</div></div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a><div class="card-footer"><div class="image-count">' +
+      imageCountIcon + '&nbsp;&nbsp;' + imageCount + '</div><div class="video-count">' +
+      videoCountIcon + '&nbsp;&nbsp;' + videoCount + '</div><div class="game-count">' +
+      gameCountIcon + '&nbsp;&nbsp;' + gameCount + '</div></div></div>';
     }
   });
   $('#places').html(text);
