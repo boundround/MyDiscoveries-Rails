@@ -2,7 +2,7 @@
   z-index: 1000;
   height:100%;
   width: 50%;
-  position:absolute;
+  position:fixed;
   overflow: scroll;
   background: #fd7e56;
   padding-top: 30px;
@@ -72,8 +72,8 @@
   padding: 6px 15px 6px 30px;
   margin-top: 20px;
   width: 100%;
-  height: 70px;
-  border-radius: 3px;
+  height: 65px;
+  border-radius: 3px 0 0 3px;
   color: #bcbcbc;
   background-size: 15px;
   border: none;
@@ -82,10 +82,11 @@
 
 .search-sidebar {
   width: 75px;
-  height: 70px;
+  height: 65px;
   right: 0px;
   position: absolute;
   top: 20px;
+  margin-right: -2px;
   border-radius: 0 3px 3px 0;
   background: #6cb7ca url(asset_path('magnifying_glass_white.png')) no-repeat center;
   background-size: 25px 25px;
@@ -210,10 +211,9 @@
 
 .home-footer {
   text-align: center;
-  bottom: 3%;
-  left: 33%;
-  position: absolute;
+  margin-bottom: 3%;
 }
+
 .top-footer {
   a {
     color: #efefef;
