@@ -118,10 +118,38 @@ left: 1px;
 <body>
 
 <div id="cards">
-	<div class="br-logo-home"><%= image_tag('bound_round_logo.png', class: 'br-logo-home-icon') %></div>
+	<div class="br-logo-home"></div>
 	<div class="search-wrapper">
 		<input class="search-box" placeholder="Where do you want to explore?"></input>
 		<div class="search-sidebar"></div>
+	</div>
+	<div id='filters' class='ui-select'>
+	  <div>
+	  	<input type='checkbox' checked=checked class='filter'
+	             name='filter' id='activity' value='activity'/><label for='activity'>Activity</label>
+		  <input type='checkbox' checked=checked class='filter'
+		             name='filter' id='animals' value='animals'/><label for='animals'>Animals</label>
+		  <input type='checkbox' checked=checked class='filter'
+		             name='filter' id='beach' value='beach'/><label for='beach'>Beach</label>
+		  <input type='checkbox' checked=checked class='filter'
+		             name='filter' id='museum' value='museum'/><label for='museum'>Museum</label>
+		  <input type='checkbox' checked=checked class='filter'
+		             name='filter' id='park' value='park'/><label for='park'>Park</label>
+		  <input type='checkbox' checked=checked class='filter'
+		             name='filter' id='place_to_eat' value='place_to_eat'/><label for='place_to_eat'>Place To Eat</label>
+	  </div>
+		<div>
+	  	<input type='checkbox' checked=checked class='filter'
+	             name='filter' id='place_to_stay' value='place_to_stay'/><label for='place_to_stay'>Place To Stay</label>
+		  <input type='checkbox' checked=checked class='filter'
+		             name='filter' id='shopping' value='shopping'/><label for='shoppping'>Shopping</label>
+		  <input type='checkbox' checked=checked class='filter'
+		             name='filter' id='sights' value='sights'/><label for='sights'>Sights</label>
+		  <input type='checkbox' checked=checked class='filter'
+		             name='filter' id='sport' value='sport'/><label for='sport'>Sport</label>
+		  <input type='checkbox' checked=checked class='filter'
+		             name='filter' id='theme_park' value='theme_park'/><label for='theme_park'>Theme Park</label>
+	  </div>
 	</div>
 	<div id="areas"></div>
 	<div id="places"></div>
@@ -147,9 +175,6 @@ left: 1px;
 <div class='map-page'>
 	<div id='map'></div>
 </div>
-
-
-<%= render partial: 'filter_menu' %>
 
 <div id="svgdiv">
 <div id="zoomcontrol">

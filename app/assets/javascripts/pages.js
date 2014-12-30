@@ -3,6 +3,12 @@ var formatCategory = function(string) {
   return string = string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
+var postSearchCSS = function() {
+  $('.br-logo-home').addClass('br-logo-home-post-search');
+  $('.search-wrapper').addClass('search-wrapper-post-search');
+  $('.ui-select').show();
+}
+
 map = L.mapbox.map('map', 'boundround.j0d79a3j', {
   	worldCopyJump: true,
     // these options apply to the tile layer in the map
@@ -80,85 +86,14 @@ window.areaLayers = {
   noPlaces: []
 }
 
-var getInboundCategories = function() {
-  // Construct an empty object to keep track of onscreen markers.
-  inboundCategories = {
-    all: true,
-    beach: false,
-    park: false,
-    animals: false,
-    sport: false,
-    museum: false,
-    activity: false,
-    theme_park: false,
-    sights: false,
-    place_to_eat: false,
-    place_to_stay: false,
-    shopping: false,
-  };
-
-
-  // Get the map bounds - the top-left and bottom-right locations.
-  var bounds = map.getBounds();
-
-  // Temporarily add all place markers.
-  var tempMarkers = new L.MarkerClusterGroup();
-  tempMarkers.addLayers(placeLayers['all']);
-
-  // For each marker, consider whether it is currently visible by comparing
-  // with the current map bounds.
-  tempMarkers.eachLayer(function(marker) {
-      if (bounds.contains(marker.getLatLng())) {
-          inboundCategories[marker.options.category] = true;
-      }
-  });
-
-  // Remove all place markers.
-  tempMarkers.clearLayers();
-
-  return inboundCategories;
-};
-
-var setFilterButtons = function(inboundCategories) {
-  $('#no-places').remove();
-
-  // Temporarily show all buttons.
-  $('#menu-ui').find('a').show();
-
-  // Hide filter menu buttons that don't relate to visible markers.
-  var shownCategoryButtons = [];
-  for (var category in inboundCategories) {
-    if( inboundCategories.hasOwnProperty( category ) ) {
-      if (inboundCategories[category]) {
-        shownCategoryButtons.push(category);
-      } else {
-        $('a[data-category=' + category + ']').hide();
-      }
-    }
-  }
-  if (shownCategoryButtons.length <= 1 ) {
-    $('#menu-ui').find('a').hide();
-    $('#menu-ui').prepend("<a id='no-places'>No Places</a>");
-  }
-};
-
 // Change filter menu based on markers visible in current view
 map.on('moveend', function(event) {
   if (map.getZoom() >= transitionzoomlevel) {
-    setFilterButtons(getInboundCategories());
     areaMarkers.addLayers(window.areaLayers.havePlaces);
     showAreaCards();
     showPlaceCards();
-    //areaMarkers.removeLayers(window.areaLayers.havePlaces);
+    postSearchCSS();
   }
-});
-
-$('#menu-ui').on('click', 'a', function(e) {
-  category = $(this).data('category');
-  $(this).siblings().removeClass('active');
-  $(this).addClass('active');
-  placeMarkers.clearLayers();
-  placeMarkers.addLayers(placeLayers[category]);
 });
 
 var areaIcon = L.Icon.Label.extend({
@@ -287,6 +222,7 @@ var areasPlacesSwitch = function() {
       placeMarkers.addLayers(placesArray);
       $('#menu-ui').css("visibility", "visible");
       showPlaceCards();
+      postSearchCSS();
     }
   });
   if (window.parsedHash && window.parsedHash.zoom > 3) {
@@ -295,6 +231,7 @@ var areasPlacesSwitch = function() {
     placeMarkers.addLayers(placesArray);
     $('#menu-ui').css("visibility", "visible");
     showPlaceCards();
+    postSearchCSS();
   }
 }
 
@@ -458,41 +395,6 @@ window.onload = function() {
         });
       };
 
-      // var googlePlaceSearch = function(request, response) {
-      //   function initialize() {
-      //     var service = new google.maps.places.AutocompleteService();
-      //     service.getQueryPredictions({ input: request.term }, callback);
-      //   }
-      //
-      //   function callback(predictions, status) {
-      //     if (status != google.maps.places.PlacesServiceStatus.OK) {
-      //       alert(status);
-      //       return;
-      //     }
-      //     response( $.map( predictions, function( item ) {
-      //       return {
-      //         label: item.description,
-      //         value: item.description,
-      //         lat: 0,
-      //         lng: 0,
-      //         resultType: 'Google'
-      //       }
-      //     }));
-      //     // var results = document.getElementById();
-      //     //
-      //     // for (var i = 0, prediction; prediction = predictions[i]; i++) {
-      //     //   results.innerHTML += '<li>' + prediction.description + '</li>';
-      //     // }
-      //     console.log(status);
-      //     console.log(predictions);
-      //
-      //
-      //   }
-      //
-      //   initialize();
-      // }
-
-
       var geoNamesSearch = function(request, response) {
         $.ajax({
           url: "http://ws.geonames.org/searchJSON?username=boundround",
@@ -583,3 +485,26 @@ $('#navModal').modal('show');
 $('.go-to-globe').on('click', function(){
   $('#navModal').modal('hide');
 });
+
+var filters = document.getElementById('filters');
+var checkboxes = document.getElementsByClassName('filter');
+
+function changeFilters() {
+    // Find all checkboxes that are checked and build a list of their values
+    var on = [];
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) on.push(checkboxes[i].value);
+        console.log(checkboxes[i].value);
+    }
+
+    placeMarkers.clearLayers();
+    for (var j = 0; j < checkboxes.length; j++) {
+      placeMarkers.addLayers(placeLayers[on[j]]);
+    }
+    return false;
+}
+
+// When the form is touched, re-filter markers
+filters.onchange = changeFilters;
+// Initially filter the markers
+changeFilters();

@@ -24,10 +24,25 @@
   height: 15%;
   width: 15%;
   margin: 0 auto;
+  background: url(asset_path('bound_round_logo.png')) no-repeat;
+  background-size: 86%;
 }
 
-.br-logo-home-icon {
-  height: 100%;
+.br-logo-home-post-search {
+  position: absolute;
+  background-size: 50%;
+  left: 25px;
+}
+
+.search-wrapper-post-search {
+  margin-top: 0 !important;
+}
+
+.ui-select {
+  margin-bottom: 20px;
+  margin-top: 50px;
+  text-align: center;
+  display: none;
 }
 
 .video-game-buttons {
