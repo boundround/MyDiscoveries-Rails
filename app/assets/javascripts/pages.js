@@ -9,6 +9,21 @@ var postSearchCSS = function() {
   $('.ui-select').show();
 }
 
+var removeDuplicateAreaObjects = function(array) {
+  var out = [];
+  var temp = {};
+  for (var i = 0; i < array.length; i++) {
+    temp[array[i].title] = array[i];
+  }
+
+  for (var key in temp) {
+    if (temp.hasOwnProperty(key)) {
+      out.push(temp[key])
+    }
+  }
+  return out;
+}
+
 map = L.mapbox.map('map', 'boundround.j0d79a3j', {
   	worldCopyJump: true,
     // these options apply to the tile layer in the map
@@ -89,7 +104,7 @@ window.areaLayers = {
 // Change filter menu based on markers visible in current view
 map.on('moveend', function(event) {
   if (map.getZoom() >= transitionzoomlevel) {
-    areaMarkers.addLayers(window.areaLayers.havePlaces);
+    // areaMarkers.addLayers(window.areaLayers.havePlaces);
     showAreaCards();
     showPlaceCards();
     postSearchCSS();
@@ -143,7 +158,8 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               videoCount: location.properties.videoCount,
                                               gameCount: location.properties.gameCount,
                                               heroImage: location.properties.heroImage,
-                                              placeId: location.properties.placeId
+                                              placeId: location.properties.placeId,
+                                              area: location.properties.area
                                               });}
     }
 
@@ -214,22 +230,19 @@ var areasPlacesSwitch = function() {
     if (previousZoom >= areahidelevel && newZoom < areahidelevel) {
       placeMarkers.removeLayers(placesArray);
       areaMarkers.addLayers(window.areaLayers.havePlaces)
-      $('#menu-ui').css("visibility", "hidden");
       showAreaCards();
     } else if (previousZoom < areahidelevel && newZoom >= areahidelevel){
-      showAreaCards();
       areaMarkers.removeLayers(window.areaLayers.havePlaces)
       placeMarkers.addLayers(placesArray);
-      $('#menu-ui').css("visibility", "visible");
+      showAreaCards();
       showPlaceCards();
       postSearchCSS();
     }
   });
   if (window.parsedHash && window.parsedHash.zoom > 3) {
-    showAreaCards();
     areaMarkers.removeLayers(window.areaLayers.havePlaces)
     placeMarkers.addLayers(placesArray);
-    $('#menu-ui').css("visibility", "visible");
+    showAreaCards();
     showPlaceCards();
     postSearchCSS();
   }
@@ -238,25 +251,31 @@ var areasPlacesSwitch = function() {
 var showAreaCards = function(){
   var bounds = map.getBounds();
   var text = '';
-  areaMarkers.eachLayer(function(marker) {
+  var areas = [];
+  placeMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
-      var url = marker.options.icon.options.url;
-      if (marker.options.icon.options.country != marker.options.icon.options.labelText){
-        var areaTitle = marker.options.icon.options.labelText + ', ' + marker.options.icon.options.country;
-      } else {
-        var areaTitle = marker.options.icon.options.labelText
-      }
-      if (marker.options.icon.options.placeCount > 0) {
-        var placeCountText = marker.options.icon.options.placeCount + ' places';
-      } else {
-        var placeCountText = '&nbsp;';
-      }
-      var pin = '<div class="area-card-pin"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>';
-
-      text += '<a class="no-anchor-decoration" href="' + url + '"><div class="area-card">' + pin + '<div class="area-title">' + areaTitle +
-        '<br><span class="place-count">' + placeCountText + '</span></div></div></a>';
+      areas.push(marker.options.icon.options.area)
     }
   });
+  areas = removeDuplicateAreaObjects(areas);
+  for (var i = 0; i < areas.length; i++) {
+    var url = areas[i].url;
+    if (areas[i].country != areas[i].title){
+      var areaTitle = areas[i].title + ', ' + areas[i].country;
+    } else {
+      var areaTitle = areas[i].title
+    }
+    if (areas[i].placeCount > 0) {
+      var placeCountText = areas[i].placeCount + ' places';
+    } else {
+      var placeCountText = '&nbsp;';
+    }
+
+    var pin = '<div class="area-card-pin"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>';
+
+    text += '<a class="no-anchor-decoration" href="' + url + '"><div class="area-card">' + pin + '<div class="area-title">' + areaTitle +
+      '<br><span class="place-count">' + placeCountText + '</span></div></div></a>';
+  }
   $('#areas').html(text);
 }
 
@@ -480,12 +499,6 @@ window.onload = function() {
   });
   }
 
-$('#navModal').modal('show');
-
-$('.go-to-globe').on('click', function(){
-  $('#navModal').modal('hide');
-});
-
 var filters = document.getElementById('filters');
 var checkboxes = document.getElementsByClassName('filter');
 
@@ -494,7 +507,6 @@ function changeFilters() {
     var on = [];
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) on.push(checkboxes[i].value);
-        console.log(checkboxes[i].value);
     }
 
     placeMarkers.clearLayers();
