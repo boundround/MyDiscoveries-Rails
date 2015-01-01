@@ -7,6 +7,17 @@ var postSearchCSS = function() {
   $('.br-logo-home').addClass('br-logo-home-post-search');
   $('.search-wrapper').addClass('search-wrapper-post-search');
   $('.ui-select').show();
+  $('#places').show();
+  $('#areas').show();
+}
+
+var resetHomeScreen = function() {
+  $('.br-logo-home').removeClass('br-logo-home-post-search');
+  $('.search-wrapper').removeClass('search-wrapper-post-search');
+  $('.ui-select').hide();
+  $('#places').hide();
+  $('#areas').hide();
+  console.log('resetting home screen');
 }
 
 var removeDuplicateAreaObjects = function(array) {
@@ -47,6 +58,7 @@ map.on('load', function() {
   /// Switch globe display on
   if (parsedHash.zoom < 4) {
     $('#svgdiv').css('visibility', 'visible');
+    // resetHomeScreen();
   };
 });
 
@@ -65,6 +77,7 @@ map.on('zoomend', function() {
     $('#svgdiv').css('visibility', 'visible');
     $('#svgdiv').fadeIn("fast");
     var ll = window.previousLocation ? window.previousLocation : map.getCenter();
+    // resetHomeScreen();
     if (typeof brglobe != 'undefined') {
       brglobe.setLocation(ll.lat,ll.lng);
        console.log("zoomend 1 fired");
@@ -103,19 +116,21 @@ window.areaLayers = {
 
 // Change filter menu based on markers visible in current view
 map.on('moveend', function(event) {
-  if (map.getZoom() >= transitionzoomlevel) {
+  if (map.getZoom() >= areahidelevel) {
     // areaMarkers.addLayers(window.areaLayers.havePlaces);
     showAreaCards();
     showPlaceCards();
     postSearchCSS();
+  } else {
+    resetHomeScreen();
   }
 });
 
 var areaIcon = L.Icon.Label.extend({
                 options: {
-                  iconUrl: 'http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png',
+                  iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
                   shadowUrl: null,
-                  iconSize: new L.Point(43, 43),
+                  iconSize: new L.Point(43, 26),
                   iconAnchor: new L.Point(0, 0),
                   labelAnchor: new L.Point(47, 0),
                   wrapperAnchor: new L.Point(21, 13),
@@ -150,7 +165,7 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               placeCount: location.properties.placeCount,
                                               country: location.properties.country
                                               });},
-      place: function() {return new placeIcon({ labelText: location.properties.title,
+      place: function() {return new placeIcon({ // labelText: location.properties.title,
                                               labelClassName: 'place-icon-label ' + location.properties.id,
                                               iconUrl: location.properties.icon.iconUrl,
                                               url: location.properties.url,
@@ -159,7 +174,8 @@ var createMarkerArray = function(geoJSON, markerType) {
                                               gameCount: location.properties.gameCount,
                                               heroImage: location.properties.heroImage,
                                               placeId: location.properties.placeId,
-                                              area: location.properties.area
+                                              area: location.properties.area,
+                                              title: location.properties.title
                                               });}
     }
 
@@ -295,7 +311,7 @@ var showPlaceCards = function(){
       var imageCount = marker.options.icon.options.imageCount;
       var videoCount = marker.options.icon.options.videoCount;
       var gameCount = marker.options.icon.options.gameCount;
-      var placeTitle = marker.options.icon.options.labelText;
+      var placeTitle = marker.options.icon.options.title;
       var placeId = marker.options.icon.options.placeId;
       text += '<div class="place-card" id="' + placeId + '"><a class="no-anchor-decoration" href="' + url +
       '"><div class="upper-card" style="background-image: url(' + heroImage + ')"><div class="card-category">' +
@@ -306,6 +322,11 @@ var showPlaceCards = function(){
     }
   });
   $('#places').html(text);
+  // if (typeof(resultCard) !== 'undefined') {
+  //   var removeCard = $('#' + $(resultCard).attr('id'));
+  //   removeCard.remove();
+  //   $('#places').prepend(resultCard);
+  // }
 }
 
 // Redirect to areas or places on click
@@ -320,6 +341,9 @@ var addMarkersClickEvent = function(markers) {
     if (map.getZoom() < areahidelevel ) {
       if (hasPlaces) {
         map.setView([e.latlng.lat, e.latlng.lng], areahidelevel+areatouchmagnification);
+        showAreaCards();
+        showPlaceCards();
+        postSearchCSS();
       } else {
           // setModalContent(markerType, markerID);
           window.location.href = url
@@ -460,9 +484,10 @@ window.onload = function() {
       }
       $('#svgdiv').fadeOut("fast");
       map.setView( [ui.item.lat, ui.item.lng], newZoom );
-      var resultCard = $('#' + ui.item.placeId);
-      console.log("putting card at top");
-      $('#places').prepend(resultCard);
+      window.resultCard = $('#' + ui.item.placeId);
+      console.log("saving result card");
+      showAreaCards();
+      showPlaceCards();
 
       if (ui.item.resultType === 'geoNames') {
         var popup = L.popup()
