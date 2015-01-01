@@ -123,48 +123,50 @@ left: 1px;
 		<input class="search-box" placeholder="Where do you want to explore?"></input>
 		<div class="search-sidebar"></div>
 	</div>
-	<div id='filters' class='ui-select'>
-	  <div>
-	  	<input type='checkbox' checked=checked class='filter'
-	             name='filter' id='activity' value='activity'/><label for='activity'>Activity</label>
-		  <input type='checkbox' checked=checked class='filter'
-		             name='filter' id='animals' value='animals'/><label for='animals'>Animals</label>
-		  <input type='checkbox' checked=checked class='filter'
-		             name='filter' id='beach' value='beach'/><label for='beach'>Beach</label>
-		  <input type='checkbox' checked=checked class='filter'
-		             name='filter' id='museum' value='museum'/><label for='museum'>Museum</label>
-		  <input type='checkbox' checked=checked class='filter'
-		             name='filter' id='park' value='park'/><label for='park'>Park</label>
-		  <input type='checkbox' checked=checked class='filter'
-		             name='filter' id='place_to_eat' value='place_to_eat'/><label for='place_to_eat'>Place To Eat</label>
-	  </div>
-		<div>
-	  	<input type='checkbox' checked=checked class='filter'
-	             name='filter' id='place_to_stay' value='place_to_stay'/><label for='place_to_stay'>Place To Stay</label>
-		  <input type='checkbox' checked=checked class='filter'
-		             name='filter' id='shopping' value='shopping'/><label for='shoppping'>Shopping</label>
-		  <input type='checkbox' checked=checked class='filter'
-		             name='filter' id='sights' value='sights'/><label for='sights'>Sights</label>
-		  <input type='checkbox' checked=checked class='filter'
-		             name='filter' id='sport' value='sport'/><label for='sport'>Sport</label>
-		  <input type='checkbox' checked=checked class='filter'
-		             name='filter' id='theme_park' value='theme_park'/><label for='theme_park'>Theme Park</label>
-	  </div>
+	<div id="card-container">
+		<div id='filters' class='ui-select'>
+		  <div>
+		  	<input type='checkbox' checked=checked class='filter'
+		             name='filter' id='activity' value='activity'/><label for='activity'>Activity</label>
+			  <input type='checkbox' checked=checked class='filter'
+			             name='filter' id='animals' value='animals'/><label for='animals'>Animals</label>
+			  <input type='checkbox' checked=checked class='filter'
+			             name='filter' id='beach' value='beach'/><label for='beach'>Beach</label>
+			  <input type='checkbox' checked=checked class='filter'
+			             name='filter' id='museum' value='museum'/><label for='museum'>Museum</label>
+			  <input type='checkbox' checked=checked class='filter'
+			             name='filter' id='park' value='park'/><label for='park'>Park</label>
+			  <input type='checkbox' checked=checked class='filter'
+			             name='filter' id='place_to_eat' value='place_to_eat'/><label for='place_to_eat'>Place To Eat</label>
+		  </div>
+			<div>
+		  	<input type='checkbox' checked=checked class='filter'
+		             name='filter' id='place_to_stay' value='place_to_stay'/><label for='place_to_stay'>Place To Stay</label>
+			  <input type='checkbox' checked=checked class='filter'
+			             name='filter' id='shopping' value='shopping'/><label for='shoppping'>Shopping</label>
+			  <input type='checkbox' checked=checked class='filter'
+			             name='filter' id='sights' value='sights'/><label for='sights'>Sights</label>
+			  <input type='checkbox' checked=checked class='filter'
+			             name='filter' id='sport' value='sport'/><label for='sport'>Sport</label>
+			  <input type='checkbox' checked=checked class='filter'
+			             name='filter' id='theme_park' value='theme_park'/><label for='theme_park'>Theme Park</label>
+		  </div>
+		</div>
+		<div id="areas"></div>
+		<div id="places"></div>
+		<div class="clearfix"></div>
+		<div class="video-game-buttons">
+			<button class="video-button button" onclick="window.location.href='/videos'">
+				<%= image_tag("all_videos_icon.png", size: "20x15", class: "all-game-video-icon") %>
+				See All Videos
+			</button>
+			<button class="game-button button" onclick="window.location.href='/games'">
+				<%= image_tag("all_games_icon.png", size: "20x15", class: "all-game-video-icon") %>
+				Play All Games
+			</button>
+		</div>
+		<div class="clearfix"></div>
 	</div>
-	<div id="areas"></div>
-	<div id="places"></div>
-	<div class="clearfix"></div>
-	<div class="video-game-buttons">
-		<button class="video-button button" onclick="window.location.href='/videos'">
-			<%= image_tag("all_videos_icon.png", size: "20x15", class: "all-game-video-icon") %>
-			See All Videos
-		</button>
-		<button class="game-button button" onclick="window.location.href='/games'">
-			<%= image_tag("all_games_icon.png", size: "20x15", class: "all-game-video-icon") %>
-			Play All Games
-		</button>
-	</div>
-	<div class="clearfix"></div>
 	<footer>
 		<div class="home-footer">
 			<span class="top-footer"><p><a href="#">Traveling Families</a> <a href="#">The Travel Industry</a> <a href="#">Teachers</a></span></p>

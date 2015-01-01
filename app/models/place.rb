@@ -41,7 +41,9 @@ class Place < ActiveRecord::Base
       geojson = {"type" => "FeatureCollection","features" => []}
       places = self.active.includes(:categories, :games, :videos, :photos)
       places.each do |place|
-
+        if place.area != nil
+          area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.length, "country" => place.area.country}
+        end
         # Assign icon based on 'premium' level and category
         if place.categories[0].nil?
           place_type = 'sights'
@@ -76,7 +78,8 @@ class Place < ActiveRecord::Base
             "gameCount" => place.games.length,
             "imageCount" => place.photos.length,
             "heroImage" => place.get_card_image,
-            "placeId" => place.slug
+            "placeId" => place.slug,
+            "area" => area_info
           }
         }
       end
