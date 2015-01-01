@@ -322,11 +322,11 @@ var showPlaceCards = function(){
     }
   });
   $('#places').html(text);
-  // if (typeof(resultCard) !== 'undefined') {
-  //   var removeCard = $('#' + $(resultCard).attr('id'));
-  //   removeCard.remove();
-  //   $('#places').prepend(resultCard);
-  // }
+  if (typeof(resultCard) !== 'undefined') {
+    var removeCard = $('#' + $(resultCard).attr('id'));
+    removeCard.remove();
+    $('#places').prepend(resultCard);
+  }
 }
 
 // Redirect to areas or places on click
