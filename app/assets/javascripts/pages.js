@@ -91,6 +91,9 @@ var areatouchmagnification = 3; //number of levels to zoom when touch area with 
 
 window.placeMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 placeMarkers.addTo(map);
+placeMarkers.on('mouseover', function(e){
+  e.layer.openPopup();
+});
 window.areaMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 areaMarkers.addTo(map);
 
@@ -313,12 +316,17 @@ var showPlaceCards = function(){
       var gameCount = marker.options.icon.options.gameCount;
       var placeTitle = marker.options.icon.options.title;
       var placeId = marker.options.icon.options.placeId;
-      text += '<div class="place-card" id="' + placeId + '"><a class="no-anchor-decoration" href="' + url +
+
+      var content = '<a class="no-anchor-decoration" href="' + url +
       '"><div class="upper-card" style="background-image: url(' + heroImage + ')"><div class="card-category">' +
-      categoryIcon + categoryText + '</div></div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a><div class="card-footer"><div class="image-count">' +
+      categoryIcon + categoryText + '</div></div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a>'
+
+      text += '<div class="place-card" id="' + placeId + '">' + content + '<div class="card-footer"><div class="image-count">' +
       imageCountIcon + '&nbsp;&nbsp;' + imageCount + '</div><div class="video-count">' +
       videoCountIcon + '&nbsp;&nbsp;' + videoCount + '</div><div class="game-count">' +
       gameCountIcon + '&nbsp;&nbsp;' + gameCount + '</div></div></div>';
+
+      marker.bindPopup(content);
     }
   });
   $('#places').html(text);
