@@ -1,3 +1,17 @@
+var hoverBackground = {
+  park: '#9ff1ab',
+  animals: '#ff9280',
+  activity: '#fa8383',
+  beach: '#ffcf7b',
+  museum: '#7994b1',
+  place_to_eat: '#76a15a',
+  place_to_stay: '#a0dcda',
+  shopping: '#aab7f4',
+  sights: '#f2a1bc',
+  sport: '#d6abe8',
+  theme_park: '#9dd0f0'
+}
+
 var formatCategory = function(string) {
   string = string.replace(/\_/g, " ");
   return string = string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
@@ -91,8 +105,22 @@ var areatouchmagnification = 3; //number of levels to zoom when touch area with 
 
 window.placeMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 placeMarkers.addTo(map);
-placeMarkers.on('mouseover', function(e){
+placeMarkers.on('mouseover', function(e) {
+  var cardId = $('#' + e.layer.options.icon.options.placeId);
+  var backgroundColor = hoverBackground[e.layer.options.category];
+  cardId.css('background-color', backgroundColor);
+  cardId.find('.card-footer').css('background-color', cardId.find('.place-title').css('color'));
+  cardId.find('.card-footer').css('color', 'white');
   e.layer.openPopup();
+  console.log(e.layer.options.icon.options.iconSize.x);
+  console.log(e.layer.options.icon.options.iconSize.y);
+});
+placeMarkers.on('mouseout', function(e) {
+  var cardId = $('#' + e.layer.options.icon.options.placeId);
+  cardId.css('background-color', 'white');
+  cardId.find('.card-footer').css('background-color', '#f7f7f7');
+  cardId.find('.card-footer').css('color', '#aaaaaa');
+  e.layer.closePopup();
 });
 window.areaMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 areaMarkers.addTo(map);
@@ -327,7 +355,15 @@ var showPlaceCards = function(){
       gameCountIcon + '&nbsp;&nbsp;' + gameCount + '</div></div></div>';
 
       marker.bindPopup(content);
-    }
+
+      $('.leaflet-marker-icon')
+        .mouseenter(function() {
+          $(this).css('height', '45px').css('width', '30px');
+        })
+        .mouseleave(function() {
+          $(this).css('height', '38px').css('width', '25px');
+        });
+      }
   });
   $('#places').html(text);
   if (typeof(resultCard) !== 'undefined') {
