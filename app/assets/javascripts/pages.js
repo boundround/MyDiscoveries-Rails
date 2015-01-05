@@ -115,13 +115,28 @@ placeMarkers.on('mouseover', function(e) {
   console.log(e.layer.options.icon.options.iconSize.x);
   console.log(e.layer.options.icon.options.iconSize.y);
 });
-placeMarkers.on('mouseout', function(e) {
-  var cardId = $('#' + e.layer.options.icon.options.placeId);
-  cardId.css('background-color', 'white');
-  cardId.find('.card-footer').css('background-color', '#f7f7f7');
-  cardId.find('.card-footer').css('color', '#aaaaaa');
-  e.layer.closePopup();
+
+$(document).ready(function(){
+  $('#explore-map-button').on('click', function(){
+    $(this).hide();
+    $('#cards').css('height', '20%');
+    $('#card-container').remove();
+    $('.home-footer').remove();
+    postSearchCSS();
+  });
 });
+
+if (window.innerWidth < 1000) {
+  $('#filters').remove();
+} else {
+  placeMarkers.on('mouseout', function(e) {
+    var cardId = $('#' + e.layer.options.icon.options.placeId);
+    cardId.css('background-color', 'white');
+    cardId.find('.card-footer').css('background-color', '#f7f7f7');
+    cardId.find('.card-footer').css('color', '#aaaaaa');
+    e.layer.closePopup();
+  });
+}
 window.areaMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 areaMarkers.addTo(map);
 
@@ -389,18 +404,19 @@ var addMarkersClickEvent = function(markers) {
         showPlaceCards();
         postSearchCSS();
       } else {
-          // setModalContent(markerType, markerID);
           window.location.href = url
         };
     } else { //if (map.getZoom() >= areahidelevel )
         if (markerType === 'area') {
-          // setModalContent(markerType, markerID);
           window.location.href = url
         } else {
-          // setModalContent(markerType, markerID);
-          window.location.href = url
-        };
-      };
+          if (window.innerWidth < 1000){
+            e.layer.openPopup();
+          } else {
+            window.location.href = url;
+          }
+        }
+      }
   });
 };
 
@@ -589,14 +605,3 @@ function changeFilters() {
 filters.onchange = changeFilters;
 // Initially filter the markers
 changeFilters();
-
-$('#explore-map-button').on('click', function(){
-  $(this).hide();
-  $('#cards').css('height', '20%');
-  $('#card-container').remove();
-  $('.home-footer').remove();
-});
-
-if (window.innerWidth < 1000) {
-  $('#filters').remove();
-}
