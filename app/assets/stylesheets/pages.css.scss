@@ -1,3 +1,12 @@
+#map {
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background-color: #73C7D2;
+  position: static !important;
+  }
+
 #cards {
   z-index: 1000;
   height:100%;
@@ -18,6 +27,21 @@
   right: 0;
   position: absolute;
   z-index: -1;
+}
+
+#card-container {
+  margin-top: 20px;
+}
+
+.map-page {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 50%;
+}
+
+.leaflet-popup-content {
+  width: 200px;
 }
 
 .br-logo-home {
@@ -376,6 +400,84 @@
   color: #3c9500;
 }
 
-@media (max-width: 600px) {
+#explore-map-button {
+  position: absolute;
+  bottom: 50px;
+  right: 32%;
+  z-index: 100;
+  width: 36%;
+  height: 50px;
+  color: white;
+  display: none;
+  background-color: #fd7e56;
+  font-family: Signika, sans-serif;
+  font-size: 20px;
+  border: none;
+  border-radius: 3px;
+}
+
+@media (max-width: 1000px) {
+  #cards {
+    height: 85%;
+    width: 100%;
+  }
+
+  .search-wrapper {
+    width: 85%;
+    margin: 0 auto;
+    margin-left: 5%;
+  }
+
+  #map {
+    width: 100%;
+    bottom: 0;
+    position: static !important;
+  }
+
+  .leaflet-control-zoomslider {
+    display: none;
+  }
+
+  #zoomcontrol {
+    display: none;
+  }
+
+  #svgdiv {
+    width: 100% !important;
+  }
+
+  .map-page {
+    height: 80%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  #places, #areas {
+    padding: 0 3%;
+  }
+
+  .br-logo-home {
+    height: 140px;
+    width: 140px;
+  }
+
+  .br-logo-home-post-search {
+    display: none;
+  }
+
+  .place-card {
+    width: 46%;
+    margin-right: 2%;
+  }
+
+  .area-card {
+    width: 94%;
+  }
+
+  #explore-map-button {
+    display: block;
+  }
 
 }

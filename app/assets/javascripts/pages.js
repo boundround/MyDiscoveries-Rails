@@ -566,7 +566,7 @@ window.onload = function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
     }
   });
-  }
+}
 
 var filters = document.getElementById('filters');
 var checkboxes = document.getElementsByClassName('filter');
@@ -589,3 +589,14 @@ function changeFilters() {
 filters.onchange = changeFilters;
 // Initially filter the markers
 changeFilters();
+
+$('#explore-map-button').on('click', function(){
+  $(this).hide();
+  $('#cards').css('height', '20%');
+  $('#card-container').remove();
+  $('.home-footer').remove();
+});
+
+if (window.innerWidth < 1000) {
+  $('#filters').remove();
+}
