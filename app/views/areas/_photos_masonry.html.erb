@@ -38,8 +38,8 @@
           <% end %>
           <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
           <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
-          <div id="fun-fact-<%= index %>" class="fun-fact">
-            <p><%= raw photo.caption %></p>
+          <div class="photo-caption">
+          <p><%= raw photo.caption %></p>
             <a href="#" data-toggle="modal" data-target="#postCardModal-<%= index %>">
               <img class="postcard-icon" src="<%= asset_path ('postcard_icon-01.svg') %>"/>
             </a>
