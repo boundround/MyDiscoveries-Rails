@@ -41,6 +41,8 @@ $(document).ready(function(){
         .find('.game-thumbnail').show();
       $(this).siblings('.game-card-expanded').removeClass('game-card-expanded')
         .find('.game-thumbnail').show().end()
+        .find('.video-play').show().end()
+        .find('.game-caption').show().end()
         .find('.fun-fact').hide();
       $container.imagesLoaded(function() {
 	      $container.isotope('layout');
@@ -59,6 +61,7 @@ $(document).ready(function(){
       $(this).find('.game-thumbnail').hide();
       $(this).addClass('game-card-expanded');
       $(this).find('.video-play').hide();
+      $(this).find('.game-caption').hide();
       $(this).find('.fun-fact').show();
       $(divider).empty();
       $(divider).append(content);
@@ -80,6 +83,7 @@ $(document).ready(function(){
       var divider = $(this).find('.game-divider');
       //expand clicked game card
       $(this).find('.game-thumbnail').hide();
+      $(this).find('.game-caption').hide();
       $(this).addClass('game-card-expanded');
       $(divider).empty();
       $(divider).append(content);

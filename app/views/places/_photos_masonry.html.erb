@@ -50,6 +50,9 @@
               <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
               <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
             </div>
+            <div class="game-caption">
+              <p>Click to expand and play!</p>
+            </div>
           </div>
         </div>
       <% end %>
@@ -119,12 +122,18 @@
           <% end %>
           <div class="game-divider"></div>
           <% if game.game_type == 'jigsaw puzzle' %>
-            <img class="game-thumbnail" src="<%= asset_path('jigsaw_thumb.png') %>" />
+            <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('jigsaw_ds.png') %>"></div>
+            <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
           <% elsif game.game_type == 'slider' %>
-            <img class="game-thumbnail" src="<%= asset_path('slider_thumb.png') %>" />
+            <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('slider_ds.png') %>"></div>
+            <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
           <% else %>
-            <img class="game-thumbnail" src="<%= asset_path('word_search_thumb.png') %>" />
+            <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('wordsearch_ds.png') %>"></div>
+            <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
           <% end %>
+          <div class="game-caption">
+            <p>Click to expand and play!</p>
+          </div>
           <div class="fun-fact">
             <p><%= raw game.instructions %></p>
           </div>
@@ -154,6 +163,9 @@
             <div class="game-thumbnail">
               <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
               <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
+            </div>
+            <div class="game-caption">
+              <p>Click to expand and play!</p>
             </div>
           </div>
         </div>
