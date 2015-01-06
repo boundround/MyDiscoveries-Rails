@@ -38,6 +38,7 @@
   right: 0;
   height: 100%;
   width: 50%;
+  overflow: hidden;
 }
 
 .leaflet-popup-content {
@@ -405,10 +406,7 @@
   color: #3c9500;
 }
 
-#explore-map-button {
-  position: absolute;
-  bottom: 50px;
-  right: 32%;
+.show-hide-map-button {
   z-index: 100;
   width: 36%;
   height: 50px;
@@ -419,6 +417,17 @@
   font-size: 20px;
   border: none;
   border-radius: 3px;
+}
+
+#explore-map-button {
+  position: absolute;
+  bottom: 50px;
+  right: 32%;
+}
+
+#hide-map-button {
+  border: 1px solid white;
+  margin: 10px 30% 0 30%;
 }
 
 @media (max-width: 1000px) {
@@ -437,6 +446,10 @@
     width: 100%;
     bottom: 0;
     position: static !important;
+  }
+
+  #filters {
+    display: none !important;
   }
 
   .leaflet-control-zoomslider {

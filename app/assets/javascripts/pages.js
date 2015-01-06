@@ -120,15 +120,22 @@ $(document).ready(function(){
   $('#explore-map-button').on('click', function(){
     $(this).hide();
     $('#cards').css('height', '20%');
-    $('#card-container').remove();
-    $('.home-footer').remove();
+    $('#card-container').hide();
+    $('.home-footer').hide();
+    $('#hide-map-button').show();
     postSearchCSS();
+  });
+
+  $('#hide-map-button').on('click', function() {
+    $(this).hide();
+    $('#cards').css('height', '80%');
+    $('#card-container').show();
+    $('.home-footer').show();
+    $('#explore-map-button').show();
   });
 });
 
-if (window.innerWidth < 1000) {
-  $('#filters').remove();
-} else {
+if (window.innerWidth > 1000) {
   placeMarkers.on('mouseout', function(e) {
     var cardId = $('#' + e.layer.options.icon.options.placeId);
     cardId.css('background-color', 'white');
@@ -137,6 +144,7 @@ if (window.innerWidth < 1000) {
     e.layer.closePopup();
   });
 }
+
 window.areaMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 areaMarkers.addTo(map);
 

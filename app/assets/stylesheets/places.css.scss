@@ -20,6 +20,7 @@
   padding: 10px 10px 0 10px;
   width: 100%;
   display: inline-block;
+  border-radius: 0 0 3px 3px;
 }
 
 .game-ds {
@@ -37,7 +38,7 @@
 .game-thumbnail {
    width: 100%;
    height: auto;
-   border-radius: 3px;
+   border-radius: 3px 3px 0 0;
  }
 
 .photo-credit {
@@ -87,7 +88,7 @@
 
 .video-play-background {
   width: 100%;
-  border-radius: 3px;
+  border-radius: 3px 3px 0 0;
 }
 
 .vimeo-thumb {
@@ -97,7 +98,7 @@
 
 .discount-card {
   height: auto;
-  background-color: #fd7e56;
+  background-color: white;
   padding: 40px 15px 0px 15px;
   min-height: 200px;
 }
