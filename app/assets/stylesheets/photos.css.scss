@@ -3,14 +3,21 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .place-photo {
-  border: 7px solid white;
   width: 100%;
   height: auto;
 }
 
+.photo-caption {
+  background-color: #efffff;
+  position: absolute;
+  padding: 10px 10px 0 10px;
+  bottom: 0;
+  width: 100%;
+}
 
 .photo-card {
   width: 30%;
+  border-radius: 3px;
 }
 
 .photo-card-expanded {
@@ -28,13 +35,12 @@
 .photo-frame {
   width: 100%;
   height: auto;
-  border: 7px solid white;
+  border-radius: 3px;
 }
 
 .photo-transparent-placeholder {
   width: 100%;
   height: auto;
-  border: 7px solid white;
 }
 
 .about-hero {
@@ -44,21 +50,21 @@
 
 
 .hero-video {
+  border-radius: 3px 3px 0 0;
   width: 100%;
-  border: 8px solid white;
 }
 
 .hero-photo {
   width: 100%;
   height: auto;
-  border: 8px solid white;
 }
 
 .fun-fact {
   margin-top: 12px;
   display: none;
   padding: 15px;
-  background-color: #EA9087;
+  background-color: #efefef;
+  border-radius: 0 0 3px 3px;
 }
 
 .fun-fact-icon {
