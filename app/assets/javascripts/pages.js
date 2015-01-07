@@ -291,8 +291,13 @@ $.ajax({
 var areasPlacesSwitch = function() {
   //switch between areas and places
   map.on('zoomstart', function() {
+    if (map.getZoom == 'undefined') {
+      var mapSet = L.Hash.parseHash('#3/-33.865143/151.2099');
+      map.setView(mapSet.center, mapSet.zoom);
+      console.log('Setting Map View');
+    }
     window.previousZoom = map.getZoom();
-    console.log('previousZoom' + previousZoom);
+    console.log('previousZoom ' + previousZoom);
     window.previousLocation = map.getCenter();
   });
   map.on('zoomend', function() {

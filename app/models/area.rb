@@ -35,7 +35,7 @@ class Area < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
     Rails.cache.fetch('areas_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
-      areas = self.active.includes(:places)
+      areas = self.active.includes(places: [:photos])
       areas.each do |area|
         geojson['features'] << {
           type: 'Feature',
