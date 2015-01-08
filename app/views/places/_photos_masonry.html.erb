@@ -50,8 +50,8 @@
               <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
               <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
             </div>
-            <div class="game-caption">
-              <p>Click to expand and play!</p>
+            <div class="game-caption" style="background-color:<%= category_color_for(@place) %>">
+              <p>Click to expand and play video!</p>
             </div>
           </div>
         </div>
@@ -131,8 +131,8 @@
             <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('wordsearch_ds.png') %>"></div>
             <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
           <% end %>
-          <div class="game-caption">
-            <p>Click to expand and play!</p>
+          <div class="game-caption" style="background-color:<%= category_color_for(@place) %>">
+            <p>Click to expand and play game!</p>
           </div>
           <div class="fun-fact">
             <p><%= raw game.instructions %></p>
@@ -164,8 +164,8 @@
               <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
               <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
             </div>
-            <div class="game-caption">
-              <p>Click to expand and play!</p>
+            <div class="game-caption" style="background-color:<%= category_color_for(@place) %>">
+              <p>Click to expand and play video!</p>
             </div>
           </div>
         </div>

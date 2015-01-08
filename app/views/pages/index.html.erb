@@ -1,10 +1,11 @@
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+
 <div id="cards">
   <div class="br-logo-home"></div>
   <div class="search-wrapper">
     <input class="search-box" placeholder="Where do you want to explore?"></input>
     <div class="search-sidebar"></div>
   </div>
+  <div id="hide-map-button" class="show-hide-map-button">Hide map</div>
   <div id="card-container">
     <div id='filters' class='ui-select'>
       <div>
@@ -58,7 +59,7 @@
 </div>
 <div class='map-page'>
   <div id='map'>
-    <button id="explore-map-button">Explore the map</button>
+    <div id="explore-map-button" class="show-hide-map-button">Explore the map</div>
   </div>
   <div id="svgdiv">
   <div id="zoomcontrol">

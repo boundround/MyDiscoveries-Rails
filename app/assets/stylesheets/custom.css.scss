@@ -169,6 +169,10 @@ select {
           box-sizing:content-box;
 }
 
+.leaflet-control-zoomslider {
+  border: none !important;
+}
+
 .banner {
   margin-top: 20px;
   margin-right: -48px;

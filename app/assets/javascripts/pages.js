@@ -49,7 +49,7 @@ var removeDuplicateAreaObjects = function(array) {
   return out;
 }
 
-map = L.mapbox.map('map', 'boundround.j0d79a3j', {
+map = L.mapbox.map('map', 'boundround.j0d6j474', {
   	worldCopyJump: true,
     // these options apply to the tile layer in the map
     tileLayer: {
@@ -119,7 +119,7 @@ placeMarkers.on('mouseover', function(e) {
 $(document).ready(function(){
   $('#explore-map-button').on('click', function(){
     $(this).hide();
-    $('#cards').css('height', '20%');
+    $('#cards').css('height', '25%');
     $('#card-container').hide();
     $('.home-footer').hide();
     $('#hide-map-button').show();
@@ -176,7 +176,9 @@ map.on('moveend', function(event) {
     showPlaceCards();
     postSearchCSS();
   } else {
-    resetHomeScreen();
+    if (window.innerWidth > 1000){
+      resetHomeScreen();
+    }
   }
 });
 
