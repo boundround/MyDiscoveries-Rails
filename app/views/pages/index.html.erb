@@ -1,14 +1,75 @@
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+
+<div id="cards">
+  <div class="br-logo-home"></div>
+  <div class="search-wrapper">
+    <input class="search-box" placeholder="Where do you want to explore?"></input>
+    <div class="search-sidebar"></div>
+  </div>
+  <div id="hide-map-button" class="show-hide-map-button">Hide map</div>
+  <div id="card-container">
+    <div id='filters' class='ui-select'>
+      <div>
+        <input type='checkbox' checked=checked class='filter'
+                 name='filter' id='activity' value='activity'/><label for='activity'>Activity</label>
+        <input type='checkbox' checked=checked class='filter'
+                   name='filter' id='animals' value='animals'/><label for='animals'>Animals</label>
+        <input type='checkbox' checked=checked class='filter'
+                   name='filter' id='beach' value='beach'/><label for='beach'>Beach</label>
+        <input type='checkbox' checked=checked class='filter'
+                   name='filter' id='museum' value='museum'/><label for='museum'>Museum</label>
+        <input type='checkbox' checked=checked class='filter'
+                   name='filter' id='park' value='park'/><label for='park'>Park</label>
+        <input type='checkbox' checked=checked class='filter'
+                   name='filter' id='place_to_eat' value='place_to_eat'/><label for='place_to_eat'>Place To Eat</label>
+      </div>
+      <div>
+        <input type='checkbox' checked=checked class='filter'
+                 name='filter' id='place_to_stay' value='place_to_stay'/><label for='place_to_stay'>Place To Stay</label>
+        <input type='checkbox' checked=checked class='filter'
+                   name='filter' id='shopping' value='shopping'/><label for='shoppping'>Shopping</label>
+        <input type='checkbox' checked=checked class='filter'
+                   name='filter' id='sights' value='sights'/><label for='sights'>Sights</label>
+        <input type='checkbox' checked=checked class='filter'
+                   name='filter' id='sport' value='sport'/><label for='sport'>Sport</label>
+        <input type='checkbox' checked=checked class='filter'
+                   name='filter' id='theme_park' value='theme_park'/><label for='theme_park'>Theme Park</label>
+      </div>
+    </div>
+    <div id="areas"></div>
+    <div id="places"></div>
+    <div class="clearfix"></div>
+    <div class="video-game-buttons">
+      <button class="video-button button" onclick="window.location.href='/videos'">
+        <%= image_tag("all_videos_icon.png", size: "20x15", class: "all-game-video-icon") %>
+        See All Videos
+      </button>
+      <button class="game-button button" onclick="window.location.href='/games'">
+        <%= image_tag("all_games_icon.png", size: "20x15", class: "all-game-video-icon") %>
+        Play All Games
+      </button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <footer>
+    <div class="home-footer">
+      <span class="top-footer"><p><a href="#">Traveling Families</a> <a href="#">The Travel Industry</a> <a href="#">Teachers</a></span></p>
+      <span class="bottom-footer"><a href="#">Privacy Policy</a> <a href="#">About Us</a><a href="#">Contact</a></span>
+    </div>
+  </footer>
+</div>
 <div class='map-page'>
-  <div id='map'></div>
+  <div id='map'>
+    <div id="explore-map-button" class="show-hide-map-button">Explore the map</div>
+  </div>
+  <div id="svgdiv">
+  <div id="zoomcontrol">
+    <div id="zoomplus"><%=image_tag("zoomplus.png")%></div>
+    <div id="zoomscroller"><%=image_tag("zoomscroller2.png")%></div>
+    <div id="zoomminus"><%=image_tag("zoomminus.png")%></div>
+  </div>
+  </div>
 </div>
-
-<div class="search-wrapper">
-  <input class="search-box"></input>
-</div>
-
-<%= render partial: 'filter_menu' %>
-
+<!--
 <div class="dude-help">
   <div class="balloon-wrapper">
     <a href="#" data-toggle="modal" data-target="#helpModal">
@@ -24,43 +85,6 @@
   </div>
 </div>
 
-<div class="dropdown pull-right">
-  <button class="dropdown-toggle fa fa-bars fa-3x map-menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
-  </button>
-  <ul id="menu" class="dropdown-menu map-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="/" data-filter="*">
-        <%= image_tag 'home_icon-01.svg', class: 'dropdown-menu-icon' %>
-        Home
-      </a>
-    </li>
-    <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="/videos" data-filter=".slider">
-        <%= image_tag 'video_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
-        Watch Videos
-      </a>
-    </li>
-    <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="/games" data-filter=".jigsaw">
-        <%= image_tag 'game_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
-        Play Games
-      </a>
-    </li>
-    <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="http://boundround.com/new-home-demo/" data-filter=".word">
-        <%= image_tag 'corporate_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.word-search'} %>
-        Corporate Site
-      </a>
-    </li>
-    <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#helpModal">
-        <%= image_tag 'learn_icon-02.svg', class: 'dropdown-menu-icon menu-help'%>
-        Help
-      </a>
-    </li>
-  </ul>
-</div>
-
 <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-content">
     <div class="modal-body">
@@ -68,37 +92,25 @@
     </div>
   </div>
   <div class="footer">
-    <%= image_tag 'back.jpg', class: "close-button", data: {dismiss: "modal"} %>
     <a class="feedback" href="mailto:help@boundround.com">Send us your feedback!</a>
   </div>
-</div>
+</div> -->
 
-
-<div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-content small-modal">
-    <div class="modal-body">
-      <h3>I Would Like To</h3>
-      <div id="icon-wrapper">
-        <a href="/videos">
-          <div class="go-to go-to-videos">
-          </div>
-        </a>
-        <a href="/games">
-          <div class="go-to go-to-games">
-          </div>
-        </a>
-        <a href="#">
-          <div class="go-to go-to-globe">
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="br-corporate-link">
-  <a href="http://boundround.com/new-home-demo/">
-    <img class="corporate-logo" src="<%= asset_path('BR_Logo.png')%>">
-  </a>
-</div>
 <div id='user-ip' data-ip=<%= request.remote_ip %>></div>
+<!-- Google Fonts embed code -->
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Signika:300:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+  </script>
+<%= javascript_include_tag 'd3.v3.min' %>
+<%= javascript_include_tag 'jquery.min' %>

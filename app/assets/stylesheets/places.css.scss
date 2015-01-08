@@ -15,19 +15,30 @@
   width: 500px;
 }
 
+.game-caption {
+  background-color: #efffff;
+  padding: 10px 10px 0 10px;
+  width: 100%;
+  display: inline-block;
+  border-radius: 0 0 3px 3px;
+}
+
+.game-ds {
+  width: 35% !important;
+}
+
 .page-wrap {
 	min-width: 500px;
 }
 
 .game-frame {
   min-width: 100%;
-  border: 7px solid white;
 }
 
 .game-thumbnail {
-   border: 7px solid white;
    width: 100%;
    height: auto;
+   border-radius: 3px 3px 0 0;
  }
 
 .photo-credit {
@@ -38,13 +49,13 @@
 
 .feedback-button {
   color: white;
-  background-color: #EA9087;
+  background-color: #fd7e56;
   margin-top: 10px;
 }
 
 .website-button {
   color: white;
-  background-color: #de4652;
+  background-color: #fd7e56;
   margin-top: 10px;
 }
 
@@ -62,33 +73,33 @@
 
 .video-thumbnail {
   width: 100%;
-  border: 7px solid white;
 }
 
 .vimeo-frame {
   width: 100%;
   min-height: 360px;
-  border: 7px solid white;
 }
 
 .video-play {
   position:absolute;
   opacity: 0.4;
   width: 100%;
+  background-color: #fd7e56;
 }
 
 .video-play-background {
-  width: 98%;
+  width: 100%;
+  border-radius: 3px 3px 0 0;
 }
 
 .vimeo-thumb {
   width: 100%;
+  border-radius: 3px;
 }
 
 .discount-card {
-  border: 7px solid white;
   height: auto;
-  background-color: #EA9087;
+  background-color: white;
   padding: 40px 15px 0px 15px;
   min-height: 200px;
 }
@@ -101,6 +112,13 @@
   height: 80%;
   margin: 5% auto;
   width: 75%;
+}
+
+.postcard-icon {
+  display: inline;
+  width: 30px;
+  border: 1px solid #fd7e56;
+  margin-bottom: 5px;
 }
 
 @media (max-width: 900px) {
@@ -117,6 +135,6 @@
    }
 
    .globe-home {
-     width: 12%;
+     width: 10%;
    }
  }

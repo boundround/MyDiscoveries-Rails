@@ -4,7 +4,8 @@
 
 body {
   font-family: 'Signika', sans-serif;
-  background-color: #73c7d2;
+  background-color: #fd7e56;
+  font-weight: lighter;
 }
 
 select {
@@ -17,6 +18,7 @@ select {
 
 .dropdown {
   margin-top: 20px;
+  color: white;
 }
 
 .dropdown-menu {
@@ -46,7 +48,7 @@ select {
 }
 
 .menu-button {
-  background-color: #de4652;
+  background-color: #fd7e56;
   border: none;
 }
 
@@ -69,7 +71,8 @@ select {
 }
 
 .about-wrapper {
-  background-color: #EA9087;
+  background-color: white;
+  border-radius: 3px;
 }
 
 .about {
@@ -118,24 +121,6 @@ select {
   display: block;
 }
 
-.footer, .page-wrap:after {
-  /* .push must be the same height as footer */
-  height: 50px;
-}
-
-.footer {
-  width: 60%;
-  margin: 10px auto 0 auto;
-  text-align: right;
-  // margin-top: 15px;
-  // width: 100%;
-  // background-color: #E98F87;
-  // position: fixed;
-  // left: 0px;
-  // bottom: 0px;
-  // height: 50px;
-}
-
 .close-button {
   width: auto;
   height: 100%;
@@ -162,23 +147,15 @@ select {
 }
 
 .modal-content {
-  background-color: #de4652;
+  background-color: #fd7e56;
   min-height: 450px;
+  color:white;
 }
 
 .modal {
   width: 85%;
   margin: 0 auto;
   margin-top: 3%;
-}
-
-#map {
-  position: absolute;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
-  background-color: #73C7D2;
 }
 
 .leaflet-control-zoomslider-knob {
@@ -192,9 +169,8 @@ select {
           box-sizing:content-box;
 }
 
-.area-content {
-  background-color: #de4652;
-  color: white;
+.leaflet-control-zoomslider {
+  border: none !important;
 }
 
 .banner {
@@ -206,7 +182,7 @@ select {
 }
 
 .title-wrapper {
-/*height: 150px;*/
+  color: white;
 }
 
 
@@ -290,45 +266,3 @@ select {
 
 }
 
-// filter styling
-.menu-ui {
-  background:#fff;
-  position:absolute;
-  top:0px;right:0px;
-  z-index:1;
-  border-radius:0px;
-  width:70px;
-  height: 100%;
-  border:1px solid rgba(0,0,0,0.4);
-  visibility: hidden;
-  overflow: scroll;
-}
-.menu-ui a {
-  font-size:13px;
-  color:#404040;
-  display:block;
-  margin:0;padding:0;
-  padding:10px;
-  text-decoration:none;
-  border-bottom:1px solid rgba(0,0,0,0.25);
-  text-align:center;
-}
-.menu-ui img {
-  width: 50px;
-  height: 50px;
-}
-.menu-ui a:first-child {
-  border-radius:0px 0px 0 0;
-}
-.menu-ui a:last-child {
-  border:none;
-  border-radius:0 0 3px 3px;
-}
-.menu-ui a:hover {
-  background:#f8f8f8;
-  color:#404040;
-}
-.menu-ui a.active, .menu-ui a.active:hover {
-  background:#3887BE;
-  color:#FFF;
-}

@@ -35,7 +35,7 @@ class Area < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
     Rails.cache.fetch('areas_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
-      areas = self.active.includes(:places)
+      areas = self.active.includes(places: [:photos])
       areas.each do |area|
         geojson['features'] << {
           type: 'Feature',
@@ -54,7 +54,9 @@ class Area < ActiveRecord::Base
               "iconSize" => [43, 26],
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
-            }
+            },
+            "placeCount" => area.count_live_places,
+            "country" => area.country
           }
         }
       end
@@ -83,6 +85,18 @@ class Area < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     display_name_changed?
+  end
+
+  def count_live_places
+    count = 0
+    unless places.empty?
+      places.each do |place|
+        unless place.subscription_level == "draft" || place.subscription_level == "out"
+          count += 1
+        end
+      end
+    end
+    count
   end
 
 end

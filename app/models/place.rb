@@ -39,9 +39,11 @@ class Place < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
     Rails.cache.fetch('places_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
-      places = self.active.includes(:categories)
+      places = self.active.includes(:categories, :games, :videos, :photos)
       places.each do |place|
-
+        if place.area != nil
+          area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.length, "country" => place.area.country}
+        end
         # Assign icon based on 'premium' level and category
         if place.categories[0].nil?
           place_type = 'sights'
@@ -49,11 +51,7 @@ class Place < ActiveRecord::Base
           place_type = place.categories[0].identifier
         end
 
-        icon_file_name = map_icon_for(place_type)
-
-        if place.subscription_level == "Premium" && place.map_icon.url
-          icon_file_name = place.map_icon.url.gsub('http://d1w99recw67lvf.cloudfront.net/vector_icons/', '').gsub(/svg/, 'png')
-        end
+        icon_file_name = place_type + "_pin.png"
 
         geojson['features'] << {
           type: 'Feature',
@@ -69,13 +67,19 @@ class Place < ActiveRecord::Base
 
             "icon" => {
 
-              "iconUrl" => "http://d1w99recw67lvf.cloudfront.net/vector_icons/" + icon_file_name,
+              "iconUrl" => "http://d1w99recw67lvf.cloudfront.net/category_icons/" + icon_file_name,
 
               # size of the icon
-              "iconSize" => [45, 45],
+              "iconSize" => [20, 45],
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
-            }
+            },
+            "videoCount" => place.videos.length,
+            "gameCount" => place.games.length,
+            "imageCount" => place.photos.length,
+            "heroImage" => place.get_card_image,
+            "placeId" => place.slug,
+            "area" => area_info
           }
         }
       end
@@ -83,29 +87,6 @@ class Place < ActiveRecord::Base
       geojson
     end
   end
-
-  def self.map_icon_for(category)
-    if category.nil?
-      return "activity_m.svg"
-    end
-
-    icon_file_names = {
-    activity: "activity_m.svg",
-    animals: "animals_m.svg",
-    beach: "beach_m.svg",
-    museum: "museum_m.svg",
-    park: "park_m.svg",
-    place_to_eat: "place_to_eat_m.svg",
-    place_to_stay: "place_to_stay_m.svg",
-    shopping: "shopping_m.svg",
-    sights: "sights_m.svg",
-    sport: "sport_map2.svg",
-    theme_park: "theme_park_m.svg"
-    }
-
-    return icon_file_names[category.to_sym]
-  end
-
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
@@ -127,6 +108,14 @@ class Place < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     display_name_changed?
+  end
+
+  def get_card_image
+    if photos.empty?
+      "http://placehold.it/350x150"
+    else
+      photos.order(:priority).first.path_url(:small)
+    end
   end
 
   def check_valid_url

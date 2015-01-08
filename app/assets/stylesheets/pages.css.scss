@@ -1,6 +1,274 @@
+#map {
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background-color: #73C7D2;
+  position: static !important;
+  }
+
+#cards {
+  z-index: 1000;
+  height:100%;
+  width: 50%;
+  position:fixed;
+  overflow: scroll;
+  background: #fd7e56;
+  padding-top: 30px;
+}
+
+#cards::after {
+  content: "";
+  background: url(asset_path('sand_dunes.png'));
+  opacity: 0.1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+#card-container {
+  margin-top: 20px;
+}
+
+.map-page {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  width: 200px;
+}
+
+.br-logo-home {
+  height: 15%;
+  width: 15%;
+  margin: 0 auto;
+  background: url(asset_path('bound_round_logo.png')) no-repeat;
+  background-size: 86%;
+}
+
+.br-logo-home-post-search {
+  position: absolute;
+  background-size: 50%;
+  left: 25px;
+}
+
+.search-wrapper-post-search {
+  margin-top: 0 !important;
+}
+
+.ui-select {
+  margin-bottom: 20px;
+  margin-top: 50px;
+  text-align: center;
+  display: none;
+  color: white;
+  label {
+    font-weight: lighter;
+    margin: 0 10px 0 5px;
+  }
+}
+
+.video-game-buttons {
+  width: 460px;
+  margin: 0 auto;
+  margin-top: 5%;
+  height: 100px;
+}
+
+.button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  width: 220px;
+  height: 50px;
+  border-radius: 3px;
+  font-weight: lighter;
+}
+
+.video-button {
+  float: left;
+}
+
+.game-button {
+  float: right;
+}
+
+.all-game-video-icon {
+  margin-right: 10px;
+  margin-left: -30px;
+}
+
+.search-wrapper {
+  margin-top: 5%;
+  margin-bottom: 20px;
+  width: 65%;
+  margin-left: 17%;
+  position: relative;
+}
+
+.search-box {
+  padding: 6px 15px 6px 30px;
+  margin-top: 20px;
+  width: 100%;
+  height: 65px;
+  border-radius: 3px 0 0 3px;
+  color: #bcbcbc;
+  background-size: 15px;
+  border: none;
+  font-size: 20px;
+}
+
+.search-sidebar {
+  width: 75px;
+  height: 65px;
+  right: 0px;
+  position: absolute;
+  top: 20px;
+  margin-right: -2px;
+  border-radius: 0 3px 3px 0;
+  background: #6cb7ca url(asset_path('magnifying_glass_white.png')) no-repeat center;
+  background-size: 25px 25px;
+  z-index: 100;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #cdcdcd;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #cdcdcd;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #cdcdcd;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #cdcdcd;
+}
+
+.upper-card {
+  background-size: cover;
+  height: 100px;
+  border-radius: 3px 3px 0 0;
+  color: #ffffff;
+  font-size: 0.85em;
+  font-weight: lighter;
+}
+
+.place-title {
+  text-align: center;
+  padding: 0 10px 0 10px;
+}
+
+.no-anchor-decoration {
+  text-decoration: none !important;
+}
+
+.ui-front {
+  z-index: 1000 !important;
+}
+
 .help-image {
   width: 50%;
   margin: 0 25%;
+}
+
+#places, #areas {
+  padding: 0 12%;
+  margin-bottom: 20px;
+}
+
+.area-card {
+  background-color: #ffffff;
+  height: 70px;
+  border-radius: 3px;
+  position: relative;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.area-title {
+  font-size: 1.2em;
+  display: inline-block;
+  padding-top: 10px;
+}
+
+.area-card-pin {
+  display: inline-block;
+}
+
+.area-pin {
+  height: 40px;
+  margin: 0 10px 20px 10px;
+}
+
+.place-count {
+  color: #aaaaaa !important;
+}
+
+.place-card {
+  background-color: #ffffff;
+  width: 30%;
+  margin-right: 3.33%;
+  float: left;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  height: 185px;
+  position: relative;
+}
+
+.place-title {
+  margin-top: 15px;
+}
+
+.card-footer {
+  text-align: center;
+  background-color: #f7f7f7;
+  border-radius: 0 0 3px 3px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 28px;
+  padding-top: 4px;
+  color: #aaaaaa;
+  font-size: 12px;
+}
+
+.image-count, .video-count, .game-count {
+  float: left;
+  width: 30%;
+}
+
+.image-count {
+  margin-left: 5%;
+}
+
+
+.home-footer {
+  text-align: center;
+  margin-bottom: 3%;
+}
+
+.top-footer {
+  a {
+    color: #efefef;
+    padding-right: 30px;
+    font-weight: lighter;
+  }
+}
+
+.bottom-footer {
+  a {
+    color: lightgrey;
+    font-weight: lighter;
+  }
 }
 
 #navModal {
@@ -30,37 +298,6 @@
 #icon-wrapper {
   width: 100%;
   margin: 0 auto;
-}
-
-.game-ds {
-  width: 35% !important;
-}
-
-.go-to {
-  width: 180px;
-  height: 139px;
-  display: inline-block;
-  margin: 0 auto;
-  color: white;
-  margin-top: 20px;
-}
-
-.go-to-games {
-  background: url(asset_path('game_icon-02.svg')), no-repeat;
-  background-size: contain;
-  margin-left: 20px;
-}
-
-.go-to-videos {
-  background: url(asset_path('video_icon-02.svg')), no-repeat;
-  background-size: contain;
-  margin-left: 20px;
-}
-
-.go-to-globe {
-  background: url(asset_path('explore_icon-01.svg')), no-repeat;
-  background-size: contain;
-  margin-left: 20px;
 }
 
 .dude-help {
@@ -119,64 +356,150 @@
   margin-top: 100%;
 }
 
-.search-box {
-  z-index: 100;
-  position: absolute;
-  padding:6px 15px 6px 30px;
-	margin: 0.5% 41.5%;
-  width: 300px;
-	background: white url(asset_path('search.png')) no-repeat 8px 8px;
-  border-radius:15px;
-  color:#bcbcbc;
-  background-size: 15px;
-  border: none;
-}
-
 .pagination {
   display: block;
   text-align: center;
 }
 
-.br-corporate-link {
-  position: absolute;
-  bottom: 20px;
-  right: 55px;
+.sights {
+  color: #fc3d7d;
+}
+
+.park {
+  color: #00d81f;
+}
+
+.animals {
+  color: #fa634b;
+}
+
+.shopping {
+  color: #7c8ee1;
+}
+
+.activity {
+  color: #fd0000;
+}
+
+.beach {
+  color: #fda812;
+}
+
+.theme_park {
+  color: #44adef;
+}
+
+.place_to_stay {
+  color: #34d4ce;
+}
+
+.sport {
+  color: #c057ec;
+}
+
+.museum {
+  color: #365d88;
+}
+
+
+.place_to_eat {
+  color: #3c9500;
+}
+
+.show-hide-map-button {
+  z-index: 100;
+  width: 36%;
+  height: 50px;
+  color: white;
+  display: none;
+  background-color: #fd7e56;
+  font-family: Signika, sans-serif;
+  font-size: 20px;
+  border: none;
+  border-radius: 3px;
+  padding-top: 3%;
+  text-align: center;
+  font-weight: lighter;
   z-index: 100;
 }
-.corporate-logo {
-  width: 120px;
+
+#explore-map-button {
+  position: absolute;
+  bottom: 50px;
+  right: 32%;
 }
 
-@media (max-width: 600px) {
-  .help-image {
+#hide-map-button {
+  border: 1px solid white;
+  margin: 10px 30% 0 30%;
+}
+
+@media (max-width: 1000px) {
+  #cards {
+    height: 85%;
     width: 100%;
-    margin: 0 5%;
   }
 
-  .dude-help {
+  .search-wrapper {
+    width: 85%;
+    margin: 0 auto;
+    margin-left: 5%;
+  }
+
+  #map {
+    width: 100%;
+    bottom: 0;
+    position: static !important;
+  }
+
+  #filters {
+    display: none !important;
+  }
+
+  .leaflet-control-zoomslider {
+    display: none;
+  }
+
+  #zoomcontrol {
+    display: none;
+  }
+
+  #svgdiv {
+    width: 100% !important;
+  }
+
+  .map-page {
+    height: 80%;
     position: absolute;
-    bottom: -20px;
-    width: 25%;
-    left: -18%;
-    a { text-decoration: none;
-        color: #de4652;
-      }
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
   }
 
-  .dude-help-out {
-    left: 2%;
+  #places, #areas {
+    padding: 0 3%;
   }
 
-  .search-box {
-    z-index: 100;
-    position: absolute;
-    padding:6px 15px 6px 30px;
-    margin-left: 40px;
-    width: 300px;
-    background: white url(asset_path('search.png')) no-repeat 8px 8px;
-    border-radius:15px;
-    color:#bcbcbc;
-    background-size: 15px;
-    border: none;
+  .br-logo-home {
+    height: 140px;
+    width: 140px;
   }
+
+  .br-logo-home-post-search {
+    display: none;
+  }
+
+  .place-card {
+    width: 46%;
+    margin-right: 2%;
+  }
+
+  .area-card {
+    width: 94%;
+  }
+
+  #explore-map-button {
+    display: block;
+  }
+
 }
