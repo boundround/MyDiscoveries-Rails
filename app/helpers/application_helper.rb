@@ -15,4 +15,33 @@ module ApplicationHelper
     end
   end
 
+  def category_color_for(place)
+    case place.categories[0].identifier
+      when 'animals'
+        '#ff9280'
+      when 'activity'
+        '#fa8383'
+      when 'beach'
+        '#ffcf7b'
+      when 'museum'
+        '#7994b1'
+      when 'park'
+        '#9ff1ab'
+      when 'place_to_eat'
+        '#76a15a'
+      when 'place_to_stay'
+        '#a0dcda'
+      when 'shopping'
+        '#aab7f4'
+      when 'sights'
+        '#f2a1bc'
+      when 'sport'
+        '#d6abe8'
+      when 'theme_park'
+        '#9dd0f0'
+      else
+        '#f2a1bc'
+    end
+  end
+
 end
