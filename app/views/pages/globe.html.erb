@@ -826,7 +826,9 @@ function sizeContent() {
 
 		self.setLocation = function(lat, lon) {
  			self.proj.rotate([-lon,-lat]);
-			self.refresh();
+			//refresh is undefined until the globe is ready
+			//But setting projection is OK prior, just changing state variables
+			if(self.refresh !== undefined) self.refresh();
  		};
 
 
