@@ -92,10 +92,10 @@ map = L.mapbox.map('map', 'boundround.j0d6j474', {
 L.control.zoomslider().addTo(map);
 
 if (window.parsedHash.zoom < 4) {
-  $('#svgdiv').css('visibility', 'visible'); 
-	if(typeof brglobe != 'undefined') 
+  $('#svgdiv').css('visibility', 'visible');
+	if(typeof brglobe != 'undefined')
 		brglobe.setLocation(window.parsedHash.center.lat, window.parsedHash.center.lng);
-	
+
   // resetHomeScreen();
 }
 
@@ -165,17 +165,17 @@ map.on('zoomend', function() {
 	    }
 			else
 			{
-		    console.log("Error: brglobe global variable is undefined");			
+		    console.log("Error: brglobe global variable is undefined");
 			}
 	  }
 
 	  if (window.previousZoom >= areahidelevel && newZoom < areahidelevel) {
 	    placeMarkers.removeLayers(placesArray);
-	    areaMarkers.addLayers(window.areaLayers.havePlaces)
+	    areaMarkers.addLayers(window.areaLayers.havePlaces);
 	    showAreaCards();
-	  } 
+	  }
 		else if (window.previousZoom < areahidelevel && newZoom >= areahidelevel){
-	    areaMarkers.removeLayers(window.areaLayers.havePlaces)
+	    areaMarkers.removeLayers(window.areaLayers.havePlaces);
 	    placeMarkers.addLayers(placesArray);
 	    showAreaCards();
 	    showPlaceCards();
