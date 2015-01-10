@@ -1,3 +1,10 @@
+location.hash == '' ? location.hash = '#3/-33.865143/151.2099' : location.hash = location.hash;
+window.parsedHash = L.Hash.parseHash(location.hash);
+
+//Set initial values
+window.previousZoom = window.parsedHash.zoom;
+window.previousLocation = window.parsedHash.center;
+
 var hoverBackground = {
   park: '#9ff1ab',
   animals: '#ff9280',
@@ -68,59 +75,131 @@ $(document).ready(function(){
   });
 });
 
+var areasPlacesSwitch = function() {
+  //switch between areas and places
+  if (window.parsedHash && window.parsedHash.zoom > 3) {
+    areaMarkers.removeLayers(window.areaLayers.havePlaces)
+    placeMarkers.addLayers(placesArray);
+    showAreaCards();
+    showPlaceCards();
+    postSearchCSS();
+  }
+};
+
+var transitionzoomlevel = 4; //2d zoom level transition to globe
+var areahidelevel = 7; //zoom level at which area icons that have places are replaced with cluster icons
+var areatouchmagnification = 3; //number of levels to zoom when touch area with places
+
 map = L.mapbox.map('map', 'boundround.j0d6j474', {
+		center: window.parsedHash.center,
+		zoom: window.parsedHash.zoom,
   	worldCopyJump: true,
     // these options apply to the tile layer in the map
     tileLayer: {
         // this map option disables world wrapping. by default, it is false.
         continuousWorld: false,
         // this option disables loading tiles outside of the world bounds.
-        noWrap: true
+        noWrap: false
       },
       zoomControl: false,
       maxBounds: [[85,-250],[-85,250]],
       minZoom: 2,
       maxZoom: 18
-    });
-
-map.on('load', function() {
-  location.hash == '' ? location.hash = '#3/-33.865143/151.2099' : location.hash = location.hash;
-  window.parsedHash = L.Hash.parseHash(location.hash);
-  map.setView(parsedHash.center, parsedHash.zoom);
-
-  /// Switch globe display on
-  if (parsedHash.zoom < 4) {
-    $('#svgdiv').css('visibility', 'visible');
-    // resetHomeScreen();
-  };
 });
-
 
 L.control.zoomslider().addTo(map);
 
-// Create leaflet hash object
+if (window.parsedHash.zoom < 4) {
+  $('#svgdiv').css('visibility', 'visible');
+	brglobe.setLocation(window.parsedHash.center.lat, window.parsedHash.center.lng);
 
+  // resetHomeScreen();
+}
+
+// Create leaflet hash object
 var hash = L.hash(map);
 
-map.on('zoomend', function() {
-  console.log("this mapzoom: " + map.getZoom())
-  window.parsedHash = L.Hash.parseHash(location.hash);
-  console.log(parsedHash.zoom);
-  if (map.getZoom() < transitionzoomlevel){
+//This event fires when the map's initial position is set
+/*map.on('load', function() {
+  /// Switch globe display on
+
+  if (window.parsedHash.zoom < 4) {
     $('#svgdiv').css('visibility', 'visible');
-    $('#svgdiv').fadeIn("fast");
-    var ll = window.previousLocation ? window.previousLocation : map.getCenter();
     // resetHomeScreen();
-    if (typeof brglobe != 'undefined') {
-      brglobe.setLocation(ll.lat,ll.lng);
-       console.log("zoomend 1 fired");
+  }
+});
+*/
+
+// Change filter menu based on markers visible in current view
+map.on('moveend', function(event) {
+  if (map.getZoom() >= areahidelevel) {
+    // areaMarkers.addLayers(window.areaLayers.havePlaces);
+    showAreaCards();
+    showPlaceCards();
+    postSearchCSS();
+  } else {
+    if (window.innerWidth > 1000){
+      resetHomeScreen();
     }
   }
 });
 
-var transitionzoomlevel = 4; //2d zoom level transition to globe
-var areahidelevel = 7; //zoom level at which area icons that have places are replaced with cluster icons
-var areatouchmagnification = 3; //number of levels to zoom when touch area with places
+map.on('zoomstart', function() {
+	/*
+  if (map.getZoom() === undefined) {
+    var mapSet = L.Hash.parseHash('#3/-33.865143/151.2099');
+    map.setView(mapSet.center, mapSet.zoom);
+    console.log('Setting Map View');
+  }
+  window.previousZoom = map.getZoom();
+  console.log('previousZoom ' + window.previousZoom);
+  window.previousLocation = map.getCenter();
+*/
+  if (map.getZoom() !== undefined) {
+	  window.previousZoom = map.getZoom();
+	  console.log('previousZoom ' + window.previousZoom);
+	  window.previousLocation = map.getCenter();
+	}
+});
+
+map.on('zoomend', function() {
+  if (map.getZoom() !== undefined) {
+	  var newZoom = map.getZoom();
+
+	  console.log("this mapzoom: " + newZoom)
+	  window.parsedHash = L.Hash.parseHash(location.hash);
+	  console.log(window.parsedHash.zoom);
+
+		//Are we zooming up to the globe?
+	  if (newZoom < transitionzoomlevel){
+	    $('#svgdiv').css('visibility', 'visible');
+	    $('#svgdiv').fadeIn("fast");
+	    var ll = window.previousLocation ? window.previousLocation : map.getCenter();
+	    // resetHomeScreen();
+	    if (typeof brglobe != 'undefined') {
+	      brglobe.setLocationZ(ll.lat,ll.lng,newZoom);
+	       console.log("zoomend 1 fired");
+	    }
+			else
+			{
+		    console.log("Error: brglobe global variable is undefined");
+			}
+	  }
+
+	  if (window.previousZoom >= areahidelevel && newZoom < areahidelevel) {
+	    placeMarkers.removeLayers(placesArray);
+	    areaMarkers.addLayers(window.areaLayers.havePlaces)
+	    showAreaCards();
+	  }
+		else if (window.previousZoom < areahidelevel && newZoom >= areahidelevel){
+	    areaMarkers.removeLayers(window.areaLayers.havePlaces)
+	    placeMarkers.addLayers(placesArray);
+	    showAreaCards();
+	    showPlaceCards();
+	    postSearchCSS();
+	  }
+	}
+});
 
 window.placeMarkers = new L.MarkerClusterGroup({showCoverageOnHover: false, maxClusterRadius: 20});
 placeMarkers.addTo(map);
@@ -167,20 +246,6 @@ window.areaLayers = {
   havePlaces: [],
   noPlaces: []
 }
-
-// Change filter menu based on markers visible in current view
-map.on('moveend', function(event) {
-  if (map.getZoom() >= areahidelevel) {
-    // areaMarkers.addLayers(window.areaLayers.havePlaces);
-    showAreaCards();
-    showPlaceCards();
-    postSearchCSS();
-  } else {
-    if (window.innerWidth > 1000){
-      resetHomeScreen();
-    }
-  }
-});
 
 var areaIcon = L.Icon.Label.extend({
                 options: {
@@ -282,48 +347,13 @@ $.ajax({
 
         areasPlacesSwitch();
 
-        location.hash == "#3/-33.87/102.48" ? location.hash = '#3/-33.865143/151.2099' : location.hash;
-        brglobe.setLocation(-33.865, 151.209);
+//        location.hash == "#3/-33.87/102.48" ? location.hash = '#3/-33.865143/151.2099' : location.hash;
+//        brglobe.setLocation(-33.865, 151.209);
       }
     });
 
   }
 });
-
-var areasPlacesSwitch = function() {
-  //switch between areas and places
-  map.on('zoomstart', function() {
-    if (map.getZoom == 'undefined') {
-      var mapSet = L.Hash.parseHash('#3/-33.865143/151.2099');
-      map.setView(mapSet.center, mapSet.zoom);
-      console.log('Setting Map View');
-    }
-    window.previousZoom = map.getZoom();
-    console.log('previousZoom ' + previousZoom);
-    window.previousLocation = map.getCenter();
-  });
-  map.on('zoomend', function() {
-    var newZoom = map.getZoom();
-    if (previousZoom >= areahidelevel && newZoom < areahidelevel) {
-      placeMarkers.removeLayers(placesArray);
-      areaMarkers.addLayers(window.areaLayers.havePlaces)
-      showAreaCards();
-    } else if (previousZoom < areahidelevel && newZoom >= areahidelevel){
-      areaMarkers.removeLayers(window.areaLayers.havePlaces)
-      placeMarkers.addLayers(placesArray);
-      showAreaCards();
-      showPlaceCards();
-      postSearchCSS();
-    }
-  });
-  if (window.parsedHash && window.parsedHash.zoom > 3) {
-    areaMarkers.removeLayers(window.areaLayers.havePlaces)
-    placeMarkers.addLayers(placesArray);
-    showAreaCards();
-    showPlaceCards();
-    postSearchCSS();
-  }
-}
 
 var showAreaCards = function(){
   var bounds = map.getBounds();
