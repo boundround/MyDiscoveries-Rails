@@ -49,6 +49,25 @@ var removeDuplicateAreaObjects = function(array) {
   return out;
 }
 
+$(document).ready(function(){
+  $('#explore-map-button').on('click', function(){
+    $(this).hide();
+    $('#cards').css('height', '25%');
+    $('#card-container').hide();
+    $('.home-footer').hide();
+    $('#hide-map-button').show();
+    postSearchCSS();
+  });
+
+  $('#hide-map-button').on('click', function() {
+    $(this).hide();
+    $('#cards').css('height', '80%');
+    $('#card-container').show();
+    $('.home-footer').show();
+    $('#explore-map-button').show();
+  });
+});
+
 map = L.mapbox.map('map', 'boundround.j0d6j474', {
   	worldCopyJump: true,
     // these options apply to the tile layer in the map
@@ -114,25 +133,6 @@ placeMarkers.on('mouseover', function(e) {
   e.layer.openPopup();
   console.log(e.layer.options.icon.options.iconSize.x);
   console.log(e.layer.options.icon.options.iconSize.y);
-});
-
-$(document).ready(function(){
-  $('#explore-map-button').on('click', function(){
-    $(this).hide();
-    $('#cards').css('height', '25%');
-    $('#card-container').hide();
-    $('.home-footer').hide();
-    $('#hide-map-button').show();
-    postSearchCSS();
-  });
-
-  $('#hide-map-button').on('click', function() {
-    $(this).hide();
-    $('#cards').css('height', '80%');
-    $('#card-container').show();
-    $('.home-footer').show();
-    $('#explore-map-button').show();
-  });
 });
 
 if (window.innerWidth > 1000) {
