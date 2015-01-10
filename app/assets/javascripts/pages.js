@@ -159,7 +159,7 @@ map.on('zoomend', function() {
 	    $('#svgdiv').fadeIn("fast");
 	    var ll = window.previousLocation ? window.previousLocation : map.getCenter();
 	    // resetHomeScreen();
-	    if (typeof brglobe !== 'undefined') {
+	    if (typeof brglobe != 'undefined') {
 	      brglobe.setLocationZ(ll.lat,ll.lng,newZoom);
 	      console.log("zoomend 1 fired");
 	    }
