@@ -111,7 +111,8 @@ L.control.zoomslider().addTo(map);
 
 if (window.parsedHash.zoom < 4) {
   $('#svgdiv').css('visibility', 'visible');
-	brglobe.setLocation(window.parsedHash.center.lat, window.parsedHash.center.lng);
+	if(typeof brglobe != 'undefined')
+		brglobe.setLocation(window.parsedHash.center.lat, window.parsedHash.center.lng);
 
   // resetHomeScreen();
 }
@@ -178,7 +179,7 @@ map.on('zoomend', function() {
 	    // resetHomeScreen();
 	    if (typeof brglobe != 'undefined') {
 	      brglobe.setLocationZ(ll.lat,ll.lng,newZoom);
-	       console.log("zoomend 1 fired");
+	      console.log("zoomend 1 fired");
 	    }
 			else
 			{
@@ -188,11 +189,11 @@ map.on('zoomend', function() {
 
 	  if (window.previousZoom >= areahidelevel && newZoom < areahidelevel) {
 	    placeMarkers.removeLayers(placesArray);
-	    areaMarkers.addLayers(window.areaLayers.havePlaces)
+	    areaMarkers.addLayers(window.areaLayers.havePlaces);
 	    showAreaCards();
 	  }
 		else if (window.previousZoom < areahidelevel && newZoom >= areahidelevel){
-	    areaMarkers.removeLayers(window.areaLayers.havePlaces)
+	    areaMarkers.removeLayers(window.areaLayers.havePlaces);
 	    placeMarkers.addLayers(placesArray);
 	    showAreaCards();
 	    showPlaceCards();
