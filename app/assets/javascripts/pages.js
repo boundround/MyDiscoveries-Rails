@@ -92,8 +92,9 @@ map = L.mapbox.map('map', 'boundround.j0d6j474', {
 L.control.zoomslider().addTo(map);
 
 if (window.parsedHash.zoom < 4) {
-  $('#svgdiv').css('visibility', 'visible');        
-	brglobe.setLocation(window.parsedHash.center.lat, window.parsedHash.center.lng);
+  $('#svgdiv').css('visibility', 'visible'); 
+	if(typeof brglobe != 'undefined') 
+		brglobe.setLocation(window.parsedHash.center.lat, window.parsedHash.center.lng);
 	
   // resetHomeScreen();
 }
@@ -158,7 +159,7 @@ map.on('zoomend', function() {
 	    $('#svgdiv').fadeIn("fast");
 	    var ll = window.previousLocation ? window.previousLocation : map.getCenter();
 	    // resetHomeScreen();
-	    if (typeof brglobe != 'undefined') {
+	    if (brglobe !== undefined) {
 	      brglobe.setLocationZ(ll.lat,ll.lng,newZoom);
 	       console.log("zoomend 1 fired");
 	    }
