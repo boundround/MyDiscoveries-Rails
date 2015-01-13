@@ -2,7 +2,9 @@ class Game < ActiveRecord::Base
   belongs_to :place
   belongs_to :area
 
-  before_save :add_instructions
+  before_save :add_instructions, :create_thumbnail
+
+  mount_uploader :thumbnail, GameThumbnailUploader
 
   scope :ordered_by_place_name, -> { joins(:place).order('places.display_name') }
 
@@ -33,6 +35,13 @@ class Game < ActiveRecord::Base
       self.instructions = "Find all the words!<br>Tap and drag over hidden words<br>Tap the word in list for help"
     elsif game_type == 'slider'
       self.instructions = "Complete the Slider Puzzle!<br>Slide pieces to reassemble the photo<br>Drag each piece with your finger to move"
+    end
+  end
+
+  def create_thumbnail
+    puts self.id
+    if self.game_type == 'jigsaw puzzle' || self.game_type == 'slider'
+      self.remote_thumbnail_url = self.url.match(/\=.*(\.jpg|\.png|\.svg)/i)[0].gsub("=", "")
     end
   end
 

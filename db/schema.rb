@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218231903) do
+ActiveRecord::Schema.define(version: 20150112231928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,22 @@ ActiveRecord::Schema.define(version: 20141218231903) do
 
   add_index "contents", ["place_id"], name: "index_contents_on_place_id", using: :btree
 
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "discounts", force: true do |t|
     t.text     "description"
     t.integer  "place_id"
@@ -80,6 +96,7 @@ ActiveRecord::Schema.define(version: 20141218231903) do
     t.string   "game_type"
     t.string   "instructions"
     t.integer  "area_id"
+    t.string   "thumbnail"
   end
 
   add_index "games", ["place_id"], name: "index_games_on_place_id", using: :btree
@@ -93,7 +110,7 @@ ActiveRecord::Schema.define(version: 20141218231903) do
   create_table "photos", force: true do |t|
     t.string   "title"
     t.string   "credit"
-    t.string   "path"
+    t.string   "path",           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "caption"
@@ -102,6 +119,7 @@ ActiveRecord::Schema.define(version: 20141218231903) do
     t.integer  "area_id"
     t.integer  "place_id"
     t.string   "caption_source"
+    t.string   "filename"
   end
 
   create_table "places", force: true do |t|
