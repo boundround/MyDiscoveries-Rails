@@ -441,7 +441,7 @@
   }
 
   .search-wrapper {
-    width: 85%;
+    width: 90%;
     margin: 0 auto;
     margin-left: 5%;
   }
@@ -502,4 +502,23 @@
     display: block;
   }
 
+  .video-game-buttons {
+    text-align: center;
+    width: 90%;
+  }
+
+  .button {
+    width: 46%;
+  }
 }
+
+@media (max-width: 500px) {
+  .page-wrap {
+    width: 95%;
+    max-width: 500px;
+    min-width: 0 !important;
+    margin: 0 auto;
+  }
+
+}
+
