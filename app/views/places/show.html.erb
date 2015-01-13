@@ -11,12 +11,6 @@
             Show All
           </a>
         </li>
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#" data-filter=".about">
-            <%= image_tag 'learn_icon-02.svg', class: 'dropdown-menu-icon' %>
-            About <%= @place.display_name %>
-          </a>
-        </li>
         <% unless @videos.empty? %>
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="#" data-filter=".video">
