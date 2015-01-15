@@ -32,6 +32,6 @@ class FunFactsController < ApplicationController
   private
 
     def fun_fact_params
-      params.require(:fun_fact).permit(:text, :place_id, :area_id)
+      params.require(:fun_fact).permit(:content, :reference, :area_id)
     end
 end

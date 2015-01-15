@@ -82,4 +82,15 @@
         </div>
     <% end %>
   <% end %>
+
+  <% unless @area.fun_facts.empty? %>
+      <% @area.fun_facts.each do |fun_fact| %>
+        <div class="item fun_fact photo-card">
+          <div class="discount-card">
+            <p><%= raw fun_fact.content %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
 </div>
