@@ -60,7 +60,9 @@ Rails.application.routes.draw do
 
   resources :discounts
 
-  resources :fun_facts
+  resources :fun_facts do
+    collection { post :import }
+  end
 
   match '/send_postcard', to: 'places#send_postcard', via: 'post'
 

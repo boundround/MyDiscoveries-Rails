@@ -7,6 +7,9 @@
       <%= f.input :area_id, as: :hidden, input_html: {value: @area.id } %>
     </div>
     <div class="form-group">
+      <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
+    </div>
+    <div class="form-group">
       <%= f.button :submit%>
     </div>
   <% end %>

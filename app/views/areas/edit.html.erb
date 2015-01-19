@@ -134,6 +134,9 @@
                   <p>
                     <%= f.input :reference, input_html: { class: 'form-control'} %>
                   </p>
+                  <div class="form-group">
+                    <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
+                  </div>
                   <%= f.button :submit %>
                   <%= link_to "Delete", fun_fact, class: "btn btn-danger", method: :delete,
                                      data: { confirm: "Are you sure?" } %>

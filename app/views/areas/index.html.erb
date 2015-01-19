@@ -26,4 +26,10 @@
     <%= submit_tag "Import" %>
   <% end %>
 
+  <h3>Import Fun Facts From Excel</h3>
+  <%= form_tag import_fun_facts_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import" %>
+  <% end %>
+
 <% end %>
