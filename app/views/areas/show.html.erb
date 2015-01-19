@@ -19,6 +19,14 @@
             </a>
           </li>
         <% end %>
+        <% unless @fun_facts.empty? %>
+          <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#" data-filter=".fun_fact">
+              <%= image_tag 'photo_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.fun_fact'} %>
+              Fun Facts
+            </a>
+          </li>
+        <% end %>
 
       </ul>
     </div>

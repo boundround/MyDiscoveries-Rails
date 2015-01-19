@@ -29,9 +29,14 @@ class FunFactsController < ApplicationController
     redirect_to :back, notice: "fun fact deleted"
   end
 
+  def import
+    FunFact.import(params[:file])
+    redirect_to :back, notice: "Fun Facts imported."
+  end
+
   private
 
     def fun_fact_params
-      params.require(:fun_fact).permit(:text, :place_id, :area_id)
+      params.require(:fun_fact).permit(:content, :reference, :area_id)
     end
 end
