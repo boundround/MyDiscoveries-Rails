@@ -9,7 +9,7 @@ class AreasController < ApplicationController
   end
 
   def search
-    @areas = Area.where(["display_name ILIKE ?", "%" + params[:term] + "%"])
+    @areas = Area.where("display_name @@ :q", q: params[:term])
 
     respond_to do |format|
       format.json { render json: @areas.to_json }  # respond with the created JSON object

@@ -492,6 +492,7 @@ window.onload = function() {
   });
 
   $('.search-box').autocomplete({
+    autoFocus: true,
     source: function( request, response ) {
       $.ajax({
         url: '/places/search.json?term=' + request.term,
@@ -580,7 +581,7 @@ window.onload = function() {
           city: userCity,
           country: userCountry
         }},
-        success: console.log('saved: ' + ui.item.label),
+        success: console.log('saved: ' + ui.item.label)
       });
 
 

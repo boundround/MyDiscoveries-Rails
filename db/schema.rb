@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119195225) do
+ActiveRecord::Schema.define(version: 20150121195117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150119195225) do
     t.float    "view_heading"
   end
 
+  add_index "areas", ["display_name"], name: "index_areas_on_display_name", using: :btree
   add_index "areas", ["slug"], name: "index_areas_on_slug", using: :btree
 
   create_table "categories", force: true do |t|
@@ -121,7 +122,7 @@ ActiveRecord::Schema.define(version: 20150119195225) do
   create_table "photos", force: true do |t|
     t.string   "title"
     t.string   "credit"
-    t.string   "path",           null: false
+    t.string   "path"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "caption"
@@ -130,8 +131,9 @@ ActiveRecord::Schema.define(version: 20150119195225) do
     t.integer  "area_id"
     t.integer  "place_id"
     t.string   "caption_source"
-    t.string   "filename"
   end
+
+  add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
 
   create_table "places", force: true do |t|
     t.text     "description"
@@ -158,6 +160,8 @@ ActiveRecord::Schema.define(version: 20150119195225) do
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
+  add_index "places", ["description"], name: "index_places_on_description", using: :btree
+  add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
 
   create_table "search_queries", force: true do |t|

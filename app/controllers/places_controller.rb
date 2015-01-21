@@ -11,7 +11,8 @@ class PlacesController < ApplicationController
   end
 
   def search
-    @places = Place.where.not(subscription_level: ['out', 'draft']).where(["display_name ILIKE ?", "%" + params[:term] + "%"]).includes(:area)
+    @places = Place.where.not(subscription_level: ['out', 'draft'])
+              .text_search(params[:term]).includes(:area)
 
     respond_to do |format|
       format.json { render json: @places.to_json(:include => :area) }  # respond with the created JSON object

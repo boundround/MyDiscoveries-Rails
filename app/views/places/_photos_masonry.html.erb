@@ -25,13 +25,16 @@
           <div id="area-content">
             <p><%= raw @place.description %></p>
             <% unless @place.website.nil? %>
-              <a href="<%= @place.website %>" class="feedback">
+              <a href="<%= @place.website %>" target="blank" class="feedback">
                 <button class="btn website-button">Visit Website</button>
               </a>
             <% end %>
             <% unless @place.phone_number.nil? %>
             <br /><br />
               <p>Phone: <%= raw @place.phone_number %></p>
+            <% end %>
+            <% unless @place.display_address.nil? %>
+              <p><strong>Address:</strong> <%= raw @place.display_address %></p>
             <% end %>
           </div>
         </div>

@@ -6,6 +6,11 @@ class Place < ActiveRecord::Base
 
   scope :active, -> { where.not(subscription_level: ['out', 'draft']) }
 
+  include PgSearch
+  pg_search_scope :search, against: [:display_name, :description],
+    using: {tsearch: {dictionary: "english"}},
+    associated_against: {photos: :caption, area: [:display_name, :description]}
+
   validates_presence_of :display_name, :slug
 
   belongs_to :area
@@ -22,6 +27,15 @@ class Place < ActiveRecord::Base
 
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
+
+
+  def self.text_search(query)
+    if query.present?
+      search(query)
+    else
+      scoped
+    end
+  end
 
   def flush_place_cache #May be able to be removed
     Rails.cache.delete('all_places')
