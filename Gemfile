@@ -54,6 +54,9 @@ gem 'dalli'
 gem 'rack-cache'
 gem 'kgio'
 
+# full text search for postgreSQL
+gem 'pg_search'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

@@ -196,6 +196,10 @@ GEM
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
     pg (0.17.1)
+    pg_search (0.7.8)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     polyglot (0.3.5)
     puma (2.9.1)
       rack (>= 1.1, < 2.0)
@@ -366,6 +370,7 @@ DEPENDENCIES
   newrelic_rpm
   omniauth-facebook
   pg
+  pg_search
   puma
   rack-cache
   railroady
