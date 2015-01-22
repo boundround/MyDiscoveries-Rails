@@ -58,11 +58,11 @@
     </nav>
   <% end %>
 <%= javascript_include_tag 'mapbox' %>
+<%= javascript_include_tag 'application' %>
 <div>
   <%= yield %>
 </div>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-<%= javascript_include_tag 'application' %>
 <script src="//cdn.jsdelivr.net/isotope/2.0.0/isotope.pkgd.min.js"></script>
 <script src="//cdn.jsdelivr.net/imagesloaded/3.1.6/imagesloaded.min.js"></script>
 <script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
