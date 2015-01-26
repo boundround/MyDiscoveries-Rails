@@ -1,4 +1,5 @@
 window.onload = function(){
+  console.log('pac-input');
   $("#pac-input").geocomplete({
     types: ['geocode', 'establishment'],
     map: ".map-canvas",
@@ -9,7 +10,12 @@ window.onload = function(){
     detailsAttribute: "data-geo",
   });
 
-  var geoValue = $("#place_address").val();
+  if ($('#place_address').length > 0) {
+    var geoValue = $("#place_address").val();
+  } else {
+    var geoValue = $("#area_latitude").val() + ', ' + $("#area_longitude").val();
+  }
+  console.log('geovalue is: ' + geoValue);
 
   $("#pac-input").geocomplete("find", geoValue);
 
