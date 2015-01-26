@@ -45,6 +45,18 @@
                 <%= f.input :view_height %>
                 <%= f.input :view_heading %>
               </div>
+              <p><input id="pac-input" class="controls" type="text"
+                  placeholder="Enter a location"></p>
+
+              <div class="map-container">
+                <div class="map-canvas"></div>
+              </div>
+
+              <div class="form-group lat-lng">
+                <%= f.input :latitude, :input_html => { class: 'form-control', "data-geo" => "lat" } %>
+                <%= f.input :longitude, :input_html => { class: 'form-control', "data-geo" => "lng" } %>
+                <%= f.input :address, placeholder: 'Address', :input_html => { class: 'form-control', "data-geo" => "formatted_address" }, label: "Marker Address" %>
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -82,7 +94,7 @@
                     <%= f.file_field :path, as: :file %>
                   </div>
                   <div class="form-group">
-                    <%= f.input :caption, input_html: { class: 'form-control'} %>
+                    <%= f.input :caption, as: :bootsy, input_html: { class: 'form-control'} %>
                   </div>
                   <div class="form-group">
                     <%= f.input :title, input_html: { class: 'form-control'} %>
@@ -164,7 +176,7 @@
 
     </div>
   </div>
+  <%= javascript_include_tag 'area.js' %>
 <% else %>
   <h2>Unauthorized Page</h2>
 <% end %>
-<% javascript_include_tag 'area.js' %>

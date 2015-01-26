@@ -40,6 +40,9 @@
                 <%= f.input :website, input_html: { class: 'form-control' } %>
               </div>
               <div class="form-group">
+                <%= f.input :booking_url, input_html: { class: 'form-control' } %>
+              </div>
+              <div class="form-group">
                 <%= f.input :display_address, input_html: { class: 'form-control' } %>
               </div>
               <div class="form-group">
@@ -114,7 +117,7 @@
                     <%= f.file_field :path, as: :file %>
                   </div>
                   <div class="form-group">
-                    <%= f.input :caption, input_html: { class: 'form-control caption' } %>
+                    <%= f.input :caption, as: :bootsy, input_html: { class: 'form-control caption' } %>
                       Characters remaining:
                     <% unless photo.caption.nil? || photo.caption.length == 0 %>
                       <span class="charCount"><%= 140 - photo.caption.length %></span>

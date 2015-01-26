@@ -26,6 +26,16 @@
                 <button class="btn website-button">Visit Website</button>
               </a>
             <% end %>
+            <% unless @place.booking_url.nil? %>
+              <a href="<%= @place.booking_url %>" target="blank" class="feedback">
+                <button class="btn website-button">Book Now!</button>
+              </a>
+            <% end %>
+            <% unless @place.display_address.nil? %>
+              <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="feedback">
+                <button class="btn website-button">Get Directions</button>
+              </a>
+            <% end %>
             <% unless @place.phone_number.nil? %>
             <br /><br />
               <p>Phone: <%= raw @place.phone_number %></p>
