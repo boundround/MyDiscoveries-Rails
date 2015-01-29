@@ -12,10 +12,15 @@ class PlacesController < ApplicationController
 
   def search
     @places = Place.where.not(subscription_level: ['out', 'draft'])
-              .text_search(params[:term]).includes(:area)
+             .text_search(params[:term]).includes(:area)
+
+    # @places = Place.where("display_name @@ :q or description @@ :q", q: params[:term])
+    @areas = Area.where("display_name @@ :q", q: params[:term])
+
+    both = @areas + @places
 
     respond_to do |format|
-      format.json { render json: @places.to_json(:include => :area) }  # respond with the created JSON object
+      format.json { render json: both.to_json}  # respond with the created JSON object
     end
   end
 
