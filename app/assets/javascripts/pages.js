@@ -499,17 +499,17 @@ window.onload = function() {
         success: function( data ) {
           if ( data.length >= 1 ) {
             response( $.map( data, function( item ) {
-              var areaDisplay = null;
-              if (item.area.display_name) {
-                if (item.area.display_name == item.area.country) {
-                  areaDisplay = item.area.display_name;
-                } else {
-                  areaDisplay = item.area.display_name + ", " + item.area.country;
-                };
-              };
+              // var areaDisplay = null;
+              // if (item.area.display_name) {
+              //   if (item.area.display_name == item.area.country) {
+              //     areaDisplay = item.area.display_name;
+              //   } else {
+              //     areaDisplay = item.area.display_name + ", " + item.area.country;
+              //   };
+              // };
 
               return {
-                label: item.display_name + (areaDisplay ? ", " + areaDisplay : ""),
+                label: item.display_name, // + (areaDisplay ? ", " + areaDisplay : ""),
                 value: item.display_name,
                 lat: item.latitude,
                 lng: item.longitude,
@@ -518,7 +518,7 @@ window.onload = function() {
               }
             }));
           } else {
-            autoCompleteAreaSearch(request, response);
+            geoNamesSearch(request, response);
           }
         }
       });
