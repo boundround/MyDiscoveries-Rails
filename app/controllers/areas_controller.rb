@@ -52,6 +52,8 @@ class AreasController < ApplicationController
     @area = Area.friendly.find(params[:id])
     @photos = @area.photos
     @photo = Photo.new
+    @discount = Discount.new
+    @discounts = @area.discounts
 
   end
 
