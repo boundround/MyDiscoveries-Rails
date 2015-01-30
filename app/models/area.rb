@@ -12,7 +12,7 @@ class Area < ActiveRecord::Base
   has_many :discounts
 
   has_many :photos
-  accepts_nested_attributes_for :photos
+  accepts_nested_attributes_for :photos, :discounts
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 
