@@ -1,5 +1,6 @@
 class Discount < ActiveRecord::Base
   belongs_to :place
+  belongs_to :area
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)

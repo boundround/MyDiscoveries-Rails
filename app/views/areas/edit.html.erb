@@ -34,6 +34,9 @@
                 <%= f.input :display_name, input_html: { class: 'form-control' } %>
               </div>
               <div class="form-group">
+                <%= f.input :country, priority: ['Australia', 'United States of America'] %>
+              </div>
+              <div class="form-group">
                 <%= f.input :description, as: :bootsy, label: false, input_html: { class: 'form-control area-description-input' } %>
               </div>
               <div class="form-group published-radio">
@@ -76,7 +79,7 @@
                     <%= f.input :priority, collection: 1..10 %>
                     <%= f.button :submit %>
                     <%= (link_to "Delete", video, class: "btn btn-danger", method: :delete,
-                                                           data: { confirm: "Are you sure?" }) if current_user.admin_level > 3 %>
+                                                           data: { confirm: "Are you sure?" }) %>
                   </div>
                 </div>
               </div>
@@ -105,13 +108,29 @@
                   </div>
                     <%= f.button :submit %>
                     <%= (link_to "Delete", photo, class: "btn btn-danger", method: :delete,
-                                                           data: { confirm: "Are you sure?" }) if current_user.admin_level > 3 %>
+                                                           data: { confirm: "Are you sure?" }) %>
                 </div>
               </div>
             <% end %>
           <% end %>
         </div>
         <% end %>
+
+        <% unless @area.discounts.empty? %>
+        <% @area.discounts.each do |discount| %>
+          <%= simple_form_for [@area, discount] do |f| %>
+            <div class="item special discount-card photo-card">
+              <div class="form-group">
+                <h4>Edit Discount</h4>
+                <p><%= f.input :description, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'} %></p>
+                <%= f.button :submit %>
+                <%= link_to "Delete", discount, class: "btn btn-danger", method: :delete,
+                                   data: { confirm: "Are you sure?" } %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
 
         <% unless @area.games.empty? %>
           <% @area.games.each do |game| %>
@@ -164,6 +183,10 @@
 
         <div class="edit_photo">
           <%= render "/photos/form" %>
+        </div>
+
+        <div class="edit_photo">
+          <%= render "/discounts/form" %>
         </div>
 
         <div class="edit_photo">

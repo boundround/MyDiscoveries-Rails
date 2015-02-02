@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -21,20 +22,6 @@ class User < ActiveRecord::Base
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
         user.email = data["email"] if user.email.blank?
       end
-    end
-  end
-
-  def admin_level
-    if admin? && role == "admin"
-      5
-    elsif admin? && role == "publisher"
-      4
-    elsif admin? && role == "editor"
-      3
-    elsif admin? && role == "contributor"
-      2
-    else
-      1
     end
   end
 

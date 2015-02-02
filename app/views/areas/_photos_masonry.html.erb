@@ -94,4 +94,15 @@
       <% end %>
     <% end %>
 
+    <% unless @area.discounts.empty? %>
+      <% @area.discounts.each do |discount| %>
+        <div class="item special photo-card">
+          <div class="priority"><%= discount.priority ? discount.priority : 2 %></div>
+          <div class="discount-card">
+            <p><%= raw discount.description %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
 </div>

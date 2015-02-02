@@ -35,6 +35,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'devise'
 gem 'omniauth-facebook'
 
+gem 'authority'
+gem 'rolify'
+
 gem 'mandrill-api'
 
 gem 'rails_admin'

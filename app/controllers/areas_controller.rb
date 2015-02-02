@@ -52,6 +52,8 @@ class AreasController < ApplicationController
     @area = Area.friendly.find(params[:id])
     @photos = @area.photos
     @photo = Photo.new
+    @discount = Discount.new
+    @discounts = @area.discounts
 
   end
 
@@ -100,7 +102,7 @@ class AreasController < ApplicationController
 
     def area_update_params
       params.require(:area).permit(:display_name, :short_intro, :description, :address,
-                                    :published_status, :view_latitude, :view_longitude,
+                                    :published_status, :latitude, :longitude, :view_latitude, :view_longitude,
                                     :view_height, :view_heading, photo: [:title, :path, :credit, :caption, :area_id, :caption_source, :priority])
     end
 

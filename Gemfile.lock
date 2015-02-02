@@ -31,6 +31,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
+    authority (3.0.0)
+      activesupport (>= 3.0.0)
+      rake (>= 0.8.7)
     bcrypt (3.1.7)
     better_errors (2.0.0)
       coderay (>= 1.0.0)
@@ -260,6 +263,7 @@ GEM
     rest-client (1.6.8)
       mime-types (~> 1.16)
       rdoc (>= 2.4.2)
+    rolify (3.5.2)
     roo (1.13.2)
       nokogiri
       rubyzip
@@ -341,6 +345,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  authority
   better_errors
   binding_of_caller
   bootstrap-sass
@@ -377,6 +382,7 @@ DEPENDENCIES
   rails (= 4.1.1)
   rails_12factor
   rails_admin
+  rolify
   roo
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
