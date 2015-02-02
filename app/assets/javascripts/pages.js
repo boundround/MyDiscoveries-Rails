@@ -27,6 +27,7 @@ var formatCategory = function(string) {
 var postSearchCSS = function() {
   $('.br-logo-home').addClass('br-logo-home-post-search');
   $('.search-wrapper').addClass('search-wrapper-post-search');
+  $('.home-text').hide();
   $('.ui-select').show();
   $('#places').show();
   $('#areas').show();
@@ -35,6 +36,7 @@ var postSearchCSS = function() {
 var resetHomeScreen = function() {
   $('.br-logo-home').removeClass('br-logo-home-post-search');
   $('.search-wrapper').removeClass('search-wrapper-post-search');
+  $('.home-text').show();
   $('.ui-select').hide();
   $('#places').hide();
   $('#areas').hide();
