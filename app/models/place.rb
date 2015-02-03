@@ -144,7 +144,7 @@ class Place < ActiveRecord::Base
     puts id
     if self.subscription_level.downcase == 'premium' || self.subscription_level.downcase == 'standard' || self.subscription_level == 'basic'
       loader = Soulmate::Loader.new("place")
-      loader.add("term" => display_name + ' ' + description + ' ' + self.area.display_name + ' ' + self.area.description,
+      loader.add("term" => display_name.downcase + ' ' + description.downcase + ' ' + self.area.display_name.downcase,
                 "display_name" => display_name, "id" => id, "latitude" => latitude, "longitude" => longitude,
                 "url" => '/places/' + slug + '.html', "slug" => slug,
                 "area" => {"display_name" => self.area.display_name, "country" => self.area.country})
