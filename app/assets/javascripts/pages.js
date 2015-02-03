@@ -362,6 +362,12 @@ var showAreaCards = function(){
   var bounds = map.getBounds();
   var text = '';
   var areas = [];
+  areaMarkers.eachLayer(function(marker){
+    if (bounds.contains(marker.getLatLng())) {
+      console.log(marker.options.icon.options);
+      areas.push(marker.options.icon.options);
+    }
+  });
   placeMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
       areas.push(marker.options.icon.options.area)
@@ -370,10 +376,14 @@ var showAreaCards = function(){
   areas = removeDuplicateAreaObjects(areas);
   for (var i = 0; i < areas.length; i++) {
     var url = areas[i].url;
-    if (areas[i].country != areas[i].title){
-      var areaTitle = areas[i].title + ', ' + areas[i].country;
+    var areaTitle = '';
+    if (areas[i].hasOwnProperty('labelText')) {
+      areaTitle += areas[i].labelText;
     } else {
-      var areaTitle = areas[i].title
+      areaTitle += areas[i].title
+    }
+    if (areas[i].country != areaTitle){
+      areaTitle += ', ' + areas[i].country;
     }
     if (areas[i].placeCount > 0) {
       var placeCountText = areas[i].placeCount + ' places';
