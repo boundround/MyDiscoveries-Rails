@@ -209,6 +209,8 @@ GEM
     rack (1.5.2)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-contrib (1.2.0)
+      rack (>= 0.9.1)
     rack-pjax (0.8.0)
       nokogiri (~> 1.5)
       rack (~> 1.1)
@@ -304,6 +306,11 @@ GEM
     slim (2.0.3)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
+    soulmate (1.1.0)
+      multi_json (>= 1.0)
+      redis (>= 3.0)
+      sinatra (>= 1.0)
+      vegas (>= 0.1.0)
     spreadsheet (1.0.0)
       ruby-ole (>= 1.0)
     spring (1.1.3)
@@ -335,6 +342,8 @@ GEM
       addressable (~> 2.3.5)
       json (~> 1.8.1)
       rest-client (~> 1.6.7)
+    vegas (0.1.11)
+      rack (>= 1.0.0)
     warden (1.2.3)
       rack (>= 1.0)
     will_paginate (3.0.7)
@@ -378,10 +387,12 @@ DEPENDENCIES
   pg_search
   puma
   rack-cache
+  rack-contrib
   railroady
   rails (= 4.1.1)
   rails_12factor
   rails_admin
+  redis
   rolify
   roo
   sass-rails (~> 4.0.3)
@@ -391,6 +402,7 @@ DEPENDENCIES
   sinatra (>= 1.3.0)
   sitemap_generator
   slim (>= 1.1.0)
+  soulmate
   spring
   uglifier (>= 1.3.0)
   unirest

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :search_suggestions
+
   require 'sidekiq/web'
 
   mount Sidekiq::Web => '/sidekiq'
@@ -6,6 +8,10 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
+
+  mount Soulmate::Server, :at => "/sm"
+
+  post 'search_suggestions' => 'search_suggestions#index'
 
   post 'searchqueries/create' => 'search_queries#create'
   post 'notification' => 'pages#want_notification'

@@ -60,6 +60,11 @@ gem 'kgio'
 # full text search for postgreSQL
 gem 'pg_search'
 
+gem 'redis'
+
+gem 'rack-contrib'
+gem 'soulmate', :require => 'soulmate/server'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

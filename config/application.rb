@@ -36,5 +36,8 @@ module BoundRoundWeb
     config.action_dispatch.default_headers = {
       'X-Frame-Options' => 'ALLOWALL'
     }
+
+    config.middleware.insert_before 0, "SearchSuggestions"
+
   end
 end

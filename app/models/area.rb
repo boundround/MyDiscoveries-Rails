@@ -2,6 +2,9 @@ class Area < ActiveRecord::Base
   include FriendlyId
   friendly_id :display_name, :use => :slugged
 
+  after_save :load_into_soulmate
+  before_destroy :remove_from_soulmate
+
   scope :active, -> { where.not(published_status: ['out', 'draft']) }
 
   validates_presence_of :display_name, :slug
@@ -99,6 +102,17 @@ class Area < ActiveRecord::Base
       end
     end
     count
+  end
+
+  def load_into_soulmate
+    loader = Soulmate::Loader.new("area")
+    loader.add("term" => display_name, "display_name" => display_name, "id" => id, "description" => description,
+                "latitude" => latitude, "longitude" => longitude, "url" => "url", "slug" => slug, "country" => country)
+  end
+
+  def remove_from_soulmate
+    loader = Soulmate::Loader.new("place")
+    loader.remove("id" => self.id)
   end
 
 end
