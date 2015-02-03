@@ -1,4 +1,6 @@
 class Place < ActiveRecord::Base
+  after_save :load_into_soulmate
+  before_destroy :remove_from_soulmate
   before_save :check_valid_url
 
   include FriendlyId
@@ -136,6 +138,22 @@ class Place < ActiveRecord::Base
     if !website.match(/^(http:\/\/)/i) || !website.match(/^(http:\/\/)/i)
       website.prepend("http://")
     end
+  end
+
+  def load_into_soulmate
+    puts id
+    if self.subscription_level.downcase == 'premium' || self.subscription_level.downcase == 'standard' || self.subscription_level == 'basic'
+      loader = Soulmate::Loader.new("place")
+      loader.add("term" => display_name + ' ' + description + ' ' + self.area.display_name + ' ' + self.area.description,
+                "display_name" => display_name, "id" => id, "latitude" => latitude, "longitude" => longitude,
+                "url" => '/places/' + slug + '.html', "slug" => slug,
+                "area" => {"display_name" => self.area.display_name, "country" => self.area.country})
+    end
+  end
+
+  def remove_from_soulmate
+    loader = Soulmate::Loader.new("place")
+    loader.remove("id" => self.id)
   end
 
 end

@@ -35,6 +35,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'devise'
 gem 'omniauth-facebook'
 
+gem 'authority'
+gem 'rolify'
+
 gem 'mandrill-api'
 
 gem 'rails_admin'
@@ -56,6 +59,11 @@ gem 'kgio'
 
 # full text search for postgreSQL
 gem 'pg_search'
+
+gem 'redis'
+
+gem 'rack-contrib'
+gem 'soulmate', :require => 'soulmate/server'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

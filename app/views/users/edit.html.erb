@@ -1,4 +1,4 @@
-<% if current_user.admin_level == 5 %>
+<% if current_user.try(:admin?) %>
   <div class="container">
     <h1>Edit User: <%= @user.email %></h1>
     <%= render 'form' %>

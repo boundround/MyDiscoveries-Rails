@@ -495,10 +495,13 @@ window.onload = function() {
 
   $('.search-box').autocomplete({
     autoFocus: true,
+    //source: "/search_suggestions.json?term=" + request.term
     source: function( request, response ) {
       $.ajax({
-        url: '/places/search.json?term=' + request.term,
+        url: '/sm/search?types[]=place&types[]=area&limit=100&term=' + request.term,
         success: function( data ) {
+          console.log(data);
+          data = data.results.area.concat(data.results.place);
           if ( data.length >= 1 ) {
             response( $.map( data, function( item ) {
               var areaDisplay = null;

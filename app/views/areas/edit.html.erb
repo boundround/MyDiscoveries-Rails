@@ -79,7 +79,7 @@
                     <%= f.input :priority, collection: 1..10 %>
                     <%= f.button :submit %>
                     <%= (link_to "Delete", video, class: "btn btn-danger", method: :delete,
-                                                           data: { confirm: "Are you sure?" }) if current_user.admin_level > 3 %>
+                                                           data: { confirm: "Are you sure?" }) %>
                   </div>
                 </div>
               </div>
@@ -108,7 +108,7 @@
                   </div>
                     <%= f.button :submit %>
                     <%= (link_to "Delete", photo, class: "btn btn-danger", method: :delete,
-                                                           data: { confirm: "Are you sure?" }) if current_user.admin_level > 3 %>
+                                                           data: { confirm: "Are you sure?" }) %>
                 </div>
               </div>
             <% end %>
