@@ -1,3 +1,4 @@
+<% provide(:title, @area.display_name) %>
 <div class="area-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
   <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
   <div class="page-wrap">

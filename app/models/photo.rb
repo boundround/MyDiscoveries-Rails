@@ -1,5 +1,6 @@
 class Photo < ActiveRecord::Base
-  # belongs_to :photoable, :polymorphic => true
+  belongs_to :area
+  belongs_to :place
 
   mount_uploader :path, PhotoUploader
   process_in_background :path

@@ -10,7 +10,7 @@
             <% unless @place.photos.empty? %>
               <% if @hero_photo %>
                 <img class="hero-photo" srcset="<%= @hero_photo.path_url(:large) %> 900w, <%= @hero_photo.path_url(:medium) %> 600w, <%= @hero_photo.path_url(:small) %> 300w"
-                  sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= @hero_photo.path.path.gsub('photos/', '') %>" />
+                  sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= alt_tag_for(@hero_photo) %>" />
               <div class="priority">-1</div>
               <div class="photo-credit">Credit: <%= @hero_photo.credit %></div>
               <% end %>
@@ -18,7 +18,7 @@
           <% end %>
         </div>
         <div class="about-content">
-          <h3>About <%= @place.display_name %></h3>
+          <h1>Things to do at <%= @place.display_name %>!</h1>
           <div id="area-content">
             <p><%= raw @place.description %></p>
             <% unless @place.website.nil? %>
@@ -73,11 +73,11 @@
         <div class="item photo photo-card photo-thumb">
           <div class="game-divider"></div>
           <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
-                                                              photo_alt: photo.path.path.gsub('photos/', ''),
+                                                              photo_alt: alt_tag_for(photo),
                                                               photo_credit: "Credit: " + photo.credit
                                                               } do %>
           <% end %>
-          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>"/>
+          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= alt_tag_for(photo) %>"/>
           <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
           <div class="photo-caption">
             <p><%= raw photo.caption %></p>

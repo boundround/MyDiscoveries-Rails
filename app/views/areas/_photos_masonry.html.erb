@@ -11,7 +11,7 @@
               <% if @hero_photo %>
                 <picture>
                   <img class="hero-photo" srcset="<%= @hero_photo.path_url(:large) %> 900w, <%= @hero_photo.path_url(:medium) %> 600w, <%= @hero_photo.path_url(:small) %> 300w"
-                    sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= @hero_photo.path.path.gsub('photos/', '') %>" />
+                    sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= alt_tag_for(@hero_photo) %>" />
                   <div class="photo-credit">Credit: <%= @hero_photo.credit %></div>
                 </picture>
               <% end %>
@@ -19,7 +19,7 @@
           <% end %>
         </div>
         <div class="about-content">
-          <h3>About <%= @area.display_name %></h3>
+          <h1>Things To Do In <%= @area.display_name %>!</h1>
           <div id="area-content">
             <p><%= raw @area.description %></p>
           </div>
@@ -32,7 +32,7 @@
           <div class="game-divider">
           </div>
           <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
-                                                              photo_alt: photo.path.path.gsub('photos/', ''),
+                                                              photo_alt: alt_tag_for(photo),
                                                               photo_credit: photo.credit
                                                               } do %>
           <% end %>

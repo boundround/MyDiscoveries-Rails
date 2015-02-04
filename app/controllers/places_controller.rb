@@ -130,15 +130,15 @@ class PlacesController < ApplicationController
 
   private
     def place_params
-      params.require(:place).permit(:code, :identifier, :display_name, :description, :subscription_level,
+      params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon,
                                     :passport_icon, :address, :area_id, photos_attributes: [:place_id, :title,
-                                      :path, :caption, :credit, :caption_source, :priority], category_ids: [])
+                                      :path, :caption, :alt_tag, :credit, :caption_source, :priority], category_ids: [])
     end
 
     def place_update_params
-      params.require(:place).permit(:display_name, :description, :address, :phone_number, :website, :booking_url, :logo,
+      params.require(:place).permit(:display_name, :description, :address, :phone_number, :booking_url, :display_address, :website, :booking_url, :logo,
                                     :map_icon, :area_id, :latitude, :longitude, :subscription_level, photo: [:title, :path, :credit,
-                                      :caption, :place_id, :caption_source, :priority], category_ids: [])
+                                      :caption, :place_id, :alt_tag, :caption_source, :priority], category_ids: [])
     end
 end
