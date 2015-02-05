@@ -30,5 +30,5 @@ doc/
 # ignore videos for android apk
 /public/videos
 
-# ignore Google Analytics
+# Ignore Google Analytics
 /views/layouts/_ga.html.erb

@@ -19,7 +19,7 @@
           <% end %>
         </div>
         <div class="about-content">
-          <h1>Things To Do In <%= @area.display_name %>!</h1>
+          <h1>Things To Do In <%= @area.display_name %></h1>
           <div id="area-content">
             <p><%= raw @area.description %></p>
           </div>
@@ -37,6 +37,7 @@
                                                               } do %>
           <% end %>
           <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
+          <div class="photo-credit">Credit: <%= photo.credit %></div>
           <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
           <div class="photo-caption">
           <p><%= raw photo.caption %></p>

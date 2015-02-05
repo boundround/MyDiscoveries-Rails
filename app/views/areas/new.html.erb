@@ -53,6 +53,12 @@
         <%= ff.input :credit, required: true %>
       </div>
       <div class="form-group">
+        <%= ff.input :alt_tag %>
+      </div>
+      <div class="form-group">
+        <%= ff.input :priority, as: :hidden, :input_html => { :value => 1 } %>
+      </div>
+      <div class="form-group">
         <%= ff.input :caption, input_html: { class: 'form-control'} %>
       </div>
     <% end %>

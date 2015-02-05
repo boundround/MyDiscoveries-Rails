@@ -7,7 +7,7 @@
             <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             <div class="priority">-1</div>
           <% else %>
-            <% unless @place.photos.empty? %>
+            <% unless @place.photos.blank? %>
               <% if @hero_photo %>
                 <img class="hero-photo" srcset="<%= @hero_photo.path_url(:large) %> 900w, <%= @hero_photo.path_url(:medium) %> 600w, <%= @hero_photo.path_url(:small) %> 300w"
                   sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= alt_tag_for(@hero_photo) %>" />
@@ -18,29 +18,29 @@
           <% end %>
         </div>
         <div class="about-content">
-          <h1>Things to do at <%= @place.display_name %>!</h1>
+          <h1>Things to do at <%= @place.display_name %></h1>
           <div id="area-content">
             <p><%= raw @place.description %></p>
-            <% unless @place.website.nil? %>
+            <% unless @place.website.blank? %>
               <a href="<%= @place.website %>" target="blank" class="feedback">
                 <button class="btn website-button">Visit Website</button>
               </a>
             <% end %>
-            <% unless @place.booking_url.nil? %>
+            <% unless @place.booking_url.blank? %>
               <a href="<%= @place.booking_url %>" target="blank" class="feedback">
                 <button class="btn website-button">Book Now!</button>
               </a>
             <% end %>
-            <% unless @place.display_address.nil? %>
+            <% unless @place.display_address.blank? %>
               <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="feedback">
                 <button class="btn website-button">Get Directions</button>
               </a>
             <% end %>
-            <% unless @place.phone_number.nil? %>
+            <% unless @place.phone_number.blank? %>
             <br /><br />
-              <p>Phone: <%= raw @place.phone_number %></p>
+              <p><strong>Phone:</strong> <%= raw @place.phone_number %></p>
             <% end %>
-            <% unless @place.display_address.nil? %>
+            <% unless @place.display_address.blank? %>
               <p><strong>Address:</strong> <%= raw @place.display_address %></p>
             <% end %>
           </div>
@@ -78,6 +78,7 @@
                                                               } do %>
           <% end %>
           <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= alt_tag_for(photo) %>"/>
+          <div class="photo-credit">Credit: <%= photo.credit %></div>
           <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
           <div class="photo-caption">
             <p><%= raw photo.caption %></p>
