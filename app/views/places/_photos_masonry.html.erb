@@ -38,7 +38,7 @@
             <% end %>
             <% unless @place.phone_number.blank? %>
             <br /><br />
-              <p>Phone: <%= raw @place.phone_number %></p>
+              <p><strong>Phone:</strong> <%= raw @place.phone_number %></p>
             <% end %>
             <% unless @place.display_address.blank? %>
               <p><strong>Address:</strong> <%= raw @place.display_address %></p>
