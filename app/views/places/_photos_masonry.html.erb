@@ -78,6 +78,7 @@
                                                               } do %>
           <% end %>
           <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= alt_tag_for(photo) %>"/>
+          <div class="photo-credit">Credit: <%= photo.credit %></div>
           <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
           <div class="photo-caption">
             <p><%= raw photo.caption %></p>

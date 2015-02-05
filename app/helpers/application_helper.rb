@@ -5,7 +5,7 @@ module ApplicationHelper
     if page_title.empty?
       base_title + " | Fun Travel and Activities for Kids"
     else
-      "Fun Travel and Activities for Kids In #{page_title} | #{base_title}"
+      "Fun Travel and Activities for Kids and Families In #{page_title} | #{base_title}"
     end
   end
 
