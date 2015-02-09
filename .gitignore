@@ -31,4 +31,4 @@ doc/
 /public/videos
 
 # Ignore Google Analytics
-/views/layouts/_ga.html.erb
+app/views/layouts/_ga.html.erb
