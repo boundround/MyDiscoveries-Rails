@@ -643,17 +643,34 @@ window.onload = function() {
       }
     },
     open: function() {
-
       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-      if (iOS) {
-        $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
-      }
     },
     close: function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
     }
   });
 }
+
+$('.search-box').on('touchstart', 'li.ui-menu-item', function(){
+
+  var $container = $(this).closest('.search-box'), $item = $(this);
+
+  //if we haven't closed the result box like we should have, simulate a click on the element they tapped on.
+  function fixTouchDropDown() {
+    if ($container.is(':visible') && $item.hasClass('ui-state-focus')) {
+
+      $item.trigger('click');
+      return true;
+    }
+    return false;
+  }
+
+  setTimeout(function () {
+    if (!fixTouchDropDown()) {
+      setTimeout(fixTouchDropDown, 600);
+    }
+  }, 600);
+});
 
 var filters = document.getElementById('filters');
 var checkboxes = document.getElementsByClassName('filter');
