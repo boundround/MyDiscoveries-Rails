@@ -15,8 +15,14 @@
   width: 500px;
 }
 
+.fact-card {
+  background: url(asset_path('fun-fact-blue.jpg')) no-repeat;
+  background-size: contain;
+  background-color: #EAFFFF !important;
+}
+
 .game-caption {
-  background-color: #efffff;
+  background-color: #ffffff;
   padding: 10px 10px 0 10px;
   width: 100%;
   display: inline-block;
