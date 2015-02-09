@@ -44,7 +44,7 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     if @photo.update(photo_params)
-      redirect_to :back
+      redirect_to :back, notice: "Photo updated"
     end
   end
 
