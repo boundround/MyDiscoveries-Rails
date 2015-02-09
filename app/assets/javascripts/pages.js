@@ -494,6 +494,7 @@ window.onload = function() {
   var userCountry = '';
 
   var resultSource = '';
+  var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
 
   $.ajax({
     url: 'http://freegeoip.net/json/' + userIP,
@@ -642,7 +643,11 @@ window.onload = function() {
       }
     },
     open: function() {
+
       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      if (iOS) {
+        $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
+      }
     },
     close: function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
