@@ -511,7 +511,6 @@ window.onload = function() {
       $.ajax({
         url: '/sm/search?types[]=place&types[]=area&limit=100&term=' + request.term,
         success: function( data ) {
-          console.log(data);
           data = data.results.area.concat(data.results.place);
           if ( data.length >= 1 ) {
             response( $.map( data, function( item ) {
@@ -540,30 +539,35 @@ window.onload = function() {
           } else {
             geoNamesSearch(request, response);
           }
+
+          $('.search-sidebar').on('click', function(){
+            var topItem = {};
+            var areaDisplay = null;
+            if (data[0].hasOwnProperty('area')) {
+              if (data[0].area.display_name == data[0].area.country) {
+                areaDisplay = data[0].area.display_name;
+              } else {
+                areaDisplay = data[0].area.display_name + ", " + data[0].area.country;
+              };
+            };
+
+            if (data[0].hasOwnProperty('country')) {
+              areaDisplay = data[0].country ? data[0].country : "";
+            }
+            topItem = {
+              label: data[0].display_name + (areaDisplay ? ", " + areaDisplay : ""),
+                value: data[0].display_name,
+                lat: data[0].latitude,
+                lng: data[0].longitude,
+                resultType: data[0].placeType,
+                placeId: data[0].slug
+            }
+            console.log("TOPITEM");
+            console.log(topItem);
+            $('#search-box').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item: topItem});
+          });
         }
       });
-
-      var autoCompleteAreaSearch = function(request, response) {
-        $.ajax({
-          url: '/areas/search.json?term=' + request.term,
-          success: function( data ) {
-            if ( data.length >= 1 ) {
-              response( $.map( data, function( item ) {
-                return {
-                  label: item.display_name + (item.country ? ", " + item.country : ""),
-                  value: item.display_name,
-                  lat: item.latitude,
-                  lng: item.longitude,
-                  resultType: 'area'
-                }
-              }));
-            } else {
-              geoNamesSearch(request, response);
-              // googlePlaceSearch(request, response);
-            }
-          }
-        });
-      };
 
       var geoNamesSearch = function(request, response) {
         $.ajax({
@@ -641,36 +645,21 @@ window.onload = function() {
       if (typeof brglobe != 'undefined') {
          brglobe.setLocation(ui.item.lat, ui.item.lng);
       }
+
+      document.activeElement.blur();
+
     },
     open: function() {
       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      if (iOS) {
+        $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
+      }
     },
     close: function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
     }
   });
 }
-
-$('.search-box').on('touchstart', 'li.ui-menu-item', function(){
-
-  var $container = $(this).closest('.search-box'), $item = $(this);
-
-  //if we haven't closed the result box like we should have, simulate a click on the element they tapped on.
-  function fixTouchDropDown() {
-    if ($container.is(':visible') && $item.hasClass('ui-state-focus')) {
-
-      $item.trigger('click');
-      return true;
-    }
-    return false;
-  }
-
-  setTimeout(function () {
-    if (!fixTouchDropDown()) {
-      setTimeout(fixTouchDropDown, 600);
-    }
-  }, 600);
-});
 
 var filters = document.getElementById('filters');
 var checkboxes = document.getElementsByClassName('filter');
