@@ -651,9 +651,29 @@ window.onload = function() {
     },
     open: function() {
       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-      // if (iOS) {
-      //   $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
-      // }
+      if (iOS) {
+        $('.ui-autocomplete').on('touchstart', 'li.ui-menu-item', function(){
+
+          var $container = $(this).closest('.ui-autocomplete'),
+              $item = $(this);
+
+          //if we haven't closed the result box like we should have, simulate a click on the element they tapped on.
+          function fixitifitneedsit() {
+              if ($container.is(':visible') && $item.hasClass('ui-state-focus')) {
+
+                  $item.trigger('click');
+                  return true; // it needed it
+              }
+              return false; // it didn't
+          }
+
+          setTimeout(function () {
+              if (!fixitifitneedsit()) {
+                  setTimeout(fixitifitneedsit, 600);
+              }
+          }, 600);
+        });
+      }
     },
     close: function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
