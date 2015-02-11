@@ -131,10 +131,18 @@ select {
 }
 
 #photos-masonry {
+//	overflow: scroll;
   padding: 0;
-  width: 65%;
+//  width: 65%;
+  width: 85%;
   margin: 0 auto;
 
+}
+
+#cards-float {
+  padding: 0;
+  width: 85%;
+  margin: 0 auto;
 }
 
 .grid-sizer { width: 33%; }

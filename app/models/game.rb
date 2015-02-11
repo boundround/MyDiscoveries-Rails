@@ -8,7 +8,7 @@ class Game < ActiveRecord::Base
 
   scope :ordered_by_place_name, -> { joins(:place).order('places.display_name') }
 
-  self.per_page = 9
+  self.per_page = 50
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
