@@ -533,7 +533,7 @@ window.onload = function() {
                 value: item.display_name,
                 lat: item.latitude,
                 lng: item.longitude,
-                resultType: 'place',
+                resultType: item.placeType,
                 placeId: item.slug
               }
             }));
@@ -605,7 +605,7 @@ window.onload = function() {
       });
 
 
-      var newZoom = 7;
+      var newZoom = 9;
       if (ui.item.resultType === 'place') {
         newZoom = 13;
       }

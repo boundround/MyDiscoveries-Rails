@@ -107,7 +107,7 @@ class Area < ActiveRecord::Base
   def load_into_soulmate
     loader = Soulmate::Loader.new("area")
     loader.add("term" => display_name.downcase, "display_name" => display_name, "id" => id, "description" => description,
-                "latitude" => latitude, "longitude" => longitude, "url" => "url", "slug" => slug, "country" => country)
+                "latitude" => latitude, "longitude" => longitude, "url" => "url", "slug" => slug, "country" => country, "placeType" => "area")
   end
 
   def remove_from_soulmate
