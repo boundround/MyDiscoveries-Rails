@@ -511,9 +511,7 @@ window.onload = function() {
       $.ajax({
         url: '/sm/search?types[]=place&types[]=area&limit=100&term=' + request.term,
         success: function( data ) {
-          data = data.results.area.concat(data.results.place);
-          if ( data.length >= 1 ) {
-            response( $.map( data, function( item ) {
+          var data = $.map(data.results.area.concat(data.results.place), function( item ) {
               var areaDisplay = null;
               if (item.hasOwnProperty('area')) {
                 if (item.area.display_name == item.area.country) {
@@ -535,36 +533,16 @@ window.onload = function() {
                 resultType: item.placeType,
                 placeId: item.slug
               }
-            }));
+            });
+
+          if ( data.length >= 1 ) {
+            response(data);
           } else {
             geoNamesSearch(request, response);
           }
 
           $('.search-sidebar').on('click', function(){
-            var topItem = {};
-            var areaDisplay = null;
-            if (data[0].hasOwnProperty('area')) {
-              if (data[0].area.display_name == data[0].area.country) {
-                areaDisplay = data[0].area.display_name;
-              } else {
-                areaDisplay = data[0].area.display_name + ", " + data[0].area.country;
-              };
-            };
-
-            if (data[0].hasOwnProperty('country')) {
-              areaDisplay = data[0].country ? data[0].country : "";
-            }
-            topItem = {
-              label: data[0].display_name + (areaDisplay ? ", " + areaDisplay : ""),
-                value: data[0].display_name,
-                lat: data[0].latitude,
-                lng: data[0].longitude,
-                resultType: data[0].placeType,
-                placeId: data[0].slug
-            }
-            console.log("TOPITEM");
-            console.log(topItem);
-            $('#search-box').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item: topItem});
+            $('#search-box').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item: data[0]});
           });
         }
       });
