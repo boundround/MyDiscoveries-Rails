@@ -2,54 +2,6 @@
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
 <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
   <div class="page-wrap">
-    <div class="dropdown pull-right">
-      <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
-      </button>
-      <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#" data-filter="*">
-            <%= image_tag 'all_icon-02.svg', class: 'dropdown-menu-icon' %>
-            Show All
-          </a>
-        </li>
-        <% unless @videos.empty? %>
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#" data-filter=".video">
-              <%= image_tag 'video_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.video'} %>
-              Videos
-            </a>
-          </li>
-        <% end %>
-
-        <% unless @photos.empty? %>
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
-              <%= image_tag 'photo_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.photo'} %>
-              Photos
-            </a>
-          </li>
-        <% end %>
-
-        <% unless @games.empty? %>
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#" data-filter=".game">
-              <%= image_tag 'game_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.game'} %>
-              Games
-            </a>
-          </li>
-        <% end %>
-
-        <% unless @place.discounts.empty? %>
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#" data-filter=".special">
-              <%= image_tag 'specials_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.special'} %>
-              Specials
-            </a>
-          </li>
-        <% end %>
-
-      </ul>
-    </div>
     <div class="banner-wrapper">
       <div class="banner">
         <div class="title-wrapper">

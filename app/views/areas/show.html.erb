@@ -2,35 +2,6 @@
 <div class="area-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
   <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
   <div class="page-wrap">
-    <div class="dropdown pull-right">
-      <button class="dropdown-toggle fa fa-bars fa-3x menu-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
-      </button>
-      <ul id="menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#" data-filter="*">
-            <%= image_tag 'all_icon-02.svg', class: 'dropdown-menu-icon' %>
-            Show All
-          </a>
-        </li>
-        <% unless @photos.empty? %>
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#" data-filter=".photo">
-              <%= image_tag 'photo_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.photo'} %>
-              Photos
-            </a>
-          </li>
-        <% end %>
-        <% unless @fun_facts.empty? %>
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#" data-filter=".fun_fact">
-              <%= image_tag 'photo_icon-01.svg', class: 'dropdown-menu-icon', data: { filter: '.fun_fact'} %>
-              Fun Facts
-            </a>
-          </li>
-        <% end %>
-
-      </ul>
-    </div>
     <div class="banner-wrapper">
       <div class="banner">
         <!--img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner"-->
