@@ -651,9 +651,9 @@ window.onload = function() {
     },
     open: function() {
       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-      if (iOS) {
-        $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
-      }
+      // if (iOS) {
+      //   $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
+      // }
     },
     close: function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
