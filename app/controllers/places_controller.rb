@@ -30,6 +30,7 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.friendly.find(params[:id])
+    @area = @place.area
 
     if @place.subscription_level == "Premium"
       @videos = @place.videos.where.not(priority: 1)

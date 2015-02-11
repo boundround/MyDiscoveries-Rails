@@ -15,6 +15,25 @@
   width: 500px;
 }
 
+#place-cards {
+  padding: 0 12%;
+}
+
+.slideout-menu {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  background: #fd7e56;
+  width: 100%;
+  left: -100%;
+}
+
+#slideout-menu-toggle {
+  position: fixed;
+  top: 100px;
+  z-index: 200;
+}
+
 .fact-card {
   background: url(asset_path('fun-fact-blue.jpg')) no-repeat;
   background-size: contain;
@@ -147,4 +166,20 @@
    .globe-home {
      width: 10%;
    }
+ }
+
+ @media (min-width: 1000px) {
+  #slideout-menu-toggle {
+    display: none;
+  }
+
+  .slideout-menu {
+    position: relative;
+    z-index: 1;
+    top: inherit;
+    background: #fd7e56;
+    width: 100%;
+    left: 0 !important;
+  }
+
  }
