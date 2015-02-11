@@ -34,14 +34,17 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :small do
+    process :auto_orient
     process :resize_to_fit => [300, 300]
   end
 
   version :medium do
+    process :auto_orient
     process :resize_to_fit => [500, 500]
   end
 
   version :large do
+    process :auto_orient
     process :resize_to_fit => [900, 900]
   end
   # version : do
@@ -61,7 +64,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # end
 
   def auto_orient
-    manipulate! { |img| img.auto_orient! || img }
+    manipulate! { |img| img.auto_orient || img }
   end
 
 end
