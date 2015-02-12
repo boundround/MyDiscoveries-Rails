@@ -17,6 +17,11 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "photos"
   end
 
+  def auto_orient
+    manipulate! do |image|
+    image.tap(&:auto_orient)
+  end
+
   process :auto_orient
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -64,11 +69,6 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
-  def auto_orient
-  manipulate! do |image|
-    image.tap(&:auto_orient)
-  end
 end
 
 end
