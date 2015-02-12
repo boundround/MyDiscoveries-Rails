@@ -17,13 +17,6 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "photos"
   end
 
-  def auto_orient
-    manipulate! do |image|
-    image.tap(&:auto_orient)
-  end
-
-  process :auto_orient
-
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
@@ -41,17 +34,14 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :small do
-    process :auto_orient
     process :resize_to_fit => [300, 300]
   end
 
   version :medium do
-    process :auto_orient
     process :resize_to_fit => [500, 500]
   end
 
   version :large do
-    process :auto_orient
     process :resize_to_fit => [900, 900]
   end
   # version : do
@@ -69,6 +59,9 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-end
+
+  def auto_orient
+    manipulate! { |img| img.auto_orient || img }
+  end
 
 end
