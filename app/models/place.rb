@@ -146,7 +146,7 @@ class Place < ActiveRecord::Base
       loader = Soulmate::Loader.new("place")
       loader.add("term" => display_name.downcase + ' ' + description.downcase + ' ' + self.area.display_name.downcase,
                 "display_name" => display_name, "id" => id, "latitude" => latitude, "longitude" => longitude,
-                "url" => '/places/' + slug + '.html', "slug" => slug,
+                "url" => '/places/' + slug + '.html', "slug" => slug, "placeType" => "place",
                 "area" => {"display_name" => self.area.display_name, "country" => self.area.country})
     end
   end
