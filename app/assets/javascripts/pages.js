@@ -77,6 +77,7 @@ $(document).ready(function(){
   });
 });
 
+
 var areasPlacesSwitch = function() {
   //switch between areas and places
   if (window.parsedHash && window.parsedHash.zoom > 3) {
