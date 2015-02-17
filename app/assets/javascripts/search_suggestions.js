@@ -21,6 +21,7 @@ window.onload = function() {
       $.ajax({
         url: '/sm/search?types[]=place&types[]=area&limit=100&term=' + request.term,
         success: function( data ) {
+          console.log("DATA");
           console.log(data);
           data = data.results.area.concat(data.results.place);
           if ( data.length >= 1 ) {
@@ -82,7 +83,8 @@ window.onload = function() {
     minLength: 2,
     select: function( event, ui ) {
 
-      window.location = ui.item.url;
+      if (ui.item.resultType !== "geoNames")
+        window.location = ui.item.url;
 
       $.ajax({
         type: "POST",
@@ -96,40 +98,6 @@ window.onload = function() {
         success: console.log('saved: ' + ui.item.label)
       });
 
-
-      var newZoom = 7;
-      if (ui.item.resultType === 'place') {
-        newZoom = 13;
-      }
-      $('#svgdiv').fadeOut("fast");
-      map.setView( [ui.item.lat, ui.item.lng], newZoom );
-      window.resultCard = $('#' + ui.item.placeId);
-      console.log("saving result card");
-      showAreaCards();
-      showPlaceCards();
-
-      if (ui.item.resultType === 'geoNames') {
-        var popup = L.popup()
-          .setLatLng([ui.item.lat, ui.item.lng])
-          .setContent('<h3>' + ui.item.value + '</h3><br><button type="button" id="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
-          .openOn(map);
-      }
-
-      $('#want-button').on('click', function(e) {
-        $('#want-button').hide();
-        $('.leaflet-popup-content').append("Thanks we're on it!");
-
-        $.ajax({
-          type: "POST",
-          url: '/notification',
-          data: {place: ui.item.value,
-                city: userCity,
-                country: userCountry
-          },
-          success: console.log('sent: ' + ui.item.value),
-        });
-      });
-
     },
     open: function() {
       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
@@ -141,6 +109,7 @@ window.onload = function() {
 
     $('#slideout-menu-toggle').on('click', function(event){
       event.preventDefault();
+      window.scrollTo(0,0);
       // create menu variables
       var slideoutMenu = $('.slideout-menu');
       var slideoutMenuWidth = $('.slideout-menu').width();

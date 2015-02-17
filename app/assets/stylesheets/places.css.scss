@@ -11,6 +11,11 @@
   overflow: scroll;
 }
 
+#area-cards {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .item-large {
 	margin: 0 5px 5px 0;
 	float: left;
@@ -127,8 +132,8 @@
 }
 
 .slideout-menu {
-  position: fixed;
-  z-index: 1;
+  position: absolute;
+  z-index: 100;
   top: 0;
   background: #fd7e56;
   width: 100%;
@@ -252,6 +257,11 @@
   margin-top: 10px;
 }
 
+.nearby-title {
+  color: white;
+  text-align: center;
+}
+
 .website-button {
   color: white;
   background-color: #fd7e56;
@@ -261,7 +271,7 @@
 .globe-home {
   width: 48px;
   position: absolute;
-  z-index: 100;
+  z-index: 200;
   top: 10px;
   left: 10px;
 }
@@ -329,7 +339,7 @@
   opacity: 0.6;
   width: 100%;
 /*  background-color: #fd7e56;*/
-	z-index: 10000;
+	z-index: 10;
 }
 
 .video-play-hide {
@@ -497,11 +507,21 @@
 
   .slideout-menu {
     position: relative;
-    z-index: 1;
+    z-index: 100;
     top: inherit;
     background: #fd7e56;
     width: 100%;
     left: 0 !important;
+  }
+
+  #search-cards {
+    width: 40%;
+  }
+
+  .page-wrap {
+    width: 60%;
+    position: absolute;
+    right: 0px;
   }
 
  }

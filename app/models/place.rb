@@ -58,7 +58,7 @@ class Place < ActiveRecord::Base
       places = self.active.includes(:categories, :games, :videos, :photos)
       places.each do |place|
         if place.area != nil
-          area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.length, "country" => place.area.country}
+          area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.active.length, "country" => place.area.country}
         end
         # Assign icon based on 'premium' level and category
         if place.categories[0].nil?

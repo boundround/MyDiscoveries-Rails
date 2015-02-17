@@ -6,9 +6,21 @@
   </div>
   <div id="hide-map-button" class="show-hide-map-button">Hide map</div>
   <div id="card-container">
+    <% if @place %>
+      <div id="area-cards">
+        <a href="<%= area_path(@area) %>">
+          <div class="area-card">
+            <div class="area-card-pin"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>
+          <div class="area-title"><%= @area.display_name %><br>
+            <span class="place-count"><%= @area.places.active.length %> Places</span>
+          </div>
+        </div>
+        </a>
+      </div>
+    <% end %>
     <div id="place-cards">
       <% unless @area.places.blank? %>
-      <h3>Nearby Places</h3>
+      <h3 class="nearby-title">Places Near <%= @place ? @place.display_name : @area.display_name %></h3>
         <% @area.places.each do |place| %>
           <% if place.subscription_level != 'out' && place.subscription_level != 'draft' %>
             <div class="place-card" id="<%= place.slug %>">
@@ -58,4 +70,5 @@
     </div>
   </footer>
 </div>
+
 

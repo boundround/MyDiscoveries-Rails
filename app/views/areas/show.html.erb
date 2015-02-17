@@ -1,4 +1,5 @@
 <% provide(:title, @area.display_name) %>
+<button id="slideout-menu-toggle">SLIDE OUT</button>
 <div class="area-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
   <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
   <div class="page-wrap">
@@ -6,14 +7,18 @@
       <div class="banner">
         <!--img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner"-->
         <div class="title-wrapper">
-          <h1 class="title"><%= @area.display_name %></h1>
+          <div class="title"><%= @area.display_name %></div>
         </div>
       </div>
     </div>
     <%= render partial:'photos_masonry' %>
+    <%= render '/search_suggestions/search_cards' %>
     <% if current_user.try(:admin?) %>
       <p><%= link_to 'Edit Area', edit_area_path %></p>
     <% end %>
   </div>
 
 </div>
+<%= javascript_include_tag 'jquery.min' %>
+<%= javascript_include_tag 'jquery.ui' %>
+<%= javascript_include_tag 'pages' %>

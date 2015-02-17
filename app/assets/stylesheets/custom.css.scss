@@ -133,7 +133,7 @@ select {
 #photos-masonry {
 //	overflow: scroll;
   padding: 0;
-//  width: 65%;
+//  width: 100%;
   width: 85%;
   margin: 0 auto;
 
@@ -235,7 +235,7 @@ select {
 @media (max-width: 900px) {
 
   #photos-masonry {
-    width: 85%;
+    width: 100%;
 /*	margin: 25% auto;*/
   }
 
