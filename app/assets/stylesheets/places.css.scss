@@ -180,21 +180,6 @@
   padding: 0 12%;
 }
 
-.slideout-menu {
-  position: absolute;
-  z-index: 100;
-  top: 0;
-  background: #fd7e56;
-  width: 100%;
-  left: -100%;
-}
-
-#slideout-menu-toggle {
-  position: fixed;
-  top: 100px;
-  z-index: 200;
-}
-
 .fact-card {
   background: url(asset_path('fun-fact-blue.jpg')) no-repeat;
   background-size: contain;
@@ -215,10 +200,6 @@
 
 .game-ds {
   width: 35% !important;
-}
-
-.page-wrap {
-	min-width: 500px;
 }
 
 .game-divider {
@@ -548,7 +529,7 @@
 //	opacity: 0;
 }
 
- @media (min-width: 1000px) {
+ /*@media (min-width: 1000px) {
   #slideout-menu-toggle {
     display: none;
   }
@@ -572,7 +553,7 @@
     right: 0px;
   }
 
- }
+ }*/
 
 .card-item-highlight {
  position: relative;

@@ -1,5 +1,4 @@
 <% provide(:title, @area.display_name) %>
-<button id="slideout-menu-toggle">SLIDE OUT</button>
 <div class="area-content" data-lat="<%= @area.latitude %>" data-long="<%= @area.longitude %>">
   <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
   <div class="page-wrap">
@@ -11,14 +10,22 @@
         </div>
       </div>
     </div>
-    <%= render partial:'photos_masonry' %>
-    <%= render '/search_suggestions/search_cards' %>
-    <% if current_user.try(:admin?) %>
-      <p><%= link_to 'Edit Area', edit_area_path %></p>
-    <% end %>
+    <div class="slick-carousel">
+      <div>
+        <%= render partial:'photos_masonry' %>
+      </div>
+      <div>
+        <%= render '/search_suggestions/search_cards' %>
+      </div>
+      <% if current_user.try(:admin?) %>
+        <p><%= link_to 'Edit Area', edit_area_path %></p>
+      <% end %>
+    </div>
   </div>
 
 </div>
 <%= javascript_include_tag 'jquery.min' %>
 <%= javascript_include_tag 'jquery.ui' %>
+<%= javascript_include_tag 'slick.min' %>
+<%= javascript_include_tag 'slick-carousel' %>
 <%= javascript_include_tag 'pages' %>
