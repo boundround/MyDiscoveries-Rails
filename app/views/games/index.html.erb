@@ -54,7 +54,7 @@
     <div class="cards-float">
       <% @games.each do |game| %>
 				<% if (game != nil and game.place != nil and game.place.area != nil) %>
-			
+
 	        <div class="card-item <%= game.game_type %> card-item-small card-item-hide game-card">
 	          <%= content_tag "div", class: "game-data", data: {url: game.url} do %><% end %>
 						<div class="card-small-content">

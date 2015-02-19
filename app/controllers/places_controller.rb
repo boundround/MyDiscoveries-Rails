@@ -29,8 +29,8 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.friendly.find(params[:id])
-    @area = @place.area
+    @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
+    @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
 
     if @place.subscription_level == "Premium"
       @videos = @place.videos.where.not(priority: 1)

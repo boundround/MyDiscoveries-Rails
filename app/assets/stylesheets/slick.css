@@ -117,7 +117,7 @@
 .slick-dots {
     position: absolute;
     top: -25px;
-    left: 44%;
+    left: 48%;
 }
 
 .slick-dots li {
@@ -130,8 +130,8 @@
     font-size: 0;
     line-height: 0;
     display: inline-block;
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     padding: 5px;
     cursor: pointer;
     color: transparent;
@@ -140,5 +140,12 @@
 }
 
 .slick-active button {
-    background-color: white !important;
+    background-color: white;
+}
+
+@media (max-width: 500px) {
+    .slick-dots {
+        left: 35%;
+    }
+
 }

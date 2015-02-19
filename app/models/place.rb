@@ -126,14 +126,6 @@ class Place < ActiveRecord::Base
     display_name_changed?
   end
 
-  def get_card_image
-    if photos.empty?
-      "http://placehold.it/350x150"
-    else
-      photos.order(:priority).first.path_url(:small)
-    end
-  end
-
   def check_valid_url
     if !website.match(/^(http:\/\/)/i) || !website.match(/^(http:\/\/)/i)
       website.prepend("http://")
