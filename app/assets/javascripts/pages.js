@@ -24,6 +24,43 @@ var formatCategory = function(string) {
   return string = string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
+
+var setViewForGooglePlace = function(place){
+  geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ address: place }, function(results, status){
+    if (status == google.maps.GeocoderStatus.OK) {
+      var location = [results[0].geometry.location.k, results[0].geometry.location.D];
+      $('#svgdiv').fadeOut("fast");
+        map.setView( location, 9 );
+
+      var popup = L.popup()
+        .setLatLng(location)
+        .setContent('<h3>' + place + '</h3><br><button type="button" id="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
+        .openOn(map);
+
+      $('#want-button').on('click', function(e) {
+      $('#want-button').hide();
+      $('.leaflet-popup-content').append("Thanks we're on it!");
+
+      $.ajax({
+        type: "POST",
+        url: '/notification',
+        data: {place: ui.item.value,
+              city: userCity,
+              country: userCountry
+        },
+        success: console.log('sent: ' + ui.item.value),
+      });
+    });
+    } else {
+      console.log(status);
+    }
+  });
+
+
+};
+
+
 var postSearchCSS = function() {
   $('.br-logo-home').addClass('br-logo-home-post-search');
   $('.search-wrapper').addClass('search-wrapper-post-search');
@@ -364,7 +401,6 @@ var showAreaCards = function(){
   var areas = [];
   areaMarkers.eachLayer(function(marker){
     if (bounds.contains(marker.getLatLng())) {
-      console.log(marker.options.icon.options);
       areas.push(marker.options.icon.options);
     }
   });
@@ -512,33 +548,33 @@ window.onload = function() {
         url: '/sm/search?types[]=place&types[]=area&limit=100&term=' + request.term,
         success: function( data ) {
           var data = $.map(data.results.area.concat(data.results.place), function( item ) {
-              var areaDisplay = null;
-              if (item.hasOwnProperty('area')) {
-                if (item.area.display_name == item.area.country) {
-                  areaDisplay = item.area.display_name;
-                } else {
-                  areaDisplay = item.area.display_name + ", " + item.area.country;
-                };
+            var areaDisplay = null;
+            if (item.hasOwnProperty('area')) {
+              if (item.area.display_name == item.area.country) {
+                areaDisplay = item.area.display_name;
+              } else {
+                areaDisplay = item.area.display_name + ", " + item.area.country;
               };
+            };
 
-              if (item.hasOwnProperty('country')) {
-                areaDisplay = item.country ? item.country : "";
-              }
+            if (item.hasOwnProperty('country')) {
+              areaDisplay = item.country ? item.country : "";
+            }
 
-              return {
-                label: item.display_name + (areaDisplay ? ", " + areaDisplay : ""),
-                value: item.display_name,
-                lat: item.latitude,
-                lng: item.longitude,
-                resultType: item.placeType,
-                placeId: item.slug
-              }
-            });
+            return {
+              label: item.display_name + (areaDisplay ? ", " + areaDisplay : ""),
+              value: item.display_name,
+              lat: item.latitude,
+              lng: item.longitude,
+              resultType: item.placeType,
+              place_id: item.slug
+            }
+          });
 
           if ( data.length >= 1 ) {
             response(data);
           } else {
-            geoNamesSearch(request, response);
+            googlePlaceSearch(request, response);
           }
 
           $('.search-sidebar').on('click', function(){
@@ -547,28 +583,53 @@ window.onload = function() {
         }
       });
 
-      var geoNamesSearch = function(request, response) {
-        $.ajax({
-          url: "http://ws.geonames.org/searchJSON?username=boundround",
-          dataType: "jsonp",
-          data: {
-            featureClass: "S",
-            style: "full",
-            maxRows: 12,
-            name_startsWith: request.term
-          },
-          success: function( data ) {
-            response( $.map( data.geonames, function( item ) {
-              return {
-                label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
-                value: item.name,
-                lat: item.lat,
-                lng: item.lng,
-                resultType: 'geoNames'
-              }
-            }));
+      // var geoNamesSearch = function(request, response) {
+      //   $.ajax({
+      //     url: "http://ws.geonames.org/searchJSON?username=boundround",
+      //     dataType: "jsonp",
+      //     data: {
+      //       featureClass: "S",
+      //       style: "full",
+      //       maxRows: 12,
+      //       name_startsWith: request.term
+      //     },
+      //     success: function( data ) {
+      //       response( $.map( data.geonames, function( item ) {
+      //         return {
+      //           label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+      //           value: item.name,
+      //           lat: item.lat,
+      //           lng: item.lng,
+      //           resultType: 'geoNames'
+      //         }
+      //       }));
+      //     }
+      //   });
+      // }
+
+      var googlePlaceSearch = function(request, response) {
+        function initialize() {
+          var service = new google.maps.places.AutocompleteService();
+          service.getQueryPredictions({ input: request.term }, callback);
+        }
+
+        function callback(predictions, status) {
+          if (status != google.maps.places.PlacesServiceStatus.OK) {
+            alert(status);
+            return;
           }
-        });
+          response( $.map( predictions, function( item ) {
+            return {
+              label: item.description,
+              value: item.description,
+              lat: -33.865143,
+              lng: 151.2099,
+              resultType: 'Google',
+              placeId: item.place_id
+            }
+          }));
+        }
+        initialize();
       }
 
     },
@@ -586,39 +647,21 @@ window.onload = function() {
         success: console.log('saved: ' + ui.item.label)
       });
 
-
       var newZoom = 9;
       if (ui.item.resultType === 'place') {
         newZoom = 13;
-      }
-      $('#svgdiv').fadeOut("fast");
-      map.setView( [ui.item.lat, ui.item.lng], newZoom );
-      window.resultCard = $('#' + ui.item.placeId);
-      console.log("saving result card");
-      showAreaCards();
-      showPlaceCards();
-
-      if (ui.item.resultType === 'geoNames') {
-        var popup = L.popup()
-          .setLatLng([ui.item.lat, ui.item.lng])
-          .setContent('<h3>' + ui.item.value + '</h3><br><button type="button" id="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
-          .openOn(map);
+        $('#svgdiv').fadeOut("fast");
+        console.log(ui.item.lat + ', ' + ui.item.lng + ' ' + ui.item.resultType);
+        map.setView( [ui.item.lat, ui.item.lng], newZoom );
+        window.resultCard = $('#' + ui.item.place_id);
+        console.log("saving result card");
+        showAreaCards();
+        showPlaceCards();
       }
 
-      $('#want-button').on('click', function(e) {
-        $('#want-button').hide();
-        $('.leaflet-popup-content').append("Thanks we're on it!");
-
-        $.ajax({
-          type: "POST",
-          url: '/notification',
-          data: {place: ui.item.value,
-                city: userCity,
-                country: userCountry
-          },
-          success: console.log('sent: ' + ui.item.value),
-        });
-      });
+      if (ui.item.resultType === 'Google') {
+        setViewForGooglePlace(ui.item.label);
+      }
 
       if (typeof brglobe != 'undefined') {
          brglobe.setLocation(ui.item.lat, ui.item.lng);
@@ -629,29 +672,6 @@ window.onload = function() {
     },
     open: function() {
       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-      if (iOS) {
-        $('.ui-autocomplete').on('touchstart', 'li.ui-menu-item', function(){
-
-          var $container = $(this).closest('.ui-autocomplete'),
-              $item = $(this);
-
-          //if we haven't closed the result box like we should have, simulate a click on the element they tapped on.
-          function fixitifitneedsit() {
-              if ($container.is(':visible') && $item.hasClass('ui-state-focus')) {
-
-                  $item.trigger('click');
-                  return true; // it needed it
-              }
-              return false; // it didn't
-          }
-
-          setTimeout(function () {
-              if (!fixitifitneedsit()) {
-                  setTimeout(fixitifitneedsit, 600);
-              }
-          }, 600);
-        });
-      }
     },
     close: function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
