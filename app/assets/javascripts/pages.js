@@ -25,7 +25,7 @@ var formatCategory = function(string) {
 }
 
 
-var setViewForGooglePlace = function(place){
+var setViewForGooglePlace = function(place, city, country){
   geocoder = new google.maps.Geocoder();
   geocoder.geocode({ address: place }, function(results, status){
     if (status == google.maps.GeocoderStatus.OK) {
@@ -45,11 +45,11 @@ var setViewForGooglePlace = function(place){
       $.ajax({
         type: "POST",
         url: '/notification',
-        data: {place: ui.item.value,
-              city: userCity,
-              country: userCountry
+        data: {place: place,
+              city: city,
+              country: country
         },
-        success: console.log('sent: ' + ui.item.value),
+        success: console.log('sent: ' + place),
       });
     });
     } else {
@@ -660,7 +660,7 @@ window.onload = function() {
       }
 
       if (ui.item.resultType === 'Google') {
-        setViewForGooglePlace(ui.item.label);
+        setViewForGooglePlace(ui.item.label, userCity, userCountry);
       }
 
       if (typeof brglobe != 'undefined') {
