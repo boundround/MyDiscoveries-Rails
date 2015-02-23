@@ -648,7 +648,7 @@ window.onload = function() {
       });
 
       var newZoom = 9;
-      if (ui.item.resultType === 'place') {
+      if (ui.item.resultType === 'place' || ui.item.resultType === 'area') {
         newZoom = 13;
         $('#svgdiv').fadeOut("fast");
         console.log(ui.item.lat + ', ' + ui.item.lng + ' ' + ui.item.resultType);
