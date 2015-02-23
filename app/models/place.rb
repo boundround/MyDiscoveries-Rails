@@ -93,7 +93,7 @@ class Place < ActiveRecord::Base
             "videoCount" => place.videos.length,
             "gameCount" => place.games.length,
             "imageCount" => place.photos.length,
-            "heroImage" => place.get_card_image,
+            "heroImage" => !place.photos.blank? ? place.photos.first.path_url(:small) : "http://placehold.it/350x150",
             "placeId" => place.slug,
             "area" => area_info
           }

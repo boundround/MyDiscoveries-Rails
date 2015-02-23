@@ -45,6 +45,17 @@
   margin-top: 10px;
 }
 
+.search-map {
+  z-index: 100;
+}
+
+.map-only-page {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+}
+
 .map-page {
   position: absolute;
   right: 0;
@@ -434,37 +445,8 @@
   color: #3c9500;
 }
 
-.show-hide-map-button {
-  z-index: 100;
-  width: 36%;
-  height: 50px;
-  color: white;
-  display: none;
-  background-color: #fd7e56;
-  font-family: Signika, sans-serif;
-  font-size: 20px;
-  border: none;
-  border-radius: 3px;
-  padding-top: 3%;
-  text-align: center;
-  font-weight: lighter;
-  z-index: 100;
-}
-
-#explore-map-button {
-  position: absolute;
-  bottom: 20px;
-  right: 32%;
-}
-
-#hide-map-button {
-  border: 1px solid white;
-  margin: 10px 30% 0 30%;
-}
-
 @media (max-width: 1000px) {
   #cards {
-    height: 85%;
     width: 100%;
   }
 
@@ -526,10 +508,6 @@
     width: 94%;
   }
 
-  #explore-map-button {
-    display: block;
-  }
-
   .video-game-buttons {
     text-align: center;
     width: 90%;
@@ -548,5 +526,11 @@
     margin: 0 auto;
   }
 
+}
+
+@media (max-width: 1000px) {
+  .video-game-buttons {
+    display: none;
+  }
 }
 

@@ -14,6 +14,9 @@ class PagesController < ApplicationController
     @initial_zoom = request.original_url
   end
 
+  def map_only
+  end
+
   def want_notification
     @place = params[:place]
     @city = params[:city]

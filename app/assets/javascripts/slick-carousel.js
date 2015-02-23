@@ -20,3 +20,13 @@ $(document).ready(function () {
     ]
   });
 });
+
+var goToPlacesSlide = function(){
+  if ($('.slick-carousel').slick('slickCurrentSlide') == 0)
+    $('.slick-carousel').slick('slickGoTo', '1');
+}
+
+var goToInfoSlide = function(){
+  if ($('.slick-carousel').slick('slickCurrentSlide') == 1)
+    $('.slick-carousel').slick('slickGoTo', '0');
+}

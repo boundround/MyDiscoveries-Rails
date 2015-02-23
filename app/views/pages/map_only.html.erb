@@ -1,0 +1,62 @@
+<div class='map-only-page'>
+  <div id='map'>
+    <div class="search-wrapper search-map">
+      <input id="search-box" class="search-box" placeholder="Where do you want to explore?"></input>
+      <div class="search-sidebar"></div>
+    </div>
+  </div>
+  <div id="zoomcontrol">
+    <div id="zoomplus"><%=image_tag("zoomplus.png")%></div>
+    <div id="zoomscroller"><%=image_tag("zoomscroller2.png")%></div>
+    <div id="zoomminus"><%=image_tag("zoomminus.png")%></div>
+  </div>
+  </div>
+</div>
+<!--
+<div class="dude-help">
+  <div class="balloon-wrapper">
+    <a href="#" data-toggle="modal" data-target="#helpModal">
+      <div class="help-balloon">
+        <div>
+          <p class="balloon-dialog">Hi there!<br />Click here for the Bound Round guide.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="dude-icon-wrapper">
+    <%= image_tag "dude-help.png", class: "dude-help-icon" %>
+  </div>
+</div>
+
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-body">
+      <%= render '/pages/help' %>
+    </div>
+  </div>
+  <div class="footer">
+    <a class="feedback" href="mailto:help@boundround.com">Send us your feedback!</a>
+  </div>
+</div> -->
+
+<div id='user-ip' data-ip=<%= request.remote_ip %>></div>
+<!-- Google Fonts embed code -->
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Signika:300:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+  </script>
+<%= javascript_include_tag 'd3.v3.min' %>
+<%= javascript_include_tag 'jquery.min' %>
+<%= javascript_include_tag 'jquery.ui' %>
+<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+<%= javascript_include_tag 'pages' %>

@@ -529,7 +529,13 @@
 //	opacity: 0;
 }
 
- @media (min-width: 1000px) {
+.card-item-highlight {
+ position: relative;
+	padding: 1% 0 1% 0;
+	background-color: lightblue;
+}
+
+@media (min-width: 1000px) {
 
   #search-cards {
     width: 40%;
@@ -541,11 +547,11 @@
     right: 0px;
   }
 
- }
+}
 
-.card-item-highlight {
- position: relative;
-	padding: 1% 0 1% 0;
-	background-color: lightblue;
+@media (max-width: 1000px) {
+  .globe-home {
+    display: none;
+  }
 }
 
