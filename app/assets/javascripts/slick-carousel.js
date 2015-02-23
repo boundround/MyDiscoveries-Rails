@@ -11,10 +11,10 @@ $(document).ready(function () {
         breakpoint: 1000,
         settings: {
           arrows: false,
-          dots: true,
+          dots: false,
           slidesToShow: 1,
           slidesToScroll: 1,
-          infinite: true
+          infinite: false;
         }
       }
     ]
