@@ -33,9 +33,9 @@ class PlacesController < ApplicationController
     @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
 
     if @place.subscription_level == "Premium"
-      @videos = @place.videos.where.not(priority: 1)
+      @videos = @place.videos.where.not(priority: 1) || []
       @hero_video = @place.videos.find_by(priority: 1)
-      @games = @place.games
+      @games = @place.games || []
     else
       @videos = []
       @games = []
