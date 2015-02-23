@@ -14,7 +14,7 @@ $(document).ready(function () {
           dots: false,
           slidesToShow: 1,
           slidesToScroll: 1,
-          infinite: false;
+          infinite: false
         }
       }
     ]
