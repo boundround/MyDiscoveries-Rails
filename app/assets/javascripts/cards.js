@@ -320,6 +320,8 @@ $(document).ready(function(){
 	      var game_url = $card.find('.game-data').data('url');
 	      var content = '<iframe class="game-frame" src=\"'+ game_url + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
+				window.location.href = game_url;
+				
 				common_after($card, content);
 			});
 
