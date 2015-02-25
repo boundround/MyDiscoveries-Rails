@@ -34,6 +34,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Devise and Omniauth gems for user authentication
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'omniauth-instagram'
 
 gem 'authority'
 gem 'rolify'
