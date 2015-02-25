@@ -13,12 +13,22 @@ select {
   color: black !important;
 }
 
+.navbar-nav {
+  margin: 0 -15px;
+}
+
 .centered-icon {
   text-align: center;
 }
 
 .inline-list {
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
   text-align: center;
+  top: 0;
+  left: 0;
+  right: 0;
   ul
   {
     li
