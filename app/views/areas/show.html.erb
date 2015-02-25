@@ -6,14 +6,26 @@
       <div class="banner">
         <!--img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner"-->
         <div class="title-wrapper">
-          <h1 class="title"><%= @area.display_name %></h1>
+          <div class="title"><%= @area.display_name %></div>
         </div>
       </div>
     </div>
-    <%= render partial:'photos_masonry' %>
-    <% if current_user.try(:admin?) %>
-      <p><%= link_to 'Edit Area', edit_area_path %></p>
-    <% end %>
+    <div class="slick-carousel">
+      <div>
+        <%= render partial:'photos_masonry' %>
+      </div>
+      <div>
+        <%= render '/search_suggestions/search_cards' %>
+      </div>
+      <% if current_user.try(:admin?) %>
+        <p><%= link_to 'Edit Area', edit_area_path %></p>
+      <% end %>
+    </div>
   </div>
 
 </div>
+<%= javascript_include_tag 'jquery.min' %>
+<%= javascript_include_tag 'jquery.ui' %>
+<%= javascript_include_tag 'slick.min' %>
+<%= javascript_include_tag 'slick-carousel' %>
+<%= javascript_include_tag 'pages' %>

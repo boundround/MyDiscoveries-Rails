@@ -95,25 +95,6 @@ var removeDuplicateAreaObjects = function(array) {
   return out;
 }
 
-$(document).ready(function(){
-  $('#explore-map-button').on('click', function(){
-    $(this).hide();
-    $('#cards').css('height', '25%');
-    $('#card-container').hide();
-    $('.home-footer').hide();
-    $('#hide-map-button').show();
-    postSearchCSS();
-  });
-
-  $('#hide-map-button').on('click', function() {
-    $(this).hide();
-    $('#cards').css('height', '80%');
-    $('#card-container').show();
-    $('.home-footer').show();
-    $('#explore-map-button').show();
-  });
-});
-
 var areasPlacesSwitch = function() {
   //switch between areas and places
   if (window.parsedHash && window.parsedHash.zoom > 3) {

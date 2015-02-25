@@ -60,7 +60,7 @@ class Area < ActiveRecord::Base
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
             },
-            "placeCount" => area.count_live_places,
+            "placeCount" => area.places.active.length,
             "country" => area.country
           }
         }
@@ -92,22 +92,10 @@ class Area < ActiveRecord::Base
     display_name_changed?
   end
 
-  def count_live_places
-    count = 0
-    unless places.empty?
-      places.each do |place|
-        unless place.subscription_level == "draft" || place.subscription_level == "out"
-          count += 1
-        end
-      end
-    end
-    count
-  end
-
   def load_into_soulmate
     loader = Soulmate::Loader.new("area")
     loader.add("term" => display_name.downcase, "display_name" => display_name, "id" => id, "description" => description,
-                "latitude" => latitude, "longitude" => longitude, "url" => "url", "slug" => slug, "country" => country, "placeType" => "area")
+                "latitude" => latitude, "longitude" => longitude, "url" => '/areas/' + slug + '.html', "slug" => slug, "country" => country, "placeType" => "area")
   end
 
   def remove_from_soulmate

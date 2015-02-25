@@ -1,0 +1,73 @@
+<div id="search-cards" class="slideout-menu">
+  <div class="br-logo-home"></div>
+  <div class="search-wrapper">
+    <input class="search-box" placeholder="Where do you want to explore?"></input>
+    <div class="search-sidebar"></div>
+  </div>
+  <div id="card-container">
+    <% if @place %>
+      <div id="area-cards">
+        <a href="<%= area_path(@area) %>">
+          <div class="area-card">
+            <div class="area-card-pin"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>
+          <div class="area-title"><%= @area.display_name %><br>
+            <span class="place-count"><%= @area.places.active.length %> Places</span>
+          </div>
+        </div>
+        </a>
+      </div>
+    <% end %>
+    <div id="place-cards">
+      <% unless @area.places.blank? %>
+      <h3 class="nearby-title">Places Near <%= @place ? @place.display_name : @area.display_name %></h3>
+        <% @area.places.each do |place| %>
+          <% if place.subscription_level != 'out' && place.subscription_level != 'draft' %>
+            <div class="place-card" id="<%= place.slug %>">
+              <a href="<%= place_path(place) %>">
+                <div class="upper-card" style="background-image: url(<%= !place.photos.blank? ? place.photos.first.path_url(:small) : "http://placehold.it/350x150" %>)">
+                  <div class="card-category">
+                    <img src="http://d1w99recw67lvf.cloudfront.net/category_icons/<%= place.categories[0].identifier %>_icon.png" alt="sights icon"><%= place.categories[0].name %>
+                  </div>
+                </div>
+                <p class="place-title <%= place.categories[0].identifier %>"><%= place.display_name %></p><br>
+              </a>
+              <div class="card-footer">
+                <div class="image-count">
+                  <img src="http://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png" height="12px" alt="photo count"><%= place.photos.length %>
+                </div>
+                <div class="video-count"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png" height="12px" alt="videos count"><% place.videos.length %>
+                </div>
+                <div class="game-count">
+                  <img src="http://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png" height="12px" alt="games count"><%= place.games.length %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="clearfix"></div>
+    <div class="video-game-buttons">
+      <button class="video-button button" onclick="window.location.href='/videos'">
+        <%= image_tag("all_videos_icon.png", size: "20x15", class: "all-game-video-icon") %>
+        See All Videos
+      </button>
+      <button class="game-button button" onclick="window.location.href='/games'">
+        <%= image_tag("all_games_icon.png", size: "20x15", class: "all-game-video-icon") %>
+        Play All Games
+      </button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <footer>
+    <div class="home-footer">
+      <span class="top-footer"><p><a href="http://boundround.com/kids/" target="blank">Travelling Families</a> <a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a> <a href="http://boundround.com/education/" target="blank">Teachers</a><a href=" http://boundround.com/media/" target="blank">Media</a></span></p>
+      <span class="bottom-footer">
+        <a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a>
+        <a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a> <a href="http://boundround.com/about-us/" target="blank">About Us</a><a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a>
+      </span>
+    </div>
+  </footer>
+</div>
+
+

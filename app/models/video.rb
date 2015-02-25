@@ -6,7 +6,7 @@ class Video < ActiveRecord::Base
 
   # before_save :validate_vimeo_id
 
-  self.per_page = 9
+  self.per_page = 200
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)

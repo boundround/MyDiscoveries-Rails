@@ -7,11 +7,14 @@ class PagesController < ApplicationController
     #     <a href='https://mozilla.org/firefox/' class='alert-link'>Firefox</a>,
     #      or <a href='http://windows.microsoft.com/ie' class='alert-link'>Internet Explorer.</a> <br>").html_safe
     # end
-
   end
 
   def globe
     @initial_zoom = request.original_url
+  end
+
+  def map_only
+    @map = []
   end
 
   def want_notification

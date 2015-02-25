@@ -58,7 +58,7 @@ class Place < ActiveRecord::Base
       places = self.active.includes(:categories, :games, :videos, :photos)
       places.each do |place|
         if place.area != nil
-          area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.length, "country" => place.area.country}
+          area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.active ? place.area.places.active.length : 0, "country" => place.area.country}
         end
         # Assign icon based on 'premium' level and category
         if place.categories[0].nil?
@@ -93,7 +93,7 @@ class Place < ActiveRecord::Base
             "videoCount" => place.videos.length,
             "gameCount" => place.games.length,
             "imageCount" => place.photos.length,
-            "heroImage" => place.get_card_image,
+            "heroImage" => !place.photos.blank? ? place.photos.first.path_url(:small) : "http://placehold.it/350x150",
             "placeId" => place.slug,
             "area" => area_info
           }
@@ -124,14 +124,6 @@ class Place < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     display_name_changed?
-  end
-
-  def get_card_image
-    if photos.empty?
-      "http://placehold.it/350x150"
-    else
-      photos.order(:priority).first.path_url(:small)
-    end
   end
 
   def check_valid_url

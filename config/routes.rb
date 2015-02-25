@@ -39,6 +39,8 @@ Rails.application.routes.draw do
 
   get '/map' => 'pages#index'
 
+  get '/map_only' => 'pages#map_only'
+
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
   end
