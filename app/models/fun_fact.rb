@@ -1,5 +1,6 @@
 class FunFact < ActiveRecord::Base
   belongs_to :area
+  belongs_to :place
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)

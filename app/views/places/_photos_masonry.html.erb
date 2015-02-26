@@ -153,6 +153,17 @@
       <% end %>
     <% end %>
 
+    <% unless @place.fun_facts.empty? %>
+      <% @place.fun_facts.each do |fun_fact| %>
+        <div class="item fun_fact photo-card">
+          <div class="discount-card fact-card">
+            <p><%= raw fun_fact.content %></p>
+          </div>
+          <div class="priority"><%= fun_fact.priority ? fun_fact.priority : 2 %></div>
+        </div>
+      <% end %>
+    <% end %>
+
     <% unless @place.discounts.empty? %>
       <% @place.discounts.each do |discount| %>
         <div class="item special photo-card">
