@@ -46,7 +46,7 @@
       </div>
     </nav>
   <% end %>
-
+  <% if browser.mobile? %>
   <nav class="navbar navbar-default inline-list" role="navigation">
     <ul class="nav navbar-nav">
       <% if @place || @area %>
@@ -65,6 +65,7 @@
       <!-- <li><a href="#"><i class="fa fa-user fa-2x centered-icon"></i><br>My Stuff</a></li> -->
     </ul>
   </nav>
+  <% end %>
 
   <%= javascript_include_tag 'mapbox' %>
   <%= javascript_include_tag 'application' %>

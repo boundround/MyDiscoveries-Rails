@@ -5,4 +5,9 @@ Rails.configuration.middleware.use Browser::Middleware do
       redirect_to map_path
     end
   end
+
+  # if request.path == '/map_only' || request.path == '/map'
+  #   redirect_to root_path unless browser.mobile?
+  # end
+
 end

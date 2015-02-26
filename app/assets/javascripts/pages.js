@@ -511,6 +511,7 @@ window.onload = function() {
   var userCountry = '';
 
   var resultSource = '';
+
   var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
 
   $.ajax({
