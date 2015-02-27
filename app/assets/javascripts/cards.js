@@ -371,12 +371,6 @@ $(document).ready(function(){
       player.api('pause');
   });
 
-  $('.globe-home').on('click', function(e) {
-    e.preventDefault();
-    window.history.back();
-    console.log('globe button pressed');
-  });
-
 	sizeContent();
 
 });

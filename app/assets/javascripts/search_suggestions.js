@@ -1,10 +1,8 @@
 window.onload = function() {
+  console.log("search-suggestions.js");
   var userIP = $('#user-ip').data('ip');
   var userCity = '';
   var userCountry = '';
-
-  var resultSource = '';
-  var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
 
   $.ajax({
     url: 'http://freegeoip.net/json/' + userIP,
@@ -32,8 +30,8 @@ window.onload = function() {
                   areaDisplay = item.area.display_name;
                 } else {
                   areaDisplay = item.area.display_name + ", " + item.area.country;
-                };
-              };
+                }
+              }
 
               if (item.hasOwnProperty('country')) {
                 areaDisplay = item.country ? item.country : "";
@@ -47,36 +45,37 @@ window.onload = function() {
                 resultType: 'place',
                 placeId: item.slug,
                 url: item.url
-              }
+              };
             }));
           } else {
-            geoNamesSearch(request, response);
+            googlePlaceSearch(request, response);
           }
         }
       });
 
-      var geoNamesSearch = function(request, response) {
-        $.ajax({
-          url: "http://ws.geonames.org/searchJSON?username=boundround",
-          dataType: "jsonp",
-          data: {
-            featureClass: "S",
-            style: "full",
-            maxRows: 12,
-            name_startsWith: request.term
-          },
-          success: function( data ) {
-            response( $.map( data.geonames, function( item ) {
-              return {
-                label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
-                value: item.name,
-                lat: item.lat,
-                lng: item.lng,
-                resultType: 'geoNames'
-              }
-            }));
+      var googlePlaceSearch = function(request, response) {
+        function initialize() {
+          var service = new google.maps.places.AutocompleteService();
+          service.getQueryPredictions({ input: request.term }, callback);
+        }
+
+        function callback(predictions, status) {
+          if (status != google.maps.places.PlacesServiceStatus.OK) {
+            alert(status);
+            return;
           }
-        });
+          response( $.map( predictions, function( item ) {
+            return {
+              label: item.description,
+              value: item.description,
+              lat: -33.865143,
+              lng: 151.2099,
+              resultType: 'Google',
+              placeId: item.place_id
+            }
+          }));
+        }
+        initialize();
       }
 
     },
@@ -106,5 +105,4 @@ window.onload = function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
     }
   });
-}
-
+};
