@@ -94,6 +94,9 @@ window.onload = function() {
         success: console.log('saved: ' + ui.item.label)
       });
 
+      if (ui.item.resultType !== "Google")
+        window.location = ui.item.url;
+
     },
     open: function() {
       $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
