@@ -82,9 +82,6 @@ window.onload = function() {
     minLength: 2,
     select: function( event, ui ) {
 
-      if (ui.item.resultType !== "geoNames")
-        window.location = ui.item.url;
-
       $.ajax({
         type: "POST",
         url: '/searchqueries/create',
