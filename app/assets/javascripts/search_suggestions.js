@@ -12,6 +12,37 @@ window.onload = function() {
     }
   });
 
+  var setViewForGooglePlace = function(place, city, country){
+    geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: place }, function(results, status){
+      if (status == google.maps.GeocoderStatus.OK) {
+
+        var areas = $('#place-cards');
+        var content = '<div class="want-card"><div class="area-title">'
+                   + place + '<br><button type="button" class="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button></div></div>';
+        areas.empty();
+        areas.html(content);
+
+        $('.want-button').on('click', function(e) {
+        $('.want-button').hide();
+        areas.find('.area-card').html("<br><h3 style='text-align:center'>Thanks, we're on it!</h3>");
+
+        $.ajax({
+          type: "POST",
+          url: '/notification',
+          data: {place: place,
+                city: city,
+                country: country
+          },
+          success: console.log('sent: ' + place),
+        });
+      });
+      } else {
+        console.log(status);
+      }
+    });
+  };
+
   $('.search-box').autocomplete({
     autoFocus: true,
     //source: "/search_suggestions.json?term=" + request.term
@@ -94,8 +125,11 @@ window.onload = function() {
         success: console.log('saved: ' + ui.item.label)
       });
 
-      if (ui.item.resultType !== "Google")
+      if (ui.item.resultType === "Google"){
+        setViewForGooglePlace(ui.item.label, userCity, userCountry);
+      } else {
         window.location = ui.item.url;
+      }
 
     },
     open: function() {
