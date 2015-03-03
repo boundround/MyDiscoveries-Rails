@@ -26,5 +26,4 @@
 //= require geocomplete
 //= require iconlabel
 //= require cookie
-//= require pages
 
