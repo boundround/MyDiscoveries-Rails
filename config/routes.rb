@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'puzzles/index'
+
   resources :search_suggestions
 
   require 'sidekiq/web'
@@ -40,6 +42,8 @@ Rails.application.routes.draw do
   get '/map' => 'pages#index'
 
   get '/map_only' => 'pages#map_only'
+
+  get '/puzzles/:action' => 'puzzles#:action'
 
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
