@@ -1,5 +1,5 @@
-location.hash == '' ? location.hash = '#3/-33.865143/151.2099' : location.hash = location.hash;
-window.parsedHash = L.Hash.parseHash(location.hash);
+// location.hash == '' ? location.hash = '#3/-33.865143/151.2099' : location.hash = location.hash;
+window.parsedHash = L.Hash.parseHash('#3/-33.865143/151.2099');
 
 //Set initial values
 window.previousZoom = window.parsedHash.zoom;
@@ -143,7 +143,7 @@ if (window.parsedHash.zoom < 4) {
 }
 
 // Create leaflet hash object
-var hash = L.hash(map);
+// var hash = L.hash(map);
 
 //This event fires when the map's initial position is set
 /*map.on('load', function() {
