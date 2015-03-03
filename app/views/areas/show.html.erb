@@ -4,7 +4,6 @@
   <div class="page-wrap">
     <div class="banner-wrapper">
       <div class="banner">
-        <!--img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner"-->
         <div class="title-wrapper">
           <div class="title"><%= @area.display_name %></div>
         </div>
@@ -12,7 +11,7 @@
     </div>
     <div class="slick-carousel">
       <div>
-        <%= render partial:'photos_masonry' %>
+        <%= render partial: 'photos_masonry' %>
       </div>
       <div>
         <%= render '/search_suggestions/search_cards' %>
@@ -26,6 +25,6 @@
 </div>
 <%= javascript_include_tag 'jquery.min' %>
 <%= javascript_include_tag 'jquery.ui' %>
+<%= javascript_include_tag 'search_suggestions' %>
 <%= javascript_include_tag 'slick.min' %>
 <%= javascript_include_tag 'slick-carousel' %>
-<%= javascript_include_tag 'pages' %>

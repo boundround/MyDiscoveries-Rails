@@ -26,6 +26,8 @@ class Place < ActiveRecord::Base
 
   has_and_belongs_to_many :users
 
+  has_many :fun_facts
+
   accepts_nested_attributes_for :photos
 
   mount_uploader :map_icon, IconUploader

@@ -5,31 +5,28 @@
   <% end %>
 </ul>
 
-<% if current_user.try(:admin) %>
-  <h3>Import Areas From Excel</h3>
-  <%= form_tag import_areas_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
-  <br />
-  <br />
-  <h3>Import Photo URLs From Excel</h3>
-  <%= form_tag import_photos_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
-  <br />
-  <br />
-  <h3>Import Videos From Excel</h3>
-  <%= form_tag import_videos_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
+<h3>Import Areas From Excel</h3>
+<%= form_tag import_areas_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+<br />
+<br />
+<h3>Import Photo URLs From Excel</h3>
+<%= form_tag import_photos_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+<br />
+<br />
+<h3>Import Videos From Excel</h3>
+<%= form_tag import_videos_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
 
-  <h3>Import Fun Facts From Excel</h3>
-  <%= form_tag import_fun_facts_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
-
+<h3>Import Fun Facts From Excel</h3>
+<%= form_tag import_fun_facts_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
 <% end %>

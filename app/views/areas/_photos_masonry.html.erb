@@ -85,15 +85,15 @@
   <% end %>
 
   <% unless @area.fun_facts.empty? %>
-      <% @area.fun_facts.each do |fun_fact| %>
-        <div class="item fun_fact photo-card">
-          <div class="discount-card fact-card">
-            <p><%= raw fun_fact.content %></p>
-          </div>
-          <div class="priority"><%= fun_fact.priority ? fun_fact.priority : 2 %></div>
+    <% @area.fun_facts.each do |fun_fact| %>
+      <div class="item fun_fact photo-card">
+        <div class="discount-card fact-card">
+          <p><%= raw fun_fact.content %></p>
         </div>
-      <% end %>
+        <div class="priority"><%= fun_fact.priority ? fun_fact.priority : 2 %></div>
+      </div>
     <% end %>
+  <% end %>
 
     <% unless @area.discounts.empty? %>
       <% @area.discounts.each do |discount| %>

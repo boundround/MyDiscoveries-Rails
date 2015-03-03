@@ -35,12 +35,19 @@ var setViewForGooglePlace = function(place, city, country){
 
       var popup = L.popup()
         .setLatLng(location)
-        .setContent('<h3>' + place + '</h3><br><button type="button" id="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
+        .setContent('<h3>' + place + '</h3><br><button type="button" class="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
         .openOn(map);
+      var placeCard = place + '-card';
+      var areas = $('#areas');
+      var content = '<div class="want-card"><div class="area-title">'
+                   + place + '<br><button type="button" class="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button></div></div>';
+      areas.append(content);
+      $('#places').empty();
 
-      $('#want-button').on('click', function(e) {
-      $('#want-button').hide();
+      $('.want-button').on('click', function(e) {
+      $('.want-button').hide();
       $('.leaflet-popup-content').append("Thanks we're on it!");
+      areas.find('.area-card').html("<br><h3 style='text-align:center'>Thanks, we're on it!</h3>");
 
       $.ajax({
         type: "POST",
@@ -56,8 +63,6 @@ var setViewForGooglePlace = function(place, city, country){
       console.log(status);
     }
   });
-
-
 };
 
 
@@ -510,7 +515,6 @@ window.onload = function() {
   var userCity = '';
   var userCountry = '';
 
-  var resultSource = '';
   var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
 
   $.ajax({

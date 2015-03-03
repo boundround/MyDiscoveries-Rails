@@ -22,4 +22,10 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:account_update) << field
     end
   end
+
+  def redirect_if_not_admin
+    if !current_user.try(:admin)
+      redirect_to :root
+    end
+  end
 end
