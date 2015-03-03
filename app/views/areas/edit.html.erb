@@ -1,131 +1,151 @@
-<% if current_user.try(:admin?) %>
-  <div class="area-content">
-    <div class="page-wrap">
-      <h1>Edit <%= @area.display_name + ' (ID: ' + @area.id.to_s + ')' %></h1>
-      <div class="container">
-        <div class="banner-wrapper">
-          <div class="banner">
-            <!--img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner"-->
-            <div class="title-wrapper">
-              <h1 class="title"><%= @area.display_name %></h1>
-            </div>
+<div class="area-content">
+  <div class="page-wrap">
+    <h1>Edit <%= @area.display_name + ' (ID: ' + @area.id.to_s + ')' %></h1>
+    <div class="container">
+      <div class="banner-wrapper">
+        <div class="banner">
+          <!--img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner"-->
+          <div class="title-wrapper">
+            <h1 class="title"><%= @area.display_name %></h1>
           </div>
         </div>
-        <%= simple_form_for @area, html: { role: 'form'} do |f| %>
-      <div id="edit-photos-masonry">
-        <div class="grid-sizer"></div>
-        <div class="item about">
-          <div class="dude">
-            <img src="<%= asset_path('dude-01.svg') %>" class="dude-image">
-          </div>
-          <div class="about-wrapper">
-            <div class="about-hero">
-              <% if @video %>
-                <iframe class="hero-video" src="//player.vimeo.com/video/<%= @video.vimeo_id %>" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-              <% else %>
-                <% unless @area.photos.empty? %>
-                  <img class="hero-photo" src="<%= @area.photos.first.path_url(:medium) %>" />
-                <% end %>
+      </div>
+      <%= simple_form_for @area, html: { role: 'form'} do |f| %>
+    <div id="edit-photos-masonry">
+      <div class="grid-sizer"></div>
+      <div class="item about">
+        <div class="dude">
+          <img src="<%= asset_path('dude-01.svg') %>" class="dude-image">
+        </div>
+        <div class="about-wrapper">
+          <div class="about-hero">
+            <% if @video %>
+              <iframe class="hero-video" src="//player.vimeo.com/video/<%= @video.vimeo_id %>" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <% else %>
+              <% unless @area.photos.empty? %>
+                <img class="hero-photo" src="<%= @area.photos.first.path_url(:medium) %>" />
               <% end %>
+            <% end %>
+          </div>
+          <div class="about-content">
+            <h3>About <%= @area.display_name %></h3>
+            <div class="form-group">
+              <%= f.input :display_name, input_html: { class: 'form-control' } %>
             </div>
-            <div class="about-content">
-              <h3>About <%= @area.display_name %></h3>
-              <div class="form-group">
-                <%= f.input :display_name, input_html: { class: 'form-control' } %>
-              </div>
-              <div class="form-group">
-                <%= f.input :country, priority: ['Australia', 'United States of America'] %>
-              </div>
-              <div class="form-group">
-                <%= f.input :description, as: :bootsy, label: false, input_html: { class: 'form-control area-description-input' } %>
-              </div>
-              <div class="form-group published-radio">
-                <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "live", "removed"] %>
-              </div>
-              <div class="form-group ios-views">
-                <%= f.input :view_latitude %>
-                <%= f.input :view_longitude %>
-                <%= f.input :view_height %>
-                <%= f.input :view_heading %>
-              </div>
-              <p><input id="pac-input" class="controls" type="text"
-                  placeholder="Enter a location"></p>
+            <div class="form-group">
+              <%= f.input :country, priority: ['Australia', 'United States of America'] %>
+            </div>
+            <div class="form-group">
+              <%= f.input :description, as: :bootsy, label: false, input_html: { class: 'form-control area-description-input' } %>
+            </div>
+            <div class="form-group published-radio">
+              <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "live", "removed"] %>
+            </div>
+            <div class="form-group ios-views">
+              <%= f.input :view_latitude %>
+              <%= f.input :view_longitude %>
+              <%= f.input :view_height %>
+              <%= f.input :view_heading %>
+            </div>
+            <p><input id="pac-input" class="controls" type="text"
+                placeholder="Enter a location"></p>
 
-              <div class="map-container">
-                <div class="map-canvas"></div>
-              </div>
+            <div class="map-container">
+              <div class="map-canvas"></div>
+            </div>
 
-              <div class="form-group lat-lng">
-                <%= f.input :latitude, :input_html => { class: 'form-control', "data-geo" => "lat" } %>
-                <%= f.input :longitude, :input_html => { class: 'form-control', "data-geo" => "lng" } %>
-                <%= f.input :address, placeholder: 'Address', :input_html => { class: 'form-control', "data-geo" => "formatted_address" }, label: "Marker Address" %>
-              </div>
+            <div class="form-group lat-lng">
+              <%= f.input :latitude, :input_html => { class: 'form-control', "data-geo" => "lat" } %>
+              <%= f.input :longitude, :input_html => { class: 'form-control', "data-geo" => "lng" } %>
+              <%= f.input :address, placeholder: 'Address', :input_html => { class: 'form-control', "data-geo" => "formatted_address" }, label: "Marker Address" %>
             </div>
           </div>
-          <div class="form-group">
-            <%= f.button :submit, 'Update Area' %>
+        </div>
+        <div class="form-group">
+          <%= f.button :submit, 'Update Area' %>
+        </div>
+      <% end %>
+      </div>
+      <div class="vertical-space"></div>
+      <% unless @area.videos.empty? %>
+        <% @area.videos.each do |video| %>
+          <%= simple_form_for [@place, video] do |f| %>
+            <div class="">
+              <div class="photo-container">
+                <iframe class="video video-player" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1&player_id=player1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <div class="form-group">
+                  <%= f.input :vimeo_id, input_html: { class: 'form-control'} %>
+                  <%= f.input :priority, collection: 1..10 %>
+                  <%= f.button :submit %>
+                  <%= (link_to "Delete", video, class: "btn btn-danger", method: :delete,
+                                                         data: { confirm: "Are you sure?" }) %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% unless @area.photos.empty? %>
+        <% @area.photos.each_with_index do |photo, index| %>
+          <%= simple_form_for [@area, photo] do |f| %>
+            <div class="">
+              <div class="photo-container">
+                <img class="place-photo" src="<%= photo.path_url(:small) %>" />
+                <div class="form-group">
+                  <%= f.file_field :path, as: :file %>
+                </div>
+                <div class="form-group">
+                  <%= f.input :caption, as: :bootsy, input_html: { class: 'form-control'} %>
+                  <%= f.input :alt_tag, input_html: { class: 'form-control'} %>
+                </div>
+                <div class="form-group">
+                  <%= f.input :title, input_html: { class: 'form-control'} %>
+                </div>
+                  <%= f.input :credit, input_html: { class: 'form-control' } %>
+                <div class="form-group">
+                  <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %>
+                </div>
+                  <%= f.button :submit %>
+                  <%= (link_to "Delete", photo, class: "btn btn-danger", method: :delete,
+                                                         data: { confirm: "Are you sure?" }) %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <% end %>
+
+      <% unless @area.discounts.empty? %>
+      <% @area.discounts.each do |discount| %>
+        <%= simple_form_for [@area, discount] do |f| %>
+          <div class="item special discount-card photo-card">
+            <div class="form-group">
+              <h4>Edit Discount</h4>
+              <p><%= f.input :description, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'} %></p>
+              <%= f.button :submit %>
+              <%= link_to "Delete", discount, class: "btn btn-danger", method: :delete,
+                                 data: { confirm: "Are you sure?" } %>
+            </div>
           </div>
         <% end %>
-        </div>
-        <div class="vertical-space"></div>
-        <% unless @area.videos.empty? %>
-          <% @area.videos.each do |video| %>
-            <%= simple_form_for [@place, video] do |f| %>
-              <div class="">
-                <div class="photo-container">
-                  <iframe class="video video-player" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1&player_id=player1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                  <div class="form-group">
-                    <%= f.input :vimeo_id, input_html: { class: 'form-control'} %>
-                    <%= f.input :priority, collection: 1..10 %>
-                    <%= f.button :submit %>
-                    <%= (link_to "Delete", video, class: "btn btn-danger", method: :delete,
-                                                           data: { confirm: "Are you sure?" }) %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-        <% end %>
+      <% end %>
+    <% end %>
 
-        <% unless @area.photos.empty? %>
-          <% @area.photos.each_with_index do |photo, index| %>
-            <%= simple_form_for [@area, photo] do |f| %>
-              <div class="">
-                <div class="photo-container">
-                  <img class="place-photo" src="<%= photo.path_url(:small) %>" />
-                  <div class="form-group">
-                    <%= f.file_field :path, as: :file %>
-                  </div>
-                  <div class="form-group">
-                    <%= f.input :caption, as: :bootsy, input_html: { class: 'form-control'} %>
-                    <%= f.input :alt_tag, input_html: { class: 'form-control'} %>
-                  </div>
-                  <div class="form-group">
-                    <%= f.input :title, input_html: { class: 'form-control'} %>
-                  </div>
-                    <%= f.input :credit, input_html: { class: 'form-control' } %>
-                  <div class="form-group">
-                    <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %>
-                  </div>
-                    <%= f.button :submit %>
-                    <%= (link_to "Delete", photo, class: "btn btn-danger", method: :delete,
-                                                           data: { confirm: "Are you sure?" }) %>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-        <% end %>
-
-        <% unless @area.discounts.empty? %>
-        <% @area.discounts.each do |discount| %>
-          <%= simple_form_for [@area, discount] do |f| %>
+      <% unless @area.games.empty? %>
+        <% @area.games.each do |game| %>
+          <%= simple_form_for [@area, game] do |f| %>
             <div class="item special discount-card photo-card">
               <div class="form-group">
-                <h4>Edit Discount</h4>
-                <p><%= f.input :description, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'} %></p>
+                <h3>Edit Game</h3>
+                <%= f.input :url, label: "Game URL", input_html: { class: 'form-control' } %>
+                <%= f.input :priority, collection: 1..10 %>
+                <p></p>
+                <div class="form-group published-radio">
+                  <%= f.input :game_type, as: :radio_buttons, collection: ["jigsaw puzzle", "slider", "word search"], input_html: { class: 'form-control'} %><br />
+                </div>
                 <%= f.button :submit %>
-                <%= link_to "Delete", discount, class: "btn btn-danger", method: :delete,
+                <%= link_to "Delete", game, class: "btn btn-danger", method: :delete,
                                    data: { confirm: "Are you sure?" } %>
               </div>
             </div>
@@ -133,74 +153,50 @@
         <% end %>
       <% end %>
 
-        <% unless @area.games.empty? %>
-          <% @area.games.each do |game| %>
-            <%= simple_form_for [@area, game] do |f| %>
-              <div class="item special discount-card photo-card">
+      <% unless @area.fun_facts.empty? %>
+        <% @area.fun_facts.each do |fun_fact| %>
+          <%= simple_form_for [@area, fun_fact] do |f| %>
+            <div class="item special discount-card photo-card">
+              <div class="form-group">
+                <h4>Edit Fun Fact</h4>
+                <p>
+                  <%= f.input :content, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'} %>
+                </p>
+                <p>
+                  <%= f.input :reference, input_html: { class: 'form-control'} %>
+                </p>
                 <div class="form-group">
-                  <h3>Edit Game</h3>
-                  <%= f.input :url, label: "Game URL", input_html: { class: 'form-control' } %>
-                  <%= f.input :priority, collection: 1..10 %>
-                  <p></p>
-                  <div class="form-group published-radio">
-                    <%= f.input :game_type, as: :radio_buttons, collection: ["jigsaw puzzle", "slider", "word search"], input_html: { class: 'form-control'} %><br />
-                  </div>
-                  <%= f.button :submit %>
-                  <%= link_to "Delete", game, class: "btn btn-danger", method: :delete,
-                                     data: { confirm: "Are you sure?" } %>
+                  <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
                 </div>
+                <%= f.button :submit %>
+                <%= link_to "Delete", fun_fact, class: "btn btn-danger", method: :delete,
+                                   data: { confirm: "Are you sure?" } %>
               </div>
-            <% end %>
+            </div>
           <% end %>
         <% end %>
+      <% end %>
 
-        <% unless @area.fun_facts.empty? %>
-          <% @area.fun_facts.each do |fun_fact| %>
-            <%= simple_form_for [@area, fun_fact] do |f| %>
-              <div class="item special discount-card photo-card">
-                <div class="form-group">
-                  <h4>Edit Fun Fact</h4>
-                  <p>
-                    <%= f.input :content, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'} %>
-                  </p>
-                  <p>
-                    <%= f.input :reference, input_html: { class: 'form-control'} %>
-                  </p>
-                  <div class="form-group">
-                    <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
-                  </div>
-                  <%= f.button :submit %>
-                  <%= link_to "Delete", fun_fact, class: "btn btn-danger", method: :delete,
-                                     data: { confirm: "Are you sure?" } %>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-        <% end %>
+      <div class="edit_photo">
+        <%= render "/videos/form" %>
+      </div>
 
-        <div class="edit_photo">
-          <%= render "/videos/form" %>
-        </div>
+      <div class="edit_photo">
+        <%= render "/photos/form" %>
+      </div>
 
-        <div class="edit_photo">
-          <%= render "/photos/form" %>
-        </div>
+      <div class="edit_photo">
+        <%= render "/discounts/form" %>
+      </div>
 
-        <div class="edit_photo">
-          <%= render "/discounts/form" %>
-        </div>
+      <div class="edit_photo">
+        <%= render "/games/form" %>
+      </div>
 
-        <div class="edit_photo">
-          <%= render "/games/form" %>
-        </div>
+      <div class="edit_photo">
+        <%= render "/fun_facts/form" %>
+      </div>
 
-        <div class="edit_photo">
-          <%= render "/fun_facts/form" %>
-        </div>
-
-    </div>
   </div>
-  <%= javascript_include_tag 'area.js' %>
-<% else %>
-  <h2>Unauthorized Page</h2>
-<% end %>
+</div>
+<%= javascript_include_tag 'area.js' %>
