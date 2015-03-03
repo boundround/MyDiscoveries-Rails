@@ -1,4 +1,11 @@
 class User < ActiveRecord::Base
+  has_and_belongs_to_many :photos
+  has_and_belongs_to_many :videos
+  has_and_belongs_to_many :games
+  has_and_belongs_to_many :areas
+  has_and_belongs_to_many :places
+  has_and_belongs_to_many :fun_facts
+
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/
 

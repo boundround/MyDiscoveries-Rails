@@ -23,6 +23,9 @@ class Place < ActiveRecord::Base
   has_many :games
   has_many :videos
   has_one :journal_info
+
+  has_and_belongs_to_many :users
+
   accepts_nested_attributes_for :photos
 
   mount_uploader :map_icon, IconUploader

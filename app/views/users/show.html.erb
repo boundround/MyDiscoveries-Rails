@@ -1,3 +1,5 @@
-<h1><%= @user.email %></h1>
+<h1>My Profile</h1>
 
-<p>Admininstrator: <%= @user.admin %></p>
+<p><%= @user.name if @user.name %></p>
+
+<p><%= @user.email if @user.email %></p>

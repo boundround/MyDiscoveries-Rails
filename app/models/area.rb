@@ -15,6 +15,9 @@ class Area < ActiveRecord::Base
   has_many :discounts
 
   has_many :photos
+
+  has_and_belongs_to_many :users
+
   accepts_nested_attributes_for :photos, :discounts
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true

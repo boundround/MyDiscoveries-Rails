@@ -1,6 +1,8 @@
 class FunFact < ActiveRecord::Base
   belongs_to :area
 
+  has_and_belongs_to_many :users
+
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)

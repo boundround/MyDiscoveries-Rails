@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225174015) do
+ActiveRecord::Schema.define(version: 20150303184446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,11 @@ ActiveRecord::Schema.define(version: 20150225174015) do
 
   add_index "areas", ["display_name"], name: "index_areas_on_display_name", using: :btree
   add_index "areas", ["slug"], name: "index_areas_on_slug", using: :btree
+
+  create_table "areas_users", id: false, force: true do |t|
+    t.integer "user_id", null: false
+    t.integer "area_id", null: false
+  end
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -96,9 +101,15 @@ ActiveRecord::Schema.define(version: 20150225174015) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "priority"
+    t.integer  "place_id"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
+
+  create_table "fun_facts_users", id: false, force: true do |t|
+    t.integer "user_id",     null: false
+    t.integer "fun_fact_id", null: false
+  end
 
   create_table "games", force: true do |t|
     t.string   "url"
@@ -113,6 +124,11 @@ ActiveRecord::Schema.define(version: 20150225174015) do
   end
 
   add_index "games", ["place_id"], name: "index_games_on_place_id", using: :btree
+
+  create_table "games_users", id: false, force: true do |t|
+    t.integer "user_id", null: false
+    t.integer "game_id", null: false
+  end
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
@@ -147,6 +163,11 @@ ActiveRecord::Schema.define(version: 20150225174015) do
 
   add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
 
+  create_table "photos_users", id: false, force: true do |t|
+    t.integer "user_id",  null: false
+    t.integer "photo_id", null: false
+  end
+
   create_table "places", force: true do |t|
     t.text     "description"
     t.string   "code"
@@ -176,6 +197,11 @@ ActiveRecord::Schema.define(version: 20150225174015) do
   add_index "places", ["description"], name: "index_places_on_description", using: :btree
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
+
+  create_table "places_users", id: false, force: true do |t|
+    t.integer "user_id",  null: false
+    t.integer "place_id", null: false
+  end
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -232,6 +258,11 @@ ActiveRecord::Schema.define(version: 20150225174015) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+
+  create_table "users_videos", id: false, force: true do |t|
+    t.integer "user_id",  null: false
+    t.integer "video_id", null: false
+  end
 
   create_table "videos", force: true do |t|
     t.integer  "vimeo_id"

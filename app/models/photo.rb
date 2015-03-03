@@ -2,6 +2,8 @@ class Photo < ActiveRecord::Base
   belongs_to :area
   belongs_to :place
 
+  has_and_belongs_to_many :users
+
   mount_uploader :path, PhotoUploader
   process_in_background :path
   skip_callback :commit, :after, :remove_path!

@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action
+
   def index
     @users = User.all
   end
@@ -53,6 +55,10 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:email, :admin)
+    end
+
+    def verify_current_user
+
     end
 
 end
