@@ -1,4 +1,5 @@
 class PlacesController < ApplicationController
+  before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search]
 
   def index
     @places = Place.all

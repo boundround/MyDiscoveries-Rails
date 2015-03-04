@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require d3.v3.min
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require cms
@@ -26,5 +25,4 @@
 //= require geocomplete
 //= require iconlabel
 //= require cookie
-//= require pages
 
