@@ -1,6 +1,6 @@
 location.hash == '' ? location.hash = '#3/-33.865143/151.2099' : location.hash = location.hash;
 window.parsedHash = L.Hash.parseHash(location.hash);
-
+console.log("location.hash");
 //Set initial values
 window.previousZoom = window.parsedHash.zoom;
 window.previousLocation = window.parsedHash.center;
@@ -667,7 +667,7 @@ window.onload = function() {
 var filters = document.getElementById('filters');
 var checkboxes = document.getElementsByClassName('filter');
 
-function changeFilters() {
+var changeFilters = function () {
     // Find all checkboxes that are checked and build a list of their values
     var on = [];
     for (var i = 0; i < checkboxes.length; i++) {
