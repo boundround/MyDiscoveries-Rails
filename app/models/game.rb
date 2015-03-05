@@ -2,7 +2,8 @@ class Game < ActiveRecord::Base
   belongs_to :place
   belongs_to :area
 
-  has_and_belongs_to_many :users
+  has_many :games_users
+  has_many :users, through: :games_users
 
   before_save :add_instructions, :create_thumbnail
 

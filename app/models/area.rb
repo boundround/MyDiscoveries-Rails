@@ -16,7 +16,8 @@ class Area < ActiveRecord::Base
 
   has_many :photos
 
-  has_and_belongs_to_many :users
+  has_many :areas_users
+  has_many :users, through: :areas_users
 
   accepts_nested_attributes_for :photos, :discounts
 

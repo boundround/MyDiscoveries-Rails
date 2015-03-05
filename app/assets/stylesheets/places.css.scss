@@ -33,6 +33,13 @@
 //  width: 33%;
 }
 
+.like-icon {
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  z-index: 500;
+}
+
 .item {
 	display: inline;
 	overflow: hidden;

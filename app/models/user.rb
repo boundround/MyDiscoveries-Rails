@@ -1,10 +1,16 @@
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :photos
-  has_and_belongs_to_many :videos
-  has_and_belongs_to_many :games
-  has_and_belongs_to_many :areas
-  has_and_belongs_to_many :places
-  has_and_belongs_to_many :fun_facts
+  has_many :photos_users
+  has_many :photos, through: :photos_users
+  has_many :videos_users
+  has_many :videos, through: :videos_users
+  has_many :games_users
+  has_many :games, through: :games_users
+  has_many :areas_users
+  has_many :areas, through: :areas_users
+  has_many :places_users
+  has_many :places, through: :places_users
+  has_many :fun_facts_users
+  has_many :fun_facts, through: :fun_facts_users
 
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/

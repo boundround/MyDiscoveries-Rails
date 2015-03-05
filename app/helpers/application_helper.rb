@@ -53,4 +53,15 @@ module ApplicationHelper
     end
   end
 
+  def like_icon(content)
+    if current_user
+      if content.users.include?(current_user)
+        "<img class='like-icon' src='#{asset_path ('star_white.png')}' data-user='#{current_user.id}' data-photo-id='#{content.id}'>"
+      else
+        "<img class='like-icon' src='#{asset_path ('star_grey.png')}' data-user='#{current_user.id}' data-photo-id='#{content.id}'>"
+      end
+    end
+      "<img class='like-icon' src='#{asset_path ('star_grey.png')}' data-user='' data-photo-id='#{content.id}'>"
+  end
+
 end

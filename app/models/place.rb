@@ -24,7 +24,9 @@ class Place < ActiveRecord::Base
   has_many :videos
   has_one :journal_info
 
-  has_and_belongs_to_many :users
+  has_many :places_users
+  has_many :users, through: :places_users
+
 
   has_many :fun_facts
 
@@ -100,7 +102,8 @@ class Place < ActiveRecord::Base
             "imageCount" => place.photos.length,
             "heroImage" => !place.photos.blank? ? place.photos.first.path_url(:small) : "http://placehold.it/350x150",
             "placeId" => place.slug,
-            "area" => area_info
+            "area" => area_info,
+            # "liked?" =>
           }
         }
       end

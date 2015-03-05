@@ -2,7 +2,8 @@ class FunFact < ActiveRecord::Base
   belongs_to :area
   belongs_to :place
 
-  has_and_belongs_to_many :users
+  has_many :fun_facts_users
+  has_many :users, through: :fun_facts_users
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)

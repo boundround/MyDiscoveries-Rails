@@ -2,7 +2,8 @@ class Photo < ActiveRecord::Base
   belongs_to :area
   belongs_to :place
 
-  has_and_belongs_to_many :users
+  has_many :photos_users
+  has_many :users, through: :photos_users
 
   mount_uploader :path, PhotoUploader
   process_in_background :path
