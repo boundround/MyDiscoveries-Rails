@@ -415,8 +415,8 @@ var showAreaCards = function(){
 
     var pin = '<div class="area-card-pin"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>';
 
-    text += '<a class="no-anchor-decoration" href="' + url + '"><div class="area-card">' + pin + '<div class="area-title">' + areaTitle +
-      '<br><span class="place-count">' + placeCountText + '</span></div></div></a>';
+    text += '<div class="area-card">' + pin + '<a class="no-anchor-decoration" href="' + url + '"><div class="area-title">' + areaTitle +
+      '</a><br><span class="place-count">' + placeCountText + '</span></div></div>';
   }
   $('#areas').html(text);
 }
@@ -440,9 +440,9 @@ var showPlaceCards = function(){
       var placeTitle = marker.options.icon.options.title;
       var placeId = marker.options.icon.options.placeId;
 
-      var content = '<a class="no-anchor-decoration" href="' + url +
-      '"><div class="upper-card" style="background-image: url(' + heroImage + ')"><div class="card-category">' +
-      categoryIcon + categoryText + '</div></div><p class="place-title ' + category + '">' + placeTitle + '</p><br></a>'
+      var content = '<div class="upper-card" style="background-image: url(' + heroImage + ')"><div class="card-category">' +
+      categoryIcon + categoryText + '</div></div><a class="no-anchor-decoration" href="' + url +
+      '"><p class="place-title ' + category + '">' + placeTitle + '</p><br></a>'
 
       text += '<div class="place-card" id="' + placeId + '">' + content + '<div class="card-footer"><div class="image-count">' +
       imageCountIcon + '&nbsp;&nbsp;' + imageCount + '</div><div class="video-count">' +
