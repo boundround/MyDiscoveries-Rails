@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)file:///Users/cyril/Dropbox/codecan/public/output/index.html -->
+<html><head>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	    
+      <title>Fyrebox Game</title>
+    </head>
+    <body>
+    <!-- You need to include these lines to have your quiz displayed -->
+      <div id="cr-stage"></div>
+			<div id="hidden" style="left:0; right:0; width:0; height:0; opacity:0"></div>
+      <script src="./js/default.js"></script>
+      <script src="./js/tinycolor.js"></script>
+      <script src="./js/crafty.js"></script>
+      <script src="./js/utils.js"></script>
+      <script src="./js/wordsearch.js"></script>
+
+      <script src="./js/queryparam.js"></script>
+      <script src="./js/color-thief.js"></script>
+      <script>
+
+				var gameSettings = {
+					"hidden_sentence":["hidden sentence"],
+					"collect_email_successful":false,
+					"collect_name_successful":false,
+					"collect_address_successful":false,
+					"collect_phone_successful":false,
+					"collect_email_unsuccessful":false,
+					"collect_name_unsuccessful":false,
+					"collect_address_unsuccessful":false,
+					"collect_phone_unsuccessful":false,
+					"capture_leads_successful":false,
+					"redirect_on_successful":true,
+					"retry_btn_successful":false,
+					"capture_leads_unsuccessful":false,
+					"redirect_on_unsuccessful":false,
+					"retry_btn_unsuccessful":false,
+					"bgnd_img":"./img/envatobg.jpg",
+					"bgnd_color":"#ff7e5a",
+					"text_color":"#ffffff",
+					"urlpost":"http://boundround.com/saveplayer"};
+					
+					adjustFromQueryParams(gameSettings);
+
+					csvStringToArray(gameSettings,"hidden_words");
+					removeStringsFromArray(gameSettings["hidden_words"],9);
+
+/*	This is a great idea but cross browser restrictions mess things up
+					
+					var img = new Image(); // width, height values are optional params 
+					img.src = gameSettings["bgnd_img"];
+					var div = document.getElementById('hidden');
+					
+					img.onload = function() {
+					  div.innerHTML += '<img style="display:none" src="'+img.src+'" />'; 					
+				
+						var colorThief = new ColorThief();
+						var newrgb = colorThief.getColor(img);
+						var newd = newrgb[0] << 16 | newrgb[1] << 8 | newrgb[2];
+						var complement = 0xffffff ^ newd;
+						
+						var ncolor = "#"+newd.toString(16);
+						var ccolor = "#"+complement.toString(16);
+					
+						var ncolor = "#ff7e5a";
+						
+						var gameColorSettings = {
+						"game_instructions":{"text":"Can you find all the words hidden in our puzzle?","bgnd_color":ncolor},
+						"banner":{"bgnd_color":ncolor},
+						"start_btn":{"bgnd_color":ncolor},
+						"yes_btn":{"bgnd_color":ncolor},
+						"no_btn":{"bgnd_color":ncolor},
+						"unsuccessful_msg":{"bgnd_color":ncolor,"text":"Oh no, you have lost, you can always retry!"},
+						"successful_msg":{"bgnd_color":ncolor,"text":"Congratulations, you did it!"},
+						"unsuccessful_send_btn":{"bgnd_color":ncolor},
+						"successful_send_btn":{"bgnd_color":ncolor},
+						"submit_btn":{"bgnd_color":ncolor} };
+										
+//						document.body.style.backgroundColor = "#"+complement.toString(16);//
+						document.body.style.backgroundColor = "#"+complement.toString(16);//
+
+		        fbextend(true,gameAssets,gameSettings);
+		        fbextend(true,gameAssets,gameColorSettings);
+								
+						fyrebox();
+					};
+*/
+					
+					//					var ncolor = "#37af53"; //Bound Round Green
+					var ncolor = "#2f8fbe"; //Bound Round Blue
+					
+					var gameColorSettings = {
+					"game_instructions":{"text":"Can you find all the words hidden in our puzzle?","bgnd_color":ncolor},
+					"banner":{"bgnd_color":ncolor},
+					"start_btn":{"bgnd_color":ncolor},
+					"yes_btn":{"bgnd_color":ncolor},
+					"no_btn":{"bgnd_color":ncolor},
+					"unsuccessful_msg":{"bgnd_color":ncolor,"text":"Oh no, you have lost, you can always retry!"},
+					"successful_msg":{"bgnd_color":ncolor,"text":"Congratulations, you did it!"},
+					"unsuccessful_send_btn":{"bgnd_color":ncolor},
+					"successful_send_btn":{"bgnd_color":ncolor},
+					"submit_btn":{"bgnd_color":ncolor} };
+									
+					document.body.style.backgroundColor = "#ff7e5a";//
+
+	        fbextend(true,gameAssets,gameSettings);
+	        fbextend(true,gameAssets,gameColorSettings);
+							
+					fyrebox();
+     </script> 
+    <!-- End of the quiz code -->
+    
+
+</body></html>

@@ -1,18 +1,4 @@
 
-//Dynamically assign height
-function sizeContent() {
-	$(".card-large-content").width($(window).width());
-	$(".card-large-content").height($(window).height());
-	$(".vimeo-frame").width($(window).width());
-	$(".vimeo-frame").height($(window).height());
-	$(".game-frame").width($(window).width());
-	$(".game-frame").height($(window).height());
-}
-
-//Every resize of window
-$(window).resize(sizeContent);
-
-
 $(document).ready(function(){
 
   var offsetElement = null;
@@ -20,6 +6,7 @@ $(document).ready(function(){
 //************************Isotope Cards****************************
 
   var loadIsotope = function() {
+
     var $container = $('#photos-masonry');
 		if($container.length > 0)
 		{
@@ -73,7 +60,7 @@ $(document).ready(function(){
 			  $('.game-card').on( 'click', function() {
 				  offsetElement = $(this);
 			    var gameURL = $(this).find('.game-data').data('url');
-			    var content = '<iframe class="game-frame" src="' + gameURL + '" ></iframe>';
+			    var content = '<iframe class="isotope-game-frame" src="' + gameURL + '" ></iframe>';
 			    var divider = $(this).find('.game-divider');
 			    //expand clicked game card
 			    $(this).find('.game-thumbnail').hide();
@@ -162,6 +149,8 @@ $(document).ready(function(){
 //************************Float Cards****************************
 
 	var loadFloatCards = function() {
+
+
 		//	loadFloatCards expects DOM structure like follows
 		//  <div id="cards-float">
 		//    <% @videos.each do |video| %>
@@ -182,6 +171,19 @@ $(document).ready(function(){
 
 		if( $container.length > 0)
 		{
+			//Dynamically assign height
+			function sizeContent() {
+				$(".card-large-content").width($(window).width());
+				$(".card-large-content").height($(window).height());
+				$(".vimeo-frame").width($(window).width());
+				$(".vimeo-frame").height($(window).height());
+				$(".game-frame").width($(window).width());
+				$(".game-frame").height($(window).height());
+			}
+
+			//Every resize of window
+			$(window).resize(sizeContent);
+			
 			var imgLoad = $container.imagesLoaded()
 				.progress(function(imgLoad, image) {
 
