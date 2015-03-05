@@ -1,0 +1,56 @@
+var gameAssets = {
+"language_idx":0,
+//Capture Leads Successful
+"capture_leads_successful":true,
+"collect_email_successful":true,
+"collect_name_successful":true,
+"collect_address_successful":true,
+"collect_phone_successful":true,
+//Capture Leads Unsuccessful
+"capture_leads_unsuccessful":false,
+"collect_email_unsuccessful":true,
+"collect_name_unsuccessful":true,
+"collect_address_unsuccessful":true,
+"collect_phone_unsuccessful":true,
+//Retry Button
+"retry_on_unsuccessful":true,
+"retry_on_successful":true,
+//Redirect 
+"redirect_on_successful":true,
+"redirect_on_unsuccessful":true,
+"successful_btn":{"link":"http://www.boundround.com","bgnd_color":"#415369"},
+"unsuccessful_btn":{"link":"http://www.boundround.com","bgnd_color":"#415369"},
+//Successful end button
+"successful_send_btn":{"opacity":1,"bgnd_color":"#415369","text_size":30,"text":"Send","height":70,"width":300,"left":200,"top":315},
+//End Messages
+"unsuccessful_msg":{"opacity":1,"bgnd_color":"#415369","text_size":30,"text":"Oh no, you have lost! You can always retry!","height":280,"width":650,"left":25,"top":15},
+"successful_msg":{"opacity":1,"bgnd_color":"#415369","text_size":30,"text":"Congratulations, you have won!","height":280,"width":650,"left":25,"top":15},
+//Quiz Specific Assets
+"use_passmark":true,
+"display_correct_answer":false,
+"display_result_sign":false,
+//"hidden_words":["worda","wordb","wordc",'wordd','worde','wordf'],
+"hidden_words":["worda"],
+"scores":[],
+"answers_MCQ":[],
+"scenario_links":[],
+"scenario_outcome":[],
+"scenario_ends":[],
+"scenario_steps":[],
+"hidden_sentence":["hidden sentence"],
+"correct_answers":[],
+"killer_questions":[],
+"answers_yn":[],
+"questions":[],
+"next_btn":{"bgnd_color":"#415369","text_size":30,"text":"","height":70,"width":300,"left":200,"top":295},
+"no_btn":{"opacity":1,"bgnd_color":"#415369","text_size":30,"text":"","height":60,"width":300,"left":360,"top":280},
+"yes_btn":{"opacity":1,"bgnd_color":"#415369","text_size":30,"text":"","height":60,"width":300,"left":40,"top":280},
+"game_instructions":{"opacity":0.45,"bgnd_color":"#415369","text_size":30,"text":"Click Start Now!","height":200,"width":400,"left":0,"top":0},
+"start_btn":{"bgnd_color":"#415369","text_size":30,"text":"Start","height":70,"width":300,"left":200,"top":295},
+"text_size":30,
+"text_font":"Arial",
+"text_color":"#ffffff",
+"bgnd_color":"#e6d6e8",
+"bgnd_image":"",
+"banner":{"opacity":1,"bgnd_color":"#415369"}
+};
