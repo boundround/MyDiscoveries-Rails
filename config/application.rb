@@ -37,6 +37,8 @@ module BoundRoundWeb
       'X-Frame-Options' => 'ALLOWALL'
     }
 
+    config.middleware.use Rack::Deflater
+
     config.middleware.insert_before 0, "SearchSuggestions"
 
   end
