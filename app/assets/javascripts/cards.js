@@ -87,7 +87,7 @@ $(document).ready(function(){
 			    $(this).find('.game-thumbnail').hide();
 			    $(this).find('.game-caption').hide();
 			    $(this).addClass('game-card-expanded');
-
+			    $(this).find('.fun-fact').show();
 			    $(divider).empty();
 			    $(divider).append(content);
 
@@ -183,7 +183,7 @@ $(document).ready(function(){
 
 			//Every resize of window
 			$(window).resize(sizeContent);
-			
+
 			var imgLoad = $container.imagesLoaded()
 				.progress(function(imgLoad, image) {
 
@@ -361,19 +361,22 @@ $(document).ready(function(){
 //***********************Page Stuff*******************************
 
   //Vimeo api code
+
   var iframe = $('.hero-video')[0];
-  player = $f(iframe);
+  if(iframe){
+	  player = $f(iframe);
 
-  // When the player is ready, add listeners for pause, finish, and playProgress
-  player.addEvent('ready', function() {
-  });
+	  // When the player is ready, add listeners for pause, finish, and playProgress
+	  player.addEvent('ready', function() {
+	  });
 
-  // Call the API when a button is pressed
-  $('#dropdownMenu1').bind('click', function() {
-      player.api('pause');
-  });
+	  // Call the API when a button is pressed
+	  $('#dropdownMenu1').bind('click', function() {
+	      player.api('pause');
+	  });
 
-	sizeContent();
+		sizeContent();
+	}
 
 });
 

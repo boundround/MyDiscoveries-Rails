@@ -4,13 +4,13 @@ window.onload = function() {
   var userCity = '';
   var userCountry = '';
 
-  $.ajax({
-    url: 'http://freegeoip.net/json/' + userIP,
-    success: function(data) {
-      userCity = data.city;
-      userCountry = data.country_name;
-    }
-  });
+  // $.ajax({
+  //   url: 'http://freegeoip.net/json/' + userIP,
+  //   success: function(data) {
+  //     userCity = data.city;
+  //     userCountry = data.country_name;
+  //   }
+  // });
 
   var setViewForGooglePlace = function(place, city, country){
     geocoder = new google.maps.Geocoder();
@@ -137,6 +137,30 @@ window.onload = function() {
     },
     close: function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+    }
+  });
+  // ALL OF THIS SHIT BELOW NEEDS TO BE MOVED
+
+  $('.like-icon').on('click', function(e){
+    e.preventDefault();
+    var oldImage = $(this).attr('src');
+    var switchImage = $(this).data('switchImage');
+    var postPath = $(this).data('postPath');
+    var postType = $(this).data('postType');
+    var data = {};
+    data[postType] = {user_id: $(this).data("user"), photo_id: $(this).data("photo")};
+    console.log($(this).data('liked'));
+    if ($(this).data('liked') === false){
+      $(this).attr('src', switchImage);
+      $(this).data('switchImage', oldImage);
+      $.ajax({
+        type: "POST",
+        url: '/' + postPath + '/create',
+        data: data,
+        success: console.log('LIKE SAVED')
+      });
+    } else {
+      alert("You must be logged in to save favorites!");
     }
   });
 };

@@ -37,6 +37,7 @@
                                                             } do %>
         <% end %>
         <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
+        <%= raw like_icon(photo) %>
         <div class="photo-credit">Credit: <%= photo.credit %></div>
         <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
         <div class="photo-caption">
@@ -89,6 +90,9 @@
       <div class="item fun_fact photo-card">
         <div class="discount-card fact-card">
           <p><%= raw fun_fact.content %></p>
+          <div class="fun-fact-like">
+            <%= raw like_icon(fun_fact) %>
+          </div>
         </div>
         <div class="priority"><%= fun_fact.priority ? fun_fact.priority : 2 %></div>
       </div>

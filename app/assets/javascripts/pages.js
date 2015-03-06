@@ -517,13 +517,13 @@ window.onload = function() {
 
   var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
 
-  $.ajax({
-    url: 'http://freegeoip.net/json/' + userIP,
-    success: function(data) {
-      userCity = data.city;
-      userCountry = data.country_name;
-    }
-  });
+  // $.ajax({
+  //   url: 'http://freegeoip.net/json/' + userIP,
+  //   success: function(data) {
+  //     userCity = data.city;
+  //     userCountry = data.country_name;
+  //   }
+  // });
 
   $('.search-box').autocomplete({
     autoFocus: true,

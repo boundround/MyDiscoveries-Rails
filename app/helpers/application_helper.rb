@@ -54,14 +54,17 @@ module ApplicationHelper
   end
 
   def like_icon(content)
-    if current_user
+    postPath = content.class.to_s.pluralize.downcase + '_' + 'users'
+    postType = postPath.singularize
+
+    if user_signed_in?
       if content.users.include?(current_user)
-        "<img class='like-icon' src='#{asset_path ('star_white.png')}' data-user='#{current_user.id}' data-photo-id='#{content.id}'>"
+        return "<img class='like-icon' src='#{asset_path ('star_white.png')}' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-photo='#{content.id}' data-liked='true' data-switch-image='#{asset_path('star_grey.png')}'>"
       else
-        "<img class='like-icon' src='#{asset_path ('star_grey.png')}' data-user='#{current_user.id}' data-photo-id='#{content.id}'>"
+        return "<img class='like-icon' src='#{asset_path ('star_grey.png')}' data-post-path=#{postPath} data-post-type='#{postType}' data-user='#{current_user.id}' data-photo='#{content.id}' data-liked='false' data-switch-image='#{asset_path('star_white.png')}'>"
       end
     end
-      "<img class='like-icon' src='#{asset_path ('star_grey.png')}' data-user='' data-photo-id='#{content.id}'>"
+      "<img class='like-icon' src='#{asset_path ('star_grey.png')}'>"
   end
 
 end

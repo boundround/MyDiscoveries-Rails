@@ -24,6 +24,13 @@ Rails.application.routes.draw do
 
   get "/sitemap" => redirect("https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz")
 
+  resources :fun_facts_users
+  resources :areas_users
+  resources :places_users
+  post 'photos_users/create' => 'photos_users#create'
+  resources :games_users
+  resources :videos_users
+
   resources :areas do
     resources :photos
     resources :videos

@@ -39,7 +39,7 @@ module BoundRoundWeb
 
     config.middleware.use Rack::Deflater
 
-    config.middleware.insert_before 0, "SearchSuggestions"
+    # config.middleware.insert_before 0, "SearchSuggestions"
 
   end
 end
