@@ -148,7 +148,25 @@ window.onload = function() {
     var postPath = $(this).data('postPath');
     var postType = $(this).data('postType');
     var data = {};
-    data[postType] = {user_id: $(this).data("user"), photo_id: $(this).data("photo")};
+    switch(postType){
+      case "photos_user":
+        data[postType] = {user_id: $(this).data("user"), photo_id: $(this).data("contentId")};
+        break;
+      case "fun_facts_user":
+        data[postType] = {user_id: $(this).data("user"), fun_fact_id: $(this).data("contentId")};
+        break;
+      case "games_user":
+        data[postType] = {user_id: $(this).data("user"), game_id: $(this).data("contentId")};
+        break;
+      case "videos_user":
+        data[postType] = {user_id: $(this).data("user"), video_id: $(this).data("contentId")};
+        break;
+      case "places_user":
+        data[postType] = {user_id: $(this).data("user"), place_id: $(this).data("contentId")};
+        break;
+      case "areas_user":
+        data[postType] = {user_id: $(this).data("user"), area_id: $(this).data("contentId")};
+    }
     console.log($(this).data('liked'));
     if ($(this).data('liked') === false){
       $(this).attr('src', switchImage);
@@ -159,6 +177,8 @@ window.onload = function() {
         data: data,
         success: console.log('LIKE SAVED')
       });
+    } else if ($(this).data('liked') === true) {
+      alert("Donnie needs to implement un-liking :p");
     } else {
       alert("You must be logged in to save favorites!");
     }

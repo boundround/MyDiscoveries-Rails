@@ -2,7 +2,8 @@ class Video < ActiveRecord::Base
   belongs_to :area
   belongs_to :place
 
-  has_and_belongs_to_many :users
+  has_many :videos_users
+  has_many :users, through: :videos_users
 
   scope :ordered_by_place_name, -> { includes(:area, :place).order('areas.display_name ASC') } #reorder("places.display_name ASC") }
 
