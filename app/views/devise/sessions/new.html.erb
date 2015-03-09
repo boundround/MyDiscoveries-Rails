@@ -3,7 +3,9 @@
 
   <%- if devise_mapping.omniauthable? %>
     <%- resource_class.omniauth_providers.each do |provider| %>
+      <%- if provider.to_s == 'instagram' %>
       <p><a href="<%= omniauth_authorize_path(resource_name, provider) %>"><img class="facebook-sign-in" src="/assets/images/<%= provider %>_sign_in.png"></a></p>
+      <% end -%>
     <% end -%>
   <% end -%>
   <br><p>OR</p>

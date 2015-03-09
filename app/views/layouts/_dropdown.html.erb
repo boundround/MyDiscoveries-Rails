@@ -17,12 +17,18 @@
       </li>
     <% else %>
       <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="<%= new_user_registration_path %>" data-filter="*">
+        <a role="menuitem" tabindex="-1" href="<%= new_user_session_path %>" data-filter="*">
           <%= image_tag 'all_icon-02.svg', class: 'dropdown-menu-icon' %>
-          Sign Up / Sign In
+          Sign In
         </a>
       </li>
     <% end %>
+      <li role="presentation">
+        <a role="menuitem" tabindex="-1" href="<%= root_path %>" data-filter="*">
+          <%= image_tag 'corporate_icon-02.svg', class: 'dropdown-menu-icon' %>
+          Home
+        </a>
+      </li>
     <% unless @videos %>
       <li role="presentation">
         <a role="menuitem" tabindex="-1" href="<%= videos_path %>" data-filter=".slider">

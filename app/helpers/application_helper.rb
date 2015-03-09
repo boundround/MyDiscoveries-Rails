@@ -56,6 +56,8 @@ module ApplicationHelper
   def like_icon(content)
     postPath = content.class.to_s.pluralize.downcase + '_' + 'users'
     postType = postPath.singularize
+    postType = 'fun_facts_user' if postType == 'funfacts_user'
+    postPath = 'fun_facts_users' if postPath == 'funfacts_users'
 
     if user_signed_in?
       if content.users.include?(current_user)
