@@ -57,17 +57,18 @@ $(document).ready(function(){
 		  	});
 
 			  // Expand Game Card
-			  $('.game-card').on( 'click', function() {
-				  offsetElement = $(this);
-			    var gameURL = $(this).find('.game-data').data('url');
+			  $('.game-caption').on( 'click', function() {
+			  	// var card = $(this).parent();
+				  offsetElement = $(this).parent();
+			    var gameURL = offsetElement.find('.game-data').data('url');
 			    var content = '<iframe class="isotope-game-frame" src="' + gameURL + '" ></iframe>';
-			    var divider = $(this).find('.game-divider');
+			    var divider = offsetElement.find('.game-divider');
 			    //expand clicked game card
-			    $(this).find('.game-thumbnail').hide();
-			    $(this).addClass('game-card-expanded');
-			    $(this).find('.video-play').hide();
-			    $(this).find('.game-caption').hide();
-			    $(this).find('.fun-fact').show();
+			    offsetElement.find('.game-thumbnail').hide();
+			    offsetElement.addClass('game-card-expanded');
+			    offsetElement.find('.video-play').hide();
+			    offsetElement.find('.game-caption').hide();
+			    offsetElement.find('.fun-fact').show();
 			    $(divider).empty();
 			    $(divider).append(content);
 
@@ -78,16 +79,16 @@ $(document).ready(function(){
 			  });
 
 			  // Expand Video Card
-			  $('.video-card').on( 'click', function() {
-				  offsetElement = $(this);
-			    var vimeoId = $(this).find('.video-data').data('video-id');
+			  $('.video-caption').on( 'click', function() {
+				  offsetElement = $(this).parent().parent();
+			    var vimeoId = offsetElement.find('.video-data').data('video-id');
 			    var content = '<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-			    var divider = $(this).find('.game-divider');
+			    var divider = offsetElement.find('.game-divider');
 			    //expand clicked game card
-			    $(this).find('.game-thumbnail').hide();
-			    $(this).find('.game-caption').hide();
-			    $(this).addClass('game-card-expanded');
-			    $(this).find('.fun-fact').show();
+			    offsetElement.find('.game-thumbnail').hide();
+			    offsetElement.find('.game-caption').hide();
+			    offsetElement.addClass('game-card-expanded');
+			    offsetElement.find('.fun-fact').show();
 			    $(divider).empty();
 			    $(divider).append(content);
 

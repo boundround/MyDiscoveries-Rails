@@ -52,6 +52,7 @@
     <%  unless @videos.empty? %>
       <% @videos.each do |video| %>
         <div class="item video video-card photo-card">
+          <%= raw like_icon(video) %>
           <div class="video-wrapper">
             <div class="priority"><%= video.priority ? video.priority : 2 %></div>
             <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
@@ -61,11 +62,10 @@
               <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
               <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
             </div>
-            <div class="game-caption" style="background-color:<%= category_color_for(@place) %>">
+            <div class="video-caption" style="background-color:<%= category_color_for(@place) %>">
               <p>Click to expand and play video!</p>
             </div>
             <div class="fun-fact">
-              <%= raw like_icon(video) %>
             </div>
           </div>
         </div>
@@ -133,6 +133,7 @@
     <% unless @place.games.empty? %>
       <% @place.games.each do |game| %>
         <div class="item game game-card photo-card">
+            <%= raw like_icon(game) %>
           <div class="priority"><%= game.priority ? game.priority : 2 %></div>
           <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
           <% end %>
@@ -152,7 +153,6 @@
           </div>
           <div class="fun-fact">
             <p><%= raw game.instructions %></p>
-            <%= raw like_icon(game) %>
           </div>
         </div>
       <% end %>

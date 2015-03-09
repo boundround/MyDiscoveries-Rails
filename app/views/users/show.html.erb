@@ -1,5 +1,7 @@
 <div class="container">
   <h1>My Profile</h1>
+  <p>Email: <%= @user.email %></p>
+  <%= link_to "Change Settings", edit_user_registration_path %>
   <% unless @user.places.blank? %>
     <p>My Places</p>
     <ul>

@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_if_not_admin
     if !current_user.try(:admin)
-      redirect_to :root
+      redirect_to :root, notice: "Not Authorized!"
     end
   end
 end

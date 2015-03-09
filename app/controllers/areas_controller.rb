@@ -25,7 +25,6 @@ class AreasController < ApplicationController
     @photos = @area.photos.where.not(priority: 1)
     @request_xhr = request.xhr?
     @fun_facts = @area.fun_facts
-    @games = @area.games || []
 
     respond_to do |format|
       format.html { render 'show', :layout => !request.xhr? }

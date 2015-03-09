@@ -36,10 +36,8 @@ class PlacesController < ApplicationController
     if @place.subscription_level == "Premium"
       @videos = @place.videos.where.not(priority: 1) || []
       @hero_video = @place.videos.find_by(priority: 1)
-      @games = @place.games || []
     else
       @videos = []
-      @games = []
     end
 
     if !@hero_video
