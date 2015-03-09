@@ -1,7 +1,7 @@
 class AreasUsersController < ApplicationController
 
   def create
-    @areas_user = AreasUser.new(photos_user_params)
+    @areas_user = AreasUser.new(areas_user_params)
 
     if @areas_user.save
       render nothing: true
@@ -9,7 +9,9 @@ class AreasUsersController < ApplicationController
   end
 
   def destroy
-    @areas_user = params["photos_user"]
+    @areas_user = AreasUser.find_by(area_id: params["areas_user"]["area_id"], user_id: params["areas_user"]["user_id"])
+    @areas_user.destroy
+    render nothing: true
   end
 
   private

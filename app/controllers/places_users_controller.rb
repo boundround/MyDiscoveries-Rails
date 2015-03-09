@@ -9,7 +9,9 @@ class PlacesUsersController < ApplicationController
   end
 
   def destroy
-    @places_user = params["places_user"]
+    @places_user = PlacesUser.find_by(place_id: params["places_user"]["place_id"], user_id: params["places_user"]["user_id"])
+    @places_user.destroy
+    render nothing: true
   end
 
   private

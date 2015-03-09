@@ -9,7 +9,9 @@ class PhotosUsersController < ApplicationController
   end
 
   def destroy
-    @photos_user = params["photos_user"]
+    @photos_user = PhotosUser.find_by(photo_id: params["photos_user"]["photo_id"], user_id: params["photos_user"]["user_id"])
+    @photos_user.destroy
+    render nothing: true
   end
 
   private

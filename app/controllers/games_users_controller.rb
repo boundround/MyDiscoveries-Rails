@@ -9,7 +9,9 @@ class GamesUsersController < ApplicationController
   end
 
   def destroy
-    @games_user = params["games_user"]
+    @games_user = GamesUser.find_by(game_id: params["games_user"]["game_id"], user_id: params["games_user"]["user_id"])
+    @games_user.destroy
+    render nothing: true
   end
 
   private

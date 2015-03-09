@@ -65,6 +65,8 @@
       <!-- <li><a href="#"><i class="fa fa-user fa-2x centered-icon"></i><br>My Stuff</a></li> -->
     </ul>
   </nav>
+  <% else %>
+    <%= render '/layouts/dropdown' %>
   <% end %>
 
   <%= javascript_include_tag 'mapbox' %>

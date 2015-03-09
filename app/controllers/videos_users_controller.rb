@@ -9,7 +9,9 @@ class VideosUsersController < ApplicationController
   end
 
   def destroy
-    @videos_user = params["videos_user"]
+    @videos_user = VideosUser.find_by(video_id: params["videos_user"]["video_id"], user_id: params["videos_user"]["user_id"])
+    @videos_user.destroy
+    render nothing: true
   end
 
   private

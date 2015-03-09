@@ -17,6 +17,22 @@ select {
   margin: 0 -15px;
 }
 
+.map-profile-icon {
+  background-image: url(asset_path('user_copy_3.png'));
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 30px;
+  height: 35px;
+}
+
+.profile-icon {
+  background-image: url(asset_path('user_copy_2.png'));
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 30px;
+  height: 35px;
+}
+
 .centered-icon {
   text-align: center;
 }
@@ -44,7 +60,9 @@ select {
 
 .dropdown {
   margin-top: 20px;
+  margin-right: 10px;
   color: white;
+  z-index: 999;
 }
 
 .dropdown-menu {
@@ -67,15 +85,17 @@ select {
 }
 
 .map-menu-button {
-  background-color: transparent;
   border: none;
   color: white;
-  margin-right: 80px;
+  margin-right: 10px;
 }
 
 .menu-button {
   background-color: #fd7e56;
-  border: none;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
 }
 
 .map-tooltip {

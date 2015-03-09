@@ -25,11 +25,17 @@ Rails.application.routes.draw do
   get "/sitemap" => redirect("https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz")
 
   post 'fun_facts_users/create' => 'fun_facts_users#create'
+  post 'fun_facts_users/destroy' => 'fun_facts_users#destroy'
   post 'areas_users/create' => 'areas_users#create'
-  post 'places_users/create' => 'places_users#create'
+  post 'areas_users/destroy' => 'areas_users#destroy'
   post 'photos_users/create' => 'photos_users#create'
+  post 'photos_users/destroy' => 'photos_users#destroy'
+  post 'places_users/create' => 'places_users#create'
+  post 'places_users/destroy' => 'places_users#destroy'
   post 'games_users/create' => 'games_users#create'
+  post 'games_users/destroy' => 'games_users#destroy'
   post 'videos_users/create' => 'videos_users#create'
+  post 'videos_users/destroy' => 'videos_users#destroy'
 
   resources :areas do
     resources :photos

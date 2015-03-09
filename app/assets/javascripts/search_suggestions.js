@@ -168,17 +168,27 @@ window.onload = function() {
         data[postType] = {user_id: $(this).data("user"), area_id: $(this).data("contentId")};
     }
     console.log($(this).data('liked'));
-    if ($(this).data('liked') === false){
+    if ($(this)[0].dataset.liked === 'false'){
       $(this).attr('src', switchImage);
       $(this).data('switchImage', oldImage);
+      $(this)[0].dataset.liked = 'true';
       $.ajax({
         type: "POST",
         url: '/' + postPath + '/create',
         data: data,
         success: console.log('LIKE SAVED')
       });
-    } else if ($(this).data('liked') === true) {
-      alert("Donnie needs to implement un-liking :p");
+    } else if ($(this)[0].dataset.liked === 'true') {
+        $(this).attr('src', switchImage);
+        $(this).data('switchImage', oldImage);
+        $(this)[0].dataset.liked = 'false';
+        $.ajax({
+          type: "POST",
+          _method: 'delete',
+          url: '/' + postPath + '/destroy',
+          data: data,
+          success: console.log('LIKE DELETED')
+        });
     } else {
       alert("You must be logged in to save favorites!");
     }

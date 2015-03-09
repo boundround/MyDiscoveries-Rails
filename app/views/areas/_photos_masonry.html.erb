@@ -68,7 +68,7 @@
                            <%= text_area_tag 'message', nil, class: 'form-control', rows: 4 %>
                            <%= hidden_field_tag 'photo', photo.path_url(:medium) %>
                            <%= hidden_field_tag 'place', @area.display_name %>
-                           <%= hidden_field_tag 'area', '' %>
+                           <%= hidden_field_tag 'area', photo.area ? '' : photo.place.area.display_name %>
                            <%= hidden_field_tag 'country', @area.country %>
                        </div>
                        <div class="form-group">

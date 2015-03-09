@@ -9,7 +9,9 @@ class FunFactsUsersController < ApplicationController
   end
 
   def destroy
-    @fun_facts_user = params["fun_facts_user"]
+    @fun_facts_user = FunFactsUser.find_by(fun_fact_id: params["fun_facts_user"]["fun_fact_id"], user_id: params["fun_facts_user"]["user_id"])
+    @fun_facts_user.destroy
+    render nothing: true
   end
 
   private
