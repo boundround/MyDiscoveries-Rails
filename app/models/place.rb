@@ -102,8 +102,7 @@ class Place < ActiveRecord::Base
             "imageCount" => place.photos.length,
             "heroImage" => !place.photos.blank? ? place.photos.first.path_url(:small) : "http://placehold.it/350x150",
             "placeId" => place.slug,
-            "area" => area_info,
-            # "liked?" =>
+            "area" => area_info
           }
         }
       end
