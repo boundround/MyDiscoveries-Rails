@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-  before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search]
+  before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places]
 
   def index
     @places = Place.all
@@ -125,6 +125,19 @@ class PlacesController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @places_geojson }  # respond with the created JSON object
+    end
+  end
+
+  def liked_places
+    @places = {}
+    @liked_places = Place.where(slug: params[:placeIds])
+
+    @liked_places.each do |place|
+      @places[place.slug] = like_icon(place)
+    end
+
+    respond_to do |format|
+      format.json { render json: @places}
     end
   end
 

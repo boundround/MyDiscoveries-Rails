@@ -422,10 +422,12 @@ var showAreaCards = function(){
 }
 
 var showPlaceCards = function(){
+  var inBoundsMarkers = [];
   var bounds = map.getBounds();
   var text = "";
   placeMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
+      inBoundsMarkers.push(marker.options.icon.options.placeId);
       var category = marker.options.category;
       var categoryIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/" + marker.options.category + "_icon.png' alt='" + marker.options.category + " icon'>";
       var imageCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' height='12px' alt='photo count'>";
@@ -466,6 +468,16 @@ var showPlaceCards = function(){
     removeCard.remove();
     $('#places').prepend(resultCard);
   }
+  $.ajax({
+    url: "/places/liked_places",
+    data: {placeIds: inBoundsMarkers},
+    success: function(data){
+      console.log(data);
+      $.each(data, function(key, value){
+        $('#' + key).append(value);
+      });
+    }
+  });
 }
 
 // Redirect to areas or places on click

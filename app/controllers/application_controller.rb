@@ -28,4 +28,20 @@ class ApplicationController < ActionController::Base
       redirect_to :root, notice: "Not Authorized!"
     end
   end
+
+  def like_icon(content)
+    postPath = content.class.to_s.pluralize.downcase + '_' + 'users'
+    postType = postPath.singularize
+    postType = 'fun_facts_user' if postType == 'funfacts_user'
+    postPath = 'fun_facts_users' if postPath == 'funfacts_users'
+
+    if user_signed_in?
+      if content.users.include?(current_user)
+        return "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_white.png')}' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='true' data-switch-image='#{ActionController::Base.helpers.asset_path('star_grey.png')}'>"
+      else
+        return "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_grey.png')}' data-post-path=#{postPath} data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='false' data-switch-image='#{ActionController::Base.helpers.asset_path('star_white.png')}'>"
+      end
+    end
+      "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_grey.png')}'>"
+  end
 end
