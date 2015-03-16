@@ -1,0 +1,70 @@
+.my-photos {
+  display: inline-block;
+  position: relative;
+}
+
+.passport td {
+  text-align: center;
+  border: 1px solid black;
+  width: 50%;
+}
+
+.passport {
+  width: 85%;
+  margin-top: 5%;
+}
+
+.passport-page {
+  background-color: #7CC1FA;
+}
+
+.passport-form input {
+  background-color: skyblue;
+  border: none;
+  width: 80%;
+  /* padding-top: 15px; */
+  margin-top: 15px;
+  height: 30px;
+}
+
+.sidebar {
+  width: 20%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #FD7E56;
+  height: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+.sidebar-top {
+  position: relative;
+  background: url(asset_path('chevrons_orange.png'));
+  height: 35%;
+  background-color: #fd7e56;
+}
+
+.sidebar-item {
+  height: 11%;
+  border-bottom: 1px solid white;
+}
+
+.sidebar-stamp {
+  position: absolute;
+  right: -30px;
+  top: 20px;
+}
+
+.passport-plane {
+  padding-top: 20px;
+}
+
+.profile-container {
+    width: 65%;
+    margin-left: 10%;
+  }
+
+@media (min-width: 1000px) {
+
+}

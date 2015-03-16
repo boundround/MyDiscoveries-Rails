@@ -1,0 +1,49 @@
+ <table class="passport">
+  <tr><td colspan="2"><%= image_tag 'plane.png' , class: 'passport-plane' %><h2>My Passport</h2></td></tr>
+  <%= simple_form_for(@user) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <tr>
+      <td rowspan="3">
+        <div class="form-group passport-form">
+          <%= f.input :avatar, as: :file, label: false, placeholder: "Upload A Passport Photo" %>
+        </div>
+      </td>
+      <td>
+      <div class="form-group passport-form">
+        <%= f.input :name, label: false, placeholder: 'Your Name' %>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="form-group passport-form">
+          <%= f.input :email, label: false, placeholder: 'Your Email Address' %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+    </tr>
+    <tr>
+      <td colspan="2">
+        asdfdf
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="actions">
+          <%= f.submit 'Update Account' %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @page_description = 'passport-page'
   end
 
   # GET /users/new
@@ -43,6 +44,47 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+
+  def photos
+    if user_signed_in?
+      @user = current_user
+    else
+      redirect_to new_user_registration_path, notice: "You must be logged in to view that"
+    end
+  end
+
+  def videos
+    if user_signed_in?
+      @user = current_user
+    else
+      redirect_to new_user_registration_path, notice: "You must be logged in to view that"
+    end
+  end
+
+  def games
+    if user_signed_in?
+      @user = current_user
+    else
+      redirect_to new_user_registration_path, notice: "You must be logged in to view that"
+    end
+  end
+
+  def places
+    if user_signed_in?
+      @user = current_user
+    else
+      redirect_to new_user_registration_path, notice: "You must be logged in to view that"
+    end
+  end
+
+  def fun_facts
+    if user_signed_in?
+      @user = current_user
+    else
+      redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
   end
 

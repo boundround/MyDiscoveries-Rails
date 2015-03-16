@@ -1,4 +1,5 @@
-window.onload = function(){
+var LIKE = {
+  like: function(){
   console.log('like.js');
   $('.like-icon').on('click', function(e){
     e.preventDefault();

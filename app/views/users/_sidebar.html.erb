@@ -1,0 +1,26 @@
+<div class="sidebar">
+  <div class="sidebar-top">
+    <div class="passport-photo">
+    </div>
+    <%= image_tag 'passport_stamp.png', class: 'sidebar-stamp' %>
+    <%= current_user.name %>'s Passport
+  </div>
+  <div class="sidebar-item">
+    <%= link_to "My Passport", user_path(current_user) %>
+  </div>
+  <div class="sidebar-item">
+    <a href="/users/places">My Places</a>
+  </div>
+  <div class="sidebar-item">
+    <a href="/users/videos">My Videos</a>
+  </div>
+  <div class="sidebar-item">
+    <a href="/users/photos">My Photos</a>
+  </div>
+  <div class="sidebar-item">
+    <a href="/users/games">My Games</a>
+  </div>
+  <div class="sidebar-item">
+    <a href="/users/fun_facts">My Fun Facts</a>
+  </div>
+</div>
