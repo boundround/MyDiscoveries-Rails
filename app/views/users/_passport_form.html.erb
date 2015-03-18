@@ -13,7 +13,7 @@
       </div>
     <% end %>
     <tr>
-      <td rowspan="3" class="left-passport">
+      <td rowspan="2" class="left-passport">
         <div class="passport-photo">
           <% if current_user.avatar_url %>
             <%= image_tag current_user.avatar_url, class: 'user-avatar' %><br>
@@ -34,7 +34,21 @@
     <tr>
       <td>
         <div class="form-group passport-form">
-          <%= f.input :date_of_birth, as: :datepicker, id: 'datepicker', placeholder: 'Date Of Birth', label: "Date Of Birth", required: true %>
+          <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
+                              end_year: Date.today.year,
+                              order: [:month, :day, :year] %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3">
+        <%= image_tag 'passport_stamp.png', class: 'passport-stamp' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="form-group passport-form">
+          <%= f.input :country, placeholder: "Country" %>
         </div>
       </td>
     </tr>
@@ -46,16 +60,17 @@
       </td>
     </tr>
     <tr>
-    </tr>
-    <tr>
       <td colspan="2" class="user-signature">
         Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= current_user.name %></span>
       </td>
-</table>
     </tr>
-<div class="actions">
-  <%= f.submit 'Update Account' %>
-</div>
+    <tr><td>
+      <div class="actions">
+        <%= f.submit 'Update Account' %>
+      </div>
+    </td></tr>
+</table>
+
 <% end %>
 <script>
   $(document).ready(function(){

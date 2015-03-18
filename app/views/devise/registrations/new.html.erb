@@ -24,7 +24,11 @@
     </tr>
     <tr>
       <td>
-        <%= f.input :date_of_birth, as: :datepicker, id: 'datepicker', placeholder: 'Date Of Birth', label: "Date Of Birth", required: true %>
+        <div class="form-group passport-form">
+          <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
+                              end_year: Date.today.year,
+                              order: [:month, :day, :year] %>
+        </div>
       </td>
     </tr>
     <tr>
