@@ -1,20 +1,34 @@
-<% unless @user.photos.blank? %>
-    <p>My Photos</p>
-    <% @user.photos.each_with_index do |photo, index| %>
-      <div class="photo-card photo-thumb my-photos">
-        <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
-                                                            photo_alt: alt_tag_for(photo),
-                                                            photo_credit: photo.credit
-                                                            } do %>
-        <% end %>
-        <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
-        <%= raw like_icon(photo) %>
-        <div class="photo-credit">Credit: <%= photo.credit %></div>
-        <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
-        <div class="photo-caption">
-        <p><%= raw photo.caption %></p>
+<div class="left-user">
+  <div class="container">
+    <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
+    <div class="banner-wrapper game-video-banner">
+      <div class="banner">
+        <div class="title-wrapper">
+          <h1 class="title">Photos</h1>
         </div>
       </div>
+    </div>
+    <% unless @user.photos.blank? %>
+      <p>My Photos</p>
+      <% @user.photos.each_with_index do |photo, index| %>
+        <div class="photo-card photo-thumb my-photos">
+          <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
+                                                              photo_alt: alt_tag_for(photo),
+                                                              photo_credit: photo.credit
+                                                              } do %>
+          <% end %>
+          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
+          <%= raw like_icon(photo) %>
+          <div class="photo-credit">Credit: <%= photo.credit %></div>
+          <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
+          <div class="photo-caption">
+          <p><%= raw photo.caption %></p>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
-<%= render 'sidebar' %>
+  </div>
+</div>
+<div class="right-user">
+  <%= render 'sidebar' %>
+</div>

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @page_description = 'passport-page'
+    @set_body_class = 'passport-page'
   end
 
   # GET /users/new
@@ -50,6 +50,7 @@ class UsersController < ApplicationController
 
   def photos
     if user_signed_in?
+      @set_body_class = 'passport-page'
       @user = current_user
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
@@ -58,6 +59,7 @@ class UsersController < ApplicationController
 
   def videos
     if user_signed_in?
+      @set_body_class = 'passport-page'
       @user = current_user
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
@@ -66,6 +68,7 @@ class UsersController < ApplicationController
 
   def games
     if user_signed_in?
+      @set_body_class = 'passport-page'
       @user = current_user
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
@@ -74,6 +77,7 @@ class UsersController < ApplicationController
 
   def places
     if user_signed_in?
+      @set_body_class = 'passport-page'
       @user = current_user
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
@@ -82,6 +86,7 @@ class UsersController < ApplicationController
 
   def fun_facts
     if user_signed_in?
+      @set_body_class = 'passport-page'
       @user = current_user
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
@@ -96,7 +101,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :admin)
+      params.require(:user).permit(:email, :admin, :name, :avatar)
     end
 
     def verify_current_user

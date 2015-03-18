@@ -1,3 +1,16 @@
+.left-user {
+  width: 80%;
+  position: absolute;
+  left: 0;
+}
+
+.right-user {
+  width: 18%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  background-color: #FD7E56;
+}
 .my-photos {
   display: inline-block;
   position: relative;
@@ -6,34 +19,38 @@
 .passport td {
   text-align: center;
   border: 1px solid black;
-  width: 50%;
 }
 
 .passport {
-  width: 85%;
-  margin-top: 5%;
+  margin: 5% auto;
+  width: 48%;
 }
 
 .passport-page {
   background-color: #7CC1FA;
 }
 
+.left-passport {
+  width: 30%;
+}
+
 .passport-form input {
   background-color: skyblue;
   border: none;
-  width: 80%;
   /* padding-top: 15px; */
   margin-top: 15px;
   height: 30px;
+  width: 80%;
+}
+
+.passport.sign-up input {
+  width: 100%;
+  height: 50px;
+  text-align: left;
 }
 
 .sidebar {
-  width: 20%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: #FD7E56;
-  height: 100%;
+  color: white;
   text-align: center;
   overflow: hidden;
 }
@@ -48,23 +65,80 @@
 .sidebar-item {
   height: 11%;
   border-bottom: 1px solid white;
+  text-decoration: none;
+  font-size: 1.4em;
+  padding: 14px;
+  color: white;
+}
+
+.sidebar-icon {
+  width: 20px;
+}
+
+.sidebar a:hover {
+  text-decoration: none;
+}
+
+.sidebar-item:hover {
+  background-color: #d29eff;
 }
 
 .sidebar-stamp {
   position: absolute;
   right: -30px;
-  top: 20px;
+  top: 12%;
+  z-index: 20;
+  transform: rotate(-15deg);
+  width: 45%;
+}
+
+.user-avatar {
+  width: 100%;
+}
+
+.passport-stamp {
+  transform: rotate(-15deg);
+  margin-left: -100px;
+  margin-bottom: -50px;
+}
+
+.passport-photo {
+  border: 1px solid white;
+  height: 80%;
+  width: 60%;
+  margin: 10% auto auto;
+  background: lightgray;
+  transform: rotate(-6deg);
 }
 
 .passport-plane {
   padding-top: 20px;
 }
 
-.profile-container {
+.profile-container {/*
     width: 65%;
-    margin-left: 10%;
+    margin-left: 10%;*/
   }
 
-@media (min-width: 1000px) {
+.middle-align {
+  margin-top: 50%;
+}
 
+.signature {
+  font-family: 'Homemade Apple', cursive;
+  font-size: 1.8em;
+}
+
+.user-signature {
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .passport {
+    width: 90%;
+  }
+
+  .sidebar-item {
+    font-size: 1em;
+  }
 }

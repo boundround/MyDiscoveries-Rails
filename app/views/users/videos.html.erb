@@ -1,19 +1,40 @@
-<% unless @user.videos.blank? %>
-    <p>My Videos</p>
-    <div class="cards-float">
-      <% @user.videos.each do |video| %>
-        <% if (video != nil and video.vimeo_thumbnail != nil ) %>
-          <div class="card-item card-item-small card-item-hide video video-card">
-            <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %><% end %>
-            <div class="card-small-content">
-              <div class="video-label"><%= area_place_video_link(video) %><a class="debug" href"<%= video.vimeo_thumbnail %>"> <%= video.vimeo_thumbnail.gsub(/_\d+\.jpg/,"_300.jpg") %></a></div>
-              <div class="video-background-image">
-                <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail.gsub(/_\d+\.jpg/,"_300.jpg") %>"/>
+<div class="left-user">
+  <div class="container">
+    <div class="area-content all-videos">
+      <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
+      <div class="banner-wrapper game-video-banner">
+        <div class="banner">
+          <div class="title-wrapper">
+            <h1 class="title">Videos</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-large-content-hide">
+        <button id="close-large-content" style="position:absolute">Close</button>
+      </div>
+
+      <div class="cards-float">
+        <% @user.videos.each do |video| %>
+          <% if (video != nil and video.vimeo_thumbnail != nil ) %>
+            <div class="card-item card-item-small card-item-hide video video-card">
+              <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %><% end %>
+              <div class="card-small-content">
+                <div class="video-label">
+                  <%= area_place_video_link(video) %><a class="debug" href"<%= video.vimeo_thumbnail %>"> <%= video.vimeo_thumbnail.gsub(/_\d+\.jpg/,"_300.jpg") %></a>
+                  <%= raw like_icon(video) %>
+                </div>
+                <div class="video-background-image">
+                  <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail.gsub(/_\d+\.jpg/,"_300.jpg") %>"/>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
-  <% end %>
-<%= render 'sidebar' %>
+  </div>
+</div>
+<div class="right-user">
+  <%= render 'sidebar' %>
+</div>

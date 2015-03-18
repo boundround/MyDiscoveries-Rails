@@ -26,4 +26,5 @@
 //= require iconlabel
 //= require cookie
 //= require cards
+//= require like
 

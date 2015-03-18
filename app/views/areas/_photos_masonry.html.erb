@@ -5,10 +5,12 @@
     <div class="about-wrapper">
       <div class="about-hero">
         <% if @hero_video %>
+          <%= raw like_icon(@hero_video) %>
           <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
         <% else %>
           <% unless @area.photos.empty? %>
             <% if @hero_photo %>
+              <%= raw like_icon(@hero_photo) %>
               <picture>
                 <img class="hero-photo" srcset="<%= @hero_photo.path_url(:large) %> 900w, <%= @hero_photo.path_url(:medium) %> 600w, <%= @hero_photo.path_url(:small) %> 300w"
                   sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= alt_tag_for(@hero_photo) %>" />

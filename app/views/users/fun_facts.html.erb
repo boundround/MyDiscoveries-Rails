@@ -1,1 +1,28 @@
-<%= render 'sidebar' %>
+<div class="left-user">
+  <div class="container">
+    <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
+    <div class="banner-wrapper game-video-banner">
+      <div class="banner">
+        <div class="title-wrapper">
+          <h1 class="title">Fun Facts</h1>
+        </div>
+      </div>
+    </div>
+    <% unless @user.fun_facts.empty? %>
+      <% @user.fun_facts.each do |fun_fact| %>
+        <div class="item fun_fact photo-card my-photos">
+          <div class="discount-card fact-card">
+            <p><%= raw fun_fact.content %></p>
+            <div class="fun-fact-like">
+              <%= raw like_icon(fun_fact) %>
+            </div>
+          </div>
+          <div class="priority"><%= fun_fact.priority ? fun_fact.priority : 2 %></div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div class="right-user">
+  <%= render 'sidebar' %>
+</div>
