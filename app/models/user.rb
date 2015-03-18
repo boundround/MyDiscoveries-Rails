@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   has_many :fun_facts_users
   has_many :fun_facts, through: :fun_facts_users
 
+  mount_uploader :avatar, UserPhotoUploader
+  process_in_background :avatar
+
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/
 

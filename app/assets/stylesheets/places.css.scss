@@ -38,7 +38,7 @@
   right: 5px;
   top: 0;
   z-index: 500;
-  height: 28px;
+  height: 28px !important;
 }
 
 .item {
@@ -366,6 +366,7 @@
 	height: 50px;
 	display: table-cell;
 	vertical-align: bottom;
+  position: relative;
 /*  -webkit-transition: opacity 1s;
      -moz-transition: opacity 1s;
       -ms-transition: opacity 1s;
@@ -486,7 +487,7 @@
 	 }
 
 	 .card-item-small {
-		 width: 50%;
+		 width: 100%;
 }
 
 	 .card-item-large {

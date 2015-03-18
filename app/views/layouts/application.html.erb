@@ -14,7 +14,7 @@
                                      user-scalable=no">
   <%= render "/layouts/ga" %>
 </head>
-<body>
+<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
   <% flash.each do |type, message| %>
   <div class="alert <%= bootstrap_class_for(type) %> fade in">
     <button class="close" data-dismiss="alert">×</button>
@@ -70,7 +70,7 @@
       <% end %>
     </ul>
   </nav>
-  <% else %>
+  <% elsif !browser.mobile? && !@set_body_class %>
     <%= render '/layouts/dropdown' %>
   <% end %>
 

@@ -297,6 +297,8 @@ GEM
       json
       redis (>= 3.0.6)
       redis-namespace (>= 1.3.1)
+    simple-form-datepicker (0.1.3)
+      simple_form
     simple_form (3.0.2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -402,6 +404,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   sidekiq
+  simple-form-datepicker
   simple_form
   sinatra (>= 1.3.0)
   sitemap_generator

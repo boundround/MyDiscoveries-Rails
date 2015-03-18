@@ -1,5 +1,4 @@
-<a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
-<table class="passport sign-up">
+<table class="passport">
   <tr><td colspan="2"><%= image_tag 'plane.png' , class: 'passport-plane' %><h2>My Passport</h2></td></tr>
   <%= simple_form_for(@user) do |f| %>
     <% if @user.errors.any? %>
@@ -14,12 +13,22 @@
       </div>
     <% end %>
     <tr>
-      <td rowspan="3" class="left-passport">
-        <p>Upload A Photo</p><br>
-        <%= f.input :avatar, as: :file, label: false %>
+      <td rowspan="2" class="left-passport">
+        <div class="passport-photo">
+          <% if current_user.avatar_url %>
+            <%= image_tag current_user.avatar_url, class: 'user-avatar' %><br>
+          <% else %>
+            <p class="middle-align">Upload Your Photo</p>
+          <% end %>
+        </div>
+        <div class="form-group passport-form">
+          <%= f.input :avatar, as: :file, label: false, placeholder: "Upload A Passport Photo" %>
+        </div>
       </td>
       <td>
-        <%= f.input :name, label: false, placeholder: 'Your name', required: true, autofocus: true %>
+      <div class="form-group passport-form">
+        <%= f.input :name, label: false, placeholder: 'Your Name' %>
+      </div>
       </td>
     </tr>
     <tr>
@@ -32,39 +41,36 @@
       </td>
     </tr>
     <tr>
-      <td>
-        <%= f.input :email, label: false, placeholder: 'Your Email Address', required: true %>
-      </td>
-    </tr>
-    <tr>
-      <td rowspan="2">
+      <td rowspan="3">
         <%= image_tag 'passport_stamp.png', class: 'passport-stamp' %>
       </td>
-      <td><%= f.input :password_confirmation, required: true, label: false, placeholder: 'Repeat password' %></td>
     </tr>
     <tr>
-      <td><%= f.input :password, required: true, label: false, placeholder: 'Pick a password' %></td>
+      <td>
+        <div class="form-group passport-form">
+          <%= f.input :country, placeholder: "Country" %>
+        </div>
+      </td>
     </tr>
     <tr>
-      <td colspan="2">
-        <%- if devise_mapping.omniauthable? %>
-          <%- resource_class.omniauth_providers.each do |provider| %>
-            <% if provider.to_s == 'instagram' %>
-            <p><a href="<%= omniauth_authorize_path(resource_name, provider) %>"><img class="facebook-sign-in" src="/assets/images/<%= provider %>_sign_in.png"></a></p>
-            <% end %>
-          <% end -%>
-        <% end -%>
+      <td>
+        <div class="form-group passport-form">
+          <%= f.input :email, label: false, placeholder: 'Your Email Address' %>
+        </div>
       </td>
     </tr>
     <tr>
       <td colspan="2" class="user-signature">
-        Signed:&nbsp;&nbsp;&nbsp; <%= f.submit 'Create Account' %>
+        Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= current_user.name %></span>
       </td>
     </tr>
+    <tr><td>
+      <div class="actions">
+        <%= f.submit 'Update Account' %>
+      </div>
+    </td></tr>
 </table>
-<div class="actions">
 
-</div>
 <% end %>
 <script>
   $(document).ready(function(){

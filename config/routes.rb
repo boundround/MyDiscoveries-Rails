@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
-  devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions" }
 
   resources :pages
 
@@ -63,7 +63,13 @@ Rails.application.routes.draw do
     get "/sign_in" => "devise/sessions#new"
   end
 
+  get '/users/photos' => 'users#photos'
+  get '/users/games' => 'users#games'
+  get '/users/videos' => 'users#videos'
+  get '/users/places' => 'users#places'
+  get '/users/fun_facts' => 'users#fun_facts'
   resources :users
+
 
   resources :places do
     resources :photos

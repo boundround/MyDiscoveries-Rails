@@ -1,0 +1,35 @@
+<div class="left-user">
+  <div class="container">
+    <% unless @user.places.blank? %>
+        <h2>My Wishlist</h2>
+        <ul>
+          <% @user.places.each do |place| %>
+            <div class="place-card" id="<%= place.slug %>">
+              <%= raw like_icon(place) %>
+              <div class="upper-card" style="background-image: url(<%= !place.photos.blank? ? place.photos.first.path_url(:small) : "http://placehold.it/350x150" %>)">
+                <div class="card-category">
+                  <img src="http://d1w99recw67lvf.cloudfront.net/category_icons/<%= place.categories[0].identifier %>_icon.png" alt="sights icon"><%= place.categories[0].name %>
+                </div>
+              </div>
+            <a href="<%= place_path(place) %>">
+              <p class="place-title <%= place.categories[0].identifier %>"><%= place.display_name %></p><br>
+            </a>
+            <div class="card-footer">
+              <div class="image-count">
+                <img src="http://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png" height="12px" alt="photo count"><%= place.photos.length %>
+              </div>
+              <div class="video-count"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png" height="12px" alt="videos count"><%= place.videos.length %>
+              </div>
+              <div class="game-count">
+                <img src="http://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png" height="12px" alt="games count"><%= place.games.length %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+<div class="right-user">
+  <%= render 'sidebar' %>
+</div>
