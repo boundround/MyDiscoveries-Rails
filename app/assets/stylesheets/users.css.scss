@@ -34,6 +34,10 @@
   width: 30%;
 }
 
+.passport-form {
+  position: relative;
+}
+
 .passport-form input {
   background-color: skyblue;
   border: none;
@@ -131,6 +135,24 @@
 
 .user-signature {
   padding: 10px;
+}
+
+.bar {
+  height: 18px;
+  background: green;
+}
+
+#fileupload {
+  width: 100%;
+  min-height: 100px;
+  position: absolute;
+  top: 0;
+}
+
+.click-to-upload {
+  background-color: rgba(70,70,70,0.5);
+  color: white;
+  display: none;
 }
 
 @media (max-width: 768px) {

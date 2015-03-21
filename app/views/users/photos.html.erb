@@ -26,6 +26,12 @@
           </div>
         </div>
       <% end %>
+    <% else %>
+      <div class="home-text">
+        <p>You have not favourited any Photos yet!</p>
+        <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
+        to add them to your personal list.
+      </div>
     <% end %>
   </div>
 </div>

@@ -15,7 +15,8 @@
     <% end %>
     <tr>
       <td rowspan="3" class="left-passport">
-        <p>Upload A Photo</p><br>
+        <p>Upload A Photo<br>
+        (Optional)</p>
         <%= f.input :avatar, as: :file, label: false %>
       </td>
       <td>
@@ -40,13 +41,14 @@
       <td rowspan="2">
         <%= image_tag 'passport_stamp.png', class: 'passport-stamp' %>
       </td>
-      <td><%= f.input :password_confirmation, required: true, label: false, placeholder: 'Repeat password' %></td>
-    </tr>
-    <tr>
       <td><%= f.input :password, required: true, label: false, placeholder: 'Pick a password' %></td>
     </tr>
     <tr>
+      <td><%= f.input :password_confirmation, required: true, label: false, placeholder: 'Repeat password' %></td>
+    </tr>
+    <tr>
       <td colspan="2">
+        <br>
         <%- if devise_mapping.omniauthable? %>
           <%- resource_class.omniauth_providers.each do |provider| %>
             <% if provider.to_s == 'instagram' %>
@@ -56,14 +58,9 @@
         <% end -%>
       </td>
     </tr>
-    <tr>
-      <td colspan="2" class="user-signature">
-        Signed:&nbsp;&nbsp;&nbsp; <%= f.submit 'Create Account' %>
-      </td>
-    </tr>
 </table>
 <div class="actions">
-
+  <%= f.submit 'Create Account', class: "btn btn-default" %>
 </div>
 <% end %>
 <script>

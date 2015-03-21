@@ -22,6 +22,8 @@ gem 'iconv'
 # Bootsy WYSIWYG Editor
 gem 'bootsy'
 
+gem 'jquery-fileupload-rails'
+
 # 12 Factor Gem for Heroku Deploy
 gem 'rails_12factor', group: :production
 # Use Uglifier as compressor for JavaScript assets

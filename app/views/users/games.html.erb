@@ -11,7 +11,7 @@
     <div class="card-large-content-hide">
       <button id="close-large-content" style="position:absolute">Close</button>
     </div>
-
+    <% unless @user.games.empty? %>
     <div class="cards-float">
       <% @user.games.each do |game| %>
         <% if (game != nil and game.place != nil and game.place.area != nil) %>
@@ -32,9 +32,16 @@
                 </div>
             </div>
           </div>
+        </div>
         <% end %>
       <% end %>
-    </div>
+    <% else %>
+      <div class="home-text">
+        <p>You have not favourited any Games yet!</p>
+        <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
+        to add them to your personal list.
+      </div>
+    <% end %>
   </div>
 </div>
 <div class="right-user">
