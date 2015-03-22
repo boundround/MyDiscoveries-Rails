@@ -1,30 +1,33 @@
 <table class="passport">
   <tr><td colspan="2"><%= image_tag 'plane.png' , class: 'passport-plane' %><h2>My Passport</h2></td></tr>
-  <%= simple_form_for(@user) do |f| %>
-    <% if @user.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-        <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <tr>
-      <td rowspan="2" class="left-passport">
+  <tr>
+    <td rowspan="2" class="left-passport">
+      <div class="form-group passport-form">
         <div class="passport-photo">
           <% if current_user.avatar_url %>
             <%= image_tag current_user.avatar_url, class: 'user-avatar' %><br>
           <% else %>
-            <p class="middle-align">Upload Your Photo</p>
+            <img src="<%= asset_path('passport-photo-placeholder.png') %>" class="user-avatar"><br>
           <% end %>
+          <div class="click-to-upload">Click To Change Photo</div>
         </div>
-        <div class="form-group passport-form">
-          <%= f.input :avatar, as: :file, label: false, placeholder: "Upload A Passport Photo" %>
+          <%= form_for @user, :html => { :id => "fileupload"  } do |f| %>
+            <%= f.file_field :avatar, label: false %>
+          <% end %>
+      </div>
+    </td>
+    <%= simple_form_for(@user) do |f| %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+          <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
         </div>
-      </td>
+      <% end %>
       <td>
       <div class="form-group passport-form">
         <%= f.input :name, label: false, placeholder: 'Your Name' %>
@@ -64,21 +67,15 @@
         Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= current_user.name %></span>
       </td>
     </tr>
-    <tr><td>
-      <div class="actions">
-        <%= f.submit 'Update Account' %>
-      </div>
-    </td></tr>
-</table>
+  </table>
+  <div class="actions">
+    <%= f.submit 'Update Account', class: "btn btn-default" %>
+  </div>
 
 <% end %>
-<script>
-  $(document).ready(function(){
-    $("input.datepicker").each(function(input) {
-      $(this).datepicker({
-        dateFormat: "yy-mm-dd",
-        altField: $(this).next()
-      });
-    });
-  });
-  </script>
+
+<div id="progress">
+  <div class="bar" style="width: 0%;"></div>
+</div>
+<script id="template-upload" type="text/x-tmpl">
+</script>

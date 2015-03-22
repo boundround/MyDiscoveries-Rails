@@ -47,6 +47,11 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
+  devise_scope :user do
+    get "/sign_in" => "devise/sessions#new"
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
   devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions" }
 
   resources :pages
@@ -58,10 +63,6 @@ Rails.application.routes.draw do
   get '/map_only' => 'pages#map_only'
 
   get '/puzzles/:action' => 'puzzles#:action'
-
-  devise_scope :user do
-    get "/sign_in" => "devise/sessions#new"
-  end
 
   get '/users/photos' => 'users#photos'
   get '/users/games' => 'users#games'

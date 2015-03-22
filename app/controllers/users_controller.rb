@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :redirect_if_not_admin, only: [:edit, :index]
+  before_action :redirect_if_not_admin, only: [:index]
 
   def index
     @users = User.all
@@ -16,8 +16,18 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def create
+    @user = User.create(user_params)
+
+    respond_to do |format|
+      format.html { redirect_to user_path(current_user) }
+      format.json { render :show, status: :ok, location: @user }
+    end
+  end
+
   # GET /users/1/edit
   def edit
+    @set_body_class = 'passport-page'
     @user = User.find(params[:id])
   end
 
@@ -26,8 +36,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        format.html { redirect_to user_path(current_user) }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -105,7 +115,7 @@ class UsersController < ApplicationController
     end
 
     def verify_current_user
-      if current_user != User.find(params[:id])
+      if current_user != User.find(params[:id]) || !current_user.try(:admin)
         redirect_to root_path, notice: "Not Authorized!"
       end
     end
