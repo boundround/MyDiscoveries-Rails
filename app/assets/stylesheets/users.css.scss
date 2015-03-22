@@ -56,7 +56,6 @@
 .sidebar {
   color: white;
   text-align: center;
-  overflow: hidden;
 }
 
 .sidebar-top {
@@ -147,6 +146,25 @@
   min-height: 100px;
   position: absolute;
   top: 0;
+  display: none;
+}
+
+#user_avatar {
+  height: 100px;
+  width: 100%;
+}
+
+.sign-up {
+  font-size: 18px;
+  text-decoration: none !important;
+}
+
+.sign-up:hover {
+  text-decoration: none;
+}
+
+.sign-up a {
+  color: darkblue !important;
 }
 
 .click-to-upload {

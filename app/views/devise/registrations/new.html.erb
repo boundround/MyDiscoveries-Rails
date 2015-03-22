@@ -28,7 +28,7 @@
         <div class="form-group passport-form">
           <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
                               end_year: Date.today.year,
-                              order: [:month, :day, :year] %>
+                              order: [:month, :day, :year], required: true %>
         </div>
       </td>
     </tr>
@@ -46,7 +46,7 @@
     <tr>
       <td><%= f.input :password_confirmation, required: true, label: false, placeholder: 'Repeat password' %></td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td colspan="2">
         <br>
         <%- if devise_mapping.omniauthable? %>
@@ -57,7 +57,7 @@
           <% end -%>
         <% end -%>
       </td>
-    </tr>
+    </tr> -->
 </table>
 <div class="actions">
   <%= f.submit 'Create Account', class: "btn btn-default" %>
