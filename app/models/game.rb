@@ -2,7 +2,7 @@ class Game < ActiveRecord::Base
   belongs_to :place
   belongs_to :area
 
-  before_save :add_instructions, :create_thumbnail
+  after_save :add_instructions, :create_thumbnail
 
   mount_uploader :thumbnail, GameThumbnailUploader
 
