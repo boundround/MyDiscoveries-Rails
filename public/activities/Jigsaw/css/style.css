@@ -27,7 +27,7 @@ canvas#canvas, canvas#buffer, canvas#image-preview {
     left: 0;
 }
 
-canvas#canvas { z-index: 100; background: #333;}
+canvas#canvas { z-index: 100; background: #999;}
 
 canvas#canvas.loading { background: url(../images/loader.gif) no-repeat center; }
 
