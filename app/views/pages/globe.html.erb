@@ -129,10 +129,9 @@ left: 1px;
 
 	</div>
 	<div class="search-wrapper">
-		<input class="search-box" placeholder="Where do you want to explore?"></input>
+		<input id="search-box" class="search-box" placeholder="Where do you want to explore?"></input>
 		<div class="search-sidebar"></div>
 	</div>
-	<div id="hide-map-button" class="show-hide-map-button">Hide map</div>
 	<div id="card-container">
 		<div id='filters' class='ui-select'>
 		  <div>
@@ -153,7 +152,7 @@ left: 1px;
 		  	<input type='checkbox' checked=checked class='filter'
 		             name='filter' id='place_to_stay' value='place_to_stay'/><label for='place_to_stay'>Place To Stay</label>
 			  <input type='checkbox' checked=checked class='filter'
-			             name='filter' id='shopping' value='shopping'/><label for='shoppping'>Shopping</label>
+			             name='filter' id='shopping' value='shopping'/><label for='shopping'>Shopping</label>
 			  <input type='checkbox' checked=checked class='filter'
 			             name='filter' id='sights' value='sights'/><label for='sights'>Sights</label>
 			  <input type='checkbox' checked=checked class='filter'
@@ -227,6 +226,7 @@ left: 1px;
 </div> -->
 
 <div id='user-ip' data-ip=<%= request.remote_ip %>></div>
+<div id="placeholder"></div>
 <!-- Google Fonts embed code -->
 <script type="text/javascript">
   WebFontConfig = {
@@ -243,8 +243,6 @@ left: 1px;
   })();
   </script>
 <%= javascript_include_tag 'd3.v3.min' %>
-<%= javascript_include_tag 'jquery.min' %>
-
 <script>
 
 // var svgdiv = "#svgdiv",
@@ -1059,6 +1057,5 @@ function sizeContent() {
 */
 </script>
 
-<%= javascript_include_tag 'jquery.ui' %>
 <%= javascript_include_tag 'pages' %>
 </body>

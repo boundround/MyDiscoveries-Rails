@@ -1,99 +1,99 @@
-
-  <div id="photos-masonry">
-    <div class="grid-sizer"></div>
-    <div class="item about">
-      <div class="about-wrapper">
-        <div class="about-hero">
-          <% if @hero_video %>
-            <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-          <% else %>
-            <% unless @area.photos.empty? %>
-              <% if @hero_photo %>
-                <picture>
-                  <img class="hero-photo" srcset="<%= @hero_photo.path_url(:large) %> 900w, <%= @hero_photo.path_url(:medium) %> 600w, <%= @hero_photo.path_url(:small) %> 300w"
-                    sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= alt_tag_for(@hero_photo) %>" />
-                  <div class="photo-credit">Credit: <%= @hero_photo.credit %></div>
-                </picture>
-              <% end %>
+<div class="cards-wrap">
+<div id="photos-masonry">
+  <div class="grid-sizer"></div>
+  <div class="item about">
+    <div class="about-wrapper">
+      <div class="about-hero">
+        <% if @hero_video %>
+          <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <% else %>
+          <% unless @area.photos.empty? %>
+            <% if @hero_photo %>
+              <picture>
+                <img class="hero-photo" srcset="<%= @hero_photo.path_url(:large) %> 900w, <%= @hero_photo.path_url(:medium) %> 600w, <%= @hero_photo.path_url(:small) %> 300w"
+                  sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= alt_tag_for(@hero_photo) %>" />
+                <div class="photo-credit">Credit: <%= @hero_photo.credit %></div>
+              </picture>
             <% end %>
           <% end %>
-        </div>
-        <div class="about-content">
-          <h1>Things To Do In <%= @area.display_name %></h1>
-          <div id="area-content">
-            <p><%= raw @area.description %></p>
-          </div>
+        <% end %>
+      </div>
+      <div class="about-content">
+        <h1>Things To Do In <%= @area.display_name %></h1>
+        <div id="area-content">
+          <p><%= raw @area.description %></p>
         </div>
       </div>
     </div>
-    <% unless @photos.empty? %>
-    <% @photos.each_with_index do |photo, index| %>
-        <div class="item photo photo-card photo-thumb">
-          <div class="game-divider">
-          </div>
-          <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
-                                                              photo_alt: alt_tag_for(photo),
-                                                              photo_credit: photo.credit
-                                                              } do %>
-          <% end %>
-          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
-          <div class="photo-credit">Credit: <%= photo.credit %></div>
-          <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
-          <div class="photo-caption">
-          <p><%= raw photo.caption %></p>
-            <a href="#" data-toggle="modal" data-target="#postCardModal-<%= index %>">
-              <img class="postcard-icon" src="<%= asset_path ('postcard_icon-01.svg') %>"/>
-            </a>
-            <!-- Modal -->
-            <div class="modal post-modal fade" id="postCardModal-<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog postcard-dialog">
-                <div class="modal-content postcard-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Send A Postcard!</h4>
-                  </div>
-                  <div class="modal-body">
-                    <div class="post-card-form">
-                      <%= form_tag(send_postcard_path) do %>
-                          <div class="form-group">
-                              <%= label_tag 'name', 'Your Email Address' %>
-                              <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Email Address' %>
-                          </div>
-                         <div class="form-group">
-                             <%= label_tag 'email', 'Send To: Email Address' %>
-                             <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Recipient Email Address' %>
-                         </div>
-                         <div class="form-group">
-                             <%= label_tag 'message', 'Message' %>
-                             <%= text_area_tag 'message', nil, class: 'form-control', rows: 4 %>
-                             <%= hidden_field_tag 'photo', photo.path_url(:medium) %>
-                             <%= hidden_field_tag 'place', @area.display_name %>
-                             <%= hidden_field_tag 'area', '' %>
-                             <%= hidden_field_tag 'country', @area.country %>
-                         </div>
-                         <div class="form-group">
-                           <%= submit_tag 'Send', class: 'btn btn-default btn-about' %>
-                         </div>
-                      <% end %>
-                    </div>
+  </div>
+  <% unless @photos.empty? %>
+  <% @photos.each_with_index do |photo, index| %>
+      <div class="item photo photo-card photo-thumb">
+        <div class="game-divider">
+        </div>
+        <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
+                                                            photo_alt: alt_tag_for(photo),
+                                                            photo_credit: photo.credit
+                                                            } do %>
+        <% end %>
+        <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
+        <div class="photo-credit">Credit: <%= photo.credit %></div>
+        <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
+        <div class="photo-caption">
+        <p><%= raw photo.caption %></p>
+          <a href="#" data-toggle="modal" data-target="#postCardModal-<%= index %>">
+            <img class="postcard-icon" src="<%= asset_path ('postcard_icon-01.svg') %>"/>
+          </a>
+          <!-- Modal -->
+          <div class="modal post-modal fade" id="postCardModal-<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog postcard-dialog">
+              <div class="modal-content postcard-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="myModalLabel">Send A Postcard!</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="post-card-form">
+                    <%= form_tag(send_postcard_path) do %>
+                        <div class="form-group">
+                            <%= label_tag 'name', 'Your Email Address' %>
+                            <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Email Address' %>
+                        </div>
+                       <div class="form-group">
+                           <%= label_tag 'email', 'Send To: Email Address' %>
+                           <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Recipient Email Address' %>
+                       </div>
+                       <div class="form-group">
+                           <%= label_tag 'message', 'Message' %>
+                           <%= text_area_tag 'message', nil, class: 'form-control', rows: 4 %>
+                           <%= hidden_field_tag 'photo', photo.path_url(:medium) %>
+                           <%= hidden_field_tag 'place', @area.display_name %>
+                           <%= hidden_field_tag 'area', '' %>
+                           <%= hidden_field_tag 'country', @area.country %>
+                       </div>
+                       <div class="form-group">
+                         <%= submit_tag 'Send', class: 'btn btn-default btn-about' %>
+                       </div>
+                    <% end %>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
     <% end %>
   <% end %>
 
   <% unless @area.fun_facts.empty? %>
-      <% @area.fun_facts.each do |fun_fact| %>
-        <div class="item fun_fact photo-card">
-          <div class="discount-card fact-card">
-            <p><%= raw fun_fact.content %></p>
-          </div>
-          <div class="priority"><%= fun_fact.priority ? fun_fact.priority : 2 %></div>
+    <% @area.fun_facts.each do |fun_fact| %>
+      <div class="item fun_fact photo-card">
+        <div class="discount-card fact-card">
+          <p><%= raw fun_fact.content %></p>
         </div>
-      <% end %>
+        <div class="priority"><%= fun_fact.priority ? fun_fact.priority : 2 %></div>
+      </div>
     <% end %>
+  <% end %>
 
     <% unless @area.discounts.empty? %>
       <% @area.discounts.each do |discount| %>
@@ -105,5 +105,5 @@
         </div>
       <% end %>
     <% end %>
-
+  </div>
 </div>

@@ -59,7 +59,7 @@ div#game-options  {
     box-shadow: 0 0 5px black;
 }
 
-div#game-options ul li { 
+div#game-options ul li {
     float: left;
     list-style: none;
     line-height: 25px;

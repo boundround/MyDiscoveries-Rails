@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
   def index
-    @games = Game.includes(:place => :area).order('areas.display_name ASC, places.display_name ASC').paginate(:page => params[:page])
+    @games = Game.includes(:place => [:area, :photos]).order('areas.display_name ASC, places.display_name ASC').paginate(:page => params[:page])
 
     respond_to do |format|
       format.html
@@ -25,6 +25,9 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
+      @game.create_thumbnail
+      @game.add_instructions
+      @game.save
       redirect_to :back, notice: "Game added."
     else
       render :new
@@ -44,6 +47,9 @@ class GamesController < ApplicationController
   def update
     @game = Game.find(params[:id])
     if @game.update(game_params)
+      @game.create_thumbnail
+      @game.add_instructions
+      @game.save
       redirect_to :back
     end
   end
