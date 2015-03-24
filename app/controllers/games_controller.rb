@@ -25,6 +25,9 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
+      @game.create_thumbnail
+      @game.add_instructions
+      @game.save
       redirect_to :back, notice: "Game added."
     else
       render :new
@@ -44,6 +47,9 @@ class GamesController < ApplicationController
   def update
     @game = Game.find(params[:id])
     if @game.update(game_params)
+      @game.create_thumbnail
+      @game.add_instructions
+      @game.save
       redirect_to :back
     end
   end
