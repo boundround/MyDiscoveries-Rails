@@ -156,14 +156,18 @@
     <% end %>
 
     <% unless @place.games.empty? %>
-      <% @place.games.each do |game| %>
+      <% @place.games.each_with_index do |game, index| %>
         <%= simple_form_for [@place, game] do |f| %>
-          <div class="item special discount-card photo-card">
+
             <div class="form-group">
-              <h3>Edit Game</h3>
+              <h3>Edit Game <%= index + 1 %></h3>
               <%= f.input :url, label: "Game URL", input_html: { class: 'form-control' } %>
               <%= f.input :priority, collection: 1..10 %>
-              <p></p>
+              <p>
+                <%= f.input :instructions, input_html: { class: 'form-control' } %>
+              </p>
+              Thumbnail<br>
+              <%= image_tag game.thumbnail %>
               <div class="form-group published-radio">
                 <%= f.input :game_type, as: :radio_buttons, collection: ["jigsaw puzzle", "slider", "word search"], input_html: { class: 'form-control'} %><br />
               </div>
@@ -171,7 +175,6 @@
               <%= link_to "Delete", game, class: "btn btn-danger", method: :delete,
                                  data: { confirm: "Are you sure?" } %>
             </div>
-          </div>
         <% end %>
       <% end %>
     <% end %>
