@@ -15,9 +15,9 @@
     <% end %>
     <tr>
       <td rowspan="3" class="left-passport">
-        <p>Upload A Photo<br>
-        (Optional)</p>
-        <%= f.input :avatar, as: :file, label: false %>
+        <div class="form-group passport-form">
+
+        </div>
       </td>
       <td>
         <%= f.input :name, label: false, placeholder: 'Your name', required: true, autofocus: true %>
@@ -73,3 +73,7 @@
     });
   });
   </script>
+<script id="template-upload" type="text/x-tmpl">
+  <i class="spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i>
+  <div class="click-to-upload">Click To Change Photo</div>
+</script>
