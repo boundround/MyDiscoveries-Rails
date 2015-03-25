@@ -3,7 +3,11 @@ class VideosController < ApplicationController
     # @videos = Video.ordered_by_place_name.paginate(:page => params[:page])
 #    @videos = Video.includes(:place => :area).order('areas.display_name ASC, places.display_name ASC').paginate(:page => params[:page])
 #    @videos = Video.includes(:place => :area).order('places.display_name ASC, areas.display_name ASC').paginate(:page => params[:page])
-    @videos = Video.includes(:place => :area).order('areas.display_name ASC, places.display_name ASC').paginate(:page => params[:page])
+    if params[:place_id]
+      @videos = Place.friendly.find(params[:place_id]).videos
+    else
+      @videos = Video.includes(:place => :area).order('areas.display_name ASC, places.display_name ASC').paginate(:page => params[:page])
+    end
   end
 
   def new

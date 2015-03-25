@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <%= will_paginate @videos %>
+    <%= will_paginate @videos unless params[:place_id] %>
 
 		<div class="card-large-content-hide">
 			<button id="close-large-content" style="position:absolute">Close</button>
@@ -35,7 +35,7 @@
 				<% end %>
       <% end %>
     </div>
-    <%= will_paginate @videos %>
+    <%= will_paginate @videos unless params[:place_id] %>
   </div>
 </div>
 
