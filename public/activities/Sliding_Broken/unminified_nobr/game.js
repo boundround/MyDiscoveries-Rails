@@ -1025,13 +1025,13 @@ move = function (obj, xd1, yd1, xd2, yd2, t) {
                 } else {
                     messagePage.draw(LANG_CONGRATS, LANG_SOLVED + ' ' + moves);
                 }
-/*
+
                 if (Config.simpleMode) {
                     inGameButtons = new Menu();
                     inGameButtons.add(new MenuItem('nextimg', LANG_NEXT, scaledW/2-WIDTH*0.2, HEIGHT*0.05, WIDTH*0.4, HEIGHT*0.13, HEIGHT*0.04, 5));
                     inGameButtons.draw();
                 }
-*/
+
                 if (!cWon) {
                     cWon = true;
                     scores();
@@ -1234,7 +1234,6 @@ $canvas.bind('click', function (event) {
 
 isTouchDevice = function () {
     return document.documentElement.hasOwnProperty('ontouchstart') || document.documentElement.hasOwnProperty('onmsgesturechange');
-//	return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
 };
 
 var mobile = isTouchDevice(),
@@ -1806,8 +1805,7 @@ window.onresize = function() {
         SIZEX = scaledW / NUM;
         SIZEY = HEIGHT / NUM;
 
-				//Bound Round change, allow portrait for full screen phone
-        if (0/*PORTRAIT*/) {
+        if (PORTRAIT) {
             ctx.clearRect(0, 0, WIDTH, HEIGHT);
             messagePage.draw(LANG_WINDOW_SMALL);
             if (videopuzzle) {
@@ -1873,16 +1871,6 @@ langLoad = function (filename, status) {
     }
 };
 
-//Bound Round Environment Startup Code
-var imagePath;
-var puzzleSize;
-
-function initPuzzle(image, size) {
-	imagePath = image;
-	puzzleSize = size;
-	loadjs("config.js", 'config', confLoad);
-}
-
 confLoad = function (filename, status) {
     if (status === 'ok') {
         loadjs("lang/"+language+".js", 'lang',langLoad);
@@ -1930,8 +1918,6 @@ confLoad = function (filename, status) {
         hintTimePenalty = Config.hintTimePenalty;
         fullImageMovePenalty = Config.fullImageMovePenalty;
         fullImageTimePenalty = Config.fullImageTimePenalty;
-				//Bound Round Environment
-				//        NUM = Config.defaultPuzzleSize;
         NUM = Config.defaultPuzzleSize;
         if (NUM < 2) {
             NUM = 2;
@@ -1970,9 +1956,7 @@ confLoad = function (filename, status) {
         infoIcon = imageOn;
 
         if (Config.quickMode && Config.imageForQuickMode !== 'default') {
-					//Bound Round Environment
-					//            kep.src = Config.imageForQuickMode;
-            kep.src = imagePath;
+            kep.src = Config.imageForQuickMode;
             if (Config.quickMode == "1") {
                 startPuzzle('classic');
                 activePage = 'game';
@@ -2002,5 +1986,4 @@ confLoad = function (filename, status) {
     }
 };
 
-//Disable default for Bound Round Environment
-//loadjs("config.js", 'config', confload);
+loadjs("config.js", 'config', confLoad);

@@ -24,23 +24,23 @@
         };
 
     function random_edge() { return EDGES[Util.randint(2)]; }
-
+    
     function $(id) { return document.getElementById(id); }
-
+    
     /* Namespace */
     window.jigsaw = {};
-
+  
 jigsaw.Jigsaw = Class.extend({
-
+    
     init: function(opts) {
         var eventBus = new EventEmitter(),
             self = this;
-
+        
         this.opts = opts = Util.extend(opts || {}, default_opts);
         this.max_width = opts.maxWidth;
         this.max_height = opts.maxHeight;
         $("redirect-form").action = opts.redirect;
-
+        
         DEFAULT_IMAGE = opts.defaultImage;
 
         // Instance attrib
@@ -54,7 +54,7 @@ jigsaw.Jigsaw = Class.extend({
         this.preview = document.getElementById("image-preview");
         this.previewCtx = Util.getContext(this.preview);
         this.parts = opts.defaultPieces || 10;
-
+        
         /* Render jigsaw */
         this.tmp_img.onload = function() {
             self.original = this;
@@ -62,14 +62,14 @@ jigsaw.Jigsaw = Class.extend({
             Util.calcPieces(self.img, self.opts.piecesNumberTmpl);
             self.render();
         }
-
+        
         /* Render jigsaw */
         this.tmp_img.onerror = function() {
             if (DEFAULT_IMAGE) { self.set_image(DEFAULT_IMAGE); }
         }
-
+        
         jigsaw_events(this.ce, eventBus, this.opts.rotatePieces);
-
+        
         eventBus.on(jigsaw.Events.JIGSAW_COMPLETE, function(){
             self.ui.stop_clock();
             // redirect an send time
@@ -87,30 +87,30 @@ jigsaw.Jigsaw = Class.extend({
             eventBus.on(jigsaw.Events.RENDER_FINISH, this.shuffle.bind(this));
         }
         eventBus.on(jigsaw.Events.PARTS_NUMBER_CHANGED, this.set_parts.bind(this));
-
+        
         eventBus.on(jigsaw.Events.RENDER_REQUEST, this.render.bind(this));
-
+        
         eventBus.on(jigsaw.Events.JIGSAW_SHUFFLE, this.shuffle.bind(this));
-
+        
         eventBus.on(jigsaw.Events.JIGSAW_SET_IMAGE, this.set_image.bind(this));
-
+        
         eventBus.on(jigsaw.Events.SHOW_EDGE, function(){
             self.ce.find("#middle").attr("hide", true);
             self.ce.find("#edge").attr("hide", false);
             self.ce.redraw();
         });
-
+        
         eventBus.on(jigsaw.Events.SHOW_MIDDLE, function(){
             self.ce.find("#middle").attr("hide", false);
             self.ce.find("#edge").attr("hide", true);
             self.ce.redraw();
         });
-
+        
         eventBus.on(jigsaw.Events.SHOW_ALL, function(){
             self.ce.find("*").attr("hide", false);
             self.ce.redraw();
         });
-
+        
         // Resize canvas
         function resizeView() {
             var cv1 = self.ce.cv;
@@ -120,52 +120,52 @@ jigsaw.Jigsaw = Class.extend({
             if (Cevent.isTouchDevice) {
                 Util.fullScreen();
             }
-
+            
         }
 
         resizeView();
 
         Util.addEvent(window, "resize", resizeView);
-
+        
         this.set_image();
     },
-
+    
     redirect: function() {
         $("t").value = this.ui.time();
         $("p").value = this.parts;
         $("redirect-form").submit();
     },
-
+    
     /* number of puzzle pieces */
     set_parts: function(n) {
         this.parts = n;
     },
-
+    
     /* change image src */
     set_image: function(src) {
         this.ce.cv.className = "loading";
         this.tmp_img.src = src || DEFAULT_IMAGE;
     },
-
+    
     /* scale image if need */
     draw_image: function(img, w, h) {
         var max_w = w || this.max_width,
             max_h = h || this.max_height,
             width, height, ctx = this.ctx;
-
+            
         if (max_w > window.innerWidth || max_h > window.innerHeight-50)
         {
             var ratio = Math.min(window.innerWidth/max_w, (window.innerHeight-50)/max_h);
             max_w *= ratio;
             max_h *= ratio
         }
-
+        
         /* scale image */
         if (img.width > max_w || img.height > max_h) {
             var rate = Math.min(max_w / img.width, max_h / img.height);
             width = ctx.canvas.width = ~~(img.width*rate);
             height = ctx.canvas.height = ~~(img.height*rate);
-
+            
             ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, width, height);
         } else {
             ctx.canvas.width = img.width;
@@ -173,10 +173,10 @@ jigsaw.Jigsaw = Class.extend({
             ctx.drawImage(img, 0, 0);
         }
     },
-
+    
     /* clear all pieces */
     clear: function() { this.ce._shapes = []; },
-
+    
     /* put pieces at random positions */
     shuffle: function() {
         var T = this.ce.getAll("piece");
@@ -189,10 +189,10 @@ jigsaw.Jigsaw = Class.extend({
             ratio = this.opts.spread,
             width = document.documentElement.clientWidth,
             height = document.documentElement.clientHeight - 50,
-
+            
             w = document.documentElement.clientWidth * ratio,
             h = (document.documentElement.clientHeight - 50) * ratio,
-
+            
             padx = ~~((width-w)/2),
             pady = ~~((height-h)/2);
 
@@ -213,7 +213,7 @@ jigsaw.Jigsaw = Class.extend({
         this.ce.shuffled = true;
         this.ce.redraw();
     },
-
+    
     render: function() {
         // carga hasta que se halla desarmado
         if (this.opts.shuffled) {
@@ -230,7 +230,7 @@ jigsaw.Jigsaw = Class.extend({
             last_right = [],
             w = this.img.width,
             h = this.img.height,
-
+            
             /* Aprox. size */
             size = ~~Math.sqrt(w * h / this.parts),
             cols = ~~(w / size),
@@ -239,29 +239,29 @@ jigsaw.Jigsaw = Class.extend({
             offset;
 
         this.flag = flag;
-
+        
         while (cols*rows < this.parts) {
             size--;
             cols = ~~(w/size);
             rows = ~~(h/size);
         }
-
+        
         size = size % 2 ? size : size - 1;
         offset = ~~(document.documentElement.clientWidth/2 - (size*cols/2));
         this.clear();
-
+        
         var ox = ~~((w - (cols * size))/2),
             oy = ~~((h - (rows * size))/2);
             ox = ox >= 0 ? ox : 0;
             oy = oy >= 0 ? oy : 0;
-
+            
         // draw preview
         this.preview.style.marginTop = this.opts.offsetTop + "px";
         this.preview.width = size*cols;
         this.preview.height = size*rows;
         this.previewCtx.drawImage(this.img, ox, oy, size*cols, size*rows, 0, 0, size*cols, size*rows);
-
-
+        
+        
         /* avoid blocking the browser using setTimeout */
         ;(function F() {
             if (i < cols && flag == this.flag) {
@@ -271,7 +271,7 @@ jigsaw.Jigsaw = Class.extend({
                     right = i == cols - 1 ? NONE : random_edge();
                     bottom = j == rows - 1 ? NONE : random_edge();
                     left = i == 0 ? 0 : last_right[j] == IN ? OUT : IN;
-
+                    
                     /* Create piece */
                     this.ce.piece(size * i, // x
                                   size * j + this.opts.offsetTop, // y
@@ -281,7 +281,7 @@ jigsaw.Jigsaw = Class.extend({
                                   )
                     .attr({col: i, row: j, offset: offset, stroke: this.opts.border ? "black" : ""})
                     .get(-1).render(ox, oy - this.opts.offsetTop);
-
+          
                     if (!this.opts.shuffled) { this.ce.redraw();
           }
                     /* */
@@ -293,7 +293,7 @@ jigsaw.Jigsaw = Class.extend({
 
                     // Remember right side for next iteration
                     current_right.push(right);
-
+                    
                     // next row
                     j++;
                 } else {
@@ -326,7 +326,7 @@ function jigsaw_events(ce, eventBus, rotate) {
             c.cv.style.cursor = "default";
             /* just if game already started */
             if (!c.shuffled) { return; }
-
+            
             var all = c.getAll("piece").concat(c.getAll("group")),
                 i = 0, l = all.length,
                 that = this;
@@ -359,8 +359,8 @@ function jigsaw_events(ce, eventBus, rotate) {
         c.remove(this);
         c._shapes.push(this);
     });
-
-
+    
+    
     /* rotate with right click */
     Util.addEvent(ce.cv, "contextmenu", function(e) {
         if (rotate && ce.focused) {
@@ -369,9 +369,9 @@ function jigsaw_events(ce, eventBus, rotate) {
         }
         e.preventDefault();
     });
-
+    
     Util.addEvent(ce.cv,"tap",function(e){if(rotate&&ce.focused){ce.focused.rotation=(ce.focused.rotation+45)%360;ce.redraw();}e.preventDefault();});
-
+    
     if (!rotate) { return; }
 
     /* rotate with keyboard */
@@ -387,7 +387,7 @@ function jigsaw_events(ce, eventBus, rotate) {
         }
         return false;
     });
-
+    
     /* rotate with touch event (tap) */
     if (Cevent.isTouchDevice) {
         ce.click("*", function(c, e){
