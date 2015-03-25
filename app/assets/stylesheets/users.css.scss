@@ -38,6 +38,14 @@
   position: relative;
 }
 
+.spinner {
+  position: absolute;
+  top: 30%;
+  color: white;
+  left: 36%;
+  visibility: hidden;
+}
+
 .passport-form input {
   background-color: skyblue;
   border: none;

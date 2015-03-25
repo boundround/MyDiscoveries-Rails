@@ -4,6 +4,8 @@
 jQuery ->
   $('#fileupload').fileupload
     dataType: "script"
+    send: ->
+      $('.spinner').css('visibility', 'visible')
     add: (e, data) ->
       types = /(\.|\/)(gif|jpe?g|png)$/i
       file = data.files[0]
@@ -19,3 +21,5 @@ jQuery ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
         $('#progress').find('.bar').css('width', progress + '%')
+    done: ->
+      $('.spinner').css('visibility', 'hidden')

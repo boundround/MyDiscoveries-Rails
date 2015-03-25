@@ -4,6 +4,7 @@
     <td rowspan="2" class="left-passport">
       <div class="form-group passport-form">
         <div class="passport-photo">
+          <i class="spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i>
           <% if current_user.avatar_url %>
             <%= image_tag current_user.avatar_url, class: 'user-avatar' %><br>
           <% else %>
@@ -78,4 +79,6 @@
   <div class="bar" style="width: 0%;"></div>
 </div>
 <script id="template-upload" type="text/x-tmpl">
+<i class="spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i>
+<div class="click-to-upload">Click To Change Photo</div>
 </script>
