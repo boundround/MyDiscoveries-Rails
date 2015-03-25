@@ -29,7 +29,7 @@ select {
 }
 
 .map-profile-icon {
-  background-image: url(asset_path('user_copy_3.png'));
+  /*background-image: url(asset_path('user_copy_3.png'));*/
   background-repeat: no-repeat;
   background-position: center;
   width: 30px;
@@ -41,9 +41,10 @@ select {
 }
 
 .profile-icon {
-  background-image: url(asset_path('user_copy_2.png'));
+  /*background-image: url(asset_path('user_copy_2.png'));*/
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 100%;
   width: 30px;
   height: 35px;
   position: absolute;

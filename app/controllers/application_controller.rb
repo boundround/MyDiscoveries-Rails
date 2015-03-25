@@ -37,9 +37,9 @@ class ApplicationController < ActionController::Base
 
     if user_signed_in?
       if content.users.include?(current_user)
-        return "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_white.png')}' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='true' data-switch-image='#{ActionController::Base.helpers.asset_path('star_grey.png')}'>"
+        return "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_yellow.png')}' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='true' data-switch-image='#{ActionController::Base.helpers.asset_path('star_grey.png')}'>"
       else
-        return "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_grey.png')}' data-post-path=#{postPath} data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='false' data-switch-image='#{ActionController::Base.helpers.asset_path('star_white.png')}'>"
+        return "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_grey.png')}' data-post-path=#{postPath} data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='false' data-switch-image='#{ActionController::Base.helpers.asset_path('star_yellow.png')}'>"
       end
     end
       "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_grey.png')}'>"
