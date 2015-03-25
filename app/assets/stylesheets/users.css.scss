@@ -56,13 +56,14 @@
 .sidebar {
   color: white;
   text-align: center;
+  background-color: #FD7E56;
 }
 
 .sidebar-top {
   position: relative;
   background: url(asset_path('chevrons_orange.png'));
   height: 35%;
-  background-color: #fd7e56;
+  overflow: hidden;
 }
 
 .sidebar-item {

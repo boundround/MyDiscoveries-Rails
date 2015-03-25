@@ -20,7 +20,7 @@
             border: true,
             defaultPieces: 10,
             shuffled: false,
-            rotatePieces: true
+            rotatePieces: false
         };
 
     function random_edge() { return EDGES[Util.randint(2)]; }
