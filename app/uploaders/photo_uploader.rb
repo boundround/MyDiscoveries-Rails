@@ -27,6 +27,8 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # Process files as they are uploaded:
   # process :resize_to_fit => [2532, 1876]
+
+  process :fix_exif_rotation
   #
   # def scale(width, height)
   #   # do something
@@ -60,8 +62,13 @@ class PhotoUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
-  def auto_orient
-    manipulate! { |img| img.auto_orient || img }
+  # Rotates the image based on the EXIF Orientation
+  def fix_exif_rotation
+    manipulate! do |img|
+      img.auto_orient
+      img = yield(img) if block_given?
+      img
+    end
   end
 
 end
