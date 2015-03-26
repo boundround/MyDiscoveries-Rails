@@ -14,7 +14,7 @@ class Video < ActiveRecord::Base
     (2..spreadsheet.last_row).each do |i|
     row = Hash[[header, spreadsheet.row(i)].transpose]
     v = Video.new(row.to_h)
-    response = Unirest.get "http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + v.vimeo_id.to_s
+    response = Unirest.get "https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + v.vimeo_id.to_s
     v.vimeo_thumbnail = response.body["thumbnail_url"]
     v.save
     end

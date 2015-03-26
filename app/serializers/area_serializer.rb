@@ -70,7 +70,7 @@ class AreaSerializer < ActiveModel::Serializer
   def OverviewVideo
     unless object.videos.empty?
       video = object.videos.where(priority: 1).first || object.videos.first
-      response = Unirest.get "http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + video.vimeo_id.to_s
+      response = Unirest.get "https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + video.vimeo_id.to_s
       response.body["title"]
     end
   end
