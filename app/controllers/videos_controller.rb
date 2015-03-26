@@ -10,6 +10,10 @@ class VideosController < ApplicationController
     end
   end
 
+  def show
+    @video = Video.find(params["id"])
+  end
+
   def new
     @video = Video.new
   end
