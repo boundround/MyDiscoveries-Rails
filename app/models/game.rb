@@ -32,11 +32,11 @@ class Game < ActiveRecord::Base
   end
 
   def add_instructions
-    if game_type == 'jigsaw puzzle'
+    if self.game_type == 'jigsaw puzzle'
       self.instructions = "Complete the Jigsaw Puzzle!<br>Tap pieces to spin them<br>Tap, hold and drag to move them"
-    elsif game_type == 'word search'
+    elsif self.game_type == 'word search'
       self.instructions = "Find all the words!<br>Tap and drag over hidden words<br>Tap the word in list for help"
-    elsif game_type == 'slider'
+    elsif self.game_type == 'slider'
       self.instructions = "Complete the Slider Puzzle!<br>Slide pieces to reassemble the photo<br>Drag each piece with your finger to move"
     end
   end

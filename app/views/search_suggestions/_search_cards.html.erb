@@ -10,8 +10,12 @@
         <div class="area-card">
           <div class="area-card-pin"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>
         <a href="<%= area_path(@area) %>">
-          <div class="area-title"><%= @area.display_name %><br>
-            <span class="place-count"><%= @area.places.active.length %> Places</span>
+
+          <div class="area-card">
+            <div class="area-card-pin"><img src="https://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>
+            <div class="area-title"><%= @area.display_name %><br>
+              <span class="place-count"><%= @area.places.active.length %> Places</span>
+            </div>
           </div>
         </a>
       </div>
@@ -26,7 +30,7 @@
                 <%= raw like_icon(place) %>
                 <div class="upper-card" style="background-image: url(<%= !place.photos.blank? ? place.photos.first.path_url(:small) : "http://placehold.it/350x150" %>)">
                   <div class="card-category">
-                    <img src="http://d1w99recw67lvf.cloudfront.net/category_icons/<%= place.categories[0].identifier %>_icon.png" alt="sights icon"><%= place.categories[0].name %>
+                    <img src="https://d1w99recw67lvf.cloudfront.net/category_icons/<%= place.categories[0].identifier %>_icon.png" alt="sights icon"><%= place.categories[0].name %>
                   </div>
                 </div>
               <a href="<%= place_path(place) %>">
@@ -34,12 +38,12 @@
               </a>
               <div class="card-footer">
                 <div class="image-count">
-                  <img src="http://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png" height="12px" alt="photo count"><%= place.photos.length %>
+                  <img src="https://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png" height="12px" alt="photo count"><%= place.photos.length %>
                 </div>
-                <div class="video-count"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png" height="12px" alt="videos count"><%= place.videos.length %>
+                <div class="video-count"><img src="https://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png" height="12px" alt="videos count"><%= place.videos.length %>
                 </div>
                 <div class="game-count">
-                  <img src="http://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png" height="12px" alt="games count"><%= place.games.length %>
+                  <img src="https://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png" height="12px" alt="games count"><%= place.games.length %>
                 </div>
               </div>
             </div>

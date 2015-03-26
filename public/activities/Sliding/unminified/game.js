@@ -1932,8 +1932,7 @@ confLoad = function (filename, status) {
         fullImageTimePenalty = Config.fullImageTimePenalty;
 				//Bound Round Environment
 				//        NUM = Config.defaultPuzzleSize;
-//        NUM = Config.defaultPuzzleSize;
-        NUM = puzzleSize;
+        NUM = Config.defaultPuzzleSize;
         if (NUM < 2) {
             NUM = 2;
         }

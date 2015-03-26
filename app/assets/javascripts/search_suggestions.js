@@ -4,13 +4,13 @@ window.onload = function() {
   var userCity = '';
   var userCountry = '';
 
-  // $.ajax({
-  //   url: 'http://freegeoip.net/json/' + userIP,
-  //   success: function(data) {
-  //     userCity = data.city;
-  //     userCountry = data.country_name;
-  //   }
-  // });
+  $.ajax({
+    url: 'https://freegeoip.net/json/' + userIP,
+    success: function(data) {
+      userCity = data.city;
+      userCountry = data.country_name;
+    }
+  });
 
   var setViewForGooglePlace = function(place, city, country){
     geocoder = new google.maps.Geocoder();

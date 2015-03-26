@@ -6,8 +6,8 @@
   <%= csrf_meta_tags %>
 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href='http://fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Signika:400,300,600,700' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
   <meta name="viewport" content="width=device-width,
                                      initial-scale=0.75,
                                      maximum-scale=0.75,
@@ -83,10 +83,10 @@
   <div class="app-wrap">
     <%= yield %>
   </div>
-  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+  <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
   <script src="//cdn.jsdelivr.net/isotope/2.0.0/isotope.pkgd.min.js"></script>
   <script src="//cdn.jsdelivr.net/imagesloaded/3.1.6/imagesloaded.min.js"></script>
-  <script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
+  <%= javascript_include_tag 'froogaloop' %>
   <%= javascript_include_tag 'cards' %>
 </body>
 </html>
