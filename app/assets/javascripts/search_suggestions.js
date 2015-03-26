@@ -5,7 +5,7 @@ window.onload = function() {
   var userCountry = '';
 
   $.ajax({
-    url: 'http://freegeoip.net/json/' + userIP,
+    url: 'https://freegeoip.net/json/' + userIP,
     success: function(data) {
       userCity = data.city;
       userCountry = data.country_name;
