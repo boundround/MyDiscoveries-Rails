@@ -413,7 +413,7 @@ var showAreaCards = function(){
       var placeCountText = '&nbsp;';
     }
 
-    var pin = '<div class="area-card-pin"><img src="http://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>';
+    var pin = '<div class="area-card-pin"><img src="https://d1w99recw67lvf.cloudfront.net/category_icons/place-pin.png" class="area-pin" alt="map pin"></div>';
 
     text += '<a class="no-anchor-decoration" href="' + url + '"><div class="area-card">' + pin + '<div class="area-title">' + areaTitle +
       '<br><span class="place-count">' + placeCountText + '</span></div></div></a>';
@@ -427,10 +427,10 @@ var showPlaceCards = function(){
   placeMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
       var category = marker.options.category;
-      var categoryIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/" + marker.options.category + "_icon.png' alt='" + marker.options.category + " icon'>";
-      var imageCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' height='12px' alt='photo count'>";
-      var gameCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png' height='12px' alt='games count'>";
-      var videoCountIcon = "<img src='http://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png' height='12px' alt='videos count'>";
+      var categoryIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/" + marker.options.category + "_icon.png' alt='" + marker.options.category + " icon'>";
+      var imageCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' height='12px' alt='photo count'>";
+      var gameCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png' height='12px' alt='games count'>";
+      var videoCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png' height='12px' alt='videos count'>";
       var categoryText = formatCategory(category);
       var url = marker.options.icon.options.url;
       var heroImage = marker.options.icon.options.heroImage;

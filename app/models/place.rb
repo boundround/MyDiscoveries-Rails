@@ -84,7 +84,7 @@ class Place < ActiveRecord::Base
 
             "icon" => {
 
-              "iconUrl" => "http://d1w99recw67lvf.cloudfront.net/category_icons/" + icon_file_name,
+              "iconUrl" => "https://d1w99recw67lvf.cloudfront.net/category_icons/" + icon_file_name,
 
               # size of the icon
               "iconSize" => [20, 45],

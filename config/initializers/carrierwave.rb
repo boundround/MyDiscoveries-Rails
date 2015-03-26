@@ -8,6 +8,6 @@ CarrierWave.configure do |config|
 
   config.fog_directory = ENV['AS3_BUCKET_NAME']
 
-  config.asset_host = "http://d1w99recw67lvf.cloudfront.net"
+  config.asset_host = "https://d1w99recw67lvf.cloudfront.net"
   config.fog_public = true
 end
