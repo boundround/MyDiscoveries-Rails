@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
   before_save :check_valid_url
 
   include FriendlyId
-  friendly_id :display_name, :use => :slugged #show display_names in place routes
+  friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
   scope :active, -> { where.not(subscription_level: ['out', 'draft']) }
 
@@ -130,7 +130,7 @@ class Place < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    display_name_changed?
+    display_name_changed? || super
   end
 
   def check_valid_url
@@ -153,6 +153,13 @@ class Place < ActiveRecord::Base
   def remove_from_soulmate
     loader = Soulmate::Loader.new("place")
     loader.remove("id" => self.id)
+  end
+
+  def slug_candidates
+    [
+      :display_name,
+      [:display_name, :post_code],
+    ]
   end
 
 end

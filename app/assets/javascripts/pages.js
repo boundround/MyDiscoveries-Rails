@@ -749,7 +749,7 @@ var likeUnlike = function() {
           success: console.log('LIKE DELETED')
         });
     } else {
-      alert("You must be logged in to save favorites!");
+      alert("You must be logged in to save favourites!");
     }
   });
 }

@@ -74,7 +74,7 @@
   </nav>
   <% elsif !browser.mobile? && !@set_body_class %>
     <a href="<%= user_signed_in? ? user_path(current_user) : new_user_session_path %>">
-    <button style="background-image:url(<%= user_signed_in? && current_user.avatar ? '"' + current_user.avatar_url + '"' : asset_path("user_copy_2.png") %>)" class="profile-icon menu-button" type="button" id="profile-icon" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="<%= user_signed_in? ? "My Profile" : "Sign In" %>">
+    <button style="background-image:url(<%= user_signed_in? && current_user.avatar_url ? '"' + current_user.avatar_url + '"' : asset_path("user_copy_2.png") %>)" class="profile-icon menu-button" type="button" id="profile-icon" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="<%= user_signed_in? ? "My Profile" : "Sign In" %>">
   </button></a>
   <% end %>
 

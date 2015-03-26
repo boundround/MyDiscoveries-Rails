@@ -5,9 +5,17 @@ class VideosController < ApplicationController
 #    @videos = Video.includes(:place => :area).order('places.display_name ASC, areas.display_name ASC').paginate(:page => params[:page])
     if params[:place_id]
       @videos = Place.friendly.find(params[:place_id]).videos
+      @place = Place.friendly.find(params[:place_id])
     else
       @videos = Video.includes(:place => :area).order('areas.display_name ASC, places.display_name ASC').paginate(:page => params[:page])
     end
+  end
+
+  def show
+    @video = Video.find(params["id"])
+    key = "bearer " + ENV["VIMEO_OAUTH_KEY"]
+    response = Unirest.get "https://api.vimeo.com/videos/" + @video.vimeo_id.to_s, headers: { "Authorization" => key }
+    @video_link = response.body
   end
 
   def new
