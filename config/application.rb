@@ -41,7 +41,5 @@ module BoundRoundWeb
 
     config.middleware.insert_before 0, "SearchSuggestions"
 
-    config.force_ssl = true
-
   end
 end
