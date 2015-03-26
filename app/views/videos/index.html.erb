@@ -4,12 +4,16 @@
 	</div>
 </div-->
 <% if params[:place_id] %>
-  <br><br><br>
-  <% @videos.each do |video| %>
-    <div class="container">
-      <p><%= "https://app.boundround.com/places/#{video.place.slug}/videos/#{video.id}" %></p>
-    </div>
-  <% end %>
+  <div class="container">
+    <br><br><br>
+    <h2>Embed Codes for All Videos in <%= @place.display_name %></h2>
+    <% @videos.each do |video| %>
+        PREVIEW:<br>
+        <iframe width="320" height="180" src="<%= "/places/#{video.place.slug}/videos/#{video.id}" %>"></iframe>
+        <p><textarea cols="120" rows="2"><iframe width="320" height="180" src="<%= "https://app.boundround.com/places/#{video.place.slug}/videos/#{video.id}" %>"></iframe></textarea></p>
+        <br><br>
+    <% end %>
+  </div>
 <% else %>
   <div class="area-content all-videos">
     <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>

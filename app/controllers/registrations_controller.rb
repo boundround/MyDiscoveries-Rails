@@ -1,12 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :update_sanitized_params, if: :devise_controller?
 
-  before_filter :store_location
-
-  def store_location
-    session[:user_return_to] = request.fullpath
-  end
-
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:name, :email, :password, :password_confirmation, :avatar, :date_of_birth)}
     devise_parameter_sanitizer.for(:account_update) {|u| u.permit(:name, :email, :password, :password_confirmation, :current_password, :avatar, :date_of_birth)}
@@ -25,23 +19,21 @@ class RegistrationsController < Devise::RegistrationsController
   def new
     @set_body_class = 'passport-page'
     super
-    flash.delete(:notice)
   end
 
   def create
     @set_body_class = 'passport-page'
     super
-    flash.delete(:notice)
   end
 
   protected
 
   def after_sign_up_path_for(resource)
-    user_path(current_user)
+    user_path(resource)
   end
 
-  def after_sign_in_path_for(resource)
-   session[:user_return_to] || request.referrer || root_path
+  def after_inactive_sign_up_path_for(resource)
+    user_path(resource)
   end
 
 end

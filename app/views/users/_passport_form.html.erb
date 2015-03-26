@@ -5,8 +5,8 @@
       <div class="form-group passport-form">
         <div class="passport-photo">
           <i class="spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i>
-          <% if current_user.avatar_url %>
-            <%= image_tag current_user.avatar_url, class: 'user-avatar' %><br>
+          <% if @user.avatar_url %>
+            <%= image_tag @user.avatar_url, class: 'user-avatar' %><br>
           <% else %>
             <img src="<%= asset_path('passport-photo-placeholder.png') %>" class="user-avatar"><br>
           <% end %>
@@ -65,7 +65,7 @@
     </tr>
     <tr>
       <td colspan="2" class="user-signature">
-        Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= current_user.name %></span>
+        Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= @user.name %></span>
       </td>
     </tr>
   </table>
