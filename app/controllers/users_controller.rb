@@ -117,7 +117,7 @@ class UsersController < ApplicationController
     end
 
     def verify_current_user
-      if current_user != User.find(params[:id]) || !current_user.try(:admin)
+      if User.find(params[:id]) != current_user || !current_user.try(:admin)
         redirect_to root_path, notice: "Not Authorized!"
       end
     end
