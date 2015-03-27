@@ -26,6 +26,7 @@ doc/
 .DS_Store
 .idea
 .secret
+.ssl
 
 # ignore videos for android apk
 /public/videos
