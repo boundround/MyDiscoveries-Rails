@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index]
 
-  before_action :verify_current_user, only: [:edit]
+  before_action :verify_current_user, only: [:edit, :show]
 
   def index
     @users = User.all
