@@ -117,7 +117,7 @@ class UsersController < ApplicationController
     end
 
     def verify_current_user
-      if @user != current_user || !current_user.try(:admin)
+      if @user.id != current_user.id || !current_user.try(:admin)
         redirect_to root_path, notice: "Not Authorized!"
       end
     end
