@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index]
 
-  # before_action :verify_current_user, only: [:edit, :show]
+  before_action :verify_current_user, only: [:edit, :show]
 
   def index
     @users = User.all
@@ -117,7 +117,7 @@ class UsersController < ApplicationController
     end
 
     def verify_current_user
-      if User.find(params[:id]) != current_user || !current_user.admin
+      if @user != current_user || !current_user.try(:admin)
         redirect_to root_path, notice: "Not Authorized!"
       end
     end
