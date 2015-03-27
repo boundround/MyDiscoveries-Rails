@@ -2,11 +2,6 @@ class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index]
 
-  before_action :authenticate_user!, only: [:edit, :show]
-
-  before_action :verify_current_user, only: [:edit, :show]
-
-
   def index
     @users = User.all
   end
@@ -14,6 +9,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @set_body_class = 'passport-page'
+
+    verify_current_user
+
   end
 
   # GET /users/new
@@ -34,6 +32,9 @@ class UsersController < ApplicationController
   def edit
     @set_body_class = 'passport-page'
     @user = User.find(params[:id])
+
+    verify_current_user
+
   end
 
   def update
@@ -120,7 +121,7 @@ class UsersController < ApplicationController
     end
 
     def verify_current_user
-      if @user.id != current_user.id || !current_user.try(:admin)
+      unless @user == current_user || current_user.try(:admin)
         redirect_to root_path, notice: "Not Authorized!"
       end
     end
