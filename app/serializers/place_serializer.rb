@@ -65,7 +65,7 @@ class PlaceSerializer < ActiveModel::Serializer
   end
 
   def Video
-    unless object.videos.empty?
+    unless object.videos.blank?
       video = object.videos.where(priority: 1).first || object.videos.first
       response = Unirest.get "https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + video.vimeo_id.to_s
       response.body["title"]
@@ -73,7 +73,7 @@ class PlaceSerializer < ActiveModel::Serializer
   end
 
   def VideoLink
-    unless object.videos.empty?
+    unless object.videos.blank?
       video = object.videos.where(priority: 1).first || object.videos.first
       key = "bearer " + ENV["VIMEO_OAUTH_KEY"]
       response = Unirest.get "https://api.vimeo.com/videos/" + video.vimeo_id.to_s,
@@ -104,7 +104,7 @@ class PlaceSerializer < ActiveModel::Serializer
   end
 
   def identifier
-    if object.identifier.empty?
+    if object.identifier.blank?
       object.area.display_name.downcase.gsub(' ', '_') + '_' + object.display_name.downcase.gsub(' ', '_')
     else
       object.identifier
@@ -132,13 +132,13 @@ class PlaceSerializer < ActiveModel::Serializer
 
   def Game
     areaName = object.area.display_name.downcase.gsub(' ', '')
-    unless object.photos.empty?
+    unless object.photos.blank?
       photo = object.photos.where(priority: 1).first || object.photos.first
       photo = photo.path.path.gsub('photos/', '')
     else
       photo = ''
     end
-    unless object.games.empty?
+    unless object.games.blank?
       if object.games.first.game_type == "jigsaw puzzle"
         game = {
                      "Parameters" => [
