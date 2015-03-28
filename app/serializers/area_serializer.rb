@@ -46,14 +46,14 @@ class AreaSerializer < ActiveModel::Serializer
   end
 
   def HeroPhoto
-    unless object.photos.empty?
+    unless object.photos.blank?
       photo = object.photos.where(priority: 1).first || object.photos.first
       photo.path.path.gsub('photos/', '') #.gsub(/\.png|\.jpg/i, '')
     end
   end
 
   def HeroPhotoCredit
-    unless object.photos.empty?
+    unless object.photos.blank?
       photo = object.photos.where(priority: 1).first || object.photos.first
       photo.credit
     end
@@ -68,7 +68,7 @@ class AreaSerializer < ActiveModel::Serializer
   end
 
   def OverviewVideo
-    unless object.videos.empty?
+    unless object.videos.blank?
       video = object.videos.where(priority: 1).first || object.videos.first
       response = Unirest.get "https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + video.vimeo_id.to_s
       response.body["title"]
@@ -76,7 +76,7 @@ class AreaSerializer < ActiveModel::Serializer
   end
 
   def OverviewVideoLink
-    unless object.videos.empty?
+    unless object.videos.blank?
       video = object.videos.where(priority: 1).first || object.videos.first
       key = "bearer " + ENV["VIMEO_OAUTH_KEY"]
       response = Unirest.get "https://api.vimeo.com/videos/" + video.vimeo_id.to_s,
@@ -102,7 +102,7 @@ class AreaSerializer < ActiveModel::Serializer
   end
 
   def identifier
-    if object.identifier.empty?
+    if object.identifier.blank?
       object.display_name.downcase.gsub(' ', '_')
     else
       object.identifier
