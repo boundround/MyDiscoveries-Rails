@@ -1,6 +1,3 @@
-<% unless @place.photos.blank? %>
-  <meta property="og:image" content="<%= @hero_photo ? @hero_photo.path_url(:small) : @photos.first.path_url(:small) %>" />
-<% end %>
 <% provide(:title, @place.display_name) %>
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
   <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
