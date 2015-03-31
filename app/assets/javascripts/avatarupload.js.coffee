@@ -17,9 +17,5 @@ jQuery ->
         data.submit()
       else
         alert("#{file.name} is not a gif, jpeg, or png image file")
-    progress: (e, data) ->
-      if data.context
-        progress = parseInt(data.loaded / data.total * 100, 10)
-        $('#progress').find('.bar').css('width', progress + '%')
     done: ->
       $('.spinner').css('visibility', 'hidden')
