@@ -356,3 +356,8 @@ select {
   }
 }
 
+@media (min-width: 0px) {
+	.profile-icon {
+		display: none;
+	}
+}

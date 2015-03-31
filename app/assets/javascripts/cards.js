@@ -10,6 +10,33 @@ $(document).ready(function(){
     var $container = $('#photos-masonry');
 		if($container.length > 0)
 		{
+			//Dynamically assign height
+			function sizeContent() {
+				var ww = $(window).width();
+				var wh = $(window).height();
+				var $gm = $(".game-card-expanded");
+				var $gi = $gm.find(".isotope-game-frame");
+				if( wh < ww ) //landscape
+				{
+					var gw = $gm.width();
+					var gh = gw*.667;
+					$gi.width(gw);
+					$gi.height(gh);
+				}
+				else //portrait
+				{
+					var gh = wh*.8;
+					var gw = gh*(ww/wh);
+					$gm.width(gw);
+					$gm.height(gh);
+					$gi.width(gw);
+					$gi.height(gh);
+				}
+			}
+
+			//Every resize of window
+			$(window).resize(sizeContent);
+
 				$container.isotope({
 		      itemSelector: '.item ',
 					itemPositionDataEnabled: true,
@@ -75,6 +102,7 @@ $(document).ready(function(){
 			    $container.imagesLoaded(function() {
 			      $container.isotope('layout');
 						//$container.isotope({ layoutMode : 'masonry' });
+						sizeContent();
 			    });
 			  });
 
@@ -376,7 +404,7 @@ $(document).ready(function(){
 	      player.api('pause');
 	  });
 
-		sizeContent();
+//		sizeContent();
 	}
 
 });
