@@ -5,6 +5,8 @@ class Video < ActiveRecord::Base
   has_many :videos_users
   has_many :users, through: :videos_users
 
+  validates :vimeo_id, presence: true
+
   scope :ordered_by_place_name, -> { includes(:area, :place).order('areas.display_name ASC') } #reorder("places.display_name ASC") }
 
   # before_save :validate_vimeo_id
