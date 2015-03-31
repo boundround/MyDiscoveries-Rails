@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def open_graph_image
-    if (@place && !@place.photos.blank?) || (@area && !@area.photos.blank?)
+    if (@place && @photos) || (@area && @photos)
       "<meta property='og:image:secure_url' content='#{@hero_photo ? @hero_photo.path_url(:large) : @photos.first.path_url(:large)}' />"
     end
   end
