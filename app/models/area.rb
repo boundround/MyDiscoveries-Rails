@@ -1,5 +1,5 @@
 class Area < ActiveRecord::Base
-  include FriendlyId
+  extend FriendlyId
   friendly_id :display_name, :use => :slugged
 
   after_save :load_into_soulmate

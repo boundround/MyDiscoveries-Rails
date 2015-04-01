@@ -9,6 +9,12 @@ module ApplicationHelper
     end
   end
 
+  def open_graph_image
+    if (@place && !@photos.blank?) || (@area && !@photos.blank?)
+      "<meta property='og:image' content='#{@hero_photo ? @hero_photo.path_url(:large).gsub('https://', 'http://') : @photos.first.path_url(:large).gsub('https://', 'http://') }' />"
+    end
+  end
+
   def bootstrap_class_for(flash_type)
     case flash_type
       when "success"
