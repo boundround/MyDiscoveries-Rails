@@ -115,7 +115,7 @@ var transitionzoomlevel = 4; //2d zoom level transition to globe
 var areahidelevel = 7; //zoom level at which area icons that have places are replaced with cluster icons
 var areatouchmagnification = 3; //number of levels to zoom when touch area with places
 
-map = L.mapbox.map('map', 'boundround.j0d6j474', {
+map = L.mapbox.map('map', 'boundround.d822e9da', {
 		center: window.parsedHash.center,
 		zoom: window.parsedHash.zoom,
   	worldCopyJump: true,
