@@ -11,7 +11,9 @@ module ApplicationHelper
 
   def open_graph_image
     if (@place && !@photos.blank?) || (@area && !@photos.blank?)
-      "<meta property='og:image' content='#{@hero_photo ? @hero_photo.path_url(:large).gsub('https://', 'http://') : @photos.first.path_url(:large).gsub('https://', 'http://') }' />"
+      "<meta property='og:image' content='#{@hero_photo ? @hero_photo.path_url.gsub('https://', 'http://') : @photos.first.path_url.gsub('https://', 'http://') }' />\n" +
+      "<meta property='og:image:secure_url' content='#{@hero_photo ? @hero_photo.path_url : @photos.first.path_url }' />\n" +
+      "<meta property='og:image:type' content='image/jpeg' />"
     end
   end
 
