@@ -3,7 +3,7 @@ class Place < ActiveRecord::Base
   before_destroy :remove_from_soulmate
   before_save :check_valid_url
 
-  include FriendlyId
+  extend FriendlyId
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
   scope :active, -> { where.not(subscription_level: ['out', 'draft']) }
