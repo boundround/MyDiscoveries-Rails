@@ -158,7 +158,7 @@ class Place < ActiveRecord::Base
   def slug_candidates
     [
       :display_name,
-      [:display_name, :post_code],
+      [:display_name, :post_code]
     ]
   end
 
