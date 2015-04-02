@@ -22,7 +22,7 @@
           <% if @place.display_name == "Virgin Australia"%>
             <img src="<%= asset_path('virgin-double-tail.png') %>" class="virgin-logo">
           <% end %>
-        <div class="about-hero">
+        <div class="about-hero <%= @place.display_name == "Virgin Australia" ? "virgin-about" : "" %>">
           <% if @hero_video %>
             <%= raw like_icon(@hero_video) %>
             <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
