@@ -31,6 +31,10 @@ class Place < ActiveRecord::Base
   has_many :fun_facts
 
   accepts_nested_attributes_for :photos
+  accepts_nested_attributes_for :videos
+  accepts_nested_attributes_for :fun_facts
+  accepts_nested_attributes_for :discounts
+  accepts_nested_attributes_for :games
 
   mount_uploader :map_icon, IconUploader
 
