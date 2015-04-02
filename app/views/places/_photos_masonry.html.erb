@@ -19,6 +19,9 @@
     <div class="grid-sizer"></div>
     <div class="item about">
       <div class="about-wrapper">
+          <% if @place.display_name == "Virgin Australia"%>
+            <img src="<%= asset_path('virgin-double-tail.png') %>" class="virgin-logo">
+          <% end %>
         <div class="about-hero">
           <% if @hero_video %>
             <%= raw like_icon(@hero_video) %>
@@ -37,9 +40,7 @@
           <% end %>
         </div>
         <div class="about-content">
-          <% if @place.display_name == "Virgin Australia"%>
-            <img src="<%= asset_path('virgin-double-tail.png') %>" class="virgin-logo">
-          <% else %>
+          <% unless @place.display_name == "Virgin Australia" %>
             <h1>Things to do at <%= @place.display_name %></h1>
           <% end %>
           <div id="area-content">
