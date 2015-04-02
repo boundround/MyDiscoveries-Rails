@@ -19,9 +19,7 @@
     <div class="grid-sizer"></div>
     <div class="item about">
       <div class="about-wrapper">
-          <% if @place.display_name == "Virgin Australia"%>
-            <img src="<%= asset_path('virgin-double-tail.png') %>" class="virgin-logo">
-          <% end %>
+          <!-- put Virgin Logo here wrapped in if statment -->
         <div class="about-hero <%= @place.display_name == "Virgin Australia" ? "virgin-about" : "" %>">
           <% if @hero_video %>
             <%= raw like_icon(@hero_video) %>
