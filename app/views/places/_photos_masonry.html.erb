@@ -3,6 +3,15 @@
     .virgin-logo {
       width: 100%;
     }
+
+    .cards-wrap {
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .virgin-reporter {
+      width: 100% !important;
+    }
   </style>
 <% end %>
   <div class="cards-wrap">
@@ -170,7 +179,15 @@
         </div>
       <% end %>
     <% end %>
-
+    <% if @place.display_name == "Virgin Australia"%>
+      <div class="item fun_fact photo-card">
+        <div class="discount-card">
+          <a href="http://boundround.com/kids/bound-round-kids-board/bound-round-local-kid-video-registration/">
+            <img src="<%= asset_path('virgin_br_reporter.png') %>" class="virgin-reporter">
+          </a>
+        </div>
+      </div>
+    <% end %>
     <% unless @place.fun_facts.empty? %>
       <% @place.fun_facts.each do |fun_fact| %>
         <div class="item fun_fact photo-card">
