@@ -1,3 +1,10 @@
+<% if @place.display_name == "Virgin Australia" %>
+  <style>
+    .virgin-logo {
+      width: 100%;
+    }
+  </style>
+<% end %>
   <div class="cards-wrap">
   <div id="photos-masonry">
     <div class="grid-sizer"></div>
@@ -21,7 +28,11 @@
           <% end %>
         </div>
         <div class="about-content">
-          <h1>Things to do at <%= @place.display_name %></h1>
+          <% if @place.display_name == "Virgin Australia"%>
+            <img src="<%= asset_path('virgin-double-tail.png') %>" class="virgin-logo">
+          <% else %>
+            <h1>Things to do at <%= @place.display_name %></h1>
+          <% end %>
           <div id="area-content">
             <p><%= raw @place.description %></p>
             <% unless @place.website.blank? %>
