@@ -110,7 +110,7 @@ $(document).ready(function(){
 			  $('.video-caption').on( 'click', function() {
 				  offsetElement = $(this).parent().parent();
 			    var vimeoId = offsetElement.find('.video-data').data('video-id');
-			    var content = '<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+			    var content = '<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '?autoplay=1\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 			    var divider = offsetElement.find('.game-divider');
 			    //expand clicked game card
 			    offsetElement.find('.game-thumbnail').hide();
@@ -364,7 +364,7 @@ $(document).ready(function(){
 				common_before($card);
 
 	      var vimeoId = $card.find('.video-data').data('video-id');
-	      var content = '<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+	      var content = '<iframe class="vimeo-frame" src=\"//player.vimeo.com/video/' + vimeoId + '?autoplay=1\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
 				common_after($card, content);
 

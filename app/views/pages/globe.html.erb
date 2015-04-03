@@ -340,6 +340,9 @@ function sizeContent() {
 			self.hidemarkeropt = false;
       self.onMovementEnd = options.onMovementEnd;
 			self.onMaxZoom = options.onMaxZoom;
+			
+			self.initrotate = options.initrotate;
+			self.initrotaterate = options.initrotaterate;
 
 			self.countryfieldname = options.countryfieldname;
 
@@ -629,6 +632,7 @@ function sizeContent() {
 //					.on('dragstart', function() {self.hidemarkers = true;} )
 //					.on('dragend', function() {self.hidemarkers = false; self.refresh();} )
 					.on('drag', function() {
+						clearInterval(self.initrotateinterval);
 						if(!self.zooming)
 						{
 							var dx = d3.event.dx;
@@ -756,6 +760,20 @@ function sizeContent() {
 
 				self.calcMarkers();
 				self.refresh();
+				
+				if(self.initrotate)
+				{
+					var sd = new Date();
+					
+					self.initrotateinterval = setInterval(function(){
+						var rotation = self.proj.rotate();
+						var nd = new Date();
+						rotation[0] = rotation[0]+self.initrotaterate*((nd-sd)/1000.);
+						sd = nd;
+						self.proj.rotate(rotation);
+						self.refresh();
+					},50);
+				}
 			}
 
 			queue()
@@ -1022,6 +1040,10 @@ function sizeContent() {
 			placefieldname: "title", //name to use on markers
 			includecountries: false,
 			includelabels: true,
+		
+			initrotate: true, // set to true if want globe to animate rotate at start
+			initrotaterate: 6., // deg/sec
+
       onMaxZoom: function(loc){
         $('#svgdiv').fadeOut("fast");
        	map.setView([loc[1], loc[0]], transitionzoomlevel)
