@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 20150325235039) do
   create_table "photos", force: true do |t|
     t.string   "title"
     t.string   "credit"
-    t.string   "path",           null: false
+    t.string   "path"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "caption"
@@ -164,7 +164,6 @@ ActiveRecord::Schema.define(version: 20150325235039) do
     t.integer  "area_id"
     t.integer  "place_id"
     t.string   "caption_source"
-    t.string   "filename"
     t.string   "alt_tag"
   end
 

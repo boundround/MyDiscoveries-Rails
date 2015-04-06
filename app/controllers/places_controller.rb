@@ -79,21 +79,22 @@ class PlacesController < ApplicationController
 
   def edit
     @place = Place.friendly.find(params[:id])
-    @place.videos.build
-    # @areas = Area.all
-    # @photos = @place.photos
-    # @photo = Photo.new
-    # @games = @place.games
-    # @videos = @place.videos
-    # @discounts = @place.discounts
-    # @discount = Discount.new
+    @areas = Area.all
+    @photos = @place.photos
+    @photo = Photo.new
+    @games = @place.games
+    @videos = @place.videos
+    @discounts = @place.discounts
+    @discount = Discount.new
   end
 
   def update
     @place = Place.friendly.find(params[:id])
 
-    if @place.update(place_update_params)
+    if @place.update(place_params)
       redirect_to edit_place_path(@place), notice: 'Place succesfully updated'
+    else
+      redirect_to edit_place_path(@place), notice: 'Error: Place not updated'
     end
 
   end
@@ -146,13 +147,7 @@ class PlacesController < ApplicationController
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon,
-                                    :passport_icon, :address, :area_id, photos_attributes: [:place_id, :title,
-                                      :path, :caption, :alt_tag, :credit, :caption_source, :priority], videos_attributes: [:vimeo_id, :priority], category_ids: [])
-    end
-
-    def place_update_params
-      params.require(:place).permit(:display_name, :description, :address, :phone_number, :booking_url, :display_address, :website, :booking_url, :logo,
-                                    :map_icon, :area_id, :latitude, :longitude, :subscription_level, photo: [:title, :path, :credit,
-                                      :caption, :place_id, :alt_tag, :caption_source, :priority], videos_attributes: [:vimeo_id, :priority], category_ids: [])
+                                    :passport_icon, :address, :area_id, photos_attributes: [:id, :place_id, :title,
+                                      :path, :caption, :alt_tag, :credit, :caption_source, :priority], videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :_destroy], category_ids: [])
     end
 end

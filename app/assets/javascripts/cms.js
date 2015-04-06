@@ -32,4 +32,22 @@ $(document).ready(function(){
     // Check dataTables documentation to learn more about available options.
     // http://datatables.net/reference/option/pagingType
   });
+
+  $('#photo-table').DataTable({
+    "paging": false
+  });
+  $('#video-table').DataTable({
+    "paging": false
+  });
+  $('#game-table').DataTable({
+    "paging": false
+  });
+  $('#fun-fact-table').DataTable({
+    "paging": false
+  });
+  $('#discount-table').DataTable({
+    "paging": false,
+    "ordering": false
+  });
+
 });

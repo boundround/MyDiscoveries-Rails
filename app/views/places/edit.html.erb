@@ -19,11 +19,6 @@
     <div class="form-group">
       <%= f.input :phone_number, input_html: { class: 'form-control' } %>
     </div>
-    Current Map Icon: <%= label_tag @place.map_icon %><br />
-    Change Icon (PNG Only)
-    <div class="form-group">
-      <%= f.file_field :map_icon, input_html: { class: 'form-control' } %>
-    </div>
     <div class="form-group">
       <%= f.input :subscription_level, collection: ["Premium", "standard", "basic", "out", "draft"], required: true %>
     </div>
@@ -45,37 +40,163 @@
     <div class="field">
       <% Category.all.each do |category| %>
         <%= hidden_field_tag "place[category_ids][]", nil%>
-        <%= check_box_tag "place[category_ids][]", category.id, @place.category_ids.include?(category.id), id: dom_id(category), item_wrapper_class: 'inline' %>
-        <%= label_tag dom_id(category), category.name %>&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= check_box_tag "place[category_ids][]", category.id, @place.category_ids.include?(category.id), id: dom_id(category) %>
+        <%= label_tag dom_id(category), category.name %><br/>
       <% end %>
     </div>
   <div id="table-container">
     <h3>Videos</h3>
-    <table class="table table-striped" id="place-table">
+    <table class="table table-striped" id="video-table">
       <thead>
         <tr>
           <th>Preview</th>
           <th>Vimeo ID</th>
           <th>Priority</th>
-          <th>Delete</th>
+          <th>Remove</th>
         </tr>
       </thead>
       <tbody>
-        <%= f.fields_for :videos do |builder| %>
+        <%= f.fields_for :videos do |ff| %>
           <tr>
+            <%= ff.input :id, as: :hidden %>
             <td></td>
-            <td><%= builder.text_area :vimeo_id %></td>
-            <td><%= builder.select :priority, 1..10 %></td>
-            <td></td>
+            <td><%= ff.text_area :vimeo_id %></td>
+            <td><%= ff.select :priority, 1..10 %></td>
+            <td><%= ff.check_box :_destroy %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div id="table-container">
+    <h3>Photos</h3>
+    <table class="table table-striped" id="photo-table">
+      <thead>
+        <tr>
+          <th>Thumbnail</th>
+          <th>Change Photo</th>
+          <th>Credit</th>
+          <th>Caption</th>
+          <th>Alt Tags</th>
+          <th>Priority</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @place.photos.each do |photo| %>
+          <%= f.fields_for :photos, photo do |ff| %>
+            <tr>
+              <%= ff.input :id, as: :hidden %>
+              <td><img src="<%= asset_path(photo.path_url(:small)) %>" class="photo-edit-thumb"></td>
+              <td><%= ff.file_field :path, class: "photo-file" %></td>
+              <td><%= ff.text_area :credit %></td>
+              <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
+              <td><%= ff.text_field :alt_tag %></td>
+              <td><%= ff.select :priority, 1..10 %></td>
+              <td><%= ff.check_box :_destroy %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div id="table-container">
+    <h3>Games</h3>
+    <table class="table table-striped" id="game-table">
+      <thead>
+        <tr>
+          <th>Thumbnail</th>
+          <th>URL</th>
+          <th>Game Type</th>
+          <th>Priority</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @place.games.each do |game| %>
+          <%= f.fields_for :games, game do |ff| %>
+            <tr>
+              <%= ff.input :id, as: :hidden %>
+              <td><img src="<%= asset_path(game.thumbnail) %>" class="photo-edit-thumb"></td>
+              <td><%= ff.text_area :url, :cols => "50", :rows => "3" %></td>
+              <td><%= ff.select :game_type, ["jigsaw puzzle", "word search", "slider"] %></td>
+              <td><%= ff.select :priority, 1..10 %></td>
+              <td><%= ff.check_box :_destroy %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div id="table-container">
+    <h3>Fun Facts</h3>
+    <table class="table table-striped" id="fun-fact-table">
+      <thead>
+        <tr>
+          <th>Content</th>
+          <th>Reference</th>
+          <th>Priority</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.fields_for :fun_facts do |ff| %>
+          <tr>
+            <%= ff.input :id, as: :hidden %>
+            <td><%= ff.text_field :content %></td>
+            <td><%= ff.text_field :reference %></td>
+            <td><%= ff.select :priority, 1..10 %></td>
+            <td><%= ff.check_box :_destroy %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div id="table-container">
+    <h3>Specials</h3>
+    <table class="table table-striped" id="discount-table">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Priority</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.fields_for :discounts do |ff| %>
+          <tr>
+            <%= ff.input :id, as: :hidden %>
+            <td><%= ff.bootsy_area :description %></td>
+            <td><%= ff.select :priority, 1..10 %></td>
+            <td><%= ff.check_box :_destroy %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
   <div class="form-group">
-    <%= f.button :submit, 'Update Place' %>
+    <%= f.button :submit, 'Update All' %>
     </div>
   <% end %>
+  <div class="edit_photo">
+      <%= render "/videos/form" %>
+    </div>
+
+    <div class="edit_photo">
+      <%= render "/photos/form" %>
+    </div>
+
+    <div class="edit_photo">
+      <%= render "/discounts/form" %>
+    </div>
+
+    <div class="edit_photo">
+      <%= render "/games/form" %>
+    </div>
+
+    <div class="edit_photo">
+      <%= render "/fun_facts/form" %>
+    </div>
 </div>
 
 

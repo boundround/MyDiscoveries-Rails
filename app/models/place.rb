@@ -22,19 +22,17 @@ class Place < ActiveRecord::Base
   has_many :discounts
   has_many :games
   has_many :videos
+  has_many :fun_facts
   has_one :journal_info
 
   has_many :places_users
   has_many :users, through: :places_users
 
-
-  has_many :fun_facts
-
-  accepts_nested_attributes_for :photos
-  accepts_nested_attributes_for :videos
-  accepts_nested_attributes_for :fun_facts
-  accepts_nested_attributes_for :discounts
-  accepts_nested_attributes_for :games
+  accepts_nested_attributes_for :photos, allow_destroy: true
+  accepts_nested_attributes_for :videos, allow_destroy: true
+  accepts_nested_attributes_for :fun_facts, allow_destroy: true
+  accepts_nested_attributes_for :discounts, allow_destroy: true
+  accepts_nested_attributes_for :games, allow_destroy: true
 
   mount_uploader :map_icon, IconUploader
 
