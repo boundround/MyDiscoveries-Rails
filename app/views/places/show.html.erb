@@ -2,9 +2,6 @@
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
   <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
   <div class="page-wrap">
-    <% if @place.display_name == "Virgin Australia" %>
-      <h1 class="virgin-text"><%= @place.display_name %></h1>
-    <% else %>
     <div class="banner-wrapper">
       <div class="banner">
         <div class="title-wrapper">
@@ -12,7 +9,6 @@
         </div>
       </div>
     </div>
-    <% end %>
     <div class="slick-carousel">
       <div>
         <%= render partial: 'photos_masonry' %>
