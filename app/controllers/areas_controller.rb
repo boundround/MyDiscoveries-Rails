@@ -53,8 +53,10 @@ class AreasController < ApplicationController
     @area = Area.friendly.find(params[:id])
     @photos = @area.photos
     @photo = Photo.new
-    @discount = Discount.new
+    @games = @area.games
+    @videos = @area.videos
     @discounts = @area.discounts
+    @discount = Discount.new
 
   end
 
@@ -63,7 +65,7 @@ class AreasController < ApplicationController
 
     @area = Area.friendly.find(params[:id])
 
-    if @area.update(area_update_params)
+    if @area.update(area_params)
       @area = Area.find(@area.id)
       redirect_to edit_area_path(@area), notice: 'Area succesfully updated'
     end
@@ -99,12 +101,6 @@ class AreasController < ApplicationController
       params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description,
                                     :latitude, :longitude, :address, :published_status, :view_latitude, :view_longitude,
                                     :view_height, :view_heading, photos_attributes: [:area_id, :title, :path, :caption, :credit, :caption_source, :priority])
-    end
-
-    def area_update_params
-      params.require(:area).permit(:display_name, :short_intro, :description, :address,
-                                    :published_status, :latitude, :longitude, :view_latitude, :view_longitude,
-                                    :view_height, :view_heading, photo: [:title, :path, :credit, :caption, :area_id, :caption_source, :priority])
     end
 
 end
