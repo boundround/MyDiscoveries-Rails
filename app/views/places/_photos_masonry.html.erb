@@ -1,9 +1,26 @@
+<% if @place.display_name == "Virgin Australia" %>
+  <style>
+    .virgin-logo {
+      width: 100%;
+    }
+
+    .cards-wrap {
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .virgin-reporter {
+      width: 100% !important;
+    }
+  </style>
+<% end %>
   <div class="cards-wrap">
   <div id="photos-masonry">
     <div class="grid-sizer"></div>
     <div class="item about">
       <div class="about-wrapper">
-        <div class="about-hero">
+          <!-- put Virgin Logo here wrapped in if statment -->
+        <div class="about-hero <%= @place.display_name == "Virgin Australia" ? "virgin-about" : "" %>">
           <% if @hero_video %>
             <%= raw like_icon(@hero_video) %>
             <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -21,7 +38,9 @@
           <% end %>
         </div>
         <div class="about-content">
-          <h1>Things to do at <%= @place.display_name %></h1>
+          <% unless @place.display_name == "Virgin Australia" %>
+            <h1>Things to do at <%= @place.display_name %></h1>
+          <% end %>
           <div id="area-content">
             <p><%= raw @place.description %></p>
             <% unless @place.website.blank? %>
@@ -159,7 +178,15 @@
         </div>
       <% end %>
     <% end %>
-
+    <% if @place.display_name == "Virgin Australia"%>
+      <div class="item fun_fact photo-card">
+        <div class="discount-card">
+          <a href="http://boundround.com/kids/bound-round-kids-board/bound-round-local-kid-video-registration/">
+            <img src="<%= asset_path('virgin_br_reporter.png') %>" class="virgin-reporter">
+          </a>
+        </div>
+      </div>
+    <% end %>
     <% unless @place.fun_facts.empty? %>
       <% @place.fun_facts.each do |fun_fact| %>
         <div class="item fun_fact photo-card">

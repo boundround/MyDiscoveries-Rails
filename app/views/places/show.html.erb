@@ -13,9 +13,11 @@
       <div>
         <%= render partial: 'photos_masonry' %>
       </div>
-      <div>
-        <%= render '/search_suggestions/search_cards' %>
-      </div>
+      <% unless @place.display_name == "Virgin Australia" %>
+        <div>
+          <%= render '/search_suggestions/search_cards' %>
+        </div>
+      <% end %>
       <% if current_user.try(:admin?) %>
         <p><%= link_to 'Edit Place', edit_place_path %></p>
       <% end %>

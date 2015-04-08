@@ -61,7 +61,7 @@ class VideosController < ApplicationController
   private
 
     def video_params
-      params.require(:video).permit(:vimeo_id, :area_id, :place_id, :priority, :vimeo_thumbnail)
+      params.require(:video).permit(:vimeo_id, :area_id, :place_id, :priority, :vimeo_thumbnail, :_destroy)
     end
 
 end

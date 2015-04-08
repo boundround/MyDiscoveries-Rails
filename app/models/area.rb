@@ -8,11 +8,11 @@ class Area < ActiveRecord::Base
   scope :active, -> { where.not(published_status: ['out', 'draft']) }
 
   validates_presence_of :display_name, :slug
-  has_many :videos
+  has_many :videos, -> { order "created_at ASC"}
   has_many :places, -> { order(:display_name) }
-  has_many :games
-  has_many :fun_facts
-  has_many :discounts
+  has_many :games, -> { order "created_at ASC"}
+  has_many :fun_facts, -> { order "created_at ASC"}
+  has_many :discounts, -> { order "created_at ASC"}
 
   has_many :photos
 

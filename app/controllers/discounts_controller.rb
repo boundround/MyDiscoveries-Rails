@@ -38,7 +38,7 @@ class DiscountsController < ApplicationController
   private
 
     def discount_params
-      params.require(:discount).permit(:description, :place_id, :area_id)
+      params.require(:discount).permit(:description, :place_id, :area_id, :_destroy)
     end
 
 

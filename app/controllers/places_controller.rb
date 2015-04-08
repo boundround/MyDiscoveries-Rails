@@ -50,6 +50,10 @@ class PlacesController < ApplicationController
     @area_videos = @place.area.videos
     @request_xhr = request.xhr?
 
+    if @place.display_name == "Virgin Australia"
+      @set_body_class = "virgin-body"
+    end
+
     respond_to do |format|
       format.html { render 'show', :layout => !request.xhr? }
       format.json { render json: @place }
@@ -91,10 +95,12 @@ class PlacesController < ApplicationController
   def update
     @place = Place.friendly.find(params[:id])
 
-    if @place.update(place_update_params)
-      @place = Place.find(@place.id)
+    if @place.update(place_params)
       redirect_to edit_place_path(@place), notice: 'Place succesfully updated'
+    else
+      redirect_to edit_place_path(@place), notice: 'Error: Place not updated'
     end
+
   end
 
   def destroy
@@ -145,13 +151,7 @@ class PlacesController < ApplicationController
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon,
-                                    :passport_icon, :address, :area_id, photos_attributes: [:place_id, :title,
-                                      :path, :caption, :alt_tag, :credit, :caption_source, :priority], category_ids: [])
-    end
-
-    def place_update_params
-      params.require(:place).permit(:display_name, :description, :address, :phone_number, :booking_url, :display_address, :website, :booking_url, :logo,
-                                    :map_icon, :area_id, :latitude, :longitude, :subscription_level, photo: [:title, :path, :credit,
-                                      :caption, :place_id, :alt_tag, :caption_source, :priority], category_ids: [])
+                                    :passport_icon, :address, :area_id, photos_attributes: [:id, :place_id, :title,
+                                      :path, :caption, :alt_tag, :credit, :caption_source, :priority, :_destroy], videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :_destroy], category_ids: [])
     end
 end
