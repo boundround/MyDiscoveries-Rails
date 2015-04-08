@@ -50,6 +50,10 @@ class PlacesController < ApplicationController
     @area_videos = @place.area.videos
     @request_xhr = request.xhr?
 
+    if @place.display_name == "Virgin Australia"
+      @set_body_class = "virgin-body"
+    end
+
     respond_to do |format|
       format.html { render 'show', :layout => !request.xhr? }
       format.json { render json: @place }
