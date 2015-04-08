@@ -18,11 +18,11 @@ class Place < ActiveRecord::Base
   belongs_to :area
   has_many :categorizations
   has_many :categories, through: :categorizations
-  has_many :photos
-  has_many :discounts
-  has_many :games
-  has_many :videos
-  has_many :fun_facts
+  has_many :photos, -> { order "created_at ASC"}
+  has_many :discounts, -> { order "created_at ASC"}
+  has_many :games, -> { order "created_at ASC"}
+  has_many :videos, -> { order "created_at ASC"}
+  has_many :fun_facts, -> { order "created_at ASC"}
   has_one :journal_info
 
   has_many :places_users
