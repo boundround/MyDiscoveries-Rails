@@ -33,7 +33,7 @@ class PlacesController < ApplicationController
     @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
     @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
 
-    if @place.subscription_level == "Premium"
+    if @place.subscription_level == "Premium" || @place.subscription_level == "draft"
       @videos = @place.videos.where.not(priority: 1) || []
       @hero_video = @place.videos.find_by(priority: 1)
     else
