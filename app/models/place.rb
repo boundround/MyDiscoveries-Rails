@@ -18,19 +18,21 @@ class Place < ActiveRecord::Base
   belongs_to :area
   has_many :categorizations
   has_many :categories, through: :categorizations
-  has_many :photos
-  has_many :discounts
-  has_many :games
-  has_many :videos
+  has_many :photos, -> { order "created_at ASC"}
+  has_many :discounts, -> { order "created_at ASC"}
+  has_many :games, -> { order "created_at ASC"}
+  has_many :videos, -> { order "created_at ASC"}
+  has_many :fun_facts, -> { order "created_at ASC"}
   has_one :journal_info
 
   has_many :places_users
   has_many :users, through: :places_users
 
-
-  has_many :fun_facts
-
-  accepts_nested_attributes_for :photos
+  accepts_nested_attributes_for :photos, allow_destroy: true
+  accepts_nested_attributes_for :videos, allow_destroy: true
+  accepts_nested_attributes_for :fun_facts, allow_destroy: true
+  accepts_nested_attributes_for :discounts, allow_destroy: true
+  accepts_nested_attributes_for :games, allow_destroy: true
 
   mount_uploader :map_icon, IconUploader
 
