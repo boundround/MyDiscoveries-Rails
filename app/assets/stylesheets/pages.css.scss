@@ -46,7 +46,7 @@
 .home-text {
   text-align: center;
   color: white;
-  font-size: 1.2em;
+  font-size: 1.4em;
   margin-top: 10px;
 }
 
@@ -79,8 +79,8 @@
 }
 
 .br-logo-home {
-  height: 15%;
-  width: 15%;
+  height: 18%;
+  width: 18%;
   margin: 0 auto;
   background: url(asset_path('bound_round_logo.png')) no-repeat;
   background-size: 86%;
@@ -121,6 +121,11 @@
   font-size: 20px;
   border-bottom: 1px solid grey;
   overflow: hidden;
+  width: 32.5%;
+}
+
+.ui-corner-all {
+  color: rgb(173, 216, 230) !important;
 }
 
 .video-game-buttons {
@@ -502,8 +507,8 @@
   }
 
   .br-logo-home {
-    height: 140px;
-    width: 140px;
+    height: 160px;
+    width: 160px;
   }
 
   .br-logo-home-post-search {
