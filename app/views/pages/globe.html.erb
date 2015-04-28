@@ -166,11 +166,11 @@ left: 1px;
 		<div class="clearfix"></div>
 		<div class="video-game-buttons">
 			<button class="video-button button" onclick="window.location.href='/videos'">
-				<%= image_tag("all_videos_icon.png", size: "20x15", class: "all-game-video-icon") %>
+				<%= image_tag("all_videos_icon.png", size: "25x22", class: "all-game-video-icon") %>
 				See All Videos
 			</button>
 			<button class="game-button button" onclick="window.location.href='/games'">
-				<%= image_tag("all_games_icon.png", size: "20x15", class: "all-game-video-icon") %>
+				<%= image_tag("all_games_icon.png", size: "25x22", class: "all-game-video-icon") %>
 				Play All Games
 			</button>
 		<div class="clearfix"></div>
@@ -347,7 +347,7 @@ function sizeContent() {
 			self.hidemarkeropt = false;
       self.onMovementEnd = options.onMovementEnd;
 			self.onMaxZoom = options.onMaxZoom;
-			
+
 			self.initrotate = options.initrotate;
 			self.initrotaterate = options.initrotaterate;
 
@@ -767,11 +767,11 @@ function sizeContent() {
 
 				self.calcMarkers();
 				self.refresh();
-				
+
 				if(self.initrotate)
 				{
 					var sd = new Date();
-					
+
 					self.initrotateinterval = setInterval(function(){
 						var rotation = self.proj.rotate();
 						var nd = new Date();
@@ -1047,7 +1047,7 @@ function sizeContent() {
 			placefieldname: "title", //name to use on markers
 			includecountries: false,
 			includelabels: true,
-		
+
 			initrotate: true, // set to true if want globe to animate rotate at start
 			initrotaterate: 6., // deg/sec
 

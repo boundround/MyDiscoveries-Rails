@@ -5,6 +5,8 @@ window.parsedHash = L.Hash.parseHash(location.hash);
 window.previousZoom = window.parsedHash.zoom;
 window.previousLocation = window.parsedHash.center;
 
+window.eachPlaceMarker = {};
+
 var hoverBackground = {
   park: '#9ff1ab',
   animals: '#ff9280',
@@ -24,6 +26,12 @@ var formatCategory = function(string) {
   return string = string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
+var cardHover = function(){
+  $('.place-card').on('mouseover', function(){
+    placeId = $(this).attr("id");
+    eachPlaceMarker[placeId];
+  });
+}
 
 var setViewForGooglePlace = function(place, city, country){
   geocoder = new google.maps.Geocoder();
@@ -236,8 +244,7 @@ placeMarkers.on('mouseover', function(e) {
   cardId.find('.card-footer').css('background-color', cardId.find('.place-title').css('color'));
   cardId.find('.card-footer').css('color', 'white');
   e.layer.openPopup();
-  console.log(e.layer.options.icon.options.iconSize.x);
-  console.log(e.layer.options.icon.options.iconSize.y);
+  console.log(e.layer.options.icon.options);
 });
 
 if (window.innerWidth > 1000) {
@@ -427,12 +434,15 @@ var showPlaceCards = function(){
   var text = "";
   placeMarkers.eachLayer(function(marker) {
     if (bounds.contains(marker.getLatLng())) {
+
+      eachPlaceMarker[marker.options.icon.options.placeId] = marker;
+
       inBoundsMarkers.push(marker.options.icon.options.placeId);
       var category = marker.options.category;
       var categoryIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/" + marker.options.category + "_icon.png' alt='" + marker.options.category + " icon'>";
-      var imageCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' height='12px' alt='photo count'>";
-      var gameCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png' height='12px' alt='games count'>";
-      var videoCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png' height='12px' alt='videos count'>";
+      var imageCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' height='14px' alt='photo count'>";
+      var gameCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png' height='14px' alt='games count'>";
+      var videoCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png' height='14px' alt='videos count'>";
       var categoryText = formatCategory(category);
       var url = marker.options.icon.options.url;
       var heroImage = marker.options.icon.options.heroImage;
@@ -581,30 +591,6 @@ window.onload = function() {
         }
       });
 
-      // var geoNamesSearch = function(request, response) {
-      //   $.ajax({
-      //     url: "http://ws.geonames.org/searchJSON?username=boundround",
-      //     dataType: "jsonp",
-      //     data: {
-      //       featureClass: "S",
-      //       style: "full",
-      //       maxRows: 12,
-      //       name_startsWith: request.term
-      //     },
-      //     success: function( data ) {
-      //       response( $.map( data.geonames, function( item ) {
-      //         return {
-      //           label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
-      //           value: item.name,
-      //           lat: item.lat,
-      //           lng: item.lng,
-      //           resultType: 'geoNames'
-      //         }
-      //       }));
-      //     }
-      //   });
-      // }
-
       var googlePlaceSearch = function(request, response) {
         function initialize() {
           var service = new google.maps.places.AutocompleteService();
@@ -675,6 +661,8 @@ window.onload = function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
     }
   });
+
+  cardHover();
 }
 
 var filters = document.getElementById('filters');
