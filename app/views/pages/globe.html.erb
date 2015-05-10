@@ -384,7 +384,8 @@ function sizeContent() {
 			{
 				if(!self.zooming)
 				{
-					self.onCountryTouch(d['properties'][self.countryfieldname]);
+//					self.onCountryTouch(d['properties'][self.countryfieldname]);
+					self.onCountryTouch(d[self.countryfieldname]);
 				}
 			}
 
@@ -1039,13 +1040,15 @@ function sizeContent() {
 			patternsize: 128,
 			landjson: "assets/js/world-110m-36-topo/world-110m-36-land.json",
 //			countriesjson: "world-110m-36-topo/world-110m-36-countries.json",
-			countriesjson: "assets/js/world-110m-36-topo/world-110m-36-countries.json",
-			countryfieldname: "name",
+			countriesjson: "assets/js/world-110m-36-topo/world-110m.json",
+//			countriesjson: "assets/js/world-110m-36-topo/world-110m-36-countries.json",
+//			countryfieldname: "name",
+			countryfieldname: "id",
 			placesjson: "/areas/mapdata.json",
 //			placesjson: "oneplace.json",
 			placefieldid: "url", //id to pass return in onMarkerTouch callback
 			placefieldname: "title", //name to use on markers
-			includecountries: false,
+			includecountries: true,
 			includelabels: true,
 
 			initrotate: true, // set to true if want globe to animate rotate at start
