@@ -100,7 +100,8 @@ class AreasController < ApplicationController
     def area_params
       params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description,
                                     :latitude, :longitude, :address, :published_status, :view_latitude, :view_longitude,
-                                    :view_height, :view_heading, photos_attributes: [:area_id, :title, :path, :caption, :credit, :caption_source, :priority, :_destroy])
+                                    :view_height, :view_heading, photos_attributes: [:id, :place_id, :title,
+                                      :path, :caption, :alt_tag, :credit, :caption_source, :priority, :_destroy])
     end
 
 end
