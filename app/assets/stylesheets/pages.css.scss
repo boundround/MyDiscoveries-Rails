@@ -11,7 +11,7 @@
   z-index: 1000;
   height:100%;
   width: 50%;
-  position:fixed;
+  position: absolute;
   overflow: scroll;
   background: #fd7e56;
   padding-top: 30px;
@@ -322,6 +322,7 @@
 .home-footer {
   text-align: center;
   margin-top: 12%;
+  margin-bottom: 20px;
 }
 
 .top-footer {
