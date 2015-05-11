@@ -103,9 +103,9 @@ class AreasController < ApplicationController
                                     :view_height, :view_heading,
                                     photos_attributes: [:id, :area_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :_destroy],
                                     videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :_destroy],
-                                    games_attributes: [:url, :area_id, :place_id, :priority, :game_type, :_destroy],
-                                    fun_facts_attributes: [:content, :reference, :priority, :area_id, :place_id, :_destroy],
-                                    discounts_attributes: [:description, :place_id, :area_id, :_destroy])
+                                    games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :_destroy],
+                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :_destroy],
+                                    discounts_attributes: [:id, :description, :place_id, :area_id, :_destroy])
     end
 
 end
