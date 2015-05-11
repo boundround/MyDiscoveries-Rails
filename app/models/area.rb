@@ -19,7 +19,11 @@ class Area < ActiveRecord::Base
   has_many :areas_users
   has_many :users, through: :areas_users
 
-  accepts_nested_attributes_for :photos, :discounts
+  accepts_nested_attributes_for :photos, allow_destroy: true
+  accepts_nested_attributes_for :videos, allow_destroy: true
+  accepts_nested_attributes_for :fun_facts, allow_destroy: true
+  accepts_nested_attributes_for :discounts, allow_destroy: true
+  accepts_nested_attributes_for :games, allow_destroy: true
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 
