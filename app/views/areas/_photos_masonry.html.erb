@@ -38,7 +38,7 @@
                                                             photo_credit: photo.credit
                                                             } do %>
         <% end %>
-        <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
+        <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path ? photo.path.path.gsub('photos/', '') : "thumbnail image" %>" />
         <%= raw like_icon(photo) %>
         <div class="photo-credit">Credit: <%= photo.credit %></div>
         <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
