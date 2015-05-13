@@ -7,9 +7,9 @@
         <th><%= sortable "display_name", "Place" %></th>
         <th><%= sortable "subscription_level", "Subscription Level" %></th>
         <th><%= sortable "id" %></th>
-        <th>Tags</th>
-        <th>Location Tags</th>
-        <th>Activity Tags</th>
+        <th>Tags (comma separate values)</th>
+        <th>Location Tags (comma separate values)</th>
+        <th>Activity Tags (comma separate values)</th>
         <th></th>
       </tr>
       </thead>
@@ -21,9 +21,9 @@
             <td><%= place.display_name if place %></td>
             <td><%= place.subscription_level if place %></td>
             <td><%= place.id %></td>
-            <td><%= f.text_area :tag_list %></td>
-            <td><%= f.text_area :location_list %></td>
-            <td><%= f.text_area :activity_list %></td>
+            <td><%= f.text_area :tag_list, class: "tag-field" %></td>
+            <td><%= f.text_area :location_list, class: "tag-field" %></td>
+            <td><%= f.text_area :activity_list, class: "tag-field" %></td>
             <td>
               <div class="form-group">
                 <%= f.button :submit, 'Update Tags' %>
