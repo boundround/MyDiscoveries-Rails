@@ -1,0 +1,38 @@
+<div id="table-container">
+  <h1>Place Tags</h1>
+  <table class="table table-striped" id="tag-table">
+    <thead>
+      <tr>
+        <th><%= sortable "area" %></th>
+        <th><%= sortable "display_name", "Place" %></th>
+        <th><%= sortable "subscription_level", "Subscription Level" %></th>
+        <th><%= sortable "id" %></th>
+        <th>Tags</th>
+        <th>Location Tags</th>
+        <th>Activity Tags</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @places.each do |place| %>
+        <%= simple_form_for(place) do |f| %>
+          <tr>
+            <td><%= place.area.display_name if place.area %></td>
+            <td><%= place.display_name if place %></td>
+            <td><%= place.subscription_level if place %></td>
+            <td><%= place.id %></td>
+            <td><%= f.text_area :tag_list %></td>
+            <td><%= f.text_area :location_list %></td>
+            <td><%= f.text_area :activity_list %></td>
+            <td>
+              <div class="form-group">
+                <%= f.button :submit, 'Update Tags' %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+  </table>
+  <%= will_paginate @places %>
+</div>

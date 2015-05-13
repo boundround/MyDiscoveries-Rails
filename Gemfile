@@ -51,6 +51,8 @@ gem 'wiselinks'
 
 gem 'will_paginate', '~> 3.0'
 
+gem 'acts-as-taggable-on', '~> 3.4'
+
 # turn tables into jquery sortable searchable
 gem 'jquery-datatables-rails', '~> 3.1.1'
 

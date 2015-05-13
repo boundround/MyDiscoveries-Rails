@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "places/mapdata" => "places#mapdata"
   get "places/search" => "places#search"
   get "places/liked_places" => "places#liked_places"
+  get "places/tags" => "places#tags"
 
   get "/sitemap" => redirect("https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz")
 
