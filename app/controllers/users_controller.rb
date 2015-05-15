@@ -115,7 +115,7 @@ class UsersController < ApplicationController
     @uploaded_files << params[:file2]
     @uploaded_files << params[:file3]
 
-    if UserStory.send_story(current_user, params[:story_text], @uploaded_files).deliver
+    if UserStory.send_story(params[:user_email], params[:user_name], params[:story_text], @uploaded_files).deliver
       flash[:notice] = "Mail delivered. Thanks!"
     else
       flash[:notice] = "Oops. There was a problem sending your email."

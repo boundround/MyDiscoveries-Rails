@@ -1,20 +1,20 @@
 class UserStory < ActionMailer::Base
-  default from: current_user.email
+  default from: 'user_stories@boundround.com'
 
 
-  def send_story(user, story_text, attachments = [])
-    @user = user
+  def send_story(user_email, user_name = '', story_text, files)
+    @user_name = user_name
+    @user_email = user_email
     @story_text = story_text
 
-    attachments.each do |file|
-      attachment "application/octet-stream" do |a|
-        a.body = file.read
-        a.filename = file.orginal_filename
-      end unless file.blank?
+    files.each do |file|
+      if file
+        mail.attachments[file.original_filename] = File.read(file.tempfile)
+      end
     end
 
-    mail(to: "donovan@boundround.com",
-        subject: "New User Story From " + @user.name ? @user.name : @user.email
+    mail(to: "janeece@boundround.com",
+        subject: "New User Story From " + @user_name
         )
   end
 end
