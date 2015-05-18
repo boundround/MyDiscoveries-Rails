@@ -29,8 +29,12 @@
     </div>
   </div>
   <div class="item photo photo-card user-story-card" data-toggle="modal" data-target="#userStoryModal">
-    Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
-  </div>
+      <% if user_signed_in? %>
+        Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
+      <% else %>
+        <a href="<%= new_user_session_path %>">Sign In</a>to upload your own story and photos about this place!
+      <% end %>
+    </div>
   <% unless @photos.empty? %>
   <% @photos.each_with_index do |photo, index| %>
       <div class="item photo photo-card photo-thumb">
