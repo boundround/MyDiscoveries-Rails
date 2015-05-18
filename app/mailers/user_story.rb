@@ -13,7 +13,7 @@ class UserStory < ActionMailer::Base
       end
     end
 
-    mail(to: "janeece@boundround.com",
+    mail(to: "donovan@boundround.com",
         subject: "New User Story From " + @user_name
         )
   end

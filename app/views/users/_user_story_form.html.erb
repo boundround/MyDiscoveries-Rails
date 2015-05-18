@@ -1,0 +1,13 @@
+<%= form_tag(send_user_story_path, :multipart => true) do %>
+  Tell us a little bit about this story
+    <%= text_area_tag :story_text, nil, class: "story-text" %>
+    <%= hidden_field_tag :user_name, current_user.name ? current_user.name : 'Bound Round User' %>
+    <%= hidden_field_tag :user_email, current_user.email %>
+  <p>Upload your pictures</p>
+    <%= file_field_tag :file1 %>
+    <%= file_field_tag :file2 %>
+    <%= file_field_tag :file3 %><br>
+    <p>
+      <%= submit_tag 'Submit', class: "btn btn-large"%>
+    </p>
+<% end %>
