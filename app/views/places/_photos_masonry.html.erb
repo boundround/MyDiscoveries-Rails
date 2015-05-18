@@ -69,11 +69,9 @@
         </div>
       </div>
     </div>
-    <% if user_signed_in? %>
-      <div class="item photo photo-card user-story-card" data-toggle="modal" data-target="#userStoryModal">
-        Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
-      </div>
-    <% end %>
+    <div class="item photo photo-card user-story-card" data-toggle="modal" data-target="#userStoryModal">
+      Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
+    </div>
     <%  unless @videos.empty? %>
       <% @videos.each do |video| %>
         <div class="item video video-card photo-card">
