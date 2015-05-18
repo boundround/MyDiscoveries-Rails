@@ -73,7 +73,7 @@
       <% if user_signed_in? %>
         Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
       <% else %>
-        <a href="<%= new_user_session_path %>">Sign In</a>to upload your own story and photos about this place!
+        <a href="<%= new_user_session_path %>">Sign In</a> to upload your own story and photos about <%= @place.display_name %>!
       <% end %>
     </div>
     <%  unless @videos.empty? %>
