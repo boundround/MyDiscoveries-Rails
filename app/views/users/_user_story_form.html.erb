@@ -2,8 +2,12 @@
   <%= form_tag(send_user_story_path, :multipart => true) do %>
     Tell us a little bit about this story
       <%= text_area_tag :story_text, nil, class: "story-text" %>
+      <p>Location:</br>
+        <input id="pac-input" type="text" placeholder="Enter a location">
+      </p>
       <%= hidden_field_tag :user_name, current_user.name ? current_user.name : 'Bound Round User' %>
       <%= hidden_field_tag :user_email, current_user.email %>
+      <%= hidden_field_tag :formatted_address %>
     <p>Upload your pictures</p>
       <%= file_field_tag :file1 %>
       <%= file_field_tag :file2 %>
