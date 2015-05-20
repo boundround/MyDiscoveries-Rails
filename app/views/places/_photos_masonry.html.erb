@@ -69,11 +69,11 @@
         </div>
       </div>
     </div>
-    <div class="item photo photo-card user-story-card" data-toggle="modal" data-target="#userStoryModal">
+    <div class="item photo photo-card user-story-card" data-toggle="modal" data-target="<%= user_signed_in? ? '#userStoryModal' : '' %>">
       <% if user_signed_in? %>
         Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
       <% else %>
-        <a href="<%= new_user_session_path %>">Sign In</a> to upload your own story and photos about <%= @place.display_name %>!
+        <a href="<%= new_user_session_path %>">Sign In to upload your own story and photos about <%= @place.display_name %>!</a>
       <% end %>
     </div>
     <%  unless @videos.empty? %>

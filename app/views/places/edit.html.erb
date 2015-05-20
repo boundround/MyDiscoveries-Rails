@@ -8,6 +8,15 @@
       <%= f.input :description, as: :bootsy, label: false, input_html: { class: 'form-control area-description-input' } %>
     </div>
     <div class="form-group">
+      <%= f.input :tag_list, label: 'Tags (Comma Separated Values)', input_html: { class: 'form-control'} %>
+    </div>
+    <div class="form-group">
+      <%= f.input :location_list, label: 'Location Tags (Comma Separated Values)', input_html: { class: 'form-control'} %>
+    </div>
+    <div class="form-group">
+      <%= f.input :activity_list, label: 'Activity Tags (Comma Separated Values)', input_html: { class: 'form-control'} %>
+    </div>
+    <div class="form-group">
       <%= f.input :website, input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
