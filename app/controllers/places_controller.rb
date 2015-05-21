@@ -167,5 +167,3 @@ class PlacesController < ApplicationController
                                     category_ids: [])
     end
 end
-
-:street_number, :route ,:sublocality ,:locality ,:state ,:country, :post_code,:phone_number
