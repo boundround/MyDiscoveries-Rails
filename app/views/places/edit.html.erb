@@ -23,12 +23,6 @@
       <%= f.input :booking_url, input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :display_address, input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
-      <%= f.input :phone_number, input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
       <%= f.input :subscription_level, collection: ["Premium", "standard", "basic", "out", "draft"], required: true %>
     </div>
     <p><input id="pac-input" class="controls" type="text"
@@ -39,9 +33,17 @@
     </div>
 
     <div class="form-group lat-lng">
-      <%= f.input :latitude, :input_html => { class: 'form-control', "data-geo" => "lat" } %>
-      <%= f.input :longitude, :input_html => { class: 'form-control', "data-geo" => "lng" } %>
-      <%= f.input :address, placeholder: 'Address', :input_html => { class: 'form-control', "data-geo" => "formatted_address" }, label: "Marker Address" %>
+      <%= f.input :display_address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address", class: 'longer-input' }, label: "Display Address" %>
+      <%= f.input :latitude, as: :hidden, :input_html => { "data-geo" => "lat" } %>
+      <%= f.input :longitude, as: :hidden, :input_html => { "data-geo" => "lng" } %>
+      <%= f.input :street_number, :input_html => { "data-geo" => "street_number" } %>
+      <%= f.input :route, :input_html => { "data-geo" => "route", class: 'form-control' } %>
+      <%= f.input :sublocality, :input_html => { "data-geo" => "sublocality", class: 'form-control' } %>
+      <%= f.input :locality, :input_html => { "data-geo" => "locality", class: 'form-control' } %>
+      <%= f.input :state, :input_html => { "data-geo" => "administrative_area_level_1", class: 'form-control' } %>
+      <%= f.input :country, as: :string, :input_html => { "data-geo" => "country" } %>
+      <%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code" } %>
+      <%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control' } %>
     </div>
     <div class="form-group">
       <%= f.input :area_id, label: 'Change Area', collection: Area.all, as: :select, label_method: :display_name, value_method: :id, required: true %>
