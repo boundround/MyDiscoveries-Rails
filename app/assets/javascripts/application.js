@@ -31,4 +31,5 @@
 //= require cookie
 //= require cards
 //= require like
+//= require sign_in
 
