@@ -355,6 +355,10 @@
   min-height: 30%;
 }
 
+.br-logo-modal {
+  width: 300px;
+}
+
 #pac-input {
   color: #555555;
 }
@@ -565,6 +569,10 @@
 
   .game-video-banner {
     display: none;
+  }
+
+  .br-logo-modal {
+    width: 100%;
   }
 }
 
