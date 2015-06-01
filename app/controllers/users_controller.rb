@@ -109,6 +109,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def send_story
+    @uploaded_files = []
+    @uploaded_files << params[:file1]
+    @uploaded_files << params[:file2]
+    @uploaded_files << params[:file3]
+
+    if UserStory.send_story(params[:user_email], params[:user_name], params[:story_text], params[:formatted_address], @uploaded_files).deliver
+      redirect_to :back
+      flash[:notice] = "Mail delivered. Thanks!"
+    else
+      flash[:notice] = "Oops. There was a problem sending your email."
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

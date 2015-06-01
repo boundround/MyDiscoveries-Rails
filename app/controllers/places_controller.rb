@@ -92,11 +92,17 @@ class PlacesController < ApplicationController
     @discount = Discount.new
   end
 
+  def tags
+    params[:sort] ||= "id"
+    params[:direction] ||= "asc"
+    @places = Place.order(params[:sort] + " " + params[:direction]).paginate(:per_page => 30, :page => params[:page])
+  end
+
   def update
     @place = Place.friendly.find(params[:id])
 
     if @place.update(place_params)
-      redirect_to edit_place_path(@place), notice: 'Place succesfully updated'
+      redirect_to :back, notice: 'Place succesfully updated'
     else
       redirect_to edit_place_path(@place), notice: 'Error: Place not updated'
     end
@@ -151,7 +157,8 @@ class PlacesController < ApplicationController
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon,
-                                    :passport_icon, :address, :area_id,
+                                    :street_number, :route, :sublocality, :locality, :state, :country, :post_code, :phone_number,
+                                    :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list,
                                     photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :_destroy],
                                     videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :_destroy],

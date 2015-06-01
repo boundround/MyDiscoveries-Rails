@@ -128,6 +128,14 @@ select {
   margin-right: 10px;
 }
 
+.generic-button {
+  border: none;
+  background-color: #7CC1FA;
+  color: white;
+  border-radius: 4px;
+  text-align: center;
+}
+
 .menu-button {
   background-color: #fd7e56;
   border: 2px solid white;
@@ -229,6 +237,13 @@ select {
   margin: 0 auto;
 }
 
+.blue-button {
+  color: white;
+  background-color: #428bca;
+  width: 130px;
+  font-weight: 300;
+}
+
 .grid-sizer { width: 33%; }
 
 .modal-dialog {
@@ -239,9 +254,9 @@ select {
 }
 
 .modal-content {
-  background-color: #fd7e56;
+  background-color: white;
   min-height: 450px;
-  color:white;
+  color:black;
 }
 
 .modal {

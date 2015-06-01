@@ -28,6 +28,13 @@
       </div>
     </div>
   </div>
+  <div class="item photo photo-card user-story-card" data-toggle="modal" data-target="<%= user_signed_in? ? '#userStoryModal' : '' %>">
+      <% if user_signed_in? %>
+        Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
+      <% else %>
+        <a href="<%= new_user_session_path %>">Sign In to upload your own story and photos about <%= @area.display_name %>!</a>
+      <% end %>
+    </div>
   <% unless @photos.empty? %>
   <% @photos.each_with_index do |photo, index| %>
       <div class="item photo photo-card photo-thumb">
@@ -38,7 +45,7 @@
                                                             photo_credit: photo.credit
                                                             } do %>
         <% end %>
-        <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
+        <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path ? photo.path.path.gsub('photos/', '') : "thumbnail image" %>" />
         <%= raw like_icon(photo) %>
         <div class="photo-credit">Credit: <%= photo.credit %></div>
         <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
@@ -92,9 +99,6 @@
       <div class="item fun_fact photo-card">
         <div class="discount-card fact-card">
           <p><%= raw fun_fact.content %></p>
-          <div class="fun-fact-like">
-            <%= raw like_icon(fun_fact) %>
-          </div>
         </div>
         <div class="priority"><%= fun_fact.priority ? fun_fact.priority : 2 %></div>
       </div>
@@ -113,3 +117,18 @@
     <% end %>
   </div>
 </div>
+<div class="modal fade" id="userStoryModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Send Us Your Story</h4>
+      </div>
+      <div class="modal-body">
+        <%= render '/users/user_story_form' %>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

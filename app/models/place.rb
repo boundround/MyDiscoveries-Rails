@@ -3,6 +3,9 @@ class Place < ActiveRecord::Base
   before_destroy :remove_from_soulmate
   before_save :check_valid_url
 
+  acts_as_taggable
+  acts_as_taggable_on :locations, :activities
+
   extend FriendlyId
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 

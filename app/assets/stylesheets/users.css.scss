@@ -11,6 +11,46 @@
   right: 0;
   background-color: #FD7E56;
 }
+
+.user-story-card {
+  position: relative;
+  text-align: center;
+  color: #428bca;
+  text-shadow: 1px 1px skyblue;
+  font-size: 1.1em;
+  padding: 15px;
+  z-index: 1;
+  background-color: white;
+}
+
+.user-story-card:before {
+  position: absolute;
+  content: "";
+  background: url(asset_path('br_logo_new.png')) center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.4;
+}
+
+.pac-container {
+    z-index: 2000 !important;
+}
+
+#pac-input {
+  width: 250px;
+}
+
+.story-text {
+  width: 100%;
+  min-height: 200px;
+  color: #428bca;
+}
+
 .my-photos {
   display: inline-block;
   position: relative;

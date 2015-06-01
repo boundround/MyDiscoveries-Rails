@@ -8,6 +8,9 @@
         </div>
       </div>
     </div>
+    <div class="place-card user-story-card" style="<%= @user.places.blank? ? 'float:none;left:44%' : '' %>" data-toggle="modal" data-target="#userStoryModal">
+      Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
+    </div>
     <% unless @user.places.blank? %>
       <ul>
         <% @user.places.each do |place| %>
@@ -46,3 +49,19 @@
 <div class="right-user">
   <%= render 'sidebar' %>
 </div>
+<div class="modal fade" id="userStoryModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Send Us Your Story</h4>
+      </div>
+      <div class="modal-body">
+        <%= render 'user_story_form' %>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<%= javascript_include_tag 'user_story' %>
