@@ -44,6 +44,7 @@
       <%= f.input :country, as: :string, :input_html => { "data-geo" => "country" } %>
       <%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code" } %>
       <%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control' } %>
+      <%= f.input :place_id, as: :hidden, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
     </div>
     <div class="form-group">
       <%= f.input :area_id, label: 'Change Area', collection: Area.all, as: :select, label_method: :display_name, value_method: :id, required: true %>

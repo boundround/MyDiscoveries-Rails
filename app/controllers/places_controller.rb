@@ -158,7 +158,7 @@ class PlacesController < ApplicationController
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon,
                                     :street_number, :route, :sublocality, :locality, :state, :country, :post_code, :phone_number,
-                                    :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list,
+                                    :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id,
                                     photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :_destroy],
                                     videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :_destroy],
