@@ -37,7 +37,8 @@ var setViewForGooglePlace = function(place, city, country){
   geocoder = new google.maps.Geocoder();
   geocoder.geocode({ address: place }, function(results, status){
     if (status == google.maps.GeocoderStatus.OK) {
-      var location = [results[0].geometry.location.k, results[0].geometry.location.D];
+      console.log("RESULTS: " + results[0].geometry.location.lat());
+      var location = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
       $('#svgdiv').fadeOut("fast");
         map.setView( location, 9 );
 
