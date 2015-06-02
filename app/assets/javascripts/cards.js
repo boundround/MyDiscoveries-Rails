@@ -414,16 +414,22 @@ $(document).ready(function(){
 	    zoom: 13
 	  });
 
+	  var location = {
+            "lat" : $('.area-content').data('lat'),
+            "lng" : $('.area-content').data('long')
+         };
+
+    var marker = new google.maps.Marker({
+      map: map,
+      position: location
+    });
+
 		var service = new google.maps.places.PlacesService(map);
 		var request = {
 	    placeId: place
 	  };
 	  service.getDetails(request, function(place, status) {
 	    if (status == google.maps.places.PlacesServiceStatus.OK) {
-	    	var marker = new google.maps.Marker({
-	        map: map,
-	        position: place.geometry.location
-	      });
 
 	    	var i;
 	    	var day = new Date();
