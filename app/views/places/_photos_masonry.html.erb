@@ -43,11 +43,6 @@
           <% end %>
           <div id="area-content">
             <p><%= raw @place.description %></p>
-            <% unless @place.website.blank? %>
-              <a href="<%= @place.website %>" target="blank" class="feedback">
-                <button class="btn website-button">Visit Website</button>
-              </a>
-            <% end %>
             <% unless @place.booking_url.blank? %>
               <a href="<%= @place.booking_url %>" target="blank" class="feedback">
                 <button class="btn website-button">Book Now!</button>
@@ -57,13 +52,6 @@
               <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="feedback">
                 <button class="btn website-button">Get Directions</button>
               </a>
-            <% end %>
-            <% unless @place.phone_number.blank? %>
-            <br /><br />
-              <p><strong>Phone:</strong> <%= raw @place.phone_number %></p>
-            <% end %>
-            <% unless @place.display_address.blank? %>
-              <p><strong>Address:</strong> <%= raw @place.display_address %></p>
             <% end %>
           </div>
         </div>
@@ -76,6 +64,23 @@
         <a href="<%= new_user_session_path %>">Sign In to upload your own story and photos about <%= @place.display_name %>!</a>
       <% end %>
     </div>
+    <% if @place.place_id %>
+      <div class="item photo photo-card place-info-card">
+        <div id="place-map-canvas"></div>
+        <div class="place-info-text">
+          <div id="place-id" data-place="<%= @place.place_id %>">
+          <p>
+            <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="feedback">
+              Get Directions
+            </a>
+          </p>
+          <p>Address: <span id="address"><%= @place.display_address %></span></p>
+          <p>Phone Number: <span id="phone-number"><%= @place.phone_number %></span></p>
+          <p id="operating-hours"></p>
+          <p><i class='fa fa-laptop fa-laptop-2x'></i>&nbsp;&nbsp;<a href="<%= @place.website%>" target="blank">Website</a>
+        </div>
+      </div>
+    <% end %>
     <%  unless @videos.empty? %>
       <% @videos.each do |video| %>
         <div class="item video video-card photo-card">
