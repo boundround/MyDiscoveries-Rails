@@ -46,6 +46,20 @@
 	overflow: hidden;
 }
 
+#place-map-canvas {
+  height: 180px;
+  width: 100%;
+}
+
+#open-now {
+  color: green;
+}
+
+.place-info-text {
+  background-color: white;
+  padding: 15px;
+}
+
 //*************************NEW SIMPLE FLOAT CARDS PAGE FOR VIDEOS & GAMES
 .cards-float {
 	opacity: 1;
