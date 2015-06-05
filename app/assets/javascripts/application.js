@@ -27,6 +27,7 @@
 //= require bootsy
 //= require bootstrap
 //= require geocomplete
+//= require iconlabel
 //= require cookie
 //= require cards
 //= require like
