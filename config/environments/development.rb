@@ -48,8 +48,8 @@ Rails.application.configure do
     :password  => ENV["MANDRILL_APIKEY"], # SMTP password is any valid API key
     :authentication => 'plain', # Mandrill supports 'plain' or 'login'
   }
-  
-  config.force_ssl = false
 
-  
+  config.force_ssl = true
+
+
 end
