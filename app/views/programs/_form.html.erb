@@ -1,0 +1,75 @@
+<div class="photo-container">
+
+  <h2>Add New Program</h2>
+<%= simple_form_for @program do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+ 
+  <p>
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </p>
+ 
+  <p>
+    <%= f.label :yearlevelnotes %><br>
+    <%= f.text_area :yearlevelnotes %>
+  </p>
+
+  <p>
+    <%= f.label :cost %><br>
+    <%= f.text_field :cost %>
+  </p>
+
+  <p>
+    <%= f.label :programpath %><br>
+    <%= f.text_field :programpath %>
+  </p>
+
+  <p>
+    <%= f.label :heroimagepath %><br>
+    <%= f.text_field :heroimagepath %>
+  </p>
+
+  <p>
+    <%= f.label :times %><br>
+    <%= f.text_area :times %>
+  </p>
+
+  <p>
+    <%= f.label :booknowpath %><br>
+    <%= f.text_field :booknowpath %>
+  </p>
+
+  <p>
+    <%= f.label :contact %><br>
+    <%= f.text_field :contact %>
+  </p>
+
+    <div class="form-group">
+      <%= f.input :tag_list, label: 'Tags (Comma Separated Values)', input_html: { class: 'form-control'} %>
+    </div>
+		
+    <div class="form-group">
+      <%= f.input :programsubject_list, collection: valid_program_subject_tags(), input_html: { class: 'form-control', multiple: true } %>
+    </div>
+
+    <!--div class="form-group">
+      <%= f.input :programactivity_list, label: "Program Activity Tags ( Valid tags: "+ valid_program_activity_tags_csv()+" )", input_html: { class: 'form-control'} %>
+    </div-->
+
+    <div class="form-group">
+      <!--%= f.input :programactivity_list, label: "Program Activity Tags ( Valid tags: "+ valid_program_activity_tags_csv()+" )", input_html: { class: 'form-control'} %-->
+      <%= f.input :programactivity_list, collection: valid_program_activity_tags(), input_html: { class: 'form-control', multiple: true } %>
+    </div>
+
+    <div class="form-group">
+      <%= f.input :programyearlevel_list, collection: valid_program_yearlevel_tags(), input_html: { class: 'form-control', multiple: true } %>
+    </div>
+
+    <div class="form-group">
+      <%= f.button :submit%>
+    </div>
+<% end %>
+</div>

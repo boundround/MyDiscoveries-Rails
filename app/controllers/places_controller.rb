@@ -88,6 +88,7 @@ class PlacesController < ApplicationController
     @photo = Photo.new
     @games = @place.games
     @videos = @place.videos
+    @program = Program.new
     @discounts = @place.discounts
     @discount = Discount.new
   end

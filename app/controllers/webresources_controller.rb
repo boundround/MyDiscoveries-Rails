@@ -1,0 +1,2 @@
+class WebresourcesController < ApplicationController
+end

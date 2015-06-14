@@ -26,4 +26,7 @@
  *= require jquery.fileupload
  *= require jquery.fileupload-ui
  *= require virgin
+ *= require bootstrap-select
+ *= require owl.carousel
+ *= require owl.theme
  */

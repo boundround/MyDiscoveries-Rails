@@ -26,6 +26,7 @@ class Place < ActiveRecord::Base
   has_many :games, -> { order "created_at ASC"}
   has_many :videos, -> { order "created_at ASC"}
   has_many :fun_facts, -> { order "created_at ASC"}
+  has_many :programs, -> { order "created_at ASC"}
   has_one :journal_info
 
   has_many :places_users
@@ -36,6 +37,7 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :discounts, allow_destroy: true
   accepts_nested_attributes_for :games, allow_destroy: true
+  accepts_nested_attributes_for :programs, allow_destroy: true
 
   mount_uploader :map_icon, IconUploader
 
