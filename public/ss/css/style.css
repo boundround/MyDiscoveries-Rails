@@ -803,7 +803,7 @@ position: relative !important;width: 313px !important;}
 
 /****************************************Result******************************/
 .result{
-  background: url(../img/zoo.jpg) no-repeat center;
+/*  background: url(../img/zoo.jpg) no-repeat center;*/
   min-height: 578px;  
   background-size: cover;
 

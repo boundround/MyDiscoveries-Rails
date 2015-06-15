@@ -53,7 +53,8 @@ var id = 'loader', fill = '#FFF',
 </script>
     <div class="border_top hidden-xs"></div>
 
-<div class="result">
+<div class="result" style="background: url(<%= pick_a_place_photo_url(@place) %>) no-repeat center";
+>
 <div class="result-top">
 	<div class="col-sm-3 fff back"><i class="glyphicon glyphicon-chevron-left"></i> &nbsp; <a class="fff" href="#">Back to results</a> </div>
 
@@ -153,10 +154,10 @@ var id = 'loader', fill = '#FFF',
 						<span id="slider-next" class="fa fa-caret-right"></span>
 					</div>
 						<ul class="bxslider1">
-							<%=@place.photos.each do |photo|%>
+							<% @place.photos.each do |photo| %>
 						<li>
 							<a>
-								<img src=<%=photo.path%> class="img-responsive"/>
+								<img src=<%= photo.path %> class="img-responsive"/>
 							</a>	
 						</li>
 						<% end %>
@@ -203,7 +204,8 @@ var id = 'loader', fill = '#FFF',
 			</div>	
 			
 
-	  <div id="myModal" class="modal fade">
+		<% @place.programs.each do |program| %>
+	  <div id="myModal_<%=program.id%>" class="modal fade">
 	  	<div class="fixed-btn">
                 		<a href="#myModal2" data-toggle="modal" class="fff hidden-sm hidden-xs side-book"><span class="side-arrow"><</span> <span>Book<br>now!</span></a>
                 	</div>
@@ -223,13 +225,13 @@ var id = 'loader', fill = '#FFF',
                 <div class="col-md-11 modal-middle center-block">
                 	<div class="row">
                 		<div class="col-md-2 col-sm-3">
-                			<img src="../ss/img/Logo3.png" class="center-block img-responsive">
+                			<img src=<%= @place.logo %> class="center-block img-responsive" alt=<%= @place.logo %> >
                 		</div>
                 		<div class="col-md-9">
                 			<h1>
-                				<Roar & Snore><br>
+                				<%= program.name %><br>
                 				<span>
-                					<a href="#">www.westernplainzoo.com.au/roar-snore</a>
+                					<a href="<%= program.programpath %>"><%= program.programpath %></a>
                 				</span>
                 			</h1>
                 		</div>
@@ -257,10 +259,11 @@ var id = 'loader', fill = '#FFF',
                 		</div>
                 		<div class="col-md-12">
                 			<p>
-                				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada.
+                				<%= program.description %>
                 			</p>
-                			<iframe width="100%" height="400" src="https://www.youtube.com/embed/Q-4w5xYLwiU" frameborder="0" allowfullscreen></iframe>
-                			<h4>What’s involved in Roar & Snore?</h4>
+											<img src="<%=program.heroimagepath%>" style="width=100%; height=400px;"/>
+                			<!--iframe width="100%" height="400" src="https://www.youtube.com/embed/Q-4w5xYLwiU" frameborder="0" allowfullscreen></iframe-->
+                			<h4>What’s involved in <%= program.name %>?</h4>
                 			<p>
                 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Lorem ipsum dolor sit amet:
                 			</p>
@@ -377,28 +380,18 @@ var id = 'loader', fill = '#FFF',
                 	 	<div class="col-md-12"><h4>Download resources</h4>
                 	 	</div>
                 		<div class="clearfix"></div>
+										<% program.webresources.each do |webresource| %>
                 		<div class="col-sm-4">
-                			<a href="#" class="text-center btn btn-default form-control">
+                			<a href="<%= webresource.path %>" class="text-center btn btn-default form-control">
                 			<span class="glyphicon glyphicon-download pull-left"></span> 
-                				Zoo map
+                				<%= webresource.caption %>
                 			</a>
                 		</div>
-                		<div class="col-sm-4">
-                			<a href="#" class="text-center btn btn-default form-control">
-                			<span class="glyphicon glyphicon-download pull-left"></span> 
-                				Templates
-                			</a>
-                		</div>	
-                		<div class="col-sm-4">
-                			<a href="#" class="text-center btn btn-default form-control">
-                			<span class="glyphicon glyphicon-download pull-left"></span> 
-                				Work sheets
-                			</a>
-                		</div>
+										<% end %>
                 		<div class="clearfix"></div>
                 	</div>
                 	<div class="col-md-12">
-                		<h1 class="text-center model-end">$1550.00</h1>
+                		<h1 class="text-center model-end"><%= program.cost %></h1>
                 	</div>
                 	<div class="col-sm-12 ">
                 		<a href="#myModal2" data-toggle="modal" class="book-now  form-control btn btn-default">Book now!</a>                		
@@ -417,7 +410,8 @@ var id = 'loader', fill = '#FFF',
             </div>
         </div>
     </div>
-
+		<% end %>
+		
     <div id="myModal2" class="modal fade">
         <div class="modal-dialog golu-p">
         	
@@ -527,11 +521,11 @@ var id = 'loader', fill = '#FFF',
 		<div class="container max-1024">
 			<div class="row">
 				<div class="row width-no">
-					<%= %>
+					<% @place.programs.each do |program| %>
 					<div class="col-sm-4">
 					<div class="bottom-box">
 						<div class="top-row">
-							<div class="col-xs-10"><h3>Meet with a keeper</h3></div>
+							<div class="col-xs-10"><h3><%=program.name%></h3></div>
 							<div class="col-xs-2 text-right">
 								<i class="fa fa-star "></i>
 							</div>
@@ -539,11 +533,10 @@ var id = 'loader', fill = '#FFF',
 						</div>	
 						<div class="bottom-middle">
 							<div class="col-sm-12 col-md-11 col-xs-12">
-								<p class="enquire-modal ">Lorem ipsum dolor sit amet, consec tetur adipiscing 
-									elit. Vivamus cursus suscipit justo malesuada.
+								<p id="program_<%=program.id%>" class="enquire-modal "><%=program.description%>
 								</p>
 								<p>
-									Duration: <span class="bold">3 hours</span>
+									Duration: <span class="bold"><%=program.duration%></span>
 								</p>
 							</div>
 							<div class="clearfix"></div>				
@@ -569,222 +562,13 @@ var id = 'loader', fill = '#FFF',
 							
 						</div>
 					</div>
-
-					<div class="col-sm-4">
-					<div class="bottom-box">
-						<div class="top-row">
-							<div class="col-xs-10"><h3>Meet with a keeper</h3></div>
-							<div class="col-xs-2 text-right">
-								<i class="fa fa-star "></i>
-							</div>
-						 <div class="clearfix"></div>								
-						</div>	
-						<div class="bottom-middle">
-							<div class="col-sm-12 col-md-11 col-xs-12">
-								<p class="enquire-modal ">Lorem ipsum dolor sit amet, consec tetur adipiscing 
-									elit. Vivamus cursus suscipit justo malesuada.
-								</p>
-								<p>
-									Duration: <span class="bold">3 hours</span>
-								</p>
-							</div>
-							<div class="clearfix"></div>				
-						</div>		
-						<div class="bottom-footer">
-							<div class="col-xs-5 col-sm-5">
-								<p>
-									K-12
-								</p>
-							</div>	
-							<div class="col-xs-7  col-sm-7 text-right">
-								<p><i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart-o"></i>
-								<i class="fa fa-heart-o"></i>
-								</p>
-							</div>
-							<div class="clearfix"></div>											
-						</div>	
-						<div class="clearfix">						
-					</div>
-							
-						</div>
-					</div>
-
-					<div class="col-sm-4">
-					<div class="bottom-box">
-						<div class="top-row">
-							<div class="col-xs-10"><h3>Meet with a keeper</h3></div>
-							<div class="col-xs-2 text-right">
-								<i class="fa fa-star "></i>
-							</div>
-						 <div class="clearfix"></div>								
-						</div>	
-						<div class="bottom-middle">
-							<div class="col-sm-12 col-md-11 col-xs-12">
-								<p class="enquire-modal ">Lorem ipsum dolor sit amet, consec tetur adipiscing 
-									elit. Vivamus cursus suscipit justo malesuada.
-								</p>
-								<p>
-									Duration: <span class="bold">3 hours</span>
-								</p>
-							</div>
-							<div class="clearfix"></div>				
-						</div>		
-						<div class="bottom-footer">
-							<div class="col-xs-5 col-sm-5">
-								<p>
-									K-12
-								</p>
-							</div>	
-							<div class="col-xs-7  col-sm-7 text-right">
-								<p><i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart-o"></i>
-								<i class="fa fa-heart-o"></i>
-								</p>
-							</div>
-							<div class="clearfix"></div>											
-						</div>	
-						<div class="clearfix">						
-					</div>
-							
-						</div>
-					</div>
-
-					<div class="col-sm-4">
-					<div class="bottom-box">
-						<div class="top-row">
-							<div class="col-xs-10"><h3>Meet with a keeper</h3></div>
-							<div class="col-xs-2 text-right">
-								<i class="fa fa-star "></i>
-							</div>
-						 <div class="clearfix"></div>								
-						</div>	
-						<div class="bottom-middle">
-							<div class="col-sm-12 col-md-11 col-xs-12">
-								<p>Lorem ipsum dolor sit amet, consec tetur adipiscing 
-									elit. Vivamus cursus suscipit justo malesuada.
-								</p>
-								<p>
-									Duration: <span class="bold">3 hours</span>
-								</p>
-							</div>
-							<div class="clearfix"></div>				
-						</div>		
-						<div class="bottom-footer">
-							<div class="col-xs-5 col-sm-5">
-								<p>
-									K-12
-								</p>
-							</div>	
-							<div class="col-xs-7  col-sm-7 text-right">
-								<p><i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart-o"></i>
-								<i class="fa fa-heart-o"></i>
-								</p>
-							</div>
-							<div class="clearfix"></div>											
-						</div>	
-						<div class="clearfix">						
-					</div>
-							
-						</div>
-					</div>
-
-					<div class="col-sm-4">
-					<div class="bottom-box">
-						<div class="top-row">
-							<div class="col-xs-10"><h3>Meet with a keeper</h3></div>
-							<div class="col-xs-2 text-right fill">
-								<i class="fa fa-star "></i>
-							</div>
-						 <div class="clearfix"></div>								
-						</div>	
-						<div class="bottom-middle">
-							<div class="col-sm-12 col-md-11 col-xs-12">
-								<p>Lorem ipsum dolor sit amet, consec tetur adipiscing 
-									elit. Vivamus cursus suscipit justo malesuada.
-								</p>
-								<p>
-									Duration: <span class="bold">3 hours</span>
-								</p>
-							</div>
-							<div class="clearfix"></div>				
-						</div>		
-						<div class="bottom-footer">
-							<div class="col-xs-5 col-sm-5">
-								<p>
-									K-12
-								</p>
-							</div>	
-							<div class="col-xs-7  col-sm-7 text-right">
-								<p><i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart-o"></i>
-								<i class="fa fa-heart-o"></i>
-								</p>
-							</div>
-							<div class="clearfix"></div>											
-						</div>	
-						<div class="clearfix">						
-					</div>
-							
-						</div>
-					</div>
-
-					<div class="col-sm-4">
-					<div class="bottom-box">
-						<div class="top-row">
-							<div class="col-xs-10"><h3>Meet with a keeper</h3></div>
-							<div class="col-xs-2 text-right fill">
-								<i class="fa fa-star "></i>
-							</div>
-						 <div class="clearfix"></div>								
-						</div>	
-						<div class="bottom-middle">
-							<div class="col-sm-12 col-md-11 col-xs-12">
-								<p>Lorem ipsum dolor sit amet, consec tetur adipiscing 
-									elit. Vivamus cursus suscipit justo malesuada.
-								</p>
-								<p>
-									Duration: <span class="bold">3 hours</span>
-								</p>
-							</div>
-							<div class="clearfix"></div>				
-						</div>		
-						<div class="bottom-footer">
-							<div class="col-xs-5 col-sm-5">
-								<p>
-									K-12
-								</p>
-							</div>	
-							<div class="col-xs-7  col-sm-7 text-right">
-								<p><i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart-o"></i>
-								<i class="fa fa-heart-o"></i>
-								</p>
-							</div>
-							<div class="clearfix"></div>											
-						</div>	
-						<div class="clearfix">						
-					</div>
-							
-						</div>
-					</div>
+					<% end %>
 				</div>
 				
 			</div>
 		</div>
 
-		<div class="result-footer">
+		<!--div class="result-footer">
 			<div class="container max-1024">
 				<div class="row">
 				 <div class="row width-no">
@@ -853,7 +637,7 @@ var id = 'loader', fill = '#FFF',
 					</div>					
 				</div>
 			</div>
-		</div>
+		</div-->
 		
 
 
@@ -939,18 +723,31 @@ var id = 'loader', fill = '#FFF',
 			        e.preventDefault();
 			        slider_n.goToPrevSlide();
 			    });
-              $('.enquire-modal').click(function(e){
-              		e.preventDefault();
-              		$('#myModal').modal('show');
-              		setTimeout(function(){
-              			slider_n.reloadSlider();
-              		}, 400);
-              		
-              });
+					
+							<% @place.programs.each do |program| %>
+			          $('#program_<%=program.id%>').click(function(e){
+			          		e.preventDefault();
+			          		$('#myModal_<%=program.id%>').modal('show');
+			          		setTimeout(function(){
+			          			slider_n.reloadSlider();
+			          		}, 400);
+        		
+			          });
+/*			          $('.enquire-modal').click(function(e){
+			          		e.preventDefault();
+			          		$('#myModal').modal('show');
+			          		setTimeout(function(){
+			          			slider_n.reloadSlider();
+			          		}, 400);        		
+			          });
+*/
+				  		<% end %>
+							
               $('.modal-header .close').click(function(e){
               	e.preventDefault();
               		
-              			$('#myModal,#myModal2').modal('hide');
+//              			$('#myModal,#myModal2').modal('hide');
+              			$('.modal').modal('hide');
 
               		
               });
