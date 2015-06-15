@@ -139,7 +139,7 @@ class Place < ActiveRecord::Base
   end
 
   def check_valid_url
-    if !website.match(/^(http:\/\/)/i) || !website.match(/^(http:\/\/)/i)
+    unless website.match(/^(http:\/\/)/i) || website.match(/^(https:\/\/)/i)
       website.prepend("http://")
     end
   end
