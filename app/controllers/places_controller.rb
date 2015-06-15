@@ -1,5 +1,6 @@
 class PlacesController < ApplicationController
-  before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places]
+  
+  before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms ]
 
   def index
     @places = Place.all
@@ -143,7 +144,7 @@ class PlacesController < ApplicationController
 
   def liked_places
     @places = {}
-    @liked_places = Place.where(slug: params[:placeIds])
+    @liked_places = Place.where.not(slug: params[:placeIds])
 
     @liked_places.each do |place|
       @places[place.slug] = like_icon(place)
@@ -154,6 +155,26 @@ class PlacesController < ApplicationController
     end
   end
 
+  def programsearch #xyrin index.html
+    @set_body_class = "main_bg"
+    @set_css = "ss/style.css"
+#    @places = Place.wherelimit(6).order('id asc')
+    @places = Place.joins(:programs).order('id asc').distinct.limit(6)
+    place_ids = @places.map{|x| x[:id]}
+    @programs = Program.where("place_id IN (?)", place_ids)
+#    @places = Place.includes(:programs).where.not(programs: { id: nil })
+#     render plain: @programs.inspect
+  end
+  
+  def programsearchresultslist #xyrin search.html
+  end
+   
+  def programsearchresultsmap #xyrin map.html
+  end
+   
+  def placeprograms #xyrin result.html 
+  end
+  
   private
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,

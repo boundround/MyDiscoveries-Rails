@@ -146,3 +146,4 @@ gem 'puma'
 
 gem 'bootstrap-select-rails'
 gem 'owlcarousel-rails'
+gem 'bxslider-rails'

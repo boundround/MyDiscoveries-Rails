@@ -13,7 +13,7 @@ class Program < ActiveRecord::Base
     using: {tsearch: {dictionary: "english"}},
     associated_against: {webresources: :caption, place: [:display_name, :description] }
 
-  validates_presence_of :display_name, :slug
+  validates_presence_of :name
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)

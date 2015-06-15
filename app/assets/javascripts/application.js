@@ -36,6 +36,7 @@
 //= require bootstrap-select
 //= require owl.carousel	
 //= require programs
+//= require bxslider
 
 
 

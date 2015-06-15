@@ -24,6 +24,11 @@ Rails.application.routes.draw do
   get "places/liked_places" => "places#liked_places"
   get "places/tags" => "places#tags"
   get "programs/tags" => "programs#tags"
+  
+  get "places/programsearch" => 'places#programsearch' #xyrin index.html
+  get "places/programsearchresultslist" => 'places#programsearchresultslist' #xyrin search.html 
+  get "places/programsearchresultsmap" => 'places#programsearchresultsmap' #xyrin map.html 
+  get "places/placeprograms" => 'places#placeprograms' #xyrin result.html 
 
   get "/sitemap" => redirect("https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz")
 

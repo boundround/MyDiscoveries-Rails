@@ -1,4 +1,5 @@
 class ProgramsController < ApplicationController
+
   def index
     @programs = Program.includes(:webresources).all
   end
