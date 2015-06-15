@@ -144,6 +144,3 @@ gem 'puma'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'bootstrap-select-rails'
-gem 'owlcarousel-rails'
-gem 'bxslider-rails'

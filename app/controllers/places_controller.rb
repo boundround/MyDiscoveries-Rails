@@ -156,23 +156,29 @@ class PlacesController < ApplicationController
   end
 
   def programsearch #xyrin index.html
-    @set_body_class = "main_bg"
-    @set_css = "ss/style.css"
+    @placeprograms = "yes"
 #    @places = Place.wherelimit(6).order('id asc')
     @places = Place.joins(:programs).order('id asc').distinct.limit(6)
     place_ids = @places.map{|x| x[:id]}
     @programs = Program.where("place_id IN (?)", place_ids)
+    @locations = Area.joins(:places).where("places.id IN (?)", place_ids)
 #    @places = Place.includes(:programs).where.not(programs: { id: nil })
-#     render plain: @programs.inspect
+#     render plain: @locations.inspect
   end
   
   def programsearchresultslist #xyrin search.html
+    @placeprograms = "yes"
   end
    
   def programsearchresultsmap #xyrin map.html
+    @placeprograms = "yes"
   end
    
   def placeprograms #xyrin result.html 
+    @placeprograms = "yes"
+    @place = Place.friendly.find(params[:id])
+#    @programs = @plac.programs
+#     render plain: params.inspect
   end
   
   private
