@@ -1,4 +1,4 @@
-<<head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,9 +56,9 @@ var id = 'loader', fill = '#FFF',
 <div class="result" style="background: url(<%= pick_a_place_photo_url(@place) %>) no-repeat center";
 >
 <div class="result-top">
-	<div class="col-sm-3 fff back"><i class="glyphicon glyphicon-chevron-left"></i> &nbsp; <a class="fff" href="#">Back to results</a> </div>
+	<div class="col-sm-3 fff back"><i class="glyphicon glyphicon-chevron-left"></i> &nbsp; <a class="fff" href="javascript:history.back()">Back to results</a> </div>
 
-	<div class="col-md-3 col-sm-3 col-xs-5 left_login profile pull-right text-right">
+	<!--div class="col-md-3 col-sm-3 col-xs-5 left_login profile pull-right text-right">
             <div class="dropdown z_index l_dropdown">
                 <button class="login btn-log dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                   Your Profile
@@ -92,14 +92,14 @@ var id = 'loader', fill = '#FFF',
             </div>
         </div>
         <div class="clearfix">
-   </div> 
+   </div--> 
         </div>
 
         
         	<h1 class="text-center fff"><%=@place.display_name%><br/><span><%=@place.area.display_name%></span> 
         	</h1>
         	<div class="map-btn text-center">
-        		<a href="#">View on map</a>        		
+        		<a href="/places/programsearchresultsmap?id=<%=@place.id%>">View on map</a>        		
         	</div>
         	<div class="clearfix">       		
         	</div>
@@ -261,7 +261,9 @@ var id = 'loader', fill = '#FFF',
                 			<p>
                 				<%= program.description %>
                 			</p>
-											<img src="<%=program.heroimagepath%>" style="width=100%; height=400px;"/>
+											<div style="max-height:400px;max-width:500px;overflow:hidden;border-radius:8px; width=100%">
+												<img src="<%=program.heroimagepath%>" class="center-block img-responsive" style="display:block"/>
+											</div>
                 			<!--iframe width="100%" height="400" src="https://www.youtube.com/embed/Q-4w5xYLwiU" frameborder="0" allowfullscreen></iframe-->
                 			<h4>What’s involved in <%= program.name %>?</h4>
                 			<p>
@@ -279,7 +281,7 @@ var id = 'loader', fill = '#FFF',
                 					</span>
                 				</li>
                 			</ol>
-                			<h4>Times</h4>
+                			<!--h4>Times</h4>
                 			<div class="model-slider">
                 		   <ul class="bxslider">
                 				
@@ -369,7 +371,7 @@ var id = 'loader', fill = '#FFF',
                 		  </ul>
                 		
                 			<span id="slider-next2" class="fa fa-caret-right"></span>
-                			<span id="slider-prev2" class="fa fa-caret-left"></span>
+                			<span id="slider-prev2" class="fa fa-caret-left"></span-->
                 		</div>
                 		
                 			<div class="clearfix"></div>
@@ -382,7 +384,7 @@ var id = 'loader', fill = '#FFF',
                 		<div class="clearfix"></div>
 										<% program.webresources.each do |webresource| %>
                 		<div class="col-sm-4">
-                			<a href="<%= webresource.path %>" class="text-center btn btn-default form-control">
+                			<a href="<%= webresource.path %>" target="_blank" class="text-center btn btn-default form-control">
                 			<span class="glyphicon glyphicon-download pull-left"></span> 
                 				<%= webresource.caption %>
                 			</a>
@@ -652,18 +654,15 @@ var id = 'loader', fill = '#FFF',
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"> <img src="../ss/img/Bound_logo.png" alt="bound_logo" class="hidden-xs" /></a>
+      <a class="navbar-brand" href="app.boundround.com" target="_blank"> <img src="../ss/img/Bound_logo.png" alt="bound_logo" class="hidden-xs" /></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav nav_ul">
-           <li><a href="#">Privacy Policy </a></li>
-           <li><a href="#">About Us </a></li>
-           <li><a href="#">Contact </a></li>
-           <li><a href="#">Lorem </a></li>
-           <li><a href="#"> Ipsum</a></li>
-           <li><a href="#">Lorem</a> </li>       
+           <li><a href="http://boundround.com/privacy-terms/">Privacy Policy </a></li>
+           <li><a href="http://boundround.com/about-us/">About Us </a></li>
+           <li><a href="http://boundround.com/contact-bound-round/">Contact </a></li>
       </ul>
       
       

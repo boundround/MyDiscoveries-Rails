@@ -188,12 +188,35 @@ text-decoration:underline;
 /*************bottom crousel************/
 #owl-demo .item{
   margin: 3px;
+	
+}
+#owl-demo .item{
+	overflow: hidden;
+  border-radius: 8px;
+  width: 100%;
+  max-height: 200px;
 }
 #owl-demo .item img{
   display: block;
   width: 100%;
   height: auto;
 }
+#owl-demo span {
+  position: absolute;
+  bottom: 15px;
+  left: 10px;
+  color: #fff;
+  color: rgb(255, 255, 255);
+  text-align: left;
+  text-overflow: ellipsis;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.22);
+  -moz-transform: matrix( 1,0,0,0.99986931742868,0,0);
+  -webkit-transform: matrix( 1,0,0,0.99986931742868,0,0);
+  -ms-transform: matrix( 1,0,0,0.99986931742868,0,0);
+   -o-transform: matrix( 1,0,0,0.99986931742868,0,0);
+  font-size: 18px;
+}
+
 .owl_main {
 max-width:657px;
   margin: 0px auto;
@@ -565,8 +588,13 @@ background: #A2D549;
   border-radius: 8px;
   box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
 }
+.box-top{
+  max-height: 145px;
+  overflow: hidden;
+}
 .saerch .box .box-top img
 {
+  border-radius: 8px 8px 0px 0px;
   width: 100%;
 }
 .saerch .box h4
@@ -2402,3 +2430,4 @@ margin: 0px;
 .rating-symbol{
   margin-right: 2px;
 }
+

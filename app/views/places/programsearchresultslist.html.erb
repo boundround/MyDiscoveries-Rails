@@ -63,7 +63,7 @@
             </div>
             <div class="container">
                 <div class="col-sm-2 hidden-xs">
-                    <a href="index.html">
+                    <a href="javascript:ss_goto_search()">
                           <img src="../ss/img/logo.png" class="img-responsive logo2 center-block hidden-xs" alt="LOGO">
                     </a> 
                 </div>
@@ -71,9 +71,9 @@
                     <div class=" search_bg search_bg2 center-block">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search by region or venue name">
+                            <input id="search_input" type="text" class="form-control" placeholder="Search by region or venue name" value="<%=@search_term%>" >
                             <span class="input-group-btn">
-                                <button class="btn btn-my" type="button">
+                                <button class="btn btn-my" type="button" onclick="ss_goto_list_results()">
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 </button>
                             </span>
@@ -169,8 +169,8 @@
     </div>
     <div class="col-sm-2">
             <div class="btn-bg">
-                <a href="#" class="active-btn  hidden-xs">List view</a>
-                <a href="#">Map view</a>
+                <a href="/places/programsearchresultslist?term=<%=@search_term %>" class="active-btn  hidden-xs">List view</a>
+                <a href="/places/programsearchresultsmap?term=<%=@search_term %>">Map view</a>
             </div>        
     </div>
             </div>
@@ -214,177 +214,52 @@
        <div class="container saerch">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center">5 results matching <span>‘Zoo’</span></h2>
+                <h2 class="text-center"><%= @places.count %> results matching <span>‘<%= @search_term %>’</span></h2>
                 
             </div>
             
         </div>
 
         <div class="row margin">
-            <div class="col-sm-4 col-xs-6">
-               <div class="">
-                    <div class="col-sm-12  box">
-                        <div class="row box-top">
-                            <img src="../ss/img/tar.png" class="img-responsive">
-                        </div>
-                        <div class="col-xs-12 visible-md visible-xs visible-sm box_center text-center box-middle">
-                                <span>Virtual</span>
-                            </div>
-                        <div class="row text-center">
-                            <h4>Taronga Zoo<br><span>Sydney, NSW</span></h4>
-                        </div> 
-                        <div class="row box-footer">
-                            <div class="col-xs-5 col-lg-4 box_left">
-                                <span>K–12</span>
-                            </div>
-                            <div class="col-xs-4 hidden-md hidden-sm hidden-xs col-lg-4 box_center text-center">
-                                <span>Virtual</span>
-                            </div>
-                            <div class="col-xs-7 col-lg-4 box_right text-right">
-                                <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
-                             </div>                             
-                        </div>   
-                        <div class="box-left_top">
-                            <img src="../ss/img/paw.png">&nbsp; <span>Animals</span>
-                        </div>      
-                         <div class="box-right_top">
-                            <i class="fa fa-star map-gray"></i>
-                        </div>                                      
-                    </div>                   
-               </div>               
-            </div>
-<div class="col-sm-4 col-xs-6">
-               <div class="">
-                    <div class="col-sm-12  box">
-                        <div class="row box-top">
-                            <img src="../ss/img/tar.png" class="img-responsive">
-                        </div>
-                        <div class="col-xs-12 visible-md visible-xs visible-sm box_center text-center box-middle">
-                                <span>Virtual</span>
-                            </div>
-                        <div class="row text-center">
-                            <h4>Taronga Zoo<br><span>Sydney, NSW</span></h4>
-                        </div> 
-                        <div class="row box-footer">
-                            <div class="col-xs-5 col-lg-4 box_left">
-                                <span>K–12</span>
-                            </div>
-                            <div class="col-xs-4 hidden-md hidden-sm hidden-xs col-lg-4 box_center text-center">
-                                <span>Virtual</span>
-                            </div>
-                            <div class="col-xs-7 col-lg-4 box_right text-right">
-                                <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
-                             </div>                             
-                        </div>   
-                        <div class="box-left_top">
-                            <img src="../ss/img/paw.png">&nbsp; <span>Animals</span>
-                        </div>      
-                         <div class="box-right_top">
-                            <i class="fa fa-star map-gray"></i>
-                        </div>                                      
-                    </div>                   
-               </div>               
-            </div>
-
-             <div class="col-sm-4 col-xs-6">
-               <div class="">
-                    <div class="col-sm-12  box">
-                        <div class="row box-top">
-                            <img src="../ss/img/tar.png" class="img-responsive">
-                        </div>
-                        <div class="col-xs-12 visible-md visible-xs visible-sm box_center text-center box-middle">
-                                <span>Virtual</span>
-                            </div>
-                        <div class="row text-center">
-                            <h4>Taronga Zoo<br><span>Sydney, NSW</span></h4>
-                        </div> 
-                        <div class="row box-footer">
-                            <div class="col-xs-5 col-lg-4 box_left">
-                                <span>K–12</span>
-                            </div>
-                            <div class="col-xs-4 hidden-md hidden-sm hidden-xs col-lg-4 box_center text-center">
-                                <span>Virtual</span>
-                            </div>
-                            <div class="col-xs-7 col-lg-4 box_right text-right">
-                                <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
-                             </div>                             
-                        </div>   
-                        <div class="box-left_top">
-                            <img src="../ss/img/paw.png">&nbsp; <span>Animals</span>
-                        </div>      
-                         <div class="box-right_top">
-                            <i class="fa fa-star map-gray"></i>
-                        </div>                                      
-                    </div>                   
-               </div>               
-            </div>
-            
-        
-            <div class="col-sm-4 col-xs-6">
-               <div class="">
-                    <div class="col-sm-12  box">
-                        <div class="row box-top">
-                            <img src="../ss/img/tar.png" class="img-responsive">
-                        </div>
-                        <div class="col-xs-12 visible-md visible-xs visible-sm box_center text-center box-middle">
-                                <span>Virtual</span>
-                            </div>
-                        <div class="row text-center">
-                            <h4>Taronga Zoo<br><span>Sydney, NSW</span></h4>
-                        </div> 
-                        <div class="row box-footer">
-                            <div class="col-xs-5 col-lg-4 box_left">
-                                <span>K–12</span>
-                            </div>
-                            <div class="col-xs-4 hidden-md hidden-sm hidden-xs col-lg-4 box_center text-center">
-                                <span>Virtual</span>
-                            </div>
-                            <div class="col-xs-7 col-lg-4 box_right text-right">
-                                <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
-                             </div>                             
-                        </div>   
-                        <div class="box-left_top">
-                            <img src="../ss/img/paw.png">&nbsp; <span>Animals</span>
-                        </div>      
-                         <div class="box-right_top">
-                            <i class="fa fa-star map-gray"></i>
-                        </div>                                      
-                    </div>                   
-               </div>               
-            </div>
-
-            <div class="col-sm-4 col-xs-6">
-               <div class="">
-                    <div class="col-sm-12  box">
-                        <div class="row box-top">
-                            <img src="../ss/img/tar.png" class="img-responsive">
-                        </div>
-                        <div class="col-xs-12 visible-md visible-xs visible-sm box_center text-center box-middle">
-                                <span>Virtual</span>
-                            </div>
-                        <div class="row text-center">
-                            <h4>Taronga Zoo<br><span>Sydney, NSW</span></h4>
-                        </div> 
-                        <div class="row box-footer">
-                            <div class="col-xs-5 col-lg-4 box_left">
-                                <span>K–12</span>
-                            </div>
-                            <div class="col-xs-4 hidden-md hidden-sm hidden-xs col-lg-4 box_center text-center">
-                                <span>Virtual</span>
-                            </div>
-                            <div class="col-xs-7 col-lg-4 box_right text-right">
-                                <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
-                             </div>                             
-                        </div>   
-                        <div class="box-left_top">
-                            <img src="../ss/img/paw.png">&nbsp; <span>Animals</span>
-                        </div>      
-                         <div class="box-right_top">
-                            <i class="fa fa-star map-gray"></i>
-                        </div>                                      
-                    </div>                   
-               </div>               
-            </div>
+						<% @places.each do |place| %>
+							<a href="/places/placeprograms?id=<%= place.id %>" >
+	            <div class="col-sm-4 col-xs-6">
+	               <div class="">
+	                    <div class="col-sm-12  box">
+	                        <div class="row box-top">
+	                            <img src=<%=pick_a_place_photo_url(place)%> class="img-responsive">
+	                        </div>
+	                        <div class="col-xs-12 visible-md visible-xs visible-sm box_center text-center box-middle">
+	                                <span>Virtual</span>
+	                            </div>
+	                        <div class="row text-center">
+	                            <h4><%=place.display_name%><br><span><%=place.area.display_name%></span></h4>
+	                        </div> 
+	                        <div class="row box-footer">
+	                            <div class="col-xs-5 col-lg-4 box_left">
+	                                <span><%=place_yearlevels(place)%></span>
+	                            </div>
+	                            <div class="col-xs-4 hidden-md hidden-sm hidden-xs col-lg-4 box_center text-center">
+	                                <span>Virtual</span>
+	                            </div>
+	                            <div class="col-xs-7 col-lg-4 box_right text-right">
+	                                <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
+	                             </div>                             
+	                        </div>   
+	                        <div class="box-left_top">
+	                            <!--img src="../ss/img/paw.png">&nbsp; <span>Animals</span-->
+														  <% if place.categories[0] %>
+														    <img src="<%=first_category_icon(place)%>" alt="<%=place.categories[0].identifier%> icon"><span><%=place.categories[0].name%><span>
+														  <%end%>
+	                        </div>      
+	                         <div class="box-right_top">
+	                            <i class="fa fa-star map-gray"></i>
+	                        </div>                                      
+	                    </div>                   
+	               </div>               
+	            </div>
+							</a>
+						<%end%>
         </div>
 </div>
 </div>
@@ -696,13 +571,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 0px;">
       <ul class="nav navbar-nav nav_ul">
-        <li><a href="#">Privacy Policy </a></li>
-        <li><a href="#">About Us </a></li>
-        <li><a href="#">Contact </a></li>
-        <li><a href="#">Lorem </a></li>
-        <li><a href="#"> Ipsum</a></li>
-        <li><a href="#">Lorem</a> </li>
-
+           <li><a href="http://boundround.com/privacy-terms/">Privacy Policy </a></li>
+           <li><a href="http://boundround.com/about-us/">About Us </a></li>
+           <li><a href="http://boundround.com/contact-bound-round/">Contact </a></li>
     </ul>
 
 
@@ -719,7 +590,29 @@
 <script src="../ss/js/owl.carousel.min.js"></script>
 
  
+<script>
+function get_search_params()
+{
+	return "term="+$("#search_input").val();
+}
 
+
+function ss_goto_search()
+{
+	window.location.href = encodeURI("/places/programsearch?"+get_search_params());
+}
+
+function ss_goto_list_results()
+{
+	window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params());
+}
+
+function ss_goto_map_results()
+{
+	window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params());
+}
+</script>
+ 
 
 
 <script>
@@ -803,13 +696,13 @@
 
 
             $(".btn-bg a:nth-child(1)").click(function(e){
-                 e.preventDefault();
+//                 e.preventDefault();
             $(this).addClass("active-btn");    
             $(".btn-bg a:nth-child(2)").removeClass('active-btn');
             });
 
             $(".btn-bg a:nth-child(2)").click(function(e){
-                 e.preventDefault();
+//                 e.preventDefault();
             $(this).addClass("active-btn");    
             $(".btn-bg a:nth-child(1)").removeClass('active-btn');
             });

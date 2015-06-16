@@ -68,47 +68,71 @@ function addMarker(feature) {
     <script type="text/javascript">
       function initialize() {
         var mapOptions = {
-          center: { lat: -34.397, lng: 150.644},
-           disableDefaultUI: true,
-          zoom: 8,
+					<% if @zoom && !@places.nil? then %>
+	          center: { lat: <%=@places[0].latitude%>, lng: <%=@places[0].longitude%>},
+	           disableDefaultUI: true,
+	          zoom: <%=@zoom%>,
+					<% else %>
+	          center: { lat: 0, lng: 0},
+	           disableDefaultUI: true,
+	          zoom: 8,
+					<% end %>
+					maxZoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           styles:[ { "featureType": "water", "stylers": [ { "color": "#6CB7CC" } ] },{ "featureType": "landscape", "stylers": [ { "color": "#F1EEE7" } ] },{ } ]
         };
         var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
-        
-        
-        var image ='../ss/img/drop1.png';
-         var myLatLng = new google.maps.LatLng(-33.890542, 151.274856);
-         
-         
-         var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-//      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-      '<div class="popup_img"><img src="../ss/img/slider3.png"></div>'+
-      '<div id="bodyContent">'+
-      '<p><b>Western Plains Zoo</b> <h6>Dubbo, NSW</h6>'+
-      '</p>'+
       
-      '</div>'+
-      '<p class="popup-bottom">k-12 <span class="fa">&#xf004; &#xf004; &#xf004; <i>&#xf004; &#xf004;</i>  </span></p>' +
-      '</div>';
+				var markers = [];
+			<% @places.each do |place| %>
+				(function (){
+	        <%if place.categories[0].nil? %>
+						var image ="https://d1w99recw67lvf.cloudfront.net/category_icons/sights_pin.png";
+					<% else %>
+						var image ="https://d1w99recw67lvf.cloudfront.net/category_icons/<%=place.categories[0].identifier%>_pin.png";
+	        <% end %>
 
-  var infowindow = new google.maps.InfoWindow({
-      content: contentString
-  });
+					var myLatLng = new google.maps.LatLng(<%=place.latitude%>, <%=place.longitude%>);
+   
+   
+				   var contentString = '<a href="/places/placeprograms?id=<%=place.id%>"<div id="content">'+
+					'<div id="siteNotice">'+
+					'</div>'+
+					//      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+					'<div class="popup_img" content: "<%=place.categories[0].name%>" style="background: transparent url("<%=first_category_icon(place)%>")"><img src="<%=place.photos[0].path%>"/></div>'+
+					'<div id="bodyContent">'+
+					'<p><b><%=place.display_name%></b> <h6><%=place.area.display_name%></h6>'+
+					'</p>'+
 
-     var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: 'Uluru (Ayers Rock)',
-      icon: image
-  });
+					'</div>'+
+					'<p class="popup-bottom">k-12 <span class="fa">&#xf004; &#xf004; &#xf004; <i>&#xf004; &#xf004;</i>  </span></p>' +
+					'</div></a>';
 
-  google.maps.event.addListener(marker, 'click', function() {
-    infowindow.open(map,marker);
-  });
+					var infowindow = new google.maps.InfoWindow({
+						content: contentString
+					});
+
+					var marker = new google.maps.Marker({
+						position: myLatLng,
+						map: map,
+						title: "<%=place.display_name%>",
+						icon: image
+				  });
+					
+					markers.push(marker);
+
+				  google.maps.event.addListener(marker, 'click', function() {
+				    infowindow.open(map,marker);
+				  });
+				})();
+			<% end %>
+
+				var bounds = new google.maps.LatLngBounds();
+				for(i=0;i<markers.length;i++) {
+				 bounds.extend(markers[i].getPosition());
+				}
+				map.fitBounds(bounds);
  }
  google.maps.event.addDomListener(window, 'load', initialize);
     </script>
@@ -175,9 +199,9 @@ function addMarker(feature) {
                     <div class=" search_bg search_bg2 center-block">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search by region or venue name">
+                            <input id="search_input" type="text" class="form-control" placeholder="Search by region or venue name" value="<%=@search_term%>">
                             <span class="input-group-btn">
-                                <button class="btn btn-my" type="button">
+                                <button class="btn btn-my" type="button" onclick="ss_goto_map_results()">
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 </button>
                             </span>
@@ -273,8 +297,8 @@ function addMarker(feature) {
     </div>
     <div class="col-sm-2">
             <div class="btn-bg">
-                <a href="#" class="active-btn  hidden-xs">List view</a>
-                <a href="#">Map view</a>
+                <a href="javascript:ss_goto_list_results()">List view</a>
+                <a href="javascript:ss_goto_map_results()" class="active-btn  hidden-xs">Map view</a>
             </div>        
     </div>
             </div>
@@ -346,73 +370,27 @@ function addMarker(feature) {
             <div class="hidden-xs col-sm-6 col-md-4 map-side-results" >
               
                 <div class="map_sub ">       
-                <h4><strong>5</strong> results matching <span>'zoo'</span></h4>
+                <h4><strong><%=@places.count%></strong> results matching <span><%=@search_term%></span></h4>
+								
+								<%@places.each do |place|%>
                 
                 <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <hr class="row hr_border">
-                    <a class="" href="#">
+                    <a class="" href="/places/placeprograms?id=<%=place.id%>">
                     <figure class=" col-sm-4 col-md-4">
-                        <img src="../ss/img/img_03.jpg" alt="img">
+												<div style="width:100px; max-height:100px; overflow:hidden;">
+                        <img style="max-width:100%; max-height:100%" src="<%=place.photos[0].path%>" alt="img">
+												</div>
                     </figure>
                     <div class="col-sm-8 col-md-8 map-left-zero ">
-                        <div class="col-sm-8 col-md-8 gr map-pad "><span class="footprint "></span>Animals</div><div class="col-sm-4 col-md-4 map-star"><span class="fa  fa-star map-gray"></span></div>
+                        <div class="col-sm-8 col-md-8 gr map-pad "><span class="footprint " style="background: url(<%=first_category_icon(place)%>)no-repeat; background-size:100%; color:#a2d549;"></span><%=place.categories[0].name%></div><div class="col-sm-4 col-md-4 map-star"><span class="fa  fa-star map-gray"></span></div>
                         <div class="col-sm-12 col-md-12 map-name-1"><h5 class="gr">Taronga Zoo</h5><h6>Dubbo, NSW</h6></div>
                         <div class="col-sm-4 col-md-4 col-lg-4">K-12</div><div class="col-sm-8 col-md-8 map-heat"><span class="fa">&#xf004; &#xf004; &#xf004; &#xf08a; &#xf08a;</span></div>
                     </div>
                     </a>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                     <hr class="row hr_border">
-                    <a href="#" class="col-sm-12 col-md-12 col-lg-12">
-                    <figure class="col-sm-4 col-md-4">
-                        <img src="../ss/img/img_06.jpg" alt="img">
-                    </figure>
-                    <div class="col-sm-8 col-md-8 map-left-zero ">
-                        <div class="col-sm-8 col-md-8 gr map-pad "><span class="footprint "></span>Animals</div><div class="col-sm-4 col-md-4 map-star"><span class="fa  fa-star map-gray"></span></div>
-                        <div class="col-sm-12 col-md-12 map-name-1"><h5 class="gr">Taronga Zoo</h5><h6>Dubbo, NSW</h6></div>
-                        <div class="col-sm-4 col-md-4 ">K-12</div><div class="col-sm-8 col-md-8 map-heat"><span class="fa">&#xf004; &#xf004; &#xf004; &#xf08a; &#xf08a;</span></div>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                     <hr class="row hr_border">
-                    <a href="#" class="col-sm-12 col-md-12 col-lg-12">
-                    <figure class="col-sm-4 col-md-4 ">
-                        <img src="../ss/img/img_10.jpg" alt="img">
-                    </figure>
-                    <div class="col-sm-8 col-md-8 map-left-zero ">
-                        <div class="col-sm-8 col-md-8 gr map-pad "><span class="footprint "></span>Animals</div><div class="col-sm-4 col-md-4 map-star"><span class="fa  fa-star map-gray"></span></div>
-                        <div class="col-sm-12 col-md-12 map-name-1"><h5 class="gr">Taronga Zoo</h5><h6>Dubbo, NSW</h6></div>
-                        <div class="col-sm-4 col-md-4 ">K-12</div><div class="col-sm-8 col-md-8 map-heat"><span class="fa">&#xf004; &#xf004; &#xf004; &#xf08a; &#xf08a;</span></div>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                     <hr class="row hr_border">
-                    <a href="#" class="col-sm-12 col-md-12 col-lg-12">
-                    <figure class="col-sm-4 col-md-4 ">
-                        <img src="../ss/img/img_10.jpg" alt="img">
-                    </figure>
-                    <div class="col-sm-8 col-md-8 map-left-zero ">
-                        <div class="col-sm-8 col-md-8 gr map-pad "><span class="footprint "></span>Animals</div><div class="col-sm-4 col-md-4 map-star"><span class="fa  fa-star map-gray"></span></div>
-                        <div class="col-sm-12 col-md-12 map-name-1"><h5 class="gr">Taronga Zoo</h5><h6>Dubbo, NSW</h6></div>
-                        <div class="col-sm-4 col-md-4 ">K-12</div><div class="col-sm-8 col-md-8 map-heat"><span class="fa">&#xf004; &#xf004; &#xf004; &#xf08a; &#xf08a;</span></div>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                     <hr class="row hr_border">
-                    <a href="#" class="col-sm-12 col-md-12 col-lg-12">
-                    <figure class=" col-sm-4 col-md-4 ">
-                        <img src="../ss/img/img_10.jpg" alt="img">
-                    </figure>
-                    <div class="col-sm-8 col-md-8 map-left-zero ">
-                        <div class="col-sm-8 col-md-8 gr map-pad "><span class="footprint "></span>Animals</div><div class="col-sm-4 col-md-4 map-star"><span class="fa  fa-star map-gray"></span></div>
-                        <div class="col-md-12 map-name-1"><h5 class="gr">Taronga Zoo</h5><h6>Dubbo, NSW</h6></div>
-                        <div class="col-sm-4 col-md-4 ">K-12</div><div class="col-sm-8 col-md-8 map-heat"><span class="fa">&#xf004; &#xf004; &#xf004; &#xf08a; &#xf08a;</span></div>
-                    </div>
-                    </a>
-                </div>
+								<%end%>
+								
             </div>
             </div>
         </div>
@@ -436,13 +414,9 @@ function addMarker(feature) {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 0px;">
       <ul class="nav navbar-nav nav_ul">
-        <li><a href="#">Privacy Policy </a></li>
-        <li><a href="#">About Us </a></li>
-        <li><a href="#">Contact </a></li>
-        <li><a href="#">Lorem </a></li>
-        <li><a href="#"> Ipsum</a></li>
-        <li><a href="#">Lorem</a> </li>
-
+           <li><a href="http://boundround.com/privacy-terms/">Privacy Policy </a></li>
+           <li><a href="http://boundround.com/about-us/">About Us </a></li>
+           <li><a href="http://boundround.com/contact-bound-round/">Contact </a></li>
     </ul>
 
 
@@ -458,6 +432,23 @@ function addMarker(feature) {
 <script src="../ss/js/bootstrap.min.js"></script>
 <script src="../ss/js/owl.carousel.min.js"></script>
 
+<script>
+function get_search_params()
+{
+	return "term="+$("#search_input").val();
+}
+
+
+function ss_goto_list_results()
+{
+	window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params());
+}
+
+function ss_goto_map_results()
+{
+	window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params());
+}
+</script>
  
 
 
@@ -549,13 +540,13 @@ function addMarker(feature) {
 
 
             $(".btn-bg a:nth-child(1)").click(function(e){
-                 e.preventDefault();
+//                 e.preventDefault();
             $(this).addClass("active-btn");    
             $(".btn-bg a:nth-child(2)").removeClass('active-btn');
             });
 
             $(".btn-bg a:nth-child(2)").click(function(e){
-                 e.preventDefault();
+//                 e.preventDefault();
             $(this).addClass("active-btn");    
             $(".btn-bg a:nth-child(1)").removeClass('active-btn');
             });

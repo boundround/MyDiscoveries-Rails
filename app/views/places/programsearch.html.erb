@@ -102,16 +102,16 @@ var id = 'loader', fill = '#FFF',
 
     <div class="container">
         <div class="top-middle">
-           <a href="index.html">
+           <a href="">
                <img src="../ss/img/logo.png" class="img-responsive center-block hidden-xs" alt="LOGO" />
            </a> 
             <h1>Find an excursion for your class</h1>
             <div class=" search_bg center-block">
 
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search by region or venue name">
+                    <input id="search_input" value="<%=@search_term%>" type="text" class="form-control" placeholder="Search by region or venue name">
                     <span class="input-group-btn">
-                        <button class="btn" type="button">
+                        <button class="btn" type="button" onclick="ss_goto_list_results()">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </button>
                     </span>
@@ -201,8 +201,8 @@ var id = 'loader', fill = '#FFF',
 
                     <div class="item">
 												<a href="/places/placeprograms?id=<%=place.id%>">
-	                        <img src=<%= place.programs[0].heroimagepath%> alt="slider1" />
-	                        <span><%= place.programs[0].name %></span></a>
+	                        <img src=<%=pick_a_program_hero_url(place)%> alt=<%=place.display_name%> />
+	                        <span><%= place.display_name %></span>
 												</a>
                     </div>
 									<% end %>
@@ -234,13 +234,9 @@ var id = 'loader', fill = '#FFF',
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav nav_ul">
-        <li><a href="#">Privacy Policy </a></li>
-        <li><a href="#">About Us </a></li>
-           <li><a href="#">Contact </a></li>
-           <li><a href="#">Lorem </a></li>
-           <li><a href="#"> Ipsum</a></li>
-          <li><a href="#">Lorem</a> </li>
-       
+           <li><a href="http://boundround.com/privacy-terms/">Privacy Policy </a></li>
+           <li><a href="http://boundround.com/about-us/">About Us </a></li>
+           <li><a href="http://boundround.com/contact-bound-round/">Contact </a></li>
       </ul>
       
       
@@ -258,6 +254,28 @@ var id = 'loader', fill = '#FFF',
 
     
 
+		<script>
+		function get_search_params()
+		{
+			return "term="+$("#search_input").val();
+		}
+
+
+		function ss_goto_search()
+		{
+			window.location.href = encodeURI("/places/programsearch?"+get_search_params());
+		}
+
+		function ss_goto_list_results()
+		{
+			window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params());
+		}
+
+		function ss_goto_map_results()
+		{
+			window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params());
+		}
+		</script>
 
     <script>
         $(document).ready(function () {

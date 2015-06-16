@@ -162,25 +162,53 @@ class PlacesController < ApplicationController
     place_ids = @places.map{|x| x[:id]}
     @programs = Program.where("place_id IN (?)", place_ids)
     @locations = Area.joins(:places).where("places.id IN (?)", place_ids)
-#    @places = Place.includes(:programs).where.not(programs: { id: nil })
 #     render plain: @locations.inspect
   end
   
   def programsearchresultslist #xyrin search.html
-    @placeprograms = "yes"
+    set_program_results_state(params)
   end
    
   def programsearchresultsmap #xyrin map.html
-    @placeprograms = "yes"
+    set_program_results_state(params)
   end
    
   def placeprograms #xyrin result.html 
     @placeprograms = "yes"
     @place = Place.friendly.find(params[:id])
-#    @programs = @plac.programs
 #     render plain: params.inspect
   end
   
+  protected
+    def set_program_results_state(params)
+      @placeprograms = "yes"
+    
+      if params[:id] then
+        @places = Place.where('places.id = :id', id: params[:id])
+        @zoom = 15
+      else
+          
+        if params[:term] == "" then params[:term] = nil end
+        @search_term = params[:term]
+    
+        if @search_term then
+    #      @places = Place.joins(:programs).where.not(subscription_level: ['out', 'draft'])
+    #               .text_search(@search_term).distinct
+          @places = Place.joins(:programs).where(
+            'places.subscription_level NOT IN (:sl) AND 
+            (places.display_name ILIKE :st OR places.description ILIKE :st
+            OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
+          # @programs = Place.joins(:programs).where(
+          #   'places.subscription_level NOT IN (:sl) AND
+          #   (places.display_name ILIKE :st OR places.description ILIKE :st
+          #   OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
+        else
+          @places = Place.joins(:programs).where.not(subscription_level: ['out', 'draft']).distinct
+        end 
+    #    render plain: @places.inspect              
+      end
+    end
+
   private
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,
