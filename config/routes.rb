@@ -1,6 +1,6 @@
 class SSConstraint
   def matches?(request)
-    (request.domain == "schoolsafari.com.au") || (request.domain == "crzy.me")
+    (request.domain(2) == "schoolsafari.com.au") || (request.domain(1) == "crzy.me")
   end
 end
 
