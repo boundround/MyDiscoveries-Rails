@@ -1,6 +1,6 @@
 class PlacesController < ApplicationController
   
-  before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms ]
+  before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms, :debug]
 
   def index
     @places = Place.all
@@ -12,6 +12,11 @@ class PlacesController < ApplicationController
     end
   end
 
+  def debug
+    render plain: request.domain+","+request.subdomain+"\n"+request.inspect
+    #find_subdomain(request)
+  end
+  
   def search
     @places = Place.where.not(subscription_level: ['out', 'draft'])
              .text_search(params[:term]).includes(:area)

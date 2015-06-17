@@ -31,8 +31,7 @@
   </table>
 </div>
 
-<!--% if current_user.try(:admin) && current_user.email == "donovan.whitworth@gmail.com" %-->
-<% if current_user.try(:admin) && current_user.email == "chris.robertson@me.com" %>
+<% if current_user.try(:admin) && (current_user.email == "chris.robertson@me.com" || current_user.email == "donovan.whitworth@gmail.com") %>
   <h3>Import Places From Excel</h3>
   <%= form_tag import_places_path, multipart: true do %>
     <%= file_field_tag :file %>
