@@ -161,7 +161,7 @@ class PlacesController < ApplicationController
     @places = Place.joins(:programs).order('id asc').distinct.limit(6)
     place_ids = @places.map{|x| x[:id]}
     @programs = Program.where("place_id IN (?)", place_ids)
-    @locations = Area.joins(:places).where("places.id IN (?)", place_ids)
+    set_program_filters(@places)
 #     render plain: @locations.inspect
   end
   
@@ -184,17 +184,25 @@ class PlacesController < ApplicationController
       @placeprograms = "yes"
     
       if params[:id] then
-        @places = Place.where('places.id = :id', id: params[:id])
+        @pplaces = Place.where('places.id = :id', id: params[:id])
         @zoom = 15
       else
           
         if params[:term] == "" then params[:term] = nil end
         @search_term = params[:term]
+        if params[:location] == "" then params[:location] = nil end
+        @location_filter = params[:location]
+        if params[:subject] == "" then params[:subject] = nil end
+        @subject_filter = params[:subject]
+        if params[:activity] == "" then params[:activity] = nil end
+        @activity_filter = params[:activity]
+        if params[:yearlevel] == "" then params[:yearlevel] = nil end
+        @yearlevel_filter = params[:yearlevel]
     
         if @search_term then
     #      @places = Place.joins(:programs).where.not(subscription_level: ['out', 'draft'])
     #               .text_search(@search_term).distinct
-          @places = Place.joins(:programs).where(
+          @pplaces = Place.joins(:programs).where(
             'places.subscription_level NOT IN (:sl) AND 
             (places.display_name ILIKE :st OR places.description ILIKE :st
             OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
@@ -203,12 +211,54 @@ class PlacesController < ApplicationController
           #   (places.display_name ILIKE :st OR places.description ILIKE :st
           #   OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
         else
-          @places = Place.joins(:programs).where.not(subscription_level: ['out', 'draft']).distinct
+          @pplaces = Place.joins(:programs).where.not(subscription_level: ['out', 'draft']).distinct
         end 
     #    render plain: @places.inspect              
       end
+      
+      @places = []
+      @pplaces.each do |place|
+        if @location_filter then
+          if !@location_filter || (place.area.display_name == @location_filter) then
+            if !@subject_filter || (place.program.programsubject_list.include? @subject_filter) then
+              if !@activity_filter || (place.program.programactivity_list.include? @activity_filter) then
+                if @yearlevel_filter then
+                  # case @yearlevel_filter
+                  # when "K-2"
+                  #     if (place.program.yearlevel_list.include? "K") || (place.program.yearlevel_list.include? "1") || (place.program.yearlevel_list.include? "2") then @places.push(place)
+                  # when "3-4"
+                  #    if (place.program.yearlevel_list.include? "3") || (place.program.yearlevel_list.include? "4") then @places.push(place)
+                  # when "5-6"
+                  #    if (place.program.yearlevel_list.include? "5") || (place.program.yearlevel_list.include? "6") then @places.push(place)
+                  # when "7-8"
+                  #    if (place.program.yearlevel_list.include? "7") || (place.program.yearlevel_list.include? "8") then @places.push(place)
+                  # when "9-10"
+                  #    if (place.program.yearlevel_list.include? "9") || (place.program.yearlevel_list.include? "10") then @places.push(place)
+                  # when "11-12"
+                  #    if (place.program.yearlevel_list.include? "11") || (place.program.yearlevel_list.include? "12") then @places.push(place)
+                  # end
+                else  
+                  @places.push(place)
+                end
+              end
+            end
+          end
+        end  
+      end
+      
+      set_program_filters(@places)
     end
 
+    def set_program_filters(places)
+      place_ids = places.map{|x| x[:id]}
+      @locations = Area.joins(:places).where("places.id IN (?)", place_ids).map{|l| l[:display_name]}
+      @locations.unshift('All')
+      @yearlevels = ['All','K-2','3-4','5-6','7-8','9-10','11-12']
+      @subjects = ['All','English', 'Mathematics', 'Science', 'History', 'Geography', 'Economics', 'Civics', 'Arts', 'Health','Languages']
+      @categories = Category.all.map{|c| c[:name]}
+      @categories.unshift('All')
+    end
+    
   private
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,

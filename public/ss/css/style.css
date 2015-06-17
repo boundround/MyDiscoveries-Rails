@@ -98,7 +98,8 @@ a,a:active,a:focus
   color: #fff;
    padding: 21px 17px 16px 13px;
   border-radius: 0px 8px 8px 0px;
-  font-size:22px;
+/*  font-size:22px; weird bug server versus local, computed heights differ*/
+  font-size:16px;
 }
 .search_bg .input-group:hover  button{
     background-color:#89b43e;
@@ -2429,5 +2430,12 @@ margin: 0px;
 
 .rating-symbol{
   margin-right: 2px;
+}
+
+
+/*VERSION 1 GO LIVE*/
+.rating-box {
+	height: 0px;
+	display: none;
 }
 
