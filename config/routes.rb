@@ -1,4 +1,24 @@
+class SSConstraint
+  def matches?(request)
+    (request.domain == "schoolsafari.com.au") || (request.domain == "crzy.me")
+  end
+end
+
+class BRConstraint
+  def matches?(request)
+    request.domain != "crzy.me"
+  end
+end
+
 Rails.application.routes.draw do
+  constraints(SSConstraint.new) do
+    get '/', to: 'places#programsearch'
+  end
+
+  constraints(BRConstraint.new) do
+    get '/', to: 'pages#globe', as: :root
+  end
+
   get 'puzzles/index'
 
   resources :search_suggestions
@@ -25,6 +45,7 @@ Rails.application.routes.draw do
   get "places/tags" => "places#tags"
   get "programs/tags" => "programs#tags"
   
+  get "places/debug" => 'places#debug' 
   get "places/programsearch" => 'places#programsearch' #xyrin index.html
   get "places/placeprograms" => 'places#placeprograms' #xyrin result.html 
   get "places/programsearchresultslist" => 'places#programsearchresultslist' #xyrin search.html 
@@ -63,7 +84,7 @@ Rails.application.routes.draw do
 
   resources :pages
 
-  root 'pages#globe'
+#  root :to => 'pages#globe'
 
   get '/map' => 'pages#index'
 
