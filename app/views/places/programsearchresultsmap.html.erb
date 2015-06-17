@@ -1,13 +1,13 @@
 <%= render "programs_head" %>
-		
+
     <script type="text/javascript"
 
-		<%=if Rails.env.development?%>
+		<% if Rails.env.development?%>
       src="https://maps.googleapis.com/maps/api/js">
 		<% else %>
       src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_MAPS_API_KEY']%>">
 		<% end %>
-			
+
     </script>
     <script type="text/javascript">
       function initialize() {
@@ -27,7 +27,7 @@
 										{ "featureType": "landscape", "stylers": [ { "color": "#F1EEE7" } ] },{ } ]
         };
         var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-      
+
 				var markers = [];
 			<% @places.each do |place| %>
 				(function (){
@@ -38,8 +38,8 @@
 	        <% end %>
 
 					var myLatLng = new google.maps.LatLng(<%=place.latitude%>, <%=place.longitude%>);
-   
-   
+
+
 				   var contentString = '<a href="/places/placeprograms?id=<%=place.id%>"<div id="content">'+
 						'<div id="siteNotice">'+
 						'</div>'+
@@ -62,7 +62,7 @@
 						title: "<%=place.display_name%>",
 						icon: image
 				  });
-					
+
 					markers.push(marker);
 
 				  google.maps.event.addListener(marker, 'click', function() {
@@ -77,47 +77,47 @@
 				}
 				map.fitBounds(bounds);
  }
- 
+
  google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 
 
        <script>
            $(document).ready(function(){
-             $(".map-star > span").toggle(                
+             $(".map-star > span").toggle(
                 function(){$(this).css({"color": "#E5E5E5"});},
                 function(){$(this).css({"color": "#FFA603"});}
              );
-         
+
               $('.map-wrapper .locker i').click(function () {
         $('.map-wrapper').toggleClass('enabled');
-              
-        
-             
+
+
+
            });
-          
-           return ;      
+
+           return ;
     });
       </script>
-		
-		
-		
+
+
+
 <body class="map">
         <div class="loader-container"></div>
         <script>
             var id = 'loader', fill = '#FFF',
             size = 20, radius = 3, duration = 1000,
             maxOpacity = 0.9, minOpacity = 0.15;
-            $('<svg id="'+id+'" width="'+(size*3.5)+'" height="'+size+'">' + 
-                '<rect width="'+size+'" height="'+size+'" x="0" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' + 
-                '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" repeatCount="indefinite"/>' + 
-                '</rect>' + 
-                '<rect width="'+size+'" height="'+size+'" x="'+(size*1.25)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' + 
-                '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/4)+'ms" repeatCount="indefinite"/>' + 
-                '</rect>' + 
-                '<rect width="'+size+'" height="'+size+'" x="'+(size*2.5)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' + 
-                '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/2)+'ms" repeatCount="indefinite"/>' + 
-                '</rect>' + 
+            $('<svg id="'+id+'" width="'+(size*3.5)+'" height="'+size+'">' +
+                '<rect width="'+size+'" height="'+size+'" x="0" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+                '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" repeatCount="indefinite"/>' +
+                '</rect>' +
+                '<rect width="'+size+'" height="'+size+'" x="'+(size*1.25)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+                '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/4)+'ms" repeatCount="indefinite"/>' +
+                '</rect>' +
+                '<rect width="'+size+'" height="'+size+'" x="'+(size*2.5)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+                '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/2)+'ms" repeatCount="indefinite"/>' +
+                '</rect>' +
                 '</svg>').appendTo('.loader-container');
 </script>
 
@@ -138,7 +138,7 @@
                 <div class="col-sm-2 hidden-xs">
                     <a href="/places/programsearch">
                           <img src="../ss/img/logo.png" class="img-responsive logo2 center-block hidden-xs" alt="LOGO">
-                    </a> 
+                    </a>
                 </div>
                 <div class="col-sm-8 ">
                     <div class=" search_bg search_bg2 center-block">
@@ -155,10 +155,10 @@
             <div class="story_area story_area2 over-show text-center">
 									<%=render partial: "program_filters"%>
 						</div>
-                <div class="text-center"> 
+                <div class="text-center">
                     <a href="#" class="open-btn">Show filters <span class="caret"></span></a>
                 </div>
-                <div class="text-center"> 
+                <div class="text-center">
                     <a href="#" class="close-btn">Hide filters <span class="caret"></span></a>
                 </div>
 
@@ -171,10 +171,10 @@
             <div class="btn-bg">
                 <a href="javascript:ss_goto_list_results()" class="hidden-xs">List view</a>
                 <a href="javascript:ss_goto_map_results()" class="active-btn">Map view</a>
-            </div>        
+            </div>
     </div>
             </div>
-            
+
             <div class="col-md-1 col-sm-1 col-xs-6 left_login left_login2 pull-right text-right">
                 <div class="dropdown z_index l_dropdown">
                     <button class="login btn-log dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="false">
@@ -211,15 +211,15 @@
            </div>
        </div>
 
-       
+
 </div>
 
 
-    
+
 </div>
 
 <section class="map_content">
-   
+
 <!--    <div id="map-canvas"></div>-->
 <div class="map-wrapper">
             <div id="map-canvas" ></div>
@@ -238,14 +238,14 @@
             </div>-->
     <div class="">
         <div class="row nomargin">
-            
+
             <div class="hidden-xs col-sm-6 col-md-4 map-side-results" >
-              
-                <div class="map_sub ">       
+
+                <div class="map_sub ">
                 <h4><strong><%=@places.count%></strong> results matching <span><%=@search_term%></span></h4>
-								
+
 								<%@places.each do |place|%>
-                
+
                 <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <hr class="row hr_border">
                     <a class="" href="/places/placeprograms?id=<%=place.id%>">
@@ -262,7 +262,7 @@
                     </a>
                 </div>
 								<%end%>
-								
+
             </div>
             </div>
         </div>
@@ -308,7 +308,7 @@
 function get_search_params()
 {
 	params="term="+$("#search_input").val();
-	
+
 	var v = $("#yearlevel_selector").val();
 	params += v != "All" ? "&yearlevel="+v : "";
 
@@ -319,7 +319,7 @@ function get_search_params()
 	params += v != "All" ? "&activity="+v : "";
 
 	var v = $("#location_selector").val();
-	params += v != "All" ? "&location="+v : ""; 
+	params += v != "All" ? "&location="+v : "";
 
 	return params;
 }
@@ -335,7 +335,7 @@ function ss_goto_map_results()
 	window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params());
 }
 </script>
- 
+
 
 
 
@@ -351,7 +351,7 @@ function ss_goto_map_results()
 				$("#location_selector").val("<%=@location_filter%>");
 //				$("#yearlevel_selector").selectpicker('val','<%=@yearlevel_filter%>');
 			  $('.selectpicker').selectpicker('refresh');
-				
+
 				<% if @yearlevel_filter || @subject_filter || @activity_filter || @location_filter then %>
 	        $('.open-btn').hide(0);
 	        $('.story_area').stop().slideToggle(400);
@@ -373,8 +373,8 @@ function ss_goto_map_results()
                $('.left_login').addClass('top100');
            }
            else{
-            $('.left_login').removeClass('top100'); 
-        }  
+            $('.left_login').removeClass('top100');
+        }
     },5)
 
 
@@ -383,8 +383,8 @@ function ss_goto_map_results()
 
         $('.nav_button').toggleClass('top100');
         $('.left_login').children('ul').hide(0);
-        $('.left_login .login').css('z-index','5'); 
-        $('.left_login').removeClass('top100');        
+        $('.left_login .login').css('z-index','5');
+        $('.left_login').removeClass('top100');
 
     });
     $('.left_login .dropdown-menu').on({
@@ -398,7 +398,7 @@ function ss_goto_map_results()
 
 <script>
         // Calls the selectBoxIt method on your HTML select box
-       
+
 
     </script>
     <script>
@@ -418,33 +418,33 @@ function ss_goto_map_results()
             setTimeout(function(){
              $('.story_area2').addClass('over-show');
               },400);
-             
-            
+
+
         });
          $('.close-btn').click(function(e){
              e.preventDefault();
             $(this).hide(0);
             $('.story_area2').removeClass('over-show');
-            
+
                $('.story_area').stop().slideToggle(400);
-             
-           
-            
+
+
+
              $('.open-btn').show();
 
-            
+
         });
 
 
             $(".btn-bg a:nth-child(1)").click(function(e){
 //                 e.preventDefault();
-            $(this).addClass("active-btn");    
+            $(this).addClass("active-btn");
             $(".btn-bg a:nth-child(2)").removeClass('active-btn');
             });
 
             $(".btn-bg a:nth-child(2)").click(function(e){
 //                 e.preventDefault();
-            $(this).addClass("active-btn");    
+            $(this).addClass("active-btn");
             $(".btn-bg a:nth-child(1)").removeClass('active-btn');
             });
     </script>
@@ -453,6 +453,6 @@ function ss_goto_map_results()
 
     <!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script-->
 
-    
+
 
 </body>
