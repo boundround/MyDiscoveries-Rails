@@ -1,7 +1,13 @@
 <%= render "programs_head" %>
 		
     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUzIthtx2D1kxZr93WFpOXUOA8NoE_6B8">
+
+		<%=if Rails.env.development?%>
+      src="https://maps.googleapis.com/maps/api/js">
+		<% else %>
+      src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_MAPS_API_KEY']%>">
+		<% end %>
+			
     </script>
     <script type="text/javascript">
       function initialize() {
