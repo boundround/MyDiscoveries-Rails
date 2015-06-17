@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601210940) do
+ActiveRecord::Schema.define(version: 20150610174820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,6 +221,24 @@ ActiveRecord::Schema.define(version: 20150601210940) do
 
   add_index "places_users", ["place_id", "user_id"], name: "index_places_users_on_place_id_and_user_id", unique: true, using: :btree
 
+  create_table "programs", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.text     "yearlevelnotes"
+    t.string   "cost"
+    t.string   "programpath"
+    t.string   "heroimagepath"
+    t.string   "duration"
+    t.text     "times"
+    t.string   "booknowpath"
+    t.string   "contact"
+    t.integer  "place_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "programs", ["place_id"], name: "index_programs_on_place_id", using: :btree
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -336,5 +354,15 @@ ActiveRecord::Schema.define(version: 20150601210940) do
   end
 
   add_index "videos_users", ["video_id", "user_id"], name: "index_videos_users_on_video_id_and_user_id", unique: true, using: :btree
+
+  create_table "webresources", force: true do |t|
+    t.string   "caption"
+    t.string   "path"
+    t.integer  "program_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "webresources", ["program_id"], name: "index_webresources_on_program_id", using: :btree
 
 end

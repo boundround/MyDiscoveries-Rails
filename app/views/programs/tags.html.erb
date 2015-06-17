@@ -1,0 +1,40 @@
+<div id="table-container">
+  <h1>Program Tags</h1>
+  <table class="table table-striped" id="tag-table">
+    <thead>
+      <tr>
+        <th><%= sortable "place" %></th>
+        <th><%= sortable "name", "Program" %></th>
+        <!--th><%= sortable "subscription_level", "Subscription Level" %></th>
+        <th><%= sortable "id" %></th-->
+        <th>Tags (comma separated values)</th>
+        <th>General Tags (csv)</th>
+        <th>Program Subject Tags (csv)</th>
+        <th>Program Activity Tags (csv)</th>
+        <th>Program Year Level Tags (csv)</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @programs.each do |program| %>
+        <%= simple_form_for(program) do |f| %>
+          <tr>
+            <td><%= program.place.display_name if program.place %></td>
+            <td><%= program.name if program %></td>
+            <td><%= program.id %></td>
+            <td><%= f.text_area :tag_list, class: "tag-field" %></td>
+            <td><%= f.text_area :programsubject_list, class: "tag-field" %></td>
+            <td><%= f.text_area :programactivity_list, class: "tag-field" %></td>
+            <td><%= f.text_area :programyearlevel_list, class: "tag-field" %></td>
+            <td>
+              <div class="form-group">
+                <%= f.button :submit, 'Update Tags' %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+  </table>
+  <%= will_paginate @programs %>
+</div>

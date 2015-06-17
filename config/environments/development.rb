@@ -49,7 +49,7 @@ Rails.application.configure do
     :authentication => 'plain', # Mandrill supports 'plain' or 'login'
   }
 
-  # config.force_ssl = true
+  config.force_ssl = false
 
 
 end

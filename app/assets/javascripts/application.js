@@ -26,11 +26,13 @@
 //= require leaflet-hash
 //= require bootsy
 //= require bootstrap
+//= require bootstrap/transition
 //= require geocomplete
 //= require iconlabel
 //= require cookie
 //= require cards
 //= require like
 //= require sign_in
+
 
 

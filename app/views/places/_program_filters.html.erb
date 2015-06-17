@@ -1,0 +1,73 @@
+<!-- THIS FILE MUST GO INSIDE A DIV -->
+<div class="col-xs-12 col-sm-12 divin">
+	<label class="col-xs-4">Grade</label>
+	<div class=" col-xs-8">
+		<select id="yearlevel_selector" class="selectpicker" value="<%=@yearlevel_filter%>">
+			<%@yearlevels.each do |yl|%>
+			<option>
+				<%=yl%>
+			</option>
+			<%end%>
+		</select>
+	</div>
+</div>
+<!--div class="col-xs-12 col-sm-12 divin">
+	<label class="col-xs-4">Rating</label>
+	<div class=" col-xs-8">
+		<select class="selectpicker">
+			<option value="5">
+				♥ ♥ ♥ ♥ ♥
+			</option>
+			<option value="4">
+				♥ ♥ ♥ ♥
+			</option>
+			<option value="3">
+				♥ ♥ ♥
+			</option>
+			<option value="2">
+				♥ ♥
+			</option>
+			<option value="1">
+				♥
+			</option>
+		</select>
+	</div>
+</div-->
+<div class="col-xs-12 col-sm-12 divin">
+	<label class="col-xs-4">Location</label>
+	<div class=" col-xs-8">
+		<select id="location_selector" class="selectpicker" value="<%=@location_filter%>">
+			<% @locations.each do |location|%>
+			<option>
+				<%= location %>
+			</option>
+			<% end %>
+		</select>
+	</div>
+</div>
+<div class="speacer10 visible-lg visible-md"></div>
+<div class="col-xs-12 col-sm-12 divin">
+	<label class="col-xs-4">Subject</label>
+	<div class=" col-xs-8">
+		<select id="subject_selector" class="selectpicker" value="<%=@subject_filter%>">
+			<%=@subjects.each do |s|%>
+			<option>
+				<%=s%>
+			</option>
+			<%end%>
+		</select>
+	</div>
+</div>
+<div class="col-xs-12 col-sm-12 divin">
+	<label class="col-xs-4">Activity</label>
+	<div class=" col-xs-8">
+		<select id="activity_selector" class="selectpicker" value="<%=@activity_filter%>">
+			<%@categories.each do |c|%>
+			<option>
+				<%=c%>
+			</option>
+			<%end%>
+		</select>
+	</div>
+</div>
+<div class="clearfix"></div>
