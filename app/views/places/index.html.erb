@@ -60,6 +60,11 @@
   <% end %>
   <br />
   <br />
+  <h3>Validate Import Programs From Excel</h3>
+  <%= form_tag validate_import_programs_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Validate Import" %>
+  <% end %>
   <h3>Import Programs From Excel</h3>
   <%= form_tag import_programs_path, multipart: true do %>
     <%= file_field_tag :file %>

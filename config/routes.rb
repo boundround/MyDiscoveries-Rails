@@ -122,7 +122,9 @@ Rails.application.routes.draw do
   end
 
   resources :programs do
+    resources :webresources
     collection { post :import }
+    collection { post :validate_import }
   end
   
   resources :discounts
@@ -131,10 +133,6 @@ Rails.application.routes.draw do
     collection { post :import }
   end
   
-  resources :programs do
-    resources :webresources
-  end
-
   match '/send_postcard', to: 'places#send_postcard', via: 'post'
 
   match '/send_user_story', to: 'users#send_story', via: 'post'
