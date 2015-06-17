@@ -543,8 +543,7 @@ function ss_goto_map_results()
 				$("#subject_selector").val("<%=@subject_filter%>");
 				$("#activity_selector").val("<%=@activity_filter%>");
 				$("#location_selector").val("<%=@location_filter%>");
-				alert("hello")
-				$('.selectpicker').selectpicker();
+				$('.selectpicker').selectpicker('refresh');
 				
 				<% if @yearlevel_filter || @subject_filter || @activity_filter || @location_filter then %>
 	        $('.open-btn').hide(0);
@@ -595,7 +594,6 @@ function ss_goto_map_results()
 
     </script>
     <script>
-	alert("good");
        $('.selectpicker').selectpicker();
 
         $(window).load(function(){
