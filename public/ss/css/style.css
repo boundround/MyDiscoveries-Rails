@@ -193,18 +193,20 @@ text-decoration:underline;
 }
 #owl-demo .item{
 	overflow: hidden;
-  border-radius: 8px;
+  border-radius:8px;
+	padding: 2px;
   width: 100%;
-  max-height: 200px;
+  max-height: 120px;
 }
 #owl-demo .item img{
   display: block;
+  border-radius:8px;
   width: 100%;
   height: auto;
 }
 #owl-demo span {
   position: absolute;
-  bottom: 15px;
+  bottom: 1px;
   left: 10px;
   color: #fff;
   color: rgb(255, 255, 255);

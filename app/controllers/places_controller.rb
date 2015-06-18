@@ -208,13 +208,14 @@ class PlacesController < ApplicationController
     #      @places = Place.joins(:programs).where.not(subscription_level: ['out', 'draft'])
     #               .text_search(@search_term).distinct
           @pplaces = Place.joins(:programs).where(
+            #Faster
             'places.subscription_level NOT IN (:sl) AND 
-            (places.display_name ILIKE :st OR places.description ILIKE :st
-            OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
-          # @programs = Place.joins(:programs).where(
-          #   'places.subscription_level NOT IN (:sl) AND
-          #   (places.display_name ILIKE :st OR places.description ILIKE :st
-          #   OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
+            (places.display_name ILIKE :st OR programs.name ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
+            #Better
+            # @pplaces = Place.joins(:programs).where(
+            #   'places.subscription_level NOT IN (:sl) AND
+            #   (places.display_name ILIKE :st OR places.description ILIKE :st
+            #   OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
         else
           @pplaces = Place.joins(:programs).where.not(subscription_level: ['out', 'draft']).distinct
         end 
@@ -258,7 +259,8 @@ class PlacesController < ApplicationController
 
     def set_program_filters(places)
       place_ids = places.map{|x| x[:id]}
-      @locations = Area.joins(:places).where("places.id IN (?)", place_ids).map{|l| l[:display_name]}
+#      @locations = Area.joins(:places).where("places.id IN (?)", place_ids).distinct.map{|l| l[:display_name]}
+      @locations = ["Sydney","Melbourne","Phillip Island","Canberra"]
       @locations.unshift('All')
       @yearlevels = ['All','K-2','3-4','5-6','7-8','9-10','11-12']
       @subjects = ['All','English', 'Mathematics', 'Science', 'History', 'Geography', 'Economics', 'Civics', 'Arts', 'Health','Languages']

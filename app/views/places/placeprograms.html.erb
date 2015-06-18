@@ -20,7 +20,7 @@ var id = 'loader', fill = '#FFF',
 </script>
     <div class="border_top hidden-xs"></div>
 
-<div class="result" style="background: url(<%= pick_a_place_photo_url(@place) %>) no-repeat center";
+<div class="result" style="background: url(<%= pick_a_place_hero_url(@place) %>) no-repeat center";
 >
 <div class="result-top">
 	<div class="col-sm-3 fff back"><i class="glyphicon glyphicon-chevron-left"></i> &nbsp; <a class="fff" href="javascript:history.back()">Back to results</a> </div>
@@ -124,7 +124,7 @@ var id = 'loader', fill = '#FFF',
 							<% @place.photos.each do |photo| %>
 						<li>
 							<a>
-								<img src=<%= photo.path %> class="img-responsive"/>
+								<img src=<%= asset_path(photo.path_url(:small)) %> class="img-responsive"/>
 							</a>	
 						</li>
 						<% end %>

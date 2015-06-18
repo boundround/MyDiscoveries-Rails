@@ -1,13 +1,20 @@
 module PlacesHelper
+  def pick_a_place_hero_url(place)
+    place.photos[rand(place.photos.count-1)].path      
+  end
   def pick_a_place_photo_url(place)
-    place.photos[rand(place.photos.count-1)].path
+    asset_path(place.photos[rand(place.photos.count-1)].path_url(:small))
   end
 
   def pick_a_program_hero_url(place)
     if place.programs then
-      place.programs[rand(place.programs.count-1)].heroimagepath
+      p1 = place.programs[rand(place.programs.count-1)].heroimagepath
+    end
+    
+    if !p1 then
+      pick_a_place_hero_url(place)      
     else
-      place.photos[rand(place.photos.count-1)].path      
+      p1
     end
   end
   
