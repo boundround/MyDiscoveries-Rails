@@ -1,18 +1,18 @@
 class SSConstraint
   def matches?(request)
-    (request.domain(2) == "schoolsafari.com.au") || (request.domain(1) == "crzy.me")
+    request.host().include?("schoolsafari") || request.host().include?("crzy")
   end
 end
 
 class BRConstraint
   def matches?(request)
-    request.domain != "crzy.me"
+    !request.host().include?("schoolsafari") && !request.host().include?("crzy")
   end
 end
 
 Rails.application.routes.draw do
   constraints(SSConstraint.new) do
-    get '/', to: 'places#programsearch'
+    get '/', to: 'places#programsearch', as: nil
   end
 
   constraints(BRConstraint.new) do
