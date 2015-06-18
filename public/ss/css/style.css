@@ -1340,6 +1340,11 @@ position: relative !important;width: 313px !important;}
   /* padding-top: 10px; */
   padding-bottom: 15px;
 }
+/*BR ADDED, OVERRIDES */
+.modal-bottom.row
+{
+	margin: 0px;
+}
 .modal-bottom a
 {
   font-size: 16px;

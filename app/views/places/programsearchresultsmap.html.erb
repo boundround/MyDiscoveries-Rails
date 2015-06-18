@@ -10,6 +10,8 @@
 
     </script>
     <script type="text/javascript">
+			var ss_open_window = null;
+			
       function initialize() {
         var mapOptions = {
 					<% if @zoom && !@places.nil? then %>
@@ -49,7 +51,7 @@
 						'<p><b><%=place.display_name%></b> <h6><%=place.area.display_name%></h6>'+
 						'</p>'+
 						'</div>'+
-						'<p class="popup-bottom">k-12 <span class="fa">&#xf004; &#xf004; &#xf004; <i>&#xf004; &#xf004;</i>  </span></p>' +
+						'<p class="popup-bottom"><%=place_yearlevels(place)%><span class="fa"><!--IMPLEMENT WITH RATINGS&#xf004; &#xf004; &#xf004; <i>&#xf004; &#xf004;--></i>  </span></p>' +
 						'</div></a>';
 
 					var infowindow = new google.maps.InfoWindow({
@@ -66,7 +68,9 @@
 					markers.push(marker);
 
 				  google.maps.event.addListener(marker, 'click', function() {
+						ss_open_window && ss_open_window.close();
 				    infowindow.open(map,marker);
+						ss_open_window = infowindow;
 				  });
 				})();
 			<% end %>
@@ -256,8 +260,8 @@
                     </figure>
                     <div class="col-sm-8 col-md-8 map-left-zero ">
                         <div class="col-sm-8 col-md-8 gr map-pad "><span class="footprint " style="background: url(<%=first_category_icon(place)%>)no-repeat; background-size:100%; color:#a2d549;"></span><%=place.categories[0].name%></div><div class="col-sm-4 col-md-4 map-star"><span class="fa  fa-star map-gray"></span></div>
-                        <div class="col-sm-12 col-md-12 map-name-1"><h5 class="gr">Taronga Zoo</h5><h6>Dubbo, NSW</h6></div>
-                        <div class="col-sm-4 col-md-4 col-lg-4">K-12</div><div class="col-sm-8 col-md-8 map-heat"><span class="fa">&#xf004; &#xf004; &#xf004; &#xf08a; &#xf08a;</span></div>
+                        <div class="col-sm-12 col-md-12 map-name-1"><h5 class="gr"><%=place.display_name%></h5><h6><%=place.area.display_name%></h6></div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">K-12</div><div class="col-sm-8 col-md-8 map-heat"><span class="fa"><!--IMPLEMENT WITH RATINGS--&#xf004; &#xf004; &#xf004; &#xf08a; &#xf08a;0--></span></div>
                     </div>
                     </a>
                 </div>

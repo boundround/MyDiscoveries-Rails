@@ -179,6 +179,7 @@ class PlacesController < ApplicationController
   end
    
   def placeprograms #xyrin result.html 
+    set_program_constants()
     @placeprograms = "yes"
     @place = Place.friendly.find(params[:id])
 #     render plain: params.inspect
@@ -257,13 +258,18 @@ class PlacesController < ApplicationController
       set_program_filters(@places)
     end
 
-    def set_program_filters(places)
-      place_ids = places.map{|x| x[:id]}
-#      @locations = Area.joins(:places).where("places.id IN (?)", place_ids).distinct.map{|l| l[:display_name]}
+    def set_program_constants()
       @locations = ["Sydney","Melbourne","Phillip Island","Canberra"]
       @locations.unshift('All')
+      @ylvec = ['K','1','2','3','4','5','6','7','8','9','10','11','12']
       @yearlevels = ['All','K-2','3-4','5-6','7-8','9-10','11-12']
       @subjects = ['All','English', 'Mathematics', 'Science', 'History', 'Geography', 'Economics', 'Civics', 'Arts', 'Health','Languages']
+    end
+    
+    def set_program_filters(places)
+#      place_ids = places.map{|x| x[:id]}
+#      @locations = Area.joins(:places).where("places.id IN (?)", place_ids).distinct.map{|l| l[:display_name]}
+      set_program_constants()
       @categories = Category.all.map{|c| c[:name]}
       @categories.unshift('All')
     end

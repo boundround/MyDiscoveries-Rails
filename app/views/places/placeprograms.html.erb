@@ -76,18 +76,18 @@ var id = 'loader', fill = '#FFF',
 			<div class="row result-box-top">
 				<div class="col-md-12 fff">
 					
-						<div class="col-sm-6 col-xs-9  text-left">
+						<!--IMPLEMENT WITH REVIEWS--div class="col-sm-6 col-xs-9  text-left">
 							<p>Jump to:&nbsp; <a href="#">Programs</a>&nbsp; <a href="#">Reviews</a>
 							</p>
 						</div>
-						<div class="col-sm-6 col-xs-3 text-right">
+						<!--IMPLEMENT WITH FAVORITES--div class="col-sm-6 col-xs-3 text-right">
 							<p class="hidden-xs"><span>Save</span> <%=@place.display_name%>
 								<i class="fa fa-star rate"></i> 
 							</p>
 							<p class="visible-xs">
 								<i class="fa fa-star rate"></i> 
 							</p>
-						</div>
+						</div-->
 					
 				</div>
 			</div>	
@@ -107,7 +107,7 @@ var id = 'loader', fill = '#FFF',
 						</div>
 						<p class="col-md-11 row">
 							<%=@place.description%><br>
-							<a href="#" class="hidden-xs">Read More</a>
+							<!--a href="#" class="hidden-xs">Read More</a-->
 						</p>
 						<p class="visible-xs">
 							<span class="bold">Location:</span> <span><%=@place.display_address%></span>	
@@ -136,9 +136,9 @@ var id = 'loader', fill = '#FFF',
 						</div>
 					</div>
 					<div class="col-md-3 col-sm-4 result-box-side hidden-xs">
-						<img src="../ss/img/logo3.png" class="center-block"/>
+						<!--img src="../ss/img/logo3.png" class="center-block"/-->
 						<ul>
-							<li>
+							<!--IMPLEMENT WITH RATINGS--li>
 								Rating:&nbsp; <span>
 								<i class="fa fa-heart"></i>
 								<i class="fa fa-heart"></i>
@@ -146,15 +146,15 @@ var id = 'loader', fill = '#FFF',
 								<i class="fa fa-heart-o"></i>
 								<i class="fa fa-heart-o"></i>
 								</span>
+							</li-->
+							<li>
+								Year:&nbsp; <span><%=place_yearlevels(@place)%></span>
 							</li>
 							<li>
-								Grade:&nbsp; <span>K — 12</span>
+								Subject:&nbsp; <span><%=@place.programs[0].programsubjects[0] ? @place.programs[0].programsubjects[0] : ""%></span>
 							</li>
 							<li>
-								Subject:&nbsp; <span>Geography</span>
-							</li>
-							<li>
-								Programs:&nbsp; <a href="#">5</a>
+								Programs:&nbsp; <%=@place.programs.count%> <!--a href="#"><%=@place.programs.count%></a-->
 							</li>
 							<li>
 								Location:&nbsp; <span>><%=@place.display_address%></</span>
@@ -191,9 +191,9 @@ var id = 'loader', fill = '#FFF',
                 </div>
                 <div class="col-md-11 modal-middle center-block">
                 	<div class="row">
-                		<div class="col-md-2 col-sm-3">
+                		<!--div class="col-md-2 col-sm-3">
                 			<img src=<%= @place.logo %> class="center-block img-responsive" alt=<%= @place.logo %> >
-                		</div>
+                		</div-->
                 		<div class="col-md-9">
                 			<h1>
                 				<%= program.name %><br>
@@ -204,22 +204,22 @@ var id = 'loader', fill = '#FFF',
                 		</div>
                 		<div class="col-sm-12 ">
                 			<div class="col-md-12 bar center-block">
-                				<div class="col-sm-3">
+                				<!--IMPLEMENT div class="col-sm-3">
                 					Rating:&nbsp;&nbsp;<span><i class="fa fa-heart"></i>
 												<i class="fa fa-heart"></i> 
 												<i class="fa fa-heart"></i> 
 												<i class="fa fa-heart-o"></i> 
 												<i class="fa fa-heart-o"></i> 
 											</span>
+                				</div-->
+                				<div class="col-sm-3">
+                					Year:&nbsp;&nbsp;<span><%=program_yearlevels(program)%></span>
                 				</div>
                 				<div class="col-sm-3">
-                					Grade:&nbsp;&nbsp;<span>K-12</span>
+                					Subject:&nbsp;&nbsp;<span><%=program.programsubjects[0] ? program.programsubjects[0] : ""%></span>  
                 				</div>
                 				<div class="col-sm-3">
-                					Subject:&nbsp;&nbsp;<span>Geography</span>  
-                				</div>
-                				<div class="col-sm-3">
-                					Duration:&nbsp;&nbsp;<span>6 hours</span>
+                					Duration:&nbsp;&nbsp;<span><%program.duration%></span>
                 				</div>
                 				<div class="clearfix"></div>
                 			</div>
@@ -229,10 +229,10 @@ var id = 'loader', fill = '#FFF',
                 				<%= program.description %>
                 			</p>
 											<div style="max-height:400px;max-width:500px;overflow:hidden;border-radius:8px; width=100%">
-												<img src="<%=program.heroimagepath%>" class="center-block img-responsive" style="display:block"/>
+												<img src="<%= get_program_or_place_hero_url(program) %>" class="center-block img-responsive" style="display:block"/>
 											</div>
                 			<!--iframe width="100%" height="400" src="https://www.youtube.com/embed/Q-4w5xYLwiU" frameborder="0" allowfullscreen></iframe-->
-                			<h4>What’s involved in <%= program.name %>?</h4>
+                			<!--h4>What’s involved in <%= program.name %>?</h4>
                 			<p>
                 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Lorem ipsum dolor sit amet:
                 			</p>
@@ -248,7 +248,7 @@ var id = 'loader', fill = '#FFF',
                 					</span>
                 				</li>
                 			</ol>
-                			<!--h4>Times</h4>
+                			<h4>Times</h4>
                 			<div class="model-slider">
                 		   <ul class="bxslider">
                 				
@@ -363,15 +363,15 @@ var id = 'loader', fill = '#FFF',
                 		<h1 class="text-center model-end"><%= program.cost %></h1>
                 	</div>
                 	<div class="col-sm-12 ">
-                		<a href="#myModal2" data-toggle="modal" class="book-now  form-control btn btn-default">Book now!</a>                		
+                		<a href="<%= program.booknowpath ? program.booknowpath : (program.contact ? 'mailto:'+program_contact : '')%>" data-toggle="modal" class="book-now  form-control btn btn-default">Book now!</a>                		
                 	</div> 
                 	<div class="clearfix"></div>
-                	<div class="col-md-12 ">
+                	<!--IMPLEMENT div class="col-md-12 ">
                 		<p class="text-center last-star ">
                 			<i class="fa fa-star rate ">&nbsp; </i>Or save it to your 
                 			<span>Favourites</span>
                 		</p>                	
-                	</div>
+                	</div-->
 
                 	
                 </div>
@@ -381,7 +381,7 @@ var id = 'loader', fill = '#FFF',
     </div>
 		<% end %>
 		
-    <div id="myModal2" class="modal fade">
+    <!--div id="myModal2" class="modal fade">
         <div class="modal-dialog golu-p">
         	
             <div class="modal-content">
@@ -401,9 +401,9 @@ var id = 'loader', fill = '#FFF',
                 	<div class="col-md-12">
                 		<h1 class="text-center ">Booking</h1>
                 		<p class="text-center done-modal-p">
-                			<span class="bold">Roar & Snore</span><br>
-							Western Plains Zoo<br>
-							213, Obley Road, Dubbo NSW, 2830<br>
+                			<span class="bold"><%=@place.display_name%></span><br>
+							<%=@place.display_name%><br>
+							<%=@place.display_address%><br>
                 		</p>
                 	</div>
                 	<div class="clearfix"></div>
@@ -429,7 +429,7 @@ var id = 'loader', fill = '#FFF',
                 				</div>
                 				<div class="col-sm-3 border-right pad20"> 
                 				  <div class="divin"> 
-                				  	<p>Grade</p>               			
+                				  	<p>Year</p>               			
                 					<select class="selectpicker">
                 						<option>22/05/2015</option>
                 						<option>22/05/2015</option>
@@ -473,7 +473,7 @@ var id = 'loader', fill = '#FFF',
                 <div class="clearfix"></div>
             </div>
         </div>
-    </div>
+    </div-->
 
 
 			
@@ -495,9 +495,9 @@ var id = 'loader', fill = '#FFF',
 					<div class="bottom-box">
 						<div class="top-row">
 							<div class="col-xs-10"><h3><%=program.name%></h3></div>
-							<div class="col-xs-2 text-right">
+							<!--IMPLEMENT div class="col-xs-2 text-right">
 								<i class="fa fa-star "></i>
-							</div>
+							</div-->
 						 <div class="clearfix"></div>								
 						</div>	
 						<div class="bottom-middle">
@@ -513,17 +513,17 @@ var id = 'loader', fill = '#FFF',
 						<div class="bottom-footer">
 							<div class="col-xs-5 col-sm-5">
 								<p>
-									K-12
+									Year: <%=program_yearlevels(program)%>
 								</p>
 							</div>	
-							<div class="col-xs-7  col-sm-7 text-right">
+							<!--IMPLEMENT--div class="col-xs-7  col-sm-7 text-right">
 								<p><i class="fa fa-heart"></i>
 								<i class="fa fa-heart"></i>
 								<i class="fa fa-heart"></i>
 								<i class="fa fa-heart-o"></i>
 								<i class="fa fa-heart-o"></i>
 								</p>
-							</div>
+							</div-->
 							<div class="clearfix"></div>											
 						</div>	
 						<div class="clearfix">						

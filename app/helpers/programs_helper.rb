@@ -22,16 +22,16 @@ module ProgramsHelper
     ActsAsTaggableOn::Tagging.includes(:tag).where(context: "programsubjects").uniq.pluck(:name)
   end
   
-  def program_yearlevels(program)
-    #Sort based on year level sort order
-    yls = ""
-    program.programyearlevels.each do |yl|
-      if yls != "" then yls += "," end
-      yls += yl.name
-    end 
-    yls
-    #program.programyearlevel_list 
-  end
+  # def program_yearlevels(program)
+  #   #Sort based on year level sort order
+  #   yls = ""
+  #   program.programyearlevels.each do |yl|
+  #     if yls != "" then yls += "," end
+  #     yls += yl.name
+  #   end
+  #   yls
+  #   #program.programyearlevel_list
+  # end
   
   def program_subjects(program)
     #Sort based on year level sort order

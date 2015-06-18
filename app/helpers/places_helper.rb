@@ -17,6 +17,14 @@ module PlacesHelper
       p1
     end
   end
+
+  def get_program_or_place_hero_url(program)
+    if program.heroimagepath then
+      program.heroimagepath
+    else
+      pick_a_program_hero_url(program.place)
+    end
+  end
   
   def first_category_icon(place)
     "https://d1w99recw67lvf.cloudfront.net/category_icons/"+place.categories[0].identifier+"_icon.png"
@@ -49,30 +57,45 @@ module PlacesHelper
   end
     
   def place_categories(place)
-    res = ""
+    res = String.new
     place.categories.each do |p|
-      res += p.programyearlevel_list
+      res += p.programyearlevel_list.to_s
     end
-    res
   end
 
   def place_yearlevels(place)
-    res = []
-    place.programs.each do |p|
-      res = res | p.programyearlevels
+    allyears = String.new
+    if place.programs then
+      place.programs.each do |p|
+        allyears += p.programyearlevel_list.to_s
+      end
     end
-    res.join(",")
+    get_yearlevel_range(allyears)
   end
   
   def program_yearlevels(program)
+    get_yearlevel_range(program.programyearlevel_list.to_s)
+  end
+
+  def get_yearlevel_range(allyears)
     #Sort based on year level sort order
-    yls = ""
-    program.programyearlevels.each do |yl|
-      if yls != "" then yls += "," end
-      yls += yl.name
-    end 
-    yls
-    #program.programyearlevel_list 
+    first = String.new('K')
+    last = String.new('12')
+    @ylvec.each do |yl|
+      if allyears.include?(yl) then
+        first = yl
+        break
+      end
+    end
+
+    @ylvec.reverse_each do |yl|
+      if allyears.include?(yl) then
+        last = yl
+        break
+      end
+    end
+    
+    first+' - '+last
   end
   
   def program_subjects(program)
