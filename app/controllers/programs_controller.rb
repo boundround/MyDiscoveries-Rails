@@ -1,5 +1,7 @@
 class ProgramsController < ApplicationController
 
+  before_action :redirect_if_not_admin, :except => [:show]
+
   def set_program_constants()
     @ylvec = "K,1,2,3,4,5,6,7,8,9,10,11,12"
     @subjects = "English, Mathematics, Science, History, Geography, Economics, Civics, Arts, Health,Languages"
