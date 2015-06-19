@@ -181,7 +181,8 @@ class PlacesController < ApplicationController
   def placeprograms #xyrin result.html 
     set_program_constants()
     @placeprograms = "yes"
-    @place = Place.friendly.find(params[:id])
+    @place = Place.find(params[:id])
+#    @place = Place.friendly.find(params[:id])
 #     render plain: params.inspect
   end
   
@@ -189,13 +190,13 @@ class PlacesController < ApplicationController
     def set_program_results_state(params)
       @placeprograms = "yes"
     
+      if params[:term] == "" then params[:term] = nil end
+      @search_term = params[:term]
+
       if params[:id] then
         @pplaces = Place.where('places.id = :id', id: params[:id])
         @zoom = 15
-      else
-          
-        if params[:term] == "" then params[:term] = nil end
-        @search_term = params[:term]
+      else         
         if params[:location] == "" then params[:location] = nil end
         @location_filter = params[:location]
         if params[:subject] == "" then params[:subject] = nil end
@@ -259,7 +260,7 @@ class PlacesController < ApplicationController
     end
 
     def set_program_constants()
-      @locations = ["Sydney","Melbourne","Phillip Island","Canberra"]
+      @locations = ["Sydney","Melbourne","Phillip Island","Canberra","Perth",""]
       @locations.unshift('All')
       @ylvec = ['K','1','2','3','4','5','6','7','8','9','10','11','12']
       @yearlevels = ['All','K-2','3-4','5-6','7-8','9-10','11-12']

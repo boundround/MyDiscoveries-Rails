@@ -70,8 +70,8 @@
     </div>
     <div class="col-sm-2">
             <div class="btn-bg">
-                <a href="javascript:ss_goto_list_results()" class="active-btn">List view</a>
-                <a href="javascript:ss_goto_map_results()" class="hidden-xs">Map view</a>
+                <a href="javascript:ss_goto_list_results()" class="active-btn hidden-xs">List view</a>
+                <a href="javascript:ss_goto_map_results()">Map view</a>
             </div>        
     </div>
             </div>
@@ -545,6 +545,7 @@ function ss_goto_map_results()
             $(this).toggleClass("active");
         });
 
+				$("#search_input").val(<%=@search_term%>);
 				$("#yearlevel_selector").val("<%=@yearlevel_filter%>");
 				$("#subject_selector").val("<%=@subject_filter%>");
 				$("#activity_selector").val("<%=@activity_filter%>");

@@ -1,71 +1,60 @@
-<div class="photo-container">
+<div class="container">
 
   <h2>Add New Program</h2>
 <%= simple_form_for @program do |f| %>
-  <p>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </p>
+  <div class="form-group">
+    <%= f.input :name, input_html: { class: 'form-control' }%>
+  </div>
  
-  <p>
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </p>
+  <div class="form-group">
+    <%= f.input :description, input_html: { class: 'form-control' }%>
+  </div>
  
-  <p>
-    <%= f.label :yearlevelnotes %><br>
-    <%= f.text_area :yearlevelnotes %>
-  </p>
+  <div class="form-group">
+    <%= f.input :yearlevelnotes, input_html: { class: 'form-control' }%>
+  </div>
 
-  <p>
-    <%= f.label :cost %><br>
-    <%= f.text_field :cost %>
-  </p>
+    <div class="form-group">
+    <%= f.input :cost, input_html: { class: 'form-control' }%>
+  </div>
 
-  <p>
-    <%= f.label :programpath %><br>
-    <%= f.text_field :programpath %>
-  </p>
+  <div class="form-group">
+    <%= f.input :programpath, input_html: { class: 'form-control' }%>
+  </div>
 
-  <p>
-    <%= f.label :heroimagepath %><br>
-    <%= f.text_field :heroimagepath %>
-  </p>
+  <div class="form-group">
+    <%= f.input :heroimagepath, input_html: { class: 'form-control' }%>
+  </div>
 
-  <p>
-    <%= f.label :times %><br>
-    <%= f.text_area :times %>
-  </p>
+  <div class="form-group">
+    <%= f.input :times, input_html: { class: 'form-control' }%>
+  </div>
 
-  <p>
-    <%= f.label :booknowpath %><br>
-    <%= f.text_field :booknowpath %>
-  </p>
+  <div class="form-group">
+    <%= f.input :booknowpath, input_html: { class: 'form-control' }%>
+  </div>
 
-  <p>
-    <%= f.label :contact %><br>
-    <%= f.text_field :contact %>
-  </p>
+  <div class="form-group">
+    <%= f.input :contact, input_html: { class: 'form-control' }%>
+  </div>
 
     <div class="form-group">
       <%= f.input :tag_list, label: 'Tags (Comma Separated Values)', input_html: { class: 'form-control'} %>
     </div>
 		
     <div class="form-group">
-      <%= f.input :programsubject_list, collection: valid_program_subject_tags(), input_html: { class: 'form-control', multiple: true } %>
-    </div>
-
-    <!--div class="form-group">
       <%= f.input :programactivity_list, label: "Program Activity Tags ( Valid tags: "+ valid_program_activity_tags_csv()+" )", input_html: { class: 'form-control'} %>
-    </div-->
-
-    <div class="form-group">
-      <!--%= f.input :programactivity_list, label: "Program Activity Tags ( Valid tags: "+ valid_program_activity_tags_csv()+" )", input_html: { class: 'form-control'} %-->
-      <%= f.input :programactivity_list, collection: valid_program_activity_tags(), input_html: { class: 'form-control', multiple: true } %>
+      <!--%= f.input :programsubject_list, collection: valid_program_subject_tags(), input_html: { class: 'form-control', multiple: true } %-->
     </div>
 
     <div class="form-group">
-      <%= f.input :programyearlevel_list, collection: valid_program_yearlevel_tags(), input_html: { class: 'form-control', multiple: true } %>
+      <%= f.input :programactivity_list, label: "Program Activity Tags ( Valid tags: "+ valid_program_activity_tags_csv()+" )", input_html: { class: 'form-control'} %>
+      <!--%= f.input :programactivity_list, collection: valid_program_activity_tags(), input_html: { class: 'form-control', multiple: true } %-->
+    </div>
+
+    <div class="form-group">
+      <%= f.input :programyearlevel_list, label: "Program Year Levels ( Valid tags: "+ valid_program_activity_tags_csv()+" )", input_html: { class: 'form-control'} %>
+      <!--%= f.input :programyearlevel_list, collection: valid_program_yearlevel_tags(), input_html: { class: 'form-control', multiple: true } %-->
     </div>
 
     <div class="form-group">
