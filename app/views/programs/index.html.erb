@@ -4,24 +4,13 @@
   <table class="table table-striped" id="place-table">
     <thead>
     <tr>
-			
-	    t.string   "name"
-	    t.text     "description"
-	    t.text     "yearlevelnotes"
-	    t.string   "cost"
-	    t.string   "programpath"
-	    t.string   "heroimagepath"
-	    t.string   "duration"
-	    t.text     "times"
-	    t.string   "booknowpath"
-	    t.string   "contact"
-	    t.integer  "place_id"
-	    t.datetime "created_at"
-	    t.datetime "updated_at"
-			
 			<th>Place</th>
       <th>Name</th>
-      <th>Program Path</th>
+      <th>Subjects</th>
+      <th>Yearlevels</th>
+			<th>Hero Link</th>
+      <th>Program Link</th>
+			<th>Book Now Link</th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +18,23 @@
         <tr>
           <td><%= program.place.display_name %></td>
           <td><%= link_to program.name, edit_program_path(program) %></td>
-          <td><%= link_to "Go to program", program.programpath %></td>
+          <td><%= program.programsubject_list %></td>
+          <td><%= program.programyearlevel_list %></td>
+					<%if program.heroimagepath %>
+						<td><div><img src="<%=program.heroimagepath%>" style="width:50px;height:50px;"/></td>
+					<%else%>
+						<td><%= "MISSING" %></td>
+					<%end%>
+					<%if program.programpath %>
+          <td><%= link_to "Try me", program.programpath, :target => "_blank"%></td>
+					<%else%>
+						<td><%= "MISSING" %></td>
+					<%end%>
+					<%if program.booknowpath %>
+          <td><%= link_to "Try me", program.booknowpath, :target => "_blank"%></td>
+					<%else%>
+						<td><%= "MISSING" %></td>
+					<%end%>
         </tr>
     <% end %>
     </tbody>

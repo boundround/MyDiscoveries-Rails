@@ -181,7 +181,9 @@ class PlacesController < ApplicationController
   def placeprograms #xyrin result.html 
     set_program_constants()
     @placeprograms = "yes"
+    puts "Tring to find"+params[:id]
     @place = Place.find(params[:id])
+    puts "Found"+params[:id]
 #    @place = Place.friendly.find(params[:id])
 #     render plain: params.inspect
   end

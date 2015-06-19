@@ -1,5 +1,10 @@
 class ProgramsController < ApplicationController
 
+  def set_program_constants()
+    @ylvec = "K,1,2,3,4,5,6,7,8,9,10,11,12"
+    @subjects = "English, Mathematics, Science, History, Geography, Economics, Civics, Arts, Health,Languages"
+  end
+  
   def index
     @programs = Program.includes(:webresources).all
   end
@@ -13,6 +18,7 @@ class ProgramsController < ApplicationController
   end
 
   def edit
+    set_program_constants()
     @program = Program.includes(:webresources).find(params[:id])
   end
  
