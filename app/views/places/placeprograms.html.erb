@@ -132,7 +132,7 @@ var id = 'loader', fill = '#FFF',
 					</div>						
 					</div>
 						<div class="side-btn visible-xs">
-							<a href="#"  class="btn  btn-default">Enquire</a>
+							<a href="<%= @place.programs[0].contact ? 'mailto:'+@place.programs[0].contact : ''%>" class="btn  btn-default">Enquire</a>
 						</div>
 					</div>
 					<div class="col-md-3 col-sm-4 result-box-side hidden-xs">
@@ -363,7 +363,7 @@ var id = 'loader', fill = '#FFF',
                 		<h1 class="text-center model-end"><%= program.cost %></h1>
                 	</div>
                 	<div class="col-sm-12 ">
-                		<a href="<%= program.booknowpath ? program.booknowpath : (program.contact ? 'mailto:'+program_contact : '')%>" data-toggle="modal" class="book-now  form-control btn btn-default">Book now!</a>                		
+                		<a href="<%= program.booknowpath ? program.booknowpath : (program.contact ? 'mailto:'+program.contact : '')%>" data-toggle="modal" class="book-now  form-control btn btn-default">Book now!</a>                		
                 	</div> 
                 	<div class="clearfix"></div>
                 	<!--IMPLEMENT div class="col-md-12 ">

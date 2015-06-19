@@ -10,6 +10,9 @@
 
     </script>
     <script type="text/javascript">
+			var markers = [];
+			var ss_g_places = {};
+			var ss_g_map = null; //Set a global that's unlikely to clash
 			var ss_open_window = null;
 			
       function initialize() {
@@ -29,8 +32,8 @@
 										{ "featureType": "landscape", "stylers": [ { "color": "#F1EEE7" } ] },{ } ]
         };
         var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+				ss_g_map = map; //Set a global that's unlikely to clash
 
-				var markers = [];
 			<% @places.each do |place| %>
 				(function (){
 	        <%if place.categories[0].nil? %>
@@ -55,7 +58,8 @@
 						'</div></a>';
 
 					var infowindow = new google.maps.InfoWindow({
-						content: contentString
+						content: contentString,
+						pixelOffset: new google.maps.Size(150, 0)
 					});
 
 					var marker = new google.maps.Marker({
@@ -64,6 +68,13 @@
 						title: "<%=place.display_name%>",
 						icon: image
 				  });
+					
+					ss_g_places[<%=place.id%>] = {
+							latitude : <%=place.latitude%>,
+							longitude : <%=place.longitude%>,
+							infowindow : infowindow,
+							marker : marker
+					}
 
 					markers.push(marker);
 
@@ -94,14 +105,11 @@
              );
 
               $('.map-wrapper .locker i').click(function () {
-        $('.map-wrapper').toggleClass('enabled');
+        				$('.map-wrapper').toggleClass('enabled');
+							});
 
-
-
-           });
-
-           return ;
-    });
+           	 	return ;
+    		 		});
       </script>
 
 
@@ -252,7 +260,8 @@
 
                 <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <hr class="row hr_border">
-                    <a class="" href="/places/placeprograms?id=<%=place.id%>">
+                    <a class="" href="javascript:ss_focus_on_place(<%=place.id%>)">
+                    <!--a class="" href="/places/placeprograms?id=<%=place.id%>"-->
                     <figure class=" col-sm-4 col-md-4">
 												<div style="width:100px; max-height:100px; overflow:hidden;">
                         <img style="max-width:100%; max-height:100%" src="<%=asset_path(place.photos[0].path_url(:small))%>" alt="img">
@@ -335,7 +344,31 @@ function get_search_params()
 	return params;
 }
 
+var ss_g_pancallbackhandle = null;
 
+function ss_focus_on_place(place_id)
+{
+	var place = ss_g_places[place_id];
+	ss_open_window && ss_open_window.close();
+	
+
+	ss_g_pancallbackhandle = google.maps.event.addListenerOnce(ss_g_map, 'idle', function(){
+    
+		if ($('.map-wrapper.enabled').length == 0)	
+		{
+			$('.map-wrapper').toggleClass('enabled');
+		}
+		
+		place.infowindow.open(ss_g_map,place.marker);
+		google.maps.event.removeListener(ss_g_pancallbackhandle);		
+	});	
+	
+	//The small adjustment to longitude ensures the idle function gets called if
+	//happen to be near or on the place lat/lon already
+	ss_g_map.panTo({lat: place.latitude, lng: (place.longitude+.0000001)});
+
+	ss_open_window = place.infowindow;
+}
 function ss_goto_list_results()
 {
 	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params())},20);
