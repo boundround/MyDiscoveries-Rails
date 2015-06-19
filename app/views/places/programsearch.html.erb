@@ -89,7 +89,7 @@ var id = 'loader', fill = '#FFF',
                 <div class="input-group">
                     <input id="search_input" value="<%=@search_term%>" type="text" class="form-control" placeholder="Search by region or venue name">
                     <span class="input-group-btn">
-                        <button class="btn" type="button" style="font-size:22px"  onclick="ss_goto_list_results()">
+                        <button id="search_button" class="btn" type="button" style="font-size:22px"  onclick="ss_goto_list_results()">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </button>
                     </span>
@@ -166,11 +166,30 @@ var id = 'loader', fill = '#FFF',
     
 
 		<script>
+		$("#search_input").keyup(function(event){
+		    if(event.keyCode == 13){
+		        $("#search_button").click();
+		    }
+		});
+		
 		function get_search_params()
 		{
-			return "term="+$("#search_input").val();
-		}
+			params="term="+$("#search_input").val();
+	
+			var v = $("#yearlevel_selector").val();
+			params += v != "All" ? "&yearlevel="+v : "";
 
+			var v = $("#subject_selector").val();
+			params += v != "All" ? "&subject="+v : "";
+
+			var v = $("#activity_selector").val();
+			params += v != "All" ? "&activity="+v : "";
+
+			var v = $("#location_selector").val();
+			params += v != "All" ? "&location="+v : ""; 
+
+			return params;
+		}
 
 		function ss_goto_search()
 		{
@@ -179,12 +198,12 @@ var id = 'loader', fill = '#FFF',
 
 		function ss_goto_list_results()
 		{
-			window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params());
+			setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params())},200);
 		}
 
 		function ss_goto_map_results()
 		{
-			window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params());
+			setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params())},200);
 		}
 		</script>
 

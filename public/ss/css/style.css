@@ -1567,6 +1567,7 @@ position: relative !important;width: 313px !important;}
   position: relative;
   z-index: 1000;
 }
+
 .enquire-modal{
   cursor: pointer;
 }
@@ -2444,5 +2445,33 @@ margin: 0px;
 .rating-box {
 	height: 0px;
 	display: none;
+}
+
+p.enquire-modal{
+	max-height:60px;
+	text-overflow:ellipsis;
+	overflow: hidden;
+}
+.bottom-box h3
+{
+	min-height:60px;
+	max-height:60px;
+	text-overflow:ellipsis;
+	overflow: hidden;
+}
+
+.box h4
+{
+	min-height:100px;
+	max-height:100px;
+/*	text-overflow:ellipsis;
+	overflow: hidden;	*/
+}
+
+.box-top img
+{
+	min-height:120px;
+	max-height:120px;
+	
 }
 

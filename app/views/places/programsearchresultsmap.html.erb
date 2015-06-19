@@ -150,7 +150,7 @@
                         <div class="input-group">
                             <input id="search_input" type="text" class="form-control" placeholder="Search by region or venue name" value="<%=@search_term%>">
                             <span class="input-group-btn">
-                                <button class="btn btn-my" type="button" onclick="ss_goto_map_results()">
+                                <button id="search_button" class="btn btn-my" type="button" onclick="ss_goto_map_results()">
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 </button>
                             </span>
@@ -309,6 +309,13 @@
 <script src="../ss/js/owl.carousel.min.js"></script>
 
 <script>
+
+$("#search_input").keyup(function(event){
+    if(event.keyCode == 13){
+        $("#search_button").click();
+    }
+});
+
 function get_search_params()
 {
 	params="term="+$("#search_input").val();
@@ -331,12 +338,12 @@ function get_search_params()
 
 function ss_goto_list_results()
 {
-	window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params());
+	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params())},20);
 }
 
 function ss_goto_map_results()
 {
-	window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params());
+	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params())},100);
 }
 </script>
 
