@@ -99,7 +99,7 @@
           <%= f.fields_for :photos, photo do |ff| %>
             <tr>
               <%= ff.input :id, as: :hidden %>
-              <td><img src="<%= asset_path(photo.path_url(:small)) %>" class="photo-edit-thumb"></td>
+              <td><img src="<%= asset_path(photo.path_url) %>" class="photo-edit-thumb"></td>
               <td><%= ff.file_field :path, class: "photo-file" %></td>
               <td><%= ff.text_area :credit %></td>
               <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
