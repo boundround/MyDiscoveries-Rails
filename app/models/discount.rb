@@ -2,6 +2,8 @@ class Discount < ActiveRecord::Base
   belongs_to :place
   belongs_to :area
 
+  has_paper_trail
+
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
