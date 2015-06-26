@@ -39,12 +39,12 @@
   </div>
 
     <div class="form-group">
-      <%= f.input :programsubject_list, label: "Program Subjects ( Valid tags: "+ @subjects+" )", input_html: { class: 'form-control'} %>
+      <%= f.input :programsubject_list, label: "Program Subjects ( Valid tags: "+ "English, Mathematics, Science, History, Geography, Economics, Civics, Arts, Health,Languages" +" )", input_html: { class: 'form-control'} %>
       <!--%= f.input :programactivity_list, collection: valid_program_activity_tags(), input_html: { class: 'form-control', multiple: true } %-->
     </div>
 
     <div class="form-group">
-      <%= f.input :programyearlevel_list, label: "Program Year Levels ( Valid tags: "+ @ylvec+" )", input_html: { class: 'form-control'} %>
+      <%= f.input :programyearlevel_list, label: "Program Year Levels ( Valid tags: "+ "K,1,2,3,4,5,6,7,8,9,10,11,12"+" )", input_html: { class: 'form-control'} %>
       <!--%= f.input :programyearlevel_list, collection: valid_program_yearlevel_tags(), input_html: { class: 'form-control', multiple: true } %-->
     </div>
 
