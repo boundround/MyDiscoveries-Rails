@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625065908) do
+ActiveRecord::Schema.define(version: 20150625214901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -262,6 +262,15 @@ ActiveRecord::Schema.define(version: 20150625065908) do
   create_table "search_suggestions", force: true do |t|
     t.string   "term"
     t.integer  "popularity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "suggested_places", force: true do |t|
+    t.string   "user_ip"
+    t.string   "place"
+    t.string   "city"
+    t.string   "country"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

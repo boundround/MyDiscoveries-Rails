@@ -33,7 +33,7 @@ var cardHover = function(){
   });
 }
 
-var setViewForGooglePlace = function(place, city, country){
+var setViewForGooglePlace = function(place, city, country, userIP){
   geocoder = new google.maps.Geocoder();
   geocoder.geocode({ address: place }, function(results, status){
     if (status == google.maps.GeocoderStatus.OK) {
@@ -64,7 +64,8 @@ var setViewForGooglePlace = function(place, city, country){
         url: '/notification',
         data: {place: place,
               city: city,
-              country: country
+              country: country,
+              userIP: userIP
         },
         success: console.log('sent: ' + place),
       });
@@ -646,7 +647,7 @@ window.onload = function() {
       }
 
       if (ui.item.resultType === 'Google') {
-        setViewForGooglePlace(ui.item.label, userCity, userCountry);
+        setViewForGooglePlace(ui.item.label, userCity, userCountry, $('#user-ip').data("ip"));
       }
 
       if (typeof brglobe != 'undefined') {

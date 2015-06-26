@@ -21,6 +21,9 @@ class PagesController < ApplicationController
     @place = params[:place]
     @city = params[:city]
     @country = params[:country]
+    @userIP = params[:userIP]
+
+    SuggestedPlace.create(user_ip: @userIP, place: @place, city: @city, country: @country)
 
     Want.notification(@place, @city, @country).deliver
     render :nothing => true
