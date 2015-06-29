@@ -20,7 +20,7 @@
       <%= f.input :subscription_level, collection: ["Premium", "standard", "basic"], selected: "basic", required: true %>
     </div>
     <div class="form-group">
-      <%= f.input :status, collection: ["draft", "edited", "live", "out"], selected: "draft", required: true %>
+      <%= f.input :status, collection: ["draft", "edited", "published"], selected: "draft", required: true %>
     </div>
     <div class="form-group">
       <% Category.all.each do |category| %>
