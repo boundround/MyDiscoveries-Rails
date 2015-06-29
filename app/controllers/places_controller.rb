@@ -213,8 +213,8 @@ class PlacesController < ApplicationController
     #               .text_search(@search_term).distinct
           @pplaces = Place.joins(:programs).where(
             #Faster
-            'places.subscription_level NOT IN (:sl) AND
-            (places.display_name ILIKE :st OR programs.name ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
+            'places.status IN (:sl) AND
+            (places.display_name ILIKE :st OR programs.name ILIKE :st)', sl: "live", st: '%'+@search_term+'%').distinct
             #Better
             # @pplaces = Place.joins(:programs).where(
             #   'places.subscription_level NOT IN (:sl) AND
