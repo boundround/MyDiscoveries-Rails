@@ -1,7 +1,7 @@
 class SearchSuggestion < ActiveRecord::Base
 
   def self.terms_for(prefix)
-    @places = Place.where.not(subscription_level: ['out', 'draft'])
+    @places = Place.where(status: "live")
              .text_search(prefix).includes(:area)
 
     # @places = Place.where("display_name @@ :q or description @@ :q", q: params[:term])

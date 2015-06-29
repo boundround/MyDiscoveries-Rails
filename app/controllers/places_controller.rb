@@ -39,7 +39,7 @@ class PlacesController < ApplicationController
     @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
     @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
 
-    if @place.subscription_level == "Premium" || @place.subscription_level == "draft"
+    if @place.subscription_level == "Premium"
       @videos = @place.videos.where.not(priority: 1) || []
       @hero_video = @place.videos.find_by(priority: 1)
     else
@@ -221,7 +221,7 @@ class PlacesController < ApplicationController
             #   (places.display_name ILIKE :st OR places.description ILIKE :st
             #   OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
         else
-          @pplaces = Place.joins(:programs).where.not(subscription_level: ['out', 'draft']).distinct
+          @pplaces = Place.joins(:programs).where(status: "live").distinct
         end
     #    render plain: @places.inspect
       end

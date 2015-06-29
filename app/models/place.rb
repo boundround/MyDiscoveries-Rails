@@ -11,7 +11,7 @@ class Place < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
-  scope :active, -> { where.not(subscription_level: ['out', 'draft']) }
+  scope :active, -> { where(status: "live") }
 
   include PgSearch
   pg_search_scope :search, against: [:display_name, :description],
