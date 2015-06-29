@@ -9,6 +9,7 @@ class Photo < ActiveRecord::Base
   process_in_background :path
   skip_callback :commit, :after, :remove_path!
 
+  has_paper_trail
 
   def self.import(file)
     spreadsheet = open_spreadsheet(file)

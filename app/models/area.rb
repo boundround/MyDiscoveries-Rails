@@ -2,6 +2,8 @@ class Area < ActiveRecord::Base
   extend FriendlyId
   friendly_id :display_name, :use => :slugged
 
+  has_paper_trail
+
   after_save :load_into_soulmate
   before_destroy :remove_from_soulmate
 

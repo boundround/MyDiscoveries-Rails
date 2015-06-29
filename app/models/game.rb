@@ -13,6 +13,8 @@ class Game < ActiveRecord::Base
 
   self.per_page = 50
 
+  has_paper_trail
+
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)

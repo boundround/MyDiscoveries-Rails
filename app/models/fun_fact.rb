@@ -5,6 +5,8 @@ class FunFact < ActiveRecord::Base
   has_many :fun_facts_users
   has_many :users, through: :fun_facts_users
 
+  has_paper_trail
+
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)

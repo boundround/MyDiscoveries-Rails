@@ -3,6 +3,8 @@ class Place < ActiveRecord::Base
   before_destroy :remove_from_soulmate
   before_save :check_valid_url
 
+  has_paper_trail
+
   acts_as_taggable
   acts_as_taggable_on :locations, :activities
 

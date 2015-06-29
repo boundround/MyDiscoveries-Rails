@@ -209,6 +209,10 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    paper_trail (4.0.0.rc1)
+      activerecord (>= 3.0, < 6.0)
+      activesupport (>= 3.0, < 6.0)
+      request_store (~> 1.1.0)
     pg (0.17.1)
     pg_search (0.7.8)
       activerecord (>= 3.1)
@@ -271,6 +275,7 @@ GEM
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     remotipart (1.2.1)
+    request_store (1.1.0)
     responders (1.1.1)
       railties (>= 3.2, < 4.2)
     rest-client (1.6.8)
@@ -403,6 +408,7 @@ DEPENDENCIES
   newrelic_rpm
   omniauth-facebook
   omniauth-instagram
+  paper_trail (~> 4.0.0.rc)
   pg
   pg_search
   puma
