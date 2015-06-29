@@ -23,7 +23,10 @@
       <%= f.input :booking_url, input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :subscription_level, collection: ["Premium", "standard", "basic", "out", "draft"], required: true %>
+      <%= f.input :subscription_level, collection: ["Premium", "standard", "basic"], required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.input :status, collection: ["draft", "edited", "live", "out"], required: true %>
     </div>
     <p><input id="pac-input" class="controls" type="text"
         placeholder="Enter a location"></p>
@@ -76,7 +79,7 @@
               <td></td>
               <td><%= ff.text_area :vimeo_id %></td>
               <td><%= ff.select :priority, 1..10 %></td>
-              <td><%= !video.versions.blank? ? User.find(video.versions.last.whodunnit).email : "" %><br><%= video.updated_at.strftime('%F at %T') %></td>
+              <td><%= !video.versions.blank? && video.versions.last.whodunnit ? User.find(video.versions.last.whodunnit).email : "" %><br><%= video.updated_at.strftime('%F at %T') %></td>
               <td><%= ff.check_box :_destroy %></td>
             </tr>
           <% end %>
@@ -110,7 +113,7 @@
               <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
               <td><%= ff.text_field :alt_tag %></td>
               <td><%= ff.select :priority, 1..10 %></td>
-              <td><%= !photo.versions.blank? ? User.find(photo.versions.last.whodunnit).email : "" %><br><%= photo.updated_at.strftime('%F at %T') %></td>
+              <td><%= !photo.versions.blank? && photo.versions.last.whodunnit ? User.find(photo.versions.last.whodunnit).email : "" %><br><%= photo.updated_at.strftime('%F at %T') %></td>
               <td><%= ff.check_box :_destroy %></td>
             </tr>
           <% end %>
@@ -140,7 +143,7 @@
               <td><%= ff.text_area :url, :cols => "50", :rows => "3" %></td>
               <td><%= ff.select :game_type, ["jigsaw puzzle", "word search", "slider"] %></td>
               <td><%= ff.select :priority, 1..10 %></td>
-              <td><%= !game.versions.blank? ? User.find(game.versions.last.whodunnit).email : "" %><br><%= game.updated_at.strftime('%F at %T') %></td>
+              <td><%= !game.versions.blank? && game.versions.last.whodunnit ? User.find(game.versions.last.whodunnit).email : "" %><br><%= game.updated_at.strftime('%F at %T') %></td>
               <td><%= ff.check_box :_destroy %></td>
             </tr>
           <% end %>
@@ -168,7 +171,7 @@
               <td><%= ff.text_field :content %></td>
               <td><%= ff.text_field :reference %></td>
               <td><%= ff.select :priority, 1..10 %></td>
-              <td><%= !fun_fact.versions.blank? ? User.find(fun_fact.versions.last.whodunnit).email : "" %><br><%= fun_fact.updated_at.strftime('%F at %T') %></td>
+              <td><%= !fun_fact.versions.blank? && fun_fact.versions.last.whodunnit ? User.find(fun_fact.versions.last.whodunnit).email : "" %><br><%= fun_fact.updated_at.strftime('%F at %T') %></td>
               <td><%= ff.check_box :_destroy %></td>
             </tr>
           <% end %>

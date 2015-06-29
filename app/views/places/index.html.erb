@@ -25,7 +25,7 @@
           <td><%= place.categories[0] ? place.categories[0].name : "NOT CATEGORIZED" %></td>
           <td><%= place.subscription_level %></td>
           <td><%= place.updated_at.strftime('%F at %T') %></td>
-          <td><%= !place.versions.blank? ? User.find(place.versions.last.whodunnit).email : "" %></td>
+          <td><%= !place.versions.blank? && place.versions.last.whodunnit ? User.find(place.versions.last.whodunnit).email : "" %></td>
         </tr>
       <% end %>
     <% end %>
