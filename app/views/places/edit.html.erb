@@ -26,13 +26,13 @@
       <%= f.input :subscription_level, collection: ["Premium", "standard", "basic"], required: true %>
     </div>
     <div class="form-group">
-      <%= f.input :status, collection: ["draft", "edited", "published", "removed"], required: true %>
+      <%= f.input :status, collection: ["draft", "edited", "live", "removed"], required: true %>
     </div>
     <div class="form-group">
-      <%= f.input :published_at, include_blank: true, label: "Publish At" %>
+      <%= f.input :published_at, as: :date, order: [:day, :month, :year], include_blank: true, label: "Publish At" %>
     </div>
     <div class="form-group">
-      <%= f.input :unpublished_at, include_blank: true, label: "Remove At" %>
+      <%= f.input :unpublished_at, as: :date, order: [:day, :month, :year], include_blank: true, label: "Remove At" %>
     </div>
     <p><input id="pac-input" class="controls" type="text"
         placeholder="Enter a location"></p>

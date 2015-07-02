@@ -1,3 +1,3 @@
 every 1.minute do
-  rake 'posts:publish', environment: environment
+  rake 'places:publish', environment: environment
 end

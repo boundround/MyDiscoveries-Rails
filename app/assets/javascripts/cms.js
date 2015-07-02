@@ -51,3 +51,12 @@ $(document).ready(function(){
   });
 
 });
+
+$(document).ready(function(){
+  $('.form_datetime').datepicker({
+    autoclose: true,
+    todayBtn: true,
+    pickerPosition: "bottom-left",
+    format: 'dd-mm-yyyy'
+  });
+});

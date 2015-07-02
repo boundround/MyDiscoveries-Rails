@@ -13,6 +13,9 @@ class Place < ActiveRecord::Base
 
   scope :active, -> { where.not(subscription_level: ['out', 'draft']) }
 
+  scope :publishing_queue, -> { where(status: "edited") }
+  scope :removal_queue, -> { where('unpublished_at <= ?', Time.now) }
+
   include PgSearch
   pg_search_scope :search, against: [:display_name, :description],
     using: {tsearch: {dictionary: "english"}},
@@ -169,6 +172,19 @@ class Place < ActiveRecord::Base
       :display_name,
       [:display_name, :post_code]
     ]
+  end
+
+  def publish
+    self.status = "live"
+    if self.unpublished_at < self.published_at
+      self.unpublished_at = nil
+    end
+    self.save
+  end
+
+  def unpublish
+    self.status = "removed"
+    self.save
   end
 
 end
