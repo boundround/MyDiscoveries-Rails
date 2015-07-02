@@ -10,7 +10,7 @@ class AreaSerializer < ActiveModel::Serializer
               :northeast_longitude, :southwest_latitude, :southeast_latitude
 
   def places
-    object.places.where.not(subscription_level: "out").where.not(subscription_level: "draft")
+    object.places.where(status: "live")
   end
 
   define_method("Area Intro sentence (max 90 characters)_Sound Sprite text") do

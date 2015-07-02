@@ -11,7 +11,7 @@ class Place < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
-  scope :active, -> { where.not(subscription_level: ['out', 'draft']) }
+  scope :active, -> { where(status: "live") }
 
   scope :publishing_queue, -> { where(status: "edited") }
   scope :removal_queue, -> { where('unpublished_at <= ?', Time.now) }

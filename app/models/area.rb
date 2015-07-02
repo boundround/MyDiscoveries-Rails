@@ -7,7 +7,7 @@ class Area < ActiveRecord::Base
   after_save :load_into_soulmate
   before_destroy :remove_from_soulmate
 
-  scope :active, -> { where.not(published_status: ['out', 'draft']) }
+  scope :active, -> { where(published_status: "live") }
 
   validates_presence_of :display_name, :slug
   has_many :videos, -> { order "created_at ASC"}
@@ -62,7 +62,7 @@ class Area < ActiveRecord::Base
             "title"=> area.display_name,
             "url" => '/areas/' + area.slug + '.html',
             "id" => area.id,
-            "places" => !area.places.all? { |place| place.subscription_level == "draft" },
+            "places" => area.places.all? { |place| place.subscription_level == "live" },
             "icon" => {
               "iconUrl" => 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
               # size of the icon
