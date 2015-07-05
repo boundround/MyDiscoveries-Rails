@@ -8,14 +8,16 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
 SitemapGenerator::Sitemap.create do
   # Add all areas:
   Area.find_each do |area|
-    next if area.published_status == 'draft' || area.published_status == 'out'
-    add area_path(area), :lastmod => area.updated_at
+    if area.published_status == 'live'
+      add area_path(area), :lastmod => area.updated_at
+    end
   end
 
   # Add all places:
   Place.find_each do |place|
-    next if place.subscription_level.downcase == "out" || place.subscription_level.downcase == "draft"
-    add place_path(place), :lastmod => place.updated_at
+    if place.status.downcase == "live"
+      add place_path(place), :lastmod => place.updated_at
+    end
   end
 end
 

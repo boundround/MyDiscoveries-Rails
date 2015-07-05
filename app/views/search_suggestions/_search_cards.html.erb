@@ -22,7 +22,7 @@
       <% unless @area.places.blank? %>
       <h3 class="nearby-title">Places Near <%= @place ? @place.display_name : @area.display_name %></h3>
         <% @area.places.each do |place| %>
-          <% if place.subscription_level != 'out' && place.subscription_level != 'draft' %>
+          <% if place.status == 'live' %>
             <div class="place-card" id="<%= place.slug %>">
                 <%= raw like_icon(place) %>
                 <div class="upper-card" style="background-image: url(<%= !place.photos.blank? ? place.photos.first.path_url(:small) : "http://placehold.it/350x150" %>)">

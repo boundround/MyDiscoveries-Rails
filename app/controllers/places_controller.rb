@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-  
+
   before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms, :debug]
 
   def index
@@ -16,7 +16,7 @@ class PlacesController < ApplicationController
     render plain: "Host="+request.host+","+"Domain(1)="+request.domain(1)+", "+"Domain(2)="+request.domain(2)+" Subdomain="+request.subdomain()+"\n"+request.inspect
     #find_subdomain(request)
   end
-  
+
   def search
     @places = Place.where.not(subscription_level: ['out', 'draft'])
              .text_search(params[:term]).includes(:area)
@@ -39,7 +39,7 @@ class PlacesController < ApplicationController
     @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
     @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
 
-    if @place.subscription_level == "Premium" || @place.subscription_level == "draft"
+    if @place.subscription_level == "Premium"
       @videos = @place.videos.where.not(priority: 1) || []
       @hero_video = @place.videos.find_by(priority: 1)
     else
@@ -119,6 +119,9 @@ class PlacesController < ApplicationController
   def destroy
   end
 
+  def publishing_queue
+  end
+
   def import
     Place.import(params[:file])
     redirect_to places_path, notice: "Places imported."
@@ -169,16 +172,16 @@ class PlacesController < ApplicationController
     set_program_filters(@places)
 #     render plain: @locations.inspect
   end
-  
+
   def programsearchresultslist #xyrin search.html
     set_program_results_state(params)
   end
-   
+
   def programsearchresultsmap #xyrin map.html
     set_program_results_state(params)
   end
-   
-  def placeprograms #xyrin result.html 
+
+  def placeprograms #xyrin result.html
     set_program_constants()
     @placeprograms = "yes"
     puts "Tring to find"+params[:id]
@@ -187,18 +190,18 @@ class PlacesController < ApplicationController
 #    @place = Place.friendly.find(params[:id])
 #     render plain: params.inspect
   end
-  
+
   protected
     def set_program_results_state(params)
       @placeprograms = "yes"
-    
+
       if params[:term] == "" then params[:term] = nil end
       @search_term = params[:term]
 
       if params[:id] then
         @pplaces = Place.where('places.id = :id', id: params[:id])
         @zoom = 15
-      else         
+      else
         if params[:location] == "" then params[:location] = nil end
         @location_filter = params[:location]
         if params[:subject] == "" then params[:subject] = nil end
@@ -207,25 +210,25 @@ class PlacesController < ApplicationController
         @activity_filter = params[:activity]
         if params[:yearlevel] == "" then params[:yearlevel] = nil end
         @yearlevel_filter = params[:yearlevel]
-    
+
         if @search_term then
     #      @places = Place.joins(:programs).where.not(subscription_level: ['out', 'draft'])
     #               .text_search(@search_term).distinct
           @pplaces = Place.joins(:programs).where(
             #Faster
-            'places.subscription_level NOT IN (:sl) AND 
-            (places.display_name ILIKE :st OR programs.name ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
+            'places.status IN (:sl) AND
+            (places.display_name ILIKE :st OR programs.name ILIKE :st)', sl: "live", st: '%'+@search_term+'%').distinct
             #Better
             # @pplaces = Place.joins(:programs).where(
             #   'places.subscription_level NOT IN (:sl) AND
             #   (places.display_name ILIKE :st OR places.description ILIKE :st
             #   OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
         else
-          @pplaces = Place.joins(:programs).where.not(subscription_level: ['out', 'draft']).distinct
-        end 
-    #    render plain: @places.inspect              
+          @pplaces = Place.joins(:programs).where(status: "live").distinct
+        end
+    #    render plain: @places.inspect
       end
-      
+
       @places = []
       @pplaces.each do |place|
         if !@location_filter || (place.area.display_name == @location_filter) then
@@ -247,7 +250,7 @@ class PlacesController < ApplicationController
                   elsif @yearlevel_filter ==   "11-12" then
                      if (program.programyearlevel_list.include? "11") || (program.programyearlevel_list.include? "12") then push_place = true end
                   end
-                else  
+                else
                   push_place = true
                 end
                 if push_place then @places.push(place) end
@@ -257,7 +260,7 @@ class PlacesController < ApplicationController
           end
         end
       end
-      
+
       set_program_filters(@places)
     end
 
@@ -268,7 +271,7 @@ class PlacesController < ApplicationController
       @yearlevels = ['All','K-2','3-4','5-6','7-8','9-10','11-12']
       @subjects = ['All','English', 'Mathematics', 'Science', 'History', 'Geography', 'Economics', 'Civics', 'Arts', 'Health','Languages']
     end
-    
+
     def set_program_filters(places)
 #      place_ids = places.map{|x| x[:id]}
 #      @locations = Area.joins(:places).where("places.id IN (?)", place_ids).distinct.map{|l| l[:display_name]}
@@ -276,13 +279,13 @@ class PlacesController < ApplicationController
       @categories = Category.all.map{|c| c[:name]}
       @categories.unshift('All')
     end
-    
+
   private
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,
-                                    :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon,
+                                    :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon, :published_at, :unpublished_at,
                                     :street_number, :route, :sublocality, :locality, :state, :country, :post_code, :phone_number,
-                                    :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id,
+                                    :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status,
                                     photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :_destroy],
                                     videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :_destroy],

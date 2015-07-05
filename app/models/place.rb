@@ -11,7 +11,13 @@ class Place < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
-  scope :active, -> { where.not(subscription_level: ['out', 'draft']) }
+  scope :active, -> { where(status: "live") }
+
+  scope :publishing_queue, -> { where('published_at <= ?', Time.now) }
+  scope :removal_queue, -> { where('unpublished_at <= ?', Time.now) }
+
+  scope :to_be_published, -> { where('published_at >= ?', Time.now) }
+  scope :to_be_removed, -> { where('unpublished_at >= ?', Time.now) }
 
   include PgSearch
   pg_search_scope :search, against: [:display_name, :description],
@@ -169,6 +175,18 @@ class Place < ActiveRecord::Base
       :display_name,
       [:display_name, :post_code]
     ]
+  end
+
+  def publish
+    self.status = "live"
+    self.published_at = nil
+    self.save
+  end
+
+  def unpublish
+    self.status = "removed"
+    self.unpublished_at = nil
+    self.save
   end
 
 end
