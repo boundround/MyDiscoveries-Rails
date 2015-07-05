@@ -6,7 +6,7 @@ class Photo < ActiveRecord::Base
   has_many :users, through: :photos_users
 
   mount_uploader :path, PhotoUploader
-  process_in_background :path
+  # process_in_background :path
   skip_callback :commit, :after, :remove_path!
 
   has_paper_trail
