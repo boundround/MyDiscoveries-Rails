@@ -119,6 +119,9 @@ class PlacesController < ApplicationController
   def destroy
   end
 
+  def publishing_queue
+  end
+
   def import
     Place.import(params[:file])
     redirect_to places_path, notice: "Places imported."

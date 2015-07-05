@@ -44,12 +44,14 @@ Rails.application.routes.draw do
   get "places/liked_places" => "places#liked_places"
   get "places/tags" => "places#tags"
   get "programs/tags" => "programs#tags"
-  
-  get "places/debug" => 'places#debug' 
+
+  get "places/publishing_queue" => "places#publishing_queue"
+
+  get "places/debug" => 'places#debug'
   get "places/programsearch" => 'places#programsearch' #xyrin index.html
-  get "places/placeprograms" => 'places#placeprograms' #xyrin result.html 
-  get "places/programsearchresultslist" => 'places#programsearchresultslist' #xyrin search.html 
-  get "places/programsearchresultsmap" => 'places#programsearchresultsmap' #xyrin map.html 
+  get "places/placeprograms" => 'places#placeprograms' #xyrin result.html
+  get "places/programsearchresultslist" => 'places#programsearchresultslist' #xyrin search.html
+  get "places/programsearchresultsmap" => 'places#programsearchresultsmap' #xyrin map.html
 
   get "/sitemap" => redirect("https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz")
 
@@ -126,13 +128,13 @@ Rails.application.routes.draw do
     collection { post :import }
     collection { post :validate_import }
   end
-  
+
   resources :discounts
 
   resources :fun_facts do
     collection { post :import }
   end
-  
+
   match '/send_postcard', to: 'places#send_postcard', via: 'post'
 
   match '/send_user_story', to: 'users#send_story', via: 'post'

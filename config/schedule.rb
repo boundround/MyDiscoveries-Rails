@@ -1,3 +1,3 @@
-every 1.minute do
+every :day do
   rake 'places:publish', environment: environment
 end

@@ -1,0 +1,61 @@
+<div id="table-container">
+  <h2>Publishing Queue</h2>
+
+  <table class="table table-striped" id="place-table">
+    <thead>
+    <tr>
+      <th>Area</th>
+      <th>Area ID</th>
+      <th>Place</th>
+      <th>Place ID</th>
+      <th>Place Type</th>
+      <th>Subscription Level</th>
+      <th>Publish Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% Place.to_be_published.each do |place| %>
+      <tr>
+        <td><%= place.area.display_name %></td>
+        <td><%= place.area.id %></td>
+        <td><%= link_to place.display_name, edit_place_path(place) %></td>
+        <td><%= place.id %></td>
+        <td><%= place.categories[0] ? place.categories[0].name : "NOT CATEGORIZED" %></td>
+        <td><%= place.subscription_level %></td>
+        <td><%= place.published_at %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id="table-container">
+  <h2>Removal Queue</h2>
+
+  <table class="table table-striped" id="place-table">
+    <thead>
+    <tr>
+      <th>Area</th>
+      <th>Area ID</th>
+      <th>Place</th>
+      <th>Place ID</th>
+      <th>Place Type</th>
+      <th>Subscription Level</th>
+      <th>Removal Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% Place.to_be_removed.each do |place| %>
+      <tr>
+        <td><%= place.area.display_name %></td>
+        <td><%= place.area.id %></td>
+        <td><%= link_to place.display_name, edit_place_path(place) %></td>
+        <td><%= place.id %></td>
+        <td><%= place.categories[0] ? place.categories[0].name : "NOT CATEGORIZED" %></td>
+        <td><%= place.subscription_level %></td>
+        <td><%= place.unpublished_at %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

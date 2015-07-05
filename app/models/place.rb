@@ -13,8 +13,11 @@ class Place < ActiveRecord::Base
 
   scope :active, -> { where(status: "live") }
 
-  scope :publishing_queue, -> { where(status: "edited") }
+  scope :publishing_queue, -> { where('published_at <= ?', Time.now) }
   scope :removal_queue, -> { where('unpublished_at <= ?', Time.now) }
+
+  scope :to_be_published, -> { where('published_at >= ?', Time.now) }
+  scope :to_be_removed, -> { where('unpublished_at >= ?', Time.now) }
 
   include PgSearch
   pg_search_scope :search, against: [:display_name, :description],
@@ -176,14 +179,13 @@ class Place < ActiveRecord::Base
 
   def publish
     self.status = "live"
-    if self.unpublished_at < self.published_at
-      self.unpublished_at = nil
-    end
+    self.published_at = nil
     self.save
   end
 
   def unpublish
     self.status = "removed"
+    self.unpublished_at = nil
     self.save
   end
 
