@@ -526,12 +526,6 @@ var addMarkersClickEvent = function(markers) {
   });
 };
 
-$('.dude-help').on('click', function () {
-  $(this).find('.balloon-wrapper').toggleClass('balloon-wrapper-show');
-  $(this).toggleClass('dude-help-out');
-});
-
-
 // Search Box
 
 // Save User Location
@@ -636,14 +630,15 @@ window.onload = function() {
 
       var newZoom = 9;
       if (ui.item.resultType === 'place' || ui.item.resultType === 'area') {
-        newZoom = 13;
-        $('#svgdiv').fadeOut("fast");
-        console.log(ui.item.lat + ', ' + ui.item.lng + ' ' + ui.item.resultType);
-        map.setView( [ui.item.lat, ui.item.lng], newZoom );
-        window.resultCard = $('#' + ui.item.place_id);
-        console.log("saving result card");
-        showAreaCards();
-        showPlaceCards();
+        // newZoom = 13;
+        // $('#svgdiv').fadeOut("fast");
+        // console.log(ui.item.lat + ', ' + ui.item.lng + ' ' + ui.item.resultType);
+        // map.setView( [ui.item.lat, ui.item.lng], newZoom );
+        // window.resultCard = $('#' + ui.item.place_id);
+        // console.log("saving result card");
+        // showAreaCards();
+        // showPlaceCards();
+        window.location.href = "/places/" + ui.item.place_id;
       }
 
       if (ui.item.resultType === 'Google') {
