@@ -27,3 +27,7 @@
   width: 400px;
 }
 
+.checkbox .role-checkbox {
+  position: relative !important;
+}
+

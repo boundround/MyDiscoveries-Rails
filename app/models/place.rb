@@ -5,6 +5,8 @@ class Place < ActiveRecord::Base
 
   has_paper_trail
 
+  resourcify
+
   acts_as_taggable
   acts_as_taggable_on :locations, :activities
 

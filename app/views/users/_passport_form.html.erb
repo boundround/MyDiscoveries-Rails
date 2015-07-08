@@ -71,6 +71,7 @@
   </table>
   <% if current_user.try(:admin) %>
     <%= f.input :admin %>
+    <%= f.association :roles, as: :check_boxes, inline_label: true, :label_method => lambda { |role| role.name.capitalize }, input_html: { class: 'role-checkbox' } %>
   <% end %>
   <div class="actions">
     <%= f.submit 'Update Account', class: "btn btn-default" %>
