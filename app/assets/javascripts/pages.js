@@ -629,7 +629,7 @@ window.onload = function() {
       });
 
       var newZoom = 9;
-      if (ui.item.resultType === 'place' || ui.item.resultType === 'area') {
+      if (ui.item.resultType === 'place') {
         // newZoom = 13;
         // $('#svgdiv').fadeOut("fast");
         // console.log(ui.item.lat + ', ' + ui.item.lng + ' ' + ui.item.resultType);
@@ -639,6 +639,8 @@ window.onload = function() {
         // showAreaCards();
         // showPlaceCards();
         window.location.href = "/places/" + ui.item.place_id;
+      } else if (ui.item.resultType === 'area') {
+        window.location.href = "/areas/" + ui.item.place_id
       }
 
       if (ui.item.resultType === 'Google') {
