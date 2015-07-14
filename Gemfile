@@ -41,6 +41,8 @@ gem 'omniauth-instagram'
 gem 'authority'
 gem 'rolify'
 
+gem 'factual-api'
+
 gem 'whenever', :require => false
 
 gem 'paper_trail', '~> 4.0.0.rc' #track updates by user id
