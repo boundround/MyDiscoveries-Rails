@@ -23,9 +23,6 @@
       <div class="form-group">
         <%= f.input :booking_url, input_html: { class: 'form-control' } %>
       </div>
-      <div class="form-group">
-        <%= f.input :subscription_level, collection: ["Premium", "standard", "basic"], required: true %>
-      </div>
     <% end %>
     <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
       <div class="form-group published-radio">
