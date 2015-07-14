@@ -1,7 +1,7 @@
 <table class="passport">
   <tr><td colspan="2"><%= image_tag 'plane.png' , class: 'passport-plane' %><h2>My Passport</h2></td></tr>
   <tr>
-    <td rowspan="2" class="left-passport">
+    <td rowspan="3" class="left-passport">
       <div class="form-group passport-form">
         <div class="passport-photo">
           <i class="spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i>
@@ -30,9 +30,9 @@
         </div>
       <% end %>
       <td>
-      <div class="form-group passport-form">
-        <%= f.input :name, label: false, placeholder: 'Your Name' %>
-      </div>
+        <div class="form-group passport-form">
+          <%= f.input :name, label: false, placeholder: 'Your Name' %>
+        </div>
       </td>
     </tr>
     <tr>
@@ -44,6 +44,11 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td>
+        <%= f.input :promo_code, label: false, placeholder: 'Add A Promo Code' %>
+      </td>
+    <tr>
     <tr>
       <td rowspan="3">
         <%= image_tag 'passport_stamp.png', class: 'passport-stamp' %>

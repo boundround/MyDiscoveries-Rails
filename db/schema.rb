@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629110043) do
+ActiveRecord::Schema.define(version: 20150714030027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -298,6 +298,18 @@ ActiveRecord::Schema.define(version: 20150629110043) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
+  create_table "user_photos", force: true do |t|
+    t.string   "title"
+    t.string   "credit"
+    t.string   "path"
+    t.string   "caption"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "user_photos", ["user_id"], name: "index_user_photos_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -322,6 +334,7 @@ ActiveRecord::Schema.define(version: 20150629110043) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "promo_code"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
