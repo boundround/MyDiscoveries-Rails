@@ -14,7 +14,7 @@
       </div>
     <% end %>
     <tr>
-      <td rowspan="3" class="left-passport">
+      <td rowspan="4" class="left-passport">
         <div class="form-group passport-form">
 
         </div>
@@ -37,6 +37,10 @@
         <%= f.input :email, label: false, placeholder: 'Your Email Address', required: true %>
       </td>
     </tr>
+    <tr>
+      <td>
+        <%= f.input :promo_code, label: false, placeholder: 'Promo Code (optional)' %>
+      </td>
     <tr>
       <td rowspan="2">
         <%= image_tag 'passport_stamp.png', class: 'passport-stamp' %>
