@@ -4,7 +4,8 @@ class ProgramsController < ApplicationController
 
   def set_program_constants()
     @ylvec = "K,1,2,3,4,5,6,7,8,9,10,11,12"
-    @subjects = "English, Mathematics, Science, History, Geography, Economics, Civics, Arts, Health,Languages"
+    @subjects = "Arts, Business & Enterprise, Education, English, Geography, Health & Physical Education, History, Language, Mathematics, Science, Society & Environment, Technology"
+
   end
   
   def index
@@ -49,12 +50,12 @@ class ProgramsController < ApplicationController
   end
   
   def import
-    Program.import(params[:file])
+    Program.validate_import(params[:file],params[:import])
     redirect_to places_path, notice: "Programs imported."
   end
 
   def validate_import
-    Program.validate_import(params[:file])
+    Program.validate_import(params[:file],params[:import])
     redirect_to places_path, notice: "Programs imported."
   end
 
