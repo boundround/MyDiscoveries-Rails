@@ -64,7 +64,7 @@ class Area < ActiveRecord::Base
             "id" => area.id,
             "places" => area.places.all? { |place| place.subscription_level == "live" },
             "icon" => {
-              "iconUrl" => 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+              "iconUrl" => 'https://s3-ap-southeast-2.amazonaws.com/brwebproduction/vector_icons/orange_plane.png',
               # size of the icon
               "iconSize" => [43, 26],
               # point of the icon which will correspond to marker location

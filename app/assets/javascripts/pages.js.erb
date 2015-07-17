@@ -285,7 +285,7 @@ window.areaLayers = {
 
 var areaIcon = L.Icon.Label.extend({
                 options: {
-                  iconUrl: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+                  iconUrl: 'https://s3-ap-southeast-2.amazonaws.com/brwebproduction/vector_icons/orange_plane.png',
                   shadowUrl: null,
                   iconSize: new L.Point(43, 26),
                   iconAnchor: new L.Point(0, 0),
@@ -545,14 +545,47 @@ window.onload = function() {
     }
   });
 
+  var googlePlaceSearch = function(request, response) {
+    function initialize() {
+      var service = new google.maps.places.AutocompleteService();
+      service.getPlacePredictions({ input: request.term }, callback);
+    }
+
+    function callback(predictions, status) {
+      if (status != google.maps.places.PlacesServiceStatus.OK) {
+        alert(status);
+        return;
+      }
+      response( $.map( predictions, function( item ) {
+        return {
+          label: item.description,
+          value: item.description,
+          lat: -33.865143,
+          lng: 151.2099,
+          resultType: 'Google',
+          placeId: item.place_id
+        }
+      }));
+    }
+    initialize();
+  }
+
   $('.search-box').autocomplete({
     autoFocus: true,
     //source: "/search_suggestions.json?term=" + request.term
     source: function( request, response ) {
+      var combinedData = {};
+      var localComplete = false;
+      var factualComplete = false;
+
+      // ajax call to local database (soulmate server) for bound round places
       $.ajax({
+        beforeSend: function(){
+          $('.search-spinner').css('visibility', 'visible');
+        },
         url: '/sm/search?types[]=place&types[]=area&limit=100&term=' + request.term,
-        success: function( data ) {
-          var data = $.map(data.results.area.concat(data.results.place), function( item ) {
+        success: function(data) {
+          combinedData = $.map(data.results.place.concat(data.results.area), function( item ) {
             var areaDisplay = null;
             if (item.hasOwnProperty('area')) {
               if (item.area.display_name == item.area.country) {
@@ -576,43 +609,67 @@ window.onload = function() {
             }
           });
 
-          if ( data.length >= 1 ) {
-            response(data);
-          } else {
-            googlePlaceSearch(request, response);
-          }
-
           $('.search-sidebar').on('click', function(){
             $('#search-box').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item: data[0]});
           });
+        },
+        complete: function(){
+          combineResults(request.term);
         }
       });
 
-      var googlePlaceSearch = function(request, response) {
-        function initialize() {
-          var service = new google.maps.places.AutocompleteService();
-          service.getQueryPredictions({ input: request.term }, callback);
-        }
+      // ajax call to Factual API for more places
+      // $.ajax({
+      //   url: '/factual_places/search.json?term=' + request.term,
+      //   success: function(data){
+      //     var factualData = $.map(data, function(item){
+      //       return {
+      //         label: item.name,
+      //         value: item.name,
+      //         lat: item.latitude,
+      //         lng: item.longitude,
+      //         resultType: "factual",
+      //         place_id: "#"
+      //       }
+      //     });
+      //     console.log(data);
+      //     console.log(combinedData);
+      //     combinedData = combinedData.concat(factualData)
 
-        function callback(predictions, status) {
-          if (status != google.maps.places.PlacesServiceStatus.OK) {
-            alert(status);
-            return;
-          }
-          response( $.map( predictions, function( item ) {
-            return {
-              label: item.description,
-              value: item.description,
-              lat: -33.865143,
-              lng: 151.2099,
-              resultType: 'Google',
-              placeId: item.place_id
+      //   },
+
+      //   complete: function(){
+      //     factualComplete = true;
+      //     factualComplete && localComplete && combineResults();
+      //   }
+      // });
+
+      function combineResults(searchTerm){
+        var lastIndex;
+        $('.search-spinner').css('visibility', 'hidden');
+        if ( combinedData.length >= 1 ) {
+          // Sort places that start with search term first
+          for(var i = 0; i < combinedData.length; i++){
+            var term = request.term.toLowerCase();
+            if (combinedData[i]["label"].toLowerCase().match("^" + term)){
+              var temp = combinedData.splice(i, 1);
+              combinedData = temp.concat(combinedData);
+              lastIndex = i;
             }
-          }));
+          }
+          // Sort places with search term in name somewhere next
+          for(lastIndex; combinedData.length < lastIndex; lastIndex++){
+            var term = request.term.toLowerCase();
+            if (combinedData[lastIndex]["label"].toLowerCase().match(term)){
+              var temp = combinedData.splice(lastIndex, 1);
+              combinedData = temp.concat(combinedData);
+            }
+          }
+          response(combinedData);
+        } else {
+          googlePlaceSearch(request, response);
         }
-        initialize();
       }
-
     },
     minLength: 2,
     select: function( event, ui ) {
@@ -629,7 +686,7 @@ window.onload = function() {
       });
 
       var newZoom = 9;
-      if (ui.item.resultType === 'place' || ui.item.resultType === 'area') {
+      if (ui.item.resultType === 'place') {
         // newZoom = 13;
         // $('#svgdiv').fadeOut("fast");
         // console.log(ui.item.lat + ', ' + ui.item.lng + ' ' + ui.item.resultType);
@@ -639,6 +696,8 @@ window.onload = function() {
         // showAreaCards();
         // showPlaceCards();
         window.location.href = "/places/" + ui.item.place_id;
+      } else if (ui.item.resultType === 'area'){
+        window.location.href = "/areas/" + ui.item.place_id;
       }
 
       if (ui.item.resultType === 'Google') {
