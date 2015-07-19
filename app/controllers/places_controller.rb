@@ -3,8 +3,8 @@ class PlacesController < ApplicationController
   before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms, :debug]
 
   def index
-    @places = Place.all
-    @areas = Area.all
+    @places = Place.includes(:area, :categories, :versions).order('display_name asc')
+    # @areas = Area.includes(:places => [:categories, :versions])
 
     respond_to do |format|
       format.html

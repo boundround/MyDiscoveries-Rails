@@ -33,6 +33,21 @@ var cardHover = function(){
   });
 }
 
+var createNewPlaceFromGooglePlaces = function(place_id){
+  var map2 = new google.maps.Map(document.getElementById('place-holder'));
+  var service = new google.maps.places.PlacesService(map2);
+  var placeDetails;
+  var request = {
+    placeId: place_id
+  };
+  service.getDetails(request, function(place, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      placeDetails = place;
+      console.log(placeDetails);
+    }
+  });
+}
+
 var setViewForGooglePlace = function(place, city, country, userIP){
   geocoder = new google.maps.Geocoder();
   geocoder.geocode({ address: place }, function(results, status){
@@ -645,7 +660,7 @@ window.onload = function() {
       // });
 
       function combineResults(searchTerm){
-        var lastIndex;
+        var lastIndex = 0;
         $('.search-spinner').css('visibility', 'hidden');
         if ( combinedData.length >= 1 ) {
           // Sort places that start with search term first
@@ -665,6 +680,7 @@ window.onload = function() {
               combinedData = temp.concat(combinedData);
             }
           }
+          combinedData = combinedData.slice(0, 6);
           response(combinedData);
         } else {
           googlePlaceSearch(request, response);
@@ -701,7 +717,25 @@ window.onload = function() {
       }
 
       if (ui.item.resultType === 'Google') {
-        setViewForGooglePlace(ui.item.label, userCity, userCountry, $('#user-ip').data("ip"));
+        var newLat, newLng;
+        geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: ui.item.label }, function(results, status){
+          if (status == google.maps.GeocoderStatus.OK) {
+          // new API results for Google Places
+          newLat = results[0].geometry.location.lat();
+          newLng = results[0].geometry.location.lng();
+          }
+          $.ajax({
+            url: '/factual_places/search.json?term=' + ui.item.label + '&lat=' + newLat + '&lng=' + newLng,
+            success: function(data){
+              if (data.length > 0){
+                createNewPlaceFromGooglePlaces(ui.item.placeId);
+              } else {
+                setViewForGooglePlace(ui.item.label, userCity, userCountry, $('#user-ip').data("ip"));
+              }
+            }
+          });
+        });
       }
 
       if (typeof brglobe != 'undefined') {
