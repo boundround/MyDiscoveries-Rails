@@ -103,13 +103,15 @@ class Area < ActiveRecord::Base
   end
 
   def load_into_soulmate
-    loader = Soulmate::Loader.new("area")
-    loader.add("term" => display_name.downcase, "display_name" => display_name, "id" => id, "description" => description,
-                "latitude" => latitude, "longitude" => longitude, "url" => '/areas/' + slug + '.html', "slug" => slug, "country" => country, "placeType" => "area")
+    if self.published_status == "live"
+      loader = Soulmate::Loader.new("area")
+      loader.add("term" => display_name.downcase, "display_name" => display_name, "id" => id, "description" => description,
+                  "latitude" => latitude, "longitude" => longitude, "url" => '/areas/' + slug + '.html', "slug" => slug, "country" => country, "placeType" => "area")
+    end
   end
 
   def remove_from_soulmate
-    loader = Soulmate::Loader.new("place")
+    loader = Soulmate::Loader.new("area")
     loader.remove("id" => self.id)
   end
 

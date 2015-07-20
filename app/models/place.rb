@@ -157,8 +157,7 @@ class Place < ActiveRecord::Base
   end
 
   def load_into_soulmate
-    puts id
-    if self.subscription_level.downcase == 'premium' || self.subscription_level.downcase == 'standard' || self.subscription_level == 'basic'
+    if self.status == "live"
       loader = Soulmate::Loader.new("place")
       loader.add("term" => display_name.downcase + ' ' + description.downcase + ' ' + self.area.display_name.downcase,
                 "display_name" => display_name, "id" => id, "latitude" => latitude, "longitude" => longitude,
