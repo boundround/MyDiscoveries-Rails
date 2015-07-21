@@ -14,11 +14,11 @@
     <tbody>
     <% @places.each do |place| %>
         <tr>
-          <td><%= place.area_id ? Area.find(place.area_id).display_name : "" %></td>
-          <td><%= link_to place.display_name, edit_place_path(place) %></td>
-          <td><%= place.place_id %></td>
-          <td><%= place.subscription_level %></td>
-          <td><%= place.updated_at.strftime('%F at %T') %></td>
+          <td><%= place[5].blank? ? "" : place[5] %></td>
+          <td><%= link_to place[0], "/places/" + place[1].to_s + "/edit" %></td>
+          <td><%= place[2] %></td>
+          <td><%= place[3] %></td>
+          <td><%= place[4].strftime('%F at %T') %></td>
         </tr>
       <% end %>
     </tbody>
