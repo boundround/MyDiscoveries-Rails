@@ -10,7 +10,6 @@
       <th>Google Place ID</th>
       <th>Subscription Level</th>
       <th>Updated At</th>
-      <th>Updated By</th>
     </tr>
     </thead>
     <tbody>
@@ -22,7 +21,6 @@
           <td><%= place.place_id %></td>
           <td><%= place.subscription_level %></td>
           <td><%= place.updated_at.strftime('%F at %T') %></td>
-          <td><%= !place.versions.blank? && place.versions.last.whodunnit ? User.find(place.versions.last.whodunnit).email : "" %></td>
         </tr>
       <% end %>
     </tbody>
