@@ -127,20 +127,20 @@ var resetHomeScreen = function() {
   console.log('resetting home screen');
 }
 
-var removeDuplicateAreaObjects = function(array) {
-  var out = [];
-  var temp = {};
-  for (var i = 0; i < array.length; i++) {
-    temp[array[i].title] = array[i];
-  }
+// var removeDuplicateAreaObjects = function(array) {
+//   var out = [];
+//   var temp = {};
+//   for (var i = 0; i < array.length; i++) {
+//     temp[array[i].title] = array[i];
+//   }
 
-  for (var key in temp) {
-    if (temp.hasOwnProperty(key)) {
-      out.push(temp[key])
-    }
-  }
-  return out;
-}
+//   for (var key in temp) {
+//     if (temp.hasOwnProperty(key)) {
+//       out.push(temp[key])
+//     }
+//   }
+//   return out;
+// }
 
 var areasPlacesSwitch = function() {
   //switch between areas and places
@@ -431,12 +431,11 @@ var showAreaCards = function(){
       areas.push(marker.options.icon.options);
     }
   });
-  placeMarkers.eachLayer(function(marker) {
-    if (bounds.contains(marker.getLatLng())) {
-      areas.push(marker.options.icon.options.area)
-    }
-  });
-  areas = removeDuplicateAreaObjects(areas);
+  // placeMarkers.eachLayer(function(marker) {
+  //   if (bounds.contains(marker.getLatLng())) {
+  //     areas.push(marker.options.icon.options.area);
+  //   }
+  // });
   for (var i = 0; i < areas.length; i++) {
     var url = areas[i].url;
     var areaTitle = '';
@@ -512,17 +511,6 @@ var showPlaceCards = function(){
     removeCard.remove();
     $('#places').prepend(resultCard);
   }
-  $.ajax({
-    url: "/places/liked_places",
-    data: {placeIds: inBoundsMarkers},
-    success: function(data){
-      console.log(data);
-      $.each(data, function(key, value){
-        $('#' + key).append(value);
-      });
-      likeUnlike();
-    }
-  });
 }
 
 // Redirect to areas or places on click
