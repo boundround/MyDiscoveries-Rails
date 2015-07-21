@@ -47,7 +47,7 @@
     <% end %>
     <% if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin? %>
     <p><input id="pac-input" class="controls" type="text"
-        placeholder="Enter a location"></p>
+        placeholder="Enter a location"> Geometry: <%= @place.latitude %>, <%= @place.longitude %></p>
 
     <div class="map-container">
       <div class="map-canvas"></div>

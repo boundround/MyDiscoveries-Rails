@@ -37,6 +37,21 @@
   text-shadow: 1px 1px black;
 }
 
+.new-page-spinner {
+  visibility: hidden;
+  font-size: 5em !important;
+  color: black !important;
+  opacity: .2 !important;
+  margin-left: 10%;
+}
+
+.search-spinner {
+  visibility: hidden;
+  color: orange !important;
+  margin-left: 40%;
+  margin-top: 2%;
+}
+
 #filters {
   background-color: #f16c42;
   height: 85px;

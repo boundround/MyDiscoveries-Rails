@@ -64,7 +64,7 @@ class Area < ActiveRecord::Base
             "id" => area.id,
             "places" => area.places.all? { |place| place.subscription_level == "live" },
             "icon" => {
-              "iconUrl" => 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+              "iconUrl" => 'https://s3-ap-southeast-2.amazonaws.com/brwebproduction/vector_icons/orange_plane.png',
               # size of the icon
               "iconSize" => [43, 26],
               # point of the icon which will correspond to marker location
@@ -103,13 +103,15 @@ class Area < ActiveRecord::Base
   end
 
   def load_into_soulmate
-    loader = Soulmate::Loader.new("area")
-    loader.add("term" => display_name.downcase, "display_name" => display_name, "id" => id, "description" => description,
-                "latitude" => latitude, "longitude" => longitude, "url" => '/areas/' + slug + '.html', "slug" => slug, "country" => country, "placeType" => "area")
+    if self.published_status == "live"
+      loader = Soulmate::Loader.new("area")
+      loader.add("term" => display_name.downcase, "display_name" => display_name, "id" => id, "description" => description,
+                  "latitude" => latitude, "longitude" => longitude, "url" => '/areas/' + slug + '.html', "slug" => slug, "country" => country, "placeType" => "area")
+    end
   end
 
   def remove_from_soulmate
-    loader = Soulmate::Loader.new("place")
+    loader = Soulmate::Loader.new("area")
     loader.remove("id" => self.id)
   end
 

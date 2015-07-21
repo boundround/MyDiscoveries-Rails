@@ -3,8 +3,8 @@ class PlacesController < ApplicationController
   # before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms, :debug]
 
   def index
-    @places = Place.all
-    @areas = Area.all
+    @places = Place.includes(:area, :categories, :versions).order('display_name asc')
+    # @areas = Area.includes(:places => [:categories, :versions])
 
     respond_to do |format|
       format.html
@@ -37,7 +37,10 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
-    @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
+    if @place.area_id
+      @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
+      @area_videos = @place.area.videos
+    end
 
     if @place.subscription_level == "Premium"
       @videos = @place.videos.where.not(priority: 1) || []
@@ -53,7 +56,6 @@ class PlacesController < ApplicationController
       @photos = @place.photos
     end
 
-    @area_videos = @place.area.videos
     @request_xhr = request.xhr?
 
     if @place.display_name == "Virgin Australia"
@@ -78,6 +80,28 @@ class PlacesController < ApplicationController
       redirect_to :back, notice: 'Place succesfully saved'
     else
       redirect_to '/places#new', notice: 'Place not saved!'
+    end
+  end
+
+  def user_create
+    existing_place = Place.find_by(place_id: params[:place][:place_id])
+    if existing_place
+      render :json => { place_id: existing_place.slug }
+    else
+      @place = Place.new(place_params)
+
+      if user_signed_in?
+        @place.created_by = current_user.id
+      else
+        @place.created_by = "Guest User"
+      end
+
+      if @place.save
+        JournalInfo.create(place_id: @place.id)
+        render :json => {place_id: @place.id}
+      else
+        render :json => {place_id: "error" }
+      end
     end
   end
 
@@ -284,7 +308,7 @@ class PlacesController < ApplicationController
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon, :published_at, :unpublished_at,
-                                    :street_number, :route, :sublocality, :locality, :state, :country, :post_code, :phone_number,
+                                    :street_number, :route, :sublocality, :locality, :state, :country, :post_code, :created_by, :user_created,
                                     :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status,
                                     photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :_destroy],
                                     videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :_destroy],
