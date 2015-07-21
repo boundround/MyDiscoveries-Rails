@@ -49,6 +49,8 @@ Rails.application.routes.draw do
   get "places/tags" => "places#tags"
   get "programs/tags" => "programs#tags"
 
+  post "places/user_create" => "places#user_create"
+
   get "places/publishing_queue" => "places#publishing_queue"
 
   get "places/debug" => 'places#debug'

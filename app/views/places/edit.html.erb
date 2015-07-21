@@ -35,7 +35,7 @@
       <%= f.input :unpublished_at, as: :date, order: [:day, :month, :year], include_blank: true, label: "Remove At" %>
     </div>
     <p><input id="pac-input" class="controls" type="text"
-        placeholder="Enter a location"></p>
+        placeholder="Enter a location"> Geometry: <%= @place.latitude %>, <%= @place.longitude %></p>
 
     <div class="map-container">
       <div class="map-canvas"></div>
