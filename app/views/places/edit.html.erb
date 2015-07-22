@@ -68,7 +68,7 @@
       <%= f.input :place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
     </div>
     <div class="form-group">
-      <%= f.input :area_id, label: 'Change Area', collection: Area.all, as: :select, label_method: :display_name, value_method: :id, required: true %>
+      <%= f.input :area_id, label: 'Change Area', collection: @areas, as: :select, label_method: :display_name, value_method: :id, required: true %>
     </div>
     <div class="field">
       <% Category.all.each do |category| %>

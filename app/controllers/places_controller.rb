@@ -117,13 +117,9 @@ class PlacesController < ApplicationController
 
   def edit
     @place = Place.friendly.find(params[:id])
-    @areas = Area.all
-    @photos = @place.photos
+    @areas = Area.select(:id, :display_name).order(:display_name)
     @photo = Photo.new
-    @games = @place.games
-    @videos = @place.videos
     @program = Program.new
-    @discounts = @place.discounts
     @discount = Discount.new
   end
 
