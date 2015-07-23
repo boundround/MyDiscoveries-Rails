@@ -11,6 +11,7 @@ class BRConstraint
 end
 
 Rails.application.routes.draw do
+
   get 'factual_places/search'
 
   constraints(SSConstraint.new) do
@@ -140,6 +141,8 @@ Rails.application.routes.draw do
   resources :fun_facts do
     collection { post :import }
   end
+
+  resources :countries
 
   match '/send_postcard', to: 'places#send_postcard', via: 'post'
 
