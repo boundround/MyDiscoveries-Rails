@@ -11,6 +11,8 @@ class BRConstraint
 end
 
 Rails.application.routes.draw do
+  get 'factual_places/search'
+
   constraints(SSConstraint.new) do
     get '/', to: 'places#programsearch', as: nil
   end
@@ -33,6 +35,8 @@ Rails.application.routes.draw do
 
   mount Soulmate::Server, :at => "/sm"
 
+  get 'factual_places/search' => 'factual_places#search'
+
   post 'search_suggestions' => 'search_suggestions#index'
 
   post 'searchqueries/create' => 'search_queries#create'
@@ -44,6 +48,8 @@ Rails.application.routes.draw do
   get "places/liked_places" => "places#liked_places"
   get "places/tags" => "places#tags"
   get "programs/tags" => "programs#tags"
+
+  post "places/user_create" => "places#user_create"
 
   get "places/publishing_queue" => "places#publishing_queue"
 

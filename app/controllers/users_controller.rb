@@ -42,8 +42,13 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_path(current_user) }
-        format.js
+        if @user == current_user
+          format.html { redirect_to user_path(current_user) }
+          format.js
+        else
+          format.html { redirect_to users_path }
+          format.js
+        end
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -131,7 +136,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth)
+      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :promo_code, :role_ids => [])
     end
 
     def verify_current_user
