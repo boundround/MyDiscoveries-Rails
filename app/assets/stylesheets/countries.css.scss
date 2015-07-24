@@ -1,5 +1,9 @@
+.twenty-pix-top {
+  height: 20px;
+}
+
 .br_lightbox {
-  background: url(../img/light.png) no-repeat;
+  background: url(asset_path('img/img/light.png')) no-repeat;
   padding: 20px 20px;
   color: #fff;
   background-position: center !important;
@@ -98,7 +102,7 @@
   margin-top: 55px;
 }
 .br_native .br_tittle{
-  background: url(../img/native.png) no-repeat;
+  background: url(asset_path('img/img/native.png')) no-repeat;
   background-size: cover;
   background-position: center;
   min-height: 242px;
@@ -170,7 +174,7 @@
   line-height: 24px;
 }
 .br_fun_fact-mob {
-    background: transparent url("../img/fun.jpg") no-repeat scroll 0% 0%;
+    background: transparent url(asset_path("img/img/fun.jpg")) no-repeat scroll 0% 0%;
     background-color: #6CCAA8;
     background-position: center left;
       min-height: 208px;
@@ -260,7 +264,7 @@
   margin-top: 15px;
 }
 .br_place_bg {
-  background: url(../img/place.jpg) no-repeat;
+  background: url(asset_path('img/img/place.jpg')) no-repeat;
   background-size: cover;
   min-height: 291px;
   padding-top: 28px;
@@ -338,7 +342,7 @@
   text-decoration: underline;
 }
 .br_currency{
-  background: url(../img/cur.png) no-repeat;
+  background: url(asset_path('img/img/cur.png')) no-repeat;
   background-color: #fff;
   background-position:top;
   border-radius:10px;

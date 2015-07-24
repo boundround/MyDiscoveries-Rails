@@ -15,6 +15,14 @@
 //= require jquery.ui.all
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require bootstrap-select.min
+//= require jcarousel.responsive
+//= require jquery.jcarousel.min
+//= require jquery.matchHeight-min
+//= require jquery.touchSwipe.min
+//= require jquery.bxslider
+//= require owl.carousel.min
+//= require countries
 //= require avatarupload
 //= require user
 //= require dataTables/jquery.dataTables
