@@ -68,7 +68,7 @@ $(document).ready(function(){
 
     var countryCode = $('#country-data').data('country-code');
     var capitalCity = $('#country-data').data('capital-city');
-    var languageCode;
+    var languages;
     $.ajax({
         url: "//restcountries.eu/rest/v1/alpha/" + countryCode,
         type: "GET",
@@ -76,9 +76,12 @@ $(document).ready(function(){
             console.log(data);
             var population = data.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             $('#country-population').append(population);
-            languageCode = data.languages[0];
+            languages = data.languages;
+            console.log(languages);
             if ($('#language').html() === ""){
-                $('#language').html(LANGUAGES[languageCode]);
+                for(var i = 0; i < languages.length; i++){
+                    $('#language').append(LANGUAGES[languages[i]] + "<br>");
+                }
             }
             if (capitalCity === ""){
                 capitalCity = data.capital;
