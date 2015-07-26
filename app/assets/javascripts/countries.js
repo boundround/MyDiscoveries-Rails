@@ -70,7 +70,7 @@ $(document).ready(function(){
     var capitalCity = $('#country-data').data('capital-city');
     var languageCode;
     $.ajax({
-        url: "https://api.geonames.org/countryInfoJSON?country=" + countryCode + "&username=dwhitworth1&style=full",
+        url: "//api.geonames.org/countryInfoJSON?country=" + countryCode + "&username=dwhitworth1&style=full",
         type: "GET",
         success: function(data){
             console.log(data);
@@ -88,7 +88,7 @@ $(document).ready(function(){
     var time;
     $.ajax({
 
-        url: "https://api.openweathermap.org/data/2.5/weather?q=" + capitalCity + "," + countryCode,
+        url: "//api.openweathermap.org/data/2.5/weather?q=" + capitalCity + "," + countryCode,
         type: "GET",
         success: function(data){
             console.log(data);
