@@ -80,7 +80,9 @@ $(document).ready(function(){
             console.log(languages);
             if ($('#language').html() === ""){
                 for(var i = 0; i < languages.length; i++){
-                    $('#language').append(LANGUAGES[languages[i]] + "<br>");
+                    if(LANGUAGES[languages[i]]){
+                        $('#language').append(LANGUAGES[languages[i]] + "<br>");
+                    }
                 }
             }
             if (capitalCity === ""){

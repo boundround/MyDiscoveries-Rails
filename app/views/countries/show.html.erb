@@ -1,6 +1,6 @@
 <style>
     .br_lightbox {
-        background: url(<%= @country.hero_photo.url || asset_path('img/img/light.png') %>) no-repeat;
+        background: url(<%= @country.hero_photo.url || asset_path('generic-grey.jpg') %>) no-repeat;
         padding: 20px 20px;
         color: #fff;
         background-position: center !important;
@@ -96,7 +96,7 @@
               <% @country.info_bits.each_with_index do |info_bit, index| %>
                 <style>
                   #info-bit-<%= index %> {
-                    background: url(<%= info_bit.photo.url %>) no-repeat;
+                    background: url(<%= info_bit.photo.url || asset_path('generic-grey.jpg') %>) no-repeat;
                   }
                 </style>
               <div class="br_tittle" id="info-bit-<%= index %>">
@@ -120,7 +120,7 @@
             <% @country.fun_facts.each_with_index do |fun_fact, index| %>
               <style>
                 #fun-fact-<%= index %> {
-                  background: transparent url(<%= fun_fact.hero_photo.url %>) no-repeat scroll 0% 0%;
+                  background: transparent url(<%= fun_fact.hero_photo.url || asset_path('generic-grey.jpg') %>) no-repeat scroll 0% 0%;
                 }
               </style>
               <div class="br_fun_fact hidden-xs hidden-sm">
@@ -180,7 +180,7 @@
                 <div class="owl-carousel">
                   <% @country.famous_faces.each do |famous_face| %>
                     <div>
-                      <img src="<%= famous_face.photo.url %>" class="img-responsive" / >
+                      <img src="<%= famous_face.photo.url || asset_path('generic-grey.jpg') %>" class="img-responsive" / >
                       <p>
                         <strong><%= famous_face.name %></strong><br/>
                         <%= famous_face.description %>
