@@ -12,8 +12,6 @@ end
 
 Rails.application.routes.draw do
 
-  get 'factual_places/search'
-
   constraints(SSConstraint.new) do
     get '/', to: 'places#programsearch', as: nil
   end
@@ -142,7 +140,14 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
-  resources :countries
+  resources :countries do
+    resources :videos
+    resources :photos
+    resources :fun_facts
+    resources :famous_faces
+    resources :info_bits
+    collection { post :import }
+  end
 
   match '/send_postcard', to: 'places#send_postcard', via: 'post'
 

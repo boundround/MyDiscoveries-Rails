@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/elecnix/ruby-geonames.git
+  revision: 320278d1eb6309959a3db84ffa5448a6d5e7e944
+  specs:
+    ruby-geonames (0.2.9)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -429,6 +435,7 @@ DEPENDENCIES
   redis
   rolify
   roo
+  ruby-geonames!
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   sidekiq

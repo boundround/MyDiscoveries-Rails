@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723023619) do
+ActiveRecord::Schema.define(version: 20150726022716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,48 @@ ActiveRecord::Schema.define(version: 20150723023619) do
     t.string   "country_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
+    t.string   "capital_city"
+    t.string   "capital_city_description"
+    t.string   "currency_code"
+    t.string   "official_language"
+    t.string   "tallest_mountain"
+    t.integer  "tallest_mountain_height"
+    t.string   "longest_river"
+    t.integer  "longest_river_length"
+    t.string   "slug"
+    t.integer  "area_id"
+    t.string   "published_status"
+    t.string   "hero_photo"
+    t.string   "short_name"
+    t.string   "long_name"
+  end
+
+  add_index "countries", ["slug"], name: "index_countries_on_slug", using: :btree
+
+  create_table "countries_famous_faces", force: true do |t|
+    t.integer "country_id"
+    t.integer "famous_face_id"
+  end
+
+  create_table "countries_fun_facts", force: true do |t|
+    t.integer "country_id"
+    t.integer "fun_fact_id"
+  end
+
+  create_table "countries_info_bits", force: true do |t|
+    t.integer "country_id"
+    t.integer "info_bit_id"
+  end
+
+  create_table "countries_photos", force: true do |t|
+    t.integer "country_id"
+    t.integer "photo_id"
+  end
+
+  create_table "countries_videos", force: true do |t|
+    t.integer "country_id"
+    t.integer "video_id"
   end
 
   create_table "delayed_jobs", force: true do |t|
@@ -103,6 +145,14 @@ ActiveRecord::Schema.define(version: 20150723023619) do
 
   add_index "discounts", ["place_id"], name: "index_discounts_on_place_id", using: :btree
 
+  create_table "famous_faces", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "photo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "fun_facts", force: true do |t|
     t.text     "content"
     t.string   "reference"
@@ -111,6 +161,7 @@ ActiveRecord::Schema.define(version: 20150723023619) do
     t.datetime "updated_at"
     t.integer  "priority"
     t.integer  "place_id"
+    t.string   "hero_photo"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -152,6 +203,14 @@ ActiveRecord::Schema.define(version: 20150723023619) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "info_bits", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "photo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "journal_infos", force: true do |t|
     t.datetime "created_at"

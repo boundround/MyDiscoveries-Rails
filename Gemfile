@@ -43,6 +43,8 @@ gem 'rolify'
 
 gem 'factual-api'
 
+gem 'ruby-geonames', :git => 'git://github.com/elecnix/ruby-geonames.git'
+
 gem 'whenever', :require => false
 
 gem 'paper_trail', '~> 4.0.0.rc' #track updates by user id

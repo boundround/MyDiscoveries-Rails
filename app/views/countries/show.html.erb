@@ -1,378 +1,371 @@
+<style>
+    .br_lightbox {
+        background: url(<%= @country.hero_photo.url || asset_path('img/img/light.png') %>) no-repeat;
+        padding: 20px 20px;
+        color: #fff;
+        background-position: center !important;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        background-size: cover !important;
+    }
+
+</style>
+
+<div id='country-data' data-country-code=<%= @country.country_code %> data-capital-city=<%= @country.capital_city %>></div>
 <div class="twenty-pix-top"></div>
 <div>
-            <div class="container br_country">
-                <div class="br_lightbox row">
-                    <div class="col-md-12 ">
-                        <p class="br_time">
-                            <img src="<%= asset_path('img/img/Flag.png') %>"/>
-                            <span class="hidden-xs">
-                                <i class="fa fa-clock-o"></i>&nbsp;
-                                3:28am &nbsp;&nbsp;<i class="fa fa-bolt"></i>&nbsp; Slight showers
-                            </span>
-                        </p>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-md-12">
-                        <h1 class="text-center">
-                            Australia<br/>
-                            <span>Population: 23,865,200</span>
-                        </h1>
-                    </div>
-                    <div class="br_time text-center">
-                       <span class="visible-xs">
-                        <i class="fa fa-clock-o"></i>&nbsp;
-                        3:28am &nbsp;&nbsp;<i class="fa fa-bolt"></i>&nbsp; Slight showers
-                    </span>
+  <div class="container br_country">
+    <div class="br_lightbox row">
+      <div class="col-md-12 ">
+        <p class="br_time">
+          <img class="country-flag" src="<%= asset_path('flags/' + @country.country_code.downcase + '.png') %>"/>
+          <span class="hidden-xs">
+            <i class="fa fa-clock-o"></i>&nbsp;
+            <span class="time"> (GMT)</span> &nbsp;&nbsp;<span class="temperature">&deg;</span>&nbsp; <span class="weather-description"></span>
+              in <%= @country.capital_city %>
+          </span>
+        </p>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-md-12">
+        <h1 class="text-center">
+          <%= @country.display_name %><br/>
+          <span id="country-population">Population: </span>
+        </h1>
+      </div>
+      <div class="br_time text-center">
+        <span class="visible-xs">
+          <i class="fa fa-clock-o"></i>&nbsp;
+          <span class="time">(GMT)</span>&nbsp;&nbsp;<span class="temperature">&deg;</span>&nbsp; <span class="weather-description"></span>
+          <br>in <%= @country.capital_city %>
+        </span>
+      </div>
+      <div class="col-md-12 br_links hidden-xs text-center">
+        <a href="#">Info</a>
+        <a href="#">Famous Faces</a>
+        <a href="#">Favourite Places</a><!--
+        <a href="#">Currency Convert</a>
+        <a href="#">Key Phrases</a>
+        <a href="#">Billboard top 5</a> -->
+      </div>
+      <div class="col-md-12 visible-xs text-center br_mob_links">
+        <a href="#">See Australian info-bites &nbsp;<i class="fa fa-angle-right"></i> </a>
+        <a href="#" class="hidden-xs"><i class="fa fa-angle-left"></i>Back to Australia </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-8 col-md-9 br_main_content">
+        <div class="col-md-12 br_intro">
+          <h2><%= @country.display_name %></h2>
+          <p>
+            <%= @country.description %>
+          </p>
+          <div class="clearfix"></div>
+          <div class="owl-carousel">
+            <% @country.videos.each do |video| %>
+              <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1&player_id=player1" width="273" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <% end %>
+            <% @country.photos.each do |photo| %>
+                <div>
+                    <img src="<%= photo.path_url(:medium)%>" class="img-resposive">
                 </div>
-                <div class="col-md-12 br_links hidden-xs text-center">
-                    <a href="#">Info</a>
-                    <a href="#">Famous Faces</a>
-                    <a href="#">Favourite Places</a>
-                    <a href="#">Currency Convert</a>
-                    <a href="#">Key Phrases</a>
-                    <a href="#">Billboard top 5</a>
+            <% end %>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12 ">
+            <div class="br_native">
+              <% @country.info_bits.each_with_index do |info_bit, index| %>
+                <style>
+                  #info-bit-<%= index %> {
+                    background: url(<%= info_bit.photo.url %>) no-repeat;
+                  }
+                </style>
+              <div class="br_tittle" id="info-bit-<%= index %>">
+                <a href="#"><i class="fa fa-share-square-o"></i>
+                   &nbsp;
+                   Share
+                 </a>
+                 <h2 class="text-center hidden-xs"><%= info_bit.title %></h2>
+                 <h2 class="text-center visible-xs"><%= info_bit.title %></h2>
+               </div>
+               <div class="br_desc">
+                  <p>
+                    <%= info_bit.description %>
+                  </p>
                 </div>
-                <div class="col-md-12 visible-xs text-center br_mob_links">
-                    <a href="#">See Australian info-bites &nbsp;<i class="fa fa-angle-right"></i> </a>
-                    <a href="#" class="hidden-xs"><i class="fa fa-angle-left"></i>Back to Australia </a>
-                </div>
+              <% end %>
             </div>
-            <div class="row">
-                <div class="col-sm-8 col-md-9 br_main_content">
-                    <div class="col-md-12 br_intro">
-                        <h2>Australia</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id leo consectetur euismod at sed metus. Vivamus sollicitudin ante sit amet arcu faucibus vulputate. Sed non libero odio, non viverra nisl. Vivamus et ligula lorem. Sed pellentesque tincidunt purus in imperdiet. Donec bibendum scelerisque cursus. <a href="#">Nulla facilisi</a>. Integer ut lorem risus.
-                        </p>
-                        <div class="clearfix"></div>
-                        <div class="owl-carousel">
-                                <div>
-                                    <img src="<%= asset_path('img/img/slide.jpg')%>" class="img-resposive" / >
-                                </div>
-                                <!-- <div>
-                                    <iframe  src="https://www.youtube.com/embed/qjNmcXnTpXE" frameborder="0" allowfullscreen></iframe>
-                                </div> -->
-                                <div>
-                                    <img src="<%= asset_path('img/img/slide.jpg') %>" class="img-resposive" / >
-                                </div>
-                                <div>
-                                    <img src="<%= asset_path('img/img/slide.jpg') %>" class="img-resposive" / >
-                                </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-md-12 ">
-                        <div class="br_native">
-                            <div class="br_tittle">
-                                <a href="#"><i class="fa fa-share-square-o"></i>
-                                   &nbsp;
-                                   Share</a>
-                                   <h2 class="text-center hidden-xs">Native People/Tradional Dress/etc</h2>
-                                   <h2 class="text-center visible-xs">Native People</h2>
-                               </div>
-                               <div class="br_desc">
-                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id leo consectetur euismod at sed metus. Vivamus sollicitudin ante sit amet arcu faucibus vulputate. Sed non libero odio, non viverra nisl. Vivamus et ligula lorem. Sed pellentesque tincidunt purus in imperdiet. <a href="#">Donec bibendum</a> scelerisque cursus. Nulla facilisi. Integer ut lorem risus.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-md-12">
-                     <div class="br_fun_fact hidden-xs hidden-sm">
-                       <div class="row">
-                           <div class="col-sm-3 col-md-3 col-lg-2">
-                               <img src="<%= asset_path('img/img/round.png')%>" >
-                           </div>
-                           <div class="col-sm-9 col-md-9 col-lg-10">
-                            <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
-                            <h2>Now here’s a fun fact!</h2>
-                            <p>
-                               Lorem ipsum dolor sit amet, consectetur adipis cing elit. Vivamus cursus purus quis tellus adipiscing sit amet sus cipit justo lorem ipsum.
-                           </p>
-                       </div>
-                   </div>
-               </div>
-               <div class="col-md-12 visible-xs visible-sm">
-
-                   <div class="row">
-                       <div class="br_fun_fact-mob ">
-                           <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
-
-                            <h2>Now here’s a fun fact!</h2>
-                            <p>
-                               Lorem ipsum dolor sit amet, consectetur adipis cing elit. Vivamus cursus purus quis tellus adipiscing sit amet sus cipit justo lorem ipsum.
-                           </p>
-                           <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
-                       </div>
-                       <div class="clearfix"></div>
-                   </div>
-               </div>
-           </div>
-           <div class="clearfix"></div>
-           <div class="col-md-12">
-               <div class="row">
-                   <div class="br_story">
-                      <img src="<%= asset_path('img/img/story.jpg')%>" class="img-resposive"/>
-                      <div class="br_story_desc">
-                          <h2>Train rides across Brisbane!</h2>
-                          <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id lda...
-                          </p>
-                          <a href="#" class="btn btn-default">Read story</a>
-                      </div>
-                  </div>
-              </div>
           </div>
           <div class="clearfix"></div>
-          <div class="row">
-            <div class="col-md-12 br_famous">
-                    <a href="#" class="hidden-xs"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
-                    <h2>Famous faces from Australia!</h2>
+          <div class="col-md-12">
+            <% @country.fun_facts.each_with_index do |fun_fact, index| %>
+              <style>
+                #fun-fact-<%= index %> {
+                  background: transparent url(<%= fun_fact.hero_photo.url %>) no-repeat scroll 0% 0%;
+                }
+              </style>
+              <div class="br_fun_fact hidden-xs hidden-sm">
+                <div class="row">
+                  <div class="col-sm-3 col-md-3 col-lg-2">
+                    <img src="<%= fun_fact.hero_photo.url %>" class="fun-fact-image">
+                  </div>
+                  <div class="col-sm-9 col-md-9 col-lg-10">
+                    <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
+                    <h2>Now here’s a fun fact!</h2>
                     <p>
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id leo.
+                      <%= raw fun_fact.content %>
                     </p>
-                 <div class="clearfix"></div>
-                 <div class="owl-carousel">
-
-                        <div>
-                            <img src="<%= asset_path('img/img/steve.jpg')%>" class="img-responsive" / >
-                             <p>
-                             <strong>Steve Irwin</strong><br/>
-                             Lorem ipsum dolor sit am et, con sectetur adip isci ng elit. Vivamus cursus.
-                                 </p>
-                        </div>
-                        <div>
-                                <img src="<%= asset_path('img/img/cate.jpg')%>" class="img-responsive" / >
-                                <p>
-                                 <strong>Cate Blanchet</strong><br/>
-                                 Lorem ipsum dolor sit am et, con sectetur adip isci ng elit. Vivamus cursus.
-                             </p>
-                        </div>
-                        <div>
-                                        <img src="<%= asset_path('img/img/hugh.jpg')%>" class="img-responsive" / >
-                                        <p>
-                                         <strong>Hugh Jackman</strong><br/>
-                                         Lorem ipsum dolor sit am et, con sectetur adip isci ng elit. Vivamus cursus.
-                                     </p>
-                        </div>
-                        <div>
-                            <img src="<%= asset_path('img/img/steve.jpg')%>" class="img-responsive" / >
-                             <p>
-                             <strong>Steve Irwin</strong><br/>
-                             Lorem ipsum dolor sit am et, con sectetur adip isci ng elit. Vivamus cursus.
-                                 </p>
-                        </div>
-                        <div>
-                                <img src="<%= asset_path('img/img/cate.jpg')%>" class="img-responsive" / >
-                                <p>
-                                 <strong>Cate Blanchet</strong><br/>
-                                 Lorem ipsum dolor sit am et, con sectetur adip isci ng elit. Vivamus cursus.
-                             </p>
-                        </div>
-                        <div>
-                                        <img src="<%= asset_path('img/img/hugh.jpg')%>" class="img-responsive" / >
-                                        <p>
-                                         <strong>Hugh Jackman</strong><br/>
-                                         Lorem ipsum dolor sit am et, con sectetur adip isci ng elit. Vivamus cursus.
-                                     </p>
-                        </div>
-                 </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 visible-xs visible-sm">
+                <div class="row">
+                  <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
+                    <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
+                      <h2>Now here’s a fun fact!</h2>
+                      <p>
+                        <%= raw fun_fact.content %>
+                      </p>
+                      <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <div class="clearfix"></div>
+          <div class="col-md-12">
+            <div class="row">
+              <!-- <div class="br_story">
+                <img src="<%= asset_path('img/img/story.jpg')%>" class="img-resposive"/>
+                  <div class="br_story_desc">
+                    <h2>Train rides across Brisbane!</h2>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id lda...
+                    </p>
+                    <a href="#" class="btn btn-default">Read story</a>
+                  </div>
+                </div> -->
+              </div>
             </div>
+          <div class="clearfix"></div>
+          <div class="row">
+            <% if !@country.famous_faces.blank? %>
+              <div class="col-md-12 br_famous">
+                <a href="#" class="hidden-xs"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
+                <h2>Famous faces from <%= @country.display_name %>!</h2>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id leo.
+                </p>
+                <div class="clearfix"></div>
+                <div class="owl-carousel">
+                  <% @country.famous_faces.each do |famous_face| %>
+                    <div>
+                      <img src="<%= famous_face.photo.url %>" class="img-responsive" / >
+                      <p>
+                        <strong><%= famous_face.name %></strong><br/>
+                        <%= famous_face.description %>
+                      </p>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
-    </div>
         <div class="clearfix"></div>
-        <div class="row br_featured_place ">
-            <div class="col-md-12 br_place_bg">
-                <div class="col-xs-5 text-left">
-                   <img src="<%= asset_path('img/img/logo.png')%>" class="img-responsive">
-                </div>
-                <div class="col-xs-7 text-right">
-                   <h2>40% off!</h2>
-                </div>
-                <div class="col-xs-12">
-                    <h2>Kids bored this Summer?<br/>
-                        <span>Take a trip to Australia Zoo!</span>
-                        </h2>
-                </div>
+        <!-- <div class="row br_featured_place ">
+          <div class="col-md-12 br_place_bg">
+            <div class="col-xs-5 text-left">
+              <img src="<%= asset_path('img/img/logo.png')%>" class="img-responsive">
             </div>
-        </div>
-        </div>
-    <div class="col-sm-4 col-md-3 hidden-xs br_sidebar">
+            <div class="col-xs-7 text-right">
+              <h2>40% off!</h2>
+            </div>
+            <div class="col-xs-12">
+              <h2>Kids bored this Summer?<br/>
+                <span>Take a trip to Australia Zoo!</span>
+              </h2>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div class="col-sm-4 col-md-3 hidden-xs br_sidebar">
         <div class="col-sm-12">
-            <div class="br_infobox">
-                <h3 class="text-center">Did you know?</h3>
-                <div class="br_info">
-                    <div class="br_line">
-                        <div class="col-xs-6 br_left">Language:
-                        </div>
-                        <div class="col-xs-6">English
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="hr col-xs-12">
-                            <hr/>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="br_line">
-                        <div class="col-xs-6 br_left">Capital City:
-                        </div>
-                        <div class="col-xs-6">Canberra
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-xs-12 br_left br_pad br_light">
-                            Lorem ipsum dolor sit amet, consectetur is tellus adipiscing sit amet suscipit jus.<br/><a href="#">Visit on Bound Round</a>
-                        </div>
-                        <div class="hr col-xs-12">
-                            <hr/>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="br_line">
-                        <div class="col-xs-6 br_left">Tallest Mountain:
-                        </div>
-                        <div class="col-xs-6">Mt Sloopensto
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="hr col-xs-12">
-                            <hr/>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="br_line">
-                        <div class="col-xs-6 br_left">Longest River:
-                        </div>
-                        <div class="col-xs-6">Lake Trintolra
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
+          <div class="br_infobox">
+            <h3 class="text-center">Did you know?</h3>
+            <div class="br_info">
+              <div class="br_line">
+                <div class="col-xs-6 br_left">Language:</div>
+                <div class="col-xs-6"><span id="language"><%= @country.official_language %></span></div>
+                <div class="clearfix"></div>
+                <div class="hr col-xs-12">
+                  <hr/>
                 </div>
-
+              </div>
+            <div class="clearfix"></div>
+            <div class="br_line">
+              <div class="col-xs-6 br_left">Capital City:
+              </div>
+              <div class="col-xs-6"><%= @country.capital_city %>
+              </div>
+              <div class="clearfix"></div>
+              <div class="col-xs-12 br_left br_pad br_light">
+                  <%= @country.capital_city_description %><br/>
+                  <% if area = Area.find_by(display_name: @country.capital_city) %>
+                    <a href="<%= area_path(area)%>">Visit on Bound Round</a>
+                  <% end %>
+              </div>
+              <div class="hr col-xs-12">
+                  <hr/>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="br_line">
+                <div class="col-xs-6 br_left">Tallest Mountain:
+                </div>
+                <div class="col-xs-6"><%= @country.tallest_mountain %>
+                </div>
+                <div class="clearfix"></div>
+                <div class="hr col-xs-12">
+                    <hr/>
+                </div>
             </div>
             <div class="clearfix"></div>
-                <div class="col-xs-12">
+            <div class="br_line">
+                <div class="col-xs-6 br_left">Longest River:
+                </div>
+                <div class="col-xs-6"><%= @country.longest_river %>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+<div class="clearfix"></div>
+     <div class="col-xs-12">
+        <div class="row">
+            <!-- <div class="br_currency">
+                <h3 class="text-center">Currency</h3>
+                <div class="br_select">
+                    <select class="selectpicker">
+                        <option>$4827.50 <span class="br_cont">USD</span></option>
+                        <option>$4827.50 <span class="br_cont">USD</span></option>
+                        <option>$4827.50 <span class="br_cont">USD</span></option>
+                        <option>$4827.50 <span class="br_cont">USD</span></option>
+                    </select>
+                </div>
+                <p class="text-center">= $4023.29 AUD</p>
+                <hr/>
+
+                <div class="clearfix"></div>
+                    <h4 class="text-center">Average prices</h4>
+
+                    <div class="br_side-slider">
+                        <div class="br_slider_btn">
+                            <span id="slider-prev" class="fa fa-angle-left fa-2x"></span>
+                            <span id="slider-next" class="fa fa-angle-right fa-2x"></span>
+                        </div>
+                        <ul class="bxslider">
+                            <li>
+                                <p>Can of cock<br/>
+                                   <span>$2.00</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p>Can of cock<br/>
+                                   <span>$2.00</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p>Can of cock<br/>
+                                   <span>$2.00</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-xs-12">
+        <div class="row">
+            <!-- <div class="br_Key_Phrases">
+                <h3>
+                    <i class="fa fa-volume-up"></i><br/>Key Phrases
+                </h3>
+                <div class="br_sounds br_active">
                     <div class="row">
-                        <div class="br_currency">
-                            <h3 class="text-center">Currency</h3>
-                            <div class="br_select">
-                                <select class="selectpicker">
-                                    <option>$4827.50 <span class="br_cont">USD</span></option>
-                                    <option>$4827.50 <span class="br_cont">USD</span></option>
-                                    <option>$4827.50 <span class="br_cont">USD</span></option>
-                                    <option>$4827.50 <span class="br_cont">USD</span></option>
-                                </select>
-                            </div>
-                            <p class="text-center">= $4023.29 AUD</p>
-                            <hr/>
-                            <div class="clearfix"></div>
-                                <h4 class="text-center">Average prices</h4>
-
-                                <div class="br_side-slider">
-                                    <div class="br_slider_btn">
-                                        <span id="slider-prev" class="fa fa-angle-left fa-2x"></span>
-                                        <span id="slider-next" class="fa fa-angle-right fa-2x"></span>
-                                    </div>
-                                    <ul class="bxslider">
-                                        <li>
-                                            <p>Can of cock<br/>
-                                               <span>$2.00</span>
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>Can of cock<br/>
-                                               <span>$2.00</span>
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>Can of cock<br/>
-                                               <span>$2.00</span>
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-
+                        <div class="col-xs-9">
+                            <p>
+                                Hello<br/>
+                                <span>həˈləʊ,</span>
+                            </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <i class="fa fa-volume-up"></i>
                         </div>
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="col-xs-12">
+                <div class="br_sounds">
                     <div class="row">
-                        <div class="br_Key_Phrases">
-                            <h3>
-                                <i class="fa fa-volume-up"></i><br/>Key Phrases
-                            </h3>
-                            <div class="br_sounds br_active">
-                                <div class="row">
-                                    <div class="col-xs-9">
-                                        <p>
-                                            Hello<br/>
-                                            <span>həˈləʊ,</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-volume-up"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="br_sounds">
-                                <div class="row">
-                                    <div class="col-xs-9">
-                                        <p>
-                                            Hello<br/>
-                                            <span>həˈləʊ,</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-volume-up"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="br_sounds">
-                                <div class="row">
-                                    <div class="col-xs-9">
-                                        <p>
-                                            Hello<br/>
-                                            <span>həˈləʊ,</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-volume-up"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="br_sounds">
-                                <div class="row">
-                                    <div class="col-xs-9">
-                                        <p>
-                                            Hello<br/>
-                                            <span>həˈləʊ,</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-volume-up"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="br_sounds">
-                                <div class="row">
-                                    <div class="col-xs-9">
-                                        <p>
-                                            Hello<br/>
-                                            <span>həˈləʊ,</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-volume-up"></i>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-xs-9">
+                            <p>
+                                Hello<br/>
+                                <span>həˈləʊ,</span>
+                            </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <i class="fa fa-volume-up"></i>
                         </div>
                     </div>
                 </div>
+                <div class="clearfix"></div>
+                <div class="br_sounds">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <p>
+                                Hello<br/>
+                                <span>həˈləʊ,</span>
+                            </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <i class="fa fa-volume-up"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="br_sounds">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <p>
+                                Hello<br/>
+                                <span>həˈləʊ,</span>
+                            </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <i class="fa fa-volume-up"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="br_sounds">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <p>
+                                Hello<br/>
+                                <span>həˈləʊ,</span>
+                            </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <i class="fa fa-volume-up"></i>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12">
                     <div class="row">

@@ -1,2 +1,284 @@
-<h1>Countries#edit</h1>
-<p>Find me in app/views/countries/edit.html.erb</p>
+<div class="container">
+  <% if user_signed_in? %>
+    <h1>Edit <%= @country.display_name %></h1>
+
+    <%= simple_form_for @country, html: { role: 'form'} do |f| %>
+      <% if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin? %>
+        <div class="form-group">
+          <%= f.input :display_name, label: 'Display Name', input_html: { class: 'wide-form' }, required: true %>
+        </div>
+        <div class="form-group">
+          <%= f.input :long_name, label: 'Long Name', input_html: { class: 'wide-form' }, required: true %>
+        </div>
+        <div class="form-group">
+          <%= f.input :short_name, label: 'Short Name', input_html: { class: 'wide-form' }, required: true %>
+        </div>
+        <div class="form-group">
+          <%= f.input :description, label: 'Description', input_html: { class: 'wide-form' }, required: true %>
+        </div>
+        <div class="form-group">
+          <%= f.input :hero_photo, as: :file, label: 'Hero Photo' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :country_code, as: :string, label: '2-Letter Country Code', required: true %>
+        </div>
+        <div class="form-group">
+          <%= f.input :capital_city, label: 'Capital City' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :capital_city_description, label: 'Capital City Description', input_html: { class: 'wide-form' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :currency_code, label: '3-Letter Currency Code' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :official_language, label: 'Official Language' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :tallest_mountain, label: 'Tallest Mountain' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :tallest_mountain_height, label: 'Height (numbers only in metres)' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :longest_river, label: 'Longest River' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :longest_river_length, label: 'Length (numbers only in kilometres)' %>
+        </div>
+      <% end %>
+      <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
+        <div class="form-group published-radio">
+          <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "edited", "live", "removed"], checked: ['draft'] %>
+        </div>
+      <% else %>
+        <div class="form-group published-radio">
+          <%= f.input :published_status, as: :radio_buttons, collection: [@country.published_status] %>
+        </div>
+      <% end %>
+      <div id="table-container">
+        <h3>Videos</h3>
+        <table class="table table-striped" id="video-table">
+          <thead>
+            <tr>
+              <th>Preview</th>
+              <th>Vimeo ID</th>
+              <th>Priority</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= f.fields_for :videos do |ff| %>
+              <tr>
+                <%= ff.input :id, as: :hidden %>
+                <td></td>
+                <td><%= ff.text_area :vimeo_id %></td>
+                <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.check_box :_destroy %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div id="table-container">
+        <h3>Photos</h3>
+        <table class="table table-striped" id="photo-table">
+          <thead>
+            <tr>
+              <th>Thumbnail</th>
+              <th>Change Photo</th>
+              <th>Credit</th>
+              <th>Caption</th>
+              <th>Alt Tags</th>
+              <th>Priority</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @country.photos.each do |photo| %>
+              <%= f.fields_for :photos, photo do |ff| %>
+                <tr>
+                  <%= ff.input :id, as: :hidden %>
+                  <td><img src="<%= asset_path(photo.path_url(:small)) %>" class="photo-edit-thumb"></td>
+                  <td><%= ff.file_field :path, class: "photo-file" %></td>
+                  <td><%= ff.text_area :credit %></td>
+                  <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
+                  <td><%= ff.text_field :alt_tag %></td>
+                  <td><%= ff.select :priority, 1..10 %></td>
+                  <td><%= ff.check_box :_destroy %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div id="table-container">
+        <h3>Fun Facts</h3>
+        <table class="table table-striped" id="fun-fact-table">
+          <thead>
+            <tr>
+              <th>Content</th>
+              <th>Reference</th>
+              <th>Hero Photo</th>
+              <th>Priority</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= f.fields_for :fun_facts do |ff| %>
+              <tr>
+                <%= ff.input :id, as: :hidden %>
+                <td><%= ff.text_field :content %></td>
+                <td><%= ff.text_field :reference %></td>
+                <td><%= ff.file_field :hero_photo %></td>
+                <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.check_box :_destroy %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div id="table-container">
+        <h3>Info Bits</h3>
+        <table class="table table-striped" id="fun-fact-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Photo</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= f.fields_for :info_bits do |ff| %>
+              <tr>
+                <%= ff.input :id, as: :hidden %>
+                <td><%= ff.text_field :title %></td>
+                <td><%= ff.text_field :description %></td>
+                <td><%= ff.file_field :photo %></td>
+                <td><%= ff.check_box :_destroy %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div id="table-container">
+        <h3>Famous Faces</h3>
+        <table class="table table-striped" id="fun-fact-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Photo</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= f.fields_for :famous_faces do |ff| %>
+              <tr>
+                <%= ff.input :id, as: :hidden %>
+                <td><%= ff.text_field :name %></td>
+                <td><%= ff.text_field :description %></td>
+                <td><%= ff.file_field :photo %></td>
+                <td><%= ff.check_box :_destroy %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="form-group">
+        <%= f.button :submit, 'Update All' %>
+      </div>
+    <% end %>
+    <div class="photo-container">
+      <hr>
+      <h2>Add New Video</h2>
+      <%= simple_form_for [@country, Video.new] do |f| %>
+        <div class="form-group">
+          <%= f.input :vimeo_id, label: "Enter Vimeo ID", input_html: { class: 'form-control'}  %>
+        </div>
+        <div class="form-group">
+          <%= f.input :priority, label: "Priority", collection: 1..10, input_html: { class: 'form-control'}  %>
+        </div>
+        <div class="form-group">
+          <%= f.button :submit%>
+        </div>
+      </div>
+    <% end %>
+    <hr>
+    <div class="photo-container">
+      <h2>Add New Photo</h2>
+      <%= simple_form_for [@country, Photo.new] do |f| %>
+        <div class="form-group">
+          <%= f.input :title, label: "Photo Title", input_html: { class: 'form-control'} %>
+        </div>
+        <div class="form-group">
+          <%= f.input :caption, input_html: { class: 'form-control'} %><br />
+        </div>
+        <div class="form-group">
+          <%= f.input :credit, input_html: { class: 'form-control'} %><br />
+        </div>
+        <div class="form-group">
+          <%= f.input :alt_tag, input_html: { class: 'form-control'} %><br />
+        </div>
+        <div class="form-group">
+          <%= f.input :caption_source, input_html: { class: 'form-control'} %>
+        </div>
+        <div class="form-group">
+          <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
+        </div>
+        <div class="form-group">
+          <p><%= f.input :path, as: :file, label: false%></p>
+        </div>
+        <div class="form-group">
+          <%= f.button :submit%>
+        </div>
+      <% end %>
+    </div>
+    <hr>
+    <div class="photo-container">
+      <h2>Add New Fun Fact</h2>
+      <%= simple_form_for [@country, FunFact.new] do |f| %>
+        <div class="form-group">
+          <%= f.input :content, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'}  %>
+          <%= f.input :reference, input_html: { class: 'form-control'}  %>
+          <%= f.input :hero_photo, as: :file %>
+        </div>
+        <div class="form-group">
+          <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
+        </div>
+        <div class="form-group">
+          <%= f.button :submit%>
+        </div>
+      <% end %>
+    </div>
+    <div class="photo-container">
+      <h2>Add New Info Bit</h2>
+      <%= simple_form_for [@country, InfoBit.new] do |f| %>
+        <div class="form-group">
+          <%= f.input :title, input_html: { class: 'form-control'}  %>
+          <%= f.input :description, input_html: { class: 'form-control'}  %>
+          <%= f.input :photo, as: :file %>
+        </div>
+        <div class="form-group">
+          <%= f.button :submit%>
+        </div>
+      <% end %>
+    </div>
+    <div class="photo-container">
+      <h2>Add New Famous Face</h2>
+      <%= simple_form_for [@country, FamousFace.new] do |f| %>
+        <div class="form-group">
+          <%= f.input :name, input_html: { class: 'form-control'}  %>
+          <%= f.input :description, input_html: { class: 'form-control'}  %>
+          <%= f.input :photo, as: :file %>
+        </div>
+        <div class="form-group">
+          <%= f.button :submit%>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <h3>Sorry, you must be logged in to view this page</h3>
+  <% end %>
+</div>

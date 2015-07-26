@@ -24,6 +24,9 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(photo_params)
+    if params[:country_id]
+      @photo.countries << Country.friendly.find(params[:country_id])
+    end
     if @photo.save
       redirect_to :back, notice: "Photo added."
     else

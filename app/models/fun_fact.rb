@@ -2,8 +2,13 @@ class FunFact < ActiveRecord::Base
   belongs_to :area
   belongs_to :place
 
+  mount_uploader :hero_photo, FunFactPhotoUploader
+
   has_many :fun_facts_users
   has_many :users, through: :fun_facts_users
+
+  has_many :countries_fun_facts
+  has_many :countries, :through => :countries_fun_facts
 
   has_paper_trail
 

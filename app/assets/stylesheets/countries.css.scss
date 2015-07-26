@@ -2,23 +2,37 @@
   height: 20px;
 }
 
-.br_lightbox {
-  background: url(asset_path('img/img/light.png')) no-repeat;
-  padding: 20px 20px;
-  color: #fff;
-  background-position: center !important;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  background-size: cover !important;
+.wide-form {
+  width: 100%;
+  height: 40px;
 }
+
 .br_country{
   background: #fff;
   border-radius: 20px;
+}
+.br_native .br_tittle {
+    background-size: cover;
+    background-position: center;
+    min-height: 242px;
+    position: relative;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.country-flag {
+  width: 70px;
+  border: 2px solid white;
 }
 .br_time{
   font-size: 22px;
   color: #fff;
   font-weight: 300;
+}
+.br_fun_fact-mob {
+  background-color: #6CCAA8;
+  background-position: center left;
+  min-height: 208px;
+  margin-top: 20px;
 }
 .br_country h1{
   font-size: 78px;
@@ -46,6 +60,14 @@
   margin-right: -20px;
   margin-top: 22px;
 }
+
+.fun-fact-image {
+    width: 220px;
+    border-radius: 50%;
+    height: 220px;
+    border: 5px solid white;
+}
+
 .br_mob_links a{
   color: #fff;
   font-size: 21px;
@@ -101,15 +123,7 @@
   border-radius: 10px;
   margin-top: 55px;
 }
-.br_native .br_tittle{
-  background: url(asset_path('img/img/native.png')) no-repeat;
-  background-size: cover;
-  background-position: center;
-  min-height: 242px;
-  position: relative;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
+
 .br_native .br_tittle h2{
   color: #fff;
   font-size: 31px;
@@ -173,13 +187,7 @@
   font-weight: 300;
   line-height: 24px;
 }
-.br_fun_fact-mob {
-    background: transparent url(asset_path("img/img/fun.jpg")) no-repeat scroll 0% 0%;
-    background-color: #6CCAA8;
-    background-position: center left;
-      min-height: 208px;
-      margin-top: 20px;
-}
+
 .br_fun_fact-mob .br_fun_fact{
   border-radius: 0px;
   height: auto;

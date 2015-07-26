@@ -5,6 +5,9 @@ class FunFactsController < ApplicationController
 
   def create
     @fun_fact = FunFact.new(fun_fact_params)
+    if params[:country_id]
+      @fun_fact.countries << Country.friendly.find(params[:country_id])
+    end
     if @fun_fact.save
       redirect_to :back, notice: "fun fact added."
     else
@@ -37,6 +40,6 @@ class FunFactsController < ApplicationController
   private
 
     def fun_fact_params
-      params.require(:fun_fact).permit(:content, :reference, :priority, :area_id, :place_id, :_destroy)
+      params.require(:fun_fact).permit(:content, :reference, :priority, :area_id, :place_id, :hero_photo, :_destroy)
     end
 end
