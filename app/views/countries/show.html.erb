@@ -20,9 +20,18 @@
         <p class="br_time">
           <img class="country-flag" src="<%= asset_path('flags/' + @country.country_code.downcase + '.png') %>"/>
           <span class="hidden-xs">
+            <% if @weather %>
             <i class="fa fa-clock-o"></i>&nbsp;
-            <span class="time"> (GMT)</span> &nbsp;&nbsp;<span class="temperature">&deg;</span>&nbsp; <span class="weather-description"></span>
-              in <%= @country.capital_city %>
+            <span class="time">
+              <%= @weather_time %> GMT
+            </span>-
+            <span class="temperature">
+              <%= @weather_temp %>&deg;
+            </span>-
+            <span class="weather-description">
+              <%= @weather_description %> in <%= @country.capital_city %>
+            </span>
+            <% end %>
           </span>
         </p>
       </div>
@@ -35,9 +44,18 @@
       </div>
       <div class="br_time text-center">
         <span class="visible-xs">
-          <i class="fa fa-clock-o"></i>&nbsp;
-          <span class="time">(GMT)</span>&nbsp;&nbsp;<span class="temperature">&deg;</span>&nbsp; <span class="weather-description"></span>
-          <br>in <%= @country.capital_city %>
+          <% if @weather %>
+            <i class="fa fa-clock-o"></i>&nbsp;
+            <span class="time">
+              <%= @weather_time %> GMT
+            </span>-
+            <span class="temperature">
+              <%= @weather_temp %>&deg;
+            </span>-
+            <span class="weather-description">
+              <%= @weather_description %><br>in <%= @country.capital_city %>
+            </span>
+            <% end %>
         </span>
       </div>
       <div class="col-md-12 br_links hidden-xs text-center">
@@ -368,7 +386,7 @@
     </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="br_Key_Phrases br_top_songs">
                             <h3>
                                 <i class="glyphicon glyphicon-cd"></i><br/>Billboard Top 5
@@ -396,7 +414,7 @@
                                 </li>
                             </ol>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
         </div>
         <div class="clearfix"></div>

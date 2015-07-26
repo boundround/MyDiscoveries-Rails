@@ -70,40 +70,43 @@ $(document).ready(function(){
     var capitalCity = $('#country-data').data('capital-city');
     var languageCode;
     $.ajax({
-        url: "//api.geonames.org/countryInfoJSON?country=" + countryCode + "&username=dwhitworth1&style=full",
+        url: "//restcountries.eu/rest/v1/alpha/" + countryCode,
         type: "GET",
         success: function(data){
             console.log(data);
-            var population = data["geonames"][0]["population"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var population = data.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             $('#country-population').append(population);
-            languageCode = data["geonames"][0]["languages"].split(",")[0].split("-")[0];
+            languageCode = data.languages[0];
             if ($('#language').html() === ""){
                 $('#language').html(LANGUAGES[languageCode]);
+            }
+            if (capitalCity === ""){
+                capitalCity = data.capital;
             }
         }
 
     });
-    var weatherDescription;
-    var temperature;
-    var time;
-    $.ajax({
+    // var weatherDescription;
+    // var temperature;
+    // var time;
+    // $.ajax({
 
-        url: "//api.openweathermap.org/data/2.5/weather?q=" + capitalCity + "," + countryCode,
-        type: "GET",
-        success: function(data){
-            console.log(data);
-            weatherDescription = toTitleCase(data.weather[0].description);
-            $('.weather-description').html(weatherDescription);
-            temperature = Math.round(data.main.temp - 273.15);
-            $('.temperature').prepend(temperature);
-            time = new Date(data.dt * 1000);
-            // hours part from the timestamp
-            var hours = time.getHours();
-            // minutes part from the timestamp
-            var minutes = "0" + time.getMinutes();
-            // will display time in 10:30:23 format
-            var formattedTime = hours + ':' + minutes.substr(-2);
-            $('.time').prepend(formattedTime);
-        }
-    });
+    //     url: "//api.openweathermap.org/data/2.5/weather?q=" + capitalCity + "," + countryCode,
+    //     type: "GET",
+    //     success: function(data){
+    //         console.log(data);
+    //         weatherDescription = toTitleCase(data.weather[0].description);
+    //         $('.weather-description').html(weatherDescription);
+    //         temperature = Math.round(data.main.temp - 273.15);
+    //         $('.temperature').prepend(temperature);
+    //         time = new Date(data.dt * 1000);
+    //         // hours part from the timestamp
+    //         var hours = time.getHours();
+    //         // minutes part from the timestamp
+    //         var minutes = "0" + time.getMinutes();
+    //         // will display time in 10:30:23 format
+    //         var formattedTime = hours + ':' + minutes.substr(-2);
+    //         $('.time').prepend(formattedTime);
+    //     }
+    // });
 });

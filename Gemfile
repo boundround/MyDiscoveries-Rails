@@ -42,8 +42,7 @@ gem 'authority'
 gem 'rolify'
 
 gem 'factual-api'
-
-gem 'ruby-geonames', :git => 'git://github.com/elecnix/ruby-geonames.git'
+gem 'open-weather'
 
 gem 'whenever', :require => false
 

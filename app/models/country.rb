@@ -1,5 +1,8 @@
 class Country < ActiveRecord::Base
   extend FriendlyId
+
+  require 'open_weather'
+
   friendly_id :display_name, :use => :slugged
 
   after_save :load_into_soulmate
