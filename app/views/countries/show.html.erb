@@ -1,6 +1,6 @@
 <style>
     .br_lightbox {
-        background: url(<%= @country.hero_photo.url || asset_path('generic-grey.jpg') %>) no-repeat;
+        background: url(<%= @country.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat;
         padding: 20px 20px;
         color: #fff;
         background-position: center !important;
@@ -96,7 +96,7 @@
               <% @country.info_bits.each_with_index do |info_bit, index| %>
                 <style>
                   #info-bit-<%= index %> {
-                    background: url(<%= info_bit.photo.url || asset_path('generic-grey.jpg') %>) no-repeat;
+                    background: url(<%= info_bit.photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat;
                   }
                 </style>
               <div class="br_tittle" id="info-bit-<%= index %>">
@@ -120,13 +120,13 @@
             <% @country.fun_facts.each_with_index do |fun_fact, index| %>
               <style>
                 #fun-fact-<%= index %> {
-                  background: transparent url(<%= fun_fact.hero_photo.url || asset_path('generic-grey.jpg') %>) no-repeat scroll 0% 0%;
+                  background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
                 }
               </style>
               <div class="br_fun_fact hidden-xs hidden-sm">
                 <div class="row">
                   <div class="col-sm-3 col-md-3 col-lg-2">
-                    <img src="<%= fun_fact.hero_photo.url %>" class="fun-fact-image">
+                    <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>" class="fun-fact-image">
                   </div>
                   <div class="col-sm-9 col-md-9 col-lg-10">
                     <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
