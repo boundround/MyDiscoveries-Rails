@@ -1,4 +1,4 @@
-<h1>All Areas</h1>
+<h1>All Countries</h1>
 <ul>
   <% @countries.order(display_name: :asc).each do |country| %>
     <li><%= link_to country.display_name + ' (Country ID: ' + country.id.to_s + ')', edit_country_path(country) %></li>
