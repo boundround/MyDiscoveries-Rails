@@ -29,12 +29,36 @@
     </div>
   </div>
   <div class="item photo photo-card user-story-card" data-toggle="modal" data-target="<%= user_signed_in? ? '#userStoryModal' : '' %>">
-      <% if user_signed_in? %>
-        Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
-      <% else %>
-        <a href="<%= new_user_session_path %>">Sign In to upload your own story and photos about <%= @area.display_name %>!</a>
+    <% if user_signed_in? %>
+      Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
+    <% else %>
+      <a href="<%= new_user_session_path %>">Sign In to upload your own story and photos about <%= @area.display_name %>!</a>
+    <% end %>
+  </div>
+
+  <%  unless @videos.empty? %>
+      <% @videos.each do |video| %>
+        <div class="item video video-card photo-card">
+          <%= raw like_icon(video) %>
+          <div class="video-wrapper">
+            <div class="priority"><%= video.priority ? video.priority : 2 %></div>
+            <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
+            <% end %>
+            <div class="game-divider"></div>
+            <div class="game-thumbnail">
+              <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
+              <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
+            </div>
+            <div class="video-caption">
+              <p>Click to expand and play video!</p>
+            </div>
+            <div class="fun-fact">
+            </div>
+          </div>
+        </div>
       <% end %>
-    </div>
+    <% end %>
+
   <% unless @photos.empty? %>
   <% @photos.each_with_index do |photo, index| %>
       <div class="item photo photo-card photo-thumb">

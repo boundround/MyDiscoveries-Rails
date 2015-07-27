@@ -23,6 +23,7 @@ class AreasController < ApplicationController
     @hero_video = @area.videos.find_by(priority: 1)
     @hero_photo = @area.photos.find_by(priority: 1)
     @photos = @area.photos.where.not(priority: 1)
+    @videos = @area.videos.where.not(priority: 1)
     @request_xhr = request.xhr?
     @fun_facts = @area.fun_facts
 
