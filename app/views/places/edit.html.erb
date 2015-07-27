@@ -27,6 +27,9 @@
     <% end %>
     <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
       <div class="form-group published-radio">
+        <%= f.input :subscription_level, as: :radio_buttons, collection: ["basic", "standard", "Premium"] %>
+      </div>
+      <div class="form-group published-radio">
         <%= f.input :status, as: :radio_buttons, collection: ["draft", "edited", "live", "removed"] %>
       </div>
       <div class="form-group">
@@ -36,6 +39,9 @@
         <%= f.input :unpublished_at, as: :date, order: [:day, :month, :year], include_blank: true, label: "Remove At" %>
       </div>
     <% elsif current_user.has_role?("editor") %>
+      <div class="form-group published-radio">
+        <%= f.input :subscription_level, as: :radio_buttons, collection: ["basic", "standard", "Premium"] %>
+      </div>
       <% if @place.status == "draft" || @place.status == "edited" %>
         <div class="form-group published-radio">
           <%= f.input :status, as: :radio_buttons, collection: ["draft", "edited"] %>

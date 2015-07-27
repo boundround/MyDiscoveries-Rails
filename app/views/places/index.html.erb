@@ -8,17 +8,19 @@
       <th>Place</th>
       <th>Google Place ID</th>
       <th>Subscription Level</th>
+      <th>Status</th>
       <th>Updated At</th>
     </tr>
     </thead>
     <tbody>
     <% @places.each do |place| %>
         <tr>
-          <td><%= place[5].blank? ? "" : place[5] %></td>
+          <td><%= place[6].blank? ? "" : place[6] %></td>
           <td><%= link_to place[0], "/places/" + place[1].to_s + "/edit" %></td>
           <td><%= place[2] %></td>
           <td><%= place[3] %></td>
-          <td><%= place[4].strftime('%F at %T') %></td>
+          <td><%= place[4] %></td>
+          <td><%= place[5].strftime('%F at %T') %></td>
         </tr>
       <% end %>
     </tbody>
