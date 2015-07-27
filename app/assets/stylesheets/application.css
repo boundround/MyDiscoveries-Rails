@@ -26,4 +26,10 @@
  *= require jquery.fileupload
  *= require jquery.fileupload-ui
  *= require virgin
+ *= require countries
+ *= require bootstrap-select.min
+ *= require bootstrap-theme.min
+ *= require jcarousel.responsive
+ *= require owl.carousel
+ *= require owl.theme
  */

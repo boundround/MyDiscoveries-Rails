@@ -11,7 +11,6 @@ class BRConstraint
 end
 
 Rails.application.routes.draw do
-  get 'factual_places/search'
 
   constraints(SSConstraint.new) do
     get '/', to: 'places#programsearch', as: nil
@@ -138,6 +137,15 @@ Rails.application.routes.draw do
   resources :discounts
 
   resources :fun_facts do
+    collection { post :import }
+  end
+
+  resources :countries do
+    resources :videos
+    resources :photos
+    resources :fun_facts
+    resources :famous_faces
+    resources :info_bits
     collection { post :import }
   end
 

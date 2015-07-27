@@ -15,40 +15,7 @@ class Program < ActiveRecord::Base
 
   validates_presence_of :name
 
-  def self.import(file)
-    puts "Trying to open spreadsheet"
-    spreadsheet = open_spreadsheet(file)
-    puts "Reading header"
-    header = spreadsheet.row(1)
-    puts header
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      if row['place'] != nil then        
-        puts row["place"]+", "+row["name"]
-        place = Place.find_by display_name: row["place"]
-        nothing = 0
-        unless place.nil? 
-          break if nothing > 20
-          row.delete("place")
-          if row['webresources'] && row['webresources'] != "" then
-            webresources = JSON.parse(row['webresources'])
-            row.delete("webresources")
-            program = place.programs.create!(row.to_h)
-            webresources.each do |key, val|
-              program.webresources.create(:caption => key, :path => val)
-            end
-          else
-            row.delete("webresources")
-            program = place.programs.create!(row.to_h)
-          end
-        end
-      else
-        nothing += 1
-      end
-    end
-  end
-
-  def self.validate_import(file)
+  def self.validate_import(file,import)
     puts "Trying to open spreadsheet"
     spreadsheet = open_spreadsheet(file)
     puts "Reading header"
@@ -61,21 +28,22 @@ class Program < ActiveRecord::Base
       if row["place"] != nil then
         puts row["place"]+", "+row["name"]
         place = Place.find_by display_name: row["place"]
+        if place.nil? then puts "Couldn't find place: " + row["place"] end
         unless place.nil? 
           row.delete("place")
           if row['webresources'] && row['webresources'] != "" then
             webresources = JSON.parse(row['webresources'])
             row.delete("webresources")
-  #          program = place.programs.create!(row.to_h)
+            if import=="true" then program = place.programs.create!(row.to_h) end
               puts "Program @ row " + i.to_s + " named " + row["name"] +"Would have been created"
             webresources.each do |key, val|
               puts "Webresource "+key+" Would have been created"
-  #            program.webresources.create(:caption => key, :path => val)
+              if import=="true" then program.webresources.create(:caption => key, :path => val) end
             end
           else
             row.delete("webresources")
             puts "Program @ row " + i.to_s + " named " + row["name"] +"Would have been created"
-  #          program = place.programs.create!(row.to_h)
+            if import=="true" then program = place.programs.create!(row.to_h) end
           end
         end
       else

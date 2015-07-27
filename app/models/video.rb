@@ -5,6 +5,9 @@ class Video < ActiveRecord::Base
   has_many :videos_users
   has_many :users, through: :videos_users
 
+  has_many :countries_videos
+  has_many :countries, :through => :countries_videos
+
   has_paper_trail
 
   validates :vimeo_id, presence: true

@@ -2,6 +2,9 @@ class Photo < ActiveRecord::Base
   belongs_to :area
   belongs_to :place
 
+  has_many :countries_photos
+  has_many :countries, :through => :countries_photos
+
   has_many :photos_users
   has_many :users, through: :photos_users
 

@@ -42,6 +42,7 @@ gem 'authority'
 gem 'rolify'
 
 gem 'factual-api'
+gem 'open-weather'
 
 gem 'whenever', :require => false
 

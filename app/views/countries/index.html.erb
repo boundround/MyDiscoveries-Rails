@@ -1,0 +1,12 @@
+<h1>All Countries</h1>
+<ul>
+  <% @countries.order(display_name: :asc).each do |country| %>
+    <li><%= link_to country.display_name + ' (Country ID: ' + country.id.to_s + ')', edit_country_path(country) %></li>
+  <% end %>
+</ul>
+
+<h3>Import Countries From Excel</h3>
+<%= form_tag import_countries_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

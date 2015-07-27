@@ -27,6 +27,9 @@ class VideosController < ApplicationController
     @video = Video.new(video_params)
     response = Unirest.get "https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s
     @video.vimeo_thumbnail = response.body["thumbnail_url"]
+    if params[:country_id]
+      @video.countries << Country.friendly.find(params[:country_id])
+    end
     if @video.save
       redirect_to :back, notice: "Video added."
     else
