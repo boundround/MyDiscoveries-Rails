@@ -44,6 +44,8 @@ gem 'rolify'
 gem 'factual-api'
 gem 'open-weather'
 
+gem 'fastly'
+
 gem 'whenever', :require => false
 
 gem 'paper_trail', '~> 4.0.0.rc' #track updates by user id

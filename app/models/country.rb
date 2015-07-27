@@ -3,7 +3,7 @@ class Country < ActiveRecord::Base
 
   require 'open_weather'
 
-  friendly_id :display_name, :use => :slugged
+  friendly_id :country_code, :use => :slugged
 
   after_save :load_into_soulmate
   before_destroy :remove_from_soulmate
