@@ -158,7 +158,7 @@
             <%= f.fields_for :games, game do |ff| %>
               <tr>
                 <%= ff.input :id, as: :hidden %>
-                <td><img src="<%= asset_path(game.thumbnail) %>" class="photo-edit-thumb"></td>
+                <td><img src="<%= game_thumbnail(game) %>" class="photo-edit-thumb"></td>
                 <td><%= ff.text_area :url, :cols => "50", :rows => "3" %></td>
                 <td><%= ff.select :game_type, ["jigsaw puzzle", "word search", "slider"] %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
