@@ -25,7 +25,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
-      @game.create_thumbnail
+      # @game.create_thumbnail
       @game.add_instructions
       @game.save
       redirect_to :back, notice: "Game added."
@@ -47,7 +47,7 @@ class GamesController < ApplicationController
   def update
     @game = Game.find(params[:id])
     if @game.update(game_params)
-      @game.create_thumbnail if @game.thumbnail.content_type == nil
+      # @game.create_thumbnail if @game.thumbnail.content_type == nil
       @game.add_instructions unless !@game.instructions
       @game.save
       redirect_to :back

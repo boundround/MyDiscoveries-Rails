@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   has_many :games_users
   has_many :users, through: :games_users
 
-  before_save :add_instructions, :create_thumbnail
+  before_save :add_instructions #:create_thumbnail
 
   mount_uploader :thumbnail, GameThumbnailUploader
 
