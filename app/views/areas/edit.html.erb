@@ -1,5 +1,8 @@
 <div class="container">
   <h1>Edit <%= @area.display_name + ' (ID: ' + @area.id.to_s + ')' %></h1>
+  <p>
+    <a href="<%= area_path(@area) %>" target="blank">Preview</a>
+  </p>
   <%= simple_form_for @area, html: { role: 'form'} do |f| %>
     <div class="about-content">
       <h3>About <%= @area.display_name %></h3>
