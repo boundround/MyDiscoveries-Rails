@@ -149,6 +149,7 @@
               <th>Title</th>
               <th>Description</th>
               <th>Photo</th>
+              <th>Photo Credit</th>
               <th>Remove</th>
             </tr>
           </thead>
@@ -159,6 +160,7 @@
                 <td><%= ff.text_field :title %></td>
                 <td><%= ff.text_field :description %></td>
                 <td><%= ff.file_field :photo %></td>
+                <td><%= ff.text_field :photo_credit %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>
@@ -173,6 +175,7 @@
               <th>Name</th>
               <th>Description</th>
               <th>Photo</th>
+              <th>Photo Credit</th>
               <th>Remove</th>
             </tr>
           </thead>
@@ -183,6 +186,7 @@
                 <td><%= ff.text_field :name %></td>
                 <td><%= ff.text_field :description %></td>
                 <td><%= ff.file_field :photo %></td>
+                <td><%= ff.text_field :photo_credit %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>
@@ -262,6 +266,7 @@
           <%= f.input :title, input_html: { class: 'form-control'}  %>
           <%= f.input :description, input_html: { class: 'form-control'}  %>
           <%= f.input :photo, as: :file %>
+          <%= f.input :photo_credit, input_html: { class: 'form-control'} %>
         </div>
         <div class="form-group">
           <%= f.button :submit%>
@@ -275,6 +280,7 @@
           <%= f.input :name, input_html: { class: 'form-control'}  %>
           <%= f.input :description, input_html: { class: 'form-control'}  %>
           <%= f.input :photo, as: :file %>
+          <%= f.input :photo_credit, input_html: { class: 'form-control'} %>
         </div>
         <div class="form-group">
           <%= f.button :submit%>

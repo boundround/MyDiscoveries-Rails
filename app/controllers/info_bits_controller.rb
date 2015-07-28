@@ -44,6 +44,6 @@ class InfoBitsController < ApplicationController
   private
 
     def info_bit_params
-      params.require(:info_bit).permit(:title, :description, :photo, :_destroy)
+      params.require(:info_bit).permit(:title, :description, :photo, :photo_credit, :_destroy)
     end
 end

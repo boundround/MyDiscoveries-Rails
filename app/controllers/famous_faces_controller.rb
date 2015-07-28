@@ -44,6 +44,6 @@ class FamousFacesController < ApplicationController
   private
 
     def famous_face_params
-      params.require(:famous_face).permit(:name, :description, :photo, :_destroy)
+      params.require(:famous_face).permit(:name, :description, :photo, :photo_credit, :_destroy)
     end
 end

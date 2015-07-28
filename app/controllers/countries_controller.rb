@@ -58,7 +58,7 @@ class CountriesController < ApplicationController
                       photos_attributes: [:id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :_destroy],
                       videos_attributes: [:id, :vimeo_id, :priority, :_destroy],
                       fun_facts_attributes: [:id, :content, :reference, :priority, :hero_photo, :_destroy],
-                      famous_faces_attributes: [:id, :name, :description, :photo, :_destroy],
-                      info_bits_attributes: [:id, :title, :description, :photo, :_destroy])
+                      famous_faces_attributes: [:id, :name, :description, :photo, :photo_credit, :_destroy],
+                      info_bits_attributes: [:id, :title, :description, :photo, :photo_credit, :_destroy])
     end
 end
