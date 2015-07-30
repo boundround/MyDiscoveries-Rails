@@ -94,9 +94,6 @@
           data: { place: {display_name: place.name, display_address: place.formatted_address,
                 latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng(),
                 phone_number: place.formatted_phone_number, website: place.website,
-                street_number: place.address_components[0].long_name, route: place.address_components[1].long_name,
-                locality: place.address_components[2].long_name, state: place.address_components[3].long_name,
-                country: place.address_components[4].long_name, post_code: place.address_components[5].long_name,
                 status: "live", place_id: place_id, user_created: true, subscription_level: "basic"} },
           success: function(data){
             if (data.place_id !== "error"){
@@ -142,13 +139,13 @@
         // new API results for Google Places
         console.log("RESULTS: " + results[0].geometry.location.lat());
         var location = [results[0].geometry.location.lat(), results[0].geometry.location.lng()];
-        $('#svgdiv').fadeOut("fast");
-          map.setView( location, 9 );
+        // $('#svgdiv').fadeOut("fast");
+        //   map.setView( location, 9 );
 
-        var popup = L.popup()
-          .setLatLng(location)
-          .setContent('<h3>' + place + '</h3><br><button type="button" class="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
-          .openOn(map);
+        // var popup = L.popup()
+        //   .setLatLng(location)
+        //   .setContent('<h3>' + place + '</h3><br><button type="button" class="want-button" class="btn btn-default btn-md"><span class="glyphicon glyphicon-thumbs-up"></span> I Want This in Bound Round</button>')
+        //   .openOn(map);
         var placeCard = place + '-card';
         var areas = $('#areas');
         var content = '<div class="want-card"><div class="area-title">'
