@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728004228) do
+ActiveRecord::Schema.define(version: 20150730004824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20150728004228) do
     t.string   "hero_photo"
     t.string   "short_name"
     t.string   "long_name"
+    t.string   "photo_credit"
   end
 
   add_index "countries", ["slug"], name: "index_countries_on_slug", using: :btree

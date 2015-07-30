@@ -54,7 +54,7 @@ class CountriesController < ApplicationController
     def country_params
       params.require(:country).permit(:display_name, :country_code, :description, :capital_city, :short_name, :long_name,
                       :capital_city_description, :currency_code, :official_language, :tallest_mountain,
-                      :tallest_mountain_height, :longest_river, :longest_river_length, :published_status, :hero_photo,
+                      :tallest_mountain_height, :longest_river, :longest_river_length, :published_status, :hero_photo, :photo_credit,
                       photos_attributes: [:id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :_destroy],
                       videos_attributes: [:id, :vimeo_id, :priority, :_destroy],
                       fun_facts_attributes: [:id, :content, :reference, :priority, :hero_photo, :_destroy],
