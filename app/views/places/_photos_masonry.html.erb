@@ -75,7 +75,7 @@
         </div>
       </div>
     <%  unless @videos.empty? %>
-      <% @videos.each do |video| %>
+      <% @videos.active.each do |video| %>
         <div class="item video video-card photo-card">
           <%= raw like_icon(video) %>
           <div class="video-wrapper">
@@ -98,7 +98,7 @@
     <% end %>
 
     <% unless @photos.empty? %>
-      <% @photos.each_with_index do |photo, index| %>
+      <% @photos.active.each_with_index do |photo, index| %>
         <div class="item photo photo-card photo-thumb">
           <div class="game-divider"></div>
           <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
@@ -156,7 +156,7 @@
     <% end %>
 
     <% unless @place.games.empty? %>
-      <% @place.games.each do |game| %>
+      <% @place.games.active.each do |game| %>
         <div class="item game game-card photo-card">
             <%= raw like_icon(game) %>
           <div class="priority"><%= game.priority ? game.priority : 2 %></div>
@@ -192,7 +192,7 @@
       </div>
     <% end %>
     <% unless @place.fun_facts.empty? %>
-      <% @place.fun_facts.each do |fun_fact| %>
+      <% @place.fun_facts.active.each do |fun_fact| %>
         <div class="item fun_fact photo-card">
           <div class="discount-card fact-card">
             <p><%= raw fun_fact.content %></p>
@@ -203,7 +203,7 @@
     <% end %>
 
     <% unless @place.discounts.empty? %>
-      <% @place.discounts.each do |discount| %>
+      <% @place.discounts.active.each do |discount| %>
         <div class="item special photo-card">
           <div class="priority"><%= discount.priority ? discount.priority : 2 %></div>
           <div class="discount-card">

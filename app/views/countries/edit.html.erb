@@ -70,6 +70,7 @@
               <th>Preview</th>
               <th>Vimeo ID</th>
               <th>Priority</th>
+              <th>Status</th>
               <th>Remove</th>
             </tr>
           </thead>
@@ -80,6 +81,7 @@
                 <td></td>
                 <td><%= ff.text_area :vimeo_id %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>
@@ -97,6 +99,7 @@
               <th>Caption</th>
               <th>Alt Tags</th>
               <th>Priority</th>
+              <th>Status</th>
               <th>Remove</th>
             </tr>
           </thead>
@@ -111,6 +114,7 @@
                   <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
                   <td><%= ff.text_field :alt_tag %></td>
                   <td><%= ff.select :priority, 1..10 %></td>
+                  <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                   <td><%= ff.check_box :_destroy %></td>
                 </tr>
               <% end %>
@@ -126,7 +130,9 @@
               <th>Content</th>
               <th>Reference</th>
               <th>Hero Photo</th>
+              <th>Photo Credit</th>
               <th>Priority</th>
+              <th>Status</th>
               <th>Remove</th>
             </tr>
           </thead>
@@ -137,7 +143,9 @@
                 <td><%= ff.text_field :content %></td>
                 <td><%= ff.text_field :reference %></td>
                 <td><%= ff.file_field :hero_photo %></td>
+                <td><%= ff.text_field :photo_credit %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>
@@ -153,6 +161,7 @@
               <th>Description</th>
               <th>Photo</th>
               <th>Photo Credit</th>
+              <th>Status</th>
               <th>Remove</th>
             </tr>
           </thead>
@@ -164,6 +173,7 @@
                 <td><%= ff.text_field :description %></td>
                 <td><%= ff.file_field :photo %></td>
                 <td><%= ff.text_field :photo_credit %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>
@@ -179,6 +189,7 @@
               <th>Description</th>
               <th>Photo</th>
               <th>Photo Credit</th>
+              <th>Status</th>
               <th>Remove</th>
             </tr>
           </thead>
@@ -190,6 +201,7 @@
                 <td><%= ff.text_field :description %></td>
                 <td><%= ff.file_field :photo %></td>
                 <td><%= ff.text_field :photo_credit %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>
@@ -209,6 +221,9 @@
         </div>
         <div class="form-group">
           <%= f.input :priority, label: "Priority", collection: 1..10, input_html: { class: 'form-control'}  %>
+        </div>
+        <div class="form-group">
+          <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
         </div>
         <div class="form-group">
           <%= f.button :submit%>
@@ -241,6 +256,9 @@
           <p><%= f.input :path, as: :file, label: false%></p>
         </div>
         <div class="form-group">
+          <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
+        </div>
+        <div class="form-group">
           <%= f.button :submit%>
         </div>
       <% end %>
@@ -253,9 +271,13 @@
           <%= f.input :content, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'}  %>
           <%= f.input :reference, input_html: { class: 'form-control'}  %>
           <%= f.input :hero_photo, as: :file %>
+          <%= f.input :photo_credit, input_html: { class: 'form-control'} %>
         </div>
         <div class="form-group">
           <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
+        </div>
+        <div class="form-group">
+          <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
         </div>
         <div class="form-group">
           <%= f.button :submit%>
@@ -270,6 +292,7 @@
           <%= f.input :description, input_html: { class: 'form-control'}  %>
           <%= f.input :photo, as: :file %>
           <%= f.input :photo_credit, input_html: { class: 'form-control'} %>
+          <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
         </div>
         <div class="form-group">
           <%= f.button :submit%>
@@ -284,6 +307,7 @@
           <%= f.input :description, input_html: { class: 'form-control'}  %>
           <%= f.input :photo, as: :file %>
           <%= f.input :photo_credit, input_html: { class: 'form-control'} %>
+          <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
         </div>
         <div class="form-group">
           <%= f.button :submit%>

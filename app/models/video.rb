@@ -14,6 +14,8 @@ class Video < ActiveRecord::Base
 
   scope :ordered_by_place_name, -> { includes(:area, :place).order('areas.display_name ASC') } #reorder("places.display_name ASC") }
 
+  scope :active, -> { where(status: "live") }
+
   # before_save :validate_vimeo_id
 
   self.per_page = 200

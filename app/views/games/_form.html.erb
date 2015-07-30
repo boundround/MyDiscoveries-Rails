@@ -16,6 +16,9 @@
       <%= f.input :game_type, as: :radio_buttons, collection: ["jigsaw puzzle", "slider", "word search"], input_html: { class: 'form-control'} %><br />
     </div>
     <div class="form-group">
+      <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
+    </div>
+    <div class="form-group">
       <%= f.button :submit%>
     </div>
 </div>

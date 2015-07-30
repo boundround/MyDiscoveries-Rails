@@ -311,11 +311,11 @@ class PlacesController < ApplicationController
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon, :published_at, :unpublished_at,
                                     :street_number, :route, :sublocality, :locality, :state, :country, :post_code, :created_by, :user_created,
                                     :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status,
-                                    photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :_destroy],
-                                    videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :_destroy],
-                                    games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :_destroy],
-                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :_destroy],
-                                    discounts_attributes: [:id, :description, :place_id, :area_id, :_destroy],
+                                    photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :_destroy],
+                                    videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :_destroy],
+                                    games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :_destroy],
+                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :_destroy],
+                                    discounts_attributes: [:id, :description, :place_id, :area_id, :status, :_destroy],
                                     category_ids: [])
     end
 end

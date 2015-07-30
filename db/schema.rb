@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730004824) do
+ActiveRecord::Schema.define(version: 20150730205237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20150730004824) do
     t.datetime "updated_at"
     t.integer  "priority"
     t.integer  "area_id"
+    t.string   "status"
   end
 
   add_index "discounts", ["place_id"], name: "index_discounts_on_place_id", using: :btree
@@ -153,6 +154,7 @@ ActiveRecord::Schema.define(version: 20150730004824) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "photo_credit"
+    t.string   "status"
   end
 
   create_table "fun_facts", force: true do |t|
@@ -164,6 +166,8 @@ ActiveRecord::Schema.define(version: 20150730004824) do
     t.integer  "priority"
     t.integer  "place_id"
     t.string   "hero_photo"
+    t.string   "status"
+    t.string   "photo_credit"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -185,6 +189,7 @@ ActiveRecord::Schema.define(version: 20150730004824) do
     t.string   "instructions"
     t.integer  "area_id"
     t.string   "thumbnail"
+    t.string   "status"
   end
 
   add_index "games", ["place_id"], name: "index_games_on_place_id", using: :btree
@@ -213,6 +218,7 @@ ActiveRecord::Schema.define(version: 20150730004824) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "photo_credit"
+    t.string   "status"
   end
 
   create_table "journal_infos", force: true do |t|
@@ -234,6 +240,7 @@ ActiveRecord::Schema.define(version: 20150730004824) do
     t.integer  "place_id"
     t.string   "caption_source"
     t.string   "alt_tag"
+    t.string   "status"
   end
 
   add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
@@ -450,6 +457,7 @@ ActiveRecord::Schema.define(version: 20150730004824) do
     t.integer  "place_id"
     t.integer  "priority"
     t.string   "vimeo_thumbnail"
+    t.string   "status"
   end
 
   add_index "videos", ["area_id"], name: "index_videos_on_area_id", using: :btree

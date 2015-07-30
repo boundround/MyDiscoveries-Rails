@@ -12,6 +12,8 @@ class FunFact < ActiveRecord::Base
 
   has_paper_trail
 
+  scope :active, -> { where(status: "live") }
+
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)

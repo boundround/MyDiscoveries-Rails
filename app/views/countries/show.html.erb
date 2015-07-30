@@ -81,7 +81,7 @@
           </p>
           <div class="clearfix"></div>
           <div class="owl-carousel">
-            <% @country.videos.each do |video| %>
+            <% @country.videos.active.each do |video| %>
               <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1&player_id=player1" width="273" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             <% end %>
             <% @country.photos.each do |photo| %>
@@ -93,7 +93,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="col-md-12 ">
-            <% @country.info_bits.each_with_index do |info_bit, index| %>
+            <% @country.info_bits.active.each_with_index do |info_bit, index| %>
               <div class="br_native">
                 <style>
                   #info-bit-<%= index %> {
@@ -118,7 +118,7 @@
           </div>
           <div class="clearfix"></div>
           <div class="col-md-12">
-            <% @country.fun_facts.each_with_index do |fun_fact, index| %>
+            <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
               <style>
                 #fun-fact-<%= index %> {
                   background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
@@ -180,7 +180,7 @@
                 </p>
                 <div class="clearfix"></div>
                 <div class="owl-carousel">
-                  <% @country.famous_faces.each do |famous_face| %>
+                  <% @country.famous_faces.active.each do |famous_face| %>
                     <div>
                       <img src="<%= famous_face.photo.url || asset_path('generic-grey.jpg') %>" class="img-responsive" / >
                       <p>

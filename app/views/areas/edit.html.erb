@@ -53,6 +53,7 @@
                 <th>Preview</th>
                 <th>Vimeo ID</th>
                 <th>Priority</th>
+                <th>Status</th>
                 <th>Remove</th>
               </tr>
             </thead>
@@ -63,6 +64,7 @@
                   <td></td>
                   <td><%= ff.text_area :vimeo_id %></td>
                   <td><%= ff.select :priority, 1..10 %></td>
+                  <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                   <td><%= ff.check_box :_destroy %></td>
                 </tr>
               <% end %>
@@ -80,6 +82,7 @@
                 <th>Caption</th>
                 <th>Alt Tags</th>
                 <th>Priority</th>
+                <th>Status</th>
                 <th>Remove</th>
               </tr>
             </thead>
@@ -94,6 +97,7 @@
                     <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
                     <td><%= ff.text_field :alt_tag %></td>
                     <td><%= ff.select :priority, 1..10 %></td>
+                    <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                     <td><%= ff.check_box :_destroy %></td>
                   </tr>
                 <% end %>
@@ -110,6 +114,7 @@
                 <th>URL</th>
                 <th>Game Type</th>
                 <th>Priority</th>
+                <th>Status</th>
                 <th>Remove</th>
               </tr>
             </thead>
@@ -122,6 +127,7 @@
                     <td><%= ff.text_area :url, :cols => "50", :rows => "3" %></td>
                     <td><%= ff.select :game_type, ["jigsaw puzzle", "word search", "slider"] %></td>
                     <td><%= ff.select :priority, 1..10 %></td>
+                    <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                     <td><%= ff.check_box :_destroy %></td>
                   </tr>
                 <% end %>
@@ -136,7 +142,10 @@
               <tr>
                 <th>Content</th>
                 <th>Reference</th>
+                <th>Hero Photo</th>
+                <th>Photo Credit</th>
                 <th>Priority</th>
+                <th>Status</th>
                 <th>Remove</th>
               </tr>
             </thead>
@@ -146,7 +155,10 @@
                   <%= ff.input :id, as: :hidden %>
                   <td><%= ff.text_field :content %></td>
                   <td><%= ff.text_field :reference %></td>
+                  <td><%= ff.file_field :hero_photo %></td>
+                  <td><%= ff.text_field :photo_credit %></td>
                   <td><%= ff.select :priority, 1..10 %></td>
+                  <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                   <td><%= ff.check_box :_destroy %></td>
                 </tr>
               <% end %>
@@ -160,6 +172,7 @@
               <tr>
                 <th>Description</th>
                 <th>Priority</th>
+                <th>Status</th>
                 <th>Remove</th>
               </tr>
             </thead>
@@ -169,6 +182,7 @@
                   <%= ff.input :id, as: :hidden %>
                   <td><%= ff.bootsy_area :description %></td>
                   <td><%= ff.select :priority, 1..10 %></td>
+                  <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                   <td><%= ff.check_box :_destroy %></td>
                 </tr>
               <% end %>

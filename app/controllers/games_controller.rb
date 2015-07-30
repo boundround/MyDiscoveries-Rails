@@ -62,7 +62,7 @@ class GamesController < ApplicationController
   private
 
     def game_params
-      params.require(:game).permit(:url, :area_id, :place_id, :priority, :game_type, :_destroy)
+      params.require(:game).permit(:url, :area_id, :place_id, :priority, :game_type, :status, :_destroy)
     end
 
 end
