@@ -59,8 +59,8 @@
         </span>
       </div>
       <div class="col-md-12 br_links hidden-xs text-center">
-        <a href="#">Info</a>
-        <a href="#">Famous Faces</a>
+        <a href="#info">Info</a>
+        <a href="#famous-faces">Famous Faces</a>
         <a href="#">Favourite Places</a><!--
         <a href="#">Currency Convert</a>
         <a href="#">Key Phrases</a>
@@ -71,6 +71,7 @@
         <a href="#" class="hidden-xs"><i class="fa fa-angle-left"></i>Back to Australia </a>
       </div>
     </div>
+    <a name="info"></a>
     <div class="row">
       <div class="col-sm-8 col-md-9 br_main_content">
         <div class="col-md-12 br_intro">
@@ -92,8 +93,8 @@
         </div>
         <div class="clearfix"></div>
         <div class="col-md-12 ">
-            <div class="br_native">
-              <% @country.info_bits.each_with_index do |info_bit, index| %>
+            <% @country.info_bits.each_with_index do |info_bit, index| %>
+              <div class="br_native">
                 <style>
                   #info-bit-<%= index %> {
                     background: url(<%= info_bit.photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat;
@@ -112,8 +113,8 @@
                     <%= info_bit.description %>
                   </p>
                 </div>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           </div>
           <div class="clearfix"></div>
           <div class="col-md-12">
@@ -168,6 +169,7 @@
               </div>
             </div>
           <div class="clearfix"></div>
+          <a name="famous-faces"></a>
           <div class="row">
             <% if !@country.famous_faces.blank? %>
               <div class="col-md-12 br_famous">
