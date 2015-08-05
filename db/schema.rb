@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730205237) do
+ActiveRecord::Schema.define(version: 20150805103036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -34,8 +35,10 @@ ActiveRecord::Schema.define(version: 20150730205237) do
     t.float    "view_longitude"
     t.float    "view_height"
     t.float    "view_heading"
+    t.integer  "country_id"
   end
 
+  add_index "areas", ["country_id"], name: "index_areas_on_country_id", using: :btree
   add_index "areas", ["display_name"], name: "index_areas_on_display_name", using: :btree
   add_index "areas", ["slug"], name: "index_areas_on_slug", using: :btree
 
@@ -288,9 +291,11 @@ ActiveRecord::Schema.define(version: 20150730205237) do
     t.datetime "unpublished_at"
     t.boolean  "user_created"
     t.string   "created_by"
+    t.integer  "country_id"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
+  add_index "places", ["country_id"], name: "index_places_on_country_id", using: :btree
   add_index "places", ["description"], name: "index_places_on_description", using: :btree
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree

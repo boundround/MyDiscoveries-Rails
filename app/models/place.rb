@@ -29,6 +29,7 @@ class Place < ActiveRecord::Base
   validates_presence_of :display_name, :slug
 
   belongs_to :area
+  # belongs_to :country
   has_many :categorizations
   has_many :categories, through: :categorizations
   has_many :photos, -> { order "created_at ASC"}

@@ -10,6 +10,9 @@ class Area < ActiveRecord::Base
   scope :active, -> { where(published_status: "live") }
 
   validates_presence_of :display_name, :slug
+
+  # belongs_to :country
+
   has_many :videos, -> { order "created_at ASC"}
   has_many :places, -> { order(:display_name) }
   has_many :games, -> { order "created_at ASC"}
