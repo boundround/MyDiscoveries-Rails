@@ -545,7 +545,7 @@ function ss_goto_map_results()
             $(this).toggleClass("active");
         });
 
-				$("#search_input").val(<%=@search_term%>);
+				$("#search_input").val("<%=@search_term%>");
 				$("#yearlevel_selector").val("<%=@yearlevel_filter%>");
 				$("#subject_selector").val("<%=@subject_filter%>");
 				$("#activity_selector").val("<%=@activity_filter%>");

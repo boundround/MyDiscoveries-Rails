@@ -289,20 +289,21 @@ class PlacesController < ApplicationController
     end
 
     def set_program_constants()
-      @locations = ["Sydney","Melbourne","Phillip Island","Canberra","Perth",""]
+      @locations = ["All","Sydney","Melbourne","Phillip Island","Canberra","Perth"]
 #      @locations.unshift('All')
       @ylvec = ['K','1','2','3','4','5','6','7','8','9','10','11','12']
       @yearlevels = ['All','K-2','3-4','5-6','7-8','9-10','11-12']
 #      @subjects = ['All','English', 'Mathematics', 'Science', 'History', 'Geography', 'Economics', 'Civics', 'Arts', 'Health','Languages']
-      @subjects = ["Arts","Business & Enterprise","Education","English","Geography","Health & Physical Education","History","Language","Mathematics","Science","Society & Environment","Technology"]
+      @subjects = ["All","Arts","Business & Enterprise","Education","English","Geography","Health & Physical Education","History","Language","Mathematics","Science","Society & Environment","Technology"]
     end
 
     def set_program_filters(places)
 #      place_ids = places.map{|x| x[:id]}
 #      @locations = Area.joins(:places).where("places.id IN (?)", place_ids).distinct.map{|l| l[:display_name]}
       set_program_constants()
-      @categories = Category.all.map{|c| c[:name]}
-      @categories.unshift('All')
+#      @categories = Category.all.map{|c| c[:name]}
+#      @categories.unshift('All')
+      @categories = ["All", "Excursion", "Incursion", "Virtual Excursion"]
     end
 
   private
