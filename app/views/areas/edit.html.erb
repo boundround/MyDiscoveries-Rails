@@ -1,4 +1,5 @@
 <div class="edit-container">
+  <% if user_signed_in? %>
   <h1>Edit <%= @area.display_name + ' (ID: ' + @area.id.to_s + ')' %></h1>
   <p>
     <a href="<%= area_path(@area) %>" target="blank">Preview</a>
@@ -238,5 +239,8 @@
   <div class="edit_photo">
     <%= render "/fun_facts/form" %>
   </div>
+  <% else %>
+    <h3>Sorry, you must be logged in to view this page</h3>
+  <% end %>
 </div>
 <%= javascript_include_tag 'area.js' %>
