@@ -9,6 +9,9 @@
       <%= f.input :area_id, label: 'Part Of What Area?', collection: @areas, as: :select, label_method: :display_name, value_method: :id, required: true %>
     </div>
     <div class="form-group">
+      <%= f.input :country_id, label: 'Country', collection: Country.all, as: :select, label_method: :display_name, value_method: :id, required: true %>
+    </div>
+    <div class="form-group">
       <%= f.input :website, input_html: { class: 'form-control' } %>
     </div>
     <!--

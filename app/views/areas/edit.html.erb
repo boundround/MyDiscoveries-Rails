@@ -12,7 +12,7 @@
           <%= f.input :display_name, input_html: { class: 'form-control' } %>
         </div>
         <div class="form-group">
-          <%= f.input :country, priority: ['Australia', 'United States of America'] %>
+          <%= f.input :country_id, label: 'Country', collection: Country.all, as: :select, label_method: :display_name, value_method: :id, required: true %>
         </div>
         <div class="form-group">
           <%= f.input :description, as: :bootsy, label: false, input_html: { class: 'form-control area-description-input' } %>

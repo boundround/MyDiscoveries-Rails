@@ -10,6 +10,9 @@
         <%= f.input :display_name, input_html: { class: 'form-control' } %>
       </div>
       <div class="form-group">
+        <%= f.input :country_id, label: 'Country', collection: Country.all, as: :select, label_method: :display_name, value_method: :id, required: true %>
+      </div>
+      <div class="form-group">
         <%= f.input :description, as: :bootsy, label: false, input_html: { class: 'form-control area-description-input' } %>
       </div>
       <div class="form-group">
@@ -72,7 +75,6 @@
       <%= f.input :sublocality, :input_html => { "data-geo" => "sublocality", class: 'form-control' } %>
       <%= f.input :locality, :input_html => { "data-geo" => "locality", class: 'form-control' } %>
       <%= f.input :state, :input_html => { "data-geo" => "administrative_area_level_1", class: 'form-control' } %>
-      <%= f.input :country, as: :string, :input_html => { "data-geo" => "country" } %>
       <%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code" } %>
       <%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control' } %>
       <%= f.input :place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>

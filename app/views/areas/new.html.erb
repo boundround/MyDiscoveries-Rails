@@ -19,7 +19,7 @@
       <%= f.input :address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address" } %>
     </div>
     <div class="form-group">
-      <%= f.input :country, priority: ['Australia', 'United States of America'] %>
+      <%= f.input :country_id, label: 'Country', collection: Country.all, as: :select, label_method: :display_name, value_method: :id, required: true %>
     </div>
     <div class="form-group">
       <%= f.input :description, as: :bootsy, placeholder: 'Description', required: true, input_html: { class: 'form-control' } %>
