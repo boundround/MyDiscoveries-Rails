@@ -132,6 +132,22 @@ class PlacesController < ApplicationController
   def update
     @place = Place.friendly.find(params[:id])
 
+    @place.photos.each do |photo|
+      photo.add_or_remove_from_country(@place.country)
+    end
+
+    @place.videos.each do |video|
+      video.add_or_remove_from_country(@place.country)
+    end
+
+    @place.fun_facts.each do |fun_fact|
+      fun_fact.add_or_remove_from_country(@place.country)
+    end
+
+    @place.discounts.each do |discount|
+      discount.add_or_remove_from_country(@place.country)
+    end
+
     if @place.update(place_params)
       redirect_to :back, notice: 'Place succesfully updated'
     else
@@ -310,13 +326,13 @@ class PlacesController < ApplicationController
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon, :published_at, :unpublished_at,
-                                    :street_number, :route, :sublocality, :locality, :state, :country, :post_code, :created_by, :user_created,
+                                    :street_number, :route, :sublocality, :locality, :state, :post_code, :created_by, :user_created,
                                     :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status,
-                                    photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :_destroy],
-                                    videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :_destroy],
+                                    photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_include, :_destroy],
+                                    videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :country_include, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :_destroy],
-                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :_destroy],
-                                    discounts_attributes: [:id, :description, :place_id, :area_id, :status, :_destroy],
+                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :country_include, :_destroy],
+                                    discounts_attributes: [:id, :description, :place_id, :area_id, :status, :country_include, :_destroy],
                                     category_ids: [])
     end
 end

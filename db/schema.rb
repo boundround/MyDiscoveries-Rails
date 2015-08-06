@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805103036) do
+ActiveRecord::Schema.define(version: 20150805230747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,13 @@ ActiveRecord::Schema.define(version: 20150805103036) do
 
   add_index "countries", ["slug"], name: "index_countries_on_slug", using: :btree
 
+  create_table "countries_discounts", force: true do |t|
+    t.integer  "country_id"
+    t.integer  "discount_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "countries_famous_faces", force: true do |t|
     t.integer "country_id"
     t.integer "famous_face_id"
@@ -146,6 +153,7 @@ ActiveRecord::Schema.define(version: 20150805103036) do
     t.integer  "priority"
     t.integer  "area_id"
     t.string   "status"
+    t.boolean  "country_include"
   end
 
   add_index "discounts", ["place_id"], name: "index_discounts_on_place_id", using: :btree
@@ -171,6 +179,7 @@ ActiveRecord::Schema.define(version: 20150805103036) do
     t.string   "hero_photo"
     t.string   "status"
     t.string   "photo_credit"
+    t.boolean  "country_include"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -244,6 +253,7 @@ ActiveRecord::Schema.define(version: 20150805103036) do
     t.string   "caption_source"
     t.string   "alt_tag"
     t.string   "status"
+    t.boolean  "country_include"
   end
 
   add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
@@ -463,6 +473,7 @@ ActiveRecord::Schema.define(version: 20150805103036) do
     t.integer  "priority"
     t.string   "vimeo_thumbnail"
     t.string   "status"
+    t.boolean  "country_include"
   end
 
   add_index "videos", ["area_id"], name: "index_videos_on_area_id", using: :btree

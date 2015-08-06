@@ -7,7 +7,7 @@ class Program < ActiveRecord::Base
 
 #  after_save :load_into_soulmate
 #  before_destroy :remove_from_soulmate
-  
+
   include PgSearch
   pg_search_scope :search, against: [:name, :description],
     using: {tsearch: {dictionary: "english"}},
@@ -29,7 +29,7 @@ class Program < ActiveRecord::Base
         puts row["place"]+", "+row["name"]
         place = Place.find_by display_name: row["place"]
         if place.nil? then puts "Couldn't find place: " + row["place"] end
-        unless place.nil? 
+        unless place.nil?
           row.delete("place")
           if row['webresources'] && row['webresources'] != "" then
             webresources = JSON.parse(row['webresources'])
@@ -68,13 +68,13 @@ class Program < ActiveRecord::Base
       loader.add("term" => self.name.downcase + ' ' + self.description.downcase + ' ' + self.place.display_name.downcase + ' ' + self.place.area.display_name.downcase,
                 "display_name" => self.name, "id" => self.id, "latitude" => self.place.latitude, "longitude" => self.place.longitude,
                 "url" => '/programs/' + self.id + '.html', "placeType" => "program",
-                "area" => {"display_name" => self.place.area.display_name, "country" => self.place.area.country})
+                "area" => {"display_name" => self.place.area.display_name, "country" => self.place.area.country.display_name})
   end
-      
+
   def remove_from_soulmate
     loader = Soulmate::Loader.new("program")
     loader.remove("id" => self.id)
   end
 
-  
+
 end

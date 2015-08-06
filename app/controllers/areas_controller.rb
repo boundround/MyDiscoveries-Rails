@@ -102,11 +102,11 @@ class AreasController < ApplicationController
       params.require(:area).permit(:code, :identifier, :display_name, :country, :short_intro, :description,
                                     :latitude, :longitude, :address, :published_status, :view_latitude, :view_longitude,
                                     :view_height, :view_heading,
-                                    photos_attributes: [:id, :area_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :_destroy],
-                                    videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :_destroy],
+                                    photos_attributes: [:id, :area_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_include, :_destroy],
+                                    videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :country_include, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :_destroy],
-                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :_destroy],
-                                    discounts_attributes: [:id, :description, :place_id, :area_id, :status, :_destroy])
+                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :country_include, :_destroy],
+                                    discounts_attributes: [:id, :description, :place_id, :area_id, :status, :country_include, :_destroy])
     end
 
 end

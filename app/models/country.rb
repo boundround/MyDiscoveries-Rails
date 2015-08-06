@@ -10,8 +10,11 @@ class Country < ActiveRecord::Base
 
   mount_uploader :hero_photo, CountryPhotoUploader
 
-  # has_many :areas
-  # has_many :places
+  has_many :areas
+  has_many :places
+
+  has_many :countries_discounts
+  has_many :discounts, through: :countries_discounts
 
   has_many :countries_photos
   has_many :photos, through: :countries_photos

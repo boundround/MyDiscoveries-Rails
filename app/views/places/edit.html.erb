@@ -1,4 +1,4 @@
-<div class="container">
+<div class="edit-container">
   <% if user_signed_in? %>
   <h1>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
   <p>
@@ -96,6 +96,7 @@
             <th>Vimeo ID</th>
             <th>Priority</th>
             <th>Status</th>
+            <th>Include In Country</th>
             <th>Updated By</th>
             <th>Remove</th>
           </tr>
@@ -109,6 +110,7 @@
                 <td><%= ff.text_area :vimeo_id %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.check_box :country_include %></td>
                 <td><%= !video.versions.blank? && video.versions.last.whodunnit ? User.find(video.versions.last.whodunnit).email : "" %><br><%= video.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
@@ -129,6 +131,7 @@
             <th>Alt Tags</th>
             <th>Priority</th>
             <th>Status</th>
+            <th>Include In Country</th>
             <th>Updated By</th>
             <th>Remove</th>
           </tr>
@@ -145,6 +148,7 @@
                 <td><%= ff.text_field :alt_tag %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.check_box :country_include %></td>
                 <td><%= !photo.versions.blank? && photo.versions.last.whodunnit ? User.find(photo.versions.last.whodunnit).email : "" %><br><%= photo.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
@@ -192,8 +196,11 @@
           <tr>
             <th>Content</th>
             <th>Reference</th>
+            <th>Hero Photo</th>
+            <th>Photo Credit</th>
             <th>Priority</th>
             <th>Status</th>
+            <th>Include In Country</th>
             <th>Updated By</th>
             <th>Remove</th>
           </tr>
@@ -205,8 +212,11 @@
                 <%= ff.input :id, as: :hidden %>
                 <td><%= ff.text_field :content %></td>
                 <td><%= ff.text_field :reference %></td>
+                <td><%= ff.file_field :hero_photo %></td>
+                <td><%= ff.text_field :photo_credit %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.check_box :country_include %></td>
                 <td><%= !fun_fact.versions.blank? && fun_fact.versions.last.whodunnit ? User.find(fun_fact.versions.last.whodunnit).email : "" %><br><%= fun_fact.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
@@ -223,6 +233,7 @@
             <th>Description</th>
             <th>Priority</th>
             <th>Status</th>
+            <th>Include In Country</th>
             <th>Updated By</th>
             <th>Remove</th>
           </tr>
@@ -235,6 +246,7 @@
                 <td><%= ff.bootsy_area :description %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.check_box :country_include %></td>
                 <td><%= !discount.versions.blank? ? User.find(discount.versions.last.whodunnit).email : "" %><br><%= discount.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>

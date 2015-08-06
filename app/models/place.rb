@@ -29,7 +29,7 @@ class Place < ActiveRecord::Base
   validates_presence_of :display_name, :slug
 
   belongs_to :area
-  # belongs_to :country
+  belongs_to :country
   has_many :categorizations
   has_many :categories, through: :categorizations
   has_many :photos, -> { order "created_at ASC"}
@@ -83,7 +83,7 @@ class Place < ActiveRecord::Base
       places = self.active.includes(:categories, :games, :videos, :photos)
       places.each do |place|
         if place.area != nil
-          area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.active ? place.area.places.active.length : 0, "country" => place.area.country}
+          area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.active ? place.area.places.active.length : 0, "country" => (place.country ? place.country.display_name : "") }
         end
         # Assign icon based on 'premium' level and category
         if place.categories[0].nil?
@@ -165,7 +165,7 @@ class Place < ActiveRecord::Base
       loader.add("term" => display_name.downcase + ' ' + (description ? description.downcase : "") + ' ' + (self.area_id ? self.area.display_name.downcase : ""),
                 "display_name" => display_name, "id" => id, "latitude" => latitude, "longitude" => longitude,
                 "url" => '/places/' + slug + '.html', "slug" => slug, "placeType" => "place",
-                "area" => {"display_name" => (self.area_id ? self.area.display_name : (self.locality ? self.locality : "")), "country" => (self.area_id ? self.area.country : (self.country ? self.country : ""))})
+                "area" => {"display_name" => (self.area_id ? self.area.display_name : (self.locality ? self.locality : "")), "country" => (self.country ? self.country.display_name : "") })
     end
   end
 

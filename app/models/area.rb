@@ -11,7 +11,7 @@ class Area < ActiveRecord::Base
 
   validates_presence_of :display_name, :slug
 
-  # belongs_to :country
+  belongs_to :country
 
   has_many :videos, -> { order "created_at ASC"}
   has_many :places, -> { order(:display_name) }
@@ -74,7 +74,7 @@ class Area < ActiveRecord::Base
               "iconAnchor" => [20, 0]
             },
             "placeCount" => area.places.active.length,
-            "country" => area.country
+            "country" => (area.country ? area.country.display_name : "")
           }
         }
       end
@@ -109,7 +109,7 @@ class Area < ActiveRecord::Base
     if self.published_status == "live"
       loader = Soulmate::Loader.new("area")
       loader.add("term" => display_name.downcase, "display_name" => display_name, "id" => id, "description" => description,
-                  "latitude" => latitude, "longitude" => longitude, "url" => '/areas/' + slug + '.html', "slug" => slug, "country" => country, "placeType" => "area")
+                  "latitude" => latitude, "longitude" => longitude, "url" => '/areas/' + slug + '.html', "slug" => slug, "country" => (self.country ? self.country.display_name : ""), "placeType" => "area")
     end
   end
 

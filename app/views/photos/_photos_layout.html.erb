@@ -39,7 +39,7 @@
                      <%= hidden_field_tag 'photo', photo.path_url(:medium) %>
                      <%= hidden_field_tag 'place', photo.area ? photo.area.display_name : photo.place.display_name %>
                      <%= hidden_field_tag 'area', '' %>
-                     <%= hidden_field_tag 'country', photo.area ? @area.country : photo.place.area.country %>
+                     <%= hidden_field_tag 'country', photo.area ? @area.country.display_name : photo.place.area.country.display_name %>
                  </div>
                  <div class="form-group">
                    <%= submit_tag 'Send', class: 'btn btn-default btn-about' %>

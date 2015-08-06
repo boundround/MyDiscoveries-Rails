@@ -4,6 +4,8 @@
     <div class="form-group">
       <%= f.input :content, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'}  %>
       <%= f.input :reference, input_html: { class: 'form-control'}  %>
+      <%= f.input :hero_photo, as: :file, input_html: { class: 'form-control'}  %>
+      <%= f.input :reference, input_html: { class: 'form-control'}  %>
     </div>
     <div class="form-group">
       <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="edit-container">
   <h1>Edit <%= @area.display_name + ' (ID: ' + @area.id.to_s + ')' %></h1>
   <p>
     <a href="<%= area_path(@area) %>" target="blank">Preview</a>
@@ -46,154 +46,177 @@
           <%= f.input :address, placeholder: 'Address', :input_html => { class: 'form-control', "data-geo" => "formatted_address" }, label: "Marker Address" %>
         </div>
         <div id="table-container">
-          <h3>Videos</h3>
-          <table class="table table-striped" id="video-table">
-            <thead>
+      <h3>Videos</h3>
+      <table class="table table-striped" id="video-table">
+        <thead>
+          <tr>
+            <th>Preview</th>
+            <th>Vimeo ID</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Include In Country</th>
+            <th>Updated By</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @area.videos.each do |video| %>
+            <%= f.fields_for :videos do |ff| %>
               <tr>
-                <th>Preview</th>
-                <th>Vimeo ID</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Remove</th>
+                <%= ff.input :id, as: :hidden %>
+                <td></td>
+                <td><%= ff.text_area :vimeo_id %></td>
+                <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.check_box :country_include %></td>
+                <td><%= !video.versions.blank? && video.versions.last.whodunnit ? User.find(video.versions.last.whodunnit).email : "" %><br><%= video.updated_at.strftime('%F at %T') %></td>
+                <td><%= ff.check_box :_destroy %></td>
               </tr>
-            </thead>
-            <tbody>
-              <%= f.fields_for :videos do |ff| %>
-                <tr>
-                  <%= ff.input :id, as: :hidden %>
-                  <td></td>
-                  <td><%= ff.text_area :vimeo_id %></td>
-                  <td><%= ff.select :priority, 1..10 %></td>
-                  <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-                  <td><%= ff.check_box :_destroy %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div id="table-container">
-          <h3>Photos</h3>
-          <table class="table table-striped" id="photo-table">
-            <thead>
-              <tr>
-                <th>Thumbnail</th>
-                <th>Change Photo</th>
-                <th>Credit</th>
-                <th>Caption</th>
-                <th>Alt Tags</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @area.photos.each do |photo| %>
-                <%= f.fields_for :photos, photo do |ff| %>
-                  <tr>
-                    <%= ff.input :id, as: :hidden %>
-                    <td><img src="<%= asset_path(photo.path_url(:small)) %>" class="photo-edit-thumb"></td>
-                    <td><%= ff.file_field :path, class: "photo-file" %></td>
-                    <td><%= ff.text_area :credit %></td>
-                    <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
-                    <td><%= ff.text_field :alt_tag %></td>
-                    <td><%= ff.select :priority, 1..10 %></td>
-                    <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-                    <td><%= ff.check_box :_destroy %></td>
-                  </tr>
-                <% end %>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div id="table-container">
-          <h3>Games</h3>
-          <table class="table table-striped" id="game-table">
-            <thead>
-              <tr>
-                <th>Thumbnail</th>
-                <th>URL</th>
-                <th>Game Type</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @area.games.each do |game| %>
-                <%= f.fields_for :games, game do |ff| %>
-                  <tr>
-                    <%= ff.input :id, as: :hidden %>
-                    <td><img src="<%= asset_path(game.thumbnail) %>" class="photo-edit-thumb"></td>
-                    <td><%= ff.text_area :url, :cols => "50", :rows => "3" %></td>
-                    <td><%= ff.select :game_type, ["jigsaw puzzle", "word search", "slider"] %></td>
-                    <td><%= ff.select :priority, 1..10 %></td>
-                    <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-                    <td><%= ff.check_box :_destroy %></td>
-                  </tr>
-                <% end %>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div id="table-container">
-          <h3>Fun Facts</h3>
-          <table class="table table-striped" id="fun-fact-table">
-            <thead>
-              <tr>
-                <th>Content</th>
-                <th>Reference</th>
-                <th>Hero Photo</th>
-                <th>Photo Credit</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%= f.fields_for :fun_facts do |ff| %>
-                <tr>
-                  <%= ff.input :id, as: :hidden %>
-                  <td><%= ff.text_field :content %></td>
-                  <td><%= ff.text_field :reference %></td>
-                  <td><%= ff.file_field :hero_photo %></td>
-                  <td><%= ff.text_field :photo_credit %></td>
-                  <td><%= ff.select :priority, 1..10 %></td>
-                  <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-                  <td><%= ff.check_box :_destroy %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div id="table-container">
-          <h3>Specials</h3>
-          <table class="table table-striped" id="discount-table">
-            <thead>
-              <tr>
-                <th>Description</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%= f.fields_for :discounts do |ff| %>
-                <tr>
-                  <%= ff.input :id, as: :hidden %>
-                  <td><%= ff.bootsy_area :description %></td>
-                  <td><%= ff.select :priority, 1..10 %></td>
-                  <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-                  <td><%= ff.check_box :_destroy %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      <% end %>
-      <div class="form-group">
-        <%= f.button :submit, 'Update All' %>
-      </div>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
     </div>
+    <div id="table-container">
+      <h3>Photos</h3>
+      <table class="table table-striped" id="photo-table">
+        <thead>
+          <tr>
+            <th>Thumbnail</th>
+            <th>Change Photo</th>
+            <th>Credit</th>
+            <th>Caption</th>
+            <th>Alt Tags</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Include In Country</th>
+            <th>Updated By</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @area.photos.each do |photo| %>
+            <%= f.fields_for :photos, photo do |ff| %>
+              <tr>
+                <%= ff.input :id, as: :hidden %>
+                <td><img src="<%= asset_path(photo.path_url) %>" class="photo-edit-thumb"></td>
+                <td><%= ff.file_field :path, class: "photo-file" %></td>
+                <td><%= ff.text_area :credit %></td>
+                <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
+                <td><%= ff.text_field :alt_tag %></td>
+                <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.check_box :country_include %></td>
+                <td><%= !photo.versions.blank? && photo.versions.last.whodunnit ? User.find(photo.versions.last.whodunnit).email : "" %><br><%= photo.updated_at.strftime('%F at %T') %></td>
+                <td><%= ff.check_box :_destroy %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div id="table-container">
+      <h3>Games</h3>
+      <table class="table table-striped" id="game-table">
+        <thead>
+          <tr>
+            <th>Thumbnail</th>
+            <th>URL</th>
+            <th>Game Type</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Updated By</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @area.games.each do |game| %>
+            <%= f.fields_for :games, game do |ff| %>
+              <tr>
+                <%= ff.input :id, as: :hidden %>
+                <td><img src="<%= game_thumbnail(game) %>" class="photo-edit-thumb"></td>
+                <td><%= ff.text_area :url, :cols => "50", :rows => "3" %></td>
+                <td><%= ff.select :game_type, ["jigsaw puzzle", "word search", "slider"] %></td>
+                <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= !game.versions.blank? && game.versions.last.whodunnit ? User.find(game.versions.last.whodunnit).email : "" %><br><%= game.updated_at.strftime('%F at %T') %></td>
+                <td><%= ff.check_box :_destroy %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div id="table-container">
+      <h3>Fun Facts</h3>
+      <table class="table table-striped" id="fun-fact-table">
+        <thead>
+          <tr>
+            <th>Content</th>
+            <th>Reference</th>
+            <th>Hero Photo</th>
+            <th>Photo Credit</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Include In Country</th>
+            <th>Updated By</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @area.fun_facts.each do |fun_fact| %>
+            <%= f.fields_for :fun_facts, fun_fact do |ff| %>
+              <tr>
+                <%= ff.input :id, as: :hidden %>
+                <td><%= ff.text_field :content %></td>
+                <td><%= ff.text_field :reference %></td>
+                <td><%= ff.file_field :hero_photo %></td>
+                <td><%= ff.text_field :photo_credit %></td>
+                <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.check_box :country_include %></td>
+                <td><%= !fun_fact.versions.blank? && fun_fact.versions.last.whodunnit ? User.find(fun_fact.versions.last.whodunnit).email : "" %><br><%= fun_fact.updated_at.strftime('%F at %T') %></td>
+                <td><%= ff.check_box :_destroy %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div id="table-container">
+      <h3>Specials</h3>
+      <table class="table table-striped" id="discount-table">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Include In Country</th>
+            <th>Updated By</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @area.discounts.each do |discount| %>
+            <%= f.fields_for :discounts do |ff| %>
+              <tr>
+                <%= ff.input :id, as: :hidden %>
+                <td><%= ff.bootsy_area :description %></td>
+                <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.check_box :country_include %></td>
+                <td><%= !discount.versions.blank? ? User.find(discount.versions.last.whodunnit).email : "" %><br><%= discount.updated_at.strftime('%F at %T') %></td>
+                <td><%= ff.check_box :_destroy %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="form-group">
+      <%= f.button :submit, 'Update All' %>
+    </div>
+    <% end %>
   <% end %>
 
   <div class="edit_photo">

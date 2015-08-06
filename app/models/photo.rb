@@ -16,6 +16,20 @@ class Photo < ActiveRecord::Base
 
   scope :active, -> { where(status: "live") }
 
+  def add_or_remove_from_country(country)
+    row = CountriesPhoto.where(photo_id: self.id).where(country_id: country.id)
+
+    if self.country_include
+      if row.blank?
+        self.countries << country
+      end
+    else
+      if row
+        self.countries.delete(country)
+      end
+    end
+  end
+
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
