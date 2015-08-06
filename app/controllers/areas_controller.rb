@@ -68,19 +68,19 @@ class AreasController < ApplicationController
 
     if @area.update(area_params)
       @area.photos.each do |photo|
-        photo.add_or_remove_from_country(@place.country)
+        photo.add_or_remove_from_country(@area.country)
       end
 
       @area.videos.each do |video|
-        video.add_or_remove_from_country(@place.country)
+        video.add_or_remove_from_country(@area.country)
       end
 
       @area.fun_facts.each do |fun_fact|
-        fun_fact.add_or_remove_from_country(@place.country)
+        fun_fact.add_or_remove_from_country(@area.country)
       end
 
       @area.discounts.each do |discount|
-        discount.add_or_remove_from_country(@place.country)
+        discount.add_or_remove_from_country(@area.country)
       end
 
       @area = Area.find(@area.id)
