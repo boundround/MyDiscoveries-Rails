@@ -132,7 +132,8 @@ class PlacesController < ApplicationController
   def update
     @place = Place.friendly.find(params[:id])
 
-    @place.photos.each do |photo|
+    if @place.update(place_params)
+      @place.photos.each do |photo|
       photo.add_or_remove_from_country(@place.country)
     end
 
@@ -147,8 +148,6 @@ class PlacesController < ApplicationController
     @place.discounts.each do |discount|
       discount.add_or_remove_from_country(@place.country)
     end
-
-    if @place.update(place_params)
       redirect_to :back, notice: 'Place succesfully updated'
     else
       redirect_to edit_place_path(@place), notice: 'Error: Place not updated'

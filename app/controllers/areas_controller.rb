@@ -67,7 +67,24 @@ class AreasController < ApplicationController
     @area = Area.friendly.find(params[:id])
 
     if @area.update(area_params)
+      @area.photos.each do |photo|
+        photo.add_or_remove_from_country(@place.country)
+      end
+
+      @area.videos.each do |video|
+        video.add_or_remove_from_country(@place.country)
+      end
+
+      @area.fun_facts.each do |fun_fact|
+        fun_fact.add_or_remove_from_country(@place.country)
+      end
+
+      @area.discounts.each do |discount|
+        discount.add_or_remove_from_country(@place.country)
+      end
+
       @area = Area.find(@area.id)
+
       redirect_to edit_area_path(@area), notice: 'Area succesfully updated'
     end
 
