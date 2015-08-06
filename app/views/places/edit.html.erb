@@ -105,7 +105,7 @@
         </thead>
         <tbody>
           <% @place.videos.each do |video| %>
-            <%= f.fields_for :videos do |ff| %>
+            <%= f.fields_for :videos, video do |ff| %>
               <tr>
                 <%= ff.input :id, as: :hidden %>
                 <td></td>

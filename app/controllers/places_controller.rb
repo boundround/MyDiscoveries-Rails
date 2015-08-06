@@ -330,7 +330,7 @@ class PlacesController < ApplicationController
                                     photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_include, :_destroy],
                                     videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :country_include, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :_destroy],
-                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :country_include, :_destroy],
+                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :country_include, :_destroy],
                                     discounts_attributes: [:id, :description, :place_id, :area_id, :status, :country_include, :_destroy],
                                     category_ids: [])
     end

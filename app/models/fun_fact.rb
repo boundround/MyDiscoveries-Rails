@@ -22,7 +22,7 @@ class FunFact < ActiveRecord::Base
         self.countries << country
       end
     else
-      if row
+      if row.length > 0
         self.countries.delete(country)
       end
     end
