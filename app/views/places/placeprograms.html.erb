@@ -23,8 +23,12 @@ var id = 'loader', fill = '#FFF',
 <div class="result" style="background: url(<%= pick_a_place_hero_url(@place) %>) no-repeat center";
 >
 <div class="result-top">
-	<div class="col-sm-3 fff back"><i class="glyphicon glyphicon-chevron-left"></i> &nbsp; <a class="fff" href="javascript:history.back()">Back to results</a> </div>
-
+			<div class="col-sm-3 fff back" style="margin: auto;">
+				<div class="ss_gray_bg_text" style="margin:auto;">
+					<i class="glyphicon glyphicon-chevron-left"></i> &nbsp; 
+					<a class="fff" href="javascript:history.back()">Back to results</a> 
+				</div>
+			</div>
 	<!--div class="col-md-3 col-sm-3 col-xs-5 left_login profile pull-right text-right">
             <div class="dropdown z_index l_dropdown">
                 <button class="login btn-log dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
@@ -95,22 +99,24 @@ var id = 'loader', fill = '#FFF',
 				<div class="col-sm-12">
 					
 					<div class="col-md-9 col-sm-8">
-						<h2><%=@place.display_name%><br/>
-							<span><a href="<%=@place.website%>"><%=@place.website%></a></span>
+						<h2><%=@place.display_name%><BR><br/>
+							<div class = "side-btn">								
+								<span><a class="btn btn-default ss_website_button" href="<%=@place.website%>">Website</a></span>
+							</div>
 						</h2>
-						<div class="visible-xs">
+						<!--div class="visible-xs">
 							<i class="fa fa-heart"></i>
 								<i class="fa fa-heart"></i>
 								<i class="fa fa-heart"></i>
 								<i class="fa fa-heart-o"></i>
 								<i class="fa fa-heart-o"></i>
-						</div>
+						</div-->
 						<p class="col-md-11 row">
 							<%=@place.description%><br>
 							<!--a href="#" class="hidden-xs">Read More</a-->
 						</p>
 						<p class="visible-xs">
-							<span class="bold">Location:</span> <span><%=@place.display_address%></span>	
+							<span class="bold">Address:</span> <span><%=@place.display_address%></span>	
 						</p>
 						<div class="clearfix"></div>
 						
@@ -157,7 +163,7 @@ var id = 'loader', fill = '#FFF',
 								Programs:&nbsp; <%=@place.programs.count%> <!--a href="#"><%=@place.programs.count%></a-->
 							</li>
 							<li>
-								Location:&nbsp; <span>><%=@place.display_address%></</span>
+								Address:&nbsp; <span><BR><%=@place.address%><BR></span>
 							</li>
 						</ul>
 
@@ -174,7 +180,7 @@ var id = 'loader', fill = '#FFF',
 		<% @place.programs.each do |program| %>
 	  <div id="myModal_<%=program.id%>" class="modal fade">
 	  	<div class="fixed-btn">
-                		<a href="#myModal2" data-toggle="modal" class="fff hidden-sm hidden-xs side-book"><span class="side-arrow"><</span> <span>Book<br>now!</span></a>
+                		<!--a href="#myModal2" data-toggle="modal" class="fff hidden-sm hidden-xs side-book"><span class="side-arrow"><</span> <span>Book<br>now!</span></a-->
                 	</div>
         <div class="modal-dialog">
         	<div class="rating-box">
@@ -194,12 +200,12 @@ var id = 'loader', fill = '#FFF',
                 		<!--div class="col-md-2 col-sm-3">
                 			<img src=<%= @place.logo %> class="center-block img-responsive" alt=<%= @place.logo %> >
                 		</div-->
-                		<div class="col-md-9">
+                		<div class="col-sm-12">
                 			<h1>
-                				<%= program.name %><br>
-                				<span>
-                					<a href="<%= program.programpath %>"><%= program.programpath %></a>
-                				</span>
+                				<%= program.name %><BR><br>
+													<div class = "side-btn">								
+														<span><a class="btn btn-default ss_website_button" href="<%= program.programpath %>">Program Website</a></span>
+													</div>
                 			</h1>
                 		</div>
                 		<div class="col-sm-12 ">
@@ -494,7 +500,7 @@ var id = 'loader', fill = '#FFF',
 					<div class="col-sm-4">
 					<div class="bottom-box">
 						<div class="top-row">
-							<div class="col-xs-10"><h3><%=program.name%></h3></div>
+							<div class="col-xs-10 ss_program_name"><h3><%=program.name%></h3></div>
 							<!--IMPLEMENT div class="col-xs-2 text-right">
 								<i class="fa fa-star "></i>
 							</div-->
@@ -502,9 +508,9 @@ var id = 'loader', fill = '#FFF',
 						</div>	
 						<div class="bottom-middle">
 							<div class="col-sm-12 col-md-11 col-xs-12">
-								<p id="program_<%=program.id%>" class="enquire-modal "><%=program.description%>
+								<p id="program_<%=program.id%>" class="enquire-modal ss_program_description"><%=program.description%>
 								</p>
-								<p>
+								<p class="ss_program_duration">
 									Duration: <span class="bold"><%=program.duration%></span>
 								</p>
 							</div>

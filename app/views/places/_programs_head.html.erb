@@ -28,5 +28,59 @@
 	<script src="../ss/js/jquery.min.js"></script>      
 	<script src="../ss/js/bootstrap-select.min.js"></script>
   <script src="../ss/js/bootstrap-rating.min.js"></script>
+  <script src="../ss/js/jquery.keep-ratio.js"></script>
+  
+  <script type="text/javascript">
+		function sizer(n){
+			n.each(function(){
+			  var w=$(this).width();
+			  var contw=$(this).parent().width();
+		    if(w>contw){
+		      var a= w-contw;
+		      var b=a/2;
+		      $(this).css('left',-b);
+		    }
+		    else{
+		      $(this).css('left','0');
+		    }
+
+			  var h=$(this).height();
+			  var conth=$(this).parent().height();
+		    if(h>conth){
+		      var a= h-conth;
+		      var b=a/2;
+		      $(this).css('top',-b);
+		    }
+		    else{
+		      $(this).css('top','0');
+		    }
+
+			});
+		};
+			
+      $(function() {
+        function update(){
+          $('.i_dont_exist_yet').keepRatio({
+          ratio: 4/3,
+          calculate: 'height' // height or width
+          });
+        $('.yoyo').keepRatio({
+            ratio: 4/3,
+            calculate: 'height' // height or width
+            });
+           sizer($('.yoyo img'));
+        };
+				
+				$( window ).resize(function() {
+				  update();
+				});
+        
+       setTimeout(function(){
+        sizer($('.yoyo img'));
+       },500);
+      });
+			
+	</script>
+		
 		
 </head>
