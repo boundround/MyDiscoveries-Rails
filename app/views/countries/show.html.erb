@@ -23,13 +23,19 @@
             <% if @weather %>
             <i class="fa fa-clock-o"></i>&nbsp;
             <span class="time">
-              <%= @weather_time %> GMT
+              <% if @weather_time %>
+                <%= @weather_time %> GMT
+              <% end %>
             </span>&nbsp;
             <span class="temperature">
-              <%= @weather_temp %>&deg;
+              <% if @weather_temp %>
+                <%= @weather_temp %>&deg;
+              <% end %>
             </span>&nbsp;
             <span class="weather-description">
-              <%= @weather_description %> in <%= @country.capital_city %>
+              <% if @weather_description %>
+                <%= @weather_description %> in <%= @country.capital_city %>
+              <% end %>
             </span>
             <% end %>
           </span>

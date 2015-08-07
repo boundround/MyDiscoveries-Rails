@@ -8,9 +8,9 @@ class CountriesController < ApplicationController
     @country = Country.friendly.find(params[:id])
     if @country.capital_city
       @weather = OpenWeather::Current.city("#{@country.capital_city}, #{@country.country_code}")
-      @weather_time = Time.at(@weather["dt"]).strftime("%I:%M%p")
-      @weather_description = @weather["weather"][0]["description"]
-      @weather_temp = (@weather["main"]["temp"] - 273.15).to_i.to_s
+      @weather_time = @weather["dt"] ? Time.at(@weather["dt"]).strftime("%I:%M%p") : nil
+      @weather_description = @weather["weather"] ? @weather["weather"][0]["description"] : nil
+      @weather_temp = @weather["main"] ? (@weather["main"]["temp"] - 273.15).to_i.to_s : nil
     end
   end
 
