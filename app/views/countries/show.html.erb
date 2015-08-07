@@ -21,9 +21,9 @@
           <img class="country-flag" src="<%= asset_path('flags/' + @country.country_code.downcase + '.png') %>"/>
           <span class="hidden-xs">
             <% if @weather %>
-            <i class="fa fa-clock-o"></i>&nbsp;
             <span class="time">
               <% if @weather_time %>
+                <i class="fa fa-clock-o"></i>&nbsp;
                 <%= @weather_time %> GMT
               <% end %>
             </span>&nbsp;
