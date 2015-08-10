@@ -5,4 +5,6 @@ class FamousFace < ActiveRecord::Base
   has_many :countries, :through => :countries_famous_faces
 
   scope :active, -> { where(status: "live") }
+  scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
+
 end

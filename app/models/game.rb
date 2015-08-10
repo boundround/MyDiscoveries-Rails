@@ -12,6 +12,7 @@ class Game < ActiveRecord::Base
   scope :ordered_by_place_name, -> { joins(:place).order('places.display_name') }
 
   scope :active, -> { where(status: "live") }
+  scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
 
   self.per_page = 50
 

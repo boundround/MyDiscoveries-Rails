@@ -72,6 +72,39 @@ class PlacesController < ApplicationController
     end
   end
 
+  def preview
+    @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
+    if @place.area_id
+      @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
+      @area_videos = @place.area.videos
+    end
+
+    if @place.subscription_level == "Premium"
+      @videos = @place.videos.where.not(priority: 1) || []
+      @hero_video = @place.videos.find_by(priority: 1)
+    else
+      @videos = []
+    end
+
+    if !@hero_video
+      @hero_photo = @place.photos.find_by(priority: 1)
+      @photos = @place.photos.where.not(priority: 1)
+    else
+      @photos = @place.photos
+    end
+
+    @request_xhr = request.xhr?
+
+    if @place.display_name == "Virgin Australia"
+      @set_body_class = "virgin-body"
+    end
+
+    respond_to do |format|
+      format.html { render 'preview', :layout => !request.xhr? }
+      format.json { render json: @place }
+    end
+  end
+
   def create
     @place = Place.new(place_params)
 

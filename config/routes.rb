@@ -108,6 +108,7 @@ Rails.application.routes.draw do
 
 
   resources :places do
+    member { get 'preview' }
     resources :photos
     resources :videos
     resources :discounts

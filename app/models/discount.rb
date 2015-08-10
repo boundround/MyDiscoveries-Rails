@@ -6,6 +6,7 @@ class Discount < ActiveRecord::Base
   has_paper_trail
 
   scope :active, -> { where(status: "live") }
+  scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
 
   def add_or_remove_from_country(country)
     row = CountriesDiscount.where(discount_id: self.id).where(country_id: country.id)
