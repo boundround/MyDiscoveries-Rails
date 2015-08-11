@@ -70,13 +70,14 @@
     </tr>
     <tr>
       <td colspan="2" class="user-signature">
-        Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= @user.name %></span>
+        Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= @user.name %>asdfasdfasdfadf</span>
       </td>
     </tr>
   </table>
   <% if current_user.try(:admin) %>
     <%= f.input :admin %>
     <%= f.association :roles, as: :check_boxes, inline_label: true, :label_method => lambda { |role| role.name.capitalize }, input_html: { class: 'role-checkbox' } %>
+    <%= f.select :owned_place_ids, Place.order(:display_name).collect {|x| [x.display_name, x.id]}, {}, :multiple => true, class: 'owned-place-select' %>
   <% end %>
   <div class="actions">
     <%= f.submit 'Update Account', class: "btn btn-default" %>

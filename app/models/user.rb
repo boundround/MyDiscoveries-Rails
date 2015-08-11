@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   has_many :fun_facts_users
   has_many :fun_facts, through: :fun_facts_users
 
+  has_many :customers_places
+  has_many :owned_places, through: :customers_places, :source => :place
+
   mount_uploader :avatar, UserPhotoUploader
   process_in_background :avatar
 

@@ -19,6 +19,7 @@ class Photo < ActiveRecord::Base
   has_paper_trail
 
   scope :active, -> { where(status: "live") }
+  scope :edited, -> { where(status: "edited") }
   scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
 
   def add_or_remove_from_country(country)

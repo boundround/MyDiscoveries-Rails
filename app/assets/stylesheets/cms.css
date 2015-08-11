@@ -35,3 +35,7 @@
   position: relative !important;
 }
 
+.owned-place-select {
+  height: 500px !important;
+}
+

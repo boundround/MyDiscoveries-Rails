@@ -46,6 +46,9 @@ class Place < ActiveRecord::Base
   has_many :places_users
   has_many :users, through: :places_users
 
+  has_many :customers_places
+  has_many :owners, through: :customers_places, :source => :user
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true

@@ -32,6 +32,7 @@ class UsersController < ApplicationController
   def edit
     @set_body_class = 'passport-page'
     @user = User.find(params[:id])
+    @owned_places = @user.owned_places
 
     verify_current_user
 
@@ -136,7 +137,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :promo_code, :role_ids => [])
+      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :promo_code, :role_ids => [], :owned_place_ids => [])
     end
 
     def verify_current_user
