@@ -40,6 +40,7 @@ class FunFactsController < ApplicationController
   private
 
     def fun_fact_params
-      params.require(:fun_fact).permit(:content, :reference, :priority, :area_id, :place_id, :hero_photo, :status, :photo_credit, :country_include, :_destroy)
+      params.require(:fun_fact).permit(:content, :reference, :priority, :area_id, :place_id, :hero_photo, :status, :photo_credit,
+                                        :customer_approved, :customer_review, :approved_at, :country_include, :_destroy)
     end
 end

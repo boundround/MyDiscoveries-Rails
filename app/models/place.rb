@@ -1,7 +1,9 @@
 class Place < ActiveRecord::Base
+  include CustomerApprovable
+
   after_save :load_into_soulmate
   before_destroy :remove_from_soulmate
-  before_save :check_valid_url
+  before_save :check_valid_url, :set_approval_time
 
   has_paper_trail
 

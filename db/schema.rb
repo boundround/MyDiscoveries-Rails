@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805230747) do
+ActiveRecord::Schema.define(version: 20150810040057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,9 @@ ActiveRecord::Schema.define(version: 20150805230747) do
     t.integer  "area_id"
     t.string   "status"
     t.boolean  "country_include"
+    t.boolean  "customer_review"
+    t.boolean  "customer_approved"
+    t.datetime "approved_at"
   end
 
   add_index "discounts", ["place_id"], name: "index_discounts_on_place_id", using: :btree
@@ -164,6 +167,9 @@ ActiveRecord::Schema.define(version: 20150805230747) do
     t.string   "status"
     t.string   "photo_credit"
     t.boolean  "country_include"
+    t.boolean  "customer_review"
+    t.boolean  "customer_approved"
+    t.datetime "approved_at"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -186,6 +192,9 @@ ActiveRecord::Schema.define(version: 20150805230747) do
     t.integer  "area_id"
     t.string   "thumbnail"
     t.string   "status"
+    t.boolean  "customer_review"
+    t.boolean  "customer_approved"
+    t.datetime "approved_at"
   end
 
   add_index "games", ["place_id"], name: "index_games_on_place_id", using: :btree
@@ -238,6 +247,9 @@ ActiveRecord::Schema.define(version: 20150805230747) do
     t.string   "alt_tag"
     t.string   "status"
     t.boolean  "country_include"
+    t.boolean  "customer_review"
+    t.boolean  "customer_approved"
+    t.datetime "approved_at"
   end
 
   add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
@@ -286,6 +298,9 @@ ActiveRecord::Schema.define(version: 20150805230747) do
     t.boolean  "user_created"
     t.string   "created_by"
     t.integer  "country_id"
+    t.boolean  "customer_review"
+    t.boolean  "customer_approved"
+    t.datetime "approved_at"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -446,6 +461,9 @@ ActiveRecord::Schema.define(version: 20150805230747) do
     t.string   "vimeo_thumbnail"
     t.string   "status"
     t.boolean  "country_include"
+    t.boolean  "customer_review"
+    t.boolean  "customer_approved"
+    t.datetime "approved_at"
   end
 
   add_index "videos", ["area_id"], name: "index_videos_on_area_id", using: :btree
