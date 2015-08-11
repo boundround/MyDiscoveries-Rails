@@ -1058,10 +1058,26 @@ position: relative !important;width: 313px !important;}
   margin-bottom: 20px;
 }
 
+.ss_program_name
+{
+}
+
+.ss_program_description
+{
+	min-height: 200px;
+	max-height: 200px;
+}
+.ss_program_duration
+{
+	max-height: 40px !important;
+}
+
+
 .top-row h3
 {
   margin-top: 0px;
   color: #a2d549;
+	min-height: 100px;	
 }
 .top-row i{
   font-size: 21px;
@@ -1081,6 +1097,7 @@ position: relative !important;width: 313px !important;}
 .top-row {
   
   padding-right: 8px;
+	
 }
 .result-footer
 {
@@ -1174,7 +1191,7 @@ position: relative !important;width: 313px !important;}
 
 .modal-open .modal{
 
-  background: rgba(162,213,73,.95);
+/*  background: rgba(162,213,73,.95);*/
 }
 
 .modal.in .modal-dialog  
@@ -1226,10 +1243,10 @@ position: relative !important;width: 313px !important;}
 {
   padding-top: 0px;
   margin-top: 0px;
-  font-size: 51px;
+  font-size: 42px;
   line-height: 42px;
   font-weight: 300;
-  margin-left: -21px;
+  margin-left: 0px;
   margin-top: 0px;
 
 }
@@ -1496,7 +1513,7 @@ position: relative !important;width: 313px !important;}
   padding-top: 136px;
 }
 .modal {
-  background: rgba(162,213,73,.95);
+/*  background: rgba(162,213,73,.95);*/
 }
 
 .border-right{
@@ -1707,6 +1724,7 @@ position: relative !important;width: 313px !important;}
 
   .top-row h3{
   font-size: 18px;
+	min-height: 100px;	
 }
 .bottom-middle p {
   font-size: 15px;
@@ -2045,7 +2063,7 @@ margin: 0px;
 .modal-middle h1 {
   padding-top: 27px;
   margin-top: 0px;
-  font-size: 35px;
+  font-size: 27px;
   line-height: 27px;
   font-weight: 300;
   margin-left: 0px;
@@ -2448,14 +2466,13 @@ margin: 0px;
 }
 
 p.enquire-modal{
-	max-height:60px;
 	text-overflow:ellipsis;
 	overflow: hidden;
 }
 .bottom-box h3
 {
-	min-height:60px;
-	max-height:60px;
+	min-height:100px;
+	max-height:100px;
 	text-overflow:ellipsis;
 	overflow: hidden;
 }
@@ -2470,8 +2487,27 @@ p.enquire-modal{
 
 .box-top img
 {
-	min-height:120px;
+	position: relative;
+/*	min-height:120px;
 	max-height:120px;
-	
+*/	
+	min-height:145px;
 }
+
+.ss_website_button
+{
+	color: #fff !important;
+}
+
+.ss_website_button a:hover
+{
+	color: #333 !important;
+}
+
+.ss_gray_bg_text{
+  border-radius: 8px;
+	background-color: #333 !important;
+	opacity: .7;	
+}
+
 

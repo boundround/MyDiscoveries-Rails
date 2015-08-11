@@ -223,7 +223,7 @@ class PlacesController < ApplicationController
   def placeprograms #xyrin result.html
     set_program_constants()
     @placeprograms = "yes"
-    puts "Tring to find"+params[:id]
+    puts "Trying to find"+params[:id]
     @place = Place.find(params[:id])
     puts "Found"+params[:id]
 #    @place = Place.friendly.find(params[:id])
@@ -253,10 +253,16 @@ class PlacesController < ApplicationController
         if @search_term then
     #      @places = Place.joins(:programs).where.not(subscription_level: ['out', 'draft'])
     #               .text_search(@search_term).distinct
-          @pplaces = Place.joins(:programs).where(
+
+#          @pplaces = Place.joins(:area,:program).pluck(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, "areas.display_name AS area_name")
+#          @pprograms = Program.joins(:place,:area).pluck("places.status", "places.id as place_id","places.display_name AS place_name","areas.display_name AS area_name","programs.name AS program_name").where(
+#          "places.status IN(:sl) AND
+#          (place_name ILIKE :st OR program_name ILIKE :st OR area_name ILIKE :st)', sl: "live", st: '%'+@search_term+'%').distinct")
+
+          @pplaces = Place.includes(:area, :programs, :photos, :categories).joins(:area, :programs).where(
             #Faster
             'places.status IN (:sl) AND
-            (places.display_name ILIKE :st OR programs.name ILIKE :st)', sl: "live", st: '%'+@search_term+'%').distinct
+            (places.display_name ILIKE :st OR programs.name ILIKE :st OR areas.display_name ILIKE :st)', sl: "live", st: '%'+@search_term+'%').distinct
             #Better
             # @pplaces = Place.joins(:programs).where(
             #   'places.subscription_level NOT IN (:sl) AND
