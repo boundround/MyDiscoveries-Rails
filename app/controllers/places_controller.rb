@@ -213,11 +213,13 @@ class PlacesController < ApplicationController
   end
 
   def programsearchresultslist #xyrin search.html
-    set_program_results_state(params)
+    set_program_results_sql(params)
+#    set_program_results_state(params)
   end
 
   def programsearchresultsmap #xyrin map.html
-    set_program_results_state(params)
+    set_program_results_sql(params)
+#    set_program_results_state(params)
   end
 
   def placeprograms #xyrin result.html
@@ -231,7 +233,24 @@ class PlacesController < ApplicationController
   end
 
   protected
-    def set_program_results_state(params)
+    def yl_array_from_range(yl_range)
+      if yl_range == "K-2" then
+        ["K","1","2"]
+      elsif @yearlevel_filter ==  "3-4" then
+        ["3","4"]
+      elsif @yearlevel_filter ==  "5-6" then
+        ["5","6"]
+      elsif @yearlevel_filter ==   "7-8" then
+        ["7","8"]
+      elsif @yearlevel_filter ==   "9-10" then
+        ["9","10"]
+      elsif @yearlevel_filter ==   "11-12" then
+        ["11","12"]
+      end      
+    end
+  
+    def set_program_results_sql(params)
+      @MAX_TO_RETURN = 40
       @placeprograms = "yes"
 
       if params[:term] == "" then params[:term] = nil end
@@ -239,6 +258,93 @@ class PlacesController < ApplicationController
 
       if params[:id] then
         @pplaces = Place.where('places.id = :id', id: params[:id])
+        @pprograms = @pplaces[0].programs
+        @zoom = 15
+      else
+        full_query = ""
+        if params[:subject] == "" then params[:subject] = nil end
+        @subject_filter = params[:subject]
+        if @subject_filter != nil then
+          subject_sql = "(select g.taggable_id from tags as t, taggings as g where t.id = g.tag_id and g.context='programsubjects' and t.name ILIKE :sf )"
+          full_query = full_query + subject_sql;
+        end
+
+        if params[:activity] == "" then params[:activity] = nil end
+        @activity_filter = params[:activity]
+        if @activity_filter != nil then
+          activity_sql = "(select g.taggable_id from tags as t, taggings as g where t.id = g.tag_id and g.context='programactivities' and t.name ILIKE :sa )"
+          if full_query != "" then 
+            full_query = full_query + " INTERSECT " + activity_sql;
+          else
+            full_query = activity_sql;
+          end  
+        end
+        
+        if params[:yearlevel] == "" then params[:yearlevel] = nil end
+        @yearlevel_filter = params[:yearlevel]
+        if @yearlevel_filter != nil then
+          yl_sql = "(select g.taggable_id from tags as t, taggings as g where t.id = g.tag_id and g.context='programyearlevels' and t.name in (:syl) )"
+          if full_query != "" then 
+            full_query = full_query + " INTERSECT " + yl_sql;
+          else
+            full_query = activity_sql;
+          end  
+        end
+
+        if full_query != "" then
+          full_query = "places.status IN (:pstatus) and programs.id in ("+full_query+")" 
+        else
+          full_query = "places.status IN (:pstatus)" 
+        end
+          
+        if params[:location] == "" then params[:location] = nil end
+        @location_filter = params[:location]
+        @lf = ""
+        if @location_filter != nil then
+          @lf = @location_filter
+          location_sql = " places.address ILIKE :lf "
+          full_query = location_sql+" AND "+full_query
+        end
+        
+        if @search_term then
+          place_query = 'places.status IN (:pstatus) AND (places.display_name ILIKE :st OR programs.name ILIKE :st OR areas.display_name ILIKE :st) AND ' + full_query
+
+          @places = Place.includes(:area, {programs: [:programyearlevels, :programactivities, :programsubjects, :webresources]}, :photos, :categories).joins(:programs,:photos,:categories,:area).where(place_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
+            #Better
+            # @pplaces = Place.joins(:programs).where(
+            #   'places.subscription_level NOT IN (:sl) AND
+            #   (places.display_name ILIKE :st OR places.description ILIKE :st
+            #   OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
+
+          full_query = "places.status IN (:pstatus) AND (programs.name ILIKE :st OR programs.description ILIKE :st) AND " + full_query
+          @programs = Program.includes(:webresources, {place: [:photos]}, :programyearlevels, :programactivities, :programsubjects).joins(:place).where(full_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
+        else
+          @places = Place.joins(:area, :programs,:photos,:categories).includes(:area, :photos, :categories, {programs: [:programyearlevels, :programactivities, :programsubjects, :webresources]}).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
+          @places.each do |p|
+            puts p.display_name
+          end
+          @programs = Program.joins(:place).includes(:webresources, {place: [:photos]}, :programyearlevels, :programactivities, :programsubjects).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
+          @programs.each do |qp|
+            puts qp.name
+          end
+        end
+    #    render plain: @places.inspect
+      end
+
+      set_program_filters(@places)      
+    end
+  
+  
+    def set_program_results_state(params)
+      @MAX_TO_RETURN = 400
+      @placeprograms = "yes"
+
+      if params[:term] == "" then params[:term] = nil end
+      @search_term = params[:term]
+
+      if params[:id] then
+        @pplaces = Place.where('places.id = :id', id: params[:id])
+        @pprograms = @pplaces[0].programs
         @zoom = 15
       else
         if params[:location] == "" then params[:location] = nil end
@@ -262,25 +368,28 @@ class PlacesController < ApplicationController
           @pplaces = Place.includes(:area, :programs, :photos, :categories).joins(:area, :programs).where(
             #Faster
             'places.status IN (:sl) AND
-            (places.display_name ILIKE :st OR programs.name ILIKE :st OR areas.display_name ILIKE :st)', sl: "live", st: '%'+@search_term+'%').distinct
+            (places.display_name ILIKE :st OR programs.name ILIKE :st OR areas.display_name ILIKE :st)', sl: "live", st: '%'+@search_term+'%').distinct.limit(@MAX_TO_RETURN)
             #Better
             # @pplaces = Place.joins(:programs).where(
             #   'places.subscription_level NOT IN (:sl) AND
             #   (places.display_name ILIKE :st OR places.description ILIKE :st
             #   OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
+
+          @pprograms = Program.includes(:webresources, :place, :programyearlevels, :programactivities, :programsubjects).joins(:place).where('places.status IN (:sl) AND (programs.name ILIKE :st OR programs.description ILIKE :st)', sl: "live", st: '%'+@search_term+'%').limit(@MAX_TO_RETURN)
         else
-          @pplaces = Place.joins(:programs).where(status: "live").distinct
+          @pplaces = Place.joins(:programs).includes(programs: [:programyearlevels, :programactivities, :programsubjects, :webresources]).where(status: "live").distinct.limit(@MAX_TO_RETURN)
+          @pprograms = Program.includes(:webresources, :place, :programyearlevels, :programactivities, :programsubjects).joins(:place).where('places.status IN (:sl)', sl: "live").limit(@MAX_TO_RETURN)
         end
     #    render plain: @places.inspect
       end
 
       @places = []
       @pplaces.each do |place|
-        if !@location_filter || (place.area.display_name == @location_filter) then
+        if !@location_filter || (place.address.downcase.include? @location_filter) then
           place.programs.each do |program|
             push_place = false
-            if !@subject_filter || (program.programsubject_list.include? @subject_filter) then
-              if !@activity_filter || (program.programactivity_list.include? @activity_filter) then
+            if !@subject_filter || (program.programsubject_list.join(", ").downcase.include? @subject_filter.downcase) then
+              if !@activity_filter || (program.programactivity_list.join(", ").downcase.include? @activity_filter.downcase) then
                 if @yearlevel_filter then
                   if @yearlevel_filter == "K-2" then
                       if (program.programyearlevel_list.include? "K") || (program.programyearlevel_list.include? "1") || (program.programyearlevel_list.include? "2") then push_place = true end
@@ -306,11 +415,46 @@ class PlacesController < ApplicationController
         end
       end
 
-      set_program_filters(@places)
+      @programs = []
+      @pprograms.each do |program|
+        push_program = false
+        if !@location_filter || (program.place.address.downcase.include? @location_filter.downcase) then
+          if !@subject_filter || (program.programsubject_list.join(",").downcase.include? @subject_filter.downcase) then
+            if !@activity_filter || (program.programactivity_list.join(",").downcase.include? @activity_filter.downcase) then
+              if @yearlevel_filter then
+                if @yearlevel_filter == "K-2" then
+                    if (program.programyearlevel_list.include? "K") || (program.programyearlevel_list.include? "1") || (program.programyearlevel_list.include? "2") then push_program = true end
+                elsif @yearlevel_filter ==  "3-4" then
+                   if (program.programyearlevel_list.include? "3") || (program.programyearlevel_list.include? "4") then push_program = true end
+                elsif @yearlevel_filter ==  "5-6" then
+                   if (program.programyearlevel_list.include? "5") || (program.programyearlevel_list.include? "6") then push_program = true end
+                elsif @yearlevel_filter ==   "7-8" then
+                   if (program.programyearlevel_list.include? "7") || (program.programyearlevel_list.include? "8") then push_program = true end
+                elsif @yearlevel_filter ==   "9-10" then
+                   if (program.programyearlevel_list.include? "9") || (program.programyearlevel_list.include? "10") then push_program = true end
+                elsif @yearlevel_filter ==   "11-12" then
+                   if (program.programyearlevel_list.include? "11") || (program.programyearlevel_list.include? "12") then push_program = true end
+                end
+              else
+                push_program = true
+              end
+              if push_program then @programs.push(program) end
+              break if @programs.count > @MAX_TO_RETURN  
+            end
+          end
+        end
+      end
+
+      set_program_filters(@places)      
     end
 
     def set_program_constants()
-      @locations = ["All","Sydney","Melbourne","Phillip Island","Canberra","Perth"]
+      @locations = Rails.cache.fetch("australian_state_filters",expires_in: 4.hours) do
+#        locs = Place.includes(:country).where("countries.display_name ILIKE '%australia%' AND length(places.state)>4").pluck('DISTINCT places.state')
+        locs = Place.includes(:country).where("countries.display_name ILIKE '%australia%' AND length(places.state)>2").pluck('DISTINCT places.state')
+        locs.unshift("All")
+        locs
+      end
 #      @locations.unshift('All')
       @ylvec = ['K','1','2','3','4','5','6','7','8','9','10','11','12']
       @yearlevels = ['All','K-2','3-4','5-6','7-8','9-10','11-12']

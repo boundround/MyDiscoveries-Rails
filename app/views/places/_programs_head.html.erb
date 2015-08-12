@@ -33,6 +33,29 @@
   <script type="text/javascript">
 		function sizer(n){
 			n.each(function(){
+				var te = $(this);
+				var w=te.width();
+				var h=te.height();
+				var ar = w/h;
+				
+				var ce=te.parent();
+				var cw = ce.width();
+				var ch = ce.height();
+				var car = cw/ch;
+				
+				if(ar < car)
+				{
+					te.width(cw);
+					var t = (cw/w*h-ch)/2;
+					te.css('top',-t);
+				}
+				else
+				{
+					te.height(ch);
+					var l = (ch/h*w-cw)/2;
+					te.css('left',-l);
+				}
+				/*
 			  var w=$(this).width();
 			  var contw=$(this).parent().width();
 		    if(w>contw){
@@ -54,7 +77,7 @@
 		    else{
 		      $(this).css('top','0');
 		    }
-
+*/
 			});
 		};
 			
@@ -71,15 +94,16 @@
            sizer($('.yoyo img'));
         };
 				
-				$( window ).resize(function() {
-				  update();
+				var ss_img_resize = false;
+				$(window).resize(function() {
+				    if (ss_img_resize)
+				        clearTimeout(ss_img_resize);
+				    ss_img_resize = setTimeout(function() { update();
+				    }, 500);
 				});
-        
-       setTimeout(function(){
-        sizer($('.yoyo img'));
-       },500);
-      });
-			
+				
+				$(window).load(function(){ setTimeout( function(){sizer($('.yoyo img'));},800); });
+			});
 	</script>
 		
 		

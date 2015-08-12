@@ -49,6 +49,11 @@
     </div>
 
     <div class="form-group">
+      <%= f.input :programactivity_list, label: "Program Activities ( Valid tags: "+ "Excursion, Virtual Excursion, Incursion" +" )", input_html: { class: 'form-control'} %>
+      <!--%= f.input :programactivity_list, collection: valid_program_activity_tags(), input_html: { class: 'form-control', multiple: true } %-->
+    </div>
+
+    <div class="form-group">
       <%= f.button :submit%>
     </div>
 <% end %>

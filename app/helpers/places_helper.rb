@@ -1,14 +1,18 @@
 module PlacesHelper
   def pick_a_place_hero_url(place)
-    place.photos[rand(place.photos.count-1)].path      
+    #counts kill performance!
+#    place.photos[rand(place.photos.size-1)].path      
+    place.photos[0].path      
   end
   def pick_a_place_photo_url(place)
-    asset_path(place.photos[rand(place.photos.count-1)].path_url(:small))
+#    asset_path(place.photos[rand(place.photos.size-1)].path_url(:small))
+    asset_path(place.photos[0].path_url(:small))
   end
 
   def pick_a_program_hero_url(place)
     if place.programs then
-      p1 = place.programs[rand(place.programs.count-1)].heroimagepath
+#      p1 = place.programs[rand(place.programs.size-1)].heroimagepath
+      p1 = place.programs[0].heroimagepath
     end
     
     if !p1 then
@@ -22,7 +26,7 @@ module PlacesHelper
     if program.heroimagepath then
       program.heroimagepath
     else
-      pick_a_program_hero_url(program.place)
+      pick_a_place_hero_url(program.place)
     end
   end
   
@@ -102,6 +106,17 @@ module PlacesHelper
     #Sort based on year level sort order
     yls = ""
     program.programsubjects.each do |yl|
+      if yls != "" then yls += "," end
+      yls += yl.name
+    end 
+    yls
+    #program.programyearlevel_list 
+  end
+
+  def program_activities(program)
+    #Sort based on year level sort order
+    yls = ""
+    program.programactivities.each do |yl|
       if yls != "" then yls += "," end
       yls += yl.name
     end 
