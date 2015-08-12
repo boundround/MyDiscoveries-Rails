@@ -1,0 +1,41 @@
+<!--
+** Renders a group of programs as cards in "place" style provided by Xyrin in June 2015 
+
+Controller Variables Required
+	@programs - Vector of Programs
+-->
+<div class="row margin">
+	<!--% @place.programs.each do |program| %-->
+	<% @programs.each do |program| %>
+		<a href="#" onclick="my_program_touch(<%=program.id%>);">
+			<div id="program_<%=program.id%>" class="col-sm-4 col-xs-6">
+			   <div class="">
+			        <div class="col-sm-12 box" style="border-radius: 8px; box-shadow: 0px 0px 5px rgba(0,0,0,0.3); overflow:hidden;">
+			            <div class="row box-top yoyo">
+			                <img src=<%=get_program_or_place_hero_url(program)%> onerror="this.src='../assets/images/16x9.png'">
+			            </div>
+			            <div class="col-xs-12 visible-lg visible-md visible-xs visible-sm box_center text-center box-middle">
+			                    <span><%=program_activities(program)%></span>
+			                </div>
+			            <div class="row text-center">
+			                <h4 style='color: #a2d549;font-size: 23px;font-weight: 600;padding: 12px 0px;'>
+												<%=program.name%><br>
+												<span style="font-size: 13px; color: #959595; font-weight: 400;"><%=program.place.display_name%></span></h4>
+			            </div> 
+			            <div class="row box-footer">
+			                <div class="col-xs-5 col-lg-4 box_left">
+			                    <span><%=program_yearlevels(program)%></span>
+			                </div>
+			                <div class="col-xs-7 col-lg-8 box_right text-right">
+			                    <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
+			                 </div>                             
+			            </div>   
+			             <!--div class="box-right_top">
+			                <i class="fa fa-star map-gray"></i>
+			            </div-->                                      
+			        </div>                   
+			   </div>               
+			</div>
+		</a>
+	<%end%>
+</div>		

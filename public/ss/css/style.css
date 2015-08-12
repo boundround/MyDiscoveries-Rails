@@ -8,7 +8,8 @@ a,a:active,a:focus
 .main_bg {
     /*background:url(../img/main_bg.jpg) no-repeat center top;
     background-size:cover;*/
-    background-color: #f4f4f4;
+/*    background-color: #f4f4f4;*/
+    background-color: #fff;
 }
 .bg_slide_area {
   position: absolute;
@@ -598,7 +599,7 @@ background: #A2D549;
 .saerch .box .box-top img
 {
   border-radius: 8px 8px 0px 0px;
-  width: 100%;
+/*  width: 100%;*/
 }
 .saerch .box h4
 {

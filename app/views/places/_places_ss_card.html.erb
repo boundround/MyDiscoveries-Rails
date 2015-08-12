@@ -1,0 +1,49 @@
+<!--
+** Renders a group of places as cards in style provided by Xyrin in June 2015 
+
+Controller Variables Required
+	@places - Vector of Place
+-->
+
+<div class="row margin">
+	<% @places.each do |place| %>
+		<a href="/places/placeprograms?id=<%= place.id %>" >
+			<div class="col-sm-4 col-xs-6">
+			   <div class="">
+			        <div class="col-sm-12  box" style="overflow:hidden">
+			            <div class="row box-top yoyo" style="overflow:hidden">
+			                <img src=<%=pick_a_place_photo_url(place)%> onerror="this.src='../assets/images/16x9.png'" >
+			            </div>
+			            <!--div class="col-xs-12 visible-md visible-xs visible-sm box_center text-center box-middle">
+			                    <span>Virtual</span>
+			                </div-->
+			            <div class="row text-center">
+			                <h4><%=place.display_name%><br><span><%=place.area.display_name%></span></h4>
+			            </div> 
+			            <div class="row box-footer">
+			                <div class="col-xs-5 col-lg-4 box_left">
+			                    <span><%=place_yearlevels(place)%></span>
+			                </div>
+			                <!--div class="col-xs-4 hidden-md hidden-sm hidden-xs col-lg-4 box_center text-center">
+			                    <span>Virtual</span>
+			                </div-->
+			                <div class="col-xs-7 col-lg-4 box_right text-right">
+			                    <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
+			                 </div>                             
+			            </div>   
+			            <div class="box-left_top">
+			                <!--img src="../ss/img/paw.png">&nbsp; <span>Animals</span-->
+										  <% if place.categories[0] %>
+										    <img src="<%=first_category_icon(place)%>" alt="<%=place.categories[0].identifier%> icon"><span><%=place.categories[0].name%><span>
+										  <%end%>
+			            </div>      
+			             <div class="box-right_top">
+			                <i class="fa fa-star map-gray"></i>
+			            </div>                                      
+			        </div>                   
+			   </div>               
+			</div>
+		</a>
+	<%end%>
+</div>
+		
