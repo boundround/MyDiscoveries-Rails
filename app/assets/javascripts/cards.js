@@ -433,23 +433,26 @@ $(document).ready(function(){
 
 	    	var i;
 	    	var day = new Date();
-	    	var openingHours = place.opening_hours.weekday_text;
+	    	if (place.opening_hours){
+		    	var openingHours = place.opening_hours.weekday_text;
+		    }
 	    	if (openingHours){
 		      var placeInfo = "Opening Hours:<br>";
-		    }
-	      for(i = 0; i < openingHours.length; i++) {
-	      	if (day.getDay() === i && place.opening_hours.open_now === true) {
-	      		placeInfo += openingHours[i] + "<span id='open-now'>&nbsp;&nbsp;Open Now</span><br>"
-	      	} else {
-		      	placeInfo += openingHours[i] + "<br>";
+		      for(i = 0; i < openingHours.length; i++) {
+		      	if (day.getDay() === i && place.opening_hours.open_now === true) {
+		      		placeInfo += openingHours[i] + "<span id='open-now'>&nbsp;&nbsp;Open Now</span><br>"
+		      	} else {
+			      	placeInfo += openingHours[i] + "<br>";
+			      }
 		      }
-	      }
+		    }
 
 	      // if (place.website){
 	      // 	placeInfo += "<br><p><i class='fa fa-laptop fa-laptop-2x'></i> <a href='" + place.website + "' target='blank'>Website</a>"
 	      // }
-
-	      $('#operating-hours').html(placeInfo);
+	      if (placeInfo){
+		      $('#operating-hours').html(placeInfo);
+		    }
 	      loadIsotope();
 
 	    }

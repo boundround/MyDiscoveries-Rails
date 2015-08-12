@@ -92,7 +92,7 @@ module ApplicationHelper
     postType = postPath.singularize
 
     if content.status == "edited"
-      return "<i class='approve-icon fa fa-thumbs-o-up fa-2x' data-post-path='#{postPath}' data-post-type='#{postType}' data-content-id='#{content.id}'></i>"
+      return "<i class='approve-icon customer-approve fa fa-thumbs-o-up fa-2x' data-post-path='#{postPath}' data-post-type='#{postType}' data-content-id='#{content.id}'></i>"
     else
       return ""
     end

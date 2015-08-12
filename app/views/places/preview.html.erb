@@ -270,29 +270,3 @@
 <% else %>
 <h3>You must be signed in to view this page</h3>
 <% end %>
-
-<script>
-  console.log('approve.js');
-$('.approve-icon').on('click', function(e){
-  e.preventDefault();
-  e.stopPropagation();
-  var data = {};
-  var postPath = $(this).data('postPath');
-  var postType = $(this).data('postType');
-  data[postType] = {id: $(this).data("contentId"), customer_approve: true, customer_review: false, status: "live"};
-
-  console.log("approved");
-  $(this).hide();
-
-    // $.ajax({
-    //   type: "POST",
-    //   url: '/' + postPath + '/update',
-    //   data: data,
-    //   success: console.log('LIKE SAVED')
-    // });
-});
-
-  $('#customer-approve-button').on('click', function(){
-    $(this).html("APPROVAL SENT!");
-  })
-</script>
