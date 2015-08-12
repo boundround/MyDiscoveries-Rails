@@ -87,4 +87,15 @@ module ApplicationHelper
     link_to title, :sort => column, :direction => direction
   end
 
+  def approve_icon(content)
+    postPath = content.class.to_s.pluralize.downcase
+    postType = postPath.singularize
+
+    if content.status == "edited"
+      return "<i class='approve-icon fa fa-thumbs-o-up fa-2x' data-post-path='#{postPath}' data-post-type='#{postType}' data-content-id='#{content.id}'></i>"
+    else
+      return ""
+    end
+  end
+
 end

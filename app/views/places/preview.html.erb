@@ -40,13 +40,13 @@
                   <!-- put Virgin Logo here wrapped in if statment -->
                 <div class="about-hero <%= @place.display_name == "Virgin Australia" ? "virgin-about" : "" %>">
                   <% if @hero_video %>
-                    <%= raw like_icon(@hero_video) %>
+                    <%= raw approve_icon(@hero_video) %>
                     <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     <div class="priority">-1</div>
                   <% else %>
                     <% unless @place.photos.blank? %>
                       <% if @hero_photo %>
-                        <%= raw like_icon(@hero_photo) %>
+                        <%= raw approve_icon(@hero_photo) %>
                         <img class="hero-photo" srcset="<%= @hero_photo.path_url(:large) %> 900w, <%= @hero_photo.path_url(:medium) %> 600w, <%= @hero_photo.path_url(:small) %> 300w"
                           sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= alt_tag_for(@hero_photo) %>" />
                       <div class="priority">-1</div>
@@ -95,7 +95,7 @@
             <%  unless @videos.empty? %>
               <% @videos.preview.each do |video| %>
                 <div class="item video video-card photo-card">
-                  <%= raw like_icon(video) %>
+                  <%= raw approve_icon(video) %>
                   <div class="video-wrapper">
                     <div class="priority"><%= video.priority ? video.priority : 2 %></div>
                     <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
@@ -125,7 +125,7 @@
                                                                       } do %>
                   <% end %>
                   <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= alt_tag_for(photo) %>"/>
-                  <%= raw like_icon(photo) %>
+                  <%= raw approve_icon(photo) %>
                   <div class="photo-credit">Credit: <%= photo.credit %></div>
                   <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
                   <div class="photo-caption">
@@ -176,7 +176,7 @@
             <% unless @place.games.empty? %>
               <% @place.games.preview.each do |game| %>
                 <div class="item game game-card photo-card">
-                    <%= raw like_icon(game) %>
+                    <%= raw approve_icon(game) %>
                   <div class="priority"><%= game.priority ? game.priority : 2 %></div>
                   <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
                   <% end %>
@@ -272,6 +272,26 @@
 <% end %>
 
 <script>
+  console.log('approve.js');
+$('.approve-icon').on('click', function(e){
+  e.preventDefault();
+  e.stopPropagation();
+  var data = {};
+  var postPath = $(this).data('postPath');
+  var postType = $(this).data('postType');
+  data[postType] = {id: $(this).data("contentId"), customer_approve: true, customer_review: false, status: "live"};
+
+  console.log("approved");
+  $(this).hide();
+
+    // $.ajax({
+    //   type: "POST",
+    //   url: '/' + postPath + '/update',
+    //   data: data,
+    //   success: console.log('LIKE SAVED')
+    // });
+});
+
   $('#customer-approve-button').on('click', function(){
     $(this).html("APPROVAL SENT!");
   })
