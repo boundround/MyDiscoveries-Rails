@@ -50,7 +50,11 @@ class GamesController < ApplicationController
       # @game.create_thumbnail if @game.thumbnail.content_type == nil
       @game.add_instructions unless !@game.instructions
       @game.save
-      redirect_to :back
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @game }
     end
   end
 

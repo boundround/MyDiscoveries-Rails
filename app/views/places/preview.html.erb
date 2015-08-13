@@ -212,6 +212,7 @@
             <% unless @place.fun_facts.empty? %>
               <% @place.fun_facts.preview.each do |fun_fact| %>
                 <div class="item fun_fact photo-card">
+                  <%= raw approve_icon(fun_fact) %>
                   <div class="discount-card fact-card">
                     <p><%= raw fun_fact.content %></p>
                   </div>
@@ -270,3 +271,37 @@
 <% else %>
 <h3>You must be signed in to view this page</h3>
 <% end %>
+<script>
+$(document).ready(function(){
+   // customer preview approval functionality
+
+  $('.customer-approve').on('click', function(e){
+    console.log("approved");
+    e.preventDefault();
+    e.stopPropagation();
+    var data = {};
+    var postPath = $(this).data('postPath');
+    var postType = $(this).data('postType');
+    data[postType] = {customer_approved: true, customer_review: false, status: "live"};
+    $(this).hide();
+    $(this).siblings('.disapprove-icon').hide();
+    $(this).parent().append("<i class='approve-icon fa fa-thumbs-up fa-2x'></i>")
+
+      $.ajax({
+        type: "PUT",
+        url: '/' + postPath + '/' + $(this).data("contentId") + '.json',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: console.log('APPROVED')
+      });
+  });
+
+  $('.disapprove-icon').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('disapproved');
+    $(this).removeClass("fa-thumbs-o-down").addClass("fa-thumbs-down");
+  });
+ });
+</script>

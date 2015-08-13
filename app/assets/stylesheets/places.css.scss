@@ -55,6 +55,16 @@
   height: 28px !important;
 }
 
+.disapprove-icon {
+  color: white;
+  text-shadow: 1px 1px grey;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  z-index: 500;
+  height: 28px !important;
+}
+
 .item {
 	display: inline;
 	overflow: hidden;

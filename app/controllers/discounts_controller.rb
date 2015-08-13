@@ -19,8 +19,14 @@ class DiscountsController < ApplicationController
 
   def update
     @discount = Discount.find(params[:id])
+
     if @discount.update(discount_params)
-      redirect_to :back
+      @discount.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @discount }
     end
   end
 

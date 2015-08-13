@@ -53,7 +53,11 @@ class VideosController < ApplicationController
       response = Unirest.get "https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s
       @video.vimeo_thumbnail = response.body["thumbnail_url"]
       @video.save
-      redirect_to :back
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @video }
     end
   end
 

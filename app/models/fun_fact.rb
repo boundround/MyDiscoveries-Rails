@@ -18,7 +18,7 @@ class FunFact < ActiveRecord::Base
 
   scope :active, -> { where(status: "live") }
   scope :edited, -> { where(status: "edited") }
-  scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
+  scope :preview, -> { where('status=? OR customer_review=?', 'live', 'true') }
 
   def add_or_remove_from_country(country)
     row = CountriesFunFact.where(fun_fact_id: self.id).where(country_id: country.id)

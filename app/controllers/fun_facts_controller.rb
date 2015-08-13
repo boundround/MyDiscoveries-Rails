@@ -21,8 +21,14 @@ class FunFactsController < ApplicationController
 
   def update
     @fun_fact = FunFact.find(params[:id])
+
     if @fun_fact.update(fun_fact_params)
-      redirect_to :back
+      @fun_fact.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @fun_fact }
     end
   end
 

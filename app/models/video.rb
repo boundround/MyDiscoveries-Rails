@@ -20,7 +20,7 @@ class Video < ActiveRecord::Base
 
   scope :active, -> { where(status: "live") }
   scope :edited, -> { where(status: "edited") }
-  scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
+  scope :preview, -> { where('status=? OR customer_review=?', 'live', 'true') }
 
   # before_save :validate_vimeo_id
 

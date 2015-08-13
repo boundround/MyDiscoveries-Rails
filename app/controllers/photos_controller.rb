@@ -46,8 +46,14 @@ class PhotosController < ApplicationController
 
   def update
     @photo = Photo.find(params[:id])
+
     if @photo.update(photo_params)
-      redirect_to :back, notice: "Photo updated"
+      @photo.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @photo }
     end
   end
 

@@ -90,9 +90,12 @@ module ApplicationHelper
   def approve_icon(content)
     postPath = content.class.to_s.pluralize.downcase
     postType = postPath.singularize
+    postType = 'fun_fact' if postType == 'funfact'
+    postPath = 'fun_facts' if postPath == 'funfacts'
 
-    if content.status == "edited"
-      return "<i class='approve-icon customer-approve fa fa-thumbs-o-up fa-2x' data-post-path='#{postPath}' data-post-type='#{postType}' data-content-id='#{content.id}'></i>"
+    if content.customer_review == true
+      return "<i class='disapprove-icon fa fa-thumbs-o-down fa-2x' data-toggle='modal' data-target='#thumbsDownModal' data-asset='#{postType}' data-asset-id='#{content.id}'></i>" +
+              "<i class='approve-icon customer-approve fa fa-thumbs-o-up fa-2x' data-post-path='#{postPath}' data-post-type='#{postType}' data-content-id='#{content.id}'></i>"
     else
       return ""
     end
