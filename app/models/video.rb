@@ -1,4 +1,8 @@
 class Video < ActiveRecord::Base
+  include CustomerApprovable
+
+  before_save :set_approval_time, :check_customer_approved
+
   belongs_to :area
   belongs_to :place
 
@@ -15,6 +19,8 @@ class Video < ActiveRecord::Base
   scope :ordered_by_place_name, -> { includes(:area, :place).order('areas.display_name ASC') } #reorder("places.display_name ASC") }
 
   scope :active, -> { where(status: "live") }
+  scope :edited, -> { where(status: "edited") }
+  scope :preview, -> { where('status=? OR customer_review=?', 'live', 'true') }
 
   # before_save :validate_vimeo_id
 

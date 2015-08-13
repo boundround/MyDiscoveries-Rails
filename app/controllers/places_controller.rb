@@ -72,6 +72,71 @@ class PlacesController < ApplicationController
     end
   end
 
+  def preview
+    @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
+    if @place.area_id
+      @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
+      @area_videos = @place.area.videos
+    end
+
+    if @place.subscription_level == "Premium"
+      @videos = @place.videos.where.not(priority: 1) || []
+      @hero_video = @place.videos.find_by(priority: 1)
+    else
+      @videos = []
+    end
+
+    if !@hero_video
+      @hero_photo = @place.photos.find_by(priority: 1)
+      @photos = @place.photos.where.not(priority: 1)
+    else
+      @photos = @place.photos
+    end
+
+    @request_xhr = request.xhr?
+
+    if @place.display_name == "Virgin Australia"
+      @set_body_class = "virgin-body"
+    end
+
+    respond_to do |format|
+      format.html { render 'preview', :layout => !request.xhr? }
+      format.json { render json: @place }
+    end
+  end
+
+  def all_edited
+
+    @all_edited = Place.joins(:photos).where("photos.status = 'edited'")
+    @all_edited += Place.joins(:games).where("games.status = 'edited'")
+    @all_edited += Place.joins(:videos).where("videos.status = 'edited'")
+    @all_edited += Place.joins(:fun_facts).where("fun_facts.status = 'edited'")
+    @all_edited += Place.joins(:discounts).where("discounts.status = 'edited'")
+
+    @all_edited = @all_edited.uniq
+
+    @all_content = []
+
+    @all_edited.each do |place|
+      place.photos.edited.each do |photo|
+        @all_content.push photo
+      end
+      place.videos.edited.each do |video|
+        @all_content.push video
+      end
+      place.games.edited.each do |game|
+        @all_content.push game
+      end
+      place.fun_facts.edited.each do |fun_fact|
+        @all_content.push fun_fact
+      end
+      place.discounts.edited.each do |discount|
+        @all_content.push discount
+      end
+    end
+
+  end
+
   def create
     @place = Place.new(place_params)
 
@@ -133,22 +198,25 @@ class PlacesController < ApplicationController
     @place = Place.friendly.find(params[:id])
 
     if @place.update(place_params)
+
       @place.photos.each do |photo|
-      photo.add_or_remove_from_country(@place.country)
-    end
+        photo.add_or_remove_from_country(@place.country)
+      end
 
-    @place.videos.each do |video|
-      video.add_or_remove_from_country(@place.country)
-    end
+      @place.videos.each do |video|
+        video.add_or_remove_from_country(@place.country)
+      end
 
-    @place.fun_facts.each do |fun_fact|
-      fun_fact.add_or_remove_from_country(@place.country)
-    end
+      @place.fun_facts.each do |fun_fact|
+        fun_fact.add_or_remove_from_country(@place.country)
+      end
 
-    @place.discounts.each do |discount|
-      discount.add_or_remove_from_country(@place.country)
-    end
+      @place.discounts.each do |discount|
+        discount.add_or_remove_from_country(@place.country)
+      end
+
       redirect_to :back, notice: 'Place succesfully updated'
+
     else
       redirect_to edit_place_path(@place), notice: 'Error: Place not updated'
     end
@@ -168,7 +236,7 @@ class PlacesController < ApplicationController
 
   def send_postcard
     name = params[:name]
-    email = params[:email]
+    email = params[:customer]
     message = params[:message]
     photo = params[:photo]
     place = params[:place]
@@ -176,6 +244,16 @@ class PlacesController < ApplicationController
     country = params[:country]
     Share.postcard(name, email, message, photo, place, area, country).deliver
     redirect_to :back, notice: 'Postcard sent'
+  end
+
+  def content_rejected
+    place_id = params["place-id"].to_i
+    asset_type = params["asset-type"]
+    asset_id = params["asset-id"]
+    email = params["email"]
+    comments = params["comments"]
+    ContentRejected.send_rejected(place_id, asset_type, asset_id, email, comments)
+    redirect_to :back, notice: 'Thank you. Comments sent'
   end
 
   def mapdata
@@ -332,12 +410,13 @@ class PlacesController < ApplicationController
       params.require(:place).permit(:code, :identifier, :display_name, :description, :booking_url, :display_address, :subscription_level,
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon, :published_at, :unpublished_at,
                                     :street_number, :route, :sublocality, :locality, :state, :post_code, :created_by, :user_created,
+                                    :customer_approved, :customer_review, :approved_at, :country_id,
                                     :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status,
-                                    photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_include, :_destroy],
-                                    videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :country_include, :_destroy],
-                                    games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :_destroy],
-                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :country_include, :_destroy],
-                                    discounts_attributes: [:id, :description, :place_id, :area_id, :status, :country_include, :_destroy],
+                                    photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+                                    videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
+                                    games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :customer_approved, :customer_review, :approved_at, :_destroy],
+                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+                                    discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
                                     category_ids: [])
     end
 end

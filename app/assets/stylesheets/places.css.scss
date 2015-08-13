@@ -11,6 +11,10 @@
   overflow: scroll;
 }
 
+.customer_approve_form {
+  text-align: center;
+}
+
 #area-cards {
   width: 80%;
   margin: 0 auto;
@@ -37,6 +41,26 @@
   position: absolute;
   right: 5px;
   top: 0;
+  z-index: 500;
+  height: 28px !important;
+}
+
+.approve-icon {
+  color: white;
+  text-shadow: 1px 1px grey;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 500;
+  height: 28px !important;
+}
+
+.disapprove-icon {
+  color: white;
+  text-shadow: 1px 1px grey;
+  position: absolute;
+  left: 5px;
+  top: 5px;
   z-index: 500;
   height: 28px !important;
 }

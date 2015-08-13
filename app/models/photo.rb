@@ -1,4 +1,8 @@
 class Photo < ActiveRecord::Base
+  include CustomerApprovable
+
+  before_save :set_approval_time, :check_customer_approved
+
   belongs_to :area
   belongs_to :place
 
@@ -15,6 +19,8 @@ class Photo < ActiveRecord::Base
   has_paper_trail
 
   scope :active, -> { where(status: "live") }
+  scope :edited, -> { where(status: "edited") }
+  scope :preview, -> { where('status=? OR customer_review=?', 'live', 'true') }
 
   def add_or_remove_from_country(country)
     row = CountriesPhoto.where(photo_id: self.id).where(country_id: country.id)

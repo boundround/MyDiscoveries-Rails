@@ -53,7 +53,11 @@ class VideosController < ApplicationController
       response = Unirest.get "https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s
       @video.vimeo_thumbnail = response.body["thumbnail_url"]
       @video.save
-      redirect_to :back
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @video }
     end
   end
 
@@ -65,7 +69,7 @@ class VideosController < ApplicationController
   private
 
     def video_params
-      params.require(:video).permit(:vimeo_id, :area_id, :place_id, :priority, :vimeo_thumbnail, :status, :country_include, :_destroy)
+      params.require(:video).permit(:vimeo_id, :area_id, :place_id, :priority, :vimeo_thumbnail, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy)
     end
 
 end

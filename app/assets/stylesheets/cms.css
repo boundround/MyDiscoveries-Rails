@@ -1,6 +1,7 @@
 #table-container {
   background-color: #eeeeee;
   border: 1px solid grey;
+  overflow: scroll;
 }
 
 .edit-container {
@@ -33,5 +34,9 @@
 
 .checkbox .role-checkbox {
   position: relative !important;
+}
+
+.owned-place-select {
+  height: 500px !important;
 }
 

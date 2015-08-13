@@ -38,6 +38,12 @@
       <div class="form-group published-radio">
         <%= f.input :status, as: :radio_buttons, collection: ["draft", "edited", "live", "removed"] %>
       </div>
+      <div>
+        <%= f.input :customer_review, inline_label: "-- Customer Review", label: false %>
+      </div>
+      <div>
+        <%= f.input :customer_approved, inline_label: "-- Customer Approved", label: false %> <%= @place.approved_at.strftime('%F at %T') if @place.approved_at %>
+      </div>
       <div class="form-group">
         <%= f.input :published_at, as: :date, order: [:day, :month, :year], include_blank: true, label: "Publish At" %>
       </div>
@@ -89,6 +95,9 @@
         <%= label_tag dom_id(category), category.name %><br/>
       <% end %>
     </div>
+    <p>
+      <div class="btn btn-info" id="approve-all">Check All Approved</div>
+    </p>
     <div id="table-container">
       <h3>Videos</h3>
       <table class="table table-striped" id="video-table">
@@ -99,6 +108,8 @@
             <th>Priority</th>
             <th>Status</th>
             <th>Include In Country</th>
+            <th>In Customer Review</th>
+            <th>Customer Approved</th>
             <th>Updated By</th>
             <th>Remove</th>
           </tr>
@@ -113,6 +124,8 @@
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
+                <td><%= ff.check_box :customer_review, class: 'customer-review' %></td>
+                <td><%= ff.check_box :customer_approved, class: 'customer-approve' %><br><%= video.approved_at.strftime('%F at %T') if video.approved_at %></td>
                 <td><%= !video.versions.blank? && video.versions.last.whodunnit ? User.find(video.versions.last.whodunnit).email : "" %><br><%= video.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
@@ -134,8 +147,10 @@
             <th>Priority</th>
             <th>Status</th>
             <th>Include In Country</th>
+            <th>In Customer Review</th>
+            <th>Customer Approved</th>
             <th>Updated By</th>
-            <th>Remove</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -151,6 +166,8 @@
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
+                <td><%= ff.check_box :customer_review, class: 'customer-review' %></td>
+                <td><%= ff.check_box :customer_approved, class: 'customer-approve' %><br><%= photo.approved_at.strftime('%F at %T') if photo.approved_at %></td>
                 <td><%= !photo.versions.blank? && photo.versions.last.whodunnit ? User.find(photo.versions.last.whodunnit).email : "" %><br><%= photo.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
@@ -169,8 +186,10 @@
             <th>Game Type</th>
             <th>Priority</th>
             <th>Status</th>
+            <th>In Customer Review</th>
+            <th>Customer Approved</th>
             <th>Updated By</th>
-            <th>Remove</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -183,6 +202,8 @@
                 <td><%= ff.select :game_type, ["jigsaw puzzle", "word search", "slider"] %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.check_box :customer_review, class: 'customer-review' %></td>
+                <td><%= ff.check_box :customer_approved, class: 'customer-approve' %><br><%= game.approved_at.strftime('%F at %T') if game.approved_at %></td>
                 <td><%= !game.versions.blank? && game.versions.last.whodunnit ? User.find(game.versions.last.whodunnit).email : "" %><br><%= game.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
@@ -203,8 +224,10 @@
             <th>Priority</th>
             <th>Status</th>
             <th>Include In Country</th>
+            <th>In Customer Review</th>
+            <th>Customer Approved</th>
             <th>Updated By</th>
-            <th>Remove</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -219,6 +242,8 @@
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
+                <td><%= ff.check_box :customer_review, class: 'customer-review' %></td>
+                <td><%= ff.check_box :customer_approved, class: 'customer-approve' %><br><%= fun_fact.approved_at.strftime('%F at %T') if fun_fact.approved_at %></td>
                 <td><%= !fun_fact.versions.blank? && fun_fact.versions.last.whodunnit ? User.find(fun_fact.versions.last.whodunnit).email : "" %><br><%= fun_fact.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
@@ -236,19 +261,23 @@
             <th>Priority</th>
             <th>Status</th>
             <th>Include In Country</th>
+            <th>In Customer Review</th>
+            <th>Customer Approved</th>
             <th>Updated By</th>
-            <th>Remove</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           <% @place.discounts.each do |discount| %>
-            <%= f.fields_for :discounts do |ff| %>
+            <%= f.fields_for :discounts, discount do |ff| %>
               <tr>
                 <%= ff.input :id, as: :hidden %>
                 <td><%= ff.bootsy_area :description %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
+                <td><%= ff.check_box :customer_review, class: 'customer-review' %></td>
+                <td><%= ff.check_box :customer_approved, class: 'customer-approve' %><br><%= discount.approved_at.strftime('%F at %T') if discount.approved_at %></td>
                 <td><%= !discount.versions.blank? && discount.versions.last.whodunnit ? User.find(discount.versions.last.whodunnit).email : "" %><br><%= discount.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
@@ -292,12 +321,21 @@
 
 
 <script>
-  window.onload = function() {
     $('.caption').on("keypress", function(){
         var len = $(this).val().length;
         $(this).closest('.control-group').next('.charCount').text(140 - len);
     });
-  }
+
+    $('.customer-approve').on('click', function(){
+      if ($(this)[0].checked == true){
+        $(this).parent().siblings().find(".customer-review").attr("checked", false)
+      }
+    });
+
+    $('#approve-all').on('click', function(){
+      $('.customer-approve').attr("checked", true);
+      $('.customer-review').attr("checked", false);
+    });
 </script>
 
 <%= javascript_include_tag 'area.js' %>
