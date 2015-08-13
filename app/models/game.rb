@@ -1,4 +1,8 @@
 class Game < ActiveRecord::Base
+  include CustomerApprovable
+
+  before_save :set_approval_time, :check_customer_approved
+
   belongs_to :place
   belongs_to :area
 
@@ -12,6 +16,8 @@ class Game < ActiveRecord::Base
   scope :ordered_by_place_name, -> { joins(:place).order('places.display_name') }
 
   scope :active, -> { where(status: "live") }
+  scope :edited, -> { where(status: "edited") }
+  scope :preview, -> { where('status=? OR customer_review=?', 'live', 'true') }
 
   self.per_page = 50
 

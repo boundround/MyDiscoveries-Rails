@@ -21,8 +21,14 @@ class FunFactsController < ApplicationController
 
   def update
     @fun_fact = FunFact.find(params[:id])
+
     if @fun_fact.update(fun_fact_params)
-      redirect_to :back
+      @fun_fact.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @fun_fact }
     end
   end
 
@@ -40,6 +46,7 @@ class FunFactsController < ApplicationController
   private
 
     def fun_fact_params
-      params.require(:fun_fact).permit(:content, :reference, :priority, :area_id, :place_id, :hero_photo, :status, :photo_credit, :country_include, :_destroy)
+      params.require(:fun_fact).permit(:content, :reference, :priority, :area_id, :place_id, :hero_photo, :status, :photo_credit,
+                                        :customer_approved, :customer_review, :approved_at, :country_include, :_destroy)
     end
 end

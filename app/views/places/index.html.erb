@@ -1,3 +1,4 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
 <div id="table-container">
   <h1>All Places</h1>
 
@@ -68,4 +69,7 @@
 		<%= hidden_field_tag :import , "true" %>
     <%= submit_tag "Import" %>
   <% end %>
+<% end %>
+<% else %>
+<h3>You are not signed in or do not have the proper permissions to view this page</h3>
 <% end %>

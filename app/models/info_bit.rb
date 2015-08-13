@@ -5,4 +5,5 @@ class InfoBit < ActiveRecord::Base
   has_many :countries, :through => :countries_info_bits
 
   scope :active, -> { where(status: "live") }
+  scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
 end

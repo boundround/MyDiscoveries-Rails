@@ -8,6 +8,7 @@ class Area < ActiveRecord::Base
   before_destroy :remove_from_soulmate
 
   scope :active, -> { where(published_status: "live") }
+  scope :preview, -> { where('published_status=? OR published_status=?', 'live', 'edited') }
 
   validates_presence_of :display_name, :slug
 

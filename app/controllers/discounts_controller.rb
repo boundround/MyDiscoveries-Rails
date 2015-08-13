@@ -19,8 +19,14 @@ class DiscountsController < ApplicationController
 
   def update
     @discount = Discount.find(params[:id])
+
     if @discount.update(discount_params)
-      redirect_to :back
+      @discount.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @discount }
     end
   end
 
@@ -38,7 +44,7 @@ class DiscountsController < ApplicationController
   private
 
     def discount_params
-      params.require(:discount).permit(:description, :place_id, :area_id, :status, :country_include, :_destroy)
+      params.require(:discount).permit(:description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy)
     end
 
 

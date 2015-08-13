@@ -50,7 +50,11 @@ class GamesController < ApplicationController
       # @game.create_thumbnail if @game.thumbnail.content_type == nil
       @game.add_instructions unless !@game.instructions
       @game.save
-      redirect_to :back
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @game }
     end
   end
 
@@ -62,7 +66,7 @@ class GamesController < ApplicationController
   private
 
     def game_params
-      params.require(:game).permit(:url, :area_id, :place_id, :priority, :game_type, :status, :_destroy)
+      params.require(:game).permit(:url, :area_id, :place_id, :priority, :game_type, :status, :customer_approved, :customer_review, :approved_at, :_destroy)
     end
 
 end

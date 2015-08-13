@@ -65,4 +65,5 @@ class ApplicationController < ActionController::Base
     end
       "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_grey.png')}'>"
   end
+
 end

@@ -1,7 +1,9 @@
 class Place < ActiveRecord::Base
+  include CustomerApprovable
+
   after_save :load_into_soulmate
   before_destroy :remove_from_soulmate
-  before_save :check_valid_url
+  before_save :check_valid_url, :set_approval_time
 
   has_paper_trail
 
@@ -14,6 +16,7 @@ class Place < ActiveRecord::Base
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
   scope :active, -> { where(status: "live") }
+  scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
 
   scope :publishing_queue, -> { where('published_at <= ?', Time.now) }
   scope :removal_queue, -> { where('unpublished_at <= ?', Time.now) }
@@ -42,6 +45,9 @@ class Place < ActiveRecord::Base
 
   has_many :places_users
   has_many :users, through: :places_users
+
+  has_many :customers_places
+  has_many :owners, through: :customers_places, :source => :user
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true

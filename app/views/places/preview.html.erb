@@ -1,0 +1,327 @@
+<% if user_signed_in? %>
+<% provide(:title, @place.display_name) %>
+<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
+  <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
+  <div class="page-wrap">
+    <div class="banner-wrapper">
+      <div class="banner">
+        <div class="title-wrapper">
+          <div class="title"><%= @place.display_name %> (PREVIEW)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="customer_approve_form">
+      <button class="btn" id="customer-approve-button">APPROVE ALL</button>
+    </div>
+    <div class="slick-carousel">
+      <div>
+        <% if @place.display_name == "Virgin Australia" %>
+          <style>
+            .virgin-logo {
+              width: 100%;
+            }
+
+            .cards-wrap {
+              position: relative;
+              margin: 0 auto;
+            }
+
+            .virgin-reporter {
+              width: 100% !important;
+            }
+          </style>
+        <% end %>
+          <div class="cards-wrap">
+          <div id="photos-masonry">
+            <div class="grid-sizer"></div>
+            <div class="item about">
+              <div class="about-wrapper">
+                  <!-- put Virgin Logo here wrapped in if statment -->
+                <div class="about-hero <%= @place.display_name == "Virgin Australia" ? "virgin-about" : "" %>">
+                  <% if @hero_video %>
+                    <%= raw approve_icon(@hero_video) %>
+                    <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1" width="630" height="354" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    <div class="priority">-1</div>
+                  <% else %>
+                    <% unless @place.photos.blank? %>
+                      <% if @hero_photo %>
+                        <%= raw approve_icon(@hero_photo) %>
+                        <img class="hero-photo" srcset="<%= @hero_photo.path_url(:large) %> 900w, <%= @hero_photo.path_url(:medium) %> 600w, <%= @hero_photo.path_url(:small) %> 300w"
+                          sizes="(min-width: 36em) 33.3vw, 100vw" src="<%= @hero_photo.path_url(:medium) %>" alt="<%= alt_tag_for(@hero_photo) %>" />
+                      <div class="priority">-1</div>
+                      <div class="photo-credit">Credit: <%= @hero_photo.credit %></div>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="about-content">
+                  <% unless @place.display_name == "Virgin Australia" %>
+                    <h1>Things to do at <%= @place.display_name %></h1>
+                  <% end %>
+                  <div id="area-content">
+                    <p><%= raw @place.description %></p>
+                    <% unless @place.booking_url.blank? %>
+                      <a href="<%= @place.booking_url %>" target="blank" class="feedback">
+                        <button class="btn website-button">Book Now!</button>
+                      </a>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item photo photo-card user-story-card" data-toggle="modal" data-target="<%= user_signed_in? ? '#userStoryModal' : '' %>">
+              <% if user_signed_in? %>
+                Click Here to email us your own photos and story.<br> You may get featured in Bound Round!
+              <% else %>
+                <a href="<%= new_user_session_path %>">Sign In to upload your own story and photos about <%= @place.display_name %>!</a>
+              <% end %>
+            </div>
+              <div class="item photo photo-card place-info-card">
+                <div id="place-map-canvas"></div>
+                <div class="place-info-text">
+                  <div id="place-id" data-place="<%= @place.place_id %>"></div>
+                  <p>
+                    <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="feedback">
+                      Get Directions
+                    </a>
+                  </p>
+                  <p>Address: <span id="address"><%= @place.display_address %></span></p>
+                  <p>Phone Number: <span id="phone-number"><%= @place.phone_number %></span></p>
+                  <p id="operating-hours"></p>
+                  <p><i class='fa fa-laptop fa-laptop-2x'></i>&nbsp;&nbsp;<a href="<%= @place.website%>" target="blank">Website</a>
+                </div>
+              </div>
+            <%  unless @videos.empty? %>
+              <% @videos.preview.each do |video| %>
+                <div class="item video video-card photo-card">
+                  <%= raw approve_icon(video) %>
+                  <div class="video-wrapper">
+                    <div class="priority"><%= video.priority ? video.priority : 2 %></div>
+                    <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %>
+                    <% end %>
+                    <div class="game-divider"></div>
+                    <div class="game-thumbnail">
+                      <div class="video-play"><img class="video-play-background" src="<%= asset_path('video-play.png') %>"></div>
+                      <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail %>"/>
+                    </div>
+                    <div class="video-caption" style="background-color:<%= category_color_for(@place) %>">
+                      <p>Click to expand and play video!</p>
+                    </div>
+                    <div class="fun-fact">
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+
+            <% unless @photos.empty? %>
+              <% @photos.preview.each_with_index do |photo, index| %>
+                <div class="item photo photo-card photo-thumb">
+                  <div class="game-divider"></div>
+                  <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
+                                                                      photo_alt: alt_tag_for(photo),
+                                                                      photo_credit: "Credit: " + photo.credit
+                                                                      } do %>
+                  <% end %>
+                  <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= alt_tag_for(photo) %>"/>
+                  <%= raw approve_icon(photo) %>
+                  <div class="photo-credit">Credit: <%= photo.credit %></div>
+                  <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
+                  <div class="photo-caption">
+                    <p><%= raw photo.caption %></p>
+                    <a href="#" data-toggle="modal" data-target="#postCardModal-<%= index %>">
+                      <img class="postcard-icon" src="<%= asset_path ('postcard_icon-01.svg') %>"/>
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal post-modal fade" id="postCardModal-<%= index %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog postcard-dialog">
+                        <div class="modal-content postcard-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Send A Postcard!</h4>
+                          </div>
+                          <div class="modal-body">
+                            <div class="post-card-form">
+                              <%= form_tag(send_postcard_path) do %>
+                                  <div class="form-group">
+                                      <%= label_tag 'name', 'Your Email Address' %>
+                                      <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'Your Email Address' %>
+                                  </div>
+                                 <div class="form-group">
+                                     <%= label_tag 'email', 'Send To: Email Address' %>
+                                     <%= email_field_tag 'email', nil, class: 'form-control', placeholder: 'Recipient Email Address' %>
+                                 </div>
+                                 <div class="form-group">
+                                     <%= label_tag 'message', 'Message' %>
+                                     <%= text_area_tag 'message', nil, class: 'form-control', rows: 4 %>
+                                     <%= hidden_field_tag 'photo', photo.path_url(:medium) %>
+                                     <%= hidden_field_tag 'place', @place.display_name %>
+                                     <%= hidden_field_tag 'area', @place.area.display_name %>
+                                     <%= hidden_field_tag 'country', @place.area.country.display_name %>
+                                 </div>
+                                 <div class="form-group">
+                                   <%= submit_tag 'Send', class: 'btn btn-default btn-about' %>
+                                 </div>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+
+            <% unless @place.games.empty? %>
+              <% @place.games.preview.each do |game| %>
+                <div class="item game game-card photo-card">
+                    <%= raw approve_icon(game) %>
+                  <div class="priority"><%= game.priority ? game.priority : 2 %></div>
+                  <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
+                  <% end %>
+                  <div class="game-divider"></div>
+                  <% if game.game_type == 'jigsaw puzzle' %>
+                    <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('jigsaw_ds.png') %>"></div>
+                    <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
+                  <% elsif game.game_type == 'slider' %>
+                    <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('slider_ds.png') %>"></div>
+                    <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
+                  <% else %>
+                    <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('wordsearch_ds.png') %>"></div>
+                    <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
+                  <% end %>
+                  <div class="game-caption" style="background-color:<%= category_color_for(@place) %>">
+                    <p>Click to expand and play game!</p>
+                  </div>
+                  <div class="fun-fact">
+                    <p><%= raw game.instructions %></p>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+            <% if @place.display_name == "Virgin Australia"%>
+              <div class="item fun_fact photo-card">
+                <div class="discount-card">
+                  <a href="http://boundround.com/kids/bound-round-kids-board/bound-round-local-kid-video-registration/">
+                    <img src="<%= asset_path('virgin_br_reporter.png') %>" class="virgin-reporter">
+                  </a>
+                </div>
+              </div>
+            <% end %>
+            <% unless @place.fun_facts.empty? %>
+              <% @place.fun_facts.preview.each do |fun_fact| %>
+                <div class="item fun_fact photo-card">
+                  <%= raw approve_icon(fun_fact) %>
+                  <div class="discount-card fact-card">
+                    <p><%= raw fun_fact.content %></p>
+                  </div>
+                  <div class="priority"><%= fun_fact.priority ? fun_fact.priority : 2 %></div>
+                </div>
+              <% end %>
+            <% end %>
+
+            <% unless @place.discounts.empty? %>
+              <% @place.discounts.preview.each do |discount| %>
+                <div class="item special photo-card">
+                  <div class="priority"><%= discount.priority ? discount.priority : 2 %></div>
+                  <div class="discount-card">
+                    <p><%= raw discount.description %></p>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="modal fade" id="userStoryModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Send Us Your Story</h4>
+              </div>
+              <div class="modal-body">
+                <%= render '/users/user_story_form' %>
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+        <div class="modal fade" id="thumbsDownModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Please leave comments below</h4>
+              </div>
+              <div class="modal-body">
+                <%= render 'content_rejected_form' %>
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+      </div>
+      <% unless @place.display_name == "Virgin Australia" %>
+        <div>
+          <%= render '/search_suggestions/search_cards' %>
+        </div>
+      <% end %>
+      <% if current_user.try(:admin?) %>
+        <p><%= link_to 'Edit Place', edit_place_path %></p>
+      <% end %>
+    </div>
+  </div>
+
+
+</div>
+
+<%= javascript_include_tag 'slick.min' %>
+<%= javascript_include_tag 'slick-carousel' %>
+<%= javascript_include_tag 'user_story' %>
+<% else %>
+<h3>You must be signed in to view this page</h3>
+<% end %>
+<script>
+$(document).ready(function(){
+   // customer preview approval functionality
+
+  $('.customer-approve').on('click', function(e){
+    console.log("approved");
+    e.preventDefault();
+    e.stopPropagation();
+    var data = {};
+    var postPath = $(this).data('postPath');
+    var postType = $(this).data('postType');
+    data[postType] = {customer_approved: true, customer_review: false, status: "live"};
+    $(this).hide();
+    $(this).siblings('.disapprove-icon').hide();
+    $(this).parent().append("<i class='approve-icon fa fa-thumbs-up fa-2x'></i>")
+
+      $.ajax({
+        type: "PUT",
+        url: '/' + postPath + '/' + $(this).data("contentId") + '.json',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: console.log('APPROVED')
+      });
+  });
+
+  $('.disapprove-icon').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('disapproved');
+    $(this).removeClass("fa-thumbs-o-down").addClass("fa-thumbs-down");
+    $('#asset-type').val($(this).data('asset-type'));
+    $('#asset-id').val($(this).data('asset-id'));
+    $('#place-number').val($(this).data('place-id'));
+    $('#thumbsDownModal').modal('show');
+  });
+ });
+</script>

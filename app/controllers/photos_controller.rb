@@ -46,8 +46,14 @@ class PhotosController < ApplicationController
 
   def update
     @photo = Photo.find(params[:id])
+
     if @photo.update(photo_params)
-      redirect_to :back, notice: "Photo updated"
+      @photo.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @photo }
     end
   end
 
@@ -59,7 +65,8 @@ class PhotosController < ApplicationController
   private
 
     def photo_params
-      params.require(:photo).permit(:title, :path, :alt_tag, :credit, :area_id, :place_id, :caption, :caption_source, :priority, :status, :country_include, :_destroy)
+      params.require(:photo).permit(:title, :path, :alt_tag, :credit, :area_id, :place_id, :caption, :caption_source,
+                                    :customer_approved, :customer_review, :approved_at, :priority, :status, :country_include, :_destroy)
     end
 
 end
