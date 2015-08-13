@@ -250,6 +250,21 @@
         </div><!-- /.modal -->
 
 
+        <div class="modal fade" id="thumbsDownModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Please leave comments below</h4>
+              </div>
+              <div class="modal-body">
+                <%= render 'content_rejected_form' %>
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
       </div>
       <% unless @place.display_name == "Virgin Australia" %>
@@ -262,6 +277,7 @@
       <% end %>
     </div>
   </div>
+
 
 </div>
 
@@ -302,6 +318,10 @@ $(document).ready(function(){
     e.stopPropagation();
     console.log('disapproved');
     $(this).removeClass("fa-thumbs-o-down").addClass("fa-thumbs-down");
+    $('#asset-type').val($(this).data('asset-type'));
+    $('#asset-id').val($(this).data('asset-id'));
+    $('#place-number').val($(this).data('place-id'));
+    $('#thumbsDownModal').modal('show');
   });
  });
 </script>

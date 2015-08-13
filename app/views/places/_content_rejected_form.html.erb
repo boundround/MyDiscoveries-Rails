@@ -1,0 +1,11 @@
+  <%= form_tag(content_rejected_path) do %>
+    Comments:
+      <%= text_area_tag :comments, nil, class: "story-text" %>
+      <%= hidden_field_tag :customer, current_user.email %>
+      <input id="asset-type" name="asset-type" type="hidden">
+      <input id="asset-id" name="asset-id" type="hidden">
+      <input id="place-number" name="place-id" type="hidden">
+      <p>
+        <%= submit_tag 'Submit', class: "btn btn-large"%>
+      </p>
+  <% end %>

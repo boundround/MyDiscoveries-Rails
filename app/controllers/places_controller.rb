@@ -204,7 +204,7 @@ class PlacesController < ApplicationController
 
   def send_postcard
     name = params[:name]
-    email = params[:email]
+    email = params[:customer]
     message = params[:message]
     photo = params[:photo]
     place = params[:place]
@@ -212,6 +212,16 @@ class PlacesController < ApplicationController
     country = params[:country]
     Share.postcard(name, email, message, photo, place, area, country).deliver
     redirect_to :back, notice: 'Postcard sent'
+  end
+
+  def content_rejected
+    place_id = params["place-id"].to_i
+    asset_type = params["asset-type"]
+    asset_id = params["asset-id"]
+    email = params["email"]
+    comments = params["comments"]
+    ContentRejected.send_rejected(place_id, asset_type, asset_id, email, comments)
+    redirect_to :back, notice: 'Thank you. Comments sent'
   end
 
   def mapdata
