@@ -105,6 +105,38 @@ class PlacesController < ApplicationController
     end
   end
 
+  def all_edited
+
+    @all_edited = Place.joins(:photos).where("photos.status = 'edited'")
+    @all_edited += Place.joins(:games).where("games.status = 'edited'")
+    @all_edited += Place.joins(:videos).where("videos.status = 'edited'")
+    @all_edited += Place.joins(:fun_facts).where("fun_facts.status = 'edited'")
+    @all_edited += Place.joins(:discounts).where("discounts.status = 'edited'")
+
+    @all_edited = @all_edited.uniq
+
+    @all_content = []
+
+    @all_edited.each do |place|
+      place.photos.edited.each do |photo|
+        @all_content.push photo
+      end
+      place.videos.edited.each do |video|
+        @all_content.push video
+      end
+      place.games.edited.each do |game|
+        @all_content.push game
+      end
+      place.fun_facts.edited.each do |fun_fact|
+        @all_content.push fun_fact
+      end
+      place.discounts.edited.each do |discount|
+        @all_content.push discount
+      end
+    end
+
+  end
+
   def create
     @place = Place.new(place_params)
 

@@ -109,6 +109,7 @@ Rails.application.routes.draw do
 
   resources :places do
     member { get 'preview' }
+    collection { get 'all_edited'}
     resources :photos
     resources :videos
     resources :discounts

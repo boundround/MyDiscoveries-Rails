@@ -1,0 +1,27 @@
+<div class+"container">
+  <div id="table-container">
+    <h3>Places with assets in review</h3>
+    <table class="table table-striped" id="video-table">
+      <thead>
+        <tr>
+          <th>Content Type</th>
+          <th>Content ID</th>
+          <th>Place</th>
+          <th>Area</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @all_content.each do |content| %>
+            <tr>
+              <td><%= content.class %></td>
+              <td><%= content.id %></td>
+              <td><%= link_to content.place.display_name, edit_place_path(content.place) %></td>
+              <td><%= content.place.area.display_name if content.place.area %></td>
+              <td><%= content.place.country.display_name if content.place && content.place.country %></td>
+            </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
