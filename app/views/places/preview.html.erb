@@ -1,4 +1,4 @@
-<% if user_signed_in? %>
+<% if user_signed_in? && user.admin %>
 <% provide(:title, @place.display_name) %>
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
   <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
