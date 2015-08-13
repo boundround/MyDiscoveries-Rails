@@ -12,8 +12,6 @@ class ContentNotification < ActionMailer::Base
     @email = email
     @comments = comments
 
-    mail(to: "donovan@boundround.com",
-        subject: "Content Rejected: " + @place.display_name + ": " @asset_type + " " + @asset_id.to_s
-        )
+    mail(to: "donovan@boundround.com", subject: "Content Rejected: " + @place.display_name + ": " + @asset_type + " " + @asset_id.to_s)
   end
 end
