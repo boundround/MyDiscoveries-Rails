@@ -21,6 +21,7 @@
 //= require jquery.matchHeight-min
 //= require jquery.touchSwipe.min
 //= require jquery.bxslider
+//= require sign_in
 //= require owl.carousel.min
 //= require countries
 //= require avatarupload
@@ -40,7 +41,6 @@
 //= require cookie
 //= require cards
 //= require like
-//= require sign_in
 
 
 
