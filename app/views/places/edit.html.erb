@@ -249,7 +249,7 @@
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
-                <td><%= !discount.versions.blank? ? User.find(discount.versions.last.whodunnit).email : "" %><br><%= discount.updated_at.strftime('%F at %T') %></td>
+                <td><%= !discount.versions.blank? && discount.versions.last.whodunnit ? User.find(discount.versions.last.whodunnit).email : "" %><br><%= discount.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>
