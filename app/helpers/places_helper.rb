@@ -60,24 +60,39 @@ module PlacesHelper
     end
   end
     
-  def place_categories(place)
-    res = String.new
-    place.categories.each do |p|
-      res += p.programyearlevel_list.to_s
-    end
+  # def place_categories(place)
+  #   res = String.new
+  #   place.categories.each do |p|
+  #     res += p.programyearlevel_list.to_s
+  #   end
+  # end
+  #
+  def yl_as_csv_string(a_programyearlevels)
+    yls = ""
+    a_programyearlevels.each do |yl|
+      if yls != "" then yls += "," end
+      yls += yl.name
+    end 
+    yls
   end
-
+  
   def place_yearlevels(place)
     allyears = String.new
     if place.programs then
       place.programs.each do |p|
-        allyears += p.programyearlevel_list.to_s
+        allyears += yl_as_csv_string(p.programyearlevels)
       end
     end
     get_yearlevel_range(allyears)
   end
   
   def program_yearlevels(program)
+    get_yearlevel_range(yl_as_csv_string(program.programyearlevels))
+  end
+
+  #Using _list forces goes back to the database!
+  #Avoid doing this!
+  def program_yearlevels_using_list(program)
     get_yearlevel_range(program.programyearlevel_list.to_s)
   end
 

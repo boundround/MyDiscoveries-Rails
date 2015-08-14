@@ -19,8 +19,6 @@
 </script>
 
 
-
-
 <div id="Carousel" class="carousel slide carousel-fade col-offset-2">
 
 
@@ -437,6 +435,8 @@
 		<% end %>
 		
 
+<p id="debug_stuff"></p>
+
 
 
 <footer class="f_otter">
@@ -487,20 +487,21 @@ $("#search_input").keyup(function(event){
     }
 });
 
+/*
 function get_search_params()
 {
-	params="term="+$("#search_input").val();
+	params="term="+encodeURIComponent($("#search_input").val());
 	
-	var v = $("#yearlevel_selector").val();
+	var v = encodeURIComponent($("#yearlevel_selector").val());
 	params += v != "All" ? "&yearlevel="+v : "";
 
-	var v = $("#subject_selector").val();
+	var v = encodeURIComponent($("#subject_selector").val());
 	params += v != "All" ? "&subject="+v : "";
 
-	var v = $("#activity_selector").val();
+	var v = encodeURIComponent($("#activity_selector").val());
 	params += v != "All" ? "&activity="+v : "";
 
-	var v = $("#location_selector").val();
+	var v = encodeURIComponent($("#location_selector").val());
 	params += v != "All" ? "&location="+v : ""; 
 
 	return params;
@@ -520,22 +521,23 @@ function ss_goto_list_results()
 function ss_goto_map_results()
 {
 	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params())},100);
-}
+}*/
 </script>
  
 
 
 <script>
+/*
     $(document).ready(function () {
         $(".navbar-toggle").on("click", function () {
             $(this).toggleClass("active");
         });
-
-				$("#search_input").val("<%=@search_term%>");
-				$("#yearlevel_selector").val("<%=@yearlevel_filter%>");
-				$("#subject_selector").val("<%=@subject_filter%>");
-				$("#activity_selector").val("<%=@activity_filter%>");
-				$("#location_selector").val("<%=@location_filter%>");
+				
+				$("#search_input").val(decodeURIComponent("<%=@search_term%>"));
+				$("#yearlevel_selector").val(decodeURIComponent("<%=@yearlevel_filter%>"));
+				$("#subject_selector").val(decodeURIComponent("<%=@subject_filter%>"));
+				$("#activity_selector").val(decodeURIComponent("<%=@activity_filter%>"));
+				$("#location_selector").val(decodeURIComponent("<%=@location_filter%>"));
 				$('.selectpicker').selectpicker('refresh');
 				
 				<% if @yearlevel_filter || @subject_filter || @activity_filter || @location_filter then %>
@@ -545,7 +547,7 @@ function ss_goto_map_results()
 				<%end%>
 
     });
-
+*/
 </script>
 <script>
     $('.btn-log').click(function () {

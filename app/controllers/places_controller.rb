@@ -330,7 +330,12 @@ class PlacesController < ApplicationController
     def set_program_results_sql(params)
       @MAX_TO_RETURN = 40
       @placeprograms = "yes"
-
+      
+      # params.each do |pa|
+      #   params[pa[0]] = CGI.decode(pa[1])
+      #   puts params[pa[0]]
+      # end
+      
       if params[:term] == "" then params[:term] = nil end
       @search_term = params[:term]
 
@@ -365,10 +370,10 @@ class PlacesController < ApplicationController
           if full_query != "" then 
             full_query = full_query + " INTERSECT " + yl_sql;
           else
-            full_query = activity_sql;
+            full_query = yl_sql;
           end  
         end
-
+        
         if full_query != "" then
           full_query = "places.status IN (:pstatus) and programs.id in ("+full_query+")" 
         else
@@ -387,7 +392,7 @@ class PlacesController < ApplicationController
         if @search_term then
           place_query = 'places.status IN (:pstatus) AND (places.display_name ILIKE :st OR programs.name ILIKE :st OR areas.display_name ILIKE :st) AND ' + full_query
 
-          @places = Place.includes(:area, {programs: [:programyearlevels, :programactivities, :programsubjects, :webresources]}, :photos, :categories).joins(:programs,:photos,:categories,:area).where(place_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
+          @places = Place.includes(:area, {programs: [:programyearlevels, :programactivities, :programsubjects, :webresources]}, :photos, :categories).joins(:programs,:photos,:categories,:area).where(place_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).limit(@MAX_TO_RETURN)
             #Better
             # @pplaces = Place.joins(:programs).where(
             #   'places.subscription_level NOT IN (:sl) AND
@@ -395,13 +400,14 @@ class PlacesController < ApplicationController
             #   OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
 
           full_query = "places.status IN (:pstatus) AND (programs.name ILIKE :st OR programs.description ILIKE :st) AND " + full_query
-          @programs = Program.includes(:webresources, {place: [:photos]}, :programyearlevels, :programactivities, :programsubjects).joins(:place).where(full_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
+          @programs = Program.includes(:webresources, {place: [:photos]}, :programyearlevels, :programactivities, :programsubjects).joins(:place).where(full_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:name).limit(@MAX_TO_RETURN)
         else
-          @places = Place.joins(:area, :programs,:photos,:categories).includes(:area, :photos, :categories, {programs: [:programyearlevels, :programactivities, :programsubjects, :webresources]}).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
+#          @places = Place.joins(:area, :programs, :photos, :categories).includes(:programs, :area, :photos, :categories).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
+          @places = Place.joins(:area, :programs,:photos,:categories).includes(:area, :photos, :categories).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).limit(@MAX_TO_RETURN)
           @places.each do |p|
             puts p.display_name
           end
-          @programs = Program.joins(:place).includes(:webresources, {place: [:photos]}, :programyearlevels, :programactivities, :programsubjects).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
+          @programs = Program.joins(:place,:webresources).includes(:webresources, {place: [:photos]}, :programyearlevels, :programactivities, :programsubjects).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:name).limit(@MAX_TO_RETURN)
           @programs.each do |qp|
             puts qp.name
           end
