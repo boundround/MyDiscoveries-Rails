@@ -104,6 +104,65 @@
 				
 				$(window).load(function(){ setTimeout( function(){sizer($('.yoyo img'));},800); });
 			});
+
+			function get_search_params()
+			{
+				params="term="+encodeURIComponent($("#search_input").val());
+	
+				var v = encodeURIComponent($("#yearlevel_selector").val());
+				params += v != "All" ? "&yearlevel="+v : "";
+
+				var v = encodeURIComponent($("#subject_selector").val());
+				params += v != "All" ? "&subject="+v : "";
+
+				var v = encodeURIComponent($("#activity_selector").val());
+				params += v != "All" ? "&activity="+v : "";
+
+				var v = encodeURIComponent($("#location_selector").val());
+				params += v != "All" ? "&location="+v : ""; 
+
+				return params;
+			}
+
+
+			function ss_goto_search()
+			{
+				window.location.href = encodeURI("/places/programsearch?"+get_search_params());
+			}
+
+			function ss_goto_list_results()
+			{
+				setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params())},20);
+			}
+
+			function ss_goto_map_results()
+			{
+				setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params())},100);
+			}
+
+	    $(document).ready(function () {
+	        $(".navbar-toggle").on("click", function () {
+	            $(this).toggleClass("active");
+	        });
+				
+					$("#search_input").val(decodeURIComponent("<%=@search_term%>"));
+					$("#yearlevel_selector").val(decodeURIComponent("<%=@yearlevel_filter%>"));
+					$("#subject_selector").val(decodeURIComponent("<%=@subject_filter%>"));
+					$("#activity_selector").val(decodeURIComponent("<%=@activity_filter%>"));
+					$("#location_selector").val(decodeURIComponent("<%=@location_filter%>"));
+					$('.selectpicker').selectpicker('refresh');
+				
+					<% if @yearlevel_filter || @subject_filter || @activity_filter || @location_filter then %>
+		        $('.open-btn').hide(0);
+		        $('.story_area').stop().slideToggle(400);
+		        $('.close-btn').show(0);
+					<%end%>
+
+	    });
+
+			</script>
+ 
+
 	</script>
 		
 		
