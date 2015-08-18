@@ -213,13 +213,21 @@ var id = 'loader', fill = '#FFF',
 
             $("#owl-demo").owlCarousel({
 
-                autoPlay: 3000, //Set AutoPlay to 3 seconds
-
+                autoPlay: 6000, //Set AutoPlay to 3 seconds
+ 
+ 						 		//Basic Speeds
+						    slideSpeed : 200,
+						    paginationSpeed : 3000,
+						    rewindSpeed : 3000,
+ 
                 items: 3,
                 itemsDesktop: [1199, 3],
                 itemsDesktopSmall: [979, 3],                
                 itemsTablet: [767, 3],
-                itemsMobile: [480, 2]
+                itemsMobile: [480, 2],
+							  beforeMove : function() {},
+								afterMove : function() {}
+							
 
             });
 

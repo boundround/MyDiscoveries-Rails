@@ -128,14 +128,28 @@ module PlacesHelper
     #program.programyearlevel_list 
   end
 
-  def program_activities(program)
+  def program_subjects_max(program,max_num)
     #Sort based on year level sort order
     yls = ""
-    program.programactivities.each do |yl|
-      if yls != "" then yls += "," end
+    idx = 0
+    program.programsubjects.each do |yl|
+      if yls != "" then yls += ", " end
       yls += yl.name
+      idx = idx + 1
+      break if idx > max_num
     end 
     yls
+    #program.programyearlevel_list 
+  end
+
+  def program_activities(program)
+    #Sort based on year level sort order
+    pas = ""
+    program.programactivities.each do |pa|
+      if pas != "" then pas += ", " end
+      pas += pa.name
+    end 
+    pas
     #program.programyearlevel_list 
   end
 end

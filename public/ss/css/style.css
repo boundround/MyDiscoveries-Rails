@@ -373,11 +373,22 @@ border-color:#ebebeb!important;
   background: url(../img/main_bg.jpg);
   background-size: cover;
    background-position:center; 
+   -webkit-filter: blur(5px);
+   -moz-filter: blur(5px);
+   -o-filter: blur(5px);
+   -ms-filter: blur(5px);
+   filter: blur(5px);
+	 
 }
 .carousel-inner .item:nth-child(2) {
   background: url(../img/main_bg2.jpg);
   background-size: cover;
   background-position:center; 
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
 }
 
 
