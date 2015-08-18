@@ -28,6 +28,34 @@ $('#slider-next').click(function(e){
 
 });
 
+$(function() {
+  $("#famous-carousel").owlCarousel({
+    autoPlay: 2000, //Set AutoPlay to 3 seconds
+    items: 3,
+    itemsDesktop: [1199, 3],
+    itemsDesktopSmall: [979, 2],
+    itemsTablet: [767, 3],
+    itemsTabletSmall:[540,2],
+    itemsMobile: [480, 1],
+    stopOnHover:true,
+    pagination:false
+});
+slider= $('.bxslider').bxSlider({
+  auto:true,
+  pager: false,
+  controls:false
+});
+$('#slider-prev').click(function(e){
+        e.preventDefault();
+        slider.goToPrevSlide();
+    });
+$('#slider-next').click(function(e){
+        e.preventDefault();
+        slider.goToNextSlide();
+    });
+
+});
+
 
 $(function() {
     $('.br_main_content,.br_sidebar').matchHeight();
@@ -101,7 +129,7 @@ $(document).ready(function(){
                 if($(carouselItems[index]).hasClass("carousel-video")){
                     $("#modal-carousel").append($(carouselItems[index]).clone().css("height", "400px"));
                 } else {
-                    $("#modal-carousel").append($(carouselItems[index]).clone().css("margin-left", "20%"));
+                    $("#modal-carousel").append($(carouselItems[index]).clone());
                 }
             });
         }

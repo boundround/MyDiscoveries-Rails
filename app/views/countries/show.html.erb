@@ -186,7 +186,7 @@
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id leo.
                 </p>
                 <div class="clearfix"></div>
-                <div class="owl-carousel">
+                <div class="owl-carousel" id="famous-carousel">
                   <% @country.famous_faces.active.each do |famous_face| %>
                     <div>
                       <img src="<%= famous_face.photo.url || asset_path('generic-grey.jpg') %>" class="img-responsive" / >
