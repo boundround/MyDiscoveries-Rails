@@ -574,7 +574,6 @@
     min-width: 0 !important;
     margin: 0 auto;
   }
-
 }
 
 @media (max-width: 1000px) {
@@ -588,6 +587,10 @@
 
   .br-logo-modal {
     width: 100%;
+  }
+
+  .app-wrap {
+    margin-top: 50px;
   }
 }
 
