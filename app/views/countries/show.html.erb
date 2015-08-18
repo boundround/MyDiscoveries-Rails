@@ -92,7 +92,7 @@
               <iframe class="hero-video carousel-item carousel-video" id="player1" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player1" width="273" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen data-slide-number="<%= index %>"></iframe>
               <% elsif asset.class.to_s == "Photo" %>
                 <div class="carousel-item">
-                    <img src="<%= asset.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>">
+                    <img src="<%= asset.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>">
                 </div>
               <% end %>
             <% end %>

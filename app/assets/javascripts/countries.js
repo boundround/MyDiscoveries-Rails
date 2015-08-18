@@ -126,10 +126,13 @@ $(document).ready(function(){
         var carouselItems = $('.carousel-item');
         if ($("#modal-carousel").has(".carousel-item").length === 0){
             $.each(carouselItems, function(index){
+                var newImage = $(carouselItems[index]).clone()
                 if($(carouselItems[index]).hasClass("carousel-video")){
-                    $("#modal-carousel").append($(carouselItems[index]).clone().css("height", "400px"));
+                    $("#modal-carousel").append(newImage.css("height", "400px"));
                 } else {
-                    $("#modal-carousel").append($(carouselItems[index]).clone());
+                    newImage.append("<br>" + newImage.find("img").data("caption"));
+                    newImage.append("<br><a href='" + newImage.find("img").data("placeurl") + "'>Explore " + newImage.find("img").data("placename") + "</a>");
+                    $("#modal-carousel").append(newImage);
                 }
             });
         }
