@@ -14,20 +14,17 @@ Controller Variables Required
 			            <div class="row box-top yoyo" style="overflow:hidden">
 			                <img src=<%=pick_a_place_photo_url(place)%> onerror="this.src='../assets/images/16x9.png'" >
 			            </div>
-			            <!--div class="col-xs-12 visible-md visible-xs visible-sm box_center text-center box-middle">
-			                    <span>Virtual</span>
-			                </div-->
+			            <div class="col-xs-12 visible-lg visible-md visible-xs visible-sm box_center text-center box-middle">
+			                    <span><%= place.programs.size %> Programs</span>
+			                </div>
 			            <div class="row text-center">
 			                <h4><%=place.display_name%><br><span><%=place.area.display_name%></span></h4>
 			            </div> 
 			            <div class="row box-footer">
-			                <div class="col-xs-5 col-lg-4 box_left">
-			                    <span><%=place_yearlevels(place)%></span>
-			                </div>
 			                <!--div class="col-xs-4 hidden-md hidden-sm hidden-xs col-lg-4 box_center text-center">
-			                    <span>Virtual</span>
+			                    <span><%= place.programs.size %> Programs</span>
 			                </div-->
-			                <div class="col-xs-7 col-lg-4 box_right text-right">
+			                <div class="col-xs-12 col-lg-12 box_center text-center">
 			                    <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
 			                 </div>                             
 			            </div>   

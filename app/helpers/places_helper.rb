@@ -60,24 +60,39 @@ module PlacesHelper
     end
   end
     
-  def place_categories(place)
-    res = String.new
-    place.categories.each do |p|
-      res += p.programyearlevel_list.to_s
-    end
+  # def place_categories(place)
+  #   res = String.new
+  #   place.categories.each do |p|
+  #     res += p.programyearlevel_list.to_s
+  #   end
+  # end
+  #
+  def yl_as_csv_string(a_programyearlevels)
+    yls = ""
+    a_programyearlevels.each do |yl|
+      if yls != "" then yls += "," end
+      yls += yl.name
+    end 
+    yls
   end
-
+  
   def place_yearlevels(place)
     allyears = String.new
     if place.programs then
       place.programs.each do |p|
-        allyears += p.programyearlevel_list.to_s
+        allyears += yl_as_csv_string(p.programyearlevels)
       end
     end
     get_yearlevel_range(allyears)
   end
   
   def program_yearlevels(program)
+    get_yearlevel_range(yl_as_csv_string(program.programyearlevels))
+  end
+
+  #Using _list forces goes back to the database!
+  #Avoid doing this!
+  def program_yearlevels_using_list(program)
     get_yearlevel_range(program.programyearlevel_list.to_s)
   end
 
@@ -113,14 +128,28 @@ module PlacesHelper
     #program.programyearlevel_list 
   end
 
-  def program_activities(program)
+  def program_subjects_max(program,max_num)
     #Sort based on year level sort order
     yls = ""
-    program.programactivities.each do |yl|
-      if yls != "" then yls += "," end
+    idx = 0
+    program.programsubjects.each do |yl|
+      if yls != "" then yls += ", " end
       yls += yl.name
+      idx = idx + 1
+      break if idx > max_num
     end 
     yls
+    #program.programyearlevel_list 
+  end
+
+  def program_activities(program)
+    #Sort based on year level sort order
+    pas = ""
+    program.programactivities.each do |pa|
+      if pas != "" then pas += ", " end
+      pas += pa.name
+    end 
+    pas
     #program.programyearlevel_list 
   end
 end

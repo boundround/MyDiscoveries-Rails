@@ -324,7 +324,7 @@ $("#search_input").keyup(function(event){
         $("#search_button").click();
     }
 });
-
+/*
 function get_search_params()
 {
 	params="term="+$("#search_input").val();
@@ -343,6 +343,18 @@ function get_search_params()
 
 	return params;
 }
+
+function ss_goto_list_results()
+{
+	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params())},20);
+}
+
+function ss_goto_map_results()
+{
+	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params())},100);
+}
+
+*/
 
 var ss_g_pancallbackhandle = null;
 
@@ -369,21 +381,14 @@ function ss_focus_on_place(place_id)
 
 	ss_open_window = place.infowindow;
 }
-function ss_goto_list_results()
-{
-	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params())},20);
-}
 
-function ss_goto_map_results()
-{
-	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params())},100);
-}
 </script>
 
 
 
 
 <script>
+/*
     $(document).ready(function () {
         $(".navbar-toggle").on("click", function () {
             $(this).toggleClass("active");
@@ -405,7 +410,7 @@ function ss_goto_map_results()
 
 
     });
-
+*/
 </script>
 <script>
     $('.btn-log').click(function () {
