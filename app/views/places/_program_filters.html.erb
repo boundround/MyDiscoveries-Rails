@@ -1,6 +1,6 @@
 <!-- THIS FILE MUST GO INSIDE A DIV -->
 <div class="col-xs-12 col-sm-12 divin">
-	<label class="col-xs-4">Grade</label>
+	<label class="col-xs-4">Level</label>
 	<div class=" col-xs-8">
 		<select id="yearlevel_selector" class="selectpicker" value="<%=@yearlevel_filter%>">
 			<%@yearlevels.each do |yl|%>
@@ -34,7 +34,7 @@
 	</div>
 </div-->
 <div class="col-xs-12 col-sm-12 divin">
-	<label class="col-xs-4">Location</label>
+	<label class="col-xs-4">State</label>
 	<div class=" col-xs-8">
 		<select id="location_selector" class="selectpicker" value="<%=@location_filter%>">
 			<% @locations.each do |location|%>

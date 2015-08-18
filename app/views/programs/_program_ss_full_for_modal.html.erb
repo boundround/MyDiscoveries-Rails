@@ -1,0 +1,205 @@
+<div class="fixed-btn">
+          		<!--a href="#myModal2" data-toggle="modal" class="fff hidden-sm hidden-xs side-book"><span class="side-arrow"><</span> <span>Book<br>now!</span></a-->
+          	</div>
+  <div class="modal-dialog">
+  	<div class="rating-box">
+    	<h2 class="text-center fff">Looks like you have been here before!<br>
+    		<span>What did you think?</span>
+    	</h2>
+    	<h1 class="text-center fff model-heart">
+    	<input type="hidden" value="3"  class="rating" data-filled="fa fa-heart" data-empty="fa fa-heart-o"/> 
+    	</h1>
+  	</div>
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>                    
+          </div>
+          <div class="col-md-11 modal-middle center-block">
+          	<div class="row">
+          		<div class="col-sm-12">
+          			<h1>
+          				<%= program.name %><BR><br>
+										<div class = "side-btn">								
+											<span><a class="btn btn-default ss_website_button" href="<%= program.programpath %>">Program Website</a></span>
+										</div>
+          			</h1>
+          		</div>
+          		<div class="col-sm-12 ">
+          			<div class="col-md-12 bar center-block">
+          				<!--IMPLEMENT div class="col-sm-3">
+          					Rating:&nbsp;&nbsp;<span><i class="fa fa-heart"></i>
+									<i class="fa fa-heart"></i> 
+									<i class="fa fa-heart"></i> 
+									<i class="fa fa-heart-o"></i> 
+									<i class="fa fa-heart-o"></i> 
+								</span>
+          				</div-->
+          				<div class="col-sm-3">
+          					Year:&nbsp;&nbsp;<span><%=program_yearlevels(program)%></span>
+          				</div>
+          				<div class="col-sm-3">
+          					Subject:&nbsp;&nbsp;<span><%=program.programsubjects[0] ? program.programsubjects[0] : ""%></span>  
+          				</div>
+          				<div class="col-sm-3">
+          					Duration:&nbsp;&nbsp;<span><%program.duration%></span>
+          				</div>
+          				<div class="clearfix"></div>
+          			</div>
+          		</div>
+          		<div class="col-md-12">
+          			<p>
+          				<%= program.description %>
+          			</p>
+								<div style="max-height:400px;max-width:500px;overflow:hidden;border-radius:8px; width=100%; margin: auto;">
+									<img src="<%= get_program_or_place_hero_url(program) %>" onerror="this.src='../assets/images/16x9.png'" class="center-block img-responsive" style="display:block"/>
+								</div>
+								<BR>
+          			<!--iframe width="100%" height="400" src="https://www.youtube.com/embed/Q-4w5xYLwiU" frameborder="0" allowfullscreen></iframe-->
+          			<!--h4>What’s involved in <%= program.name %>?</h4>
+          			<p>
+          				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Lorem ipsum dolor sit amet:
+          			</p>
+          			<ol>
+          				<li>
+          					<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span>
+          				</li>
+          				<li>
+          					<span>Adipiscing elit.  Quis tellus adipiscing sit amet suscipit justo malesuada.</span>
+          				</li>
+          				<li>
+          					<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus 		    quis tellus adipiscing sit amet suscipit justo malesuada.
+          					</span>
+          				</li>
+          			</ol>
+          			<h4>Times</h4>
+          			<div class="model-slider">
+          		   <ul class="bxslider">
+          				
+          					
+          				<li>
+          					
+          					<p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p>
+          					<p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p>
+          					<p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p>
+          					
+          				</li>
+          				<li>
+          					
+          						<p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="avial">Not available</span> 
+          					</p>
+          					
+          				</li>
+          				<li>
+          					
+          						<p class="times">July 24, 2015 – 
+          							<span class="avial">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p>
+          					
+          				</li>
+          				<li>
+          					
+          						<p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="avial">Not available</span> 
+          					</p>
+          					
+          				</li>
+          				<li>
+          					
+          						<p class="times">July 24, 2015 – 
+          							<span class="avial">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p>
+          					
+          				</li><li>
+          					
+          						<p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="avial">Not available</span> 
+          					</p>
+          					
+          				</li>
+          				<li>
+          					
+          						<p class="times">July 24, 2015 – 
+          							<span class="avial">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p><p class="times">July 24, 2015 – 
+          							<span class="not">Not available</span> 
+          					</p>
+          					
+          				</li>
+
+          				
+          			
+          		 
+          		  </ul>
+          		
+          			<span id="slider-next2" class="fa fa-caret-right"></span>
+          			<span id="slider-prev2" class="fa fa-caret-left"></span-->
+          		</div>
+          		
+          			<div class="clearfix"></div>
+          	    </div>
+          		
+          	</div>
+						<% if program.webresources.size > 1 %>
+	          	<div class="row modal-bottom">
+	          	 	<div class="col-md-12"><h4>Download resources</h4>
+	          	 	</div>
+	          		<div class="clearfix"></div>
+								<% program.webresources.each do |webresource| %>
+		          		<div class="col-sm-4">
+		          			<a href="<%= webresource.path %>" target="_blank" class="text-center btn btn-default form-control">
+		          			<span class="glyphicon glyphicon-download pull-left"></span> 
+		          				<%= webresource.caption %>
+		          			</a>
+		          		</div>
+								<% end %>
+	          		<div class="clearfix"></div>
+	          	</div>
+						<% end %>
+          	<div class="col-md-12">
+          		<h1 class="text-center model-end"><%= program.cost %></h1>
+          	</div>
+          	<div class="col-sm-12 ">
+          		<a href="<%= program.booknowpath ? program.booknowpath : (program.contact ? 'mailto:'+program.contact : '')%>" data-toggle="modal" target="_blank" class="book-now  form-control btn btn-default">Book now!</a>                		
+          	</div> 
+          	<div class="clearfix"></div>
+          	<!--IMPLEMENT div class="col-md-12 ">
+          		<p class="text-center last-star ">
+          			<i class="fa fa-star rate ">&nbsp; </i>Or save it to your 
+          			<span>Favourites</span>
+          		</p>                	
+          	</div-->
+
+          	
+          </div>
+          <div class="clearfix"></div>
+      </div>
+  </div>

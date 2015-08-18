@@ -19,8 +19,6 @@
 </script>
 
 
-
-
 <div id="Carousel" class="carousel slide carousel-fade col-offset-2">
 
 
@@ -115,54 +113,30 @@
        <div class="container saerch">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center"><%= @places.count %> results matching <span>‘<%= @search_term %>’</span></h2>
-                
-            </div>
-            
+								<% if @programs.size >= @MAX_TO_RETURN%>
+                <h2 class="text-center">More than <%= @programs.size %> Programs found matching <span>‘<%= @search_term %>’</span></h2>
+								<% else %>
+                <h2 class="text-center"><%= @programs.size %> Programs matching <span>‘<%= @search_term %>’</span></h2>
+								<% end%>
+            </div>            
         </div>
+				<div class="row margin">
+					<%= render partial: "/programs/programs_ss_card", locals: {program: @program} %>
+				</div>	
 
-        <div class="row margin">
-						<% @places.each do |place| %>
-							<a href="/places/placeprograms?id=<%= place.id %>" >
-	            <div class="col-sm-4 col-xs-6">
-	               <div class="">
-	                    <div class="col-sm-12  box">
-	                        <div class="row box-top yoyo">
-	                            <img src=<%=pick_a_place_photo_url(place)%> class="img-responsive">
-	                        </div>
-	                        <div class="col-xs-12 visible-md visible-xs visible-sm box_center text-center box-middle">
-	                                <span>Virtual</span>
-	                            </div>
-	                        <div class="row text-center">
-	                            <h4><%=place.display_name%><br><span><%=place.area.display_name%></span></h4>
-	                        </div> 
-	                        <div class="row box-footer">
-	                            <div class="col-xs-5 col-lg-4 box_left">
-	                                <span><%=place_yearlevels(place)%></span>
-	                            </div>
-	                            <div class="col-xs-4 hidden-md hidden-sm hidden-xs col-lg-4 box_center text-center">
-	                                <span>Virtual</span>
-	                            </div>
-	                            <div class="col-xs-7 col-lg-4 box_right text-right">
-	                                <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i> <i class="fa fa-heart"></i>
-	                             </div>                             
-	                        </div>   
-	                        <div class="box-left_top">
-	                            <!--img src="../ss/img/paw.png">&nbsp; <span>Animals</span-->
-														  <% if place.categories[0] %>
-														    <img src="<%=first_category_icon(place)%>" alt="<%=place.categories[0].identifier%> icon"><span><%=place.categories[0].name%><span>
-														  <%end%>
-	                        </div>      
-	                         <div class="box-right_top">
-	                            <i class="fa fa-star map-gray"></i>
-	                        </div>                                      
-	                    </div>                   
-	               </div>               
-	            </div>
-							</a>
-						<%end%>
+        <div class="row">
+            <div class="col-md-12">
+								<% if @places.size >= @MAX_TO_RETURN%>
+									<h2 class="text-center">More than <%= @places.size %> Destinations found matching <span>‘<%= @search_term %>’</span></h2>
+								<% else %>
+									<h2 class="text-center"><%= @places.size %> Destinations matching <span>‘<%= @search_term %>’</span></h2>
+								<% end %>
+            </div>            
         </div>
-</div>
+				<div class="row margin">
+					<%= render partial: "places_ss_card", locals: {program: @program} %>
+				</div>	
+			</div>
 </div>
 </div>
 
@@ -454,6 +428,14 @@
     
 </div-->
 
+		<% @programs.each do |program| %>
+	  <div id="myModal_<%=program.id%>" class="modal fade">
+			<%= render partial: "/programs/program_ss_full_for_modal", locals: {program: program} %>
+		</div>	
+		<% end %>
+		
+
+<p id="debug_stuff"></p>
 
 
 
@@ -494,6 +476,10 @@
 
  
 <script>
+var my_program_touch = function( program_id ) {
+	$('#myModal_'+program_id).modal('show');
+};
+
 
 $("#search_input").keyup(function(event){
     if(event.keyCode == 13){
@@ -501,20 +487,21 @@ $("#search_input").keyup(function(event){
     }
 });
 
+/*
 function get_search_params()
 {
-	params="term="+$("#search_input").val();
+	params="term="+encodeURIComponent($("#search_input").val());
 	
-	var v = $("#yearlevel_selector").val();
+	var v = encodeURIComponent($("#yearlevel_selector").val());
 	params += v != "All" ? "&yearlevel="+v : "";
 
-	var v = $("#subject_selector").val();
+	var v = encodeURIComponent($("#subject_selector").val());
 	params += v != "All" ? "&subject="+v : "";
 
-	var v = $("#activity_selector").val();
+	var v = encodeURIComponent($("#activity_selector").val());
 	params += v != "All" ? "&activity="+v : "";
 
-	var v = $("#location_selector").val();
+	var v = encodeURIComponent($("#location_selector").val());
 	params += v != "All" ? "&location="+v : ""; 
 
 	return params;
@@ -534,22 +521,23 @@ function ss_goto_list_results()
 function ss_goto_map_results()
 {
 	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params())},100);
-}
+}*/
 </script>
  
 
 
 <script>
+/*
     $(document).ready(function () {
         $(".navbar-toggle").on("click", function () {
             $(this).toggleClass("active");
         });
-
-				$("#search_input").val("<%=@search_term%>");
-				$("#yearlevel_selector").val("<%=@yearlevel_filter%>");
-				$("#subject_selector").val("<%=@subject_filter%>");
-				$("#activity_selector").val("<%=@activity_filter%>");
-				$("#location_selector").val("<%=@location_filter%>");
+				
+				$("#search_input").val(decodeURIComponent("<%=@search_term%>"));
+				$("#yearlevel_selector").val(decodeURIComponent("<%=@yearlevel_filter%>"));
+				$("#subject_selector").val(decodeURIComponent("<%=@subject_filter%>"));
+				$("#activity_selector").val(decodeURIComponent("<%=@activity_filter%>"));
+				$("#location_selector").val(decodeURIComponent("<%=@location_filter%>"));
 				$('.selectpicker').selectpicker('refresh');
 				
 				<% if @yearlevel_filter || @subject_filter || @activity_filter || @location_filter then %>
@@ -559,7 +547,7 @@ function ss_goto_map_results()
 				<%end%>
 
     });
-
+*/
 </script>
 <script>
     $('.btn-log').click(function () {
