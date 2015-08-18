@@ -341,8 +341,8 @@ class PlacesController < ApplicationController
       @search_term = params[:term]
 
       if params[:id] then
-        @pplaces = Place.where('places.id = :id', id: params[:id])
-        @pprograms = @pplaces[0].programs
+        @places = Place.where('places.id = :id', id: params[:id])
+        @programs = @places[0].programs
         @zoom = 15
       else
         full_query = ""
@@ -386,6 +386,7 @@ class PlacesController < ApplicationController
         @lf = ""
         if @location_filter != nil then
           @lf = @location_filter
+          #This is intentionally not an ILIKE, state names like WA will match any "wa"
           location_sql = " places.address LIKE :lf "
           full_query = location_sql+" AND "+full_query
         end
