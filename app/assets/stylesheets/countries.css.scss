@@ -574,7 +574,11 @@
 }
 
 #carousel-modal {
-  width: 60%;
+  width: 50%;
+}
+
+.carousel-item {
+  text-align: center;
 }
 
 
@@ -597,7 +601,7 @@
     }
 
     #carousel-modal {
-      width: 80%;
+      width: 60%;
       margin-top: 15%;
     }
 
