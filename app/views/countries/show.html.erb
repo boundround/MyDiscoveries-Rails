@@ -86,79 +86,80 @@
             <%= @country.description %>
           </p>
           <div class="clearfix"></div>
-          <div class="owl-carousel">
-            <% @country.videos.active.each do |video| %>
-              <iframe class="hero-video" id="player1" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1&player_id=player1" width="273" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            <% end %>
-            <% @country.photos.each do |photo| %>
-                <div>
-                    <img src="<%= photo.path_url(:medium)%>" class="img-resposive">
+          <div class="owl-carousel" id="main-carousel">
+            <% @videos_photos.each_with_index do |asset, index| %>
+              <% if asset.class.to_s == "Video" %>
+              <iframe class="hero-video carousel-item carousel-video" id="player1" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player1" width="273" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen data-slide-number="<%= index %>"></iframe>
+              <% elsif asset.class.to_s == "Photo" %>
+                <div class="carousel-item">
+                    <img src="<%= asset.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>">
                 </div>
+              <% end %>
             <% end %>
           </div>
         </div>
         <div class="clearfix"></div>
         <div class="col-md-12 ">
-            <% @country.info_bits.active.each_with_index do |info_bit, index| %>
-              <div class="br_native">
-                <style>
-                  #info-bit-<%= index %> {
-                    background: url(<%= info_bit.photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat;
-                  }
-                </style>
-              <div class="br_tittle" id="info-bit-<%= index %>">
-                <a href="#"><i class="fa fa-share-square-o"></i>
-                   &nbsp;
-                   Share
-                 </a>
-                 <h2 class="text-center hidden-xs"><%= info_bit.title %></h2>
-                 <h2 class="text-center visible-xs"><%= info_bit.title %></h2>
-               </div>
-               <div class="br_desc">
+          <% @country.info_bits.active.each_with_index do |info_bit, index| %>
+            <div class="br_native">
+              <style>
+                #info-bit-<%= index %> {
+                  background: url(<%= info_bit.photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat;
+                }
+              </style>
+            <div class="br_tittle" id="info-bit-<%= index %>">
+              <a href="#"><i class="fa fa-share-square-o"></i>
+                 &nbsp;
+                 Share
+               </a>
+               <h2 class="text-center hidden-xs"><%= info_bit.title %></h2>
+               <h2 class="text-center visible-xs"><%= info_bit.title %></h2>
+             </div>
+             <div class="br_desc">
+                <p>
+                  <%= info_bit.description %>
+                </p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+          <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
+            <style>
+              #fun-fact-<%= index %> {
+                background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
+              }
+            </style>
+            <div class="br_fun_fact hidden-xs hidden-sm">
+              <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-2">
+                  <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>" class="fun-fact-image">
+                </div>
+                <div class="col-sm-9 col-md-9 col-lg-10">
+                  <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
+                  <h2>Now here’s a fun fact!</h2>
                   <p>
-                    <%= info_bit.description %>
+                    <%= raw fun_fact.content %>
                   </p>
                 </div>
               </div>
-            <% end %>
-          </div>
-          <div class="clearfix"></div>
-          <div class="col-md-12">
-            <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
-              <style>
-                #fun-fact-<%= index %> {
-                  background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
-                }
-              </style>
-              <div class="br_fun_fact hidden-xs hidden-sm">
-                <div class="row">
-                  <div class="col-sm-3 col-md-3 col-lg-2">
-                    <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>" class="fun-fact-image">
-                  </div>
-                  <div class="col-sm-9 col-md-9 col-lg-10">
-                    <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
+            </div>
+            <div class="col-md-12 visible-xs visible-sm">
+              <div class="row">
+                <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
+                  <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
                     <h2>Now here’s a fun fact!</h2>
                     <p>
                       <%= raw fun_fact.content %>
                     </p>
+                    <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
                   </div>
+                  <div class="clearfix"></div>
                 </div>
               </div>
-              <div class="col-md-12 visible-xs visible-sm">
-                <div class="row">
-                  <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
-                    <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
-                      <h2>Now here’s a fun fact!</h2>
-                      <p>
-                        <%= raw fun_fact.content %>
-                      </p>
-                      <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
-                    </div>
-                    <div class="clearfix"></div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
+            </div>
+          <% end %>
           <div class="clearfix"></div>
           <div class="col-md-12">
             <div class="row">
@@ -216,7 +217,7 @@
             </div>
           </div>
         </div> -->
-      </div>
+      </div> <!-- End Main Content -->
       <div class="col-sm-4 col-md-3 hidden-xs br_sidebar">
         <div class="col-sm-12">
           <div class="br_infobox">
@@ -238,8 +239,14 @@
               </div>
               <div class="clearfix"></div>
               <div class="col-xs-12 br_left br_pad br_light">
-                  <%= @country.capital_city_description %><br/>
                   <% if area = Area.find_by(display_name: @country.capital_city) %>
+                    <% if area.description && area.description.length < 85 %>
+                      <%= area.description %><br>
+                    <% elsif area.description %>
+                      <%= area.description[0..80] %>...<br>
+                    <% else %>
+                      <%= @country.capital_city_description if @country.capital_city_description %>
+                    <% end %>
                     <a href="<%= area_path(area)%>">Visit on Bound Round</a>
                   <% end %>
               </div>
@@ -268,165 +275,185 @@
             </div>
           </div>
         </div>
-<div class="clearfix"></div>
-     <div class="col-xs-12">
-        <div class="row">
+      <div class="clearfix"></div>
+        <div class="col-xs-12">
+          <div class="row">
             <!-- <div class="br_currency">
-                <h3 class="text-center">Currency</h3>
-                <div class="br_select">
-                    <select class="selectpicker">
-                        <option>$4827.50 <span class="br_cont">USD</span></option>
-                        <option>$4827.50 <span class="br_cont">USD</span></option>
-                        <option>$4827.50 <span class="br_cont">USD</span></option>
-                        <option>$4827.50 <span class="br_cont">USD</span></option>
-                    </select>
+              <h3 class="text-center">Currency</h3>
+              <div class="br_select">
+                  <select class="selectpicker">
+                      <option>$4827.50 <span class="br_cont">USD</span></option>
+                      <option>$4827.50 <span class="br_cont">USD</span></option>
+                      <option>$4827.50 <span class="br_cont">USD</span></option>
+                      <option>$4827.50 <span class="br_cont">USD</span></option>
+                  </select>
+              </div>
+              <p class="text-center">= $4023.29 AUD</p>
+              <hr/>
+
+              <div class="clearfix"></div>
+                <h4 class="text-center">Average prices</h4>
+
+                <div class="br_side-slider">
+                  <div class="br_slider_btn">
+                      <span id="slider-prev" class="fa fa-angle-left fa-2x"></span>
+                      <span id="slider-next" class="fa fa-angle-right fa-2x"></span>
+                  </div>
+                  <ul class="bxslider">
+                    <li>
+                      <p>Can of cock<br/>
+                        <span>$2.00</span>
+                      </p>
+                    </li>
+                    <li>
+                      <p>Can of cock<br/>
+                        <span>$2.00</span>
+                      </p>
+                    </li>
+                    <li>
+                      <p>Can of cock<br/>
+                        <span>$2.00</span>
+                      </p>
+                    </li>
+                  </ul>
                 </div>
-                <p class="text-center">= $4023.29 AUD</p>
-                <hr/>
-
-                <div class="clearfix"></div>
-                    <h4 class="text-center">Average prices</h4>
-
-                    <div class="br_side-slider">
-                        <div class="br_slider_btn">
-                            <span id="slider-prev" class="fa fa-angle-left fa-2x"></span>
-                            <span id="slider-next" class="fa fa-angle-right fa-2x"></span>
-                        </div>
-                        <ul class="bxslider">
-                            <li>
-                                <p>Can of cock<br/>
-                                   <span>$2.00</span>
-                                </p>
-                            </li>
-                            <li>
-                                <p>Can of cock<br/>
-                                   <span>$2.00</span>
-                                </p>
-                            </li>
-                            <li>
-                                <p>Can of cock<br/>
-                                   <span>$2.00</span>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-            </div> -->
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12">
-        <div class="row">
+              </div> -->
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="col-xs-12">
+          <div class="row">
             <!-- <div class="br_Key_Phrases">
+              <h3>
+                <i class="fa fa-volume-up"></i><br/>Key Phrases
+              </h3>
+              <div class="br_sounds br_active">
+                <div class="row">
+                  <div class="col-xs-9">
+                    <p>
+                      Hello<br/>
+                      <span>həˈləʊ,</span>
+                    </p>
+                  </div>
+                  <div class="col-xs-3">
+                    <i class="fa fa-volume-up"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="br_sounds">
+                <div class="row">
+                  <div class="col-xs-9">
+                    <p>
+                      Hello<br/>
+                      <span>həˈləʊ,</span>
+                    </p>
+                  </div>
+                  <div class="col-xs-3">
+                    <i class="fa fa-volume-up"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="br_sounds">
+                <div class="row">
+                  <div class="col-xs-9">
+                    <p>
+                      Hello<br/>
+                      <span>həˈləʊ,</span>
+                    </p>
+                  </div>
+                  <div class="col-xs-3">
+                    <i class="fa fa-volume-up"></i>
+                  </div>
+                </div>
+              </div>
+                <div class="clearfix"></div>
+                <div class="br_sounds">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <p>
+                                Hello<br/>
+                                <span>həˈləʊ,</span>
+                            </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <i class="fa fa-volume-up"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="br_sounds">
+                  <div class="row">
+                    <div class="col-xs-9">
+                      <p>
+                        Hello<br/>
+                        <span>həˈləʊ,</span>
+                      </p>
+                    </div>
+                    <div class="col-xs-3">
+                      <i class="fa fa-volume-up"></i>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="col-xs-12">
+            <!-- <div class="row">
+              <div class="br_Key_Phrases br_top_songs">
                 <h3>
-                    <i class="fa fa-volume-up"></i><br/>Key Phrases
+                  <i class="glyphicon glyphicon-cd"></i><br/>Billboard Top 5
                 </h3>
-                <div class="br_sounds br_active">
-                    <div class="row">
-                        <div class="col-xs-9">
-                            <p>
-                                Hello<br/>
-                                <span>həˈləʊ,</span>
-                            </p>
-                        </div>
-                        <div class="col-xs-3">
-                            <i class="fa fa-volume-up"></i>
-                        </div>
-                    </div>
+                <ol>
+                  <li>
+                    <a href="#">
+                      Bad Blood<br/><span>Taylor Swift</span>
+                    </a>
+                  </li>
+                   <li>
+                      <a href="#">
+                        Bad Blood<br/><span>Taylor Swift</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Bad Blood<br/><span>Taylor Swift</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Bad Blood<br/><span>Taylor Swift</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        Bad Blood<br/><span>Taylor Swift</span>
+                      </a>
+                    </li>
+                  </ol>
                 </div>
-                <div class="clearfix"></div>
-                <div class="br_sounds">
-                    <div class="row">
-                        <div class="col-xs-9">
-                            <p>
-                                Hello<br/>
-                                <span>həˈləʊ,</span>
-                            </p>
-                        </div>
-                        <div class="col-xs-3">
-                            <i class="fa fa-volume-up"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="br_sounds">
-                    <div class="row">
-                        <div class="col-xs-9">
-                            <p>
-                                Hello<br/>
-                                <span>həˈləʊ,</span>
-                            </p>
-                        </div>
-                        <div class="col-xs-3">
-                            <i class="fa fa-volume-up"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="br_sounds">
-                    <div class="row">
-                        <div class="col-xs-9">
-                            <p>
-                                Hello<br/>
-                                <span>həˈləʊ,</span>
-                            </p>
-                        </div>
-                        <div class="col-xs-3">
-                            <i class="fa fa-volume-up"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="br_sounds">
-                    <div class="row">
-                        <div class="col-xs-9">
-                            <p>
-                                Hello<br/>
-                                <span>həˈləʊ,</span>
-                            </p>
-                        </div>
-                        <div class="col-xs-3">
-                            <i class="fa fa-volume-up"></i>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+              </div> -->
+            </div>
+          </div>
+          <div class="clearfix"></div>
         </div>
+      </div>
     </div>
-                <div class="clearfix"></div>
-                <div class="col-xs-12">
-                    <!-- <div class="row">
-                        <div class="br_Key_Phrases br_top_songs">
-                            <h3>
-                                <i class="glyphicon glyphicon-cd"></i><br/>Billboard Top 5
-                            </h3>
-                            <ol>
-                                <li>
-                                    <a href="#">Bad Blood<br/>
-                                                <span>Taylor Swift</span></a>
-                                </li>
-                               <li>
-                                    <a href="#">Bad Blood<br/>
-                                                <span>Taylor Swift</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Bad Blood<br/>
-                                                <span>Taylor Swift</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Bad Blood<br/>
-                                                <span>Taylor Swift</span></a>
-                                </li>
-                                <li>
-                                    <a href="#">Bad Blood<br/>
-                                                <span>Taylor Swift</span></a>
-                                </li>
-                            </ol>
-                        </div>
-                    </div> -->
-                </div>
+  </div>
+
+
+  <div class="modal fade" id="carousel-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-</div>
-</div>
+        <div class="modal-body">
+          <div class="owl-carousel" id="modal-carousel">
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->

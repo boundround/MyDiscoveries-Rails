@@ -121,6 +121,7 @@
   max-width: 245px;
   width: 100%;
   margin: 0px auto;
+  max-height: 140px;
 }
 .br_native{
   background: #f0f0f0;
@@ -570,6 +571,10 @@
   right: 13px;
   top: 35%;
   z-index: 1000;
+}
+
+#carousel-modal {
+  width: 60%;
 }
 
 

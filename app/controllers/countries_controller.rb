@@ -6,6 +6,10 @@ class CountriesController < ApplicationController
 
   def show
     @country = Country.friendly.find(params[:id])
+
+    @videos_photos = @country.videos
+    @videos_photos += @country.photos
+
     if @country.capital_city
       @weather = OpenWeather::Current.city("#{@country.capital_city}, #{@country.country_code}")
       @weather_time = @weather["dt"] ? Time.at(@weather["dt"]).strftime("%I:%M%p") : nil

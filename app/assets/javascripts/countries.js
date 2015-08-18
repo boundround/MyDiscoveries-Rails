@@ -1,7 +1,7 @@
 var slider;
 
 $(function() {
-  $(".owl-carousel").owlCarousel({
+  $("#main-carousel").owlCarousel({
     autoPlay: 2000, //Set AutoPlay to 3 seconds
     items: 3,
     itemsDesktop: [1199, 3],
@@ -69,49 +69,54 @@ $(document).ready(function(){
     var countryCode = $('#country-data').data('country-code');
     var capitalCity = $('#country-data').data('capital-city');
     var languages;
-    $.ajax({
-        url: "//restcountries.eu/rest/v1/alpha/" + countryCode,
-        type: "GET",
-        success: function(data){
-            console.log(data);
-            var population = data.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            $('#country-population').append(population);
-            languages = data.languages;
-            console.log(languages);
-            if ($('#language').html() === ""){
-                for(var i = 0; i < languages.length; i++){
-                    if(LANGUAGES[languages[i]]){
-                        $('#language').append(LANGUAGES[languages[i]] + "<br>");
+    if (countryCode){
+        $.ajax({
+            url: "//restcountries.eu/rest/v1/alpha/" + countryCode,
+            type: "GET",
+            success: function(data){
+                console.log(data);
+                var population = data.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $('#country-population').append(population);
+                languages = data.languages;
+                console.log(languages);
+                if ($('#language').html() === ""){
+                    for(var i = 0; i < languages.length; i++){
+                        if(LANGUAGES[languages[i]]){
+                            $('#language').append(LANGUAGES[languages[i]] + "<br>");
+                        }
                     }
                 }
+                if (capitalCity === ""){
+                    capitalCity = data.capital;
+                }
             }
-            if (capitalCity === ""){
-                capitalCity = data.capital;
-            }
+
+        });
+    }
+
+    $('.carousel-country-photo').on('click', function(){
+        var carouselItems = $('.carousel-item');
+        if ($("#modal-carousel").has(".carousel-item").length === 0){
+            $.each(carouselItems, function(index){
+                if($(carouselItems[index]).hasClass("carousel-video")){
+                    $("#modal-carousel").append($(carouselItems[index]).clone().css("height", "400px"));
+                } else {
+                    $("#modal-carousel").append($(carouselItems[index]).clone().css("margin-left", "20%"));
+                }
+            });
         }
+        $('#carousel-modal').modal("show");
 
+        $("#modal-carousel").owlCarousel({
+            autoPlay: false,
+            singleItem:true,
+            stopOnHover:true,
+            pagination:false,
+            navigation: true
+        });
+
+        var owl = $("#modal-carousel").data('owlCarousel');
+
+        owl.jumpTo($(this).data("slide-number"));
     });
-    // var weatherDescription;
-    // var temperature;
-    // var time;
-    // $.ajax({
-
-    //     url: "//api.openweathermap.org/data/2.5/weather?q=" + capitalCity + "," + countryCode,
-    //     type: "GET",
-    //     success: function(data){
-    //         console.log(data);
-    //         weatherDescription = toTitleCase(data.weather[0].description);
-    //         $('.weather-description').html(weatherDescription);
-    //         temperature = Math.round(data.main.temp - 273.15);
-    //         $('.temperature').prepend(temperature);
-    //         time = new Date(data.dt * 1000);
-    //         // hours part from the timestamp
-    //         var hours = time.getHours();
-    //         // minutes part from the timestamp
-    //         var minutes = "0" + time.getMinutes();
-    //         // will display time in 10:30:23 format
-    //         var formattedTime = hours + ':' + minutes.substr(-2);
-    //         $('.time').prepend(formattedTime);
-    //     }
-    // });
 });
