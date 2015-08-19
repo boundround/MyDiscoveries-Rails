@@ -5,7 +5,8 @@
       <%= f.input :title, label: "Photo Title", input_html: { class: 'form-control'} %>
     </div>
     <div class="form-group">
-      <%= f.input :caption, input_html: { class: 'form-control'} %><br />
+      <%= f.input :caption, input_html: { class: 'form-control content-length'} %><br />
+      LENGTH: <span class="char-count"></span> CHARACTERS
     </div>
     <div class="form-group">
       <%= f.input :credit, input_html: { class: 'form-control'} %><br />

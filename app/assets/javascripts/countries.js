@@ -150,4 +150,9 @@ $(document).ready(function(){
 
         owl.jumpTo($(this).data("slide-number"));
     });
+
+    $('.content-length').keyup(function(){
+      var len = $(this).val().length;
+      $(this).closest(".form-group").find(".char-count").text(len);
+    });
 });

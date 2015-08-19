@@ -238,7 +238,8 @@
           <%= f.input :title, label: "Photo Title", input_html: { class: 'form-control'} %>
         </div>
         <div class="form-group">
-          <%= f.input :caption, input_html: { class: 'form-control'} %><br />
+          <%= f.input :caption, input_html: { class: 'form-control content-length'} %><br />
+          LENGTH: <span class="char-count"></span> CHARACTERS
         </div>
         <div class="form-group">
           <%= f.input :credit, input_html: { class: 'form-control'} %><br />
@@ -268,7 +269,8 @@
       <h2>Add New Fun Fact</h2>
       <%= simple_form_for [@country, FunFact.new] do |f| %>
         <div class="form-group">
-          <%= f.input :content, as: :bootsy, label: false, editor_options: {lists: false}, input_html: { class: 'form-control'}  %>
+          <%= f.input :content, input_html: { class: 'form-control content-length'}  %>
+          LENGTH: <span class="char-count"></span> CHARACTERS
           <%= f.input :reference, input_html: { class: 'form-control'}  %>
           <%= f.input :hero_photo, as: :file %>
           <%= f.input :photo_credit, input_html: { class: 'form-control'} %>

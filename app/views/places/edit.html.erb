@@ -322,11 +322,6 @@
 
 
 <script>
-    $('.caption').on("keypress", function(){
-        var len = $(this).val().length;
-        $(this).closest('.control-group').next('.charCount').text(140 - len);
-    });
-
     $('.customer-approve').on('click', function(){
       if ($(this)[0].checked == true){
         $(this).parent().siblings().find(".customer-review").attr("checked", false)
