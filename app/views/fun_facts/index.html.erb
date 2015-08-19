@@ -1,0 +1,33 @@
+<% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
+  <h3>Fun Facts Quick Edit</h3>
+  <% @fun_facts.each do |fun_fact| %>
+    <h4>Belongs To: <%= raw asset_owner_link(fun_fact) %></h4>
+    <%= simple_form_for fun_fact do |f| %>
+      <div class="form-group">
+        <%= f.input :content, input_html: { class: 'form-control fun-fact-content'}  %>
+        LENGTH: <span class="char-count"><%= fun_fact.content.length %></span> CHARACTERS
+        <%= f.input :reference, input_html: { class: 'form-control'}  %>
+        <%= f.input :hero_photo, as: :file %>
+        <%= f.input :photo_credit, input_html: { class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
+      </div>
+      <div class="form-group">
+        <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
+      </div>
+      <div class="form-group">
+        <%= f.button :submit%>
+      </div>
+      <hr>
+    <% end %>
+  <% end %>
+<% end %>
+<script>
+
+  $('.fun-fact-content').keyup(function(){
+    console.log("LENGTHLENGTHLENGTHLENGTHLENGTH");
+    var len = $(this).val().length;
+    $(this).closest(".form-group").find(".char-count").text(len);
+  });
+</script>

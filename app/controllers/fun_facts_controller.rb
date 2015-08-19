@@ -1,4 +1,9 @@
 class FunFactsController < ApplicationController
+
+  def index
+    @fun_facts = FunFact.where("length(content) > 140").order(:id)
+  end
+
   def new
     @fun_fact = FunFact.new
   end

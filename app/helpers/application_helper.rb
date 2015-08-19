@@ -101,4 +101,14 @@ module ApplicationHelper
     end
   end
 
+  def asset_owner_link(asset)
+    if asset.place
+      "<a href='/places/#{asset.place.slug}'>#{asset.place.display_name}</a>"
+    elsif asset.area
+      "<a href='/places/#{asset.area.slug}'>#{asset.area.display_name}</a>"
+    elsif asset.countries
+      "<a href='/places/#{asset.countries.first.slug}'>#{asset.countries.first.display_name}</a>"
+    end
+  end
+
 end
