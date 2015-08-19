@@ -111,4 +111,16 @@ module ApplicationHelper
     end
   end
 
+  def thumbnail_for(content)
+    if content.class.to_s == "Photo"
+      asset_path(content.path_url)
+    elsif content.class.to_s == "FunFact"
+      asset_path(content.hero_photo_url)
+    elsif content.class.to_s == "Game"
+      game_thumbnail(content)
+    else
+      ""
+    end
+  end
+
 end

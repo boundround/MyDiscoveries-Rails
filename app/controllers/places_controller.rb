@@ -325,18 +325,18 @@ class PlacesController < ApplicationController
         ["9","10"]
       elsif @yearlevel_filter ==   "11-12" then
         ["11","12"]
-      end      
+      end
     end
-  
+
     def set_program_results_sql(params)
       @MAX_TO_RETURN = 40
       @placeprograms = "yes"
-      
+
       # params.each do |pa|
       #   params[pa[0]] = CGI.decode(pa[1])
       #   puts params[pa[0]]
       # end
-      
+
       if params[:term] == "" then params[:term] = nil end
       @search_term = params[:term]
 
@@ -357,30 +357,30 @@ class PlacesController < ApplicationController
         @activity_filter = params[:activity]
         if @activity_filter != nil then
           activity_sql = "(select g.taggable_id from tags as t, taggings as g where t.id = g.tag_id and g.context='programactivities' and t.name ILIKE :sa )"
-          if full_query != "" then 
+          if full_query != "" then
             full_query = full_query + " INTERSECT " + activity_sql;
           else
             full_query = activity_sql;
-          end  
+          end
         end
-        
+
         if params[:yearlevel] == "" then params[:yearlevel] = nil end
         @yearlevel_filter = params[:yearlevel]
         if @yearlevel_filter != nil then
           yl_sql = "(select g.taggable_id from tags as t, taggings as g where t.id = g.tag_id and g.context='programyearlevels' and t.name in (:syl) )"
-          if full_query != "" then 
+          if full_query != "" then
             full_query = full_query + " INTERSECT " + yl_sql;
           else
             full_query = yl_sql;
-          end  
+          end
         end
-        
+
         if full_query != "" then
-          full_query = "places.status IN (:pstatus) and programs.id in ("+full_query+")" 
+          full_query = "places.status IN (:pstatus) and programs.id in ("+full_query+")"
         else
-          full_query = "places.status IN (:pstatus)" 
+          full_query = "places.status IN (:pstatus)"
         end
-          
+
         if params[:location] == "" then params[:location] = nil end
         @location_filter = params[:location]
         @lf = ""
@@ -390,7 +390,7 @@ class PlacesController < ApplicationController
           location_sql = " places.address LIKE :lf "
           full_query = location_sql+" AND "+full_query
         end
-        
+
         if @search_term then
           place_query = '(places.display_name ILIKE :st OR programs.name ILIKE :st OR areas.display_name ILIKE :st) AND ' + full_query
 
@@ -423,10 +423,10 @@ class PlacesController < ApplicationController
     #    render plain: @places.inspect
       end
 
-      set_program_filters(@places)      
+      set_program_filters(@places)
     end
-  
-  
+
+
     def set_program_results_state(params)
       @MAX_TO_RETURN = 400
       @placeprograms = "yes"
@@ -531,13 +531,13 @@ class PlacesController < ApplicationController
                 push_program = true
               end
               if push_program then @programs.push(program) end
-              break if @programs.count > @MAX_TO_RETURN  
+              break if @programs.count > @MAX_TO_RETURN
             end
           end
         end
       end
 
-      set_program_filters(@places)      
+      set_program_filters(@places)
     end
 
     def set_program_constants()
