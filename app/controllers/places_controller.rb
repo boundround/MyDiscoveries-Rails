@@ -41,24 +41,17 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
-    if @place.area_id
-      @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
-      @area_videos = @place.area.videos
-    end
+    # if @place.area_id
+    #   @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
+    #   @area_videos = @place.area.videos
+    # end
 
     if @place.subscription_level == "Premium"
-      @videos = @place.videos.where.not(priority: 1) || []
       @hero_video = @place.videos.find_by(priority: 1)
-    else
-      @videos = []
     end
 
-    if !@hero_video
-      @hero_photo = @place.photos.find_by(priority: 1)
-      @photos = @place.photos.where.not(priority: 1)
-    else
-      @photos = @place.photos
-    end
+    @videos_photos = @place.videos
+    @videos_photos += @place.photos
 
     @request_xhr = request.xhr?
 

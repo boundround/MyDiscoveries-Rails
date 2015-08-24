@@ -27,6 +27,9 @@ class AreasController < ApplicationController
     @request_xhr = request.xhr?
     @fun_facts = @area.fun_facts
 
+    @videos_photos = @area.videos
+    @videos_photos += @area.photos
+
     respond_to do |format|
       format.html { render 'show', :layout => !request.xhr? }
       format.json { render json: @area}

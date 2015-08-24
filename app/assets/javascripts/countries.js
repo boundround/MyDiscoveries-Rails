@@ -130,8 +130,8 @@ $(document).ready(function(){
                 if($(carouselItems[index]).hasClass("carousel-video")){
                     $("#modal-carousel").append(newImage.css("height", "400px"));
                 } else {
-                    newImage.append("<br>" + newImage.find("img").data("caption"));
-                    newImage.append("<br><a href='" + newImage.find("img").data("placeurl") + "'>Explore " + newImage.find("img").data("placename") + "</a>");
+                    newImage.append("<div>" + newImage.find("img").data("caption")) + "</div>";
+                    newImage.append("<div><a href='" + newImage.find("img").data("placeurl") + "'>Explore " + newImage.find("img").data("placename") + "</a></div>");
                     $("#modal-carousel").append(newImage);
                 }
             });
