@@ -6,6 +6,17 @@
   width: 80px;
 }
 
+.hero-hearts {
+  color: #fff;
+  text-shadow: black 1px 1px;
+  a {
+    color: lightgrey;
+    font-size: 19px;
+    font-weight: 300;
+    text-decoration: none;
+  }
+}
+
 .game-card-expanded {
   position: relative;
   min-width: 95%;

@@ -1,0 +1,32 @@
+<div class="dropdown br_profile">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Profile
+    <span class="caret"></span>
+    <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" class="hidden-xs">
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <% if user_signed_in? %>
+      <li role="presentation">
+        <a role="menuitem" tabindex="-1" href="<%= user_path(current_user) %>" data-filter="*">
+          My Profile
+        </a>
+      </li>
+      <li role="presentation">
+        <a role="menuitem" tabindex="-1" href="<%= destroy_user_session_path %>" data-filter="*" data-method="delete">
+          Log Out
+        </a>
+      </li>
+    <% else %>
+      <li role="presentation">
+        <a role="menuitem" tabindex="-1" href="<%= new_user_session_path %>" data-filter="*">
+          Sign In
+        </a>
+      </li>
+    <% end %>
+      <li role="presentation">
+        <a role="menuitem" tabindex="-1" href="<%= root_path %>" data-filter="*">
+          Home
+        </a>
+      </li>
+  </ul>
+</div>
