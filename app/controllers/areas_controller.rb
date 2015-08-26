@@ -27,6 +27,14 @@ class AreasController < ApplicationController
     @request_xhr = request.xhr?
     @fun_facts = @area.fun_facts
 
+    @nearby_places = Place.near([@area.latitude, @area.longitude], 20).active.includes(:games, :videos, :photos, :categories)
+
+    @top_places = @nearby_places.sort do |x, y|
+      (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
+    end
+
+    @top_places = @top_places[0..4]
+
     @videos_photos = @area.videos
     @videos_photos += @area.photos
 
