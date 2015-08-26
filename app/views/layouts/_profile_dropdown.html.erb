@@ -1,6 +1,6 @@
 <div class="dropdown br_profile">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Profile
+    <span class="add-text-shadow">Profile</span>
     <span class="caret"></span>
     <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" class="hidden-xs">
   </button>
