@@ -43,6 +43,8 @@
 //= require cookie
 //= require like
 //= require search_suggestions
+//= require jquery.raty
+//= require ratyrate
 
 
 

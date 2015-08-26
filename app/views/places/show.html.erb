@@ -73,11 +73,7 @@
                     <% end %>
                   </li>
                   <li class="hero-hearts">
-                    <i class="fa fa-heart"></i>
-                    <i class="fa fa-heart"></i>
-                    <i class="fa fa-heart"></i>
-                    <i class="fa fa-heart-o"></i>
-                    <i class="fa fa-heart-o"></i>
+                    <%= rating_for @place, "quality", :disable_after_rate => false %>
                   </li>
                 </ul>
               </div>
@@ -121,11 +117,8 @@
                 <div class="br_info_mob ">
                     <p>
                       <label>Rating:</label><br/>
-                      <i class="fa fa-heart"></i>
-                      <i class="fa fa-heart"></i>
-                      <i class="fa fa-heart"></i>
-                      <i class="fa fa-heart-o"></i>
-                      <i class="fa fa-heart-o"></i><br/>
+                      <%= rating_for @place, "quality", :disable_after_rate => false %>
+                      <br/>
                       <label>Address:</label><br/>
                       <%= @place.display_address %><br/>
                       <label>Website:</label><br/>
@@ -196,11 +189,7 @@
                   <div class="col-sm-6 br_detail">
                     <h2>Place details</h2>
                     <label>Rating:</label> &nbsp;
-                      <span><i class="fa fa-heart"></i>
-                      <i class="fa fa-heart"></i>
-                      <i class="fa fa-heart"></i>
-                      <i class="fa fa-heart-o"></i>
-                      <i class="fa fa-heart-o"></i></span><br/>
+                      <span><%= rating_for @place, "quality", :disable_after_rate => false %></span><br/>
 
                       <label>Address:</label> &nbsp;
                       <span><%= @place.display_address %></span><br/>

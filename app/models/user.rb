@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  ratyrate_rater
+
   has_many :photos_users
   has_many :photos, through: :photos_users
   has_many :videos_users

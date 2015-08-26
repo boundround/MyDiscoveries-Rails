@@ -278,6 +278,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
+    ratyrate (1.2.2.alpha)
     rdoc (4.1.2)
       json (~> 1.4)
     redis (3.1.0)
@@ -433,6 +434,7 @@ DEPENDENCIES
   rails (= 4.1.1)
   rails_12factor
   rails_admin
+  ratyrate
   redis
   rolify
   roo

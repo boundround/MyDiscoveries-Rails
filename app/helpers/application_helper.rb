@@ -23,7 +23,10 @@ module ApplicationHelper
 
   def get_random_place_photo(place)
     if place.photos.length > 0
-      place.photos[rand(0..place.photos.length)].path_url(:small)
+      photo = place.photos[rand(0..place.photos.length)]
+      if photo
+        photo.path_url(:small)
+      end
     else
       "generic-grey.jpg"
     end

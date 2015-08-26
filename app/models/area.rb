@@ -1,5 +1,8 @@
 class Area < ActiveRecord::Base
   extend FriendlyId
+
+  ratyrate_rateable "quality"
+
   friendly_id :display_name, :use => :slugged
 
   has_paper_trail

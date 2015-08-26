@@ -12,6 +12,7 @@ end
 
 Rails.application.routes.draw do
 
+  post '/rate' => 'rater#create', :as => 'rate'
   constraints(SSConstraint.new) do
     get '/', to: 'places#programsearch', as: nil
   end

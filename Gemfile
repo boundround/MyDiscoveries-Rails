@@ -40,6 +40,8 @@ gem 'omniauth-instagram'
 
 gem 'geocoder'
 
+gem 'ratyrate'
+
 gem 'authority'
 gem 'rolify'
 
