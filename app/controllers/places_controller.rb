@@ -48,6 +48,12 @@ class PlacesController < ApplicationController
     # @nearby_places = Place.within_bounding_box(box)
     @nearby_places = @place.nearbys(20).active.includes(:games, :videos, :photos, :categories)
 
+    @top_places = @nearby_places.sort do |x, y|
+      (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
+    end
+
+    @top_places = @top_places[0..4]
+
     categories = @place.categories.map {|category| category.id}
     @similar_places = @place.nearbys(30).active.includes(:games, :videos, :photos, :categories).where('categorizations.category_id' => categories)
 
