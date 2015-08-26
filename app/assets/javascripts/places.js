@@ -136,4 +136,24 @@ $(document).ready(function(){
   };
 
   getPlaceDetails($('#place-id').data("place"));
+
+  // fill game modal
+  $('.game-icon').on('click', function(){
+    console.log($(this).data('game-url'));
+    var gameURL = $(this).data('game-url');
+    var content = '<iframe class="place-game" src="' + gameURL + '" ></iframe>';
+    console.log(content);
+    $('#game-body').html(content);
+  })
+
+  $('.carousel-video').bind('click', function() {
+    pauseAll();
+  });
+
+  var pauseAll = function(){
+    $('iframe[src*="vimeo.com"]').each(function () {
+       $f(this).api('pause');
+     });
+  };
+
 });

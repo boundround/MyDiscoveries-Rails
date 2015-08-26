@@ -17,6 +17,19 @@
   }
 }
 
+.place-game {
+  width: 100%;
+  min-height: 350px;
+}
+
+#game-modal {
+  background-color: #fd7e56;
+    padding-top: 35px;
+    padding-left: 0px !important;
+    display: block;
+    padding-right: 0px;
+}
+
 .game-card-expanded {
   position: relative;
   min-width: 95%;
@@ -699,6 +712,7 @@ a,button,button:focus,button:active{
   border: 2px solid #fff;
   display: inline-block;
   border-radius: 50%;
+
 }
 .dropdown.br_profile button + .dropdown-menu {
   right: 0px;

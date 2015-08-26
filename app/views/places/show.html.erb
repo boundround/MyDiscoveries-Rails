@@ -64,7 +64,7 @@
                 </p>
                 <ul class="list-unstyled br_buttons hidden-xs">
                   <li>
-                    <a href="#" id="place-favorite">Add to favourites</a>
+                    <a href="#" id="place-favorite">Add to wishlist</a>
                   </li>
                   <li>
 
@@ -136,7 +136,7 @@
 
                       <img src="<%= asset_path('trip.png') %>" class="img-responsive"/>
                       <h4><%= @place.display_name %></h4>
-                     <p> Lorem ipsum dolor sit amet, consec tetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aene an non tortor id leo consec tetur euis mod at sed pellen tes que tincid unt purus in imperdiet...<br/><br/>
+                     <p> TRIP ADVISOR INFO<br/><br/>
                       <a href="#">Visit the Trip Adisor page</a>
                     </p>
                 </div>
@@ -222,19 +222,31 @@
               <div class="col-md-12 text-center">
                     <h2 class="">Some activities <span class="hidden-xs">for you!</span></h2>
                     <ul class="list-unstyled hidden-xs text-center">
-                      <li>
-                        <a href="#">
-                          <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw puzzle</span>
-                          <span class="arrow"></span>
-                        </a>
-                      </li>
-                      <li class="">
-                        <a href="#">
-                         <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word search</span>
-                         <span class="arrow"></span>
-                       </a>
-                     </li>
-                     <li class="">
+                      <% @place.games.each do |game| %>
+                        <% if game.game_type == "jigsaw puzzle" %>
+                          <li>
+                            <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                              <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw Puzzle</span>
+                              <span class="arrow"></span>
+                            </a>
+                          </li>
+                        <% elsif game.game_type == "word search" %>
+                          <li class="">
+                            <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                             <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word Search</span>
+                             <span class="arrow"></span>
+                           </a>
+                         </li>
+                         <% elsif game.game_type == "slider" %>
+                          <li class="">
+                            <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                             <i class="fa fa-table"></i><br><span class=" hidden-sm hidden-xs">Slider Puzzle</span>
+                             <span class="arrow"></span>
+                           </a>
+                         </li>
+                       <% end %>
+                     <% end %>
+                     <!-- <li class="">
                       <a href="#">
                        <i class="fa fa-question"></i><br><span class=" hidden-sm hidden-xs">Quiz</span>
                        <span class="arrow"></span>
@@ -245,7 +257,7 @@
                       <i class="fa fa-ticket"></i><br><span class="hidden-sm hidden-xs">Postcard</span>
                       <span class="arrow"></span>
                     </a>
-                  </li>
+                  </li> -->
                   <li class="">
                     <a href="#">
                      <i class="fa fa-question-circle"></i><br><span class="hidden-xs hidden-sm">Open question</span>
@@ -254,11 +266,30 @@
                  </li>
                </ul>
                <select class="selectpicker visible-xs center-block">
-                  <option>Jigsaw puzzle</option>
-                  <option>Jigsaw puzzle</option>
-                  <option>Jigsaw puzzle</option>
-                  <option>Jigsaw puzzle</option>
-                  <option>Jigsaw puzzle</option>
+                <% @place.games.each do |game| %>
+                  <% if game.game_type == "jigsaw puzzle" %>
+                    <option>
+                      <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                        <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw puzzle</span>
+                        <span class="arrow"></span>
+                      </a>
+                    </option>
+                  <% elsif game.game_type == "word search" %>
+                    <option class="">
+                      <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                       <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word search</span>
+                       <span class="arrow"></span>
+                     </a>
+                   </option>
+                   <% elsif game.game_type == "slider" %>
+                    <option class="">
+                      <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                       <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Slider</span>
+                       <span class="arrow"></span>
+                     </a>
+                    </option>
+                  <% end %>
+                <% end %>
                </select>
               </div>
             </div>
@@ -477,7 +508,7 @@
                   <div class="br_fun_fact hidden-xs hidden-sm">
                     <div class="row">
                       <div class="col-sm-3 col-md-3 col-lg-2">
-                        <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @place.country.country_code.downcase + '.png') %>" class="fun-fact-image">
+                        <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" class="fun-fact-image">
                       </div>
                       <div class="col-sm-9 col-md-9 col-lg-10">
                         <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
@@ -571,132 +602,34 @@
               <div class="col-md-12">
                  <div class="br_top_5_slider">
                   <div class="owl-carousel">
-                                <div>
-                                  <div class="br_top_place">
-                                    <div class="br_place_top">
-                                      <img src="img/bike.png">
-                                    </div>
-                                    <div class="br_place_mid">
-                                      <h4>Rottnest Island Local park</h4>
-                                    </div>
-                                    <div class="br_place_footer">
-                                      <ul class="list-unstyled">
-                                        <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; 12</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; 02</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; 112</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> Park</a>
-                                    <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                                  </div>
-                                </div>
-                                <div>
-                                   <div class="br_top_place">
-                                    <div class="br_place_top">
-                                      <img src="img/bike.png">
-                                    </div>
-                                    <div class="br_place_mid">
-                                      <h4>Perth Zoo</h4>
-                                    </div>
-                                    <div class="br_place_footer">
-                                      <ul class="list-unstyled">
-                                        <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; 12</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; 02</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; 112</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <a href=" " class="br_top_left"><i class="fa fa-paw"></i> Animal</a>
-                                    <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                                  </div>
-                                </div>
-                                <div>
-                                    <div class="br_top_place">
-                                    <div class="br_place_top">
-                                      <img src="img/bike.png">
-                                    </div>
-                                    <div class="br_place_mid">
-                                      <h4>Rottnest Island Local park</h4>
-                                    </div>
-                                    <div class="br_place_footer">
-                                      <ul class="list-unstyled">
-                                        <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; 12</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; 02</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; 112</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> Park</a>
-                                    <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                                  </div>
-                                </div>
-                                <div>
-                                   <div class="br_top_place">
-                                    <div class="br_place_top">
-                                      <img src="img/bike.png">
-                                    </div>
-                                    <div class="br_place_mid">
-                                      <h4>Rottnest Island Local park</h4>
-                                    </div>
-                                    <div class="br_place_footer">
-                                      <ul class="list-unstyled">
-                                        <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; 12</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; 02</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; 112</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> Park</a>
-                                    <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                                  </div>
-                                </div>
-                                <div>
-                                    <div class="br_top_place">
-                                    <div class="br_place_top">
-                                      <img src="img/bike.png">
-                                    </div>
-                                    <div class="br_place_mid">
-                                      <h4>Rottnest Island Local park</h4>
-                                    </div>
-                                    <div class="br_place_footer">
-                                      <ul class="list-unstyled">
-                                        <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; 12</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; 02</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; 112</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> Park</a>
-                                    <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                                  </div>
-                                </div>
+                    <% @nearby_places.each do |place| %>
+                      <div>
+                        <div class="br_top_place">
+                          <div class="br_place_top">
+                            <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                          </div>
+                          <div class="br_place_mid">
+                            <h4><%= place.display_name %></h4>
+                          </div>
+                          <div class="br_place_footer">
+                            <ul class="list-unstyled">
+                              <li>
+                                <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
+                              </li>
+                              <li>
+                                <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
+                              </li>
+                              <li>
+                                <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
+                              </li>
+                            </ul>
+                          </div>
+                          <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
+                          <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
                         </div>
+                      </div>
+                    <% end%>
+                  </div>
                 </div>
               </div>
               <div class="clearfix"></div>
@@ -707,132 +640,34 @@
               <div class="col-md-12">
                 <div class="br_top_5_slider">
                   <div class="owl-carousel">
-                                <div>
-                                  <div class="br_top_place">
-                                    <div class="br_place_top">
-                                      <img src="img/bike.png">
-                                    </div>
-                                    <div class="br_place_mid">
-                                      <h4>Rottnest Island Local park</h4>
-                                    </div>
-                                    <div class="br_place_footer">
-                                      <ul class="list-unstyled">
-                                        <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; 12</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; 02</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; 112</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> Park</a>
-                                    <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                                  </div>
-                                </div>
-                                <div>
-                                   <div class="br_top_place">
-                                    <div class="br_place_top">
-                                      <img src="img/bike.png">
-                                    </div>
-                                    <div class="br_place_mid">
-                                      <h4>Perth Zoo</h4>
-                                    </div>
-                                    <div class="br_place_footer">
-                                      <ul class="list-unstyled">
-                                        <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; 12</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; 02</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; 112</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <a href=" " class="br_top_left"><i class="fa fa-paw"></i> Animal</a>
-                                    <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                                  </div>
-                                </div>
-                                <div>
-                                    <div class="br_top_place">
-                                    <div class="br_place_top">
-                                      <img src="img/bike.png">
-                                    </div>
-                                    <div class="br_place_mid">
-                                      <h4>Rottnest Island Local park</h4>
-                                    </div>
-                                    <div class="br_place_footer">
-                                      <ul class="list-unstyled">
-                                        <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; 12</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; 02</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; 112</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> Park</a>
-                                    <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                                  </div>
-                                </div>
-                                <div>
-                                   <div class="br_top_place">
-                                    <div class="br_place_top">
-                                      <img src="img/bike.png">
-                                    </div>
-                                    <div class="br_place_mid">
-                                      <h4>Rottnest Island Local park</h4>
-                                    </div>
-                                    <div class="br_place_footer">
-                                      <ul class="list-unstyled">
-                                        <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; 12</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; 02</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; 112</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> Park</a>
-                                    <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                                  </div>
-                                </div>
-                                <div>
-                                    <div class="br_top_place">
-                                    <div class="br_place_top">
-                                      <img src="img/bike.png">
-                                    </div>
-                                    <div class="br_place_mid">
-                                      <h4>Rottnest Island Local park</h4>
-                                    </div>
-                                    <div class="br_place_footer">
-                                      <ul class="list-unstyled">
-                                        <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; 12</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; 02</a>
-                                        </li>
-                                        <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; 112</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> Park</a>
-                                    <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                                  </div>
-                                </div>
+                    <% @similar_places.each do |place| %>
+                      <div>
+                        <div class="br_top_place">
+                          <div class="br_place_top">
+                            <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                          </div>
+                          <div class="br_place_mid">
+                            <h4><%= place.display_name %></h4>
+                          </div>
+                          <div class="br_place_footer">
+                            <ul class="list-unstyled">
+                              <li>
+                                <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
+                              </li>
+                              <li>
+                                <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
+                              </li>
+                              <li>
+                                <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
+                              </li>
+                            </ul>
+                          </div>
+                          <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
+                          <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
                         </div>
+                      </div>
+                    <% end%>
+                  </div>
                 </div>
               </div>
             </div>
@@ -860,13 +695,13 @@
         <div class="text-center">
           <img src="<%= asset_path('Badge.png') %>"/><br/>
         </div><br/><br/>
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <div style="" class="img-cont share">
-            <div class="share-btn">
-               <span class="glyphicon glyphicon-picture"></span><br>
-               <div class="br_upload_2">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <div style="" class="img-cont share">
+              <div class="share-btn">
+                <span class="glyphicon glyphicon-picture"></span><br>
+                <div class="br_upload_2">
                  <button href="#" class="btn">+ Add feature image</button>
                  <input type="file"/>
                </div>
@@ -903,21 +738,43 @@
       </div><!-- /.modal-content -->
     </div>
 </div>
+
 <div class="modal fade" id="carousel-modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="owl-carousel" id="modal-carousel">
         </div>
-        <div class="modal-body">
-          <div class="owl-carousel" id="modal-carousel">
-          </div>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <% if current_user.try(:admin?) %>
   <p><%= link_to 'Edit Place', edit_place_path %></p>
 <% end %>
 <div id="place-map-canvas"></div>
 <div id="place-id" data-place="<%= @place.place_id %>"></div>
+
+<div id="game-modal" class="modal fade" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+
+            <div class="modal-content text-center">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+
+                <div class="col-md-12 modal-middle center-block">
+
+                  <h2 class="text-center editable editable-click"><%= @place.display_name %></h2>
+                  <div id="game-body"></div>
+
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>

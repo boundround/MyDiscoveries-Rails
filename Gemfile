@@ -38,6 +38,8 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-instagram'
 
+gem 'geocoder'
+
 gem 'authority'
 gem 'rolify'
 

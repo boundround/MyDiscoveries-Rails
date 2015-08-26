@@ -21,6 +21,14 @@ module ApplicationHelper
     end
   end
 
+  def get_random_place_photo(place)
+    if place.photos.length > 0
+      place.photos[rand(0..place.photos.length)].path_url(:small)
+    else
+      "generic-grey.jpg"
+    end
+  end
+
   def bootstrap_class_for(flash_type)
     case flash_type
       when "success"

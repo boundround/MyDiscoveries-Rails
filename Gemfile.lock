@@ -137,6 +137,7 @@ GEM
     formatador (0.2.5)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
+    geocoder (1.2.9)
     geocomplete_rails (1.6.3)
       railties (>= 3.1)
     haml (4.0.5)
@@ -405,6 +406,7 @@ DEPENDENCIES
   figaro
   fog
   friendly_id
+  geocoder
   geocomplete_rails
   hirb
   iconv
