@@ -70,29 +70,30 @@
               <div class="col-md-12">
                 <ul class="list-unstyled text-center hidden-xs br_top_links">
                   <li>
-                    <a href="#">Info</a>
+                    <a href="#info">Info</a>
                   </li>
                   <li>
-                    <a href="#">Top 5 Places</a>
+                    <a href="#top5">Top 5 Places</a>
                   </li>
                   <li>
-                    <a href="#">Stories</a>
+                    <a href="#stories">Stories</a>
                   </li>
                   <li>
-                    <a href="#">Games</a>
+                    <a href="#games">Games</a>
                   </li>
                   <li>
-                    <a href="#">Fun Facts</a>
+                    <a href="#fun-facts">Fun Facts</a>
                   </li>
                   <li>
-                    <a href="#">Featured Places</a>
+                    <a href="#featured-places">Featured Places</a>
                   </li>
                   <li>
-                    <a href="#">Featured Stories</a>
+                    <a href="#reviews">Reviews</a>
                   </li>
                 </ul>
               </div>
             </div>
+            <a name="info"></a>
             <div class="row br_container_box">
               <div class="col-sm-12 col-md-6 col-md-offset-1">
 
@@ -137,6 +138,7 @@
 
               </div>
             </div>
+            <a name="games"></a>
             <div class="row br_games">
               <div class="col-md-12 text-center">
                 <h2 class="">Some activities <span class="hidden-xs">for you!</span></h2>
@@ -200,6 +202,7 @@
                </select>
               </div>
             </div>
+            <a name="top5"></a>
             <div class="row br_top_5">
               <div class="col-md-12 ">
                 <h2 class="text-center">Top 5 places <span>in this area!</span></h2>
@@ -257,6 +260,7 @@
                   <div class="clearfix"></div>
               </div>
             </div> -->
+            <a name="stories"></a>
             <div class="row  br_place_or_story">
               <div class="col-md-12 text-center">
                 <h2>
@@ -308,6 +312,7 @@
                 </div>
               </div>
             </div>
+            <a name="fun-facts"></a>
             <div class="row">
               <div class="col-md-12">
                 <% @area.fun_facts.active.each_with_index do |fun_fact, index| %>
@@ -347,6 +352,7 @@
                 <% end %>
               </div>
             </div>
+            <a name="reviews"></a>
             <div class="row br_reviews">
               <div class="col-md-12 text-center">
                 <h2>Reviews &nbsp;<a href="#">Leave a review</a></h2>
@@ -404,6 +410,7 @@
           </div>
         </div>
       </div>
+      <a name="featured-places">
       <div class="conatiner-fluid br_related_places">
           <div class="container">
             <div class="row">
