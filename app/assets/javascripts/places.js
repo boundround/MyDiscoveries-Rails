@@ -186,4 +186,12 @@ $(document).ready(function(){
     }
   });
 
+  $('#review5').on('change', function(){
+    $('textarea[name="review[content]"]').attr('disabled', false);
+    $('#review1').attr('disabled', true);
+    $('#review2').attr('disabled', true);
+    $('#review3').attr('disabled', true);
+    $('#review4').attr('disabled', true);
+  });
+
 });

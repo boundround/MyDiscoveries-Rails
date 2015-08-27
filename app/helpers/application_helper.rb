@@ -134,4 +134,19 @@ module ApplicationHelper
     end
   end
 
+  def show_place_rating(place)
+    rating = place.quality_average.avg.round
+    remainder = 5-rating
+    text = ""
+    rating.times do
+      text += '<i class="fa fa-heart"></i>'
+    end
+    remainder.times do
+      text += '<i class="fa fa-heart-o"></i>'
+    end
+
+    text
+
+  end
+
 end

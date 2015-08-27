@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :customers_places
   has_many :owned_places, through: :customers_places, :source => :place
 
+  has_many :reviews
+
   mount_uploader :avatar, UserPhotoUploader
   process_in_background :avatar
 

@@ -77,7 +77,29 @@
                     <% end %>
                   </li>
                   <li class="hero-hearts">
-                    <%= rating_for @place, "quality", :disable_after_rate => false %>
+                    <% if @place.quality_average %>
+                      Rate this place<br>
+                      <% if user_signed_in? %>
+                        <a href="#" class="" data-toggle="modal" data-target="#myModal3">
+                          <%= raw show_place_rating(@place) %> (<%= @place.quality_average.qty %>)
+                        </a>
+                      <% else %>
+                        <a href="#" onclick="alertSignIn()">
+                          <%= raw show_place_rating(@place) %> (<%= @place.quality_average.qty %>)
+                        </a>
+                      <% end %>
+                    <% else %>
+                        Be the first to rate this place!<br>
+                      <% if user_signed_in? %>
+                        <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
+                          <i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i>
+                        </a>
+                      <% else %>
+                        <a href="#" class="no-anchor-decoration" onclick="alertSignIn()">
+                          <i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i>
+                        </a>
+                      <% end %>
+                    <% end %>
                   </li>
                 </ul>
               </div>
@@ -121,7 +143,17 @@
                 <div class="br_info_mob ">
                     <p>
                       <label>Rating:</label><br/>
-                      <%= rating_for @place, "quality", :disable_after_rate => false %>
+                        <% if @place.quality_average %>
+                          Rate this place<br>
+                          <a href="#" class=""data-toggle="modal" data-target="#myModal3">
+                            <%= raw show_place_rating(@place) %>
+                          </a> (<%= @place.quality_average.qty %>)
+                        <% else %>
+                          Be the first to rate this place!<br>
+                          <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
+                            <i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i>
+                          </a>
+                        <% end %>
                       <br/>
                       <label>Address:</label><br/>
                       <%= @place.display_address %><br/>
@@ -160,7 +192,7 @@
                                     <div class="br_16">
                                       <a data-toggle="modal" data-target="#myModal">
                                         <img src="<%= asset_path('Badge.png') %>" class="center-block">
-                                        <h3>Add photo or video</h3>
+                                        <h3>Add photo</h3>
                                       </a>
                                     </div>
                                 </div>
@@ -194,7 +226,19 @@
                   <div class="col-sm-6 br_detail">
                     <h2>Place details</h2>
                     <label>Rating:</label> &nbsp;
-                      <span><%= rating_for @place, "quality", :disable_after_rate => false %></span><br/>
+                      <span>
+                        <% if @place.quality_average %>
+                          Rate this place<br>
+                          <a href="#" class=""data-toggle="modal" data-target="#myModal3">
+                            <%= raw show_place_rating(@place) %>
+                          </a> (<%= @place.quality_average.qty %>)
+                        <% else %>
+                          Be the first to rate this place!<br>
+                          <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
+                            <i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i>
+                          </a>
+                        <% end %>
+                      </span><br/>
 
                       <label>Address:</label> &nbsp;
                       <span><%= @place.display_address %></span><br/>
@@ -376,7 +420,8 @@
               <div class="col-sm-12 col-md-6">
                 <div class="br_story">
                       <div class="br_story_img_cont">
-                        <img src="img/story.jpg"/>
+                        <img src=""/>
+                        <!-- this would be background image for BR created story -->
                       </div>
                       <div class="br_story_desc">
                           <h3>Train rides across Brisbane!</h3>
@@ -440,57 +485,13 @@
             <a name="reviews"></a>
             <div class="row br_reviews">
               <div class="col-md-12 text-center">
-                <h2>Reviews &nbsp;<a href="#">Leave a review</a></h2>
-
+                <% if user_signed_in? %>
+                  <h2>Reviews &nbsp;<a href="#reviews" data-toggle="modal" data-target="#myModal3">Leave a review</a></h2>
+                <% else %>
+                  <h2>Reviews &nbsp;<a href="#reviews" onclick="alertSignIn()">Leave a review</a></h2>
+                <% end %>
               </div>
-              <div class="col-sm-6 col-md-3">
-                <h4>Meet with a keeper</h4>
-                <p>
-                  “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-                </p>
-                <p class="anchor">
-                  <a href="#">See entire review</a>
-                </p>
-                <p>Chris Jones,<br>Mosman Public</p>
-                <div class="clearfix"></div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <h4>Meet with a keeper</h4>
-                <p>
-                  “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-                </p>
-                <p class="anchor">
-                  <a href="#">See entire review</a>
-                </p>
-                <p>Chris Jones,<br>Mosman Public</p>
-                <div class="clearfix"></div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <h4>Meet with a keeper</h4>
-                <p>
-                  “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-                </p>
-                <p class="anchor">
-                  <a href="#">See entire review</a>
-                </p>
-                <p>Chris Jones,<br>Mosman Public</p>
-                <div class="clearfix"></div>
-              </div>
-              <div class="col-sm-6 col-md-3">
-                <h4>Meet with a keeper</h4>
-                <p>
-                  “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-                </p>
-                <p class="anchor">
-                  <a href="#">See entire review</a>
-                </p>
-                <p >Chris Jones,<br>Mosman Public</p>
-                <div class="clearfix"></div>
-              </div>
-              <div class="clearfix"></div>
-              <div class="col-md-12 text-center">
-                <a href="#" class="br_see_more_btn">See more reviews</a>
-              </div>
+              <%= render "reviews/reviews" %>
             </div>
           </div>
         </div>
@@ -582,7 +583,7 @@
       <div class="modal fade br_add_pic" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog text-center" role="document">
            <img src="<%= asset_path('Badge.png') %>"/>
-           <h1>Add a photo or video</h1>
+           <h1>Add a photo</h1>
            <div class="modal-content">
               <div class="br_upload">
                 <input type="file"/>
@@ -682,3 +683,40 @@
             </div>
         </div>
     </div>
+
+<div id="myModal3" class="modal fade" >
+  <div class="modal-dialog">
+    <div class="modal-content text-center">
+      <div class="col-md-12 modal-middle center-block">
+        <h2 class="text-center">Leave a review</h2>
+        <h3 class="text-center">
+          Rate this place
+          <%= rating_for @place, "quality", :disable_after_rate => true %>
+        </h3>
+        <%= simple_form_for [@reviewable, @review] do |f| %>
+          <%= f.input :user_id, as: :hidden, :input_html => { :value => (current_user.id if user_signed_in?) } %>
+          <input type="radio" name="review[content]" id="review1" value="It was awesome. You should definitely go!"><label for="review1">&nbsp;It was awesome, you should definitely go!</label><br>
+          <input type="radio" name="review[content]" id="review2" value="It was pretty good. Most kids would like it."><label for="review2">&nbsp;It was pretty good. Most kids would like it.</label><br>
+          <input type="radio" name="review[content]" id="review3" value="It was ok. Some kids would think it's good."><label for="review3">&nbsp;It was ok. Some kids would think it's good.</label><br>
+          <input type="radio" name="review[content]" id="review4" value="I didn't really like it."><label for="review4">&nbsp;I didn't really like it</label><br>
+          <input type="radio" id="review5"><label for="review1">&nbsp;I'd like to write my own review below</label>
+          <%= f.input :title, placeholder: "Give your review a title", label: false, input_html: {class: "form-control"} %>
+          <textarea class="form-control" name="review[content]" placeholder="Leave your review here" disabled></textarea>
+          <%= f.submit "Publish", class: "pub" %>
+        <!-- <a href="#" class="pub">Publish</a><br> -->
+        <% end %>
+        <a  data-dismiss="modal" aria-hidden="true" class="can">Cancel</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<script>
+  var alertSignIn = function(){
+    alert("You must be signed in to do this");
+  }
+</script>
+<!-- - It was awesome, you should definitely go!
+- It was pretty good most kids would like it
+- It was ok, some kids would think it's good
+- I didn't really like it -->

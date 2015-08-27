@@ -80,6 +80,7 @@ Rails.application.routes.draw do
     resources :games
     resources :fun_facts
     resources :discounts
+    resources :reviews
     collection { post :import }
   end
 
@@ -116,6 +117,7 @@ Rails.application.routes.draw do
     resources :discounts
     resources :fun_facts
     resources :games
+    resources :reviews
     collection { post :import }
   end
 

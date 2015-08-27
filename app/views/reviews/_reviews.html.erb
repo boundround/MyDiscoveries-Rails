@@ -1,0 +1,21 @@
+<div id="reviews">
+  <% @reviews.each do |review| %>
+    <div class="col-sm-6 col-md-3">
+      <h4><%= review.title if review.title %></h4>
+      <p>
+        "<%= review.content[0..280] %>"
+      </p>
+        <p class="anchor">
+      <% if review.content.length > 280 %>
+          <a href="#">See entire review</a>
+      <% end %>
+        </p>
+      <p><%= review.user.email %><br><%= review.user.country if review.user.country %></p>
+      <div class="clearfix"></div>
+    </div>
+  <% end %>
+</div>
+
+<div class="col-md-12 text-center">
+  <a href="#" class="br_see_more_btn">See more reviews</a>
+</div>

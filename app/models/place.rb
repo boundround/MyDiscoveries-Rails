@@ -54,12 +54,15 @@ class Place < ActiveRecord::Base
   has_many :customers_places
   has_many :owners, through: :customers_places, :source => :user
 
+  has_many :reviews, as: :reviewable
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :discounts, allow_destroy: true
   accepts_nested_attributes_for :games, allow_destroy: true
   accepts_nested_attributes_for :programs, allow_destroy: true
+  accepts_nested_attributes_for :reviews
 
   mount_uploader :map_icon, IconUploader
 

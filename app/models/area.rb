@@ -29,6 +29,8 @@ class Area < ActiveRecord::Base
   has_many :areas_users
   has_many :users, through: :areas_users
 
+  has_many :reviews, as: :reviewable
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true

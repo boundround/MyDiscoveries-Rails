@@ -41,6 +41,9 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
+    @reviewable = @place
+    @reviews = @reviewable.reviews
+    @review = Review.new
 
     # distance = 20
     # center_point = [@place.latitude, @place.longitude]
