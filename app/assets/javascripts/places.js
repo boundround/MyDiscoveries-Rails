@@ -156,4 +156,34 @@ $(document).ready(function(){
      });
   };
 
+  // Add to Wishlist
+  $('#place-favorite').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var userId = $(this).data("user-id");
+    var placeId = $(this).data("place-id");
+    data = {};
+    data["places_user"] = { user_id: userId, place_id: placeId };
+    if(userId === "no-user"){
+      alert("You must be logged in to add to your wishlist!");
+    } else if ($(this).data("liked") === false) {
+      $.ajax({
+        type: "POST",
+        url: '/places_users/create',
+        data: data,
+        success: console.log('LIKE SAVED')
+      });
+      $('.add-to-wishlist').html('<a href="#" id="place-favorite" data-liked="true" data-place-id="' + placeId + '" data-user-id="' + userId + '">Remove from wishlist</a>');
+    } else if ($(this).data("liked") === true) {
+      $.ajax({
+        type: "POST",
+        _method: 'delete',
+        url: '/places_users/destroy',
+        data: data,
+        success: console.log('LIKE DELETED')
+      });
+      $('.add-to-wishlist').html('<a href="#" id="place-favorite" data-liked="false" data-place-id="' + placeId + '" data-user-id="' + userId + '">Add to wishlist</a>');
+    }
+  });
+
 });

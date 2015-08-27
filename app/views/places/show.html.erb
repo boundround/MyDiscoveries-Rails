@@ -63,8 +63,12 @@
                     </span> TIME AND WEATHER -->&nbsp;
                 </p>
                 <ul class="list-unstyled br_buttons hidden-xs">
-                  <li>
-                    <a href="#" id="place-favorite">Add to wishlist</a>
+                  <li class="add-to-wishlist">
+                    <% if user_signed_in? && @place.users.include?(current_user) %>
+                      <a href="#" id="place-favorite" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from wishlist</a>
+                    <% else %>
+                      <a href="#" id="place-favorite" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Add to wishlist</a>
+                    <% end %>
                   </li>
                   <li>
 
