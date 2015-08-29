@@ -1,7 +1,7 @@
 <div id="reviews">
   <% @reviews.each do |review| %>
     <div class="col-sm-6 col-md-3">
-      <h4><%= review.title if review.title %></h4>
+      <h4><%= review.title ? review.title : @reviewable.display_name %></h4>
       <p>
         "<%= review.content[0..280] %>"
       </p>
@@ -10,7 +10,7 @@
           <a href="#">See entire review</a>
       <% end %>
         </p>
-      <p><%= review.user.email %><br><%= review.user.country if review.user.country %></p>
+      <p><%= review.user.email.match(/^(.*?)@/)[1] %><br><%= review.user.country if review.user.country %></p>
       <div class="clearfix"></div>
     </div>
   <% end %>
