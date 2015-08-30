@@ -2,7 +2,11 @@
   <h2>
     Some stories from <%= @storiable.display_name %>
   </h2>
-  <a href="#" data-toggle="modal" data-target="#story" class="br_create_btn btn btn-default">+ Create story</a>
+  <% if user_signed_in? %>
+    <a href="#" data-toggle="modal" data-target="#story" class="br_create_btn btn btn-default">+ Create story</a>
+  <% else %>
+    <a href="#reviews" onclick="alertSignIn()" class="br_create_btn btn btn-default">+ Create Story</a>
+  <% end %>
 </div>
 <% @stories.each_with_index do |story, index| %>
   <% if story.user_photos.length > 0 %>
