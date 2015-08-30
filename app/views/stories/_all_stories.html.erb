@@ -4,27 +4,29 @@
   </h2>
   <a href="#" data-toggle="modal" data-target="#story" class="br_create_btn btn btn-default">+ Create story</a>
 </div>
-<% @stories.each do |story| %>
-  <% if stories.photos.length > 0 %>
+<% @stories.each_with_index do |story, index| %>
+  <% if story.user_photos.length > 0 %>
     <!-- Story with image header -->
     <div class="col-sm-12 col-md-6">
-      <div class="br_story">
-            <div class="br_story_img_cont">
-              <img src="img/story.jpg"/>
-            </div>
-            <div class="br_story_desc">
-                <h3><%= story.headling %></h3>
+      <style>
+        #story-<%= index %> {
+          background:url('<%= story.user_photos.first.path_url(:small) %>') no-repeat;
+          background-size: cover;
+          background-size: 100% 228px;
+        }
+      </style>
+      <div class="br_story bg" id="story-<%= index %>">
+                <h3><%= story.title %></h3>
                 <p>
                     <%= story.content %>
                 </p>
                 <a href="#" class="br_read_more">Read story</a>
-            </div>
         </div>
     </div>
   <% else %>
     <div class="col-sm-12 col-md-6 ">
       <div class="br_story">
-        <h3><%= story.headline %></h3>
+        <h3><%= story.title %></h3>
         <p>
           <%= story.content %>
         </p>

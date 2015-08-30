@@ -48,7 +48,8 @@ class PlacesController < ApplicationController
     @storiable = @place
     @stories = @storiable.stories
     @story = Story.new
-    @user_photos = UserPhoto.active.where(place_id: @place.id)
+    @user_photos = @story.user_photos.build
+    @active_user_photos = UserPhoto.active.where(place_id: @place.id)
 
     # distance = 20
     # center_point = [@place.latitude, @place.longitude]

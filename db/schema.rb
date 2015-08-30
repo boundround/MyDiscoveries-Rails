@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150830071847) do
+ActiveRecord::Schema.define(version: 20150830095712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -429,6 +429,7 @@ ActiveRecord::Schema.define(version: 20150830071847) do
     t.datetime "updated_at"
     t.integer  "storiable_id"
     t.string   "storiable_type"
+    t.string   "status"
   end
 
   add_index "stories", ["storiable_id", "storiable_type"], name: "index_stories_on_storiable_id_and_storiable_type", using: :btree
@@ -474,6 +475,7 @@ ActiveRecord::Schema.define(version: 20150830071847) do
     t.datetime "updated_at"
     t.integer  "place_id"
     t.integer  "area_id"
+    t.integer  "story_priority"
   end
 
   add_index "user_photos", ["area_id"], name: "index_user_photos_on_area_id", using: :btree

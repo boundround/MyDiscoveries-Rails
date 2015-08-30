@@ -38,4 +38,27 @@ $(function () {
     $("#user_photo_path").change(function(){
         readURL(this);
     });
+
+    function storyPhotoRead(input, previewElement) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                previewElement.attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#story_user_photos_attributes_0_path").change(function(){
+        storyPhotoRead(this, $('#story-image-preview-1'));
+    });
+    $("#story_user_photos_attributes_1_path").change(function(){
+        storyPhotoRead(this, $('#story-image-preview-2'));
+    });
+    $("#story_user_photos_attributes_2_path").change(function(){
+        storyPhotoRead(this, $('#story-image-preview-3'));
+    });
 });

@@ -28,8 +28,9 @@ class AreasController < ApplicationController
     @storiable = @area
     @stories = @storiable.stories
     @story = Story.new
+    @user_photos = @story.user_photos.build
 
-    @user_photos = UserPhoto.active.where(area_id: @area.id)
+    @active_user_photos = UserPhoto.active.where(area_id: @area.id)
 
     @hero_video = @area.videos.find_by(priority: 1)
     @hero_photo = @area.photos.find_by(priority: 1)

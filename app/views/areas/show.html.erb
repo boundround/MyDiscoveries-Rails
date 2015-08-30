@@ -138,7 +138,7 @@
                                     </div>
                                   <% end %>
                                 <% end %>
-                                <% @user_photos.each_with_index do |photo| %>
+                                <% @active_user_photos.each_with_index do |photo| %>
                                   <div class="carousel-item br_16">
                                       <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
                                     </div>
@@ -286,45 +286,7 @@
               <%= render 'stories/all_stories' %>
             </div>
             <a name="fun-facts"></a>
-            <div class="row">
-              <div class="col-md-12">
-                <% @area.fun_facts.active.each_with_index do |fun_fact, index| %>
-                  <style>
-                    #fun-fact-<%= index %> {
-                      background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @area.country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
-                    }
-                  </style>
-                  <div class="br_fun_fact hidden-xs hidden-sm">
-                    <div class="row">
-                      <div class="col-sm-3 col-md-3 col-lg-2">
-                        <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @area.country.country_code.downcase + '.png') %>" class="fun-fact-image">
-                      </div>
-                      <div class="col-sm-9 col-md-9 col-lg-10">
-                        <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
-                        <h2>Now here’s a fun fact!</h2>
-                        <p>
-                          <%= raw fun_fact.content %>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12 visible-xs visible-sm">
-                    <div class="row">
-                      <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
-                        <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
-                          <h2>Now here’s a fun fact!</h2>
-                          <p>
-                            <%= raw fun_fact.content %>
-                          </p>
-                          <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
-                        </div>
-                        <div class="clearfix"></div>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-            </div>
+            <%= render 'fun_facts/all_fun_facts' %>
             <a name="reviews"></a>
             <div class="row br_reviews">
               <div class="col-md-12 text-center">
