@@ -17,11 +17,6 @@
                       <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
                       <%= ff.hidden_field :status, :value => "draft" %>
                       <%= ff.hidden_field :story_priority, :value => 1 %>
-                      <% if @place %>
-                        <%= ff.hidden_field :place_id, :value => @place.id %>
-                      <% else %>
-                        <%= ff.hidden_field :area_id, :value => @area.id %>
-                      <% end %>
                     <% end %>
                   </div>
                 </div>
@@ -40,11 +35,6 @@
                   <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
                   <%= ff.hidden_field :status, :value => "draft" %>
                   <%= ff.hidden_field :story_priority, :value => 1 %>
-                  <% if @place %>
-                    <%= ff.hidden_field :place_id, :value => @place.id %>
-                  <% else %>
-                    <%= ff.hidden_field :area_id, :value => @area.id %>
-                  <% end %>
                 <% end %>
                </div>
               <hr/>
@@ -56,11 +46,6 @@
                   <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
                   <%= ff.hidden_field :status, :value => "draft" %>
                   <%= ff.hidden_field :story_priority, :value => 1 %>
-                  <% if @place %>
-                    <%= ff.hidden_field :place_id, :value => @place.id %>
-                  <% else %>
-                    <%= ff.hidden_field :area_id, :value => @area.id %>
-                  <% end %>
                 <% end %>
               </div>
             </div>
