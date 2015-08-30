@@ -46,6 +46,7 @@ class Place < ActiveRecord::Base
   has_many :videos, -> { order "created_at ASC"}
   has_many :fun_facts, -> { order "created_at ASC"}
   has_many :programs, -> { order "created_at ASC"}
+  has_many :user_photos
   has_one :journal_info
 
   has_many :places_users
@@ -55,6 +56,7 @@ class Place < ActiveRecord::Base
   has_many :owners, through: :customers_places, :source => :user
 
   has_many :reviews, as: :reviewable
+  has_many :stories, as: :storiable
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
@@ -63,6 +65,8 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :games, allow_destroy: true
   accepts_nested_attributes_for :programs, allow_destroy: true
   accepts_nested_attributes_for :reviews
+  accepts_nested_attributes_for :stories
+  accepts_nested_attributes_for :user_photos
 
   mount_uploader :map_icon, IconUploader
 

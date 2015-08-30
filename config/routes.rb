@@ -74,6 +74,8 @@ Rails.application.routes.draw do
   post 'videos_users/create' => 'videos_users#create'
   post 'videos_users/destroy' => 'videos_users#destroy'
 
+  resources :user_photos
+
   resources :areas do
     resources :photos
     resources :videos
@@ -81,6 +83,8 @@ Rails.application.routes.draw do
     resources :fun_facts
     resources :discounts
     resources :reviews
+    resources :stories
+    resources :user_photos
     collection { post :import }
   end
 
@@ -118,6 +122,8 @@ Rails.application.routes.draw do
     resources :fun_facts
     resources :games
     resources :reviews
+    resources :stories
+    resources :user_photos
     collection { post :import }
   end
 

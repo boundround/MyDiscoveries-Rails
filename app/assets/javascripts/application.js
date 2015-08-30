@@ -45,6 +45,7 @@
 //= require search_suggestions
 //= require jquery.raty
 //= require ratyrate
+//= require user-photo-upload
 
 
 

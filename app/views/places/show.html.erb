@@ -190,10 +190,17 @@
                   <div class="owl-carousel">
                                 <div>
                                     <div class="br_16">
-                                      <a data-toggle="modal" data-target="#myModal">
-                                        <img src="<%= asset_path('Badge.png') %>" class="center-block">
-                                        <h3>Add photo</h3>
-                                      </a>
+                                      <% if user_signed_in? %>
+                                        <a data-toggle="modal" data-target="#myModal">
+                                          <img src="<%= asset_path('Badge.png') %>" class="center-block">
+                                          <h3>Add photo</h3>
+                                        </a>
+                                      <% else %>
+                                        <a onclick="alertSignIn()">
+                                          <img src="<%= asset_path('Badge.png') %>" class="center-block">
+                                          <h3>Add photo</h3>
+                                        </a>
+                                      <% end %>
                                     </div>
                                 </div>
                                 <% @videos_photos.each_with_index do |asset, index| %>
@@ -203,8 +210,22 @@
                                   </div>
                                   <% elsif asset.class.to_s == "Photo" %>
                                     <div class="carousel-item br_16">
-                                        <img src="<%= asset.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>">
+                                      <img src="<%= asset.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>">
                                     </div>
+                                  <% end %>
+                                <% end %>
+                                <% @user_photos.each_with_index do |photo| %>
+                                  <div class="carousel-item br_16">
+                                      <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
+                                    </div>
+                                <% end %>
+                                <% if user_signed_in? %>
+                                  <% current_user.user_photos.draft.where(place_id: @place.id).each do |photo| %>
+                                    <% index = @videos_photos.length + @user_photos.length %>
+                                    <div class="carousel-item br_16">
+                                      <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
+                                    </div>
+                                    <% index += 1 %>
                                   <% end %>
                                 <% end %>
                         </div>
@@ -392,56 +413,7 @@
             </div> -->
             <a name="stories"></a>
             <div class="row  br_place_or_story">
-              <div class="col-md-12 text-center">
-                <h2>
-                  Some stories from Brisbane
-                </h2>
-                <a href="#" data-toggle="modal" data-target="#story" class="br_create_btn btn btn-default">+ Create story</a>
-              </div>
-              <div class="col-sm-12 col-md-6 ">
-                <div class="br_story">
-                  <h3>The day I met a lion with Pete the trainer from Taronga Zoo!</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id lda. Aenean non tortor id leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. non tortor id leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus
-                  </p>
-                  <a href="#" class="br_read_more">Read story</a>
-                  <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
-                </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-                <div class="br_story bg">
-                  <h3>The day I met a lion with Pete the trainer from Taronga Zoo!</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id lda. Aenean non tortor id leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. non tortor id leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus
-                  </p>
-                  <a href="#" class="br_read_more">Read story</a>
-                </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-                <div class="br_story">
-                      <div class="br_story_img_cont">
-                        <img src=""/>
-                        <!-- this would be background image for BR created story -->
-                      </div>
-                      <div class="br_story_desc">
-                          <h3>Train rides across Brisbane!</h3>
-                          <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id lda. Aenean non tortor id leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus qui...
-                          </p>
-                          <a href="#" class="br_read_more">Read story</a>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-                <div class="br_story">
-                  <h3>The day I met a lion with Pete the trainer from Taronga Zoo!</h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id lda. Aenean non tortor id leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. non tortor id leo. olor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. non tortor id leo.Lorem ipsum dolor sit amet,
-                  </p>
-                  <a href="#" class="br_read_more">Read story</a>
-                  <img src="<%= asset_path('Badge.png') %>">
-                </div>
-              </div>
+              <%= render 'stories/all_stories' %>
             </div>
             <a name="fun-facts"></a>
             <div class="row">
@@ -481,6 +453,7 @@
                     </div>
                   </div>
                 <% end %>
+              </div>
             </div>
             <a name="reviews"></a>
             <div class="row br_reviews">
@@ -579,70 +552,9 @@
           </div>
       </div>
 
+      <%= render 'user_photos/form' %>
+      <%= render 'stories/form' %>
 
-      <div class="modal fade br_add_pic" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog text-center" role="document">
-           <img src="<%= asset_path('Badge.png') %>"/>
-           <h1>Add a photo</h1>
-           <div class="modal-content">
-              <div class="br_upload">
-                <input type="file"/>
-                <h4>Click <span class="br_underline">Browse</span> and navigate to the file,<br/> or, just drag the file <strong>here</strong></h4>
-              </div>
-              <div>
-                    <a href="#">Upload</a>
-              </div>
-          </div>
-        </div>
-      </div>
-
-      <div  class="modal fade" id="story">
-        <div class="text-center">
-          <img src="<%= asset_path('Badge.png') %>"/><br/>
-        </div><br/><br/>
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <div style="" class="img-cont share">
-              <div class="share-btn">
-                <span class="glyphicon glyphicon-picture"></span><br>
-                <div class="br_upload_2">
-                 <button href="#" class="btn">+ Add feature image</button>
-                 <input type="file"/>
-               </div>
-            </div>
-          </div>
-          <div class="br_form text-center">
-            <input type="text" class="form-control text-center" placeholder="What’s the name of your story?"/>
-            <textarea class="form-control text-center">Write an introduction to your story</textarea>
-          </div>
-          <div class="br_mid text-center">
-            <hr/>
-              <div class="br_upload_2">
-                 <button href="#" class="btn">Add  image & copy</button>
-                 <input type="file">
-               </div>
-            <hr/>
-              <div class="br_upload_2">
-                   <button href="#" class="btn">Add  image</button>
-                   <input type="file">
-                 </div>
-            <hr/>
-              <div class="br_upload_2">
-                   <button href="#" class="btn">Add new paragraph</button>
-                   <input type="file">
-                 </div>
-             </div>
-             <hr/>
-             <div class="br_modal-footer text-center">
-               <button class="btn btn-lg">Publish story</button><br>
-               <a href="#" data-dismiss="modal" aria-label="Close" >Cancel</a>
-             </div>
-          </div>
-        </div>
-      </div><!-- /.modal-content -->
-    </div>
-</div>
 
 <div class="modal fade" id="carousel-modal">
   <div class="modal-dialog">
@@ -683,40 +595,9 @@
             </div>
         </div>
     </div>
-
-<div id="myModal3" class="modal fade" >
-  <div class="modal-dialog">
-    <div class="modal-content text-center">
-      <div class="col-md-12 modal-middle center-block">
-        <h2 class="text-center">Leave a review</h2>
-        <h3 class="text-center">
-          Rate this place
-          <%= rating_for @place, "quality", :disable_after_rate => true %>
-        </h3>
-        <%= simple_form_for [@reviewable, @review] do |f| %>
-          <%= f.input :user_id, as: :hidden, :input_html => { :value => (current_user.id if user_signed_in?) } %>
-          <input type="radio" name="review[content]" id="review1" value="It was awesome. You should definitely go!"><label for="review1">&nbsp;It was awesome, you should definitely go!</label><br>
-          <input type="radio" name="review[content]" id="review2" value="It was pretty good. Most kids would like it."><label for="review2">&nbsp;It was pretty good. Most kids would like it.</label><br>
-          <input type="radio" name="review[content]" id="review3" value="It was ok. Some kids would think it's good."><label for="review3">&nbsp;It was ok. Some kids would think it's good.</label><br>
-          <input type="radio" name="review[content]" id="review4" value="I didn't really like it."><label for="review4">&nbsp;I didn't really like it</label><br>
-          <input type="radio" id="review5"><label for="review1">&nbsp;I'd like to write my own review below</label>
-          <%= f.input :title, placeholder: "Give your review a title", label: false, input_html: {class: "form-control"} %>
-          <textarea class="form-control" name="review[content]" placeholder="Leave your review here" disabled></textarea>
-          <%= f.submit "Publish", class: "pub" %>
-        <!-- <a href="#" class="pub">Publish</a><br> -->
-        <% end %>
-        <a  data-dismiss="modal" aria-hidden="true" class="can">Cancel</a>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</div>
+<%= render 'reviews/form' %>
 <script>
   var alertSignIn = function(){
     alert("You must be signed in to do this");
   }
 </script>
-<!-- - It was awesome, you should definitely go!
-- It was pretty good most kids would like it
-- It was ok, some kids would think it's good
-- I didn't really like it -->

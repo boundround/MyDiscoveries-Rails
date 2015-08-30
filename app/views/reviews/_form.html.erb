@@ -1,0 +1,28 @@
+<div id="myModal3" class="modal fade" >
+  <div class="modal-dialog">
+    <div class="modal-content text-center">
+      <div class="col-md-12 modal-middle center-block">
+        <h2 class="text-center">Leave a review</h2>
+        <h3 class="text-center">
+          Rate this place
+          <%= rating_for (@place ? @place : @area), "quality", :disable_after_rate => true %>
+        </h3>
+        <%= simple_form_for [@reviewable, @review] do |f| %>
+          <%= f.input :user_id, as: :hidden, :input_html => { :value => (current_user.id if user_signed_in?) } %>
+          <%= f.input :status, as: :hidden, :input_html => { :value => "draft" } %>
+          <input type="radio" name="review[content]" id="review1" value="It was awesome. You should definitely go!"><label for="review1">&nbsp;It was awesome, you should definitely go!</label><br>
+          <input type="radio" name="review[content]" id="review2" value="It was pretty good. Most kids would like it."><label for="review2">&nbsp;It was pretty good. Most kids would like it.</label><br>
+          <input type="radio" name="review[content]" id="review3" value="It was ok. Some kids would think it's good."><label for="review3">&nbsp;It was ok. Some kids would think it's good.</label><br>
+          <input type="radio" name="review[content]" id="review4" value="I didn't really like it."><label for="review4">&nbsp;I didn't really like it</label><br>
+          <input type="radio" id="review5"><label for="review1">&nbsp;I'd like to write my own review below</label>
+          <%= f.input :title, placeholder: "Give your review a title", label: false, input_html: {class: "form-control"} %>
+          <textarea class="form-control" name="review[content]" placeholder="Leave your review here" disabled></textarea>
+          <%= f.submit "Publish", class: "pub" %>
+        <!-- <a href="#" class="pub">Publish</a><br> -->
+        <% end %>
+        <a  data-dismiss="modal" aria-hidden="true" class="can">Cancel</a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="modal fade br_add_pic" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog text-center" role="document">
+   <img src="<%= asset_path('Badge.png') %>"/>
+   <h1>Add a photo</h1>
+   <div class="modal-content">
+      <div class="br_upload">
+        <%= form_for [(@place ? @place : @area), UserPhoto.new], :html => { :id => "user-photo-upload"  } do |f| %>
+          <%= f.file_field :path, label: false %>
+          <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+          <%= f.hidden_field :status, :value => "draft" %>
+          <% if @place %>
+            <%= f.hidden_field :place_id, :value => @place.id %>
+          <% else %>
+            <%= f.hidden_field :area_id, :value => @area.id %>
+          <% end %>
+
+        <h4>Click <span class="br_underline">Browse</span> and navigate to the file,<br/> or, just drag the file <strong>here</strong></h4>
+        <img id="image-preview" class="user-upload-image-preview" src="#" alt="Your Image" />
+      </div>
+      <div id="user-photo-upload-button">
+
+      </div>
+      <div id="progress">
+          <div class="bar" style="width: 0%;"></div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

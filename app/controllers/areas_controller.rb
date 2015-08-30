@@ -20,6 +20,17 @@ class AreasController < ApplicationController
 
   def show
     @area = Area.includes(:videos, :games, :photos, :discounts, :fun_facts, places: [:photos, :games, :videos, :categories]).friendly.find(params[:id])
+
+    @reviewable = @area
+    @reviews = @reviewable.reviews
+    @review = Review.new
+
+    @storiable = @area
+    @stories = @storiable.stories
+    @story = Story.new
+
+    @user_photos = UserPhoto.active.where(area_id: @area.id)
+
     @hero_video = @area.videos.find_by(priority: 1)
     @hero_photo = @area.photos.find_by(priority: 1)
     @photos = @area.photos.where.not(priority: 1)

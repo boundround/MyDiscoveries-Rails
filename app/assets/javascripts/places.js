@@ -87,111 +87,112 @@
 })();
 
 $(document).ready(function(){
-  var getPlaceDetails = function(place){
-    var map = new google.maps.Map(document.getElementById('place-map-canvas'), {
-      center: new google.maps.LatLng($('.area-content').data('lat'), $('.area-content').data('long')),
-      zoom: 13
-    });
+  if(document.getElementById('place-map-canvas')){
+    var getPlaceDetails = function(place){
+      var map = new google.maps.Map(document.getElementById('place-map-canvas'), {
+        center: new google.maps.LatLng($('.area-content').data('lat'), $('.area-content').data('long')),
+        zoom: 13
+      });
 
-    var location = {
-            "lat" : $('.area-content').data('lat'),
-            "lng" : $('.area-content').data('long')
-         };
+      var location = {
+              "lat" : $('.area-content').data('lat'),
+              "lng" : $('.area-content').data('long')
+           };
 
-    var marker = new google.maps.Marker({
-      map: map,
-      position: location
-    });
+      var marker = new google.maps.Marker({
+        map: map,
+        position: location
+      });
 
-    var service = new google.maps.places.PlacesService(map);
-    var request = {
-      placeId: place
-    };
-    service.getDetails(request, function(place, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log(place);
-        var i;
-        var day = new Date();
-        if (place.opening_hours){
-          var openingHours = place.opening_hours.weekday_text;
-        }
-        if (openingHours){
-          $('#hours').html("Hours:  ")
-          var placeInfo = "";
-          for(i = 0; i < openingHours.length; i++) {
-            if (day.getDay() === i && place.opening_hours.open_now === true) {
-              placeInfo += openingHours[i] + "<span id='open-now'>&nbsp;&nbsp;Open Now</span><br>"
-            } else {
-              placeInfo += openingHours[i] + "<br>";
+      var service = new google.maps.places.PlacesService(map);
+      var request = {
+        placeId: place
+      };
+      service.getDetails(request, function(place, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          console.log(place);
+          var i;
+          var day = new Date();
+          if (place.opening_hours){
+            var openingHours = place.opening_hours.weekday_text;
+          }
+          if (openingHours){
+            $('#hours').html("Hours:  ")
+            var placeInfo = "";
+            for(i = 0; i < openingHours.length; i++) {
+              if (day.getDay() === i && place.opening_hours.open_now === true) {
+                placeInfo += openingHours[i] + "<span id='open-now'>&nbsp;&nbsp;Open Now</span><br>"
+              } else {
+                placeInfo += openingHours[i] + "<br>";
+              }
             }
           }
-        }
 
-        if (placeInfo){
-          $('#operating-hours').html(placeInfo);
-        }
+          if (placeInfo){
+            $('#operating-hours').html(placeInfo);
+          }
 
+        }
+      });
+    };
+
+    getPlaceDetails($('#place-id').data("place"));
+
+    // fill game modal
+    $('.game-icon').on('click', function(){
+      console.log($(this).data('game-url'));
+      var gameURL = $(this).data('game-url');
+      var content = '<iframe class="place-game" src="' + gameURL + '" ></iframe>';
+      console.log(content);
+      $('#game-body').html(content);
+    })
+
+    $('.carousel-video').bind('click', function() {
+      pauseAll();
+    });
+
+    var pauseAll = function(){
+      $('iframe[src*="vimeo.com"]').each(function () {
+         $f(this).api('pause');
+       });
+    };
+
+    // Add to Wishlist
+    $('#place-favorite').on('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var userId = $(this).data("user-id");
+      var placeId = $(this).data("place-id");
+      data = {};
+      data["places_user"] = { user_id: userId, place_id: placeId };
+      if(userId === "no-user"){
+        alert("You must be logged in to add to your wishlist!");
+      } else if ($(this).data("liked") === false) {
+        $.ajax({
+          type: "POST",
+          url: '/places_users/create',
+          data: data,
+          success: console.log('LIKE SAVED')
+        });
+        $('.add-to-wishlist').html('<a href="#" id="place-favorite" data-liked="true" data-place-id="' + placeId + '" data-user-id="' + userId + '">Remove from wishlist</a>');
+      } else if ($(this).data("liked") === true) {
+        $.ajax({
+          type: "POST",
+          _method: 'delete',
+          url: '/places_users/destroy',
+          data: data,
+          success: console.log('LIKE DELETED')
+        });
+        $('.add-to-wishlist').html('<a href="#" id="place-favorite" data-liked="false" data-place-id="' + placeId + '" data-user-id="' + userId + '">Add to wishlist</a>');
       }
     });
-  };
 
-  getPlaceDetails($('#place-id').data("place"));
-
-  // fill game modal
-  $('.game-icon').on('click', function(){
-    console.log($(this).data('game-url'));
-    var gameURL = $(this).data('game-url');
-    var content = '<iframe class="place-game" src="' + gameURL + '" ></iframe>';
-    console.log(content);
-    $('#game-body').html(content);
-  })
-
-  $('.carousel-video').bind('click', function() {
-    pauseAll();
-  });
-
-  var pauseAll = function(){
-    $('iframe[src*="vimeo.com"]').each(function () {
-       $f(this).api('pause');
-     });
-  };
-
-  // Add to Wishlist
-  $('#place-favorite').on('click', function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    var userId = $(this).data("user-id");
-    var placeId = $(this).data("place-id");
-    data = {};
-    data["places_user"] = { user_id: userId, place_id: placeId };
-    if(userId === "no-user"){
-      alert("You must be logged in to add to your wishlist!");
-    } else if ($(this).data("liked") === false) {
-      $.ajax({
-        type: "POST",
-        url: '/places_users/create',
-        data: data,
-        success: console.log('LIKE SAVED')
-      });
-      $('.add-to-wishlist').html('<a href="#" id="place-favorite" data-liked="true" data-place-id="' + placeId + '" data-user-id="' + userId + '">Remove from wishlist</a>');
-    } else if ($(this).data("liked") === true) {
-      $.ajax({
-        type: "POST",
-        _method: 'delete',
-        url: '/places_users/destroy',
-        data: data,
-        success: console.log('LIKE DELETED')
-      });
-      $('.add-to-wishlist').html('<a href="#" id="place-favorite" data-liked="false" data-place-id="' + placeId + '" data-user-id="' + userId + '">Add to wishlist</a>');
-    }
-  });
-
-  $('#review5').on('change', function(){
-    $('textarea[name="review[content]"]').attr('disabled', false);
-    $('#review1').attr('disabled', true);
-    $('#review2').attr('disabled', true);
-    $('#review3').attr('disabled', true);
-    $('#review4').attr('disabled', true);
-  });
-
+    $('#review5').on('change', function(){
+      $('textarea[name="review[content]"]').attr('disabled', false);
+      $('#review1').attr('disabled', true);
+      $('#review2').attr('disabled', true);
+      $('#review3').attr('disabled', true);
+      $('#review4').attr('disabled', true);
+    });
+  }
 });

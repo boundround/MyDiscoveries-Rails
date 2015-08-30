@@ -19,8 +19,10 @@ class User < ActiveRecord::Base
   has_many :owned_places, through: :customers_places, :source => :place
 
   has_many :reviews
+  has_many :stories
+  has_many :user_photos
 
-  mount_uploader :avatar, UserPhotoUploader
+  mount_uploader :avatar, UserAvatarUploader
   process_in_background :avatar
 
   TEMP_EMAIL_PREFIX = 'change@me'

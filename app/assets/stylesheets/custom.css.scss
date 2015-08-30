@@ -15,9 +15,9 @@ body {
 }
 
 .alert {
-  width: 15%;
+  width: 20%;
   position: fixed;
-  top: 50px;
+  top: 75px;
   right: 0;
 }
 
@@ -345,6 +345,11 @@ select {
 
   .about {
     width: 100%;
+  }
+
+  .alert {
+    width: 80%;
+    top: 50px;
   }
 }
 

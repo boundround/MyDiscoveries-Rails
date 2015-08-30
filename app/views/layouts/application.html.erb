@@ -26,13 +26,11 @@
 	  <%= render "/layouts/ga" %>
 	</head>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
-	  <% if current_user.try(:admin) %>
-	    <% flash.each do |type, message| %>
-	    <div class="alert <%= bootstrap_class_for(type) %> fade in">
-	      <button class="close" data-dismiss="alert">×</button>
-	      <%= message %>
-	    </div>
-	  <% end %>
+    <% flash.each do |type, message| %>
+    <div class="alert <%= bootstrap_class_for(type) %> fade in">
+      <button class="close" data-dismiss="alert">×</button>
+      <%= message %>
+    </div>
 	<% end %>
 		<% if user_signed_in? %>
 		  <% if current_user.try(:admin) || current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.has_role?("contributor") %>
@@ -107,7 +105,6 @@
 	    <%= yield %>
 	  </div>
 	  <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-	  <script src="//cdn.jsdelivr.net/imagesloaded/3.1.6/imagesloaded.min.js"></script>
 	  <%= javascript_include_tag 'froogaloop' %>
 	</body>
 

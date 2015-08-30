@@ -1,0 +1,46 @@
+<div class="col-md-12 text-center">
+  <h2>
+    Some stories from <%= @storiable.display_name %>
+  </h2>
+  <a href="#" data-toggle="modal" data-target="#story" class="br_create_btn btn btn-default">+ Create story</a>
+</div>
+<% @stories.each do |story| %>
+  <% if stories.photos.length > 0 %>
+    <!-- Story with image header -->
+    <div class="col-sm-12 col-md-6">
+      <div class="br_story">
+            <div class="br_story_img_cont">
+              <img src="img/story.jpg"/>
+            </div>
+            <div class="br_story_desc">
+                <h3><%= story.headling %></h3>
+                <p>
+                    <%= story.content %>
+                </p>
+                <a href="#" class="br_read_more">Read story</a>
+            </div>
+        </div>
+    </div>
+  <% else %>
+    <div class="col-sm-12 col-md-6 ">
+      <div class="br_story">
+        <h3><%= story.headline %></h3>
+        <p>
+          <%= story.content %>
+        </p>
+        <a href="#" class="br_read_more">Read story</a>
+        <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
+      </div>
+    </div>
+  <% end %>
+<% end %>
+<!-- Story with background image -->
+<!-- <div class="col-sm-12 col-md-6">
+  <div class="br_story bg">
+    <h3>The day I met a lion with Pete the trainer from Taronga Zoo!</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id lda. Aenean non tortor id leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. non tortor id leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus
+    </p>
+    <a href="#" class="br_read_more">Read story</a>
+  </div>
+</div> -->
