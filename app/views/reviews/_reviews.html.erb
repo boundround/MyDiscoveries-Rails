@@ -10,7 +10,7 @@
           <a href="#">See entire review</a>
       <% end %>
         </p>
-      <p><%= review.user.email.match(/^(.*?)@/)[1] %><br><%= review.user.country if review.user.country %></p>
+      <p><%= review.user.email.match(/^(.*?)@/)[1] %><%= (", " + age(review.user.date_of_birth).to_s) if (age(review.user.date_of_birth) > 0) %><br><%= review.user.country if review.user.country %></p>
       <div class="clearfix"></div>
     </div>
   <% end %>
