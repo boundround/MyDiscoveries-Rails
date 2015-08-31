@@ -31,11 +31,9 @@
                 </a>
                 <img src="<%= @place.country ? asset_path('flags/' + @place.country.country_code.downcase + '.png') : "" %>" class="img-resposive visible-xs country-flag" >
               </div>
-              <%= render 'layouts/search_input' %>
-              <!-- <div class="search-wrapper">
 
-                <div class="search-sidebar"></div>
-              </div> -->
+              <%= render 'layouts/search_input' %>
+
               <div class="col-xs-12 text-center">
                 <h1 class="br_top_heading hidden-xs">
                   <%= @place.display_name %>
