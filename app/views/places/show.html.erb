@@ -8,6 +8,7 @@
 <div class="area-content br_place_page" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
   <div class="container-fluid br_area">
         <div class="row">
+
           <div class="col-xs-6 hidden-xs">
             <img src="<%= @place.country ? asset_path('flags/' + @place.country.country_code.downcase + '.png') : "" %>" class="img-responsive country-flag" />
             <!-- <a href="#" class="br_view_cont">
@@ -31,9 +32,7 @@
                 </a>
                 <img src="<%= @place.country ? asset_path('flags/' + @place.country.country_code.downcase + '.png') : "" %>" class="img-resposive visible-xs country-flag" >
               </div>
-
-              <%= render 'layouts/search_input' %>
-
+              <%= render 'layouts/search_input'%>
               <div class="col-xs-12 text-center">
                 <h1 class="br_top_heading hidden-xs">
                   <%= @place.display_name %>
