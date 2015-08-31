@@ -129,6 +129,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def draft_content
+    @stories = Story.where(status: "draft")
+    @user_photos = UserPhoto.where.not('story_id IS NOT NULL').where(status: "draft")
+    @reviews = Review.where(status: "draft")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

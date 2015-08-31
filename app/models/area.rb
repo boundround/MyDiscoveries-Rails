@@ -28,6 +28,7 @@ class Area < ActiveRecord::Base
   has_many :user_photos
 
   has_many :photos
+  has_many :user_photos
 
   has_many :areas_users
   has_many :users, through: :areas_users

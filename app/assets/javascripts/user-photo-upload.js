@@ -53,7 +53,18 @@ $(function () {
     }
 
     $("#story_user_photos_attributes_0_path").change(function(){
-        storyPhotoRead(this, $('#story-image-preview-1'));
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#story-hero-preview').css('background', 'url(' + e.target.result + ') no-repeat');
+                $('#story-hero-preview').css('background-size', '100% 306px');
+                $('#story-upload-glyphicon').hide();
+                $('#story-hero-upload-button').html("+ Change feature image");
+            }
+
+            reader.readAsDataURL(this.files[0]);
+        }
     });
     $("#story_user_photos_attributes_1_path").change(function(){
         storyPhotoRead(this, $('#story-image-preview-2'));

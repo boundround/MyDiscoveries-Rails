@@ -123,8 +123,8 @@ module ApplicationHelper
   end
 
   def thumbnail_for(content)
-    if content.class.to_s == "Photo"
-      asset_path(content.path_url)
+    if content.class.to_s == "Photo" || content.class.to_s == "UserPhoto"
+      asset_path(content.path_url(:small))
     elsif content.class.to_s == "FunFact"
       asset_path(content.hero_photo_url)
     elsif content.class.to_s == "Game"

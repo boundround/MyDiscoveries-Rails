@@ -110,12 +110,13 @@ Rails.application.routes.draw do
   get '/users/videos' => 'users#videos'
   get '/users/places' => 'users#places'
   get '/users/fun_facts' => 'users#fun_facts'
+  get '/users/draft_content' => 'users#draft_content' # All User Uploaded Content in Draft
   resources :users
 
 
   resources :places do
     member { get 'preview' }
-    collection { get 'all_edited'}
+    collection { get 'all_edited'} # all place content in draft
     resources :photos
     resources :videos
     resources :discounts

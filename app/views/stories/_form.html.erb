@@ -6,24 +6,24 @@
           <div class="modal-content">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             <%= form_for [@storiable, @story], :html => { :id => "story-form" } do |f| %>
-              <div style="" class="img-cont share">
-                <div class="share-btn">
-                  <span class="glyphicon glyphicon-picture"></span><br>
-                  <div class="br_upload_2">
-                    <%= f.fields_for :user_photos do |ff| %>
-                      <button href="#" class="btn">+ Add feature image</button><br>
-                      <img id="story-image-preview-1" class="user-upload-image-preview" src="#" alt="Your Image" />
+              <%= f.fields_for :user_photos do |ff| %>
+                <div style="" id="story-hero-preview" class="img-cont share">
+                  <div class="share-btn">
+                    <span id="story-upload-glyphicon" class="glyphicon glyphicon-picture"></span><br>
+                    <div class="br_upload_2">
+                      <button id="story-hero-upload-button" href="#" class="btn">+ Add feature image</button>
                       <%= ff.file_field :path, label: false %>
                       <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
                       <%= ff.hidden_field :status, :value => "draft" %>
                       <%= ff.hidden_field :story_priority, :value => 1 %>
-                    <% end %>
+                    </div>
                   </div>
                 </div>
-            </div>
+              <% end %>
             <div class="br_form text-center">
               <%= f.text_field :title, class: "form-control text-center", placeholder: "What's the name of your story?" %>
               <%= f.text_area :content, class: "form-control text-center", placeholder: "Tell us your story!" %>
+              <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
             </div>
             <div class="br_mid text-center">
               <hr/>
