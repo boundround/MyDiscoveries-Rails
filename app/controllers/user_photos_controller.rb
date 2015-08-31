@@ -26,7 +26,7 @@ class UserPhotosController < ApplicationController
   def create
     @user_photo = UserPhoto.new(user_photo_params)
     if @user_photo.save
-      redirect_to @place_or_area, notice: "Photo added!"
+      redirect_to @place_or_area, notice: "Thanks for the photo. We'll let you know when others can see it too!"
     else
       render :new
     end

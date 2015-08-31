@@ -32,6 +32,15 @@ module ApplicationHelper
     end
   end
 
+  def extract_domain(url)
+    if url.index("://")
+      domain = url.split('/')[2]
+    else
+      domain = url.split('/')[0]
+    end
+    domain = domain.split(':')[0]
+  end
+
   def age(dob)
     now = Time.now.utc.to_date
     now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)

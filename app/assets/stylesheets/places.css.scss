@@ -6,6 +6,18 @@
   max-height: 250px;
 }
 
+#image-preview {
+  display: none;
+}
+
+#story-image-preview-2 {
+  display: none;
+}
+
+#image-preview-3 {
+  display: none;
+}
+
 .place-logo {
   width: 80px;
 }
@@ -773,7 +785,18 @@ a,button,button:focus,button:active{
   margin-left: -15px;
   margin-right: -15px;
   padding: 5px 0px;
+  background-image: none;
 }
+
+.br_navbar {
+  background-color: #fd7e56;
+  border: none;
+  margin-left: -15px;
+  margin-right: -15px;
+  padding: 5px 0px;
+  background-image: none;
+}
+
 .br_area  .navbar-default .navbar-toggle .icon-bar {
   background-color: #fff;
 }

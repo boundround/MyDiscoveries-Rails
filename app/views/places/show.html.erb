@@ -59,29 +59,29 @@
 
                     <% unless @place.booking_url.blank? %>
                       <a href="<%= @place.booking_url %>" target="blank" class="btn btn-default">Book now!</a>
+                    <% else %>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <% end %>
                   </li>
                   <li class="hero-hearts">
                     <% if @place.quality_average %>
-                      Rate this place<br>
-                      <% if user_signed_in? %>
-                        <a href="#" class="" data-toggle="modal" data-target="#myModal3">
-                          <%= raw show_place_rating(@place) %> (<%= @place.quality_average.qty %>)
-                        </a>
-                      <% else %>
-                        <a href="#" onclick="alertSignIn()">
-                          <%= raw show_place_rating(@place) %> (<%= @place.quality_average.qty %>)
-                        </a>
-                      <% end %>
-                    <% else %>
-                        Be the first to rate this place!<br>
                       <% if user_signed_in? %>
                         <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
-                          <i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i>
+                          <%= rating_for (@place ? @place : @area), "quality", :read_only => true %>
                         </a>
                       <% else %>
                         <a href="#" class="no-anchor-decoration" onclick="alertSignIn()">
-                          <i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i>
+                          <%= rating_for (@place ? @place : @area), "quality", :read_only => true %>
+                        </a>
+                      <% end %>
+                    <% else %>
+                      <% if user_signed_in? %>
+                        <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
+                          <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+                        </a>
+                      <% else %>
+                        <a href="#" class="no-anchor-decoration" onclick="alertSignIn()">
+                          <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
                         </a>
                       <% end %>
                     <% end %>
@@ -102,17 +102,18 @@
                     <a href="#info">Info</a>
                   </li>
                   <li>
-                    <a href="#top5">Top 5 Places</a>
-                  </li>
-                  <li>
                     <a href="#stories">Stories</a>
                   </li>
-                  <li>
-                    <a href="#games">Games</a>
-                  </li>
+                  <% if !@place.games.blank? %>
+                    <li>
+                      <a href="#games">Games</a>
+                    </li>
+                  <% end %>
+                  <% if !@place.fun_facts.blank? %>
                   <li>
                     <a href="#fun-facts">Fun Facts</a>
                   </li>
+                  <% end %>
                   <li>
                     <a href="#featured-places">Featured Places</a>
                   </li>
@@ -127,16 +128,14 @@
                 <a href="#" class="br_Activity_btn visible-xs">Activity details <span class="caret"></span></a>
                 <div class="br_info_mob ">
                     <p>
-                      <label>Rating:</label><br/>
+                      <label>Bound Round Rating:</label>
                         <% if @place.quality_average %>
-                          Rate this place<br>
-                          <a href="#" class=""data-toggle="modal" data-target="#myModal3">
-                            <%= raw show_place_rating(@place) %>
+                          <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
+                            <%= rating_for (@place ? @place : @area), "quality", :read_only => true %>
                           </a> (<%= @place.quality_average.qty %>)
                         <% else %>
-                          Be the first to rate this place!<br>
                           <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
-                            <i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i>
+                            <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
                           </a>
                         <% end %>
                       <br/>
@@ -230,27 +229,24 @@
                      <a href="#">Visit the Trip Adisor page for <%= @place.display_name %></a>
                   </div>
                   <div class="col-sm-6 br_detail">
-                    <h2>Place details</h2>
-                    <label>Rating:</label> &nbsp;
-                      <span>
+                    <h2>Bound Round Rating & Details</h2>
+                      <label>Rating:</label><span>
                         <% if @place.quality_average %>
-                          Rate this place<br>
-                          <a href="#" class=""data-toggle="modal" data-target="#myModal3">
-                            <%= raw show_place_rating(@place) %>
+                          <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
+                            <%= rating_for (@place ? @place : @area), "quality", :read_only => true %>
                           </a> (<%= @place.quality_average.qty %>)
                         <% else %>
-                          Be the first to rate this place!<br>
                           <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
-                            <i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i><i class="fa fa-heart-o"></i>
+                            <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
                           </a>
                         <% end %>
-                      </span><br/>
-
+                      </span>
+                      <br/>
                       <label>Address:</label> &nbsp;
                       <span><%= @place.display_address %></span><br/>
                       <label>Phone:</label>  <span><%= @place.phone_number %></span><br/>
                       <label>Website:</label> &nbsp;
-                      <span><a href="<%= @place.website %>" target="blank"><%= @place.website %></a></span><br/>
+                      <span><a href="<%= @place.website %>" target="blank"><%= extract_domain(@place.website) %></a></span><br/>
 
                       <!-- <label>Email:</label> &nbsp;
                       <span><a href="#">contact@ncaventurepark.com.au</a></span><br/> -->
@@ -262,123 +258,78 @@
                 </div>
               </div>
             </div>
-            <a name="games"></a>
-            <div class="row br_games">
-              <div class="col-md-12 text-center">
-                    <h2 class="">Some activities <span class="hidden-xs">for you!</span></h2>
-                    <ul class="list-unstyled hidden-xs text-center">
-                      <% @place.games.each do |game| %>
-                        <% if game.game_type == "jigsaw puzzle" %>
-                          <li>
-                            <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                              <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw Puzzle</span>
-                              <span class="arrow"></span>
-                            </a>
-                          </li>
-                        <% elsif game.game_type == "word search" %>
-                          <li class="">
-                            <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                             <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word Search</span>
-                             <span class="arrow"></span>
-                           </a>
-                         </li>
-                         <% elsif game.game_type == "slider" %>
-                          <li class="">
-                            <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                             <i class="fa fa-table"></i><br><span class=" hidden-sm hidden-xs">Slider Puzzle</span>
-                             <span class="arrow"></span>
-                           </a>
-                         </li>
+            <% if !@place.games.blank? %>
+              <a name="games"></a>
+              <div class="row br_games">
+                <div class="col-md-12 text-center">
+                      <h2 class="">Some activities <span class="hidden-xs">for you!</span></h2>
+                      <ul class="list-unstyled hidden-xs text-center">
+                        <% @place.games.each do |game| %>
+                          <% if game.game_type == "jigsaw puzzle" %>
+                            <li>
+                              <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                                <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw Puzzle</span>
+                                <span class="arrow"></span>
+                              </a>
+                            </li>
+                          <% elsif game.game_type == "word search" %>
+                            <li class="">
+                              <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                               <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word Search</span>
+                               <span class="arrow"></span>
+                             </a>
+                           </li>
+                           <% elsif game.game_type == "slider" %>
+                            <li class="">
+                              <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                               <i class="fa fa-table"></i><br><span class=" hidden-sm hidden-xs">Slider Puzzle</span>
+                               <span class="arrow"></span>
+                             </a>
+                           </li>
+                         <% end %>
                        <% end %>
-                     <% end %>
-                     <!-- <li class="">
+                       <!-- <li class="">
+                        <a href="#">
+                         <i class="fa fa-question"></i><br><span class=" hidden-sm hidden-xs">Quiz</span>
+                         <span class="arrow"></span>
+                       </a>
+                     </li>
+                     <li class="">
                       <a href="#">
-                       <i class="fa fa-question"></i><br><span class=" hidden-sm hidden-xs">Quiz</span>
-                       <span class="arrow"></span>
-                     </a>
-                   </li>
-                   <li class="">
-                    <a href="#">
-                      <i class="fa fa-ticket"></i><br><span class="hidden-sm hidden-xs">Postcard</span>
-                      <span class="arrow"></span>
-                    </a>
-                  </li> -->
-                  <li class="">
-                    <a href="#">
-                     <i class="fa fa-question-circle"></i><br><span class="hidden-xs hidden-sm">Open question</span>
-                     <span class="arrow"></span>
-                   </a>
-                 </li>
-               </ul>
-               <select class="selectpicker visible-xs center-block">
-                <% @place.games.each do |game| %>
-                  <% if game.game_type == "jigsaw puzzle" %>
-                    <option>
-                      <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                        <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw puzzle</span>
+                        <i class="fa fa-ticket"></i><br><span class="hidden-sm hidden-xs">Postcard</span>
                         <span class="arrow"></span>
                       </a>
-                    </option>
-                  <% elsif game.game_type == "word search" %>
-                    <option class="">
-                      <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                       <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word search</span>
-                       <span class="arrow"></span>
-                     </a>
-                   </option>
-                   <% elsif game.game_type == "slider" %>
-                    <option class="">
-                      <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                       <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Slider</span>
-                       <span class="arrow"></span>
-                     </a>
-                    </option>
-                  <% end %>
-                <% end %>
-               </select>
-              </div>
-            </div>
-            <a name="top5"></a>
-            <div class="row br_top_5">
-              <div class="col-md-12 ">
-                <h2 class="text-center">Top 5 places <span>in this area!</span></h2>
-              </div>
-              <div class="col-md-12">
-                <div class="br_top_5_slider">
-                  <div class="owl-carousel">
-                    <% @top_places.each do |place| %>
-                      <div>
-                        <a href="<%= place_path(place) %>" class="no-anchor-decoration">
-                          <div class="br_top_place">
-                            <div class="br_place_top">
-                              <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
-                            </div>
-                            <div class="br_place_mid">
-                              <h4><%= place.display_name %></h4>
-                            </div>
-                            <div class="br_place_footer">
-                              <ul class="list-unstyled">
-                                <li>
-                                  <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
-                                </li>
-                                <li>
-                                  <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
-                                </li>
-                                <li>
-                                  <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
-                                </li>
-                              </ul>
-                            </div>
-                            <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
-                            <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                          </div>
+                    </li> -->
+                 </ul>
+                 <select class="selectpicker visible-xs center-block">
+                  <% @place.games.each do |game| %>
+                    <% if game.game_type == "jigsaw puzzle" %>
+                      <option>
+                        <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                          <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw puzzle</span>
+                          <span class="arrow"></span>
                         </a>
-                      </div>
-                    <% end%>
-                  </div>
+                      </option>
+                    <% elsif game.game_type == "word search" %>
+                      <option class="">
+                        <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                         <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word search</span>
+                         <span class="arrow"></span>
+                       </a>
+                     </option>
+                     <% elsif game.game_type == "slider" %>
+                      <option class="">
+                        <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                         <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Slider</span>
+                         <span class="arrow"></span>
+                       </a>
+                      </option>
+                    <% end %>
+                  <% end %>
+                 </select>
                 </div>
               </div>
-            </div>
+            <% end %>
             <!-- DISCOUNTS GO HERE -->
             <!-- <div class="row br_featured_place ">
               <div class="col-md-12 br_place_bg">
@@ -400,8 +351,10 @@
             <div class="row  br_place_or_story">
               <%= render 'stories/all_stories' %>
             </div>
-            <a name="fun-facts"></a>
-            <%= render 'fun_facts/all_fun_facts' %>
+            <% if !@place.fun_facts.blank? %>
+              <a name="fun-facts"></a>
+              <%= render 'fun_facts/all_fun_facts' %>
+            <% end %>
             <a name="reviews"></a>
             <div class="row br_reviews">
               <div class="col-md-12 text-center">

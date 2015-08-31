@@ -8,6 +8,16 @@ $(function () {
                     data.context = $('<p/>').text('Uploading...').replaceAll($(this));
                     data.submit();
                 });
+
+            if (data.files && data.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image-preview').show().attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(data.files[0]);
+            }
         },
         progress: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
@@ -28,7 +38,7 @@ $(function () {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#image-preview').attr('src', e.target.result);
+                $('#image-preview').show().attr('src', e.target.result);
             }
 
             reader.readAsDataURL(input.files[0]);
@@ -39,12 +49,13 @@ $(function () {
         readURL(this);
     });
 
-    function storyPhotoRead(input, previewElement) {
+    var storyPhotoRead = function(input, previewElement) {
 
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
+                previewElement.show();
                 previewElement.attr('src', e.target.result);
             }
 
