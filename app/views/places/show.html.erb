@@ -31,19 +31,7 @@
                 </a>
                 <img src="<%= @place.country ? asset_path('flags/' + @place.country.country_code.downcase + '.png') : "" %>" class="img-resposive visible-xs country-flag" >
               </div>
-              <div class="col-xs-12">
-                <div class="br_search_box">
-                  <div class="input-group text-center">
-                    <input class="search-box form-control" placeholder="Where do you want to explore?"><i class="spinner search-spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i></input>
-                    <!-- <input type="text" class="form-control" placeholder="Placeholder"> -->
-                    <span class="input-group-btn">
-                        <button class="btn" type="button">
-                            <span class="fa fa-search" aria-hidden="true"></span>
-                        </button>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <%= render 'layouts/search_input' %>
               <!-- <div class="search-wrapper">
 
                 <div class="search-sidebar"></div>
@@ -221,7 +209,7 @@
                                 <% end %>
                                 <% if user_signed_in? %>
                                   <% current_user.user_photos.draft.where(place_id: @place.id).each do |photo| %>
-                                    <% index = @videos_photos.length + @user_photos.length %>
+                                    <% index = @videos_photos.length + @active_user_photos.length %>
                                     <div class="carousel-item br_16">
                                       <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
                                     </div>

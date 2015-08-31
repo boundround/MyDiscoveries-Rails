@@ -15,16 +15,16 @@
       <style>
         #story-<%= index %> {
           background:url('<%= story.user_photos.first.path_url(:small) %>') no-repeat;
-          background-size: cover;
-          background-size: 100% 228px;
+          background-size: 100% 420px;
         }
       </style>
       <div class="br_story bg" id="story-<%= index %>">
                 <h3><%= story.title %></h3>
                 <p>
-                    <%= story.content %>
+                    <%= story.content[0..280] %><%= "..." if story.content.length > 280 %>
                 </p>
                 <a href="#" class="br_read_more">Read story</a>
+                <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
         </div>
     </div>
   <% else %>
@@ -40,13 +40,37 @@
     </div>
   <% end %>
 <% end %>
-<!-- Story with background image -->
-<!-- <div class="col-sm-12 col-md-6">
-  <div class="br_story bg">
-    <h3>The day I met a lion with Pete the trainer from Taronga Zoo!</h3>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id lda. Aenean non tortor id leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. non tortor id leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus purus quis tellus
-    </p>
-    <a href="#" class="br_read_more">Read story</a>
+
+<div  class="modal fade" id="storyModal">
+  <div class="text-center">
+    <img src="<%= asset_path('Badge.png') %>"/><br/>
+  </div><br/><br/>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div style="" id="story-hero-preview" class="img-cont share">
+        <div class="br_upload_2">
+        </div>
+      </div>
+      <div class="br_form text-center">
+        Title
+        Body
+      </div>
+      <div class="br_mid text-center">
+        <hr/>
+        <div class="br_upload_2">
+            <img id="story-image-preview-2" class="user-upload-image-preview" src="#" alt="Your Image" />
+         </div>
+        <hr/>
+        <div class="br_upload_2">
+          <img id="story-image-preview-3" class="user-upload-image-preview" src="#" alt="Your Image" />
+        </div>
+      </div>
+      <hr/>
+      <div class="br_modal-footer text-center">
+        <a href="#" data-dismiss="modal" aria-label="Close" >Close</a>
+      </div>
+    </div>
   </div>
-</div> -->
+    </div><!-- /.modal-content -->
+  </div>
+</div>

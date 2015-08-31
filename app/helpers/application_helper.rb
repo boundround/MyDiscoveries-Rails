@@ -23,7 +23,7 @@ module ApplicationHelper
 
   def get_random_place_photo(place)
     if place.photos.length > 0
-      photo = place.photos[rand(0..place.photos.length)]
+      photo = place.photos[rand(0...place.photos.length)]
       if photo
         photo.path_url(:small)
       end
