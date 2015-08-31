@@ -429,29 +429,31 @@
                   <div class="owl-carousel">
                     <% @nearby_places.each do |place| %>
                       <div>
-                        <div class="br_top_place">
-                          <div class="br_place_top">
-                            <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                        <a href="<%= place_path(place) %>" class="no-anchor-decoration">
+                          <div class="br_top_place">
+                            <div class="br_place_top">
+                              <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                            </div>
+                            <div class="br_place_mid">
+                              <h4><%= place.display_name %></h4>
+                            </div>
+                            <div class="br_place_footer">
+                              <ul class="list-unstyled">
+                                <li>
+                                  <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
+                                </li>
+                                <li>
+                                  <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
+                                </li>
+                                <li>
+                                  <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
+                                </li>
+                              </ul>
+                            </div>
+                            <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
+                            <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
                           </div>
-                          <div class="br_place_mid">
-                            <h4><%= place.display_name %></h4>
-                          </div>
-                          <div class="br_place_footer">
-                            <ul class="list-unstyled">
-                              <li>
-                                <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
-                              </li>
-                              <li>
-                                <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
-                              </li>
-                              <li>
-                                <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
-                              </li>
-                            </ul>
-                          </div>
-                          <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
-                          <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                        </div>
+                        </a>
                       </div>
                     <% end%>
                   </div>
@@ -467,29 +469,31 @@
                   <div class="owl-carousel">
                     <% @similar_places.each do |place| %>
                       <div>
-                        <div class="br_top_place">
-                          <div class="br_place_top">
-                            <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                        <a href="<%= place_path(place) %>" class="no-anchor-decoration">
+                          <div class="br_top_place">
+                            <div class="br_place_top">
+                              <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                            </div>
+                            <div class="br_place_mid">
+                              <h4><%= place.display_name %></h4>
+                            </div>
+                            <div class="br_place_footer">
+                              <ul class="list-unstyled">
+                                <li>
+                                  <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
+                                </li>
+                                <li>
+                                  <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
+                                </li>
+                                <li>
+                                  <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
+                                </li>
+                              </ul>
+                            </div>
+                            <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
+                            <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
                           </div>
-                          <div class="br_place_mid">
-                            <h4><%= place.display_name %></h4>
-                          </div>
-                          <div class="br_place_footer">
-                            <ul class="list-unstyled">
-                              <li>
-                                <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
-                              </li>
-                              <li>
-                                <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
-                              </li>
-                              <li>
-                                <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
-                              </li>
-                            </ul>
-                          </div>
-                          <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
-                          <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
-                        </div>
+                        </a>
                       </div>
                     <% end%>
                   </div>
