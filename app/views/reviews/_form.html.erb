@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
         <h2 class="text-center">Leave a review</h2>
         <h3 class="text-center">
-          <% if @reviewable.can_rate?(current_user, "quality")%>
+          <% if user_signed_in? && @reviewable.can_rate?(current_user, "quality") %>
             Rate this place
             <%= rating_for (@place ? @place : @area), "quality", :disable_after_rate => false %>
           <% else %>
