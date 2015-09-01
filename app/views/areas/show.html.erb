@@ -64,12 +64,16 @@
                   <li>
                     <a href="#stories">Stories</a>
                   </li>
-                  <li>
-                    <a href="#games">Games</a>
-                  </li>
-                  <li>
-                    <a href="#fun-facts">Fun Facts</a>
-                  </li>
+                  <% if !@area.games.blank? %>
+                    <li>
+                      <a href="#games">Games</a>
+                    </li>
+                  <% end %>
+                  <% if !@area.fun_facts.blank? %>
+                    <li>
+                      <a href="#fun-facts">Fun Facts</a>
+                    </li>
+                  <% end %>
                   <li>
                     <a href="#featured-places">Featured Places</a>
                   </li>
@@ -147,70 +151,66 @@
 
               </div>
             </div>
-            <a name="games"></a>
-            <div class="row br_games">
-              <div class="col-md-12 text-center">
-                <h2 class="">Some activities <span class="hidden-xs">for you!</span></h2>
-                  <ul class="list-unstyled hidden-xs text-center">
-                    <% @area.games.each do |game| %>
-                      <% if game.game_type == "jigsaw puzzle" %>
-                        <li>
-                          <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                            <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw Puzzle</span>
-                            <span class="arrow"></span>
-                          </a>
-                        </li>
-                      <% elsif game.game_type == "word search" %>
-                        <li class="">
-                          <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                           <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word Search</span>
-                           <span class="arrow"></span>
-                         </a>
-                       </li>
-                       <% elsif game.game_type == "slider" %>
-                        <li class="">
-                          <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                           <i class="fa fa-table"></i><br><span class=" hidden-sm hidden-xs">Slider Puzzle</span>
-                           <span class="arrow"></span>
-                         </a>
-                       </li>
+            <% if !@area.games.blank? %>
+              <a name="games"></a>
+              <div class="row br_games">
+                <div class="col-md-12 text-center">
+                  <h2 class="">Some activities <span class="hidden-xs">for you!</span></h2>
+                    <ul class="list-unstyled hidden-xs text-center">
+                      <% @area.games.each do |game| %>
+                        <% if game.game_type == "jigsaw puzzle" %>
+                          <li>
+                            <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                              <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw Puzzle</span>
+                              <span class="arrow"></span>
+                            </a>
+                          </li>
+                        <% elsif game.game_type == "word search" %>
+                          <li class="">
+                            <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                             <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word Search</span>
+                             <span class="arrow"></span>
+                           </a>
+                         </li>
+                         <% elsif game.game_type == "slider" %>
+                          <li class="">
+                            <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                             <i class="fa fa-table"></i><br><span class=" hidden-sm hidden-xs">Slider Puzzle</span>
+                             <span class="arrow"></span>
+                           </a>
+                         </li>
+                       <% end %>
                      <% end %>
-                   <% end %>
-                  <li class="">
-                    <a href="#">
-                     <i class="fa fa-question-circle"></i><br><span class="hidden-xs hidden-sm">Open question</span>
-                     <span class="arrow"></span>
-                   </a>
-                 </li>
-               </ul>
-               <select class="selectpicker visible-xs center-block">
-                <% @area.games.each do |game| %>
-                  <% if game.game_type == "jigsaw puzzle" %>
-                    <option>
-                      <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                        <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw puzzle</span>
-                        <span class="arrow"></span>
-                      </a>
-                    </option>
-                  <% elsif game.game_type == "word search" %>
-                    <option class="">
-                      <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                       <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word search</span>
-                       <span class="arrow"></span>
-                     </a>
-                   </option>
-                   <% elsif game.game_type == "slider" %>
-                    <option class="">
-                      <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                       <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Slider</span>
-                       <span class="arrow"></span>
-                     </a>
-                    </option>
+                 </ul>
+                 <select class="selectpicker visible-xs center-block">
+                  <% @area.games.each do |game| %>
+                    <% if game.game_type == "jigsaw puzzle" %>
+                      <option>
+                        <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                          <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw puzzle</span>
+                          <span class="arrow"></span>
+                        </a>
+                      </option>
+                    <% elsif game.game_type == "word search" %>
+                      <option class="">
+                        <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                         <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word search</span>
+                         <span class="arrow"></span>
+                       </a>
+                     </option>
+                     <% elsif game.game_type == "slider" %>
+                      <option class="">
+                        <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                         <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Slider</span>
+                         <span class="arrow"></span>
+                       </a>
+                      </option>
+                    <% end %>
                   <% end %>
-                <% end %>
-               </select>
+                 </select>
+                </div>
               </div>
-            </div>
+            <% end %>
             <a name="top5"></a>
             <div class="row br_top_5">
               <div class="col-md-12 ">
@@ -273,8 +273,10 @@
             <div class="row  br_place_or_story">
               <%= render 'stories/all_stories' %>
             </div>
-            <a name="fun-facts"></a>
-            <%= render 'fun_facts/all_fun_facts' %>
+            <% if !@area.fun_facts.blank? %>
+              <a name="fun-facts"></a>
+              <%= render 'fun_facts/all_fun_facts' %>
+            <% end %>
             <a name="reviews"></a>
             <div class="row br_reviews">
               <div class="col-md-12 text-center">

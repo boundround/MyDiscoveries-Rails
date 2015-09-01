@@ -33,10 +33,13 @@ module ApplicationHelper
   end
 
   def extract_domain(url)
-    if url.index("://")
-      domain = url.split('/')[2]
-    else
-      domain = url.split('/')[0]
+    domain = ""
+    if url
+      if url.index("://")
+        domain = url.split('/')[2]
+      else
+        domain = url.split('/')[0]
+      end
     end
     domain = domain.split(':')[0]
   end
