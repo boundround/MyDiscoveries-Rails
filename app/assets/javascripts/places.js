@@ -73,7 +73,7 @@
         e.preventDefault();
          setTimeout(function(){
           $('#story .img-cont').keepRatio({
-              ratio: 16/6,
+              ratio: 4/3,
               calculate: 'height' // height or width
               });
 

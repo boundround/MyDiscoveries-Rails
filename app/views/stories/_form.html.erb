@@ -7,7 +7,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             <%= form_for [@storiable, @story], :html => { :id => "story-form" } do |f| %>
               <%= f.fields_for :user_photos do |ff| %>
-                <div style="" id="story-hero-preview" class="img-cont share">
+                <div style="" id="story-image-preview" class="img-cont share">
                   <div class="share-btn">
                     <span id="story-upload-glyphicon" class="glyphicon glyphicon-picture"></span><br>
                     <div class="br_upload_2">

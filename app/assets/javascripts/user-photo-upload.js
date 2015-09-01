@@ -19,16 +19,25 @@ $(function () {
             reader.readAsDataURL(data.files[0]);
             }
         },
-        progress: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .bar').css('width', progress + '%');
+        send: function(){
+            $('#myModal').modal("hide");
+            $('.loader-bound-round').show();
+            // $('#image-preview').attr('src', "#").hide();
+            // $('#user-photo-upload-button').html("");
+            // var message = "Thanks for your photo! We'll let you know when others can see it too.";
+            // $('.alert-wrapper').html('<div class="alert alert-info fade in"><button class="close" data-dismiss="alert">×</button>' + message + '</div>');
+            // var newImage = '<div class="carousel-item br_16"><img src="' + imageData +
+            //     '" class="img-resposive carousel-country-photo" data-slide-number="' + $('.carousel-item').length +
+            //     '"></div>';
+            // $('.owl-carousel').append(newImage);
         },
         done: function (e, data) {
-            data.context.text('Upload finished.');
-            $('#progress .bar').css('width', '0%');
-            $('#image-preview').attr('src', "#");
-            $('#user-photo-upload-button').html("");
-            $('#myModal').modal("hide");
+            // data.context.text('Upload finished.');
+            // $('#progress .bar').css('width', '0%');
+            // $('#image-preview').attr('src', "#");
+            // $('#user-photo-upload-button').html("");
+            // $('#myModal').modal("hide");
+            location.reload();
         }
     });
 
@@ -49,38 +58,47 @@ $(function () {
         readURL(this);
     });
 
-    var storyPhotoRead = function(input, previewElement) {
-
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                previewElement.show();
-                previewElement.attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
     $("#story_user_photos_attributes_0_path").change(function(){
         if (this.files && this.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#story-hero-preview').css('background', 'url(' + e.target.result + ') no-repeat');
-                $('#story-hero-preview').css('background-size', '100% 306px');
+                console.log("ADDING FIRST PHOTO");
+                $('#story-image-preview').css('background', 'url(' + e.target.result + ') no-repeat');
+                $('#story-image-preview').css('background-size', '100% 500px');
                 $('#story-upload-glyphicon').hide();
                 $('#story-hero-upload-button').html("+ Change feature image");
+                //$('#story-hero-preview').css('background', 'url(https://d1w99recw67lvf.cloudfront.net/user_avatars/15/mod-target.jpg) no-repeat');
             }
 
             reader.readAsDataURL(this.files[0]);
         }
     });
-    $("#story_user_photos_attributes_1_path").change(function(){
-        storyPhotoRead(this, $('#story-image-preview-2'));
-    });
-    $("#story_user_photos_attributes_2_path").change(function(){
-        storyPhotoRead(this, $('#story-image-preview-3'));
-    });
+
+    // $('#story-form').fileupload({
+    //     dataType: 'json',
+    //     add: function (e, data) {
+    //         if (data.files && data.files[0]) {
+    //         var reader = new FileReader();
+
+    //         reader.onload = function (e) {
+    //             console.log("ADDING FIRST PHOTO");
+    //             $('#story-image-preview').css('background', 'url(' + e.target.result + ') no-repeat');
+    //             $('#story-image-preview').css('background-size', '100% 500px');
+    //             $('#story-upload-glyphicon').hide();
+    //             $('#story-hero-upload-button').html("+ Change feature image");
+    //         }
+
+    //         reader.readAsDataURL(data.files[0]);
+    //         }
+    //     },
+    //     send: function(){
+    //         $('#story').modal("hide");
+    //         $('.loader-bound-round').show();
+    //     },
+    //     done: function (e, data) {
+    //         location.reload();
+    //     }
+    // });
+
 });

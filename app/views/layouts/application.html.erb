@@ -26,12 +26,14 @@
 	  <%= render "/layouts/ga" %>
 	</head>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
+	<div class="loader-container loader-bound-round"></div>
     <% flash.each do |type, message| %>
     <div class="alert <%= bootstrap_class_for(type) %> fade in">
       <button class="close" data-dismiss="alert">×</button>
       <%= message %>
     </div>
 	<% end %>
+	<div class="alert-wrapper"></div>
 		<% if user_signed_in? %>
 		  <% if current_user.try(:admin) || current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.has_role?("contributor") %>
 		    <nav class="navbar navbar-default" role="navigation">
@@ -106,6 +108,34 @@
 	  </div>
 	  <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 	  <%= javascript_include_tag 'froogaloop' %>
+	  <script>
+		var id = 'loader', fill = '#FFF',
+		      size = 20, radius = 3, duration = 1000,
+		      maxOpacity = 0.9, minOpacity = 0.15;
+		  $('<svg id="'+id+'" width="'+(size*3.5)+'" height="'+size+'">' +
+		        '<rect width="'+size+'" height="'+size+'" x="0" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+		            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" repeatCount="indefinite"/>' +
+		        '</rect>' +
+		        '<rect width="'+size+'" height="'+size+'" x="'+(size*1.25)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+		            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/4)+'ms" repeatCount="indefinite"/>' +
+		        '</rect>' +
+		        '<rect width="'+size+'" height="'+size+'" x="'+(size*2.5)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+		            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/2)+'ms" repeatCount="indefinite"/>' +
+		        '</rect>' +
+		    '</svg>').appendTo('.loader-container');
+		</script>
+	  <script>
+
+    // $(window).load(function(){
+    //     setTimeout(function(){
+    //          $('.loader-container').fadeOut(800);
+    //      },100);
+
+    // })
+
+
+
+    </script>
 	</body>
 
 

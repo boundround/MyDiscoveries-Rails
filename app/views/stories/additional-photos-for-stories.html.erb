@@ -1,0 +1,27 @@
+<div style="display: none;">
+  <!-- For additional photos -->
+    <div class="br_mid text-center">
+      <hr/>
+      <div class="br_upload_2">
+        <%= f.fields_for :user_photos do |ff| %>
+          <button href="#" class="btn">+ Add a second image</button><br>
+          <img id="story-image-preview-2" class="user-upload-image-preview" src="#" alt="Your Image" />
+          <%= ff.file_field :path, label: false %>
+          <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+          <%= ff.hidden_field :status, :value => "draft" %>
+          <%= ff.hidden_field :story_priority, :value => 1 %>
+        <% end %>
+       </div>
+      <hr/>
+      <div class="br_upload_2">
+        <%= f.fields_for :user_photos do |ff| %>
+          <button href="#" class="btn">+ Add a third image</button><br>
+          <img id="story-image-preview-3" class="user-upload-image-preview" src="#" alt="Your Image" />
+          <%= ff.file_field :path, label: false %>
+          <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+          <%= ff.hidden_field :status, :value => "draft" %>
+          <%= ff.hidden_field :story_priority, :value => 1 %>
+        <% end %>'
+      </div>
+    </div>
+</div>

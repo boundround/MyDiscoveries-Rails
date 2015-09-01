@@ -626,8 +626,11 @@ window.onload = function() {
             }
           });
 
-          $('.search-sidebar').on('click', function(){
-            $('#search-box').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item: data[0]});
+          $('.search-button').on('click', function(){
+            var e = $.Event('keypress');
+            e.which = 13; // Character 'A'
+            $(this).trigger(e);
+            // $('#search-box').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item: data[0]});
           });
         },
         complete: function(){

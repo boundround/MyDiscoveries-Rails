@@ -200,14 +200,16 @@
                                     </div>
                                   <% end %>
                                 <% end %>
-                                <% @active_user_photos.each_with_index do |photo| %>
+                                <% index = @videos_photos.length %>
+                                <% @active_user_photos.each do |photo| %>
                                   <div class="carousel-item br_16">
-                                      <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
-                                    </div>
+                                    <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
+                                  </div>
+                                  <% index += 1 %>
                                 <% end %>
                                 <% if user_signed_in? %>
+                                  <% index = @videos_photos.length + @active_user_photos.length %>
                                   <% current_user.user_photos.draft.where(place_id: @place.id).each do |photo| %>
-                                    <% index = @videos_photos.length + @active_user_photos.length %>
                                     <div class="carousel-item br_16">
                                       <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
                                     </div>

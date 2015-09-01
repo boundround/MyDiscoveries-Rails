@@ -167,7 +167,7 @@ window.onload = function() {
             }
           });
 
-          $('.search-sidebar').on('click', function(){
+          $('.search-button').on('click', function(){
             $('#search-box').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item: data[0]});
           });
         },
