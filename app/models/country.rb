@@ -36,6 +36,7 @@ class Country < ActiveRecord::Base
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :famous_faces, allow_destroy: true
   accepts_nested_attributes_for :info_bits, allow_destroy: true
+  accepts_nested_attributes_for :discounts, allow_destroy: true
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 
