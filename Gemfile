@@ -42,6 +42,8 @@ gem 'geocoder'
 
 gem 'ratyrate'
 
+gem 'ckeditor'
+
 gem 'authority'
 gem 'rolify'
 

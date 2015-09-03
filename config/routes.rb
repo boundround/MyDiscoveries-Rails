@@ -12,6 +12,7 @@ end
 
 Rails.application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
   post '/rate' => 'rater#create', :as => 'rate'
   constraints(SSConstraint.new) do
     get '/', to: 'places#programsearch', as: nil
