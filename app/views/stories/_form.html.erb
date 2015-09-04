@@ -5,43 +5,48 @@
             <%= form_for [@storiable, @story], :html => { :id => "story-form" } do |f| %>
               <%= f.fields_for :user_photos do |ff| %>
                 <div class="img-cont share">
+                  <div class="story-image-container" id="story-image-1-container">
+                    <img id="story-image-1" class="story-image-preview" src="#" alt="Your Image" />
+                  </div>
                   <div class="share-btn">
                     <a class="btn btn-default"><span class="glyphicon glyphicon-picture"></span>
-                        <br>Select Image To Upload
+                        <br>Click To Select Image
                         <%= ff.file_field :path, label: false %>
                       </a>
                       <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
                       <%= ff.hidden_field :status, :value => "draft" %>
                       <%= ff.hidden_field :story_priority, :value => 1 %>
-                    <img id="story-image-1" class="user-upload-image-preview-1" src="#" alt="Your Image" />
                   </div>
                 </div>
               <% end %>
             <div class="mid-cont">
               <h1 class="text-center">
-                <%= f.text_area :title, id: "story_headline", placeholder: "Story Title Goes Here" %>
+                <%= f.text_area :title, id: "story_headline", placeholder: "Story Title Goes Here", maxlength: 40 %>
               </h1>
               <h3 class="text-center">by <%= current_user.email if user_signed_in? %></h3>
 
               <div class="mid-cont">
-                <div class="pull-right side-img-cont z-up share">
-                  <div class="share-btn z-up">
+                <div class="pull-right side-img-cont share">
+                  <div class="story-image-container" id="story-image-2-container">
+                      <img id="story-image-2" class="story-image-preview" src="#" alt="Your Image" />
+                    </div>
+                  <div class="share-btn">
                     <%= f.fields_for :user_photos do |ff| %>
                       <a class="btn btn-default"><span class="glyphicon glyphicon-picture"></span>
-                        <br>Select Image To Upload
+                        <br>Click To Select Image
                         <%= ff.file_field :path, label: false %>
                       </a>
                       <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
                       <%= ff.hidden_field :status, :value => "draft" %>
                       <%= ff.hidden_field :story_priority, :value => 2 %>
-                      <img id="story-image-2" class="user-upload-image-preview-2" src="#" alt="Your Image" />
                     <% end %>
                   </div>
                 </div>
 
-                  <span class="text-cont" id="editor1" contenteditable="true" name="story[content]" role="textbox">
+                  <!-- <span class="text-cont" id="editor1" contenteditable="true" name="story[content]" role="textbox">
                     Replace this text with your story.
-                  </span>
+                  </span> -->
+                  <%= f.text_area :content, placeholder: "Write your story here.", maxlength: 500 %>
                   <div class="clearfix"></div>
                 <div class="slider-cont">
 
@@ -51,16 +56,18 @@
                            consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id leo consectetur euismod at sed metus. Vivamus sollicitudin ante sit amet arcu faucibus vulputate. Sed non libero odio, non viverra nisl. Vivamus et ligula lorem. Sed pellentesque tincidunt purus in imperdiet. Donec bibendum scelerisque cursus.
                        </p> -->
                       <div class="img-cont2 share z-up">
+                        <div class="story-image-container" id="story-image-3-container">
+                          <img id="story-image-3" class="story-image-preview" src="#" alt="Your Image" />
+                        </div>
                        <div class="share-btn">
                         <%= f.fields_for :user_photos do |ff| %>
                           <a class="btn btn-default"><span class="glyphicon glyphicon-picture"></span>
-                            <br>Select Image To Upload
+                            <br>Click To Select Image
                             <%= ff.file_field :path, label: false %>
                           </a>
                           <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
                           <%= ff.hidden_field :status, :value => "draft" %>
                           <%= ff.hidden_field :story_priority, :value => 2 %>
-                          <img id="story-image-3" class="user-upload-image-preview-3" src="#" alt="Your Image" />
                         <% end %>
 
                       </div>
@@ -69,15 +76,13 @@
                   </div>
                 </div>
               </div>
-
+              <hr/>
+              <div class="br_modal-footer text-center">
+                <%= f.submit "Publish story", class: "btn btn-lg" %>
+                <a href="#" data-dismiss="modal" aria-label="Close" >Cancel</a>
+              </div>
             </div>
           </div>
         <% end %>
       </div><!-- /.modal-content -->
     </div>
-    <style>
-      #story_headline {
-        width: 100%;
-        text-align: center;
-      }
-    </style>

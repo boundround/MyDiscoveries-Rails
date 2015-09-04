@@ -54,51 +54,41 @@ $(function () {
         }
     }
 
+    function storyReader(input, previewElement, container){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                console.log("ADDING FIRST PHOTO");
+                container.show();
+                previewElement.attr('src', e.target.result);
+                // previewDiv.html("");
+                //$('#story-hero-preview').css('background', 'url(https://d1w99recw67lvf.cloudfront.net/user_avatars/15/mod-target.jpg) no-repeat');
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+        $(input).parent().hide();
+        var conHeight = container.height();
+        var imgHeight = previewElement.height();
+        var gap = (imgHeight - conHeight) / 2;
+        previewElement.css("margin-top", (gap/2));
+    }
+
     $("#user_photo_path").change(function(){
         readURL(this);
     });
 
     $("#story_user_photos_attributes_0_path").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                console.log("ADDING FIRST PHOTO");
-                $('#story-image-preview').css('background', 'url(' + e.target.result + ') no-repeat');
-                $('#story-image-preview').css('background-size', '100% 500px');
-                $('#story-upload-glyphicon').hide();
-                $('#story-hero-upload-button').html("+ Change feature image");
-                //$('#story-hero-preview').css('background', 'url(https://d1w99recw67lvf.cloudfront.net/user_avatars/15/mod-target.jpg) no-repeat');
-            }
-
-            reader.readAsDataURL(this.files[0]);
-        }
+        storyReader(this, $('#story-image-1'), $('#story-image-1-container'));
     });
 
-    // $('#story-form').fileupload({
-    //     dataType: 'json',
-    //     add: function (e, data) {
-    //         if (data.files && data.files[0]) {
-    //         var reader = new FileReader();
+    $("#story_user_photos_attributes_1_path").change(function(){
+        storyReader(this, $('#story-image-2'), $('#story-image-2-container'));
+    });
 
-    //         reader.onload = function (e) {
-    //             console.log("ADDING FIRST PHOTO");
-    //             $('#story-image-preview').css('background', 'url(' + e.target.result + ') no-repeat');
-    //             $('#story-image-preview').css('background-size', '100% 500px');
-    //             $('#story-upload-glyphicon').hide();
-    //             $('#story-hero-upload-button').html("+ Change feature image");
-    //         }
-
-    //         reader.readAsDataURL(data.files[0]);
-    //         }
-    //     },
-    //     send: function(){
-    //         $('#story').modal("hide");
-    //         $('.loader-bound-round').show();
-    //     },
-    //     done: function (e, data) {
-    //         location.reload();
-    //     }
-    // });
+    $("#story_user_photos_attributes_2_path").change(function(){
+        storyReader(this, $('#story-image-3'), $('#story-image-3-container'));
+    });
 
 });

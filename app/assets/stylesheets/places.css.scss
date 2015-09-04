@@ -6,6 +6,39 @@
   max-height: 250px;
 }
 
+.portrait img {
+    width: 100%;
+}
+.landscape img {
+    height: 100%;
+}
+
+.story-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: none;
+  overflow: hidden;
+  min-height: 146px;
+}
+
+.story-image-container img {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+}
+
+#story_headline {
+  width: 100%;
+  text-align: center;
+}
+
+#story_content {
+  width: 100%;
+  min-height: 300px;
+}
+
 .overlay {
     height: 130px;
     background-color: rgba(0,0,0,0.1);
@@ -13,7 +46,7 @@
     margin-top: -136px;
 }
 
-#image-preview, #story-image-1, #story-image-2, #story-image-3 {
+#image-preview {
   display: none;
 }
 
@@ -2158,7 +2191,6 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
   }
 #storyModal .img-cont img,#storyModal .img-cont2 img{
   margin: 0px auto;
-  max-height: 100% !important;
 }
 #storyModal .mid-cont{
   max-width: 650px;
@@ -2182,6 +2214,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
   margin-bottom: 15px;
   margin-left: 15px;
   max-width: 50%;
+  min-width: 42%;
 }
 #storyModal .text-cont{
   color: #24201f;

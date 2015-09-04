@@ -21,7 +21,7 @@
       <div class="br_story bg" id="story-<%= index %>">
                 <h3><%= story.title %></h3>
                 <p>
-                    <%= story.content[0..280] %><%= "..." if story.content.length > 280 %>
+                    <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
                 </p>
                 <a href="#" class="br_read_more">Read story</a>
                 <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
