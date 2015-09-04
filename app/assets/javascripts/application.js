@@ -46,6 +46,8 @@
 //= require jquery.raty
 //= require ratyrate
 //= require user-photo-upload
+//= require ckeditor/init
+//= require ckeditor/config.js
 
 
 

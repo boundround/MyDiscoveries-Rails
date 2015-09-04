@@ -69,16 +69,31 @@
         });
 
     $('.br_games.selectpicker').selectpicker();
-    $('a[data-target=#story]').click(function(e){
+    $('a[data-target=#storyModal]').click(function(e){
         e.preventDefault();
          setTimeout(function(){
-          $('#story .img-cont').keepRatio({
-              ratio: 4/3,
+          $('#storyModal .img-cont').keepRatio({
+              ratio: 16/7,
               calculate: 'height' // height or width
               });
 
         },300);
+        setTimeout(function(){
+        //$('.mid-cont h1,#storyModal .slider-cont h4').editable();
+        //$('#myedit,#editor1').attr('contenteditable','true');
+        $('.img-cont').keepRatio({
+          ratio: 16/7,
+          calculate: 'height' // height or width
+          });
+           sizer($('.img-cont img'));
+           $('.img-cont2').keepRatio({
+          ratio: 4/3,
+          calculate: 'height' // height or width
+          });
+           sizer($('.img-cont2 img'));
+        },500);
       });
+
     $('.br_top_right').click(function(e){
         e.preventDefault();
         $(this).toggleClass('active');

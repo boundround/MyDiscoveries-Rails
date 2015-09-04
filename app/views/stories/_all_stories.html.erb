@@ -3,7 +3,7 @@
     Some stories from <%= @storiable.display_name %>
   </h2>
   <% if user_signed_in? %>
-    <a href="#" data-toggle="modal" data-target="#story" class="br_create_btn btn btn-default">+ Create story</a>
+    <a href="#" data-toggle="modal" data-target="#storyModal" class="br_create_btn btn btn-default">+ Create story</a>
   <% else %>
     <a href="#reviews" onclick="alertSignIn()" class="br_create_btn btn btn-default">+ Create Story</a>
   <% end %>
@@ -40,35 +40,3 @@
     </div>
   <% end %>
 <% end %>
-
-<div  class="modal fade" id="storyModal">
-  <div class="text-center">
-    <img src="<%= asset_path('Badge.png') %>"/><br/>
-  </div><br/><br/>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div style="" id="story-hero-preview" class="img-cont share">
-        <div class="br_upload_2">
-        </div>
-      </div>
-      <div class="br_form text-center">
-        Title
-        Body
-      </div>
-      <div class="br_mid text-center">
-        <hr/>
-        <div class="br_upload_2">
-            <img id="story-image-preview-2" class="user-upload-image-preview" src="#" alt="Your Image" />
-         </div>
-        <hr/>
-        <div class="br_upload_2">
-          <img id="story-image-preview-3" class="user-upload-image-preview" src="#" alt="Your Image" />
-        </div>
-      </div>
-      <hr/>
-      <div class="br_modal-footer text-center">
-        <a href="#" data-dismiss="modal" aria-label="Close" >Close</a>
-      </div>
-    </div>
-  </div>
-</div>

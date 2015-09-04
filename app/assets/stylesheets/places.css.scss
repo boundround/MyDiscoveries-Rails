@@ -13,7 +13,7 @@
     margin-top: -136px;
 }
 
-#image-preview {
+#image-preview, #story-image-1, #story-image-2, #story-image-3 {
   display: none;
 }
 
@@ -1934,8 +1934,8 @@ body.br_country_page.br_edit .editable-container.editable-inline .btn-primary,bo
 body.br_country_page.br_edit .editable-container.editable-inline .btn-default,body.br_place_page.br_edit .editable-container.editable-inline .btn-default{
   padding: 8.5px 10px;
 }
-body.br_country_page.br_edit #myModal .editable-container.editable-inline .btn-default,body.br_place_page.br_edit #myModal .editable-container.editable-inline .btn-default,
-body.br_country_page.br_edit #myModal .editable-container.editable-inline .btn-primary,body.br_place_page.br_edit #myModal .editable-container.editable-inline .btn-primary{
+body.br_country_page.br_edit #storyModal .editable-container.editable-inline .btn-default,body.br_place_page.br_edit #storyModal .editable-container.editable-inline .btn-default,
+body.br_country_page.br_edit #storyModal .editable-container.editable-inline .btn-primary,body.br_place_page.br_edit #storyModal .editable-container.editable-inline .btn-primary{
   padding: 6px 10px;
 }
 body.br_country_page.br_edit .editable-container.editable-inline .btn:hover,body.br_place_page.br_edit .editable-container.editable-inline .btn:hover{
@@ -2097,12 +2097,12 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
 
 /************************************StoryModal****************************/
 
-#myModal,#myModal3 {
+#storyModal,#myModal3 {
     background-color: #fd7e56;
     padding-top: 35px;
     padding-left:0px !important;
 }
-#myModal .modal-dialog {
+#storyModal .modal-dialog {
     background-color: #fff;
     max-width: 830px;
     width: 100%;
@@ -2113,7 +2113,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     -o-transform: rotate(-2deg);
     outline: 1px solid transparent;
 }
-#myModal .modal-dialog .modal-content {
+#storyModal .modal-dialog .modal-content {
     border-radius: 0px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.082);
     -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.082);
@@ -2126,7 +2126,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     -moz-transform: rotate(2deg);
     -o-transform: rotate(2deg);
 }
-#myModal .close{
+#storyModal .close{
     height: 55px;
     width: 55px;
     position: absolute;
@@ -2141,10 +2141,10 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     font-weight: 300;
     color: #FD7E56;
 }
-#myModal .close:focus{
+#storyModal .close:focus{
   outline: none;
 }
-#myModal .img-cont a{
+#storyModal .img-cont a{
     position: absolute;
     top: 20px;
     right: 25px;
@@ -2152,61 +2152,61 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     font-weight: 300;
     font-size: 16px;
 }
-#myModal .img-cont,#myModal .img-cont2{
+#storyModal .img-cont,#storyModal .img-cont2{
     overflow: hidden;
     margin: 0px auto;
   }
-#myModal .img-cont img,#myModal .img-cont2 img{
+#storyModal .img-cont img,#storyModal .img-cont2 img{
   margin: 0px auto;
   max-height: 100% !important;
 }
-#myModal .mid-cont{
+#storyModal .mid-cont{
   max-width: 650px;
   padding: 0px 10px;
   margin: 0px auto;
 }
-#myModal .mid-cont h1{
+#storyModal .mid-cont h1{
     font-weight: 600;
     font-size: 37px;
     color: #FD7E56;
     margin-bottom: 0px;
     border-bottom:0px;
 }
-#myModal .mid-cont h3{
+#storyModal .mid-cont h3{
     margin-top: 0px;
     color: #c3c3c3;
     font-size: 22px;
     font-weight: 300;
 }
-#myModal .side-img-cont{
+#storyModal .side-img-cont{
   margin-bottom: 15px;
   margin-left: 15px;
   max-width: 50%;
 }
-#myModal span.text-cont{
+#storyModal .text-cont{
   color: #24201f;
   font-weight: 300;
   font-size: 18px
 }
-#myModal span.text-cont a{
+#storyModal .text-cont a{
   text-decoration: underline;
   color: #fd7e56;
 }
-#myModal .mid-cont{
+#storyModal .mid-cont{
   margin-top: 45px;
 }
-#myModal .slider-cont{
+#storyModal .slider-cont{
   margin-top: 35px;
   padding-bottom: 50px;
 }
-#myModal .slider-cont h4{
+#storyModal .slider-cont h4{
     font-size: 22px;
     color: #FD7E56;
     margin-bottom: 0px;
     border-bottom:0px;
     font-weight: 600;
 }
-#myModal .slider-cont p{
+#storyModal .slider-cont p{
   color: #24201f;
   font-weight: 300;
   font-size: 18px;
@@ -2219,7 +2219,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
 
 
 
-#myModal .mid-cont h1.text-center + .editable-container.editable-inline {
+#storyModal .mid-cont h1.text-center + .editable-container.editable-inline {
     display: inline-block;
     vertical-align: middle;
     width: 100%;
@@ -2228,22 +2228,22 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
    margin-top: -4px;
 }
 
-#myModal .mid-cont h1.text-center + .editable-container .editableform .control-group {
+#storyModal .mid-cont h1.text-center + .editable-container .editableform .control-group {
     margin-bottom: 0;
     white-space: nowrap;
     margin: 0px auto;
     line-height: 20px;
 }
 
-#myModal .mid-cont h1.text-center + .editable-container input.form-control.input-sm {
+#storyModal .mid-cont h1.text-center + .editable-container input.form-control.input-sm {
     width: 100%;
 }
-#myModal .mid-cont h1.text-center + .editable-container .editable-input {
+#storyModal .mid-cont h1.text-center + .editable-container .editable-input {
     max-width: 100%;
     width: 100%;
     vertical-align: middle;
 }
-#myModal .mid-cont h1.text-center + .editable-container input.form-control.input-sm {
+#storyModal .mid-cont h1.text-center + .editable-container input.form-control.input-sm {
     width: 100%;
     font-size: 28px;
     height: auto;
@@ -2251,68 +2251,67 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     padding: 0px 10px;
     vertical-align: middle;
 }
-#myModal .mid-cont h1.text-center + .editable-container button.btn.btn-primary.btn-sm.editable-submit {
+#storyModal .mid-cont h1.text-center + .editable-container button.btn.btn-primary.btn-sm.editable-submit {
     background-color: #FD7E56;
     border-color: #FD7E56;
     padding: 8px 14px;
     font-size: 17px;
 }
 
-#myModal .mid-cont h1.text-center + .editable-container .editable-buttons .editable-cancel {
+#storyModal .mid-cont h1.text-center + .editable-container .editable-buttons .editable-cancel {
     margin-left: 7px;
     padding: 8px 14px;
     font-size: 17px;
 }
-#myModal .mid-cont h1.text-center + .editable-container .form-control:focus {
+#storyModal .mid-cont h1.text-center + .editable-container .form-control:focus {
     border-color: #FD7E56;
     outline: 0;
     box-shadow: 0 0px 7px #FD7E56;
     -webkit-box-shadow: 0 0px 7px #FD7E56;
 }
-#myModal .mid-cont h4 + .editable-container.editable-inline{
+#storyModal .mid-cont h4 + .editable-container.editable-inline{
   width: 100%;
   margin-bottom: 4px;
 }
-#myModal .mid-cont h4 + .editable-container input.form-control.input-sm {
+#storyModal .mid-cont h4 + .editable-container input.form-control.input-sm {
     font-size: 20px;
     height: auto;
     width: 100%;
     padding: 0px 10px;
     color: #FD7E56;
 }
-#myModal .mid-cont h4 + .editable-container .editable-input {
+#storyModal .mid-cont h4 + .editable-container .editable-input {
     vertical-align: top;
     display: inline-block;
     width: 60%;
     white-space: normal;
     zoom: 1;
 }
-#myModal .mid-cont h4 + .editable-container .form-control:focus {
+#storyModal .mid-cont h4 + .editable-container .form-control:focus {
     border-color: #FD7E56;
     outline: 0;
     box-shadow: 0 0px 7px #FD7E56;
     -webkit-box-shadow: 0 0px 7px #FD7E56;
 }
-#myModal .mid-cont h4 + .editable-container .editableform .control-group{
+#storyModal .mid-cont h4 + .editable-container .editableform .control-group{
   width: 100%;
 }
-#myModal .mid-cont h4 + .editable-container button.btn.btn-primary.btn-sm.editable-submit {
+#storyModal .mid-cont h4 + .editable-container button.btn.btn-primary.btn-sm.editable-submit {
     background-color: #FD7E56;
     border-color: #FD7E56;
 }
 
 
 
-#myModal .text-cont.cke_editable.cke_editable_inline.cke_contents_ltr.cke_show_borders.cke_focus{
+#storyModal .text-cont.cke_editable.cke_editable_inline.cke_contents_ltr.cke_show_borders.cke_focus{
   outline: none;
 }
-#myModal .share{
+#storyModal .share{
 
     border: 1px solid #FD7E56;
-    z-index: -1;
     position: relative;
 }
-#myModal .share-btn {
+#storyModal .share-btn {
     position: relative;
     top: 34%;
     left: 0;
@@ -2321,7 +2320,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     text-align: center;
     margin: 0px auto;
 }
-#myModal .share-btn a.btn.btn-default {
+#storyModal .share-btn a.btn.btn-default {
     font-size: 38px !important;
     padding: 0px !important;
     border: transparent !important;
@@ -2331,15 +2330,15 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     top: 0px !important;
     right: 0px !important
 }
-#myModal .share-btn a.btn.btn-default span{
+#storyModal .share-btn a.btn.btn-default span{
   font-size: 59px;
 }
-#myModal .share-btn a.btn.btn-default:hover{
+#storyModal .share-btn a.btn.btn-default:hover{
   color: #000 !important;
   background: transparent;
 }
 
-#myModal .share-btn a.btn.btn-default input {
+#storyModal .share-btn a.btn.btn-default input {
     opacity: 0;
     position: absolute;
     top: 0px;
@@ -2347,21 +2346,21 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     height: 100%;
     cursor: pointer;
 }
-#myModal .z-up{
+#storyModal .z-up{
       z-index: 10000;
 }
-#myModal .side-img-cont.share .share-btn a.btn.btn-default {
+#storyModal .side-img-cont.share .share-btn a.btn.btn-default {
     font-size: 21px !important;
     padding: 24px !important;
   }
 
 
 
-#myModal3 h3{
+#storyModal3 h3{
   color: #FD7E56;
 }
 
-#myModal3 .pub {
+#storyModal3 .pub {
     display: inline-block;
     padding: 9px 0px;
     font-size: 15px;
@@ -2373,7 +2372,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     margin-top: 10px;
 }
 
-#myModal3 .can {
+#storyModal3 .can {
     color: #FD7E56;
     text-decoration: underline;
     display: inline-block;
@@ -2381,11 +2380,11 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     margin-bottom: 10px;
     cursor: pointer;
 }
-#myModal3  textarea{
+#storyModal3  textarea{
     min-height: 130px;
     margin-bottom: 10px;
 }
-#myModal3 .editable-container.editable-inline{
+#storyModal3 .editable-container.editable-inline{
   padding-top: 26px;
 }
 
@@ -2473,7 +2472,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
         margin-top: 6px;
         margin-bottom: 10px;
     }
-    #myModal .modal-dialog {
+    #storyModal .modal-dialog {
         max-width: 830px;
         width: 93%;
         margin: 0px auto;
@@ -2652,10 +2651,10 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     background: #EEE none repeat scroll 0% 0%;
     border-radius: 0px;
   }
-  #myModal .mid-cont h1{
+  #storyModal .mid-cont h1{
     font-size: 32px;
   }
-  #myModal .close {
+  #storyModal .close {
     height: 45px;
     width: 45px;
     position: absolute;
@@ -2664,17 +2663,17 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     top: -23px;
 
     }
-    #myModal .mid-cont h1.text-center + .editable-container .editable-input{
+    #storyModal .mid-cont h1.text-center + .editable-container .editable-input{
       display: block;
       margin-bottom: 10px;
     }
-    #myModal .mid-cont h1.text-center + .editable-container input.form-control.input-sm{
+    #storyModal .mid-cont h1.text-center + .editable-container input.form-control.input-sm{
       text-align:center;
     }
-    #myModal .mid-cont h4 + .editable-container .editable-input{
+    #storyModal .mid-cont h4 + .editable-container .editable-input{
       width: 75%;
     }
-    #myModal .share-btn {
+    #storyModal .share-btn {
       top: 20%;
     }
 }
@@ -2691,31 +2690,31 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
   .share-btn{
     top: 2%;
   }
-  #myModal .side-img-cont {
+  #storyModal .side-img-cont {
       max-width: 100%;
       float: none !important;
       margin: 0px;
       margin-bottom: 15px;
   }
-  #myModal .mid-cont h4 + .editable-container .editable-input {
+  #storyModal .mid-cont h4 + .editable-container .editable-input {
     width: 100%;
     display: block;
     margin-bottom: 8px;
   }
-  #myModal .mid-cont h4 + .editable-container .editableform .control-group {
+  #storyModal .mid-cont h4 + .editable-container .editableform .control-group {
     width: 100%;
     text-align: center;
   }
-  #myModal .share-btn {
+  #storyModal .share-btn {
     top: 10%;
   }
-  #myModal .share-btn a.btn.btn-default {
+  #storyModal .share-btn a.btn.btn-default {
     font-size: 23px !important;
   }
-  #myModal .img-cont2 .share-btn {
+  #storyModal .img-cont2 .share-btn {
     top: 15%;
   }
-  #myModal .side-img-cont.share .share-btn a.btn.btn-default {
+  #storyModal .side-img-cont.share .share-btn a.btn.btn-default {
     font-size: 21px !important;
     padding: 15px !important;
   }
