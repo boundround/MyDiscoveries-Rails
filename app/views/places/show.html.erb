@@ -192,11 +192,15 @@
                                     <div>
                                       <iframe class="carousel-item carousel-video" id="player1" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player1" width="273" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen>
                                       </iframe>
-                                      <div class="overlay carousel-country-photo" data-slide-number="<%= index %>"></div>
+                                      <div class="overlay carousel-country-photo" data-slide-number="<%= index %>">
+                                        <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
+                                      </div>
+
                                     </div>
                                   <% elsif asset.class.to_s == "Photo" %>
                                     <div class="carousel-item br_16">
                                       <img src="<%= asset.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>">
+                                      <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
                                     </div>
                                   <% end %>
                                 <% end %>
@@ -204,6 +208,7 @@
                                 <% @active_user_photos.each do |photo| %>
                                   <div class="carousel-item br_16">
                                     <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
+                                    <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
                                   </div>
                                   <% index += 1 %>
                                 <% end %>
@@ -408,7 +413,7 @@
                               </ul>
                             </div>
                             <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
-                            <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
+                            <%= raw like_icon(place) %>
                           </div>
                         </a>
                       </div>
@@ -448,7 +453,7 @@
                               </ul>
                             </div>
                             <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
-                            <a href=" " class="br_top_right"><i class="fa fa-star"></i></a>
+                            <%= raw like_icon(place) %>
                           </div>
                         </a>
                       </div>
@@ -498,6 +503,7 @@
     </div>
   </div>
 </div>
+
 
 <%= render 'reviews/form' %>
 <script>

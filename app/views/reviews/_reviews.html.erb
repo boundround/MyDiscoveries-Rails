@@ -1,7 +1,7 @@
 <div class="row" id="reviews">
   <% @reviews.each do |review| %>
     <div class="col-sm-6 col-md-3">
-      <h4><%= review.title ? review.title : @reviewable.display_name %></h4>
+      <h4><%= !review.title.blank? ? review.title : @reviewable.display_name %></h4>
       <% get_user_place_rating_from_review(review).times do |star| %>
         <img src="<%= asset_path('star-on.png') %>" />
       <% end %>

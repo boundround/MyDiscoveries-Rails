@@ -2,6 +2,12 @@
 	display: none;
 }
 
+.carousel-like-icon {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
 .user-upload-image-preview {
   max-height: 250px;
 }
@@ -1382,6 +1388,7 @@ a,button,button:focus,button:active{
     color: #fff;
     text-decoration: none;
     font-size: 14.5px;
+    text-shadow: black 1px 1px;
 }
 .br_top_place .br_top_right {
     position: absolute;
