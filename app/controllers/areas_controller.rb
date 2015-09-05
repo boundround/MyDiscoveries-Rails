@@ -141,7 +141,7 @@ class AreasController < ApplicationController
     def area_params
       params.require(:area).permit(:code, :identifier, :display_name, :short_intro, :description,
                                     :latitude, :longitude, :address, :published_status, :view_latitude, :view_longitude,
-                                    :view_height, :view_heading,
+                                    :view_height, :view_heading, :google_place_id, :country_id,
                                     photos_attributes: [:id, :area_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_include, :_destroy],
                                     videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :country_include, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :_destroy],
