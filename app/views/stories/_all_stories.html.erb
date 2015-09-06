@@ -5,7 +5,7 @@
   <% if user_signed_in? %>
     <a href="#" data-toggle="modal" data-target="#storyModal" class="br_create_btn btn btn-default">+ Create story</a>
   <% else %>
-    <a href="#reviews" data-toggle="modal" data-target="#navModal" class="br_create_btn btn btn-default">+ Create Story</a>
+    <a href="#reviews" data-toggle="modal" data-target="#signInModal" class="br_create_btn btn btn-default">+ Create Story</a>
   <% end %>
 </div>
 <% @stories.each_with_index do |story, index| %>
