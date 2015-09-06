@@ -74,7 +74,7 @@
                           <%= rating_for (@place ? @place : @area), "quality", :read_only => true %> (<%= @place.quality_average.qty %>)
                         </a>
                       <% else %>
-                        <a href="#" class="no-anchor-decoration" onclick="alertSignIn()">
+                        <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#navModal">
                           <%= rating_for (@place ? @place : @area), "quality", :read_only => true %> (<%= @place.quality_average.qty %>)
                         </a>
                       <% end %>
@@ -84,7 +84,7 @@
                           <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
                         </a>
                       <% else %>
-                        <a href="#" class="no-anchor-decoration" onclick="alertSignIn()">
+                        <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#navModal">
                           <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
                         </a>
                       <% end %>
@@ -184,7 +184,7 @@
                                           <h3>Add photo</h3>
                                         </a>
                                       <% else %>
-                                        <a onclick="alertSignIn()">
+                                        <a data-toggle="modal" data-target="#navModal">
                                           <img src="<%= asset_path('Badge.png') %>" class="center-block">
                                           <h3>Add photo</h3>
                                         </a>
@@ -376,7 +376,7 @@
                 <% if user_signed_in? %>
                   <h2>Reviews &nbsp;<a href="#reviews" data-toggle="modal" data-target="#myModal3">Leave a review</a></h2>
                 <% else %>
-                  <h2>Reviews &nbsp;<a href="#reviews" onclick="alertSignIn()">Leave a review</a></h2>
+                  <h2>Reviews &nbsp;<a href="#reviews" data-toggle="modal" data-target="#navModal">Leave a review</a></h2>
                 <% end %>
               </div>
               <%= render "reviews/reviews" %>
@@ -516,7 +516,6 @@
 <% if current_user.try(:admin?) %>
   <p><%= link_to 'Edit Place', edit_place_path %></p>
 <% end %>
-<div id="place-map-canvas"></div>
 <div id="place-id" data-place="<%= @place.place_id %>"></div>
 
 <div id="game-modal" class="modal fade" aria-hidden="true" style="display: none;">
@@ -537,9 +536,6 @@
 
 <%= render 'reviews/form' %>
 <script>
-  var alertSignIn = function(){
-    alert("You must be signed in to do this");
-  }
 
   var map = new google.maps.Map(document.getElementById('place-map-canvas'), {
       center: new google.maps.LatLng($('.area-content').data('lat'), $('.area-content').data('long')),

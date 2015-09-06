@@ -23,7 +23,7 @@
               <h1 class="text-center">
                 <%= f.text_area :title, id: "story_headline", placeholder: "Story Title Goes Here", maxlength: 40 %>
               </h1>
-              <h3 class="text-center">by <%= current_user.email if user_signed_in? %></h3>
+              <h3 class="text-center">by <%= current_user.email.match(/^(.*?)@/)[1] if user_signed_in? %></h3>
 
               <div class="mid-cont">
                 <div class="pull-right side-img-cont share">

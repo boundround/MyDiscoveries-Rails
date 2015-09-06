@@ -219,34 +219,6 @@ left: 1px;
 	</div>
 </div>
 
-<% if !user_signed_in? %>
-<div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-content small-modal">
-		<div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<img src="<%= asset_path('br_logo_new.png') %>" class="br-logo-modal">
-      <h4 class="modal-title">Sign In and Explore!</h4>
-    </div>
-		<div class="modal-body">
-			<h5>Already A Bound Round User?</h5>
-			<div id="icon-wrapper">
-				<a href="<%= new_user_session_path %>">
-					<button class="btn blue-button">
-						Sign In
-					</button>
-				</a>
-				<h5>Need To Create An Account?</h5>
-				<a href="<%= new_user_registration_path %>">
-					<button class="btn blue-button">
-						Sign Up
-					</button>
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
-<% end %>
-
 <div id='user-ip' data-ip=<%= request.remote_ip %>></div>
 <div id="placeholder"></div>
 <!-- Google Fonts embed code -->

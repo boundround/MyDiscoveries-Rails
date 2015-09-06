@@ -6,26 +6,38 @@
         <h2 class="text-center">Leave a review</h2>
         <h3 class="text-center">
           <% if user_signed_in? && @reviewable.can_rate?(current_user, "quality") %>
-            Rate this place
+            Rate this place<br>
             <%= rating_for (@place ? @place : @area), "quality", :disable_after_rate => false %>
           <% else %>
-            Change your rating
+            Change your rating<br>
             <%= rating_for (@place ? @place : @area), "quality", :disable_after_rate => false %>
           <% end %>
         </h3>
+        <hr>
         <%= simple_form_for [@reviewable, @review] do |f| %>
-          <%= f.input :user_id, as: :hidden, :input_html => { :value => (current_user.id if user_signed_in?) } %>
-          <%= f.input :status, as: :hidden, :input_html => { :value => "draft" } %>
-          <input type="radio" name="radio-review" class="review-radio" value="It was awesome. You should definitely go!"><label for="review1">&nbsp;It was awesome, you should definitely go!</label><br>
-          <input type="radio" name="radio-review" class="review-radio" value="It was pretty good. Most kids would like it."><label for="review2">&nbsp;It was pretty good. Most kids would like it.</label><br>
-          <input type="radio" name="radio-review" class="review-radio" value="It was ok. Some kids would think it's good."><label for="review3">&nbsp;It was ok. Some kids would think it's good.</label><br>
-          <input type="radio" name="radio-review" class="review-radio" value="I didn't really like it."><label for="review4">&nbsp;I didn't really like it</label><br>
-          <strong>Or write your own review below!</strong>
-          <%= f.input :title, placeholder: "Give your review a title", label: false, input_html: {class: "form-control"} %>
-          <textarea class="form-control" name="review[content]" placeholder="Leave your review here"></textarea>
-          <%= f.submit "Publish", class: "pub" %>
-        <% end %>
-        <a  data-dismiss="modal" aria-hidden="true" class="can">Cancel</a>
+          <div class="col-md-2"></div>
+          <div class="col-md-4 review-buttons">
+            <%= f.input :user_id, as: :hidden, :input_html => { :value => (current_user.id if user_signed_in?) } %>
+            <%= f.input :status, as: :hidden, :input_html => { :value => "draft" } %>
+            <input type="radio" name="radio-review" class="review-radio" value="It was awesome. You should definitely go!"><label for="review1">&nbsp;It was awesome, you should definitely go!</label><br>
+            <input type="radio" name="radio-review" class="review-radio" value="It was pretty good. Most kids would like it."><label for="review2">&nbsp;It was pretty good. Most kids would like it.</label><br>
+            <input type="radio" name="radio-review" class="review-radio" value="It was ok. Some kids would think it's good."><label for="review3">&nbsp;It was ok. Some kids would think it's good.</label><br>
+            <input type="radio" name="radio-review" class="review-radio" value="I didn't really like it."><label for="review4">&nbsp;I didn't really like it</label><br>
+            <strong>Or write your own review</strong>
+          </div>
+          <div class="col-md-4">
+            <%= f.input :title, placeholder: "Give your review a title", label: false, input_html: {class: "form-control"} %>
+            <textarea class="form-control" name="review[content]" rows="10" placeholder="Leave your review here"></textarea>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="clearfix"></div>
+          <p></p>
+          <div class="col-md-12">
+            <%= f.submit "Publish", class: "pub" %>
+          <% end %>
+          <a  data-dismiss="modal" aria-hidden="true" class="can">Cancel</a>
+          </div>
+          <p>&nbsp;</p>
       </div>
       <div class="clearfix"></div>
     </div>

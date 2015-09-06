@@ -118,7 +118,7 @@
                                           <h3>Add photo</h3>
                                         </a>
                                       <% else %>
-                                        <a onclick="alertSignIn()">
+                                        <a data-toggle="modal" data-target="#navModal">
                                           <img src="<%= asset_path('Badge.png') %>" class="center-block">
                                           <h3>Add photo</h3>
                                         </a>
@@ -305,7 +305,7 @@
                 <% if user_signed_in? %>
                   <h2>Reviews &nbsp;<a href="#reviews" data-toggle="modal" data-target="#myModal3">Leave a review</a></h2>
                 <% else %>
-                  <h2>Reviews &nbsp;<a href="#reviews" onclick="alertSignIn()">Leave a review</a></h2>
+                  <h2>Reviews &nbsp;<a href="#reviews" data-toggle="modal" data-target="#navModal">Leave a review</a></h2>
                 <% end %>
               </div>
               <%= render "reviews/reviews" %>

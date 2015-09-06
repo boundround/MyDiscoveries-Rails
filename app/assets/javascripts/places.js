@@ -214,4 +214,30 @@ $(document).ready(function(){
 
     });
   }
+
+  $('.br_read_more').on('click', function(e){
+      e.preventDefault();
+      var title = $(this).data('title');
+      var user = $(this).data('user');
+      var content = $(this).data('content');
+      var image1 = $(this).data('image-0');
+      console.log(image1);
+      var image2 = $(this).data('image-1');
+      var image3 = $(this).data('image-2');
+      $('#story-user').html("by " + user);
+      $('#story-title').html(title);
+      $('#story-content').html(content);
+      if (image1)
+        $('#storyHeroImage').prepend("<div id='image-1' class='img-cont share story-hero-container'><img src=" + image1 + " class='story-image'></div>");
+      if (image2)
+        $('#story-image-2').prepend('<div id="image-2" class="pull-right side-img-cont share"><div class="share-btn"><img src=' + image2 + ' class="story-image"></div></div>');
+      if (image3)
+        $('#story-image-3').html("<div class='img-cont2 share z-up'><div class='share-btn'><img src=" + image3 + " class='story-image'></div></div>");
+
+    });
+
+    $('#story-close').on('click', function(){
+      $('#image-1').remove();
+      $('#image-2').remove();
+    });
 });

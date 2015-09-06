@@ -111,6 +111,7 @@ Rails.application.routes.draw do
   get '/users/videos' => 'users#videos'
   get '/users/places' => 'users#places'
   get '/users/fun_facts' => 'users#fun_facts'
+  get '/users/stories' => 'users#stories'
   get '/users/draft_content' => 'users#draft_content' # All User Uploaded Content in Draft
   resources :users
 
