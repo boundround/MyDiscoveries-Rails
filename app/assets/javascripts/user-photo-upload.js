@@ -61,7 +61,8 @@ $(function () {
             reader.onload = function (e) {
                 console.log("ADDING FIRST PHOTO");
                 container.show();
-                previewElement.attr('src', e.target.result);
+                var image = e.target.result;
+                previewElement.attr('src', image);
                 // previewDiv.html("");
                 //$('#story-hero-preview').css('background', 'url(https://d1w99recw67lvf.cloudfront.net/user_avatars/15/mod-target.jpg) no-repeat');
             }
