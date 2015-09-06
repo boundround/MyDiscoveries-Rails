@@ -40,7 +40,7 @@
       <% @area.fun_facts.active.each_with_index do |fun_fact, index| %>
         <style>
           #fun-fact-<%= index %> {
-            background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @area.country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
+            background: transparent url(<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@area)) %>) no-repeat scroll 0% 0%;
           }
         </style>
         <div class="br_fun_fact hidden-xs hidden-sm">
