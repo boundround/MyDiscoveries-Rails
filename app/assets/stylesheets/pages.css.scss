@@ -380,7 +380,6 @@
   width: 50%;
   color: white;
   text-align: center;
-  margin-top: 10%;
 }
 
 #navModal a:hover, #signInModal a:hover {
@@ -595,6 +594,10 @@
     min-width: 0 !important;
     margin: 0 auto;
   }
+
+  #navModal, #signInModal {
+    width: 100%;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -608,6 +611,10 @@
 
   .br-logo-modal {
     width: 75%;
+  }
+
+  #navModal, #signInModal {
+    width: 80%;
   }
 }
 
