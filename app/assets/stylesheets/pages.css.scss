@@ -376,14 +376,14 @@
   }
 }
 
-#navModal {
+#navModal, #signInModal {
   width: 50%;
   color: white;
   text-align: center;
   margin-top: 10%;
 }
 
-#navModal a:hover {
+#navModal a:hover, #signInModal a:hover {
   text-decoration: none;
 }
 
