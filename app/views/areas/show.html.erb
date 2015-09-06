@@ -238,7 +238,18 @@
                               <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
                             </div>
                             <div class="br_place_mid">
-                              <h4><%= place.display_name %></h4>
+                              <h4 class="card-place-name"><%= place.display_name %></h4>
+                              <% if place.quality_average %>
+                                  <%= rating_for place, "quality", :read_only => true %> (<%= place.quality_average.qty %>)
+                                <% else %>
+                                  <div class="star">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">(0)
+                                  </div>
+                                <% end %>
                             </div>
                             <div class="br_place_footer">
                               <ul class="list-unstyled">
@@ -321,7 +332,18 @@
                               <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
                             </div>
                             <div class="br_place_mid">
-                              <h4><%= place.display_name %></h4>
+                              <h4 class="card-place-name"><%= place.display_name %></h4>
+                              <% if place.quality_average %>
+                                  <%= rating_for place, "quality", :read_only => true %> (<%= place.quality_average.qty %>)
+                                <% else %>
+                                  <div class="star">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">(0)
+                                  </div>
+                                <% end %>
                             </div>
                             <div class="br_place_footer">
                               <ul class="list-unstyled">

@@ -12,6 +12,10 @@
   max-height: 250px;
 }
 
+.card-place-name {
+  margin-bottom: -15px !important;
+}
+
 .portrait img {
     width: 100%;
 }
@@ -158,6 +162,7 @@
 
 #place-map-canvas {
   width: 100%;
+  min-height: 230px;
 }
 
 #open-now {
@@ -1359,7 +1364,7 @@ a,button,button:focus,button:active{
     font-weight: 300;
 }
 .br_place_top{
-  max-height: 132px;
+  max-height: 120px;
   max-width: 100%;
   overflow: hidden;
 }

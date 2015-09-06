@@ -151,11 +151,11 @@
                       <a href="#">contact@ncaventurepark.com.au</a><br/> -->
                     </p>
 
-                      <img src="<%= asset_path('trip.png') %>" class="img-responsive"/>
-                      <h4><%= @place.display_name %></h4>
-                     <p> TRIP ADVISOR INFO<br/><br/>
-                      <a href="#">Visit the Trip Adisor page</a>
-                    </p>
+                      <p>
+                        <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="feedback">
+                          Get Directions
+                        </a>
+                      </p>
                 </div>
               </div>
               <a name="info"></a>
@@ -236,10 +236,12 @@
               <div class="col-md-10 col-md-offset-1 hidden-xs br_trip_advisor">
                 <div class="row">
                   <div class="col-sm-6 br_trip ">
-                    <img src="<%= asset_path('trip.png') %>" class="img-responsive"/>
-                     <h4><%= @place.display_name %></h4>
-                     <p> TRIP ADVISOR INFO</p><br>
-                     <a href="#">Visit the Trip Adisor page for <%= @place.display_name %></a>
+                    <div id="place-map-canvas"></div>
+                    <p>
+                      <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="feedback">
+                        Get Directions
+                      </a>
+                    </p>
                   </div>
                   <div class="col-sm-6 br_detail">
                     <h2>Bound Round Rating & Details</h2>
@@ -401,7 +403,18 @@
                               <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
                             </div>
                             <div class="br_place_mid">
-                              <h4><%= place.display_name %></h4>
+                              <h4 class="card-place-name"><%= place.display_name %></h4>
+                              <% if place.quality_average %>
+                                  <%= rating_for place, "quality", :read_only => true %> (<%= place.quality_average.qty %>)
+                                <% else %>
+                                  <div class="star">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">(0)
+                                  </div>
+                                <% end %>
                             </div>
                             <div class="br_place_footer">
                               <ul class="list-unstyled">
@@ -442,7 +455,18 @@
                                 <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
                               </div>
                               <div class="br_place_mid">
-                                <h4><%= place.display_name %></h4>
+                                <h4 class="card-place-name"><%= place.display_name %></h4>
+                                <% if place.quality_average %>
+                                  <%= rating_for place, "quality", :read_only => true %> (<%= place.quality_average.qty %>)
+                                <% else %>
+                                  <div class="star">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">
+                                    <img src="<%= asset_path('star-off.png') %>">(0)
+                                  </div>
+                                <% end %>
                               </div>
                               <div class="br_place_footer">
                                 <ul class="list-unstyled">
@@ -516,4 +540,19 @@
   var alertSignIn = function(){
     alert("You must be signed in to do this");
   }
+
+  var map = new google.maps.Map(document.getElementById('place-map-canvas'), {
+      center: new google.maps.LatLng($('.area-content').data('lat'), $('.area-content').data('long')),
+      zoom: 13
+    });
+
+    var location = {
+            "lat" : $('.area-content').data('lat'),
+            "lng" : $('.area-content').data('long')
+         };
+
+    var marker = new google.maps.Marker({
+      map: map,
+      position: location
+    });
 </script>
