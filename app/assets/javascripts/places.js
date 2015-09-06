@@ -15,6 +15,13 @@
 
     });
   }
+
+  function fitToDiv(container, element){
+    var conHeight = container.height();
+    var imgHeight = element.height();
+    var gap = (imgHeight - conHeight) / 2;
+    element.css("margin-top", (gap/2));
+  }
     $(function(){
       $('.br_info_mob').hide();
       $('.br_container_box a.br_Activity_btn.visible-xs').click(function(e){
