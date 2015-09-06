@@ -240,4 +240,26 @@ $(document).ready(function(){
       $('#image-1').remove();
       $('#image-2').remove();
     });
+
+    $('#story-publish-button').on('click', function(){
+      $('#storyModal').modal("hide");
+      $('.loader-bound-round').show();
+    });
+
+    if ($('#place-map-canvas')){
+      var map = new google.maps.Map(document.getElementById('place-map-canvas'), {
+        center: new google.maps.LatLng($('.area-content').data('lat'), $('.area-content').data('long')),
+        zoom: 13
+      });
+
+      var location = {
+              "lat" : $('.area-content').data('lat'),
+              "lng" : $('.area-content').data('long')
+           };
+
+      var marker = new google.maps.Marker({
+        map: map,
+        position: location
+      });
+    }
 });

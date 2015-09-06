@@ -47,6 +47,7 @@
                     Replace this text with your story.
                   </span> -->
                   <%= f.text_area :content, placeholder: "Write your story here.", maxlength: 500 %>
+                  <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
                   <div class="clearfix"></div>
                 <div class="slider-cont">
 
@@ -78,7 +79,7 @@
               </div>
               <hr/>
               <div class="br_modal-footer text-center">
-                <%= f.submit "Publish story", class: "btn btn-lg" %>
+                <%= f.submit "Publish story", class: "btn btn-lg", id: "story-publish-button" %>
                 <a href="#" data-dismiss="modal" aria-label="Close" >Cancel</a>
               </div>
             </div>
