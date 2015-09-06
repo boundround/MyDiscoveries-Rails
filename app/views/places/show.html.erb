@@ -10,11 +10,11 @@
         <div class="row">
 
           <div class="col-xs-6 hidden-xs">
-            <img src="<%= @place.country ? asset_path('flags/' + @place.country.country_code.downcase + '.png') : "" %>" class="img-responsive country-flag" />
-            <!-- <a href="#" class="br_view_cont">
-              <i class="fa fa-eye"></i> View <span>all content</span> <i class="
-              glyphicon glyphicon-triangle-bottom"></i>
-            </a> -->
+            <% if @place.country %>
+              <a href="<%= country_path(@place.country) %>">
+                <img src="<%= asset_path('flags/' + @place.country.country_code.downcase + '.png') %>" class="img-resposive country-flag" >
+              </a>
+            <% end %>
           </div>
           <div class="col-xs-12 visible-xs">
             <%= render 'layouts/mobile_nav' %>
@@ -30,7 +30,11 @@
                 <a href="<%= root_path %>">
                   <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
                 </a>
-                <img src="<%= @place.country ? asset_path('flags/' + @place.country.country_code.downcase + '.png') : "" %>" class="img-resposive visible-xs country-flag" >
+                <% if @place.country %>
+                  <a href="<%= country_path(@place.country) %>">
+                    <img src="<%= asset_path('flags/' + @place.country.country_code.downcase + '.png') %>" class="img-resposive visible-xs country-flag" >
+                  </a>
+                <% end %>
               </div>
               <%= render 'layouts/search_input'%>
               <div class="col-xs-12 text-center">
@@ -421,46 +425,48 @@
                   </div>
                 </div>
               </div>
-              <div class="clearfix"></div>
-              <div class="col-md-12">
-                <h2 class="text-center">Places like this</h2>
-              </div>
-              <div class="clearfix"></div>
-              <div class="col-md-12">
-                <div class="br_top_5_slider">
-                  <div class="owl-carousel">
-                    <% @similar_places.each do |place| %>
-                      <div>
-                        <a href="<%= place_path(place) %>" class="no-anchor-decoration">
-                          <div class="br_top_place">
-                            <div class="br_place_top">
-                              <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+              <% unless @similar_places.blank? %>
+                <div class="clearfix"></div>
+                <div class="col-md-12">
+                  <h2 class="text-center">Places like this</h2>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12">
+                  <div class="br_top_5_slider">
+                    <div class="owl-carousel">
+                      <% @similar_places.each do |place| %>
+                        <div>
+                          <a href="<%= place_path(place) %>" class="no-anchor-decoration">
+                            <div class="br_top_place">
+                              <div class="br_place_top">
+                                <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                              </div>
+                              <div class="br_place_mid">
+                                <h4><%= place.display_name %></h4>
+                              </div>
+                              <div class="br_place_footer">
+                                <ul class="list-unstyled">
+                                  <li>
+                                    <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
+                                  </li>
+                                  <li>
+                                    <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
+                                  </li>
+                                  <li>
+                                    <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
+                              <%= raw like_icon(place) %>
                             </div>
-                            <div class="br_place_mid">
-                              <h4><%= place.display_name %></h4>
-                            </div>
-                            <div class="br_place_footer">
-                              <ul class="list-unstyled">
-                                <li>
-                                  <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
-                                </li>
-                                <li>
-                                  <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
-                                </li>
-                                <li>
-                                  <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
-                                </li>
-                              </ul>
-                            </div>
-                            <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
-                            <%= raw like_icon(place) %>
-                          </div>
-                        </a>
-                      </div>
-                    <% end%>
+                          </a>
+                        </div>
+                      <% end%>
+                    </div>
                   </div>
                 </div>
-              </div>
+              <% end %>
             </div>
           </div>
       </div>

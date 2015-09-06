@@ -9,7 +9,11 @@
   <div class="container-fluid br_area">
         <div class="row">
           <div class="col-xs-6 hidden-xs">
-            <img src="<%= asset_path('flags/' + @area.country.country_code.downcase + '.png') %>" class="img-responsive country-flag" />
+            <% if @area.country %>
+              <a href="<%= country_path(@area.country) %>">
+                <img src="<%= asset_path('flags/' + @area.country.country_code.downcase + '.png') %>" class="img-resposive country-flag" >
+              </a>
+            <% end %>
           </div>
           <div class="col-xs-12 visible-xs">
             <%= render 'layouts/mobile_nav' %>
@@ -25,7 +29,11 @@
                 <a href="<%= root_path %>">
                   <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
                 </a>
-                <img src="<%= asset_path('flags/' + @area.country.country_code.downcase + '.png') %>" class="img-resposive visible-xs country-flag" >
+                <% if @area.country %>
+                  <a href="<%= country_path(@area.country) %>">
+                    <img src="<%= asset_path('flags/' + @area.country.country_code.downcase + '.png') %>" class="img-resposive visible-xs country-flag" >
+                  </a>
+                <% end %>
               </div>
 
               <%= render 'layouts/search_input' %>
