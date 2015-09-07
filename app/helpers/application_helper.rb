@@ -22,15 +22,17 @@ module ApplicationHelper
   end
 
   def open_graph_image
-    begin
-      if (@place && !@photos.blank?) || (@area && !@photos.blank?)
-        "<meta property='og:image' content='#{@hero_photo ? @hero_photo.path_url.gsub('https://', 'http://') : @photos.first.path_url.gsub('https://', 'http://') }' />\n" +
-        "<meta property='og:image:secure_url' content='#{@hero_photo ? @hero_photo.path_url : @photos.first.path_url }' />\n" +
-        "<meta property='og:image:type' content='image/jpeg' />"
+      if @place && !@place.photos.blank?
+        photo = @place.photos.first.path_url
+      elsif @area && !@area.photos.blank?
+        photo = @area.photos.first.path_url
+      elsif @country && !@country.photos.blank?
+        photo = @country.photos.first.path_url
+      else
+        photo = "https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/br_logo_new-30eb3b9bb0267503159d6cab93191844.png"
       end
-    rescue
-      ""
-    end
+
+      return "<meta property='og:image' content='#{photo.gsub('https://', 'http://') }' />\n" + "<meta property='og:image:secure_url' content='#{photo}' />\n" + "<meta property='og:image:type' content='image/jpeg' />"
   end
 
   def get_random_place_photo(place)

@@ -26,6 +26,14 @@
 	  <%= render "/layouts/ga" %>
 	</head>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
+		<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1418185688437447";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 		<div id="place-holder"></div>
 	<div class="loader-container loader-bound-round"></div>
     <% flash.each do |type, message| %>
@@ -205,6 +213,57 @@
 			</div>
 		</div>
 
+		<div class="modal fade" id="shareModal">
+      <div class="share-modal-dialog">
+        <div class="share-modal-content">
+          <button type="button" class="close share-close-button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="mid-cont">
+              <h3 class="text-center">
+                <i class="fa fa-share"></i>&nbsp;&nbsp;Share
+              </h3>
+              <div class="share-buttons text-center">
+              	<div class="fb-share-button" data-href="<%= request.original_url %>"  data-layout="button"></div>
+              	<a href="https://twitter.com/intent/tweet?button_hashtag=seeitmyway" class="twitter-hashtag-button" data-url="<%= request.original_url %>">Tweet</a>
+								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	            </div>
+	            <p></p>
+	            <div class="text-center">
+              	<button class="btn share-button" id="email-share"><i class="fa fa-envelope"></i> Email</button>
+              </div>
+
+              <div class="mid-cont">
+              </div>
+              <div class="clearfix"></div>
+
+              <div class="br_modal-footer text-center" id="share-form">
+              	<form>
+              		To:<textarea></textarea><br>
+              		Message:<textarea></textarea><br>
+              		<button class="btn share-button">Send Email</button>
+              	</form>
+
+              </div>
+            </div>
+          </div>
+      </div><!-- /.modal-content -->
+    </div>
+
+     <footer>
+		   <div class="home-footer">
+		     <span class="top-footer"><p><a href="http://boundround.com/kids/" target="blank">Travelling Families</a>
+		     <a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a>
+		     <a href="http://boundround.com/education/" target="blank">Teachers</a>
+		     <a href=" http://boundround.com/media/" target="blank">Media</a></span></p>
+		     <span class="bottom-footer">
+		       <a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a>
+		       <a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a>
+		       <a href="http://boundround.com/about-us/" target="blank">About Us</a>
+		       <a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a>
+		     </span>
+		   </div>
+		 </footer>
+
+		 <div id="twitter-wjs"></div>
 	</body>
 
 

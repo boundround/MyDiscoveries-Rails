@@ -246,7 +246,7 @@ $(document).ready(function(){
       $('.loader-bound-round').show();
     });
 
-    if ($('#place-map-canvas')){
+    if (document.getElementById('place-map-canvas')){
       var map = new google.maps.Map(document.getElementById('place-map-canvas'), {
         center: new google.maps.LatLng($('.area-content').data('lat'), $('.area-content').data('long')),
         zoom: 13
@@ -262,4 +262,13 @@ $(document).ready(function(){
         position: location
       });
     }
+
+    $('#email-share').on('click', function(){
+      $('#share-form').slideToggle();
+    });
+
+    $('.share-this').on('click', function(){
+      $('#shareModal').modal('show');
+    });
+
 });
