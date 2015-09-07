@@ -141,9 +141,9 @@ window.onload = function() {
         beforeSend: function(){
           $('.search-spinner').css('visibility', 'visible');
         },
-        url: '/sm/search?types[]=place&types[]=area&limit=100&term=' + request.term,
+        url: '/sm/search?types[]=place&types[]=area&types[]=country&limit=100&term=' + request.term,
         success: function(data) {
-          combinedData = $.map(data.results.place.concat(data.results.area), function( item ) {
+          combinedData = $.map(data.results.place.concat(data.results.area).concat(data.results.country), function( item ) {
             var areaDisplay = null;
             if (item.hasOwnProperty('area')) {
               if (item.area.display_name == item.area.country) {

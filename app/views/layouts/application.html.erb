@@ -26,6 +26,7 @@
 	  <%= render "/layouts/ga" %>
 	</head>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
+		<div id="place-holder"></div>
 	<div class="loader-container loader-bound-round"></div>
     <% flash.each do |type, message| %>
     <div class="alert <%= bootstrap_class_for(type) %> fade in">
