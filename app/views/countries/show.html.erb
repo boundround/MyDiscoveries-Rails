@@ -12,8 +12,14 @@
 </style>
 
 <div id='country-data' data-country-code=<%= @country.country_code %> data-capital-city=<%= @country.capital_city %>></div>
-<div class="twenty-pix-top"></div>
+<div class="col-xs-12 visible-xs">
+      <%= render 'layouts/mobile_nav' %>
+    </div>
+    <div class="col-xs-12 col-md-12 text-right">
+      <%= render 'layouts/profile_dropdown' %>
+    </div>
 <div>
+<div class="twenty-pix-top"></div>
   <div class="container br_country">
     <div class="br_lightbox row">
       <div class="col-md-12 ">
@@ -47,6 +53,28 @@
           <%= @country.display_name %><br/>
           <span id="country-population">Population: </span>
         </h1>
+      </div>
+      <div class="col-md-12 text-center br-country-social">
+        <span class="hero-hearts text-center">
+          <i class="fa fa-share-square-o fa-lg"></i>&nbsp;&nbsp;&nbsp;
+          <a href="#"
+            onclick="
+            window.open(
+              'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+              'facebook-share-dialog',
+              'width=626,height=436');
+              return false;">
+            <i class="fa fa-facebook-square fa-lg"></i>
+          </a>&nbsp;&nbsp;&nbsp;
+          <a href=""
+              onclick="
+            window.open(
+              'https://twitter.com/intent/tweet?text=<%= request.original_url %>%20%23seeitmyway',
+              'twitter-hashtag-button',
+              'width=626,height=436');
+              return false;">
+          <i class="fa fa-twitter-square fa-lg"></i></a>
+        </span>
       </div>
       <div class="br_time text-center">
         <span class="visible-xs">
@@ -112,10 +140,10 @@
                 }
               </style>
             <div class="br_tittle" id="info-bit-<%= index %>">
-              <a href="#"><i class="fa fa-share-square-o"></i>
+              <!-- <a href="#"><i class="fa fa-share-square-o"></i>
                  &nbsp;
                  Share
-               </a>
+               </a> -->
                <h2 class="text-center hidden-xs"><%= info_bit.title %></h2>
                <h2 class="text-center visible-xs"><%= info_bit.title %></h2>
              </div>
@@ -141,7 +169,7 @@
                   <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>" class="fun-fact-image">
                 </div>
                 <div class="col-sm-9 col-md-9 col-lg-10">
-                  <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
+                  <!-- <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
                   <h2>Now here’s a fun fact!</h2>
                   <p>
                     <%= raw fun_fact.content %>
@@ -157,7 +185,7 @@
                     <p>
                       <%= raw fun_fact.content %>
                     </p>
-                    <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
+                    <!-- <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
                   </div>
                   <div class="clearfix"></div>
                 </div>
@@ -184,7 +212,7 @@
           <div class="row">
             <% if !@country.famous_faces.blank? %>
               <div class="col-md-12 br_famous">
-                <a href="#" class="hidden-xs"><i class="fa fa-share-square-o"></i> &nbsp; Share</a>
+                <!-- <a href="#" class="hidden-xs"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
                 <h2>Famous faces from <%= @country.display_name %>!</h2>
                 <p>
                   From legendary musicians and award winning actors to sporting superstars and history's most influential personalities, see where these famous faces got their start.

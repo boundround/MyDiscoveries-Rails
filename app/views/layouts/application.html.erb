@@ -33,7 +33,10 @@
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1418185688437447";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+
+	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>
 		<div id="place-holder"></div>
 	<div class="loader-container loader-bound-round"></div>
     <% flash.each do |type, message| %>
@@ -224,12 +227,12 @@
               <div class="share-buttons text-center">
               	<div class="fb-share-button" data-href="<%= request.original_url %>"  data-layout="button"></div>
               	<a href="https://twitter.com/intent/tweet?button_hashtag=seeitmyway" class="twitter-hashtag-button" data-url="<%= request.original_url %>">Tweet</a>
-								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
 	            </div>
-	            <p></p>
+	            <p></p><!--
 	            <div class="text-center">
               	<button class="btn share-button" id="email-share"><i class="fa fa-envelope"></i> Email</button>
-              </div>
+              </div> -->
 
               <div class="mid-cont">
               </div>
