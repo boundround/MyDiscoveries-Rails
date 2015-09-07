@@ -49,6 +49,13 @@
       </div>
       <div class="clearfix"></div>
       <div class="col-md-12">
+        <div class="col-xs-12">
+          <a href="<%= root_path %>">
+            <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
+          </a>
+        </div>
+        <%= render 'layouts/search_input'%>
+        <p>&nbsp;</p>
         <h1 class="text-center">
           <%= @country.display_name %><br/>
           <span id="country-population">Population: </span>
