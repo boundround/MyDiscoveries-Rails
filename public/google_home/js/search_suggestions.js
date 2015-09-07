@@ -9,7 +9,7 @@ window.onload = function() {
 
 	var br_search_button_class = '.search-button'; //".search-button" when integrated
 	var br_search_class = '.search-box'; //".search-box" when integrated
-	var br_url_prefix = 'https://app.boundround.com'; //Blank when integrated
+	var br_url_prefix = '';//'https://app.boundround.com'; //Blank when integrated
 
 	var iOS = (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false);
 
