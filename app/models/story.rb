@@ -4,4 +4,7 @@ class Story < ActiveRecord::Base
   has_many :user_photos, :inverse_of => :story
 
   accepts_nested_attributes_for :user_photos
+
+  scope :active, -> { where(status: "live") }
+  scope :draft, -> { where(status: "draft") }
 end

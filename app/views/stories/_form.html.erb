@@ -48,6 +48,7 @@
                   </span> -->
                   <%= f.text_area :content, placeholder: "Write your story here.", maxlength: 500 %>
                   <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+                  <%= f.hidden_field :status, :value => "draft" %>
                   <div class="clearfix"></div>
                 <div class="slider-cont">
 

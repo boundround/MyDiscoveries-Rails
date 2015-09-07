@@ -26,7 +26,7 @@ class AreasController < ApplicationController
     @review = Review.new
 
     @storiable = @area
-    @stories = @storiable.stories
+    @stories = @storiable.stories.active
     @story = Story.new
     @user_photos = @story.user_photos.build
 

@@ -232,13 +232,14 @@ $(document).ready(function(){
       if (image2)
         $('#story-image-2a').prepend('<div id="image-2" class="pull-right side-img-cont share"><div class="share-btn"><img src=' + image2 + ' class="story-image"></div></div>');
       if (image3)
-        $('#story-image-3a').html("<div class='img-cont2 share z-up'><div class='share-btn'><img src=" + image3 + " class='story-image'></div></div>");
+        $('#story-image-3a').html("<div id='image-3' class='img-cont2 share z-up'><div class='share-btn'><img src=" + image3 + " class='story-image'></div></div>");
 
     });
 
     $('#story-close').on('click', function(){
       $('#image-1').remove();
       $('#image-2').remove();
+      $('#image-3').remove();
     });
 
     $('#story-publish-button').on('click', function(){

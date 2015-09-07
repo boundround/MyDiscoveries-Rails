@@ -24,7 +24,7 @@
                     <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
                 </p>
                 <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                  data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>"
+                  data-title="<%= story.title ? story.title : @storiable.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>"
                   <% story.user_photos.each_with_index do |photo, index| %>
                   data-image-<%= index %>="<%= photo.path_url(:medium) %>"
                   <% end %>
@@ -44,6 +44,48 @@
         <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
       </div>
     </div>
+  <% end %>
+<% end %>
+
+<% if user_signed_in? %>
+  <% current_user.stories.draft.where(storiable_id: @storiable.id).each do |story| %>
+  <% index = @stories.length ? @stories.length : 0 %>
+    <% if story.user_photos.length > 0 %>
+      <!-- Story with image header -->
+      <div class="col-sm-12 col-md-6">
+        <style>
+          #story-<%= index %> {
+            background:url('<%= story.user_photos.first.path_url(:small) %>') no-repeat;
+            background-size: 100% 420px;
+          }
+        </style>
+        <div class="br_story bg" id="story-<%= index %>">
+                  <h3><%= story.title %></h3>
+                  <p>
+                      <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
+                  </p>
+                  <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
+                    data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>"
+                    <% story.user_photos.each_with_index do |photo, index| %>
+                    data-image-<%= index %>="<%= photo.path_url(:medium) %>"
+                    <% end %>
+                    class="br_read_more">Read story</a>
+                  <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
+          </div>
+      </div>
+    <% else %>
+      <div class="col-sm-12 col-md-6 ">
+        <div class="br_story">
+          <h3><%= story.title %></h3>
+          <p>
+            <%= story.content %>
+          </p>
+          <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
+                    data-title="<%= story.title ? story.title : @storiable.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>">
+          <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
+        </div>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
 

@@ -46,7 +46,7 @@ class PlacesController < ApplicationController
     @review = Review.new
 
     @storiable = @place
-    @stories = @storiable.stories
+    @stories = @storiable.stories.active
     @story = Story.new
     @user_photos = @story.user_photos.build
     @active_user_photos = UserPhoto.active.where(place_id: @place.id)
