@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   get "places/liked_places" => "places#liked_places"
   get "places/tags" => "places#tags"
   get "programs/tags" => "programs#tags"
-
+  
   post "places/user_create" => "places#user_create"
 
   get "places/publishing_queue" => "places#publishing_queue"
@@ -103,6 +103,8 @@ Rails.application.routes.draw do
   get '/map' => 'pages#index'
 
   get '/map_only' => 'pages#map_only'
+  
+  get '/google_map_home' => 'pages#google_map_home'
 
   get '/puzzles/:action' => 'puzzles#:action'
 
