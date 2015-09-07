@@ -1,0 +1,90 @@
+<div class="left-user">
+  <div class="container">
+    <div class="user-view-title">
+      <h1 class="br_top_heading hidden-xs">
+        My Journal
+      </h1>
+      <p><i class="fa fa-star fa-lg"></i></p>
+      <%= render 'layouts/search_input' %>
+    </div>
+    <% unless @user.stories.blank? %>
+      <% @user.stories.each_with_index do |story, index| %>
+        <% if story.user_photos.length > 0 %>
+          <!-- Story with image header -->
+          <div class="col-sm-12 col-md-6">
+            <style>
+              #story-<%= index %> {
+                background:url('<%= story.user_photos.first.path_url(:small) %>') no-repeat;
+                background-size: 100% 420px;
+              }
+            </style>
+            <div class="br_story bg" id="story-<%= index %>">
+                      <h3><%= story.title %></h3>
+                      <p>
+                          <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
+                      </p>
+                      <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
+                        data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>"
+                        <% story.user_photos.each_with_index do |photo, index| %>
+                        data-image-<%= index %>="<%= photo.path_url(:medium) %>"
+                        <% end %>
+                        class="br_read_more">Read story</a>
+                      <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
+              </div>
+          </div>
+        <% else %>
+          <div class="col-sm-12 col-md-6 ">
+            <div class="br_story">
+              <h3><%= story.title %></h3>
+              <p>
+                <%= story.content %>
+              </p>
+              <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
+                        data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>">
+              <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <div class="home-text">
+        <p>You have not uploaded a story yet.</p>
+        <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
+        to add them to your personal list.
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="right-user">
+  <%= render 'sidebar' %>
+</div>
+
+<div class="modal fade" id="userStory">
+  <div class="modal-dialog">
+    <div class="modal-content" id="storyHeroImage">
+      <button type="button" class="close" id="story-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="mid-cont">
+          <h1 class="text-center" id="story-title">
+
+          </h1>
+          <h3 class="text-center" id="story-user"></h3>
+
+          <div class="mid-cont" id="story-image-2">
+
+              <span id="story-content"></span>
+              <div class="clearfix"></div>
+            <div class="slider-cont">
+
+                <div id="story-image-3">
+
+              </div>
+            </div>
+          </div>
+          <hr/>
+          <div class="br_modal-footer text-center">
+            <a href="#" data-dismiss="modal" aria-label="Close" >Cancel</a>
+          </div>
+        </div>
+      </div>
+  </div><!-- /.modal-content -->
+</div>

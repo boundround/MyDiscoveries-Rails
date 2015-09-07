@@ -12,6 +12,8 @@ end
 
 Rails.application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
+  post '/rate' => 'rater#create', :as => 'rate'
   constraints(SSConstraint.new) do
     get '/', to: 'places#programsearch', as: nil
   end
@@ -47,7 +49,7 @@ Rails.application.routes.draw do
   get "places/liked_places" => "places#liked_places"
   get "places/tags" => "places#tags"
   get "programs/tags" => "programs#tags"
-
+  
   post "places/user_create" => "places#user_create"
 
   get "places/publishing_queue" => "places#publishing_queue"
@@ -73,12 +75,17 @@ Rails.application.routes.draw do
   post 'videos_users/create' => 'videos_users#create'
   post 'videos_users/destroy' => 'videos_users#destroy'
 
+  resources :user_photos
+
   resources :areas do
     resources :photos
     resources :videos
     resources :games
     resources :fun_facts
     resources :discounts
+    resources :reviews
+    resources :stories
+    resources :user_photos
     collection { post :import }
   end
 
@@ -96,6 +103,8 @@ Rails.application.routes.draw do
   get '/map' => 'pages#index'
 
   get '/map_only' => 'pages#map_only'
+  
+  get '/google_map_home' => 'pages#google_map_home'
 
   get '/puzzles/:action' => 'puzzles#:action'
 
@@ -104,17 +113,22 @@ Rails.application.routes.draw do
   get '/users/videos' => 'users#videos'
   get '/users/places' => 'users#places'
   get '/users/fun_facts' => 'users#fun_facts'
+  get '/users/stories' => 'users#stories'
+  get '/users/draft_content' => 'users#draft_content' # All User Uploaded Content in Draft
   resources :users
 
 
   resources :places do
     member { get 'preview' }
-    collection { get 'all_edited'}
+    collection { get 'all_edited'} # all place content in draft
     resources :photos
     resources :videos
     resources :discounts
     resources :fun_facts
     resources :games
+    resources :reviews
+    resources :stories
+    resources :user_photos
     collection { post :import }
   end
 

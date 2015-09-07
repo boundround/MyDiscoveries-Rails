@@ -45,6 +45,7 @@
           <%= f.input :latitude, :input_html => { class: 'form-control', "data-geo" => "lat" } %>
           <%= f.input :longitude, :input_html => { class: 'form-control', "data-geo" => "lng" } %>
           <%= f.input :address, placeholder: 'Address', :input_html => { class: 'form-control', "data-geo" => "formatted_address" }, label: "Marker Address" %>
+          <%= f.input :google_place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
         </div>
         <div id="table-container">
       <h3>Videos</h3>

@@ -2,12 +2,12 @@
   <div class="container">
     <div class="area-content all-videos">
       <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
-      <div class="banner-wrapper game-video-banner">
-        <div class="banner">
-          <div class="title-wrapper">
-            <h1 class="title">Videos</h1>
-          </div>
-        </div>
+      <div class="user-view-title">
+        <h1 class="br_top_heading hidden-xs">
+          My Videos & Photos
+        </h1>
+        <p><i class="fa fa-star fa-lg"></i></p>
+        <%= render 'layouts/search_input' %>
       </div>
 
       <div class="card-large-content-hide">
@@ -34,7 +34,7 @@
         </div>
       <% else %>
         <div class="home-text">
-          <p>You have not favourited any Places yet!</p>
+          <p>You have not favourited any Videos or Photos yet.</p>
           <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
           to add them to your personal list.
         </div>
@@ -45,3 +45,4 @@
 <div class="right-user">
   <%= render 'sidebar' %>
 </div>
+<%= javascript_include_tag 'search_suggestions' %>

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  ratyrate_rater
+
   has_many :photos_users
   has_many :photos, through: :photos_users
   has_many :videos_users
@@ -15,7 +18,11 @@ class User < ActiveRecord::Base
   has_many :customers_places
   has_many :owned_places, through: :customers_places, :source => :place
 
-  mount_uploader :avatar, UserPhotoUploader
+  has_many :reviews
+  has_many :stories
+  has_many :user_photos
+
+  mount_uploader :avatar, UserAvatarUploader
   process_in_background :avatar
 
   TEMP_EMAIL_PREFIX = 'change@me'

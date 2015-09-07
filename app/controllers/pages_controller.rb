@@ -13,6 +13,10 @@ class PagesController < ApplicationController
     @initial_zoom = request.original_url
   end
 
+  def google_map_home
+    @placeprograms = "yes"
+  end
+  
   def map_only
     @map = []
   end

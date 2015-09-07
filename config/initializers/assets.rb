@@ -1,4 +1,3 @@
-Rails.application.config.assets.precompile += %w( cards.js )
 Rails.application.config.assets.precompile += %w( area.js )
 Rails.application.config.assets.precompile += %w( mapbox.js )
 Rails.application.config.assets.precompile += %w( jquery.min.js )

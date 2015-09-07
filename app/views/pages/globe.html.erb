@@ -118,6 +118,17 @@ left: 1px;
 <body>
 
 <div id="cards">
+	<div class="row">
+	  <div class="col-xs-6 hidden-xs">
+
+	  </div>
+	  <div class="col-xs-12 visible-xs">
+	    <%= render 'layouts/mobile_nav' %>
+	  </div>
+	  <div class="col-xs-12 col-sm-6 text-right">
+	    <%= render 'layouts/profile_dropdown' %>
+	  </div>
+	</div>
 	<div class="br-logo-home"></div>
 	<div id="place-holder"></div>
 	<div class="home-text">
@@ -129,10 +140,11 @@ left: 1px;
 			Sign up to be a Bound Round reporter</a> and share stories from your travels
 
 	</div>
-	<div class="search-wrapper">
+	<!-- <div class="search-wrapper">
 		<input id="search-box" class="search-box" placeholder="Where do you want to explore?"><i class="spinner search-spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i></input>
 		<div class="search-sidebar"></div>
-	</div>
+	</div> -->
+	<%= render 'layouts/search_input' %>
 	<div id="card-container">
 		<div id='filters' class='ui-select'>
 		  <div>
@@ -206,34 +218,6 @@ left: 1px;
 	</div>
 	</div>
 </div>
-
-<% if !user_signed_in? %>
-<div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-content small-modal">
-		<div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<img src="<%= asset_path('br_logo_new.png') %>" class="br-logo-modal">
-      <h4 class="modal-title">Sign In and Explore!</h4>
-    </div>
-		<div class="modal-body">
-			<h5>Already A Bound Round User?</h5>
-			<div id="icon-wrapper">
-				<a href="<%= new_user_session_path %>">
-					<button class="btn blue-button">
-						Sign In
-					</button>
-				</a>
-				<h5>Need To Create An Account?</h5>
-				<a href="<%= new_user_registration_path %>">
-					<button class="btn blue-button">
-						Sign Up
-					</button>
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
-<% end %>
 
 <div id='user-ip' data-ip=<%= request.remote_ip %>></div>
 <div id="placeholder"></div>

@@ -21,9 +21,11 @@
 //= require jquery.matchHeight-min
 //= require jquery.touchSwipe.min
 //= require jquery.bxslider
+//= require jquery.keep-ratio
 //= require sign_in
 //= require owl.carousel.min
 //= require countries
+//= require places
 //= require avatarupload
 //= require user
 //= require dataTables/jquery.dataTables
@@ -39,8 +41,13 @@
 //= require geocomplete
 //= require iconlabel
 //= require cookie
-//= require cards
 //= require like
+//= require search_suggestions
+//= require jquery.raty
+//= require ratyrate
+//= require user-photo-upload
+//= require ckeditor/init
+//= require ckeditor/config.js
 
 
 

@@ -1,5 +1,11 @@
 class Area < ActiveRecord::Base
   extend FriendlyId
+
+  ratyrate_rateable "quality"
+
+  geocoded_by :address   # can also be an IP address
+  after_validation :geocode
+
   friendly_id :display_name, :use => :slugged
 
   has_paper_trail
@@ -19,17 +25,25 @@ class Area < ActiveRecord::Base
   has_many :games, -> { order "created_at ASC"}
   has_many :fun_facts, -> { order "created_at ASC"}
   has_many :discounts, -> { order "created_at ASC"}
+  has_many :user_photos
 
   has_many :photos
+  has_many :user_photos
 
   has_many :areas_users
   has_many :users, through: :areas_users
+
+  has_many :reviews, as: :reviewable
+  has_many :stories, as: :storiable
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :discounts, allow_destroy: true
   accepts_nested_attributes_for :games, allow_destroy: true
+  accepts_nested_attributes_for :user_photos
+  accepts_nested_attributes_for :reviews
+  accepts_nested_attributes_for :stories
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 

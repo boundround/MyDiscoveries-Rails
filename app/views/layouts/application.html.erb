@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <% if not @placeprograms %>
 	<head>
 	  <title><%= full_title(yield(:title)) %></title>
@@ -26,14 +26,16 @@
 	  <%= render "/layouts/ga" %>
 	</head>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
-	  <% if current_user.try(:admin) %>
-	    <% flash.each do |type, message| %>
-	    <div class="alert <%= bootstrap_class_for(type) %> fade in">
-	      <button class="close" data-dismiss="alert">×</button>
-	      <%= message %>
-	    </div>
-	  <% end %>
+
+		<div id="place-holder"></div>
+	<div class="loader-container loader-bound-round"></div>
+    <% flash.each do |type, message| %>
+    <div class="alert <%= bootstrap_class_for(type) %> fade in">
+      <button class="close" data-dismiss="alert">×</button>
+      <%= message %>
+    </div>
 	<% end %>
+	<div class="alert-wrapper"></div>
 		<% if user_signed_in? %>
 		  <% if current_user.try(:admin) || current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.has_role?("contributor") %>
 		    <nav class="navbar navbar-default" role="navigation">
@@ -70,7 +72,7 @@
 		    </nav>
 		  <% end %>
 	  <% end %>
-	  <% if !@no_mobile_nav %>
+	  <!-- <% if !@no_mobile_nav %>
 	    <nav class="navbar navbar-default inline-list" role="navigation">
 	      <ul class="nav navbar-nav">
 	        <% if @place || @area %>
@@ -99,7 +101,7 @@
 	    <a href="<%= user_signed_in? ? users_places_path : new_user_session_path %>">
 	    <button style="background-image:url(<%= user_signed_in? && current_user.avatar_url ? '"' + current_user.avatar_url + '"' : asset_path("user_copy_2.png") %>)" class="profile-icon menu-button" type="button" id="profile-icon" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="<%= user_signed_in? ? "My Profile" : "Sign In" %>">
 	  </button></a>
-	  <% end %>
+	  <% end %> -->
 
 	  <%= javascript_include_tag 'mapbox' %>
 	  <%= javascript_include_tag 'application' %>
@@ -107,10 +109,152 @@
 	    <%= yield %>
 	  </div>
 	  <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-	  <script src="//cdn.jsdelivr.net/isotope/2.0.0/isotope.pkgd.min.js"></script>
-	  <script src="//cdn.jsdelivr.net/imagesloaded/3.1.6/imagesloaded.min.js"></script>
 	  <%= javascript_include_tag 'froogaloop' %>
-	  <%= javascript_include_tag 'cards' %>
+	  <script>
+		var id = 'loader', fill = '#FFF',
+		      size = 20, radius = 3, duration = 1000,
+		      maxOpacity = 0.9, minOpacity = 0.15;
+		  $('<svg id="'+id+'" width="'+(size*3.5)+'" height="'+size+'">' +
+		        '<rect width="'+size+'" height="'+size+'" x="0" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+		            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" repeatCount="indefinite"/>' +
+		        '</rect>' +
+		        '<rect width="'+size+'" height="'+size+'" x="'+(size*1.25)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+		            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/4)+'ms" repeatCount="indefinite"/>' +
+		        '</rect>' +
+		        '<rect width="'+size+'" height="'+size+'" x="'+(size*2.5)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+		            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/2)+'ms" repeatCount="indefinite"/>' +
+		        '</rect>' +
+		    '</svg>').appendTo('.loader-container');
+		</script>
+	  <script>
+
+    // $(window).load(function(){
+    //     setTimeout(function(){
+    //          $('.loader-container').fadeOut(800);
+    //      },100);
+
+    // })
+
+
+
+    </script>
+    <% if !user_signed_in? %>
+	    <div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-content small-modal">
+					<div class="modal-header">
+			      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<img src="<%= asset_path('br_logo_new.png') %>" class="br-logo-modal">
+			      <h4 class="modal-title">Sign In and Explore!</h4>
+			    </div>
+					<div class="modal-body">
+						<h5>Already A Bound Round User?</h5>
+						<div id="icon-wrapper">
+							<h2>Sign in</h2>
+						  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+						    <div class="form-inputs">
+						      <%= f.input :email, required: false, autofocus: true %><br>
+						      <%= f.input :password, required: false %><br>
+						      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %><br>
+						    </div>
+
+						    <div class="form-actions">
+						      <p><%= f.button :submit, "Sign in" %></p>
+						    </div>
+						  <% end %>
+							<h5>Need To Create An Account?</h5>
+							<a href="<%= new_user_registration_path %>">
+								<button class="btn blue-button">
+									Sign Up
+								</button>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+
+		<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-content small-modal">
+				<div class="modal-header">
+		      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<img src="<%= asset_path('br_logo_new.png') %>" class="br-logo-modal">
+		      <h4 class="modal-title">Sign In and Explore!</h4>
+		    </div>
+				<div class="modal-body">
+					<h5>Already A Bound Round User?</h5>
+					<div id="icon-wrapper">
+						<h2>Sign in</h2>
+					  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+					    <div class="form-inputs">
+					      <%= f.input :email, required: false, autofocus: true %><br>
+					      <%= f.input :password, required: false %><br>
+					      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %><br>
+					    </div>
+
+					    <div class="form-actions">
+					      <p><%= f.button :submit, "Sign in" %></p>
+					    </div>
+					  <% end %>
+						<h5>Need To Create An Account?</h5>
+						<a href="<%= new_user_registration_path %>">
+							<button class="btn blue-button">
+								Sign Up
+							</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="shareModal">
+      <div class="share-modal-dialog">
+        <div class="share-modal-content">
+          <button type="button" class="close share-close-button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="mid-cont">
+              <h3 class="text-center">
+                <i class="fa fa-share"></i>&nbsp;&nbsp;Share
+              </h3>
+              <div class="share-buttons text-center">
+              	<div class="fb-share-button" data-href="<%= request.original_url %>"  data-layout="button"></div>
+              	<a href="https://twitter.com/intent/tweet?button_hashtag=seeitmyway" class="twitter-hashtag-button" data-url="<%= request.original_url %>">Tweet</a>
+
+	            </div>
+	            <p></p><!--
+	            <div class="text-center">
+              	<button class="btn share-button" id="email-share"><i class="fa fa-envelope"></i> Email</button>
+              </div> -->
+
+              <div class="mid-cont">
+              </div>
+              <div class="clearfix"></div>
+
+              <div class="br_modal-footer text-center" id="share-form">
+              	<form>
+              		To:<textarea></textarea><br>
+              		Message:<textarea></textarea><br>
+              		<button class="btn share-button">Send Email</button>
+              	</form>
+
+              </div>
+            </div>
+          </div>
+      </div><!-- /.modal-content -->
+    </div>
+
+     <!-- <footer>
+		   <div class="home-footer">
+		     <span class="top-footer"><p><a href="http://boundround.com/kids/" target="blank">Travelling Families</a>
+		     <a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a>
+		     <a href="http://boundround.com/education/" target="blank">Teachers</a>
+		     <a href=" http://boundround.com/media/" target="blank">Media</a></span></p>
+		     <span class="bottom-footer">
+		       <a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a>
+		       <a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a>
+		       <a href="http://boundround.com/about-us/" target="blank">About Us</a>
+		       <a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a>
+		     </span>
+		   </div>
+		 </footer> -->
 	</body>
 
 

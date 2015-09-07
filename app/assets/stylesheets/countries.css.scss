@@ -7,6 +7,11 @@
   height: 40px;
 }
 
+.carousel-video {
+  height: 130px;
+  width: 100%;
+}
+
 .br_country{
   background: #fff;
   border-radius: 20px;
@@ -40,13 +45,17 @@
   font-weight: 300;
   line-height: 28px;
   margin-top: 60px;
-  margin-bottom: 60px;
   text-shadow: 1px 1px grey;
 }
 .br_country h1 span{
   font-size: 21px;
   font-weight: 300;
 }
+
+.br-country-social {
+  margin-bottom: 60px;
+}
+
 .br_links a{
   display: inline-block;
   margin-right: 30px;

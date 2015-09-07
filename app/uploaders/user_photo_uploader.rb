@@ -14,7 +14,7 @@ class UserPhotoUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "user_avatars/#{model.id}"
+    "user_photos/#{model.user_id}"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -25,28 +25,27 @@ class UserPhotoUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
-  process :auto_orient
-
   # Process files as they are uploaded:
-  process :resize_to_fit => [300, 300]
+  # process :resize_to_fit => [2532, 1876]
+
+  process :fix_exif_rotation
   #
   # def scale(width, height)
   #   # do something
   # end
 
   # Create different versions of your uploaded files:
-  # version :small do
-  #   process :resize_to_fit => [300, 300]
-  # end
+  version :small do
+    process :resize_to_fit => [300, 300]
+  end
 
-  # version :medium do
-  #   process :resize_to_fit => [500, 500]
-  # end
+  version :medium do
+    process :resize_to_fit => [500, 500]
+  end
 
-  # version :large do
-  #   process :resize_to_fit => [900, 900]
-  # end
-
+  version :large do
+    process :resize_to_fit => [900, 900]
+  end
   # version : do
   #   process :resize_to_fit => [800, 800]
   # end
@@ -59,14 +58,23 @@ class UserPhotoUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    "#{secure_token}.#{file.extension}" if original_filename.present?
+  end
 
-  def auto_orient
-      manipulate! do |image|
-        image.tap(&:auto_orient)
-      end
+  # Rotates the image based on the EXIF Orientation
+  def fix_exif_rotation
+    manipulate! do |img|
+      img.auto_orient
+      img = yield(img) if block_given?
+      img
     end
+  end
+
+  protected
+  def secure_token
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+  end
 
 end

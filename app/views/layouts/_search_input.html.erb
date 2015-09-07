@@ -1,0 +1,19 @@
+<div class="col-xs-12">
+  <div class="br_search_box">
+    <div class="input-group text-center">
+      <input id="search-box" class="search-box form-control"
+      placeholder=<% unless @place || @area %>
+                      "Where do you want to explore?"
+                  <% else %>
+                    "Looking for something else?"
+                  <% end %>
+                  ><i class="spinner search-spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i></input>
+      <!-- <input type="text" class="form-control" placeholder="Placeholder"> -->
+      <span class="input-group-btn">
+          <button class="btn search-button" type="button">
+              <span class="fa fa-search" aria-hidden="true"></span>
+          </button>
+      </span>
+    </div>
+  </div>
+</div>

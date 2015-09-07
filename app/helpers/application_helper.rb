@@ -1,5 +1,17 @@
 module ApplicationHelper
 
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+   @devise_mapping ||= Devise.mappings[:user]
+  end
+
   def full_title(page_title = '')
     base_title = "Bound Round"
     if page_title.empty?
@@ -10,15 +22,45 @@ module ApplicationHelper
   end
 
   def open_graph_image
-    begin
-      if (@place && !@photos.blank?) || (@area && !@photos.blank?)
-        "<meta property='og:image' content='#{@hero_photo ? @hero_photo.path_url.gsub('https://', 'http://') : @photos.first.path_url.gsub('https://', 'http://') }' />\n" +
-        "<meta property='og:image:secure_url' content='#{@hero_photo ? @hero_photo.path_url : @photos.first.path_url }' />\n" +
-        "<meta property='og:image:type' content='image/jpeg' />"
+      if @place && !@place.photos.blank?
+        photo = @place.photos.first.path_url
+      elsif @area && !@area.photos.blank?
+        photo = @area.photos.first.path_url
+      elsif @country && !@country.photos.blank?
+        photo = @country.photos.first.path_url
+      else
+        photo = "https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/br_logo_new-30eb3b9bb0267503159d6cab93191844.png"
       end
-    rescue
-      ""
+
+      return "<meta property='og:image' content='#{photo.gsub('https://', 'http://') }' />\n" + "<meta property='og:image:secure_url' content='#{photo}' />\n" + "<meta property='og:image:type' content='image/jpeg' />"
+  end
+
+  def get_random_place_photo(place)
+    if place.photos.length > 0
+      photo = place.photos[rand(0...place.photos.length)]
+      if photo
+        photo.path_url(:small)
+      end
+    else
+      "generic-grey.jpg"
     end
+  end
+
+  def extract_domain(url)
+    domain = ""
+    if !url.blank?
+      if url.index("://")
+        domain = url.split('/')[2]
+      else
+        domain = url.split('/')[0]
+      end
+    end
+    domain = domain.split(':')[0]
+  end
+
+  def age(dob)
+    now = Time.now.utc.to_date
+    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
   end
 
   def bootstrap_class_for(flash_type)
@@ -112,14 +154,37 @@ module ApplicationHelper
   end
 
   def thumbnail_for(content)
-    if content.class.to_s == "Photo"
-      asset_path(content.path_url)
+    if content.class.to_s == "Photo" || content.class.to_s == "UserPhoto"
+      asset_path(content.path_url(:small))
     elsif content.class.to_s == "FunFact"
       asset_path(content.hero_photo_url)
     elsif content.class.to_s == "Game"
       game_thumbnail(content)
     else
       ""
+    end
+  end
+
+  def show_place_rating(place)
+    rating = place.quality_average.avg.round
+    remainder = 5-rating
+    text = ""
+    rating.times do
+      text += '<i class="fa fa-heart"></i>'
+    end
+    remainder.times do
+      text += '<i class="fa fa-heart-o"></i>'
+    end
+
+    text
+
+  end
+
+  def get_user_place_rating_from_review(review)
+    if Rate.where(rateable_id: review.reviewable_id).where(rateable_type: review.reviewable_type).where(rater_id: review.user.id).length > 0
+      Rate.where(rateable_id: review.reviewable_id).where(rateable_type: review.reviewable_type).where(rater_id: review.user.id)[0].stars.round
+    else
+      0
     end
   end
 

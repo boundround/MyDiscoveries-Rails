@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-12">
+    <% if @place %>
+      <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
+        <style>
+          #fun-fact-<%= index %> {
+            background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @place.country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
+          }
+        </style>
+        <div class="br_fun_fact hidden-xs hidden-sm">
+          <div class="row">
+            <div class="col-sm-3 col-md-3 col-lg-2">
+              <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" class="fun-fact-image">
+            </div>
+            <div class="col-sm-9 col-md-9 col-lg-10">
+              <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+              <h2>Now here’s a fun fact!</h2>
+              <p>
+                <%= raw fun_fact.content %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 visible-xs visible-sm">
+          <div class="row">
+            <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
+              <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
+                <h2>Now here’s a fun fact!</h2>
+                <p>
+                  <%= raw fun_fact.content %>
+                </p>
+                <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <% @area.fun_facts.active.each_with_index do |fun_fact, index| %>
+        <style>
+          #fun-fact-<%= index %> {
+            background: transparent url(<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@area)) %>) no-repeat scroll 0% 0%;
+          }
+        </style>
+        <div class="br_fun_fact hidden-xs hidden-sm">
+          <div class="row">
+            <div class="col-sm-3 col-md-3 col-lg-2">
+              <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@area)) %>" class="fun-fact-image">
+            </div>
+            <div class="col-sm-9 col-md-9 col-lg-10">
+              <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+              <h2>Now here’s a fun fact!</h2>
+              <p>
+                <%= raw fun_fact.content %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 visible-xs visible-sm">
+          <div class="row">
+            <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
+              <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
+                <h2>Now here’s a fun fact!</h2>
+                <p>
+                  <%= raw fun_fact.content %>
+                </p>
+                <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

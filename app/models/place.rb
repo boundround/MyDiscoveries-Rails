@@ -1,6 +1,11 @@
 class Place < ActiveRecord::Base
   include CustomerApprovable
 
+  ratyrate_rateable "quality"
+
+  geocoded_by :display_address   # can also be an IP address
+  after_validation :geocode
+
   after_save :load_into_soulmate
   before_destroy :remove_from_soulmate
   before_save :check_valid_url, :set_approval_time
@@ -41,6 +46,7 @@ class Place < ActiveRecord::Base
   has_many :videos, -> { order "created_at ASC"}
   has_many :fun_facts, -> { order "created_at ASC"}
   has_many :programs, -> { order "created_at ASC"}
+  has_many :user_photos
   has_one :journal_info
 
   has_many :places_users
@@ -49,12 +55,18 @@ class Place < ActiveRecord::Base
   has_many :customers_places
   has_many :owners, through: :customers_places, :source => :user
 
+  has_many :reviews, as: :reviewable
+  has_many :stories, as: :storiable
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :discounts, allow_destroy: true
   accepts_nested_attributes_for :games, allow_destroy: true
   accepts_nested_attributes_for :programs, allow_destroy: true
+  accepts_nested_attributes_for :reviews
+  accepts_nested_attributes_for :stories
+  accepts_nested_attributes_for :user_photos
 
   mount_uploader :map_icon, IconUploader
 

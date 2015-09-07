@@ -20,12 +20,35 @@ class AreasController < ApplicationController
 
   def show
     @area = Area.includes(:videos, :games, :photos, :discounts, :fun_facts, places: [:photos, :games, :videos, :categories]).friendly.find(params[:id])
+
+    @reviewable = @area
+    @reviews = @reviewable.reviews
+    @review = Review.new
+
+    @storiable = @area
+    @stories = @storiable.stories.active
+    @story = Story.new
+    @user_photos = @story.user_photos.build
+
+    @active_user_photos = UserPhoto.active.where(area_id: @area.id)
+
     @hero_video = @area.videos.find_by(priority: 1)
     @hero_photo = @area.photos.find_by(priority: 1)
     @photos = @area.photos.where.not(priority: 1)
     @videos = @area.videos.where.not(priority: 1)
     @request_xhr = request.xhr?
     @fun_facts = @area.fun_facts
+
+    @nearby_places = Place.near([@area.latitude, @area.longitude], 20).active.includes(:games, :videos, :photos, :categories)
+
+    @top_places = @nearby_places.sort do |x, y|
+      (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
+    end
+
+    @top_places = @top_places[0..4]
+
+    @videos_photos = @area.videos
+    @videos_photos += @area.photos
 
     respond_to do |format|
       format.html { render 'show', :layout => !request.xhr? }
@@ -118,7 +141,7 @@ class AreasController < ApplicationController
     def area_params
       params.require(:area).permit(:code, :identifier, :display_name, :short_intro, :description,
                                     :latitude, :longitude, :address, :published_status, :view_latitude, :view_longitude,
-                                    :view_height, :view_heading,
+                                    :view_height, :view_heading, :google_place_id, :country_id,
                                     photos_attributes: [:id, :area_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_include, :_destroy],
                                     videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :country_include, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :_destroy],

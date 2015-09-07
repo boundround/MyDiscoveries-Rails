@@ -41,24 +41,37 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
-    if @place.area_id
-      @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
-      @area_videos = @place.area.videos
+    @reviewable = @place
+    @reviews = @reviewable.reviews
+    @review = Review.new
+
+    @storiable = @place
+    @stories = @storiable.stories.active
+    @story = Story.new
+    @user_photos = @story.user_photos.build
+    @active_user_photos = UserPhoto.active.where(place_id: @place.id)
+
+    # distance = 20
+    # center_point = [@place.latitude, @place.longitude]
+    # box = Geocoder::Calculations.bounding_box(center_point, distance)
+    # @nearby_places = Place.within_bounding_box(box)
+    @nearby_places = @place.nearbys(20).active.includes(:games, :videos, :photos, :categories)
+
+    @top_places = @nearby_places.sort do |x, y|
+      (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
     end
+
+    @top_places = @top_places[0..4]
+
+    categories = @place.categories.map {|category| category.id}
+    @similar_places = @place.nearbys(30).active.includes(:games, :videos, :photos, :categories).where('categorizations.category_id' => categories)
 
     if @place.subscription_level == "Premium"
-      @videos = @place.videos.where.not(priority: 1) || []
       @hero_video = @place.videos.find_by(priority: 1)
-    else
-      @videos = []
     end
 
-    if !@hero_video
-      @hero_photo = @place.photos.find_by(priority: 1)
-      @photos = @place.photos.where.not(priority: 1)
-    else
-      @photos = @place.photos
-    end
+    @videos_photos = @place.videos
+    @videos_photos += @place.photos
 
     @request_xhr = request.xhr?
 

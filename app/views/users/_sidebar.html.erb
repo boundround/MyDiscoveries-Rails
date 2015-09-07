@@ -9,41 +9,38 @@
     </div>
     <%= image_tag 'passport_stamp.png', class: 'sidebar-stamp' %>
     <div class="upload_photo"></div><br>
-    <p><%= @user.name %>'s Passport</p>
+    <a style="color:white;" href="<%= user_path(@user) %>">
+      <p><%= @user.name %>'s Passport</p>
+    </a>
   </div>
-  <a href="<%= user_path(@user) %>">
+  <a href="/users/stories">
     <div class="sidebar-item">
-      <i class="fa fa-user fa-lg"></i><br>
-      My Passport
+      <i class="fa fa-image fa-lg"></i><br>
+      My Journal
     </div>
   </a>
   <a href="/users/places">
     <div class="sidebar-item">
       <i class="fa fa-globe fa-lg"></i><br>
-      My Places
+      My Wishlist
     </div>
   </a>
   <a href="/users/videos">
     <div class="sidebar-item">
       <i class="fa fa-youtube-play fa-lg"></i><br>
-      My Videos
+      My Videos & Photos
     </div>
   </a>
-  <a href="/users/photos">
-    <div class="sidebar-item">
-      <i class="fa fa-image fa-lg"></i><br>
-      My Photos
-    </div>
-  </a>
-  <a href="/users/games">
+  <!-- <a href="/users/games">
     <div class="sidebar-item">
       <i class="fa fa-puzzle-piece fa-lg"></i><br>
       My Games
     </div>
-  </a>
+  </a> -->
   <a href="<%= destroy_user_session_path %>">
     <div class="sidebar-item">
-      Log Out
+      <i class="fa fa-sign-out fa-lg"></i><br>
+      Sign Out
     </div>
   </a>
 </div>
