@@ -187,6 +187,8 @@ module ApplicationHelper
       else
         0
       end
+    else
+      0
     end
   end
 
