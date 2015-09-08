@@ -1717,7 +1717,11 @@ Crafty.extend({
             if (obj.currentStyle)
                 result = obj.currentStyle[this.camelize(prop)];
             else if (window.getComputedStyle)
-                result = document.defaultView.getComputedStyle(obj, null).getPropertyValue(this.csselize(prop));
+						{
+							result = document.defaultView.getComputedStyle(obj, null);
+								if(result)
+									result = result.getPropertyValue(this.csselize(prop));
+						}
             return result;
         },
 

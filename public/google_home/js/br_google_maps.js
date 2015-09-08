@@ -203,7 +203,7 @@ var createMarkerArray = function(geoJSON, markerType, showme) {
 				map: br_map
 			});
 
-//			marker.setVisible(showme);
+			marker.setVisible(showme);
 
 			/*				google.maps.event.addListener(marker, 'mouseover', function() {
 					  this.setAnimation(google.maps.Animation.BOUNCE);
@@ -356,10 +356,61 @@ function initialize() {
 		}
 	};
 	
-	br_infoWindow = new google.maps.InfoWindow();
+	br_infoWindow = new google.maps.InfoWindow(
+		{
+      pixelOffset: new google.maps.Size(0, 100)
+		}
+	);
 	br_infoWindow.addListener('closeclick',function(){
 		br_country_marker.setMap(null); //removes the marker
 		br_country_marker = null;
+	});
+	
+	/*
+	 * The google.maps.event.addListener() event waits for
+	 * the creation of the infowindow HTML structure 'domready'
+	 * and before the opening of the infowindow defined styles
+	 * are applied.
+	 */
+	br_infoWindow.addListener('domready', function() {
+
+	   // Reference to the DIV which receives the contents of the infowindow using jQuery
+	   var iwOuter = $('.gm-style-iw');
+
+	   /* The DIV we want to change is above the .gm-style-iw DIV.
+	    * So, we use jQuery and create a iwBackground variable,
+	    * and took advantage of the existing reference to .gm-style-iw for the previous DIV with .prev().
+	    */
+	   var iwBackground = iwOuter.prev();
+		 iwBackground.css({'display' : 'none'});
+
+/*
+	   // Remove the background shadow DIV
+	   iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+
+	   // Remove the white background DIV
+	   iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+*/
+		 // Taking advantage of the already established reference to
+		 // div .gm-style-iw with iwOuter variable.
+		 // You must set a new variable iwCloseBtn.
+		 // Using the .next() method of JQuery you reference the following div to .gm-style-iw.
+		 // Is this div that groups the close button elements.
+		 var iwCloseBtn = iwOuter.next();
+
+		 // Apply the desired effect to the close button
+		 iwCloseBtn.css({
+		   opacity: '1', // by default the close button has an opacity of 0.7
+		   right: '38px', top: '10px' // button repositioning
+		 });
+
+		 // The API automatically applies 0.7 opacity to the button after the mouseout event.
+		 // This function reverses this event to the desired value.
+		 iwCloseBtn.mouseout(function(){
+		   $(this).css({opacity: '1'});
+
+		 });
+
 	});
 
 	br_country_marker = new google.maps.Marker({

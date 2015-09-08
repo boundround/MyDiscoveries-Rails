@@ -82,10 +82,11 @@
 .place-game {
   width: 100%;
   min-height: 350px;
+/*  min-height: 70%;*/
 }
 
 #game-modal {
-  background-color: #fd7e56;
+/*  background-color: #fd7e56;*/
     padding-top: 35px;
     padding-left: 0px !important;
     display: block;
@@ -784,7 +785,6 @@ a,button,button:focus,button:active{
 .dropdown.br_profile button + .dropdown-menu {
   right: 0px;
   left: auto;
-  background-color: #FD7E56;
 }
 .dropdown.br_profile button + .dropdown-menu>li>a{
   color: #fff;
@@ -1308,11 +1308,12 @@ a,button,button:focus,button:active{
     border: none;
 }
 .br_games .dropdown-menu > li,.dropdown-menu{
-  background: #fd7e56;
+/*  background: #fd7e56;*/
 }
 .br_games .dropdown-menu > li > a{
   font: 22px;
-  color: #fff;
+/*  color: #fff;*/
+  color: #aaa;
 }
 
 .br_games .dropdown-menu > li.selected,.br_games .dropdown-menu > li > a:focus,.br_games  .dropdown-menu > li > a:hover{
@@ -3148,6 +3149,10 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
   }
 }
 
+/*Override bootstrap _modals.scss, get rid of margin to get rid of scroll bar on galley*/
+.modal-dialog {
+    margin: 0px;
+}
 
 
 

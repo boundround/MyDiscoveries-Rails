@@ -110,7 +110,7 @@ $('.close-btn').click(function(e) {
 function brSetSearchView() {
     $('.carousel-inner .item').removeAttr('style');
     $('.login_bg').slideDown(br_animation_time,br_animation_ease);
-    $(".owl_main,.top-middle h1,.login_bg,.bg_slide_area a[href='index_map.html'],footer").slideDown(br_animation_time,br_animation_ease);
+    $(".owl_main,.top-middle h1,.login_bg,.bg_slide_area .main_logo_link,footer").slideDown(br_animation_time,br_animation_ease);
     setTimeout(function() {
         $(".bg_slide_area").css('background', 'transparent');
         $(".bg_slide_area").removeAttr('style')
@@ -126,11 +126,15 @@ function brSetSearchView() {
 
     setTimeout(function() {
 
-        $(".owl_main,.top-middle h1,.login_bg,.bg_slide_area a[href='index_map.html'],footer").removeAttr('style');
+        $(".owl_main,.top-middle h1,.login_bg,.bg_slide_area .main_logo_link,footer").removeAttr('style');
         $('.bg_slide_area,.cover,.top-middle,.login_bg').removeClass('running');
     }, 1000);
     
     brShowMapMode(false);
+
+		$('.bg_slide_area,.cover,.top-middle,.login_bg').on('click', function(e) {
+		    brSetMapView(e,this);
+		});
 }
 
 function brSetMapView(e,mycontext) {
@@ -143,7 +147,7 @@ function brSetMapView(e,mycontext) {
     $('.bg_slide_area,.cover,.top-middle,.login_bg').addClass('running');
     //...do stuff..
     $('.owl_main,.top-middle h1').slideUp(br_animation_time,br_animation_ease);
-    $(".bg_slide_area a[href='index_map.html']").slideUp(br_animation_time,br_animation_ease);
+    $(".bg_slide_area .main_logo_link").slideUp(br_animation_time,br_animation_ease);
     $(".bg_slide_area").animate({
         'height': '100px',
         'max-width': '604px',
@@ -169,6 +173,8 @@ function brSetMapView(e,mycontext) {
     $('#map-wrapper').removeClass('blur');
     $('.carousel-inner .item').attr('style', 'min-height:' + windowHeight + 'px');
     brShowMapMode(true);
+
+		$('.bg_slide_area,.cover,.top-middle,.login_bg').off('click');
 }
 
 $('.bg_slide_area,.cover,.top-middle,.login_bg').on('click', function(e) {

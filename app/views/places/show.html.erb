@@ -335,28 +335,29 @@
                       </a>
                     </li> -->
                  </ul>
-                 <select class="selectpicker visible-xs center-block">
+								 
+                 <select id="place_select_game" class="selectpicker visible-xs center-block">
+									 <option value='ignore' selected="selected">
+                   <i class="fa  fa-puzzle-piece"></i><br>									
+									<span class="hidden-sm">Choose an activity</span>
+                   <span class="arrow"></span>
+									 </option>
                   <% @place.games.each do |game| %>
                     <% if game.game_type == "jigsaw puzzle" %>
-                      <option>
-                        <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                          <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw puzzle</span>
+                      <option value="<%= game.url%>">
+                          <i class="fa  fa-puzzle-piece"></i><br>
+													<span class="hidden-sm">Jigsaw puzzle</span>
                           <span class="arrow"></span>
-                        </a>
                       </option>
                     <% elsif game.game_type == "word search" %>
-                      <option class="">
-                        <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                      <option value="<%= game.url%>">
                          <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word search</span>
                          <span class="arrow"></span>
-                       </a>
                      </option>
                      <% elsif game.game_type == "slider" %>
-                      <option class="">
-                        <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
+                      <option value="<%= game.url%>">
                          <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Slider</span>
                          <span class="arrow"></span>
-                       </a>
                       </option>
                     <% end %>
                   <% end %>

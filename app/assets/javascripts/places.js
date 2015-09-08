@@ -160,13 +160,29 @@ $(document).ready(function(){
 
     getPlaceDetails($('#place-id').data("place"));
 
-    // fill game modal
+    // fill game modal, dropdown for mobile
+    $('#place_select_game').change(function() { 
+      console.log(this.value);
+		 if(this.value !=='ignore')
+		 {
+       var gameURL = this.value;
+       var content = '<iframe width="' + Math.floor($(window).width()*.8) + '" height="' + Math.floor($(window).width()*.6) + '" src="' + gameURL + '" ></iframe>';
+       console.log(content);
+       $('#game-body').html(content);
+			 $('#game-modal').modal('show');
+			 $('#place_select_game').val('ignore');
+			 $('#place_select_game').change();
+		 }
+	 });
+
+    // fill game modal, button
     $('.game-icon').on('click', function(){
       console.log($(this).data('game-url'));
       var gameURL = $(this).data('game-url');
-      var content = '<iframe class="place-game" src="' + gameURL + '" ></iframe>';
-      console.log(content);
+      var content = '<iframe width="' + Math.floor($(window).width()*.8) + '" height="' + Math.floor($(window).width()*.6) + '" src="' + gameURL + '" ></iframe>';
+//      var content = '<iframe class="place-game" src="' + gameURL + '" ></iframe>';
       $('#game-body').html(content);
+      console.log(content);
     })
 
     $('.carousel-video').bind('click', function() {
