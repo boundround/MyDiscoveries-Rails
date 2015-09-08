@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  console.log("sign_in cookie!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   if ($.cookie('modal_shown') == null) {
     var date = new Date();
     var minutes = 720;
