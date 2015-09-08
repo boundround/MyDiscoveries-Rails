@@ -13,28 +13,53 @@
       <div class="card-large-content-hide">
         <button id="close-large-content" style="position:absolute">Close</button>
       </div>
+      <h3>My Videos</h3>
       <% unless @user.videos.empty? %>
-        <div class="cards-float">
-          <% @user.videos.each do |video| %>
+        <div class="row">
+          <% @user.videos.each_with_index do |video, index| %>
             <% if (video != nil and video.vimeo_thumbnail != nil ) %>
-              <div class="card-item card-item-small card-item-hide video video-card">
-                <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %><% end %>
-                <div class="card-small-content">
+              <div class="col-md-3">
                   <div class="video-label">
-                    <%= area_place_video_link(video) %><a class="debug" href"<%= video.vimeo_thumbnail %>"> <%= video.vimeo_thumbnail.gsub(/_\d+\.jpg/,"_300.jpg") %></a>
+                    <div class="row"><%= area_place_video_link(video) %></div>
+                    <iframe class="carousel-item carousel-video" id="player<%= index + 1 %>" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1&player_id=player<%= index + 1 %>" width="273" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                                      </iframe>
                     <%= raw like_icon(video) %>
                   </div>
-                  <div class="video-background-image">
-                    <img class="vimeo-thumb" src="<%= video.vimeo_thumbnail.gsub(/_\d+\.jpg/,"_300.jpg") %>"/>
-                  </div>
                 </div>
-              </div>
             <% end %>
           <% end %>
         </div>
       <% else %>
         <div class="home-text">
-          <p>You have not favourited any Videos or Photos yet.</p>
+          <p>You have not favourited any Videos yet.</p>
+          <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
+          to add them to your personal list.
+        </div>
+      <% end %>
+      <% unless @user.photos.blank? %>
+        <div class="clearfix"></div>
+        <h3>My Photos</h3>
+        <div class="row">
+          <% @user.photos.each_with_index do |photo, index| %>
+            <div class="col-md-3" style="margin-bottom: 10px; float:left;">
+              <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
+                                                                  photo_alt: alt_tag_for(photo),
+                                                                  photo_credit: photo.credit
+                                                                  } do %>
+              <% end %>
+              <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
+              <%= raw like_icon(photo) %>
+              <div class="photo-credit">Credit: <%= photo.credit %></div>
+              <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
+              <div class="photo-caption">
+              <p><%= raw photo.caption %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="home-text">
+          <p>You have not favourited any Photos yet!</p>
           <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
           to add them to your personal list.
         </div>
