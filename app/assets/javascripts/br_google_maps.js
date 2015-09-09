@@ -17,7 +17,7 @@ function brInfoWindowOptions(markerType)
 {
 	if(markerType === 'place') return {		pixelOffset: new google.maps.Size(0, 100) };
 	if(markerType === 'area') return {		pixelOffset: new google.maps.Size(0, 0) };
-	if(markerType === 'country') return {		pixelOffset: new google.maps.Size(0, 0) };
+	if(markerType === 'country') return {		pixelOffset: new google.maps.Size(0, 50) };
 }
 
 var br_infobox_place_options = null;
@@ -476,11 +476,13 @@ function initialize() {
 			{
 				br_infobox_content_type = 'country';
 				
-				var bounds = new google.maps.LatLngBounds();
-	            processPoints(e.feature.getGeometry(), bounds.extend, bounds);
-	            br_map.fitBounds(bounds);
-//				brUpdateMap();
+				br_country_marker.setMap(br_map);
 				br_country_marker.setPosition(e.latLng);
+
+				var bounds = new google.maps.LatLngBounds();
+        processPoints(e.feature.getGeometry(), bounds.extend, bounds);
+        br_map.fitBounds(bounds);
+//				brUpdateMap();
 				
 				var pf = br_auf.replace('au.png',e.feature.getProperty('iso_a2').toLowerCase()+'.png');
 				
