@@ -140,16 +140,15 @@
     </script>
     <% if !user_signed_in? %>
 	    <div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-content small-modal">
+				<div class="modal-content small-modal" style="/*background-repeat: no-repeat; background-size: 100% 100%; background-image: url(<%= asset_path('br_logo_new.png') %>*/">
+					<img src="<%= asset_path('br_logo_new.png') %>" style="margin:auto; position:absolute; top:0; left:0; right:0; bottom:0; opacity:0.2;">
 					<div class="modal-header">
 			      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<img src="<%= asset_path('br_logo_new.png') %>" class="br-logo-modal">
-			      <h4 class="modal-title">Sign In and Explore!</h4>
+			      <h2 class="modal-title">Sign In and Explore!</h2>
 			    </div>
 					<div class="modal-body">
-						<h5>Already A Bound Round User?</h5>
+						<!--h5>Already A Bound Round User?</h5-->
 						<div id="icon-wrapper">
-							<h2>Sign in</h2>
 						  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 						    <div class="form-inputs">
 						      <%= f.input :email, required: false, autofocus: true %><br>
@@ -175,15 +174,13 @@
 
 		<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-content small-modal">
-				<div class="modal-header">
-		      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<img src="<%= asset_path('br_logo_new.png') %>" class="br-logo-modal">
-		      <h4 class="modal-title">Sign In and Explore!</h4>
-		    </div>
+					<img src="<%= asset_path('br_logo_new.png') %>" style="margin:auto; position:absolute; top:0; left:0; right:0; bottom:0; opacity:0.2;">
+					<div class="modal-header">
+			      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      <h2 class="modal-title">Sign In and Explore!</h2>
+			    </div>
 				<div class="modal-body">
-					<h5>Already A Bound Round User?</h5>
 					<div id="icon-wrapper">
-						<h2>Sign in</h2>
 					  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 					    <div class="form-inputs">
 					      <%= f.input :email, required: false, autofocus: true %><br>

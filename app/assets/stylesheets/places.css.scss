@@ -767,7 +767,7 @@ a,button,button:focus,button:active{
   outline: none;
   box-shadow:none;
   font-size: 18px;
-  color: #fff;
+  color: #aaa;
   font-weight: 300;
 }
 .dropdown.br_profile button + .dropdown-menu{
@@ -787,7 +787,8 @@ a,button,button:focus,button:active{
   left: auto;
 }
 .dropdown.br_profile button + .dropdown-menu>li>a{
-  color: #fff;
+/*  color: #fff;*/
+  color: #aaa;
 }
 .dropdown.br_profile button + .dropdown-menu>li>a:focus,.dropdown.br_profile button + .dropdown-menu>li>a:hover {
   background-color: #FD7E56;
