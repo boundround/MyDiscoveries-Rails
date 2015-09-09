@@ -280,6 +280,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def all_places
+
+  end
+
   def liked_places
     @places = {}
     @liked_places = Place.where.not(slug: params[:placeIds])
