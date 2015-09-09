@@ -3,6 +3,7 @@
 <% if not @placeprograms %>
 	<head>
 	  <title><%= full_title(yield(:title)) %></title>
+		
 	  <%= stylesheet_link_tag( 'application', media: 'all') %>
 		<!--%= @set_css ? stylesheet_link_tag(@set_css) : stylesheet_link_tag("br/custom.css") %-->
 	  <%= csrf_meta_tags %>
@@ -24,234 +25,83 @@
 	                                     user-scalable=no">
 	  <%= raw open_graph_image %>
 	  <%= render "/layouts/ga" %>
+		
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background-color: black;
+        }
+        
+        #home-map-wrapper,
+        #home-map {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+        /*.blur {
+        opacity: .5; -webkit-filter: blur(5px); -moz-filter: blur(5px); -o-filter: blur(5px); -ms-filter: blur(5px); filter: blur(5px);
+      }*/
+        
+        #info-box {
+            background-color: white;
+            border: 1px solid black;
+            top: 30px;
+            height: 200px;
+            padding: 10px;
+            position: absolute;
+            right: 30px;
+        }
+
+        .home-map-wrapper .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            display: block;
+            top: 0;
+            left: 0;
+            z-index: 000;
+            opacity: 0;
+        }
+        
+        .home-map-wrapper.enabled .overlay {
+            display: none;
+        }
+        
+        .no-bg {
+            background: transparent !important;
+        }
+    </style>
+		
 	</head>
+
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
-
-		<div id="place-holder"></div>
-	<div class="loader-container loader-bound-round"></div>
-    <% flash.each do |type, message| %>
-    <div class="alert <%= bootstrap_class_for(type) %> fade in">
-      <button class="close" data-dismiss="alert">×</button>
-      <%= message %>
-    </div>
-	<% end %>
-	<div class="alert-wrapper"></div>
-		<% if user_signed_in? %>
-		  <% if current_user.try(:admin) || current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.has_role?("contributor") %>
-		    <nav class="navbar navbar-default" role="navigation">
-		      <div class="container-fluid">
-		        <div class="collapse navbar-collapse">
-		          <ul class='nav navbar-nav'>
-		            <li><%= link_to 'Home', root_path %></li>
-		            <li><%= link_to 'All Countries', countries_path %></li>
-		            <li><%= link_to 'New Country', new_country_path %></li>
-		            <li><%= link_to 'All Areas', areas_path %></li>
-		            <li><%= link_to 'New Area', new_area_path %></li>
-		            <li><%= link_to 'All Places', places_path %></li>
-		            <li><%= link_to 'Assets In Review', "/places/all_edited" %></li>
-		            <li><%= link_to 'Publishing Queue', "/places/publishing_queue" %></li>
-		            <li><%= link_to 'New Place', new_place_path %></li>
-		            <li><%= link_to 'All Programs', programs_path %></li>
-		            <li><%= link_to 'New Program', new_program_path %></li>
-		            <li><%= link_to 'Edit Place Tags', "/places/tags" %></li>
-		            <li><%= link_to 'Edit Program Tags', "/programs/tags" %></li>
-		            <% if current_user.try(:admin) %>
-			            <li><%= link_to 'Show/Edit Users', users_path %></li>
-			            <li><%= link_to 'Rails Admin', rails_admin_path %></li>
-		            <% end %>
-		            <% if user_signed_in? %>
-		              <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-		            <% end %>
-		          </ul>
-
-		          <ul class="nav navbar-nav pull-right">
-
-		          </ul>
-		        </div>
-		      </div>
-		    </nav>
-		  <% end %>
-	  <% end %>
-	  <!-- <% if !@no_mobile_nav %>
-	    <nav class="navbar navbar-default inline-list" role="navigation">
-	      <ul class="nav navbar-nav">
-	        <% if @place || @area %>
-	          <li><a href="/map_only"><i class="fa fa-globe fa-2x centered-icon home-item"></i><br>Home</a></li>
-	          <li><a onclick="goToInfoSlide()"><i class="fa fa-question-circle fa-2x centered-icon about-item"></i><br>About</a></li>
-	          <li><a onclick="goToPlacesSlide()"><i class="fa fa-th-large fa-2x centered-icon"></i><br>Search</a></li>
-	        <% elsif @map %>
-	          <li><a onclick="goToInfoSlide()"><i class="fa fa-globe fa-2x centered-icon home-item"></i><br>Map</a></li>
-	          <li><a onclick="goToPlacesSlide()"><i class="fa fa-th-large fa-2x centered-icon cards-item"></i><br>Search</a></li>
-	        <% else %>
-	          <li><a href="/map_only"><i class="fa fa-globe fa-2x centered-icon home-item"></i><br>Map</a></li>
-	          <li><a href="/map"><i class="fa fa-th-large fa-2x centered-icon cards-item"></i><br>Search</a></li>
-	        <% end %>
-	        <li><a href="/videos"><i class="fa fa-youtube-play fa-2x centered-icon videos-item"></i><br>Videos</a></li>
-	        <li><a href="/games"><i class="fa fa-puzzle-piece fa-2x centered-icon games-item"></i><br>Games</a></li>
-	        <% if user_signed_in? %>
-	          <li><a href="<%= users_places_path %>"><i class="fa fa-user fa-2x centered-icon"></i><br>My Profile</a></li>
-	          <li><a href="<%= destroy_user_session_path %>" data-method="delete"><i class="fa fa-user fa-2x centered-icon"></i><br>Log Out</a></li>
-	        <% else %>
-	          <li><a href="<%= new_user_session_path %>"><i class="fa fa-user fa-2x centered-icon"></i><br>Sign In</a></li>
-	        <% end %>
-	      </ul>
-	    </nav>
-	  <% end %>
-	  <%if !browser.mobile? && !@set_body_class %>
-	    <a href="<%= user_signed_in? ? users_places_path : new_user_session_path %>">
-	    <button style="background-image:url(<%= user_signed_in? && current_user.avatar_url ? '"' + current_user.avatar_url + '"' : asset_path("user_copy_2.png") %>)" class="profile-icon menu-button" type="button" id="profile-icon" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="<%= user_signed_in? ? "My Profile" : "Sign In" %>">
-	  </button></a>
-	  <% end %> -->
-
-	  <%= javascript_include_tag 'mapbox' %>
+		<%= javascript_include_tag 'mapbox' %>		
 	  <%= javascript_include_tag 'application' %>
+	  <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+	  <%= javascript_include_tag 'froogaloop' %>
+		
+		<div id="place-holder"></div>
+	  <%= render "/layouts/page_loader" %>
+	  <% flash.each do |type, message| %>
+		  <div class="alert <%= bootstrap_class_for(type) %> fade in">
+		    <button class="close" data-dismiss="alert">×</button>
+		    <%= message %>
+		  </div>
+		<% end %>
+		<div class="alert-wrapper"></div>
+	  
+		<%= render "/layouts/admin_menu" %>
+	  
 	  <div class="app-wrap">
 	    <%= yield %>
 	  </div>
-	  <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-	  <%= javascript_include_tag 'froogaloop' %>
-	  <script>
-		var id = 'loader', fill = '#FFF',
-		      size = 20, radius = 3, duration = 1000,
-		      maxOpacity = 0.9, minOpacity = 0.15;
-		  $('<svg id="'+id+'" width="'+(size*3.5)+'" height="'+size+'">' +
-		        '<rect width="'+size+'" height="'+size+'" x="0" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
-		            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" repeatCount="indefinite"/>' +
-		        '</rect>' +
-		        '<rect width="'+size+'" height="'+size+'" x="'+(size*1.25)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
-		            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/4)+'ms" repeatCount="indefinite"/>' +
-		        '</rect>' +
-		        '<rect width="'+size+'" height="'+size+'" x="'+(size*2.5)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
-		            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/2)+'ms" repeatCount="indefinite"/>' +
-		        '</rect>' +
-		    '</svg>').appendTo('.loader-container');
-		</script>
-	  <script>
-
-    // $(window).load(function(){
-    //     setTimeout(function(){
-    //          $('.loader-container').fadeOut(800);
-    //      },100);
-
-    // })
-
-
-
-    </script>
-    <% if !user_signed_in? %>
-	    <div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-content small-modal" style="/*background-repeat: no-repeat; background-size: 100% 100%; background-image: url(<%= asset_path('br_logo_new.png') %>*/">
-					<img src="<%= asset_path('br_logo_new.png') %>" style="margin:auto; position:absolute; top:0; left:0; right:0; bottom:0; opacity:0.2;">
-					<div class="modal-header">
-			      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			      <h2 class="modal-title">Sign In and Explore!</h2>
-			    </div>
-					<div class="modal-body">
-						<!--h5>Already A Bound Round User?</h5-->
-						<div id="icon-wrapper">
-						  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-						    <div class="form-inputs">
-						      <%= f.input :email, required: false, autofocus: true %><br>
-						      <%= f.input :password, required: false %><br>
-						      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %><br>
-						    </div>
-
-						    <div class="form-actions">
-						      <p><%= f.button :submit, "Sign in" %></p>
-						    </div>
-						  <% end %>
-							<h5>Need To Create An Account?</h5>
-							<a href="<%= new_user_registration_path %>">
-								<button class="btn blue-button">
-									Sign Up
-								</button>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		<% end %>
-
-		<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-content small-modal">
-					<img src="<%= asset_path('br_logo_new.png') %>" style="margin:auto; position:absolute; top:0; left:0; right:0; bottom:0; opacity:0.2;">
-					<div class="modal-header">
-			      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			      <h2 class="modal-title">Sign In and Explore!</h2>
-			    </div>
-				<div class="modal-body">
-					<div id="icon-wrapper">
-					  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-					    <div class="form-inputs">
-					      <%= f.input :email, required: false, autofocus: true %><br>
-					      <%= f.input :password, required: false %><br>
-					      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %><br>
-					    </div>
-
-					    <div class="form-actions">
-					      <p><%= f.button :submit, "Sign in" %></p>
-					    </div>
-					  <% end %>
-						<h5>Need To Create An Account?</h5>
-						<a href="<%= new_user_registration_path %>">
-							<button class="btn blue-button">
-								Sign Up
-							</button>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal fade" id="shareModal">
-      <div class="share-modal-dialog">
-        <div class="share-modal-content">
-          <button type="button" class="close share-close-button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <div class="mid-cont">
-              <h3 class="text-center">
-                <i class="fa fa-share"></i>&nbsp;&nbsp;Share
-              </h3>
-              <div class="share-buttons text-center">
-              	<div class="fb-share-button" data-href="<%= request.original_url %>"  data-layout="button"></div>
-              	<a href="https://twitter.com/intent/tweet?button_hashtag=seeitmyway" class="twitter-hashtag-button" data-url="<%= request.original_url %>">Tweet</a>
-
-	            </div>
-	            <p></p><!--
-	            <div class="text-center">
-              	<button class="btn share-button" id="email-share"><i class="fa fa-envelope"></i> Email</button>
-              </div> -->
-
-              <div class="mid-cont">
-              </div>
-              <div class="clearfix"></div>
-
-              <div class="br_modal-footer text-center" id="share-form">
-              	<form>
-              		To:<textarea></textarea><br>
-              		Message:<textarea></textarea><br>
-              		<button class="btn share-button">Send Email</button>
-              	</form>
-
-              </div>
-            </div>
-          </div>
-      </div><!-- /.modal-content -->
-    </div>
-
-     <!-- <footer>
-		   <div class="home-footer">
-		     <span class="top-footer"><p><a href="http://boundround.com/kids/" target="blank">Travelling Families</a>
-		     <a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a>
-		     <a href="http://boundround.com/education/" target="blank">Teachers</a>
-		     <a href=" http://boundround.com/media/" target="blank">Media</a></span></p>
-		     <span class="bottom-footer">
-		       <a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a>
-		       <a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a>
-		       <a href="http://boundround.com/about-us/" target="blank">About Us</a>
-		       <a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a>
-		     </span>
-		   </div>
-		 </footer> -->
+	  <%= render "/layouts/signin_modals" %>
+		
+	  <%= render "/layouts/share_modal" %>
+		
 	</body>
 
 

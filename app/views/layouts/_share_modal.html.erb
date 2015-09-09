@@ -1,0 +1,36 @@
+<!-- Share Modal Partial -->
+<div class="modal fade" id="shareModal">
+  <div class="share-modal-dialog">
+    <div class="share-modal-content">
+      <button type="button" class="close share-close-button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="mid-cont">
+          <h3 class="text-center">
+            <i class="fa fa-share"></i>&nbsp;&nbsp;Share
+          </h3>
+          <div class="share-buttons text-center">
+          	<div class="fb-share-button" data-href="<%= request.original_url %>"  data-layout="button"></div>
+          	<a href="https://twitter.com/intent/tweet?button_hashtag=seeitmyway" class="twitter-hashtag-button" data-url="<%= request.original_url %>">Tweet</a>
+
+          </div>
+          <p></p><!--
+          <div class="text-center">
+          	<button class="btn share-button" id="email-share"><i class="fa fa-envelope"></i> Email</button>
+          </div> -->
+
+          <div class="mid-cont">
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="br_modal-footer text-center" id="share-form">
+          	<form>
+          		To:<textarea></textarea><br>
+          		Message:<textarea></textarea><br>
+          		<button class="btn share-button">Send Email</button>
+          	</form>
+
+          </div>
+        </div>
+      </div>
+  </div><!-- /.modal-content -->
+</div>
+<!-- Share Modal Finish -->

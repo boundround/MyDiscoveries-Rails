@@ -14,7 +14,7 @@ class PagesController < ApplicationController
   end
 
   def google_map_home
-    @placeprograms = "yes"
+#    @placeprograms = "yes"
   end
   
   def map_only

@@ -759,6 +759,8 @@ a,button,button:focus,button:active{
   display: inline-block;
   background: transparent;
   border: none;
+	z-index: 1000;
+	
 }
 .dropdown.br_profile  button,.dropdown.br_profile  button:focus{
   display: inline-block;
@@ -2542,8 +2544,8 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     background: transparent;
     border: none;
     position: absolute;
-    right: 0px;
-    top: -70px;
+    right: 5px;
+    top: 5px;
   }
   .dropdown.br_profile.open{
     width: 100%;
