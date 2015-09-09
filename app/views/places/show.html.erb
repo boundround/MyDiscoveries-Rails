@@ -1,7 +1,7 @@
 <% provide(:title, @place.display_name) %>
 <style>
   .br_place_page {
-    background: url(<%= @hero_photo ? @hero_photo.path_url(:medium) : @place.photos.blank? ? asset_path('generic-grey.jpg') : @place.photos.first.path_url(:large) %>) no-repeat;
+    background: url(<%= @hero_photo ? @hero_photo.path_url(:large) : @place.photos.blank? ? asset_path('generic-grey.jpg') : @place.photos.first.path_url(:large) %>) no-repeat;
     background-size: 100% 700px;
   }
 </style>
@@ -335,10 +335,10 @@
                       </a>
                     </li> -->
                  </ul>
-								 
+
                  <select id="place_select_game" class="selectpicker visible-xs center-block">
 									 <option value='ignore' selected="selected">
-                   <i class="fa  fa-puzzle-piece"></i><br>									
+                   <i class="fa  fa-puzzle-piece"></i><br>
 									<span class="hidden-sm">Choose an activity</span>
                    <span class="arrow"></span>
 									 </option>
