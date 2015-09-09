@@ -4276,6 +4276,7 @@ input[type=checkbox] {
 .br_rounded_corners{
   border-radius: 8px;
 	overflow: hidden;
+	display: block !important;
 }
 
 /* map InfoBox Styling*/

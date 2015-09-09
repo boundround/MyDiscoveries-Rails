@@ -13,6 +13,20 @@ var br_map = null;
 var br_infoWindow = null;
 var br_country_marker = null;
 
+function brInfoWindowOptions(markerType)
+{
+	if(markerType === 'place') return {		pixelOffset: new google.maps.Size(0, 100) };
+	if(markerType === 'area') return {		pixelOffset: new google.maps.Size(0, 0) };
+	if(markerType === 'country') return {		pixelOffset: new google.maps.Size(0, 0) };
+}
+
+var br_infobox_place_options = null;
+var br_infobox_area_options = null;
+var br_infobox_country_options = null;
+
+
+var br_infobox_content_type = null;
+
 location.hash == '' ? location.hash = '#3/-33.865143/151.2099' : location.hash = location.hash;
 
 //	var br_url_prefix = "https://app.boundround.com";
@@ -55,6 +69,8 @@ function setMarkerVisibility(markers, visib) {
 	}
 }
 
+
+
 var br_place_markers = null;
 var br_place_markerCluster = null;
 var br_showing_places = false;
@@ -89,6 +105,7 @@ function adjustInfoWindow() {
 
 var createMarkerInfoBoxContent = function(marker, markerType) {
 	if (markerType === 'place') {
+		br_infobox_content_type = 'place';
 		var category = marker.icon.category;
 		var categoryIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/" + category + "_icon.png' alt='" + category + " icon'>";
 		var imageCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' height='14px' alt='photo count'>";
@@ -115,12 +132,18 @@ var createMarkerInfoBoxContent = function(marker, markerType) {
 		return text;
 	}
 	else {
+		br_infobox_content_type = 'area';
 		var url = br_google_url_prefix + marker.icon.target_url;
 		var placeTitle = marker.icon.labelText;
 
-		var content = '<div class="upper-card" style=""><div class="card-category">' +
-			'</div></div><a class="no-anchor-decoration" href="' + url +
-			'"><p class="place-title area">' + placeTitle + '</p><br></a>';
+	var content = '<div class="upper-card" style="height:40px;width:100px;background:white"><a class="no-anchor-decoration" href="' + url +
+		'"><p class="place-title">' + placeTitle + '</p><br></a></div>';
+
+
+//		var content = '<div class="upper-card"></div><a class="no-anchor-decoration" href="' + url +
+//			'"><p class="place-title">' + placeTitle + '</p><br></a>';
+
+		var text = '<div class="place-card">' + content + '</div>';
 
 		var text = content;
 
@@ -226,11 +249,9 @@ var createMarkerArray = function(geoJSON, markerType, showme) {
 //						br_map.panTo(marker.getPosition());	
 						br_map.setZoom(br_areazoomin);
 					}
-					else
-					{
-						br_infoWindow.setContent(createMarkerInfoBoxContent(marker, markerType));
-						br_infoWindow.open(br_map, marker);
-					}
+					br_infoWindow.setContent(createMarkerInfoBoxContent(marker, markerType));
+					br_infoWindow.setOptions(brInfoWindowOptions(markerType));
+					br_infoWindow.open(br_map, marker);
 				});
 
 
@@ -355,17 +376,13 @@ function initialize() {
 			configureMarkers(nz);
 		}
 	};
-	
-	br_infoWindow = new google.maps.InfoWindow(
-		{
-      pixelOffset: new google.maps.Size(0, 100)
-		}
-	);
+
+	br_infoWindow = new google.maps.InfoWindow(brInfoWindowOptions('place'));
+
 	br_infoWindow.addListener('closeclick',function(){
 		br_country_marker.setMap(null); //removes the marker
-		br_country_marker = null;
+//		br_country_marker = null;
 	});
-	
 	/*
 	 * The google.maps.event.addListener() event waits for
 	 * the creation of the infowindow HTML structure 'domready'
@@ -373,7 +390,6 @@ function initialize() {
 	 * are applied.
 	 */
 	br_infoWindow.addListener('domready', function() {
-
 	   // Reference to the DIV which receives the contents of the infowindow using jQuery
 	   var iwOuter = $('.gm-style-iw');
 
@@ -410,7 +426,6 @@ function initialize() {
 		   $(this).css({opacity: '1'});
 
 		 });
-
 	});
 
 	br_country_marker = new google.maps.Marker({
@@ -459,21 +474,23 @@ function initialize() {
 
 			if( br_map.getZoom() <= br_countrieslevel )
 			{
-				if(br_infoWindow) br_infoWindow.close();
+				br_infobox_content_type = 'country';
 				
 				var bounds = new google.maps.LatLngBounds();
 	            processPoints(e.feature.getGeometry(), bounds.extend, bounds);
 	            br_map.fitBounds(bounds);
 //				brUpdateMap();
-				br_infoWindow.setContent(content);
-
 				br_country_marker.setPosition(e.latLng);
 				
-				var content = '<div class="upper-card" style=""><div class="card-category">' +
-					'</div></div><a class="no-anchor-decoration" href="' + br_google_url_prefix+"/countries/"+e.feature.getProperty('iso_a2').toLowerCase()+".html" +
-					'"><p class="place-title area">' + e.feature.getProperty('brk_name') + '</p><br></a>';
+				var pf = br_auf.replace('au.png',e.feature.getProperty('iso_a2').toLowerCase()+'.png');
+				
+				var content = '<div class="upper-card" style="background-image: url('+pf+')"></div>' +
+						'<div class="lower-card" style="height:20px;width:100px;background:white;"><a class="no-anchor-decoration" href="' + br_google_url_prefix+"/countries/"+e.feature.getProperty('iso_a2').toLowerCase()+".html" +
+					'"><p class="place-title area">' + e.feature.getProperty('brk_name') + '</p><br></a></div>';
 
 				br_infoWindow.setContent(content);
+				br_infoWindow.setOptions(brInfoWindowOptions('country'));
+
 				br_infoWindow.open(br_map, br_country_marker);
 
 				//window.location.href = br_google_url_prefix+"/countries/"+e.feature.getProperty('iso_a2').toLowerCase()+".html";

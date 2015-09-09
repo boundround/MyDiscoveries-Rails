@@ -143,5 +143,9 @@
     </div>
 		<%= render "/layouts/page_footer" %>
 
+		<script>
+			//Trick to get the correct asset path for flags, used in br_google_maps.js
+			window.br_auf = '<%= asset_path('flags/au.png') %>';
+		</script>
 
 	  
