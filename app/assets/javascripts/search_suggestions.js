@@ -4,34 +4,6 @@ $(document).ready(function() {
   var userCity = '';
   var userCountry = '';
 
-  var createNewPlaceFromGooglePlaces = function(place_id, city, country, userIP){
-    var map2 = new google.maps.Map(document.getElementById('place-holder'));
-    var service = new google.maps.places.PlacesService(map2);
-    var placeDetails;
-    var request = {
-      placeId: place_id
-    };
-    service.getDetails(request, function(place, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        $.ajax({
-          url: "/places/user_create.js",
-          type: "POST",
-          data: { place: {display_name: place.name, display_address: place.formatted_address,
-                latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng(),
-                phone_number: place.formatted_phone_number, website: place.website,
-                status: "live", place_id: place_id, user_created: true, subscription_level: "basic"} },
-          success: function(data){
-            if (data.place_id !== "error"){
-              window.location.href = "/places/" + data.place_id;
-            } else {
-              setViewForGooglePlace(place_id, city, country, userIP);
-            }
-          }
-        });
-      }
-    });
-  }
-
   var googlePlaceSearch = function(request, response) {
     function initialize() {
       var service = new google.maps.places.AutocompleteService();
@@ -94,20 +66,20 @@ $(document).ready(function() {
                   });
                 }
               });
-          }//,
-          // url: "/places/user_create.js",
-          // type: "POST",
-          // data: { place: {display_name: place.name, display_address: place.formatted_address,
-          //         latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng(),
-          //         phone_number: place.formatted_phone_number, website: place.website,
-          //         status: "live", place_id: place_id, user_created: true, subscription_level: "basic"} },
-          // success: function(data){
-          //   if (data.place_id !== "error"){
-          //     window.location.href = "/places/" + data.place_id;
-          //   } else {
-          //     setViewForGooglePlace(place_id, city, country, userIP);
-          //   }
-          // }
+          },
+          url: "/places/user_create.js",
+          type: "POST",
+          data: { place: {display_name: place.name, display_address: place.formatted_address,
+                  latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng(),
+                  phone_number: place.formatted_phone_number, website: place.website,
+                  status: "live", place_id: place_id, user_created: true, subscription_level: "basic"}, address_components: place.address_components },
+          success: function(data){
+            if (data.place_id !== "error"){
+              window.location.href = data.place_id;
+            } else {
+              setViewForGooglePlace(place_id, city, country, userIP);
+            }
+          }
         });
       }
     });

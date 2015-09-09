@@ -166,11 +166,24 @@ class PlacesController < ApplicationController
   end
 
   def user_create
-    existing_place = Place.find_by(place_id: params[:place][:place_id])
-    if existing_place
-      render :json => { place_id: existing_place.slug }
+    existing_place = Place.find_by(place_id: params[:place][:place_id]) || Area.find_by(google_place_id: params[:place][:place_id])
+    if existing_place.class.to_s == "Place"
+      render :json => {place_id: place_path(existing_place) }
+    elsif existing_place.class.to_s == "Area"
+      render :json => {place_id: area_path(existing_place) }
     else
       @place = Place.new(place_params)
+      country = ""
+      address_components = params[:address_components]
+
+      address_components.each do |k, v|
+        v["types"].each do |type|
+          if type == "country"
+            country = Country.find_by country_code: v["short_name"]
+            @place.country = country
+          end
+        end
+      end
 
       if user_signed_in?
         @place.created_by = current_user.id
@@ -278,10 +291,6 @@ class PlacesController < ApplicationController
       format.html
       format.json { render json: @places_geojson }  # respond with the created JSON object
     end
-  end
-
-  def all_places
-
   end
 
   def liked_places
