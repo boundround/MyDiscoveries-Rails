@@ -98,10 +98,10 @@ class Place < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
     Rails.cache.fetch('places_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
-      places = self.active.includes(:categories, :games, :videos, :photos)
+      places = self.active.includes(:categories, :games, :videos, :photos, :country, :area => [:country, :places])
       places.each do |place|
         if place.area != nil
-          area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.active ? place.area.places.active.length : 0, "country" => (place.country ? place.country.display_name : "") }
+          area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.length, "country" => (place.country ? place.country.display_name : "") }
         end
         # Assign icon based on 'premium' level and category
         if place.categories[0].nil?

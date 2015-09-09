@@ -1,4 +1,4 @@
-window.onload = function() {
+$(document).ready(function() {
   console.log("search-suggestions.js");
   var userIP = $('#user-ip').data('ip');
   var userCity = '';
@@ -67,20 +67,47 @@ window.onload = function() {
     service.getDetails(request, function(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         console.log(place);
+        console.log(place.name.toLowerCase());
         $.ajax({
-          url: "/places/user_create.js",
-          type: "POST",
-          data: { place: {display_name: place.name, display_address: place.formatted_address,
-                  latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng(),
-                  phone_number: place.formatted_phone_number, website: place.website,
-                  status: "live", place_id: place_id, user_created: true, subscription_level: "basic"} },
-          success: function(data){
-            if (data.place_id !== "error"){
-              window.location.href = "/places/" + data.place_id;
-            } else {
-              setViewForGooglePlace(place_id, city, country, userIP);
-            }
-          }
+          beforeSend: function(){
+            console.log("checking BR places");
+            var allPlaces = [];
+            var allAreas = [];
+            // var allBoundRoundPlaces;
+            $.ajax({
+                url: '/areas/mapdata.json',
+                success: function(data) {
+                  allAreas = data["features"];
+
+                  $.ajax({
+                    url: '/places/mapdata.json',
+                    success: function(data) {
+                      allPlaces = data["features"];
+                      window.allBoundRoundPlaces = allPlaces.concat(allAreas);
+
+                      for (var i = 0; i < allBoundRoundPlaces.length; i++){
+                        if (place.name.toLowerCase().trim() == allBoundRoundPlaces[i].properties.title.toLowerCase().trim()){
+                          window.location.href = allBoundRoundPlaces[i].properties.url;
+                        }
+                      }
+                    }
+                  });
+                }
+              });
+          }//,
+          // url: "/places/user_create.js",
+          // type: "POST",
+          // data: { place: {display_name: place.name, display_address: place.formatted_address,
+          //         latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng(),
+          //         phone_number: place.formatted_phone_number, website: place.website,
+          //         status: "live", place_id: place_id, user_created: true, subscription_level: "basic"} },
+          // success: function(data){
+          //   if (data.place_id !== "error"){
+          //     window.location.href = "/places/" + data.place_id;
+          //   } else {
+          //     setViewForGooglePlace(place_id, city, country, userIP);
+          //   }
+          // }
         });
       }
     });
@@ -278,7 +305,7 @@ window.onload = function() {
               if (data.length > 0){
                 createNewPlaceFromGooglePlaces(ui.item.placeId, userCity, userCountry, $('#user-ip').data("ip"));
               } else {
-                setViewForGooglePlace(ui.item.label, userCity, userCountry, $('#user-ip').data("ip"));
+                setViewForGooglePlace(ui.item.label, userCity, userCountry, $('#user-ip').data("ip")); // needs to be different for places and areas pages
               }
             }
           });
@@ -299,58 +326,4 @@ window.onload = function() {
       $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
     }
   });
-  // ALL OF THIS SHIT BELOW NEEDS TO BE MOVED
-
-  $('.like-icon').on('click', function(e){
-    e.preventDefault();
-    var oldImage = $(this).attr('src');
-    var switchImage = $(this).data('switchImage');
-    var postPath = $(this).data('postPath');
-    var postType = $(this).data('postType');
-    var data = {};
-    switch(postType){
-      case "photos_user":
-        data[postType] = {user_id: $(this).data("user"), photo_id: $(this).data("contentId")};
-        break;
-      case "fun_facts_user":
-        data[postType] = {user_id: $(this).data("user"), fun_fact_id: $(this).data("contentId")};
-        break;
-      case "games_user":
-        data[postType] = {user_id: $(this).data("user"), game_id: $(this).data("contentId")};
-        break;
-      case "videos_user":
-        data[postType] = {user_id: $(this).data("user"), video_id: $(this).data("contentId")};
-        break;
-      case "places_user":
-        data[postType] = {user_id: $(this).data("user"), place_id: $(this).data("contentId")};
-        break;
-      case "areas_user":
-        data[postType] = {user_id: $(this).data("user"), area_id: $(this).data("contentId")};
-    }
-    console.log($(this).data('liked'));
-    if ($(this)[0].dataset.liked === 'false'){
-      $(this).attr('src', switchImage);
-      $(this).data('switchImage', oldImage);
-      $(this)[0].dataset.liked = 'true';
-      $.ajax({
-        type: "POST",
-        url: '/' + postPath + '/create',
-        data: data,
-        success: console.log('LIKE SAVED')
-      });
-    } else if ($(this)[0].dataset.liked === 'true') {
-        $(this).attr('src', switchImage);
-        $(this).data('switchImage', oldImage);
-        $(this)[0].dataset.liked = 'false';
-        $.ajax({
-          type: "POST",
-          _method: 'delete',
-          url: '/' + postPath + '/destroy',
-          data: data,
-          success: console.log('LIKE DELETED')
-        });
-    } else {
-      alert("You must be logged in to save favourites!");
-    }
-  });
-};
+});

@@ -68,7 +68,7 @@ class Area < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
     Rails.cache.fetch('areas_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
-      areas = self.active.includes(places: [:photos])
+      areas = self.active.includes(:country, places: [:photos, :country])
       areas.each do |area|
         geojson['features'] << {
           type: 'Feature',
@@ -80,7 +80,7 @@ class Area < ActiveRecord::Base
             "title"=> area.display_name,
             "url" => '/areas/' + area.slug + '.html',
             "id" => area.id,
-            "places" => area.places.all? { |place| place.subscription_level == "live" },
+            "places" => area.places.all? { |place| place.status = "live" },
             "icon" => {
               "iconUrl" => 'https://s3-ap-southeast-2.amazonaws.com/brwebproduction/vector_icons/orange_plane.png',
               # size of the icon
@@ -88,7 +88,7 @@ class Area < ActiveRecord::Base
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
             },
-            "placeCount" => area.places.active.length,
+            "placeCount" => area.places.length,
             "country" => (area.country ? area.country.display_name : "")
           }
         }
