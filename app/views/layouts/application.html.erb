@@ -55,6 +55,7 @@
 		            <li><%= link_to 'New Program', new_program_path %></li>
 		            <li><%= link_to 'Edit Place Tags', "/places/tags" %></li>
 		            <li><%= link_to 'Edit Program Tags', "/programs/tags" %></li>
+		            <li><%= link_to 'User Content Review', "/users/draft_content" %></li>
 		            <% if current_user.try(:admin) %>
 			            <li><%= link_to 'Show/Edit Users', users_path %></li>
 			            <li><%= link_to 'Rails Admin', rails_admin_path %></li>
