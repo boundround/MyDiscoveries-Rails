@@ -282,7 +282,9 @@
                       <span><%= @place.display_address %></span><br/>
                       <label>Phone:</label>  <span><%= @place.phone_number %></span><br/>
                       <label>Website:</label> &nbsp;
-                      <span><a href="<%= @place.website %>" target="blank"><%= extract_domain(@place.website) %></a></span><br/>
+                      <% if @place.website %>
+                        <span><a href="<%= @place.website %>" target="blank"><%= extract_domain(@place.website) %></a></span><br/>
+                      <% end %>
 
                       <!-- <label>Email:</label> &nbsp;
                       <span><a href="#">contact@ncaventurepark.com.au</a></span><br/> -->
