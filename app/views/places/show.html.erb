@@ -165,7 +165,9 @@
                       <label>Address:</label><br/>
                       <%= @place.display_address %><br/>
                       <label>Website:</label><br/>
-                      <a href="<%= @place.website %>" target="blank"><%= @place.website %></a><br/>
+                      <% if @place.website %>
+                        <a href="<%= @place.website %>" target="blank"><%= @place.website %></a><br/>
+                      <% end %>
                       <!-- <label>Email:</label><br/>
                       <a href="#">contact@ncaventurepark.com.au</a><br/> -->
                     </p>
