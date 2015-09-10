@@ -192,6 +192,7 @@ class PlacesController < ApplicationController
       end
 
       if @place.save
+        NewPlace.notification(@place).deliver
         JournalInfo.create(place_id: @place.id)
         render :json => {place_id: @place.id}
       else
