@@ -201,6 +201,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def user_created
+    @places = Place.where(user_created: true)
+  end
+
   def new
     @place = Place.new
     @place.photos.build

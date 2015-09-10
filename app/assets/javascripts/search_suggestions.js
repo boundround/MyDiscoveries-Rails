@@ -233,6 +233,8 @@ $(document).ready(function() {
     },
     minLength: 2,
     select: function( event, ui ) {
+      $('.app-wrap').hide();
+      $('.loader-bound-round').show();
       $.ajax({
         type: "POST",
         url: '/searchqueries/create',
@@ -272,9 +274,6 @@ $(document).ready(function() {
           newLng = results[0].geometry.location.lng();
           }
           $.ajax({
-            beforeSend: function() {
-              $('.new-page-spinner').css('visibility', 'visible');
-            },
             url: '/factual_places/search.json?term=' + ui.item.label + '&lat=' + newLat + '&lng=' + newLng,
             success: function(data){
               $('.new-page-spinner').css('visibility', 'hidden');
