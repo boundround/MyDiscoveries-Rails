@@ -1,12 +1,24 @@
-<h1>All Countries</h1>
-<ul>
-  <% @countries.order(display_name: :asc).each do |country| %>
-    <li><%= link_to country.display_name + ' (Country ID: ' + country.id.to_s + ')', edit_country_path(country) %></li>
-  <% end %>
-</ul>
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+<div id="table-container">
+  <h1>All Countries</h1>
 
-<h3>Import Countries From Excel</h3>
-<%= form_tag import_countries_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import" %>
+  <table class="table table-striped" id="place-table">
+    <thead>
+    <tr>
+      <th>Country</th>
+      <th>Status</th>
+      <th>Updated At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @countries.each do |country| %>
+        <tr>
+          <td><%= link_to country.display_name, edit_country_path(country) %></td>
+          <td><%= country.published_status %></td>
+          <td><%= country.updated_at.strftime('%F at %T') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <% end %>
