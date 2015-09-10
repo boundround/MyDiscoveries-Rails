@@ -75,7 +75,7 @@ $(document).ready(function() {
                   status: "live", place_id: place_id, user_created: true, subscription_level: "basic"}, address_components: place.address_components },
           success: function(data){
             if (data.place_id !== "error"){
-              window.location.href = data.place_id;
+              window.location.href = "/places/" + data.place_id;
             } else {
               setViewForGooglePlace(place_id, city, country, userIP);
             }
