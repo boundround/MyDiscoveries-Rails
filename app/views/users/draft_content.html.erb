@@ -15,6 +15,7 @@
           <th>Photo 3</th>
           <th>Photo 3 Status</th>
           <th>Story Status</th>
+          <th>User</th>
           <th>Update</th>
         </tr>
       </thead>
@@ -28,7 +29,7 @@
               <td><img src="<%= thumbnail_for(story.user_photos[0]) if story.user_photos[0] %>" class="photo-edit-thumb"></td>
               <% if !story.user_photos[0].blank? %>
                 <%= simple_fields_for story.user_photos[0] do |ff| %>
-                  <td><%= ff.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
+                  <td><%= ff.input :status, label: "Photo 1 Status", as: :select, collection: ["draft", "live", "removed"] %></td>
                 <% end %>
               <% else %>
                 <td>No Main Photo</td>
@@ -36,7 +37,7 @@
               <td><img src="<%= thumbnail_for(story.user_photos[1]) if story.user_photos[1] %>" class="photo-edit-thumb"></td>
               <% if !story.user_photos[1].blank? %>
                 <%= simple_fields_for story.user_photos[1] do |ff| %>
-                  <td><%= ff.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
+                  <td><%= ff.input :status, label: "Photo 2 Status", as: :select, collection: ["draft", "live", "removed"] %></td>
                 <% end %>
               <% else %>
                 <td>No Second Photo</td>
@@ -44,12 +45,13 @@
               <td><img src="<%= thumbnail_for(story.user_photos[2]) if story.user_photos[2] %>" class="photo-edit-thumb"></td>
               <% if !story.user_photos[1].blank? %>
                 <%= simple_fields_for story.user_photos[1] do |ff| %>
-                  <td><%= ff.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
+                  <td><%= ff.input :status, label: "Photo 3 Status", as: :select, collection: ["draft", "live", "removed"] %></td>
                 <% end %>
               <% else %>
                 <td>No Third Photo</td>
               <% end %>
-              <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
+              <td><%= f.input :status, label: "Story Status", as: :select, collection: ["draft", "live", "removed"] %></td>
+              <td><%= story.user.email %></td>
               <td><%= f.submit :submit %></td>
             </tr>
             <% end %>
@@ -93,6 +95,7 @@
           <th>Thumbnail</th>
           <th>Caption</th>
           <th>Status</th>
+          <th>User</th>
           <th>Update</th>
         </tr>
       </thead>
@@ -109,6 +112,7 @@
               <td><img src="<%= thumbnail_for(user_photo) %>" class="photo-edit-thumb"></td>
               <td><%= f.input :caption %></td>
               <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
+              <td><%= user_photo.user.email %></td>
               <td><%= f.submit :submit %></td>
             </tr>
           <% end %>
