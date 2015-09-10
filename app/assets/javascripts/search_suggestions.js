@@ -166,6 +166,8 @@ $(document).ready(function() {
             }
           });
 
+          console.log(combinedData);
+
           $('.search-button').on('click', function(){
             $('#search-box').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item: data[0]});
           });
@@ -256,6 +258,8 @@ $(document).ready(function() {
         window.location.href = "/places/" + ui.item.place_id;
       } else if (ui.item.resultType === 'area'){
         window.location.href = "/areas/" + ui.item.place_id;
+      } else if (ui.item.resultType === 'country'){
+        window.location.href = "/countries/" + ui.item.place_id;
       }
 
       if (ui.item.resultType === 'Google') {
