@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      A new story was created in Bound Round in <%= @story.storiable.display_name %> by <%= @story.user.email %><br>
+      <%= link_to "You can view and change its status here",  "https://app.boundround.com" + users_draft_content_path %><br>
+    </p>
+  </body>
+</html>

@@ -15,6 +15,7 @@ class ReviewsController < ApplicationController
   def create
     @review = @reviewable.reviews.new(review_params)
     if @review.save
+      NewReview.notification(@review).deliver
       redirect_to @reviewable, notice: "Thanks for your review! We'll let you know when others can see it too!"
     else
       redirect_to @reviewable

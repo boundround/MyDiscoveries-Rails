@@ -16,6 +16,7 @@ class StoriesController < ApplicationController
   def create
     @story = @storiable.stories.new(story_params)
     if @story.save
+      NewStory.notification(@story).deliver
       redirect_to @storiable, notice: "Thanks for the story. We'll let you know when others can see it too!"
     else
       redirect_to :back, notice: "We're sorry, there was an error uploading your story."
