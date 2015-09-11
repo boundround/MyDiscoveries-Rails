@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150905032146) do
+ActiveRecord::Schema.define(version: 20150911024419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -340,6 +340,7 @@ ActiveRecord::Schema.define(version: 20150905032146) do
     t.boolean  "customer_review"
     t.boolean  "customer_approved"
     t.datetime "approved_at"
+    t.integer  "user_id"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -347,6 +348,7 @@ ActiveRecord::Schema.define(version: 20150905032146) do
   add_index "places", ["description"], name: "index_places_on_description", using: :btree
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
+  add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
 
   create_table "places_users", force: true do |t|
     t.integer "user_id",  null: false

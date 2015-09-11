@@ -56,6 +56,7 @@ class Place < ActiveRecord::Base
 
   belongs_to :area
   belongs_to :country
+  belongs_to :creator, :class_name => 'User', :foreign_key => 'user_id'
   has_many :categorizations
   has_many :categories, through: :categorizations
   has_many :photos, -> { order "created_at ASC"}
@@ -202,6 +203,8 @@ class Place < ActiveRecord::Base
                 "display_name" => display_name, "id" => id, "latitude" => latitude, "longitude" => longitude,
                 "url" => '/places/' + slug + '.html', "slug" => slug, "placeType" => "place",
                 "area" => {"display_name" => (self.area_id ? self.area.display_name : (self.locality ? self.locality : "")), "country" => (self.country ? self.country.display_name : "") })
+    else
+      self.remove_from_soulmate
     end
   end
 

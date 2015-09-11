@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :customers_places
   has_many :owned_places, through: :customers_places, :source => :place
 
+  has_many :created_places, foreign_key: "user_id", class_name: "Place"
+
   has_many :reviews
   has_many :stories
   has_many :user_photos

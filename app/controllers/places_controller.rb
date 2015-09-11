@@ -186,7 +186,8 @@ class PlacesController < ApplicationController
       end
 
       if user_signed_in?
-        @place.created_by = current_user.id
+        @place.created_by = current_user.id.to_s
+        @place.user_id = current_user.id
       else
         @place.created_by = "Guest User"
       end
