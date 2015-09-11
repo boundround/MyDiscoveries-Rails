@@ -8,7 +8,7 @@
       <%= render 'layouts/search_input' %>
     </div>
     <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
-    <% if !@user.favorite_places.blank? || !@user.areas.blank? %>
+    <% if !@user.favorite_places.blank? || !@user.favorite_areas.blank? %>
         <% if !@user.favorite_places.blank? %>
           <% @user.favorite_places.each do |place| %>
             <div class="wishlist-place">
