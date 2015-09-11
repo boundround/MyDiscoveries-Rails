@@ -72,7 +72,7 @@ $(document).ready(function() {
           data: { place: {display_name: place.name, display_address: place.formatted_address,
                   latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng(),
                   phone_number: place.formatted_phone_number, website: place.website,
-                  status: "live", place_id: place_id, user_created: true, subscription_level: "basic"}, address_components: place.address_components },
+                  place_id: place_id, user_created: true, subscription_level: "basic"}, address_components: place.address_components },
           success: function(data){
             if (data.place_id !== "error"){
               window.location.href = "/places/" + data.place_id;

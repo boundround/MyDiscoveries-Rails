@@ -188,8 +188,14 @@ class PlacesController < ApplicationController
       if user_signed_in?
         @place.created_by = current_user.id.to_s
         @place.user_id = current_user.id
+        if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.has_role?("contributor") || current_user.admin?
+          @place.status = "live"
+        else
+          @place.status = "draft"
+        end
       else
         @place.created_by = "Guest User"
+        @place.status = "draft"
       end
 
       if @place.save

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911024419) do
+ActiveRecord::Schema.define(version: 20150911055521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,7 +113,6 @@ ActiveRecord::Schema.define(version: 20150911024419) do
     t.string   "longest_river"
     t.integer  "longest_river_length"
     t.string   "slug"
-    t.integer  "area_id"
     t.string   "published_status"
     t.string   "hero_photo"
     t.string   "short_name"
@@ -328,7 +327,6 @@ ActiveRecord::Schema.define(version: 20150911024419) do
     t.string   "route"
     t.string   "sublocality"
     t.string   "locality"
-    t.string   "country"
     t.string   "state"
     t.string   "place_id"
     t.string   "status"

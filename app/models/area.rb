@@ -1,7 +1,7 @@
 class Area < ActiveRecord::Base
   extend FriendlyId
 
-  ratyrate_rateable "quality"
+  # ratyrate_rateable "quality"
 
   geocoded_by :address   # can also be an IP address
   after_validation :geocode
