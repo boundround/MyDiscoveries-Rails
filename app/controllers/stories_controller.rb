@@ -26,6 +26,16 @@ class StoriesController < ApplicationController
   end
 
   def update
+    @story = Story.find(params[:id])
+
+    if @story.update(story_params)
+      @story.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @story }
+    end
   end
 
   def destroy
