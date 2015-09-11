@@ -52,7 +52,7 @@ module ApplicationHelper
 
   def extract_domain(url)
     domain = ""
-    if !url.blank?
+    if !url.blank? && url != "http://"
       if url.index("://")
         domain = url.split('/')[2]
       else
