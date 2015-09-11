@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      <%= @place.display_name %> was created in Bound Round by <%= (@place.created_by.to_i > 0) ? User.find(@place.created_by.to_i).email : "Guest User" %><br>
+      <%= link_to "You can edit it here", "https://app.boundround.com" + edit_place_path(@place) %><br>
+      <%= link_to "All User Created Places", "https://app.boundround.com" + user_created_places_path %>
+    </p>
+  </body>
+</html>

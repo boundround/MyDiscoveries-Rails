@@ -1,3 +1,4 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("publisher") ) %>
 <div class="area-content br_place_page">
   <div class="container-fluid br_area">
     <h2>User Content In Draft</h2>
@@ -15,22 +16,46 @@
           <th>Photo 3</th>
           <th>Photo 3 Status</th>
           <th>Story Status</th>
+          <th>User</th>
+          <th>Update</th>
         </tr>
       </thead>
       <tbody>
         <% @stories.each do |story| %>
+          <%= simple_form_for [story.storiable, story] do |f| %>
             <tr>
-              <td><%= story.storiable ? story.storiable.display_name : "" %></td>
-              <td><%= story.title if story.title %></td>
-              <td><%= story.content if story.content %></td>
+              <td><%= story.storiable ? (link_to story.storiable.display_name, polymorphic_path(story.storiable)) : "" %></td>
+              <td><%= f.input :title %></td>
+              <td><%= f.input :content %></td>
               <td><img src="<%= thumbnail_for(story.user_photos[0]) if story.user_photos[0] %>" class="photo-edit-thumb"></td>
-              <td><%= story.user_photos[0].status if story.user_photos[0] %></td>
+              <% if !story.user_photos[0].blank? %>
+                <%= simple_fields_for story.user_photos[0] do |ff| %>
+                  <td><%= ff.input :status, label: "Photo 1 Status", as: :select, collection: ["draft", "live", "removed"] %></td>
+                <% end %>
+              <% else %>
+                <td>No Main Photo</td>
+              <% end %>
               <td><img src="<%= thumbnail_for(story.user_photos[1]) if story.user_photos[1] %>" class="photo-edit-thumb"></td>
-              <td><%= story.user_photos[1].status if story.user_photos[1] %></td>
+              <% if !story.user_photos[1].blank? %>
+                <%= simple_fields_for story.user_photos[1] do |ff| %>
+                  <td><%= ff.input :status, label: "Photo 2 Status", as: :select, collection: ["draft", "live", "removed"] %></td>
+                <% end %>
+              <% else %>
+                <td>No Second Photo</td>
+              <% end %>
               <td><img src="<%= thumbnail_for(story.user_photos[2]) if story.user_photos[2] %>" class="photo-edit-thumb"></td>
-              <td><%= story.user_photos[2].status if story.user_photos[2] %></td>
-              <td><%= story.status %></td>
+              <% if !story.user_photos[1].blank? %>
+                <%= simple_fields_for story.user_photos[1] do |ff| %>
+                  <td><%= ff.input :status, label: "Photo 3 Status", as: :select, collection: ["draft", "live", "removed"] %></td>
+                <% end %>
+              <% else %>
+                <td>No Third Photo</td>
+              <% end %>
+              <td><%= f.input :status, label: "Story Status", as: :select, collection: ["draft", "live", "removed"] %></td>
+              <td><%= story.user.email %></td>
+              <td><%= f.submit :submit %></td>
             </tr>
+            <% end %>
           <% end %>
       </tbody>
     </table>
@@ -44,18 +69,22 @@
           <th>Content</th>
           <th>Status</th>
           <th>User</th>
+          <th>Update</th>
         </tr>
       </thead>
       <tbody>
         <% @reviews.each do |review| %>
+          <%= simple_form_for [review.reviewable, review] do |f| %>
             <tr>
-              <td><%= review.reviewable ? review.reviewable.display_name : "" %></td>
-              <td><%= review.title if review.title %></td>
-              <td><%= review.content if review.content %></td>
-              <td><%= review.status %></td>
+              <td><%= review.reviewable ? (link_to review.reviewable.display_name, polymorphic_path(review.reviewable)) : "" %></td>
+              <td><%= f.input :title %></td>
+              <td><%= f.input :content %></td>
+              <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
               <td><%= review.user.email %></td>
+              <td><%= f.submit :submit %></td>
             </tr>
           <% end %>
+        <% end %>
       </tbody>
     </table>
     <hr>
@@ -67,18 +96,30 @@
           <th>Thumbnail</th>
           <th>Caption</th>
           <th>Status</th>
+          <th>User</th>
+          <th>Update</th>
         </tr>
       </thead>
       <tbody>
         <% @user_photos.each do |user_photo| %>
+            <% if user_photo.place %>
+              <% @location = user_photo.place %>
+            <% else %>
+              <% @location = user_photo.area %>
+            <% end %>
+          <%= simple_form_for [@location, user_photo] do |f| %>
             <tr>
-              <td><%= user_photo.place ? user_photo.place.display_name : user_photo.area.display_name %></td>
+              <td><%= link_to @location.display_name, @location.class.to_s == "Area" ? area_path(@location) : place_path(@location) %></td>
               <td><img src="<%= thumbnail_for(user_photo) %>" class="photo-edit-thumb"></td>
-              <td><%= user_photo.caption if user_photo.caption %></td>
-              <td><%= user_photo.status %></td>
+              <td><%= f.input :caption %></td>
+              <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
+              <td><%= user_photo.user.email %></td>
+              <td><%= f.submit :submit %></td>
             </tr>
           <% end %>
+        <% end %>
       </tbody>
     </table>
   </div>
 </div>
+<% end %>

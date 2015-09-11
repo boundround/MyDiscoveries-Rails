@@ -44,7 +44,7 @@ class Country < ActiveRecord::Base
     if self.published_status == "live"
       loader = Soulmate::Loader.new("country")
       loader.add("term" => display_name.downcase, "display_name" => display_name, "id" => id, "description" => description,
-                  "url" => '/countries/' + slug + '.html', "slug" => slug, "placeType" => "country")
+                  "url" => ('/countries/' + slug + '.html'), "slug" => slug, "placeType" => "country")
     end
   end
 

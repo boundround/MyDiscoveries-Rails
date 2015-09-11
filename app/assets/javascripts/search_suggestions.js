@@ -75,7 +75,7 @@ $(document).ready(function() {
                   status: "live", place_id: place_id, user_created: true, subscription_level: "basic"}, address_components: place.address_components },
           success: function(data){
             if (data.place_id !== "error"){
-              window.location.href = data.place_id;
+              window.location.href = "/places/" + data.place_id;
             } else {
               setViewForGooglePlace(place_id, city, country, userIP);
             }
@@ -166,6 +166,8 @@ $(document).ready(function() {
             }
           });
 
+          console.log(combinedData);
+
           $('.search-button').on('click', function(){
             $('#search-box').data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item: data[0]});
           });
@@ -231,6 +233,8 @@ $(document).ready(function() {
     },
     minLength: 2,
     select: function( event, ui ) {
+      $('.app-wrap').hide();
+      $('.loader-bound-round').show();
       $.ajax({
         type: "POST",
         url: '/searchqueries/create',
@@ -256,6 +260,8 @@ $(document).ready(function() {
         window.location.href = "/places/" + ui.item.place_id;
       } else if (ui.item.resultType === 'area'){
         window.location.href = "/areas/" + ui.item.place_id;
+      } else if (ui.item.resultType === 'country'){
+        window.location.href = "/countries/" + ui.item.place_id;
       }
 
       if (ui.item.resultType === 'Google') {
@@ -268,9 +274,6 @@ $(document).ready(function() {
           newLng = results[0].geometry.location.lng();
           }
           $.ajax({
-            beforeSend: function() {
-              $('.new-page-spinner').css('visibility', 'visible');
-            },
             url: '/factual_places/search.json?term=' + ui.item.label + '&lat=' + newLat + '&lng=' + newLng,
             success: function(data){
               $('.new-page-spinner').css('visibility', 'hidden');

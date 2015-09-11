@@ -55,7 +55,7 @@
       <% end %>
       <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
         <div class="form-group published-radio">
-          <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "edited", "live", "removed"], checked: ['draft'] %>
+          <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "edited", "live", "removed"] %>
         </div>
       <% else %>
         <div class="form-group published-radio">

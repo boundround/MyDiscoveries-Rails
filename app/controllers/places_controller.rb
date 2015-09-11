@@ -192,12 +192,17 @@ class PlacesController < ApplicationController
       end
 
       if @place.save
+        NewPlace.notification(@place).deliver
         JournalInfo.create(place_id: @place.id)
         render :json => {place_id: @place.id}
       else
         render :json => {place_id: "error" }
       end
     end
+  end
+
+  def user_created
+    @places = Place.where(user_created: true)
   end
 
   def new

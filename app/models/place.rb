@@ -1,7 +1,25 @@
 class Place < ActiveRecord::Base
   include CustomerApprovable
 
-  ratyrate_rateable "quality"
+  # ratyrate_rateable "quality"
+
+  has_many :rates_without_dimension, -> { where dimension: nil}, as: :rateable, class_name: 'Rate', dependent: :destroy
+  has_many :raters_without_dimension, through: :rates_without_dimension, source: :rater
+
+  has_one :rate_average_without_dimension, -> { where dimension: nil}, as: :cacheable,
+          class_name: 'RatingCache', dependent: :destroy
+
+  has_many "quality_rates".to_sym, -> {where dimension: "quality".to_s},
+                                              dependent: :destroy,
+                                              class_name: 'Rate',
+                                              as: :rateable
+
+  has_many "quality_raters".to_sym, through: :"quality_rates", source: :rater, :source_type => "User"
+
+  has_one "quality_average".to_sym, -> { where dimension: "quality".to_s },
+                                              as: :cacheable,
+                                              class_name: 'RatingCache',
+                                              dependent: :destroy
 
   geocoded_by :display_address   # can also be an IP address
   after_validation :geocode

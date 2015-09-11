@@ -3,7 +3,7 @@
 <% if not @placeprograms %>
 	<head>
 	  <title><%= full_title(yield(:title)) %></title>
-		
+
 	  <%= stylesheet_link_tag( 'application', media: 'all') %>
 		<!--%= @set_css ? stylesheet_link_tag(@set_css) : stylesheet_link_tag("br/custom.css") %-->
 	  <%= csrf_meta_tags %>
@@ -25,7 +25,7 @@
 	                                     user-scalable=no">
 	  <%= raw open_graph_image %>
 	  <%= render "/layouts/ga" %>
-		
+
     <style>
         html,
         body {
@@ -33,7 +33,7 @@
             margin: 0;
             background-color: black;
         }
-        
+
         #home-map-wrapper,
         #home-map {
             height: 100%;
@@ -43,7 +43,7 @@
         /*.blur {
         opacity: .5; -webkit-filter: blur(5px); -moz-filter: blur(5px); -o-filter: blur(5px); -ms-filter: blur(5px); filter: blur(5px);
       }*/
-        
+
         #info-box {
             background-color: white;
             border: 1px solid black;
@@ -65,24 +65,24 @@
             z-index: 000;
             opacity: 0;
         }
-        
+
         .home-map-wrapper.enabled .overlay {
             display: none;
         }
-        
+
         .no-bg {
             background: transparent !important;
         }
     </style>
-		
+
 	</head>
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
-		<%= javascript_include_tag 'mapbox' %>		
+		<%= javascript_include_tag 'mapbox' %>
 	  <%= javascript_include_tag 'application' %>
 	  <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 	  <%= javascript_include_tag 'froogaloop' %>
-		
+
 		<div id="place-holder"></div>
 	  <%= render "/layouts/page_loader" %>
 	  <% flash.each do |type, message| %>
@@ -92,16 +92,16 @@
 		  </div>
 		<% end %>
 		<div class="alert-wrapper"></div>
-	  
+
 		<%= render "/layouts/admin_menu" %>
-	  
+
 	  <div class="app-wrap">
 	    <%= yield %>
 	  </div>
 	  <%= render "/layouts/signin_modals" %>
-		
+
 	  <%= render "/layouts/share_modal" %>
-		
+
 	</body>
 
 
