@@ -162,7 +162,7 @@
                                 <% @active_user_photos.each_with_index do |photo| %>
                                   <div class="carousel-item br_16">
                                       <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
-                                      <span class="carousel-like-icon"><%= raw like_icon(photo) %></span>
+                                      <span class="carousel-like-icon"></span>
                                     </div>
                                 <% end %>
                                 <% if user_signed_in? %>
