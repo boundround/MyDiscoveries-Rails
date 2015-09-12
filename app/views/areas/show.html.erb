@@ -159,9 +159,9 @@
                                     </div>
                                   <% end %>
                                 <% end %>
-                                <% @active_user_photos.each_with_index do |photo| %>
+                                <% @active_user_photos.each_with_index do |photo, index| %>
                                   <div class="carousel-item br_16">
-                                      <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
+                                      <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
                                       <span class="carousel-like-icon"></span>
                                     </div>
                                 <% end %>
