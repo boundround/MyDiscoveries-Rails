@@ -325,7 +325,7 @@ function initialize() {
 		disableDoubleClickZoom: true, // <---
 		disableDefaultUI: false,
 		minZoom: 2,
-		maxZoom: 20,
+		maxZoom: 16,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		styles: [{
 				"featureType": "water",
@@ -512,7 +512,7 @@ function initialize() {
 			//	       	var area_markerCluster = new MarkerClusterer(map, area_markers); 
 
 			br_area_markerCluster = new MarkerClusterer(br_map, br_area_markers, {
-//				maxZoom: br_area_hide_level - 1,
+				maxZoom: 14,
 				ignoreHidden: false,
 				gridSize: 10,
 				styles: [{
@@ -535,7 +535,7 @@ function initialize() {
 
 					br_place_markers = createMarkerArray(data, 'place', false);
 					br_place_markerCluster = new MarkerClusterer(br_map, br_place_markers, {
-//						maxZoom: 12,
+						maxZoom: 14,
 						ignoreHidden: false,
 						gridSize: 10,
 						styles: [{
