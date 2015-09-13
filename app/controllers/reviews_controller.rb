@@ -15,6 +15,7 @@ class ReviewsController < ApplicationController
   def create
     @review = @reviewable.reviews.new(review_params)
     if @review.save
+      NewReview.notification(@review).deliver
       redirect_to @reviewable, notice: "Thanks for your review! We'll let you know when others can see it too!"
     else
       redirect_to @reviewable
@@ -25,6 +26,16 @@ class ReviewsController < ApplicationController
   end
 
   def update
+    @review = Review.find(params[:id])
+
+    if @review.update(review_params)
+      @review.save
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: @review }
+    end
   end
 
   def destroy

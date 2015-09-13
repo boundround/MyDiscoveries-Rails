@@ -17,7 +17,7 @@ module ApplicationHelper
     if page_title.empty?
       base_title + " | Fun Travel and Activities for Kids"
     else
-      "Fun Travel and Activities for Kids and Families In #{page_title} | #{base_title}"
+      "#{page_title} Fun Activities for Traveling Kids and Families | #{base_title}"
     end
   end
 
@@ -52,7 +52,7 @@ module ApplicationHelper
 
   def extract_domain(url)
     domain = ""
-    if !url.blank?
+    if !url.blank? && url != "http://"
       if url.index("://")
         domain = url.split('/')[2]
       else

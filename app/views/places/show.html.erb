@@ -224,7 +224,7 @@
                                     </div>
                                   <% elsif asset.class.to_s == "Photo" %>
                                     <div class="carousel-item br_16">
-                                      <img src="<%= asset.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>">
+                                      <img src="<%= asset.path_url(:medium)%>" alt='<%= asset.caption ? asset.caption : "" %>' class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>">
                                       <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
                                     </div>
                                   <% end %>
@@ -232,8 +232,8 @@
                                 <% index = @videos_photos.length %>
                                 <% @active_user_photos.each do |photo| %>
                                   <div class="carousel-item br_16">
-                                    <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
-                                    <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
+                                    <img src="<%= photo.path_url(:medium)%>" alt='<%= photo.caption ? photo.caption : "" %>' class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
+                                    <span class="carousel-like-icon"></span>
                                   </div>
                                   <% index += 1 %>
                                 <% end %>
@@ -241,7 +241,7 @@
                                   <% index = @videos_photos.length + @active_user_photos.length %>
                                   <% current_user.user_photos.draft.where(place_id: @place.id).each do |photo| %>
                                     <div class="carousel-item br_16">
-                                      <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
+                                      <img src="<%= photo.path_url(:medium)%>" alt='<%= photo.caption ? photo.caption : "" %>' class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
                                     </div>
                                     <% index += 1 %>
                                   <% end %>
@@ -300,7 +300,7 @@
               <a name="games"></a>
               <div class="row br_games">
                 <div class="col-md-12 text-center">
-                      <h2 class="">Some activities <span class="hidden-xs">for you!</span></h2>
+                      <h2 class="">Fun activities <span class="hidden-xs">for you!</span></h2>
                       <ul class="list-unstyled hidden-xs text-center">
                         <% @place.games.each do |game| %>
                           <% if game.game_type == "jigsaw puzzle" %>

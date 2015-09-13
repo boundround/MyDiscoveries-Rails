@@ -9,14 +9,16 @@ class User < ActiveRecord::Base
   has_many :games_users
   has_many :games, through: :games_users
   has_many :areas_users
-  has_many :areas, through: :areas_users
+  has_many :favorite_areas, through: :areas_users, source: :area
   has_many :places_users
-  has_many :places, through: :places_users
+  has_many :favorite_places, through: :places_users, source: :place
   has_many :fun_facts_users
   has_many :fun_facts, through: :fun_facts_users
 
   has_many :customers_places
   has_many :owned_places, through: :customers_places, :source => :place
+
+  has_many :places
 
   has_many :reviews
   has_many :stories

@@ -159,10 +159,10 @@
                                     </div>
                                   <% end %>
                                 <% end %>
-                                <% @active_user_photos.each_with_index do |photo| %>
+                                <% @active_user_photos.each_with_index do |photo, index| %>
                                   <div class="carousel-item br_16">
-                                      <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? asset.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
-                                      <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
+                                      <img src="<%= photo.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
+                                      <span class="carousel-like-icon"></span>
                                     </div>
                                 <% end %>
                                 <% if user_signed_in? %>
@@ -185,7 +185,7 @@
               <a name="games"></a>
               <div class="row br_games">
                 <div class="col-md-12 text-center">
-                  <h2 class="">Some activities <span class="hidden-xs">for you!</span></h2>
+                  <h2 class="">Fun activities <span class="hidden-xs">for you!</span></h2>
                     <ul class="list-unstyled hidden-xs text-center">
                       <% @area.games.each do |game| %>
                         <% if game.game_type == "jigsaw puzzle" %>
