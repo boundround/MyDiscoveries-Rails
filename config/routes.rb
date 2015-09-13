@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   end
 
   constraints(BRConstraint.new) do
-    get '/', to: 'pages#globe', as: :root
+#    get '/', to: 'pages#globe', as: :root
+    get '/', to: 'pages#google_map_home', as: :root
   end
 
   get 'puzzles/index'
@@ -100,9 +101,9 @@ Rails.application.routes.draw do
 
 #  root :to => 'pages#globe'
 
-  get '/map' => 'pages#index'
+#  get '/map' => 'pages#index'
 
-  get '/map_only' => 'pages#map_only'
+#  get '/map_only' => 'pages#map_only'
 
   get '/google_map_home' => 'pages#google_map_home'
 

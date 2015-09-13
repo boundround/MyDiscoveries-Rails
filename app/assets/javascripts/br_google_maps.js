@@ -27,7 +27,7 @@ var br_infobox_country_options = null;
 
 var br_infobox_content_type = null;
 
-location.hash == '' ? location.hash = '#3/-33.865143/151.2099' : location.hash = location.hash;
+location.hash == '' ? location.hash = '#4/-31.722765997478323/142.06927500000006' : location.hash = location.hash;
 
 //	var br_url_prefix = "https://app.boundround.com";
 var br_google_url_prefix = "";//"https://peaceful-bastion-2430.herokuapp.com";
@@ -320,8 +320,9 @@ function initialize() {
 	var mapOptions = {
 /*		center: window.previousLocation,
 		zoom: window.previousZoom * 1.0,*/
-		center: new google.maps.LatLng(-33.8678500, 151.2073200),
-		zoom: 2.,
+//		#4/-31.722765997478323/142.06927500000006
+		center: new google.maps.LatLng(-31.722765997478323, 142.06927500000006),
+		zoom: 4.,
 		disableDoubleClickZoom: true, // <---
 		disableDefaultUI: false,
 		minZoom: 2,
