@@ -425,7 +425,7 @@
                           <a href="<%= place_path(place) %>" class="no-anchor-decoration">
                             <div class="br_top_place">
                               <div class="br_place_top">
-                                <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                                <img src="<%= draw_small_background(place) %>" class="br-card-top-image">
                               </div>
                               <div class="br_place_mid">
                                 <h4 class="card-place-name"><%= place.display_name %></h4>
@@ -477,7 +477,7 @@
                             <a href="<%= place_path(place) %>" class="no-anchor-decoration">
                               <div class="br_top_place">
                                 <div class="br_place_top">
-                                  <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                                  <img src="<%= draw_small_background(place) %>" class="br-card-top-image">
                                 </div>
                                 <div class="br_place_mid">
                                   <h4 class="card-place-name"><%= place.display_name %></h4>
