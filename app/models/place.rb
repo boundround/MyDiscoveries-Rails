@@ -14,7 +14,7 @@ class Place < ActiveRecord::Base
                                               class_name: 'Rate',
                                               as: :rateable
 
-  has_many "quality_raters".to_sym, through: "quality_rates".to_sym, source: :rater, :source_type => "User"
+  has_many "quality_raters".to_sym, through: "quality_rates".to_sym, source: :rater
 
   has_one "quality_average".to_sym, -> { where dimension: "quality" },
                                               as: :cacheable,
