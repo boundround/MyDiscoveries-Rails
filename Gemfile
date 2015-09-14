@@ -108,6 +108,7 @@ gem 'country_select'
 gem 'carrierwave'
 gem 'carrierwave_backgrounder'
 gem 'sidekiq'
+gem 'sidekiq-history'
 
 gem 'slim', '>= 1.1.0'
 gem 'sinatra', '>= 1.3.0', :require => nil
