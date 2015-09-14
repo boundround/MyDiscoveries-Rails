@@ -89,8 +89,6 @@ $(document).ready(function() {
 	});
 	$('.hidden_input').click(brSetSearchView);
 
-	if (br_show_map_mode) brSetMapView();
-
 	$('.open-btn').click(function(e) {
 		e.preventDefault();
 		$(this).hide(0);
@@ -177,4 +175,5 @@ $(document).ready(function() {
 		brSetMapView(e, this);
 	});
 
+	if (br_show_map_mode) brSetMapView();
 }); //end document ready
