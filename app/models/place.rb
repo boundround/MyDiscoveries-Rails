@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
   # ratyrate_rateable "quality"
 
   has_many :rates_without_dimension, -> { where dimension: nil}, as: :rateable, class_name: 'Rate', dependent: :destroy
-  has_many :raters_without_dimension, through: :rates_without_dimension, source: :rater, :source_type => "User"
+  has_many :raters_without_dimension, through: :rates_without_dimension, source: :rater
 
   has_one :rate_average_without_dimension, -> { where dimension: nil}, as: :cacheable,
           class_name: 'RatingCache', dependent: :destroy
