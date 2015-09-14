@@ -195,11 +195,11 @@ class PlacesController < ApplicationController
         end
       else
         @place.created_by = "Guest User"
-        @place.status = "draft"
+        @place.status = "guest"
       end
 
       if @place.save
-        NewPlace.notification(@place).deliver
+        NewPlace.delay.notification(@place)
         JournalInfo.create(place_id: @place.id)
         render :json => {place_id: @place.id}
       else
