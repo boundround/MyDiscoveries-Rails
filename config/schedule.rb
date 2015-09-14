@@ -1,4 +1,6 @@
 every :day do
   rake 'places:publish', environment: environment
-  rake 'sitemap:refresh'
+  if ENV['BOUNDROUND_ENV'] == 'boundround_production' 
+    rake 'sitemap:refresh'
+  end
 end
