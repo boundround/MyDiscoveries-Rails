@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     function callback(predictions, status) {
       if (status != google.maps.places.PlacesServiceStatus.OK) {
-        alert(status);
+        console.log(status);
         return;
       }
       response( $.map( predictions, function( item ) {

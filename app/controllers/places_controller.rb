@@ -42,7 +42,7 @@ class PlacesController < ApplicationController
   def show
     @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
     @reviewable = @place
-    @reviews = @reviewable.reviews
+    @reviews = @reviewable.reviews.active
     @review = Review.new
 
     @storiable = @place
