@@ -265,26 +265,7 @@ $(document).ready(function() {
       }
 
       if (ui.item.resultType === 'Google') {
-        var newLat, newLng;
-        geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ address: ui.item.label }, function(results, status){
-          if (status == google.maps.GeocoderStatus.OK) {
-          // new API results for Google Places
-          newLat = results[0].geometry.location.lat();
-          newLng = results[0].geometry.location.lng();
-          }
-          $.ajax({
-            url: '/factual_places/search.json?term=' + ui.item.label + '&lat=' + newLat + '&lng=' + newLng,
-            success: function(data){
-              $('.new-page-spinner').css('visibility', 'hidden');
-              if (data.length > 0){
-                createNewPlaceFromGooglePlaces(ui.item.placeId, userCity, userCountry, $('#user-ip').data("ip"));
-              } else {
-                setViewForGooglePlace(ui.item.label, userCity, userCountry, $('#user-ip').data("ip")); // needs to be different for places and areas pages
-              }
-            }
-          });
-        });
+        createNewPlaceFromGooglePlaces(ui.item.placeId, userCity, userCountry, $('#user-ip').data("ip"));
       }
 
       if (typeof brglobe != 'undefined') {
