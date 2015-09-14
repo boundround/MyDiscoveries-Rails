@@ -33,6 +33,18 @@ module ApplicationHelper
     end
   end
 
+  def draw_small_background(place)
+    if place.photos.blank?
+      if place.categories.blank?
+        "https://d1w99recw67lvf.cloudfront.net/category_icons/small_generic_sights.jpg"
+      else
+        '"https://d1w99recw67lvf.cloudfront.net/category_icons/small_generic_"' + place.categories[0].identifier + '".jpg"'
+      end
+    else
+      place.photos.find_by(priority: 1) ? place.photos.find_by(priority: 1).path_url(:small) : place.photos.first.path_url(:small)
+    end
+  end
+
   def open_graph_image
       placeholder = "https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/br_logo_new-30eb3b9bb0267503159d6cab93191844.png"
 
