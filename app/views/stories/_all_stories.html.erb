@@ -48,8 +48,8 @@
 <% end %>
 
 <% if user_signed_in? %>
-  <% current_user.stories.draft.where(storiable_id: @storiable.id).each do |story| %>
   <% index = @stories.length ? @stories.length : 0 %>
+  <% current_user.stories.draft.where(storiable_id: @storiable.id).each do |story| %>
     <% if story.user_photos.length > 0 %>
       <!-- Story with image header -->
       <div class="col-sm-12 col-md-6">
@@ -86,6 +86,7 @@
         </div>
       </div>
     <% end %>
+    <% index += 1 %>
   <% end %>
 <% end %>
 

@@ -9,7 +9,7 @@
                     <img id="story-image-1" class="story-image-preview" src="#" alt="Your Image" />
                   </div>
                   <div class="share-btn">
-                    <a class="btn btn-default"><span class="glyphicon glyphicon-picture"></span>
+                    <a class="btn btn-default"><span class="fa fa-picture-o"></span>
                         <br>Click To Select Image
                         <%= ff.file_field :path, label: false %>
                       </a>
@@ -32,7 +32,7 @@
                     </div>
                   <div class="share-btn">
                     <%= f.fields_for :user_photos do |ff| %>
-                      <a class="btn btn-default"><span class="glyphicon glyphicon-picture"></span>
+                      <a class="btn btn-default"><span class="fa fa-picture-o"></span>
                         <br>Click To Select Image
                         <%= ff.file_field :path, label: false %>
                       </a>
@@ -63,7 +63,7 @@
                         </div>
                        <div class="share-btn">
                         <%= f.fields_for :user_photos do |ff| %>
-                          <a class="btn btn-default"><span class="glyphicon glyphicon-picture"></span>
+                          <a class="btn btn-default"><span class="fa fa-picture-o"></span>
                             <br>Click To Select Image
                             <%= ff.file_field :path, label: false %>
                           </a>

@@ -13,8 +13,15 @@
       <div class="card-large-content-hide">
         <button id="close-large-content" style="position:absolute">Close</button>
       </div>
+      <% if @user.videos.blank? && @user.photos.blank? %>
+        <div class="home-text">
+          <p>You have not favourited any Videos or Photos yet.</p>
+          <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
+          to add them to your personal list.
+        </div>
+      <% end %>
+      <% unless @user.videos.blank? %>
       <h3>My Videos</h3>
-      <% unless @user.videos.empty? %>
         <div class="row">
           <% @user.videos.each_with_index do |video, index| %>
             <% if (video != nil and video.vimeo_thumbnail != nil ) %>
@@ -28,12 +35,6 @@
                 </div>
             <% end %>
           <% end %>
-        </div>
-      <% else %>
-        <div class="home-text">
-          <p>You have not favourited any Videos yet.</p>
-          <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
-          to add them to your personal list.
         </div>
       <% end %>
       <% unless @user.photos.blank? %>
@@ -56,12 +57,6 @@
               </div>
             </div>
           <% end %>
-        </div>
-      <% else %>
-        <div class="home-text">
-          <p>You have not favourited any Photos yet!</p>
-          <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
-          to add them to your personal list.
         </div>
       <% end %>
     </div>

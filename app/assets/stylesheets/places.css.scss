@@ -764,7 +764,7 @@ a,button,button:focus,button:active{
   background: transparent;
   border: none;
 	z-index: 1000;
-	
+
 }
 .dropdown.br_profile  button,.dropdown.br_profile  button:focus{
   display: inline-block;
@@ -2163,6 +2163,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     background-color: #fff;
     max-width: 830px;
     width: 100%;
+    margin: 0 auto;
     -webkit-backface-visibility: hidden;
     transform: rotate(-2deg);
     -webkit-transform: rotate(-2deg);
@@ -2832,6 +2833,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     background-color: #fff;
     max-width: 830px;
     width: 100%;
+    margin: 0 auto;
     -webkit-backface-visibility: hidden;
     transform: rotate(-2deg);
     -webkit-transform: rotate(-2deg);
