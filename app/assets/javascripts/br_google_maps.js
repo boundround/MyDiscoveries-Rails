@@ -330,6 +330,9 @@ function initialize() {
 		disableDefaultUI: false,
 		minZoom: 2,
 		maxZoom: 16,
+    backgroundColor: '#a6c6ff'
+		
+/*
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		styles: [{
 				"featureType": "water",
@@ -354,9 +357,10 @@ function initialize() {
 					visibility: "off"
 				}]
 			},
-			/*							{ "featureType": "poi", "stylers": [ { "visibility": "off" } ] },*/
+			//							{ "featureType": "poi", "stylers": [ { "visibility": "off" } ] },
 			{}
 		]
+		*/
 	};
 	br_map = new google.maps.Map(document.getElementById(br_dom_map_element), mapOptions);
 	br_map.addListener("dragend", function(){ brUpdateMap(false);} );
