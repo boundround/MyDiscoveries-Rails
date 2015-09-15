@@ -5,6 +5,7 @@ class CountriesController < ApplicationController
   end
 
   def show
+    @set_body_class = "br-body"
     @country = Country.friendly.find(params[:id])
 
     @videos_photos = @country.videos
@@ -19,7 +20,7 @@ class CountriesController < ApplicationController
   end
 
   def edit
-    @set_body_class = "edit"
+    @set_body_class = "br-body"
     @country = Country.friendly.find(params[:id])
     @photo = Photo.new
   end

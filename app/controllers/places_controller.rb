@@ -219,7 +219,7 @@ class PlacesController < ApplicationController
   end
 
   def edit
-    @set_body_class = "edit"
+    @set_body_class = "br-body"
     @place = Place.friendly.find(params[:id])
     @areas = Area.select(:id, :display_name).order(:display_name)
     @photo = Photo.new
