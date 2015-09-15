@@ -75,8 +75,8 @@
 
     <div class="form-group lat-lng">
       <%= f.input :display_address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address", class: 'longer-input' }, label: "Display Address" %>
-      <%= f.input :latitude, as: :hidden, :input_html => { "data-geo" => "lat" } %>
-      <%= f.input :longitude, as: :hidden, :input_html => { "data-geo" => "lng" } %>
+      <%= f.input :latitude, :input_html => { "data-geo" => "lat" } %>
+      <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
       <%= f.input :street_number, :input_html => { "data-geo" => "street_number" } %>
       <%= f.input :route, :input_html => { "data-geo" => "route", class: 'form-control' } %>
       <%= f.input :sublocality, :input_html => { "data-geo" => "sublocality", class: 'form-control' } %>
