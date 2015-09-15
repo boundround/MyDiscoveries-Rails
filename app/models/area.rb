@@ -21,8 +21,8 @@ class Area < ActiveRecord::Base
                                               class_name: 'RatingCache',
                                               dependent: :destroy
 
-  geocoded_by :address   # can also be an IP address
-  after_validation :geocode
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :reverse_geocode
 
   friendly_id :display_name, :use => :slugged
 

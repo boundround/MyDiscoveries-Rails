@@ -21,8 +21,8 @@ class Place < ActiveRecord::Base
                                               class_name: 'RatingCache',
                                               dependent: :destroy
 
-  geocoded_by :display_address   # can also be an IP address
-  after_validation :geocode
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :reverse_geocode
 
   after_save :load_into_soulmate
   before_destroy :remove_from_soulmate
