@@ -7,8 +7,6 @@
             <li><%= link_to 'Home', root_path %></li>
             <li><%= link_to 'All Countries', countries_path %></li>
             <li><%= link_to 'New Country', new_country_path %></li>
-            <li><%= link_to 'All Areas', areas_path %></li>
-            <li><%= link_to 'New Area', new_area_path %></li>
             <li><%= link_to 'All Places', places_path %></li>
             <li><%= link_to 'Assets In Review', "/places/all_edited" %></li>
             <li><%= link_to 'Publishing Queue', "/places/publishing_queue" %></li>
@@ -17,17 +15,17 @@
             <li><%= link_to 'New Program', new_program_path %></li>
             <li><%= link_to 'Edit Place Tags', "/places/tags" %></li>
             <li><%= link_to 'Edit Program Tags', "/programs/tags" %></li>
+            <li><%= link_to 'User Content Review', "/users/draft_content" %></li>
+            <li><%= link_to 'User Created Places', "/places/user_created" %></li>
             <% if current_user.try(:admin) %>
-	            <li><%= link_to 'Show/Edit Users', users_path %></li>
-	            <li><%= link_to 'Rails Admin', rails_admin_path %></li>
+              <li><%= link_to 'All Areas', areas_path %></li>
+              <li><%= link_to 'New Area', new_area_path %></li>
+              <li><%= link_to 'Show/Edit Users', users_path %></li>
+              <li><%= link_to 'Rails Admin', rails_admin_path %></li>
             <% end %>
             <% if user_signed_in? %>
               <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
             <% end %>
-          </ul>
-
-          <ul class="nav navbar-nav pull-right">
-
           </ul>
         </div>
       </div>

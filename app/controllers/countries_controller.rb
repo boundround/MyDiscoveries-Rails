@@ -19,6 +19,7 @@ class CountriesController < ApplicationController
   end
 
   def edit
+    @set_body_class = "edit"
     @country = Country.friendly.find(params[:id])
     @photo = Photo.new
   end
