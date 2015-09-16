@@ -3,12 +3,17 @@ class Country < ActiveRecord::Base
 
   require 'open_weather'
 
+  default_scope { order('display_name ASC') }
+
   friendly_id :country_code, :use => :slugged
 
   after_save :load_into_soulmate
   before_destroy :remove_from_soulmate
 
   mount_uploader :hero_photo, CountryPhotoUploader
+
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :reverse_geocode
 
   has_many :areas
   has_many :places

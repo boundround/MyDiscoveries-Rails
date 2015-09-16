@@ -62,6 +62,20 @@
           <%= f.input :published_status, as: :radio_buttons, collection: [@country.published_status] %>
         </div>
       <% end %>
+      <% if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin? %>
+        <p><input id="pac-input" class="controls" type="text"
+            placeholder="Enter a location"> Geometry: <%= @country.latitude %>, <%= @country.longitude %></p>
+
+        <div class="map-container">
+          <div class="map-canvas"></div>
+        </div>
+
+        <div class="form-group lat-lng">
+          <%= f.input :latitude, :input_html => { "data-geo" => "lat" } %>
+          <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
+          <%= f.input :google_place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
+        </div>
+      <% end %>
       <div id="table-container">
         <h3>Videos</h3>
         <table class="table table-striped" id="video-table">
@@ -320,3 +334,4 @@
     <h3>Sorry, you must be logged in to view this page</h3>
   <% end %>
 </div>
+<%= javascript_include_tag 'area.js' %>

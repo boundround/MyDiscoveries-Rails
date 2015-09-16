@@ -39,6 +39,7 @@ class Place < ActiveRecord::Base
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
   scope :active, -> { where(status: "live") }
+  scope :not_removed, -> { where('status != ?', 'removed') }
   scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
 
   scope :publishing_queue, -> { where('published_at <= ?', Time.now) }
@@ -116,7 +117,7 @@ class Place < ActiveRecord::Base
   def Place.all_geojson
     # Fetch place GeoJSON from cache or store it in the cache.
     Rails.cache.fetch('places_geojson') do
-      geojson = {"type" => "FeatureCollection","features" => []}
+      geojson = {"type" => "FeatureCollection","features" => [],"countries" => []}
       places = self.active.includes(:categories, :games, :videos, :photos, :country, :area => [:country, :places])
       places.each do |place|
         if place.area != nil
@@ -158,6 +159,18 @@ class Place < ActiveRecord::Base
             "heroImage" => !place.photos.blank? ? place.photos.first.path_url(:small) : "https://d1w99recw67lvf.cloudfront.net/category_icons/small_generic_" + place_type + ".jpg",
             "placeId" => place.slug,
             "area" => area_info
+          }
+        }
+      end
+
+      countries = Country.all
+      countries.each do |country|
+        geojson["countries"] << {
+          properties: {
+            "title" => country.display_name,
+            "id" => country.id,
+            "url" => '/countries/' + country.slug + '.html',
+            "placeId" => country.slug
           }
         }
       end

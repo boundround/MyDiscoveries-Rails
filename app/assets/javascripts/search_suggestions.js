@@ -55,7 +55,8 @@ $(document).ready(function() {
                     url: '/places/mapdata.json',
                     success: function(data) {
                       allPlaces = data["features"];
-                      window.allBoundRoundPlaces = allPlaces.concat(allAreas);
+                      allCountries = data["countries"];
+                      window.allBoundRoundPlaces = allPlaces.concat(allAreas).concat(allCountries);
 
                       for (var i = 0; i < allBoundRoundPlaces.length; i++){
                         if (place.name.toLowerCase().trim() == allBoundRoundPlaces[i].properties.title.toLowerCase().trim()){
@@ -75,7 +76,7 @@ $(document).ready(function() {
                   place_id: place_id, user_created: true, subscription_level: "basic"}, address_components: place.address_components },
           success: function(data){
             if (data.place_id !== "error"){
-              window.location.href = "/places/" + data.place_id;
+              window.location.href = data.place_id;
             } else {
               setViewForGooglePlace(place_id, city, country, userIP);
             }

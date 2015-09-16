@@ -11,18 +11,24 @@
       <th>Created By</th>
       <th>Created At</th>
       <th>Status</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
-    <% @places.each do |place| %>
-        <tr>
-          <td><%= link_to place.display_name, edit_place_path(place) %></td>
-          <td><%= place.country ? place.country.display_name : "" %></td>
-          <td><%= place.place_id %></td>
-          <td><%= (place.created_by.to_i > 0) ? User.find(place.created_by.to_i).email : "Guest User" %></td>
-          <td><%= place.created_at %></td>
-          <td><%= place.status %></td>
-        </tr>
+      <% @places.each do |place| %>
+          <tr>
+        <%= form_for place, method: :put do |f| %>
+            <td><%= link_to place.display_name, edit_place_path(place) %>
+              <input name='_method' type='hidden' value='patch' />
+            </td>
+            <td><%= place.country ? place.country.display_name : "" %></td>
+            <td><%= place.place_id %></td>
+            <td><%= (place.created_by.to_i > 0) ? User.find(place.created_by.to_i).email : "Guest User" %></td>
+            <td><%= place.created_at %></td>
+            <td><%= f.select :status, collection: ["draft", "edited", "live", "removed", "guest"] %></td>
+            <td><%= f.button :submit %></td>
+        <% end %>
+          </tr>
       <% end %>
     </tbody>
   </table>

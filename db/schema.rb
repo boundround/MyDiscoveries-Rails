@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911055521) do
+ActiveRecord::Schema.define(version: 20150916042651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,10 @@ ActiveRecord::Schema.define(version: 20150911055521) do
     t.string   "short_name"
     t.string   "long_name"
     t.string   "photo_credit"
+    t.string   "google_place_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "address"
   end
 
   add_index "countries", ["slug"], name: "index_countries_on_slug", using: :btree
@@ -574,6 +578,8 @@ ActiveRecord::Schema.define(version: 20150911055521) do
     t.boolean  "customer_review"
     t.boolean  "customer_approved"
     t.datetime "approved_at"
+    t.string   "title"
+    t.text     "description"
   end
 
   add_index "videos", ["area_id"], name: "index_videos_on_area_id", using: :btree
