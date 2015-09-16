@@ -166,11 +166,13 @@ class PlacesController < ApplicationController
   end
 
   def user_create
-    existing_place = Place.find_by(place_id: params[:place][:place_id]) || Area.find_by(google_place_id: params[:place][:place_id])
+    existing_place = Place.find_by(place_id: params[:place][:place_id]) || Area.find_by(google_place_id: params[:place][:place_id]) || Country.find_by(display_name: params[:place][:display_name])
     if existing_place.class.to_s == "Place"
-      render :json => {place_id: place_path(existing_place).split('/')[2] }
+      render :json => {place_id: place_path(existing_place) }
     elsif existing_place.class.to_s == "Area"
-      render :json => {place_id: area_path(existing_place).split('/')[2] }
+      render :json => {place_id: area_path(existing_place) }
+    elsif existing_place.class.to_s == "Country"
+      render :json => {place_id: country_path(existing_place) }
     else
       @place = Place.new(place_params)
       country = ""
@@ -303,6 +305,11 @@ class PlacesController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @places_geojson }  # respond with the created JSON object
+    end
+  end
+
+  def check_all_boundround
+    Rails.cache.fetch('all_bound_round_places') do
     end
   end
 
@@ -610,7 +617,7 @@ class PlacesController < ApplicationController
                                     :customer_approved, :customer_review, :approved_at, :country_id,
                                     :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status,
                                     photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-                                    videos_attributes: [:id, :vimeo_id, :priority, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
+                                    videos_attributes: [:id, :vimeo_id, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :customer_approved, :customer_review, :approved_at, :_destroy],
                                     fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
                                     discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
