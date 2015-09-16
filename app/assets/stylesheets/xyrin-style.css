@@ -3685,7 +3685,7 @@ body {
     .modal-open .modal {
 /*      background: rgba(162, 213, 73, .95);*/
       padding: 0px !important;
-      margin-left: 0px;
+/*      margin-left: 0px;*/
     }
     .game-table {
       width: 100%;

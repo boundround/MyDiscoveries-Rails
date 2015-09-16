@@ -14,6 +14,7 @@ class PagesController < ApplicationController
   end
 
   def google_map_home
+    @set_body_class = "google_map_background"
 #    @placeprograms = "yes"
   end
   

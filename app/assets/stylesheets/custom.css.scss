@@ -88,10 +88,13 @@ body {
   right: 0;
 }
 
+.google_map_background {
+  background-color: #a6c6ff /*match google maps ocean color*/	
+}
+
 .homepage {
-  background-color: #a6c6ff /*match google maps ocean color*/
 /*  background-color: #fff;*/
-	/*  background-color: #fd7e56;*/
+	background-color: #fd7e56;
 }
 
 select {

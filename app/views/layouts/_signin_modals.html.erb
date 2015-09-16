@@ -17,12 +17,12 @@
 				    </div>
 
 				    <div class="form-actions">
-				      <p><%= f.button :submit, "Sign in" %></p>
+				      <p><%= f.button :submit, "Sign in", :class=>'btn blue-button' %></p>
 				    </div>
 				  <% end %>
 					<h5>Need To Create An Account?</h5>
 					<a href="<%= new_user_registration_path %>">
-						<button class="btn blue-button">
+						<button class="">
 							Sign Up
 						</button>
 					</a>
@@ -49,12 +49,12 @@
 			    </div>
 
 			    <div class="form-actions">
-			      <p><%= f.button :submit, "Sign in" %></p>
+			      <p><%= f.button :submit, "Sign in", input_html:{ class:'btn blue-button'} %></p>
 			    </div>
 			  <% end %>
 				<h5>Need To Create An Account?</h5>
 				<a href="<%= new_user_registration_path %>">
-					<button class="btn blue-button">
+					<button class="">
 						Sign Up
 					</button>
 				</a>
