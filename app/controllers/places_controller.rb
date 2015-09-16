@@ -166,7 +166,7 @@ class PlacesController < ApplicationController
   end
 
   def user_create
-    existing_place = Place.find_by(place_id: params[:place][:place_id]) || Area.find_by(google_place_id: params[:place][:place_id]) || Country.find_by(display_name: params[:place][:display_name])
+    existing_place = Place.not_removed.find_by(place_id: params[:place][:place_id]) || Area.find_by(google_place_id: params[:place][:place_id]) || Country.find_by(display_name: params[:place][:display_name])
     if existing_place.class.to_s == "Place"
       render :json => {place_id: place_path(existing_place) }
     elsif existing_place.class.to_s == "Area"

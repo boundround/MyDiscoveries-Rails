@@ -39,6 +39,7 @@ class Place < ActiveRecord::Base
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
   scope :active, -> { where(status: "live") }
+  scope :not_removed, -> { where('status != ?', 'removed') }
   scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
 
   scope :publishing_queue, -> { where('published_at <= ?', Time.now) }
