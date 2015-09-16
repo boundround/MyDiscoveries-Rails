@@ -3,6 +3,8 @@ class Country < ActiveRecord::Base
 
   require 'open_weather'
 
+  default_scope { order('display_name ASC') }
+
   friendly_id :country_code, :use => :slugged
 
   after_save :load_into_soulmate
