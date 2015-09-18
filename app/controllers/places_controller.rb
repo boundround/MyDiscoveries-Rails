@@ -203,7 +203,7 @@ class PlacesController < ApplicationController
       if @place.save
         NewPlace.delay.notification(@place)
         JournalInfo.create(place_id: @place.id)
-        render :json => {place_id: @place.id}
+        render :json => {place_id: "/places/" + @place.id.to_s}
       else
         render :json => {place_id: "error" }
       end

@@ -161,7 +161,7 @@ $(document).ready(function(){
     getPlaceDetails($('#place-id').data("place"));
 
     // fill game modal, dropdown for mobile
-    $('#place_select_game').change(function() { 
+    $('#place_select_game').change(function() {
       console.log(this.value);
 		 if(this.value !=='ignore')
 		 {
@@ -288,4 +288,14 @@ $(document).ready(function(){
       $('#shareModal').modal('show');
     });
 
+});
+
+$(document).ready(function(){
+    var iframe = $('#hero_video')[0];
+    var player = $f(iframe);
+
+    // When the player is ready, add listeners for pause, finish, and playProgress
+    player.addEvent('ready', function() {
+      player.api('setVolume', 0);
+    });
 });
