@@ -289,13 +289,3 @@ $(document).ready(function(){
     });
 
 });
-
-$(document).ready(function(){
-    var iframe = $('#hero_video')[0];
-    var player = $f(iframe);
-
-    // When the player is ready, add listeners for pause, finish, and playProgress
-    player.addEvent('ready', function() {
-      player.api('setVolume', 0);
-    });
-});
