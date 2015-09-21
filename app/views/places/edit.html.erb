@@ -106,6 +106,8 @@
           <tr>
             <th>Preview</th>
             <th>Vimeo ID</th>
+            <th>Title</th>
+            <th>Description</th>
             <th>Priority</th>
             <th>Status</th>
             <th>Include In Country</th>
@@ -122,6 +124,8 @@
                 <%= ff.input :id, as: :hidden %>
                 <td></td>
                 <td><%= ff.text_area :vimeo_id %></td>
+                <td><%= ff.text_area :title %></td>
+                <td><%= ff.text_area :description %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
