@@ -58,6 +58,12 @@ class VideosController < ApplicationController
     if @video.update(video_params)
       response = Unirest.get "https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s
       @video.vimeo_thumbnail = response.body["thumbnail_url"]
+      if @video.title.blank?
+      @video.title = response.body["title"]
+      end
+      if @video.description.blank?
+        @video.description = response.body["description"]
+      end
       @video.save
     end
 
