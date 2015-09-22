@@ -10,6 +10,19 @@
   text-align: left;
 }
 
+.add-photo {
+  background-color: #6CB7CB;
+}
+
+.add-photo:hover {
+  background-color: #fd7e56;
+}
+
+.user-photo-caption-form {
+  min-width: 50%;
+    border-radius: 4px;
+}
+
 .carousel-like-icon {
   position: absolute;
   right: 5px;
