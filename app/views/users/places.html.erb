@@ -4,7 +4,11 @@
       <h1 class="br_top_heading hidden-xs">
         My Wishlist
       </h1>
-      <p><i class="fa fa-star fa-lg"></i></p>
+      <div class="col-xs-12">
+        <a href="<%= root_path %>">
+          <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
+        </a>
+      </div>
       <%= render 'layouts/search_input' %>
     </div>
     <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>

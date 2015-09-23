@@ -4,7 +4,11 @@
       <h1 class="br_top_heading hidden-xs">
         My Reviews
       </h1>
-      <p><i class="fa fa-star fa-lg"></i></p>
+      <div class="col-xs-12">
+        <a href="<%= root_path %>">
+          <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
+        </a>
+      </div>
       <%= render 'layouts/search_input' %>
     </div>
     <% unless @user.reviews.blank? %>
