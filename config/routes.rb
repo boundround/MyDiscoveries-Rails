@@ -77,6 +77,7 @@ Rails.application.routes.draw do
   post 'videos_users/destroy' => 'videos_users#destroy'
 
   resources :user_photos
+  post 'user_photos/profile_create' => 'user_photos#profile_create'
 
   resources :stories
   post 'stories/profile_create' => 'stories#profile_create'
@@ -113,6 +114,7 @@ Rails.application.routes.draw do
   get '/puzzles/:action' => 'puzzles#:action'
 
   get '/users/photos' => 'users#photos'
+  get '/users/reviews' => 'users#reviews'
   get '/users/games' => 'users#games'
   get '/users/videos' => 'users#videos'
   get '/users/places' => 'users#places'

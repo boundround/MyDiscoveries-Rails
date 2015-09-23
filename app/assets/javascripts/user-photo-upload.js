@@ -37,7 +37,8 @@ $(function () {
             // $('#image-preview').attr('src', "#");
             // $('#user-photo-upload-button').html("");
             // $('#myModal').modal("hide");
-            location.reload();
+            $('.loader-bound-round').hide();
+            window.location.reload();
         }
     });
 

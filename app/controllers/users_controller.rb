@@ -126,6 +126,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def reviews
+    if user_signed_in?
+      @set_body_class = 'passport-page'
+      @user = current_user
+    else
+      redirect_to new_user_registration_path, notice: "You must be logged in to view that"
+    end
+  end
+
   def send_story
     @uploaded_files = []
     @uploaded_files << params[:file1]

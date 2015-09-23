@@ -7,7 +7,7 @@
       <p><i class="fa fa-star fa-lg"></i></p>
       <%= render 'layouts/search_input' %>
     </div>
-    <div><a href="#" data-toggle="modal" data-target="#storyModal" class="br_create_btn btn btn-default">+ Create story</a></div>
+    <div class="text-center"><a href="#" data-toggle="modal" data-target="#storyModal" class="user-upload-button btn btn-default">+ Create story</a></div>
     <% unless @user.stories.blank? %>
       <% @user.stories.each_with_index do |story, index| %>
         <% if story.user_photos.length > 0 %>

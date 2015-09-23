@@ -33,9 +33,9 @@ class StoriesController < ApplicationController
 
     if @story.save
       NewStory.notification(@story).deliver
-      redirect_to :back, notice: "Thanks for the story. We'll let you know when others can see it too!"
+      redirect_to users_stories_path, notice: "Thanks for the story. We'll let you know when others can see it too!"
     else
-      redirect_to :back, notice: "We're sorry, there was an error uploading your story."
+      redirect_to users_stories_path, notice: "We're sorry, there was an error uploading your story."
     end
   end
 
