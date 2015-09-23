@@ -8,9 +8,9 @@
         </div>
       </div>
     </div>
-    <% unless @user.photos.blank? %>
+    <% unless @user.user_photos.blank? %>
       <p>My Photos</p>
-      <% @user.photos.each_with_index do |photo, index| %>
+      <% @user.user_photos.each_with_index do |photo, index| %>
         <div class="photo-card photo-thumb my-photos">
           <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
                                                               photo_alt: alt_tag_for(photo),
@@ -28,7 +28,7 @@
       <% end %>
     <% else %>
       <div class="home-text">
-        <p>You have not favourited any Photos yet!</p>
+        <p>You have added any Photos yet!</p>
         <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
         to add them to your personal list.
       </div>

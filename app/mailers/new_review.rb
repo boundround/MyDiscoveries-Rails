@@ -5,6 +5,6 @@ class NewReview < ActionMailer::Base
     @email = "janeece@boundround.com"
     @review = review
 
-    mail(to: @email, subject: "New Review Created - #{@review.reviewable.display_name}, #{@review.reviewable.country.display_name}")
+    mail(to: @email, subject: "New Review Created - #{@review.reviewable ? @review.reviewable.display_name : 'Needs Place Assignment'}")
   end
 end

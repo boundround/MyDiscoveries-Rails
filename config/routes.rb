@@ -78,6 +78,9 @@ Rails.application.routes.draw do
 
   resources :user_photos
 
+  resources :stories
+  post 'stories/profile_create' => 'stories#profile_create'
+
   resources :areas do
     resources :photos
     resources :videos
