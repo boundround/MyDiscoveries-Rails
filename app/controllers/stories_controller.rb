@@ -49,7 +49,7 @@ class StoriesController < ApplicationController
     end
 
     def story_params
-      params.require(:story).permit(:content, :title, :user_id, :status,
+      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id,
                                     user_photos_attributes: [:id, :title, :content, :user_id, :story_id, :story_priority, :place_id, :path, :status])
     end
 end

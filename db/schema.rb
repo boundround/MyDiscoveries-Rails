@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916042651) do
+ActiveRecord::Schema.define(version: 20150923000708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -411,6 +411,7 @@ ActiveRecord::Schema.define(version: 20150916042651) do
     t.integer  "user_id"
     t.string   "title"
     t.string   "status"
+    t.string   "google_place_id"
   end
 
   add_index "reviews", ["reviewable_id", "reviewable_type"], name: "index_reviews_on_reviewable_id_and_reviewable_type", using: :btree
@@ -451,6 +452,7 @@ ActiveRecord::Schema.define(version: 20150916042651) do
     t.integer  "storiable_id"
     t.string   "storiable_type"
     t.string   "status"
+    t.string   "google_place_id"
   end
 
   add_index "stories", ["storiable_id", "storiable_type"], name: "index_stories_on_storiable_id_and_storiable_type", using: :btree
@@ -497,6 +499,7 @@ ActiveRecord::Schema.define(version: 20150916042651) do
     t.integer  "place_id"
     t.integer  "area_id"
     t.integer  "story_priority"
+    t.string   "google_place_id"
   end
 
   add_index "user_photos", ["area_id"], name: "index_user_photos_on_area_id", using: :btree
