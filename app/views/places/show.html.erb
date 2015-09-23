@@ -69,7 +69,8 @@
                     <!-- <span class="visible-xs">
                           <i class="fa fa-clock-o"></i>&nbsp;
                           3:28am &nbsp;&nbsp;<i class="fa fa-bolt"></i>&nbsp; Slight showers
-                      </span> TIME AND WEATHER -->&nbsp;
+                      </span> TIME AND WEATHER -->&nbsp;<br>
+                      <a href="" style="color:white;text-shadow:1px 1px black" class="no-anchor-decoration butttn btn add-photo" data-toggle="modal" data-target="#myModal">Add Photo</a>
                   </p>
                   <ul class="list-unstyled br_buttons hidden-xs">
                     <li class="add-to-wishlist">
@@ -190,7 +191,7 @@
                 </div>
                 <% if @hero_video %>
                   <div class="col-md-4 col-sm-12 hidden-xs">
-                    <iframe class="hero-video" width="100%" height="272" src="//player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1&autoplay=0" frameborder="0" allowfullscreen></iframe>
+                    <iframe class="hero-video" id="hero_video" width="100%" height="272" src="https://player.vimeo.com/video/<%= @hero_video.vimeo_id %>?api=1&player_id=player1&autoplay=0" frameborder="0" allowfullscreen></iframe>
                   </div>
                 <% end %>
                 <div class="clearfix"></div>
@@ -216,7 +217,7 @@
                                   <% @videos_photos.each_with_index do |asset, index| %>
                                     <% if asset.class.to_s == "Video" %>
                                       <div>
-                                        <iframe class="carousel-item carousel-video" id="player1" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player1" width="273" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                                        <iframe class="carousel-item carousel-video" id="player<%= index + 5 %>" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player<%= index + 5 %>" width="273" frameborder="2" data-title="<%= asset.title %>" data-description="<%= asset.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
                                         </iframe>
                                         <div class="overlay carousel-country-photo" data-slide-number="<%= index %>">
                                           <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
@@ -699,3 +700,17 @@
     </div>
 </div>
 <% end %>
+
+<script>
+window.onload = function(){
+    var iframe = $('#hero_video')[0];
+    var player = $f(iframe);
+
+    // When the player is ready, add listeners for pause, finish, and playProgress
+    if (player) {
+      player.addEvent('ready', function() {
+        player.api('setVolume', 0);
+      });
+    }
+};
+</script>

@@ -124,11 +124,21 @@ $(document).ready(function(){
 
     $('.carousel-country-photo').on('click', function(){
         var carouselItems = $('.carousel-item');
+        $('.owl-controls').show();
         if ($("#modal-carousel").has(".carousel-item").length === 0){
             $.each(carouselItems, function(index){
                 var newImage = $(carouselItems[index]).clone()
                 if($(carouselItems[index]).hasClass("carousel-video")){
+                    console.log("WORKING??????????????????");
+                    console.log(newImage);
+                    newImage.removeAttr('id');
+                    videoID = 'big-player-' + index;
+                    newImage.attr('id', videoID);
                     $("#modal-carousel").append(newImage.css("height", "400px"));
+                    title = $('#' + videoID).data("title");
+                    description = $('#' + videoID).data("description");
+                    $('#' + videoID).before(title);
+                    $('#' + videoID).after(description);
                 } else {
                     newImage.append("<div>" + newImage.find("img").data("caption")) + "</div>";
                     newImage.append("<div><a href='" + newImage.find("img").data("placeurl") + "'>Explore " + newImage.find("img").data("placename") + "</a></div>");
