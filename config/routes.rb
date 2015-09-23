@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   get "areas/mapdata" => "areas#mapdata"
   get "areas/search" => "areas#search"
   get "places/mapdata" => "places#mapdata"
+  get "places/placeareasmapdata" => "places#placeareasmapdata"
   get "places/search" => "places#search"
   get "places/liked_places" => "places#liked_places"
   get "places/tags" => "places#tags"

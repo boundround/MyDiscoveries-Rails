@@ -186,7 +186,7 @@ var createMarkerArray = function(geoJSON, markerType, showme, scaledSizeOfIcon, 
         // config for icon
         var iconCfg = {
           innerText: {
-            content: ""+location.properties.placeCount,
+            content: location.properties.placeCount > 0 ? ""+location.properties.placeCount : "",
             style: {
               fontFamily: 'Signika'
             }
@@ -549,7 +549,7 @@ function initialize() {
 
 	$.ajax({
 		//Get all areas and add to map
-		url: '/areas/mapdata.json',
+		url: '/places/placeareasmapdata.json',
 		success: function(data) {
 			window.areasGeoJSON = data;
 
