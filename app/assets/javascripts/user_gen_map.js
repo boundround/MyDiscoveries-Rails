@@ -4,7 +4,7 @@ window.onload = function(){
     types: ['geocode', 'establishment'],
     map: ".user-gen-map",
     markerOptions: {
-      draggable: false
+      draggable: true
     },
     details: "body",
     detailsAttribute: "data-geo",
