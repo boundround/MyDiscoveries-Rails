@@ -700,17 +700,3 @@
     </div>
 </div>
 <% end %>
-
-<script>
-window.onload = function(){
-    var iframe = $('#hero_video')[0];
-    var player = $f(iframe);
-
-    // When the player is ready, add listeners for pause, finish, and playProgress
-    if (player) {
-      player.addEvent('ready', function() {
-        player.api('setVolume', 0);
-      });
-    }
-};
-</script>
