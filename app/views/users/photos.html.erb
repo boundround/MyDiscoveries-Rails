@@ -19,7 +19,8 @@
           <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large)
                                                               } do %>
           <% end %>
-          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
+          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" /><br>
+          <%= link_to '<i class="fa fa-close"></i> Delete'.html_safe, photo, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-photo-button btn btn-default" %>
         </div>
       <% end %>
     <% else %>

@@ -19,6 +19,11 @@
 				    <div class="form-actions">
 				      <p><%= f.button :submit, "Sign in", :class=>'btn blue-button' %></p>
 				    </div>
+				    <%- if devise_mapping.omniauthable? %>
+						  <%- resource_class.omniauth_providers.each do |provider| %>
+						    <a href="<%= omniauth_authorize_path(resource_name, provider) %>"><img class="facebook-sign-in" src="/assets/images/facebook_sign_in.png"></a><br />
+						  <% end -%>
+						<% end -%>
 				  <% end %>
 					<h5>Need To Create An Account?</h5>
 					<a href="<%= new_user_registration_path %>">
@@ -51,6 +56,11 @@
 			    <div class="form-actions">
 			      <p><%= f.button :submit, "Sign in", input_html:{ class:'btn blue-button'} %></p>
 			    </div>
+			    <%- if devise_mapping.omniauthable? %>
+						  <%- resource_class.omniauth_providers.each do |provider| %>
+						    <a href="<%= omniauth_authorize_path(resource_name, provider) %>"><img class="facebook-sign-in" src="/assets/images/<%= provider %>_sign_in.png"></a><br />
+						  <% end -%>
+						<% end -%>
 			  <% end %>
 				<h5>Need To Create An Account?</h5>
 				<a href="<%= new_user_registration_path %>">

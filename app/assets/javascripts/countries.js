@@ -129,21 +129,23 @@ $(document).ready(function(){
             $.each(carouselItems, function(index){
                 var newImage = $(carouselItems[index]).clone()
                 if($(carouselItems[index]).hasClass("carousel-video")){
-                    console.log("WORKING??????????????????");
-                    console.log(newImage);
                     newImage.removeAttr('id');
                     videoID = 'big-player-' + index;
-                    newImage.attr('id', videoID);
+                    newImage.attr('id', videoID).addClass('carousel-big-video');
                     $("#modal-carousel").append(newImage.css("height", "400px"));
-                    title = $('#' + videoID).data("title");
-                    description = $('#' + videoID).data("description");
-                    $('#' + videoID).before(title);
-                    $('#' + videoID).after(description);
                 } else {
+                    $(newImage).css("height", "100%");
                     newImage.append("<div>" + newImage.find("img").data("caption")) + "</div>";
                     newImage.append("<div><a href='" + newImage.find("img").data("placeurl") + "'>Explore " + newImage.find("img").data("placename") + "</a></div>");
                     $("#modal-carousel").append(newImage);
                 }
+            });
+            var bigVideos = $('.carousel-big-video');
+            $.each(bigVideos, function(){
+                title = $(this).data("title");
+                description = $(this).data("description");
+                $(this).wrap("<div></div>");
+                $(this).parent().prepend(title).append(description);
             });
         }
         $('#carousel-modal').modal("show");

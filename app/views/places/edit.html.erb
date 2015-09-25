@@ -168,12 +168,42 @@
                 <td><%= ff.text_area :credit %></td>
                 <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
                 <td><%= ff.text_field :alt_tag %></td>
-                <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.select :priority, 1..20 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
                 <td><%= ff.check_box :customer_review, class: 'customer-review' %></td>
                 <td><%= ff.check_box :customer_approved, class: 'customer-approve' %><br><%= photo.approved_at.strftime('%F at %T') if photo.approved_at %></td>
                 <td><%= !photo.versions.blank? && photo.versions.last.whodunnit ? User.find(photo.versions.last.whodunnit).email : "" %><br><%= photo.updated_at.strftime('%F at %T') %></td>
+                <td><%= ff.check_box :_destroy %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div id="table-container">
+      <h3>User Uploaded Photos</h3>
+      <table class="table table-striped" id="photo-table">
+        <thead>
+          <tr>
+            <th>Thumbnail</th>
+            <th>Change Photo</th>
+            <th>Caption</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @place.user_photos.each do |photo| %>
+            <%= f.fields_for :user_photos, photo do |ff| %>
+              <tr>
+                <%= ff.input :id, as: :hidden %>
+                <td><img src="<%= asset_path(photo.path_url) %>" class="photo-edit-thumb"></td>
+                <td><%= ff.file_field :path, class: "photo-file" %></td>
+                <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
+                <td><%= ff.select :priority, ([nil].push((1..20).to_a)).flatten %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>

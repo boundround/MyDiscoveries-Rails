@@ -24,6 +24,22 @@
   text-shadow: none;
 }
 
+.delete-photo-button {
+  margin-top: -74px;
+  border: none;
+  border-radius: 1px;
+  background-color: #FD7E56;
+  color: white;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.delete-photo-button:hover {
+  border: 1px solid white;
+  background-color: red;
+  color: white;
+}
+
 .user-upload-button:hover {
   border: 1px solid white;
 }
