@@ -12,6 +12,22 @@
   background-color: #FD7E56;
 }
 
+.user-gen-map {
+  min-height: 138px;
+  display: none;
+}
+
+.user-upload-button {
+  background-color: #FD7E56;
+  color: white;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.user-upload-button:hover {
+  border: 1px solid white;
+}
+
 .user-view-title {
   text-align: center;
   font-size: 24px;

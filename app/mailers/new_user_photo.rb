@@ -6,10 +6,10 @@ class NewUserPhoto < ActionMailer::Base
     @photo = photo
     if @photo.place
       @place = @photo.place
-    else
+    elsif @photo.area
       @place = @photo.area
     end
 
-    mail(to: @email, subject: "New User Photo Uploaded - #{@place.display_name}, #{@place.country.display_name}")
+    mail(to: @email, subject: "New User Photo Uploaded - #{@place ? @place.display_name : 'Needs Place Assignment'}")
   end
 end

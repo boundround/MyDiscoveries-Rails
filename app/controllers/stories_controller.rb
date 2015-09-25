@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController
-  before_filter :load_storiable
+  before_filter :load_storiable, :except => :profile_create
 
   def index
     @stories = @storiable.stories
@@ -15,11 +15,27 @@ class StoriesController < ApplicationController
 
   def create
     @story = @storiable.stories.new(story_params)
+
     if @story.save
       NewStory.notification(@story).deliver
       redirect_to @storiable, notice: "Thanks for the story. We'll let you know when others can see it too!"
     else
       redirect_to :back, notice: "We're sorry, there was an error uploading your story."
+    end
+  end
+
+  def profile_create
+    @story = Story.new(story_params)
+    place = Place.find_by(place_id: @story.google_place_id)
+    if place
+      @story.storiable = place
+    end
+
+    if @story.save
+      NewStory.notification(@story).deliver
+      redirect_to users_stories_path, notice: "Thanks for the story. We'll let you know when others can see it too!"
+    else
+      redirect_to users_stories_path, notice: "We're sorry, there was an error uploading your story."
     end
   end
 
@@ -49,7 +65,7 @@ class StoriesController < ApplicationController
     end
 
     def story_params
-      params.require(:story).permit(:content, :title, :user_id, :status,
+      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id,
                                     user_photos_attributes: [:id, :title, :content, :user_id, :story_id, :story_priority, :place_id, :path, :status])
     end
 end

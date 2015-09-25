@@ -11,4 +11,6 @@ class UserPhoto < ActiveRecord::Base
 
   scope :active, -> { where(status: "live") }
   scope :draft, -> { where(status: "draft") }
+  scope :active_path, -> { where('path is NOT NULL')}
+  scope :no_story, -> { where('story_id IS NULL')}
 end

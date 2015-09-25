@@ -119,6 +119,17 @@ class UsersController < ApplicationController
     if user_signed_in?
       @set_body_class = 'passport-page'
       @user = current_user
+      @story = Story.new
+      @user_photos = @story.user_photos.build
+    else
+      redirect_to new_user_registration_path, notice: "You must be logged in to view that"
+    end
+  end
+
+  def reviews
+    if user_signed_in?
+      @set_body_class = 'passport-page'
+      @user = current_user
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
