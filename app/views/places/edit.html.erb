@@ -1,5 +1,6 @@
 <div class="edit-container">
   <% if user_signed_in? %>
+  <div id="place_address" data-address="<%= @place.display_address %>"></div>
   <h1>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
   <p>
     <a href="<%= preview_place_path(@place) %>" target="blank">Preview</a>&nbsp;&nbsp;|&nbsp;&nbsp;
