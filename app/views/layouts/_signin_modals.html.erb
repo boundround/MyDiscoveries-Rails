@@ -11,6 +11,11 @@
 				<div id="icon-wrapper">
 				  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 				    <div class="form-inputs">
+				    	<%- if devise_mapping.omniauthable? %>
+							  <%- resource_class.omniauth_providers.each do |provider| %>
+							    <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;Sign In With Instagram</a><br /><br />
+							  <% end -%>
+							<% end -%>
 				      <%= f.input :email, required: false, autofocus: true %><br>
 				      <%= f.input :password, required: false %><br>
 				      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %><br>
@@ -19,11 +24,6 @@
 				    <div class="form-actions">
 				      <p><%= f.button :submit, "Sign in", :class=>'btn blue-button' %></p>
 				    </div>
-				    <%- if devise_mapping.omniauthable? %>
-						  <%- resource_class.omniauth_providers.each do |provider| %>
-						    <a href="<%= omniauth_authorize_path(resource_name, provider) %>"><img class="facebook-sign-in" src="/assets/images/<%= provider %>_sign_in.png"></a><br />
-						  <% end -%>
-						<% end -%>
 				  <% end %>
 					<h5>Need To Create An Account?</h5>
 					<a href="<%= new_user_registration_path %>">
@@ -48,6 +48,11 @@
 			<div id="icon-wrapper">
 			  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 			    <div class="form-inputs">
+			    	<%- if devise_mapping.omniauthable? %>
+						  <%- resource_class.omniauth_providers.each do |provider| %>
+						    <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;Sign In With Instagram</a><br /><br>
+						  <% end -%>
+						<% end -%>
 			      <%= f.input :email, required: false, autofocus: true %><br>
 			      <%= f.input :password, required: false %><br>
 			      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %><br>
@@ -56,11 +61,6 @@
 			    <div class="form-actions">
 			      <p><%= f.button :submit, "Sign in", input_html:{ class:'btn blue-button'} %></p>
 			    </div>
-			    <%- if devise_mapping.omniauthable? %>
-						  <%- resource_class.omniauth_providers.each do |provider| %>
-						    <a href="<%= omniauth_authorize_path(resource_name, provider) %>"><img class="facebook-sign-in" src="/assets/images/<%= provider %>_sign_in.png"></a><br />
-						  <% end -%>
-						<% end -%>
 			  <% end %>
 				<h5>Need To Create An Account?</h5>
 				<a href="<%= new_user_registration_path %>">
