@@ -20,11 +20,15 @@
     <%= simple_form_for(@user) do |f| %>
       <% if @user.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+          <h4>Please correct the following errors:</h4>
 
           <ul>
           <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+            <% if message == "Email is invalid" %>
+              <li>We need a valid email address before you can update your profile</li>
+            <% else %>
+              <li><%= message %></li>
+            <% end %>
           <% end %>
           </ul>
         </div>
