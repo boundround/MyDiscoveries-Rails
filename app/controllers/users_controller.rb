@@ -151,7 +151,7 @@ class UsersController < ApplicationController
 
   def draft_content
     @stories = Story.where(status: "draft")
-    @user_photos = UserPhoto.where.('story_id IS NULL').where(status: "draft")
+    @user_photos = UserPhoto.where('story_id IS NULL').where(status: "draft")
     @reviews = Review.where(status: "draft")
     @places = Place.all
   end
