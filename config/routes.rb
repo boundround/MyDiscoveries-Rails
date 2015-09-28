@@ -25,6 +25,9 @@ Rails.application.routes.draw do
 
   get 'puzzles/index'
 
+  get 'pages/terms' => 'pages#terms'
+  get 'pages/privacy' => 'pages#privacy'
+
   resources :search_suggestions
 
   require 'sidekiq/web'

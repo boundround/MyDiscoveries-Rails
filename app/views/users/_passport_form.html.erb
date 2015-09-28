@@ -31,22 +31,23 @@
       <% end %>
       <td>
         <div class="form-group passport-form">
-          <%= f.input :name, label: false, placeholder: 'Your Name' %>
+          <%= f.input :first_name, label: false, placeholder: 'First Name', wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+          <%= f.input :last_name, label: false, placeholder: 'Last Name', wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         </div>
       </td>
     </tr>
     <tr>
       <td>
-        <div class="form-group passport-form">
+        <div class="form-group passport-form form-inline">
           <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
                               end_year: Date.today.year,
-                              order: [:month, :day, :year] %>
+                              order: [:month, :day, :year], wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         </div>
       </td>
     </tr>
     <tr>
       <td>
-        <%= f.input :promo_code, label: false, placeholder: 'Add A Promo Code' %>
+        <%= f.input :promo_code, label: false, placeholder: 'Add A Promo Code', wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
       </td>
     <tr>
     <tr>
@@ -57,27 +58,29 @@
     <tr>
       <td>
         <div class="form-group passport-form">
-          <%= f.input :country, placeholder: "Country" %>
+          <%= f.input :country, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         </div>
       </td>
     </tr>
     <tr>
       <td>
         <div class="form-group passport-form">
-          <%= f.input :email, label: false, placeholder: 'Your Email Address' %>
+          <%= f.input :email, label: false, placeholder: 'Your Email Address', wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         </div>
       </td>
     </tr>
     <tr>
       <td colspan="2" class="user-signature">
-        Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= @user.name %></span>
+        Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= !@user.name.blank? ? @user.name : (@user.first_name + " " + @user.last_name) %></span>
       </td>
     </tr>
   </table>
   <% if current_user.try(:admin) %>
-    <%= f.input :admin %>
-    <%= f.association :roles, as: :check_boxes, inline_label: true, :label_method => lambda { |role| role.name.capitalize }, input_html: { class: 'role-checkbox' } %>
-    <%= f.select :owned_place_ids, Place.order(:display_name).collect {|x| [x.display_name, x.id]}, {}, :multiple => true, class: 'owned-place-select' %>
+    <div class="row">
+      <%= f.input :admin %>
+      <%= f.association :roles, as: :check_boxes, inline_label: true, :label_method => lambda { |role| role.name.capitalize }, input_html: { class: 'role-checkbox' } %>
+      <%= f.select :owned_place_ids, Place.order(:display_name).collect {|x| [x.display_name, x.id]}, {}, :multiple => true, class: 'owned-place-select' %>
+    </div>
   <% end %>
   <div class="actions">
     <%= f.submit 'Update Account', class: "btn btn-default" %>

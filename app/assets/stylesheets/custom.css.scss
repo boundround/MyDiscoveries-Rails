@@ -86,10 +86,11 @@ body {
   position: fixed;
   top: 75px;
   right: 0;
+  z-index: 1000;
 }
 
 .google_map_background {
-  background-color: #a6c6ff /*match google maps ocean color*/	
+  background-color: #a6c6ff /*match google maps ocean color*/
 }
 
 .homepage {
