@@ -75,7 +75,15 @@
     </tr>
     <tr>
       <td colspan="2" class="user-signature">
-        Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= !@user.name.blank? ? @user.name : (@user.first_name + " " + @user.last_name) %></span>
+        <% if !@user.name.blank? %>
+          Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= @user.name %></span>
+        <% elsif !@user.first_name && @user.last_name.blank? %>
+          Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= @user.first_name %></span>
+        <% elsif @user.first_name.blank? && @user.last_name.blank? %>
+          Signed:
+        <% elsif @user.first_name.blank? && !@user.last_name.blank? %>
+          Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= @user.last_name %></span>
+        <% end %>
       </td>
     </tr>
   </table>
