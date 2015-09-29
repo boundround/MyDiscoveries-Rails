@@ -2,23 +2,21 @@
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     <span class="add-text-shadow">Profile</span>
     <span class="caret"></span>
-    <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
+    <% if user_signed_in? %>
+      <a href="<%= user_path(current_user) %>" data-filter="*">
+        <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
+      </a>
+    <% else %>
+    <a href="#" data-toggle="modal" data-target="#signInModal" data-filter="*">
+        <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
+      </a>
+    <% end %>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
     <% if user_signed_in? %>
       <li role="presentation">
         <a role="menuitem" tabindex="-1" href="<%= user_path(current_user) %>" data-filter="*">
           My Profile
-        </a>
-      </li>
-      <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="<%= users_stories_path %>" data-filter="*">
-          My Stories
-        </a>
-      </li>
-      <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="<%= users_places_path %>" data-filter="*">
-          My Wishlist
         </a>
       </li>
       <li role="presentation">
