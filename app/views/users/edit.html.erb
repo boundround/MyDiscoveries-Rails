@@ -5,10 +5,14 @@
   <%= link_to 'Show', @user %> |
   <%= link_to 'Back', users_path %>
 </div> -->
+<link href='https://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>
 <div class="profile-container">
   <div class="user-container">
     <div class="left-user">
-      <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
+      <div style="margin-top: 50px;" class="row hidden-xs"></div>
+      <a href="<%= root_path %>">
+        <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
+      </a>
       <%= render 'passport_form' %>
     </div>
     <div class="right-user">
@@ -16,4 +20,3 @@
     </div>
   </div>
 </div>
-<link href='http://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>

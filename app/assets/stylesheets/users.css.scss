@@ -17,11 +17,44 @@
   display: none;
 }
 
+.insta-sign-in-button {
+  background-color: #3F729B;
+  color: white;
+  font-weight: lighter;
+  height: 40px;
+  padding-top: 10px;
+}
+
+.sign-in-footer {
+  font-size: .7em;
+    text-align: center;
+}
+
+.insta-sign-in-button:hover {
+  color:white;
+}
+
 .user-upload-button {
   background-color: #FD7E56;
   color: white;
   box-shadow: none;
   text-shadow: none;
+}
+
+.delete-photo-button {
+  margin-top: -74px;
+  border: none;
+  border-radius: 1px;
+  background-color: #FD7E56;
+  color: white;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.delete-photo-button:hover {
+  border: 1px solid white;
+  background-color: red;
+  color: white;
 }
 
 .user-upload-button:hover {

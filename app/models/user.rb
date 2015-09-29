@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, # :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
-  devise :omniauthable, :omniauth_providers => [:facebook, :instagram]
+  devise :omniauthable, :omniauth_providers => [:instagram]
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
 
@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
         puts auth.info
         user = User.new(
           name: auth.info.name,
-          #username: auth.info.nickname || auth.uid,
+          username: auth.info.nickname || auth.uid,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
         )

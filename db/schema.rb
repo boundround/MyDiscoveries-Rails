@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923000708) do
+ActiveRecord::Schema.define(version: 20150928020744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -161,22 +162,6 @@ ActiveRecord::Schema.define(version: 20150923000708) do
     t.integer "user_id"
     t.integer "place_id"
   end
-
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -515,6 +500,7 @@ ActiveRecord::Schema.define(version: 20150923000708) do
     t.integer  "area_id"
     t.integer  "story_priority"
     t.string   "google_place_id"
+    t.integer  "priority"
   end
 
   add_index "user_photos", ["area_id"], name: "index_user_photos_on_area_id", using: :btree
@@ -547,6 +533,14 @@ ActiveRecord::Schema.define(version: 20150923000708) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "promo_code"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "username"
+    t.string   "address"
+    t.string   "address_line_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "post_code"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

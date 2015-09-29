@@ -11,9 +11,7 @@ window.onload = function(){
   });
 
   if ($('#place_address').length > 0) {
-    var geoValue = $("#place_address").val();
-  } else {
-    var geoValue = $("#area_latitude").val() + ', ' + $("#area_longitude").val();
+    var geoValue = $("#place_address").data('address');
   }
   console.log('geovalue is: ' + geoValue);
 

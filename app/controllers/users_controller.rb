@@ -151,8 +151,9 @@ class UsersController < ApplicationController
 
   def draft_content
     @stories = Story.where(status: "draft")
-    @user_photos = UserPhoto.where.not('story_id IS NOT NULL').where(status: "draft")
+    @user_photos = UserPhoto.where('story_id IS NULL').where(status: "draft")
     @reviews = Review.where(status: "draft")
+    @places = Place.all
   end
 
   private
@@ -163,7 +164,9 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :promo_code, :role_ids => [], :owned_place_ids => [])
+      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name,
+                                    :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username,
+                                    :role_ids => [], :owned_place_ids => [])
     end
 
     def verify_current_user
