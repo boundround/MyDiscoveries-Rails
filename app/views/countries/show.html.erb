@@ -119,7 +119,7 @@
             <% @videos_photos.each_with_index do |asset, index| %>
               <% if asset.class.to_s == "Video" %>
                 <div>
-                  <iframe class="carousel-item carousel-video" id="player1" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player1" width="273" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                  <iframe class="carousel-item carousel-video" id="player<%= index + 5%>" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player<%= index + 5%>" width="273" frameborder="2" data-title="<%= asset.title %>" data-description="<%= asset.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
                   </iframe>
                   <div class="overlay carousel-country-photo" data-slide-number="<%= index %>"></div>
                 </div>

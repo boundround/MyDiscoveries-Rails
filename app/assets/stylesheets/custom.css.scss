@@ -14,6 +14,13 @@ body {
   font-weight: lighter;
 }
 
+.help-inline {
+  background-color: red;
+  font-variant: small-caps;
+  font-size: 18px;
+  color: white;
+}
+
 .br-body {
   background-color: #fd7e56 !important;
   height: auto !important;
@@ -86,10 +93,11 @@ body {
   position: fixed;
   top: 75px;
   right: 0;
+  z-index: 1000;
 }
 
 .google_map_background {
-  background-color: #a6c6ff /*match google maps ocean color*/	
+  background-color: #a6c6ff /*match google maps ocean color*/
 }
 
 .homepage {

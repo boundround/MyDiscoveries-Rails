@@ -5,6 +5,6 @@ class NewStory < ActionMailer::Base
     @email = "janeece@boundround.com"
     @story = story
 
-    mail(to: @email, subject: "New Story Created - #{@story.storiable.display_name}, #{@story.storiable.country.display_name}")
+    mail(to: @email, subject: "New Story Created - #{@story.storiable ? @story.storiable.display_name : 'Needs Place Assignment'}")
   end
 end

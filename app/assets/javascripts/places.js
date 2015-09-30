@@ -161,7 +161,7 @@ $(document).ready(function(){
     getPlaceDetails($('#place-id').data("place"));
 
     // fill game modal, dropdown for mobile
-    $('#place_select_game').change(function() { 
+    $('#place_select_game').change(function() {
       console.log(this.value);
 		 if(this.value !=='ignore')
 		 {

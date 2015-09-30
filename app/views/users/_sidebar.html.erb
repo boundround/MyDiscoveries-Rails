@@ -10,24 +10,42 @@
     <%= image_tag 'passport_stamp.png', class: 'sidebar-stamp' %>
     <div class="upload_photo"></div><br>
     <a style="color:white;" href="<%= user_path(@user) %>">
-      <p><%= @user.name %>'s Passport</p>
+      <% if !@user.name.blank? %>
+        <p><%= @user.name %>'s Passport</p>
+      <% elsif !@user.first_name.blank? && !@user.last_name.blank? %>
+        <p><%= @user.first_name + ' ' + @user.last_name %>'s Passport</p>
+        <% else %>
+        <p>Please add your first and last name to your profile</p>
+      <% end %>
     </a>
   </div>
-  <a href="/users/stories">
-    <div class="sidebar-item">
-      <i class="fa fa-image fa-lg"></i><br>
-      My Stories
-    </div>
-  </a>
   <a href="/users/places">
     <div class="sidebar-item">
       <i class="fa fa-globe fa-lg"></i><br>
       My Wishlist
     </div>
   </a>
+  <a href="/users/stories">
+    <div class="sidebar-item">
+      <i class="fa fa-book fa-lg"></i><br>
+      My Stories
+    </div>
+  </a>
+  <a href="/users/reviews">
+    <div class="sidebar-item">
+      <i class="fa fa-comment fa-lg"></i><br>
+      My Reviews
+    </div>
+  </a>
+  <a href="/users/photos">
+    <div class="sidebar-item">
+      <i class="fa fa-picture-o fa-lg"></i><br>
+      My Photos
+    </div>
+  </a>
   <a href="/users/videos">
     <div class="sidebar-item">
-      <i class="fa fa-youtube-play fa-lg"></i><br>
+      <i class="fa fa-star fa-lg"></i><br>
       My Favourites
     </div>
   </a>

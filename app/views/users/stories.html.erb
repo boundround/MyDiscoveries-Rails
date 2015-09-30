@@ -4,9 +4,14 @@
       <h1 class="br_top_heading hidden-xs">
         My Stories
       </h1>
-      <p><i class="fa fa-star fa-lg"></i></p>
+      <div class="col-xs-12">
+        <a href="<%= root_path %>">
+          <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
+        </a>
+      </div>
       <%= render 'layouts/search_input' %>
     </div>
+    <div class="text-center"><a href="#" data-toggle="modal" data-target="#storyModal" class="user-upload-button btn btn-default">+ Create story</a></div>
     <% unless @user.stories.blank? %>
       <% @user.stories.each_with_index do |story, index| %>
         <% if story.user_photos.length > 0 %>
@@ -41,7 +46,7 @@
               </p>
               <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
                         data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>">
-              <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
+              <img src="<%= asset_path('Badge.png') %>" class="img-responsive"></a>
             </div>
           </div>
         <% end %>
@@ -49,7 +54,6 @@
     <% else %>
       <div class="home-text">
         <p>You have not uploaded a story yet.</p>
-        Visit a place's page to upload your own story about it.
       </div>
     <% end %>
   </div>
@@ -62,28 +66,116 @@
   <div class="modal-dialog">
     <div class="modal-content" id="storyHeroImage">
       <button type="button" class="close" id="story-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <div class="mid-cont">
-          <h1 class="text-center" id="story-title">
-
-          </h1>
-          <h3 class="text-center" id="story-user"></h3>
-
-          <div class="mid-cont" id="story-image-2">
-
-              <span id="story-content"></span>
-              <div class="clearfix"></div>
-            <div class="slider-cont">
-
-                <div id="story-image-3">
-
-              </div>
-            </div>
-          </div>
-          <hr/>
-          <div class="br_modal-footer text-center">
-            <a href="#" data-dismiss="modal" aria-label="Close" >Cancel</a>
+      <div class="mid-cont">
+        <h1 class="text-center" id="story-title"></h1>
+        <h3 class="text-center" id="story-user"></h3>
+        <div class="mid-cont" id="story-image-2">
+          <span id="story-content"></span>
+          <div class="clearfix"></div>
+          <div class="slider-cont">
+            <div id="story-image-3"></div>
           </div>
         </div>
+        <hr/>
+        <div class="br_modal-footer text-center">
+          <a href="#" data-dismiss="modal" aria-label="Close" >Cancel</a>
+        </div>
       </div>
-  </div><!-- /.modal-content -->
+    </div>
+  </div>
 </div>
+
+<div class="modal fade" id="storyModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <%= form_for @story, url: stories_profile_create_path, :html => { :id => "story-form" } do |f| %>
+        <%= f.fields_for :user_photos do |ff| %>
+          <div class="img-cont share">
+            <div class="story-image-container" id="story-image-1-container">
+              <img id="story-image-1" class="story-image-preview" src="#" alt="Your Image" />
+            </div>
+            <div class="share-btn">
+              <a class="btn btn-default"><span class="fa fa-picture-o"></span>
+                <br>Click To Select Image
+                <%= ff.file_field :path, label: false %>
+              </a>
+              <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+              <%= ff.hidden_field :status, :value => "draft" %>
+              <%= ff.hidden_field :story_priority, :value => 1 %>
+            </div>
+          </div>
+        <% end %>
+        <div class="mid-cont">
+          <h1 class="text-center">
+            <%= f.text_area :title, id: "story_headline", placeholder: "Story Title Goes Here", maxlength: 40 %>
+          </h1>
+          <h3 class="text-center">by <%= current_user.email.match(/^(.*?)@/)[1] if user_signed_in? %></h3>
+          <div class="mid-cont">
+            <div class="pull-left map-container side-img-cont share">
+              <input id="pac-input" class="controls" type="text"
+              placeholder="Enter a location">
+              <%= f.hidden_field :google_place_id, data: {"geo" => "place_id"}, class: 'form-control', label: "Google Place ID" %>
+              <div class="user-gen-map"></div>
+            </div>
+            <div class="pull-right side-img-cont share">
+              <div class="story-image-container" id="story-image-2-container">
+                <img id="story-image-2" class="story-image-preview" src="#" alt="Your Image" />
+              </div>
+              <div class="share-btn">
+                <%= f.fields_for :user_photos do |ff| %>
+                  <a class="btn btn-default"><span class="fa fa-picture-o"></span>
+                    <br>Click To Select Image
+                    <%= ff.file_field :path, label: false %>
+                  </a>
+                  <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+                  <%= ff.hidden_field :status, :value => "draft" %>
+                  <%= ff.hidden_field :story_priority, :value => 2 %>
+                <% end %>
+                </div>
+              </div>
+              <!-- <span class="text-cont" id="editor1" contenteditable="true" name="story[content]" role="textbox">
+                Replace this text with your story.
+              </span> -->
+              <%= f.text_area :content, placeholder: "Write your story here.", maxlength: 4000 %>
+              <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+              <%= f.hidden_field :status, :value => "draft" %>
+              <div class="clearfix"></div>
+              <div class="slider-cont">
+                <div>
+                  <!-- <h4>Heading style looks like this</h4>
+                  <p id="myedit" >
+                      consectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet suscipit justo malesuada. Aenean non tortor id leo consectetur euismod at sed metus. Vivamus sollicitudin ante sit amet arcu faucibus vulputate. Sed non libero odio, non viverra nisl. Vivamus et ligula lorem. Sed pellentesque tincidunt purus in imperdiet. Donec bibendum scelerisque cursus.
+                  </p> -->
+                  <div class="img-cont2 share z-up">
+                    <div class="story-image-container" id="story-image-3-container">
+                      <img id="story-image-3" class="story-image-preview" src="#" alt="Your Image" />
+                    </div>
+                   <div class="share-btn">
+                    <%= f.fields_for :user_photos do |ff| %>
+                      <a class="btn btn-default"><span class="fa fa-picture-o"></span>
+                        <br>Click To Select Image
+                        <%= ff.file_field :path, label: false %>
+                      </a>
+                      <%= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+                      <%= ff.hidden_field :status, :value => "draft" %>
+                      <%= ff.hidden_field :story_priority, :value => 3 %>
+                    <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr/>
+            <div class="br_modal-footer text-center">
+              <%= f.submit "Publish story", class: "btn btn-lg", id: "story-publish-button" %>
+              <a href="#" data-dismiss="modal" aria-label="Close" >Cancel</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div>
+</div>
+
+<%= javascript_include_tag 'user_gen_map.js' %>

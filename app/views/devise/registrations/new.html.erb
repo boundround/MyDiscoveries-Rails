@@ -1,83 +1,55 @@
-<a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
-<table class="passport sign-up">
-  <tr><td colspan="2"><%= image_tag 'plane.png' , class: 'passport-plane' %><h2>My Passport</h2></td></tr>
-  <%= simple_form_for(@user) do |f| %>
-    <% if @user.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<div class="container">
+  <div style="margin-top: 50px;" class="row hidden-xs"></div>
+  <div class="row">
+    <a href="<%= root_path %>">
+      <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block place-logo" >
+    </a>
+    <div class="col-md-1 hidden-xs"></div>
+    <div class="col-md-10 col-xs-12">
+      <%= simple_form_for(@user) do |f| %>
+        <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <h4>Please correct the following errors:</h4>
 
-        <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+            <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
         <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <tr>
-      <td rowspan="4" class="left-passport">
-        <div class="form-group passport-form">
-
-        </div>
-      </td>
-      <td>
-        <%= f.input :name, label: false, placeholder: 'Your name', required: true, autofocus: true %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="form-group passport-form">
-          <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
-                              end_year: Date.today.year,
-                              order: [:month, :day, :year], required: true %>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= f.input :email, label: false, placeholder: 'Your Email Address', required: true %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= f.input :promo_code, label: false, placeholder: 'Promo Code (optional)' %>
-      </td>
-    <tr>
-      <td rowspan="2">
-        <%= image_tag 'passport_stamp.png', class: 'passport-stamp' %>
-      </td>
-      <td><%= f.input :password, required: true, label: false, placeholder: 'Pick a password' %></td>
-    </tr>
-    <tr>
-      <td><%= f.input :password_confirmation, required: true, label: false, placeholder: 'Repeat password' %></td>
-    </tr>
-    <!-- <tr>
-      <td colspan="2">
-        <br>
         <%- if devise_mapping.omniauthable? %>
           <%- resource_class.omniauth_providers.each do |provider| %>
             <% if provider.to_s == 'instagram' %>
-            <p><a href="<%= omniauth_authorize_path(resource_name, provider) %>"><img class="facebook-sign-in" src="/assets/images/<%= provider %>_sign_in.png"></a></p>
+            <p><a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;Sign In With Instagram</a></p>
             <% end %>
           <% end -%>
         <% end -%>
-      </td>
-    </tr> -->
-</table>
-<div class="actions">
-  <%= f.submit 'Create Account', class: "btn btn-default" %>
+        <%= f.input :email, required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <%= f.input :first_name, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <%= f.input :last_name, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <%= f.input :username, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <div class="form-inline">
+          <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
+                              end_year: Date.today.year,
+                              order: [:day, :month, :year], required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        </div>
+        <%= f.input :country, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <%= f.input :promo_code, label: "Promo Code (optional)", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <%= f.input :password, required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <%= f.input :password_confirmation, required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <div class="actions">
+          <%= f.submit 'Create Account', class: "btn btn-default" %>
+        </div>
+      <% end %>
+      <div class="sign-in-footer">
+        <br><p>
+        We're committed to protecting your privacy.<br>
+        By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %>.
+      </p>
+      </div>
+    </div>
+    <div class="col-md-1 hidden-xs"></div>
+  </div>
+  <div style="margin-top: 50px;" class="row hidden-xs"></div>
 </div>
-<% end %>
-<script>
-  $(document).ready(function(){
-    $("input.datepicker").each(function(input) {
-      $(this).datepicker({
-        dateFormat: "yy-mm-dd",
-        altField: $(this).next()
-      });
-    });
-  });
-  </script>
-<script id="template-upload" type="text/x-tmpl">
-  <i class="spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i>
-  <div class="click-to-upload">Click To Change Photo</div>
-</script>

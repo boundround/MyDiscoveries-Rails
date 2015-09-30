@@ -17,7 +17,7 @@ class PagesController < ApplicationController
     @set_body_class = "google_map_background"
 #    @placeprograms = "yes"
   end
-  
+
   def map_only
     @map = []
   end
@@ -32,6 +32,12 @@ class PagesController < ApplicationController
 
     Want.notification(@place, @city, @country).deliver
     render :nothing => true
+  end
+
+  def terms
+  end
+
+  def privacy
   end
 
 

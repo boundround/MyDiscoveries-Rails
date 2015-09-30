@@ -124,16 +124,28 @@ $(document).ready(function(){
 
     $('.carousel-country-photo').on('click', function(){
         var carouselItems = $('.carousel-item');
+        $('.owl-controls').show();
         if ($("#modal-carousel").has(".carousel-item").length === 0){
             $.each(carouselItems, function(index){
                 var newImage = $(carouselItems[index]).clone()
                 if($(carouselItems[index]).hasClass("carousel-video")){
+                    newImage.removeAttr('id');
+                    videoID = 'big-player-' + index;
+                    newImage.attr('id', videoID).addClass('carousel-big-video');
                     $("#modal-carousel").append(newImage.css("height", "400px"));
                 } else {
+                    $(newImage).css("height", "100%");
                     newImage.append("<div>" + newImage.find("img").data("caption")) + "</div>";
                     newImage.append("<div><a href='" + newImage.find("img").data("placeurl") + "'>Explore " + newImage.find("img").data("placename") + "</a></div>");
                     $("#modal-carousel").append(newImage);
                 }
+            });
+            var bigVideos = $('.carousel-big-video');
+            $.each(bigVideos, function(){
+                title = $(this).data("title");
+                description = $(this).data("description");
+                $(this).wrap("<div></div>");
+                $(this).parent().prepend(title).append(description);
             });
         }
         $('#carousel-modal').modal("show");

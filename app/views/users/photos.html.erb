@@ -1,36 +1,31 @@
 <div class="left-user">
   <div class="container">
-    <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
-    <div class="banner-wrapper game-video-banner">
-      <div class="banner">
-        <div class="title-wrapper">
-          <h1 class="title">Photos</h1>
-        </div>
+    <div class="user-view-title">
+      <h1 class="br_top_heading hidden-xs">
+        My Photos
+      </h1>
+      <div class="col-xs-12">
+        <a href="<%= root_path %>">
+          <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
+        </a>
       </div>
+      <%= render 'layouts/search_input' %>
     </div>
-    <% unless @user.photos.blank? %>
-      <p>My Photos</p>
-      <% @user.photos.each_with_index do |photo, index| %>
+    <div class="text-center"><a href="#" data-toggle="modal" data-target="#myModal" class="user-upload-button btn btn-default"><i class="fa fa-picture-o"></i> Add Photo</a></div>
+    <br>
+    <% unless @user.user_photos.active_path.no_story.blank? %>
+      <% @user.user_photos.active_path.no_story.each_with_index do |photo, index| %>
         <div class="photo-card photo-thumb my-photos">
-          <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large),
-                                                              photo_alt: alt_tag_for(photo),
-                                                              photo_credit: photo.credit
+          <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large)
                                                               } do %>
           <% end %>
-          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" />
-          <%= raw like_icon(photo) %>
-          <div class="photo-credit">Credit: <%= photo.credit %></div>
-          <div class="priority"><%= photo.priority ? photo.priority : 2 %></div>
-          <div class="photo-caption">
-          <p><%= raw photo.caption %></p>
-          </div>
+          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" /><br>
+          <%= link_to '<i class="fa fa-close"></i> Delete'.html_safe, photo, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-photo-button btn btn-default" %>
         </div>
       <% end %>
     <% else %>
       <div class="home-text">
-        <p>You have not favourited any Photos yet!</p>
-        <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
-        to add them to your personal list.
+        <p>You have not added any Photos</p>
       </div>
     <% end %>
   </div>
@@ -38,3 +33,39 @@
 <div class="right-user">
   <%= render 'sidebar' %>
 </div>
+
+<div class="modal fade br_add_pic" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog text-center" role="document">
+   <img src="<%= asset_path('Badge.png') %>"/>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+   <h1>Add a photo</h1>
+   <div class="modal-content">
+      <div class="br_upload">
+        <%= form_for UserPhoto.new, url: user_photos_profile_create_path, :html => { :id => "user-photo-upload"  } do |f| %>
+          <%= f.file_field :path, label: false %>
+          <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+          <%= f.hidden_field :status, :value => "draft" %>
+
+        <h4>Click <span class="br_underline">Browse</span> and navigate to the file,<br/> or, just drag the file <strong>here</strong></h4>
+        <img id="image-preview" class="user-upload-image-preview" src="#" alt="Your Image" />
+      </div>
+      <%= f.text_field :caption, label: false, placeholder: "Enter a caption for your photo", class: "form-group user-photo-caption-form" %>
+      <div>
+        <input id="pac-input" class="controls" type="text"
+        placeholder="Where was this taken?">
+        <%= f.hidden_field :google_place_id, data: {"geo" => "place_id"}, class: 'form-control', label: "Google Place ID" %>
+        <div class="user-gen-map"></div>
+      </div>
+      <div id="user-photo-upload-button">
+
+      </div>
+      <div id="progress">
+          <div class="bar" style="width: 0%;"></div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag 'user_gen_map.js' %>
+

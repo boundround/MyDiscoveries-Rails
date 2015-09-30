@@ -5,7 +5,7 @@
   </head>
   <body>
     <p>
-      A new review was created in Bound Round in <%= @review.reviewable.display_name %> by <%= @review.user.email %><br>
+      A new review was created in Bound Round in <%= @review.reviewable ? @review.reviewable.display_name : "no associated place" %> by <%= @review.user.email %><br>
       <%= link_to "You can view and change its status here",  "https://app.boundround.com" + users_draft_content_path %><br>
     </p>
   </body>

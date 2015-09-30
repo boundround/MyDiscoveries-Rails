@@ -1,5 +1,5 @@
 class UserPhotosController < ApplicationController
-  before_filter :load_place_or_area
+  before_filter :load_place_or_area, except: [:profile_create, :destroy]
 
   def index
     @user_photos = Photo.all
@@ -29,9 +29,30 @@ class UserPhotosController < ApplicationController
       if !@user_photo.story
         NewUserPhoto.notification(@user_photo).deliver
       end
-      redirect_to @place_or_area, notice: "Thanks for the photo. We'll let you know when others can see it too!"
+      redirect_to :back, notice: "Thanks for the photo. We'll let you know when others can see it too!"
     else
       render :new
+    end
+  end
+
+  def profile_create
+    @user_photo = UserPhoto.new(user_photo_params)
+    place = Place.find_by(place_id: @user_photo.google_place_id)
+    if place && place.place_id != ""
+      @user_photo.place = place
+    end
+
+    if @user_photo.save
+      NewUserPhoto.notification(@user_photo).deliver
+      respond_to do |format|
+        format.html { redirect_to :back, notice: "Thanks for the photo. We'll let you know when others can see it too!" }
+        format.json { render json: @user_photo }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to :back, notice: "We're sorry. There was an error uploading your photo." }
+        format.json { render json: @user_photo }
+      end
     end
   end
 
@@ -70,7 +91,7 @@ class UserPhotosController < ApplicationController
     end
 
     def user_photo_params
-      params.require(:user_photo).permit(:title, :path, :caption, :story_id, :user_id, :place_id, :area_id, :status, :_destroy)
+      params.require(:user_photo).permit(:title, :path, :caption, :story_id, :user_id, :place_id, :area_id, :status, :google_place_id, :_destroy)
     end
 
 end

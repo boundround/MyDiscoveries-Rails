@@ -5,7 +5,7 @@
   </head>
   <body>
     <p>
-      A new user photo was uploaded in Bound Round at <%= @place.display_name %> by <%= @photo.user.email %><br>
+      A new user photo was uploaded in Bound Round at <%= @place ? @place.display_name : "no place associated" %> by <%= @photo.user.email %><br>
       <%= link_to "You can view and change its status here",  "https://app.boundround.com" + users_draft_content_path %><br>
     </p>
   </body>
