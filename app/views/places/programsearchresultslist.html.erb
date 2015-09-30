@@ -113,6 +113,19 @@
        <div class="container saerch">
         <div class="row">
             <div class="col-md-12">
+								<% if @places.size >= @MAX_TO_RETURN%>
+									<h2 class="text-center">More than <%= @places.size %> Destinations found matching <span>‘<%= @search_term %>’</span></h2>
+								<% else %>
+									<h2 class="text-center"><%= @places.size %> Destinations matching <span>‘<%= @search_term %>’</span></h2>
+								<% end %>
+            </div>            
+        </div>
+				<div class="row margin">
+					<%= render partial: "places_ss_card", locals: {program: @program} %>
+				</div>	
+
+        <div class="row">
+            <div class="col-md-12">
 								<% if @programs.size >= @MAX_TO_RETURN%>
                 <h2 class="text-center">More than <%= @programs.size %> Programs found matching <span>‘<%= @search_term %>’</span></h2>
 								<% else %>
@@ -124,18 +137,6 @@
 					<%= render partial: "/programs/programs_ss_card", locals: {program: @program} %>
 				</div>	
 
-        <div class="row">
-            <div class="col-md-12">
-								<% if @places.size >= @MAX_TO_RETURN%>
-									<h2 class="text-center">More than <%= @places.size %> Destinations found matching <span>‘<%= @search_term %>’</span></h2>
-								<% else %>
-									<h2 class="text-center"><%= @places.size %> Destinations matching <span>‘<%= @search_term %>’</span></h2>
-								<% end %>
-            </div>            
-        </div>
-				<div class="row margin">
-					<%= render partial: "places_ss_card", locals: {program: @program} %>
-				</div>	
 			</div>
 </div>
 </div>

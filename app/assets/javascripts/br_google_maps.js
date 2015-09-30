@@ -173,7 +173,7 @@ var createMarkerInfoBoxContent = function(marker, markerType) {
 
 
 	//Generate marker arrays from Bound Round geojson feature set 
-var createMarkerArray = function(geoJSON, markerType, showme) {
+var createMarkerArray = function(geoJSON, markerType, showme, scaledSizeOfIcon, anchorOfIcon) {
 	var markerArray = [];
 
 	for (var i = 0; i < geoJSON.features.length; i++) {
@@ -182,17 +182,39 @@ var createMarkerArray = function(geoJSON, markerType, showme) {
 
 		var icon = {
 			area: function() {
+				
+        // config for icon
+        var iconCfg = {
+          innerText: {
+            content: location.properties.placeCount > 0 ? ""+location.properties.placeCount : "",
+            style: {
+              fontFamily: 'Signika'
+            }
+          },
+          outerText: {
+            content: location.properties.title,
+            arc: 320,
+            style: {
+              fontFamily: 'Signika'
+            }
+          }
+        };
+  
+				
 				return {
 					labelText: location.properties.title,
-					url: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+//					url: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
 					labelClassName: 'area-icon-label' + ' ' + location.properties.places + ' ' + location.properties.id,
 					target_url: location.properties.url,
 					placeCount: location.properties.placeCount,
 					country: location.properties.country,
 					size: null,
 					origin: null,
-					anchor: null,
-					scaledSize: new google.maps.Size(83 * .45, 53 * .45)
+          url: window.thirdFloor.iconBuilder.build(iconCfg),
+          scaledSize: scaledSizeOfIcon,
+          anchor: anchorOfIcon
+//					anchor: null,
+//					scaledSize: new google.maps.Size(83 * .45, 53 * .45)
 				}
 			},
 			place: function() {
@@ -527,13 +549,70 @@ function initialize() {
 
 	$.ajax({
 		//Get all areas and add to map
-		url: '/areas/mapdata.json',
+		url: '/places/placeareasmapdata.json',
 		success: function(data) {
 			window.areasGeoJSON = data;
 
-			br_area_markers = createMarkerArray(data, 'area', true);
+	    var latLng;
+	    var icon;
+	    var iconCfg;
+	    var marker;
+
+	    // size of icon on the map
+	    var scaleRatio = 1.0;
+	    var originalWidthOfIcon = window.thirdFloor.iconBuilder.CANVAS_DEFAULT_WIDTH;
+	    var originalHeightOfIcon = window.thirdFloor.iconBuilder.CANVAS_DEFAULT_HEIGHT;
+	    var scaledWidthOfIcon = originalWidthOfIcon * scaleRatio;
+	    var scaledHeightOfIcon = originalHeightOfIcon * scaleRatio;
+
+	    var anchorOfIcon = new google.maps.Point(scaledWidthOfIcon * 0.5, scaledHeightOfIcon + 0);
+	    var scaledSizeOfIcon = new google.maps.Size(scaledWidthOfIcon, scaledHeightOfIcon);
+
+			br_area_markers = createMarkerArray(data, 'area', true, scaledSizeOfIcon, anchorOfIcon);
 			//	       	var area_markerCluster = new MarkerClusterer(map, area_markers); 
 
+
+	    // config for icon
+	    var emptyIconCfg = {
+	      innerCircle: {
+	        backgroundColor: '#a6c6ff'
+	      },
+	      innerText: {
+	        content: "",
+	            style: {
+	              fontFamily: 'Signika'
+	            }
+	      },
+	      outerText: {
+	        content: "Group",
+	        arc: 320,
+	            style: {
+	              fontFamily: 'Signika'
+	            }
+	      }
+	    };
+    
+	    var br_area_markers;
+	    var br_area_markerCluster;
+
+			var empty_marker = window.thirdFloor.iconBuilder.build(emptyIconCfg);
+
+			br_area_markerCluster = new MarkerClusterer(br_map, br_area_markers, {
+				maxZoom: 14,
+				ignoreHidden: false,
+				gridSize: 30,
+				  styles: [{
+						url: empty_marker,
+						height: window.thirdFloor.iconBuilder.CANVAS_DEFAULT_HEIGHT,
+						width: window.thirdFloor.iconBuilder.CANVAS_DEFAULT_WIDTH,
+						anchor: [0, 0],
+						textColor: '#ffffff',
+						textSize: 20
+					}]
+			});
+			
+			
+			/*
 			br_area_markerCluster = new MarkerClusterer(br_map, br_area_markers, {
 				maxZoom: 14,
 				ignoreHidden: false,
@@ -547,7 +626,8 @@ function initialize() {
 					textSize: 10
 				}]
 			});
-
+			*/
+			
 			setTimeout(function(){br_area_markerCluster.repaint()},3000);
 
 			//Now get all places and add to map
@@ -581,8 +661,6 @@ function initialize() {
 		}
 	});
 }
-
-google.maps.event.addDomListener(window, 'load', initialize);
 
 
 /* EXPERIMENTAL CODE, MIGHT WANT TO TRY MARKER FUSION TABLE LAYERS LATER, VERY FAST
@@ -619,3 +697,18 @@ google.maps.event.addDomListener(window, 'load', initialize);
       });
       clayer.setMap(map);
 */
+
+// first we need preload the webfonts which we will use in icons
+window.WebFont.load({
+  google: {
+    families: [
+      'Signika:600'
+    ]
+  },
+  active: function() {
+    // start everything when all fonts loaded
+		google.maps.event.addDomListener(window, 'load', initialize);
+
+//    start();
+  }
+});

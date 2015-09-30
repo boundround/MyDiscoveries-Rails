@@ -114,6 +114,40 @@ class Place < ActiveRecord::Base
     Rails.cache.delete('places_geojson')
   end
 
+  def Place.all_placeareas_geojson
+    # Fetch place GeoJSON from cache or store it in the cache.
+#    Rails.cache.fetch('placeareas_geojson') do
+      geojson = {"type" => "FeatureCollection","features" => []}
+      places = self.active.includes(:categories, :country).where(:categories => {:name => 'Activity'})
+      places.each do |place|
+        geojson['features'] << {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [place.longitude, place.latitude]
+          },
+          properties: {
+            "title"=> place.display_name,
+            "url" => '/places/' + place.slug + '.html',
+            "id" => place.id,
+            "places" => false,#area.places.all? { |place| place.status = "live" },
+            "icon" => {
+              "iconUrl" => 'https://s3-ap-southeast-2.amazonaws.com/brwebproduction/vector_icons/orange_plane.png',
+              # size of the icon
+              "iconSize" => [43, 26],
+              # point of the icon which will correspond to marker location
+              "iconAnchor" => [20, 0]
+            },
+            "placeCount" => 0,#area.places.length,
+            "country" => (place.country ? place.country.display_name : "")
+          }
+        }
+      end
+
+      geojson
+#    end
+  end
+
   def Place.all_geojson
     # Fetch place GeoJSON from cache or store it in the cache.
     Rails.cache.fetch('places_geojson') do
