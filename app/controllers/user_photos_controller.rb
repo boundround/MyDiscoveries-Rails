@@ -1,5 +1,5 @@
 class UserPhotosController < ApplicationController
-  before_filter :load_place_or_area, except: [:profile_create, :destroy]
+  # before_filter :load_place_or_area, except: [:profile_create, :destroy]
 
   def index
     @user_photos = Photo.all

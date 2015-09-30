@@ -22,6 +22,8 @@ gem 'iconv'
 # Bootsy WYSIWYG Editor
 gem 'bootsy'
 
+gem 'rest_in_place'
+
 gem 'jquery-fileupload-rails'
 
 # 12 Factor Gem for Heroku Deploy

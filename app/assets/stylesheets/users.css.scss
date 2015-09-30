@@ -43,13 +43,14 @@
 }
 
 .delete-photo-button {
-  margin-top: -74px;
   border: none;
-  border-radius: 1px;
   background-color: #FD7E56;
   color: white;
   box-shadow: none;
   text-shadow: none;
+  border-radius: 4px;
+  float: right;
+  margin-top: 8px;
 }
 
 .delete-photo-button:hover {
@@ -113,9 +114,26 @@
   color: #428bca;
 }
 
+.photo-wrapper {
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
 .my-photos {
-  display: inline-block;
-  position: relative;
+  height: 225px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: gainsboro;
+  text-align: center;
+}
+
+.photo-status {
+  float: left;
+  padding-top: 12px;
+}
+
+.my-photo {
 }
 
 .passport td {

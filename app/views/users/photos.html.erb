@@ -15,13 +15,19 @@
     <br>
     <% unless @user.user_photos.active_path.no_story.blank? %>
       <% @user.user_photos.active_path.no_story.each_with_index do |photo, index| %>
-        <div class="photo-card photo-thumb my-photos">
-          <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large)
-                                                              } do %>
-          <% end %>
-          <img class="game-thumbnail" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" /><br>
+        <div class="col-md-3 photo-wrapper">
+          <div class="my-photos">
+            <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large)
+                                                                } do %>
+            <% end %>
+            <img class="my-photo" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" /><br>
+          </div>
+          <p>Caption: <span class="rest-in-place" data-url="<%= user_photo_path(photo) %>" data-object="user_photo" data-attribute="caption" data-placeholder="Enter a caption"><%= photo.caption %></span><span>&nbsp;&nbsp;(Click to edit)</span></p>
+          <div class="photo-status">Status: <%= photo.status %></div>
           <%= link_to '<i class="fa fa-close"></i> Delete'.html_safe, photo, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-photo-button btn btn-default" %>
+          <div class="clearfix"></div><br>
         </div>
+        <div class="col-md-1"></div>
       <% end %>
     <% else %>
       <div class="home-text">

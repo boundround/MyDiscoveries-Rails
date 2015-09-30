@@ -38,7 +38,14 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) << [:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username]
+    devise_parameter_sanitizer.for(:sign_up) do |u|
+      u.permit(:name, :first_name, :last_name, :promo_code, :country, :username,
+        :email, :password, :password_confirmation)
+    end
+    devise_parameter_sanitizer.for(:account_update) do |u|
+      u.permit(:name, :first_name, :last_name, :promo_code, :country, :username,
+        :email, :password, :password_confirmation)
+    end
   end
 
   def redirect_if_not_admin
