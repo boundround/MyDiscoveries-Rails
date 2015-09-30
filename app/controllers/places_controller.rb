@@ -16,6 +16,15 @@ class PlacesController < ApplicationController
     end
   end
 
+  def geoquery
+    @place_areas = Place.active.pluck(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, "areas.display_name AS area_name").where("categories.name='Area'")
+
+    respond_to do |format|
+      format.json { render json: @place_areas }  # respond with the created JSON object
+    end
+  end
+
+
   def debug
     render plain: "Host="+request.host+","+"Domain(1)="+request.domain(1)+", "+"Domain(2)="+request.domain(2)+" Subdomain="+request.subdomain()+"\n"+request.inspect
     #find_subdomain(request)
@@ -308,6 +317,16 @@ class PlacesController < ApplicationController
     end
   end
 
+  def placeareasmapdata
+    # geojson for MapBox map
+    @placeareas_geojson = Place.all_placeareas_geojson
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @placeareas_geojson }  # respond with the created JSON object
+    end
+  end
+  
   def check_all_boundround
     Rails.cache.fetch('all_bound_round_places') do
     end
@@ -384,7 +403,11 @@ class PlacesController < ApplicationController
       # end
 
       if params[:term] == "" then params[:term] = nil end
-      @search_term = params[:term]
+      @search_term = URI.decode(params[:term])
+      
+      puts "**************************************"
+      puts @search_term
+      puts "**************************************"
 
       if params[:id] then
         @places = Place.where('places.id = :id', id: params[:id])
