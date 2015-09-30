@@ -112,7 +112,7 @@ var id = 'loader', fill = '#FFF',
 								<i class="fa fa-heart-o"></i>
 						</div-->
 						<p class="col-md-11 row">
-							<%=raw @place.description%><br>
+							<%=@place.school_safari_description.empty? ? (raw @place.description) : (raw @place.school_safari_description) %><br>
 							<!--a href="#" class="hidden-xs">Read More</a-->
 						</p>
 						<p class="visible-xs">
