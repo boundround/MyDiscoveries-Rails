@@ -34,11 +34,6 @@
                               end_year: Date.today.year,
                               order: [:day, :month, :year], required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         </div>
-        <%= f.input :address, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :address_line_2, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :city, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :state, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :post_code, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         <%= f.input :country, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         <%= f.input :promo_code, label: "Promo Code (optional)", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         <%= f.input :password, required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>

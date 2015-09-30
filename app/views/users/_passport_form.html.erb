@@ -18,7 +18,7 @@
       </div>
     </td>
     <%= simple_form_for(@user) do |f| %>
-      <% if @user.errors.any? %>
+      <!-- <% if @user.errors.any? %>
         <div id="error_explanation">
           <h4>Please correct the following errors:</h4>
 
@@ -32,7 +32,7 @@
           <% end %>
           </ul>
         </div>
-      <% end %>
+      <% end %>-->
       <td>
         <div class="form-group passport-form">
           <%= f.input :first_name, label: false, placeholder: 'First Name', wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
@@ -75,7 +75,15 @@
     </tr>
     <tr>
       <td colspan="2" class="user-signature">
-        Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= !@user.name.blank? ? @user.name : (@user.first_name + " " + @user.last_name) %></span>
+        <% if !@user.name.blank? %>
+          Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= @user.name %></span>
+        <% elsif !@user.first_name && @user.last_name.blank? %>
+          Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= @user.first_name %></span>
+        <% elsif @user.first_name.blank? && @user.last_name.blank? %>
+          Signed:
+        <% elsif @user.first_name.blank? && !@user.last_name.blank? %>
+          Signed:&nbsp;&nbsp;&nbsp; <span class="signature"><%= @user.last_name %></span>
+        <% end %>
       </td>
     </tr>
   </table>
