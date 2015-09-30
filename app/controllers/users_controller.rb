@@ -20,11 +20,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
+    @user = User.new(user_params)
 
-    respond_to do |format|
-      format.html { redirect_to user_path(current_user) }
-      format.json { render :show, status: :ok, location: @user }
+    if @user.save
+      respond_to do |format|
+        format.html { redirect_to user_path(current_user) }
+        format.json { render :show, status: :ok, location: @user }
+      end
+    else
+      render action: 'new'
     end
   end
 
