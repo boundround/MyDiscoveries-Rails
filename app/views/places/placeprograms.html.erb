@@ -67,7 +67,7 @@ var id = 'loader', fill = '#FFF',
         </div>
 
         
-        	<h1 class="text-center fff"><%=@place.display_name%><br/><span><%=@place.area.display_name%></span> 
+        	<h1 class="text-center fff"><%=@place.display_name%><br/><span><%=@place.locality%></span> 
         	</h1>
         	<div class="map-btn text-center">
         		<a href="/places/programsearchresultsmap?id=<%=@place.id%>&term=<%=@place.display_name%>">View on map</a>        		
@@ -138,7 +138,7 @@ var id = 'loader', fill = '#FFF',
 					</div>						
 					</div>
 						<div class="side-btn visible-xs">
-							<a href="<%= @place.programs[0].contact ? 'mailto:'+@place.programs[0].contact : ''%>" class="btn  btn-default">Enquire</a>
+							<a href="<%= @place.programs[0] ? @place.programs[0].contact ? 'mailto:'+@place.programs[0].contact : '' : ''%>" class="btn  btn-default">Enquire</a>
 						</div>
 					</div>
 					<div class="col-md-3 col-sm-4 result-box-side hidden-xs">
@@ -157,7 +157,7 @@ var id = 'loader', fill = '#FFF',
 								Year:&nbsp; <span><%=place_yearlevels(@place)%></span>
 							</li>
 							<li>
-								Subject:&nbsp; <span><%=@place.programs[0].programsubjects[0] ? @place.programs[0].programsubjects[0] : ""%></span>
+								Subject:&nbsp; <span><%=@place.programs[0] ? @place.programs[0].programsubjects[0] ? @place.programs[0].programsubjects[0] : "" : ""%></span>
 							</li>
 							<li>
 								Programs:&nbsp; <%=@place.programs.count%> <!--a href="#"><%=@place.programs.count%></a-->
