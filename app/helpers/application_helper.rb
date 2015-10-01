@@ -16,6 +16,10 @@ module ApplicationHelper
    @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def user_generated_content_credit(user)
+    ''
+  end
+
   def full_title(page_title = '')
     base_title = "Bound Round"
     if page_title.empty?
