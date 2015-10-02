@@ -38,6 +38,8 @@ class Place < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
+  default_scope { order('display_name ASC') }
+
   scope :active, -> { where(status: "live") }
   scope :not_removed, -> { where('status != ?', 'removed') }
   scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }

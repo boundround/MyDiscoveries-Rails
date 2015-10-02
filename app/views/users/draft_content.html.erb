@@ -95,12 +95,7 @@
             <% end %>
           <%= simple_form_for [@location, user_photo] do |f| %>
             <tr>
-              <td>
-                <% if @location %>
-                  <%= link_to @location.display_name, @location.class.to_s == "Area" ? area_path(@location) : place_path(@location) %></td>
-                <% else %>
-                  <%= f.input :place_id, collection: @places, as: :select, value_method: :id %>
-                <% end %>
+              <td><%= f.association :place, label_method: :display_name, value_method: :id %></td>
               <td><img src="<%= thumbnail_for(user_photo) %>" class="photo-edit-thumb"></td>
               <td><%= f.input :caption %></td>
               <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
