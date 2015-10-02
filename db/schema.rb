@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928020744) do
+ActiveRecord::Schema.define(version: 20151002035245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -161,22 +162,6 @@ ActiveRecord::Schema.define(version: 20150928020744) do
     t.integer "user_id"
     t.integer "place_id"
   end
-
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -427,6 +412,8 @@ ActiveRecord::Schema.define(version: 20150928020744) do
     t.string   "title"
     t.string   "status"
     t.string   "google_place_id"
+    t.boolean  "user_notified"
+    t.datetime "user_notified_at"
   end
 
   add_index "reviews", ["reviewable_id", "reviewable_type"], name: "index_reviews_on_reviewable_id_and_reviewable_type", using: :btree
@@ -468,6 +455,8 @@ ActiveRecord::Schema.define(version: 20150928020744) do
     t.string   "storiable_type"
     t.string   "status"
     t.string   "google_place_id"
+    t.boolean  "user_notified"
+    t.datetime "user_notified_at"
   end
 
   add_index "stories", ["storiable_id", "storiable_type"], name: "index_stories_on_storiable_id_and_storiable_type", using: :btree
@@ -516,6 +505,8 @@ ActiveRecord::Schema.define(version: 20150928020744) do
     t.integer  "story_priority"
     t.string   "google_place_id"
     t.integer  "priority"
+    t.boolean  "user_notified"
+    t.datetime "user_notified_at"
   end
 
   add_index "user_photos", ["area_id"], name: "index_user_photos_on_area_id", using: :btree
