@@ -97,8 +97,9 @@ module PlacesHelper
   end
 
   def get_yearlevel_range(allyears)
+    @ylvec = ['F','K','1','2','3','4','5','6','7','8','9','10','11','12']
     #Sort based on year level sort order
-    first = String.new('K')
+    first = String.new('F')
     last = String.new('12')
     @ylvec.each do |yl|
       if allyears.include?(yl) then

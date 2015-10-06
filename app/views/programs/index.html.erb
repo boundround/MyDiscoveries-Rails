@@ -17,7 +17,7 @@
     <tbody>
     <% @programs.each do |program| %>
         <tr>
-          <td><%= program.place.display_name %></td>
+          <td><%= program.place ? program.place.display_name .blank? ? "" : program.place.display_name : "" %></td>
           <td><%= link_to program.name, edit_program_path(program) %></td>
           <td><%= program.programsubject_list %></td>
           <td><%= program.programyearlevel_list %></td>
