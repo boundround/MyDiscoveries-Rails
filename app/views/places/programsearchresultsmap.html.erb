@@ -51,7 +51,7 @@
 						//      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
 						'<div class="popup_img" content: "<%=place.categories[0].name%>" style="background: transparent url("<%=first_category_icon(place)%>")"><img src="<%=asset_path(place.photos[0].path_url(:small))%>"/></div>'+
 						'<div id="bodyContent">'+
-						'<p><b><%=place.display_name%></b> <h6><%=place.area.display_name%></h6>'+
+						'<p><b><%=place.display_name%></b> <h6><%=place.locality%></h6>'+
 						'</p>'+
 						'</div>'+
 						'<p class="popup-bottom"><%=place_yearlevels(place)%><span class="fa"><!--IMPLEMENT WITH RATINGS&#xf004; &#xf004; &#xf004; <i>&#xf004; &#xf004;--></i>  </span></p>' +
@@ -269,7 +269,7 @@
                     </figure>
                     <div class="col-sm-8 col-md-8 map-left-zero ">
                         <div class="col-sm-8 col-md-8 gr map-pad "><span class="footprint " style="background: url(<%=first_category_icon(place)%>)no-repeat; background-size:100%; color:#a2d549;"></span><%=place.categories[0].name%></div><div class="col-sm-4 col-md-4 map-star"><span class="fa  fa-star map-gray"></span></div>
-                        <div class="col-sm-12 col-md-12 map-name-1"><h5 class="gr"><%=place.display_name%></h5><h6><%=place.area.display_name%></h6></div>
+                        <div class="col-sm-12 col-md-12 map-name-1"><h5 class="gr"><%=place.display_name%></h5><h6><%=place.locality%></h6></div>
                         <div class="col-sm-4 col-md-4 col-lg-4">K-12</div><div class="col-sm-8 col-md-8 map-heat"><span class="fa"><!--IMPLEMENT WITH RATINGS--&#xf004; &#xf004; &#xf004; &#xf08a; &#xf08a;0--></span></div>
                     </div>
                     </a>

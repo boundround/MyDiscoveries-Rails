@@ -120,7 +120,7 @@ class Place < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
 #    Rails.cache.fetch('placeareas_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
-      places = self.active.includes(:categories, :country).where(:categories => {:name => 'Activity'})
+      places = self.active.includes(:categories, :country).where(:categories => {:name => 'Area'})
       places.each do |place|
         geojson['features'] << {
           type: 'Feature',
