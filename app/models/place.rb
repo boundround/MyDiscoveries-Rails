@@ -38,7 +38,7 @@ class Place < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
-  default_scope { order('display_name ASC') }
+  # default_scope { order('display_name ASC') } ## This screwed up programs query by calling it implicitly on a join query
 
   scope :active, -> { where(status: "live") }
   scope :not_removed, -> { where('status != ?', 'removed') }
