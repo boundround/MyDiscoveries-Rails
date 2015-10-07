@@ -343,6 +343,8 @@ ActiveRecord::Schema.define(version: 20151002035245) do
     t.boolean  "customer_approved"
     t.datetime "approved_at"
     t.integer  "user_id"
+    t.boolean  "show_on_school_safari",     default: false
+    t.text     "school_safari_description"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree

@@ -42,21 +42,8 @@
   text-shadow: none;
 }
 
-.delete-photo-button {
-  border: none;
-  background-color: #FD7E56;
-  color: white;
-  box-shadow: none;
-  text-shadow: none;
-  border-radius: 4px;
+.delete-photo {
   float: right;
-  margin-top: 8px;
-}
-
-.delete-photo-button:hover {
-  border: 1px solid white;
-  background-color: red;
-  color: white;
 }
 
 .user-upload-button:hover {
@@ -130,7 +117,16 @@
 
 .photo-status {
   float: left;
-  padding-top: 12px;
+}
+
+.user-photo-caption {
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.click-to-edit {
+  font-size: .8em;
+  font-style: italic;
 }
 
 .my-photo {

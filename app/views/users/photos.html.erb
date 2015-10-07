@@ -14,7 +14,7 @@
     <div class="text-center"><a href="#" data-toggle="modal" data-target="#myModal" class="user-upload-button btn btn-default"><i class="fa fa-picture-o"></i> Add Photo</a></div>
     <br>
     <% unless @user.user_photos.active_path.no_story.blank? %>
-      <% @user.user_photos.active_path.no_story.each_with_index do |photo, index| %>
+      <% @user.user_photos.active_path.no_story.recent.each_with_index do |photo, index| %>
         <div class="col-md-3 photo-wrapper">
           <div class="my-photos">
             <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large)
@@ -22,9 +22,9 @@
             <% end %>
             <img class="my-photo" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" /><br>
           </div>
-          <p>Caption: <span class="rest-in-place" data-url="<%= user_photo_path(photo) %>" data-object="user_photo" data-attribute="caption" data-placeholder="Enter a caption"><%= photo.caption %></span><span>&nbsp;&nbsp;(Click to edit)</span></p>
+          <p><span class="user-photo-caption"><span class="rest-in-place" data-url="<%= user_photo_path(photo) %>" data-object="user_photo" data-attribute="caption" data-placeholder="Enter a caption"><%= photo.caption %></span></span><span class="click-to-edit"><br>Click to edit</span></p>
           <div class="photo-status">Status: <%= photo.status %></div>
-          <%= link_to '<i class="fa fa-close"></i> Delete'.html_safe, photo, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-photo-button btn btn-default" %>
+          <%= link_to '<i class="fa fa-close"></i> Delete'.html_safe, photo, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-photo" %>
           <div class="clearfix"></div><br>
         </div>
         <div class="col-md-1"></div>
@@ -47,7 +47,7 @@
    <h1>Add a photo</h1>
    <div class="modal-content">
       <div class="br_upload">
-        <%= form_for UserPhoto.new, url: user_photos_profile_create_path, :html => { :id => "user-photo-upload"  } do |f| %>
+        <%= form_for UserPhoto.new, url: user_photos_profile_create_path, :html => { :id => "user-profile-photo-upload"  } do |f| %>
           <%= f.file_field :path, label: false %>
           <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
           <%= f.hidden_field :status, :value => "draft" %>

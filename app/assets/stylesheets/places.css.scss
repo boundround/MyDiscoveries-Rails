@@ -1680,6 +1680,8 @@ a,button,button:focus,button:active{
     padding-top: 50px;
     padding-right: 5px;
     padding-left: 5px;
+    width: 50%;
+    height: 90%;
 }
 .br_add_pic .modal-dialog,#story .modal-dialog{
   margin: 0px auto;
@@ -2472,6 +2474,10 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
 
 
 @media(max-width: 1199px){
+
+  .br_add_pic {
+    width: 90%;
+  }
   .br_container  ul.list-unstyled.br_top_links {
     max-width: 95%;
   }
@@ -2559,6 +2565,11 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     background-size: auto 500px;
     padding: 0px;
   }
+
+  .br_add_pic {
+    width: 100%;
+  }
+
   .br_place_page{
     padding: 0px;
   }
