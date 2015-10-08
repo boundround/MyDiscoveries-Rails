@@ -29,7 +29,7 @@
                           <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
                       </p>
                       <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                        data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>"
+                        data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= strip_domain_from_username(story.user) %>"
                         <% story.user_photos.each_with_index do |photo, index| %>
                         data-image-<%= index %>="<%= photo.path_url(:medium) %>"
                         <% end %>
@@ -45,7 +45,7 @@
                 <%= story.content %>
               </p>
               <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                        data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>">
+                        data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= strip_domain_from_username(story.user) %>">
               <img src="<%= asset_path('Badge.png') %>" class="img-responsive"></a>
             </div>
           </div>
@@ -110,7 +110,7 @@
           <h1 class="text-center">
             <%= f.text_area :title, id: "story_headline", placeholder: "Story Title Goes Here", maxlength: 40 %>
           </h1>
-          <h3 class="text-center">by <%= current_user.email.match(/^(.*?)@/)[1] if user_signed_in? %></h3>
+          <h3 class="text-center">by <%= strip_domain_from_username(current_user) if user_signed_in? %></h3>
           <div class="mid-cont">
             <div class="pull-left map-container side-img-cont share">
               <input id="pac-input" class="controls" type="text"

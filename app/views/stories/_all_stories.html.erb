@@ -24,7 +24,7 @@
                     <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
                 </p>
                 <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                  data-title="<%= story.title ? story.title : @storiable.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>"
+                  data-title="<%= story.title ? story.title : @storiable.display_name %>" data-user="<%= strip_domain_from_username(story.user) %>"
                   <% story.user_photos.each_with_index do |photo, index| %>
                   data-image-<%= index %>="<%= photo.path_url(:medium) %>"
                   <% end %>
@@ -40,7 +40,7 @@
           <%= story.content %>
         </p>
         <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                  data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>">
+                  data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= strip_domain_from_username(story.user) %>">
         <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
       </div>
     </div>
@@ -65,7 +65,7 @@
                       <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
                   </p>
                   <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                    data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>"
+                    data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= strip_domain_from_username(story.user) %>"
                     <% story.user_photos.each_with_index do |photo, index| %>
                     data-image-<%= index %>="<%= photo.path_url(:medium) %>"
                     <% end %>
@@ -81,7 +81,7 @@
             <%= story.content %>
           </p>
           <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                    data-title="<%= story.title ? story.title : @storiable.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>">
+                    data-title="<%= story.title ? story.title : @storiable.display_name %>" data-user="<%= strip_domain_from_username(story.user) %>">
           <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
         </div>
       </div>

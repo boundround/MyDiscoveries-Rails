@@ -35,6 +35,7 @@
       <% end %>-->
       <td>
         <div class="form-group passport-form">
+          <%= f.input :username, label: false, placeholder: 'Username', wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
           <%= f.input :first_name, label: false, placeholder: 'First Name', wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
           <%= f.input :last_name, label: false, placeholder: 'Last Name', wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         </div>

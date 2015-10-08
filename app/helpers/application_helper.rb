@@ -216,6 +216,14 @@ module ApplicationHelper
 
   end
 
+  def strip_domain_from_username(user)
+    if user.username.match /.+@.+\..+/i
+      user.username.match(/^(.*?)@/)[1]
+    else
+      user.username
+    end
+  end
+
   def get_user_place_rating_from_review(review)
     if Rate.where(rateable_id: review.reviewable_id).where(rateable_type: review.reviewable_type).where(rater_id: review.user.id).length > 0
       Rate.where(rateable_id: review.reviewable_id).where(rateable_type: review.reviewable_type).where(rater_id: review.user.id)[0].stars.round
