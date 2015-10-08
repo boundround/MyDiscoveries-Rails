@@ -138,6 +138,8 @@ module ApplicationHelper
         '#d6abe8'
       when 'theme_park'
         '#9dd0f0'
+      when 'transport'
+        '#127fff'
       else
         '#f2a1bc'
     end
