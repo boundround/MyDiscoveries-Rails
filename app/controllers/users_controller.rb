@@ -160,6 +160,30 @@ class UsersController < ApplicationController
     @places = Place.all
   end
 
+  def instagram_feed
+    @set_body_class = 'passport-page'
+    @user = current_user
+    @identity = Identity.find_by user_id: @user.id
+
+    if @identity
+      client = Instagram.client(:access_token => session[:access_token])
+
+      @posts = client.user_recent_media(777)
+    end
+
+    # page_1 = client.user_media_feed(777)
+    # page_2_max_id = page_1.pagination.next_max_id
+    # page_2 = client.user_recent_media(777, :max_id => page_2_max_id ) unless page_2_max_id.nil?
+    # @html << "<h2>Page 1</h2><br/>"
+    # for media_item in page_1
+    #   @html << "<img src='#{media_item.images.thumbnail.url}'>"
+    # end
+    # @html << "<h2>Page 2</h2><br/>"
+    # for media_item in page_2
+    #   @html << "<img src='#{media_item.images.thumbnail.url}'>"
+    # end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

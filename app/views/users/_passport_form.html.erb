@@ -89,11 +89,13 @@
     </tr>
   </table>
   <% if current_user.try(:admin) %>
+  <div class="container">
     <div class="row">
-      <%= f.input :admin %>
-      <%= f.association :roles, as: :check_boxes, inline_label: true, :label_method => lambda { |role| role.name.capitalize }, input_html: { class: 'role-checkbox' } %>
+      <%= f.input :admin %><br>
+      <%= f.association :roles, as: :radio_buttons %><br>
       <%= f.select :owned_place_ids, Place.order(:display_name).collect {|x| [x.display_name, x.id]}, {}, :multiple => true, class: 'owned-place-select' %>
     </div>
+  </div>
   <% end %>
   <div class="actions">
     <%= f.submit 'Update Account', class: "btn btn-default" %>

@@ -40,6 +40,8 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-instagram'
 
+gem 'instagram'
+
 gem 'geocoder'
 
 gem 'ratyrate'
