@@ -12,12 +12,18 @@
       <%= render 'layouts/search_input' %>
     </div>
     <% if @posts %>
-    <% @posts.each do |post| %>
-      <div class="col-md-3" style="margin-bottom:10px">
-        <img src="<%= post.images.thumbnail.url %>"><br>
-        <a href="#" data-toggle="modal" data-img="<%= post.images.standard_resolution.url %>" data-caption="<%= post.caption.text %>" data-target="#myModal"><i class="fa fa-share"></i>&nbsp;Add to Bound Round</a>
-      </div>
-    <% end %>
+      <% @posts.each do |post| %>
+        <% if post.type == "image" %>
+          <div class="col-md-3" style="margin-bottom:10px">
+            <img src="<%= post.images.thumbnail.url %>"><br>
+            <% if !UserPhoto.any? {|photo| photo.instagram_id == post.id} %>
+              <a href="#" class="user-insta-photo" data-toggle="modal" data-id= "<%= post.id %>" data-img="<%= post.images.standard_resolution.url %>" data-caption="<%= post.caption.text %>" data-target="#myModal"><i class="fa fa-share"></i>&nbsp;Add to Bound Round</a>
+            <% else %>
+              &nbsp;
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>
@@ -34,14 +40,15 @@
    <div class="modal-content">
       <div class="br_upload">
         <%= form_for UserPhoto.new, url: user_photos_profile_create_path, :html => { :id => "user-profile-insta-upload"  } do |f| %>
-          <%= f.hidden_field :remote_path_url, label: false %>
+          <%= f.hidden_field :remote_path_url, id: "insta-image", label: false %>
           <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
           <%= f.hidden_field :status, :value => "draft" %>
+          <%= f.hidden_field :instagram_id, id: "insta-id" %>
 
-        <h4>Click <span class="br_underline">Browse</span> and navigate to the file,<br/> or, just drag the file <strong>here</strong></h4>
+
         <img id="image-preview" class="user-upload-image-preview" src="#" alt="Your Image" />
       </div>
-      <%= f.text_field :caption, label: false, placeholder: "Enter a caption for your photo", value: "", class: "form-group user-photo-caption-form" %>
+      <%= f.text_field :caption, id: "insta-caption", label: false, placeholder: "Enter a caption for your photo", value: "", class: "form-group user-photo-caption-form" %>
       <div>
         <input id="pac-input" class="controls" type="text"
         placeholder="Where was this taken?">
@@ -50,7 +57,7 @@
         <div class="user-gen-map"></div>
       </div>
       <div id="user-photo-upload-button">
-
+        <%= f.submit :submit, class: "btn btn-primary" %>
       </div>
       <div id="progress">
           <div class="bar" style="width: 0%;"></div>
