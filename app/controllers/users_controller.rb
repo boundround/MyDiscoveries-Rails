@@ -163,12 +163,12 @@ class UsersController < ApplicationController
   def instagram_feed
     @set_body_class = 'passport-page'
     @user = current_user
-    @identity = Identity.find_by user_id: @user.id
+    @instagram_identity = @user.identities.where(provider: "instagram").first
 
-    if @identity
+    if @instagram_identity
       client = Instagram.client(:access_token => session[:access_token])
 
-      @posts = client.user_recent_media(@identity.uid)
+      @posts = client.user_recent_media(@instagram_identity.uid)
     end
 
     # page_1 = client.user_media_feed(777)
