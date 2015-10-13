@@ -168,7 +168,7 @@ class UsersController < ApplicationController
     if @instagram_identity
       client = Instagram.client(:access_token => session[:access_token])
 
-      @posts = client.user_recent_media(@instagram_identity.uid)
+      @posts = client.user_recent_media(@instagram_identity.uid, count: 1000)
     end
 
     # page_1 = client.user_media_feed(777)

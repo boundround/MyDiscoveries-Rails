@@ -15,9 +15,9 @@
       <% @posts.each do |post| %>
         <% if post.type == "image" %>
           <div class="col-md-3" style="margin-bottom:10px">
-            <img src="<%= post.images.thumbnail.url %>"><br>
-            <% if !UserPhoto.any? {|photo| photo.instagram_id == post.id} %>
-              <a href="#" class="user-insta-photo" data-toggle="modal" data-id= "<%= post.id %>" data-img="<%= post.images.standard_resolution.url %>" data-caption="<%= post.caption.text %>" data-target="#myModal"><i class="fa fa-share"></i>&nbsp;Add to Bound Round</a>
+            <%= image_tag post.images.thumbnail.url, lazy: true %><br>
+            <% if !UserPhoto.any? { |photo| photo.instagram_id == post.id } %>
+              <a href="#" class="user-insta-photo" data-toggle="modal" data-id="<%= post.id %>" data-img="<%= post.images.standard_resolution.url %>" data-caption="<%= post.caption.text %>" data-target="#myModal"><i class="fa fa-share"></i>&nbsp;Add to Bound Round</a><span>&nbsp;</span>
             <% else %>
               &nbsp;
             <% end %>
@@ -39,7 +39,7 @@
    <h1>Add a photo</h1>
    <div class="modal-content">
       <div class="br_upload">
-        <%= form_for UserPhoto.new, url: user_photos_profile_create_path, :html => { :id => "user-profile-insta-upload"  } do |f| %>
+        <%= form_for UserPhoto.new, url: user_photos_profile_create_path, remote: true, :html => { :id => "user-profile-insta-upload"  } do |f| %>
           <%= f.hidden_field :remote_path_url, id: "insta-image", label: false %>
           <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
           <%= f.hidden_field :status, :value => "draft" %>
@@ -57,7 +57,7 @@
         <div class="user-gen-map"></div>
       </div>
       <div id="user-photo-upload-button">
-        <%= f.submit :submit, class: "btn btn-primary" %>
+        <%= f.submit :submit, class: "btn btn-primary", id: "user-insta-upload-button" %>
       </div>
       <div id="progress">
           <div class="bar" style="width: 0%;"></div>
@@ -69,3 +69,7 @@
 
 <%= javascript_include_tag 'user_gen_map.js' %>
 <%= javascript_include_tag 'user_insta_upload.js' %>
+<%= javascript_include_tag 'lazy_load.js' %>
+<script>
+$("img").lazyload();
+</script>
