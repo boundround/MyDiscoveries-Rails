@@ -38,7 +38,7 @@
                 <% end %>
                 <% end%>
               <td><%= f.input :status, label: "Story Status", as: :select, collection: ["draft", "live", "removed"] %></td>
-              <td><%= story.user.email %></td>
+              <td><%= story.user.username %></td>
               <td><%= f.submit :submit %></td>
             </tr>
             <% end %>
@@ -66,7 +66,7 @@
               <td><%= f.input :title %></td>
               <td><%= f.input :content %></td>
               <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
-              <td><%= review.user.email %></td>
+              <td><%= review.user.username%></td>
               <td><%= f.submit :submit %></td>
             </tr>
           <% end %>
@@ -101,7 +101,7 @@
               <td><img src="<%= thumbnail_for(user_photo) %>" class="photo-edit-thumb"></td>
               <td><%= f.input :caption %></td>
               <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
-              <td><%= user_photo.user.email %></td>
+              <td><%= user_photo.user.username %></td>
               <td><%= f.submit :submit %></td>
             </tr>
           <% end %>
