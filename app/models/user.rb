@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
 
   has_many :places
 
+  has_many :identities
+
   has_many :reviews
   has_many :stories
   has_many :user_photos

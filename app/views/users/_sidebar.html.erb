@@ -49,7 +49,7 @@
       <span class="hidden-sm hidden-xs">My Favourites</span>
     </div>
   </a>
-  <% if current_user.admin? %>
+  <% if @user.identities.any? { |identity| identity.provider == "instagram" } %>
   <a href="/users/instagram_feed">
     <div class="sidebar-item">
       <i class="fa fa-instagram fa-lg"></i><br>
