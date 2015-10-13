@@ -743,9 +743,6 @@
 .br_place_page {
   font-family: 'Signika', sans-serif;
   padding: 20px 0px 0px;
-  /*background-size: auto 700px;*/
-  background-color: #eaeaea !important;
-  background-position:top center;
   color: #24201f;
 }
 a,button,button:focus,button:active{
@@ -1546,7 +1543,7 @@ a,button,button:focus,button:active{
 .br_fun_fact {
     background: #6CCAA8 none repeat scroll 0% 0%;
     margin-top: 26px;
-    border-radius: 67px 0px 0px 67px;
+    border-radius: 147px 0px 0px 147px;
 }
 .br_round_img{
   border: 6px solid #fff;
@@ -1673,6 +1670,7 @@ a,button,button:focus,button:active{
     vertical-align: middle;
 }
 
+ #fun-fact-2, #fun-fact-0{  background-size:cover;   }
 
 /*****************************************Modals**********************/
 .br_add_pic, #story {
@@ -2466,7 +2464,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
   padding-top: 26px;
 }
 
-
+.br_fun_fact img{ margin-left:0 !important;}
 
 
 
@@ -2806,6 +2804,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     padding: 15px !important;
   }
 }
+
 @media(max-width: 480px){
   .br_country_page .br_intro .jcarousel{
    text-align: left;
@@ -3191,20 +3190,3 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
 .modal-dialog {
     margin: 0px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

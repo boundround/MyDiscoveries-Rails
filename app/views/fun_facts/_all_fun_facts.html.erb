@@ -1,13 +1,15 @@
 <div class="row">
   <div class="col-md-12">
     <% if @place %>
+      <div class="funfact">
       <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
-        <style>
+        <div class="br_fun_fact hidden-xs hidden-sm">
+          <style>
           #fun-fact-<%= index %> {
             background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @place.country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
           }
-        </style>
-        <div class="br_fun_fact hidden-xs hidden-sm">
+           #fun-fact-2, #fun-fact-0, #fun-fact-3, #fun-fact-1{  background-size:cover;   }
+          </style>
           <div class="row">
             <div class="col-sm-3 col-md-3 col-lg-2">
               <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" class="fun-fact-image">
@@ -21,7 +23,18 @@
             </div>
           </div>
         </div>
+      <% end %>
+      </div>
+      
+      <div class="funfact">
+      <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
         <div class="col-md-12 visible-xs visible-sm">
+          <style>
+          #fun-fact-<%= index %> {
+            background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @place.country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
+          }
+          #fun-fact-2, #fun-fact-0, #fun-fact-3, #fun-fact-1{  background-size:cover;   }
+          </style>
           <div class="row">
             <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
               <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
@@ -36,14 +49,17 @@
           </div>
         </div>
       <% end %>
+      </div>
     <% else %>
+      <div class="funfact">
       <% @area.fun_facts.active.each_with_index do |fun_fact, index| %>
-        <style>
+        <div class="br_fun_fact hidden-xs hidden-sm">
+          <style>
           #fun-fact-<%= index %> {
             background: transparent url(<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@area)) %>) no-repeat scroll 0% 0%;
           }
+          #fun-fact-2, #fun-fact-0, #fun-fact-3, #fun-fact-1{  background-size:cover;   }
         </style>
-        <div class="br_fun_fact hidden-xs hidden-sm">
           <div class="row">
             <div class="col-sm-3 col-md-3 col-lg-2">
               <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@area)) %>" class="fun-fact-image">
@@ -57,7 +73,18 @@
             </div>
           </div>
         </div>
+      <% end %>
+      </div>
+      
+      <div class="funfact">
+      <% @area.fun_facts.active.each_with_index do |fun_fact, index| %>
         <div class="col-md-12 visible-xs visible-sm">
+          <style>
+          #fun-fact-<%= index %> {
+            background: transparent url(<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@area)) %>) no-repeat scroll 0% 0%;
+          }
+          #fun-fact-2, #fun-fact-0, #fun-fact-3, #fun-fact-1{  background-size:cover;   }
+        </style>
           <div class="row">
             <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
               <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
@@ -72,6 +99,7 @@
           </div>
         </div>
       <% end %>
+      </div>
     <% end %>
   </div>
 </div>
