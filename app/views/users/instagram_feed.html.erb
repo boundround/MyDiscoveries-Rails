@@ -17,7 +17,7 @@
           <div class="col-md-3" style="margin-bottom:10px">
             <%= image_tag post.images.thumbnail.url, lazy: true %><br>
             <% if !UserPhoto.any? { |photo| photo.instagram_id == post.id } %>
-              <a href="#" class="user-insta-photo" data-toggle="modal" data-id="<%= post.id %>" data-img="<%= post.images.standard_resolution.url %>" data-caption="<%= post.caption.text %>" data-target="#myModal"><i class="fa fa-share"></i>&nbsp;Add to Bound Round</a><span>&nbsp;</span>
+              <a href="#" class="user-insta-photo" data-toggle="modal" data-id="<%= post.id %>" data-img="<%= post.images.standard_resolution.url %>" data-caption="<%= post.caption.text if post.caption %>" data-target="#myModal"><i class="fa fa-share"></i>&nbsp;Add to Bound Round</a><span>&nbsp;</span>
             <% else %>
               &nbsp;
             <% end %>
