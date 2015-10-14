@@ -96,7 +96,7 @@
             <% end %>
           <%= simple_form_for [@location, user_photo] do |f| %>
             <tr>
-              <td><%= f.association :place, label_method: :display_name, value_method: :id %></td>
+              <td><%= f.association :place, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
               <td><span class="google-place-id" data-google-place-id="<%= user_photo.google_place_id %>"><span class="google-place-name"></td>
               <td><img src="<%= thumbnail_for(user_photo) %>" class="photo-edit-thumb"></td>
               <td><%= f.input :caption %></td>
