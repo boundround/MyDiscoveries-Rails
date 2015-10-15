@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
 
   has_many :places
 
+  has_many :identities
+
   has_many :reviews
   has_many :stories
   has_many :user_photos
@@ -64,7 +66,6 @@ class User < ActiveRecord::Base
   # end
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
-
     # Get the identity and user if they exist
     identity = Identity.find_for_oauth(auth)
 

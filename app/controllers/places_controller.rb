@@ -403,8 +403,12 @@ class PlacesController < ApplicationController
       #   puts params[pa[0]]
       # end
 
-      if params[:term] == "" then params[:term] = nil end
-      @search_term = URI.decode(params[:term])
+      if params[:term] == "" then 
+        params[:term] = nil 
+        @search_term = nil
+      else
+        @search_term = URI.decode(params[:term])        
+      end
 
       if params[:id] then
         @places = Place.where('places.id = :id', id: params[:id])

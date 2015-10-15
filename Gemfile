@@ -40,6 +40,9 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-instagram'
 
+gem 'instagram'
+gem "lazyload-rails"
+
 gem 'geocoder'
 
 gem 'ratyrate'

@@ -49,6 +49,14 @@
       <span class="hidden-sm hidden-xs">My Favourites</span>
     </div>
   </a>
+  <% if @user.identities.any? { |identity| identity.provider == "instagram" } %>
+  <a href="/users/instagram_feed">
+    <div class="sidebar-item">
+      <i class="fa fa-instagram fa-lg"></i><br>
+      <span class="hidden-sm hidden-xs">My Instagram Photos</span>
+    </div>
+  </a>
+  <% end %>
   <!-- <a href="/users/games">
     <div class="sidebar-item">
       <i class="fa fa-puzzle-piece fa-lg"></i><br>
