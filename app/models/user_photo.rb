@@ -8,6 +8,9 @@ class UserPhoto < ActiveRecord::Base
   belongs_to :place
   belongs_to :area
 
+  has_many :user_photos_users
+  has_many :users, through: :user_photos_users
+
   mount_uploader :path, UserPhotoUploader
   # process_in_background :path ###This is not working for versions
 

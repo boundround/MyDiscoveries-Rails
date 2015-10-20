@@ -5,6 +5,9 @@ class Story < ActiveRecord::Base
   belongs_to :storiable, polymorphic: true
   has_many :user_photos, -> { order "story_priority ASC"}, :inverse_of => :story
 
+  has_many :stories_users
+  has_many :users, through: :stories_users
+
   accepts_nested_attributes_for :user_photos
 
   scope :active, -> { where(status: "live") }

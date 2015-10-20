@@ -151,15 +151,17 @@ module ApplicationHelper
     postType = postPath.singularize
     postType = 'fun_facts_user' if postType == 'funfacts_user'
     postPath = 'fun_facts_users' if postPath == 'funfacts_users'
+    postType = 'user_photos_user' if postType == 'userphotos_user'
+    postPath = 'user_photos_users' if postPath == 'userphotos_users'
 
     if user_signed_in?
       if content.users.include?(current_user)
-        return "<img class='like-icon' src='#{asset_path ('star_yellow.png')}' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='true' data-switch-image='#{asset_path('star_grey.png')}'>"
+        return "<div class='like-icon' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='true'><i class='fa fa-heart liked-heart'></i></div>"
       else
-        return "<img class='like-icon' src='#{asset_path ('star_grey.png')}' data-post-path=#{postPath} data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='false' data-switch-image='#{asset_path('star_white.png')}'>"
+        return "<div class='like-icon' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='false'><i class='fa fa-heart-o like-heart'></i></div>"
       end
     end
-      "<img class='like-icon' src='#{asset_path ('star_grey.png')}'>"
+      "<div class='like-icon'><i class='fa fa-heart-o like-heart'></i></div>"
   end
 
   def sortable(column, title = nil)

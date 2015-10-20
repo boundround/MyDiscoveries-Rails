@@ -1,16 +1,23 @@
 console.log('like.js');
-window.onload = function() {
+$(document).ready(function() {
   $('.like-icon').on('click', function(e){
     e.preventDefault();
     e.stopPropagation();
-    var oldImage = $(this).attr('src');
-    var switchImage = $(this).data('switchImage');
     var postPath = $(this).data('postPath');
     var postType = $(this).data('postType');
     var data = {};
     switch(postType){
       case "photos_user":
         data[postType] = {user_id: $(this).data("user"), photo_id: $(this).data("contentId")};
+        break;
+      case "user_photos_user":
+        data[postType] = {user_id: $(this).data("user"), user_photo_id: $(this).data("contentId")};
+        break;
+      case "stories_user":
+        data[postType] = {user_id: $(this).data("user"), story_id: $(this).data("contentId")};
+        break;
+      case "reviews_user":
+        data[postType] = {user_id: $(this).data("user"), review_id: $(this).data("contentId")};
         break;
       case "fun_facts_user":
         data[postType] = {user_id: $(this).data("user"), fun_fact_id: $(this).data("contentId")};
@@ -29,8 +36,7 @@ window.onload = function() {
     }
     console.log($(this).data('liked'));
     if ($(this)[0].dataset.liked === 'false'){
-      $(this).attr('src', switchImage);
-      $(this).data('switchImage', oldImage);
+      $(this).find('.like-heart').removeClass('fa-heart-o').removeClass("like-heart").addClass('fa-heart').addClass('liked-heart');
       $(this)[0].dataset.liked = 'true';
       $.ajax({
         type: "POST",
@@ -39,8 +45,7 @@ window.onload = function() {
         success: console.log('LIKE SAVED')
       });
     } else if ($(this)[0].dataset.liked === 'true') {
-        $(this).attr('src', switchImage);
-        $(this).data('switchImage', oldImage);
+        $(this).find('.liked-heart').removeClass('fa-heart').removeClass('liked-heart').addClass('fa-heart-o').addClass('like-heart');
         $(this)[0].dataset.liked = 'false';
         $.ajax({
           type: "POST",
@@ -53,4 +58,4 @@ window.onload = function() {
       alert("You must be logged in to save favourites!");
     }
   });
-}
+});

@@ -79,6 +79,12 @@ Rails.application.routes.draw do
   post 'games_users/destroy' => 'games_users#destroy'
   post 'videos_users/create' => 'videos_users#create'
   post 'videos_users/destroy' => 'videos_users#destroy'
+  post 'user_photos_users/create' => 'user_photos_users#create'
+  post 'user_photos_users/destroy' => 'user_photos_users#destroy'
+  post 'stories_users/create' => 'stories_users#create'
+  post 'stories_users/destroy' => 'stories_users#destroy'
+  post 'reviews_users/create' => 'reviews_users#create'
+  post 'reviews_users/destroy' => 'reviews_users#destroy'
 
   resources :user_photos
   post 'user_photos/profile_create' => 'user_photos#profile_create'

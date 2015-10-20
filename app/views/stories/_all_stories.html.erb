@@ -19,6 +19,7 @@
         }
       </style>
       <div class="br_story bg" id="story-<%= index %>">
+                <span class="story-like-icon"><%= raw like_icon(story) %></span>
                 <h3><%= story.title %></h3>
                 <p>
                     <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
@@ -35,6 +36,7 @@
   <% else %>
     <div class="col-sm-12 col-md-6 ">
       <div class="br_story">
+        <span class="story-like-icon"><%= raw like_icon(story) %></span>
         <h3><%= story.title %></h3>
         <p>
           <%= story.content %>
@@ -60,6 +62,7 @@
           }
         </style>
         <div class="br_story bg" id="story-<%= index %>">
+                  <span class="story-like-icon"><%= raw like_icon(story) %></span>
                   <h3><%= story.title %></h3>
                   <p>
                       <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
@@ -76,6 +79,7 @@
     <% else %>
       <div class="col-sm-12 col-md-6 ">
         <div class="br_story">
+          <span class="story-like-icon"><%= raw like_icon(story) %></span>
           <h3><%= story.title %></h3>
           <p>
             <%= story.content %>
