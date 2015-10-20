@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
 
   has_many :places
 
+  has_many :identities
+
   has_many :reviews
   has_many :stories
   has_many :user_photos
@@ -34,10 +36,15 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, # :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:username]
   devise :omniauthable, :omniauth_providers => [:instagram]
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+  validates :username,
+  :presence => true,
+  :uniqueness => {
+    :case_sensitive => false
+  }
 
   # def self.find_for_facebook_oauth(auth)
   #   where(auth.slice(:provider, :uid)).first_or_create do |user|
@@ -59,7 +66,6 @@ class User < ActiveRecord::Base
   # end
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
-
     # Get the identity and user if they exist
     identity = Identity.find_for_oauth(auth)
 
@@ -100,6 +106,14 @@ class User < ActiveRecord::Base
       identity.save!
     end
     user
+  end
+
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
   end
 
 end

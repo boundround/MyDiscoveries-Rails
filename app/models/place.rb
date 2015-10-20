@@ -38,6 +38,8 @@ class Place < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
 
+  # default_scope { order('display_name ASC') } ## This screwed up programs query by calling it implicitly on a join query
+
   scope :active, -> { where(status: "live") }
   scope :not_removed, -> { where('status != ?', 'removed') }
   scope :preview, -> { where('status=? OR status=?', 'live', 'edited') }
@@ -118,7 +120,7 @@ class Place < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
 #    Rails.cache.fetch('placeareas_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
-      places = self.active.includes(:categories, :country).where(:categories => {:name => 'Activity'})
+      places = self.active.includes(:categories, :country).where(:categories => {:name => 'Area'})
       places.each do |place|
         geojson['features'] << {
           type: 'Feature',

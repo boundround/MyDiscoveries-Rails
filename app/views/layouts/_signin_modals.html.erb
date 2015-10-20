@@ -16,7 +16,7 @@
 							    <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;Sign In With Instagram</a><br /><br />
 							  <% end -%>
 							<% end -%>
-				      <%= f.input :email, required: false, autofocus: true %><br>
+				      <%= f.input :username, required: false, autofocus: true %><br>
 				      <%= f.input :password, required: false %><br>
 				      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %><br>
 				    </div>
@@ -57,7 +57,7 @@
 						    <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;Sign In With Instagram</a><br /><br>
 						  <% end -%>
 						<% end -%>
-			      <%= f.input :email, required: false, autofocus: true %><br>
+			      <%= f.input :username, required: false, autofocus: true %><br>
 			      <%= f.input :password, required: false %><br>
 			      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %><br>
 			    </div>

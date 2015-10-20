@@ -20,7 +20,7 @@
     var conHeight = container.height();
     var imgHeight = element.height();
     var gap = (imgHeight - conHeight) / 2;
-    element.css("margin-top", (gap/2));
+    element.css("margin-top", -(gap/2));
   }
     $(function(){
       $('.br_info_mob').hide();

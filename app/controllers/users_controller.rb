@@ -20,11 +20,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
+    @user = User.new(user_params)
 
-    respond_to do |format|
-      format.html { redirect_to user_path(current_user) }
-      format.json { render :show, status: :ok, location: @user }
+    if @user.save
+      respond_to do |format|
+        format.html { redirect_to user_path(current_user) }
+        format.json { render :show, status: :ok, location: @user }
+      end
+    else
+      render action: 'new'
     end
   end
 
@@ -154,6 +158,30 @@ class UsersController < ApplicationController
     @user_photos = UserPhoto.where('story_id IS NULL').where(status: "draft")
     @reviews = Review.where(status: "draft")
     @places = Place.all
+  end
+
+  def instagram_feed
+    @set_body_class = 'passport-page'
+    @user = current_user
+    @instagram_identity = @user.identities.where(provider: "instagram").first
+
+    if @instagram_identity
+      client = Instagram.client(:access_token => session[:access_token])
+
+      @posts = client.user_recent_media(@instagram_identity.uid, count: 1000)
+    end
+
+    # page_1 = client.user_media_feed(777)
+    # page_2_max_id = page_1.pagination.next_max_id
+    # page_2 = client.user_recent_media(777, :max_id => page_2_max_id ) unless page_2_max_id.nil?
+    # @html << "<h2>Page 1</h2><br/>"
+    # for media_item in page_1
+    #   @html << "<img src='#{media_item.images.thumbnail.url}'>"
+    # end
+    # @html << "<h2>Page 2</h2><br/>"
+    # for media_item in page_2
+    #   @html << "<img src='#{media_item.images.thumbnail.url}'>"
+    # end
   end
 
   private

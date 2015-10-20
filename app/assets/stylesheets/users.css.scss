@@ -42,20 +42,8 @@
   text-shadow: none;
 }
 
-.delete-photo-button {
-  margin-top: -74px;
-  border: none;
-  border-radius: 1px;
-  background-color: #FD7E56;
-  color: white;
-  box-shadow: none;
-  text-shadow: none;
-}
-
-.delete-photo-button:hover {
-  border: 1px solid white;
-  background-color: red;
-  color: white;
+.delete-photo {
+  float: right;
 }
 
 .user-upload-button:hover {
@@ -113,9 +101,35 @@
   color: #428bca;
 }
 
+.photo-wrapper {
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
 .my-photos {
-  display: inline-block;
-  position: relative;
+  height: 225px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: gainsboro;
+  text-align: center;
+}
+
+.photo-status {
+  float: left;
+}
+
+.user-photo-caption {
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.click-to-edit {
+  font-size: .8em;
+  font-style: italic;
+}
+
+.my-photo {
 }
 
 .passport td {

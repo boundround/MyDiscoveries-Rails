@@ -25,4 +25,13 @@ window.onload = function(){
   //     // repopulate lat long and address fields on marker drag
   //     $("#pac-input").geocomplete("find", result.lat() + "," + result.lng());
   //   });
+
+function fitToDiv(container, element){
+    var conHeight = container.height();
+    var imgHeight = element.height();
+    var gap = (imgHeight - conHeight) / 2;
+    element.css("margin-top", -(gap/2));
+  };
+
+  $.each($('.my-photo'), function(index, item){ fitToDiv($(item).parent(), $(item)) });
 }

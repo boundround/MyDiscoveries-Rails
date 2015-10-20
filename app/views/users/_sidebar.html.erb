@@ -22,33 +22,41 @@
   <a href="/users/places">
     <div class="sidebar-item">
       <i class="fa fa-globe fa-lg"></i><br>
-      My Wishlist
+      <span class="hidden-sm hidden-xs">My Wishlist</span>
     </div>
   </a>
   <a href="/users/stories">
     <div class="sidebar-item">
       <i class="fa fa-book fa-lg"></i><br>
-      My Stories
+      <span class="hidden-sm hidden-xs">My Stories</span>
     </div>
   </a>
   <a href="/users/reviews">
     <div class="sidebar-item">
       <i class="fa fa-comment fa-lg"></i><br>
-      My Reviews
+      <span class="hidden-sm hidden-xs">My Reviews</span>
     </div>
   </a>
   <a href="/users/photos">
     <div class="sidebar-item">
       <i class="fa fa-picture-o fa-lg"></i><br>
-      My Photos
+      <span class="hidden-sm hidden-xs">My Photos</span>
     </div>
   </a>
   <a href="/users/videos">
     <div class="sidebar-item">
       <i class="fa fa-star fa-lg"></i><br>
-      My Favourites
+      <span class="hidden-sm hidden-xs">My Favourites</span>
     </div>
   </a>
+  <% if @user.identities.any? { |identity| identity.provider == "instagram" } %>
+  <a href="/users/instagram_feed">
+    <div class="sidebar-item">
+      <i class="fa fa-instagram fa-lg"></i><br>
+      <span class="hidden-sm hidden-xs">My Instagram Photos</span>
+    </div>
+  </a>
+  <% end %>
   <!-- <a href="/users/games">
     <div class="sidebar-item">
       <i class="fa fa-puzzle-piece fa-lg"></i><br>
@@ -58,7 +66,7 @@
   <a href="<%= destroy_user_session_path %>">
     <div class="sidebar-item">
       <i class="fa fa-sign-out fa-lg"></i><br>
-      Sign Out
+      <span class="hidden-sm hidden-xs">Sign Out</span>
     </div>
   </a>
 </div>

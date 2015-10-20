@@ -19,12 +19,13 @@
         }
       </style>
       <div class="br_story bg" id="story-<%= index %>">
+                <span class="story-like-icon"><%= raw like_icon(story) %></span>
                 <h3><%= story.title %></h3>
                 <p>
                     <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
                 </p>
                 <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                  data-title="<%= story.title ? story.title : @storiable.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>"
+                  data-title="<%= story.title ? story.title : @storiable.display_name %>" data-user="<%= strip_domain_from_username(story.user) %>"
                   <% story.user_photos.each_with_index do |photo, index| %>
                   data-image-<%= index %>="<%= photo.path_url(:medium) %>"
                   <% end %>
@@ -35,12 +36,13 @@
   <% else %>
     <div class="col-sm-12 col-md-6 ">
       <div class="br_story">
+        <span class="story-like-icon"><%= raw like_icon(story) %></span>
         <h3><%= story.title %></h3>
         <p>
           <%= story.content %>
         </p>
         <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                  data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>">
+                  data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= strip_domain_from_username(story.user) %>">
         <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
       </div>
     </div>
@@ -60,12 +62,13 @@
           }
         </style>
         <div class="br_story bg" id="story-<%= index %>">
+                  <span class="story-like-icon"><%= raw like_icon(story) %></span>
                   <h3><%= story.title %></h3>
                   <p>
                       <%= story.content[0..280] if story.content %><%= "..." if story.content && story.content.length > 280 %>
                   </p>
                   <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                    data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>"
+                    data-title="<%= story.title ? story.title : @place.display_name %>" data-user="<%= strip_domain_from_username(story.user) %>"
                     <% story.user_photos.each_with_index do |photo, index| %>
                     data-image-<%= index %>="<%= photo.path_url(:medium) %>"
                     <% end %>
@@ -76,12 +79,13 @@
     <% else %>
       <div class="col-sm-12 col-md-6 ">
         <div class="br_story">
+          <span class="story-like-icon"><%= raw like_icon(story) %></span>
           <h3><%= story.title %></h3>
           <p>
             <%= story.content %>
           </p>
           <a href="#" data-toggle="modal" data-target="#userStory" data-content="<%= story.content %>"
-                    data-title="<%= story.title ? story.title : @storiable.display_name %>" data-user="<%= story.user.email.match(/^(.*?)@/)[1] %>">
+                    data-title="<%= story.title ? story.title : @storiable.display_name %>" data-user="<%= strip_domain_from_username(story.user) %>">
           <img src="<%= asset_path('Badge.png') %>" class="img-responsive">
         </div>
       </div>

@@ -22,6 +22,8 @@ gem 'iconv'
 # Bootsy WYSIWYG Editor
 gem 'bootsy'
 
+gem 'rest_in_place'
+
 gem 'jquery-fileupload-rails'
 
 # 12 Factor Gem for Heroku Deploy
@@ -37,6 +39,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-instagram'
+
+gem 'instagram'
+gem "lazyload-rails"
 
 gem 'geocoder'
 
