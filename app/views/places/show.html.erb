@@ -2,11 +2,12 @@
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
   <style>
     .br_place_page {
-      background: url(<%= raw draw_hero_background(@place) %>) no-repeat;
+      background: url(<%= raw draw_hero_background(@place) %>) center center no-repeat;
 /*      background-size: 100% 700px;*/
-      background-size: 100% 700px !important;
-      border:solid 1px #000;
+      background-size: cover !important;
+     
     }
+     .homepage { background-color: #eaeaea !important;};
    
   </style>
   <div class="area-content br_place_page" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>" sty>
@@ -121,7 +122,7 @@
           </div>
         </div>
         <div class="container-fluid br_container">
-          <div class="row">
+          <div class="row" >
             <div class="container">
               <div class="row">
                 <div class="col-md-12">
@@ -397,7 +398,9 @@
               </div>
               <% if !@place.fun_facts.blank? %>
                 <a name="fun-facts"></a>
+              <div class="row  br_place_or_story">
                 <%= render 'fun_facts/all_fun_facts' %>
+              </div>
               <% end %>
               <a name="reviews"></a>
               <div class="row br_reviews">
@@ -703,3 +706,25 @@
     </div>
 </div>
 <% end %>
+
+ <script type="text/javascript">
+jQuery(window).resize(function() {
+var width = jQuery(document).width();	
+if(width < 650){			
+$('.br_place_page').keepRatio({ ratio: 10/12, calculate: 'height' });
+}
+else{
+$('.br_place_page').keepRatio({ ratio: 20/12, calculate: 'height' });
+}
+});			
+jQuery(window).ready(function() {
+var width = jQuery(document).width();	
+if(width < 650){			
+$('.br_place_page').keepRatio({ ratio: 10/12, calculate: 'height' });
+}
+else{
+$('.br_place_page').keepRatio({ ratio: 20/12, calculate: 'height' });
+}
+});		
+
+</script>

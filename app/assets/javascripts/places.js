@@ -288,16 +288,23 @@ $(document).ready(function(){
       $('#shareModal').modal('show');
     });
     
-    $(".funfact").owlCarousel({
-      autoPlay: 2000, //Set AutoPlay to 3 seconds
+    var funfact_owl=$(".funfact").owlCarousel({
+      autoPlay: 3000, //Set AutoPlay to 3 seconds
       items: 1,
+       slideSpeed : 500,
       itemsDesktop: [1199, 1],
       itemsDesktopSmall: [979, 1],
       itemsTablet: [767, 1],
       itemsTabletSmall:[420,1],
       itemsMobile: [320, 1],
       stopOnHover:true,
-      pagination:false
+      pagination:false,
   });
 
+  $(".owl_next_funfact").click(function(){
+      funfact_owl.trigger('owl.next');
+    });
+    $(".owl_prev_funfact").click(function(){
+      funfact_owl.trigger('owl.prev');
+    });
 });

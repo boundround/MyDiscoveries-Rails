@@ -744,6 +744,8 @@
   font-family: 'Signika', sans-serif;
   padding: 20px 0px 0px;
   color: #24201f;
+  background-color: #eaeaea !important;
+  background-position:top center;
 }
 a,button,button:focus,button:active{
   outline: none !important;
@@ -1670,7 +1672,7 @@ a,button,button:focus,button:active{
     vertical-align: middle;
 }
 
- #fun-fact-2, #fun-fact-0{  background-size:cover;   }
+
 
 /*****************************************Modals**********************/
 .br_add_pic, #story {
@@ -3189,4 +3191,9 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
 /*Override bootstrap _modals.scss, get rid of margin to get rid of scroll bar on galley*/
 .modal-dialog {
     margin: 0px;
+}
+
+.br-body {
+    background-color: #eaeaea !important;
+    height: auto !important;
 }
