@@ -287,5 +287,24 @@ $(document).ready(function(){
     $('.share-this').on('click', function(){
       $('#shareModal').modal('show');
     });
+    
+    var funfact_owl=$(".funfact").owlCarousel({
+      autoPlay: 3000, //Set AutoPlay to 3 seconds
+      items: 1,
+       slideSpeed : 500,
+      itemsDesktop: [1199, 1],
+      itemsDesktopSmall: [979, 1],
+      itemsTablet: [767, 1],
+      itemsTabletSmall:[420,1],
+      itemsMobile: [320, 1],
+      stopOnHover:true,
+      pagination:false,
+  });
 
+  $(".owl_next_funfact").click(function(){
+      funfact_owl.trigger('owl.next');
+    });
+    $(".owl_prev_funfact").click(function(){
+      funfact_owl.trigger('owl.prev');
+    });
 });

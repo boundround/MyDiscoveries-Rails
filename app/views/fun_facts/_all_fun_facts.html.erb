@@ -1,77 +1,233 @@
 <div class="row">
-  <div class="col-md-12">
+<div class="col-md-12 text-center">
+  <h2>
+    <br>
+    Fun Facts
+  </h2>
+</div>
+<div class="col-md-12">
+    <style>
+      .br_fun_fact {
+        margin: 0px 40px 0px 40px !important;
+      }
+      
+      .br_fun_fact p {
+        padding: 0 4% !important;
+      }
+      
+      .br_fun_fact-mob p {
+        padding: 0 2% !important;
+      }
+      
+      .br_fun_fact-mob  {
+        margin: 0px 40px 0px 40px !important;
+/*        margin: 40px 10px 0 !important;*/
+      }
+
+      .br_fun_fact-mob > .br_fun_fact {
+        margin: 0px !important;
+/*        margin: 40px 10px 0 !important;*/
+      }
+      
+      .fa.fa-chevron-left.owl_prev_funfact,
+      .fa.fa-chevron-left.owl_prev.visible-xs {
+        left: 5px;
+        position: absolute;
+        cursor: pointer;
+        top: 50%;
+        color: #fc7e56;
+        font-size: 25px;
+      }
+      
+      .fa.fa-chevron-right.owl_next_funfact,
+      .fa.fa-chevron-right.owl_next.visible-xs {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        cursor: pointer;
+        z-index: 999;
+        color: #fc7e56;
+        font-size: 25px;
+      }
+      
+      .fa.fa-chevron-right.owl_next.visible-xs {
+        right: 5px;
+      }
+      
+      .fa.fa-chevron-left.owl_prev.visible-xs {
+        left: 5px;
+      }
+    </style>
     <% if @place %>
       <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
         <style>
-          #fun-fact-<%= index %> {
+          #fun-fact-<%=index %> {
             background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @place.country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
+            background-size: cover;
+            min-height: 210px;
           }
         </style>
-        <div class="br_fun_fact hidden-xs hidden-sm">
-          <div class="row">
-            <div class="col-sm-3 col-md-3 col-lg-2">
-              <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" class="fun-fact-image">
-            </div>
-            <div class="col-sm-9 col-md-9 col-lg-10">
-              <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
-              <h2>Now here’s a fun fact!</h2>
-              <p>
-                <%= raw fun_fact.content %>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 visible-xs visible-sm">
-          <div class="row">
-            <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
-              <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
-                <h2>Now here’s a fun fact!</h2>
-                <p>
-                  <%= raw fun_fact.content %>
-                </p>
-                <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+      <%end%>
+      <div class="slider">
+        <div class="funfact">
+          <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
+            <div class="br_fun_fact hidden-xs">
+              <div class="row">
+                <div class="col-sm-4 col-md-3 col-lg-2">
+                  <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" class="fun-fact-image">
+                </div>
+                <div class="col-sm-8 col-md-9 col-lg-10">
+                  <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+                  <!--h2>Now here’s a fun fact!</h2-->
+                  <h2> </h2>
+                  <p>
+                    <%=raw fun_fact.content %>
+                  </p>
+                </div>
               </div>
-              <div class="clearfix"></div>
             </div>
-          </div>
+            <% end %>
         </div>
-      <% end %>
-    <% else %>
-      <% @area.fun_facts.active.each_with_index do |fun_fact, index| %>
-        <style>
-          #fun-fact-<%= index %> {
-            background: transparent url(<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@area)) %>) no-repeat scroll 0% 0%;
-          }
-        </style>
-        <div class="br_fun_fact hidden-xs hidden-sm">
-          <div class="row">
-            <div class="col-sm-3 col-md-3 col-lg-2">
-              <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@area)) %>" class="fun-fact-image">
-            </div>
-            <div class="col-sm-9 col-md-9 col-lg-10">
-              <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
-              <h2>Now here’s a fun fact!</h2>
-              <p>
-                <%= raw fun_fact.content %>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 visible-xs visible-sm">
-          <div class="row">
-            <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
-              <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
-                <h2>Now here’s a fun fact!</h2>
-                <p>
-                  <%= raw fun_fact.content %>
-                </p>
-                <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+        <span class="fa fa-chevron-left owl_prev_funfact hidden-xs "></span>
+        <span class="fa fa-chevron-right owl_next_funfact hidden-xs "></span>
+      </div>
+
+      <div class="slider">
+        <div class="funfact">
+          <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
+            <div class="col-md-12 visible-xs">
+              <div class="row">
+                <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
+                  <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
+                    <!--h2>Now here’s a fun fact!</h2-->
+                  <h2> </h2>
+                    <p>
+                      <%=raw fun_fact.content %>
+                    </p>
+                    <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
               </div>
-              <div class="clearfix"></div>
             </div>
-          </div>
+            <% end %>
         </div>
-      <% end %>
-    <% end %>
+        <span class="fa fa-chevron-left owl_prev owl_prev_funfact visible-xs "></span>
+        <span class="fa fa-chevron-right owl_next owl_next_funfact visible-xs "></span>
+      </div>
+      <% elsif @country%>
+        <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
+            <style>
+              #fun-fact-<%= index %> {
+                background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
+                 background-size: cover;
+            min-height: 280px;
+              }
+            </style>
+        <%end%>
+        <div class="slider">
+          <div class="funfact">
+            <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
+              <div class="br_fun_fact hidden-xs hidden-sm">
+                <div class="row">
+                  <div class="col-sm-4 col-md-4 col-lg-3">
+                    <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>" class="fun-fact-image">
+                  </div>
+                  <div class="col-sm-8 col-md-8 col-lg-9">
+                    <!-- <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+                    <!--h2>Now here’s a fun fact!</h2-->
+                  <h2> </h2>
+                    <p>
+                      <%= raw fun_fact.content %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            <%end%>
+          </div>
+          <span class="fa fa-chevron-left owl_prev_funfact hidden-xs hidden-sm"></span>
+          <span class="fa fa-chevron-right owl_next_funfact hidden-xs hidden-sm"></span>
+        </div>
+        <div class="slider">
+          <div class="funfact">
+            <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
+              <div class="col-md-12 visible-xs visible-sm">
+                <div class="row">
+                  <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
+                    <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
+                      <!--h2>Now here’s a fun fact!</h2-->
+                  <h2> </h2>
+                      <p>
+                        <%= raw fun_fact.content %>
+                      </p>
+                      <!-- <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <span class="fa fa-chevron-left owl_prev_funfact visible-xs visible-sm"></span>
+          <span class="fa fa-chevron-right owl_next owl_next_funfact visible-xs visible-sm"></span>
+        </div>
+      <% else %>
+        <% @area.fun_facts.active.each_with_index do |fun_fact, index| %>
+          <style>
+              #fun-fact-<%=index %> {
+                background: transparent url(<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@area)) %>) no-repeat scroll 0% 0%;
+                background-size: cover;
+                min-height: 210px;
+              }
+          </style>
+        <%end%>
+        <div class="slider">
+          <div class="funfact">
+            <% @area.fun_facts.active.each_with_index do |fun_fact, index| %>
+              <div class="br_fun_fact hidden-xs">
+                <div class="row">
+                  <div class="col-sm-4 col-md-3 col-lg-2">
+                    <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@area)) %>" class="fun-fact-image">
+                  </div>
+                  <div class="col-sm-8 col-md-9 col-lg-10">
+                    <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+                    <!--h2>Now here’s a fun fact!</h2-->
+                  <h2> </h2>
+                    <p>
+                      <%=r aw fun_fact.content %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+          </div>
+          <span class="fa fa-chevron-left owl_prev hidden-xs"></span>
+          <span class="fa fa-chevron-right owl_next hidden-xs"></span>
+        </div>
+
+        <div class="slider">
+          <div class="funfact">
+            <% @area.fun_facts.active.each_with_index do |fun_fact, index| %>
+              <div class="col-md-12 visible-xs">
+                <div class="row">
+                  <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
+                    <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
+                      <!--h2>Now here’s a fun fact!</h2-->
+                  <h2> </h2>
+                      <p>
+                        <%=raw fun_fact.content %>
+                      </p>
+                      <!-- <a href="#fun-facts" class="share-this"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+          </div>
+          <span class="fa fa-chevron-left owl_prev_funfact visible-xs"></span>
+          <span class="fa fa-chevron-right owl_next owl_next_funfact visible-xs"></span>
+        </div>
+        <% end %>
   </div>
 </div>

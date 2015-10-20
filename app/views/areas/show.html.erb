@@ -2,7 +2,7 @@
 <style>
   .br_place_page {
     background: url(<%= (@hero_photo.path_url(:large) if @hero_photo) || @area.photos.first.path_url(:large) %>) no-repeat;
-    background-size: 100% 700px;
+    background-size: 100% 700px !important;
   }
 </style>
 <div class="area-content br_place_page">
@@ -423,3 +423,4 @@
 <% if current_user.try(:admin?) %>
   <p><%= link_to 'Edit Place', edit_place_path %></p>
 <% end %>
+

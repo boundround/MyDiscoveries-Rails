@@ -1,7 +1,7 @@
 var slider;
 
 $(function() {
-  $("#main-carousel").owlCarousel({
+  owl=$("#main-carousel").owlCarousel({
     autoPlay: 2000, //Set AutoPlay to 3 seconds
     items: 3,
     itemsDesktop: [1199, 3],
@@ -12,10 +12,18 @@ $(function() {
     stopOnHover:true,
     pagination:false
 });
+
+  $(".next").click(function(){
+    owl.trigger('owl.next');
+  })
+  $(".prev").click(function(){
+    owl.trigger('owl.prev');
+  })
+  
 slider= $('.bxslider').bxSlider({
   auto:true,
   pager: false,
-  controls:false
+  controls:true
 });
 $('#slider-prev').click(function(e){
         e.preventDefault();

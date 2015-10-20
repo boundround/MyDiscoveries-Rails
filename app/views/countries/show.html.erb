@@ -1,165 +1,135 @@
 <style>
-    .br_lightbox {
-        background: url(<%= @country.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat;
-        padding: 20px 20px;
-        color: #fff;
-        background-position: center !important;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        background-size: cover !important;
-    }
-
+.br_lightbox {
+   background: url(<%= @country.hero_photo.url || asset_path('flags/style="font-size:21px; font-weight:300;"' + @country.country_code.downcase + '.png') %>) no-repeat; padding: 20px 0 0 0; color: #fff; background-position: center center !important; background-size:cover !important; }
+  .slider .fa.fa-chevron-right.prev { color: #fc7e56; cursor: pointer; font-size: 25px; right: -25px; position: absolute; top: 50%; }
+  .br_sidebar { border-radius: 0 20px 0 0; }
+  .slider .fa.fa-chevron-left.next { color: #fc7e56; cursor: pointer; font-size: 25px; position: absolute; left: -25px; top: 50%; z-index: 999; }
+  
+  #country-population {font-size:21px; font-weight:300;}
+  #country-name-heading {
+    font-size: 78px;
+    font-weight: 300;
+    line-height: 28px;
+    margin-top: 60px;
+    text-shadow: 1px 1px grey;
+  }
 </style>
 
 <div id='country-data' data-country-code=<%= @country.country_code %> data-capital-city=<%= @country.capital_city %>></div>
-<div class="col-xs-12 visible-xs">
-      <%= render 'layouts/mobile_nav' %>
-    </div>
-    <div class="col-xs-12 col-md-12 text-right">
-      <%= render 'layouts/profile_dropdown' %>
-    </div>
 <div>
-<div class="twenty-pix-top"></div>
-  <div class="container br_country">
-    <div class="br_lightbox row">
-      <div class="col-md-12 ">
-        <p class="br_time">
-          <img class="country-flag" src="<%= asset_path('flags/' + @country.country_code.downcase + '.png') %>"/>
-          <span class="hidden-xs">
-            <% if @weather %>
-            <span class="temperature">
-              <% if @weather_temp %>
-                <%= @weather_temp %>&deg;
-              <% end %>
-            </span>&nbsp;
-            <span class="weather-description">
-              <% if @weather_description %>
-                <%= @weather_description %> in <%= @country.capital_city %>
-              <% end %>
-            </span>
-            <% end %>
-          </span>
-        </p>
-      </div>
-      <div class="clearfix"></div>
-      <div class="col-md-12">
-        <div class="col-xs-12">
-          <a href="<%= root_path %>">
-            <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
-          </a>
+  <div class="br_lightbox">
+    <div class="col-md-6 col-xs-12">
+      <p class="br_time"> <img class="country-flag" src="<%= asset_path('flags/' + @country.country_code.downcase + '.png') %>"/> <span class="hidden-xs">
+        <% if @weather %>
+        <span class="temperature">
+        <% if @weather_temp %>
+        <%= @weather_temp %>&deg;
+        <% end %>
+        </span>&nbsp; <span class="weather-description">
+        <% if @weather_description %>
+        <%= @weather_description %> in <%= @country.capital_city %>
+        <% end %>
+        </span>
+        <% end %>
+        </span> </p>
+    </div>
+    <div class="col-xs-12 col-sm-6 text-right pull-right"> <%= render 'layouts/profile_dropdown' %> </div>
+    <div class="col-xs-12 visible-xs"> <%= render 'layouts/mobile_nav' %> </div>
+    
+    <div class="container">
+      <div class="row">
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+          <div class="col-xs-12"> <a href="<%= root_path %>"> <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" > </a> </div>
+          <%= render 'layouts/search_input'%>
+          <p>&nbsp;</p>
+          <h1 class="text-center" id="country-name-heading"> <%= @country.display_name %><br/>
+            <span id="country-population">Population: </span> </h1>
         </div>
-        <%= render 'layouts/search_input'%>
-        <p>&nbsp;</p>
-        <h1 class="text-center">
-          <%= @country.display_name %><br/>
-          <span id="country-population">Population: </span>
-        </h1>
-      </div>
-      <div class="col-md-12 text-center br-country-social">
-        <span class="hero-hearts text-center">
-          <i class="fa fa-share-square-o fa-lg"></i>&nbsp;&nbsp;&nbsp;
-          <a href="#"
+        <div class="col-md-12 text-center br-country-social"> <span class="hero-hearts text-center"> <i class="fa fa-share-square-o fa-lg"></i>&nbsp;&nbsp;&nbsp; <a href="#"
             onclick="
             window.open(
               'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
               'facebook-share-dialog',
               'width=626,height=436');
-              return false;">
-            <i class="fa fa-facebook-square fa-lg"></i>
-          </a>&nbsp;&nbsp;&nbsp;
-          <a href=""
+              return false;"> <i class="fa fa-facebook-square fa-lg"></i> </a>&nbsp;&nbsp;&nbsp; <a href=""
               onclick="
             window.open(
               'https://twitter.com/intent/tweet?text=<%= request.original_url %>%20%23seeitmyway',
               'twitter-hashtag-button',
               'width=626,height=436');
-              return false;">
-          <i class="fa fa-twitter-square fa-lg"></i></a>
-        </span>
-      </div>
-      <div class="br_time text-center">
-        <span class="visible-xs">
+              return false;"> <i class="fa fa-twitter-square fa-lg"></i></a> </span> </div>
+        <div class="br_time text-center"> <span class="visible-xs">
           <% if @weather %>
-            <i class="fa fa-clock-o"></i>&nbsp;
-            <span class="time">
-              <%= @weather_time %> GMT
-            </span>-
-            <span class="temperature">
-              <%= @weather_temp %>&deg;
-            </span>-
-            <span class="weather-description">
-              <%= @weather_description %><br>in <%= @country.capital_city %>
-            </span>
-            <% end %>
-        </span>
-      </div>
-      <div class="col-md-12 br_links hidden-xs text-center">
-        <a href="#info">Info</a>
-        <a href="#famous-faces">Famous Faces</a>
-        <a href="#fun-facts">Fun Facts</a><!--
+          <i class="fa fa-clock-o"></i>&nbsp; <span class="time"> <%= @weather_time %> GMT </span>- <span class="temperature"> <%= @weather_temp %>&deg; </span>- <span class="weather-description"> <%= @weather_description %><br>
+          in <%= @country.capital_city %> </span>
+          <% end %>
+          </span> </div>
+        <div class="col-md-12 br_links hidden-xs text-center br_container">
+          <ul class="list-unstyled text-center hidden-xs br_top_links">
+            <li><a href="#info">Info</a></li>
+            <li><a href="#famous-faces">Famous Faces</a></li>
+            <li><a href="#fun-facts">Fun Facts</a></li>
+            <!--
         <a href="#">Currency Convert</a>
         <a href="#">Key Phrases</a>
         <a href="#">Billboard top 5</a> -->
+          </ul>
+        </div>
+        <div class="col-md-12 visible-xs text-center br_mob_links"> <a href="#">See <%= @country.display_name %> info-bites &nbsp;<i class="fa fa-angle-right"></i> </a> <a href="#" class="hidden-xs"><i class="fa fa-angle-left"></i>Back to <%= @country.display_name %> </a> </div>
       </div>
-      <div class="col-md-12 visible-xs text-center br_mob_links">
-        <a href="#">See <%= @country.display_name %> info-bites &nbsp;<i class="fa fa-angle-right"></i> </a>
-        <a href="#" class="hidden-xs"><i class="fa fa-angle-left"></i>Back to <%= @country.display_name %> </a>
-      </div>
-    </div>
-    <a name="info"></a>
-    <div class="row">
-      <div class="col-sm-8 col-md-9 br_main_content">
-        <div class="col-md-12 br_intro">
-          <h2><%= @country.display_name %></h2>
-          <p>
-            <%= @country.description %>
-          </p>
-          <div class="clearfix"></div>
-          <div class="owl-carousel" id="main-carousel">
-            <% @videos_photos.each_with_index do |asset, index| %>
-              <% if asset.class.to_s == "Video" %>
+      <a name="info"></a> </div>
+    <div class="container br_country">
+      <div class="row">
+        <div class="col-sm-8 col-md-9 br_main_content">
+          <div class="col-md-12 br_intro">
+            <h2><%= @country.display_name %></h2>
+            <p> <%= @country.description %> </p>
+            <div class="clearfix"></div>
+            <div class="slider">
+              <div class="owl-carousel" id="main-carousel">
+                <% @videos_photos.each_with_index do |asset, index| %>
+                <% if asset.class.to_s == "Video" %>
                 <div>
-                  <iframe class="carousel-item carousel-video" id="player<%= index + 5%>" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player<%= index + 5%>" width="273" frameborder="2" data-title="<%= asset.title %>" data-description="<%= asset.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
-                  </iframe>
+                  <iframe class="carousel-item carousel-video" id="player<%= index + 5%>" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player<%= index + 5%>" width="273" frameborder="2" data-title="<%= asset.title %>" data-description="<%= asset.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
                   <div class="overlay carousel-country-photo" data-slide-number="<%= index %>"></div>
                 </div>
-              <% elsif asset.class.to_s == "Photo" %>
-                <div class="carousel-item">
-                    <img src="<%= asset.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>">
-                </div>
-              <% end %>
-            <% end %>
+                <% elsif asset.class.to_s == "Photo" %>
+                <div class="carousel-item"> <img src="<%= asset.path_url(:medium)%>" class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>"> </div>
+                <% end %>
+                <% end %>
+              </div>
+              <span class="fa fa-chevron-left next hidden-xs hidden-sm"></span><span class="fa fa-chevron-right prev hidden-xs hidden-sm"></span> </div>
           </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="col-md-12 ">
-          <% @country.info_bits.active.each_with_index do |info_bit, index| %>
+          <div class="clearfix"></div>
+          <div class="col-md-12 ">
+            <% @country.info_bits.active.each_with_index do |info_bit, index| %>
             <div class="br_native">
               <style>
                 #info-bit-<%= index %> {
                   background: url(<%= info_bit.photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat;
                 }
               </style>
-            <div class="br_tittle" id="info-bit-<%= index %>">
-              <!-- <a href="#"><i class="fa fa-share-square-o"></i>
+              <div class="br_tittle" id="info-bit-<%= index %>"> 
+                <!-- <a href="#"><i class="fa fa-share-square-o"></i>
                  &nbsp;
                  Share
                </a> -->
-               <h2 class="text-center hidden-xs"><%= info_bit.title %></h2>
-               <h2 class="text-center visible-xs"><%= info_bit.title %></h2>
-             </div>
-             <div class="br_desc">
-                <p>
-                  <%= info_bit.description %>
-                </p>
+                <h2 class="text-center hidden-xs"><%= info_bit.title %></h2>
+                <h2 class="text-center visible-xs"><%= info_bit.title %></h2>
+              </div>
+              <div class="br_desc">
+                <p> <%= info_bit.description %> </p>
               </div>
             </div>
-          <% end %>
-        </div>
-        <div class="clearfix"></div>
-        <a name="fun-facts"></a>
-        <div class="col-md-12">
-          <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
+            <% end %>
+          </div>
+          <div class="clearfix"></div>
+          <a name="fun-facts"></a>
+          <div class="col-md-12"> <%= render 'fun_facts/all_fun_facts' %>
+            <%
+=begin%>
+            <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
             <style>
               #fun-fact-<%= index %> {
                 background: transparent url(<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat scroll 0% 0%;
@@ -167,15 +137,11 @@
             </style>
             <div class="br_fun_fact hidden-xs hidden-sm">
               <div class="row">
-                <div class="col-sm-3 col-md-3 col-lg-2">
-                  <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>" class="fun-fact-image">
-                </div>
-                <div class="col-sm-9 col-md-9 col-lg-10">
+                <div class="col-sm-3 col-md-3 col-lg-2"> <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>" class="fun-fact-image"> </div>
+                <div class="col-sm-9 col-md-9 col-lg-10"> 
                   <!-- <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
                   <h2>Now here’s a fun fact!</h2>
-                  <p>
-                    <%= raw fun_fact.content %>
-                  </p>
+                  <p> <%= raw fun_fact.content %> </p>
                 </div>
               </div>
             </div>
@@ -184,20 +150,20 @@
                 <div class="br_fun_fact-mob" id="fun-fact-<%= index %>">
                   <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
                     <h2>Now here’s a fun fact!</h2>
-                    <p>
-                      <%= raw fun_fact.content %>
-                    </p>
-                    <!-- <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
+                    <p> <%= raw fun_fact.content %> </p>
+                    <!-- <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> --> 
                   </div>
                   <div class="clearfix"></div>
                 </div>
               </div>
             </div>
-          <% end %>
-          <div class="clearfix"></div>
-          <div class="col-md-12">
-            <div class="row">
-              <!-- <div class="br_story">
+            <% end %>
+            <%
+=end%>
+            <div class="clearfix"></div>
+            <div class="col-md-12">
+              <div class="row"> 
+                <!-- <div class="br_story">
                 <img src="<%= asset_path('img/img/story.jpg')%>" class="img-resposive"/>
                   <div class="br_story_desc">
                     <h2>Train rides across Brisbane!</h2>
@@ -206,37 +172,32 @@
                     </p>
                     <a href="#" class="btn btn-default">Read story</a>
                   </div>
-                </div> -->
+                </div> --> 
               </div>
             </div>
-          <div class="clearfix"></div>
-          <a name="famous-faces"></a>
-          <div class="row">
-            <% if !@country.famous_faces.blank? %>
-              <div class="col-md-12 br_famous">
+            <div class="clearfix"></div>
+            <a name="famous-faces"></a>
+            <div class="row">
+              <% if !@country.famous_faces.blank? %>
+              <div class="col-md-12 br_famous"> 
                 <!-- <a href="#" class="hidden-xs"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
                 <h2>Famous faces from <%= @country.display_name %>!</h2>
-                <p>
-                  From legendary musicians and award winning actors to sporting superstars and history's most influential personalities, see where these famous faces got their start.
-                </p>
+                <p> From legendary musicians and award winning actors to sporting superstars and history's most influential personalities, see where these famous faces got their start. </p>
                 <div class="clearfix"></div>
                 <div class="owl-carousel" id="famous-carousel">
                   <% @country.famous_faces.active.each do |famous_face| %>
-                    <div>
-                      <img src="<%= famous_face.photo.url || asset_path('generic-grey.jpg') %>" class="img-responsive" / >
-                      <p>
-                        <strong><%= famous_face.name %></strong><br/>
-                        <%= famous_face.description %>
-                      </p>
-                    </div>
+                  <div> <img src="<%= famous_face.photo.url || asset_path('generic-grey.jpg') %>" class="img-responsive" / >
+                    <p> <strong><%= famous_face.name %></strong><br/>
+                      <%= famous_face.description %> </p>
+                  </div>
                   <% end %>
                 </div>
               </div>
-            <% end %>
+              <% end %>
+            </div>
           </div>
-        </div>
-        <div class="clearfix"></div>
-        <!-- <div class="row br_featured_place ">
+          <div class="clearfix"></div>
+          <!-- <div class="row br_featured_place ">
           <div class="col-md-12 br_place_bg">
             <div class="col-xs-5 text-left">
               <img src="<%= asset_path('img/img/logo.png')%>" class="img-responsive">
@@ -250,69 +211,64 @@
               </h2>
             </div>
           </div>
-        </div> -->
-      </div> <!-- End Main Content -->
-      <div class="col-sm-4 col-md-3 hidden-xs br_sidebar">
-        <div class="col-sm-12">
-          <div class="br_infobox">
-            <h3 class="text-center">Did you know?</h3>
-            <div class="br_info">
-              <div class="br_line">
-                <div class="col-xs-6 br_left">Language(s):</div>
-                <div class="col-xs-6"><span id="language"><%= @country.official_language %></span></div>
-                <div class="clearfix"></div>
-                <div class="hr col-xs-12">
-                  <hr/>
+        </div> --> 
+        </div>
+        <!-- End Main Content -->
+        <div class="col-sm-4 col-md-3 hidden-xs br_sidebar">
+          <div class="col-sm-12">
+            <div class="br_infobox">
+              <h3 class="text-center">Did you know?</h3>
+              <div class="br_info">
+                <div class="br_line">
+                  <div class="col-xs-6 br_left">Language(s):</div>
+                  <div class="col-xs-6"><span id="language"><%= @country.official_language %></span></div>
+                  <div class="clearfix"></div>
+                  <div class="hr col-xs-12">
+                    <hr/>
+                  </div>
                 </div>
-              </div>
-            <div class="clearfix"></div>
-            <div class="br_line">
-              <div class="col-xs-6 br_left">Capital City:
-              </div>
-              <div class="col-xs-6"><%= @country.capital_city %>
-              </div>
-              <div class="clearfix"></div>
-              <div class="col-xs-12 br_left br_pad br_light">
-                  <% if area = Area.find_by(display_name: @country.capital_city) %>
+                <div class="clearfix"></div>
+                <div class="br_line">
+                  <div class="col-xs-6 br_left">Capital City: </div>
+                  <div class="col-xs-6"><%= @country.capital_city %> </div>
+                  <div class="clearfix"></div>
+                  <div class="col-xs-12 br_left br_pad br_light">
+                    <% if area = Area.find_by(display_name: @country.capital_city) %>
                     <% if area.description && area.description.length < 85 %>
-                      <%= area.description %><br>
+                    <%= area.description %><br>
                     <% elsif area.description %>
-                      <%= area.description[0..80] %>...<br>
+                    <%= area.description[0..80] %>...<br>
                     <% else %>
-                      <%= @country.capital_city_description if @country.capital_city_description %>
+                    <%= @country.capital_city_description if @country.capital_city_description %>
                     <% end %>
                     <a href="<%= area_path(area)%>">Visit on Bound Round</a>
-                  <% end %>
-              </div>
-              <div class="hr col-xs-12">
-                  <hr/>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="br_line">
-                <div class="col-xs-6 br_left">Tallest Mountain:
+                    <% end %>
+                  </div>
+                  <div class="hr col-xs-12">
+                    <hr/>
+                  </div>
+                  <div class="clearfix"></div>
                 </div>
-                <div class="col-xs-6"><%= @country.tallest_mountain %>
+                <div class="br_line">
+                  <div class="col-xs-6 br_left">Tallest Mountain: </div>
+                  <div class="col-xs-6"><%= @country.tallest_mountain %> </div>
+                  <div class="clearfix"></div>
+                  <div class="hr col-xs-12">
+                    <hr/>
+                  </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="hr col-xs-12">
-                    <hr/>
+                <div class="br_line">
+                  <div class="col-xs-6 br_left">Longest River: </div>
+                  <div class="col-xs-6"><%= @country.longest_river %> </div>
+                  <div class="clearfix"></div>
                 </div>
+              </div>
             </div>
             <div class="clearfix"></div>
-            <div class="br_line">
-                <div class="col-xs-6 br_left">Longest River:
-                </div>
-                <div class="col-xs-6"><%= @country.longest_river %>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-          </div>
-        </div>
-      <div class="clearfix"></div>
-        <div class="col-xs-12">
-          <div class="row">
-            <!-- <div class="br_currency">
+            <div class="col-xs-12">
+              <div class="row"> 
+                <!-- <div class="br_currency">
               <h3 class="text-center">Currency</h3>
               <div class="br_select">
                   <select class="selectpicker">
@@ -351,13 +307,13 @@
                     </li>
                   </ul>
                 </div>
-              </div> -->
+              </div> --> 
+              </div>
             </div>
-          </div>
-          <div class="clearfix"></div>
-          <div class="col-xs-12">
-          <div class="row">
-            <!-- <div class="br_Key_Phrases">
+            <div class="clearfix"></div>
+            <div class="col-xs-12">
+              <div class="row"> 
+                <!-- <div class="br_Key_Phrases">
               <h3>
                 <i class="fa fa-volume-up"></i><br/>Key Phrases
               </h3>
@@ -430,12 +386,12 @@
                     </div>
                   </div>
                 </div>
-              </div> -->
+              </div> --> 
+              </div>
             </div>
-          </div>
-          <div class="clearfix"></div>
-          <div class="col-xs-12">
-            <!-- <div class="row">
+            <div class="clearfix"></div>
+            <div class="col-xs-12"> 
+              <!-- <div class="row">
               <div class="br_Key_Phrases br_top_songs">
                 <h3>
                   <i class="glyphicon glyphicon-cd"></i><br/>Billboard Top 5
@@ -468,7 +424,7 @@
                     </li>
                   </ol>
                 </div>
-              </div> -->
+              </div> --> 
             </div>
           </div>
           <div class="clearfix"></div>
@@ -476,18 +432,41 @@
       </div>
     </div>
   </div>
+</div>
+<div class="modal fade" id="carousel-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="owl-carousel" id="modal-carousel"> </div>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+  </div>
+  <!-- /.modal-dialog --> 
+</div>
+<!-- /.modal --> 
 
+  <script type="text/javascript">
+jQuery(window).resize(function() {
+var width = jQuery(document).width();	
+if(width < 650){			
+$('.br_lightbox').keepRatio({ ratio: 10/16, calculate: 'height' });
+}
+else{
+$('.br_lightbox').keepRatio({ ratio: 20/12, calculate: 'height' });
+}
+});			
+jQuery(window).ready(function() {
+var width = jQuery(document).width();	
+if(width < 650){			
+$('.br_lightbox').keepRatio({ ratio: 10/16, calculate: 'height' });
+}
+else{
+$('.br_lightbox').keepRatio({ ratio: 20/12, calculate: 'height' });
+}
+});		
 
-  <div class="modal fade" id="carousel-modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
-        <div class="modal-body">
-          <div class="owl-carousel" id="modal-carousel">
-          </div>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+</script>
