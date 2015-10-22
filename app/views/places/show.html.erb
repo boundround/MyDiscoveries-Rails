@@ -244,7 +244,7 @@
                                     <% current_user.user_photos.draft.where(place_id: @place.id).each do |photo| %>
                                       <div class="carousel-item br_16">
                                         <img src="<%= photo.path_url(:medium)%>" alt='<%= photo.caption ? photo.caption : "" %>' class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
-                                        <span class="carousel-like-icon"><%= raw like_icon(photo) %></span>
+                                        <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
                                       </div>
                                       <% index += 1 %>
                                     <% end %>

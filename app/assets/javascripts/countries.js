@@ -130,11 +130,16 @@ $(document).ready(function(){
                 var newImage = $(carouselItems[index]).clone()
                 if($(carouselItems[index]).hasClass("carousel-video")){
                     newImage.removeAttr('id');
+                    var a = $(carouselItems[index]).parent().find('.overlay').find('.carousel-like-icon')[0];
+                    var b = $(a).clone();
+                    console.log(b);
                     videoID = 'big-player-' + index;
                     newImage.attr('id', videoID).addClass('carousel-big-video');
                     $("#modal-carousel").append(newImage.css("height", "400px"));
+                    newImage.wrap("<div></div>").after(b.css("top", "20px"));
                 } else {
                     $(newImage).css("height", "100%");
+                    newImage.find('.carousel-like-icon').css("right", "auto");
                     newImage.append("<div>" + newImage.find("img").data("caption")) + "</div>";
                     newImage.append("<div><a href='" + newImage.find("img").data("placeurl") + "'>Explore " + newImage.find("img").data("placename") + "</a></div>");
                     $("#modal-carousel").append(newImage);
@@ -147,10 +152,70 @@ $(document).ready(function(){
                 $(this).wrap("<div></div>");
                 $(this).parent().prepend(title).append(description);
             });
+
+            $('.like-icon').on('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            var postPath = $(this).data('postPath');
+            var postType = $(this).data('postType');
+            var data = {};
+            switch(postType){
+              case "photos_user":
+                data[postType] = {user_id: $(this).data("user"), photo_id: $(this).data("contentId")};
+                break;
+              case "user_photos_user":
+                data[postType] = {user_id: $(this).data("user"), user_photo_id: $(this).data("contentId")};
+                break;
+              case "stories_user":
+                data[postType] = {user_id: $(this).data("user"), story_id: $(this).data("contentId")};
+                break;
+              case "reviews_user":
+                data[postType] = {user_id: $(this).data("user"), review_id: $(this).data("contentId")};
+                break;
+              case "fun_facts_user":
+                data[postType] = {user_id: $(this).data("user"), fun_fact_id: $(this).data("contentId")};
+                break;
+              case "games_user":
+                data[postType] = {user_id: $(this).data("user"), game_id: $(this).data("contentId")};
+                break;
+              case "videos_user":
+                data[postType] = {user_id: $(this).data("user"), video_id: $(this).data("contentId")};
+                break;
+              case "places_user":
+                data[postType] = {user_id: $(this).data("user"), place_id: $(this).data("contentId")};
+                break;
+              case "areas_user":
+                data[postType] = {user_id: $(this).data("user"), area_id: $(this).data("contentId")};
+            }
+            console.log($(this).data('liked'));
+            if ($(this)[0].dataset.liked === 'false'){
+              $(this).find('.like-heart').removeClass('fa-heart-o').removeClass("like-heart").addClass('fa-heart').addClass('liked-heart');
+              $(this)[0].dataset.liked = 'true';
+              $.ajax({
+                type: "POST",
+                url: '/' + postPath + '/create',
+                data: data,
+                success: console.log('LIKE SAVED')
+              });
+            } else if ($(this)[0].dataset.liked === 'true') {
+                $(this).find('.liked-heart').removeClass('fa-heart').removeClass('liked-heart').addClass('fa-heart-o').addClass('like-heart');
+                $(this)[0].dataset.liked = 'false';
+                $.ajax({
+                  type: "POST",
+                  _method: 'delete',
+                  url: '/' + postPath + '/destroy',
+                  data: data,
+                  success: console.log('LIKE DELETED')
+                });
+            } else {
+              alert("You must be logged in to save favourites!");
+            }
+          });
         }
         $('#carousel-modal').modal("show");
 
         $("#modal-carousel").owlCarousel({
+            items: 1,
             autoPlay: false,
             singleItem:true,
             stopOnHover:true,
