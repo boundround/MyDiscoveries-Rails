@@ -156,12 +156,12 @@ module ApplicationHelper
 
     if user_signed_in?
       if content.users.include?(current_user)
-        return "<div class='like-icon' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='true'><i class='fa fa-heart liked-heart'></i></div>"
+        return "<a class='like-icon' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='true'><i class='fa fa-heart liked-heart'></i></a>"
       else
-        return "<div class='like-icon' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='false'><i class='fa fa-heart-o like-heart'></i></div>"
+        return "<a class='like-icon' data-post-path='#{postPath}' data-post-type='#{postType}' data-user='#{current_user.id}' data-content-id='#{content.id}' data-liked='false'><i class='fa fa-heart-o like-heart'></i></a>"
       end
     end
-      "<div class='like-icon'><i class='fa fa-heart-o like-heart'></i></div>"
+      "<a class='like-icon'><i class='fa fa-heart-o like-heart'></i></a>"
   end
 
   def sortable(column, title = nil)
