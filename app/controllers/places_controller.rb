@@ -381,11 +381,24 @@ class PlacesController < ApplicationController
   end
 
   def placeprograms #xyrin result.html
+# By ID, moving to SEO friendly 26/10/2015
+#    set_program_constants()
+#    @placeprograms = "yes"
+#    puts "Trying to find"+params[:id]
+#    @place = Place.find(params[:id])
+#    puts "Found"+params[:id]
+
     set_program_constants()
     @placeprograms = "yes"
+    
     puts "Trying to find"+params[:id]
-    @place = Place.find(params[:id])
+    if(params[:id] =~ /\A\d+\z/)
+      @place = Place.find(params[:id])
+    else
+      @place = Place.find_by_slug(params[:id])
+    end
     puts "Found"+params[:id]
+
 #    @place = Place.friendly.find(params[:id])
 #     render plain: params.inspect
   end
