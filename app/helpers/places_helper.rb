@@ -99,23 +99,43 @@ module PlacesHelper
   def get_yearlevel_range(allyears)
     @ylvec = ['F','K','1','2','3','4','5','6','7','8','9','10','11','12']
     #Sort based on year level sort order
-    first = String.new('F')
-    last = String.new('12')
+    first = String.new('')
+    last = String.new('')
+    
+    als = allyears.split(",")
+    
     @ylvec.each do |yl|
-      if allyears.include?(yl) then
-        first = yl
-        break
+      als.each do |al|
+#        puts "al = " + al + " : yl = " + yl
+        if al == yl then
+          first = yl
+          break
+        end
+      end
+      if first != '' then 
+        break 
       end
     end
 
     @ylvec.reverse_each do |yl|
-      if allyears.include?(yl) then
-        last = yl
-        break
+      als.each do |al|
+#        puts "al = " + al + " : yl = " + yl
+        if al == yl then
+          last = yl
+          break
+        end
+      end
+      if last != '' then 
+        break 
       end
     end
     
-    first+' - '+last
+    if first == last then 
+      first
+    else 
+      first+' - '+last
+    end
+  
   end
   
   def program_subjects(program)
