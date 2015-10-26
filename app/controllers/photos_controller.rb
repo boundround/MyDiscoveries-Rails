@@ -66,7 +66,7 @@ class PhotosController < ApplicationController
 
     def photo_params
       params.require(:photo).permit(:title, :path, :alt_tag, :credit, :area_id, :place_id, :caption, :caption_source,
-                                    :customer_approved, :customer_review, :approved_at, :priority, :status, :country_include, :_destroy)
+                                    :customer_approved, :customer_review, :approved_at, :priority, :hero, :status, :country_include, :_destroy)
     end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020012557) do
+ActiveRecord::Schema.define(version: 20151026010728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -292,6 +292,7 @@ ActiveRecord::Schema.define(version: 20151020012557) do
     t.boolean  "customer_review"
     t.boolean  "customer_approved"
     t.datetime "approved_at"
+    t.boolean  "hero"
   end
 
   add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
@@ -526,6 +527,7 @@ ActiveRecord::Schema.define(version: 20151020012557) do
     t.datetime "user_notified_at"
     t.string   "google_place_name"
     t.string   "instagram_id"
+    t.boolean  "hero"
   end
 
   add_index "user_photos", ["area_id"], name: "index_user_photos_on_area_id", using: :btree
@@ -626,6 +628,7 @@ ActiveRecord::Schema.define(version: 20151020012557) do
     t.datetime "approved_at"
     t.string   "title"
     t.text     "description"
+    t.boolean  "hero"
   end
 
   add_index "videos", ["area_id"], name: "index_videos_on_area_id", using: :btree

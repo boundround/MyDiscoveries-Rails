@@ -5,10 +5,10 @@
       background: url(<%= raw draw_hero_background(@place) %>) center center no-repeat;
 /*      background-size: 100% 700px;*/
       background-size: cover !important;
-     
+
     }
      .homepage { background-color: #eaeaea !important;};
-   
+
   </style>
   <div class="area-content br_place_page" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>" sty>
     <div class="container-fluid br_area ">
@@ -218,7 +218,7 @@
                                         <% end %>
                                       </div>
                                   </div>
-                                  <% @videos_photos.each_with_index do |asset, index| %>
+                                  <% @all_photos_and_videos.each_with_index do |asset, index| %>
                                     <% if asset.class.to_s == "Video" %>
                                       <div>
                                         <iframe class="carousel-item carousel-video" id="player<%= index + 5 %>" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player<%= index + 5 %>" width="273" frameborder="2" data-title="<%= asset.title %>" data-description="<%= asset.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
@@ -235,20 +235,12 @@
                                       </div>
                                     <% end %>
                                   <% end %>
-                                  <% index = @videos_photos.length %>
-                                  <% @active_user_photos.each do |photo| %>
-                                    <div class="carousel-item br_16">
-                                      <img src="<%= photo.path_url(:medium)%>" alt='<%= photo.caption ? photo.caption : "" %>' class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
-                                      <span class="carousel-like-icon"><%= raw like_icon(photo) %></span>
-                                    </div>
-                                    <% index += 1 %>
-                                  <% end %>
                                   <% if user_signed_in? %>
-                                    <% index = @videos_photos.length + @active_user_photos.length %>
+                                    <% index = @all_photos_and_videos.length + @active_user_photos.length %>
                                     <% current_user.user_photos.draft.where(place_id: @place.id).each do |photo| %>
                                       <div class="carousel-item br_16">
                                         <img src="<%= photo.path_url(:medium)%>" alt='<%= photo.caption ? photo.caption : "" %>' class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
-                                        <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
+                                        <span class="carousel-like-icon"><%= raw like_icon(photo) %></span>
                                       </div>
                                       <% index += 1 %>
                                     <% end %>
@@ -706,22 +698,22 @@
 
  <script type="text/javascript">
 jQuery(window).resize(function() {
-var width = jQuery(document).width();	
-if(width < 650){			
+var width = jQuery(document).width();
+if(width < 650){
 $('.br_place_page').keepRatio({ ratio: 10/12, calculate: 'height' });
 }
 else{
 $('.br_place_page').keepRatio({ ratio: 20/12, calculate: 'height' });
 }
-});			
+});
 jQuery(window).ready(function() {
-var width = jQuery(document).width();	
-if(width < 650){			
+var width = jQuery(document).width();
+if(width < 650){
 $('.br_place_page').keepRatio({ ratio: 10/12, calculate: 'height' });
 }
 else{
 $('.br_place_page').keepRatio({ ratio: 20/12, calculate: 'height' });
 }
-});		
+});
 
 </script>

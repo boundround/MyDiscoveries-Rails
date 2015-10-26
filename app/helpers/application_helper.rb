@@ -38,7 +38,7 @@ module ApplicationHelper
         '"https://d1w99recw67lvf.cloudfront.net/category_icons/large_generic_' + place.categories[0].identifier + '.jpg"'
       end
     else
-      place.photos.find_by(priority: 1) ? place.photos.find_by(priority: 1).path_url(:large) : place.photos.first.path_url(:large)
+      place.photos.find_by(hero: true) ? place.photos.find_by(hero: true).path_url(:large) : place.photos.reorder(:priority).first.path_url(:large)
     end
   end
 
