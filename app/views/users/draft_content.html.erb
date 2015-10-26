@@ -101,7 +101,7 @@
               <td><img src="<%= thumbnail_for(user_photo) %>" class="photo-edit-thumb"></td>
               <td><%= f.input :caption %></td>
               <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
-              <td><%= user_photo.user.username %></td>
+              <td><%= user_photo.user.username ? user_photo.user.username : user_photo.user.id %></td>
               <td><%= f.submit :submit %></td>
             </tr>
           <% end %>
