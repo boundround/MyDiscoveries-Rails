@@ -1,9 +1,29 @@
 <h1>All Users</h1>
 <% if current_user.try(:admin?) %>
-    <% @users.each do |user| %>
-        <p><%= user.email %></p>
-        <p><%= link_to 'Edit', edit_user_path(user) %> | <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></p>
-    <% end %>
+  <div class="table-container">
+    <table class="table table-striped" id="user-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.username if user.username %></td>
+            <td><%= user.email if user.email %></td>
+            <td><%= link_to 'Edit', edit_user_path(user) %></td>
+            <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
-  <h3>Please <%= link_to 'Sign In', sign_in_path %></h3>
+  <h3>Please <%= tdnk_to 'Sign In', sign_in_path %></h3>
 <% end %>

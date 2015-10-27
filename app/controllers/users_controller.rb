@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :redirect_if_not_admin, only: [:index]
 
   def index
+    @set_body_class = 'white-body'
     @users = User.all
   end
 
