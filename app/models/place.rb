@@ -86,9 +86,9 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :discounts, allow_destroy: true
   accepts_nested_attributes_for :games, allow_destroy: true
   accepts_nested_attributes_for :programs, allow_destroy: true
-  accepts_nested_attributes_for :reviews
-  accepts_nested_attributes_for :stories
-  accepts_nested_attributes_for :user_photos
+  accepts_nested_attributes_for :reviews, allow_destroy: true
+  accepts_nested_attributes_for :stories, allow_destroy: true
+  accepts_nested_attributes_for :user_photos, allow_destroy: true
 
   mount_uploader :map_icon, IconUploader
 
