@@ -1,5 +1,5 @@
-<div class="container">
-  <div style="margin-top: 50px;" class="row hidden-xs"></div>
+<div class="container loginscreen Createaccount">
+  
   <div class="row">
     <a href="<%= root_path %>">
       <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block place-logo" >
@@ -17,29 +17,32 @@
             <% end %>
             </ul>
           </div>
-        <% end %>-->
-        <%- if devise_mapping.omniauthable? %>
-          <%- resource_class.omniauth_providers.each do |provider| %>
-            <% if provider.to_s == 'instagram' %>
-            <p><a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;&nbsp;Sign In With Instagram</a></p>
-            <% end %>
-          <% end -%>
-        <% end -%>
-        <%= f.input :username, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :email, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <% end %>-->       
+        <%= f.input :username, required: true, autofocus: true, label: false, placeholder: "Username", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <%= f.input :email, required: true, autofocus: true, label: false, placeholder: "Email", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         <div class="form-inline">
           <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
                               end_year: Date.today.year,
                               order: [:day, :month, :year], required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         </div>
         <%= f.input :country, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :promo_code, label: "Promo Code (optional)", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :password, required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :password_confirmation, required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <%= f.input :password, required: true, label: false, placeholder: "Password", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <%= f.input :password_confirmation, required: true, label: false, placeholder: "Password Confirmation", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+        <%= f.input :promo_code, label: false, placeholder: "Promo Code (optional)", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
         <div class="actions">
           <%= f.submit 'Create Account', class: "btn btn-default" %>
+         <a class="cancel" href="https://boundroundweb-tbbdeveloper1-1.c9.io/">Cancel</a>
         </div>
       <% end %>
+      <div class="instra">
+       <%- if devise_mapping.omniauthable? %>
+          <%- resource_class.omniauth_providers.each do |provider| %>
+            <% if provider.to_s == 'instagram' %>
+            <p><a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;&nbsp;Sign In With Instagram</a></p>
+            <% end %>
+          <% end -%>
+        <% end -%>
+        </div>
       <div class="sign-in-footer">
         <br><p>
         We're committed to protecting your privacy.<br>

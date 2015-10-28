@@ -1,6 +1,6 @@
 @import 'bootstrap';
 @import 'bootstrap-sprockets';
-
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,700,600);
 @font-face { font-family: 'Glyphicons Halflings';
   src: url(#{asset_path 'glyphicons-halflings-regular.eot'});
   src: url(#{asset_path 'glyphicons-halflings-regular.eot?#iefix'}) format('embedded-opentype'),
@@ -482,3 +482,71 @@ select {
 		display: none;
 	}
 }*/
+
+.loginscreen { max-width: 1200px !important; width: 100% !important; font-family: 'Raleway', sans-serif; padding-top: 104px; background: url(asset_path('map.jpg')) 0 0 no-repeat; }
+.loginscreen .middle_area .logoArea { margin-top: -70px; }
+.loginscreen.Createaccount { padding-top: 30px; background-size: cover; margin-top: 30px; }
+.loginscreen .modal-footer { border: none; }
+.loginscreen .middle_area { max-width: 551px; width: 100%;  margin: 0px auto; }
+.loginscreen .middle_area .innerArea {
+    float: left;
+     background: url(asset_path('transBg.png')) 0 0 repeat-x;
+     border-radius: 5px;
+    width: 100%;
+}
+.loginscreen .form-inputs, .loginscreen .form-actions { width: 100%; float: left; }
+.loginscreen .form-inputs input[type="text"], .loginscreen .form-inputs input[type="password"] { width: 100%; line-height: 37px; }
+.loginscreen .modal-content { background: none; box-shadow: none; border: none !important; padding: 0 12%; }
+.loginscreen .form-inputs input[type="text"], .loginscreen .form-inputs input[type="password"], .loginscreen.Createaccount .control-group input[type="text"], .loginscreen.Createaccount .control-group input[type="password"], .loginscreen.Createaccount .control-group input[type="email"], .loginscreen.Createaccount .control-group select { border-radius: 5px !important; height: 44px; font-family: 'Raleway', sans-serif; line-height: 44px; border: none; padding: 10px !important; color: #bbbbbb; font-size: 15px; width: 100%; color:#000000;
+font-size: 16px; font-weight: 500;}
+.loginscreen.Createaccount .place-logo { margin-bottom: 35px; width: 190px; }
+.loginscreen.Createaccount .control-group label { color: #ffffff; font-size: 15px; font-weight: 500; }
+
+.loginscreen.Createaccount .form-inline select { width: inherit; float:left; margin-right:5px; }
+.loginscreen .modal-content .control-group .control-label { display: none; }
+.loginscreen .modal-content .control-group.user_remember_me .control-label { display: block; }
+.loginscreen .modal-content .control-group.user_remember_me { float: left; margin: 0 0 18px; font-family: 'Raleway', sans-serif; width: auto; }
+.loginscreen .modal-content .control-group.user_remember_me .control-label { color: #ffffff !important; display: block; float: right; font-weight: normal !important; }
+.loginscreen .modal-content .control-group.user_remember_me .controls { float: left; margin-right: 12px; }
+.loginscreen .form-actions input[type="submit"], .loginscreen .signupBtn, .loginscreen .form-actions .signupBtn { width: 100%; height: 57px; background: #6cb7cc; display:inline-block; text-align: center; color: #ffffff; font-size: 14px; border: medium none; font-weight: bold; }
+.loginscreen.Createaccount .actions input[type="submit"], .loginscreen.Createaccount .actions a.cancel { font-family: 'Raleway', sans-serif; width: 170px; height: 52px; background: #6cb7cc; display: inline-block; text-align: center; color: #ffffff; font-size: 14px; border: medium none; font-weight: 500; vertical-align: middle; white-space: nowrap; 
+font-size: 16px; font-weight: 800; text-shadow:inherit;}
+.loginscreen .signupBtn { background: #fd7e56; border-radius: 5px; display:inline-block; margin-bottom:10px; }
+.loginscreen.Createaccount .actions a.cancel { background: #fd7e56; border-radius: 5px; float: none; display: inline-block; line-height: 52px; }
+.loginscreen.Createaccount .actions a.cancel:hover { text-decoration: none; }
+.loginscreen .insta-sign-in-button { background-color: #ffffff; color: #fd7e56; font-size: 15px !important; font-weight: bold; font-family: 'Raleway', sans-serif; height: 57px; line-height: 35px; padding-top: 10px; width: 100%; }
+.loginscreen h5 { color: #ffffff; float: left; margin: 15px 0; font-family: 'Raleway', sans-serif; width: 100%; }
+.loginscreen .fa.fa-instagram { background: url(asset_path('insta.png')) 0 0 no-repeat; width: 38px; height: 38px; display:inline-block; vertical-align:top; text-indent: -5000px; }
+.loginscreen .insta-sign-in-button:hover { color: #fd7e56; }
+.loginscreen .insta-sign-in-button.margin{ margin:10px 0 0 0;}
+.loginscreen .sign-in-footer { color: #ffffff; font-size: 11px; font-family: 'Raleway', sans-serif; font-weight: bold; text-align: center; width: 100%; float: left; padding-top:0;}
+.loginscreen .sign-in-footer a { color: #fd7e56; }
+.loginscreen .middle_area button.close { background: rgba(0, 0, 0, 0) url("/assets/crossBtn.png") no-repeat scroll 0 0; cursor: pointer; height: 40px; margin-right: -12px; margin-top: -12px; opacity: 1 !important; text-indent: -5000px; width: 40px; z-index: 9999; }
+.loginscreen.Createaccount .control-group:nth-child(2n-1), .loginscreen.Createaccount .control-group.user_country { float: right; font-family: 'Raleway', sans-serif; }
+.loginscreen.Createaccount .actions { float: left; text-align: center; width: 100%; font-family: 'Raleway', sans-serif; }
+.loginscreen.Createaccount .instra { float: left; margin: 10px 0; text-align: center; width: 100%; }
+.loginscreen.Createaccount .control-group { width: 48%; font-family: 'Raleway', sans-serif; float: left; height: 100px; margin:0; }
+.loginscreen.Createaccount .form-inline { float: left; width: 48%; }
+.loginscreen.Createaccount .form-inline .control-group { width: 100%; }
+.loginscreen .modal-body{padding-bottom:0;}
+.loginscreen.Createaccount .insta-sign-in-button{ width:246px;}
+.loginscreen.Createaccount .fa.fa-instagram{ float: left; }
+@media (max-width: 730px) {
+.loginscreen .middle_area { margin-top: 30px; }
+.loginscreen .middle_area button.close { margin: 0; }
+.loginscreen .middle_area .logoArea { margin-top: 0px; }
+.loginscreen .modal-header, .loginscreen .sign-in-footer { padding: 5px; }
+.loginscreen .modal-content .control-group.user_remember_me { margin: 0 0 9px; }
+.loginscreen .modal-body { padding-bottom: 0; }
+.modal.fade.loginscreen.in { padding: 10px !important; }
+.loginscreen.Createaccount .control-group{ width:100%; height: auto; margin-bottom: 10px;}
+.loginscreen.Createaccount .form-inline{ width:100%;}
+.loginscreen.Createaccount .form-inline .controls{ width:100%; float:left;}
+.loginscreen.Createaccount .form-inline select{ margin:0 0 5px 0; height:40px;}
+.loginscreen .modal-content{ padding:0 5%;}
+}
+@media (max-width: 480px) {
+.loginscreen .form-actions input[type="submit"], .loginscreen .form-actions .signupBtn, .loginscreen.Createaccount .actions input[type="submit"], .loginscreen.Createaccount .actions a.cancel { width: 100%; margin-bottom: 10px; }
+.loginscreen .modal-content { padding: 10px 0; }
+.loginscreen .middle_area { padding: 10px; }
+}
