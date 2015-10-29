@@ -228,9 +228,9 @@
                                         </div>
 
                                       </div>
-                                    <% elsif asset.class.to_s == "Photo" %>
+                                    <% elsif asset.class.to_s == "Photo" || asset.class.to_s == "UserPhoto"
                                       <div class="carousel-item br_16">
-                                        <img src="<%= asset.path_url(:medium)%>" alt='<%= asset.caption ? asset.caption : "" %>' class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>">
+                                        <img src="<%= asset.path_url(:medium)%>" alt='<%= asset.caption ? asset.caption : "" %>' class="img-resposive carousel-country-photo" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : '' %>">
                                         <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
                                       </div>
                                     <% end %>
