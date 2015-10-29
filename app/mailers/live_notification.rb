@@ -49,7 +49,7 @@ class LiveNotification < BaseMandrillMailer
       if place.categories.blank?
         "https://d1w99recw67lvf.cloudfront.net/category_icons/small_generic_sights.jpg"
       else
-        '"https://d1w99recw67lvf.cloudfront.net/category_icons/small_generic_' + place.categories[0].identifier + '.jpg"'
+        "https://d1w99recw67lvf.cloudfront.net/category_icons/small_generic_" + place.categories[0].identifier + ".jpg"
       end
     else
       place.photos.find_by(priority: 1) ? place.photos.find_by(priority: 1).path_url(:small) : place.photos.first.path_url(:small)
