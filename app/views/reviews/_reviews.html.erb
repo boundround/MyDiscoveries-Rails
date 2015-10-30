@@ -1,19 +1,19 @@
 <div class="row" id="reviews">
   <% @reviews.each do |review| %>
     <div class="col-sm-6 col-md-3">
-      <span class="story-like-icon"><%= raw like_icon(review) %></span>
       <h4><%= !review.title.blank? ? review.title : @reviewable.display_name %></h4>
       <% get_user_place_rating_from_review(review).times do |star| %>
         <img src="<%= asset_path('star-on.png') %>" />
       <% end %>
-      <p>
-        "<%= review.content[0..280] %>"
+      <p class="review-content">
+        "<%= review.content[0..280] + "..." %>"
+        <h5>- <%= review.user.username ? review.user.username : "" %></h5>
       </p>
-        <p class="anchor">
-          <% if review.content.length > 280 %>
-              <a href="#">See entire review</a>
-          <% end %>
-        </p>
+      <p class="anchor">
+        <% if review.content.length > 280 %>
+            <button class="entire-review" data-size="contracted" data-entire-review="<%= review.content %>">See entire review</button>
+        <% end %>
+      </p>
       <p><%= raw user_generated_content_credit(review.user) %></p>
       <div class="clearfix"></div>
     </div>
