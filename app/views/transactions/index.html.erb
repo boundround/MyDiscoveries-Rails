@@ -11,6 +11,7 @@
           <th>Asset ID</th>
           <th>Comments</th>
           <th>Points Awarded</th>
+          <th>Date</th>
           <th>Delete</th>
           <th></th>
         </tr>
@@ -25,6 +26,7 @@
               <td><%= transaction.asset_id %></td>
               <td><%= f.text_area :comments %></td>
               <td><%= transaction.points %></td>
+              <td><%= transaction.created_at %></td>
               <td><%= f.check_box :_destroy %></td>
               <td><%= f.submit :submit %></td>
             </tr>
