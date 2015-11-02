@@ -4,6 +4,8 @@ class Transaction < ActiveRecord::Base
   before_destroy :update_points_balance
   validates :user_id, presence: true
 
+  attr_accessor :user_username
+
   def update_points_balance
     points_balance = PointsBalance.find_or_create_by(user_id: self.user.id)
 

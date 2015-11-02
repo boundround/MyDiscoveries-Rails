@@ -135,7 +135,9 @@ Rails.application.routes.draw do
   get '/users/stories' => 'users#stories'
   get '/users/instagram_feed' => 'users#instagram_feed'
   get '/users/draft_content' => 'users#draft_content' # All User Uploaded Content in Draft
-  resources :users
+  resources :users do
+    collection { get 'leaderboard' }
+  end
 
 
   resources :places do

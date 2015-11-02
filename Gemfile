@@ -22,6 +22,8 @@ gem 'iconv'
 # Bootsy WYSIWYG Editor
 gem 'bootsy'
 
+gem 'rails4-autocomplete'
+
 gem 'rest_in_place'
 
 gem 'jquery-fileupload-rails'

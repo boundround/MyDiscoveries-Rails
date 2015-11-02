@@ -8,7 +8,7 @@ module Transactionable
       points = PointsValue.find_by(asset_type: self.class.to_s)
 
       if points
-        Transaction.create!(points: points.value, user_id: self.user.id, asset_type: self.class.to_s)
+        Transaction.create!(points: points.value, user_id: self.user.id, asset_type: self.class.to_s, asset_id: self.id)
       end
     end
   end
@@ -17,7 +17,7 @@ module Transactionable
     points = PointsValue.find_by(asset_type: self.class.to_s)
 
     if points
-      Transaction.create!(points: points.value, user_id: self.user.id, asset_type: self.class.to_s)
+      Transaction.create!(points: points.value, user_id: self.user.id, asset_type: self.class.to_s, asset_id: self.id)
     end
   end
 end

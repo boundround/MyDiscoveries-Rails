@@ -185,6 +185,11 @@ class UsersController < ApplicationController
     # end
   end
 
+  def leaderboard
+    @set_body_class = "white-body"
+    @points_balances = PointsBalance.order(balance: :desc).includes(:user)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

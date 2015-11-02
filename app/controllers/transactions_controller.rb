@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+
   def index
     @set_body_class = 'white-body'
     @transactions = Transaction.all
