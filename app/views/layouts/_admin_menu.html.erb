@@ -20,7 +20,7 @@
             <% if current_user.try(:admin) %>
               <li><%= link_to 'Assign Points Values to Assets', points_values_path %>
               <li><%= link_to 'See All Transactions', transactions_path %>
-              <li><%= link_to 'See Complete Leaderboard', "users/leaderboard" %>
+              <li><%= link_to 'See Complete Leaderboard', "/users/leaderboard" %>
               <li><%= link_to 'All Areas', areas_path %></li>
               <li><%= link_to 'New Area', new_area_path %></li>
               <li><%= link_to 'Show/Edit Users', users_path %></li>
