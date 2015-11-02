@@ -12,6 +12,7 @@ end
 
 Rails.application.routes.draw do
 
+
   mount Ckeditor::Engine => '/ckeditor'
   post '/rate' => 'rater#create', :as => 'rate'
   constraints(SSConstraint.new) do
@@ -29,6 +30,8 @@ Rails.application.routes.draw do
   get 'pages/privacy' => 'pages#privacy'
 
   resources :search_suggestions
+
+  resources :transactions
 
   require 'sidekiq/web'
 
@@ -182,6 +185,8 @@ Rails.application.routes.draw do
     resources :info_bits
     collection { post :import }
   end
+
+  resources :points_values
 
   match '/send_postcard', to: 'places#send_postcard', via: 'post'
 

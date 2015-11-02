@@ -1,0 +1,46 @@
+<% if user_signed_in? && current_user.admin? %>
+<div class="container">
+  <h1>Transactions</h1>
+  <div id="table-container">
+    <table class="table table-striped" id="video-table">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>User ID</th>
+          <th>Asset Type</th>
+          <th>Asset ID</th>
+          <th>Comments</th>
+          <th>Delete</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @transactions.each do |transaction| %>
+          <%= form_for point do |f| %>
+            <tr>
+              <td><%= transaction.user.username if transaction.user.username %></td>
+              <td><%= transaction.user.id %></td>
+              <td><%= transaction.asset_type %></td>
+              <td><%= transaction.asset_id %></td>
+              <td><%= f.text_area :comments %></td>
+              <td><%= f.number_field :points %></td>
+              <td><%= f.check_box :_destroy %></td>
+              <td><%= f.submit :submit %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h2>Create New Transaction</h2>
+    <%= simple_form_for @transaction do |f| %>
+      <%= f.input :asset_type, collection: PointsValue.all, label_method: :asset_type, as: :select %>
+      <%= f.input :asset_id, label: "Asset ID (can be blank)" %>
+      <%= f.input :points %>
+      <%= f.input :comments %>
+      <%= f.submit :submit %>
+    <% end %>
+  </div>
+</div>
+<% end %>

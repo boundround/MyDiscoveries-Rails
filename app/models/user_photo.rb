@@ -1,7 +1,10 @@
 class UserPhoto < ActiveRecord::Base
+  include Transactionable
+
   attr_accessor :user_notified
   # validates :path, presence: true
   after_update :send_live_notification, unless: "user_notified"
+  after_update :add_transaction
 
   belongs_to :user
   belongs_to :story

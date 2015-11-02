@@ -18,6 +18,7 @@
             <li><%= link_to 'User Content Review', "/users/draft_content" %></li>
             <li><%= link_to 'User Created Places', "/places/user_created" %></li>
             <% if current_user.try(:admin) %>
+              <li><%= link_to 'Assign Points Values to Assets', points_values_path %>
               <li><%= link_to 'All Areas', areas_path %></li>
               <li><%= link_to 'New Area', new_area_path %></li>
               <li><%= link_to 'Show/Edit Users', users_path %></li>

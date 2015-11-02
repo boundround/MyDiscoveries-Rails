@@ -1,5 +1,6 @@
 class Review < ActiveRecord::Base
-  # after_update :send_live_notification
+  include Transactionable
+  after_update :add_transaction
 
   validates :content, presence: true
   validates :user_id, presence: true
