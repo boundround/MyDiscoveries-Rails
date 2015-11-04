@@ -117,7 +117,7 @@
         for (var i = 0; i < content.hits.length; ++i) {
           var hit = content.hits[i];
           html += '<div class="hit">';
-          html += '<div class="attribute"><span>' + hit["display_name"] + '</span></div>';
+          html += '<div class="attribute"><span>' + hit["name"] + '</span></div>';
           html += '</div>';
         }
         $('#hits').html(html);

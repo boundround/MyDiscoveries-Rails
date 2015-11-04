@@ -15,6 +15,17 @@ class Place < ActiveRecord::Base
     attribute :url do
       "/places/#{slug}.html"
     end
+
+    attribute :name do
+      string = "#{display_name}"
+      if locality
+        string += ", #{locality}"
+      end
+      if country
+        string += ", #{self.country.display_name}"
+      end
+      return string
+    end
      #country and url
 
     # the attributesToIndex` setting defines the attributes
