@@ -18,13 +18,13 @@ class Place < ActiveRecord::Base
 
     attribute :name do
       string = "#{display_name}"
-      if locality
+      if !locality.blank?
         string += ", #{locality}"
       end
       if country
         string += ", #{self.country.display_name}"
       end
-      return string
+      string
     end
      #country and url
 
