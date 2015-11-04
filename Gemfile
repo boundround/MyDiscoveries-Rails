@@ -23,6 +23,7 @@ gem 'iconv'
 gem 'bootsy'
 
 gem 'rails4-autocomplete'
+gem "algoliasearch-rails"
 
 gem 'rest_in_place'
 

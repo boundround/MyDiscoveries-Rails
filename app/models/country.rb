@@ -1,5 +1,18 @@
 class Country < ActiveRecord::Base
   extend FriendlyId
+  include AlgoliaSearch
+
+  algoliasearch if: :published, index_name: 'place', id: :algolia_id do
+
+    attributes :display_name, :description
+
+    attribute :url do
+      "countries/#{slug}/.html"
+    end
+
+    attributesToIndex ['display_name', 'unordered(description)']
+
+  end
 
   require 'open_weather'
 
@@ -45,6 +58,14 @@ class Country < ActiveRecord::Base
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 
+  def published
+    if self.published_status == "live"
+      true
+    else
+      false
+    end
+  end
+
   def load_into_soulmate
     if self.published_status == "live"
       loader = Soulmate::Loader.new("country")
@@ -87,5 +108,10 @@ class Country < ActiveRecord::Base
       else raise "Unknown file type: #{file.original_filename}"
     end
   end
+
+  private
+    def algolia_id
+      "country_#{id}" # ensure the countrt & place IDs are not conflicting
+    end
 
 end

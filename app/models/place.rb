@@ -1,5 +1,32 @@
 class Place < ActiveRecord::Base
   include CustomerApprovable
+  include AlgoliaSearch
+
+  algoliasearch if: :published, index_name: 'place', id: :algolia_id do
+    # list of attribute used to build an Algolia record
+    attributes :display_name, :description, :latitude, :longitude, :locality, :post_code
+    attribute :country do
+      if self.country
+        "#{country.display_name}"
+      else
+        ""
+      end
+    end
+    attribute :url do
+      "/places/#{slug}.html"
+    end
+     #country and url
+
+    # the attributesToIndex` setting defines the attributes
+    # you want to search in: here `title`, `subtitle` & `description`.
+    # You need to list them by order of importance. `description` is tagged as
+    # `unordered` to avoid taking the position of a match into account in that attribute.
+    attributesToIndex ['display_name', 'unordered(description)']
+
+    # the `customRanking` setting defines the ranking criteria use to compare two matching
+    # records in case their text-relevance is equal. It should reflect your record popularity.
+    # customRanking ['desc(likes_count)']
+  end
 
   # ratyrate_rateable "quality"
 
@@ -50,10 +77,10 @@ class Place < ActiveRecord::Base
   scope :to_be_published, -> { where('published_at >= ?', Time.now) }
   scope :to_be_removed, -> { where('unpublished_at >= ?', Time.now) }
 
-  include PgSearch
-  pg_search_scope :search, against: [:display_name, :description],
-    using: {tsearch: {dictionary: "english"}},
-    associated_against: {photos: :caption, area: [:display_name, :description]}
+  # include PgSearch
+  # pg_search_scope :search, against: [:display_name, :description],
+  #   using: {tsearch: {dictionary: "english"}},
+  #   associated_against: {photos: :caption, area: [:display_name, :description]}
 
   validates_presence_of :display_name, :slug
 
@@ -95,14 +122,21 @@ class Place < ActiveRecord::Base
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
 
-
-  def self.text_search(query)
-    if query.present?
-      search(query)
+  def published
+    if self.status == "live"
+      true
     else
-      scoped
+      false
     end
   end
+
+  # def self.text_search(query)
+  #   if query.present?
+  #     search(query)
+  #   else
+  #     scoped
+  #   end
+  # end
 
   def flush_place_cache #May be able to be removed
     Rails.cache.delete('all_places')
@@ -280,5 +314,10 @@ class Place < ActiveRecord::Base
     self.unpublished_at = nil
     self.save
   end
+
+  private
+    def algolia_id
+      "place_#{id}" # ensure the place & country IDs are not conflicting
+    end
 
 end

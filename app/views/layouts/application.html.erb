@@ -98,6 +98,52 @@
 		<script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
 	  <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 	  <%= javascript_include_tag 'froogaloop' %>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.jquery.min.js"></script>
+
+    <%= javascript_include_tag 'froogaloop' %>
+    <script>
+    function searchCallback(content) {
+        if (content.query !== $('#search-box').val()) {
+          // do not take out-dated answers into account
+          return;
+        }
+        if (content.hits.length === 0) {
+          // no results
+          $('#hits').empty();
+          return;
+        }
+        // Scan all hits and display them
+        var html = '';
+        for (var i = 0; i < content.hits.length; ++i) {
+          var hit = content.hits[i];
+          html += '<div class="hit">';
+          html += '<div class="attribute"><span>' + hit["display_name"] + '</span></div>';
+          html += '</div>';
+        }
+        $('#hits').html(html);
+      }
+      $(document).ready(function() {
+        var $inputfield = $('#search-box');
+        // Replace the following values by your ApplicationID and ApiKey.
+        var client = $.algolia.Client('KXOYK344AM', 'fce29aca7a9b823b9cacdbc1faa225e2');
+        // Replace the following value by the name of the index you want to query.
+        var index = client.initIndex('place');
+        $inputfield.keyup(function() {
+          console.log("keyup");
+
+          index.search($inputfield.val(), { hitsPerPage: 6 })
+            .done(searchCallback)
+            .fail(function(content) { console.log('Error', content); });
+
+        }).focus().closest('form').on('submit', function(e) {
+          // on form submit, store the query string in the anchor
+          e.preventDefault();
+          console.log(content);
+          return false;
+        });
+
+      });
+    </script>
 
 		<div id="place-holder"></div>
 	  <%= render "/layouts/page_loader" %>
