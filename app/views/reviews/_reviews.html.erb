@@ -7,14 +7,7 @@
       <% end %>
       <p class="review-content">
         "<%= review.content[0..280] + "..." %>"
-        <h5>-
-          <% if review.user.username %>
-            <% if review.user.username.match(/^(.*?)@/)[1] %>
-              <%= review.user.username.match(/^(.*?)@/)[1] %>
-            <% else %>
-              ""
-            <% end %>
-          <% end %>
+        <h5>
         </h5>
       </p>
       <p class="anchor">
