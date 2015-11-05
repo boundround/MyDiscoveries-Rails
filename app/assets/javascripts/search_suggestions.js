@@ -284,3 +284,26 @@
 //     }
 //   });
 // });
+// console.log("does this work");
+// var client = algoliasearch('KXOYK344AM', 'fce29aca7a9b823b9cacdbc1faa225e2');
+//       var index = client.initIndex('place');
+//       $('#search-box').autocomplete({ hint: false }, [
+//         {
+//           source: function(q, cb) {
+//             index.search(q, { hitsPerPage: 5 }, function(error, content) {
+//               if (error) {
+//                 cb([]);
+//                 return;
+//               }
+//               cb(content.hits, content);
+//             });
+//           },
+//           displayKey: 'name',
+//           templates: {
+//             suggestion: function(suggestion) {
+//               console.log(suggestion);
+//               return suggestion._highlightResult.display_name.value;
+//             }
+//           }
+//         }
+//       ]);

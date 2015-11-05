@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-App="boundRound">
 <% if not @placeprograms %>
 	<head>
 	  <title><%= full_title(yield(:title)) %></title>
@@ -94,55 +94,53 @@
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<%= javascript_include_tag 'mapbox' %>
-	  <%= javascript_include_tag 'application' %>
-		<script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-	  <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-	  <%= javascript_include_tag 'froogaloop' %>
-    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.jquery.min.js"></script>
-
+    <%= javascript_include_tag 'application' %>
+    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <%= javascript_include_tag 'froogaloop' %>
+    <script src="http://cdn.jsdelivr.net/algoliasearch/2.4.6/algoliasearch.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script>
+    <script src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
     <script>
-    function searchCallback(content) {
-        if (content.query !== $('#search-box').val()) {
-          // do not take out-dated answers into account
-          return;
-        }
-        if (content.hits.length === 0) {
-          // no results
-          $('#hits').empty();
-          return;
-        }
-        // Scan all hits and display them
-        var html = '';
-        for (var i = 0; i < content.hits.length; ++i) {
-          var hit = content.hits[i];
-          html += '<div class="hit">';
-          html += '<div class="attribute"><span>' + hit["name"] + '</span></div>';
-          html += '</div>';
-        }
-        $('#hits').html(html);
-      }
-      $(document).ready(function() {
-        var $inputfield = $('#search-box');
-        // Replace the following values by your ApplicationID and ApiKey.
-        var client = $.algolia.Client('KXOYK344AM', 'fce29aca7a9b823b9cacdbc1faa225e2');
-        // Replace the following value by the name of the index you want to query.
-        var index = client.initIndex('place');
-        $inputfield.keyup(function() {
-          console.log("keyup");
+      var APPLICATION_ID = 'KXOYK344AM';
+      var SEARCH_ONLY_API_KEY = 'fce29aca7a9b823b9cacdbc1faa225e2';
+      var INDEX_NAME = 'place';
+      var PARAMS = {
+        hitsPerPage: 6,
+        maxValuesPerFacet: 8,
+      };
 
-          index.search($inputfield.val(), { hitsPerPage: 6 })
-            .done(searchCallback)
-            .fail(function(content) { console.log('Error', content); });
+      var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
+      var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
-        }).focus().closest('form').on('submit', function(e) {
-          // on form submit, store the query string in the anchor
-          e.preventDefault();
-          console.log(content);
-          return false;
-        });
+      $searchInput = $('#search-box');
+      $searchInputIcon = $('#search-button');
+      $main = $('main');
+      $sortBySelect = $('#sort-by-select');
+      $hits = $('#hits');
+      $stats = $('#stats');
+      $facets = $('#facets');
+      $pagination = $('#pagination');
 
+      var hitTemplate = Hogan.compile($('#hit-template').text());
+      var statsTemplate = Hogan.compile($('#stats-template').text());
+      var facetTemplate = Hogan.compile($('#facet-template').text());
+      var sliderTemplate = Hogan.compile($('#slider-template').text());
+      var paginationTemplate = Hogan.compile($('#pagination-template').text());
+      var noResultsTemplate = Hogan.compile($('#no-results-template').text());
+
+      $searchInput
+      .on('keyup', function() {
+        var query = $(this).val();
+        algoliaHelper.setQuery(query).search();
+      })
+      .focus();
+
+      // Search results
+      algoliaHelper.on('result', function(content, state) {
+        console.log(content);
       });
+
     </script>
 
 		<div id="place-holder"></div>
