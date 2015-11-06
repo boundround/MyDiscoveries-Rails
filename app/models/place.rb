@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
 
   algoliasearch if: :published, index_name: 'place', id: :algolia_id do
     # list of attribute used to build an Algolia record
-    attributes :display_name, :description, :latitude, :longitude, :locality, :post_code
+    attributes :display_name, :latitude, :longitude, :locality, :post_code
     attribute :country do
       if self.country
         "#{country.display_name}"
@@ -16,6 +16,18 @@ class Place < ActiveRecord::Base
       "/places/#{slug}.html"
     end
 
+    attribute :description do
+      if description
+        if description.length < 50
+          "#{description}"
+        else
+          "#{description[0..50]}..."
+        end
+      else
+        ""
+      end
+    end
+
     attribute :name do
       string = "#{display_name}"
       if !locality.blank?
@@ -25,6 +37,16 @@ class Place < ActiveRecord::Base
         string += ", #{self.country.display_name}"
       end
       string
+    end
+
+    attribute :photos do
+      photo_array = photos.select { |photo| photo.published? }.map do |photo|
+        { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+      end
+      photo_array += user_photos.select { |photo| photo.published? }.map do |photo|
+        { url: photo.path_url(:small), alt_tag: photo.caption }
+      end
+      photo_array
     end
      #country and url
 

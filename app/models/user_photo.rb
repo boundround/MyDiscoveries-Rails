@@ -24,6 +24,14 @@ class UserPhoto < ActiveRecord::Base
   scope :no_story, -> { where('story_id IS NULL')}
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }
 
+  def published?
+    if self.status == "live"
+      true
+    else
+      false
+    end
+  end
+
   def send_live_notification
     if self.story_id.blank?
 

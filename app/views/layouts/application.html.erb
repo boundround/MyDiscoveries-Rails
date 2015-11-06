@@ -98,9 +98,31 @@
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
     <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <%= javascript_include_tag 'froogaloop' %>
-    <script src="http://cdn.jsdelivr.net/algoliasearch/2.4.6/algoliasearch.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
     <script src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script>
     <script src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
+
+
+
+		<div id="place-holder"></div>
+	  <%= render "/layouts/page_loader" %>
+	  <% flash.each do |type, message| %>
+		  <div class="alert <%= bootstrap_class_for(type) %> fade in">
+		    <button class="close" data-dismiss="alert">×</button>
+		    <%= message %>
+		  </div>
+		<% end %>
+		<div class="alert-wrapper"></div>
+
+		<%= render "/layouts/admin_menu" %>
+
+	  <div class="app-wrap">
+	    <%= yield %>
+	  </div>
+	  <%= render "/layouts/signin_modals" %>
+
+	  <%= render "/layouts/share_modal" %>
+
     <script>
       var APPLICATION_ID = 'KXOYK344AM';
       var SEARCH_ONLY_API_KEY = 'fce29aca7a9b823b9cacdbc1faa225e2';
@@ -132,36 +154,86 @@
       $searchInput
       .on('keyup', function() {
         var query = $(this).val();
-        algoliaHelper.setQuery(query).search();
+        console.log(query);
+        algoliaHelper.setQuery(query);
+        algoliaHelper.search();
       })
       .focus();
 
       // Search results
       algoliaHelper.on('result', function(content, state) {
         console.log(content);
+        renderHits(content);
+        renderStats(content)
+      });
+
+      function renderHits(content) {
+        console.log("rendering hits");
+        $hits.html(hitTemplate.render(content));
+      }
+
+      function renderStats(content) {
+        var stats = {
+          nbHits: content.nbHits,
+          nbHits_plural: content.nbHits !== 1,
+          processingTimeMS: content.processingTimeMS
+        };
+        $stats.html(statsTemplate.render(stats));
+      }
+
+      // NO RESULTS
+      // ==========
+
+      function handleNoResults(content) {
+        if (content.nbHits > 0) {
+          $main.removeClass('no-results');
+          return;
+        }
+        $main.addClass('no-results');
+
+        var filters = [];
+        var i;
+        var j;
+        for (i in algoliaHelper.state.facetsRefinements) {
+          filters.push({
+            class: 'toggle-refine',
+            facet: i, facet_value: algoliaHelper.state.facetsRefinements[i],
+            label: FACETS_LABELS[i] + ': ',
+            label_value: algoliaHelper.state.facetsRefinements[i]
+          });
+        }
+        for (i in algoliaHelper.state.disjunctiveFacetsRefinements) {
+          for (j in algoliaHelper.state.disjunctiveFacetsRefinements[i]) {
+            filters.push({
+              class: 'toggle-refine',
+              facet: i,
+              facet_value: algoliaHelper.state.disjunctiveFacetsRefinements[i][j],
+              label: FACETS_LABELS[i] + ': ',
+              label_value: algoliaHelper.state.disjunctiveFacetsRefinements[i][j]
+            });
+          }
+        }
+        for (i in algoliaHelper.state.numericRefinements) {
+          for (j in algoliaHelper.state.numericRefinements[i]) {
+            filters.push({
+              class: 'remove-numeric-refine',
+              facet: i,
+              facet_value: j,
+              label: FACETS_LABELS[i] + ' ',
+              label_value: j + ' ' + algoliaHelper.state.numericRefinements[i][j]
+            });
+          }
+        }
+        $hits.html(noResultsTemplate.render({query: content.query, filters: filters}));
+      }
+
+      $(document).on('click', '.go-to-page', function(e) {
+        e.preventDefault();
+        $('html, body').animate({scrollTop: 0}, '500', 'swing');
+        algoliaHelper.setCurrentPage(+$(this).data('page') - 1).search();
       });
 
     </script>
-
-		<div id="place-holder"></div>
-	  <%= render "/layouts/page_loader" %>
-	  <% flash.each do |type, message| %>
-		  <div class="alert <%= bootstrap_class_for(type) %> fade in">
-		    <button class="close" data-dismiss="alert">×</button>
-		    <%= message %>
-		  </div>
-		<% end %>
-		<div class="alert-wrapper"></div>
-
-		<%= render "/layouts/admin_menu" %>
-
-	  <div class="app-wrap">
-	    <%= yield %>
-	  </div>
-	  <%= render "/layouts/signin_modals" %>
-
-	  <%= render "/layouts/share_modal" %>
-
 	</body>
 
 
