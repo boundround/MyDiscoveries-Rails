@@ -13,7 +13,7 @@ class Place < ActiveRecord::Base
       end
     end
     attribute :url do
-      "/places/#{slug}.html"
+      "/places/#{slug}"
     end
 
     attribute :description do

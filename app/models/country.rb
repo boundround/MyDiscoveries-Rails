@@ -7,7 +7,7 @@ class Country < ActiveRecord::Base
     attributes :display_name, :description
 
     attribute :url do
-      "countries/#{slug}/.html"
+      "countries/#{slug}"
     end
 
     attributesToIndex ['display_name', 'unordered(description)']
