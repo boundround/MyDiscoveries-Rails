@@ -4,7 +4,7 @@
 </main>
 <script type="text/template" id="hit-template">
   {{#hits}}
-  <div class="hit">
+  <div class="hit" data-url="{{ url }}">
     <div class="hit-image">
       <img width="15%" src="{{ photos.0.url }}" alt="{{ photos.0.alt_tag }}">
       <img width="15%" src="{{ photos.1.url }}" alt="{{ photos.1.alt_tag }}">

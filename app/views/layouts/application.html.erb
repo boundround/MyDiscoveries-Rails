@@ -233,6 +233,8 @@
         algoliaHelper.setCurrentPage(+$(this).data('page') - 1).search();
       });
 
+      $('#hits').on('click', ".hit", function(){window.location = $(this).data("url")});
+
     </script>
 	</body>
 
