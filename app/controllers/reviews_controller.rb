@@ -14,11 +14,15 @@ class ReviewsController < ApplicationController
 
   def create
     @review = @reviewable.reviews.new(review_params)
-    if @review.save
-      NewReview.notification(@review).deliver
-      redirect_to @reviewable, notice: "Thanks for your review! We'll let you know when others can see it too!"
-    else
-      redirect_to @reviewable
+    respond_to do |format|
+      if @review.save
+        NewReview.delay.notification(@review)
+        format.html { redirect_to :back, notice: "Thanks for the review. We'll let you know when others can see it too!" }
+        format.js { }
+      else
+        format.html { redirect_to :back, notice: "We're sorry, there was an error. Please try your review again." }
+        format.js { }
+      end
     end
   end
 
