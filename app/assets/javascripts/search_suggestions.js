@@ -4,30 +4,30 @@
 //   var userCity = '';
 //   var userCountry = '';
 
-//   var googlePlaceSearch = function(request, response) {
-//     function initialize() {
-//       var service = new google.maps.places.AutocompleteService();
-//       service.getPlacePredictions({ input: request.term }, callback);
-//     }
+  // var googlePlaceSearch = function(request, response) {
+  //   function initialize() {
+  //     var service = new google.maps.places.AutocompleteService();
+  //     service.getPlacePredictions({ input: request.term }, callback);
+  //   }
 
-//     function callback(predictions, status) {
-//       if (status != google.maps.places.PlacesServiceStatus.OK) {
-//         console.log(status);
-//         return;
-//       }
-//       response( $.map( predictions, function( item ) {
-//         return {
-//           label: item.description,
-//           value: item.description,
-//           lat: -33.865143,
-//           lng: 151.2099,
-//           resultType: 'Google',
-//           placeId: item.place_id
-//         }
-//       }));
-//     }
-//     initialize();
-//   }
+  //   function callback(predictions, status) {
+  //     if (status != google.maps.places.PlacesServiceStatus.OK) {
+  //       console.log(status);
+  //       return;
+  //     }
+  //     response( $.map( predictions, function( item ) {
+  //       return {
+  //         label: item.description,
+  //         value: item.description,
+  //         lat: -33.865143,
+  //         lng: 151.2099,
+  //         resultType: 'Google',
+  //         placeId: item.place_id
+  //       }
+  //     }));
+  //   }
+  //   initialize();
+  // }
 
 //   var createNewPlaceFromGooglePlaces = function(place_id, city, country, userIP){
 //     var map2 = new google.maps.Map(document.getElementById('place-holder'));
@@ -284,26 +284,3 @@
 //     }
 //   });
 // });
-// console.log("does this work");
-// var client = algoliasearch('KXOYK344AM', 'fce29aca7a9b823b9cacdbc1faa225e2');
-//       var index = client.initIndex('place');
-//       $('#search-box').autocomplete({ hint: false }, [
-//         {
-//           source: function(q, cb) {
-//             index.search(q, { hitsPerPage: 5 }, function(error, content) {
-//               if (error) {
-//                 cb([]);
-//                 return;
-//               }
-//               cb(content.hits, content);
-//             });
-//           },
-//           displayKey: 'name',
-//           templates: {
-//             suggestion: function(suggestion) {
-//               console.log(suggestion);
-//               return suggestion._highlightResult.display_name.value;
-//             }
-//           }
-//         }
-//       ]);

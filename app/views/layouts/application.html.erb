@@ -124,6 +124,7 @@
 	  <%= render "/layouts/share_modal" %>
 
     <script>
+    (function(){
       var APPLICATION_ID = 'KXOYK344AM';
       var SEARCH_ONLY_API_KEY = 'fce29aca7a9b823b9cacdbc1faa225e2';
       var INDEX_NAME = 'place';
@@ -241,6 +242,33 @@
       });
 
       $('#hits').on('click', ".hit", function(){window.location = $(this).data("url")});
+
+      var googlePlaceSearch = function(request, response) {
+        function initialize() {
+          var service = new google.maps.places.AutocompleteService();
+          service.getPlacePredictions({ input: request.term }, callback);
+        }
+
+        function callback(predictions, status) {
+          if (status != google.maps.places.PlacesServiceStatus.OK) {
+            console.log(status);
+            return;
+          }
+          response( $.map( predictions, function( item ) {
+            return {
+              label: item.description,
+              value: item.description,
+              lat: -33.865143,
+              lng: 151.2099,
+              resultType: 'Google',
+              placeId: item.place_id
+            }
+          }));
+        }
+        initialize();
+      }
+
+    })();
 
     </script>
 	</body>

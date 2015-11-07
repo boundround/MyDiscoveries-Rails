@@ -1,6 +1,7 @@
 <main>
   <div id="stats"></div>
   <div id="hits"></div>
+  <div id="google-hits"></div>
 </main>
 <script type="text/template" id="hit-template">
   {{#hits}}
@@ -19,9 +20,21 @@
   {{/hits}}
 </script>
 
+<script type="text/template" id="google-hit-template">
+  {{#hits}}
+  <div class="hit" data-url="{{ url }}">
+    <div class="hit-content">
+      <h2 class="hit-name">{{{ _highlightResult.display_name.value }}}</h2>
+      <p class="hit-description">{{{ _highlightResult.description.value }}}</p>
+    </div>
+  </div>
+  <hr>
+  {{/hits}}
+</script>
+
 <!-- Stats template -->
 <script type="text/template" id="stats-template">
-  {{ nbHits }} Result{{#nbHits_plural}}s{{/nbHits_plural}} <span class="found-in">Found in {{ processingTimeMS }}ms</span>
+  {{ nbHits }} Bound Round place{{#nbHits_plural}}s{{/nbHits_plural}} <span class="found-in">found in {{ processingTimeMS }}ms</span>
 </script>
 
 <!-- No-Results template -->
