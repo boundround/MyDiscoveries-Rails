@@ -155,8 +155,15 @@
       .on('keyup', function() {
         var query = $(this).val();
         console.log(query);
-        algoliaHelper.setQuery(query);
-        algoliaHelper.search();
+        if (query.length > 0){
+          $('#hits').show();
+          $('#stats').show();
+          algoliaHelper.setQuery(query);
+          algoliaHelper.search();
+        } else {
+          $('#hits').hide();
+          $('#stats').hide();
+        }
       })
       .focus();
 

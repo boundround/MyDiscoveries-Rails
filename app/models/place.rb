@@ -2,7 +2,7 @@ class Place < ActiveRecord::Base
   include CustomerApprovable
   include AlgoliaSearch
 
-  algoliasearch if: :published, index_name: 'place', id: :algolia_id do
+  algoliasearch index_name: 'place', id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name, :latitude, :longitude, :locality, :post_code
     attribute :country do
@@ -155,7 +155,7 @@ class Place < ActiveRecord::Base
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
 
-  def published
+  def published?
     if self.status == "live"
       true
     else

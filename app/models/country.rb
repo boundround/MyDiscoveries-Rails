@@ -2,7 +2,7 @@ class Country < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
 
-  algoliasearch if: :published, index_name: 'place', id: :algolia_id do
+  algoliasearch index_name: 'place', id: :algolia_id, if: :published? do
 
     attributes :display_name, :description
 
@@ -58,7 +58,7 @@ class Country < ActiveRecord::Base
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 
-  def published
+  def published?
     if self.published_status == "live"
       true
     else
