@@ -1,4 +1,4 @@
-<main>
+<main class="search-results">
   <div id="stats"></div>
   <div id="hits"></div>
   <div id="google-hits"></div>
@@ -7,9 +7,9 @@
   {{#hits}}
   <div class="hit" data-url="{{ url }}">
     <div class="hit-image">
-      <img width="15%" src="{{ photos.0.url }}" alt="{{ photos.0.alt_tag }}">
-      <img width="15%" src="{{ photos.1.url }}" alt="{{ photos.1.alt_tag }}">
-      <img width="15%" src="{{ photos.2.url }}" alt="{{ photos.2.alt_tag }}">
+      <img height="50px" src="{{ photos.0.url }}" alt="{{ photos.0.alt_tag }}">
+      <img height="50px" src="{{ photos.1.url }}" alt="{{ photos.1.alt_tag }}">
+      <img height="50px" src="{{ photos.2.url }}" alt="{{ photos.2.alt_tag }}">
     </div>
     <div class="hit-content">
       <h2 class="hit-name">{{{ _highlightResult.display_name.value }}}</h2>

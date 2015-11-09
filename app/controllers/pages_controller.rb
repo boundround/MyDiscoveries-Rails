@@ -2,10 +2,11 @@ class PagesController < ApplicationController
 
   def index
     @set_body_class = "white-body"
-    @videos = Video.order(created_at: :desc).limit(6)
-    @photos = UserPhoto.order(created_at: :desc).limit(6)
-    @reviews = Review.order(created_at: :desc).limit(6)
-    @stories = Story.order(created_at: :desc).limit(6)
+    @last_20_videos = Video.active.order(created_at: :desc).limit(20)
+    @videos = @last_20_videos.to_a.uniq {|video| video.vimeo_id}
+    @photos = UserPhoto.active.order(created_at: :desc).limit(6)
+    @reviews = Review.active.order(created_at: :desc).limit(5)
+    @stories = Story.active.order(created_at: :desc).limit(5)
   end
 
   def globe

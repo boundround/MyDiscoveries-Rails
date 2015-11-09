@@ -20,6 +20,15 @@
   padding-left: 1px;
 }
 
+.search-results {
+  background-color: white;
+  text-align: center;
+  border-radius: 4px;
+  max-height: 500px;
+  overflow: scroll;
+  display: none;
+}
+
 .review-buttons {
   text-align: left;
 }

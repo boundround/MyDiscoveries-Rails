@@ -72,11 +72,11 @@
                       lng: -77.028333,
                       icon: "img/pin.png",
                       infoWindow: {
-                          content: "<div class='br15_marker'> <div class='br15_marker_round'><img src='img/insta.jpg' alt=''></div><h4>W<span>ater</span> P<span>ark</span><br><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i></h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet interdum tortor et finibus. Maecenas in metus augue. Praesent maximus arcu tempus.</p></div>"
+                          content: "<div class='br15_marker'> <div class='br15_marker_round'><img src='' alt=''></div><h4>W<span>ater</span> P<span>ark</span><br><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i></h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet interdum tortor et finibus. Maecenas in metus augue. Praesent maximus arcu tempus.</p></div>"
                       },
                       click: function(e){
                           setTimeout(function(){
-                              $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png']").hide();
+                              $("img[src='https://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png']").hide();
                           },200);
                       }
                   });
@@ -85,11 +85,11 @@
                       lng: -77.028333,
                       icon: "img/pin.png",
                       infoWindow: {
-                          content: "<div class='br15_marker'> <div class='br15_marker_round'><img src='img/insta.jpg' alt=''></div><h4>W<span>ater</span> P<span>ark</span><br><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i></h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet interdum tortor et finibus. Maecenas in metus augue. Praesent maximus arcu tempus.</p></div>"
+                          content: "<div class='br15_marker'> <div class='br15_marker_round'><img src='' alt=''></div><h4>W<span>ater</span> P<span>ark</span><br><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i></h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet interdum tortor et finibus. Maecenas in metus augue. Praesent maximus arcu tempus.</p></div>"
                       },
                       click: function(e){
                           setTimeout(function(){
-                              $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png']").hide();
+                              $("img[src='https://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png']").hide();
                           },200);
                       }
 
@@ -103,14 +103,15 @@
         <div class="br15_top_search container-fluid">
             <div class="br15_search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
+                    <input type="text" id="search-box" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
                     </span>
                 </div>
             </div>
             <div class="br15_search_result">
-                <h2>6 R<span>esults</span></h2>
+              <%= render "search_suggestions/search_results" %>
+                <!-- <h2>6 R<span>esults</span></h2>
                 <ul class="list-unstyled">
                     <li>
                         <a href="#">Sydney</a>
@@ -141,7 +142,7 @@
                             Field Of Dreams
                         </a>
                     </li>
-                </ul>
+                </ul> -->
             </div>
             <div class="btn-group br15_signup_btn_group hidden-xs" role="group" aria-label="...">
                 <a type="button" class="btn btn-default">Sign In</a>
@@ -149,7 +150,7 @@
             </div>
             <div class="row br15_header">
                 <div class="col-xs-12 text-center">
-                    <a href="#" class="center-block br15_logo"><img src="img/logo-lg.png" class="img-responsive center-block" alt=""></a>
+                    <a href="#" class="center-block br15_logo"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive center-block home-logo" alt=""></a>
                     <h3 class="text-center text-uppercase br15_heading_main">Sign UP For Round Bound And Get Access to Amazing features!</h3>
                 </div>
             </div>
@@ -181,36 +182,13 @@
             <a href="#" class="btn btn-default br15_Title_See_All">Photos<span>See All</span></a>
             <div class="row">
                 <div id="br15_owl_photos" class="owl-carousel">
+                  <% @photos.each do |photo| %>
                     <div><!-- 16:9 aspect ratio -->
                         <div class="embed-responsive embed-responsive-16by9">
-                            <img class="embed-responsive-item" src="img/frame.jpg">
+                            <img class="embed-responsive-item" src="<%= photo.path_url(:medium) %>">
                         </div>
                     </div>
-                    <div><!-- 16:9 aspect ratio -->
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <img class="embed-responsive-item" src="img/frame.jpg">
-                        </div>
-                    </div>
-                    <div><!-- 16:9 aspect ratio -->
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <img class="embed-responsive-item" src="img/frame.jpg">
-                        </div>
-                    </div>
-                    <div><!-- 16:9 aspect ratio -->
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <img class="embed-responsive-item" src="img/frame.jpg">
-                        </div>
-                    </div>
-                    <div><!-- 16:9 aspect ratio -->
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <img class="embed-responsive-item" src="img/frame.jpg">
-                        </div>
-                    </div>
-                    <div><!-- 16:9 aspect ratio -->
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <img class="embed-responsive-item" src="img/frame.jpg">
-                        </div>
-                    </div>
+                  <% end %>
                 </div>
             </div>
         </div>
@@ -223,58 +201,58 @@
                             <div class="br15_row_mob">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li>
-                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                        <img src="" class="img-responsive" alt="">
                                     </li>
                                     <li class="clearfix"></li>
                                 </ul>
@@ -290,7 +268,7 @@
                                 <li>
                                     <a href="#">
                                                         <span class="br_avtar">
-                                                            <img src="img/shell_2.png" alt="">
+                                                            <img src="" alt="">
                                                             <span>
                                                                 200
                                                             </span>
@@ -304,7 +282,7 @@
                                 <li>
                                     <a href="#">
                                                         <span class="br_avtar">
-                                                            <img src="img/shell_2.png" alt="">
+                                                            <img src="" alt="">
                                                             <span>
                                                                 200
                                                             </span>
@@ -318,7 +296,7 @@
                                 <li>
                                     <a href="#">
                                                         <span class="br_avtar">
-                                                            <img src="img/shell_2.png" alt="">
+                                                            <img src="" alt="">
                                                             <span>
                                                                 200
                                                             </span>
@@ -332,7 +310,7 @@
                                 <li class="">
                                     <a href="#">
                                                         <span class="br_avtar">
-                                                            <img src="img/shell_2.png" alt="">
+                                                            <img src="" alt="">
                                                             <span>
                                                                 200
                                                             </span>
@@ -357,78 +335,26 @@
                             <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">Reviews<span>See All</span></a>
                             <hr class="br15_hr"/>
                             <ul class="list-unstyled">
+                              <% @reviews.each do |review| %>
                                 <li>
-                                    <a href="#" class="row center-block">
+                                    <a href="<%= place_path(review.reviewable) + "#reviews" %>" class="row center-block">
                                             <span class="col-xs-6 center-block">
                                                 <span class="row center-block">
-                                                    Fiji
+                                                    <%= !review.title.blank? ? review.title : review.reviewable.display_name %>
                                                 </span>
                                             </span>
                                             <span class="col-xs-6 center-block text-right">
                                                 <span class="row center-block">
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
+                                                  <% if review.reviewable.quality_average %>
+                                                    <% review.reviewable.quality_average.avg.round.times do %>
+                                                      <span class="glyphicon glyphicon-star"></span>
+                                                    <% end %>
+                                                  <% end %>
                                                 </span>
                                             </span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="row center-block">
-                                            <span class="col-xs-6 center-block">
-                                                <span class="row center-block">
-                                                    New York, NY
-                                                </span>
-                                            </span>
-                                            <span class="col-xs-6 center-block text-right">
-                                                <span class="row center-block">
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                </span>
-                                            </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="row center-block">
-                                            <span class="col-xs-6 center-block">
-                                                <span class="row center-block">
-                                                    Perth, Australia
-                                                </span>
-                                            </span>
-                                            <span class="col-xs-6 center-block text-right">
-                                                <span class="row center-block">
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                </span>
-                                            </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="row center-block">
-                                            <span class="col-xs-6 center-block">
-                                                <span class="row center-block">
-                                                    Fiji
-                                                </span>
-                                            </span>
-                                            <span class="col-xs-6 center-block text-right">
-                                                <span class="row center-block">
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                </span>
-                                            </span>
-                                    </a>
-                                </li>
+                              <% end %>
                             </ul>
                         </div>
                     </div>
@@ -439,26 +365,13 @@
                             <a href="#" class="btn btn-default br15_features_btn  br15_Title_See_All">Stories<span>See All</span></a>
                             <hr class="br15_hr"/>
                             <ul class="list-unstyled ">
+                              <% @stories.each do |story| %>
                                 <li>
-                                    <a href="#" class="row center-block">
-                                        Visiting Fiji In The Winter
+                                    <a href="<%= place_path(story.storiable) + "#stories" %>" class="row center-block">
+                                        <%= story.title.blank? ? story.storiable.display_name : story.title %>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="row center-block">
-                                        Swimming In The Pacific  For Kids Olympics
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="row center-block">
-                                        Visiting Fiji In The Winter
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="row center-block">
-                                        Swimming In The Pacific  For Kids Olympics
-                                    </a>
-                                </li>
+                              <% end %>
                             </ul>
                         </div>
                     </div>
@@ -475,7 +388,7 @@
                 <div class="col-sm-6">
                     <div class="br15_blog_cont">
                         <div class="br15_row_mob">
-                            <div class="br15_row_mob"><img src="img/blog_img.jpg" class="img-responsive " alt=""></div>
+                            <div class="br15_row_mob"><img src="" class="img-responsive " alt=""></div>
                             <h2 class="text-uppercase">Traveling With The Whole Family</h2>
                             <p>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lacinia nibh nec lacinia vulputate. Nunc vehicula, nibh id porta egestas, arcu nisi porta ante, quis efficitur urna ex vitae ligula.
@@ -526,27 +439,14 @@
             <div class="row">
                 <div class="col-xs-12">
                     <ul class="list-inline text-uppercase">
-                        <li>
-                            <a href="#">Travel Industry</a>
-                        </li>
-                        <li>
-                            <a href="#">Teachers</a>
-                        </li>
-                        <li>
-                            <a href="#">Media</a>
-                        </li>
-                        <li>
-                            <a href="#">Your Say</a>
-                        </li>
-                        <li>
-                            <a href="#">Privacy</a>
-                        </li>
-                        <li>
-                            <a href="#">About Us</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
+
+                      <li><a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a></li>
+                      <li><a href="http://boundround.com/education/" target="blank">Teachers</a></li>
+                      <li><a href="http://boundround.com/media/" target="blank">Media</a></span></p></li>
+                      <li><a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a></li>
+                      <li><a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a></li>
+                      <li><a href="http://boundround.com/about-us/" target="blank">About Us</a></li>
+                      <li><a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a></li>
                     </ul>
                 </div>
             </div>
