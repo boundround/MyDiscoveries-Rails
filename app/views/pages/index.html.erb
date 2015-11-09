@@ -1,121 +1,553 @@
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.6.0/jquery.matchHeight-min.js"></script>
+          <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=true"></script>
+          <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.21/gmaps.min.js"></script>
+          <script type="text/javascript">
+              $(document).ready(function(){
+                  $("#br15_owl_video").owlCarousel({
+                      items:3,
+                      itemsDesktopSmall:[1199,3],
+                      itemsTablet:[768,2],
+                      itemsMobile:[500,1],
+                      navigation:true,
+                      pagination:false,
+                      navigationText: [
+                          "<i class='glyphicon glyphicon-menu-left'><</i>",
+                          "<i class='glyphicon glyphicon-menu-right'>></i>"
+                      ],
+                      afterInit: function(){
+                          $( "#br15_owl_video .glyphicon-menu-left,#br15_owl_video .glyphicon-menu-right" ).empty();
+                      }
+                  });
+                  $("#br15_owl_photos").owlCarousel({
+                      items:3,
+                      itemsDesktopSmall:[1199,3],
+                      itemsTablet:[768,2],
+                      itemsMobile:[500,1],
+                      navigation:true,
+                      pagination:false,
+                      navigationText: [
+                          "<i class='glyphicon glyphicon-menu-left'><</i>",
+                          "<i class='glyphicon glyphicon-menu-right'>></i>"
+                      ],
+                      afterInit: function(){
+                          $( "#br15_owl_photos .glyphicon-menu-left,#br15_owl_photos .glyphicon-menu-right" ).empty();
+                      }
+                  });
+                  $('.br15_instagram,.br15_leaderboard,.br15_reviews,.br15_blog .row .col-sm-6').matchHeight();
 
-<div id="cards">
-  <div class="br-logo-home"></div>
-  <%= render 'layouts/search_input' %>
-  <div id="card-container">
-    <div id='filters' class='ui-select'>
-      <div>
-        <input type='checkbox' checked=checked class='filter'
-                 name='filter' id='activity' value='activity'/><label for='activity'>Activity</label>
-        <input type='checkbox' checked=checked class='filter'
-                   name='filter' id='animals' value='animals'/><label for='animals'>Animals</label>
-        <input type='checkbox' checked=checked class='filter'
-                   name='filter' id='beach' value='beach'/><label for='beach'>Beach</label>
-        <input type='checkbox' checked=checked class='filter'
-                   name='filter' id='museum' value='museum'/><label for='museum'>Museum</label>
-        <input type='checkbox' checked=checked class='filter'
-                   name='filter' id='park' value='park'/><label for='park'>Park</label>
-        <input type='checkbox' checked=checked class='filter'
-                   name='filter' id='place_to_eat' value='place_to_eat'/><label for='place_to_eat'>Place To Eat</label>
-      </div>
-      <div>
-        <input type='checkbox' checked=checked class='filter'
-                 name='filter' id='place_to_stay' value='place_to_stay'/><label for='place_to_stay'>Place To Stay</label>
-        <input type='checkbox' checked=checked class='filter'
-                   name='filter' id='shopping' value='shopping'/><label for='shopping'>Shopping</label>
-        <input type='checkbox' checked=checked class='filter'
-                   name='filter' id='sights' value='sights'/><label for='sights'>Sights</label>
-        <input type='checkbox' checked=checked class='filter'
-                   name='filter' id='sport' value='sport'/><label for='sport'>Sport</label>
-        <input type='checkbox' checked=checked class='filter'
-                   name='filter' id='theme_park' value='theme_park'/><label for='theme_park'>Theme Park</label>
-      </div>
-    </div>
-    <div id="areas"></div>
-    <div id="places"></div>
-    <div class="clearfix"></div>
-    <div class="video-game-buttons">
-      <button class="video-button button" onclick="window.location.href='/videos'">
-        <%= image_tag("all_videos_icon.png", size: "20x15", class: "all-game-video-icon") %>
-        See All Videos
-      </button>
-      <button class="game-button button" onclick="window.location.href='/games'">
-        <%= image_tag("all_games_icon.png", size: "20x15", class: "all-game-video-icon") %>
-        Play All Games
-      </button>
-    </div>
-    <div class="clearfix"></div>
-  </div>
-  <div class="center">
-    <p>
-      <button class="button" onclick="window.location.href='/virginaustralia'">
-        Kids Fly With Virgin Australia!
-      </button>
-    </p>
-  </div>
-  <footer>
-    <div class="home-footer">
-      <span class="top-footer"><p><a href="http://boundround.com/kids/" target="blank">Travelling Families</a> <a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a> <a href="http://boundround.com/education/" target="blank">Teachers</a><a href=" http://boundround.com/media/" target="blank">Media</a></span></p>
-      <span class="bottom-footer">
-        <a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a>
-        <a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a> <a href="http://boundround.com/about-us/" target="blank">About Us</a><a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a>
-      </span>
-    </div>
-  </footer>
-</div>
-<div class='map-page'>
-  <div id='map'>
-  </div>
-  <div id="svgdiv">
-  <div id="zoomcontrol">
-    <div id="zoomplus"><%=image_tag("zoomplus.png")%></div>
-    <div id="zoomscroller"><%=image_tag("zoomscroller2.png")%></div>
-    <div id="zoomminus"><%=image_tag("zoomminus.png")%></div>
-  </div>
-  </div>
-</div>
-<!--
-<div class="dude-help">
-  <div class="balloon-wrapper">
-    <a href="#" data-toggle="modal" data-target="#helpModal">
-      <div class="help-balloon">
-        <div>
-          <p class="balloon-dialog">Hi there!<br />Click here for the Bound Round guide.</p>
+                  $('.br15_Slide_Up_BTN').click(function(e){
+                      e.preventDefault();
+                      $('#br15_map').toggleClass('br15_min_h_530');
+                      $('.br15_map').toggleClass('br15_collapse');
+                      $('.br15_header').slideToggle(400,function(){
+                          $('.br15_search_result').slideToggle();
+
+                      });
+
+
+                  });
+                  map = new GMaps({
+                      el: '#br15_map',
+                      lat: -12.043333,
+                      lng: -77.028333,
+                      zoomControl : true,
+                      zoomControlOpt: {
+                          style : 'SMALL',
+                          position: 'TOP_LEFT'
+                      },
+                      panControl : false,
+                      streetViewControl : true,
+                      mapTypeControl: false,
+                      overviewMapControl: false,
+                      styles:[ { "featureType": "water", "stylers": [ { "color": "#ace1f6" } ] },{ "featureType": "landscape", "stylers": [ { "color": "#f9f5ed" } ] },{ } ]
+
+                  });
+                  map.addMarker({
+                      lat: -12.043333,
+                      lng: -77.028333,
+                      icon: "img/pin.png",
+                      infoWindow: {
+                          content: "<div class='br15_marker'> <div class='br15_marker_round'><img src='img/insta.jpg' alt=''></div><h4>W<span>ater</span> P<span>ark</span><br><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i></h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet interdum tortor et finibus. Maecenas in metus augue. Praesent maximus arcu tempus.</p></div>"
+                      },
+                      click: function(e){
+                          setTimeout(function(){
+                              $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png']").hide();
+                          },200);
+                      }
+                  });
+                  map.addMarker({
+                      lat: -12.046,
+                      lng: -77.028333,
+                      icon: "img/pin.png",
+                      infoWindow: {
+                          content: "<div class='br15_marker'> <div class='br15_marker_round'><img src='img/insta.jpg' alt=''></div><h4>W<span>ater</span> P<span>ark</span><br><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i></h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet interdum tortor et finibus. Maecenas in metus augue. Praesent maximus arcu tempus.</p></div>"
+                      },
+                      click: function(e){
+                          setTimeout(function(){
+                              $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png']").hide();
+                          },200);
+                      }
+
+                  });
+
+
+              });
+
+          </script>
+    </head>
+        <div class="br15_top_search container-fluid">
+            <div class="br15_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+                    </span>
+                </div>
+            </div>
+            <div class="br15_search_result">
+                <h2>6 R<span>esults</span></h2>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#">Sydney</a>
+                    </li>
+                    <li>
+                        <a href="#">Water Park</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Valley
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Field Of Dreams
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Water Park</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Valley
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Field Of Dreams
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group br15_signup_btn_group hidden-xs" role="group" aria-label="...">
+                <a type="button" class="btn btn-default">Sign In</a>
+                <a type="button" class="btn btn-default">Sign Up</a>
+            </div>
+            <div class="row br15_header">
+                <div class="col-xs-12 text-center">
+                    <a href="#" class="center-block br15_logo"><img src="img/logo-lg.png" class="img-responsive center-block" alt=""></a>
+                    <h3 class="text-center text-uppercase br15_heading_main">Sign UP For Round Bound And Get Access to Amazing features!</h3>
+                </div>
+            </div>
+            <div class="row br15_map br15_collapse">
+                <div class="br15_map_overlay"></div>
+                <a href="#" class="btn btn-default br15_Slide_Up_BTN"><span class="glyphicon glyphicon-globe"></span> <span class="glyphicon glyphicon-menu-up"></span></a>
+                    <div id="br15_map">
+
+                    </div>
+            </div>
         </div>
-      </div>
-    </a>
-  </div>
-  <div class="dude-icon-wrapper">
-    <%= image_tag "dude-help.png", class: "dude-help-icon" %>
-  </div>
-</div>
-
-<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-content">
-    <div class="modal-body">
-      <%= render '/pages/help' %>
-    </div>
-  </div>
-  <div class="footer">
-    <a class="feedback" href="mailto:help@boundround.com">Send us your feedback!</a>
-  </div>
-</div> -->
-
-<div id='user-ip' data-ip=<%= request.remote_ip %>></div>
-<!-- Google Fonts embed code -->
-<script type="text/javascript">
-  WebFontConfig = {
-    google: { families: [ 'Signika:300:latin' ] }
-  };
-  (function() {
-    var wf = document.createElement('script');
-    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-  })();
-  </script>
-<%= javascript_include_tag 'd3.v3.min' %>
-<%= javascript_include_tag 'pages' %>
+        <div class="br15_videos container-fluid">
+            <a href="#" class="btn btn-default br15_Title_See_All">videos <span>See All</span></a>
+            <div class="row">
+                <div id="br15_owl_video" class="owl-carousel">
+                  <% @videos.each do |video| %>
+                      <div><!-- 16:9 aspect ratio -->
+                          <div class="embed-responsive embed-responsive-16by9">
+                              <iframe class="embed-reponsive-item" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1" frameborder="2" data-title="<%= video.title %>" data-description="<%= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                                          </iframe>
+                              <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/51_gSa1OdEE"></iframe> -->
+                          </div>
+                      </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="br15_videos br15_photos_cont container-fluid">
+            <a href="#" class="btn btn-default br15_Title_See_All">Photos<span>See All</span></a>
+            <div class="row">
+                <div id="br15_owl_photos" class="owl-carousel">
+                    <div><!-- 16:9 aspect ratio -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <img class="embed-responsive-item" src="img/frame.jpg">
+                        </div>
+                    </div>
+                    <div><!-- 16:9 aspect ratio -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <img class="embed-responsive-item" src="img/frame.jpg">
+                        </div>
+                    </div>
+                    <div><!-- 16:9 aspect ratio -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <img class="embed-responsive-item" src="img/frame.jpg">
+                        </div>
+                    </div>
+                    <div><!-- 16:9 aspect ratio -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <img class="embed-responsive-item" src="img/frame.jpg">
+                        </div>
+                    </div>
+                    <div><!-- 16:9 aspect ratio -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <img class="embed-responsive-item" src="img/frame.jpg">
+                        </div>
+                    </div>
+                    <div><!-- 16:9 aspect ratio -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <img class="embed-responsive-item" src="img/frame.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="br15_features container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row br15_instagram">
+                        <div class="col-xs-12">
+                            <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">Instagram<span>See All</span></a>
+                            <div class="br15_row_mob">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="img/insta.jpg" class="img-responsive" alt="">
+                                    </li>
+                                    <li class="clearfix"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row br15_leaderboard">
+                        <div class="col-xs-12">
+                            <a href="#" class="btn btn-default br15_features_btn br15_features_btn_leader br15_Title_See_All">Leaderboard<span>See All</span></a>
+                            <ul class="list-unstyled br_Leaderboard">
+                                <li>
+                                    <a href="#">
+                                                        <span class="br_avtar">
+                                                            <img src="img/shell_2.png" alt="">
+                                                            <span>
+                                                                200
+                                                            </span>
+                                                        </span>
+                                                        <span class="br_avtar_no">
+                                                            1
+                                                        </span>
+                                        <span class="br_user_name">Iris Grey</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                                        <span class="br_avtar">
+                                                            <img src="img/shell_2.png" alt="">
+                                                            <span>
+                                                                200
+                                                            </span>
+                                                        </span>
+                                                        <span class="br_avtar_no">
+                                                            2
+                                                        </span>
+                                        <span class="br_user_name">Iris Grey</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                                        <span class="br_avtar">
+                                                            <img src="img/shell_2.png" alt="">
+                                                            <span>
+                                                                200
+                                                            </span>
+                                                        </span>
+                                                        <span class="br_avtar_no">
+                                                            3
+                                                        </span>
+                                        <span class="br_user_name">Iris Grey</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="#">
+                                                        <span class="br_avtar">
+                                                            <img src="img/shell_2.png" alt="">
+                                                            <span>
+                                                                200
+                                                            </span>
+                                                        </span>
+                                                        <span class="br_avtar_no">
+                                                            4
+                                                        </span>
+                                        <span class="br_user_name">Iris Grey</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="br15_features container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row br15_reviews">
+                        <div class="col-xs-12">
+                            <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">Reviews<span>See All</span></a>
+                            <hr class="br15_hr"/>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#" class="row center-block">
+                                            <span class="col-xs-6 center-block">
+                                                <span class="row center-block">
+                                                    Fiji
+                                                </span>
+                                            </span>
+                                            <span class="col-xs-6 center-block text-right">
+                                                <span class="row center-block">
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                </span>
+                                            </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="row center-block">
+                                            <span class="col-xs-6 center-block">
+                                                <span class="row center-block">
+                                                    New York, NY
+                                                </span>
+                                            </span>
+                                            <span class="col-xs-6 center-block text-right">
+                                                <span class="row center-block">
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                </span>
+                                            </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="row center-block">
+                                            <span class="col-xs-6 center-block">
+                                                <span class="row center-block">
+                                                    Perth, Australia
+                                                </span>
+                                            </span>
+                                            <span class="col-xs-6 center-block text-right">
+                                                <span class="row center-block">
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                </span>
+                                            </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="row center-block">
+                                            <span class="col-xs-6 center-block">
+                                                <span class="row center-block">
+                                                    Fiji
+                                                </span>
+                                            </span>
+                                            <span class="col-xs-6 center-block text-right">
+                                                <span class="row center-block">
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                </span>
+                                            </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row br15_stories br15_reviews">
+                        <div class="col-xs-12">
+                            <a href="#" class="btn btn-default br15_features_btn  br15_Title_See_All">Stories<span>See All</span></a>
+                            <hr class="br15_hr"/>
+                            <ul class="list-unstyled ">
+                                <li>
+                                    <a href="#" class="row center-block">
+                                        Visiting Fiji In The Winter
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="row center-block">
+                                        Swimming In The Pacific  For Kids Olympics
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="row center-block">
+                                        Visiting Fiji In The Winter
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="row center-block">
+                                        Swimming In The Pacific  For Kids Olympics
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="br15_blog container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">BoundRound Blog<span>See All</span></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="br15_blog_cont">
+                        <div class="br15_row_mob">
+                            <div class="br15_row_mob"><img src="img/blog_img.jpg" class="img-responsive " alt=""></div>
+                            <h2 class="text-uppercase">Traveling With The Whole Family</h2>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lacinia nibh nec lacinia vulputate. Nunc vehicula, nibh id porta egestas, arcu nisi porta ante, quis efficitur urna ex vitae ligula.
+                            </p>
+                            <a class="text-uppercase br15_read_more_btn" href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 br15_blogs">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#">
+                                    <h4>Blog Title Here</h4>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis felis, finibus vel dignissim eget, pharetra et augue. Duis.
+                                    </p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <h4>Blog Title Here</h4>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis felis, finibus vel dignissim eget, pharetra et augue. Duis.
+                                    </p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <h4>Blog Title Here</h4>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis felis, finibus vel dignissim eget, pharetra et augue. Duis.
+                                    </p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <h4>Blog Title Here</h4>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis felis, finibus vel dignissim eget, pharetra et augue. Duis.
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+        <footer class="container-fluid text-center br15_footer">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="list-inline text-uppercase">
+                        <li>
+                            <a href="#">Travel Industry</a>
+                        </li>
+                        <li>
+                            <a href="#">Teachers</a>
+                        </li>
+                        <li>
+                            <a href="#">Media</a>
+                        </li>
+                        <li>
+                            <a href="#">Your Say</a>
+                        </li>
+                        <li>
+                            <a href="#">Privacy</a>
+                        </li>
+                        <li>
+                            <a href="#">About Us</a>
+                        </li>
+                        <li>
+                            <a href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>

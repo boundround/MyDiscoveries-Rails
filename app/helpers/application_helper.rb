@@ -253,10 +253,14 @@ module ApplicationHelper
   end
 
   def strip_domain_from_username(user)
-    if user.username.match /.+@.+\..+/i
-      user.username.match(/^(.*?)@/)[1]
-    else
-      user.username
+    begin
+      if user.username.match(/@/)
+        user.username.match(/^(.*?)@/)[1]
+      else
+        user.username
+      end
+    rescue
+      ""
     end
   end
 

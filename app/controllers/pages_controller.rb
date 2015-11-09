@@ -1,12 +1,11 @@
 class PagesController < ApplicationController
 
   def index
-    # if !browser.modern?
-    #     flash[:alert] = ("Please note that BoundRound does not support #{browser.name} version #{browser.version}. <br>
-    #     We recommend upgrading to the latest <a href='https://chrome.google.com/' class='alert-link'>Google Chrome</a>,
-    #     <a href='https://mozilla.org/firefox/' class='alert-link'>Firefox</a>,
-    #      or <a href='http://windows.microsoft.com/ie' class='alert-link'>Internet Explorer.</a> <br>").html_safe
-    # end
+    @set_body_class = "white-body"
+    @videos = Video.order(created_at: :desc).limit(6)
+    @photos = UserPhoto.order(created_at: :desc).limit(6)
+    @reviews = Review.order(created_at: :desc).limit(6)
+    @stories = Story.order(created_at: :desc).limit(6)
   end
 
   def globe
@@ -43,3 +42,5 @@ class PagesController < ApplicationController
 
 
 end
+
+'SELECT * FROM (SELECT DISTINCT ON (videos.vimeo_id) * FROM videos ORDER BY videos.created_at) top_titles ORDER BY events.copy_count DESC LIMIT 99'
