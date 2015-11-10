@@ -169,58 +169,8 @@
                         <div class="col-xs-12">
                             <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">Instagram</a>
                             <div class="br15_row_mob">
+                              <div id="instafeed"></div>
                                 <ul class="list-unstyled">
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="" class="img-responsive" alt="">
-                                    </li>
                                     <li>
                                         <img src="" class="img-responsive" alt="">
                                     </li>
@@ -328,3 +278,15 @@
                 </div>
             </div>
         </footer>
+        <%= javascript_include_tag 'instafeed.min' %>
+        <script type="text/javascript">
+          var feed = new Instafeed({
+              clientId: '914a2ec1ca824b89b6eac7fb7538d35a',
+              sortBy: 'most-recent',
+              get: 'user',
+              userId: 303316084,
+              limit: 33,
+              template: '<a href="{{link}}" target="_blank"><img src="{{image}}" /></a>'
+          });
+          feed.run();
+      </script>
