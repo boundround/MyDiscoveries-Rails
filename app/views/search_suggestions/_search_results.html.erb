@@ -1,6 +1,7 @@
 <main class="search-results">
   <div id="stats"></div>
   <div id="hits"></div>
+  <div id="pagination"></div>
   <div id="google-hits"></div>
 </main>
 <script type="text/template" id="hit-template">
@@ -8,11 +9,11 @@
   <a href="{{ url }}" class="no-anchor-decoration">
     <div class="hit">
       <span class="hit-image">
-        <img height="50px" src="{{ photos.0.url }}" alt="{{ photos.0.alt_tag }}">
+        <img class="search-thumbnail" src="{{ photos.0.url }}" alt="{{ photos.0.alt_tag }}">
       </span>
       <div class="hit-content">
         <h5 class="hit-name">{{{ _highlightResult.display_name.value }}}</h5>
-        <p class="hit-description">{{{ _highlightResult.description.value }}}</p>
+        <p class="hit-description hidden-xs">{{{ _highlightResult.description.value }}}</p>
       </div>
     </div>
   </a>
@@ -51,4 +52,32 @@
       <a href="" class='clear-all'>Clear all</a>
     </ul>
   </div>
+</script>
+
+<style>
+  .search-pagination-list {
+    display: inline !important;
+    padding: 0;
+  }
+
+  .search-pagination-list li {
+    display: inline !important;
+  }
+
+  .search-pagination-list li a {
+    font-size: 16px !important;
+    display: inline !important;
+  }
+</style>
+
+<!-- Pagination template -->
+<script type="text/template" id="pagination-template">
+  <a id="search-results">
+  <ul class="search-pagination-list">
+    <li {{^prev_page}}class="disabled"{{/prev_page}}><a href="#" {{#prev_page}}class="go-to-page" data-page="{{ prev_page }}"{{/prev_page}}>&#60;</a></li>
+    {{#pages}}
+    <li class="{{#current}}active{{/current}} {{#disabled}}disabled{{/disabled}}"><a href="#" {{^disabled}} class="go-to-page" data-page="{{ number }}" {{/disabled}}>{{ number }}</a></li>
+    {{/pages}}
+    <li {{^next_page}}class="disabled"{{/next_page}}><a href="#" {{#next_page}}class="go-to-page" data-page="{{ next_page }}"{{/next_page}}>&#62;</a></li>
+  </ul>
 </script>

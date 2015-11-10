@@ -28,8 +28,16 @@
 	z-index: -1;
 }
 
+.search-thumbnail {
+  height: 50px;
+}
+
 #card-container {
 	margin-top: 20px;
+}
+
+#instafeed a img {
+  width: 70px;
 }
 
 .loader-bound-round {
@@ -651,6 +659,12 @@ box-shadow: 2px 2px 10px #f16c42;
 		width: 100%;
 	}
 
+}
+
+@media (max-width: 768px) {
+  .search-thumbnail {
+    height: 30px;
+  }
 }
 
 /*************************************************Home page********************************************/
