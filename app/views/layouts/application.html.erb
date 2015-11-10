@@ -195,6 +195,8 @@
 				}
 
 				br_map.fitBounds(bounds);
+        renderStats(content);
+        renderPagination(content);
 /*	
 				br_place_markerCluster ? br_place_markerCluster.clearMarkers();
 				
@@ -214,8 +216,6 @@
 				setTimeout(function(){window.br_place_markerCluster.repaint();},3000);
 */				
 				/* Add MAP functions here */
-        renderStats(content);
-        renderPagination(content);
       });
 
       function renderHits(content) {
