@@ -132,6 +132,8 @@
         hitsPerPage: 6,
         maxValuesPerFacet: 8,
       };
+			
+			var br_place_markerCluster = null;
 
       var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
       var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
@@ -175,7 +177,45 @@
         console.log(content);
         renderHits(content);
         renderStats(content)
-      });
+				
+				// size of icon on the map
+				var scaleRatio = 1.0;
+				var originalWidthOfIcon = window.thirdFloor.iconBuilder.CANVAS_DEFAULT_WIDTH;
+				var originalHeightOfIcon = window.thirdFloor.iconBuilder.CANVAS_DEFAULT_HEIGHT;
+				var scaledWidthOfIcon = originalWidthOfIcon * scaleRatio;
+				var scaledHeightOfIcon = originalHeightOfIcon * scaleRatio;
+
+				var anchorOfIcon = new google.maps.Point(scaledWidthOfIcon * 0.5, scaledHeightOfIcon + 0);
+				var scaledSizeOfIcon = new google.maps.Size(scaledWidthOfIcon, scaledHeightOfIcon);
+
+				window.br_place_markers = window.createMarkerArrayFromAlgolia(content, "", true, scaledSizeOfIcon, anchorOfIcon);
+				
+				var bounds = new google.maps.LatLngBounds();
+				for(i=0;i<br_place_markers.length;i++) {
+				 bounds.extend(br_place_markers[i].getPosition());
+				}
+
+				br_map.fitBounds(bounds);
+/*	
+				br_place_markerCluster ? br_place_markerCluster.clearMarkers();
+				
+				br_place_markerCluster = new MarkerClusterer(br_map, br_place_markers, {
+					maxZoom: 14,
+					ignoreHidden: false,
+					gridSize: 10,
+					styles: [{
+						url: '../google_home/cluster28yellow.png',
+						height: 28,
+						width: 28,
+						anchor: [0, 0],
+						textColor: '#000000',
+						textSize: 10
+					}]
+				});
+				setTimeout(function(){window.br_place_markerCluster.repaint();},3000);
+*/				
+				/* Add MAP functions here */
+     });
 
       function renderHits(content) {
         console.log("rendering hits");
