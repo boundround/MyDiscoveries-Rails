@@ -28,6 +28,14 @@ class Place < ActiveRecord::Base
       end
     end
 
+    attribute :category do
+      if categories.blank?
+        "sights"
+      else
+        categories[0].identifier
+      end
+    end
+
     attribute :name do
       string = "#{display_name}"
       if !locality.blank?
