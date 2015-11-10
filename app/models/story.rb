@@ -1,6 +1,6 @@
 class Story < ActiveRecord::Base
   include Transactionable
-  # after_update :add_transaction
+  after_update :add_transaction
   # after_update :send_live_notification
 
   belongs_to :user

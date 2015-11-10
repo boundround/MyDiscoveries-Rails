@@ -4,9 +4,18 @@ class PagesController < ApplicationController
     @set_body_class = "white-body"
     @last_20_videos = Video.active.order(created_at: :desc).limit(20)
     @videos = @last_20_videos.to_a.uniq {|video| video.vimeo_id}
-    @photos = UserPhoto.active.order(created_at: :desc).limit(6)
+    @photos = UserPhoto.active.where('path is not null').includes(:place).where('place_id is not null').order(created_at: :desc).limit(6)
     @reviews = Review.active.order(created_at: :desc).limit(5)
     @stories = Story.active.order(created_at: :desc).limit(5)
+    @leaders = PointsBalance.order(balance: :desc).includes(:user).limit(20)
+    @leaderboard = []
+    @leaders.each do |leader|
+      unless leader.user.roles.length > 0
+        @leaderboard.push leader
+      end
+    end
+    @leaderboard = @leaderboard[0..3]
+
   end
 
   def globe

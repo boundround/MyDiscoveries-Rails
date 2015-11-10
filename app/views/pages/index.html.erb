@@ -111,38 +111,6 @@
             </div>
             <div class="br15_search_result">
               <%= render "search_suggestions/search_results" %>
-                <!-- <h2>6 R<span>esults</span></h2>
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="#">Sydney</a>
-                    </li>
-                    <li>
-                        <a href="#">Water Park</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Valley
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Field Of Dreams
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Water Park</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Valley
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Field Of Dreams
-                        </a>
-                    </li>
-                </ul> -->
             </div>
             <div class="btn-group br15_signup_btn_group hidden-xs" role="group" aria-label="...">
                 <a type="button" class="btn btn-default">Sign In</a>
@@ -163,7 +131,7 @@
             </div>
         </div>
         <div class="br15_videos container-fluid">
-            <a href="#" class="btn btn-default br15_Title_See_All">videos <span>See All</span></a>
+            <a href="<%= videos_path %>" class="btn btn-default br15_Title_See_All">videos <span>See All</span></a>
             <div class="row">
                 <div id="br15_owl_video" class="owl-carousel">
                   <% @videos.each do |video| %>
@@ -179,14 +147,16 @@
             </div>
         </div>
         <div class="br15_videos br15_photos_cont container-fluid">
-            <a href="#" class="btn btn-default br15_Title_See_All">Photos<span>See All</span></a>
+            <a href="#" class="btn btn-default br15_Title_See_All">Photos</a>
             <div class="row">
                 <div id="br15_owl_photos" class="owl-carousel">
                   <% @photos.each do |photo| %>
                     <div><!-- 16:9 aspect ratio -->
+                      <a href="<%= place_path(photo.place.id) %>">
                         <div class="embed-responsive embed-responsive-16by9">
                             <img class="embed-responsive-item" src="<%= photo.path_url(:medium) %>">
                         </div>
+                      </a>
                     </div>
                   <% end %>
                 </div>
@@ -197,7 +167,7 @@
                 <div class="col-sm-6">
                     <div class="row br15_instagram">
                         <div class="col-xs-12">
-                            <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">Instagram<span>See All</span></a>
+                            <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">Instagram</a>
                             <div class="br15_row_mob">
                                 <ul class="list-unstyled">
                                     <li>
@@ -263,64 +233,28 @@
                 <div class="col-sm-6">
                     <div class="row br15_leaderboard">
                         <div class="col-xs-12">
-                            <a href="#" class="btn btn-default br15_features_btn br15_features_btn_leader br15_Title_See_All">Leaderboard<span>See All</span></a>
+                            <a href="#" class="btn btn-default br15_features_btn br15_features_btn_leader br15_Title_See_All">Leaderboard</a>
                             <ul class="list-unstyled br_Leaderboard">
+                              <% @leaderboard.each_with_index do |leader, index| %>
                                 <li>
-                                    <a href="#">
-                                                        <span class="br_avtar">
-                                                            <img src="" alt="">
-                                                            <span>
-                                                                200
-                                                            </span>
-                                                        </span>
-                                                        <span class="br_avtar_no">
-                                                            1
-                                                        </span>
-                                        <span class="br_user_name">Iris Grey</span>
-                                    </a>
+                                  <a href="">
+                                  <span class="br_avtar">
+                                    <% if leader.user.avatar.blank? %>
+                                      <img src="<%= asset_path('Badge.png') %>" alt="">
+                                    <% else %>
+                                      <img src="<%= leader.user.avatar_url %>" alt="">
+                                    <% end %>
+                                      <span>
+                                          <%= leader.balance %>
+                                      </span>
+                                  </span>
+                                  <span class="br_avtar_no">
+                                      <%= (index + 1).to_s %>
+                                  </span>
+                                  <span class="br_user_name"><%= strip_domain_from_username(leader.user) %></span>
+                                  </a>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                                        <span class="br_avtar">
-                                                            <img src="" alt="">
-                                                            <span>
-                                                                200
-                                                            </span>
-                                                        </span>
-                                                        <span class="br_avtar_no">
-                                                            2
-                                                        </span>
-                                        <span class="br_user_name">Iris Grey</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                                        <span class="br_avtar">
-                                                            <img src="" alt="">
-                                                            <span>
-                                                                200
-                                                            </span>
-                                                        </span>
-                                                        <span class="br_avtar_no">
-                                                            3
-                                                        </span>
-                                        <span class="br_user_name">Iris Grey</span>
-                                    </a>
-                                </li>
-                                <li class="">
-                                    <a href="#">
-                                                        <span class="br_avtar">
-                                                            <img src="" alt="">
-                                                            <span>
-                                                                200
-                                                            </span>
-                                                        </span>
-                                                        <span class="br_avtar_no">
-                                                            4
-                                                        </span>
-                                        <span class="br_user_name">Iris Grey</span>
-                                    </a>
-                                </li>
+                              <% end %>
                             </ul>
                         </div>
                     </div>
@@ -332,26 +266,26 @@
                 <div class="col-sm-6">
                     <div class="row br15_reviews">
                         <div class="col-xs-12">
-                            <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">Reviews<span>See All</span></a>
+                            <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">Reviews</a>
                             <hr class="br15_hr"/>
                             <ul class="list-unstyled">
                               <% @reviews.each do |review| %>
                                 <li>
                                     <a href="<%= place_path(review.reviewable) + "#reviews" %>" class="row center-block">
-                                            <span class="col-xs-6 center-block">
-                                                <span class="row center-block">
-                                                    <%= !review.title.blank? ? review.title : review.reviewable.display_name %>
-                                                </span>
-                                            </span>
-                                            <span class="col-xs-6 center-block text-right">
-                                                <span class="row center-block">
-                                                  <% if review.reviewable.quality_average %>
-                                                    <% review.reviewable.quality_average.avg.round.times do %>
-                                                      <span class="glyphicon glyphicon-star"></span>
-                                                    <% end %>
-                                                  <% end %>
-                                                </span>
-                                            </span>
+                                      <span class="col-xs-6 center-block">
+                                          <span class="row center-block">
+                                              <%= !review.title.blank? ? review.title : review.reviewable.display_name %>
+                                          </span>
+                                      </span>
+                                      <span class="col-xs-6 center-block text-right">
+                                          <span class="row center-block">
+                                            <% if review.reviewable.quality_average %>
+                                              <% review.reviewable.quality_average.avg.round.times do %>
+                                                <span class="glyphicon glyphicon-star"></span>
+                                              <% end %>
+                                            <% end %>
+                                          </span>
+                                      </span>
                                     </a>
                                 </li>
                               <% end %>
@@ -375,63 +309,6 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="br15_blog container-fluid">
-            <div class="row">
-                <div class="col-xs-12">
-                    <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">BoundRound Blog<span>See All</span></a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="br15_blog_cont">
-                        <div class="br15_row_mob">
-                            <div class="br15_row_mob"><img src="" class="img-responsive " alt=""></div>
-                            <h2 class="text-uppercase">Traveling With The Whole Family</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lacinia nibh nec lacinia vulputate. Nunc vehicula, nibh id porta egestas, arcu nisi porta ante, quis efficitur urna ex vitae ligula.
-                            </p>
-                            <a class="text-uppercase br15_read_more_btn" href="#">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 br15_blogs">
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#">
-                                    <h4>Blog Title Here</h4>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis felis, finibus vel dignissim eget, pharetra et augue. Duis.
-                                    </p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <h4>Blog Title Here</h4>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis felis, finibus vel dignissim eget, pharetra et augue. Duis.
-                                    </p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <h4>Blog Title Here</h4>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis felis, finibus vel dignissim eget, pharetra et augue. Duis.
-                                    </p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <h4>Blog Title Here</h4>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis felis, finibus vel dignissim eget, pharetra et augue. Duis.
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
                 </div>
             </div>
         </div>
