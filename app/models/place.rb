@@ -31,6 +31,8 @@ class Place < ActiveRecord::Base
     attribute :category do
       if categories.blank?
         "sights"
+      elsif categories.any? {|category| category.identifier == "area"}
+        "area"
       else
         categories[0].identifier
       end
