@@ -43,6 +43,10 @@
 	background: #fd7e56;
 }
 
+.hit:hover {
+  color: #fd7e56;
+}
+
 #loader {
 	position: fixed;
 	top: 50%;
@@ -54,12 +58,23 @@
 	z-index: 101;
 }
 
+.search-results-container {
+  padding: 10px 10px;
+  background-color: white;
+  border-radius: 4px;
+}
+
 .card-category {
 	text-shadow: 1px 1px black;
 }
 
 .leaderboard-avatar {
   width: 100%;
+}
+
+.hit-image {
+  float: left;
+  padding-right: 2px;
 }
 
 .home-logo {
@@ -1076,11 +1091,10 @@ footer.br15_footer ul li a {
     background: #fff;
     left: 15px;
     top: 85px;
-    padding: 10px 15px;
     max-width: 297px;
     border-radius: 10px;
     width: 100%;
-    z-index: 10;
+    z-index: 1000;
     box-shadow: 1px 2px 8px 0 rgba(0, 0, 0, 0.25);
     -webkit-box-shadow: 1px 2px 8px 0 rgba(0, 0, 0, 0.25);
     -moz-box-shadow: 1px 2px 8px 0 rgba(0, 0, 0, 0.25);

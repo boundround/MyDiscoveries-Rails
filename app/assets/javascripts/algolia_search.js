@@ -133,8 +133,6 @@
     algoliaHelper.setCurrentPage(+$(this).data('page') - 1).search();
   });
 
-  $('#hits').on('click', ".hit", function(){window.location = $(this).data("url")});
-
   // var googlePlaceSearch = function(request, response) {
   //   function initialize() {
   //     var service = new google.maps.places.AutocompleteService();

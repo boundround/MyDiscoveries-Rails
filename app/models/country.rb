@@ -4,7 +4,25 @@ class Country < ActiveRecord::Base
 
   algoliasearch index_name: 'place', id: :algolia_id, if: :published? do
 
-    attributes :display_name, :description
+    attributes :display_name
+
+    attribute :description do
+      if description
+        if description.length < 50
+          "#{description}"
+        else
+          "#{description[0..50]}..."
+        end
+      else
+        ""
+      end
+    end
+
+    attribute :photos do
+      photos.select { |photo| photo.published? }.map do |photo|
+        { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+      end
+    end
 
     attribute :url do
       "countries/#{slug}"
