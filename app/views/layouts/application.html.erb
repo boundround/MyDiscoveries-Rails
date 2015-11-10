@@ -174,7 +174,8 @@
       algoliaHelper.on('result', function(content, state) {
         console.log(content);
         renderHits(content);
-        renderStats(content)
+        renderStats(content);
+        renderPagination(content);
       });
 
       function renderHits(content) {
@@ -189,6 +190,28 @@
           processingTimeMS: content.processingTimeMS
         };
         $stats.html(statsTemplate.render(stats));
+      }
+
+      function renderPagination(content) {
+        var pages = [];
+        if (content.page > 3) {
+          pages.push({current: false, number: 1});
+          pages.push({current: false, number: '...', disabled: true});
+        }
+        for (var p = content.page - 3; p < content.page + 3; ++p) {
+          if (p < 0 || p >= content.nbPages) continue;
+          pages.push({current: content.page === p, number: p + 1});
+        }
+        if (content.page + 3 < content.nbPages) {
+          pages.push({current: false, number: '...', disabled: true});
+          pages.push({current: false, number: content.nbPages});
+        }
+        var pagination = {
+          pages: pages,
+          prev_page: content.page > 0 ? content.page : false,
+          next_page: content.page + 1 < content.nbPages ? content.page + 2 : false
+        };
+        $pagination.html(paginationTemplate.render(pagination));
       }
 
       // NO RESULTS
@@ -239,7 +262,7 @@
 
       $(document).on('click', '.go-to-page', function(e) {
         e.preventDefault();
-        $('html, body').animate({scrollTop: 0}, '500', 'swing');
+        // $('html, body').animate({scrollTop: 0}, '500', 'swing');
         algoliaHelper.setCurrentPage(+$(this).data('page') - 1).search();
       });
 
