@@ -32,13 +32,19 @@ var br_infobox_country_options = null;
 
 var br_infobox_content_type = null;
 
-location.hash == '' ? location.hash = '#4/-31.722765997478323/142.06927500000006' : location.hash = location.hash;
-
 //	var br_url_prefix = "https://app.boundround.com";
 var br_google_url_prefix = ""; //"https://peaceful-bastion-2430.herokuapp.com";
 var br_show_map_mode = false;
 
 var brShowMapMode = null;
+
+/* Disable URL Hash
+function brUpdateHash(zoom, center) {
+	if (br_show_map_mode)
+		location.hash = '#' + zoom + '/' + center.lat() + '/' + center.lng() + '/map';
+	else
+		location.hash = '#' + zoom + '/' + center.lat() + '/' + center.lng();
+}
 
 function brParseHash() {
 	if (location.hash) {
@@ -46,8 +52,8 @@ function brParseHash() {
 		var my_loc = {};
 		my_loc.zoom = loc[0] * 1.;
 		my_loc.center = new google.maps.LatLng(loc[1], loc[2]);
-		/*			my_loc.center.lat = loc[1];
-			my_loc.center.lng = loc[2];*/
+			// my_loc.center.lat = loc[1];
+			// my_loc.center.lng = loc[2];
 		if (loc.length >= 4) my_loc.mode = loc[3];
 		return my_loc;
 	} else {
@@ -55,8 +61,11 @@ function brParseHash() {
 	}
 }
 
+location.hash == '' ? location.hash = '#2/-31.722765997478323/142.06927500000006' : location.hash = location.hash;
 var parsedHash = brParseHash();
 if (parsedHash && parsedHash.mode) br_show_map_mode = true;
+*/
+
 
 var br_countrieslevel = 6; //Level after which country clicks no longer
 var transitionzoomlevel = 6; //2d zoom level transition to globe
@@ -74,7 +83,7 @@ function setMarkerVisibility(markers, visib) {
 
 
 
-var br_place_markers = null;
+var br_place_markers = [];
 var br_place_markerCluster = null;
 var br_showing_places = false;
 
@@ -332,6 +341,55 @@ var createMarkerArray = function(geoJSON, markerType, showme, scaledSizeOfIcon, 
 s Prototype
 */
 
+var clearAlgoliaMarkers = function() {
+	for (i = 0; i < br_place_markers.length; i++) {
+		br_place_markers[i].setMap(null);
+	}
+}
+
+var updateMapWithAlgoliaSearchResults = function(content) {
+	// size of icon on the map
+	var scaleRatio = 1.0;
+	var originalWidthOfIcon = window.thirdFloor.iconBuilder.CANVAS_DEFAULT_WIDTH;
+	var originalHeightOfIcon = window.thirdFloor.iconBuilder.CANVAS_DEFAULT_HEIGHT;
+	var scaledWidthOfIcon = originalWidthOfIcon * scaleRatio;
+	var scaledHeightOfIcon = originalHeightOfIcon * scaleRatio;
+
+	var anchorOfIcon = new google.maps.Point(scaledWidthOfIcon * 0.5, scaledHeightOfIcon + 0);
+	var scaledSizeOfIcon = new google.maps.Size(scaledWidthOfIcon, scaledHeightOfIcon);
+
+	clearAlgoliaMarkers();
+	/*	br_place_markers = [];*/
+	br_place_markers = createMarkerArrayFromAlgolia(content, "", true, scaledSizeOfIcon, anchorOfIcon);
+
+	var bounds = new google.maps.LatLngBounds();
+	for (i = 0; i < br_place_markers.length; i++) {
+		bounds.extend(br_place_markers[i].getPosition());
+	}
+
+	br_map.fitBounds(bounds);
+
+	/*	Probably not necessary
+				br_place_markerCluster ? br_place_markerCluster.clearMarkers();
+				
+				br_place_markerCluster = new MarkerClusterer(br_map, br_place_markers, {
+					maxZoom: 14,
+					ignoreHidden: false,
+					gridSize: 10,
+					styles: [{
+						url: '../google_home/cluster28yellow.png',
+						height: 28,
+						width: 28,
+						anchor: [0, 0],
+						textColor: '#000000',
+						textSize: 10
+					}]
+				});
+				setTimeout(function(){window.br_place_markerCluster.repaint();},3000);
+*/
+
+}
+
 var createMarkerArrayFromAlgolia = function(alJSON, markerType, showme, scaledSizeOfIcon, anchorOfIcon) {
 	var markerArray = [];
 
@@ -471,14 +529,6 @@ var createMarkerArrayFromAlgolia = function(alJSON, markerType, showme, scaledSi
 
 //Change the Hash based on user navigation of page & map
 
-function brUpdateHash(zoom, center) {
-
-	if (br_show_map_mode)
-		location.hash = '#' + zoom + '/' + center.lat() + '/' + center.lng() + '/map';
-	else
-		location.hash = '#' + zoom + '/' + center.lat() + '/' + center.lng();
-}
-
 function configureMarkers(newZoom) {
 
 	br_area_markerCluster && br_area_markerCluster.repaint();
@@ -511,16 +561,18 @@ function initialize() {
 	adjustInfoWindow();
 
 	//Center of Australia
-	var init_zoom = 4;
+	var init_zoom = 2;
 	var init_center = new google.maps.LatLng(-31.722765997478323, 142.06927500000006);
 
+/* Disable HASH URL
 	var init_loc = brParseHash();
 
 	if (init_loc) {
 		init_zoom = init_loc.zoom;
 		init_center = init_loc.center;
 	}
-
+*/
+	
 	//Sydney
 	//        var center = new google.maps.LatLng(-33.8678500, 151.2073200);
 	var mapOptions = {
@@ -531,8 +583,16 @@ function initialize() {
 		disableDefaultUI: false,
 		minZoom: 2,
 		maxZoom: 16,
-		backgroundColor: '#a6c6ff'
-
+		backgroundColor: '#a6c6ff',
+	  zoomControl: true,
+	  mapTypeControl: true,
+	  scaleControl: false,
+	  streetViewControl: false,
+	  rotateControl: false,
+    mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
 		/*
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		styles: [{
@@ -564,16 +624,18 @@ function initialize() {
 		*/
 	};
 	br_map = new google.maps.Map(document.getElementById(br_dom_map_element), mapOptions);
+	/* Won't need this with new search
 	br_map.addListener("dragend", function() {
 		brUpdateMap(false);
 	});
 	br_map.addListener('zoom_changed', function() {
 		brUpdateMapAndConfigureMarkers(false);
 	});
-
+*/
 
 	//
 
+/* Disable URL Hash
 	function brUpdateMap(fromHash) {
 		if (fromHash) {
 			var page_loc = brParseHash();
@@ -597,7 +659,8 @@ function initialize() {
 	};
 
 	brUpdateMap(true);
-
+*/
+	
 	br_infoWindow = new google.maps.InfoWindow(brInfoWindowOptions('place'));
 
 	br_infoWindow.addListener('closeclick', function() {
@@ -676,6 +739,122 @@ function initialize() {
 		brUpdateMapAndConfigureMarkers(true);
 	});
 
+	/* This is very slow
+	$.ajax({
+		//Get all areas and add to map
+		url: '/places/placeareasmapdata.json',
+		success: function(data) {
+			window.areasGeoJSON = data;
+
+	    var latLng;
+	    var icon;
+	    var iconCfg;
+	    var marker;
+
+	    // size of icon on the map
+	    var scaleRatio = 1.0;
+	    var originalWidthOfIcon = window.thirdFloor.iconBuilder.CANVAS_DEFAULT_WIDTH;
+	    var originalHeightOfIcon = window.thirdFloor.iconBuilder.CANVAS_DEFAULT_HEIGHT;
+	    var scaledWidthOfIcon = originalWidthOfIcon * scaleRatio;
+	    var scaledHeightOfIcon = originalHeightOfIcon * scaleRatio;
+
+	    var anchorOfIcon = new google.maps.Point(scaledWidthOfIcon * 0.5, scaledHeightOfIcon + 0);
+	    var scaledSizeOfIcon = new google.maps.Size(scaledWidthOfIcon, scaledHeightOfIcon);
+
+			br_area_markers = createMarkerArray(data, 'area', true, scaledSizeOfIcon, anchorOfIcon);
+			//	       	var area_markerCluster = new MarkerClusterer(map, area_markers); 
+
+
+	    // config for icon
+	    var emptyIconCfg = {
+	      innerCircle: {
+	        backgroundColor: '#a6c6ff'
+	      },
+	      innerText: {
+	        content: "",
+	            style: {
+	              fontFamily: 'Signika'
+	            }
+	      },
+	      outerText: {
+	        content: "Group",
+	        arc: 320,
+	            style: {
+	              fontFamily: 'Signika'
+	            }
+	      }
+	    };
+    
+	    var br_area_markers;
+	    var br_area_markerCluster;
+
+			var empty_marker = window.thirdFloor.iconBuilder.build(emptyIconCfg);
+
+			br_area_markerCluster = new MarkerClusterer(br_map, br_area_markers, {
+				maxZoom: 14,
+				ignoreHidden: false,
+				gridSize: 30,
+				  styles: [{
+						url: empty_marker,
+						height: window.thirdFloor.iconBuilder.CANVAS_DEFAULT_HEIGHT,
+						width: window.thirdFloor.iconBuilder.CANVAS_DEFAULT_WIDTH,
+						anchor: [0, 0],
+						textColor: '#ffffff',
+						textSize: 20
+					}]
+			});
+			
+			
+			
+			// br_area_markerCluster = new MarkerClusterer(br_map, br_area_markers, {
+			// 	maxZoom: 14,
+			// 	ignoreHidden: false,
+			// 	gridSize: 10,
+			// 	styles: [{
+			// 		url: '../google_home/cluster28.png',
+			// 		height: 28,
+			// 		width: 28,
+			// 		anchor: [0, 0],
+			// 		textColor: '#ffffff',
+			// 		textSize: 10
+			// 	}]
+			// });
+			//
+			
+			setTimeout(function(){br_area_markerCluster.repaint()},3000);
+
+			//Now get all places and add to map
+			$.ajax({
+				url: '/places/mapdata.json',
+				success: function(data) {
+					window.placesGeoJSON = data;
+
+					br_place_markers = createMarkerArray(data, 'place', true);
+					br_place_markerCluster = new MarkerClusterer(br_map, br_place_markers, {
+						maxZoom: 14,
+						ignoreHidden: false,
+						gridSize: 10,
+						styles: [{
+							url: '../google_home/cluster28yellow.png',
+							height: 28,
+							width: 28,
+							anchor: [0, 0],
+							textColor: '#000000',
+							textSize: 10
+						}]
+					});
+					setTimeout(function(){br_place_markerCluster.repaint();},3000);
+
+					//Kludge to get the markers to show on initial high zoom
+					//					setTimeout(function(){brUpdateMap(true);},1000);
+//					configureMarkers(br_map.getZoom());
+				}
+			});
+
+		}
+	});
+*/
+
 	$.getJSON("../google_home/js/countries30_na.topojson", function(data) {
 		var geoJsonObject = topojson.feature(data, data.objects.countries_no_antarctica);
 		br_map.data.addGeoJson(geoJsonObject);
@@ -699,6 +878,11 @@ function initialize() {
 				br_map.fitBounds(bounds);
 				//				brUpdateMap();
 
+				// <script>
+				// 	//Trick to get the correct asset path for flags, used in br_google_maps.js
+				// 	window.br_auf = '<%= asset_path('flags/au.png') %>';
+				// </script>				
+				//!!br_auf uses above erb assignment trick in containing html.erb file!!
 				var pf = br_auf.replace('au.png', e.feature.getProperty('iso_a2').toLowerCase() + '.png');
 
 				var content = '<div class="upper-card" style="background-image: url(' + pf + ')"></div>' +
@@ -715,17 +899,18 @@ function initialize() {
 		});
 	});
 }
-	// first we need preload the webfonts which we will use in icons
-	window.WebFont.load({
-		google: {
-			families: [
-				'Signika:600'
-			]
-		},
-		active: function() {
-			// start everything when all fonts loaded
-			google.maps.event.addDomListener(window, 'load', initialize);
 
-			//    start();
-		}
-	});
+// first we need preload the webfonts which we will use in icons
+window.WebFont.load({
+	google: {
+		families: [
+			'Signika:600'
+		]
+	},
+	active: function() {
+		// start everything when all fonts loaded
+		google.maps.event.addDomListener(window, 'load', initialize);
+
+		//    start();
+	}
+});
