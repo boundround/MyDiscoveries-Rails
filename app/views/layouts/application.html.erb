@@ -158,10 +158,14 @@
         console.log(query);
         if (query.length > 0){
           $('.br15_search_result').show();
+          $('.search-results').show();
+          $('.search-results-container').show();
           algoliaHelper.setQuery(query);
           algoliaHelper.search();
         } else {
           $('.br15_search_result').hide();
+          $('.search-results').hide();
+          $('.search-results-container').hide();
           //animate map overlay
         }
       })

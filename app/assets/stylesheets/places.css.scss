@@ -27,6 +27,14 @@
   max-height: 750px;
   overflow: scroll;
   padding: 10px 10px;
+  display: none;
+}
+
+.search-results-container {
+  padding: 10px 10px;
+  background-color: white;
+  border-radius: 4px;
+  display: none;
 }
 
 .review-buttons {

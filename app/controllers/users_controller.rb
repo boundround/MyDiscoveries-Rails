@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @set_body_class = 'passport-page'
+    @set_body_class = 'br_tab'
 
     verify_current_user
 
