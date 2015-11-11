@@ -660,10 +660,6 @@ function initialize() {
 
 	brUpdateMap(true);
 */
-	setTimeout(0,function(){stage2Initialize();});
-}
-
-var stage2Initialize = function() {
 	
 	br_infoWindow = new google.maps.InfoWindow(brInfoWindowOptions('place'));
 
@@ -912,8 +908,12 @@ window.WebFont.load({
 		]
 	},
 	active: function() {
-		// start everything when all fonts loaded
-		google.maps.event.addDomListener(window, 'load', initialize);
+
+		//Wait for the DOM tree to be ready
+		google.maps.event.addDomListener(window, 'DOMContentLoaded', initialize);
+		
+		//Wait for entire page to load (longer)
+		//google.maps.event.addDomListener(window, 'load', initialize);
 
 		//    start();
 	}
