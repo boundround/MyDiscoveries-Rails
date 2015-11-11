@@ -1,4 +1,4 @@
-(function(){
+$(document).ready(function(){
   var APPLICATION_ID = 'KXOYK344AM';
   var SEARCH_ONLY_API_KEY = 'fce29aca7a9b823b9cacdbc1faa225e2';
   var INDEX_NAME = 'place';
@@ -28,15 +28,13 @@
 
   $searchInput
   .on('keyup', function() {
-    if ($('br15_min_h_530').length == 0){
+    var query = $(this).val();
+    console.log(query);
+    if (query.length > 0){
       $('#br15_map').addClass('br15_min_h_530');
       $('.br15_map').addClass('br15_collapse');
       $('.br15_header').slideUp();
       $('.br15_search_result').show();
-    }
-    var query = $(this).val();
-    console.log(query);
-    if (query.length > 0){
       $('.search-results').show();
       algoliaHelper.setQuery(query);
       algoliaHelper.search();
@@ -50,16 +48,6 @@
   })
   .focus();
 
-  $searchInput.on("click", function(){
-    if ($('.br15_min_h_530').length == 0){
-      $('#br15_map').addClass('br15_min_h_530');
-      $('.br15_map').addClass('br15_collapse');
-    } else {
-      $('#br15_map').removeClass('br15_min_h_530');
-      $('.br15_map').removeClass('br15_collapse');
-    }
-    $('.br15_header').slideToggle();
-  });
   // Search results
   algoliaHelper.on('result', function(content, state) {
     console.log(content);
@@ -157,5 +145,4 @@
   //   }
   //   initialize();
   // }
-
-})();
+});

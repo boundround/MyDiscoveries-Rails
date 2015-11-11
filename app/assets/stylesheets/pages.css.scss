@@ -32,6 +32,15 @@
   height: 50px;
 }
 
+.disabled a {
+  color: grey !important;
+}
+
+.active a {
+  background-color: lightblue;
+  font-weight: bold;
+}
+
 #card-container {
 	margin-top: 20px;
 }

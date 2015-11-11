@@ -132,7 +132,7 @@
         hitsPerPage: 6,
         maxValuesPerFacet: 8,
       };
-			
+
 			var br_place_markerCluster = null;
 
       var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
@@ -159,11 +159,19 @@
         var query = $(this).val();
         console.log(query);
         if (query.length > 0){
+          $('#br15_map').addClass('br15_min_h_530');
+          $('.br15_map').addClass('br15_collapse');
+          $('.br15_header').slideUp();
           $('.br15_search_result').show();
+          $('.search-results').show();
           algoliaHelper.setQuery(query);
           algoliaHelper.search();
         } else {
+          $('.search-results').hide();
           $('.br15_search_result').hide();
+          $('.br15_header').slideDown();
+          $('#br15_map').removeClass('br15_min_h_530');
+          $('.br15_map').removeClass('br15_collapse');
           //animate map overlay
         }
       })
@@ -176,10 +184,10 @@
       algoliaHelper.on('result', function(content, state) {
         console.log(content);
         renderHits(content);
-				
+
 				//This function lives in br_google_maps
 				updateMapWithAlgoliaSearchResults(content);
-				
+
         renderStats(content);
         renderPagination(content);
       });
