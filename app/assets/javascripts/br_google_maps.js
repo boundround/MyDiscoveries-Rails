@@ -660,6 +660,10 @@ function initialize() {
 
 	brUpdateMap(true);
 */
+	setTimeout(0,function(){stage2Initialize();});
+}
+
+var stage2Initialize = function() {
 	
 	br_infoWindow = new google.maps.InfoWindow(brInfoWindowOptions('place'));
 

@@ -32,8 +32,8 @@ $(document).ready(function(){
     console.log(query);
     if (query.length > 0){
       $('#br15_map').addClass('br15_min_h_530');
-      $('.br15_map').addClass('br15_collapse');
-      $('.br15_header').slideUp();
+      $('.br15_map').removeClass('br15_collapse');
+      $('.br15_header').slideUp(400,function(){google.maps.event.trigger(br_map, "resize");});
       $('.br15_search_result').show();
       $('.search-results').show();
       algoliaHelper.setQuery(query);
@@ -41,9 +41,9 @@ $(document).ready(function(){
     } else {
       $('.search-results').hide();
       $('.br15_search_result').hide();
-      $('.br15_header').slideDown();
+      $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
       $('#br15_map').removeClass('br15_min_h_530');
-      $('.br15_map').removeClass('br15_collapse');
+      $('.br15_map').addClass('br15_collapse');
     }
   })
   .focus();
