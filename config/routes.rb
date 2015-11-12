@@ -12,6 +12,7 @@ end
 
 Rails.application.routes.draw do
 
+
   mount Ckeditor::Engine => '/ckeditor'
   post '/rate' => 'rater#create', :as => 'rate'
   constraints(SSConstraint.new) do
@@ -29,6 +30,8 @@ Rails.application.routes.draw do
   get 'pages/privacy' => 'pages#privacy'
 
   resources :search_suggestions
+
+  resources :transactions
 
   require 'sidekiq/web'
 
@@ -79,6 +82,12 @@ Rails.application.routes.draw do
   post 'games_users/destroy' => 'games_users#destroy'
   post 'videos_users/create' => 'videos_users#create'
   post 'videos_users/destroy' => 'videos_users#destroy'
+  post 'user_photos_users/create' => 'user_photos_users#create'
+  post 'user_photos_users/destroy' => 'user_photos_users#destroy'
+  post 'stories_users/create' => 'stories_users#create'
+  post 'stories_users/destroy' => 'stories_users#destroy'
+  post 'reviews_users/create' => 'reviews_users#create'
+  post 'reviews_users/destroy' => 'reviews_users#destroy'
 
   resources :user_photos
   post 'user_photos/profile_create' => 'user_photos#profile_create'
@@ -126,7 +135,9 @@ Rails.application.routes.draw do
   get '/users/stories' => 'users#stories'
   get '/users/instagram_feed' => 'users#instagram_feed'
   get '/users/draft_content' => 'users#draft_content' # All User Uploaded Content in Draft
-  resources :users
+  resources :users do
+    collection { get 'leaderboard' }
+  end
 
 
   resources :places do
@@ -176,6 +187,8 @@ Rails.application.routes.draw do
     resources :info_bits
     collection { post :import }
   end
+
+  resources :points_values
 
   match '/send_postcard', to: 'places#send_postcard', via: 'post'
 

@@ -76,11 +76,25 @@ class PlacesController < ApplicationController
     @similar_places = @place.nearbys(30).active.includes(:games, :videos, :photos, :categories).where('categorizations.category_id' => categories)
 
     if @place.subscription_level == "Premium"
-      @hero_video = @place.videos.find_by(priority: 1)
+      @hero_video = @place.videos.find_by(hero: true) || @place.videos.find_by(priority: 1)
     end
 
-    @videos_photos = @place.videos
-    @videos_photos += @place.photos
+    ##########################
+    # Get all photos and videos for this place and sort by created at date
+    @all_photos_and_videos = []
+    @place.videos.active.each do |video|
+      if !video.hero
+        @all_photos_and_videos << video
+      end
+    end
+    @place.photos.active.each do |photo|
+      @all_photos_and_videos << photo
+    end
+    @active_user_photos.each do |photo|
+      @all_photos_and_videos << photo
+    end
+    @all_photos_and_videos.sort {|x, y| x.created_at <=> y.created_at}
+    ###############################
 
     @request_xhr = request.xhr?
 
@@ -220,7 +234,7 @@ class PlacesController < ApplicationController
   end
 
   def user_created
-    @places = Place.where(user_created: true)
+    @places = Place.where(user_created: true).reorder(:created_at)
   end
 
   def new
@@ -326,7 +340,7 @@ class PlacesController < ApplicationController
       format.json { render json: @placeareas_geojson }  # respond with the created JSON object
     end
   end
-  
+
   def check_all_boundround
     Rails.cache.fetch('all_bound_round_places') do
     end
@@ -367,11 +381,24 @@ class PlacesController < ApplicationController
   end
 
   def placeprograms #xyrin result.html
+# By ID, moving to SEO friendly 26/10/2015
+#    set_program_constants()
+#    @placeprograms = "yes"
+#    puts "Trying to find"+params[:id]
+#    @place = Place.find(params[:id])
+#    puts "Found"+params[:id]
+
     set_program_constants()
     @placeprograms = "yes"
+    
     puts "Trying to find"+params[:id]
-    @place = Place.find(params[:id])
+    if(params[:id] =~ /\A\d+\z/)
+      @place = Place.find(params[:id])
+    else
+      @place = Place.find_by_slug(params[:id])
+    end
     puts "Found"+params[:id]
+
 #    @place = Place.friendly.find(params[:id])
 #     render plain: params.inspect
   end
@@ -403,11 +430,11 @@ class PlacesController < ApplicationController
       #   puts params[pa[0]]
       # end
 
-      if params[:term] == "" then 
-        params[:term] = nil 
+      if params[:term] == "" then
+        params[:term] = nil
         @search_term = nil
       else
-        @search_term = URI.decode(params[:term])        
+        @search_term = URI.decode(params[:term])
       end
 
       if params[:id] then
@@ -464,14 +491,14 @@ class PlacesController < ApplicationController
 
         if @search_term then
           place_query = '(places.display_name ILIKE :st OR programs.name ILIKE :st) AND ' + full_query
-          
+
           if filtering_programs then
             @places = Place.joins(:photos,:programs,:categories).includes(:photos, :categories).where(place_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).distinct.limit(@MAX_TO_RETURN)
           else
             #Do outer left join if want places that may not have programs but still want to see
             @places = Place.joins(:photos,:categories).includes(:photos, :categories, :programs).where(place_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).distinct.limit(@MAX_TO_RETURN)
           end
-          
+
           @places.each do |p|
             puts p.display_name
           end
@@ -494,7 +521,7 @@ class PlacesController < ApplicationController
             #Do outer left join if want places that may not have programs but still want to see
             @places = Place.joins(:photos,:categories).includes(:photos, :categories, :programs).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).limit(@MAX_TO_RETURN)
           end
-          
+
           @places.each do |p|
             puts p.display_name
           end
@@ -539,11 +566,12 @@ class PlacesController < ApplicationController
                                     :street_number, :route, :sublocality, :locality, :state, :post_code, :created_by, :user_created,
                                     :customer_approved, :customer_review, :approved_at, :country_id,
                                     :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status,
-                                    photos_attributes: [:id, :place_id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-                                    videos_attributes: [:id, :vimeo_id, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
+                                    photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+                                    videos_attributes: [:id, :vimeo_id, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :customer_approved, :customer_review, :approved_at, :_destroy],
                                     fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
                                     discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+                                    user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
                                     category_ids: [])
     end
 end

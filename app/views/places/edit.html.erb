@@ -115,6 +115,7 @@
             <th>Vimeo ID</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Hero</th>
             <th>Priority</th>
             <th>Status</th>
             <th>Include In Country</th>
@@ -133,6 +134,7 @@
                 <td><%= ff.text_area :vimeo_id %></td>
                 <td><%= ff.text_area :title %></td>
                 <td><%= ff.text_area :description %></td>
+                <td><%= ff.check_box :hero %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
@@ -156,6 +158,7 @@
             <th>Credit</th>
             <th>Caption</th>
             <th>Alt Tags</th>
+            <th>Hero</th>
             <th>Priority</th>
             <th>Status</th>
             <th>Include In Country</th>
@@ -175,6 +178,7 @@
                 <td><%= ff.text_area :credit %></td>
                 <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
                 <td><%= ff.text_field :alt_tag %></td>
+                <td><%= ff.check_box :hero %></td>
                 <td><%= ff.select :priority, 1..20 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
@@ -196,6 +200,7 @@
             <th>Thumbnail</th>
             <th>Change Photo</th>
             <th>Caption</th>
+            <th>Hero</th>
             <th>Priority</th>
             <th>Status</th>
             <th>Delete</th>
@@ -209,6 +214,7 @@
                 <td><img src="<%= asset_path(photo.path_url) %>" class="photo-edit-thumb"></td>
                 <td><%= ff.file_field :path, class: "photo-file" %></td>
                 <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
+                <td><%= ff.check_box :hero %></td>
                 <td><%= ff.select :priority, ([nil].push((1..20).to_a)).flatten %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :_destroy %></td>

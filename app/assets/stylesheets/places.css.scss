@@ -6,6 +6,20 @@
   display:none;
 }
 
+.entire-review {
+  border: none;
+  font-size: 1em;
+  background: transparent;
+  text-decoration: underline;
+}
+
+.story-like-icon {
+  position: relative;
+  left: 20px;
+  font-size: 1.5em;
+  padding-left: 1px;
+}
+
 .review-buttons {
   text-align: left;
 }
@@ -27,6 +41,7 @@
   position: absolute;
   right: 5px;
   top: 5px;
+  font-size: 1.8em;
 }
 
 .br-card-top-image {
@@ -153,12 +168,21 @@
 //  width: 33%;
 }
 
-.like-icon {
+/*.like-icon {
   position: absolute;
   right: 5px;
   top: 0;
   z-index: 500;
   height: 28px !important;
+}*/
+
+.like-heart {
+  color: white;
+  text-shadow: 1px 1px grey;
+}
+
+.liked-heart {
+  color: red;
 }
 
 .approve-icon {

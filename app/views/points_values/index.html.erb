@@ -1,0 +1,39 @@
+<% if user_signed_in? && current_user.admin? %>
+<div class="container">
+  <h1>Points Values</h1>
+  <div id="table-container">
+    <h3>Points Values</h3>
+    <table class="table table-striped" id="video-table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Value</th>
+          <th>Remove</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @points_values.each do |point| %>
+          <%= form_for point do |f| %>
+            <tr>
+              <td><%= f.text_field :asset_type %></td>
+              <td><%= f.number_field :value %></td>
+              <td><%= f.check_box :_destroy %></td>
+              <td><%= f.submit :submit %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h2>Create New Point Class</h2>
+    <h5>Note - Asset Type MUST EXACTLY match an ActiveRecord Model</h5>
+    <%= simple_form_for @points_value do |f| %>
+      <%= f.input :asset_type %>
+      <%= f.input :value %>
+      <%= f.submit :submit %>
+    <% end %>
+  </div>
+</div>
+<% end %>

@@ -1,9 +1,14 @@
 class Story < ActiveRecord::Base
+  include Transactionable
+  # after_update :add_transaction
   # after_update :send_live_notification
 
   belongs_to :user
   belongs_to :storiable, polymorphic: true
   has_many :user_photos, -> { order "story_priority ASC"}, :inverse_of => :story
+
+  has_many :stories_users
+  has_many :users, through: :stories_users
 
   accepts_nested_attributes_for :user_photos
 

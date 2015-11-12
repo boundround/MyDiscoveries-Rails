@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012083631) do
+ActiveRecord::Schema.define(version: 20151102062729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,22 @@ ActiveRecord::Schema.define(version: 20151012083631) do
     t.integer "place_id"
   end
 
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "discounts", force: true do |t|
     t.text     "description"
     t.integer  "place_id"
@@ -291,6 +307,7 @@ ActiveRecord::Schema.define(version: 20151012083631) do
     t.boolean  "customer_review"
     t.boolean  "customer_approved"
     t.datetime "approved_at"
+    t.boolean  "hero"
   end
 
   add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
@@ -360,6 +377,22 @@ ActiveRecord::Schema.define(version: 20151012083631) do
 
   add_index "places_users", ["place_id", "user_id"], name: "index_places_users_on_place_id_and_user_id", unique: true, using: :btree
 
+  create_table "points_balances", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "balance",    default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "points_balances", ["user_id"], name: "index_points_balances_on_user_id", using: :btree
+
+  create_table "points_values", force: true do |t|
+    t.string   "asset_type"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "programs", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -419,6 +452,13 @@ ActiveRecord::Schema.define(version: 20151012083631) do
 
   add_index "reviews", ["reviewable_id", "reviewable_type"], name: "index_reviews_on_reviewable_id_and_reviewable_type", using: :btree
 
+  create_table "reviews_users", force: true do |t|
+    t.integer "user_id",   null: false
+    t.integer "review_id", null: false
+  end
+
+  add_index "reviews_users", ["user_id", "review_id"], name: "index_reviews_users_on_user_id_and_review_id", using: :btree
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -463,6 +503,14 @@ ActiveRecord::Schema.define(version: 20151012083631) do
   add_index "stories", ["storiable_id", "storiable_type"], name: "index_stories_on_storiable_id_and_storiable_type", using: :btree
   add_index "stories", ["user_id"], name: "index_stories_on_user_id", using: :btree
 
+  create_table "stories_users", force: true do |t|
+    t.integer "user_id",  null: false
+    t.integer "story_id", null: false
+  end
+
+  add_index "stories_users", ["story_id", "user_id"], name: "index_stories_users_on_story_id_and_user_id", using: :btree
+  add_index "stories_users", ["user_id", "story_id"], name: "index_stories_users_on_user_id_and_story_id", using: :btree
+
   create_table "suggested_places", force: true do |t|
     t.string   "user_ip"
     t.string   "place"
@@ -492,6 +540,18 @@ ActiveRecord::Schema.define(version: 20151012083631) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
+  create_table "transactions", force: true do |t|
+    t.integer  "user_id"
+    t.string   "asset_type"
+    t.integer  "points"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "asset_id"
+  end
+
+  add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
+
   create_table "user_photos", force: true do |t|
     t.string   "title"
     t.string   "path"
@@ -510,6 +570,7 @@ ActiveRecord::Schema.define(version: 20151012083631) do
     t.datetime "user_notified_at"
     t.string   "google_place_name"
     t.string   "instagram_id"
+    t.boolean  "hero"
   end
 
   add_index "user_photos", ["area_id"], name: "index_user_photos_on_area_id", using: :btree
@@ -517,6 +578,14 @@ ActiveRecord::Schema.define(version: 20151012083631) do
   add_index "user_photos", ["place_id"], name: "index_user_photos_on_place_id", using: :btree
   add_index "user_photos", ["story_id"], name: "index_user_photos_on_story_id", using: :btree
   add_index "user_photos", ["user_id"], name: "index_user_photos_on_user_id", using: :btree
+
+  create_table "user_photos_users", force: true do |t|
+    t.integer "user_id",       null: false
+    t.integer "user_photo_id", null: false
+  end
+
+  add_index "user_photos_users", ["user_id", "user_photo_id"], name: "index_user_photos_users_on_user_id_and_user_photo_id", using: :btree
+  add_index "user_photos_users", ["user_photo_id", "user_id"], name: "index_user_photos_users_on_user_photo_id_and_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.datetime "created_at"
@@ -602,6 +671,7 @@ ActiveRecord::Schema.define(version: 20151012083631) do
     t.datetime "approved_at"
     t.string   "title"
     t.text     "description"
+    t.boolean  "hero"
   end
 
   add_index "videos", ["area_id"], name: "index_videos_on_area_id", using: :btree

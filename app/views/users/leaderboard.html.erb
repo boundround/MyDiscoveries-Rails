@@ -1,0 +1,22 @@
+<h1>Leaderboard</h1>
+<div class="container">
+  <h1>Leaderboard</h1>
+  <div id="table-container">
+    <table class="table table-striped" id="leaderboard-table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @points_balances.each do |balance| %>
+          <tr>
+            <td><%= balance.user.username if balance.user.username %></td>
+            <td><%= balance.balance %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

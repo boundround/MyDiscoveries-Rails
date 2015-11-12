@@ -1,0 +1,39 @@
+<% if user_signed_in? && current_user.admin? %>
+<div class="container">
+  <h1>Transactions</h1>
+  <div id="table-container">
+    <table class="table table-striped" id="transactions-table">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>User ID</th>
+          <th>Asset Type</th>
+          <th>Asset ID</th>
+          <th>Comments</th>
+          <th>Points Awarded</th>
+          <th>Date</th>
+          <th>Delete</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @transactions.each do |transaction| %>
+          <%= form_for transaction do |f| %>
+            <tr>
+              <td><%= transaction.user.username if transaction.user.username %></td>
+              <td><%= transaction.user.id %></td>
+              <td><%= transaction.asset_type %></td>
+              <td><%= transaction.asset_id %></td>
+              <td><%= f.text_area :comments %></td>
+              <td><%= transaction.points %></td>
+              <td><%= transaction.created_at %></td>
+              <td><%= f.check_box :_destroy %></td>
+              <td><%= f.submit :submit %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% end %>

@@ -26,6 +26,9 @@ class User < ActiveRecord::Base
   has_many :stories
   has_many :user_photos
 
+  has_one :points_balance
+  has_many :transactions
+
   mount_uploader :avatar, UserAvatarUploader
   process_in_background :avatar
 

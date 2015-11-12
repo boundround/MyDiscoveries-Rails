@@ -60,15 +60,17 @@
       </thead>
       <tbody>
         <% @reviews.each do |review| %>
-          <%= simple_form_for [review.reviewable, review] do |f| %>
-            <tr>
-              <td><%= review.reviewable ? (link_to review.reviewable.display_name, polymorphic_path(review.reviewable)) : "" %></td>
-              <td><%= f.input :title %></td>
-              <td><%= f.input :content %></td>
-              <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
-              <td><%= review.user.username%></td>
-              <td><%= f.submit :submit %></td>
-            </tr>
+          <% if review.reviewable %>
+            <%= simple_form_for [review.reviewable, review] do |f| %>
+              <tr>
+                <td><%= review.reviewable ? (link_to review.reviewable.display_name, polymorphic_path(review.reviewable)) : "" %></td>
+                <td><%= f.input :title %></td>
+                <td><%= f.input :content %></td>
+                <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
+                <td><%= review.user.username%></td>
+                <td><%= f.submit :submit %></td>
+              </tr>
+            <% end %>
           <% end %>
         <% end %>
       </tbody>
@@ -101,7 +103,7 @@
               <td><img src="<%= thumbnail_for(user_photo) %>" class="photo-edit-thumb"></td>
               <td><%= f.input :caption %></td>
               <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
-              <td><%= user_photo.user.username %></td>
+              <td><%= user_photo.user ? user_photo.user.username : "No User Associated" %></td>
               <td><%= f.submit :submit %></td>
             </tr>
           <% end %>

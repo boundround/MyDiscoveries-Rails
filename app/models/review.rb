@@ -1,10 +1,15 @@
 class Review < ActiveRecord::Base
-  # after_update :send_live_notification
+  include Transactionable
+  # after_update :add_transaction
 
   validates :content, presence: true
   validates :user_id, presence: true
+  validates :reviewable, presence: true
   belongs_to :reviewable, polymorphic: true
   belongs_to :user
+
+  has_many :reviews_users
+  has_many :users, through: :reviews_users
 
   scope :active, -> { where(status: "live") }
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }

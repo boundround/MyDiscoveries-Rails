@@ -8,6 +8,10 @@
   margin: 0 50px;
 }
 
+.white-body {
+  background-color: #fff;
+}
+
 #progress {
   width: 50%;
   margin: 0 auto;

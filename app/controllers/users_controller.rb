@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :redirect_if_not_admin, only: [:index]
 
   def index
+    @set_body_class = 'white-body'
     @users = User.all
   end
 
@@ -182,6 +183,11 @@ class UsersController < ApplicationController
     # for media_item in page_2
     #   @html << "<img src='#{media_item.images.thumbnail.url}'>"
     # end
+  end
+
+  def leaderboard
+    @set_body_class = "white-body"
+    @points_balances = PointsBalance.order(balance: :desc).includes(:user)
   end
 
   private
