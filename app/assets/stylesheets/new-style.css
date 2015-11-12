@@ -1,0 +1,472 @@
+/*Sign-up*/
+.br_sign_style_modal {
+    background: none;
+}
+.br_sign_style_modal .modal-content {
+    box-shadow: 3px 4px 5px 0 rgba(0, 0, 0, 0.039);
+    -webkit-box-shadow: 3px 4px 5px 0 rgba(0, 0, 0, 0.039);
+    -moz-box-shadow: 3px 4px 5px 0 rgba(0, 0, 0, 0.039);
+    border: 1px solid #f07656;
+    border-radius: 8px;
+    /*border-radius: 0;*/
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width:800px){
+.modal.in .modal-dialog.cs-modal-dialog{
+      width: 85% !important;
+      margin: auto !important;
+  }
+}
+
+.br_sign_style_modal .modal-dialog.cs-modal-dialog {
+    padding-top: 85px;
+    margin:auto;
+    margin-bottom:30px;
+    width:100%
+}
+
+.br_sign_style_modal .modal-footer {
+    padding: 8px 15px;
+    text-align: right;
+    border-top: 1px solid #F07656;
+}
+.br_sign_style_modal .br_shell {
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #F07656;
+    padding-bottom: 0;
+    width: 110px;
+    height: 110px;
+    margin: -60px auto 0;
+}
+
+.br_sign_style_modal h1.text-center {
+    font-weight: 600;
+    font-size: 30px;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+.br_sign_style_modal .modal-header label {
+    position: absolute;
+    top: 10px;
+    left: calc(50% + 62px);
+    text-transform: uppercase;
+    color: #F07656;
+}
+.br_sign_style_modal input.form-control{
+    border: 0;
+    box-shadow: none;
+    color: #555555;
+    font-size: 19px;
+    padding: 0;
+    border-bottom: 1px solid #F07656;
+    border-radius: 0;
+    padding-bottom: 5px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+.br_sign_style_modal .control-group .controls input {
+    border: 0;
+    box-shadow: none;
+    color: #555555;
+    font-size: 19px;
+    padding: 0;
+    border-bottom: 1px solid #F07656;
+    padding-bottom: 5px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.br_sign_style_modal .control-group .controls input:focus {
+  outline:0px!important;
+}
+.homepage{
+    background: #7CC1FA;
+}
+.br_sign_style_modal .control-group .controls{
+  margin-bottom:5px;
+}
+
+.br_sign_style_modal .modal-body label {
+    color: #3C3939;
+    font-size: 19px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+.br_sign_style_modal .modal-header {
+    border-bottom: 1px solid #ebebeb;
+}
+.br_sign_style_modal hr {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-top: 1px solid #ebebeb;
+}
+.br_modal_contry_left {
+    margin-top: 15px;
+    border-top: 1px solid #ebebeb;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+.br_modal_contry_right{
+    margin-top: 15px;
+    border-top: 1px solid #ebebeb;
+    border-left: 1px solid #ebebeb;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+.br_sign_style_modal .modal-body {
+    position: relative;
+    padding: 15px;
+    padding-bottom: 0;
+}
+
+
+body.br_tab.modal-open .datepicker *{
+    color: #fff !important;
+}
+body.br_tab.modal-open .datepicker table tr td.day:hover,body.br_tab.modal-open .datepicker table tr td.day.focused {
+    background: #a459a0;
+    cursor: pointer;
+}
+body.br_tab.modal-open .datepicker table tr td.active:hover,body.br_tab.modal-open  .datepicker table tr td.active:hover:hover,body.br_tab.modal-open  .datepicker table tr td.active.disabled:hover,body.br_tab.modal-open  .datepicker table tr td.active.disabled:hover:hover,body.br_tab.modal-open  .datepicker table tr td.active:active,body.br_tab.modal-open  .datepicker table tr td.active:hover:active,body.br_tab.modal-open  .datepicker table tr td.active.disabled:active,body.br_tab.modal-open  .datepicker table tr td.active.disabled:hover:active,body.br_tab.modal-open  .datepicker table tr td.active.active,body.br_tab.modal-open  .datepicker table tr td.active:hover.active,body.br_tab.modal-open  .datepicker table tr td.active.disabled.active,body.br_tab.modal-open  .datepicker table tr td.active.disabled:hover.active,body.br_tab.modal-open  .datepicker table tr td.active.disabled,body.br_tab.modal-open  .datepicker table tr td.active:hover.disabled,body.br_tab.modal-open  .datepicker table tr td.active.disabled.disabled,body.br_tab.modal-open  .datepicker table tr td.active.disabled:hover.disabled,body.br_tab.modal-open  .datepicker table tr td.active[disabled],body.br_tab.modal-open  .datepicker table tr td.active:hover[disabled],body.br_tab.modal-open  .datepicker table tr td.active.disabled[disabled],body.br_tab.modal-open  .datepicker table tr td.active.disabled:hover[disabled] {
+    background-image:none ;
+    background-color: #a459a0 !important;
+    background:  #a459a0 !important;
+
+}
+body.br_tab.modal-open .datepicker table tr td span.active:hover,body.br_tab.modal-open  .datepicker table tr td span.active:hover:hover,
+body.br_tab.modal-open .datepicker table tr td span.active.disabled:hover,body.br_tab.modal-open .datepicker table tr td span.active.disabled:hover:hover,body.br_tab.modal-open .datepicker table tr td span.active:active, .datepicker table tr td span.active:hover:active,body.br_tab.modal-open .datepicker table tr td span.active.disabled:active, body.br_tab.modal-open .datepicker table tr td span.active.disabled:hover:active,body.br_tab.modal-open .datepicker table tr td span.active.active,body.br_tab.modal-open .datepicker table tr td span.active:hover.active, body.br_tab.modal-open .datepicker table tr td span.active.disabled.active,body.br_tab.modal-open .datepicker table tr td span.active.disabled:hover.active,body.br_tab.modal-open .datepicker table tr td span.active.disabled,body.br_tab.modal-open .datepicker table tr td span.active:hover.disabled,body.br_tab.modal-open .datepicker table tr td span.active.disabled.disabled,body.br_tab.modal-open .datepicker table tr td span.active.disabled:hover.disabled,body.br_tab.modal-open .datepicker table tr td span.active[disabled], body.br_tab.modal-open .datepicker table tr td span.active:hover[disabled],body.br_tab.modal-open .datepicker table tr td span.active.disabled[disabled],body.br_tab.modal-open .datepicker table tr td span.active.disabled:hover[disabled] {
+    background: none;
+    background-color: #a459a0;
+}
+body.br_tab.modal-open .datepicker .datepicker-switch:hover,body.br_tab.modal-open .datepicker .prev:hover, .datepicker .next:hover,
+body.br_tab.modal-open .datepicker tfoot tr th:hover{
+    background: none;
+    background-color: #a459a0;
+}
+.br_sign_style_modal .form-control[disabled], .br_sign_style_modal .form-control[readonly],.br_sign_style_modal  fieldset[disabled] .form-control {
+    background-color: rgba(238, 238, 238, 0);
+    opacity: 1;
+}
+body.br_tab.modal-open .datepicker-dropdown:after {
+    content: '';
+    display: inline-block;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #f07656;
+    border-top: 0;
+    position: absolute;
+}
+body.br_tab.modal-open .datepicker table tr td span:hover {
+    background: #a459a0;
+}
+.br_modal_contry_left button.btn.dropdown-toggle.btn-default {
+    border: 0;
+    border-bottom: 1px solid #F07656;
+    border-radius: 0;
+    box-shadow: none !important;
+}
+.br_modal_contry_left + .btn-group.bootstrap-select.form-control.dropup *{
+    box-shadow: none;
+    border-radius:0 !important; ;
+}
+body.br_tab.modal-open *{
+    outline: none !important;
+}
+body.br_tab.modal-open .bootstrap-select.btn-group .dropdown-menu{
+    border-radius: 0;
+}
+body.br_tab .bootstrap-select.btn-group .dropdown-menu>li>a:focus,body.br_tab .bootstrap-select.btn-group .dropdown-menu>li>a:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #a459a0;
+    outline: none;
+}
+body.br_tab .bootstrap-select.btn-group .dropdown-menu>li>a:focus,body.br_tab .bootstrap-select.btn-group .dropdown-menu>li>a:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #a459a0;
+}
+body.br_tab .bootstrap-select .dropdown-toggle:focus{
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+.br_modal_contry_left button.btn.dropdown-toggle.btn-default {
+    border: 0;
+    border-bottom: 1px solid #F07656;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none !important;
+    color: #555555;
+    font-size: 19px;
+    padding-bottom: 5px;
+}
+
+.br_sign_style_modal .dropdown-menu > li{
+  border-radius: 0px !important;
+}
+body.passport-page .br_sign_style_modal .bootstrap-select.btn-group .dropdown-menu>li>a:focus, body.passport-page .br_sign_style_modal .bootstrap-select.btn-group .dropdown-menu>li>a:hover{
+    color: #fff;
+    text-decoration: none;
+    background: #F07656;
+    outline: none;
+  }
+body.passport-page .br_sign_style_modal .bootstrap-select.btn-group .dropdown-menu>li>a, body.passport-page .modal .br_sign_style_modal .bootstrap-select.btn-group .dropdown-menu>li>a{
+border-radius: 0px !important;
+}
+
+body.passport-page .br_sign_style_modal .bootstrap-select.btn-group .dropdown-menu.inner{
+  border-radius: 0px !important;
+}
+
+/*NEW*/
+
+body.br_tab.modal-open * {
+  outline: none !important;
+}
+button.close.cs-close, a.close.cs-close{
+  background: rgba(0, 0, 0, 0) url("/assets/crossBtn.png") no-repeat scroll 0 0;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;  
+  left: 26px;
+  opacity: 1 !important;
+}
+button.close.cs-close.close-signin, a.close.cs-close.close-signin{
+  position: relative;
+  bottom: 111px;
+}
+button.close.cs-close.close-signup, a.close.cs-close.close-signup{
+  position: relative;
+  bottom: 68px;
+}
+@media screen and (max-width:646px) {
+  /*button.close.cs-close.close-signin {*/
+  /*}*/
+
+}
+
+/*.modal-footer .left{*/
+/*  padding: 3px;*/
+/*}*/
+
+.modal-footer .left p{
+  line-height: 17px;
+  margin:0px;
+  padding: 2px;
+}
+ 
+@media screen and(max-width:767px) {
+  .modal-footer .right {
+    margin-left: -12px;
+  }
+}
+
+.modal-footer .right {
+  /*width: 136px;*/
+  margin-left: -12px;
+  margin-top: 16px;
+}
+
+.modal-footer a:hover{
+  text-decoration: none;
+}
+
+.img-logo-area{
+  margin-top: -96px;
+}
+.modal-header.cs-header{
+  /*height: 139px;*/  
+  border: none;
+}
+
+h1.sign-in {
+  text-transform: none !important;
+  color: #F17655 !important;
+  font-weight: 600 !important;
+  font-size: 30px !important;
+}
+/*@media screen and (max-width:1023px){
+.forgot-password{
+  color: #F17655 !important;
+  margin-left: 183px;
+  font-size: 9pt;
+}
+.modal-body label.password{
+  margin-right: 71px;
+}
+.modal-body label.username{
+  margin-right: 368px;
+}
+
+}*/
+
+/*@media screen and (min-width:1024px){
+.forgot-password{
+  color: #F17655 !important;
+  margin-left: 183px;
+  font-size: 9pt;
+}
+.modal-body label.password{
+  margin-right: 71px;
+}
+.modal-body label.username{
+  margin-right: 368px;
+}
+
+}*/
+.label-field{
+  color: #959595;
+  font-size: 19px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.forgot-password{
+  color: #F17655 !important;
+  font-size: 9pt;
+}
+.or{
+  color: #959595;
+  margin-top: 0px;
+}
+
+.btn.btn-block{
+  margin-bottom: 15px;
+}
+
+.btn-primary.btn-blue{
+  background: #295B86 !important;
+  border: none
+}
+.btn-warning.btn-orange{
+  background:#F07656 !important;
+  color: #fff;
+  border: none; 
+}
+
+.btn-default.btn-cancel{
+  background: none;
+  border: none;
+  color: #F07656;
+}
+
+#signInModal{
+  z-index: 1500;
+  overflow: scroll;
+  overflow-x: hidden;
+  width:100% !important;
+  margin:0px;
+  background: rgba(0, 0, 0, 0.5);
+}
+@media screen and (max-width:1024px){
+  #signup_modal .modal-dialog{
+    width: 85% !important;
+    margin:auto ;
+    margin-top: 84px;
+    margin-bottom: 50px;
+  }
+}
+#signup_modal .modal-dialog{
+  margin-top: 83px;
+  margin-bottom: 30px;
+}
+
+.form-inline .control-group.date{
+  width: 100%
+}
+
+.form-inline button.btn.dropdown-toggle.btn-default{
+  border: none;
+  border-bottom: 1px solid #F07656;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 15px;
+}
+
+.form-inline .open button{
+  border:none !important;
+  border-bottom: 1px solid #F07656 !important; 
+}
+.form-inline > .control-group > .controls div:nth-child(2){  
+  margin-right: 78px;
+}
+.form-inline > .control-group > .controls div:nth-child(4){  
+  margin-right: 59px;
+}
+.modal-open .modal {
+  overflow: visible;
+}
+.modal-backdrop{
+  z-index:1 !important;
+  
+}
+
+::-webkit-input-placeholder {/* WebKit browsers */
+  color:    #959595 !important;
+}
+:-moz-placeholder {/* Mozilla Firefox 4 to 18 */
+  color:    #959595  !important;
+  opacity: 1;
+}
+::-moz-placeholder {/* Mozilla Firefox 19+ */
+  color:    #959595  !important;
+  opacity: 1;
+}
+:-ms-input-placeholder {/* Internet Explorer 10+ */
+  color:    #959595  !important;
+}
+.div-forgot{
+  padding-bottom: 10px;
+}
+#forgot_password{
+  padding-top: 102px;
+}
+#forgot_password .modal-content{
+min-height: 300px;
+}
+
+.insta-sign-in-button{
+  height: initial !important;
+  padding:6px 12px !important;
+}
+@media screen and (max-width: 1024px){
+  #forgot_password .modal-dialog{
+    width: 85%;
+    margin: auto;
+  }
+}
+.alert{
+  background: #fff;
+}
+.br_sign_style_modal.signin{
+  background: none !important;
+  overflow-y: hidden !important;
+}
+/*.dropdown.br_profile button + .dropdown-menu{*/
+@media (max-width: 767px){
+
+.dropdown.br_profile .dropdown-menu{
+  width: 10% !important;
+  border-radius: 4px !important;
+  top: 52px !important;
+  right: 30px !important;
+  background: #fff !important;
+  padding: 10px 0px !important;
+}
+
+.dropdown.br_profile .dropdown-menu li > a{
+    color: #333333 !important;
+    border: none !important;
+
+}
+.dropdown.br_profile .dropdown-menu li > a:hover{
+  text-decoration: none !important;
+}
+.dropdown.br_profile.open{
+  width: 38% !important;
+}
+
+}

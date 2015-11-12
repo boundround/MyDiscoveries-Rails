@@ -1,3 +1,4 @@
+<% provide(:title, @country.display_name) %>
 <style>
 .br_lightbox {
    background: url(<%= @country.hero_photo.url || asset_path('flags/style="font-size:21px; font-weight:300;"' + @country.country_code.downcase + '.png') %>) no-repeat; padding: 20px 0 0 0; color: #fff; background-position: center center !important; background-size:cover !important; }
@@ -43,7 +44,7 @@
           <div class="col-xs-12"> <a href="<%= root_path %>"> <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" > </a> </div>
           <%= render 'layouts/search_input'%>
           <p>&nbsp;</p>
-          <h1 class="text-center" id="country-name-heading"> <%= @country.display_name %><br/>
+          <h1 class="text-center" id="country-name-heading"><%= body_title(@country.display_name) %><br/>
             <span id="country-population">Population: </span> </h1>
         </div>
         <div class="col-md-12 text-center br-country-social"> <span class="hero-hearts text-center"> <i class="fa fa-share-square-o fa-lg"></i>&nbsp;&nbsp;&nbsp; <a href="#"

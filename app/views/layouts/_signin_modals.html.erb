@@ -1,105 +1,59 @@
-<%
-=begin %>
-<% if !user_signed_in? %>
-  <div class="modal fade loginscreen" id="navModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  	<div class="middle_area">
-  		<div class="innerArea">
-     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <img class="logoArea" src="<%= asset_path('logoNew.png') %>">
-		<div class="modal-content small-modal" style="/*background-repeat: no-repeat; background-size: 100% 100%; background-image: url(<%= asset_path('br_logo_new.png') %>*/">
-			<img src="<%= asset_path('br_logo_new.png') %>" style="margin:auto; position:absolute; top:0; left:0; right:0; bottom:0; opacity:0.2;">
-			<div class="modal-header">
-	      <h2 class="modal-title">Sign In and Explore!!</h2>
-	    </div>
-			<div class="modal-body">
-				<!--h5>Already A Bound Round User?</h5-->
-				<div id="icon-wrapper">
-				  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-				    <div class="form-inputs">
-				    	
-				      <%= f.input :username, required: false, autofocus: true, placeholder: "Username" %><br>
-				      <%= f.input :password, required: false, placeholder: "Password" %><br>
-				      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %><br>
-				    </div>
+<div class="modal fade br_sign_style_modal" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog cs-modal-dialog" role="document">
+                <div class="modal-content">
+                        <div class="modal-header cs-header">
+                            <div class="text-center img-logo-area">
+                              <img src="/assets/logoNew.png">
+                              <h1 class="text-center sign-in">Sign In and Explore!</h1>
+                            </div>
+                            <button type="button" class="close cs-close close-signin" data-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                           <div class="row">
+                           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                            
+                                <div class="col-sm-12">
+                                    <%= f.input_field :username, required: false, autofocus: true, placeholder: "Username", class: "form-control" %>
+                                </div>
+                                
+                                <div class="col-sm-12">
+                                    <%= f.password_field :password, required: false, placeholder: "Password", class: "form-control" %>
+                                </div>
+                                
+                                <div class="col-sm-12 text-right div-forgot">
+                                    <!--<a href="#" class="forgot-password">FORGOT PASSWORD</a>-->
+                                    <%= link_to "FORGOT PASSWORD", new_user_password_path, class: "forgot-password"  %>
+                                </div>
+                                <div class="col-sm-12">
+                                        <%= f.button :submit, "Sign in", :class=>'btn btn-block btn-warning btn-orange' %>
+                                </div>
+                            <% end %>
+                                <div class="col-sm-12">
+                                    <%- if devise_mapping.omniauthable? %>
+                                      <%- resource_class.omniauth_providers.each do |provider| %>
+                                        <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn btn-block btn-primary btn-blue"><i class="fa fa-instagram"></i>&nbsp;Sign In With Instagram</a>
+                                      <% end -%>
+                                    <% end -%>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h4 class="text-center or">OR</h4>
+                                </div>
+                                <div class="col-sm-12">
+                                    <a type="submit" href="<%= new_user_registration_path %>" class="btn btn-block btn-warning btn-orange">CREATE AN ACCOUNT</a>
 
-				    <div class="form-actions">
-				      <%= f.button :submit, "Sign in", :class=>'btn blue-button' %>
-				      
-				    </div>
-                   
-				  <% end %>
-                  
-				</div>
-				<%- if devise_mapping.omniauthable? %>
-							  <%- resource_class.omniauth_providers.each do |provider| %>
-							    <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button margin"><i class="fa fa-instagram"></i>&nbsp;Sign In With Instagram</a><br /><br />
-							  <% end -%>
-							<% end -%>
-                <h5>Need To Create An Account?</h5>
-                 <a href="<%= new_user_registration_path %>">
-						<button class="signupBtn">
-							Create Account
-						</button>
-					</a>
-			</div>
-			<div class="modal-footer sign-in-footer">
-				We're committed to protecting your privacy.<br>
-				By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %>.
-			</div>
-		</div>
-		</div>
-		</div>
-	</div>
-<% end %>
-<%
-=end %>
-<div class="modal fade loginscreen" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="middle_area">
-		<div class="innerArea">
-     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	<img class="logoArea" src="<%= asset_path('logoNew.png') %>">
-	<div class="modal-content small-modal">
-			<!--<img src="<%= asset_path('br_logo_new.png') %>" style="margin:auto; position:absolute; top:0; left:0; right:0; bottom:0; opacity:0.2;">-->
-			<div class="modal-header">
-	     
-	      <h2 class="modal-title">Sign In and Explore!</h2>
-	    </div>
-		<div class="modal-body">
-				<!--h5>Already A Bound Round User?</h5-->
-				<div id="icon-wrapper">
-				  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-				    <div class="form-inputs">
-				    	
-				      <%= f.input :username, required: false, autofocus: true, placeholder: "Username" %><br>
-				      <%= f.input :password, required: false, placeholder: "Password" %><br>
-				      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %><br>
-				    </div>
+                                </div>
 
-				    <div class="form-actions">
-				      <%= f.button :submit, "Sign in", :class=>'btn blue-button' %>
-				      
-				    </div>
-                   
-				  <% end %>
-                  
-				</div>
-				<%- if devise_mapping.omniauthable? %>
-							  <%- resource_class.omniauth_providers.each do |provider| %>
-							    <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button margin"><i class="fa fa-instagram"></i>&nbsp;Sign In With Instagram</a><br /><br />
-							  <% end -%>
-							<% end -%>
-                <h5>Need To Create An Account?</h5>
-                 <a href="<%= new_user_registration_path %>">
-						<button class="signupBtn">
-							Create Account
-						</button>
-					</a>
-			</div>
-		<div class="modal-footer sign-in-footer">
-			We're committed to protecting your privacy.<br>
-			By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %>.
-		</div>
-	</div>
-    </div>
-    </div>
-</div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="left">
+                                <p class="text-center">We're committed to protecting your privacy. By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                </div>
+            </div>
+        </div><!--/modal-->

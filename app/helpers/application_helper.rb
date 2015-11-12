@@ -20,15 +20,64 @@ module ApplicationHelper
     ''
   end
 
-  def full_title(page_title = '')
+  def full_title(page_title = '', category='')
     base_title = "Bound Round"
-    if page_title.empty?
-      base_title + " | Fun Travel and Activities for Kids"
+    if category.empty?
+      if page_title.empty?
+        "Activities, Reviews and Things To Do For Kids: " + base_title
+        #base_title + " | Fun Travel and Activities for Kids"
+      else
+        "#{page_title} For Kids: Activities and Reviews"
+      end
     else
-      "#{page_title} Fun Activities for Traveling Kids and Families | #{base_title}"
+      if category.eql?("beach")
+        page_title+" : Things To Do for Kids"
+      elsif  category.eql?("sports")
+        page_title+" : Institute of Sport things To Do : Bound Round"
+      elsif  ["place_to_eat", "place_to_stay"].include?(category)
+        page_title+" : For Kids : Bound Round"
+      elsif  category.eql?("transport")
+        page_title+" : Cableway Things To Do : Bound Round"
+      elsif  category.eql?("area")
+        page_title+" : Things To Do By Kids For Kids : Bound Round"  
+      else
+        page_title + " Things To Do : Bound Round"
+      end
+    end
+  end
+  
+  def body_title(title= '', category='')
+    if category.empty?
+      if title.empty?
+        "Activities, Reviews and Things To Do For Kids: Bound Round"
+      else
+        title+" : Activities for Kids"
+      end
+    else
+      if category.eql?("beach")
+        title+" : Activities and Reviews" 
+      else
+        title
+      end
     end
   end
 
+  def meta_description(title='', category='')
+    if category.empty?
+      if title.empty?
+        "Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards."
+      else
+        title+". Learn interesting facts about Australia, uncover fun things to do, activities, read reviews and watch videos full of insider tips by kids."
+      end
+    else
+      if category.eql?("beach")
+        title+" : activities, reviews & videos about things to do. Kids, sign-up to share your experiences and earn points you can use for great rewards." 
+      else
+        title+" : videos, reviews & stories about things to do. Kids, sign-up to share your experiences and earn points you can use for great rewards."
+      end
+    end
+  end
+  
   def draw_hero_background(place)
     if place.photos.blank?
       if place.categories.blank?

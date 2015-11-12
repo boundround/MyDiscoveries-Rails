@@ -1,5 +1,7 @@
 <% if user_signed_in? && current_user.admin %>
 <% provide(:title, @place.display_name) %>
+<% category = @place.categories.first.identifier rescue "default"%>
+<% provide(:category,  category) %>
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
   <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
   <div class="page-wrap">

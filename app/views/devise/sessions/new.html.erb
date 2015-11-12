@@ -1,24 +1,57 @@
-<div class="container sign-in">
-  <div style="margin-top: 50px;" class="row hidden-xs"></div>
-  <div class="row">
-    <a href="<%= root_path %>">
-      <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block place-logo" >
-    </a>
-    <div class="col-md-3 hidden-xs"></div>
-    <div class="col-md-6 col-xs-12">
-      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="form-inputs">
-          <%= f.input :username, required: false, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %><br>
-          <%= f.input :password, required: false, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %><br>
-          <%= f.input :remember_me, as: (:boolean if devise_mapping.rememberable?), wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %><br>
-        </div>
-
-        <div class="form-actions">
-          <p><%= f.button :submit, "Sign in" %></p>
-        </div>
-      <% end %>
-
-      <%= render "devise/shared/links" %>
-    </div>
-  </div>
-</div>
+<div class="br_sign_style_modal signin" id="signInModal">
+            <div class="modal-dialog cs-modal-dialog" role="document">
+                <div class="modal-content">
+                        <div class="modal-header cs-header">
+                            <div class="text-center img-logo-area">
+                              <img src="/assets/logoNew.png">
+                              <h1 class="text-center sign-in">Sign In and Explore!</h1>
+                            </div>
+                            <%= link_to "  ",  root_path, class: "close cs-close close-signin"  %>
+                        </div>
+                        <div class="modal-body">
+                           <div class="row">
+                           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                            
+                                <div class="col-sm-12">
+                                    <%= f.input_field :username, required: false, autofocus: true, placeholder: "Username", class: "form-control" %>
+                                </div>
+                                
+                                <div class="col-sm-12">
+                                    <%= f.password_field :password, required: false, placeholder: "Password", class: "form-control" %>
+                                </div>
+                                
+                                <div class="col-sm-12 text-right div-forgot">
+                                    <!--<a href="#" class="forgot-password">FORGOT PASSWORD</a>-->
+                                    <%= link_to "FORGOT PASSWORD", new_user_password_path, class: "forgot-password"  %>
+                                </div>
+                                <div class="col-sm-12">
+                                        <%= f.button :submit, "Sign in", :class=>'btn btn-block btn-warning btn-orange' %>
+                                </div>
+                            <% end %>
+                                <div class="col-sm-12">
+                                    <%- if devise_mapping.omniauthable? %>
+                                      <%- resource_class.omniauth_providers.each do |provider| %>
+                                        <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn btn-block btn-primary btn-blue"><i class="fa fa-instagram"></i>&nbsp;Sign In With Instagram</a>
+                                      <% end -%>
+                                    <% end -%>
+                                </div>
+                                <div class="col-sm-12">
+                                    <h4 class="text-center or">OR</h4>
+                                </div>
+                                <div class="col-sm-12">
+                                    <a type="submit" href="<%= new_user_registration_path %>" class="btn btn-block btn-warning btn-orange">CREATE AN ACCOUNT</a>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="left">
+                                <p class="text-center">We're committed to protecting your privacy. By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                </div>
+            </div>
+        </div><!--/modal-->
