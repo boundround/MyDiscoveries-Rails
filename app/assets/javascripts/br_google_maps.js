@@ -900,6 +900,8 @@ function initialize() {
 	});
 }
 
+google.maps.event.addDomListener(window, 'DOMContentLoaded', initialize);
+
 // first we need preload the webfonts which we will use in icons
 window.WebFont.load({
 	google: {
@@ -910,7 +912,7 @@ window.WebFont.load({
 	active: function() {
 
 		//Wait for the DOM tree to be ready
-		google.maps.event.addDomListener(window, 'DOMContentLoaded', initialize);
+//		google.maps.event.addDomListener(window, 'DOMContentLoaded', initialize);
 		
 		//Wait for entire page to load (longer)
 		//google.maps.event.addDomListener(window, 'load', initialize);

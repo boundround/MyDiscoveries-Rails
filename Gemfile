@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# 2.1.3 on local dev & def production
+# 2.2.1 on c9
 ruby '2.1.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

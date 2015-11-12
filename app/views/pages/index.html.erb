@@ -94,8 +94,8 @@
               <%= render "search_suggestions/search_results" %>
             </div>
             <div class="btn-group br15_signup_btn_group hidden-xs" role="group" aria-label="...">
-                <a type="button" class="btn btn-default">Sign In</a>
-                <a type="button" class="btn btn-default">Sign Up</a>
+                <a type="button" tabindex="-1" data-target="#signInModal" data-toggle="modal" class="btn btn-default">Sign In</a>
+                <%= link_to "Sign Up", new_registration_path(resource_name), class: "btn btn-default" %>
             </div>
             <div class="row br15_header">
                 <div class="col-xs-12 text-center">
