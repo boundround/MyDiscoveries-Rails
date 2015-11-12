@@ -20,6 +20,32 @@
   padding-left: 1px;
 }
 
+.pac-container {
+  z-index: 999;
+  border-radius: 4px;
+  margin: 20px auto 0 auto;
+}
+
+.pac-item {
+}
+
+#pac-input {
+  width: 250px;
+}
+
+.place-search-container {
+  position: absolute;
+  width: 475px;
+}
+
+.search-results-container {
+  padding: 10px 10px;
+  background-color: white;
+  border-radius: 4px;
+  display: none;
+  z-index: 9999;
+}
+
 .search-results {
   background-color: white;
   text-align: center;
@@ -27,6 +53,8 @@
   max-height: 750px;
   overflow: scroll;
   padding: 10px 10px;
+  min-height: 200px;
+  display: none;
 }
 
 .review-buttons {

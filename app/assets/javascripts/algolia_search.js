@@ -36,6 +36,7 @@ $(document).ready(function(){
       algoliaHelper.search();
     } else {
       $('.search-results').hide();
+      $('.search-results-container').hide();
       $('.br15_search_result').hide();
       $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
       $('#br15_map').removeClass('br15_min_h_530');
@@ -56,15 +57,19 @@ $(document).ready(function(){
       $('.br15_header').slideUp(400,function(){google.maps.event.trigger(br_map, "resize");});
       $('.br15_search_result').show();
       $('.search-results').show();
+      $('.search-results-container').show();
       renderHits(content);
 
       //This function lives in br_google_maps
-      updateMapWithAlgoliaSearchResults(content);
+      if ($('#br15_map').length){
+        updateMapWithAlgoliaSearchResults(content);
+      }
 
       renderStats(content);
       renderPagination(content);
     } else {
       $('.search-results').hide();
+      $('.search-results-container').hide();
       $('.br15_search_result').hide();
       $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
       $('#br15_map').removeClass('br15_min_h_530');
@@ -161,7 +166,7 @@ $(document).ready(function(){
 
   $("#search-box").geocomplete({
     types: ['establishment'],
-    map: ".map-canvas"
+    map: "#place-holder"
   }).bind("geocode:result", function(event, result){
     console.log(result);
     createNewPlaceFromGooglePlaces(result);
