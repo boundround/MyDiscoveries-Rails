@@ -36,6 +36,14 @@ class Photo < ActiveRecord::Base
     end
   end
 
+  def published?
+    if self.status == "live"
+      true
+    else
+      false
+    end
+  end
+
   def self.import(file)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)

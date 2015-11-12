@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   constraints(BRConstraint.new) do
 #    get '/', to: 'pages#globe', as: :root
-    get '/', to: 'pages#google_map_home', as: :root
+    get '/', to: 'pages#index', as: :root
   end
 
   get 'puzzles/index'

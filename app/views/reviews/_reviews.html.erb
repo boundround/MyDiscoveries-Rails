@@ -7,8 +7,12 @@
       <% end %>
       <p class="review-content">
         "<%= review.content[0..280] + "..." %>"
+<<<<<<< HEAD
         <h5>
         </h5>
+=======
+        <h5>- <%= strip_domain_from_username review.user %></h5>
+>>>>>>> test
       </p>
       <p class="anchor">
         <% if review.content.length > 280 %>

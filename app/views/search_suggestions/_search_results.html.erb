@@ -1,0 +1,83 @@
+<main class="search-results">
+  <div id="stats"></div>
+  <div id="hits"></div>
+  <div id="pagination"></div>
+  <div id="google-hits"></div>
+</main>
+<script type="text/template" id="hit-template">
+  {{#hits}}
+  <a href="{{ url }}" class="no-anchor-decoration">
+    <div class="hit">
+      <span class="hit-image">
+        <img class="search-thumbnail" src="{{ photos.0.url }}" alt="{{ photos.0.alt_tag }}">
+      </span>
+      <div class="hit-content">
+        <h5 class="hit-name">{{{ _highlightResult.display_name.value }}}</h5>
+        <p class="hit-description hidden-xs">{{{ _highlightResult.description.value }}}</p>
+      </div>
+    </div>
+  </a>
+  <hr>
+  {{/hits}}
+</script>
+
+<script type="text/template" id="google-hit-template">
+  {{#hits}}
+  <div class="hit" data-url="{{ url }}">
+    <div class="hit-content">
+      <h2 class="hit-name">{{{ _highlightResult.display_name.value }}}</h2>
+      <p class="hit-description">{{{ _highlightResult.description.value }}}</p>
+    </div>
+  </div>
+  <hr>
+  {{/hits}}
+</script>
+
+<!-- Stats template -->
+<script type="text/template" id="stats-template">
+  {{ nbHits }} Bound Round place{{#nbHits_plural}}s{{/nbHits_plural}} <span class="found-in">found in {{ processingTimeMS }}ms</span>
+</script>
+
+<!-- No-Results template -->
+<script type="text/template" id="no-results-template">
+  <div id="no-results-message">
+    <p>We didn't find any results for the search <em>"{{ query }}"</em>.</p>
+    <ul>
+      {{#filters}}
+      <li class="{{ class }}" data-facet="{{ facet }}" data-value="{{ facet_value }}">
+        {{ label }}<span class="value">{{ label_value }}</span><a class="remove"><img src="img/remove.svg"/></a>
+      </li>
+      {{/filters}}
+      <br>
+      <a href="" class='clear-all'>Clear all</a>
+    </ul>
+  </div>
+</script>
+
+<style>
+  .search-pagination-list {
+    display: inline !important;
+    padding: 0;
+  }
+
+  .search-pagination-list li {
+    display: inline !important;
+  }
+
+  .search-pagination-list li a {
+    font-size: 16px !important;
+    display: inline !important;
+  }
+</style>
+
+<!-- Pagination template -->
+<script type="text/template" id="pagination-template">
+  <a id="search-results">
+  <ul class="search-pagination-list">
+    <li {{^prev_page}}class="disabled"{{/prev_page}}><a href="#" {{#prev_page}}class="go-to-page" data-page="{{ prev_page }}"{{/prev_page}}>&#60;</a></li>
+    {{#pages}}
+    <li class="{{#current}}active{{/current}} {{#disabled}}disabled{{/disabled}}"><a href="#" {{^disabled}} class="go-to-page" data-page="{{ number }}" {{/disabled}}>{{ number }}</a></li>
+    {{/pages}}
+    <li {{^next_page}}class="disabled"{{/next_page}}><a href="#" {{#next_page}}class="go-to-page" data-page="{{ next_page }}"{{/next_page}}>&#62;</a></li>
+  </ul>
+</script>

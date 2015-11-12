@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-App="boundRound">
 <% if not @placeprograms %>
 	<head>
 	  <title><%= full_title(yield(:title), yield(:category)) %></title>
@@ -96,10 +96,12 @@
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<%= javascript_include_tag 'mapbox' %>
-	  <%= javascript_include_tag 'application' %>
-		<script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-	  <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-	  <%= javascript_include_tag 'froogaloop' %>
+    <%= javascript_include_tag 'application' %>
+    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+    <%= javascript_include_tag 'froogaloop' %>
+
+
 
 		<div id="place-holder"></div>
 	  <%= render "/layouts/page_loader" %>
@@ -119,7 +121,6 @@
 	  <%= render "/layouts/signin_modals" %>
 
 	  <%= render "/layouts/share_modal" %>
-
 	</body>
 
 

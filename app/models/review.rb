@@ -1,6 +1,6 @@
 class Review < ActiveRecord::Base
   include Transactionable
-  # after_update :add_transaction
+  after_update :add_transaction
 
   validates :content, presence: true
   validates :user_id, presence: true

@@ -7,7 +7,7 @@ br_google_maps
 /*global topojson*/
 /*global MarkerClusterer*/
 
-var br_dom_map_element = 'home-map';
+var br_dom_map_element = 'br15_map';
 
 var br_map = null;
 var br_infoWindow = null;
@@ -32,34 +32,40 @@ var br_infobox_country_options = null;
 
 var br_infobox_content_type = null;
 
-location.hash == '' ? location.hash = '#4/-31.722765997478323/142.06927500000006' : location.hash = location.hash;
-
 //	var br_url_prefix = "https://app.boundround.com";
 var br_google_url_prefix = ""; //"https://peaceful-bastion-2430.herokuapp.com";
 var br_show_map_mode = false;
 
 var brShowMapMode = null;
 
+/* Disable URL Hash
+function brUpdateHash(zoom, center) {
+	if (br_show_map_mode)
+		location.hash = '#' + zoom + '/' + center.lat() + '/' + center.lng() + '/map';
+	else
+		location.hash = '#' + zoom + '/' + center.lat() + '/' + center.lng();
+}
+
 function brParseHash() {
-	if(location.hash)
-	{
+	if (location.hash) {
 		var loc = location.hash.replace('#', '').split('/');
 		var my_loc = {};
-		my_loc.zoom = loc[0]*1.;
+		my_loc.zoom = loc[0] * 1.;
 		my_loc.center = new google.maps.LatLng(loc[1], loc[2]);
-		/*			my_loc.center.lat = loc[1];
-			my_loc.center.lng = loc[2];*/
+			// my_loc.center.lat = loc[1];
+			// my_loc.center.lng = loc[2];
 		if (loc.length >= 4) my_loc.mode = loc[3];
 		return my_loc;
-	}
-	else
-	{
+	} else {
 		return null;
 	}
 }
 
+location.hash == '' ? location.hash = '#2/-31.722765997478323/142.06927500000006' : location.hash = location.hash;
 var parsedHash = brParseHash();
 if (parsedHash && parsedHash.mode) br_show_map_mode = true;
+*/
+
 
 var br_countrieslevel = 6; //Level after which country clicks no longer
 var transitionzoomlevel = 6; //2d zoom level transition to globe
@@ -77,7 +83,7 @@ function setMarkerVisibility(markers, visib) {
 
 
 
-var br_place_markers = null;
+var br_place_markers = [];
 var br_place_markerCluster = null;
 var br_showing_places = false;
 
@@ -182,39 +188,39 @@ var createMarkerArray = function(geoJSON, markerType, showme, scaledSizeOfIcon, 
 
 		var icon = {
 			area: function() {
-				
-        // config for icon
-        var iconCfg = {
-          innerText: {
-            content: location.properties.placeCount > 0 ? ""+location.properties.placeCount : "",
-            style: {
-              fontFamily: 'Signika'
-            }
-          },
-          outerText: {
-            content: location.properties.title,
-            arc: 320,
-            style: {
-              fontFamily: 'Signika'
-            }
-          }
-        };
-  
-				
+
+				// config for icon
+				var iconCfg = {
+					innerText: {
+						content: location.properties.placeCount > 0 ? "" + location.properties.placeCount : "",
+						style: {
+							fontFamily: 'Signika'
+						}
+					},
+					outerText: {
+						content: location.properties.title,
+						arc: 320,
+						style: {
+							fontFamily: 'Signika'
+						}
+					}
+				};
+
+
 				return {
 					labelText: location.properties.title,
-//					url: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+					//					url: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
 					labelClassName: 'area-icon-label' + ' ' + location.properties.places + ' ' + location.properties.id,
 					target_url: location.properties.url,
 					placeCount: location.properties.placeCount,
 					country: location.properties.country,
 					size: null,
 					origin: null,
-          url: window.thirdFloor.iconBuilder.build(iconCfg),
-          scaledSize: scaledSizeOfIcon,
-          anchor: anchorOfIcon
-//					anchor: null,
-//					scaledSize: new google.maps.Size(83 * .45, 53 * .45)
+					url: window.thirdFloor.iconBuilder.build(iconCfg),
+					scaledSize: scaledSizeOfIcon,
+					anchor: anchorOfIcon
+					//					anchor: null,
+					//					scaledSize: new google.maps.Size(83 * .45, 53 * .45)
 				}
 			},
 			place: function() {
@@ -252,7 +258,7 @@ var createMarkerArray = function(geoJSON, markerType, showme, scaledSizeOfIcon, 
 				map: br_map
 			});
 
-//			marker.setVisible(showme);
+			//			marker.setVisible(showme);
 
 			/*				google.maps.event.addListener(marker, 'mouseover', function() {
 					  this.setAnimation(google.maps.Animation.BOUNCE);
@@ -290,21 +296,245 @@ var createMarkerArray = function(geoJSON, markerType, showme, scaledSizeOfIcon, 
 	return markerArray;
 };
 
-//Change the Hash based on user navigation of page & map
-function brUpdateHash(zoom, center) {
+//Generate marker arrays from Bound Round geojson feature set 
+/* example JSON object
+[Log] s (localhost, line 882)
+	_state: r {index: "place", query: "sydney", facets: [], disjunctiveFacets: [], hierarchicalFacets: [], …}
+	disjunctiveFacets: [] (0)
+	facets: [] (0)
+	hierarchicalFacets: [] (0)
+	hits: Array (6)
+		0Object
+		_highlightResult: Object
+			description: {value: "Visit <em>Sydney</em> and be&nbsp;amazed by the unique blend...", matchLevel: "full", matchedWords: ["sydney"]}
+			display_name: {value: "<em>Sydney</em>", matchLevel: "full", matchedWords: ["sydney"]}
+		Object Prototype
+			category: "area"
+			country: "Australia"
+			description: "Visit Sydney and be&nbsp;amazed by the unique blend..."
+			display_name: "Sydney"
+			latitude: -33.8674869
+			locality: "Sydney"
+			longitude: 151.2069902
+			name: "Sydney, Sydney, Australia"
+			objectID: "place_1064"
+			photos: Array (42)
+				0{url: "https://d1w99recw67lvf.cloudfront.net/photos/small_Sydney_hero.jpg", alt_tag: "The Coat Hanger, Sydney Harbour Bridge"}
+				1{url: "https://d1w99recw67lvf.cloudfront.net/photos/small_small_SYD_DQP_4.jpg", alt_tag: "Kid whizzing through the air on the flying fox at the Darling Quarter Playground"}
+			Array Prototype
+			post_code: ""
+			url: "/places/sydney"
+		Object Prototype
+		1{display_name: "Sydney Tower Eye & SKYWALK", latitude: -33.8703858, longitude: 151.2090761, locality: "Sydney", post_code: "2000", …}
+		2{display_name: "Sydney Swans", latitude: -33.891645, longitude: 151.224771, locality: "Moore Park", post_code: "2021", …}
+		3{display_name: "Sydney Opera House", latitude: -33.8571965, longitude: 151.2151398, locality: "Sydney", post_code: "2000", …}
+		4{display_name: "Sydney Olympic Stadium", latitude: -33.8493172, longitude: 151.0621102, locality: "Sydney Olympic Park", post_code: "2127", …}
+		5{display_name: "Sydney Fish Markets", latitude: -33.8730082, longitude: 151.192578, locality: "Pyrmont", post_code: "2009", …}
+	Array Prototype
+	hitsPerPage: 6
+	index: "place"
+	nbHits: 44
+	nbPages: 8
+	page: 0
+	processingTimeMS: 1
+	query: "sydney"
+s Prototype
+*/
 
-	if (br_show_map_mode)
-		location.hash = '#' + zoom + '/' + center.lat() + '/' + center.lng() + '/map';
-	else
-		location.hash = '#' + zoom + '/' + center.lat() + '/' + center.lng();
+var clearAlgoliaMarkers = function() {
+	for (i = 0; i < br_place_markers.length; i++) {
+		br_place_markers[i].setMap(null);
+	}
 }
+
+var updateMapWithAlgoliaSearchResults = function(content) {
+	// size of icon on the map
+	var scaleRatio = 1.0;
+	var originalWidthOfIcon = window.thirdFloor.iconBuilder.CANVAS_DEFAULT_WIDTH;
+	var originalHeightOfIcon = window.thirdFloor.iconBuilder.CANVAS_DEFAULT_HEIGHT;
+	var scaledWidthOfIcon = originalWidthOfIcon * scaleRatio;
+	var scaledHeightOfIcon = originalHeightOfIcon * scaleRatio;
+
+	var anchorOfIcon = new google.maps.Point(scaledWidthOfIcon * 0.5, scaledHeightOfIcon + 0);
+	var scaledSizeOfIcon = new google.maps.Size(scaledWidthOfIcon, scaledHeightOfIcon);
+
+	clearAlgoliaMarkers();
+	/*	br_place_markers = [];*/
+	br_place_markers = createMarkerArrayFromAlgolia(content, "", true, scaledSizeOfIcon, anchorOfIcon);
+
+	var bounds = new google.maps.LatLngBounds();
+	for (i = 0; i < br_place_markers.length; i++) {
+		bounds.extend(br_place_markers[i].getPosition());
+	}
+
+	br_map.fitBounds(bounds);
+
+	/*	Probably not necessary
+				br_place_markerCluster ? br_place_markerCluster.clearMarkers();
+				
+				br_place_markerCluster = new MarkerClusterer(br_map, br_place_markers, {
+					maxZoom: 14,
+					ignoreHidden: false,
+					gridSize: 10,
+					styles: [{
+						url: '../google_home/cluster28yellow.png',
+						height: 28,
+						width: 28,
+						anchor: [0, 0],
+						textColor: '#000000',
+						textSize: 10
+					}]
+				});
+				setTimeout(function(){window.br_place_markerCluster.repaint();},3000);
+*/
+
+}
+
+var createMarkerArrayFromAlgolia = function(alJSON, markerType, showme, scaledSizeOfIcon, anchorOfIcon) {
+	var markerArray = [];
+
+	//Check interface
+	alJSON.hits = ('hits' in alJSON) ? alJSON.hits : [];
+
+	for (var i = 0; i < alJSON.hits.length; i++) {
+		var location = alJSON.hits[i];
+		if (location.objectID.indexOf("place") != -1) {
+			//Check interface, fix if missing
+			location.place_count = ('place_count' in location) ? location.place_count : 0;
+			location.display_name = ('display_name' in location) ? location.display_name : "";
+			location.latitude = ('latitude' in location) ? location.latitude : 0.0;
+			location.longitude = ('longitude' in location) ? location.longitude : 0.0;
+			location.category = ('category' in location) ? location.category : "";
+			location.id = ('objectID' in location) ? location.objectID : "";
+			location.url = ('url' in location) ? location.url : "";
+			location.country = ('country' in location) ? location.country : "";
+			location.image_count = ('photos' in location) ? location.photos.length : 0;
+			location.video_count = ('videos' in location) ? location.videos.length : 0;
+			location.game_count = ('games' in location) ? location.games.length : 0;
+			location.hero_image = ('hero_image' in location) ? location.hero_image : (location.image_count > 0) ? location.photos[0].url : "";
+
+			markerType = (location.category == 'area') ? 'area' : 'place';
+
+			var icon = {
+				area: function() {
+
+					// config for icon
+					var iconCfg = {
+						innerText: {
+							content: location.place_count > 0 ? "" + location.place_count : "",
+							style: {
+								fontFamily: 'Signika'
+							}
+						},
+						outerText: {
+							content: location.display_name,
+							arc: 320,
+							style: {
+								fontFamily: 'Signika'
+							}
+						}
+					};
+
+
+					return {
+						labelText: location.display_name,
+						//					url: 'https://s3.amazonaws.com/donovan-bucket/orange_plane.png',
+						labelClassName: 'area-icon-label' + ' ' + location.place_count + ' ' + location.id,
+						target_url: location.url,
+						placeCount: location.place_count,
+						country: location.country,
+						size: null,
+						origin: null,
+						url: window.thirdFloor.iconBuilder.build(iconCfg),
+						scaledSize: scaledSizeOfIcon,
+						anchor: anchorOfIcon
+						//					anchor: null,
+						//					scaledSize: new google.maps.Size(83 * .45, 53 * .45)
+					}
+				},
+				place: function() {
+					return { // labelText: location.properties.title,
+						labelClassName: 'place-icon-label ' + location.id,
+						url: 'https://d1w99recw67lvf.cloudfront.net/category_icons/' + location.category + '_pin.png',
+						target_url: location.url,
+						imageCount: location.image_count,
+						videoCount: location.video_count,
+						gameCount: location.game_count,
+						heroImage: location.hero_image,
+						placeId: location.id,
+						area: "",
+						title: location.display_name,
+						size: null,
+						origin: null,
+						anchor: null,
+						category: location.category,
+						scaledSize: new google.maps.Size(25, 38)
+					}
+				}
+			}
+
+			// Only create marker if it has lat and long
+			if (location.latitude && location.longitude) {
+
+				var myLatLng = {
+					lat: location.latitude,
+					lng: location.longitude
+				};
+
+				var marker = new google.maps.Marker({
+					position: myLatLng,
+					icon: icon[markerType](),
+					map: br_map
+				});
+
+				//			marker.setVisible(showme);
+
+				/*				google.maps.event.addListener(marker, 'mouseover', function() {
+						  this.setAnimation(google.maps.Animation.BOUNCE);
+						});
+					
+						google.maps.event.addListener(marker, 'mouseout', function() {
+						  this.setAnimation(null);
+						});
+				*/
+
+				(function(marker, markerType) {
+
+					// Attaching a click event to the current marker
+					google.maps.event.addListener(marker, "click", function(e) {
+
+						br_map.panTo(marker.getPosition());
+						//"Id:" + data[i].Id + "<br /> Property Name/Number:" + data[i].Propertynanu + "<br /> Rooms:" + data[i].Rooms
+						if (markerType == 'area' && br_map.getZoom() <= br_area_hide_level) {
+							//						br_map.panTo(marker.getPosition());	
+							br_map.setZoom(br_areazoomin);
+						}
+						br_infoWindow.setContent(createMarkerInfoBoxContent(marker, markerType));
+						br_infoWindow.setOptions(brInfoWindowOptions(markerType));
+						br_infoWindow.open(br_map, marker);
+					});
+
+
+				})(marker, markerType);
+
+
+				// Now we have all markers in a single array
+				markerArray.push(marker);
+			}
+		}
+	}
+
+	return markerArray;
+};
+
+//Change the Hash based on user navigation of page & map
 
 function configureMarkers(newZoom) {
 
 	br_area_markerCluster && br_area_markerCluster.repaint();
 	br_place_markerCluster && br_place_markerCluster.repaint();
 
-/*
+	/*
 		if (newZoom < br_area_hide_level && br_showing_places) {
 		br_showing_places = false;
 		//				  	setMarkerVisibility(area_markers,true);
@@ -331,17 +561,18 @@ function initialize() {
 	adjustInfoWindow();
 
 	//Center of Australia
-	var init_zoom = 4;
+	var init_zoom = 2;
 	var init_center = new google.maps.LatLng(-31.722765997478323, 142.06927500000006);
-	
+
+/* Disable HASH URL
 	var init_loc = brParseHash();
-	
-	if( init_loc )
-	{
+
+	if (init_loc) {
 		init_zoom = init_loc.zoom;
 		init_center = init_loc.center;
 	}
-
+*/
+	
 	//Sydney
 	//        var center = new google.maps.LatLng(-33.8678500, 151.2073200);
 	var mapOptions = {
@@ -352,9 +583,17 @@ function initialize() {
 		disableDefaultUI: false,
 		minZoom: 2,
 		maxZoom: 16,
-    backgroundColor: '#a6c6ff'
-		
-/*
+		backgroundColor: '#a6c6ff',
+	  zoomControl: true,
+	  mapTypeControl: true,
+	  scaleControl: false,
+	  streetViewControl: false,
+	  rotateControl: false,
+    mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+		/*
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		styles: [{
 				"featureType": "water",
@@ -385,26 +624,31 @@ function initialize() {
 		*/
 	};
 	br_map = new google.maps.Map(document.getElementById(br_dom_map_element), mapOptions);
-	br_map.addListener("dragend", function(){ brUpdateMap(false);} );
-	br_map.addListener('zoom_changed', function() {brUpdateMapAndConfigureMarkers(false);} );
-
+	/* Won't need this with new search
+	br_map.addListener("dragend", function() {
+		brUpdateMap(false);
+	});
+	br_map.addListener('zoom_changed', function() {
+		brUpdateMapAndConfigureMarkers(false);
+	});
+*/
 
 	//
+
+/* Disable URL Hash
 	function brUpdateMap(fromHash) {
 		if (fromHash) {
 			var page_loc = brParseHash();
-			if( page_loc )
-			{
+			if (page_loc) {
 				br_map.setZoom(page_loc.zoom);
 				br_map.setCenter(page_loc.center);
 			}
 		} else if (br_map.getZoom() !== undefined) {
-			brUpdateHash(br_map.getZoom(), br_map.getCenter());			
+			brUpdateHash(br_map.getZoom(), br_map.getCenter());
 		}
 	};
 
-	brShowMapMode = function(mm)
-	{
+	brShowMapMode = function(mm) {
 		br_show_map_mode = mm;
 		brUpdateMap(false);
 	}
@@ -413,9 +657,10 @@ function initialize() {
 		brUpdateMap(fromHash);
 		configureMarkers(br_map.getZoom());
 	};
-	
-	brUpdateMap(true);
 
+	brUpdateMap(true);
+*/
+	
 	br_infoWindow = new google.maps.InfoWindow(brInfoWindowOptions('place'));
 
 	br_infoWindow.addListener('closeclick', function() {
@@ -490,63 +735,11 @@ function initialize() {
 		}
 	}
 
-	$(window).on('hashchange',function(){ 
+	$(window).on('hashchange', function() {
 		brUpdateMapAndConfigureMarkers(true);
 	});
-	
-	$.getJSON("../google_home/js/countries30_na.topojson", function(data) {
-		var geoJsonObject = topojson.feature(data, data.objects.countries_no_antarctica);
-		br_map.data.addGeoJson(geoJsonObject);
-		// Set the stroke width, and fill color for each polygon
-		var featureStyle = {
-			fillColor: 'transparent',
-			strokeWeight: 0
-		}
-		br_map.data.setStyle(featureStyle);
 
-		// zoom to the clicked feature
-		br_map.data.addListener('click', function(e) {
-
-			/*
-		content = 
-            "iso_a2 = "+ e.feature.getProperty('iso_a2') + "<BR>"
-            + "name = "+ e.feature.getProperty('brk_name') + "<BR>"
-            + "name = "+ e.feature.getProperty('brk_name') + "<BR>"
-            + "population = "+ e.feature.getProperty('pop_est') + "<BR>"
-            + "economy = "+ e.feature.getProperty('economy') + "<BR>"
-            + "continent = "+ e.feature.getProperty('continent') + "<BR>"
-            ;
-*/
-
-			if (br_map.getZoom() <= br_countrieslevel) {
-				br_infobox_content_type = 'country';
-
-				br_country_marker.setMap(br_map);
-				br_country_marker.setPosition(e.latLng);
-
-				var bounds = new google.maps.LatLngBounds();
-				processPoints(e.feature.getGeometry(), bounds.extend, bounds);
-				br_map.fitBounds(bounds);
-				//				brUpdateMap();
-
-				var pf = br_auf.replace('au.png', e.feature.getProperty('iso_a2').toLowerCase() + '.png');
-
-				var content = '<div class="upper-card" style="background-image: url(' + pf + ')"></div>' +
-					'<div class="lower-card" style="height:20px;width:100px;background:white;"><a class="no-anchor-decoration" href="' + br_google_url_prefix + "/countries/" + e.feature.getProperty('iso_a2').toLowerCase() + ".html" +
-					'"><p class="place-title area">' + e.feature.getProperty('brk_name') + '</p><br></a></div>';
-
-				br_infoWindow.setContent(content);
-				br_infoWindow.setOptions(brInfoWindowOptions('country'));
-
-				br_infoWindow.open(br_map, br_country_marker);
-
-				//window.location.href = br_google_url_prefix+"/countries/"+e.feature.getProperty('iso_a2').toLowerCase()+".html";
-			}
-		});
-
-	});
-
-
+	/* This is very slow
 	$.ajax({
 		//Get all areas and add to map
 		url: '/places/placeareasmapdata.json',
@@ -612,21 +805,21 @@ function initialize() {
 			});
 			
 			
-			/*
-			br_area_markerCluster = new MarkerClusterer(br_map, br_area_markers, {
-				maxZoom: 14,
-				ignoreHidden: false,
-				gridSize: 10,
-				styles: [{
-					url: '../google_home/cluster28.png',
-					height: 28,
-					width: 28,
-					anchor: [0, 0],
-					textColor: '#ffffff',
-					textSize: 10
-				}]
-			});
-			*/
+			
+			// br_area_markerCluster = new MarkerClusterer(br_map, br_area_markers, {
+			// 	maxZoom: 14,
+			// 	ignoreHidden: false,
+			// 	gridSize: 10,
+			// 	styles: [{
+			// 		url: '../google_home/cluster28.png',
+			// 		height: 28,
+			// 		width: 28,
+			// 		anchor: [0, 0],
+			// 		textColor: '#ffffff',
+			// 		textSize: 10
+			// 	}]
+			// });
+			//
 			
 			setTimeout(function(){br_area_markerCluster.repaint()},3000);
 
@@ -660,55 +853,68 @@ function initialize() {
 
 		}
 	});
-}
-
-
-/* EXPERIMENTAL CODE, MIGHT WANT TO TRY MARKER FUSION TABLE LAYERS LATER, VERY FAST
-
-    var ftlayer = new google.maps.FusionTablesLayer({
-    query: {
-      select: 'geometry',
-      from: '1hFMStXgF-FO1dJRzPOyKZuugnKBQDyMOa9oB8_Z8'
-    },
-        styles: [{
-          polygonOptions: {
-            fillColor: '#00FF00',
-            fillOpacity: 0.3
-          }
-        }
-        ]
-    });
-    ftlayer.setMap(map);
-    
-    clayer = new google.maps.FusionTablesLayer({
-        query: {
-          select: 'location',
-          from: '1CLE_PJq43PagTM7fA-DhTqE3BHQL-GUd1cXkz-hc',
-          where: "'Status' = 'live'"
-        },
-        styles: [
-//                {where: "'bizCatSub' = 'Antique & Classic Motorcycle Dealers'", markerOptions:{ iconName:"star"}}, // other landmarks
-          {where: "'bizCatSub' = 'Other moto business'", markerOptions:{ iconName:"wht_pushpin"}}, //businesses
-          {where: "'bizCatSub' = 'Shop'", markerOptions:{iconName:"red_blank"}}, //town houses
-          {where: "'bizCatSub' = '12'", markerOptions:{ iconName:"orange_blank"}}, //country homes
-          {where: "'bizCatSub' = '15'", markerOptions:{ iconName:"target"}},
-        ]
-
-      });
-      clayer.setMap(map);
 */
+
+	$.getJSON("../google_home/js/countries30_na.topojson", function(data) {
+		var geoJsonObject = topojson.feature(data, data.objects.countries_no_antarctica);
+		br_map.data.addGeoJson(geoJsonObject);
+		// Set the stroke width, and fill color for each polygon
+		var featureStyle = {
+			fillColor: 'transparent',
+			strokeWeight: 0
+		}
+		br_map.data.setStyle(featureStyle);
+
+		// zoom to the clicked feature
+		br_map.data.addListener('click', function(e) {
+			if (br_map.getZoom() <= br_countrieslevel) {
+				br_infobox_content_type = 'country';
+
+				br_country_marker.setMap(br_map);
+				br_country_marker.setPosition(e.latLng);
+
+				var bounds = new google.maps.LatLngBounds();
+				processPoints(e.feature.getGeometry(), bounds.extend, bounds);
+				br_map.fitBounds(bounds);
+				//				brUpdateMap();
+
+				// <script>
+				// 	//Trick to get the correct asset path for flags, used in br_google_maps.js
+				// 	window.br_auf = '<%= asset_path('flags/au.png') %>';
+				// </script>				
+				//!!br_auf uses above erb assignment trick in containing html.erb file!!
+				var pf = br_auf.replace('au.png', e.feature.getProperty('iso_a2').toLowerCase() + '.png');
+
+				var content = '<div class="upper-card" style="background-image: url(' + pf + ')"></div>' +
+					'<div class="lower-card" style="height:20px;width:100px;background:white;"><a class="no-anchor-decoration" href="' + br_google_url_prefix + "/countries/" + e.feature.getProperty('iso_a2').toLowerCase() + ".html" +
+					'"><p class="place-title area">' + e.feature.getProperty('brk_name') + '</p><br></a></div>';
+
+				br_infoWindow.setContent(content);
+				br_infoWindow.setOptions(brInfoWindowOptions('country'));
+
+				br_infoWindow.open(br_map, br_country_marker);
+
+				//window.location.href = br_google_url_prefix+"/countries/"+e.feature.getProperty('iso_a2').toLowerCase()+".html";
+			}
+		});
+	});
+}
 
 // first we need preload the webfonts which we will use in icons
 window.WebFont.load({
-  google: {
-    families: [
-      'Signika:600'
-    ]
-  },
-  active: function() {
-    // start everything when all fonts loaded
-		google.maps.event.addDomListener(window, 'load', initialize);
+	google: {
+		families: [
+			'Signika:600'
+		]
+	},
+	active: function() {
 
-//    start();
-  }
+		//Wait for the DOM tree to be ready
+		google.maps.event.addDomListener(window, 'DOMContentLoaded', initialize);
+		
+		//Wait for entire page to load (longer)
+		//google.maps.event.addDomListener(window, 'load', initialize);
+
+		//    start();
+	}
 });

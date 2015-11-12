@@ -6,7 +6,7 @@
     <script src='/assets/br_google_maps.js'></script>
     <script src='/assets/search_suggestions.js'></script>
     <script src='/assets/br_home_page.js'></script>
- 
+
     <div class="/assets/border_top hidden-xs"></div>
 
 		<div id="Carousel" class="carousel slide carousel-fade col-offset-2">
@@ -48,15 +48,15 @@
                         <img src="../google_home/img/br_logo.png" class="img-responsive center-block hidden-xs main_logo_link" alt="LOGO" />
                     <h1><%= body_title %></h1>
                     <div class=" search_bg  max_604 center-block">
-
                         <div class="input-group">
-                            <input id="search-box" type="text" class="form-control search-box hidden_input" placeholder="I'm looking for ...">
+                            <input id="search-box" type="text" class="form-control search-box hidden_input" placeholder="I'm looking for ..." />
                             <span class="input-group-btn">
-                        <button class="btn search-button" type="button">
-                            <span class="fa fa-search" aria-hidden="true"></span>
+                            <button id="search-button" class="btn search-button" type="button">
+                                <span class="fa fa-search" aria-hidden="true"></span>
                             </button>
                             </span>
                         </div>
+                        <%= render "search_suggestions/search_results" %>
                     </div>
 
                     <div class="speacer10"></div>
@@ -125,6 +125,7 @@
                 </div>
             </div>
         </div>
+
 
         <!--<div class="search_bg dummy center-block">-->
 

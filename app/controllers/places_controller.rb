@@ -213,7 +213,7 @@ class PlacesController < ApplicationController
       if user_signed_in?
         @place.created_by = current_user.id.to_s
         @place.user_id = current_user.id
-        if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.has_role?("contributor") || current_user.admin?
+        if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?
           @place.status = "live"
         else
           @place.status = "draft"
@@ -390,7 +390,7 @@ class PlacesController < ApplicationController
 
     set_program_constants()
     @placeprograms = "yes"
-    
+
     puts "Trying to find"+params[:id]
     if(params[:id] =~ /\A\d+\z/)
       @place = Place.find(params[:id])

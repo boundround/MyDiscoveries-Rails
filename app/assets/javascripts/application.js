@@ -50,6 +50,10 @@
 //= require ckeditor/config.js
 //= require rest_in_place
 //= require reviews
+//= require algoliasearch
+//= require algoliasearchhelper
+//= require hogan
+//= require algolia_search
 
 
 
