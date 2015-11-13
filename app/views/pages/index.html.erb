@@ -93,10 +93,7 @@
             <div class="br15_search_result">
               <%= render "search_suggestions/search_results" %>
             </div>
-            <div class="btn-group br15_signup_btn_group hidden-xs" role="group" aria-label="...">
-                <a type="button" tabindex="-1" data-target="#signInModal" data-toggle="modal" class="btn btn-default">Sign In</a>
-                <%= link_to "Sign Up", new_registration_path(resource_name), class: "btn btn-default" %>
-            </div>
+              <%= render 'layouts/profile_dropdown' %>
             <div class="row br15_header">
                 <div class="col-xs-12 text-center">
                     <a href="#" class="center-block br15_logo"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive center-block home-logo" alt=""></a>

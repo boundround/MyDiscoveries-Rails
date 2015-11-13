@@ -1,41 +1,69 @@
-<div class="dropdown br_profile">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    <span class="add-text-shadow">Profile</span>
-    <span class="caret"></span>
-    <% if user_signed_in? %>
-      <a href="<%= user_path(current_user) %>" data-filter="*">
-        <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
-      </a>
-    <% else %>
-      <!-- <a href="#" data-toggle="modal" data-target="#signInModal" data-filter="*"> -->
-    <a href="#" data-filter="*">
-        <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
-      </a>
-    <% end %>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <% if user_signed_in? %>
-      <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="<%= user_path(current_user) %>" data-filter="*">
-          My Profile
+<% if !user_signed_in? %>
+  <div class="btn-group br15_signup_btn_group hidden-xs" role="group" aria-label="...">
+      <a type="button" tabindex="-1" data-target="#signInModal" data-toggle="modal" class="btn btn-default">Sign In</a>
+      <%= link_to "Sign Up", new_registration_path(resource_name), class: "btn btn-default" %>
+  </div>
+  <div class="dropdown br_profile hidden-sm hidden-md hidden-lg">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <span class="add-text-shadow">Profile</span>
+      <span class="caret"></span>
+      <a href="#" data-filter="*">
+          <img src="<%= asset_path('user_copy_2.png') %>" >
         </a>
-      </li>
-      <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="<%= destroy_user_session_path %>" data-filter="*" data-method="delete">
-          Sign Out
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#signInModal" data-filter="*">
+            Sign In
+          </a>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="<%= root_path %>" data-filter="*">
+            Home
+          </a>
+        </li>
+    </ul>
+  </div>
+<% else %>
+  <div class="dropdown br_profile">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <span class="add-text-shadow">Profile</span>
+      <span class="caret"></span>
+      <% if user_signed_in? %>
+        <a href="<%= user_path(current_user) %>" data-filter="*">
+          <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
         </a>
-      </li>
-    <% else %>
-      <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#signInModal" data-filter="*">
-          Sign In
+      <% else %>
+        <!-- <a href="#" data-toggle="modal" data-target="#signInModal" data-filter="*"> -->
+      <a href="#" data-filter="*">
+          <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
         </a>
-      </li>
-    <% end %>
-      <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="<%= root_path %>" data-filter="*">
-          Home
-        </a>
-      </li>
-  </ul>
-</div>
+      <% end %>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <% if user_signed_in? %>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="<%= user_path(current_user) %>" data-filter="*">
+            My Profile
+          </a>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="<%= destroy_user_session_path %>" data-filter="*" data-method="delete">
+            Sign Out
+          </a>
+        </li>
+      <% else %>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#signInModal" data-filter="*">
+            Sign In
+          </a>
+        </li>
+      <% end %>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="<%= root_path %>" data-filter="*">
+            Home
+          </a>
+        </li>
+    </ul>
+  </div>
+<% end %>
