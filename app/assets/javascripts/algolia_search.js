@@ -46,9 +46,6 @@ $(document).ready(function(){
   })
   .focus();
 
-  $searchInput.on("click", function(){
-    // animate map overlay
-  });
   // Search results
   algoliaHelper.on('result', function(content, state) {
     if (content.hits.length > 0){
@@ -60,6 +57,11 @@ $(document).ready(function(){
       $('.search-results-container').show();
       $('.google-results-container').append($('.pac-container'));
       renderHits(content);
+      $('#magnifying-glass').on('click', function(){
+        var data = $('.hit-result')[0];
+        var link = $(data).data("link");
+        window.location = link;
+      });
 
       //This function lives in br_google_maps
       if ($('#br15_map').length){
