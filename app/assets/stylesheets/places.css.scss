@@ -21,9 +21,14 @@
 }
 
 .pac-container {
-  z-index: 100;
   border-radius: 4px;
-  margin: 20px auto 0 auto;
+  margin: 0 auto 0 auto;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+.google-results-container {
+  position: relative;
 }
 
 .pac-item {
@@ -40,6 +45,7 @@
 }
 
 .search-results-container {
+  position: relative;
   padding: 10px 10px;
   background-color: white;
   border-radius: 4px;

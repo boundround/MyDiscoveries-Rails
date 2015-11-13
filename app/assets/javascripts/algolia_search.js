@@ -58,6 +58,7 @@ $(document).ready(function(){
       $('.br15_search_result').show();
       $('.search-results').show();
       $('.search-results-container').show();
+      $('.google-results-container').append($('.pac-container'));
       renderHits(content);
 
       //This function lives in br_google_maps
@@ -68,9 +69,10 @@ $(document).ready(function(){
       renderStats(content);
       renderPagination(content);
     } else {
-      $('.search-results').hide();
-      $('.search-results-container').hide();
-      $('.br15_search_result').hide();
+      // $('.search-results').hide();
+      // $('.search-results-container').hide();
+      // $('.br15_search_result').hide();
+      $('.google-results-container').append($('.pac-container'));
       $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
       $('#br15_map').removeClass('br15_min_h_530');
       $('.br15_map').addClass('br15_collapse');
