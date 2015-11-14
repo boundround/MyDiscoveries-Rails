@@ -15,7 +15,7 @@
           <% end %>
         </h3>
         <hr>
-        <%= simple_form_for [@reviewable, @review] do |f| %>
+        <%= simple_form_for [@reviewable, @review], remote: true do |f| %>
           <div class="col-md-2"></div>
           <div class="col-md-4 review-buttons">
             <%= f.input :user_id, as: :hidden, :input_html => { :value => (current_user.id if user_signed_in?) } %>
@@ -34,7 +34,7 @@
           <div class="clearfix"></div>
           <p></p>
           <div class="col-md-12">
-            <%= f.submit "Publish", class: "pub" %>
+            <%= f.submit "Publish", class: "pub", id: "publish-review-button" %>
           <% end %>
           <a  data-dismiss="modal" aria-hidden="true" class="can">Cancel</a>
           </div>

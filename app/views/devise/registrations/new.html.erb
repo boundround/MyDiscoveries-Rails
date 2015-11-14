@@ -1,53 +1,138 @@
-<div class="container">
-  <div style="margin-top: 50px;" class="row hidden-xs"></div>
-  <div class="row">
-    <a href="<%= root_path %>">
-      <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block place-logo" >
-    </a>
-    <div class="col-md-1 hidden-xs"></div>
-    <div class="col-md-10 col-xs-12">
-      <%= simple_form_for(@user) do |f| %>
-        <!--<% if @user.errors.any? %>
-          <div id="error_explanation">
-            <h4>Please correct the following errors:</h4>
+<script type="text/javascript">
+              $(document).ready(function(){
+                  $('.day').datepicker({
+                      format: "dd",
+                      viewMode: "day",
+                      minViewMode: "day",
+                      autoclose: true
+                  });
+                  $('.month').datepicker({
+                      format: "mm",
+                      viewMode: "months",
+                      minViewMode: "months",
+                      autoclose: true
+                  });
+                  $('.year').datepicker({
+                      format: "yyyy",
+                      viewMode: "years",
+                      minViewMode: "years",
+                      autoclose: true
+                  });
+                  $('.br_sign_style_modal select').selectpicker();
 
-            <ul>
-            <% @user.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-            </ul>
-          </div>
-        <% end %>-->
-        <%- if devise_mapping.omniauthable? %>
-          <%- resource_class.omniauth_providers.each do |provider| %>
-            <% if provider.to_s == 'instagram' %>
-            <p><a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;&nbsp;Sign In With Instagram</a></p>
-            <% end %>
-          <% end -%>
-        <% end -%>
-        <%= f.input :username, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :email, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <div class="form-inline">
-          <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
-                              end_year: Date.today.year,
-                              order: [:day, :month, :year], required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        </div>
-        <%= f.input :country, required: true, autofocus: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :promo_code, label: "Promo Code (optional)", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :password, required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <%= f.input :password_confirmation, required: true, wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
-        <div class="actions">
-          <%= f.submit 'Create Account', class: "btn btn-default" %>
-        </div>
-      <% end %>
-      <div class="sign-in-footer">
-        <br><p>
-        We're committed to protecting your privacy.<br>
-        By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %>.
-      </p>
-      </div>
-    </div>
-    <div class="col-md-1 hidden-xs"></div>
-  </div>
-  <div style="margin-top: 50px;" class="row hidden-xs"></div>
-</div>
+                  $('[data-toggle="offcanvas"]').click(function () {
+                      $('header').toggleClass('active')
+                  });
+                  $("#owl-example").owlCarousel({
+                      itemsTablet:[767,2],
+                      itemsMobile:[500,1],
+                      autoPlay:true,
+                      navigation:true,
+                      navigationText: [
+                          "<i class='glyphicon glyphicon-menu-left'><</i>",
+                          "<i class='glyphicon glyphicon-menu-right'>></i>"
+                      ],
+                      afterInit: function(){
+                          $( "#owl-example .glyphicon-menu-left,#owl-example .glyphicon-menu-right" ).empty();
+                      }
+                  });
+
+              });
+
+  </script>
+<div class="br_sign_style_modal" id="signup_modal" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                        <%= simple_form_for(@user) do |f| %>
+                        <div class="modal-header">
+                            <div class="text-center img-logo-area">
+                              <img src="/assets/logoNew.png">
+                            </div>
+                             <!--<button class="close cs-close close-signup"> -->
+                             <%= link_to "  ",  root_path, class: "close cs-close close-signup"  %>
+                             <!--</button> -->
+                            <!-- <h1 class="text-center">Ben Thompson</h1> -->
+                        </div>
+
+
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    
+                                    <%= f.input_field :username, required: true, autofocus: true, placeholder: "Username", class: "form-control" %>
+                                   
+                                </div>
+                                <div class="col-sm-6">
+                                    <!-- <input type="email" class="form-control" value="jdoe@gmail.com"/> -->
+                                    <%= f.input_field :email, required: true, autofocus: true, placeholder: "Email", class: "form-control" %>
+                                   
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <%= f.password_field :password, required: true, placeholder: "Password", class: "form-control"%>
+                                    
+                                </div>
+                                <div class="col-sm-6">
+                                    <%= f.password_field :password_confirmation, required: true, placeholder: "Password Confirmation",class: "form-control" %>
+                                   
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <%= f.input :promo_code, label: false, placeholder: "Promo Code (optional)", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <hr>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                    <label>Birthdate</label>
+                                </div>
+                            </div>
+                            <div class="form-inline">
+                                <%= f.input :date_of_birth, label: false, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year, order: [:day, :month, :year], required: true, class: "form-control"%>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 br_modal_contry_left">
+                                  
+                                    <select class="form-control">
+                                        <option value="">USA</option>
+                                        <option value="">India</option>
+                                        <option value="">Austria</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 br_modal_contry_right">
+                                    <%#- if devise_mapping.omniauthable? %>
+                                      <%#- resource_class.omniauth_providers.each do |provider| %>
+                                        <%# if provider.to_s == 'instagram' %>
+                                        <!-- <p><a href="<%#= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;&nbsp;Sign In With Instagram</a></p> -->
+                                        <%# end %>
+                                      <%# end -%>
+                                    <%# end -%>
+
+                                <input type="text" class="form-control" placeholder="Instagram Name">
+                              
+                                </div>
+                            </div>
+                        </div><!--/modal body -->
+
+                        <div class="modal-footer">
+                          <div class="row">
+                            <div class="col-xs-8">
+                              <div class="left">
+                                <p class="text-center">We're committed to protecting your privacy. By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %></p>
+                              </div>
+                            </div>
+                            <div class="col-xs-4">
+                            <div class="right">
+                                <%= f.submit 'Submit', class: "btn btn-warning btn-orange" %>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                    <% end %> <!--/simple form -->
+                </div>
+            </div>
+        </div><!--/modal-->

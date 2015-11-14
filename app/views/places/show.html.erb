@@ -1,18 +1,36 @@
 <% provide(:title, @place.display_name) %>
+<% category = @place.categories.first.identifier rescue "default"%>
+<% provide(:category,  category) %>
+
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
   <style>
-    .br_place_page {
-      background: url(<%= raw draw_hero_background(@place) %>) center center no-repeat;
-/*      background-size: 100% 700px;*/
-      background-size: cover !important;
+    /*.br_place_page {def*/
+      /*background: url(<%#= raw draw_hero_background(@place) %>) center center no-repeat;def*/
+      
+      /*background: url('/assets/large_Sydney_hero.jpg') center center no-repeat;*/
+/*      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      height: 500px;*/
 
-    }
+      /*background-size: cover !important;def*/
+
+	/*}def*/
      .homepage { background-color: #eaeaea !important;};
 
   </style>
-  <div class="area-content br_place_page" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>" sty>
+
+  <div class="carousel-inner">
+      <div class="item active" style="background: url(<%= raw draw_hero_background(@place) %>); min-height: 600px;background-size: cover; background-position: center;">
+      </div>
+  </div>
+<div class="bg_slide_area" style="padding-top:20px;">
+
+  <!-- <div class="area-content br_place_page" data-lat="<%#= @place.latitude %>" data-long="<%#= @place.longitude %>" sty> def-->
+  <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>" sty>
     <div class="container-fluid br_area ">
-          <div class="row">
+          <div class="row ">
 
             <div class="col-xs-6 hidden-xs">
               <% if @place.country %>
@@ -30,7 +48,7 @@
           </div>
           <div class="row">
             <div class="container">
-              <div class="row">
+              <div class="row responsive-minHeight">
                 <div class="col-xs-12">
                   <a href="<%= root_path %>">
                     <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
@@ -44,10 +62,10 @@
                 <%= render 'layouts/search_input'%>
                 <div class="col-xs-12 text-center">
                   <h1 class="br_top_heading hidden-xs">
-                    <%= @place.display_name %>
+                    <%= body_title(@place.display_name, category) %>
                   </h1>
                   <h1 class="br_top_heading_mob visible-xs">
-                    <%= @place.display_name %>
+                    <%= body_title(@place.display_name, category) %>
                   </h1>
                   <span class="hero-hearts">
                     <i class="fa fa-share-square-o fa-lg"></i>&nbsp;&nbsp;&nbsp;
@@ -694,26 +712,27 @@
       </div>
     </div>
 </div>
+</div><!--ADD-->
 <% end %>
 
  <script type="text/javascript">
-jQuery(window).resize(function() {
-var width = jQuery(document).width();
-if(width < 650){
-$('.br_place_page').keepRatio({ ratio: 10/12, calculate: 'height' });
-}
-else{
-$('.br_place_page').keepRatio({ ratio: 20/12, calculate: 'height' });
-}
-});
-jQuery(window).ready(function() {
-var width = jQuery(document).width();
-if(width < 650){
-$('.br_place_page').keepRatio({ ratio: 10/12, calculate: 'height' });
-}
-else{
-$('.br_place_page').keepRatio({ ratio: 20/12, calculate: 'height' });
-}
-});
+// jQuery(window).resize(function() {
+// var width = jQuery(document).width();	
+// if(width < 650){			
+// $('.br_place_page').keepRatio({ ratio: 10/12, calculate: 'height' });
+// }
+// else{
+// $('.br_place_page').keepRatio({ ratio: 20/11, calculate: 'height' });
+// }
+// });			
+// jQuery(window).ready(function() {
+// var width = jQuery(document).width();	
+// if(width < 650){			
+// $('.br_place_page').keepRatio({ ratio: 10/12, calculate: 'height' });
+// }
+// else{
+// $('.br_place_page').keepRatio({ ratio: 20/11, calculate: 'height' });
+// }
+// });		
 
 </script>

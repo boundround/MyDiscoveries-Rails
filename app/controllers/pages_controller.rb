@@ -10,7 +10,7 @@ class PagesController < ApplicationController
     @leaders = PointsBalance.order(balance: :desc).includes(:user).limit(20)
     @leaderboard = []
     @leaders.each do |leader|
-      unless leader.user.roles.length > 0
+      unless leader.user.roles.length > 0 || leader.user.admin
         @leaderboard.push leader
       end
     end

@@ -32,7 +32,11 @@
  *= require jcarousel.responsive
  *= require owl.carousel
  *= require owl.theme
+ *= require new-style.css
  */
 
-@import 'bootstrap';
-@import 'bootstrap-sprockets';
+@media screen and (min-width: 200px) and (max-width: 768px){
+    .responsive-minHeight{
+      height:535px;
+    }
+  }

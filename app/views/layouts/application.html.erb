@@ -2,7 +2,7 @@
 <html lang="en" ng-App="boundRound">
 <% if not @placeprograms %>
 	<head>
-	  <title><%= full_title(yield(:title)) %></title>
+	  <title><%= full_title(yield(:title), yield(:category)) %></title>
 
 	  <%= stylesheet_link_tag( 'application', media: 'all') %>
 		<!--%= @set_css ? stylesheet_link_tag(@set_css) : stylesheet_link_tag("br/custom.css") %-->
@@ -19,19 +19,21 @@
 	   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	 <![endif]-->
 
-		<link rel="apple-touch-icon" sizes="57x57" href="<%= asset_path('favicons/apple-touch-icon-57x57.png')%>"
-		<link rel="apple-touch-icon" sizes="60x60" href="<%= asset_path('favicons/apple-touch-icon-60x60.png')%>"
-		<link rel="apple-touch-icon" sizes="72x72" href="<%= asset_path('favicons/apple-touch-icon-72x72.png')%>"
-		<link rel="apple-touch-icon" sizes="76x76" href="<%= asset_path('favicons/apple-touch-icon-76x76.png')%>"
-		<link rel="apple-touch-icon" sizes="114x114" href="<%= asset_path('favicons/apple-touch-icon-114x114.png')%>"
-		<link rel="apple-touch-icon" sizes="120x120" href="<%= asset_path('favicons/apple-touch-icon-120x120.png')%>"
-		<link rel="apple-touch-icon" sizes="144x144" href="<%= asset_path('favicons/apple-touch-icon-144x144.png')%>"
+		<link rel="apple-touch-icon" sizes="57x57" href="<%= asset_path('favicons/apple-touch-icon-57x57.png')%>">
+		<link rel="apple-touch-icon" sizes="60x60" href="<%= asset_path('favicons/apple-touch-icon-60x60.png')%>">
+		<link rel="apple-touch-icon" sizes="72x72" href="<%= asset_path('favicons/apple-touch-icon-72x72.png')%>">
+		<link rel="apple-touch-icon" sizes="76x76" href="<%= asset_path('favicons/apple-touch-icon-76x76.png')%>">
+		<link rel="apple-touch-icon" sizes="114x114" href="<%= asset_path('favicons/apple-touch-icon-114x114.png')%>">
+		<link rel="apple-touch-icon" sizes="120x120" href="<%= asset_path('favicons/apple-touch-icon-120x120.png')%>">
+		<link rel="apple-touch-icon" sizes="144x144" href="<%= asset_path('favicons/apple-touch-icon-144x144.png')%>">
 		<link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-32x32.png')%>" sizes="32x32">
 		<link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-96x96.png')%>" sizes="96x96">
 		<link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-16x16.png')%>" sizes="16x16">
-		<link rel="manifest" href="<%= asset_path('favicons/manifest.json')%>"
+		<link rel="manifest" href="<%= asset_path('favicons/manifest.json')%>">
+		<meta name="description" content="<%= meta_description(yield(:title), yield(:category)) %>">
+		<meta name="author" content="Bound Round Pty Ltd">
 		<meta name="msapplication-TileColor" content="#da532c">
-		<meta name="msapplication-TileImage" content="<%= asset_path('favicons/mstile-144x144.png')%>"
+		<meta name="msapplication-TileImage" content="<%= asset_path('favicons/mstile-144x144.png')%>">
 		<meta name="theme-color" content="#ffffff">
 
 	  <meta name="viewport" content="width=device-width,
@@ -98,9 +100,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
     <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <%= javascript_include_tag 'froogaloop' %>
-    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-    <script src="//cdn.jsdelivr.net/algoliasearch.helper/2/algoliasearch.helper.min.js"></script>
-    <script src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
 
 
 
@@ -123,181 +122,6 @@
 
 	  <%= render "/layouts/share_modal" %>
 
-    <script>
-    (function(){
-      var APPLICATION_ID = 'KXOYK344AM';
-      var SEARCH_ONLY_API_KEY = 'fce29aca7a9b823b9cacdbc1faa225e2';
-      var INDEX_NAME = 'place';
-      var PARAMS = {
-        hitsPerPage: 6,
-        maxValuesPerFacet: 8,
-      };
-
-      var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
-      var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
-
-      $searchInput = $('#search-box');
-      $searchInputIcon = $('#search-button');
-      $main = $('main');
-      $sortBySelect = $('#sort-by-select');
-      $hits = $('#hits');
-      $stats = $('#stats');
-      $facets = $('#facets');
-      $pagination = $('#pagination');
-
-      var hitTemplate = Hogan.compile($('#hit-template').text());
-      var statsTemplate = Hogan.compile($('#stats-template').text());
-      var facetTemplate = Hogan.compile($('#facet-template').text());
-      var sliderTemplate = Hogan.compile($('#slider-template').text());
-      var paginationTemplate = Hogan.compile($('#pagination-template').text());
-      var noResultsTemplate = Hogan.compile($('#no-results-template').text());
-
-      $searchInput
-      .on('keyup', function() {
-        var query = $(this).val();
-        console.log(query);
-        if (query.length > 0){
-          $('.br15_search_result').show();
-          $('.search-results').show();
-          $('.search-results-container').show();
-          algoliaHelper.setQuery(query);
-          algoliaHelper.search();
-        } else {
-          $('.br15_search_result').hide();
-          $('.search-results').hide();
-          $('.search-results-container').hide();
-          //animate map overlay
-        }
-      })
-      .focus();
-
-      $searchInput.on("click", function(){
-        // animate map overlay
-      });
-      // Search results
-      algoliaHelper.on('result', function(content, state) {
-        console.log(content);
-        renderHits(content);
-        renderStats(content);
-        renderPagination(content);
-      });
-
-      function renderHits(content) {
-        console.log("rendering hits");
-        $hits.html(hitTemplate.render(content));
-      }
-
-      function renderStats(content) {
-        var stats = {
-          nbHits: content.nbHits,
-          nbHits_plural: content.nbHits !== 1,
-          processingTimeMS: content.processingTimeMS
-        };
-        $stats.html(statsTemplate.render(stats));
-      }
-
-      function renderPagination(content) {
-        var pages = [];
-        if (content.page > 3) {
-          pages.push({current: false, number: 1});
-          pages.push({current: false, number: '...', disabled: true});
-        }
-        for (var p = content.page - 3; p < content.page + 3; ++p) {
-          if (p < 0 || p >= content.nbPages) continue;
-          pages.push({current: content.page === p, number: p + 1});
-        }
-        if (content.page + 3 < content.nbPages) {
-          pages.push({current: false, number: '...', disabled: true});
-          pages.push({current: false, number: content.nbPages});
-        }
-        var pagination = {
-          pages: pages,
-          prev_page: content.page > 0 ? content.page : false,
-          next_page: content.page + 1 < content.nbPages ? content.page + 2 : false
-        };
-        $pagination.html(paginationTemplate.render(pagination));
-      }
-
-      // NO RESULTS
-      // ==========
-
-      function handleNoResults(content) {
-        if (content.nbHits > 0) {
-          $main.removeClass('no-results');
-          return;
-        }
-        $main.addClass('no-results');
-
-        var filters = [];
-        var i;
-        var j;
-        for (i in algoliaHelper.state.facetsRefinements) {
-          filters.push({
-            class: 'toggle-refine',
-            facet: i, facet_value: algoliaHelper.state.facetsRefinements[i],
-            label: FACETS_LABELS[i] + ': ',
-            label_value: algoliaHelper.state.facetsRefinements[i]
-          });
-        }
-        for (i in algoliaHelper.state.disjunctiveFacetsRefinements) {
-          for (j in algoliaHelper.state.disjunctiveFacetsRefinements[i]) {
-            filters.push({
-              class: 'toggle-refine',
-              facet: i,
-              facet_value: algoliaHelper.state.disjunctiveFacetsRefinements[i][j],
-              label: FACETS_LABELS[i] + ': ',
-              label_value: algoliaHelper.state.disjunctiveFacetsRefinements[i][j]
-            });
-          }
-        }
-        for (i in algoliaHelper.state.numericRefinements) {
-          for (j in algoliaHelper.state.numericRefinements[i]) {
-            filters.push({
-              class: 'remove-numeric-refine',
-              facet: i,
-              facet_value: j,
-              label: FACETS_LABELS[i] + ' ',
-              label_value: j + ' ' + algoliaHelper.state.numericRefinements[i][j]
-            });
-          }
-        }
-        $hits.html(noResultsTemplate.render({query: content.query, filters: filters}));
-      }
-
-      $(document).on('click', '.go-to-page', function(e) {
-        e.preventDefault();
-        // $('html, body').animate({scrollTop: 0}, '500', 'swing');
-        algoliaHelper.setCurrentPage(+$(this).data('page') - 1).search();
-      });
-
-      var googlePlaceSearch = function(request, response) {
-        function initialize() {
-          var service = new google.maps.places.AutocompleteService();
-          service.getPlacePredictions({ input: request.term }, callback);
-        }
-
-        function callback(predictions, status) {
-          if (status != google.maps.places.PlacesServiceStatus.OK) {
-            console.log(status);
-            return;
-          }
-          response( $.map( predictions, function( item ) {
-            return {
-              label: item.description,
-              value: item.description,
-              lat: -33.865143,
-              lng: 151.2099,
-              resultType: 'Google',
-              placeId: item.place_id
-            }
-          }));
-        }
-        initialize();
-      }
-
-    })();
-
-    </script>
 	</body>
 
 

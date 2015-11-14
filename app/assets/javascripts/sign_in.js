@@ -4,8 +4,10 @@ $(document).ready(function(){
     var minutes = 720;
     date.setTime(date.getTime() + (minutes * 60 * 1000));
     $.cookie('modal_shown', 'yes', {expires: date});
-    $('#navModal').modal('show');
+    //$('#navModal').modal('show');
+    $('#signInModal').modal('show');
   } else {
-    $('#navModal').modal('hide');
+    //$('#navModal').modal('hide');
+    $('#signInModal').modal('hide');
   }
 });

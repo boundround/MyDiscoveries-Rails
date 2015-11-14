@@ -13,4 +13,8 @@ $(document).ready(function(){
       $(this).data("size", "contracted");
     }
   });
+
+  $('#publish-review-button').on('click', function(){
+    $('#myModal3').modal("hide");
+  })
 });

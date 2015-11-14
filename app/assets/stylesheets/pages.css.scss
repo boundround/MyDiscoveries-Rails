@@ -32,6 +32,15 @@
   height: 50px;
 }
 
+.disabled a {
+  color: grey !important;
+}
+
+.active a {
+  background-color: lightblue;
+  font-weight: bold;
+}
+
 #card-container {
 	margin-top: 20px;
 }
@@ -1132,7 +1141,7 @@ footer.br15_footer ul li a {
     border: 0;
 }
 div#br15_map {
-    min-height: 330px;
+    min-height: 60px;
     transition: 0.5s;
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
@@ -1314,6 +1323,10 @@ body.br_tab header .navbar-default .navbar-nav>.active>a,body.br_tab header  .na
     background-position: top left;
     padding-bottom: 90px;
 }
+
+.br_profile {
+  float: right;
+}
 .br_shell{
     height: auto;
     width: 100%;
@@ -1490,8 +1503,8 @@ p.progressbar-text {
     margin-right: 12px;
 }
 .br_Leaderboard  li img {
-    width: auto;
-    height: 100%;
+    width: 100%;
+    height: auto;
 }
 .br_Leaderboard li .br_avtar_no {
     position: absolute;

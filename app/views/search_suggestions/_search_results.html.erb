@@ -1,12 +1,15 @@
-<main class="search-results">
-  <div id="stats"></div>
-  <div id="hits"></div>
-  <div id="pagination"></div>
-  <div id="google-hits"></div>
-</main>
+<div class="search-results-container">
+  <main class="search-results">
+    <div id="stats"></div>
+    <div id="hits"></div>
+    <div id="pagination"></div>
+    <div id="google-hits"></div>
+  </main>
+</div>
+<div class="google-results-container"></div>
 <script type="text/template" id="hit-template">
   {{#hits}}
-  <a href="{{ url }}" class="no-anchor-decoration">
+  <a href="{{ url }}" class="no-anchor-decoration hit-result" data-link="{{ url }}">
     <div class="hit">
       <span class="hit-image">
         <img class="search-thumbnail" src="{{ photos.0.url }}" alt="{{ photos.0.alt_tag }}">
