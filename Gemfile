@@ -18,6 +18,8 @@ gem 'iconv'
 # User Font Awesome for icons
 # gem "font-awesome-rails"
 
+gem 'bootstrap-glyphicons'
+
 # Mercury HTML5 Editor for WYSIWYG capability
 # gem 'mercury-rails', git: 'https://github.com/jejacks0n/mercury.git'
 

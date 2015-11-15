@@ -14,29 +14,18 @@
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  *= require_self
  *= require jquery.ui.all
+ */
+@import 'bootstrap';
+@import 'bootstrap-sprockets';
+@import 'bootstrap/glyphicons';
+ /*
  *= require bootsy
  *= require iconlabel
  *= require font-awesome
- *= require leaflet.label
- *= require L.Control.Zoomslider.css
- *= require MarkerCluster.css
- *= require MarkerCluster.Default.css
- *= require mapbox.css
- *= require users.css
  *= require jquery.fileupload
  *= require jquery.fileupload-ui
- *= require virgin
- *= require countries
- *= require bootstrap-select.min
- *= require bootstrap-theme.min
- *= require jcarousel.responsive
- *= require owl.carousel
- *= require owl.theme
- *= require new-style.css
  */
 
-@import 'bootstrap';
-@import 'bootstrap-sprockets';
 @media screen and (min-width: 200px) and (max-width: 768px){
     .responsive-minHeight{
       height:535px;

@@ -13,6 +13,15 @@ class UsersController < ApplicationController
 
     verify_current_user
 
+    @leaders = PointsBalance.order(balance: :desc).includes(:user).limit(20)
+    @leaderboard = []
+    @leaders.each do |leader|
+      unless leader.user.roles.length > 0 || leader.user.admin
+        @leaderboard.push leader
+      end
+    end
+    @leaderboard = @leaderboard[0..3]
+
   end
 
   # GET /users/new

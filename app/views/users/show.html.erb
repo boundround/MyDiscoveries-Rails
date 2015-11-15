@@ -1,131 +1,9 @@
-
-        <header class="container-fluid">
-            <div class="row">
-                <div class="col-sm-2 col-md-1">
-                    <a href="#" class="center-block hidden-xs"><img src="<%= asset_path('br_logo_new.png') %>"  class="img-responsive br_logo_tab" alt=""></a>
-                </div>
-                <div class="col-sm-10 col-md-11">
-                    <nav class="navbar navbar-default">
-
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <div class="navbar-header">
-                                <div class="row">
-                                    <div class="visible-xs col-xs-4">
-                                        <a href="#"><img src="img/logo-lg.png" class="img-responsive  br_tab_logo_xs"></a>
-                                    </div>
-                                    <div class="col-xs-4 visible-xs text-center">
-                                        <div class="br_search visible-xs"><a href="#"><span class="glyphicon glyphicon-search"></span></a></div>
-                                    </div>
-                                    <div class="col-xs-4 visible-xs">
-                                        <button type="button" class="navbar-toggle " data-toggle="offcanvas" data-target="" aria-expanded="false">
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="navbar-collapse row navheadercollapse collapse in" id="bs-example-navbar-collapse-1" aria-expanded="false">
-                                <div class="row br_profile_header visible-xs">
-                                    <div class="col-sm-8 col-sm-offset-2">
-                                        <div class="row">
-                                            <div class="col-sm-3 col-sm-offset-1">
-                                                <div>
-                                                    <div class="br_shell col-sm-offset-3">
-                                                        <a href="#" data-toggle="modal" data-target="#br_modal">
-                                                          <% if current_user.avatar_url %>
-                                                            <img src="<%= current_user.avatar_url %>" class="img-responsive" alt="">
-                                                          <% else %>
-                                                            <i class="fa fa-user fa-5x"></i>
-                                                          <% end %>
-                                                        </a>
-                                                    </div>
-                                                    <% if current_user.points_balance %>
-                                                      <label class="br_round_label"><%= current_user.points_balance.balance.to_s %></label>
-                                                    <% else %>
-                                                      <label class="br_round_label">0</label>
-                                                    <% end %>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-8 br_profile_detail">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="row">
-                                                            <div class="col-sm-11 col-sm-offset-1">
-                                                                <h2><%= current_user.name %><br>
-                                                                    <span>Member Since <%= current_user.created_at.strftime("%Y") %></span>
-                                                                </h2>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-4 br_progress_bar text-center">
-                                                        <div class="br_circle_cont">
-                                                            <div id="circle_m"></div>
-                                                            <p>KID</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-4 br_progress_bar text-center">
-                                                        <div class="br_circle_cont">
-                                                            <div id="circle2_m"></div>
-                                                            <p>REPORTER</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-4">
-                                                        <div class="br_circle_cont text-center">
-                                                            <div id="circle3_m" > </div>
-                                                            <p>BOARD MEMBER</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="nav navbar-nav navbar-left text-uppercase nav-justified">
-                                    <li class="br_search hidden-xs"><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-                                    <li class="active"><a href="#"><span class="glyphicon glyphicon-dashboard"></span> Points</a></li>
-                                    <li class=""><a href="#"><span ></span>Wishlist</a></li>
-                                    <li class=""><a href="#"><span></span>Stories</a></li>
-                                    <li class=""><a href="#"><span></span>Reviews</a></li>
-                                    <li class=""><a href="#"><span></span>Photos</a></li>
-                                    <li class=""><a href="#"><span></span>Friends</a></li>
-                                    <li class="br_img hidden-xs"><a href="#">
-                                      <span class="img-circle">
-                                        <% if current_user.avatar_url %>
-                                          <img src="<%= current_user.avatar_url %>" class="img-responsive" alt="">
-                                        <% else %>
-                                          <i class="fa fa-user fa-3x"></i>
-                                        <% end %>
-                                      </span>
-                                      <% if current_user.points_balance %>
-                                        <label><%= current_user.points_balance.balance.to_s %></label>
-                                      <% else %>
-                                        <label>0</label>
-                                      <% end %>
-                                      </a></li>
-                                    <li class="hidden-xs"><a href="#">Sign out</a> </li>
-                                </ul>
-                               <div class="row visible-xs">
-
-                                       <a href="#" class="btn btn-block btn-default br_sign_out text-center text-uppercase">Signout</a>
-
-                               </div>
-                            </div><!-- /.navbar-collapse -->
-
-                    </nav>
-
-
-                </div>
-            </div>
-        </header>
+<%= render 'user_nav' %>
         <div class="br_tab_xs_header visible-xs container-fluid">
             <div class="row">
 
                 <div class="col-xs-12">
-                    <a href="#" data-toggle="offcanvas"><span class="glyphicon glyphicon-menu-hamburger"></span></a> &nbsp; <a href="#" class="br_logo_top_header">BoundRound</a>
+                    <a href="#" data-toggle="offcanvas"><span class="fa fa-bars"></span></a> &nbsp; <a href="#" class="br_logo_top_header">BoundRound</a>
                 </div>
             </div>
         </div>
@@ -134,14 +12,14 @@
              <div class="row br_profile_header hidden-xs">
                  <div class="col-sm-8 col-sm-offset-2">
                      <div class="row">
-                         <div class="col-sm-3 col-sm-offset-1">
+                         <div class="col-sm-3 col-sm-offset-1 large-avatar-container">
                              <div class="br_shell col-sm-offset-3">
                               <a href="#" data-toggle="modal" data-target="#br_modal">
-                                <% if current_user.avatar_url %>
-                                  <img src="<%= current_user.avatar_url %>" class="img-circle img-responsive" alt="">
-                                <% else %>
-                                  <i style="width: 200px" class="fa fa-user fa-5x"></i>
-                                <% end %>
+                                  <% if @user.avatar_url %>
+                                    <img src="<%= current_user.avatar_url %>" class="img-circle img-responsive large-avatar" alt="">
+                                  <% else %>
+                                    <i class="fa fa-user fa-5x"></i>
+                                  <% end %>
                               </a>
                             </div>
                          </div>
@@ -150,14 +28,14 @@
                                  <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-sm-11 col-sm-offset-1">
-                                            <h2><%= current_user.name %><br>
-                                                <span>Member Since <%= current_user.created_at.strftime("%Y") %></span>
+                                            <h2><%= @user.name %><br>
+                                                <span>Member Since <%= @user.created_at.strftime("%Y") %></span>
                                             </h2>
                                         </div>
                                     </div>
                                  </div>
                              </div>
-                             <div class="row">
+                             <!-- <div class="row">
                                  <div class="col-xs-4 br_progress_bar text-center">
                                     <div class="br_circle_cont">
                                         <div id="circle"></div>
@@ -176,7 +54,7 @@
                                          <p>BOARD MEMBER</p>
                                      </div>
                                  </div>
-                             </div>
+                             </div> -->
                          </div>
                      </div>
                  </div>
@@ -186,7 +64,7 @@
                      <div class="col-sm-4">
                          <ul class="nav row br_no_row nav-tabs" role="tablist">
                              <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Summary</a></li>
-                             <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Transactions</a></li>
+                             <!-- <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Transactions</a></li> -->
                          </ul>
                      </div>
                  </div>
@@ -200,90 +78,39 @@
                                         <div class="row br_no_row br_sidebar">
                                             <div class="col-sm-12">
                                                 <h1>
-                                                  <% if current_user.points_balance %>
-                                                      <%= current_user.points_balance.balance.to_s %>
+                                                  <% if @user.points_balance %>
+                                                      <%= @user.points_balance.balance.to_s %>
                                                     <% else %>
                                                       0
                                                     <% end %>
                                                     <br><span>Total Points</span>
                                                 </h1>
-                                                <a href="#" class="br_use_points_BTN">USE POINTS <span class="glyphicon glyphicon-menu-right"></span></a>
                                                 <h3>Leaderboard</h3>
                                                 <ul class="list-unstyled br_Leaderboard">
+                                                  <% @leaderboard.each_with_index do |leader, index| %>
                                                     <li>
-                                                        <a href="#">
-                                                        <span class="br_avtar">
-                                                            <img src="img/shell_2.png" alt="">
-                                                            <span>
-                                                                200
-                                                            </span>
-                                                        </span>
-                                                        <span class="br_avtar_no">
-                                                            1
-                                                        </span>
-                                                            <span class="br_user_name">Iris Grey</span>
-                                                        </a>
+                                                      <a href="">
+                                                      <span class="br_avtar">
+                                                        <% if leader.user.avatar.blank? %>
+                                                          <img src="<%= asset_path('Badge.png') %>" alt="">
+                                                        <% else %>
+                                                          <img src="<%= leader.user.avatar_url %>" alt="">
+                                                        <% end %>
+                                                          <span>
+                                                              <%= leader.balance %>
+                                                          </span>
+                                                      </span>
+                                                      <span class="br_avtar_no">
+                                                          <%= (index + 1).to_s %>
+                                                      </span>
+                                                      <span class="br_user_name"><%= strip_domain_from_username(leader.user) %></span>
+                                                      </a>
                                                     </li>
-                                                    <li>
-                                                        <a href="#">
-                                                        <span class="br_avtar">
-                                                            <img src="img/shell_2.png" alt="">
-                                                            <span>
-                                                                200
-                                                            </span>
-                                                        </span>
-                                                        <span class="br_avtar_no">
-                                                            2
-                                                        </span>
-                                                            <span class="br_user_name">Iris Grey</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                        <span class="br_avtar">
-                                                            <img src="img/shell_2.png" alt="">
-                                                            <span>
-                                                                200
-                                                            </span>
-                                                        </span>
-                                                        <span class="br_avtar_no">
-                                                            3
-                                                        </span>
-                                                            <span class="br_user_name">Iris Grey</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="hidden-xs">
-                                                        <a href="#">
-                                                        <span class="br_avtar">
-                                                            <img src="img/shell_2.png" alt="">
-                                                            <span>
-                                                                200
-                                                            </span>
-                                                        </span>
-                                                        <span class="br_avtar_no">
-                                                            4
-                                                        </span>
-                                                            <span class="br_user_name">Iris Grey</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="hidden-xs">
-                                                        <a href="#">
-                                                        <span class="br_avtar">
-                                                            <img src="img/shell_2.png" alt="">
-                                                            <span>
-                                                                200
-                                                            </span>
-                                                        </span>
-                                                        <span class="br_avtar_no">
-                                                            5
-                                                        </span>
-                                                            <span class="br_user_name">Iris Grey</span>
-                                                        </a>
-                                                    </li>
+                                                    <% end %>
                                                 </ul>
-                                               <div class="row visible-xs">
+                                               <!-- <div class="row visible-xs">
                                                    <a href="#" class="btn btn-block btn-default br_load_more_side">Load More</a>
-                                               </div>
+                                               </div> -->
                                             </div>
                                         </div>
 
@@ -291,37 +118,47 @@
                                     <div class="col-sm-8">
                                         <div class="row hidden-xs">
                                             <div class="col-sm-6">
-                                                <div class="row br_user_activity br_bor_top_bot">
-                                                    <a href="#" class="br_ellipse">17<br/><span>Friends</span></a>
-                                                    <a href="#" class="br_point_earn">Add New<br/><span>19pts</span></a>
+                                              <style>
+                                                #br_user_photos {
+                                                  <% unless @user.user_photos.blank? %>
+                                                    background: url("<%= @user.user_photos[rand(@user.user_photos.length - 1)].path_url(:small) %>") no-repeat;
+                                                  <% end %>
+                                                  background-size: cover;
+                                                }
+                                              </style>
+                                                <div class="row br_user_activity br_bor_top_bot" id="br_user_photos">
+                                                    <a href="/users/photos" class="br_ellipse"><%= @user.user_photos.active.length %><br/><span>Photos</span></a>
+                                                    <a href="#" class="br_point_earn">Add New<br/><span><%= calculate_user_points_for_asset(@user.user_photos.active) %>PTS</span></a>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
-                                               <div class="row br_user_activity br_user_upload br_bor_all">
-                                                   <a href="#" class="br_ellipse">17<br/><span>Friends</span></a>
-                                                   <a href="#" class="br_point_earn">Add New<br/><span>19pts</span></a>
+                                              <style>
+                                                #br_user_stories {
+                                                  <% unless @user.user_photos.blank? %>
+                                                    background: url("<%= @user.user_photos[rand(@user.user_photos.length - 1)].path_url(:small) %>") no-repeat;
+                                                  <% end %>
+                                                  background-size: cover;
+                                                }
+                                              </style>
+                                               <div class="row br_user_activity br_user_upload br_bor_all" id="br_user_stories">
+                                                   <a href="/users/stories" class="br_ellipse"><%= @user.stories.active.length %><br/><span>Stories</span></a>
+                                                   <a href="#" class="br_point_earn">Add New<br/><span><%= calculate_user_points_for_asset(@user.stories.active) %>PTS</span></a>
                                                </div>
                                             </div>
                                         </div>
                                         <div class="row hidden-xs">
                                             <div class="col-sm-6">
-                                                <div class="row br_user_activity ">
-                                                    <a href="#" class="br_ellipse">17<br/><span>Friends</span></a>
-                                                    <a href="#" class="br_point_earn">Add New<br/><span>19pts</span></a>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="row br_user_activity br_left_right">
-                                                    <a href="#" class="br_ellipse">17<br/><span>Friends</span></a>
-                                                    <a href="#" class="br_point_earn">Add New<br/><span>19pts</span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row hidden-xs">
-                                            <div class="col-sm-6">
-                                                <div class="row br_user_activity br_bor_top_bot">
-                                                    <a href="#" class="br_ellipse">17<br/><span>Friends</span></a>
-                                                    <a href="#" class="br_point_earn">Add New<br/><span>19pts</span></a>
+                                              <style>
+                                                #br_user_reviews {
+                                                  <% unless @user.user_photos.blank? %>
+                                                    background: url("<%= @user.user_photos[rand(@user.user_photos.length - 1)].path_url(:small) %>") no-repeat;
+                                                  <% end %>
+                                                  background-size: cover;
+                                                }
+                                              </style>
+                                                <div class="row br_user_activity" id="br_user_reviews">
+                                                    <a href="/users/reviews" class="br_ellipse"><%= @user.reviews.active.length %><br/><span>Reviews</span></a>
+                                                    <a href="#" class="br_point_earn">Add New<br/><span><%= calculate_user_points_for_asset(@user.reviews.active) %>PTS</span></a>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -335,50 +172,57 @@
                                                 <div id="owl-example" class="owl-carousel">
                                                     <div>
                                                         <div class="col-sm-12">
-                                                            <div class="row br_user_activity ">
-                                                                <a href="#" class="br_ellipse">17<br/><span>Friends</span></a>
-                                                                <a href="#" class="br_point_earn">Add New<br/><span>19pts</span></a>
-                                                            </div>
+                                                          <style>
+                                                            #br_user_mobile_photos {
+                                                              <% unless @user.user_photos.blank? %>
+                                                                background: url("<%= @user.user_photos[rand(@user.user_photos.length - 1)].path_url(:small) %>") no-repeat;
+                                                              <% end %>
+                                                              background-size: cover;
+                                                            }
+                                                          </style>
+                                                          <div class="row br_user_activity" id="br_user_mobile_photos">
+                                                              <a href="/users/photos" class="br_ellipse"><%= @user.user_photos.active.length %><br/><span>Photos</span></a>
+                                                              <a href="#" class="br_point_earn">Add New<br/><span><%= calculate_user_points_for_asset(@user.user_photos.active) %>PTS</span></a>
+                                                          </div>
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <div class="col-sm-12">
-                                                        <div class="row br_user_activity br_user_upload ">
-                                                            <a href="#" class="br_ellipse">17<br/><span>Friends</span></a>
-                                                            <a href="#" class="br_point_earn">Add New<br/><span>19pts</span></a>
-                                                        </div>
+                                                      <div class="col-sm-12">
+                                                        <style>
+                                                          #br_user_mobile_stories {
+                                                            <% unless @user.user_photos.blank? %>
+                                                              background: url("<%= @user.user_photos[rand(@user.user_photos.length - 1)].path_url(:small) %>") no-repeat;
+                                                            <% end %>
+                                                            background-size: cover;
+                                                          }
+                                                        </style>
+                                                      <div class="row br_user_activity br_user_upload" id="br_user_mobile_stories">
+                                                          <a href="/users/stories" class="br_ellipse"><%= @user.stories.active.length %><br/><span>Stories</span></a>
+                                                           <a href="#" class="br_point_earn">Add New<br/><span><%= calculate_user_points_for_asset(@user.stories.active) %>PTS</span></a>
+                                                      </div>
                                                     </div>
                                                     </div>
                                                     <div>
                                                         <div class="col-sm-12">
-                                                            <div class="row br_user_activity ">
-                                                                <a href="#" class="br_ellipse">17<br/><span>Friends</span></a>
-                                                                <a href="#" class="br_point_earn">Add New<br/><span>19pts</span></a>
-                                                            </div>
+                                                          <style>
+                                                            #br_user_mobile_reviews {
+                                                              <% unless @user.user_photos.blank? %>
+                                                                background: url("<%= @user.user_photos[rand(@user.user_photos.length - 1)].path_url(:small) %>") no-repeat;
+                                                              <% end %>
+                                                              background-size: cover;
+                                                            }
+                                                          </style>
+                                                          <div class="row br_user_activity" id="br_user_mobile_review">
+                                                              <a href="/users/reviews" class="br_ellipse"><%= @user.reviews.active.length %><br/><span>Reviews</span></a>
+                                                              <a href="#" class="br_point_earn">Add New<br/><span><%= calculate_user_points_for_asset(@user.reviews.active) %>PTS</span></a>
+                                                          </div>
                                                         </div>
                                                     </div>
-                                                    <div>
-                                                        <div class="col-sm-12">
-                                                            <div class="row br_user_activity ">
-                                                                <a href="#" class="br_ellipse">17<br/><span>Friends</span></a>
-                                                                <a href="#" class="br_point_earn">Add New<br/><span>19pts</span></a>
-                                                            </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="row br_user_activity br_bg_purple ">
+                                                            <h1><a href="#">Refer Friends Get Points</a></h1>
                                                         </div>
                                                     </div>
-                                                    <div>
-                                                        <div class="col-sm-12">
-                                                            <div class="row br_user_activity ">
-                                                                <a href="#" class="br_ellipse">17<br/><span>Friends</span></a>
-                                                                <a href="#" class="br_point_earn">Add New<br/><span>19pts</span></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="col-sm-12">
-                                                            <div class="row br_user_activity br_bg_purple ">
-                                                                <h1><a href="#">Refer Friends Get Points</a></h1>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -386,7 +230,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="profile"><h1>Pending</h1></div>
+                            <!-- <div role="tabpanel" class="tab-pane" id="profile"><h1>Pending</h1></div> -->
                         </div>
                     </div>
              </div>

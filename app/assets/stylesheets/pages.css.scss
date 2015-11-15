@@ -1,7 +1,7 @@
 #map {
 	right: 0;
 	height: 100%;
-	width: 100%;
+
 	z-index: 0;
 	background-color: #73C7D2;
 	position: static !important;
@@ -37,8 +37,8 @@
 }
 
 .active a {
-  background-color: lightblue;
-  font-weight: bold;
+  /*background-color: lightblue;
+  font-weight: bold;*/
 }
 
 #card-container {
@@ -1319,7 +1319,7 @@ body.br_tab header .navbar-default .navbar-nav>.active>a,body.br_tab header  .na
     margin: 0 auto;
 }
 .br_profile_header {
-    background: url("../img/stars.png") no-repeat;
+    background: url(asset_path("stars.png")) no-repeat;
     background-position: top left;
     padding-bottom: 90px;
 }
@@ -1328,13 +1328,14 @@ body.br_tab header .navbar-default .navbar-nav>.active>a,body.br_tab header  .na
   float: right;
 }
 .br_shell{
-    height: auto;
+    height: 112px;
     width: 100%;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
     border:2px solid #fff;
     padding-bottom: 100%;
+    text-align: center;
 }
 .br_shell img {
     position: absolute;
@@ -1531,8 +1532,6 @@ ul.list-unstyled.br_Leaderboard {
     margin-top: 20px;
 }
 .br_user_activity {
-    background: url("../img/frnd.jpg") no-repeat ;
-    background-size:cover ;
     padding-top: 69.6%;
     position: relative;
     min-height: 185px;
@@ -1594,7 +1593,7 @@ a.br_point_earn>span{
     background: #A459A0;
 }
 .br_bg_purple h1 {
-    font-size: 36px;
+    font-size: 36px !important;
     font-weight: 600;
     color: #fff;
     text-transform: uppercase;
@@ -1604,7 +1603,7 @@ a.br_point_earn>span{
     left: 0;
     right: 0;
     max-width: 95%;
-    margin: 0 auto;
+    margin: 0 auto !important;
 }
 .br_bg_purple h1 a{
     color: inherit;
@@ -1895,7 +1894,7 @@ body.br_tab .bootstrap-select .dropdown-toggle:focus{
     .br_tab_logo_xs{
         max-width: 57px;
     }
-    body.br_tab header .navbar-header span.glyphicon.glyphicon-search {
+    body.br_tab header .navbar-header span.fa.fa-search {
         font-size: 26px;
         color: #F07656;
         padding-top: 11px;
@@ -1988,7 +1987,7 @@ body.br_tab .bootstrap-select .dropdown-toggle:focus{
         border-bottom: 1px solid #D7D7D7;
         padding: 8px 15px;
     }
-    .br_tab_xs_header.container-fluid  span.glyphicon.glyphicon-menu-hamburger {
+    .br_tab_xs_header.container-fluid  span.fa.fa-bars {
         color: #F07656;
         font-size: 22px;
     }

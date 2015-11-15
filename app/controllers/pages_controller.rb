@@ -14,7 +14,7 @@ class PagesController < ApplicationController
         @leaderboard.push leader
       end
     end
-    @leaderboard = @leaderboard[0..3]
+    @leaderboard = @leaderboard[0..5]
 
   end
 

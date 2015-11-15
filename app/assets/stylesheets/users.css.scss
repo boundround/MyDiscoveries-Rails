@@ -18,6 +18,16 @@
   display: none;
 }
 
+.large-avatar-container {
+  width: 112px;
+  height: 112px;
+}
+
+.large-avatar {
+  width: 112px !important;
+  height: auto !important;
+}
+
 .insta-sign-in-button {
   background-color: #3F729B;
   color: white;
