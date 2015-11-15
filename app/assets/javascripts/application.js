@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery-ui
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap-select.min
@@ -40,7 +40,6 @@
 //= require bootsy
 //= require bootstrap
 //= require bootstrap/transition
-//= require bootstrap-sprockets
 //= require geocomplete
 //= require iconlabel
 //= require cookie
