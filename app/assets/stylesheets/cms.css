@@ -36,8 +36,13 @@
   width: 400px;
 }
 
-.checkbox .role-checkbox {
+.role-checkbox {
   position: relative !important;
+  display: block !important;
+}
+
+label.checkbox {
+  display: block !important;
 }
 
 .owned-place-select {
