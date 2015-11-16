@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
 
   algoliasearch index_name: 'place', id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
-    attributes :display_name, :latitude, :longitude, :locality, :post_code
+    attributes :display_name, :latitude, :longitude, :locality, :post_code, :display_address
     attribute :country do
       if self.country
         "#{country.display_name}"
