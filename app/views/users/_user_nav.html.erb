@@ -13,7 +13,7 @@
                                         <a href="#"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive  br_tab_logo_xs"></a>
                                     </div>
                                     <div class="col-xs-4 visible-xs text-center">
-                                        <!-- <div class="br_search visible-xs"><a href="#"><span class="fa fa-search"></span></a></div> -->
+                                        <div class="br_search visible-xs"><a href="<%= root_path %>"><span class="fa fa-search"></span></a></div>
                                     </div>
                                     <div class="col-xs-4 visible-xs">
                                         <button type="button" class="navbar-toggle " data-toggle="offcanvas" data-target="" aria-expanded="false">
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                                 <ul class="nav navbar-nav navbar-left text-uppercase nav-justified">
-                                    <li class="br_search hidden-xs"><!-- <a href="#"><span class="fa fa-search"></span> --></a></li>
+                                    <li class="br_search hidden-xs"><a href="<%= root_path %>"><span class="fa fa-search"></span></a></li>
                                     <li class="<%= @active_points ? 'active' : '' %>"><a href="<%= users_path(current_user) %>"><span class="fa fa-user"></span>Points</a></li>
                                     <li class="<%= @active_wishlist ? 'active' : '' %>"><a href="/users/places"><span class="fa fa-star"></span>Wishlist</a></li>
                                     <li class="<%= @active_stories ? 'active' : '' %>"><a href="/users/stories"><span class="fa fa-book"></span>Stories</a></li>
