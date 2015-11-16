@@ -22,6 +22,8 @@
 //= require jquery.touchSwipe.min
 //= require jquery.bxslider
 //= require jquery.keep-ratio
+//= require progressbar
+//= require bootstrap-datepicker
 //= require sign_in
 //= require owl.carousel.min
 //= require countries

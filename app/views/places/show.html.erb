@@ -1,12 +1,19 @@
 <% provide(:title, @place.display_name) %>
 <% category = @place.categories.first.identifier rescue "default"%>
 <% provide(:category,  category) %>
-
+<style>
+      .pac-container {
+        border-radius: 4px;
+        margin: 0 auto 0 auto;
+        left: 0 !important;
+        top: 0 !important;
+      }
+    </style>
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
   <style>
     /*.br_place_page {def*/
       /*background: url(<%#= raw draw_hero_background(@place) %>) center center no-repeat;def*/
-      
+
       /*background: url('/assets/large_Sydney_hero.jpg') center center no-repeat;*/
 /*      position: absolute;
       top: 0;
@@ -717,22 +724,22 @@
 
  <script type="text/javascript">
 // jQuery(window).resize(function() {
-// var width = jQuery(document).width();	
-// if(width < 650){			
+// var width = jQuery(document).width();
+// if(width < 650){
 // $('.br_place_page').keepRatio({ ratio: 10/12, calculate: 'height' });
 // }
 // else{
 // $('.br_place_page').keepRatio({ ratio: 20/11, calculate: 'height' });
 // }
-// });			
+// });
 // jQuery(window).ready(function() {
-// var width = jQuery(document).width();	
-// if(width < 650){			
+// var width = jQuery(document).width();
+// if(width < 650){
 // $('.br_place_page').keepRatio({ ratio: 10/12, calculate: 'height' });
 // }
 // else{
 // $('.br_place_page').keepRatio({ ratio: 20/11, calculate: 'height' });
 // }
-// });		
+// });
 
 </script>
