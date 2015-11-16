@@ -183,7 +183,7 @@
                                                           </style>
                                                           <div class="row br_user_activity" id="br_user_mobile_photos">
                                                               <a href="/users/photos" class="br_ellipse"><%= @user.user_photos.active.length %><br/><span>Photos</span></a>
-                                                              <a href="#" class="br_point_earn">Add New<br/><span><%= calculate_user_points_for_asset(@user.user_photos.active) %>PTS</span></a>
+                                                              <a href="#"  data-toggle="modal" data-target="#myModal" class="br_point_earn">Add New<br/><span><%= calculate_user_points_for_asset(@user.user_photos.active) %>PTS</span></a>
                                                           </div>
                                                         </div>
                                                     </div>
@@ -199,7 +199,7 @@
                                                         </style>
                                                       <div class="row br_user_activity br_user_upload" id="br_user_mobile_stories">
                                                           <a href="/users/stories" class="br_ellipse"><%= @user.stories.active.length %><br/><span>Stories</span></a>
-                                                           <a href="#" class="br_point_earn">Add New<br/><span><%= calculate_user_points_for_asset(@user.stories.active) %>PTS</span></a>
+                                                           <a href="#"  data-toggle="modal" data-target="#storyModal" class="br_point_earn">Add New<br/><span><%= calculate_user_points_for_asset(@user.stories.active) %>PTS</span></a>
                                                       </div>
                                                     </div>
                                                     </div>
