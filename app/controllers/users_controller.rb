@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @set_body_class = 'br_tab'
+    @active_points = true
 
     verify_current_user
 
@@ -21,6 +22,8 @@ class UsersController < ApplicationController
       end
     end
     @leaderboard = @leaderboard[0..3]
+    @story = Story.new
+    @user_photos = @story.user_photos.build
 
   end
 
@@ -88,6 +91,7 @@ class UsersController < ApplicationController
     if user_signed_in?
       @set_body_class = 'passport-page'
       @user = current_user
+      @active_photos = true
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
@@ -115,6 +119,7 @@ class UsersController < ApplicationController
     if user_signed_in?
       @set_body_class = 'passport-page'
       @user = current_user
+      @active_wishlist = true
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
@@ -135,6 +140,7 @@ class UsersController < ApplicationController
       @user = current_user
       @story = Story.new
       @user_photos = @story.user_photos.build
+      @active_stories = true
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
@@ -144,6 +150,7 @@ class UsersController < ApplicationController
     if user_signed_in?
       @set_body_class = 'passport-page'
       @user = current_user
+      @active_reviews = true
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end

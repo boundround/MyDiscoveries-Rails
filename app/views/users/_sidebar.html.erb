@@ -11,9 +11,9 @@
     <div class="upload_photo"></div><br>
     <a style="color:white;" href="<%= user_path(@user) %>">
       <% if !@user.name.blank? %>
-        <p><%= @user.name %>'s Passport</p>
+        <p><%= @user.name %>'s Profile</p>
       <% elsif !@user.first_name.blank? && !@user.last_name.blank? %>
-        <p><%= @user.first_name + ' ' + @user.last_name %>'s Passport</p>
+        <p><%= @user.first_name + ' ' + @user.last_name %>'s Profile</p>
         <% else %>
         <p>Please add your first and last name to your profile</p>
       <% end %>

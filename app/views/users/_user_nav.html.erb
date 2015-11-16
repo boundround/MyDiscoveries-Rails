@@ -1,7 +1,7 @@
 <header class="container-fluid">
             <div class="row">
                 <div class="col-sm-2 col-md-1">
-                    <a href="#" class="center-block hidden-xs"><img src="<%= asset_path('br_logo_new.png') %>"  class="img-responsive br_logo_tab" alt=""></a>
+                    <a href="<%= root_path %>" class="center-block hidden-xs"><img src="<%= asset_path('br_logo_new.png') %>"  class="img-responsive br_logo_tab" alt=""></a>
                 </div>
                 <div class="col-sm-10 col-md-11">
                     <nav class="navbar navbar-default">
@@ -10,10 +10,10 @@
                             <div class="navbar-header">
                                 <div class="row">
                                     <div class="visible-xs col-xs-4">
-                                        <a href="#"><img src="img/logo-lg.png" class="img-responsive  br_tab_logo_xs"></a>
+                                        <a href="#"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive  br_tab_logo_xs"></a>
                                     </div>
                                     <div class="col-xs-4 visible-xs text-center">
-                                        <div class="br_search visible-xs"><a href="#"><span class="fa fa-search"></span></a></div>
+                                        <!-- <div class="br_search visible-xs"><a href="#"><span class="fa fa-search"></span></a></div> -->
                                     </div>
                                     <div class="col-xs-4 visible-xs">
                                         <button type="button" class="navbar-toggle " data-toggle="offcanvas" data-target="" aria-expanded="false">
@@ -59,8 +59,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="row">
-                                                    <div class="col-xs-4 br_progress_bar text-center">
+                                                <div class="row">
+                                                    <!-- <div class="col-xs-4 br_progress_bar text-center">
                                                         <div class="br_circle_cont">
                                                             <div id="circle_m"></div>
                                                             <p>KID</p>
@@ -77,20 +77,20 @@
                                                             <div id="circle3_m" > </div>
                                                             <p>BOARD MEMBER</p>
                                                         </div>
-                                                    </div>
-                                                </div> -->
+                                                    </div> -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <ul class="nav navbar-nav navbar-left text-uppercase nav-justified">
-                                    <li class="br_search hidden-xs"><a href="#"><span class="fa fa-search"></span></a></li>
-                                    <li class="active"><a href="#"><span class="fa fa-user"></span> Points</a></li>
-                                    <li class=""><a href="#"><span ></span>Wishlist</a></li>
-                                    <li class=""><a href="#"><span></span>Stories</a></li>
-                                    <li class=""><a href="#"><span></span>Reviews</a></li>
-                                    <li class=""><a href="#"><span></span>Photos</a></li>
-                                    <li class=""><a href="#"><span></span>Friends</a></li>
+                                    <li class="br_search hidden-xs"><!-- <a href="#"><span class="fa fa-search"></span> --></a></li>
+                                    <li class="<%= @active_points ? 'active' : '' %>"><a href="<%= users_path(current_user) %>"><span class="fa fa-user"></span>Points</a></li>
+                                    <li class="<%= @active_wishlist ? 'active' : '' %>"><a href="/users/places"><span class="fa fa-star"></span>Wishlist</a></li>
+                                    <li class="<%= @active_stories ? 'active' : '' %>"><a href="/users/stories"><span class="fa fa-book"></span>Stories</a></li>
+                                    <li class="<%= @active_reviews ? 'active' : '' %>"><a href="/users/reviews"><span class="fa fa-comment"></span>Reviews</a></li>
+                                    <li class="<%= @active_photos ? 'active' : '' %>"><a href="/users/photos"><span class="fa fa-camera"></span>Photos</a></li>
+                                    <li class="<%= @active_friends ? 'active' : '' %>"></li>
                                     <li class="br_img hidden-xs"><a href="#">
                                       <span class="img-circle">
                                         <% if @user.avatar_url %>
