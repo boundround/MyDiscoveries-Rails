@@ -272,11 +272,15 @@
 
 #fileupload {
   width: 100%;
+  display: none;
+}
+
+#change-photo:hover {
+  color: lightblue;
 }
 
 #user_avatar {
-  height: 100px;
-  width: 100%;
+  display: none;
 }
 
 .hidden-input {
