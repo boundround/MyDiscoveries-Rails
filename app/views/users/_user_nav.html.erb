@@ -85,8 +85,8 @@
                                 </div>
                                 <ul class="nav navbar-nav navbar-left text-uppercase nav-justified">
                                     <li class="br_search hidden-xs"><a href="<%= root_path %>"><span class="fa fa-search"></span></a></li>
-                                    <li class="<%= @active_points ? 'active' : '' %>"><a href="<%= users_path(current_user) %>"><span class="fa fa-user"></span>Points</a></li>
-                                    <li class="<%= @active_wishlist ? 'active' : '' %>"><a href="/users/places"><span class="fa fa-star"></span>Wishlist</a></li>
+                                    <li class="<%= @active_points ? 'active' : '' %>"><a href="<%= user_path(current_user) %>"><span class="fa fa-user"></span>Points</a></li>
+                                    <li class="<%= @active_wishlist ? 'active' : '' %>"><a href="/users/places"><span class="fa fa-heart"></span>Wishlist</a></li>
                                     <li class="<%= @active_stories ? 'active' : '' %>"><a href="/users/stories"><span class="fa fa-book"></span>Stories</a></li>
                                     <li class="<%= @active_reviews ? 'active' : '' %>"><a href="/users/reviews"><span class="fa fa-comment"></span>Reviews</a></li>
                                     <li class="<%= @active_photos ? 'active' : '' %>"><a href="/users/photos"><span class="fa fa-camera"></span>Photos</a></li>
@@ -120,3 +120,11 @@
                 </div>
             </div>
         </header>
+        <div class="br_tab_xs_header visible-xs container-fluid">
+            <div class="row">
+
+                <div class="col-xs-12">
+                    <a href="#" data-toggle="offcanvas"><span class="fa fa-bars"></span></a> &nbsp; <a href="#" class="br_logo_top_header">BoundRound</a>
+                </div>
+            </div>
+        </div>
