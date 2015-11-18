@@ -80,7 +80,7 @@ module PlacesHelper
     allyears = String.new
     if place.programs then
       place.programs.each do |p|
-        allyears += yl_as_csv_string(p.programyearlevels)
+        allyears += yl_as_csv_string(p.programyearlevels) + ","
       end
     end
     get_yearlevel_range(allyears)

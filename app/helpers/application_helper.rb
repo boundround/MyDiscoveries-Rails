@@ -39,13 +39,13 @@ module ApplicationHelper
       elsif  category.eql?("transport")
         page_title+" : Cableway Things To Do : Bound Round"
       elsif  category.eql?("area")
-        page_title+" : Things To Do By Kids For Kids : Bound Round"  
+        page_title+" : Things To Do By Kids For Kids : Bound Round"
       else
         page_title + " Things To Do : Bound Round"
       end
     end
   end
-  
+
   def body_title(title= '', category='')
     if category.empty?
       if title.empty?
@@ -55,7 +55,7 @@ module ApplicationHelper
       end
     else
       if category.eql?("beach")
-        title+" : Activities and Reviews" 
+        title+" : Activities and Reviews"
       else
         title
       end
@@ -71,13 +71,13 @@ module ApplicationHelper
       end
     else
       if category.eql?("beach")
-        title+" : activities, reviews & videos about things to do. Kids, sign-up to share your experiences and earn points you can use for great rewards." 
+        title+" : activities, reviews & videos about things to do. Kids, sign-up to share your experiences and earn points you can use for great rewards."
       else
         title+" : videos, reviews & stories about things to do. Kids, sign-up to share your experiences and earn points you can use for great rewards."
       end
     end
   end
-  
+
   def draw_hero_background(place)
     if place.photos.blank? && place.user_photos.blank?
       if place.categories.blank?
@@ -317,6 +317,15 @@ module ApplicationHelper
     if Rate.where(rateable_id: review.reviewable_id).where(rateable_type: review.reviewable_type).where(rater_id: review.user.id).length > 0
       Rate.where(rateable_id: review.reviewable_id).where(rateable_type: review.reviewable_type).where(rater_id: review.user.id)[0].stars.round
     else
+      0
+    end
+  end
+
+  def calculate_user_points_for_asset(asset_collection)
+    begin
+      value = PointsValue.find_by(asset_type: asset_collection.first.class.to_s).value
+      value * asset_collection.length
+    rescue
       0
     end
   end

@@ -1,16 +1,7 @@
-@import 'bootstrap';
-@import 'bootstrap-sprockets';
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,100,700,600);
-@font-face { font-family: 'Glyphicons Halflings';
-  src: url('/fonts/bootstrap/glyphicons-halflings-regular.eot');
-  src: url('/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-  url('/fonts/bootstrap/glyphicons-halflings-regular.woff') format('woff'),
-  url('/fonts/bootstrap/glyphicons-halflings-regular.ttf') format('truetype'),
-  url('/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
-}
 
 body {
-  font-family: 'Signika', sans-serif;
+  font-family: 'Signika', sans-serif !important;
   font-weight: lighter;
 }
 
@@ -158,7 +149,7 @@ select {
   text-align: center;
 }
 
-.inline-list {
+/*.inline-list {
   position: fixed;
   z-index: 9999;
   width: 100%;
@@ -173,37 +164,11 @@ select {
     display: inline-block;
     }
   }
-}
+}*/
 
 .checkbox input[type="checkbox"] {
   margin-left: 0px !important;
 }
-
-/*.dropdown {
-  margin-top: 20px;
-  margin-right: 10px;
-  color: white;
-  z-index: 888;
-}
-
-.dropdown-menu {
-  background-color: #A8A9AD;
-  border: none;
-  margin: 0;
-  padding: 0;
-}
-
-.dropdown-menu li a {
-  padding: 0 10px 0 0;
-  color: white;
-  font-size: 1.5em;
-}
-
-.dropdown-menu-icon {
-  padding-right: 15px;
-  width: 88px;
-  height: auto;
-}*/
 
 .map-menu-button {
   border: none;
@@ -278,9 +243,10 @@ select {
 .alert {
   margin-bottom: 0px;
 }
-.navbar {
+
+/*.navbar {
   margin: 0;
-}
+}*/
 
 .marker-cluster-small div {
   background-color: sandybrown !important;
@@ -459,17 +425,17 @@ select {
 
 }
 
-@media (min-width: 1000px) {
+/*@media (min-width: 1000px) {
   .inline-list {
     display: none;
   }
-}
+}*/
 
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
   .navbar-nav {
   margin-left: 25%;
   }
-}
+}*/
 
 @media (max-width: 768px) {
   #shareModal .share-modal-dialog {

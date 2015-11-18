@@ -2,7 +2,7 @@
 <style>
 /*.br_lightbox {*/
    /*background: url(<%= @country.hero_photo.url || asset_path('flags/style="font-size:21px; font-weight:300;"' + @country.country_code.downcase + '.png') %>) no-repeat; padding: 20px 0 0 0; color: #fff; background-position: center center !important; background-size:cover !important; }*/
-  
+
   .new-bg-countries {
      /*background: url(/assets/large_Sydney_hero.jpg);*/
     background: url(<%= @country.hero_photo.url || asset_path('flags/style="font-size:21px;
@@ -18,11 +18,11 @@
     h1#country-name-heading{
       color: white !important;
     }
-    
+
   .slider .fa.fa-chevron-right.prev { color: #fc7e56; cursor: pointer; font-size: 25px; right: -25px; position: absolute; top: 50%; }
-  .br_sidebar { border-radius: 0 20px 0 0; }
+  .br_country_sidebar { border-radius: 0 20px 0 0; }
   .slider .fa.fa-chevron-left.next { color: #fc7e56; cursor: pointer; font-size: 25px; position: absolute; left: -25px; top: 50%; z-index: 999; }
-  
+
   #country-population {font-size:21px; font-weight:300;}
   #country-name-heading {
     font-size: 78px;
@@ -31,6 +31,14 @@
     margin-top: 60px;
     text-shadow: 1px 1px grey;
   }
+
+      .pac-container {
+        width: 300px !important;
+        border-radius: 4px;
+        margin: 0 auto 0 auto;
+        left: 0 !important;
+        top: 0 !important;
+      }
 </style>
 
   <!-- ADD -->
@@ -61,7 +69,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 text-right pull-right"> <%= render 'layouts/profile_dropdown' %> </div>
     <div class="col-xs-12 visible-xs"> <%= render 'layouts/mobile_nav' %> </div>
-    
+
     <div class="container">
       <div class="row responsive-minHeight">
         <div class="clearfix"></div>
@@ -136,7 +144,7 @@
                   background: url(<%= info_bit.photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat;
                 }
               </style>
-              <div class="br_tittle" id="info-bit-<%= index %>"> 
+              <div class="br_tittle" id="info-bit-<%= index %>">
                 <!-- <a href="#"><i class="fa fa-share-square-o"></i>
                  &nbsp;
                  Share
@@ -164,7 +172,7 @@
             <div class="br_fun_fact hidden-xs hidden-sm">
               <div class="row">
                 <div class="col-sm-3 col-md-3 col-lg-2"> <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>" class="fun-fact-image"> </div>
-                <div class="col-sm-9 col-md-9 col-lg-10"> 
+                <div class="col-sm-9 col-md-9 col-lg-10">
                   <!-- <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
                   <h2>Now here’s a fun fact!</h2>
                   <p> <%= raw fun_fact.content %> </p>
@@ -177,7 +185,7 @@
                   <div class="br_fun_fact col-xs-10 col-sm-10 pull-right">
                     <h2>Now here’s a fun fact!</h2>
                     <p> <%= raw fun_fact.content %> </p>
-                    <!-- <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> --> 
+                    <!-- <a href="#"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
                   </div>
                   <div class="clearfix"></div>
                 </div>
@@ -188,7 +196,7 @@
 =end%>
             <div class="clearfix"></div>
             <div class="col-md-12">
-              <div class="row"> 
+              <div class="row">
                 <!-- <div class="br_story">
                 <img src="<%= asset_path('img/img/story.jpg')%>" class="img-resposive"/>
                   <div class="br_story_desc">
@@ -198,14 +206,14 @@
                     </p>
                     <a href="#" class="btn btn-default">Read story</a>
                   </div>
-                </div> --> 
+                </div> -->
               </div>
             </div>
             <div class="clearfix"></div>
             <a name="famous-faces"></a>
             <div class="row">
               <% if !@country.famous_faces.blank? %>
-              <div class="col-md-12 br_famous"> 
+              <div class="col-md-12 br_famous">
                 <!-- <a href="#" class="hidden-xs"><i class="fa fa-share-square-o"></i> &nbsp; Share</a> -->
                 <h2>Famous faces from <%= @country.display_name %>!</h2>
                 <p> From legendary musicians and award winning actors to sporting superstars and history's most influential personalities, see where these famous faces got their start. </p>
@@ -237,10 +245,10 @@
               </h2>
             </div>
           </div>
-        </div> --> 
+        </div> -->
         </div>
         <!-- End Main Content -->
-        <div class="col-sm-4 col-md-3 hidden-xs br_sidebar">
+        <div class="col-sm-4 col-md-3 hidden-xs br_country_sidebar">
           <div class="col-sm-12">
             <div class="br_infobox">
               <h3 class="text-center">Did you know?</h3>
@@ -293,7 +301,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="col-xs-12">
-              <div class="row"> 
+              <div class="row">
                 <!-- <div class="br_currency">
               <h3 class="text-center">Currency</h3>
               <div class="br_select">
@@ -333,12 +341,12 @@
                     </li>
                   </ul>
                 </div>
-              </div> --> 
+              </div> -->
               </div>
             </div>
             <div class="clearfix"></div>
             <div class="col-xs-12">
-              <div class="row"> 
+              <div class="row">
                 <!-- <div class="br_Key_Phrases">
               <h3>
                 <i class="fa fa-volume-up"></i><br/>Key Phrases
@@ -412,11 +420,11 @@
                     </div>
                   </div>
                 </div>
-              </div> --> 
+              </div> -->
               </div>
             </div>
             <div class="clearfix"></div>
-            <div class="col-xs-12"> 
+            <div class="col-xs-12">
               <!-- <div class="row">
               <div class="br_Key_Phrases br_top_songs">
                 <h3>
@@ -450,7 +458,7 @@
                     </li>
                   </ol>
                 </div>
-              </div> --> 
+              </div> -->
             </div>
           </div>
           <div class="clearfix"></div>
@@ -471,30 +479,30 @@
         <div class="owl-carousel" id="modal-carousel"> </div>
       </div>
     </div>
-    <!-- /.modal-content --> 
+    <!-- /.modal-content -->
   </div>
-  <!-- /.modal-dialog --> 
+  <!-- /.modal-dialog -->
 </div>
-<!-- /.modal --> 
+<!-- /.modal -->
 
   <script type="text/javascript">
 // jQuery(window).resize(function() {
-// var width = jQuery(document).width();	
-// if(width < 650){			
+// var width = jQuery(document).width();
+// if(width < 650){
 // $('.br_lightbox').keepRatio({ ratio: 10/16, calculate: 'height' });
 // }
 // else{
 // $('.br_lightbox').keepRatio({ ratio: 20/12, calculate: 'height' });
 // }
-// });			
+// });
 // jQuery(window).ready(function() {
-// var width = jQuery(document).width();	
-// if(width < 650){			
+// var width = jQuery(document).width();
+// if(width < 650){
 // $('.br_lightbox').keepRatio({ ratio: 10/16, calculate: 'height' });
 // }
 // else{
 // $('.br_lightbox').keepRatio({ ratio: 20/12, calculate: 'height' });
 // }
-// });		
+// });
 
 </script>
