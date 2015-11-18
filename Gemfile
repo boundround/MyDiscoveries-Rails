@@ -18,6 +18,8 @@ gem 'iconv'
 # User Font Awesome for icons
 # gem "font-awesome-rails"
 
+gem 'bootstrap-glyphicons'
+
 # Mercury HTML5 Editor for WYSIWYG capability
 # gem 'mercury-rails', git: 'https://github.com/jejacks0n/mercury.git'
 
@@ -126,7 +128,7 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'newrelic_rpm'
 
 # Styling
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.2'
 
 gem 'figaro'
 

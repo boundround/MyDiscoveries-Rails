@@ -92,7 +92,7 @@
   <div class="container">
     <div class="row">
       <%= f.input :admin %><br>
-      <%= f.association :roles, as: :radio_buttons %><br>
+      <%= f.association :roles, as: :check_boxes, inline_label: true, label_html: {class: "role-checkbox-label"} %><br>
       <%= f.select :owned_place_ids, Place.order(:display_name).collect {|x| [x.display_name, x.id]}, {}, :multiple => true, class: 'owned-place-select' %>
     </div>
   </div>

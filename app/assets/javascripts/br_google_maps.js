@@ -88,7 +88,7 @@ var br_place_markerCluster = null;
 var br_showing_places = false;
 
 function adjustInfoWindow() {
-	//If this is a typical POI infoWindow from Google, offer the user a request to add to bound round 
+	//If this is a typical POI infoWindow from Google, offer the user a request to add to bound round
 	//We assume it's a typical POI infoWindow if the DOM tree for the InfoWindow doesn't include .card-category
 	var set = google.maps.InfoWindow.prototype.set;
 	google.maps.InfoWindow.prototype.set = function(key, val) {
@@ -178,7 +178,7 @@ var createMarkerInfoBoxContent = function(marker, markerType) {
 	}
 
 
-	//Generate marker arrays from Bound Round geojson feature set 
+	//Generate marker arrays from Bound Round geojson feature set
 var createMarkerArray = function(geoJSON, markerType, showme, scaledSizeOfIcon, anchorOfIcon) {
 	var markerArray = [];
 
@@ -263,7 +263,7 @@ var createMarkerArray = function(geoJSON, markerType, showme, scaledSizeOfIcon, 
 			/*				google.maps.event.addListener(marker, 'mouseover', function() {
 					  this.setAnimation(google.maps.Animation.BOUNCE);
 					});
-					
+
 					google.maps.event.addListener(marker, 'mouseout', function() {
 					  this.setAnimation(null);
 					});
@@ -277,7 +277,7 @@ var createMarkerArray = function(geoJSON, markerType, showme, scaledSizeOfIcon, 
 					br_map.panTo(marker.getPosition());
 					//"Id:" + data[i].Id + "<br /> Property Name/Number:" + data[i].Propertynanu + "<br /> Rooms:" + data[i].Rooms
 					if (markerType === 'area' && br_map.getZoom() <= br_area_hide_level) {
-						//						br_map.panTo(marker.getPosition());	
+						//						br_map.panTo(marker.getPosition());
 						br_map.setZoom(br_areazoomin);
 					}
 					br_infoWindow.setContent(createMarkerInfoBoxContent(marker, markerType));
@@ -296,7 +296,7 @@ var createMarkerArray = function(geoJSON, markerType, showme, scaledSizeOfIcon, 
 	return markerArray;
 };
 
-//Generate marker arrays from Bound Round geojson feature set 
+//Generate marker arrays from Bound Round geojson feature set
 /* example JSON object
 [Log] s (localhost, line 882)
 	_state: r {index: "place", query: "sydney", facets: [], disjunctiveFacets: [], hierarchicalFacets: [], …}
@@ -371,7 +371,7 @@ var updateMapWithAlgoliaSearchResults = function(content) {
 
 	/*	Probably not necessary
 				br_place_markerCluster ? br_place_markerCluster.clearMarkers();
-				
+
 				br_place_markerCluster = new MarkerClusterer(br_map, br_place_markers, {
 					maxZoom: 14,
 					ignoreHidden: false,
@@ -492,7 +492,7 @@ var createMarkerArrayFromAlgolia = function(alJSON, markerType, showme, scaledSi
 				/*				google.maps.event.addListener(marker, 'mouseover', function() {
 						  this.setAnimation(google.maps.Animation.BOUNCE);
 						});
-					
+
 						google.maps.event.addListener(marker, 'mouseout', function() {
 						  this.setAnimation(null);
 						});
@@ -506,7 +506,7 @@ var createMarkerArrayFromAlgolia = function(alJSON, markerType, showme, scaledSi
 						br_map.panTo(marker.getPosition());
 						//"Id:" + data[i].Id + "<br /> Property Name/Number:" + data[i].Propertynanu + "<br /> Rooms:" + data[i].Rooms
 						if (markerType == 'area' && br_map.getZoom() <= br_area_hide_level) {
-							//						br_map.panTo(marker.getPosition());	
+							//						br_map.panTo(marker.getPosition());
 							br_map.setZoom(br_areazoomin);
 						}
 						br_infoWindow.setContent(createMarkerInfoBoxContent(marker, markerType));
@@ -572,7 +572,7 @@ function initialize() {
 		init_center = init_loc.center;
 	}
 */
-	
+
 	//Sydney
 	//        var center = new google.maps.LatLng(-33.8678500, 151.2073200);
 	var mapOptions = {
@@ -660,7 +660,7 @@ function initialize() {
 
 	brUpdateMap(true);
 */
-	
+
 	br_infoWindow = new google.maps.InfoWindow(brInfoWindowOptions('place'));
 
 	br_infoWindow.addListener('closeclick', function() {
@@ -735,9 +735,9 @@ function initialize() {
 		}
 	}
 
-	$(window).on('hashchange', function() {
-		brUpdateMapAndConfigureMarkers(true);
-	});
+	// $(window).on('hashchange', function() {
+	// 	brUpdateMapAndConfigureMarkers(true);
+	// });
 
 	/* This is very slow
 	$.ajax({
@@ -762,7 +762,7 @@ function initialize() {
 	    var scaledSizeOfIcon = new google.maps.Size(scaledWidthOfIcon, scaledHeightOfIcon);
 
 			br_area_markers = createMarkerArray(data, 'area', true, scaledSizeOfIcon, anchorOfIcon);
-			//	       	var area_markerCluster = new MarkerClusterer(map, area_markers); 
+			//	       	var area_markerCluster = new MarkerClusterer(map, area_markers);
 
 
 	    // config for icon
@@ -784,7 +784,7 @@ function initialize() {
 	            }
 	      }
 	    };
-    
+
 	    var br_area_markers;
 	    var br_area_markerCluster;
 
@@ -803,9 +803,9 @@ function initialize() {
 						textSize: 20
 					}]
 			});
-			
-			
-			
+
+
+
 			// br_area_markerCluster = new MarkerClusterer(br_map, br_area_markers, {
 			// 	maxZoom: 14,
 			// 	ignoreHidden: false,
@@ -820,7 +820,7 @@ function initialize() {
 			// 	}]
 			// });
 			//
-			
+
 			setTimeout(function(){br_area_markerCluster.repaint()},3000);
 
 			//Now get all places and add to map
@@ -881,7 +881,7 @@ function initialize() {
 				// <script>
 				// 	//Trick to get the correct asset path for flags, used in br_google_maps.js
 				// 	window.br_auf = '<%= asset_path('flags/au.png') %>';
-				// </script>				
+				// </script>
 				//!!br_auf uses above erb assignment trick in containing html.erb file!!
 				var pf = br_auf.replace('au.png', e.feature.getProperty('iso_a2').toLowerCase() + '.png');
 
@@ -913,7 +913,7 @@ window.WebFont.load({
 
 		//Wait for the DOM tree to be ready
 //		google.maps.event.addDomListener(window, 'DOMContentLoaded', initialize);
-		
+
 		//Wait for entire page to load (longer)
 		//google.maps.event.addDomListener(window, 'load', initialize);
 

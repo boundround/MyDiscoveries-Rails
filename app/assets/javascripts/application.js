@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery-ui
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap-select.min
@@ -22,6 +22,8 @@
 //= require jquery.touchSwipe.min
 //= require jquery.bxslider
 //= require jquery.keep-ratio
+//= require progressbar
+//= require bootstrap-datepicker
 //= require sign_in
 //= require owl.carousel.min
 //= require countries
