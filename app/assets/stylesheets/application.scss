@@ -37,6 +37,39 @@
  
 @media screen and (min-width: 200px) and (max-width: 768px){
     .responsive-minHeight{
-      height:535px;
+      height:500px;
     }
   }
+  
+@media (max-width: 773px) {
+  .img_bg_header {
+  	display: block;
+    // background: url('/assets/br_15_main.jpg') no-repeat;
+    background: url(asset_path("br_15_main.jpg")) no-repeat;
+    background-size: cover;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    border-bottom: 3px solid #fff;
+    margin-top: -15px;
+  }
+
+  .video_bg_header {
+    display: none;
+  }
+}
+
+// @media (min-aspect-ratio: 16/9) {
+//   .video_bg_header {
+//     width: 100%;
+//     height: auto;
+//     margin-top: -255px;
+//   }
+// }
+
+// @media (max-aspect-ratio: 16/9) {
+//   .video_bg_header {
+//     width: auto; /* actually wider than viewport */
+//     height: 100%;
+//     margin-top: -255px;
+//   }
+// }

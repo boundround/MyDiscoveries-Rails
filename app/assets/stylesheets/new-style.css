@@ -1,3 +1,7 @@
+body.white-body{
+  /*max-width: 100% !important;*/
+  overflow-x: hidden !important;
+}
 /*Sign-up*/
 .br_sign_style_modal {
     background: none;
@@ -445,8 +449,8 @@ min-height: 300px;
   background: none !important;
   overflow-y: hidden !important;
 }
-/*.dropdown.br_profile button + .dropdown-menu{*/
-@media (max-width: 767px){
+
+@media (max-width: 767px) {
 
 .dropdown.br_profile .dropdown-menu{
   width: 10% !important;
@@ -469,4 +473,31 @@ min-height: 300px;
   width: 38% !important;
 }
 
+}
+
+#home-background-video{
+  margin-top: -255px;
+  width: 100%;
+  position: relative;
+}
+
+.row.br15_header.cs-br15_header{
+  padding-bottom: 0;
+  height: 392px;
+  overflow-y: hidden;
+
+}
+
+@media screen and (min-width:1295px){
+  #rowVideo{
+  height: 392px;
+  }
+  #home-background-video{
+    height: initial;
+    width: 100%;
+    overflow-y: hidden;
+  }
+}
+.br_area h1.br_top_heading_mob {
+  line-height:50px !important;
 }

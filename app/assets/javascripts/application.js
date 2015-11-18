@@ -16,6 +16,7 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap-select.min
+//= require custom
 //= require jcarousel.responsive
 //= require jquery.jcarousel.min
 //= require jquery.matchHeight-min
