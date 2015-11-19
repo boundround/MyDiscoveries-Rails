@@ -23,6 +23,7 @@ $(function () {
             $('#myModal').modal("hide");
             $('#image-preview').attr('src', "#").hide();
             $('#user-photo-upload-button').html("");
+            $('#user_photo_caption').val("");
             var message = "Thanks for your photo! We'll let you know when others can see it too.";
             $('.alert-wrapper').html('<div class="alert alert-info fade in"><button class="close" data-dismiss="alert">×</button>' + message + '</div>');
             // var newImage = '<div class="carousel-item br_16"><img src="' + imageData +
