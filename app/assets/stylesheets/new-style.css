@@ -1,5 +1,4 @@
 body.white-body{
-  /*max-width: 100% !important;*/
   overflow-x: hidden !important;
 }
 /*Sign-up*/
@@ -247,16 +246,29 @@ button.close.cs-close.close-signup, a.close.cs-close.close-signup{
   position: relative;
   bottom: 68px;
 }
-@media screen and (max-width:646px) {
-  /*button.close.cs-close.close-signin {*/
-  /*}*/
 
-}
+ @media screen and (min-width: 200px) and (max-width: 768px){
+     .responsive-minHeight{
+       height:500px;
+     }
+   }
+  
+ @media (max-width: 773px) {
+   .img_bg_header {
+     display: block;
+     background: url(asset_path("br_15_main.jpg")) no-repeat;
+     background-size: cover;
+     padding-top: 100px;
+     padding-bottom: 100px;
+     border-bottom: 3px solid #fff;
+     margin-top: -15px;
+   }
 
-/*.modal-footer .left{*/
-/*  padding: 3px;*/
-/*}*/
-
+   .video_bg_header {
+     display: none;
+   }
+ }
+ 
 .modal-footer .left p{
   line-height: 17px;
   margin:0px;
@@ -293,35 +305,7 @@ h1.sign-in {
   font-weight: 600 !important;
   font-size: 30px !important;
 }
-/*@media screen and (max-width:1023px){
-.forgot-password{
-  color: #F17655 !important;
-  margin-left: 183px;
-  font-size: 9pt;
-}
-.modal-body label.password{
-  margin-right: 71px;
-}
-.modal-body label.username{
-  margin-right: 368px;
-}
 
-}*/
-
-/*@media screen and (min-width:1024px){
-.forgot-password{
-  color: #F17655 !important;
-  margin-left: 183px;
-  font-size: 9pt;
-}
-.modal-body label.password{
-  margin-right: 71px;
-}
-.modal-body label.username{
-  margin-right: 368px;
-}
-
-}*/
 .label-field{
   color: #959595;
   font-size: 19px;
@@ -500,4 +484,11 @@ min-height: 300px;
 }
 .br_area h1.br_top_heading_mob {
   line-height:50px !important;
+}
+
+.br_area .navbar-collapse.cs-navbar-collapse{
+  z-index:1400;
+}
+.br_area .navbar-toggle.cs-navbar-toggle .icon-bar{
+  background: #fff  ;
 }
