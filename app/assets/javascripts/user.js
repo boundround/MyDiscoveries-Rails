@@ -8,6 +8,10 @@ $(document).ready(function() {
   $('.user-avatar').hover(function() {
     $('.click-to-upload').toggle();
   });
+
+  $('#change-photo').on('click', function(){
+    $('#user_avatar').trigger('click');
+  });
 });
 
 $(document).ready(function(){

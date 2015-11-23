@@ -1,4 +1,4 @@
-<div class="left-user">
+<%= render 'user_nav' %>
   <div class="container">
     <div class="user-view-title">
       <h1 class="br_top_heading hidden-xs">
@@ -9,7 +9,9 @@
           <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
         </a>
       </div>
-      <%= render 'layouts/search_input' %>
+      <div class="hidden-xs">
+        <%= render 'layouts/search_input' %>
+      </div>
     </div>
     <div class="text-center"><a href="#" data-toggle="modal" data-target="#storyModal" class="user-upload-button btn btn-default">+ Create story</a></div>
     <% unless @user.stories.blank? %>
@@ -57,10 +59,7 @@
       </div>
     <% end %>
   </div>
-</div>
-<div class="right-user">
-  <%= render 'sidebar' %>
-</div>
+
 
 <div class="modal fade" id="userStory">
   <div class="modal-dialog">

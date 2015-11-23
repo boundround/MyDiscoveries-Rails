@@ -20,3 +20,29 @@ jQuery ->
         alert("#{file.name} is not a gif, jpeg, or png image file")
     done: ->
       $('.spinner').css('visibility', 'hidden')
+
+# $(document).ready(function(){
+#   $('#fileupload').fileupload(
+#     {
+#       dataType: "script",
+#       send: function(){
+#         $('.spinner').css('visibility', 'visible');
+#       },
+#       add: function(e, data){
+#         var types = /(\.|\/)(gif|jpe?g|png)$/i;
+#         var file = data.files[0];
+#         if (types.test(file.type) || types.test(file.name)){
+#           data.context = $(tmpl("template-upload", file));
+#           $('.passport-photo').empty();
+#           $('.passport-photo').append(data.context);
+#           data.submit();
+#         } else {
+#           alert("#{file.name} is not a gif, jpeg, or png image file")
+#         }
+#       },
+#       done: function(){
+#         $('.spinner').css('visibility', 'hidden');
+#       }
+#     }
+#   );
+# });

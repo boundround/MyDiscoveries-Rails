@@ -2,6 +2,11 @@
 	display: none;
 }
 
+.mobile-nav-container {
+  background-color: #fd7e56;
+  margin-top: -18px;
+}
+
 .hidden-video-info {
   display:none;
 }
@@ -22,6 +27,8 @@
 
 .google-results-container {
   position: relative;
+  min-height: 173px;
+  display: none;
 }
 
 .pac-item {
@@ -1050,7 +1057,7 @@ a,button,button:focus,button:active{
   position: absolute;
   background-color: #FD7E56;
   width: 100%;
-  z-index: 10;
+  z-index: 1400;
   text-align: center;
 }
 .br_area .navbar-toggle.collapsed .icon-bar {
@@ -2657,6 +2664,7 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
     top: 42px;
     background-color: #FD7E56;
     text-align: center;
+    z-index: 1350;
     transition: all 500ms ease-in-out;
     -webkit-transition: all 500ms ease-in-out;
     -ms-transition: all 500ms ease-in-out;
