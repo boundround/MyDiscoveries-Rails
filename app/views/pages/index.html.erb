@@ -81,7 +81,7 @@
           </script>
     </head>
         <div class="br15_top_search container-fluid">
-            <div class="br15_search">
+            <div class="br15_search cs-br15_search">
                 <div class="input-group">
                     <input type="text" id="search-box" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
@@ -89,7 +89,7 @@
                     </span>
                 </div>
             </div>
-            <div class="br15_search_result">
+            <div class="br15_search_result cs-br15_search_result">
               <%= render "search_suggestions/search_results" %>
             </div>
               <%= render 'layouts/profile_dropdown' %>
@@ -120,8 +120,11 @@
                   <% @videos.each do |video| %>
                       <div><!-- 16:9 aspect ratio -->
                           <div class="embed-responsive embed-responsive-16by9">
-                              <iframe class="embed-reponsive-item" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1" frameborder="2" data-title="<%= video.title %>" data-description="<%= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
-                                          </iframe>
+                              <iframe class="embed-reponsive-item" src="//player.vimeo.com/video/<%= video.vimeo_id %>" frameborder="0" data-title="<%= video.title %>" data-description="<%= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+
+                              <!--iframe class="embed-reponsive-item" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1" frameborder="2" data-title="<%= video.title %>" data-description="<%= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                                          </iframe-->
                               <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/51_gSa1OdEE"></iframe> -->
                           </div>
                       </div>

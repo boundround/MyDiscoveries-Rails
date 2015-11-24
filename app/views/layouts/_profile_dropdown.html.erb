@@ -3,23 +3,26 @@
       <a type="button" tabindex="-1" data-target="#signInModal" data-toggle="modal" class="btn btn-default">Sign In</a>
       <%= link_to "Sign Up", new_registration_path(resource_name), class: "btn btn-default" %>
   </div>
-  <div class="dropdown br_profile hidden-sm hidden-md hidden-lg">
+  <div class="dropdown br_profile a-signin hidden-sm  hidden-md hidden-lg">
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      <span class="add-text-shadow">Profile</span>
+    <!-- #CHANGED -->
       <span class="caret"></span>
       <a href="#" data-filter="*">
-          <img src="<%= asset_path('user_copy_2.png') %>" >
+          Sign In
         </a>
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <ul class="dropdown-menu cs-dropdown-menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#signInModal" data-filter="*">
             Sign In
           </a>
         </li>
         <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="<%= root_path %>" data-filter="*">
-            Home
+          <%= link_to "Create Account", new_user_registration_path %>
+        </li>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter="*">
+            Close
           </a>
         </li>
     </ul>
@@ -27,20 +30,20 @@
 <% else %>
   <div class="dropdown br_profile">
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      <span class="add-text-shadow">Profile</span>
-      <span class="caret"></span>
+    <!-- #CHANGED -->
+    <span class="caret"></span>
       <% if user_signed_in? %>
         <a href="<%= user_path(current_user) %>" data-filter="*">
-          <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
+          <img class="cs-img" src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
         </a>
       <% else %>
         <!-- <a href="#" data-toggle="modal" data-target="#signInModal" data-filter="*"> -->
       <a href="#" data-filter="*">
-          <img src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
+          <img class="cs-img" src="<%= user_signed_in? && current_user.avatar_url ? current_user.avatar_url : asset_path('user_copy_2.png') %>" >
         </a>
       <% end %>
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <ul class="dropdown-menu cs-dropdown-menu" aria-labelledby="dropdownMenu1">
       <% if user_signed_in? %>
         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="<%= user_path(current_user) %>" data-filter="*">
@@ -59,9 +62,14 @@
           </a>
         </li>
       <% end %>
-        <li role="presentation">
+<!--         <li role="presentation">
           <a role="menuitem" tabindex="-1" href="<%= root_path %>" data-filter="*">
             Home
+          </a>
+        </li> -->
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" href="#" data-filter="*">
+            Close
           </a>
         </li>
     </ul>
