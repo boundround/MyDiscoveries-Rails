@@ -49,7 +49,7 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
+    @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
     @reviewable = @place
     @reviews = @reviewable.reviews.active
     @review = Review.new
@@ -109,7 +109,7 @@ class PlacesController < ApplicationController
   end
 
   def preview
-    @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
+    @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
     if @place.area_id
       @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
       @area_videos = @place.area.videos
@@ -226,7 +226,7 @@ class PlacesController < ApplicationController
       if @place.save
         NewPlace.delay.notification(@place)
         JournalInfo.create(place_id: @place.id)
-        render :json => {place_id: "/places/" + @place.id.to_s}
+        render :json => {place_id: "/places/" + @place.slug}
       else
         render :json => {place_id: "error" }
       end
