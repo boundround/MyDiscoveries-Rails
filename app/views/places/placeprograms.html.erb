@@ -168,7 +168,7 @@ var id = 'loader', fill = '#FFF',
 						</ul>
 
 						<div class="side-btn">
-							<a class="btn btn-default">Enquire</a>
+							<a href="<%= @place.programs[0] ? @place.programs[0].contact ? 'mailto:'+@place.programs[0].contact : '' : ''%>" class="btn  btn-default">Enquire</a>
 						</div>
 					</div>
 

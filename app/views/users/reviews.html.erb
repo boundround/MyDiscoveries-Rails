@@ -1,4 +1,4 @@
-<div class="left-user">
+  <%= render 'user_nav' %>
   <div class="container">
     <div class="user-view-title">
       <h1 class="br_top_heading hidden-xs">
@@ -9,7 +9,9 @@
           <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
         </a>
       </div>
-      <%= render 'layouts/search_input' %>
+      <div class="hidden-xs">
+        <%= render 'layouts/search_input' %>
+      </div>
     </div>
     <% unless @user.reviews.blank? %>
       <div class="row" id="reviews">
@@ -39,7 +41,3 @@
       </div>
     <% end %>
   </div>
-</div>
-<div class="right-user">
-  <%= render 'sidebar' %>
-</div>

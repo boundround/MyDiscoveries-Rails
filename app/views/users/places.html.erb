@@ -1,4 +1,4 @@
-<div class="left-user">
+<%= render 'user_nav' %>
   <div class="container">
     <div class="user-view-title">
       <h1 class="br_top_heading hidden-xs">
@@ -9,7 +9,9 @@
           <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
         </a>
       </div>
-      <%= render 'layouts/search_input' %>
+      <div class="hidden-xs">
+        <%= render 'layouts/search_input' %>
+      </div>
     </div>
     <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
     <% if !@user.favorite_places.blank? || !@user.favorite_areas.blank? %>
@@ -77,15 +79,11 @@
     <% else %>
       <div class="home-text">
         <p>You have not favourited any Places yet!</p>
-        <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-star fa-2x"></i>
+        <a href='<%= root_path %>'>Start exploring</a> and click the <i class="fa fa-heart"></i>
         to add them to your personal list.
       </div>
     <% end %>
     </div>
-  </div>
-<div class="right-user">
-  <%= render 'sidebar' %>
-</div>
 <div class="modal fade" id="userStoryModal">
   <div class="modal-dialog">
     <div class="modal-content">

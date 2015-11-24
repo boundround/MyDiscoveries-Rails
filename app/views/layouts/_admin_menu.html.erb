@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <% if current_user.try(:admin) || current_user.has_role?("publisher") || current_user.has_role?("editor") %>
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default hidden-xs" role="navigation">
       <div class="container-fluid">
         <div class="collapse navbar-collapse">
           <ul class='nav navbar-nav'>

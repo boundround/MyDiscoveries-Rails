@@ -37,6 +37,7 @@ $(document).ready(function(){
     } else {
       $('.search-results').hide();
       $('.search-results-container').hide();
+      $('.google-results-container').hide();
       $('.br15_search_result').hide();
       $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
       $('#br15_map').removeClass('br15_min_h_530');
@@ -55,6 +56,7 @@ $(document).ready(function(){
       $('.br15_search_result').show();
       $('.search-results').show();
       $('.search-results-container').show();
+      $('.google-results-container').show();
       $('.google-results-container').append($('.pac-container'));
       renderHits(content);
       $('#magnifying-glass').on('click', function(){

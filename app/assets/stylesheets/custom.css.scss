@@ -21,6 +21,11 @@ body {
   display: inline-block;
 }
 
+.dropdown-menu.open {
+      padding-top: 40px;
+      overflow: scroll !important;
+}
+
 .share-buttons {
   line-height: 10px;
 }

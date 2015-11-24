@@ -1,0 +1,78 @@
+<div class="modal fade br_profile_modal" id="br_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <%= form_for @user do |f| %>
+                <div class="modal-header">
+                    <div class="br_shell">
+                            <% if @user.avatar_url %>
+                                <%= image_tag @user.avatar_url, class: 'img-circle img-responsive large-avatar' %><br>
+                              <% else %>
+                                <img style="width:100%" src="<%= asset_path('passport-photo-placeholder.png') %>" class="img-circle img-responsive large-avatar"><br>
+                              <% end %>
+                    </div>
+                    <%= f.file_field :avatar %>
+                    <label id="change-photo">Change Photo<br><span style="font-size: 0.7em">(visible after save)</span></label>
+                    <h1 class="text-center"><%= @user.first_name.to_s + ' ' + @user.last_name.to_s %></h1>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <%= f.text_field :username, class: 'form-control' %>
+                            <%= f.label :username, "User Name" %>
+                        </div>
+                        <div class="col-sm-6">
+                            <%= f.text_field :email, class: 'form-control' %>
+                            <%= f.label :email, "Email Address" %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <%= f.text_field :first_name, class: 'form-control' %>
+                            <%= f.label :first_name, "First Name" %>
+                        </div>
+                        <div class="col-sm-6">
+                            <%= f.text_field :last_name, class: 'form-control' %>
+                            <%= f.label :last_name, "First Name" %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <label>Birthdate</label>
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <%= f.date_select :date_of_birth, {order: [:day, :month, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year - 18, end_year: Date.today.year - 100} %>
+                       <!--  <div class="col-sm-4">
+                            <input type="text" class="day form-control" readonly="true" value="20">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="month form-control" readonly="true" value="12">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="year form-control" readonly="true" value="1990">
+                        </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 br_modal_contry_left">
+                            <%= f.country_select :country, priority_countries: ['AU', 'US'], class: 'form-control' %><br>
+                            <%= f.label :country %>
+                        </div>
+                        <div class="col-sm-6 br_modal_contry_right">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<script id="template-upload" type="text/x-tmpl">
+<i class="spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i>
+<div class="click-to-upload">Click To Change Photo</div>
+</script>

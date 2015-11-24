@@ -89,7 +89,7 @@ class UsersController < ApplicationController
 
   def photos
     if user_signed_in?
-      @set_body_class = 'passport-page'
+      @set_body_class = 'br_tab blue_page'
       @user = current_user
       @active_photos = true
     else
@@ -99,7 +99,7 @@ class UsersController < ApplicationController
 
   def videos
     if user_signed_in?
-      @set_body_class = 'passport-page'
+      @set_body_class = 'br_tab blue_page'
       @user = current_user
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
@@ -108,7 +108,7 @@ class UsersController < ApplicationController
 
   def games
     if user_signed_in?
-      @set_body_class = 'passport-page'
+      @set_body_class = 'br_tab blue_page'
       @user = current_user
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
@@ -117,7 +117,7 @@ class UsersController < ApplicationController
 
   def places
     if user_signed_in?
-      @set_body_class = 'passport-page'
+      @set_body_class = 'br_tab blue_page'
       @user = current_user
       @active_wishlist = true
     else
@@ -127,7 +127,7 @@ class UsersController < ApplicationController
 
   def fun_facts
     if user_signed_in?
-      @set_body_class = 'passport-page'
+      @set_body_class = 'br_tab blue_page'
       @user = current_user
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
@@ -136,7 +136,7 @@ class UsersController < ApplicationController
 
   def stories
     if user_signed_in?
-      @set_body_class = 'passport-page'
+      @set_body_class = 'br_tab blue_page'
       @user = current_user
       @story = Story.new
       @user_photos = @story.user_photos.build
@@ -148,7 +148,7 @@ class UsersController < ApplicationController
 
   def reviews
     if user_signed_in?
-      @set_body_class = 'passport-page'
+      @set_body_class = 'br_tab blue_page'
       @user = current_user
       @active_reviews = true
     else
@@ -178,7 +178,7 @@ class UsersController < ApplicationController
   end
 
   def instagram_feed
-    @set_body_class = 'passport-page'
+    @set_body_class = 'br_tab blue_page'
     @user = current_user
     @instagram_identity = @user.identities.where(provider: "instagram").first
 

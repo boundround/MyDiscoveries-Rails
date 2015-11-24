@@ -1,3 +1,6 @@
+.blue_page {
+  background-color: #6cb7cc !important;
+}
 .left-user {
   width: 80%;
   position: absolute;
@@ -237,8 +240,7 @@
   height: 80%;
   width: 60%;
   margin: 10% auto auto;
-  background: lightgray;
-  transform: rotate(-6deg);
+  background: white;
 }
 
 .passport-plane {
@@ -270,15 +272,15 @@
 
 #fileupload {
   width: 100%;
-  min-height: 100px;
-  position: absolute;
-  top: 0;
   display: none;
 }
 
+#change-photo:hover {
+  color: lightblue;
+}
+
 #user_avatar {
-  height: 100px;
-  width: 100%;
+  display: none;
 }
 
 .hidden-input {
