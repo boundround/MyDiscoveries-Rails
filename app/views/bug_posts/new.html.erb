@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Report a bug</h1>
+  <%= simple_form_for @bug_post do |f| %>
+    <%= f.input :description, input_html: { class: 'form-control'} %>
+    <p>Attach Screenshot (optional)
+      <%= f.file_field :screen_shot %>
+    </p>
+    <%= f.input :author, input_html: { class: 'form-control'} %>
+    <%= f.submit :submit, input_html: { class: 'form-control'} %>
+  <% end %>
+</div>

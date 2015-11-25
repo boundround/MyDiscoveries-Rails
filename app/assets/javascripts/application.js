@@ -56,6 +56,7 @@
 //= require algoliasearchhelper
 //= require hogan
 //= require algolia_search
+//= require bug_posts
 
 
 

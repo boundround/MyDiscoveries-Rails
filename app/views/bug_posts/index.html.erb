@@ -1,0 +1,26 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+  <div id="table-container">
+    <h1>All Reported Bugs</h1>
+
+    <table class="table table-striped" id="place-table">
+      <thead>
+      <tr>
+        <th>Description</th>
+        <th>Screenshot</th>
+        <th>Author</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @bug_posts.each do |bug_post| %>
+          <tr>
+            <td><%= bug_post.description %></td>
+            <td><%= bug_post.screen_shot_url %></td>
+            <td><%= bug_post.author %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <h3>You are not signed in or do not have the proper permissions to view this page</h3>
+<% end %>
