@@ -1,3 +1,11 @@
+.story-wysi>.wysihtml5-toolbar {
+  padding-top: 50px;
+}
+.wysihtml5-toolbar>li {
+  list-style: none;
+  display: inline-block;
+}
+
 .debug{
 	display: none;
 }
