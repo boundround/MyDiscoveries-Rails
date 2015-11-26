@@ -14,7 +14,11 @@
       <% @bug_posts.each do |bug_post| %>
           <tr>
             <td><%= bug_post.description %></td>
-            <td><%= bug_post.screen_shot_url %></td>
+            <% if !bug_post.screen_shot.blank? %>
+              <td><%= link_to 'Screenshot', bug_post.screen_shot_url, target: "_blank" %></td>
+            <% else %>
+              <td>No Screen Shot Attached</td>
+            <% end %>
             <td><%= bug_post.author %></td>
           </tr>
         <% end %>
