@@ -129,7 +129,7 @@
                 <div id="br15_owl_photos" class="owl-carousel">
                   <% @photos.each do |photo| %>
                     <div><!-- 16:9 aspect ratio -->
-                      <a href="<%= place_path(photo.place.id) %>">
+                      <a href="<%= place_path(photo.place) %>">
                         <div class="embed-responsive embed-responsive-16by9">
                             <img class="embed-responsive-item" src="<%= photo.path_url(:medium) %>">
                         </div>

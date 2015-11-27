@@ -6,16 +6,16 @@
 var id = 'loader', fill = '#FFF',
       size = 20, radius = 3, duration = 1000,
       maxOpacity = 0.9, minOpacity = 0.15;
-  $('<svg id="'+id+'" width="'+(size*3.5)+'" height="'+size+'">' + 
-        '<rect width="'+size+'" height="'+size+'" x="0" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' + 
-            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" repeatCount="indefinite"/>' + 
-        '</rect>' + 
-        '<rect width="'+size+'" height="'+size+'" x="'+(size*1.25)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' + 
-            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/4)+'ms" repeatCount="indefinite"/>' + 
-        '</rect>' + 
-        '<rect width="'+size+'" height="'+size+'" x="'+(size*2.5)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' + 
-            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/2)+'ms" repeatCount="indefinite"/>' + 
-        '</rect>' + 
+  $('<svg id="'+id+'" width="'+(size*3.5)+'" height="'+size+'">' +
+        '<rect width="'+size+'" height="'+size+'" x="0" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" repeatCount="indefinite"/>' +
+        '</rect>' +
+        '<rect width="'+size+'" height="'+size+'" x="'+(size*1.25)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/4)+'ms" repeatCount="indefinite"/>' +
+        '</rect>' +
+        '<rect width="'+size+'" height="'+size+'" x="'+(size*2.5)+'" y="0" rx="'+radius+'" ry="'+radius+'" fill="'+fill+'" fill-opacity="'+maxOpacity+'">' +
+            '<animate attributeName="opacity" values="1;'+minOpacity+';1" dur="'+duration+'ms" begin="'+(duration/2)+'ms" repeatCount="indefinite"/>' +
+        '</rect>' +
     '</svg>').appendTo('.loader-container');
 </script>
     <div class="border_top hidden-xs"></div>
@@ -25,8 +25,8 @@ var id = 'loader', fill = '#FFF',
 <div class="result-top">
 			<div class="col-sm-3 fff back" style="margin: auto;">
 				<div class="ss_gray_bg_text" style="margin:auto;">
-					<i class="glyphicon glyphicon-chevron-left"></i> &nbsp; 
-					<a class="fff" href="javascript:history.back()">Back to results</a> 
+					<i class="glyphicon glyphicon-chevron-left"></i> &nbsp;
+					<a class="fff" href="javascript:history.back()">Back to results</a>
 				</div>
 			</div>
 	<!--div class="col-md-3 col-sm-3 col-xs-5 left_login profile pull-right text-right">
@@ -36,18 +36,18 @@ var id = 'loader', fill = '#FFF',
     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu l_dropdown_ul dropdown-menu-right pd15" role="menu" aria-labelledby="dropdownMenu1">
-                    <li>  
-                    	<a href="#">Excursions</a>                     
+                    <li>
+                    	<a href="#">Excursions</a>
                     </li>
-                    	
-                    <li>       
-                    	<a href="#">Saved places</a>                 
+
+                    <li>
+                    	<a href="#">Saved places</a>
                     </li>
                    	<li>
                    		<a href="#">Activities</a>
                    	</li>
                     <li>
-                    	<a href="#">Students</a>                                           
+                    	<a href="#">Students</a>
                     </li>
                     <li>
                     	<a href="#">Reviews</a>
@@ -63,44 +63,44 @@ var id = 'loader', fill = '#FFF',
             </div>
         </div>
         <div class="clearfix">
-   </div--> 
+   </div-->
         </div>
 
-        
-        	<h1 class="text-center fff"><%=@place.display_name%><br/><span><%=@place.locality%></span> 
+
+        	<h1 class="text-center fff"><%=@place.display_name%><br/><span><%=@place.locality%></span>
         	</h1>
         	<div class="map-btn text-center">
-        		<a href="/places/programsearchresultsmap?id=<%=@place.id%>&term=<%=@place.display_name%>">View on map</a>        		
+        		<a href="/places/programsearchresultsmap?id=<%=@place.id%>&term=<%=@place.display_name%>">View on map</a>
         	</div>
-        	<div class="clearfix">       		
+        	<div class="clearfix">
         	</div>
 </div>
 
 		<div class="container result-middle">
 			<div class="row result-box-top">
 				<div class="col-md-12 fff">
-					
+
 						<!--IMPLEMENT WITH REVIEWS--div class="col-sm-6 col-xs-9  text-left">
 							<p>Jump to:&nbsp; <a href="#">Programs</a>&nbsp; <a href="#">Reviews</a>
 							</p>
 						</div>
 						<!--IMPLEMENT WITH FAVORITES--div class="col-sm-6 col-xs-3 text-right">
 							<p class="hidden-xs"><span>Save</span> <%=@place.display_name%>
-								<i class="fa fa-star rate"></i> 
+								<i class="fa fa-star rate"></i>
 							</p>
 							<p class="visible-xs">
-								<i class="fa fa-star rate"></i> 
+								<i class="fa fa-star rate"></i>
 							</p>
 						</div-->
-					
+
 				</div>
-			</div>	
+			</div>
 			<div class="row result-box-middle">
 				<div class="col-sm-12">
-					
+
 					<div class="col-md-9 col-sm-8">
 						<h2><%=@place.display_name%><BR><br/>
-							<div class = "side-btn">								
+							<div class = "side-btn">
 								<span><a class="btn btn-default ss_website_button" href="<%=@place.website%>">Website</a></span>
 							</div>
 						</h2>
@@ -116,13 +116,13 @@ var id = 'loader', fill = '#FFF',
 							<!--a href="#" class="hidden-xs">Read More</a-->
 						</p>
 						<p class="visible-xs">
-							<span class="bold">Address:</span> <span><%=@place.display_address%></span>	
+							<span class="bold">Address:</span> <span><%=@place.display_address%></span>
 						</p>
 						<div class="clearfix"></div>
-						
-					<div class="row slider">					
+
+					<div class="row slider">
 					<div class="col-sm-12">
-					<div class="outside hidden-xs">					 
+					<div class="outside hidden-xs">
 						<span id="slider-prev" class="fa fa-caret-left"></span>
 						<span id="slider-next" class="fa fa-caret-right"></span>
 					</div>
@@ -131,11 +131,11 @@ var id = 'loader', fill = '#FFF',
 						<li>
 							<a>
 								<img src=<%= asset_path(photo.path_url(:small)) %> class="img-responsive"/>
-							</a>	
+							</a>
 						</li>
 						<% end %>
-					</ul>	
-					</div>						
+					</ul>
+					</div>
 					</div>
 						<div class="side-btn visible-xs">
 							<a href="<%= @place.programs[0] ? @place.programs[0].contact ? 'mailto:'+@place.programs[0].contact : '' : ''%>" class="btn  btn-default">Enquire</a>
@@ -173,33 +173,33 @@ var id = 'loader', fill = '#FFF',
 					</div>
 
 				</div>
-				
-			</div>	
-			
+
+			</div>
+
 
 		<% @place.programs.each do |program| %>
 	  <div id="myModal_<%=program.id%>" class="modal fade">
 			<%= render partial: "/programs/program_ss_full_for_modal", locals: {program: program} %>
-		</div>	
+		</div>
 		<% end %>
-		
+
     <!--div id="myModal2" class="modal fade">
         <div class="modal-dialog golu-p">
-        	
+
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>                    
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                 </div>
                 <div class="col-md-11 modal-middle center-block">
-                	
-                	<div class="golu center-block">                		
+
+                	<div class="golu center-block">
                 	</div>
-                	<div class="golu2 center-block">                		
+                	<div class="golu2 center-block">
                 	</div>
                 	<div class="text-center">
                 	<img src="../ss/img/logo.png" class="golu-logo">
                 	</div>
-                	
+
                 	<div class="col-md-12">
                 		<h1 class="text-center ">Booking</h1>
                 		<p class="text-center done-modal-p">
@@ -212,26 +212,26 @@ var id = 'loader', fill = '#FFF',
                 	<div class="model-end-middle width-no">
                 		<div class="col-md-12">
                 			<div class="col-md-12">
-                				<div class="col-sm-3 border-right pad20">           	
+                				<div class="col-sm-3 border-right pad20">
                 					<p>Date</p>
                 					<div>
                 						<input type="text" value="22/05/2015" id="datepicker"><span class="new-cart caret"></span>
                 					</div>
                 				</div>
-                				<div class="col-sm-3 border-right pad20">                	
-                					<div class="divin"> 
-                				  		<p>Time</p>               			
+                				<div class="col-sm-3 border-right pad20">
+                					<div class="divin">
+                				  		<p>Time</p>
                 					<select class="selectpicker">
                 						<option>13:00</option>
                 						<option>14:00</option>
                 						<option>15:00</option>
                 					</select>
-                				  </div>	
-                					
+                				  </div>
+
                 				</div>
-                				<div class="col-sm-3 border-right pad20"> 
-                				  <div class="divin"> 
-                				  	<p>Year</p>               			
+                				<div class="col-sm-3 border-right pad20">
+                				  <div class="divin">
+                				  	<p>Year</p>
                 					<select class="selectpicker">
                 						<option>22/05/2015</option>
                 						<option>22/05/2015</option>
@@ -241,7 +241,7 @@ var id = 'loader', fill = '#FFF',
                 				</div>
                 				<div class="col-sm-3 pad20">
                 					<div class="divin">
-                					<p>Program</p>                			
+                					<p>Program</p>
                 					<select class="selectpicker">
                 						<option>22/05/2015</option>
                 						<option>22/05/2015</option>
@@ -259,18 +259,18 @@ var id = 'loader', fill = '#FFF',
 
                 	<div class="col-sm-12 ">
                 		<a href="#" class="order book-now  form-control btn btn-default">Book</a>
-                		
-                	</div> 
+
+                	</div>
                 	<div class="col-md-12 ">
                 		<p class="text-center last-marg">
                 			On clicking book, we will email the venue with their details.
                 			<br> <span class="bold">
                 				They will contact you shortly with a confirmation
                 				</span>
-                		</p>                	
+                		</p>
                 	</div>
 
-                	
+
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -278,15 +278,15 @@ var id = 'loader', fill = '#FFF',
     </div-->
 
 
-			
+
 		</div>
 		<div class="container max-1024">
 			<div class="row">
-				<div class="row width-no">				
+				<div class="row width-no">
 					<div class="col-md-12">
 						<h2>Programs</h2>
 					</div>
-				</div>							
+				</div>
 			</div>
 		</div>
 		<div class="container max-1024">
@@ -358,15 +358,15 @@ var id = 'loader', fill = '#FFF',
 				 		<div class="clearfix"></div>
 				 	</div>
 				 </div>
-				</div>	
+				</div>
 				<div class="row">
 					<div class="col-md-12 see-more">
 						<a href="#" class="btn btn-default center-block">See more reviews</a>
-					</div>					
+					</div>
 				</div>
 			</div>
 		</div-->
-		
+
 
 
     <footer class="f_otter" >
@@ -390,8 +390,8 @@ var id = 'loader', fill = '#FFF',
            <li><a href="http://boundround.com/about-us/">About Us </a></li>
            <li><a href="http://boundround.com/contact-bound-round/">Contact </a></li>
       </ul>
-      
-      
+
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -399,7 +399,7 @@ var id = 'loader', fill = '#FFF',
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
-    
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../ss/js/bootstrap.min.js"></script>
     <script src="../ss/js/owl.carousel.min.js"></script>
@@ -415,9 +415,9 @@ var id = 'loader', fill = '#FFF',
   		$('#myModal_'+program_id).modal('show');
   		setTimeout(function(){
   			slider_n.reloadSlider();
-  		}, 400);						
+  		}, 400);
 		};
-		
+
         $(document).ready(function () {
 
               slider= $('.bxslider1').bxSlider({
@@ -427,7 +427,7 @@ var id = 'loader', fill = '#FFF',
 			  slideMargin: 12,
 			  auto:true,
 			  pager: false,
-			  controls:false			  
+			  controls:false
 			});
             $('#slider-prev').click(function(e){
 			        e.preventDefault();
@@ -437,8 +437,8 @@ var id = 'loader', fill = '#FFF',
 			        e.preventDefault();
 			        slider.goToNextSlide();
 			    });
-       
-       
+
+
 
               slider_n= $('.bxslider', $('.model-slider')).bxSlider({
 			  minSlides: 1,
@@ -446,7 +446,7 @@ var id = 'loader', fill = '#FFF',
 			  slideWidth: 250,
 			  auto:true,
 			  pager: false,
-			  controls:false			  
+			  controls:false
 			});
               $('#slider-next2').click(function(e){
 			        e.preventDefault();
@@ -456,9 +456,9 @@ var id = 'loader', fill = '#FFF',
 			        e.preventDefault();
 			        slider_n.goToPrevSlide();
 			    });
-					
+
 							<% @place.programs.each do |program| %>
-					
+
 								/*
 			          $('#program_<%=program.id%>').click(function(e){
 			          		e.preventDefault();
@@ -466,7 +466,7 @@ var id = 'loader', fill = '#FFF',
 			          		setTimeout(function(){
 			          			slider_n.reloadSlider();
 			          		}, 400);
-        		
+
 			          });
 								*/
 /*			          $('.enquire-modal').click(function(e){
@@ -474,35 +474,35 @@ var id = 'loader', fill = '#FFF',
 			          		$('#myModal').modal('show');
 			          		setTimeout(function(){
 			          			slider_n.reloadSlider();
-			          		}, 400);        		
+			          		}, 400);
 			          });
 */
 				  		<% end %>
-							
+
               $('.modal-header .close').click(function(e){
               	e.preventDefault();
-              		
+
 //              			$('#myModal,#myModal2').modal('hide');
               			$('.modal').modal('hide');
 
-              		
+
               });
 
-             
+
              	$('#datepicker').change(function(){
               		 $('#datepicker').datetimepicker('hide');
               });
-             
-            
+
+
         });
     </script>
 
     <script>
-    	$('#datepicker').datetimepicker({				 
+    	$('#datepicker').datetimepicker({
 				 timepicker:false,
 				 format:'d.m.Y'
 				});
-    	
+
         $(document).ready(function () {
             $(".navbar-toggle").on("click", function () {
                 $(this).toggleClass("active");
@@ -527,8 +527,8 @@ var id = 'loader', fill = '#FFF',
     </script>
     <script>
         $('.btn-log').click(function () {
-              
-            
+
+
             $('.nav_button').children('ul').hide(0);
             setTimeout(function(){
                 if ($('.left_login .dropdown').hasClass('open')) {
@@ -536,18 +536,18 @@ var id = 'loader', fill = '#FFF',
                      $('.left_login').addClass('top100');
              }
              else{
-                $('.left_login').removeClass('top100'); 
-             }  
+                $('.left_login').removeClass('top100');
+             }
          },5);
-                   
+
 
         });
         $('.nav_button button').click(function () {
-              
+
             $('.nav_button').toggleClass('top100');
             $('.left_login').children('ul').hide(0);
-            $('.left_login .login').css('z-index','5'); 
-             $('.left_login').removeClass('top100');        
+            $('.left_login .login').css('z-index','5');
+             $('.left_login').removeClass('top100');
 
         });
         $('.left_login .dropdown-menu').on({
@@ -555,22 +555,22 @@ var id = 'loader', fill = '#FFF',
               e.stopPropagation();
             }
         });
-        
-        
+
+
     </script>
 
-    
+
     <script>
- 
+
     $(window).load(function(){
         setTimeout(function(){
              $('.loader-container').fadeOut(800);
          },1000);
-       
+
     })
 
 
-    
+
     </script>
 
 

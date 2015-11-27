@@ -1,5 +1,4 @@
 window.onload = function(){
-  console.log('pac-input');
   $("#pac-input").geocomplete({
     types: ['geocode', 'establishment'],
     map: ".map-canvas",
@@ -10,12 +9,6 @@ window.onload = function(){
     detailsAttribute: "data-geo",
   });
 
-  if ($('#place_address').length > 0) {
-    var geoValue = $("#place_address").data('address');
-  }
-  console.log('geovalue is: ' + geoValue);
-
-  $("#pac-input").geocomplete("find", geoValue);
 
   $("#pac-input")
     .geocomplete()
