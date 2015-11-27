@@ -84,7 +84,7 @@ body.br_country_page .br_intro p{
 }
 body.br_country_page .br_intro p a{
   color:#6cb7ca;
-  text-decoration: underline; 
+  text-decoration: underline;
 }
 body.br_country_page .br_intro .owl-carousel{
   text-align: center;
@@ -149,7 +149,7 @@ body.br_country_page .owl-item:first-child {
   padding-left: 0;
 }
 body.br_country_page .br_intro .owl-carousel iframe,.br_intro .owl-carousel img{
-  
+
   margin: 0px auto;
 }
 body.br_country_page .br_native{
@@ -195,7 +195,7 @@ body.br_country_page .br_native .br_desc p{
 }
 body.br_country_page .br_native .br_desc p a{
   color:#6cb7ca;
-  text-decoration: underline; 
+  text-decoration: underline;
 }
 body.br_country_page .br_fun_fact {
   background: #6ccaa8;
@@ -259,7 +259,7 @@ body.br_country_page .br_story{
   padding: 0px;
 }
 body.br_country_page .br_story img{
-  
+
   width: 100%;
   position: relative;
   top: 0px;
@@ -269,7 +269,7 @@ body.br_country_page .br_story h2 {
   color: #6cb7ca;
   font-size: 28px;
   font-weight: 600;
-  
+
 }
 
 body.br_country_page .br_story p{
@@ -319,7 +319,7 @@ body.br_country_page .br_famous p{
 body.br_country_page .br_famous .owl-carousel p{
   margin-top: 15px;
   padding-right: 10px;
-} 
+}
 body.br_country_page .br_famous .owl-carousel p strong{
   font-weight: 600;
 }
@@ -356,8 +356,8 @@ body.br_country_page .br_featured_place h2 span{
 body.br_country_page .br_infobox{
   background: #6cb7ca;
   min-height: 100px;
-  border-radius:10px; 
-  padding: 10px 0px 20px; 
+  border-radius:10px;
+  padding: 10px 0px 20px;
 }
 body.br_country_page .br_infobox h3{
   font-size: 26px;
@@ -387,7 +387,7 @@ body.br_country_page .br_info .br_left.br_light a{
 body.br_country_page .br_pad{
     padding-top: 8px;
   padding-bottom: 8px;
-   
+
 }
 body.br_country_page .br_info hr {
   margin-top: 8px;
@@ -396,7 +396,7 @@ body.br_country_page .br_info hr {
   border-top: 3px solid #67afc1;
 }
 body.br_country_page .br_line{
-  padding-top:8px; 
+  padding-top:8px;
 }
 body.br_country_page .br_line a
 {
@@ -407,8 +407,8 @@ body.br_country_page .br_line a
 body.br_country_page .br_currency{
   background: url(/assets/cur.png) no-repeat;
   background-color: #fff;
-  background-position:top; 
-  border-radius:10px; 
+  background-position:top;
+  border-radius:10px;
   margin-top: 15px;
    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.098);
    -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.098);
@@ -526,10 +526,10 @@ body.br_country_page .br_currency .bx-wrapper .bx-viewport {
 
 
 body.br_country_page .br_Key_Phrases{
- 
+
   background-color: #fff;
-  background-position:top; 
-  border-radius:10px; 
+  background-position:top;
+  border-radius:10px;
   margin-top: 15px;
    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.098);
    -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.098);
@@ -1179,11 +1179,11 @@ body.br_country_page.br_edit .editable-container.editable-inline .btn-primary,bo
 }
 body.br_country_page.br_edit .editable-container.editable-inline .btn-default,body.br_place_page.br_edit .editable-container.editable-inline .btn-default{
   padding: 8.5px 10px;
-} 
+}
 body.br_country_page.br_edit #myModal .editable-container.editable-inline .btn-default,body.br_place_page.br_edit #myModal .editable-container.editable-inline .btn-default,
 body.br_country_page.br_edit #myModal .editable-container.editable-inline .btn-primary,body.br_place_page.br_edit #myModal .editable-container.editable-inline .btn-primary{
   padding: 6px 10px;
-} 
+}
 body.br_country_page.br_edit .editable-container.editable-inline .btn:hover,body.br_place_page.br_edit .editable-container.editable-inline .btn:hover{
   background-color: #6CB7CA;
   border: 1px solid transparent
@@ -2663,7 +2663,7 @@ textarea.br15_form_control {
       margin-top: -2px;
     }
    body.br_country_page  .br_fun_fact {
-     
+
       border-top-left-radius: 36px;
       border-bottom-left-radius: 36px;
     }
@@ -2702,7 +2702,7 @@ textarea.br15_form_control {
     padding: 35px 15px;
   }
   body.br_country_page .br_famous a {
-      
+
       position: relative;
       right: 0px;
       top: 0px;
@@ -2715,7 +2715,7 @@ textarea.br15_form_control {
     }
    body.br_country_page  .br_place_bg{
       padding-right: 15px;
-      padding-left: 15px;s
+      padding-left: 15px;
     }
     body.br_country_page.br_edit .editable-input ,body.br_place_page.br_edit .editable-input {
         min-width: 350px;
@@ -2855,7 +2855,7 @@ textarea.br15_form_control {
     border-radius: 0px;
     padding: 10px 5px 0px 5px;
   }
-  
+
   body.br_country_page .br_native {
     margin-right: -30px;
     margin-left: -30px;
@@ -2866,7 +2866,7 @@ textarea.br15_form_control {
     padding: 20px 15px;
   }
   body.br_country_page .br_native .br_tittle{
-    border-radius:0px; 
+    border-radius:0px;
   }
   body.br_country_page .br_native .br_tittle h2,.br_native .br_tittle a{
       left: 15px !important;
@@ -2874,14 +2874,14 @@ textarea.br15_form_control {
   }
   body.br_country_page .br_intro{
     margin-right:-15px;
-    margin-left: -15px; 
+    margin-left: -15px;
   }
   body.br_country_page  .br_fun_fact-mob ,body.br_place_page  .br_fun_fact-mob {
       margin-left: -30px;
       margin-right: -30px;
       margin-top: 10px;
       min-height: 10px;
-    }  
+    }
    body.br_country_page  .br_fun_fact-mob .br_fun_fact h2,body.br_place_page  .br_fun_fact-mob .br_fun_fact h2{
       margin-top: 24px;
     }
@@ -2922,7 +2922,7 @@ textarea.br15_form_control {
       margin-bottom: 10px;
     }
     #myModal .mid-cont h1.text-center + .editable-container input.form-control.input-sm{
-      text-align:center; 
+      text-align:center;
     }
     #myModal .mid-cont h4 + .editable-container .editable-input{
       width: 75%;
@@ -2992,7 +2992,7 @@ textarea.br15_form_control {
   }
   body.br_country_page.br_edit .editable-input, body.br_place_page.br_edit .editable-input {
       min-width: 100% !important;
-  }    
+  }
   body.br_country_page.br_edit .col-md-12.br_file_up_top .share-btn .btn-default,body.br_place_page.br_edit .col-md-12.br_file_up_top .share-btn .btn-default {
     font-size: 24px;
   }
