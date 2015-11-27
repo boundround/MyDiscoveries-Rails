@@ -103,14 +103,14 @@
             background: transparent !important;
         }
     </style>
-
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 	</head>
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<%= javascript_include_tag 'mapbox' %>
     <%= javascript_include_tag 'application' %>
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-    <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+    <!--<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>-->
     <%= javascript_include_tag 'froogaloop' %>
 
 
