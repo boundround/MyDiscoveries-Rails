@@ -17,12 +17,12 @@
             .jssora13l.jssora13ldn { background-position: -250px -35px; }
             .jssora13r.jssora13rdn { background-position: -310px -35px; }
 
-            .jssorb05 div           /*(normal)*/
-            .jssorb05 div:hover     /*(normal mouseover)*/
-            .jssorb05 .av           /*(active)*/
-            .jssorb05 .av:hover     /*(active mouseover)*/
-            .jssorb05 .dn           /*(mousedown)*/
-            */
+            .jssorb05 div           (normal)
+            .jssorb05 div:hover     (normal mouseover)
+            .jssorb05 .av           (active)
+            .jssorb05 .av:hover     (active mouseover)
+            .jssorb05 .dn           (mousedown)
+
             .jssorb05 {
                 position: absolute;
             }
