@@ -52,6 +52,12 @@ class PlacesController < ApplicationController
     @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
     @reviewable = @place
     @reviews = @reviewable.reviews.active
+    if user_signed_in?
+      @user_reviews_not_public = @reviewable.reviews.where('(status = ? OR status = ?) AND user_id = ?', "draft", "user", current_user.id)
+    end
+    if !@user_reviews_not_public.blank?
+      @reviews += @user_reviews_not_public
+    end
     @review = Review.new
 
     @storiable = @place
