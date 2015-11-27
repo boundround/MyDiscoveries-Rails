@@ -35,11 +35,23 @@
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="msapplication-TileImage" content="<%= asset_path('favicons/mstile-144x144.png')%>">
 		<meta name="theme-color" content="#ffffff">
-
+	
 	  <meta name="viewport" content="width=device-width,
 	                                     initial-scale=1.0,
 	                                     maximum-scale=1.0,
 	                                     user-scalable=no">
+	                                     
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KC9DWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push(
+    {'gtm.start': new Date().getTime(),event:'gtm.js'}
+    );var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KC9DWG');</script>
+    <!-- End Google Tag Manager -->
+	                                     
 	  <%= raw open_graph_image %>
 	  <%= render "/layouts/ga" %>
 
@@ -91,14 +103,14 @@
             background: transparent !important;
         }
     </style>
-
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 	</head>
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<%= javascript_include_tag 'mapbox' %>
     <%= javascript_include_tag 'application' %>
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-    <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+    <!--<script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>-->
     <%= javascript_include_tag 'froogaloop' %>
 
 
@@ -118,8 +130,9 @@
 	  <div class="app-wrap">
 	    <%= yield %>
 	  </div>
+	<% if current_user.nil? %>
 	  <%= render "/layouts/signin_modals" %>
-
+	<% end %>
 	  <%= render "/layouts/share_modal" %>
 
 	</body>

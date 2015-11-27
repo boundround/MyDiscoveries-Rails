@@ -883,10 +883,10 @@ function initialize() {
 				// 	window.br_auf = '<%= asset_path('flags/au.png') %>';
 				// </script>
 				//!!br_auf uses above erb assignment trick in containing html.erb file!!
-				var pf = br_auf.replace('au.png', e.feature.getProperty('iso_a2').toLowerCase() + '.png');
+				var pf = br_auf.replace('au', e.feature.getProperty('iso_a2').toLowerCase());
 
-				var content = '<div class="upper-card" style="background-image: url(' + pf + ')"></div>' +
-					'<div class="lower-card" style="height:20px;width:100px;background:white;"><a class="no-anchor-decoration" href="' + br_google_url_prefix + "/countries/" + e.feature.getProperty('iso_a2').toLowerCase() + ".html" +
+				var content = '<div class="upper-card" style="background-position:center center;background-size:contain;background-repeat:no-repeat;background-image: url(' + pf + ')"></div>' +
+					'<div class="lower-card" style="position:relative;top:-29px;height:20px;width:100px;background:white;"><a class="no-anchor-decoration" href="' + br_google_url_prefix + "/countries/" + e.feature.getProperty('iso_a2').toLowerCase() + ".html" +
 					'"><p class="place-title area">' + e.feature.getProperty('brk_name') + '</p><br></a></div>';
 
 				br_infoWindow.setContent(content);
