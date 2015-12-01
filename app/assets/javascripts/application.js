@@ -16,7 +16,6 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap-select.min
-//= require custom
 //= require jcarousel.responsive
 //= require jquery.jcarousel.min
 //= require jquery.matchHeight-min
@@ -26,7 +25,6 @@
 //= require progressbar
 //= require bootstrap-datepicker
 //= require sign_in
-//= require owl.carousel.min
 //= require countries
 //= require places
 //= require avatarupload
@@ -57,6 +55,9 @@
 //= require algoliasearchhelper
 //= require hogan
 //= require algolia_search
+//= require gmaps.min
+//= require owl.carousel.min
+//= require custom
 
 
 
