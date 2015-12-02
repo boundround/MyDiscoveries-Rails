@@ -24,6 +24,12 @@ class PlacesController < ApplicationController
     end
   end
 
+  def merge
+  end
+
+  def transfer_assets
+    @original_place = Place.find(params[:])
+  end
 
   def debug
     render plain: "Host="+request.host+","+"Domain(1)="+request.domain(1)+", "+"Domain(2)="+request.domain(2)+" Subdomain="+request.subdomain()+"\n"+request.inspect
