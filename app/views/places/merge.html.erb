@@ -1,10 +1,10 @@
 <div class="container">
   <h1>Transfer Assets</h1>
 
-  <%= simple_form_for :place do |f| %>
-    <%= f.input :from_place, collection: Place.order('display_name ASC'), label_method: :display_name, value_method: :id, label: "FROM" %><br>
+  <%= simple_form_for :place, url: '/places/transfer_assets' do |f| %>
+    <%= f.input :from_place_id, collection: Place.order('display_name ASC'), label_method: :display_name, value_method: :id, label: "FROM" %><br>
     <%= f.input :remove, as: :boolean, label: "Remove?" %><br>
-    <%= f.input :to_place, collection: Place.order('display_name ASC'), label_method: :display_name, value_method: :id, label: "TO" %>
+    <%= f.input :to_place_id, collection: Place.order('display_name ASC'), label_method: :display_name, value_method: :id, label: "TO" %>
     <%= f.submit :submit %>
   <% end %>
 </div>
