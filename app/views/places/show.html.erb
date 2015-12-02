@@ -23,7 +23,7 @@
                 </div>
 
 <!--               <%# if @place.country %>
-                <a href="<%= country_path(@place.country) %>">
+                <a href="<%#= country_path(@place.country) %>">
                   <img src="<%#= asset_path('flags/' + @place.country.country_code.downcase + '.png') %>" class="img-resposive country-flag" >
                 </a>
               <%# end %>-->
@@ -132,7 +132,8 @@
             </div>
         </div>
         <div class="clearfix"></div>
-
+        
+        <% unless @videos.blank? %>
         <div class="br15_videos br15_bor_bot container-fluid" id="videos">
             <a  href="#" class="btn btn-default new-btn-orange br15_Title_See_All">videos</a>
             <div class="row">
@@ -142,8 +143,9 @@
                             <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/51_gSa1OdEE"></iframe>
                         </div>
                     </div> -->
-                    <% @all_photos_and_videos.each_with_index do |asset, index| %>
-                    <% unless asset.class.to_s == "Photo" %>
+                    <%# @all_photos_and_videos.each_with_index do |asset, index| %>
+                    <% @videos.each_with_index do |asset, index| %>
+                    <%# unless asset.class.to_s == "Photo" %>
                       <div>
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe class="embed-responsive-item" id="player<%= index + 5 %>" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player<%= index + 5 %>" width="273" frameborder="2" data-title="<%= asset.title %>" data-description="<%= asset.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
@@ -151,14 +153,17 @@
                         <!-- <div class="overlay carousel-country-photo" data-slide-number="<%= index %>">
                           <span class="carousel-like-icon"><%#= raw like_icon(asset) %></span>
                         </div> -->
+                        <div class="video-title"><h4><%= asset.title %></h4></div>
                         </div>
                       </div>
-                    <% end %>
+                    <%# end %>
                   <% end %>
                 </div><!--/.owl-carousel -->
             </div>
         </div>
-
+        <% end %>
+        
+        <% unless @reviews.blank? %>
         <div class="br15_review container-fluid">
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1" id="reviews">
@@ -174,8 +179,11 @@
                 </div>
             </div>
         </div>
+        <% end %>
 
         <div class="clearfix"></div>
+        
+        <% unless @photos.blank? %>
         <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid" id="photos">
             <a  href="#" class="btn btn-default new-btn-orange br15_Title_See_All">Photos</a>
             <div class="row">
@@ -186,21 +194,24 @@
                             <img class="embed-responsive-item" src="img/frame.jpg">
                         </div>
                     </div>-->
-                    <% @all_photos_and_videos.each_with_index do |asset, index| %>
-                     <% unless asset.class.to_s == "Video" || asset.class.to_s == "UserPhoto" %>
+                    <%# @all_photos_and_videos.each_with_index do |asset, index| %>
+                    <% @photos.each_with_index do |asset, index| %>
+                     <%# unless asset.class.to_s == "Video" || asset.class.to_s == "UserPhoto" %>
                       <div>
                           <div class="embed-responsive embed-responsive-16by9">
                             <img src="<%= asset.path_url(:medium)%>" alt='<%= asset.caption ? asset.caption : "" %>' class="embed-responsive-item" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : '' %>">
-                            <div class="place-photo-credit"><%= asset.credit %></div>
+                            <div class="place-photo-credit"><%= asset.credit rescue "" %></div>
                             <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
                           </div>
                       </div>
-                      <% end %>
+                      <%# end %>
                     <% end %>
 
                 </div><!--/.carousel -->
             </div>
         </div>
+        <% end %>
+        <% unless @stories.blank? %>
         <div class="br15_features hidden-xs container-fluid">
             <div class="row">
 
@@ -215,6 +226,7 @@
                 </div>
             </div>
         </div>
+        <% end %>
         <%= render 'user_photos/form' %>
         <%= render 'stories/form' %>
 
@@ -223,7 +235,8 @@
             <div id="place-map-canvas">                                                                                                                 
             </div>
         </div>
-     <% unless @similar_places.blank? %>
+        
+     <% unless @nearby_places.blank? %>
         <div class="br15_videos br15_nearby    container-fluid">
             <a href="#" class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">Nearby</a>
             <div class="row">
@@ -268,23 +281,23 @@
         </div><!--/.br15_nearby -->
     <% end %>
 
-    <% unless @place.display_address.empty? and @place.phone_number.empty? and @place.website.eql? "http://"%>
+    <% unless @place.display_address.blank? and @place.phone_number.blank? and @place.website.eql? "http://"%>
         <div class="br15_info  container-fluid">
             <a href="#" class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">info</a>
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
                     <p>
-                        <% unless @place.display_address.empty? %>
+                        <% unless @place.display_address.blank? %>
                             <label class="br15_semi_font text-uppercase">Address:</label>
                             <span class="br15_light_font text-uppercase"><%= @place.display_address %></span>
                             <br/>
                         <% end %>
-                        <% unless @place.phone_number.empty? %>
+                        <% unless @place.phone_number.blank? %>
                             <label class="br15_semi_font text-uppercase">Phone:</label>
                             <span class="br15_light_font text-uppercase"><%= @place.phone_number %></span>
                             <br/>
                         <% end %>
-                        <% unless @place.website.eql? "http://" %>
+                        <% unless @place.website.eql? "http://" or @place.website.nil? %>
                             <label class="br15_semi_font text-uppercase">Website:</label>
                             <span class="br15_light_font "><a href="<%= @place.website %>" target="blank"><%= extract_domain(@place.website) %></a></span><br/>
                         <% end %>
