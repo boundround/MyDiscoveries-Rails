@@ -1,25 +1,36 @@
-<div class="row" id="reviews">
-  <% @reviews.each do |review| %>
-    <div class="col-sm-6 col-md-3">
-      <h4><%= !review.title.blank? ? review.title : @reviewable.display_name %></h4>
-      <% get_user_place_rating_from_review(review).times do |star| %>
-        <img src="<%= asset_path('star-on.png') %>" />
-      <% end %>
-      <p class="review-content">
-        "<%= review.content[0..280] + "..." %>"
-        <h5>- <%= strip_domain_from_username review.user %></h5>
-      </p>
-      <p class="anchor">
-        <% if review.content.length > 280 %>
-            <button class="entire-review" data-size="contracted" data-entire-review="<%= review.content %>">See entire review</button>
-        <% end %>
-      </p>
-      <p><%= raw user_generated_content_credit(review.user) %></p>
-      <div class="clearfix"></div>
-    </div>
-  <% end %>
+<!--<div id="br15_owl_reviews" class="owl-carousel">
+<div> 
+    <h1>Sydney</h1>
+    <h2>- Amy Hibler 
+        <span class="hidden-xs">
+            <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>
+        </span>
+    </h2>
+    <p>
+        "If you go to Sydney you should go to The Sydney Opera House,    they have play's and Musicals. it get's really hot in the summer but it storms a lot to."
+    </p>
 </div>
 
-<div class="col-md-12 text-center">
-  <!-- <a href="#" class="br_see_more_btn">See more reviews</a> -->
+
+ -->
+
+<div id="br15_owl_reviews" class="owl-carousel ">
+  <% @reviews.each do |review| %>
+   <div>
+    <h1><%= !review.title.blank? ? review.title : @reviewable.display_name %></h1>
+    <h2>- <%= strip_domain_from_username review.user %>
+        <span class="hidden-xs">
+          <% get_user_place_rating_from_review(review).times do |star| %>
+            <span class="fa fa-star"></span>
+        <% end %>
+        </span>
+    </h2>
+    <p>
+       <%= review.content[0..280] + "..." %>
+       <% if review.content.length > 280 %>
+              <button class="entire-review" data-size="contracted" data-entire-review="<%= review.content %>">See entire review</button>
+       <% end %>
+    </p>
+    </div>
+  <% end %>
 </div>

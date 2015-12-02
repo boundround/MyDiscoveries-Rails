@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+// require jquery-ui
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap-select.min
@@ -25,7 +25,6 @@
 //= require progressbar
 //= require bootstrap-datepicker
 //= require sign_in
-//= require owl.carousel.min
 //= require countries
 //= require places
 //= require avatarupload
@@ -57,6 +56,6 @@
 //= require hogan
 //= require algolia_search
 //= require bug_posts
-
-
-
+// require gmaps.min
+//= require owl.carousel.min
+//= require custom

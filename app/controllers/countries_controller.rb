@@ -10,6 +10,9 @@ class CountriesController < ApplicationController
 
     @videos_photos = @country.videos
     @videos_photos += @country.photos
+    
+    @videos = @country.videos
+    @photos = @country.photos
 
     # if @country.capital_city
     #   @weather = OpenWeather::Current.city("#{@country.capital_city}, #{@country.country_code}")

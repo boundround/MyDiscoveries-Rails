@@ -81,7 +81,7 @@
           </script>
     </head>
         <div class="br15_top_search container-fluid">
-            <div class="br15_search">
+            <div class="br15_search cs-br15_search">
                 <div class="input-group">
                     <input type="text" id="search-box" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
@@ -89,15 +89,21 @@
                     </span>
                 </div>
             </div>
-            <div class="br15_search_result">
+            <div class="br15_search_result cs-br15_search_result">
               <%= render "search_suggestions/search_results" %>
             </div>
               <%= render 'layouts/profile_dropdown' %>
-            <div class="row br15_header">
-                <div class="col-xs-12 text-center">
-                    <a href="#" class="center-block br15_logo"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive center-block home-logo" alt=""></a>
-                    <h3 class="text-center text-uppercase br15_heading_main">Sign UP For Bound Round And Get Access to Amazing features!</h3>
-                </div>
+            <div class="row br15_header cs-br15_header" id="rowVideo">
+              <div class="col-xs-12 text-center img_bg_header">
+                <a href="#" class="center-block br15_logo"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive center-block home-logo" alt=""></a>
+                <h3 class="text-center text-uppercase br15_heading_main">Sign UP For Round Bound And Get Access to Amazing features!</h3>
+              </div>
+              
+              <video autoplay loop muted poster="/assets/br_15_main.jpg" class="video_bg_header" id="home-background-video">
+                <source src="https://brwebproduction.s3.amazonaws.com/background_videos/small.mp4" type="video/mp4">
+                <source src="https://brwebproduction.s3.amazonaws.com/background_videos/small.webm" type="video/webm">
+                <source src="https://brwebproduction.s3.amazonaws.com/background_videos/small.ogv" type="video/ogg">
+              </video>
             </div>
             <div class="row br15_map br15_collapse hidden-xs">
                 <div class="br15_map_overlay"></div>
@@ -114,8 +120,11 @@
                   <% @videos.each do |video| %>
                       <div><!-- 16:9 aspect ratio -->
                           <div class="embed-responsive embed-responsive-16by9">
-                              <iframe class="embed-reponsive-item" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1" frameborder="2" data-title="<%= video.title %>" data-description="<%= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
-                                          </iframe>
+                              <iframe class="embed-reponsive-item" src="//player.vimeo.com/video/<%= video.vimeo_id %>" frameborder="0" data-title="<%= video.title %>" data-description="<%= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+
+                              <!--iframe class="embed-reponsive-item" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1" frameborder="2" data-title="<%= video.title %>" data-description="<%= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                                          </iframe-->
                               <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/51_gSa1OdEE"></iframe> -->
                           </div>
                       </div>
@@ -239,22 +248,8 @@
                 </div>
             </div>
         </div>
-        <footer class="container-fluid text-center br15_footer">
-            <div class="row">
-                <div class="col-xs-12">
-                    <ul class="list-inline text-uppercase">
+<%= render 'layouts/footer' %>
 
-                      <li><a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a></li>
-                      <li><a href="http://boundround.com/education/" target="blank">Teachers</a></li>
-                      <li><a href="http://boundround.com/media/" target="blank">Media</a></span></p></li>
-                      <li><a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a></li>
-                      <li><a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a></li>
-                      <li><a href="http://boundround.com/about-us/" target="blank">About Us</a></li>
-                      <li><a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
         <%= javascript_include_tag 'instafeed.min' %>
         <script type="text/javascript">
           var feed = new Instafeed({
