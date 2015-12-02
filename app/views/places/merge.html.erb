@@ -1,10 +1,15 @@
-<div class="container">
-  <h1>Transfer Assets</h1>
+<% if user_signed_in? && current_user.admin? %>
+  <div class="container">
+    <h1>Transfer Assets</h1>
+    CAUTION: THIS IS HARD TO UNDO. DOUBLE CHECK YOUR PLACES.
 
-  <%= simple_form_for :place, url: '/places/transfer_assets' do |f| %>
-    <%= f.input :from_place_id, collection: Place.order('display_name ASC'), label_method: :display_name, value_method: :id, label: "FROM" %><br>
-    <%= f.input :remove, as: :boolean, label: "Remove?" %><br>
-    <%= f.input :to_place_id, collection: Place.order('display_name ASC'), label_method: :display_name, value_method: :id, label: "TO" %>
-    <%= f.submit :submit %>
-  <% end %>
-</div>
+    <%= simple_form_for :place, url: '/places/transfer_assets' do |f| %>
+      <%= f.input :from_place_id, collection: Place.order('display_name ASC'), label_method: :display_name, value_method: :id, label: "FROM" %><br>
+      <%= f.input :remove, as: :boolean, label: "Remove?" %><br>
+      <%= f.input :to_place_id, collection: Place.order('display_name ASC'), label_method: :display_name, value_method: :id, label: "TO" %>
+      <%= f.submit :submit, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  </div>
+<% else %>
+  <h1>You must be signed in to view this</h1>
+<% end %>

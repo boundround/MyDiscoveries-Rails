@@ -28,55 +28,56 @@ class PlacesController < ApplicationController
   end
 
   def transfer_assets
-    @from_place = Place.find(params[:place][:from_place_id])
-    @to_place = Place.find(params[:place][:to_place_id])
+    if user_signed_in? && current_user.admin?
+      @from_place = Place.find(params[:place][:from_place_id])
+      @to_place = Place.find(params[:place][:to_place_id])
 
-    if params[:remove] == true
-      @from_place.status = "removed"
-    end
+      if params[:remove] == true
+        @from_place.status = "removed"
+      end
 
-    @from_place.photos.each do |photo|
-      photo.place_id = @to_place.id
-      unless photo.save
-        raise "Photo #{photo.id} not transferred"
+      @from_place.photos.each do |photo|
+        photo.place_id = @to_place.id
+        unless photo.save
+          raise "Photo #{photo.id} not transferred"
+        end
+      end
+
+      @from_place.games.each do |game|
+        game.place_id = @to_place.id
+        unless game.save
+          raise "Game #{game.id} not transferred"
+        end
+      end
+
+      @from_place.videos.each do |photo|
+        video.place_id = @to_place.id
+        unless video.save
+          raise "Video #{video.id} not transferred"
+        end
+      end
+
+      @from_place.reviews.each do |review|
+        review.reviewable = @to_place
+        unless review.save
+          raise "Review not transferred"
+        end
+      end
+
+      @from_place.stories.each do |story|
+        story.reviewable = @to_place
+        unless story.save
+          raise "Story #{story.id} not transferred"
+        end
+      end
+
+      @from_place.user_photos.each do |photo|
+        photo.place_id = @to_place.id
+        unless photo.save
+          raise "Photo #{photo.id} not transferred"
+        end
       end
     end
-
-    @from_place.games.each do |game|
-      game.place_id = @to_place.id
-      unless game.save
-        raise "Game #{game.id} not transferred"
-      end
-    end
-
-    @from_place.videos.each do |photo|
-      video.place_id = @to_place.id
-      unless video.save
-        raise "Video #{video.id} not transferred"
-      end
-    end
-
-    @from_place.reviews.each do |review|
-      review.reviewable = @to_place
-      unless review.save
-        raise "Review not transferred"
-      end
-    end
-
-    @from_place.stories.each do |story|
-      story.reviewable = @to_place
-      unless story.save
-        raise "Story #{story.id} not transferred"
-      end
-    end
-
-    @from_place.user_photos.each do |photo|
-      photo.place_id = @to_place.id
-      unless photo.save
-        raise "Photo #{photo.id} not transferred"
-      end
-    end
-
 
   end
 
