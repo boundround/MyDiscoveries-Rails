@@ -217,6 +217,7 @@
                   <div>
                     <div class="embed-responsive embed-responsive-16by9">
                      <img src="<%= asset.path_url(:medium)%>" class="embed-responsive-item" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>">
+                     <div class="place-photo-credit"><%= asset.credit rescue "" %></div>
                     </div>
                   </div>
                  <% end %>
