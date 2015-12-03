@@ -928,17 +928,15 @@ h1#country-name-heading{
 #br15_owl_video .owl-controls, #br15_owl_reviews .owl-controls {
   display: block !important;
 }
-/*2 des today*/
+
 .video-title {
-  width: 100%;
-  height: 100%;
   position: absolute;
   padding: 90px 30px;
-  color: rgba(240, 118, 86, 0.7);
-  /*text-shadow: 0px 0px 10px white, 5px 2px 7px white;*/
-}
-.video-title h4{
+  color: rgb(255, 255, 255);
+  top: 109px;
   font-weight: 900;
   text-transform: capitalize;
+  pointer-events: none;
+  text-shadow: 0px 0px 10px rgb(20, 13, 13), 5px 2px 7px rgb(41, 35, 35);
 }
 /*END*/                             
