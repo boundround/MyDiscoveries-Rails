@@ -212,7 +212,8 @@ $(document).ready(function(){
           data: data,
           success: console.log('LIKE SAVED')
         });
-        $('.add-to-wishlist').html('<a href="#" id="place-favorite" data-liked="true" data-place-id="' + placeId + '" data-user-id="' + userId + '">Remove from wishlist</a>');
+        $(this).text("Remove from wishlist");
+        $(this).data("liked", true);
       } else if ($(this).data("liked") === true) {
         $.ajax({
           type: "POST",
@@ -221,7 +222,8 @@ $(document).ready(function(){
           data: data,
           success: console.log('LIKE DELETED')
         });
-        $('.add-to-wishlist').html('<a href="#" id="place-favorite" data-liked="false" data-place-id="' + placeId + '" data-user-id="' + userId + '">Add to wishlist</a>');
+        $(this).text("Add to wishlist");
+        $(this).data("liked", false);
       }
     });
 
@@ -287,7 +289,7 @@ $(document).ready(function(){
     $('.share-this').on('click', function(){
       $('#shareModal').modal('show');
     });
-    
+
     var funfact_owl=$(".funfact").owlCarousel({
       autoPlay: 3000, //Set AutoPlay to 3 seconds
       items: 1,

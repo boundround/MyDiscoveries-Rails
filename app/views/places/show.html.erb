@@ -50,7 +50,7 @@
                 <div class="col-sm-12 ">
                     <a href="#" class="center-block br15_logo"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive center-block" alt=""></a>
                 </div>
-                
+
                 <%#= render 'layouts/search_input'%>
             </div>
             <nav class=" br15_fixed nav row" data-spy="affix" data-offset-top="300">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-sm-5 col-xs-12">
                     <h3 class="text-uppercase br15_semi_font">
-                        <%= body_title(@place.display_name, category) %> 
+                        <%= body_title(@place.display_name, category) %>
                         <!-- <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span> -->
                         <!-- <li class="hero-hearts"> -->
@@ -132,7 +132,7 @@
             </div>
         </div>
         <div class="clearfix"></div>
-        
+
         <% unless @videos.blank? %>
         <div class="br15_videos br15_bor_bot container-fluid" id="videos">
             <a  href="#" class="btn btn-default new-btn-orange br15_Title_See_All">videos</a>
@@ -162,7 +162,7 @@
             </div>
         </div>
         <% end %>
-        
+
         <% unless @reviews.blank? %>
         <div class="br15_review container-fluid">
             <div class="row">
@@ -182,13 +182,13 @@
         <% end %>
 
         <div class="clearfix"></div>
-        
+
         <% unless @photos.blank? %>
         <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid" id="photos">
             <a  href="#" class="btn btn-default new-btn-orange br15_Title_See_All">Photos</a>
             <div class="row">
                 <div id="br15_owl_photos" class="owl-carousel">
-                    
+
                     <!-- <div>
                         <div class="embed-responsive embed-responsive-16by9">
                             <img class="embed-responsive-item" src="img/frame.jpg">
@@ -232,10 +232,10 @@
 
         <div class="br15_map br15_collapse">
             <a href="#" class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">map</a>
-            <div id="place-map-canvas">                                                                                                                 
+            <div id="place-map-canvas">
             </div>
         </div>
-        
+
      <% unless @nearby_places.blank? %>
         <div class="br15_videos br15_nearby    container-fluid">
             <a href="#" class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">Nearby</a>
@@ -364,7 +364,7 @@
                             </div>
                             <h1 class="br15_light_font text-center">Sydney Harbour is one the largest natural harbours in the world. </h1>
                         </div> -->
-                        <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>                        
+                        <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
                             <div>
                                 <div class="br15_img_round_cont">
                                     <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" alt="">
