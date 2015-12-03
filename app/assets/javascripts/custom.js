@@ -1,5 +1,45 @@
-var map = '';
-function gmapsCarosul(){
+function setUpGmaps(){
+   // map = new GMaps({
+   //          el: '#br15_map',
+   //          lat: -33.7985209,
+   //          lng: 151.2861201,
+   //          zoomControl : true,
+   //          zoomControlOpt: {
+   //              style : 'SMALL',
+   //              position: 'TOP_LEFT'
+   //          },
+   //          panControl : false,
+   //          streetViewControl : true,
+   //          mapTypeControl: false,
+   //          overviewMapControl: false,
+
+   //          click:function(){
+   //              map.hideInfoWindows();
+   //          },
+   //          styles:[ { "featureType": "water", "stylers": [ { "color": "#ace1f6" } ] },{ "featureType": "landscape", "stylers": [ { "color": "#f9f5ed" } ] },{ } ]
+
+   //      });
+   //      map.removeMarkers();
+   //      map.addMarker({
+   //          lat: -33.7985209,
+   //          lng: 151.2861201,
+   //          icon: "/assets/pin.png",
+   //          animation: google.maps.Animation.DROP,
+   //          infoWindow: {
+   //              content: "<div class='br15_marker'> <div class='br15_marker_round'><img src='/assets/insta.jpg' alt=''></div><h4>W<span>ater</span> P<span>ark</span><br><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i></h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet interdum tortor et finibus. Maecenas in metus augue. Praesent maximus arcu tempus.</p></div>"
+   //          },
+   //          click: function(e){
+   //              setTimeout(function(){
+   //                  $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png']").hide();
+   //              },200);
+
+   //          }
+   //      });
+
+
+}
+
+function setUpCarosul(){
         $("#br15_owl_reviews,#br15_owl_fun_facts,#br15_owl_good").owlCarousel({
             items:1,
             itemsDesktopSmall:[1199,1],
@@ -54,59 +94,6 @@ function gmapsCarosul(){
             ]
         });
         $('.br15_instagram,.br15_leaderboard,.br15_reviews,.br15_blog .row .col-sm-6,.br15_about,.br15_about_sidebar ').matchHeight();
-
-
-        map = new GMaps({
-            el: '#br15_map',
-            lat: -12.043333,
-            lng: -77.028333,
-            zoomControl : true,
-            zoomControlOpt: {
-                style : 'SMALL',
-                position: 'TOP_LEFT'
-            },
-            panControl : false,
-            streetViewControl : true,
-            mapTypeControl: false,
-            overviewMapControl: false,
-
-            click:function(){
-                map.hideInfoWindows();
-            },
-            styles:[ { "featureType": "water", "stylers": [ { "color": "#ace1f6" } ] },{ "featureType": "landscape", "stylers": [ { "color": "#f9f5ed" } ] },{ } ]
-
-        });
-        map.removeMarkers();
-        map.addMarker({
-            lat: -12.043333,
-            lng: -77.028333,
-            icon: "/assets/pin.png",
-            animation: google.maps.Animation.DROP,
-            infoWindow: {
-                content: "<div class='br15_marker'> <div class='br15_marker_round'><img src='/assets/insta.jpg' alt=''></div><h4>W<span>ater</span> P<span>ark</span><br><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i></h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet interdum tortor et finibus. Maecenas in metus augue. Praesent maximus arcu tempus.</p></div>"
-            },
-            click: function(e){
-                setTimeout(function(){
-                    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png']").hide();
-                },200);
-
-            }
-        });
-        map.addMarker({
-            lat: -12.046,
-            lng: -77.028333,
-            icon: "/assets/pin.png",
-            animation: google.maps.Animation.DROP,
-            infoWindow: {
-                content: "<div class='br15_marker'> <div class='br15_marker_round'><img src='/assets/insta.jpg' alt=''></div><h4>W<span>ater</span> P<span>ark</span><br><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i></h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet interdum tortor et finibus. Maecenas in metus augue. Praesent maximus arcu tempus.</p></div>"
-            },
-            click: function(e){
-                setTimeout(function(){
-                    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png']").hide();
-                },200);
-            }
-
-        });
     }
 
 function responsiveHomeVideo() {
@@ -183,7 +170,7 @@ $(window).resize(function(){
 
 $(document).ready(function(){
   responsiveHomeVideo()
-  gmapsCarosul()
+  setUpCarosul()
   modalCarosul()
 
 })

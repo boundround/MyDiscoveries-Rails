@@ -49,9 +49,15 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
+    @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
     @reviewable = @place
     @reviews = @reviewable.reviews.active
+    if user_signed_in?
+      @user_reviews_not_public = @reviewable.reviews.where('(status = ? OR status = ?) AND user_id = ?', "draft", "user", current_user.id)
+    end
+    if !@user_reviews_not_public.blank?
+      @reviews += @user_reviews_not_public
+    end
     @review = Review.new
 
     @storiable = @place
@@ -81,19 +87,39 @@ class PlacesController < ApplicationController
 
     ##########################
     # Get all photos and videos for this place and sort by created at date
-    @all_photos_and_videos = []
+    # @all_photos_and_videos = []
+    # @place.videos.active.each do |video|
+    #   if !video.hero
+    #     @all_photos_and_videos << video
+    #   end
+    # end
+    # @place.photos.active.each do |photo|
+    #   @all_photos_and_videos << photo
+    # end
+    # @active_user_photos.each do |photo|
+    #   @all_photos_and_videos << photo
+    # end
+    # @all_photos_and_videos.sort {|x, y| x.created_at <=> y.created_at}
+    
+    #NEW 
+    @videos = []
+    @photos = []
+
     @place.videos.active.each do |video|
       if !video.hero
-        @all_photos_and_videos << video
+        @videos << video
       end
     end
+
     @place.photos.active.each do |photo|
-      @all_photos_and_videos << photo
+      @photos << photo
     end
     @active_user_photos.each do |photo|
-      @all_photos_and_videos << photo
+      @photos << photo
     end
-    @all_photos_and_videos.sort {|x, y| x.created_at <=> y.created_at}
+
+    @photos.sort {|x, y| x.created_at <=> y.created_at}
+    @videos.sort {|x, y| x.created_at <=> y.created_at}
     ###############################
 
     @request_xhr = request.xhr?
@@ -109,7 +135,7 @@ class PlacesController < ApplicationController
   end
 
   def preview
-    @place = Place.includes(:games, :photos, :videos).friendly.find(params[:id])
+    @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
     if @place.area_id
       @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
       @area_videos = @place.area.videos
@@ -226,7 +252,7 @@ class PlacesController < ApplicationController
       if @place.save
         NewPlace.delay.notification(@place)
         JournalInfo.create(place_id: @place.id)
-        render :json => {place_id: "/places/" + @place.id.to_s}
+        render :json => {place_id: "/places/" + @place.slug}
       else
         render :json => {place_id: "error" }
       end
@@ -571,7 +597,7 @@ class PlacesController < ApplicationController
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :customer_approved, :customer_review, :approved_at, :_destroy],
                                     fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
                                     discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-                                    user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
+                                    user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
                                     category_ids: [])
     end
 end

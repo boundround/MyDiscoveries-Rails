@@ -138,7 +138,7 @@
                 <div id="br15_owl_photos" class="owl-carousel">
                   <% @photos.each do |photo| %>
                     <div><!-- 16:9 aspect ratio -->
-                      <a href="<%= place_path(photo.place.id) %>">
+                      <a href="<%= place_path(photo.place) %>">
                         <div class="embed-responsive embed-responsive-16by9">
                             <img class="embed-responsive-item" src="<%= photo.path_url(:medium) %>">
                         </div>
@@ -248,22 +248,8 @@
                 </div>
             </div>
         </div>
-        <footer class="container-fluid text-center br15_footer">
-            <div class="row">
-                <div class="col-xs-12">
-                    <ul class="list-inline text-uppercase">
+<%= render 'layouts/footer' %>
 
-                      <li><a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a></li>
-                      <li><a href="http://boundround.com/education/" target="blank">Teachers</a></li>
-                      <li><a href="http://boundround.com/media/" target="blank">Media</a></span></p></li>
-                      <li><a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a></li>
-                      <li><a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a></li>
-                      <li><a href="http://boundround.com/about-us/" target="blank">About Us</a></li>
-                      <li><a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
         <%= javascript_include_tag 'instafeed.min' %>
         <script type="text/javascript">
           var feed = new Instafeed({

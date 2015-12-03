@@ -1,0 +1,25 @@
+<div class="row" id="reviews">
+  <% @reviews.each do |review| %>
+    <div class="col-sm-6 col-md-3">
+      <h4><%= !review.title.blank? ? review.title : @reviewable.display_name %></h4>
+      <% get_user_place_rating_from_review(review).times do |star| %>
+        <img src="<%= asset_path('star-on.png') %>" />
+      <% end %>
+      <p class="review-content">
+        "<%= review.content[0..280] + "..." %>"
+        <h5>- <%= strip_domain_from_username review.user %></h5>
+      </p>
+      <p class="anchor">
+        <% if review.content.length > 280 %>
+            <button class="entire-review" data-size="contracted" data-entire-review="<%= review.content %>">See entire review</button>
+        <% end %>
+      </p>
+      <p><%= raw user_generated_content_credit(review.user) %></p>
+      <div class="clearfix"></div>
+    </div>
+  <% end %>
+</div>
+
+<div class="col-md-12 text-center">
+  <!-- <a href="#" class="br_see_more_btn">See more reviews</a> -->
+</div>

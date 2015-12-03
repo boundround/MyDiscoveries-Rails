@@ -25,7 +25,7 @@ class Country < ActiveRecord::Base
     end
 
     attribute :url do
-      "countries/#{slug}"
+      Rails.application.routes.url_helpers.country_path(self)
     end
 
     attributesToIndex ['display_name', 'unordered(description)']

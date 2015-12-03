@@ -13,7 +13,7 @@ class Place < ActiveRecord::Base
       end
     end
     attribute :url do
-      "/places/#{slug}"
+      Rails.application.routes.url_helpers.place_path(self)
     end
 
     attribute :description do

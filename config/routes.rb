@@ -12,6 +12,9 @@ end
 
 Rails.application.routes.draw do
 
+  resources :bug_posts
+  get '/bugs' => 'bug_posts#new'
+  get 'all_bugs' => 'bug_posts#index'
 
   mount Ckeditor::Engine => '/ckeditor'
   post '/rate' => 'rater#create', :as => 'rate'
