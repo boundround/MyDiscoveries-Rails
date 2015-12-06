@@ -25,6 +25,7 @@
               <li><%= link_to 'New Area', new_area_path %></li>
               <li><%= link_to 'Show/Edit Users', users_path %></li>
               <li><%= link_to 'Rails Admin', rails_admin_path %></li>
+              <li><%= link_to 'Merge Places', "/places/merge" %></li>
             <% end %>
             <% if user_signed_in? %>
               <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>

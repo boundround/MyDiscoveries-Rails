@@ -56,6 +56,6 @@
 //= require hogan
 //= require algolia_search
 //= require bug_posts
-// require gmaps.min
+//= require gmaps.min
 //= require owl.carousel.min
 //= require custom

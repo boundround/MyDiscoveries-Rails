@@ -142,11 +142,12 @@ Rails.application.routes.draw do
     collection { get 'leaderboard' }
   end
 
-
+  post '/places/transfer_assets' => 'places#transfer_assets'
   resources :places do
     member { get 'preview' }
     collection { get 'all_edited'} # all place content in draft
     collection { get 'user_created'} # all place content in draft
+    collection { get 'merge'}
     resources :photos
     resources :videos
     resources :discounts
