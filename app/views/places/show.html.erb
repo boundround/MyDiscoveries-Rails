@@ -57,9 +57,13 @@
                 <div class="col-sm-3 pull-right col-xs-12 br15_light_font">
                     <div class="row">
                         <div class="btn-group br15_Action_Buttons btn-group-justified text-uppercase">
-                            <a href="#photos" class="btn btn-primary"><span class="fa fa-plus-circle"></span> photo</a>
-                            <a href="#videos" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Video</a>
-                            <a href="#stories" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Story</a>
+                            <% if user_signed_in? %>
+                                <a href="#"  data-toggle="modal" data-target="#myModal" class="btn btn-primary" style="border-right: 1px solid #fff;"><span class="fa fa-plus-circle"></span> photo</a>
+                                <a href="#" data-toggle="modal" data-target="#storyModal" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Story</a>
+                            <% else %>
+                                <a href="#"  data-toggle="modal" data-target="#signInModal" class="btn btn-primary" style="border-right: 1px solid #fff;"><span class="fa fa-plus-circle"></span> photo</a>
+                                <a href="#" data-toggle="modal" data-target="#signInModal" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Story</a>
+                            <% end %>
                         </div>
                     </div>
                 </div>
@@ -82,13 +86,13 @@
                           <% else %>
                             <% if user_signed_in? %>
                               <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
-                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                <span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
+                                <span class="fa fa-star-o" style="margin-left: -5px;"></span><span class="fa fa-star-o"></span>
                               </a>
                             <% else %>
                               <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#signInModal">
-                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                <span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span>
+                                <span class="fa fa-star-o" style="margin-left: -5px;"></span><span class="fa fa-star-o"></span>
                               </a>
                             <% end %>
                           <% end %>
@@ -103,7 +107,12 @@
                         </div>
                         <div class="col-sm-9 col-xs-12 br15_light_font">
                             <div class="btn-group br15_Review_Wishlist_BTN btn-group-justified ">
-                                <a href="#reviews" class="btn btn-primary">Leave Review</a>
+                                <% if user_signed_in? %>
+                                    <a href="#"  data-toggle="modal" data-target="#myModal3"  class="btn btn-primary">Leave Review</a>
+                                <% else %>
+                                    <a href="#"  data-toggle="modal" data-target="#signInModal"  class="btn btn-primary">Leave Review</a>
+                                <% end %>
+
                                 <!-- <a href="#" class="btn btn-primary">Add To Wishlist</a> -->
                                  <% if user_signed_in? && @place.users.include?(current_user) %>
                                     <a class="btn btn-primary" href="#" id="place-favorite" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from wishlist</a>
@@ -116,6 +125,7 @@
                 </div>
             </nav>
         </div><!--/.br15_top_search container-fluid -->
+        <%= render 'reviews/form' %>
 
         <div class="br15_about container-fluid">
             <div class="br15_row_mob">
