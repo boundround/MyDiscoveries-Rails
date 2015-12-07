@@ -1,2 +1,2 @@
-<h1>Reviews#show</h1>
-<p>Find me in app/views/reviews/show.html.erb</p>
+<% slug = @review.reviewable.slug %>
+<h3><%= link_to  @review.reviewable.display_name, place_path(slug) %></h3>

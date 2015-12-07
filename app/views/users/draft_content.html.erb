@@ -24,7 +24,8 @@
         <% @stories.each do |story| %>
           <%= simple_form_for [story.storiable, story] do |f| %>
             <tr>
-              <td><%= story.storiable ? (link_to story.storiable.display_name, polymorphic_path(story.storiable)) : "" %></td>
+              <!-- <td><%#= story.storiable ? (link_to story.storiable.display_name, polymorphic_path(story.storiable)) : "" %></td> -->
+              <td><%= f.association :storiable, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
               <td><%= f.input :title %></td>
               <td><%= f.input :content %></td>
               <% story.user_photos.each do |photo| %>
@@ -63,7 +64,8 @@
           <% if review.reviewable %>
             <%= simple_form_for [review.reviewable, review] do |f| %>
               <tr>
-                <td><%= review.reviewable ? (link_to review.reviewable.display_name, polymorphic_path(review.reviewable)) : "" %></td>
+                <!-- <td><%#= review.reviewable ? (link_to review.reviewable.display_name, polymorphic_path(review.reviewable)) : "" %></td> -->
+                <td><%= f.association :reviewable, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
                 <td><%= f.input :title %></td>
                 <td><%= f.input :content %></td>
                 <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed", "user"] %></td>
