@@ -59,6 +59,3 @@
 //= require gmaps.min
 //= require owl.carousel.min
 //= require custom
-
-
-

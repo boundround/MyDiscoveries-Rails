@@ -71,7 +71,8 @@
             <!-- <div class="col-xs-12 visible-xs"> <%#= render 'layouts/mobile_nav' %> </div>   -->
             
             <div class="row br15_city_header cs-br15_city_header text-center">
-               <p class="br_time cs-br-time"> <img class="country-flag" src="<%= asset_path('flags/' + @country.country_code.downcase + '.png') %>"/> <span class="hidden-xs">
+               <p class="br_time cs-br-time"> <img class="country-flag" src="<%= asset_path('flags/' + @country.country_code.downcase + '.png') %>"/> 
+               <span class="hidden-xs">
                   <% if @weather %>
                     <span class="temperature">
                     <% if @weather_temp %>
@@ -88,11 +89,11 @@
                 <div class="col-sm-12 ">
                     <a href="#" class="center-block br15_logo"><img src="/assets/br_logo_new.png" class="img-responsive center-block" alt=""></a>
                 </div>
-            <%= render 'layouts/search_input'%>
+            <%#= render 'layouts/search_input'%>
             <h1 class="text-center" id="country-name-heading"><%= body_title(@country.display_name) %><br/>
               <span id="country-population">Population: </span>
             </h1>
-              <span class="hero-hearts text-center"> <i class="fa fa-share-square-o fa-lg"></i>&nbsp;&nbsp;&nbsp; <a href="#"
+              <span class="hero-hearts text-center"><a href="#"
               onclick="
               window.open(
                 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
@@ -116,7 +117,6 @@
                 <div class="col-sm-4 col-xs-12 text-right br15_light_font">
                     <div class="row">
                         <div class="col-sm-12 col-xs-12">
-                            <a href="#" class="br15_share_btn text-center"><i class="fa fa-share-square-o hidden-xs"></i><br/>SHARE <i class="fa fa-share-square-o hidden-sm hidden-md hidden-lg"></i></a>
                                 <!-- <a href="#" class="btn btn-primary br15_btn_add_wish">Add To Wishlist</a> -->
                             <% if user_signed_in? && @country.users.include?(current_user) %>
                               <a href="#" class="btn btn-primary br15_btn_add_wish">id="place-favorite" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from wishlist</a>
@@ -171,7 +171,7 @@
         <div class="clearfix"></div>
          <!-- Videos -->
         <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid">
-            <a href="#" class="btn btn-default new-btn-orange a-photo br15_Title_See_All">Videos<span>See All</span></a>
+            <a href="#" class="btn btn-default new-btn-orange a-photo br15_Title_See_All">Videos</a>
             <div class="row">
             <!-- <div class="col-lg-12"> -->
                 <div id="br15_owl_video" class="owl-carousel">
@@ -183,9 +183,10 @@
               <% @videos.each_with_index do |asset, index| %>
                 <div>
                   <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" id="player<%= index + 5%>" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player<%= index + 5%>" width="273" frameborder="2" data-title="<%= asset.title %>" data-description="<%= asset.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                    <iframe class="embed-responsive-item" id="player<%= index + 5%>" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player<%= index + 5%>" width="273" frameborder="2"  data-description="<%= asset.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
                     </iframe>
                     <div class="overlay carousel-country-photo" data-slide-number="<%= index %>"></div>
+                    <h4 class="video-title"><%= asset.title %></h4>  
                   </div>
                 </div>
               <% end %>
@@ -203,7 +204,7 @@
 
         <!-- Photos -->
         <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid">
-            <a href="#" class="btn btn-default new-btn-orange a-photo br15_Title_See_All">Photos<span>See All</span></a>
+            <a href="#" class="btn btn-default new-btn-orange a-photo br15_Title_See_All">Photos</a>
             <div class="row">
             <!-- <div class="col-lg-12"> -->
                 <div id="br15_owl_photos" class="owl-carousel">
@@ -325,20 +326,4 @@
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
-
-        <footer class="container-fluid text-center br15_footer">
-            <div class="row">
-                <div class="col-xs-12">
-                    <ul class="list-inline text-uppercase">
-
-                      <li><a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a></li>
-                      <li><a href="http://boundround.com/education/" target="blank">Teachers</a></li>
-                      <li><a href="http://boundround.com/media/" target="blank">Media</a></span></p></li>
-                      <li><a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a></li>
-                      <li><a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a></li>
-                      <li><a href="http://boundround.com/about-us/" target="blank">About Us</a></li>
-                      <li><a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
+<%= render 'layouts/footer' %>

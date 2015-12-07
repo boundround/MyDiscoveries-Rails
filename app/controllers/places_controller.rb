@@ -143,19 +143,39 @@ class PlacesController < ApplicationController
 
     ##########################
     # Get all photos and videos for this place and sort by created at date
-    @all_photos_and_videos = []
+    # @all_photos_and_videos = []
+    # @place.videos.active.each do |video|
+    #   if !video.hero
+    #     @all_photos_and_videos << video
+    #   end
+    # end
+    # @place.photos.active.each do |photo|
+    #   @all_photos_and_videos << photo
+    # end
+    # @active_user_photos.each do |photo|
+    #   @all_photos_and_videos << photo
+    # end
+    # @all_photos_and_videos.sort {|x, y| x.created_at <=> y.created_at}
+    
+    #NEW 
+    @videos = []
+    @photos = []
+
     @place.videos.active.each do |video|
       if !video.hero
-        @all_photos_and_videos << video
+        @videos << video
       end
     end
+
     @place.photos.active.each do |photo|
-      @all_photos_and_videos << photo
+      @photos << photo
     end
     @active_user_photos.each do |photo|
-      @all_photos_and_videos << photo
+      @photos << photo
     end
-    @all_photos_and_videos.sort {|x, y| x.created_at <=> y.created_at}
+
+    @photos.sort {|x, y| x.created_at <=> y.created_at}
+    @videos.sort {|x, y| x.created_at <=> y.created_at}
     ###############################
 
     @request_xhr = request.xhr?
