@@ -59,3 +59,5 @@
 //= require gmaps.min
 //= require owl.carousel.min
 //= require custom
+//= require jquery.Jcrop.min
+//= require places_crop

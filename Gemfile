@@ -33,6 +33,8 @@ gem 'rest_in_place'
 
 gem 'jquery-fileupload-rails'
 
+gem 'carrierwave-crop'
+
 # 12 Factor Gem for Heroku Deploy
 gem 'rails_12factor', group: :production
 # Use Uglifier as compressor for JavaScript assets

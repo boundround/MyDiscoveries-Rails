@@ -156,8 +156,8 @@ class PlacesController < ApplicationController
     #   @all_photos_and_videos << photo
     # end
     # @all_photos_and_videos.sort {|x, y| x.created_at <=> y.created_at}
-    
-    #NEW 
+
+    #NEW
     @videos = []
     @photos = []
 
@@ -361,7 +361,11 @@ class PlacesController < ApplicationController
         discount.add_or_remove_from_country(@place.country)
       end
 
-      redirect_to :back, notice: 'Place succesfully updated'
+      if params[:place][:hero_image].present?
+        render :crop
+      else
+        redirect_to :back, notice: 'Place succesfully updated'
+      end
 
     else
       redirect_to edit_place_path(@place), notice: 'Error: Place not updated'
@@ -645,7 +649,7 @@ class PlacesController < ApplicationController
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :show_on_school_safari, :school_safari_description, :booking_url, :display_address, :subscription_level,
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon, :published_at, :unpublished_at,
-                                    :street_number, :route, :sublocality, :locality, :state, :post_code, :created_by, :user_created,
+                                    :street_number, :route, :sublocality, :locality, :state, :post_code, :created_by, :user_created, :hero_image, :crop_x, :crop_y, :crop_h, :crop_w,
                                     :customer_approved, :customer_review, :approved_at, :country_id,
                                     :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status,
                                     photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],

@@ -2,6 +2,8 @@ class Place < ActiveRecord::Base
   include CustomerApprovable
   include AlgoliaSearch
 
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+
   algoliasearch index_name: 'place', id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name, :latitude, :longitude, :locality, :post_code, :display_address
@@ -95,6 +97,7 @@ class Place < ActiveRecord::Base
   after_validation :reverse_geocode
 
   after_save :load_into_soulmate
+  after_update :crop_hero_image
   before_destroy :remove_from_soulmate
   before_save :check_valid_url, :set_approval_time
 
@@ -161,6 +164,7 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :user_photos, allow_destroy: true
 
   mount_uploader :map_icon, IconUploader
+  mount_uploader :hero_image, PlaceHeroImageUploader
 
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
@@ -356,6 +360,10 @@ class Place < ActiveRecord::Base
     self.status = "removed"
     self.unpublished_at = nil
     self.save
+  end
+
+  def crop_hero_image
+    hero_image.recreate_versions! if crop_x.present?
   end
 
   private
