@@ -1,2 +1,11 @@
-<% slug = @story.reviewable.slug %>
-<h3><%= link_to  @story.reviewable.display_name, place_path(slug) %></h3>
+<% slug = @story.storiable.slug %>
+
+<div class="text-center review-show">
+    <h1><%= @story.title %><%#= !@review.title.blank? ? @review.title : @review.reviewable.display_name %></h1>
+    <h2>- <%= @story.user.username %> <%#= strip_domain_from_username @review.user %>
+    </h2>
+    <h3><%= @story.content %></h3>
+    </p>
+    <h3><%= link_to  @story.storiable.display_name, place_path(slug) %></h3>
+</div>
+

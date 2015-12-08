@@ -1,2 +1,24 @@
 <% slug = @review.reviewable.slug %>
-<h3><%= link_to  @review.reviewable.display_name, place_path(slug) %></h3>
+<style>
+  .review-show{
+    color:#F07656;
+  }
+  .review-show h2, .review-show h3{
+    color:#808080;
+  }
+</style>
+
+<div class="text-center review-show">
+    <h1><%= !@review.title.blank? ? @review.title : @review.reviewable.display_name %></h1>
+    <h2>- <%= @review.user.username %> <%#= strip_domain_from_username @review.user %>
+        <span class="hidden-xs">
+          <% get_user_place_rating_from_review(@review).times do |star| %>
+            <span class="fa fa-star"></span>
+        <% end %>
+        </span>
+    </h2>
+    <h3 class="content-show"><%= @review.content %></h3>
+    </p>
+    <h3><%= link_to  @review.reviewable.display_name, place_path(slug) %></h3>
+</div>
+

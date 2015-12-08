@@ -204,10 +204,16 @@
             <th>Priority</th>
             <th>Status</th>
             <th>Delete</th>
+            <th>Change Location</th>
           </tr>
         </thead>
         <tbody>
           <% @place.user_photos.each do |photo| %>
+              <% if photo.place %>
+                <% @location = photo.place %>
+              <% else %>
+                <% @location = photo.area %>
+              <% end %>
             <%= f.fields_for :user_photos, photo do |ff| %>
               <tr>
                 <%= ff.input :id, as: :hidden %>
@@ -218,6 +224,7 @@
                 <td><%= ff.select :priority, ([nil].push((1..20).to_a)).flatten %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :_destroy %></td>
+                <td><%= link_to 'Change Location', edit_place_user_photo_path(@location, photo) %></td>
               </tr>
             <% end %>
           <% end %>

@@ -10,7 +10,7 @@
     <tbody>
     <%= simple_form_for [@story.storiable, @story] do |f| %>
       <tr>
-        <td><%= f.association :storiable, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
+        <td><%= f.association :storiable, label:false, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
         <td><%= f.submit :Update %></td>
       </tr>
     <% end %>

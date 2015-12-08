@@ -10,7 +10,7 @@
     <tbody>
     <%= simple_form_for [@review.reviewable, @review] do |f| %>
       <tr>
-        <td><%= f.association :reviewable, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
+        <td><%= f.association :reviewable, label:false, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
         <td><%= f.submit :Update %></td>
       </tr>
     <% end %>

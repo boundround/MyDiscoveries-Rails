@@ -1,0 +1,7 @@
+<% slug = @user_photo.place.slug %>
+
+<div class="text-center review-show">
+    <h2><%= @user_photo.caption %></h2>
+    <img src="<%= asset_path(@user_photo.path_url) %>" class="photo-edit-thumb-large">
+    <h3><%= link_to  @user_photo.place.display_name, place_path(slug) %></h3>
+</div>

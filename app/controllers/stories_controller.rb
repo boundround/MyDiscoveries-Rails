@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   before_filter :load_storiable, :except => :profile_create
-   before_action :set_story, only: [:edit, :update, :show]
+  before_action :set_story, only: [:edit, :update, :show]
 
   def index
     @stories = @storiable.stories
@@ -43,12 +43,12 @@ class StoriesController < ApplicationController
 
   def update
     if @story.update(story_params)
-      @story.save
-    end
-
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { render json: @story }
+      redirect_to place_story_path(@story.storiable, @story)
+    
+    # respond_to do |format|
+    #   format.html { redirect_to :back }
+    #   format.json { render json: @story }
+    # end
     end
   end
 

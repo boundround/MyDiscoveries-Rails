@@ -30,17 +30,15 @@ class ReviewsController < ApplicationController
   def edit;end
 
   def update
+    
     if @review.update(review_params)
-      @review.save
-      aaa = 
-      # redirect_to place_review_path(place_id ,@review)
-      # redirect_to place_review_path(1124,@review)
+      redirect_to place_review_path(@review.reviewable, @review)
     end
 
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { render json: @review }
-    end
+    # respond_to do |format|
+    #   # format.html { redirect_to :back }
+    #   format.json { render json: @review }
+    # end
   end
 
   def destroy
