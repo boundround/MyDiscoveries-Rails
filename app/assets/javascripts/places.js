@@ -114,6 +114,7 @@ $(document).ready(function(){
       var map = new google.maps.Map(document.getElementById('place-map-canvas'), {
         center: new google.maps.LatLng($('.area-content').data('lat'), $('.area-content').data('long')),
         zoom: 13
+
       });
 
       var location = {
@@ -268,7 +269,9 @@ $(document).ready(function(){
     if (document.getElementById('place-map-canvas')){
       var map = new google.maps.Map(document.getElementById('place-map-canvas'), {
         center: new google.maps.LatLng($('.area-content').data('lat'), $('.area-content').data('long')),
-        zoom: 13
+        zoom: 13,
+        scrollwheel: false
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
       });
 
       var location = {
