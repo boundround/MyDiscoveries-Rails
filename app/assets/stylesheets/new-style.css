@@ -939,4 +939,12 @@ h1#country-name-heading{
   pointer-events: none;
   text-shadow: 0px 0px 10px rgb(20, 13, 13), 5px 2px 7px rgb(41, 35, 35);
 }
+
+.hero-hearts-place{
+  position: relative;
+  bottom: 30px;
+}
+.embed-responsive img.embed-responsive-item{
+  height: auto !important;
+}
 /*END*/                             
