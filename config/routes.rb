@@ -143,6 +143,7 @@ Rails.application.routes.draw do
   end
 
   post '/places/transfer_assets' => 'places#transfer_assets'
+  get '/places/:id/hero_image_picker' => 'places#hero_image_picker'
   resources :places do
     member { get 'preview' }
     collection { get 'all_edited'} # all place content in draft

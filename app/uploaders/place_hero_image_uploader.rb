@@ -43,7 +43,7 @@ class PlaceHeroImageUploader < CarrierWave::Uploader::Base
 
   version :large do
     process :crop
-    process :resize_to_fill => [840, 167]
+    process :resize_to_fit => [900, 900]
   end
 
   # version : do
