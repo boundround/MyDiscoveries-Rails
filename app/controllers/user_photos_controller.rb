@@ -1,5 +1,6 @@
 class UserPhotosController < ApplicationController
   # before_filter :load_place_or_area, except: [:profile_create, :destroy]
+  before_action :set_user_photo, only:[:show, :edit, :update, :destroy]
 
   def index
     @user_photos = Photo.all
@@ -11,7 +12,7 @@ class UserPhotosController < ApplicationController
   end
 
   def show
-    @user_photo = Photo.find(params[:id])
+
 
     respond_to do |format|
       format.html
@@ -57,26 +58,22 @@ class UserPhotosController < ApplicationController
   end
 
   def destroy
-    @user_photo = UserPhoto.find(params[:id])
     @user_photo.destroy
     redirect_to :back, notice: "Photo deleted"
   end
 
-  def edit
-    @user_photo = UserPhoto.find(params[:id])
-  end
+  def edit;end
 
   def update
-    @user_photo = UserPhoto.find(params[:id])
-
     if @user_photo.update(user_photo_params)
-      @user_photo.save
+       redirect_to place_user_photo_path(@user_photo.place, @user_photo)
+       # redirect_to root_path
     end
 
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { render json: @user_photo }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to :back }
+    #   format.json { render json: @user_photo }
+    # end
   end
 
   def import
@@ -85,6 +82,10 @@ class UserPhotosController < ApplicationController
   end
 
   private
+    def set_user_photo
+        @user_photo = UserPhoto.find(params[:id])
+    end
+
     def load_place_or_area
       resource, id = request.path.split("/")[1, 2]
       @place_or_area = resource.singularize.classify.constantize.friendly.find(id)
