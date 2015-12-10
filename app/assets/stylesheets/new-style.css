@@ -930,13 +930,19 @@ h1#country-name-heading{
 }
 
 .video-title {
-  position: absolute;
-  padding: 90px 30px;
   color: rgb(255, 255, 255);
-  top: 109px;
+  position: absolute;
+  left:33px;
+  bottom: 10px;
   font-weight: 900;
   text-transform: capitalize;
   pointer-events: none;
   text-shadow: 0px 0px 10px rgb(20, 13, 13), 5px 2px 7px rgb(41, 35, 35);
+  font-size: 17px;
+}
+@media(max-width:400px){
+  .video-title {
+    font-size: 13px;
+  }
 }
 /*END*/                             
