@@ -942,7 +942,7 @@ h1#country-name-heading{
 
 .hero-hearts-place{
   position: relative;
-  bottom: 30px;
+  /*bottom: 30px;*/
 }
 .embed-responsive img.embed-responsive-item{
   height: auto !important;
@@ -956,4 +956,13 @@ h1#country-name-heading{
 }
 .photo-edit-thumb-large{
   max-width: 700px;
+}
+.col-sm-12.cs-logo{
+  margin-bottom: 50px;
+}
+.br_read_more.cs-br-read-more{
+  background: none;
+}
+.modal-backdrop{
+  z-index: 1000 !important;
 }
