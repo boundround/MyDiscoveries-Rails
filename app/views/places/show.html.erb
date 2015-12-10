@@ -6,7 +6,8 @@
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
   <style>
     .br15_city_header {
-      background: url(<%= raw draw_hero_background(@place) %>) center center no-repeat;
+      /*background: url(<%= raw draw_hero_background(@place) %>) center center no-repeat;*/
+      background: url('/assets/br_15_main.jpg') center center no-repeat;
       background-size: cover;
       min-height: 334px;
 
@@ -48,14 +49,11 @@
                     </p>
                 <% end %>
 
-                <div class="col-sm-12 ">
+                <div class="col-sm-12 cs-logo">
                     <a href="<%= root_path %>" class="center-block br15_logo"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive center-block" alt=""></a>
 
                 </div>
-              
-                <%#= render 'layouts/search_input'%>
-            </div>
-            <div class="hero-hearts hero-hearts-place text-center"><a href="#"
+              <div class="hero-hearts hero-hearts-place text-center"><a href="#"
               onclick="
               window.open(
                 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
@@ -69,6 +67,9 @@
                 'width=626,height=436');
                 return false;"> <i class="fa fa-twitter-square fa-lg"></i></a> 
               </div>
+                <%#= render 'layouts/search_input'%>
+            </div>
+            
             <nav class=" br15_fixed nav row" data-spy="affix" data-offset-top="300">
                 <div class="col-sm-3 pull-right col-xs-12 br15_light_font">
                     <div class="row">

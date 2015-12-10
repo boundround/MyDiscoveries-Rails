@@ -944,9 +944,12 @@ h1#country-name-heading{
 
 .hero-hearts-place{
   position: relative;
-  bottom: 30px;
+  /*bottom: 30px;*/
 }
 .embed-responsive img.embed-responsive-item{
   height: auto !important;
+}
+.col-sm-12.cs-logo{
+  margin-bottom: 50px;
 }
 /*END*/                             
