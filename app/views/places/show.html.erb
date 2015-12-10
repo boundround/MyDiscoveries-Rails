@@ -241,7 +241,14 @@
                 <div class="col-sm-12" id="stories">
                     <div class=" br15_stories br15_reviews">
                         <div class="col-xs-12">
-                            <a  href="#" class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All">Stories<span>See All</span></a>
+                            <%# if user_signed_in? %>
+                                <a href="#" class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All"> Story</a>
+                            <%# else %>
+                                <!-- <a href="#" data-toggle="modal" data-target="#signInModal" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Story</a> -->
+                                <!-- <a href="#" data-toggle="modal" data-target="#signInModal" class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All"> Story</a> -->
+                            <%# end %>
+                            <!-- <a  href="#" class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All">Stories<span>See All</span></a> -->
+
                             <hr class="br15_hr visible-xs"/>
                             <%= render 'stories/all_stories' %>
                         </div>

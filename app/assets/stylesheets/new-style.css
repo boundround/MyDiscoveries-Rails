@@ -952,4 +952,10 @@ h1#country-name-heading{
 .col-sm-12.cs-logo{
   margin-bottom: 50px;
 }
+.br_read_more.cs-br-read-more{
+  background: none;
+}
+.modal-backdrop{
+  z-index: 1000 !important;
+}
 /*END*/                             
