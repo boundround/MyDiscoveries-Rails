@@ -26,7 +26,7 @@ class PlaceHeroImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  # process :resize_to_fit => [1000, 1000]
+  process :resize_to_fit => [900, 900]
   #
   # def scale(width, height)
   #   # do something
@@ -41,9 +41,13 @@ class PlaceHeroImageUploader < CarrierWave::Uploader::Base
   #   process :resize_to_fit => [500, 500]
   # end
 
-  version :large do
+  # version :large do
+  #   process :resize_to_fit => [900, 900]
+  # end
+
+  version :hero do
     process :crop
-    process :resize_to_fit => [900, 900]
+    process :resize_to_fill => [840, 167]
   end
 
   # version : do
@@ -64,13 +68,13 @@ class PlaceHeroImageUploader < CarrierWave::Uploader::Base
 
   def crop
     if model.crop_x.present?
-      resize_to_fill(840, 167)
       manipulate! do |img|
         x = model.crop_x.to_i
         y = model.crop_y.to_i
         w = model.crop_w.to_i
         h = model.crop_h.to_i
-        img.crop!(x, y, w, h)
+        img.crop("#{x}x#{y}+#{w}+#{h}")
+        return img
       end
     end
   end

@@ -1,16 +1,11 @@
 <div class="container">
 <h1>Crop Hero Image</h1>
 
-<%= image_tag @place.hero_image_url(:large), id: "cropbox" %>
-
-<h4>Preview</h4>
-<div style="width:280px; height:55px; overflow:hidden">
-  <%= image_tag @place.hero_image.url(:large), :id => "preview" %>
-</div>
+<%= image_tag @place.hero_image_url, id: "cropbox" %>
 
 <%= form_for @place do |f| %>
   <% %w[x y w h].each do |attribute| %>
-    <%= f.text_field "crop_#{attribute}" %>
+    <%= f.hidden_field "crop_#{attribute}" %>
   <% end %>
   <div class="actions">
     <%= f.submit "Crop" %>

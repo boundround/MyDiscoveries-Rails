@@ -14,11 +14,3 @@ class CarrierWaveCropper
     $('#place_crop_y').val(coords.y)
     $('#place_crop_w').val(coords.w)
     $('#place_crop_h').val(coords.h)
-    @updatePreview(coords)
-
-  updatePreview: (coords) =>
-    $('#preview').css
-      width: Math.round(100/coords.w * $('#cropbox').width()) + 'px'
-      height: Math.round(100/coords.h * $('#cropbox').height()) + 'px'
-      marginLeft: '-' + Math.round(100/coords.w * coords.x) + 'px'
-      marginTop: '-' + Math.round(100/coords.h * coords.y) + 'px'
