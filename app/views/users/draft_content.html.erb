@@ -7,6 +7,7 @@
       <thead>
         <tr>
           <th>Location</th>
+          <th>Add To Country</th>
           <th>Title</th>
           <th>Content</th>
           <th>Photo 1</th>
@@ -24,7 +25,11 @@
         <% @stories.each do |story| %>
           <%= simple_form_for [story.storiable, story] do |f| %>
             <tr>
-              <td><%= f.association :storiable, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
+              <td><%= f.association :storiable, label_method: :display_name, collection: @places, value_method: :id %></td>
+              <td>
+                <%= check_box_tag :add_country, nil, (story.country_id.nil? ? false : "checked") %>
+                <%= label_tag "Add to this country" %>
+              </td>
               <td><%= f.input :title %></td>
               <td><%= f.input :content %></td>
               <% story.user_photos.each do |photo| %>
@@ -38,7 +43,7 @@
                 <% end %>
                 <% end%>
               <td><%= f.input :status, label: "Story Status", as: :select, collection: ["draft", "live", "removed"] %></td>
-              <td><%= story.user.username %></td>
+              <td><%= f.association :user, label_method: :username, collection: @users, value_method: :id %></td>
               <td><%= f.submit :submit %></td>
             </tr>
             <% end %>
@@ -51,6 +56,7 @@
       <thead>
         <tr>
           <th>Location</th>
+          <th>Add To Country</th>
           <th>Title</th>
           <th>Content</th>
           <th>Status</th>
@@ -63,11 +69,15 @@
           <% if review.reviewable %>
             <%= simple_form_for [review.reviewable, review] do |f| %>
               <tr>
-                <td><%= f.association :reviewable, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
+                <td><%= f.association :reviewable, label_method: :display_name, collection: @places, value_method: :id %></td>
+                <td>
+                <%= check_box_tag :add_country, nil, (review.country_id.nil? ? false : "checked") %>
+                <%= label_tag "Add to this country" %>
+                </td>
                 <td><%= f.input :title %></td>
                 <td><%= f.input :content %></td>
                 <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed", "user"] %></td>
-                <td><%= review.user.username%></td>
+                <td><%= f.association :user, label_method: :username, collection: @users, value_method: :id %></td>
                 <td><%= f.submit :submit %></td>
               </tr>
             <% end %>
@@ -81,6 +91,7 @@
       <thead>
         <tr>
           <th>Location</th>
+          <th>Add To Country</th>
           <th>Google Place</th>
           <th>Thumbnail</th>
           <th>Caption</th>
@@ -98,12 +109,25 @@
             <% end %>
           <%= simple_form_for [@location, user_photo] do |f| %>
             <tr>
-              <td><%= f.association :place, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
+              <td><%= f.association :place, label_method: :display_name, collection: @places, value_method: :id %></td>
+              <td>
+                <%= check_box_tag :add_country, nil, (user_photo.country_id.nil? ? false : "checked") %>
+                <%= label_tag "Add to this country" %>
+              </td>
               <td><span class="google-place-id" data-google-place-id="<%= user_photo.google_place_id %>"><span class="google-place-name"></td>
               <td><img src="<%= thumbnail_for(user_photo) %>" class="photo-edit-thumb"></td>
               <td><%= f.input :caption %></td>
               <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
-              <td><%= user_photo.user ? user_photo.user.username : "No User Associated" %></td>
+              <!-- <td><%#= user_photo.user ? user_photo.user.username : "No User Associated" %></td> -->
+              <%= f.hidden_field :path, :value => user_photo.path %>
+              <td><%=
+                if user_photo.user
+                 f.association :user, label_method: :username, collection: @users, value_method: :id
+                else
+                  "No User Associated"
+                end
+               %>
+               </td>
               <td><%= f.submit :submit %></td>
             </tr>
           <% end %>

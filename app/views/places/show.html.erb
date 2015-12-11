@@ -190,14 +190,7 @@
         <div class="br15_review container-fluid">
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1" id="reviews">
-                      <% if user_signed_in? %>
-                        <a href="#"  class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">reviews</a> &nbsp;
-                        <!-- <a href="" class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All" data-toggle="modal" data-target="#myModal3">Leave a review</a> -->
-                      <% else %>
-                        <a href="#"  class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">Reviews</a> &nbsp;
-                        <!-- <a href="" class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All" data-toggle="modal" data-target="#signInModal">Leave a review</a></h2> -->
-                      <% end %>
-                    <!-- <a href="#"  class="btn btn-default br15_pad_bot_5  br15_features_btn  br15_Title_See_All">Reviews</a> -->
+                        <a class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">Reviews</a>
                     <%= render "reviews/reviews" %>
                 </div>
             </div>

@@ -5,6 +5,7 @@ class Story < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :storiable, polymorphic: true
+  belongs_to :country
   has_many :user_photos, -> { order "story_priority ASC"}, :inverse_of => :story
 
   has_many :stories_users

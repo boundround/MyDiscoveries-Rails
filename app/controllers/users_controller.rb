@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :redirect_if_not_admin, only: [:index]
+  before_action :redirect_if_not_admin, only: [:index, :draft_content]
 
   def index
     @set_body_class = 'white-body'
@@ -174,7 +174,8 @@ class UsersController < ApplicationController
     @stories = Story.where(status: "draft")
     @user_photos = UserPhoto.where('story_id IS NULL').where(status: "draft")
     @reviews = Review.where(status: "draft")
-    @places = Place.all
+    @users = User.order(:username)
+    @places = Place.order(:display_name)
   end
 
   def instagram_feed

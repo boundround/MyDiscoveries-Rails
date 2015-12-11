@@ -30,7 +30,11 @@ class ReviewsController < ApplicationController
   def edit;end
 
   def update
-    
+    if params[:add_country]
+      @review.country_id = @review.reviewable.country_id
+    else
+      @review.country_id = nil
+    end
     if @review.update(review_params)
       redirect_to place_review_path(@review.reviewable, @review)
     end
