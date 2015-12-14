@@ -9,7 +9,7 @@
   <%= simple_form_for @place, html: { role: 'form'} do |f| %>
     <% if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin? %>
       <div class="form-group">
-        <%= f.input :hero_image, input_html: { class: 'form-control' } %>
+        <a href="<%= hero_image_picker_place_path(@place)%>" class="btn btn-default">Choose Hero Image</a>
       </div><div class="form-group">
         <%= f.input :display_name, input_html: { class: 'form-control' } %>
       </div>

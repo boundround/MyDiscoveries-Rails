@@ -26,7 +26,7 @@ class PlaceHeroImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :resize_to_fit => [900, 900]
+  process :resize_to_fit => [1008, nil]
   #
   # def scale(width, height)
   #   # do something
@@ -47,7 +47,7 @@ class PlaceHeroImageUploader < CarrierWave::Uploader::Base
 
   version :hero do
     process :crop
-    process :resize_to_fill => [840, 167]
+    process :resize_to_fill => [1008, 200]
   end
 
   # version : do

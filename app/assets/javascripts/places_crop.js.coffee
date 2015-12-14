@@ -4,8 +4,8 @@ jQuery ->
 class CarrierWaveCropper
   constructor: ->
     $('#cropbox').Jcrop
-      aspectRatio: 840 / 167
-      setSelect: [0, 0, 840, 167]
+      aspectRatio: 1008 / 200
+      setSelect: [0, 0, 1008, 200]
       onSelect: @update
       onChange: @update
 
