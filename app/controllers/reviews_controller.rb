@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_filter :load_reviewable
+  before_action :set_review, only: [:edit, :update, :show]
 
   def index
     @reviews = @reviewable.reviews
@@ -26,32 +27,33 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit;end
 
   def update
-    @review = Review.find(params[:id])
-
+    
     if @review.update(review_params)
-      @review.save
+      redirect_to place_review_path(@review.reviewable, @review)
     end
 
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { render json: @review }
-    end
+    # respond_to do |format|
+    #   # format.html { redirect_to :back }
+    #   format.json { render json: @review }
+    # end
   end
 
   def destroy
   end
 
   private
+    def set_review
+      @review = Review.find(params[:id])
+    end
     def load_reviewable
       resource, id = request.path.split("/")[1, 2]
       @reviewable = resource.singularize.classify.constantize.friendly.find(id)
     end
 
     def review_params
-      params.require(:review).permit(:content, :title, :user_id, :status, :google_place_id)
+      params.require(:review).permit(:content, :title, :user_id, :status, :google_place_id, :reviewable_id)
     end
 end

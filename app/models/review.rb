@@ -7,6 +7,7 @@ class Review < ActiveRecord::Base
   validates :reviewable, presence: true
   belongs_to :reviewable, polymorphic: true
   belongs_to :user
+  # belongs_to :place
 
   has_many :reviews_users
   has_many :users, through: :reviews_users

@@ -1,0 +1,29 @@
+ <%#= form_for [(@place ? @place : @area), UserPhoto.new], :html => { :id => "user-photo-upload"  } do |f| %>
+          <%#= f.file_field :path, label: false %>
+          <%#= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+          <%#= f.hidden_field :status, :value => "draft" %>
+          <%# if @place %>
+            <%#= f.hidden_field :place_id, :value => @place.id %>
+          <%# else %>
+            <%#= f.hidden_field :area_id, :value => @area.id %>
+          <%# end %>
+<div id="table-container">
+  <h3>Change Place For This Photo</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Location</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    <%= simple_form_for [@user_photo.place, @user_photo] do |f| %>
+      <tr>
+        <td><%= f.association :place, label_method: :display_name,label:false, collection: Place.order(:display_name), value_method: :id %></td>
+        <td><%= f.submit :Update %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

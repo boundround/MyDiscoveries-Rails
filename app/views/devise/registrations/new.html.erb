@@ -58,24 +58,24 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    
+
                                     <%= f.input_field :username, required: true, autofocus: true, placeholder: "Username", class: "form-control" %>
-                                   
+
                                 </div>
                                 <div class="col-sm-6">
                                     <!-- <input type="email" class="form-control" value="jdoe@gmail.com"/> -->
                                     <%= f.input_field :email, required: true, autofocus: true, placeholder: "Email", class: "form-control" %>
-                                   
+
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <%= f.password_field :password, required: true, placeholder: "Password", class: "form-control"%>
-                                    
+
                                 </div>
                                 <div class="col-sm-6">
                                     <%= f.password_field :password_confirmation, required: true, placeholder: "Password Confirmation",class: "form-control" %>
-                                   
+
                                 </div>
                             </div>
                             <div class="row">
@@ -96,12 +96,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 br_modal_contry_left">
-                                  
-                                    <select class="form-control">
-                                        <option value="">USA</option>
-                                        <option value="">India</option>
-                                        <option value="">Austria</option>
-                                    </select>
+                                  <%= f.country_select :country, priority: ["AU", "US"], selected: "AU" %>
                                 </div>
                                 <div class="col-sm-6 br_modal_contry_right">
                                     <%#- if devise_mapping.omniauthable? %>
@@ -113,7 +108,7 @@
                                     <%# end -%>
 
                                 <input type="text" class="form-control" placeholder="Instagram Name">
-                              
+
                                 </div>
                             </div>
                         </div><!--/modal body -->

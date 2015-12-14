@@ -1,5 +1,5 @@
 <div id="table-container">
-  <h3>Change Place For This Review</h3>
+  <h3>Change Place For This Story</h3>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -8,9 +8,9 @@
       </tr>
     </thead>
     <tbody>
-    <%= simple_form_for [@review.reviewable, @review] do |f| %>
+    <%= simple_form_for [@story.storiable, @story] do |f| %>
       <tr>
-        <td><%= f.association :reviewable, label:false, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
+        <td><%= f.association :storiable, label:false, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
         <td><%= f.submit :Update %></td>
       </tr>
     <% end %>

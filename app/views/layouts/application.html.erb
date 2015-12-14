@@ -130,9 +130,8 @@
 	  <div class="app-wrap">
 	    <%= yield %>
 	  </div>
-	<% if current_user.nil? %>
-	  <%= render "/layouts/signin_modals" %>
-	<% end %>
+	
+	  <%= render "/layouts/signin_modals" unless user_signed_in? %>
 	  <%= render "/layouts/share_modal" %>
 
 	</body>

@@ -234,7 +234,7 @@ button.close.cs-close, a.close.cs-close{
   background: rgba(0, 0, 0, 0) url("/assets/crossBtn.png") no-repeat scroll 0 0;
   cursor: pointer;
   height: 40px;
-  width: 40px;  
+  width: 40px;
   left: 26px;
   opacity: 1 !important;
 }
@@ -252,7 +252,7 @@ button.close.cs-close.close-signup, a.close.cs-close.close-signup{
        height:500px;
      }
    }
-  
+
  @media (max-width: 773px) {
    .img_bg_header {
      display: block;
@@ -268,13 +268,13 @@ button.close.cs-close.close-signup, a.close.cs-close.close-signup{
      display: none;
    }
  }
- 
+
 .modal-footer .left p{
   line-height: 17px;
   margin:0px;
   padding: 2px;
 }
- 
+
 @media screen and(max-width:767px) {
   .modal-footer .right {
     margin-left: -12px;
@@ -331,7 +331,7 @@ h1.sign-in {
 .btn-warning.btn-orange{
   background:#F07656 !important;
   color: #fff;
-  border: none; 
+  border: none;
 }
 
 .btn-default.btn-cancel{
@@ -375,17 +375,17 @@ h1.sign-in {
 
 .form-inline .open button{
   border:none !important;
-  border-bottom: 1px solid #F07656 !important; 
+  border-bottom: 1px solid #F07656 !important;
 }
-.form-inline > .control-group > .controls div:nth-child(2){  
+.form-inline > .control-group > .controls div:nth-child(2){
   margin-right: 78px;
 }
-.form-inline > .control-group > .controls div:nth-child(4){  
+.form-inline > .control-group > .controls div:nth-child(4){
   margin-right: 59px;
 }
 .modal-backdrop{
   z-index:1 !important;
-  
+
 }
 
 ::-webkit-input-placeholder {/* WebKit browsers */
@@ -431,7 +431,7 @@ min-height: 300px;
   overflow-y: hidden !important;
 }
 .dropdown.br_profile .dropdown-menu.cs-dropdown-menu{
- left: -81px; 
+ left: -81px;
 }
 @media (max-width: 767px) {
 .a-signin a{
@@ -562,7 +562,7 @@ min-height: 300px;
   }
 }
 
-/*NEW 24-25 Nov custom countries page and places page*/ 
+/*NEW 24-25 Nov custom countries page and places page*/
 .btn-group.br15_signup_btn_group {
     position: absolute ;
     top: 22px ;
@@ -812,10 +812,10 @@ min-height: 300px;
  max-width: 214px;
 }
 .btn.btn-default.new-btn-orange.a-fun{
- max-width: 150px; 
+ max-width: 150px;
 }
 .btn.btn-default.new-btn-orange.a-fun:hover{
- max-width: 150px; 
+ max-width: 150px;
 }
 .br_search_box .input-group.cs-input-group{
   margin: 60px 0;
@@ -850,11 +850,11 @@ min-height: 300px;
     padding-top: 19px !important;
     height: 105px !important;
   }
-  #br15_owl_fun_facts .owl-prev, .br15_info.br15_famous .owl-prev{               
+  #br15_owl_fun_facts .owl-prev, .br15_info.br15_famous .owl-prev{
     left: -44px !important;
   }
   #br15_owl_fun_facts .owl-next, .br15_info.br15_famous .owl-next {
-   right: -44px !important; 
+   right: -44px !important;
   }
 }
 @media(min-width: 768px){
@@ -871,13 +871,13 @@ min-height: 300px;
   font-size: 30px !important;
   }
   #br15_owl_fun_facts .owl-buttons div{
-   padding-top: 20px !important; 
+   padding-top: 20px !important;
   }
   #br15_owl_fun_facts .owl-buttons i ,.br15_info.br15_famous .owl-buttons i ,#br15_owl_reviews .owl-buttons i{
     position: relative;
     bottom: 10px !important;
   }
-  
+
 #br15_owl_fun_facts .owl-prev, .br15_info.br15_famous .owl-prev {
   left: -13px !important;
 }
@@ -894,7 +894,7 @@ h1#country-name-heading{
   .br_time.cs-br-time{
     display: block;
   }
-  
+
   .br15_fixed h3 > a{
     white-space: nowrap;
   }
@@ -922,7 +922,7 @@ h1#country-name-heading{
   }
   .br_time.cs-br-time{
     display: block;
-  }  
+  }
 }*/
 
 #br15_owl_video .owl-controls, #br15_owl_reviews .owl-controls {
@@ -930,13 +930,45 @@ h1#country-name-heading{
 }
 
 .video-title {
-  position: absolute;
-  padding: 90px 30px;
   color: rgb(255, 255, 255);
-  top: 109px;
+  position: absolute;
+  left:33px;
+  bottom: 10px;
   font-weight: 900;
   text-transform: capitalize;
   pointer-events: none;
   text-shadow: 0px 0px 10px rgb(20, 13, 13), 5px 2px 7px rgb(41, 35, 35);
+  font-size: 17px;
 }
-/*END*/                             
+@media(max-width:400px){
+  .video-title {
+    font-size: 13px;
+  }
+}
+
+.hero-hearts-place{
+  position: relative;
+  /*bottom: 30px;*/
+}
+.embed-responsive img.embed-responsive-item{
+  height: auto !important;
+}
+/*END*/
+.review-show{
+  color:#F07656;
+}
+.review-show h2, .review-show h3{
+  color:#808080;
+}
+.photo-edit-thumb-large{
+  max-width: 700px;
+}
+.col-sm-12.cs-logo{
+  margin-bottom: 50px;
+}
+.br_read_more.cs-br-read-more{
+  background: none;
+}
+.modal-backdrop{
+  z-index: 1000 !important;
+}

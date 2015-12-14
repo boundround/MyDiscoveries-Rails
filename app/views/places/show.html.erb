@@ -1,3 +1,4 @@
+
 <% provide(:title, @place.display_name) %>
 <% category = @place.categories.first.identifier rescue "default"%>
 <% provide(:category,  category) %>
@@ -6,6 +7,7 @@
   <style>
     .br15_city_header {
       background: url(<%= raw draw_hero_background(@place) %>) center center no-repeat;
+      /*background: url('/assets/br_15_main.jpg') center center no-repeat;*/
       background-size: cover;
       min-height: 334px;
 
@@ -47,12 +49,27 @@
                     </p>
                 <% end %>
 
-                <div class="col-sm-12 ">
-                    <a href="#" class="center-block br15_logo"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive center-block" alt=""></a>
-                </div>
+                <div class="col-sm-12 cs-logo">
+                    <a href="<%= root_path %>" class="center-block br15_logo"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive center-block" alt=""></a>
 
+                </div>
+              <div class="hero-hearts hero-hearts-place text-center"><a href="#"
+              onclick="
+              window.open(
+                'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                'facebook-share-dialog',
+                'width=626,height=436');
+                return false;"> <i class="fa fa-facebook-square fa-lg"></i> </a>&nbsp;&nbsp;&nbsp; <a href=""
+                onclick="
+              window.open(
+                'https://twitter.com/intent/tweet?text=<%= request.original_url %>%20%23seeitmyway',
+                'twitter-hashtag-button',
+                'width=626,height=436');
+                return false;"> <i class="fa fa-twitter-square fa-lg"></i></a> 
+              </div>
                 <%#= render 'layouts/search_input'%>
             </div>
+            
             <nav class=" br15_fixed nav row" data-spy="affix" data-offset-top="300">
                 <div class="col-sm-3 pull-right col-xs-12 br15_light_font">
                     <div class="row">
@@ -101,11 +118,7 @@
                 </div>
                 <div class="col-sm-4 col-xs-12 text-center br15_light_font">
                     <div class="row">
-                        <div class="col-sm-3 col-xs-12">
-                            <a href="#" class="br15_share_btn"><i class="fa fa-share-square-o hidden-xs"></i><br/>SHARE <i class="fa fa-share-square-o hidden-sm hidden-md hidden-lg"></i></a>
-
-                        </div>
-                        <div class="col-sm-9 col-xs-12 br15_light_font">
+                        <div class="col-sm-offset-2 col-sm-9 col-xs-12 br15_light_font">
                             <div class="btn-group br15_Review_Wishlist_BTN btn-group-justified ">
                                 <% if user_signed_in? %>
                                     <a href="#"  data-toggle="modal" data-target="#myModal3"  class="btn btn-primary">Leave Review</a>
@@ -163,7 +176,7 @@
                         <!-- <div class="overlay carousel-country-photo" data-slide-number="<%= index %>">
                           <span class="carousel-like-icon"><%#= raw like_icon(asset) %></span>
                         </div> -->
-                        <h4 class="video-title"><%= asset.title %></h4>
+                        <div class="video-title"><%= asset.title %></div>
                         </div>
                       </div>
                     <%# end %>
@@ -228,7 +241,14 @@
                 <div class="col-sm-12" id="stories">
                     <div class=" br15_stories br15_reviews">
                         <div class="col-xs-12">
-                            <a  href="#" class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All">Stories<span>See All</span></a>
+                            <%# if user_signed_in? %>
+                                <a href="#" class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All"> Story</a>
+                            <%# else %>
+                                <!-- <a href="#" data-toggle="modal" data-target="#signInModal" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Story</a> -->
+                                <!-- <a href="#" data-toggle="modal" data-target="#signInModal" class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All"> Story</a> -->
+                            <%# end %>
+                            <!-- <a  href="#" class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All">Stories<span>See All</span></a> -->
+
                             <hr class="br15_hr visible-xs"/>
                             <%= render 'stories/all_stories' %>
                         </div>
@@ -242,7 +262,7 @@
 
         <div class="br15_map br15_collapse">
             <a href="#" class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">map</a>
-            <div id="place-map-canvas">
+            <div id="place-map-canvas" class="place">
             </div>
         </div>
 

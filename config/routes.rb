@@ -258,4 +258,6 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]
 end
