@@ -35,6 +35,10 @@ gem 'jquery-fileupload-rails'
 
 gem 'carrierwave-crop'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
+
 # 12 Factor Gem for Heroku Deploy
 gem 'rails_12factor', group: :production
 # Use Uglifier as compressor for JavaScript assets

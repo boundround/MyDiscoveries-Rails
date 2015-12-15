@@ -12,6 +12,8 @@ end
 
 Rails.application.routes.draw do
 
+  namespace: :api
+
   resources :bug_posts
   get '/bugs' => 'bug_posts#new'
   get 'all_bugs' => 'bug_posts#index'
