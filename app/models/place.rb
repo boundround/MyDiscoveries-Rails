@@ -190,7 +190,7 @@ class Place < ActiveRecord::Base
   end
 
   def Place.all_places #May be able to be removed
-    Rails.cache.fetch("all_places") { Place.includes(:categories) }
+    Rails.cache.fetch("all_places") { Place.select(:id, :display_name, :bound_round_place_id) }
   end
 
   def flush_places_geojson
