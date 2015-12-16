@@ -427,7 +427,7 @@
     <% end %>
 </div><!--/.area-content -->
 <% end %>
-<div class="container">
+<div class="container" id="blogs">
     <h2 id="blog-title"></h2>
     <div id="blog-content"></div>
 </div>
@@ -438,9 +438,11 @@
         $.ajax({
             url: "//boundround.com/wp-json/wp/v2/posts?filter[s]=" + "<%= @place.display_name %>",
             success: function(data){
-                var firstPost = data[0];
-                $('#blog-title').html(firstPost["title"]["rendered"]);
-                $('#blog-content').html(firstPost["content"]["rendered"]);
+                for(var i = 0; i < data.length; i++){
+                    $('#blogs').append("<h2>" + data[i]["title"]["rendered"]) + "</h2>";
+                    $('#blogs').append("<div>" + data[i]["content"]["rendered"]) + "</div>";
+                    $('#blogs').append("<hr><br><br>");
+                }
             }
         });
     });
