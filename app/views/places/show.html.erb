@@ -436,7 +436,7 @@
     $(document).ready(function(){
         console.log("WP GET");
         $.ajax({
-            url: "http://boundround.com/wp-json/wp/v2/posts?filter[s]=" + "<%= @place.display_name %>",
+            url: "//boundround.com/wp-json/wp/v2/posts?filter[s]=" + "<%= @place.display_name %>",
             success: function(data){
                 var firstPost = data[0];
                 $('#blog-title').html(firstPost["title"]["rendered"]);
