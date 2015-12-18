@@ -52,5 +52,3 @@ class PagesController < ApplicationController
 
 
 end
-
-'SELECT * FROM (SELECT DISTINCT ON (videos.vimeo_id) * FROM videos ORDER BY videos.created_at) top_titles ORDER BY events.copy_count DESC LIMIT 99'
