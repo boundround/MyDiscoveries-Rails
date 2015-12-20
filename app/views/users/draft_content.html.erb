@@ -28,7 +28,7 @@
               <td><%= f.association :storiable, label_method: :display_name, collection: @places, value_method: :id %></td>
               <td>
                 <%= check_box_tag :add_country, nil, (story.country_id.nil? ? false : "checked") %>
-                <%= label_tag "Add to this country" %>
+                <%= label_tag "Add to country" %>
               </td>
               <td><%= f.input :title %></td>
               <td><%= f.input :content %></td>
