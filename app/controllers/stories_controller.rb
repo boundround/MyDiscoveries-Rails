@@ -42,6 +42,11 @@ class StoriesController < ApplicationController
   def edit;end
 
   def update
+    if params[:add_country]
+      @story.country_id = @story.storiable.country_id 
+    else
+      @story.country_id = nil
+    end
     if @story.update(story_params)
       redirect_to place_story_path(@story.storiable, @story)
     
@@ -65,7 +70,7 @@ class StoriesController < ApplicationController
     end
 
     def story_params
-      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id,
+      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id,
                                     user_photos_attributes: [:id, :title, :content, :user_id, :story_id, :story_priority, :place_id, :path, :status])
     end
 end

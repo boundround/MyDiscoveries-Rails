@@ -460,6 +460,7 @@ ActiveRecord::Schema.define(version: 20151216005545) do
     t.string   "google_place_id"
     t.boolean  "user_notified"
     t.datetime "user_notified_at"
+    t.integer  "country_id"
   end
 
   add_index "reviews", ["reviewable_id", "reviewable_type"], name: "index_reviews_on_reviewable_id_and_reviewable_type", using: :btree
@@ -510,6 +511,7 @@ ActiveRecord::Schema.define(version: 20151216005545) do
     t.string   "google_place_id"
     t.boolean  "user_notified"
     t.datetime "user_notified_at"
+    t.integer  "country_id"
   end
 
   add_index "stories", ["storiable_id", "storiable_type"], name: "index_stories_on_storiable_id_and_storiable_type", using: :btree
@@ -583,6 +585,7 @@ ActiveRecord::Schema.define(version: 20151216005545) do
     t.string   "google_place_name"
     t.string   "instagram_id"
     t.boolean  "hero"
+    t.integer  "country_id"
   end
 
   add_index "user_photos", ["area_id"], name: "index_user_photos_on_area_id", using: :btree

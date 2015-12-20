@@ -228,6 +228,32 @@
             </div>
         </div>
 
+        <% unless @reviews.blank? %>
+        <div class="br15_review container-fluid">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1" id="reviews">
+                        <a class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">Reviews</a>
+                    <%= render "reviews/reviews" %>
+                </div>
+            </div>
+        </div>
+        <% end %>
+      <% unless @stories.blank? %>
+        <div class="br15_features hidden-xs container-fluid">
+            <div class="row">
+                <div class="col-sm-12" id="stories">
+                    <div class=" br15_stories br15_reviews">
+                        <div class="col-xs-12">
+                                <a class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All">Story</a>
+                            <hr class="br15_hr visible-xs"/>
+                            <%= render 'stories/all_stories' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% end %>
+
         <div class="br15_info br15_famous container-fluid">
             <a href="#" class="btn btn-default new-btn-orange a-famous br15_pad_bot_5  br15_features_btn  br15_Title_See_All br15_btn_lg ">Famous Faces</a>
             <!-- <p> From legendary musicians and award winning actors to sporting superstars and history's most influential personalities, see where these famous faces got their start. </p> -->
