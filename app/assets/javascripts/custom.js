@@ -116,7 +116,7 @@ marginTB = 0;
       marginTB = tmpmarginheight/2;
   }
 
-    _vdo.css({"top":-marginTB})  
+    // _vdo.css({"top":-marginTB})  
 
 }
 function modalCarosul(){

@@ -146,7 +146,7 @@ gem "browser"
 
 gem 'geocomplete_rails'
 
-gem 'active_model_serializers'
+# gem 'active_model_serializers'
 
 
 # FriendlyId is the "Swiss Army bulldozer" of slugging and permalink plugins for Active Record.

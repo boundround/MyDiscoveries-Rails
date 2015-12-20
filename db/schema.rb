@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207071509) do
+ActiveRecord::Schema.define(version: 20151216005545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -371,9 +371,11 @@ ActiveRecord::Schema.define(version: 20151207071509) do
     t.boolean  "show_on_school_safari",     default: false
     t.text     "school_safari_description"
     t.string   "hero_image"
+    t.string   "bound_round_place_id"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
+  add_index "places", ["bound_round_place_id"], name: "index_places_on_bound_round_place_id", unique: true, using: :btree
   add_index "places", ["country_id"], name: "index_places_on_country_id", using: :btree
   add_index "places", ["description"], name: "index_places_on_description", using: :btree
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree

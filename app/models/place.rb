@@ -100,6 +100,7 @@ class Place < ActiveRecord::Base
   after_update :crop_hero_image
   before_destroy :remove_from_soulmate
   before_save :check_valid_url, :set_approval_time
+  after_create :create_bound_round_id
 
   has_paper_trail
 
@@ -190,7 +191,7 @@ class Place < ActiveRecord::Base
   end
 
   def Place.all_places #May be able to be removed
-    Rails.cache.fetch("all_places") { Place.includes(:categories) }
+    Rails.cache.fetch("all_places") { Place.select(:id, :display_name, :bound_round_place_id) }
   end
 
   def flush_places_geojson
@@ -364,6 +365,11 @@ class Place < ActiveRecord::Base
 
   def crop_hero_image
     hero_image.recreate_versions! if crop_x.present?
+  end
+
+  def create_bound_round_id
+    self.bound_round_place_id = SecureRandom.urlsafe_base64
+    self.save
   end
 
   private
