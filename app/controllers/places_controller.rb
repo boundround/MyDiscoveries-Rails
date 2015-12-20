@@ -274,6 +274,7 @@ class PlacesController < ApplicationController
 
   def user_create
     existing_place = Place.not_removed.find_by(place_id: params[:place][:place_id]) || Area.find_by(google_place_id: params[:place][:place_id]) || Country.find_by(display_name: params[:place][:display_name])
+  
     if existing_place.class.to_s == "Place"
       render :json => {place_id: place_path(existing_place) }
     elsif existing_place.class.to_s == "Area"
@@ -284,12 +285,29 @@ class PlacesController < ApplicationController
       @place = Place.new(place_params)
       country = ""
       address_components = params[:address_components]
-
       address_components.each do |k, v|
-        v["types"].each do |type|
+        v["types"].each_with_index do |type, index|
           if type == "country"
             country = Country.find_by country_code: v["short_name"]
             @place.country = country
+          end
+          if type == "street_number"
+            @place.street_number = v[v.keys[index]]
+          end
+          if type == "route"
+            @place.route = v[v.keys[index]]
+          end
+          if type == "locality"
+            @place.locality =  v[v.keys[index]]
+          end
+          if type == "postal_code"
+            @place.post_code = v["short_name"]
+          end
+          if type == "sublocality"
+            @place.sublocality = v[v.keys[index]]
+          end
+          if type == "administrative_area_level_1" 
+            @place.state = v[v.keys[index]]
           end
         end
       end
