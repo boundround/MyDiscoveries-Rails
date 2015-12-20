@@ -7,12 +7,12 @@ class CountriesController < ApplicationController
   def show
     @set_body_class = "br-body"
     @country = Country.friendly.find(params[:id])
-
-    @videos_photos = @country.videos
-    @videos_photos += @country.photos
-    
+    @stories = @country.stories.where(status:"live")
+    @reviews = @country.reviews.where(status:"live")
     @videos = @country.videos
-    @photos = @country.photos
+    @photos = @country.user_photos.where(status:"live") + @country.photos
+
+
 
     # if @country.capital_city
     #   @weather = OpenWeather::Current.city("#{@country.capital_city}, #{@country.country_code}")

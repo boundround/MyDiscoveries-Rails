@@ -65,15 +65,21 @@ class UserPhotosController < ApplicationController
   def edit;end
 
   def update
+
+    if params[:add_country]
+      @user_photo.country_id = @user_photo.place.country_id
+    else
+      @user_photo.country_id = nil
+    end
     if @user_photo.update(user_photo_params)
-       redirect_to place_user_photo_path(@user_photo.place, @user_photo)
+       # redirect_to place_user_photo_path(@user_photo.place, @user_photo)
        # redirect_to root_path
     end
 
-    # respond_to do |format|
-    #   format.html { redirect_to :back }
+    respond_to do |format|
+      format.html { redirect_to :back }
     #   format.json { render json: @user_photo }
-    # end
+    end
   end
 
   def import

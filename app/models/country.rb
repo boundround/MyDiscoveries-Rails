@@ -49,6 +49,10 @@ class Country < ActiveRecord::Base
   has_many :areas
   has_many :places
 
+  has_many :reviews
+  has_many :stories
+  has_many :user_photos
+
   has_many :countries_discounts
   has_many :discounts, through: :countries_discounts
 
