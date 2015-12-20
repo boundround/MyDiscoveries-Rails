@@ -166,9 +166,7 @@ class PlacesController < ApplicationController
     @photos = []
 
     @place.videos.active.each do |video|
-      if !video.hero
         @videos << video
-      end
     end
 
     @place.photos.active.each do |photo|
