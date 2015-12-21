@@ -274,7 +274,7 @@ class PlacesController < ApplicationController
 
   def user_create
     existing_place = Place.not_removed.find_by(place_id: params[:place][:place_id]) || Area.find_by(google_place_id: params[:place][:place_id]) || Country.find_by(display_name: params[:place][:display_name])
-  
+
     if existing_place.class.to_s == "Place"
       render :json => {place_id: place_path(existing_place) }
     elsif existing_place.class.to_s == "Area"
@@ -306,7 +306,7 @@ class PlacesController < ApplicationController
           if type == "sublocality"
             @place.sublocality = v[v.keys[index]]
           end
-          if type == "administrative_area_level_1" 
+          if type == "administrative_area_level_1"
             @place.state = v[v.keys[index]]
           end
         end
@@ -670,7 +670,7 @@ class PlacesController < ApplicationController
       params.require(:place).permit(:code, :identifier, :display_name, :description, :show_on_school_safari, :school_safari_description, :booking_url, :display_address, :subscription_level,
                                     :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon, :published_at, :unpublished_at,
                                     :street_number, :route, :sublocality, :locality, :state, :post_code, :created_by, :user_created, :hero_image, :remote_hero_image_url, :crop_x, :crop_y, :crop_h, :crop_w,
-                                    :customer_approved, :customer_review, :approved_at, :country_id,
+                                    :customer_approved, :customer_review, :approved_at, :country_id, :bound_round_place_id,
                                     :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status,
                                     photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
                                     videos_attributes: [:id, :vimeo_id, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
