@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/ropiku/omniauth-instagram.git
+  revision: 9f88ca3cccd02e88d3117520a9ff8937fb020b1b
+  specs:
+    omniauth-instagram (1.0.2)
+      omniauth (~> 1)
+      omniauth-oauth2 (~> 1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -349,9 +357,6 @@ GEM
       rack (~> 1.0)
     omniauth-facebook (3.0.0)
       omniauth-oauth2 (~> 1.2)
-    omniauth-instagram (1.0.1)
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.0)
     omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
@@ -589,7 +594,7 @@ DEPENDENCIES
   mini_magick
   newrelic_rpm
   omniauth-facebook
-  omniauth-instagram
+  omniauth-instagram!
   open-weather
   paper_trail (~> 4.0.0.rc)
   pg
