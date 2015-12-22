@@ -164,13 +164,37 @@ function modalCarosul(){
         owl.jumpTo($(this).data("slide-number"));
     });
 }
+
+function modalvideo(){
+
+    $("#video-modal iframe").prop("src","")
+    
+    if ($(window).width() <= 320){
+          $("#video-modal iframe").prop("height", "200")
+        }
+    
+    
+    $(".embed-responsive.embed-responsive-16by9.for-video-modal").on('click', function(){
+    // console.log("klik")
+    $("#video-modal iframe").prop("src","")
+    data_src = $(this).data("src");
+    $("#video-modal iframe").prop("src", data_src)
+    $("#video-modal").modal("show");
+    });
+
+}
+
 $(window).resize(function(){
   responsiveHomeVideo()
+    if ($(window).width() <= 320){
+       $("#video-modal iframe").prop("height", "200")
+      }
 })
+
 
 $(document).ready(function(){
   responsiveHomeVideo()
   setUpCarosul()
   modalCarosul()
-
+  modalvideo()
 })

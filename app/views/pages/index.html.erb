@@ -117,12 +117,14 @@
             <a href="<%= videos_path %>" class="btn btn-default br15_Title_See_All">videos <span>See All</span></a>
             <div class="row">
                 <div id="br15_owl_video" class="owl-carousel">
-                  <% @videos.each do |video| %>
+                  <% @videos.each_with_index do | video, index| %>
                       <div><!-- 16:9 aspect ratio -->
-                          <div class="embed-responsive embed-responsive-16by9">
-                              <iframe class="embed-reponsive-item" src="//player.vimeo.com/video/<%= video.vimeo_id %>" frameborder="0" data-title="<%= video.title %>" data-description="<%= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                          <div class="embed-responsive embed-responsive-16by9 for-video-modal" data-src="//player.vimeo.com/video/<%= video.vimeo_id %>">
+                          <span class="status-vimeo" style="display;"></span>
+                              <iframe id="player<%= index %>"class="embed-reponsive-item player-vimeo" src="//player.vimeo.com/video/<%= video.vimeo_id %>/?api=1&player_id=player<%= index%>" frameborder="0" data-title="<%= video.title %>" data-description="<%= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
                               <h4 class="video-title"><%= video.title %></h4>
+                              <div class="div-modal-video"></div>
                               <!--iframe class="embed-reponsive-item" src="//player.vimeo.com/video/<%= video.vimeo_id %>?api=1" frameborder="2" data-title="<%= video.title %>" data-description="<%= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
                                           </iframe-->
                               <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/51_gSa1OdEE"></iframe> -->
@@ -248,6 +250,23 @@
                 </div>
             </div>
         </div>
+<div class="modal fade" id="video-modal" class="">
+    <div class="modal-dialog cs-modal-lg">
+      <div class="modal-content">
+              <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <iframe class="embed-reponsive-item player-vimeo" src="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen width="100%" height="600"></iframe>
+          <h4 class="video-title"></h4>
+           </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
 <%= render 'layouts/footer' %>
 
         <%= javascript_include_tag 'instafeed.min' %>
