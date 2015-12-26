@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "https://app.boundround.com/"
+SitemapGenerator::Sitemap.default_host = "https://boundround.com/"
 SitemapGenerator::Sitemap.sitemaps_host = "https://s3.amazonaws.com/#{ENV['AS3_BUCKET_NAME']}/"
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
@@ -39,7 +39,7 @@ end
 
 #SitemapGenerator::Sitemap.ping_search_engines('https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz')
 #SitemapGenerator::Sitemap.ping_search_engines('https://s3-ap-southeast-2.amazonaws.com/#{ENV['AS3_BUCKET_NAME']}/sitemaps/sitemap.xml.gz')
-SitemapGenerator::Sitemap.ping_search_engines('https://app.boundround.com/sitemap')
+SitemapGenerator::Sitemap.ping_search_engines('https://boundround.com/sitemap')
 
   # Put links creation logic here.
   #
