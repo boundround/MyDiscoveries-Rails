@@ -1014,21 +1014,45 @@ h1#country-name-heading{
   cursor: pointer;
 }
 .modal-dialog.cs-modal-lg{
-    min-width: 100% !important;
+    min-width: 922px !important;
 }
 #video-modal{
     overflow-y: hidden;
-    margin-top: inherit;
+    margin-top: initial;
+    width: initial;
 }
 #video-modal button.close{
   bottom: 15px;
   margin: 0;
   color: inherit;
 }
-@media(max-width: 320px){
+@media (min-width: 767px) and (max-width: 1024px){
+  .modal-dialog.cs-modal-lg{
+   margin-top: 10px;
+  }
+}
+
+@media(max-width: 414px){
   #video-modal{
     height: 276px !important;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
   }
+  .modal-dialog.cs-modal-lg{
+    min-width: 350px !important;
+  }
+  .cs-modal-content-video{
+    min-height: initial;
+    width: 360px !important;
+    text-align: center;
+    margin: 0 auto;
+    }
+}
+@media(max-width: 320px){
+.modal-dialog.cs-modal-lg{
+    min-width: 250px !important;
+  }
+  .cs-modal-content-video{
+    width: 250px !important;
+    }
 }
