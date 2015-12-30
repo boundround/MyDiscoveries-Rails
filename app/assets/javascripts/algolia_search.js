@@ -20,6 +20,7 @@ $(document).ready(function(){
   $stats = $('#stats');
   $facets = $('#facets');
   $pagination = $('#pagination');
+  $noResult = $('#no-result');
 
   var hitTemplate = Hogan.compile($('#hit-template').text());
   var statsTemplate = Hogan.compile($('#stats-template').text());
@@ -27,10 +28,8 @@ $(document).ready(function(){
   var sliderTemplate = Hogan.compile($('#slider-template').text());
   var paginationTemplate = Hogan.compile($('#pagination-template').text());
   var noResultsTemplate = Hogan.compile($('#no-results-template').text());
-
-  $searchInput
-  .on('keyup', function() {
-    var query = $(this).val();
+  
+  function searchCondition(query){
     if (query.length > 0){
       algoliaHelper.setQuery(query);
       algoliaHelper.search();
@@ -44,12 +43,26 @@ $(document).ready(function(){
       $('.br15_map').addClass('br15_collapse');
       //animate map overlay
     }
+  }
+  
+  $searchInput
+  .on('keyup', function() {
+      var query = $(this).val();
+      searchCondition(query)
+  })
+  .bind("paste", function(){
+      var elem = $(this);
+      setTimeout(function() {
+        query = elem.val();
+        searchCondition(query)
+      }, 100);
   })
   .focus();
 
   // Search results
   algoliaHelper.on('result', function(content, state) {
     if (content.hits.length > 0){
+      $noResult.hide();
       $('#br15_map').addClass('br15_min_h_530');
       $('.br15_map').removeClass('br15_collapse');
       $('.br15_header').slideUp(400,function(){google.maps.event.trigger(br_map, "resize");});
@@ -69,19 +82,25 @@ $(document).ready(function(){
       if ($('#br15_map').length){
         updateMapWithAlgoliaSearchResults(content);
       }
-
+      
       renderStats(content);
       renderPagination(content);
     } else {
-      // $('.search-results').hide();
-      // $('.search-results-container').hide();
-      // $('.br15_search_result').hide();
+      $('.br15_search_result').show();
+      $('.search-results-container').show();
+      $('.search-results').show();
+      $('.google-results-container').show();
       $('.google-results-container').append($('.pac-container'));
+      renderNoResults(content);
       $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
       $('#br15_map').removeClass('br15_min_h_530');
       $('.br15_map').addClass('br15_collapse');
     }
   });
+  
+  function renderNoResults(content){
+    $noResult.html(noResultsTemplate.render(content));
+  }
 
   function renderHits(content) {
     $hits.html(hitTemplate.render(content));

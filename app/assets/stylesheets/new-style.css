@@ -588,6 +588,9 @@ min-height: 300px;
    font-weight: 900;
    text-shadow:0px 0px 10px black, 5px 2px 7px black
 }
+.br15_search_result.cs-br15_search_result{
+  max-width: 300px;
+}
 @media(max-width: 767px){
   .br15_search_result.cs-br15_search_result{
     overflow: initial;
