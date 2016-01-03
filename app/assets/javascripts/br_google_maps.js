@@ -347,6 +347,29 @@ var clearAlgoliaMarkers = function() {
 	}
 }
 
+var updateMapWithHoverResults = function(lat, lng){
+    var myCenter = new google.maps.LatLng(lat, lng);
+
+    function initialize() {
+        var mapProp = {
+            center: myCenter,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById("br15_map"), mapProp);
+
+        var marker = new google.maps.Marker({
+            position: myCenter,
+            animation: google.maps.Animation.BOUNCE
+        });
+
+        marker.setMap(map);
+    }
+
+    initialize();
+}
+
 var updateMapWithAlgoliaSearchResults = function(content) {
 	// size of icon on the map
 	var scaleRatio = 1.0;
@@ -365,8 +388,10 @@ var updateMapWithAlgoliaSearchResults = function(content) {
 	var bounds = new google.maps.LatLngBounds();
 	for (i = 0; i < br_place_markers.length; i++) {
 		bounds.extend(br_place_markers[i].getPosition());
+		// console.log(br_place_markers[i].getPosition());
 	}
 
+	// make animate/move map
 	br_map.fitBounds(bounds);
 
 	/*	Probably not necessary
@@ -624,6 +649,33 @@ function initialize() {
 		*/
 	};
 	br_map = new google.maps.Map(document.getElementById(br_dom_map_element), mapOptions);
+
+	$.ajax({
+				url: '/places/mapdata.json',
+				success: function(data) {
+					window.placesGeoJSON = data;
+
+					br_place_markers = createMarkerArray(data, 'place', true);
+					br_place_markerCluster = new MarkerClusterer(br_map, br_place_markers, {
+						maxZoom: 10,
+						ignoreHidden: false,
+						gridSize: 10,
+						styles: [{
+							url: '../google_home/cluster28yellow.png',
+							height: 28,
+							width: 28,
+							anchor: [0, 0],
+							textColor: '#000000',
+							textSize: 10
+						}]
+					});
+					setTimeout(function(){br_place_markerCluster.repaint();},3000);
+
+					//Kludge to get the markers to show on initial high zoom
+					//					setTimeout(function(){brUpdateMap(true);},1000);
+//					configureMarkers(br_map.getZoom());
+				}
+			});
 	/* Won't need this with new search
 	br_map.addListener("dragend", function() {
 		brUpdateMap(false);
