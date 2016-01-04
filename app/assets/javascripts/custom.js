@@ -158,22 +158,17 @@ function responsiveModalVideo(){
        iframe.prop("width", "220");
        iframe.prop("height", "130");
     }
-  }
+}
 
 function modalVideo(){
-   
-   // $(".embed-responsive.embed-responsive-16by9.for-video-modal").modal({backdrop: "static"})
-
    $(".close").click(function(){
-      console.log("close");
     $("#video-modal iframe").prop("src","");
    });
 
   $(".embed-responsive.embed-responsive-16by9.for-video-modal").on('click', function(){
-  $("#video-modal iframe").prop("src","");
-  data_src = $(this).data("src");
-  $("#video-modal iframe").prop("src", data_src);
-  $("#video-modal").modal("show");
+    data_src = $(this).data("src");
+    $("#video-modal iframe").prop("src", data_src);
+    $("#video-modal").modal("show");
   });
 }
 
@@ -189,5 +184,4 @@ $(document).ready(function(){
   modalCarosul();
   responsiveModalVideo();
   modalVideo();
-
 });

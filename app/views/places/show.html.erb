@@ -170,13 +170,14 @@
                     <% @videos.each_with_index do |asset, index| %>
                     <%# unless asset.class.to_s == "Photo" %>
                       <div>
-                        <div class="embed-responsive embed-responsive-16by9">
+                        <div class="embed-responsive embed-responsive-16by9 for-video-modal" data-src="//player.vimeo.com/video/<%= asset.vimeo_id %>" >
                             <iframe class="embed-responsive-item" id="player<%= index + 5 %>" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player<%= index + 5 %>" width="273" frameborder="2"  data-description="<%= asset.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
                             </iframe>
                         <!-- <div class="overlay carousel-country-photo" data-slide-number="<%= index %>">
                           <span class="carousel-like-icon"><%#= raw like_icon(asset) %></span>
                         </div> -->
                         <div class="video-title"><%= asset.title %></div>
+                        <div class="div-modal-video"></div>
                         </div>
                       </div>
                     <%# end %>
@@ -420,6 +421,9 @@
     <% end %>
 </div><!--/.area-content -->
 <% end %>
+
+<%= render 'layouts/video_modal' %>
+
 <div class="container" id="blogs">
     <h2 id="blog-title"></h2>
     <div id="blog-content"></div>

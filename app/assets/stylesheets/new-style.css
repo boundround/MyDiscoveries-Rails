@@ -1012,6 +1012,7 @@ h1#country-name-heading{
   height: 100%;
   background: transparent;
   cursor: pointer;
+  top: 0px;
 }
 .modal-dialog.cs-modal-lg{
     min-width: 922px !important;
@@ -1054,5 +1055,5 @@ h1#country-name-heading{
   }
   .cs-modal-content-video{
     width: 250px !important;
-    }
+  }
 }
