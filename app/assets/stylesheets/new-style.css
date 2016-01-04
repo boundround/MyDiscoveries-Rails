@@ -1057,3 +1057,24 @@ h1#country-name-heading{
     width: 250px !important;
   }
 }
+.bg-play{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  height: 40px;
+  width: 60px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.bg-play:hover{
+  background: #2E99E5;
+}
+.fa.fa-play.play-icon{
+  font-size: 24px;
+  color: white;
+  margin-top: 9px;
+}
