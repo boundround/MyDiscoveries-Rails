@@ -69,9 +69,9 @@
             </div> -->
             <div class="col-xs-12 col-sm-6 text-right pull-right"> <%= render 'layouts/profile_dropdown' %> </div>
             <!-- <div class="col-xs-12 visible-xs"> <%#= render 'layouts/mobile_nav' %> </div>   -->
-            
+
             <div class="row br15_city_header cs-br15_city_header text-center">
-               <p class="br_time cs-br-time"> <img class="country-flag" src="<%= asset_path('flags/' + @country.country_code.downcase + '.png') %>"/> 
+               <p class="br_time cs-br-time"> <img class="country-flag" src="<%= asset_path('flags/' + @country.country_code.downcase + '.png') %>"/>
                <span class="hidden-xs">
                   <% if @weather %>
                     <span class="temperature">
@@ -84,8 +84,8 @@
                     <% end %>
                     </span>
                     <% end %>
-                  </span> 
-                </p> 
+                  </span>
+                </p>
                 <div class="col-sm-12 ">
                     <a href="<%= root_path %>" class="center-block br15_logo">
                     <img src="/assets/br_logo_new.png" class="img-responsive center-block" alt=""></a>
@@ -106,7 +106,7 @@
                 'https://twitter.com/intent/tweet?text=<%= request.original_url %>%20%23seeitmyway',
                 'twitter-hashtag-button',
                 'width=626,height=436');
-                return false;"> <i class="fa fa-twitter-square fa-lg"></i></a> 
+                return false;"> <i class="fa fa-twitter-square fa-lg"></i></a>
               </span>
             </div>
             <nav class=" br15_fixed br15_fixed_country nav row" data-spy="affix" data-offset-top="300">
@@ -182,13 +182,18 @@
                       <img class="embed-responsive-item" src="/assets/frame.jpg">
                   </div>
               </div> -->
-              <% @videos.each_with_index do |asset, index| %>
+              <% @videos.each_with_index do |video, index| %>
                 <div>
-                  <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" id="player<%= index + 5%>" src="//player.vimeo.com/video/<%= asset.vimeo_id %>?api=1&player_id=player<%= index + 5%>" width="273" frameborder="2"  data-description="<%= asset.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
-                    </iframe>
-                    <div class="overlay carousel-country-photo" data-slide-number="<%= index %>"></div>
-                    <div class="video-title"><%= asset.title %></div>
+                  <div class="embed-responsive embed-responsive-16by9 for-video-modal" data-src="//player.vimeo.com/video/<%= video.vimeo_id %>" >
+                    <!-- <iframe class="embed-responsive-item" id="player<%#= index + 5%>" src="//player.vimeo.com/video/<%#= video.vimeo_id %>?api=1&player_id=player<%#= index + 5%>" width="273" frameborder="2"  data-description="<%#= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                    </iframe> -->
+                    <!-- <div class="overlay carousel-country-photo" data-slide-number="<%#= index %>"></div> -->
+                    <img for="thumb-vimeo" id="vimeo-<%= video.vimeo_id %>" src="<%= "/assets/generic-grey.jpg" %>" width="476">
+                    <h4 class="video-title"><%= video.title %></h4>
+                    <div class="div-modal-video"></div>
+                    <div class="bg-play">
+                      <i class="fa fa-play play-icon"></i>
+                    </div>
                   </div>
                 </div>
               <% end %>
@@ -202,7 +207,7 @@
 
             </div>
         </div>
-       
+
 
         <!-- Photos -->
         <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid">
@@ -304,14 +309,14 @@
               </div>
             </div>
         </div>
-       
+
         <div class="br15_review container-fluid">
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
                     <a href="#" class="btn btn-default new-btn-orange a-fun br15_pad_bot_5  br15_features_btn  br15_Title_See_All ">Fun Facts</a>
                     <div id="br15_owl_fun_facts" class="owl-carousel">
                         <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
-                        
+
                         <!-- <div>
                             <div class="br15_img_round_cont">
                                 <img src="/assets/hugh.jpg" alt="">
@@ -346,7 +351,7 @@
         </div>
         <div class="modal-body">
           <div class="owl-carousel" id="content-modal-carousel">
-            
+
            </div>
         </div>
       </div>
@@ -355,4 +360,5 @@
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+<%= render 'layouts/video_modal' %>
 <%= render 'layouts/footer' %>
