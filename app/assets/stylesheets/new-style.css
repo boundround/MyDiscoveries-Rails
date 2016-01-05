@@ -1081,3 +1081,16 @@ h1#country-name-heading{
   color: white;
   margin-top: 9px;
 }
+.caption-photo-carousel {
+  position: relative;
+}
+.caption-photo-carousel a{
+  font-size: 20px;
+  font-weight: 600;
+  color: #F07656;
+  text-transform: uppercase;
+}
+.caption-photo-carousel a:hover{
+  color: #F07656;
+  text-decoration: none;
+}
