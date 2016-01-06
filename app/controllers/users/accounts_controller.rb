@@ -3,16 +3,15 @@ class Users::AccountsController < ApplicationController
   def forgot_username;end
   
   def send_username
-    debugger
-
+      return redirect_to(users_username_new_path, notice: 'Username can not be blank.') if params[:user][:email].blank?
       @user = User.find_by_email(params[:user][:email])
       if @user.blank?
-          redirect_to(users_username_new_path, notice: 'Username can not be blank')
+          redirect_to(users_username_new_path, notice: 'Username are not valid.')
       else
         @username = @user.username
         @email = params[:user][:email]
         ForgotUsername.send_username(@email,@username).deliver
-        redirect_to(new_user_session_path, notice: 'Username has been sent')
+        redirect_to(new_user_session_path, notice: 'Username has been sent.')
       end
   end
 
