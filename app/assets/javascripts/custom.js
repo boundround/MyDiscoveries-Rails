@@ -1,44 +1,3 @@
-function setUpGmaps(){
-   // map = new GMaps({
-   //          el: '#br15_map',
-   //          lat: -33.7985209,
-   //          lng: 151.2861201,
-   //          zoomControl : true,
-   //          zoomControlOpt: {
-   //              style : 'SMALL',
-   //              position: 'TOP_LEFT'
-   //          },
-   //          panControl : false,
-   //          streetViewControl : true,
-   //          mapTypeControl: false,
-   //          overviewMapControl: false,
-
-   //          click:function(){
-   //              map.hideInfoWindows();
-   //          },
-   //          styles:[ { "featureType": "water", "stylers": [ { "color": "#ace1f6" } ] },{ "featureType": "landscape", "stylers": [ { "color": "#f9f5ed" } ] },{ } ]
-
-   //      });
-   //      map.removeMarkers();
-   //      map.addMarker({
-   //          lat: -33.7985209,
-   //          lng: 151.2861201,
-   //          icon: "/assets/pin.png",
-   //          animation: google.maps.Animation.DROP,
-   //          infoWindow: {
-   //              content: "<div class='br15_marker'> <div class='br15_marker_round'><img src='/assets/insta.jpg' alt=''></div><h4>W<span>ater</span> P<span>ark</span><br><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i></h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet interdum tortor et finibus. Maecenas in metus augue. Praesent maximus arcu tempus.</p></div>"
-   //          },
-   //          click: function(e){
-   //              setTimeout(function(){
-   //                  $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png']").hide();
-   //              },200);
-
-   //          }
-   //      });
-
-
-}
-
 function setUpCarosul(){
         $("#br15_owl_reviews,#br15_owl_fun_facts,#br15_owl_good").owlCarousel({
             items:1,
@@ -51,11 +10,9 @@ function setUpCarosul(){
                 "<i class='fa fa-chevron-left'></i>",
                 "<i class='fa fa-chevron-right'></i>"
             ]
-
         });
         $("#br15_owl_famous").owlCarousel({
             items:3,
-            // itemsDesktopSmall:[1199,3],
             itemsDesktopSmall:[1199,3],
             itemsTablet:[992,2],
             itemsTabletSmall:[768,2],
@@ -67,7 +24,6 @@ function setUpCarosul(){
                 "<i class='fa fa-chevron-right'></i>"
             ]
         });
-
         $("#br15_owl_video,#br15_owl_nearby,#br15_owl_similar").owlCarousel({
             items:3,
             itemsDesktopSmall:[1199,3],
@@ -79,7 +35,6 @@ function setUpCarosul(){
                 "<i class='fa fa-chevron-left'></i>",
                 "<i class='fa fa-chevron-right'></i>"
             ]
-
         });
         $("#br15_owl_photos").owlCarousel({
             items:3,
@@ -132,7 +87,6 @@ function modalCarosul(){
                     $("#content-modal-carousel").append(newImage);
             });
         }
-        // alert($(this+' img').data("slide-number"));
     $('#carousel-modal').modal("show");
         $("#content-modal-carousel").owlCarousel({
             items: 1,
@@ -149,14 +103,32 @@ function modalCarosul(){
 }
 
 function responsiveModalVideo(){
-    if (($(window).width() > 320) && ($(window).width() < 500 )){
-       var iframe = $("#video-modal iframe");
-       iframe.prop("width", "320");
-       iframe.prop("height", "180");
-    } else if ($(window).width() <= 320){
-       var iframe = $("#video-modal iframe");
-       iframe.prop("width", "220");
-       iframe.prop("height", "130");
+    
+    var iframe = $("#video-modal iframe");
+    // Extra Large Device
+    if ($(window).width() >= 3000){
+        iframe.prop("width", "100%");
+        iframe.prop("height", "1110px");
+    }
+    // Large Device
+    else if ( ($(window).width() >= 1024) && ($(window).width() < 3000) ) {
+        iframe.prop("width", "100%");
+        iframe.prop("height", "500px");
+    }
+    // Large Device(tablets)
+    else if ( ($(window).width() >= 500) && ($(window).width() < 1024) ) {
+        iframe.prop("width", "400px");
+        iframe.prop("height", "230px");
+    } 
+    // Small Device
+    else if ( ($(window).width() > 415) && ($(window).width() < 500 ) ){
+       iframe.prop("width", "320px");
+       iframe.prop("height", "180px");
+    }
+    // Extra Small Device
+    else if ($(window).width() <= 414){
+       iframe.prop("width", "220px");
+       iframe.prop("height", "130px");
     }
 }
 
@@ -188,8 +160,6 @@ function getThumbnail(){
   var vimeo_id = $("img[for='thumb-vimeo']");
   $.each(vimeo_id, function(key, value){
     vimeoLoadingThumb($(value).prop("id").split("-")[1]);
-    console.log('test each');
-    console.log($(value).prop("id").split("-")[1]);
   });
 }
 
@@ -199,7 +169,6 @@ $(window).resize(function(){
   responsiveModalVideo();
 });
 
-
 $(document).ready(function(){
   responsiveHomeVideo();
   setUpCarosul();
@@ -207,7 +176,4 @@ $(document).ready(function(){
   responsiveModalVideo();
   modalVideo();
   getThumbnail();
-  
-
-
 });
