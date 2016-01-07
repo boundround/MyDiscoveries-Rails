@@ -106,14 +106,23 @@ function responsiveModalVideo(){
     
     var iframe = $("#video-modal iframe");
     // Extra Large Device
-    if ($(window).width() >= 3000){
+    if ($(window).width() >= 5000){
         iframe.prop("width", "100%");
-        iframe.prop("height", "1110px");
+        iframe.prop("height", "1950px");
+    }
+    else if ( ($(window).width() >= 3000) && ($(window).width() < 5000) ){
+        iframe.prop("width", "100%");
+        iframe.prop("height", "1550px");
     }
     // Large Device
-    else if ( ($(window).width() >= 1024) && ($(window).width() < 3000) ) {
+    else if ( ($(window).width() >= 1920) && ($(window).width() < 3000) ) {
         iframe.prop("width", "100%");
-        iframe.prop("height", "500px");
+        iframe.prop("height", "830px");
+    }
+    // Large Device
+    else if ( ($(window).width() >= 1024) && ($(window).width() < 1920) ) {
+        iframe.prop("width", "920px");
+        iframe.prop("height", "525px");
     }
     // Large Device(tablets)
     else if ( ($(window).width() >= 500) && ($(window).width() < 1024) ) {
