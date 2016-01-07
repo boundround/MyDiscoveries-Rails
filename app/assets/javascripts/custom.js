@@ -192,7 +192,22 @@ function getThumbnail(){
     console.log($(value).prop("id").split("-")[1]);
   });
 }
-
+function onChangeVideo(){
+  $( ".select_video_id" ).change(function() {
+    selectVIdeoId($(this));
+  });
+}
+function selectVIdeoId(_this){
+  if (_this.val() == "Youtube" ){
+          $(".video_vimeo_id").hide();
+          $(".video_youtube_id").show();
+          $(".video_vimeo_id input").val("");
+      }else {
+          $(".video_vimeo_id").show();
+          $(".video_youtube_id").hide();
+          $(".video_youtube_id input").val("");
+      }
+}
 
 $(window).resize(function(){
   responsiveHomeVideo();
@@ -207,7 +222,8 @@ $(document).ready(function(){
   responsiveModalVideo();
   modalVideo();
   getThumbnail();
-  
+  selectVIdeoId($( ".select_video_id" ));
+  onChangeVideo();
 
 
 });

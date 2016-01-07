@@ -235,7 +235,17 @@
       <h2>Add New Video</h2>
       <%= simple_form_for [@country, Video.new] do |f| %>
         <div class="form-group">
+        <label>Choose Video Type</label><br>
+          <select class="select_video_id">
+            <option>Youtube</option>
+            <option>Vimeo</option>
+          </select>
+        </div>
+        <div class="form-group">
           <%= f.input :vimeo_id, label: "Enter Vimeo ID", input_html: { class: 'form-control'}  %>
+        </div>
+        <div class="form-group">
+          <%= f.input :youtube_id, label: "Enter Youtube ID", input_html: { class: 'form-control'}  %>
         </div>
         <div class="form-group">
           <%= f.input :priority, label: "Priority", collection: 1..10, input_html: { class: 'form-control'}  %>

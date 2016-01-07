@@ -14,7 +14,9 @@ class Video < ActiveRecord::Base
 
   has_paper_trail
 
-  validates :vimeo_id, presence: true
+  # validates :vimeo_id, presence: true
+
+  validate :video_service_id
 
   scope :ordered_by_place_name, -> { includes(:area, :place).order('areas.display_name ASC') } #reorder("places.display_name ASC") }
 
@@ -71,5 +73,9 @@ class Video < ActiveRecord::Base
   #     false
   #   end
   # end
+
+  def video_service_id
+    errors.add(:base, 'Video Service ID can not be empty.') if vimeo_id.blank? and youtube_id.blank?
+  end
 
 end
