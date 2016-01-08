@@ -184,11 +184,13 @@
               </div> -->
               <% @videos.each_with_index do |video, index| %>
                 <div>
-                  <div class="embed-responsive embed-responsive-16by9 for-video-modal" data-src="//player.vimeo.com/video/<%= video.vimeo_id %>" >
-                    <!-- <iframe class="embed-responsive-item" id="player<%#= index + 5%>" src="//player.vimeo.com/video/<%#= video.vimeo_id %>?api=1&player_id=player<%#= index + 5%>" width="273" frameborder="2"  data-description="<%#= video.description %>" webkitallowfullscreen mozallowfullscreen allowfullscreen>
-                    </iframe> -->
-                    <!-- <div class="overlay carousel-country-photo" data-slide-number="<%#= index %>"></div> -->
-                    <img for="thumb-vimeo" id="vimeo-<%= video.vimeo_id %>" src="<%= "/assets/generic-grey.jpg" %>" width="476">
+                  <div class="embed-responsive embed-responsive-16by9 for-video-modal"
+                              data-src=<% if !video.vimeo_id.blank? %>
+                                         <%= "//player.vimeo.com/video/#{video.vimeo_id}" %>
+                                        <% else %>
+                                          <%= "https://www.youtube.com/embed/#{video.youtube_id}"%>
+                                        <% end %>>
+                    <img for="thumb-video" id="video-<%= video.vimeo_id || video.youtube_id %>" src="<%= video.vimeo_thumbnail %>" data-thumb="<%= !video.vimeo_id.blank? ? 'vimeo' : 'youtube' %>">
                     <h4 class="video-title"><%= video.title %></h4>
                     <div class="div-modal-video"></div>
                     <div class="bg-play">
@@ -198,7 +200,6 @@
                 </div>
               <% end %>
                 </div>
-                <!-- </div> -->
             </div>
         </div>
         <div class="br15_map br15_collapse">

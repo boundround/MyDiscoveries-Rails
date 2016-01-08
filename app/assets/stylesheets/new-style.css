@@ -969,13 +969,13 @@ h1#country-name-heading{
 .video-title {
   color: rgb(255, 255, 255);
   position: absolute;
-  left:33px;
+  left:0;
   bottom: 10px;
   font-weight: 900;
   text-transform: capitalize;
-  pointer-events: none;
   text-shadow: 0px 0px 10px rgb(20, 13, 13), 5px 2px 7px rgb(41, 35, 35);
   font-size: 17px;
+  padding: 0 33px;
 }
 @media(max-width:400px){
   .video-title {
