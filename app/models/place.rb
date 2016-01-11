@@ -99,7 +99,7 @@ class Place < ActiveRecord::Base
   after_save :load_into_soulmate
   after_update :crop_hero_image
   before_destroy :remove_from_soulmate
-  before_save :check_valid_url, :set_approval_time
+  before_save :check_valid_url, :set_approval_time, :fix_australian_states
   after_create :create_bound_round_id
 
   has_paper_trail
@@ -370,6 +370,29 @@ class Place < ActiveRecord::Base
   def create_bound_round_id
     self.bound_round_place_id = SecureRandom.urlsafe_base64
     self.save
+  end
+
+  def fix_australian_states
+    if self.state
+      case self.state.downcase
+      when "new south wales"
+        self.state = "NSW"
+      when "queensland"
+        self.state = "QLD"
+      when "victoria"
+        self.state = "VIC"
+      when "south australia"
+        self.state = "SA"
+      when "western australia"
+        self.state = "WA"
+      when "northern territory"
+        self.state = "NT"
+      when "australian capital territory"
+        self.state = "ACT"
+      when "tasmania"
+        self.state = "TAS"
+      end
+    end
   end
 
   private
