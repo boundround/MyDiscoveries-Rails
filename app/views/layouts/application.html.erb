@@ -117,12 +117,15 @@
 
 		<div id="place-holder"></div>
 	  <%= render "/layouts/page_loader" %>
-	  <% flash.each do |type, message| %>
-		  <div class="alert <%= bootstrap_class_for(type) %> fade in">
-		    <button class="close" data-dismiss="alert">×</button>
-		    <%= message %>
-		  </div>
-		<% end %>
+  	  <% flash.each do |type, message| %>
+        <% if !bootstrap_class_for(type).eql?("timedout")%>
+    		  <div class="alert <%= bootstrap_class_for(type) %> fade in">
+    		    <button class="close" data-dismiss="alert">×</button>
+    		    <%= message %>
+    		  </div>
+         <% end %>
+  		<% end %>
+   
 		<div class="alert-wrapper"></div>
 
 		<%= render "/layouts/admin_menu" %>

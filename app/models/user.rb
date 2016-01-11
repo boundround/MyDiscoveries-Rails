@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, # :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:username]
+         :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :authentication_keys => [:username]
   devise :omniauthable, :omniauth_providers => [:instagram]
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
@@ -117,6 +117,14 @@ class User < ActiveRecord::Base
 
   def email_changed?
     false
+  end
+
+  def timeout_in
+    if self.admin? 
+      3.months
+    else
+      1.month
+    end
   end
 
 end
