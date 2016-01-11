@@ -125,7 +125,6 @@
                                         <% else %>
                                           <%= "https://www.youtube.com/embed/#{video.youtube_id}"%>
                                         <% end %>>
-
                             <img for="thumb-video" id="video-<%= video.vimeo_id || video.youtube_id %>" src="<%= video.vimeo_thumbnail %>" data-thumb="<%= !video.vimeo_id.blank? ? 'vimeo' : 'youtube' %>">
                               <div class="video-title"><%= video.title %></div>
                               <div class="div-modal-video"></div>
