@@ -172,27 +172,48 @@ function modalVideo(){
   });
 }
 
-function vimeoLoadingThumb(id){    
-    var url1 = "https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/"+id;
-
-    $.getJSON( url1, function( data ) {
+function vimeoLoadingThumb(id, url){    
+    $.getJSON( url, function( data ) {
       $.each( data, function( key, val ) {
         if(key == "thumbnail_url"){
-          $("#vimeo-" + id).attr("src", val);
+          $("#video-" + id).attr("src", val);
         }
       });
     });
 }
   
 function getThumbnail(){
-  var vimeo_id = $("img[for='thumb-vimeo']");
-  $.each(vimeo_id, function(key, value){
-    vimeoLoadingThumb($(value).prop("id").split("-")[1]);
-    console.log('test each');
-    console.log($(value).prop("id").split("-")[1]);
+  var imgthumb = $("img[for='thumb-video']");    
+    if (imgthumb.length > 0 ) {
+      $.each(imgthumb, function(key, value){
+        if($(value).prop("src") == ""){
+          var id = $(value).prop("id").split("-")[1];
+          if($(value).prop("data-thumb") == "vimeo"){
+            var url = "https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/"+id;
+          }else{
+            var url = "http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v="+id+"&format=json";
+          }
+          vimeoLoadingThumb(id, url);
+        }
+      });
+    }
+}    
+function onChangeVideo(){
+  $( ".select_video_id" ).change(function() {
+    selectVIdeoId($(this));
   });
 }
-
+function selectVIdeoId(_this){
+  if (_this.val() == "Youtube" ){
+          $(".video_vimeo_id").hide();
+          $(".video_youtube_id").show();
+          $(".video_vimeo_id input").val("");
+      }else {
+          $(".video_vimeo_id").show();
+          $(".video_youtube_id").hide();
+          $(".video_youtube_id input").val("");
+      }
+}
 
 $(window).resize(function(){
   responsiveHomeVideo();
@@ -207,7 +228,8 @@ $(document).ready(function(){
   responsiveModalVideo();
   modalVideo();
   getThumbnail();
-  
+  selectVIdeoId($( ".select_video_id" ));
+  onChangeVideo();
 
 
 });

@@ -25,17 +25,24 @@ class VideosController < ApplicationController
 
   def create
     @video = Video.new(video_params)
-    response = Unirest.get "https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s
-    @video.vimeo_thumbnail = response.body["thumbnail_url"]
-    if @video.title.blank?
-      @video.title = response.body["title"]
+
+    if !params["video"]["vimeo_id"].blank?
+        response = Unirest.get("https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s) rescue nil
+        @video.youtube_id = ""
+    elsif !params["video"]["youtube_id"].blank?
+        response = Unirest.get("http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=#{@video.youtube_id}&format=json") rescue nil
     end
-    if @video.description.blank?
-      @video.description = response.body["description"]
+    
+    if response
+      @video.vimeo_thumbnail = response.body["thumbnail_url"] 
+      @video.title = response.body["title"] if @video.title.blank?
+      @video.description = response.body["description"] if @video.description.blank?
     end
+
     if params[:country_id]
       @video.countries << Country.friendly.find(params[:country_id])
     end
+
     if @video.save
       redirect_to :back, notice: "Video added."
     else
@@ -81,7 +88,7 @@ class VideosController < ApplicationController
   private
 
     def video_params
-      params.require(:video).permit(:vimeo_id, :area_id, :title, :hero, :description, :place_id, :priority, :vimeo_thumbnail, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy)
+      params.require(:video).permit(:vimeo_id, :area_id, :title, :hero, :description, :place_id, :priority, :vimeo_thumbnail, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy, :youtube_id)
     end
 
 end
