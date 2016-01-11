@@ -186,11 +186,11 @@ class Place < ActiveRecord::Base
   #   end
   # end
 
-  def flush_place_cache #May be able to be removed
+  def flush_place_cache
     Rails.cache.delete('all_places')
   end
 
-  def Place.all_places #May be able to be removed
+  def Place.all_places
     Rails.cache.fetch("all_places") { Place.select(:id, :display_name, :bound_round_place_id) }
   end
 
