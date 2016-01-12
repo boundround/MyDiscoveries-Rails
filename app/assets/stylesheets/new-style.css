@@ -1137,3 +1137,7 @@ h1#country-name-heading{
 .embed-responsive.embed-responsive-16by9.for-video-modal img{
   width: 100%
 }
+.embed-responsive-item.for-blog{
+  min-height: 307px;
+  min-width: 504px;
+}

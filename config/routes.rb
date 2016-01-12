@@ -213,6 +213,8 @@ Rails.application.routes.draw do
 
   get "/users/username/new" => "users/accounts#forgot_username"
   post "/users/username/send_username" => "users/accounts#send_username"
+  
+  get "/place/blogs" => "places#blogs"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

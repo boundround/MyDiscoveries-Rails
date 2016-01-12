@@ -48,6 +48,18 @@ function setUpCarosul(){
                 "<i class='fa fa-chevron-right'></i>"
             ]
         });
+        $("#br15_owl_blogs").owlCarousel({
+            items:3,
+            itemsDesktopSmall:[1199,3],
+            itemsTablet:[768,2],
+            itemsMobile:[500,1],
+            navigation:true,
+            pagination:false,
+            navigationText: [
+                "<i class='fa fa-chevron-left'></i>",
+                "<i class='fa fa-chevron-right'></i>"
+            ]
+        });
         $('.br15_instagram,.br15_leaderboard,.br15_reviews,.br15_blog .row .col-sm-6,.br15_about,.br15_about_sidebar ').matchHeight();
     }
 
@@ -194,6 +206,25 @@ function selectVIdeoId(_this){
           $(".video_youtube_id").hide();
           $(".video_youtube_id input").val("");
       }
+}
+
+function WpBlogs(){
+// https://corporate.boundround.com/wp-json/wp/v2/posts?filter[cat]=772&filter[tag]=<%= place.display_name.parameterize %>
+  var place = $("#br15_owl_blogs").data("place");
+  var url = "https://corporate.boundround.com/wp-json/wp/v2/posts?filter[cat]=772&filter[tag]="+place
+    
+    $.getJSON( url, function( data ) {
+        $.each( data, function( key, val ) {
+          // if(val.title.rendered == "thumbnail_url"){
+          //   $("#video-" + id).attr("src", val);
+          // }
+          val.title.rendered
+          console.log(val.title.rendered)
+        });
+    });
+
+
+
 }
 
 $(window).resize(function(){

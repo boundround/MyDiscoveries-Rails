@@ -225,6 +225,27 @@
             </div>
         </div>
         <% end %>
+        
+        <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid">
+            <a  href="#" class="btn btn-default new-btn-orange br15_Title_See_All">Blogs</a>
+            <div class="row">
+                <div id="br15_owl_blogs" class="owl-carousel" data-place="<%= @place.display_name.parameterize %>">
+                    <!-- loop  https://corporate.boundround.com/wp-json/wp/v2/posts?filter[cat]=772&filter[tag]=<%#= place.display_name.parameterize %>-->
+                    <% @place_blog.each do |blog| %>
+                    <% post = blog.last %>
+                      <div>
+                          <div class="embed-responsive embed-responsive-16by9 cs-blog">
+                            <img src="<%= post['image'] %>" class="embed-responsive-item for-blog">
+                            <div id="blog-title" class="video-title"><%= post["title"] %></div>
+                              <iframe class="embed-reponsive-item player-vimeo" src="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>
+                          </div>
+                      </div>
+                      <% end %>
+                    <!-- endloop -->
+                </div><!--/.carousel -->
+            </div>
+        </div>
+        
         <% unless @stories.blank? %>
         <div class="br15_features hidden-xs container-fluid">
             <div class="row">

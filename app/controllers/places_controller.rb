@@ -110,6 +110,7 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
+    @place_blog = @place.blog_request
     @reviewable = @place
     @reviews = @reviewable.reviews.active
     if user_signed_in?
@@ -663,6 +664,10 @@ class PlacesController < ApplicationController
 #      @categories = Category.all.map{|c| c[:name]}
 #      @categories.unshift('All')
       @categories = ["All", "Excursion", "Incursion", "Virtual Excursion"]
+    end
+
+    def blogs
+      
     end
 
   private
