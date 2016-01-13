@@ -1010,7 +1010,7 @@ h1#country-name-heading{
   z-index: 1000 !important;
 }
 .div-modal-video{
-  position: absolute;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+  position: absolute;
   width: 100%;
   height: 100%;
   background: transparent;
@@ -1083,12 +1083,12 @@ h1#country-name-heading{
 }
 .caption-photo-carousel {
   position: relative;
+  padding: 0 20px;
 }
 .caption-photo-carousel a{
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: #F07656;
-  text-transform: uppercase;
 }
 .caption-photo-carousel a:hover{
   color: #F07656;

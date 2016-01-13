@@ -148,7 +148,7 @@
                         </div>
                       </a>
                       <div class="caption-photo-carousel">
-                        <h3><%= link_to photo.caption, place_path(photo.place) %></h3>
+                        <h3><a href="<%= place_path(photo.place) %>"><%= photo.caption %><br><h5><%= photo.place.display_name%></h5></h3>
                       </div>
                     </div>
                     <!-- <div class="caption-photo-carousel text-center"> -->
