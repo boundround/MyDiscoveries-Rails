@@ -144,11 +144,16 @@
                   <% @photos.each do |photo| %>
                     <div><!-- 16:9 aspect ratio -->
                       <a href="<%= place_path(photo.place) %>">
-                        <div class="embed-responsive embed-responsive-16by9">
+                        <div class="embed-responsive embed-responsive-16by9 line-after">
                             <img class="embed-responsive-item" src="<%= photo.path_url(:medium) %>">
                         </div>
                       </a>
+                      <div class="caption-photo-carousel">
+                        <h3><a href="<%= place_path(photo.place) %>"><%= photo.caption %><br><h5><%= photo.place.display_name%></h5></h3>
+                      </div>
                     </div>
+                    <!-- <div class="caption-photo-carousel text-center"> -->
+                    <!-- </div> -->
                   <% end %>
                 </div>
             </div>

@@ -209,13 +209,16 @@
                         </div>
                     </div>-->
                     <%# @all_photos_and_videos.each_with_index do |asset, index| %>
-                    <% @photos.each_with_index do |asset, index| %>
-                     <%# unless asset.class.to_s == "Video" || asset.class.to_s == "UserPhoto" %>
+                    <% @photos.each_with_index do |photo, index| %>
+                     <%# unless photo.class.to_s == "Video" || photo.class.to_s == "UserPhoto" %>
                       <div>
                           <div class="embed-responsive embed-responsive-16by9">
-                            <img src="<%= asset.path_url(:medium)%>" alt='<%= asset.caption ? asset.caption : "" %>' class="embed-responsive-item" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : '' %>">
-                            <div class="place-photo-credit"><%= asset.credit rescue "" %></div>
-                            <span class="carousel-like-icon"><%= raw like_icon(asset) %></span>
+                            <img src="<%= photo.path_url(:medium)%>" alt='<%= photo.caption ? photo.caption : "" %>' class="embed-responsive-item" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
+                            <div class="place-photo-credit"><%= photo.credit rescue "" %></div>
+                            <span class="carousel-like-icon"><%= raw like_icon(photo) %></span>
+                          </div>
+                          <div class="caption-photo-carousel">
+                            <h3><%= link_to photo.caption, place_path(photo.place) %></h3>
                           </div>
                       </div>
                       <%# end %>

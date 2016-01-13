@@ -1137,3 +1137,19 @@ h1#country-name-heading{
 .embed-responsive.embed-responsive-16by9.for-video-modal img{
   width: 100%
 }
+
+.caption-photo-carousel {
+  position: relative;
+  padding: 0 20px;
+}
+
+.caption-photo-carousel a{
+  font-size: 18px;
+  font-weight: 600;
+  color: #F07656;
+}
+
+.caption-photo-carousel a:hover{
+  color: #F07656;
+  text-decoration: none;
+}

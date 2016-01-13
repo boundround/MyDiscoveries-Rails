@@ -221,12 +221,15 @@
                       <img class="embed-responsive-item" src="/assets/frame.jpg">
                   </div>
               </div> -->
-              <% @photos.each_with_index do |asset, index| %>
+              <% @photos.each_with_index do |photo, index| %>
                   <div>
                     <div class="embed-responsive embed-responsive-16by9">
-                     <img src="<%= asset.path_url(:medium)%>" class="embed-responsive-item" data-slide-number="<%= index %>" data-caption="<%= asset.caption ? asset.caption : '' %>" data-placeUrl="<%= asset.place ? place_path(asset.place) : asset.area ? area_path(asset.area) : '' %>" data-placeName="<%= asset.place ? asset.place.display_name : asset.area ? asset.area.display_name : '' %>">
-                     <div class="place-photo-credit"><%= asset.credit rescue "" %></div>
+                     <img src="<%= photo.path_url(:medium)%>" class="embed-responsive-item" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : photo.area ? area_path(photo.area) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : photo.area ? photo.area.display_name : '' %>">
+                     <div class="place-photo-credit"><%= photo.credit rescue "" %></div>
                     </div>
+                       <div class="caption-photo-carousel">
+                        <h3><%= link_to photo.caption, place_path(photo.place) rescue "" %></h3>
+                      </div>
                   </div>
                  <% end %>
                 </div>
