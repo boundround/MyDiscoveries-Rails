@@ -4,7 +4,7 @@ class PagesController < ApplicationController
     @set_body_class = "white-body"
     @last_20_videos = Video.active.order(created_at: :desc).limit(20)
     @videos = @last_20_videos.to_a.uniq {|video| video.vimeo_id}
-    @photos = UserPhoto.active.where('path is not null').includes(:place).where('place_id is not null').order(created_at: :desc).limit(20)
+    @photos = UserPhoto.active.where('path is not null').where('user_photos.place_id is not null').joins(:place).where("places.status = 'live'").order(created_at: :desc).limit(20)
     @reviews = Review.active.order(created_at: :desc).limit(5)
     @stories = Story.active.order(created_at: :desc).limit(5)
     @leaders = PointsBalance.order(balance: :desc).includes(:user).limit(20)
