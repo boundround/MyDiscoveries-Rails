@@ -208,23 +208,13 @@ function selectVIdeoId(_this){
       }
 }
 
-function WpBlogs(){
-// https://corporate.boundround.com/wp-json/wp/v2/posts?filter[cat]=772&filter[tag]=<%= place.display_name.parameterize %>
-  var place = $("#br15_owl_blogs").data("place");
-  var url = "https://corporate.boundround.com/wp-json/wp/v2/posts?filter[cat]=772&filter[tag]="+place
-    
-    $.getJSON( url, function( data ) {
-        $.each( data, function( key, val ) {
-          // if(val.title.rendered == "thumbnail_url"){
-          //   $("#video-" + id).attr("src", val);
-          // }
-          val.title.rendered
-          console.log(val.title.rendered)
-        });
-    });
-
-
-
+function wpBlogs(){
+  $("#wp-blog").click(function(){
+    var id = $(this).data("id");
+    var host = document.location.origin
+    $("#wp-blog-modal iframe").prop("src", host+"/wp-blog/"+id);
+    $("#wp-blog-modal").modal();
+  });
 }
 
 $(window).resize(function(){
@@ -241,4 +231,5 @@ $(document).ready(function(){
   getThumbnail();
   selectVIdeoId($( ".select_video_id" ));
   onChangeVideo();
+  wpBlogs();
 });

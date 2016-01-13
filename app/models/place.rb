@@ -372,51 +372,7 @@ class Place < ActiveRecord::Base
     self.save
   end
 
-  def get_request(url)
-    url_parse = URI.parse(url)
-    response = Net::HTTP.get_response(url_parse)
-    # req = Net::HTTP::Get.new(url_parse.to_s)
-    # res = Net::HTTP.start(url_parse.host, url_parse.port) {|http|
-    #   http.request(req)
-    # }
-    JSON.parse response.body
-  end
 
-  def blog_request
-    place_param = self.display_name.parameterize
-    url = "https://corporate.boundround.com/wp-json/wp/v2/posts?filter[cat]=772&filter[tag]=#{place_param}"
-    respon = get_request(url)
-    blogs = {}
-    respon.each_with_index do |json, index|
-      blogs[index.to_s] = {}
-      blogs[index.to_s]["title"] = json["title"]["rendered"]
-      url_img = json["_links"]["https://api.w.org/featuredmedia"][0]["href"]
-      image_url = get_request(url_img)
-
-      # json["content"]["rendered"].split("http://corporate.boundround.com/wp-content/uploads/")[5].split("><img")[0]
-      # "2015/09/Sydney-to-Hobart-race.jpg\""
-      if !image_url["data"].blank?
-        src_img = json["content"]["rendered"].split("http://corporate.boundround.com/wp-content/uploads/")
-        img = ""
-        # src_img.size.times do |i| #0 , 1, 2, 3, 4
-          1.upto(src_img.size/2) do |j| #1 , 2, 3, 4, 5
-            arys = []
-            0.upto((src_img.size/2)-1) {|i| arys << i }
-            # puts src_img[j+arys[j-1]].split("><img")[0]
-            img = src_img[j+arys[j-1]].split("><img")[0] rescue next
-            break 
-          end
-          blogs[index.to_s]["image"] = "http://corporate.boundround.com/wp-content/uploads/" + img.chop
-        # end
-      else
-        blogs[index.to_s]["image"] = image_url["source_url"]
-      end
-      puts image_url
-      
-    end
-
-    return blogs
-  end
 
   private
     def algolia_id

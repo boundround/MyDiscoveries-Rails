@@ -1140,4 +1140,8 @@ h1#country-name-heading{
 .embed-responsive-item.for-blog{
   min-height: 307px;
   min-width: 504px;
+  cursor: pointer;
+}
+#for-story{
+  cursor: pointer;  
 }

@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-
+  layout false, :only => :wp_blog
   # before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms, :debug]
 
   def index
@@ -110,7 +110,7 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
-    @place_blog = @place.blog_request
+    # @place_blog = @place.blog_request
     @reviewable = @place
     @reviews = @reviewable.reviews.active
     if user_signed_in?
@@ -123,6 +123,24 @@ class PlacesController < ApplicationController
 
     @storiable = @place
     @stories = @storiable.stories.active
+
+    # new for story
+    @all_stories_and_blogs = []
+    @place_blog = ApiBlog.blog_request(@place.slug)
+
+    @place_blog.each do |blog|
+      @all_stories_and_blogs << blog
+    end
+    @storiable.stories.active.each do |story|
+     @all_stories_and_blogs << story
+    end
+    # @all_stories_and_blogs << @storiable.stories.active
+    # @all_stories_and_blogs << place
+
+    @all_stories_and_blogs.sort{|x, y| x.created_at <=> y.created_at}.reverse
+    
+    
+
     @story = Story.new
     @user_photos = @story.user_photos.build
     @active_user_photos = UserPhoto.active.where(place_id: @place.id)
@@ -509,6 +527,22 @@ class PlacesController < ApplicationController
 #    @place = Place.friendly.find(params[:id])
 #     render plain: params.inspect
   end
+    
+    def get_request(url)
+      url_parse = URI.parse(url)
+      response = Net::HTTP.get_response(url_parse)
+      JSON.parse response.body
+    end
+
+    def wp_blog
+      id = params[:id]
+      url = "https://corporate.boundround.com/wp-json/wp/v2/posts/#{id}"
+      req = get_request(url)
+      @hero_image = req["content"]["rendered"].html_safe
+      # @hero_title = req["title"]["rendered"].html_safe
+      @content = req["content"]["rendered"].html_safe
+    end
+
 
   protected
     def yl_array_from_range(yl_range)
@@ -664,10 +698,6 @@ class PlacesController < ApplicationController
 #      @categories = Category.all.map{|c| c[:name]}
 #      @categories.unshift('All')
       @categories = ["All", "Excursion", "Incursion", "Virtual Excursion"]
-    end
-
-    def blogs
-      
     end
 
   private
