@@ -209,11 +209,17 @@ function selectVIdeoId(_this){
 }
 
 function wpBlogs(){
-  $("#wp-blog").click(function(){
+  $(".cs-blog[data-class='apiblog']").click(function(){
     var id = $(this).data("id");
-    var host = document.location.origin
-    $("#wp-blog-modal iframe").prop("src", host+"/wp-blog/"+id);
-    $("#wp-blog-modal").modal();
+    var host = document.location.origin;
+    $("#modal-dialog-story").hide();
+    $("#modal-dialog-blog").show();
+    $("#userStory iframe").prop("src", host+"/wp-blog/"+id);
+    $("#userStory").modal();
+  });
+  
+  $('#userStory').on('hidden.bs.modal', function () {
+    $("#userStory iframe").prop("src","");
   });
 }
 

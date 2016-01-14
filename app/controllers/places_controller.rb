@@ -122,22 +122,22 @@ class PlacesController < ApplicationController
     @review = Review.new
 
     @storiable = @place
-    @stories = @storiable.stories.active
+    @stories = @storiable.stories.active + ApiBlog.blog_request(@place.slug)
 
     # new for story
-    @all_stories_and_blogs = []
-    @place_blog = ApiBlog.blog_request(@place.slug)
+    # @stories  = @stories + ApiBlog.blog_request(@place.slug)
+    # @place_blog = 
 
-    @place_blog.each do |blog|
-      @all_stories_and_blogs << blog
-    end
-    @storiable.stories.active.each do |story|
-     @all_stories_and_blogs << story
-    end
+    # @place_blog.each do |blog|
+    #   @all_stories_and_blogs << blog
+    # end
+    # @storiable.stories.active.each do |story|
+    #  @all_stories_and_blogs << story
+    # end
     # @all_stories_and_blogs << @storiable.stories.active
     # @all_stories_and_blogs << place
 
-    @all_stories_and_blogs.sort{|x, y| x.created_at <=> y.created_at}.reverse
+    @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse
     
     
 
@@ -537,10 +537,14 @@ class PlacesController < ApplicationController
     def wp_blog
       id = params[:id]
       url = "https://corporate.boundround.com/wp-json/wp/v2/posts/#{id}"
-      req = get_request(url)
-      @hero_image = req["content"]["rendered"].html_safe
+      req = ApiBlog.get_request(url)
+      # @hero_image = req["content"]["rendered"].html_safe
       # @hero_title = req["title"]["rendered"].html_safe
+      @title = req["title"]["rendered"].html_safe
       @content = req["content"]["rendered"].html_safe
+      url_img = req["_links"]["https://api.w.org/featuredmedia"][0]["href"]
+      image_url = get_request(url_img)
+      @hero_image = ApiBlog.blog_request_image(image_url, req)
     end
 
 

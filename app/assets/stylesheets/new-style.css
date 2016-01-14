@@ -1137,11 +1137,14 @@ h1#country-name-heading{
 .embed-responsive.embed-responsive-16by9.for-video-modal img{
   width: 100%
 }
-.embed-responsive-item.for-blog{
+.embed-responsive-item.cs-item-blog{
   min-height: 307px;
   min-width: 504px;
   cursor: pointer;
 }
-#for-story{
+.embed-responsive.embed-responsive-16by9.cs-blog{
   cursor: pointer;  
+}
+#br15_owl_blogs.owl-carousel .owl-controls.clickable {
+  display: block !important;
 }
