@@ -32,9 +32,9 @@ class VideosController < ApplicationController
     elsif !params["video"]["youtube_id"].blank?
         response = Unirest.get("http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=#{@video.youtube_id}&format=json") rescue nil
     end
-    
+
     if response
-      @video.vimeo_thumbnail = response.body["thumbnail_url"] 
+      @video.vimeo_thumbnail = response.body["thumbnail_url"]
       @video.title = response.body["title"] if @video.title.blank?
       @video.description = response.body["description"] if @video.description.blank?
     end
@@ -88,7 +88,7 @@ class VideosController < ApplicationController
   private
 
     def video_params
-      params.require(:video).permit(:vimeo_id, :area_id, :title, :hero, :description, :place_id, :priority, :vimeo_thumbnail, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy, :youtube_id)
+      params.require(:video).permit(:vimeo_id, :area_id, :transcript, :youtube_id, :title, :hero, :description, :place_id, :priority, :vimeo_thumbnail, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy, :youtube_id)
     end
 
 end

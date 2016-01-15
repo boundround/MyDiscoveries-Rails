@@ -115,8 +115,10 @@
           <tr>
             <th>Preview</th>
             <th>Vimeo ID</th>
+            <th>YouTube ID</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Transcript</th>
             <th>Hero</th>
             <th>Priority</th>
             <th>Status</th>
@@ -134,8 +136,10 @@
                 <%= ff.input :id, as: :hidden %>
                 <td></td>
                 <td><%= ff.text_area :vimeo_id %></td>
+                <td><%= ff.text_area :youtube_id %></td>
                 <td><%= ff.text_area :title %></td>
                 <td><%= ff.text_area :description %></td>
+                <td><%= ff.text_area :transcript %></td>
                 <td><%= ff.check_box :hero %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
