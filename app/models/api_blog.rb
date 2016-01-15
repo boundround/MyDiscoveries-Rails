@@ -47,7 +47,7 @@ class ApiBlog
     respon.each_with_index do |json, index|
       blog = ApiBlog.new(:title => json["title"]["rendered"], :content => json["content"]["rendered"],
       :image => json["_links"]["https://api.w.org/featuredmedia"][0]["href"], :id=>json["id"], :created_at=>json["date"])
-      image_url = get_request(url_img)
+      image_url = get_request(blog.image)
       blog.image = parse_image(image_url, json)
       results << blog
     end
