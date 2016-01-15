@@ -516,7 +516,10 @@ class PlacesController < ApplicationController
 
     
   def wp_blog
-    @blog = ApiBlog.find_blog_id(params[:id].to_i, "Sydney")
+    @blog = ApiBlog.find_blog_id(params[:id].to_i, params[:place])
+    # debugger
+    # @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:place])
+    @place = Place.find_by_slug(params[:place])
   end
 
 

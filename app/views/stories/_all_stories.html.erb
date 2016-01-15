@@ -12,7 +12,7 @@
               <div class="video-title"><%= story.title %></div>
             </div>
           <% elsif story.class.to_s.eql? "ApiBlog" %>
-          <div class="embed-responsive embed-responsive-16by9 cs-blog" data-class="apiblog" data-id="<%= story.id %>">
+          <div class="embed-responsive embed-responsive-16by9 cs-blog" data-class="apiblog" data-id="<%= story.id %>" data-place="<%= @place.slug %>" data-place-object="<%= @place %>" data-content="<%= story.content %>">
               <img class="embed-responsive-item cs-item-blog" src="<%= story.image.blank? ? draw_hero_background(@place) : story.image %>">
               <div  class="video-title"><%= story.title %></div>
           </div>

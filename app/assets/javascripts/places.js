@@ -252,6 +252,7 @@ $(document).ready(function(){
         $('#story-image-2a').prepend('<div id="image-2" class="pull-right side-img-cont share"><div class="share-btn"><img src=' + image2 + ' class="story-image"></div></div>');
       if (image3)
         $('#story-image-3a').html("<div id='image-3' class='img-cont2 share z-up'><div class='share-btn'><img src=" + image3 + " class='story-image'></div></div>");
+      $("#userStory .modal-dialog").css("max-width","830px");
       $("#userStory").modal();
       $("#modal-dialog-story").show();
       $("#modal-dialog-blog").hide();

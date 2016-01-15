@@ -34,9 +34,10 @@ class ApiBlog
           break 
         end
        image = "http://corporate.boundround.com/wp-content/uploads/" + img.chop
-       return img.blank? ? "" : image
+       # return img.blank? ? "" : image
+       ""
     else
-      image = image_url["source_url"]
+      image_url["source_url"]
     end
   end
 
