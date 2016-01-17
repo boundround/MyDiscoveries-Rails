@@ -74,10 +74,10 @@
                         <div class="btn-group br15_Action_Buttons btn-group-justified text-uppercase">
                             <% if user_signed_in? %>
                                 <a href="#"  data-toggle="modal" data-target="#myModal" class="btn btn-primary" style="border-right: 1px solid #fff;"><span class="fa fa-plus-circle"></span> photo</a>
-                                <a href="#" data-toggle="modal" data-target="#storyModal" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Story</a>
+                                <a href="#" data-toggle="modal" data-target="#storyModal" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Stories</a>
                             <% else %>
                                 <a href="#"  data-toggle="modal" data-target="#signInModal" class="btn btn-primary" style="border-right: 1px solid #fff;"><span class="fa fa-plus-circle"></span> photo</a>
-                                <a href="#" data-toggle="modal" data-target="#signInModal" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Story</a>
+                                <a href="#" data-toggle="modal" data-target="#signInModal" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Stories</a>
                             <% end %>
                         </div>
                     </div>
@@ -226,10 +226,10 @@
             </div>
         </div>
         <% end %>
-        
+
         <% unless @stories.blank? %>
         <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid">
-            <a  href="#" class="btn btn-default new-btn-orange br15_Title_See_All">Story</a>
+            <a  href="#" class="btn btn-default new-btn-orange br15_Title_See_All">Stories</a>
             <div class="row">
              <div id="br15_owl_blogs" class="owl-carousel">
                 <%= render "stories/all_stories"%>
@@ -252,7 +252,7 @@
             </div>
           </div>
         </div> -->
-        
+
         <%# unless @stories.blank? %>
 <!--         <div class="br15_features hidden-xs container-fluid">
             <div class="row">
