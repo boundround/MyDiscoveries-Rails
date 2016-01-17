@@ -48,6 +48,18 @@ function setUpCarosul(){
                 "<i class='fa fa-chevron-right'></i>"
             ]
         });
+        $("#br15_owl_blogs").owlCarousel({
+            items:3,
+            itemsDesktopSmall:[1199,3],
+            itemsTablet:[768,2],
+            itemsMobile:[500,1],
+            navigation:true,
+            pagination:false,
+            navigationText: [
+                "<i class='fa fa-chevron-left'></i>",
+                "<i class='fa fa-chevron-right'></i>"
+            ]
+        });
         $('.br15_instagram,.br15_leaderboard,.br15_reviews,.br15_blog .row .col-sm-6,.br15_about,.br15_about_sidebar ').matchHeight();
     }
 
@@ -196,6 +208,28 @@ function selectVIdeoId(_this){
       }
 }
 
+function wpBlogs(){
+  $(".cs-blog[data-class='apiblog']").click(function(){
+    var id = $(this).data("id");
+    var place = $(this).data("place");
+    var image = $(this).data("image");
+    var place_name = $(this).data("place-name");
+    var host = document.location.origin;
+    $("#modal-dialog-story").hide();
+    $("#modal-dialog-blog").show();
+    $("#userStory iframe").prop("src", host+"/wp-blog/"+id+"/"+place);
+    $("#userStory .modal-dialog").css("max-width","1120px");
+    // $("#frame-blog").prop("src", host+"/wp-blog/"+id+"/"+place);
+    // $("#userStory iframe");
+    $("#userStory").modal();
+  });
+  
+  $('#userStory').on('hidden.bs.modal', function () {
+    $("#userStory .modal-dialog").css("max-width","830px");
+    $("#userStory iframe").prop("src","");
+  });
+}
+
 $(window).resize(function(){
   responsiveHomeVideo();
   responsiveModalVideo();
@@ -210,4 +244,5 @@ $(document).ready(function(){
   getThumbnail();
   selectVIdeoId($( ".select_video_id" ));
   onChangeVideo();
+  wpBlogs();
 });

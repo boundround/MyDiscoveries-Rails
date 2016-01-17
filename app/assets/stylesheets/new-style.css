@@ -1153,3 +1153,15 @@ h1#country-name-heading{
   color: #F07656;
   text-decoration: none;
 }
+
+.embed-responsive-item.cs-item-blog{
+  min-height: 307px;
+  min-width: 504px;
+  cursor: pointer;
+}
+.embed-responsive.embed-responsive-16by9.cs-blog{
+  cursor: pointer;
+}
+#br15_owl_blogs.owl-carousel .owl-controls.clickable {
+  display: block !important;
+}

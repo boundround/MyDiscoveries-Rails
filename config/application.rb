@@ -30,7 +30,7 @@ module BoundRoundWeb
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
-    config.cache_store = :dalli_store
+    config.cache_store = :dalli_store, nil, {:expires_in => 2.days}
     config.serve_static_assets = true
 
     config.action_dispatch.default_headers = {

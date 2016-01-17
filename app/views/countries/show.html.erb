@@ -247,7 +247,17 @@
             </div>
         </div>
         <% end %>
-      <% unless @stories.blank? %>
+        <% unless @stories.blank? %>
+        <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid">
+            <a  href="#" class="btn btn-default new-btn-orange br15_Title_See_All">Story</a>
+            <div class="row">
+             <div id="br15_owl_blogs" class="owl-carousel">
+                <%= render "stories/all_stories"%>
+             </div>
+            </div>
+        </div>
+        <% end %>
+      <!-- <%# unless @stories.blank? %>
         <div class="br15_features hidden-xs container-fluid">
             <div class="row">
                 <div class="col-sm-12" id="stories">
@@ -255,13 +265,12 @@
                         <div class="col-xs-12">
                                 <a class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All">Story</a>
                             <hr class="br15_hr visible-xs"/>
-                            <%= render 'stories/all_stories' %>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <% end %>
+        <%# end %> -->
 
         <div class="br15_info br15_famous container-fluid">
             <a href="#" class="btn btn-default new-btn-orange a-famous br15_pad_bot_5  br15_features_btn  br15_Title_See_All br15_btn_lg ">Famous Faces</a>
@@ -366,3 +375,4 @@
   <!-- /.modal -->
 <%= render 'layouts/video_modal' %>
 <%= render 'layouts/footer' %>
+<%= render 'stories/modal_story' %>

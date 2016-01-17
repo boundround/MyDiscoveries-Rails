@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-
+  layout false, :only => :wp_blog
   # before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms, :debug]
 
   def index
@@ -110,6 +110,7 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
+    # @place_blog = @place.blog_request
     @reviewable = @place
     @reviews = @reviewable.reviews.active
     if user_signed_in?
@@ -121,7 +122,11 @@ class PlacesController < ApplicationController
     @review = Review.new
 
     @storiable = @place
-    @stories = @storiable.stories.active
+    api_blogs = ApiBlog.get_cached_blogs(@place.slug)
+    @stories = @storiable.stories.active + api_blogs
+
+    @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse
+    
     @story = Story.new
     @user_photos = @story.user_photos.build
     @active_user_photos = UserPhoto.active.where(place_id: @place.id)
@@ -508,6 +513,15 @@ class PlacesController < ApplicationController
 #    @place = Place.friendly.find(params[:id])
 #     render plain: params.inspect
   end
+
+    
+  def wp_blog
+    @blog = ApiBlog.find_blog_id(params[:id].to_i, params[:place])
+    # debugger
+    # @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:place])
+    @place = Place.find_by_slug(params[:place])
+  end
+
 
   protected
     def yl_array_from_range(yl_range)
