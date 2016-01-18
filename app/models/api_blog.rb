@@ -31,7 +31,7 @@ class ApiBlog
           arys = []
           0.upto((src_img.size/2)-1) {|i| arys << i }
           img = src_img[j+arys[j-1]].split("><img")[0] rescue next
-          break 
+          break
         end
        image = "http://corporate.boundround.com/wp-content/uploads/" + img.chop
        # return img.blank? ? "" : image
@@ -52,7 +52,7 @@ class ApiBlog
       blog.image = parse_image(image_url, json)
       results << blog
     end
-    set_cached_blogs(results, place_param)
+    # set_cached_blogs(results, place_param)
     return results
   end
 
@@ -61,11 +61,13 @@ class ApiBlog
   end
 
   def self.get_cached_blogs(place_slug)
-    CLIENT.get(place_slug) || blog_request(place_slug)
+    Rails.cache.fetch(place_slug) do
+      blog_request(place_slug)
+    end
   end
 
   def self.clear_cached_blogs(place_slug)
-    CLIENT.set(place_slug, nil)
+    Rails.cache.delete(place_slug)
   end
 
   def self.find_blog_id(id, place_slug)
