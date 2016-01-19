@@ -9,6 +9,7 @@ class SessionsController < Devise::SessionsController
   def create
     @set_body_class = 'passport-page'
     super
+    flash[:recently_signed_in] = 'Recently signed in'
     flash.delete(:notice)
   end
 
