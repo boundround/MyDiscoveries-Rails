@@ -62,3 +62,4 @@
 //= require jquery.Jcrop.min
 //= require places_crop
 //= require markerclusterer
+//= require jquery.confirm.min

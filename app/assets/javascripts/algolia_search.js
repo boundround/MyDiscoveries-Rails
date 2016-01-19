@@ -28,7 +28,7 @@ $(document).ready(function(){
   var sliderTemplate = Hogan.compile($('#slider-template').text());
   var paginationTemplate = Hogan.compile($('#pagination-template').text());
   var noResultsTemplate = Hogan.compile($('#no-results-template').text());
-  
+
   function searchCondition(query){
     if (query.length > 0){
       algoliaHelper.setQuery(query);
@@ -44,7 +44,7 @@ $(document).ready(function(){
       //animate map overlay
     }
   }
-  
+
   $searchInput
   .on('keyup', function() {
       var query = $(this).val();
@@ -82,7 +82,7 @@ $(document).ready(function(){
       if ($('#br15_map').length){
         updateMapWithAlgoliaSearchResults(content);
       }
-      
+
       renderStats(content);
       renderPagination(content);
     } else {
@@ -97,7 +97,7 @@ $(document).ready(function(){
       $('.br15_map').addClass('br15_collapse');
     }
   });
-  
+
   function renderNoResults(content){
     $noResult.html(noResultsTemplate.render(content));
   }
@@ -206,52 +206,60 @@ $(document).ready(function(){
     };
     service.getDetails(request, function(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log(place);
-        console.log(place.name.toLowerCase());
+        // Check to see if place exists in Bound Round
+        var allPlaces = [];
+        var allAreas = [];
+        // var allBoundRoundPlaces;
         $.ajax({
-          beforeSend: function(){
-            console.log("checking BR places");
-            var allPlaces = [];
-            var allAreas = [];
-            // var allBoundRoundPlaces;
-            $.ajax({
-                url: '/areas/mapdata.json',
+            url: '/areas/mapdata.json',
+            success: function(data) {
+              allAreas = data["features"];
+
+              $.ajax({
+                url: '/places/mapdata.json',
                 success: function(data) {
-                  allAreas = data["features"];
+                  allPlaces = data["features"];
+                  allCountries = data["countries"];
+                  window.allBoundRoundPlaces = allPlaces.concat(allAreas).concat(allCountries);
 
-                  $.ajax({
-                    url: '/places/mapdata.json',
-                    success: function(data) {
-                      allPlaces = data["features"];
-                      allCountries = data["countries"];
-                      window.allBoundRoundPlaces = allPlaces.concat(allAreas).concat(allCountries);
+                  for (var i = 0; i < allBoundRoundPlaces.length; i++){
+                    if (place.name.toLowerCase().trim() == allBoundRoundPlaces[i].properties.title.toLowerCase().trim()){
+                      window.location.href = allBoundRoundPlaces[i].properties.url;
+                    } else {
+                      // Create confirmation dialog requesting place be added to Bound Round
+                      $.confirm({
+                          text: "Would you like to request this place be added to Bound Round?",
+                          confirm: function() {
 
-                      for (var i = 0; i < allBoundRoundPlaces.length; i++){
-                        if (place.name.toLowerCase().trim() == allBoundRoundPlaces[i].properties.title.toLowerCase().trim()){
-                          window.location.href = allBoundRoundPlaces[i].properties.url;
-                        }
-                      }
+                          },
+                          cancel: function() {
+                              // nothing to do
+                          }
+                      });
                     }
-                  });
+                  }
                 }
               });
-          },
-          url: "/places/user_create.js",
-          type: "POST",
-          data: { place: {display_name: place.name, display_address: place.formatted_address,
-                  latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng(),
-                  phone_number: place.formatted_phone_number, website: place.website,
-                  place_id: googleSearchResult.place_id, user_created: true, subscription_level: "basic"}, address_components: place.address_components },
-          success: function(data){
-            if (data.place_id !== "error"){
-              window.location.href = data.place_id;
-            } else {
-              alert("Please try your search again");
             }
-          }
-        });
+          });
       }
+
     });
+      //     url: "/places/user_create.js",
+      //     type: "POST",
+      //     data: { place: {display_name: place.name, display_address: place.formatted_address,
+      //             latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng(),
+      //             phone_number: place.formatted_phone_number, website: place.website,
+      //             place_id: googleSearchResult.place_id, user_created: true, subscription_level: "basic"}, address_components: place.address_components },
+      //     success: function(data){
+      //       if (data.place_id !== "error"){
+      //         window.location.href = data.place_id;
+      //       } else {
+      //         alert("Please try your search again");
+      //       }
+      //     }
+      //   });
+      // }
   }
 
 });
