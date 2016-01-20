@@ -106,7 +106,7 @@
 <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 	</head>
 
-	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>" data-mixpanel-identity="<%= current_user.present? ? "signed-in-#{current_user.id}" : "guest-#{request.remote_ip}" %>">
+	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>" data-mixpanel-identity="<%= current_user.present? ? "signed-in signed-in-#{current_user.id}" : "guest-#{request.remote_ip}" %>">
 		<%= javascript_include_tag 'mapbox' %>
     <%= javascript_include_tag 'application' %>
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
@@ -119,7 +119,7 @@
 	  <%= render "/layouts/page_loader" %>
   	  <% flash.each do |type, message| %>
         <% if !bootstrap_class_for(type).eql?("timedout")%>
-		  <% if type.eql?('recently_signed_in') || type.eql?('recently_signed_out') %>
+		  <% if is_flash_key_for_tracking?(type) %>
             <div class="hidden <%= type %>"></div>
           <% else %>
               <div class="alert <%= bootstrap_class_for(type) %> fade in">

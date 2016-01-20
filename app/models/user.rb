@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
       '$last_name'        => last_name,
       '$email'            => email
     })
-    tracker.track(id, "Sign Up", {
+    tracker.track(id, "Signed up", {
       "first_name"              => first_name,
       "last_name"               => last_name
     })
