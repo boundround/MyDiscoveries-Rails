@@ -16,6 +16,23 @@
 	background: #fd7e56;
 }
 
+.confirmation-modal {
+  text-align: center;
+  .modal-dialog {
+    .modal-content {
+      max-width: 500px;
+      margin: 0 auto;
+      .modal-footer {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.want-alert {
+  display: none;
+}
+
 #cards::after {
 	content: "";
 	background: url(asset_path('sand_dunes.png'));

@@ -1,12 +1,11 @@
 class Want < ActionMailer::Base
-  default from: "website@BoundRound.com"
+  default from: "website@boundround.com"
 
-  def notification(place, city, country)
-    @email = "Janeece@BoundRound.com"
+  def notification(place, address)
+    @email = "janeece@boundround.com"
     @place = place
-    @city = city
-    @country = country
+    @address = address
 
-    mail(to: @email, subject: 'Someone wants a place in Bound Round')
+    mail(to: @email, subject: "Someone has requested #{@place} in Bound Round")
   end
 end
