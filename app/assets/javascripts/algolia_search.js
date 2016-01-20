@@ -12,6 +12,18 @@ $(document).ready(function(){
   var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
   var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
+  var hideSearchResults = function(){
+    $('.br15_search_result').show();
+      $('.search-results-container').show();
+      $('.search-results').show();
+      $('.google-results-container').show();
+      $('.google-results-container').append($('.pac-container'));
+      renderNoResults(content);
+      $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
+      $('#br15_map').removeClass('br15_min_h_530');
+      $('.br15_map').addClass('br15_collapse');
+  };
+
   $searchInput = $('#search-box');
   $searchInputIcon = $('#search-button');
   $main = $('main');
@@ -209,12 +221,10 @@ $(document).ready(function(){
         // Check to see if place exists in Bound Round
         var allPlaces = [];
         var allAreas = [];
-        // var allBoundRoundPlaces;
         $.ajax({
             url: '/areas/mapdata.json',
             success: function(data) {
               allAreas = data["features"];
-
               $.ajax({
                 url: '/places/mapdata.json',
                 success: function(data) {
@@ -228,9 +238,28 @@ $(document).ready(function(){
                     } else {
                       // Create confirmation dialog requesting place be added to Bound Round
                       $.confirm({
-                          text: "Would you like to request this place be added to Bound Round?",
+                          text: "Sorry, that place is not in Bound Round.\nWould you like us to add it?",
                           confirm: function() {
-
+                            $.ajax(
+                            {
+                              type: "POST",
+                              beforeSend: function(){
+                                $('.want-alert').show();
+                                $('.br15_search_result').show();
+                                $('.search-results-container').hide();
+                                $('.search-results').hide();
+                                $('.google-results-container').hide();
+                                $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
+                                $('#br15_map').removeClass('br15_min_h_530');
+                                $('.br15_map').addClass('br15_collapse');
+                                $('#search-box').val("");
+                              },
+                              url: "/pages/want_notification",
+                              data: { place: place["name"],
+                                      address: place["formatted_address"]
+                                    },
+                              success: function(){}
+                            });
                           },
                           cancel: function() {
                               // nothing to do
@@ -245,21 +274,6 @@ $(document).ready(function(){
       }
 
     });
-      //     url: "/places/user_create.js",
-      //     type: "POST",
-      //     data: { place: {display_name: place.name, display_address: place.formatted_address,
-      //             latitude: place.geometry.location.lat(), longitude: place.geometry.location.lng(),
-      //             phone_number: place.formatted_phone_number, website: place.website,
-      //             place_id: googleSearchResult.place_id, user_created: true, subscription_level: "basic"}, address_components: place.address_components },
-      //     success: function(data){
-      //       if (data.place_id !== "error"){
-      //         window.location.href = data.place_id;
-      //       } else {
-      //         alert("Please try your search again");
-      //       }
-      //     }
-      //   });
-      // }
   }
 
 });

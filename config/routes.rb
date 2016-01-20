@@ -58,7 +58,7 @@ Rails.application.routes.draw do
   post 'search_suggestions' => 'search_suggestions#index'
 
   post 'searchqueries/create' => 'search_queries#create'
-  post 'notification' => 'pages#want_notification'
+  post 'pages/want_notification' => 'pages#want_notification'
   get "areas/mapdata" => "areas#mapdata"
   get "areas/search" => "areas#search"
   get "places/mapdata" => "places#mapdata"
@@ -213,7 +213,7 @@ Rails.application.routes.draw do
 
   get "/users/username/new" => "users/accounts#forgot_username"
   post "/users/username/send_username" => "users/accounts#send_username"
-  
+
   get "/wp-blog/:id/:place", to: "places#wp_blog"
 
   # The priority is based upon order of creation: first created -> highest priority.
