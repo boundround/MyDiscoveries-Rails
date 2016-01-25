@@ -332,4 +332,11 @@ module ApplicationHelper
     end
   end
 
+  def is_flash_key_for_tracking?(key)
+    [
+     "recently_signed_in", "recently_signed_out",
+     "recently_signed_in_with_instagram", "recently_failed_signed_in_with_instagram"
+    ].include?(key)
+  end
+
 end

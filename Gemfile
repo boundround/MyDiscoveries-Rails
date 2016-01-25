@@ -155,6 +155,9 @@ gem 'friendly_id'
 
 gem 'sitemap_generator'
 
+#mixpanel gem
+gem 'mixpanel-ruby'
+
 group :development do
   gem 'railroady'
   gem 'brakeman', :require => false
