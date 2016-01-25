@@ -109,7 +109,7 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
+    @place = Place.includes(:games, :photos, :videos, :reviews, :stories, :user_photos).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
     @reviewable = @place
     @reviews = @reviewable.reviews.active
@@ -126,10 +126,10 @@ class PlacesController < ApplicationController
     @stories = @storiable.stories.active + api_blogs
 
     @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse
-    
+
     @story = Story.new
     @user_photos = @story.user_photos.build
-    @active_user_photos = UserPhoto.active.where(place_id: @place.id)
+    @active_user_photos = @place.user_photos.active
 
     # distance = 20
     # center_point = [@place.latitude, @place.longitude]
@@ -514,7 +514,7 @@ class PlacesController < ApplicationController
 #     render plain: params.inspect
   end
 
-    
+
   def wp_blog
     @blog = ApiBlog.find_blog_id(params[:id].to_i, params[:place])
     # debugger

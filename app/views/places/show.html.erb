@@ -303,13 +303,13 @@
                                     <div class="br_place_footer">
                                         <ul class="list-unstyled">
                                           <li>
-                                            <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
+                                            <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.count : "00" %></a>
                                           </li>
                                           <li>
-                                            <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
+                                            <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.count : "00" %></a>
                                           </li>
                                           <li>
-                                            <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
+                                            <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.count : "00" %></a>
                                           </li>
                                         </ul>
                                     </div>
@@ -358,7 +358,7 @@
                         <div>
                             <a href="<%= place_path(place) %>" class="no-anchor-decoration">
                                 <div class="embed-responsive embed-responsive-16by9 ">
-                                    <img class="embed-responsive-item" src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                                    <img class="embed-responsive-item" src="<%= place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
                                 </div>
                                 <div class="text-center br15_text_nearby">
                                     <h2><%= place.display_name %></h2>
@@ -374,13 +374,13 @@
                                     <div class="br_place_footer">
                                       <ul class="list-unstyled">
                                         <li>
-                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
+                                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.count : "00" %></a>
                                         </li>
                                         <li>
-                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
+                                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.count : "00" %></a>
                                         </li>
                                         <li>
-                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
+                                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.count : "00" %></a>
                                         </li>
                                       </ul>
                                     </div>

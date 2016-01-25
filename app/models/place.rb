@@ -123,6 +123,7 @@ class Place < ActiveRecord::Base
 
   scope :to_be_published, -> { where('published_at >= ?', Time.now) }
   scope :to_be_removed, -> { where('unpublished_at >= ?', Time.now) }
+  scope :is_area, -> {where(is_area: true)}
 
   # include PgSearch
   # pg_search_scope :search, against: [:display_name, :description],
@@ -136,6 +137,8 @@ class Place < ActiveRecord::Base
   belongs_to :user
   has_many :categorizations
   has_many :categories, through: :categorizations
+  has_many :places_secondary_categories
+  has_many :secondary_categories, through: :places_secondary_categories
   has_many :photos, -> { order "created_at ASC"}
   has_many :discounts, -> { order "created_at ASC"}
   has_many :games, -> { order "created_at ASC"}
@@ -271,9 +274,9 @@ class Place < ActiveRecord::Base
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
             },
-            "videoCount" => place.videos.length,
-            "gameCount" => place.games.length,
-            "imageCount" => place.photos.length,
+            "videoCount" => place.videos.count,
+            "gameCount" => place.games.count,
+            "imageCount" => place.photos.count,
             "heroImage" => !place.photos.blank? ? place.photos.first.path_url(:small) : "https://d1w99recw67lvf.cloudfront.net/category_icons/small_generic_" + place_type + ".jpg",
             "placeId" => place.slug,
             "area" => area_info

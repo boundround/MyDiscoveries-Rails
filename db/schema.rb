@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114031321) do
+ActiveRecord::Schema.define(version: 20160125214238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -372,6 +372,8 @@ ActiveRecord::Schema.define(version: 20160114031321) do
     t.text     "school_safari_description"
     t.string   "hero_image"
     t.string   "bound_round_place_id"
+    t.boolean  "is_area"
+    t.string   "primary_category",          default: ""
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -381,6 +383,14 @@ ActiveRecord::Schema.define(version: 20160114031321) do
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
   add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
+
+  create_table "places_secondary_categories", id: false, force: true do |t|
+    t.integer "place_id",              null: false
+    t.integer "secondary_category_id", null: false
+  end
+
+  add_index "places_secondary_categories", ["place_id", "secondary_category_id"], name: "place_categories", using: :btree
+  add_index "places_secondary_categories", ["secondary_category_id", "place_id"], name: "category_places", using: :btree
 
   create_table "places_users", force: true do |t|
     t.integer "user_id",  null: false
@@ -495,6 +505,13 @@ ActiveRecord::Schema.define(version: 20160114031321) do
   create_table "search_suggestions", force: true do |t|
     t.string   "term"
     t.integer  "popularity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "secondary_categories", force: true do |t|
+    t.string   "name"
+    t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
