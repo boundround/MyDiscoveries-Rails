@@ -44,8 +44,8 @@ module BoundRoundWeb
 #    config.force_ssl = true  MOVED TO ENVIRONMENT CONFIG FILES, true for production, false for development
 
     #autoload api files
-    config.paths.add File.join('app', 'resources'), glob: File.join('**', '*.rb')
-    config.autoload_paths += Dir[Rails.root.join('app', 'resources', '**')]
+    config.paths.add "app/services", glob: "**/*.rb"
+    config.autoload_paths += Dir["#{Rails.root}/app/services/*"]
 
   end
 end

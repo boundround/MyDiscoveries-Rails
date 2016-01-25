@@ -1,9 +1,11 @@
 module API
 	class Base < Grape::API
 		
+    include StrongParams
+    include Responder 
+
 		prefix 'API'
 		format 'json'
-		version 'v1', using: :path
 		
 		helpers do
       def logger
@@ -23,7 +25,22 @@ module API
     	error_response(message: e.message, status: 422)
     end
 
-		mount API::V1::Places
+    rescue_from :all do |e|
+      if Rails.env.development?
+        raise e
+      else
+        error_response(message: "Internal server error", status: 500)
+      end
+    end
+
+    mount API::V1::Base
+
+    route :any, '*path' do
+      error!({ error:  'Not Found',
+               detail: "No such route '#{request.path}'",
+               status: '404' },
+             404)
+    end
 
 	end
 end
