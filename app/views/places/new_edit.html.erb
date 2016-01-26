@@ -19,7 +19,7 @@
         <%= f.input :description, label: "Long description", input_html: { class: 'form-control area-description-input' } %>
       </div>
       <div class="form-group">
-        <%= f.input :is_area, label: "Is this an area?", input_html: { class: 'form-control' } %>
+        <%= f.input :is_area, as: :boolean, label: "Is this an area?", input_html: { class: 'form-control' } %>
       </div>
       <div class="form-group js-primary-category">
         <%= f.input :primary_category_id, as: :radio_buttons, :collection => PrimaryCategory.all, value_method: :id %>
