@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126021501) do
+ActiveRecord::Schema.define(version: 20160126030328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,21 @@ ActiveRecord::Schema.define(version: 20160126021501) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "best_time_to_visit_categories", force: true do |t|
+    t.string   "name"
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "best_time_to_visit_categories_places", id: false, force: true do |t|
+    t.integer "place_id",                       null: false
+    t.integer "best_time_to_visit_category_id", null: false
+  end
+
+  add_index "best_time_to_visit_categories_places", ["best_time_to_visit_category_id", "place_id"], name: "place_best_time", using: :btree
+  add_index "best_time_to_visit_categories_places", ["place_id", "best_time_to_visit_category_id"], name: "best_time_place", using: :btree
 
   create_table "bug_posts", force: true do |t|
     t.integer  "user_id"
@@ -214,6 +229,18 @@ ActiveRecord::Schema.define(version: 20160126021501) do
   end
 
   add_index "discounts", ["place_id"], name: "index_discounts_on_place_id", using: :btree
+
+  create_table "duration_categories", force: true do |t|
+    t.string   "name"
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "duration_categories_places", id: false, force: true do |t|
+    t.integer "place_id",             null: false
+    t.integer "duration_category_id", null: false
+  end
 
   create_table "famous_faces", force: true do |t|
     t.string   "name"
@@ -388,6 +415,9 @@ ActiveRecord::Schema.define(version: 20160126021501) do
     t.text     "short_description"
     t.string   "weather_conditions"
     t.integer  "primary_category_id"
+    t.integer  "minimum_age"
+    t.integer  "maximum_age"
+    t.text     "special_requirements"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -398,6 +428,14 @@ ActiveRecord::Schema.define(version: 20160126021501) do
   add_index "places", ["primary_category_id"], name: "index_places_on_primary_category_id", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
   add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
+
+  create_table "places_price_categories", id: false, force: true do |t|
+    t.integer "place_id",          null: false
+    t.integer "price_category_id", null: false
+  end
+
+  add_index "places_price_categories", ["place_id", "price_category_id"], name: "index_places_price_categories_on_place_id_and_price_category_id", using: :btree
+  add_index "places_price_categories", ["price_category_id", "place_id"], name: "index_places_price_categories_on_price_category_id_and_place_id", using: :btree
 
   create_table "places_secondary_categories", id: false, force: true do |t|
     t.integer "place_id",              null: false
@@ -414,6 +452,11 @@ ActiveRecord::Schema.define(version: 20160126021501) do
 
   add_index "places_users", ["place_id", "user_id"], name: "index_places_users_on_place_id_and_user_id", unique: true, using: :btree
 
+  create_table "places_weather_categories", id: false, force: true do |t|
+    t.integer "place_id",            null: false
+    t.integer "weather_category_id", null: false
+  end
+
   create_table "points_balances", force: true do |t|
     t.integer  "user_id"
     t.integer  "balance",    default: 0
@@ -426,6 +469,13 @@ ActiveRecord::Schema.define(version: 20160126021501) do
   create_table "points_values", force: true do |t|
     t.string   "asset_type"
     t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "price_categories", force: true do |t|
+    t.string   "name"
+    t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -740,6 +790,13 @@ ActiveRecord::Schema.define(version: 20160126021501) do
   end
 
   add_index "videos_users", ["video_id", "user_id"], name: "index_videos_users_on_video_id_and_user_id", unique: true, using: :btree
+
+  create_table "weather_categories", force: true do |t|
+    t.string   "name"
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "webresources", force: true do |t|
     t.string   "caption"

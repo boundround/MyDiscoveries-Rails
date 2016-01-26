@@ -16,7 +16,7 @@
         <%= f.input :short_description, input_html: { class: 'form-control area-description-input' } %>
       </div>
       <div class="form-group">
-        <%= f.input :description, input_html: { class: 'form-control area-description-input' } %>
+        <%= f.input :description, label: "Long description", input_html: { class: 'form-control area-description-input' } %>
       </div>
       <div class="form-group">
         <%= f.input :is_area, label: "Is this an area?", input_html: { class: 'form-control' } %>
@@ -32,7 +32,19 @@
         <% end %>
       </div>
       <div class="form-group">
-        <%= f.button :submit, 'Update All' %>
+        <br>
+        <strong>Age Range</strong>
+        <%= f.input :minimum_age, collection: 5..18, label: "From:", input_html: { class: 'form-control' } %>
+        <%= f.input :maximum_age, collection: 9..18, label: "To:", input_html: { class: 'form-control' } %>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="special-requirements-box">&nbsp;&nbsp;<strong>Special requirements?</strong>
+        <div class="js-special-requirements">
+          <%= f.input :special_requirements, label: false, input_html: { class: 'form-control' } %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.button :submit, 'Submit' %>
       </div>
     <% end %>
   <% else %>
@@ -45,6 +57,12 @@
   $(document).ready(function(){
     if ($('#place_is_area').is(":checked")){
       $('.js-primary-category').hide();
+      $('.js-special-requirements').hide();
+    }
+
+    if($('#place_special_requirements').val().length > 0){
+      $('#special-requirements-box').prop('checked', true);
+      $('.js-special-requirements').show();
     }
 
     $('#place_is_area').change(function(){
@@ -52,6 +70,14 @@
         $('.js-primary-category').hide();
       } else {
         $('.js-primary-category').show();
+      }
+    });
+
+    $('#special-requirements-box').change(function(){
+      if ($('#special-requirements-box').is(":checked")){
+        $('.js-special-requirements').show();
+      } else {
+        $('.js-special-requirements').hide();
       }
     });
   });

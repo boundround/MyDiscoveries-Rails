@@ -142,6 +142,16 @@ class Place < ActiveRecord::Base
   has_many :secondary_categories, through: :places_secondary_categories
   has_many :accessibility_categories_places
   has_many :accessibility_categories, through: :accessibility_categories_places
+  has_many :best_time_to_visit_categories_places
+  has_many :best_time_to_visit_categories, through: :best_time_to_visit_categories_places
+  has_many :duration_categories_places
+  has_many :duration_categories, through: :duration_categories_places
+  has_many :best_time_to_visit_categories_places
+  has_many :best_time_to_visit_categories, through: :best_time_to_visit_categories_places
+  has_many :places_price_categories
+  has_many :price_categories, through: :places_price_categories
+  has_many :places_weather_categories
+  has_many :weather_categories, through: :places_weather_categories
   has_many :photos, -> { order "created_at ASC"}
   has_many :discounts, -> { order "created_at ASC"}
   has_many :games, -> { order "created_at ASC"}
