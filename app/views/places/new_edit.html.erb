@@ -1,0 +1,59 @@
+<div class="container">
+  <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
+    <h1>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
+    <p>
+      <a href="<%= place_path(@place) %>" target="blank">View Place Page</a>
+    </p>
+
+    <%= simple_form_for @place, html: { role: 'form'} do |f| %>
+      <div class="form-group">
+        <%= f.input :display_name, input_html: { class: 'form-control' } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :country_id, label: 'Country', collection: Country.all, as: :select, label_method: :display_name, value_method: :id, required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.input :short_description, input_html: { class: 'form-control area-description-input' } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :description, input_html: { class: 'form-control area-description-input' } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :is_area, label: "Is this an area?", input_html: { class: 'form-control' } %>
+      </div>
+      <div class="form-group js-primary-category">
+        <%= f.input :primary_category_id, as: :radio_buttons, :collection => PrimaryCategory.all, value_method: :id %>
+      </div>
+      <div class="field">
+        <% SecondaryCategory.all.each do |category| %>
+          <%= hidden_field_tag "place[category_ids][]", nil%>
+          <%= check_box_tag "place[category_ids][]", category.id, @place.secondary_category_ids.include?(category.id), id: dom_id(category) %>
+          <%= label_tag dom_id(category), category.name %><br/>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <%= f.button :submit, 'Update All' %>
+      </div>
+    <% end %>
+  <% else %>
+    <h2>You do not have sufficient privileges to view this page</h2>
+    <%= link_to "Home", root_path %>
+  <% end %>
+</div>
+
+<script>
+  $(document).ready(function(){
+    if ($('#place_is_area').is(":checked")){
+      $('.js-primary-category').hide();
+    }
+
+    $('#place_is_area').change(function(){
+      if ($('#place_is_area').is(":checked")){
+        $('.js-primary-category').hide();
+      } else {
+        $('.js-primary-category').show();
+      }
+    });
+  });
+
+</script>

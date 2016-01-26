@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125214238) do
+ActiveRecord::Schema.define(version: 20160126021501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accessibility_categories", force: true do |t|
+    t.string   "name"
+    t.string   "identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "accessibility_categories_places", id: false, force: true do |t|
+    t.integer "place_id",                  null: false
+    t.integer "accessibility_category_id", null: false
+  end
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -373,7 +385,9 @@ ActiveRecord::Schema.define(version: 20160125214238) do
     t.string   "hero_image"
     t.string   "bound_round_place_id"
     t.boolean  "is_area"
-    t.string   "primary_category",          default: ""
+    t.text     "short_description"
+    t.string   "weather_conditions"
+    t.integer  "primary_category_id"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -381,6 +395,7 @@ ActiveRecord::Schema.define(version: 20160125214238) do
   add_index "places", ["country_id"], name: "index_places_on_country_id", using: :btree
   add_index "places", ["description"], name: "index_places_on_description", using: :btree
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
+  add_index "places", ["primary_category_id"], name: "index_places_on_primary_category_id", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
   add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
 
@@ -411,6 +426,14 @@ ActiveRecord::Schema.define(version: 20160125214238) do
   create_table "points_values", force: true do |t|
     t.string   "asset_type"
     t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "primary_categories", force: true do |t|
+    t.string   "name"
+    t.string   "identifier"
+    t.string   "icon"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
