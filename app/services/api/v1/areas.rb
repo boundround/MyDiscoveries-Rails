@@ -2,6 +2,9 @@ module API
 	module V1
 		class Areas < Base
 
+			self.includes_on_finder = [:videos, :games, :photos, :discounts, :fun_facts, places: [:photos, :games, :videos, :categories]]
+			use_resource!
+
 			helpers do
 				def area_params
 					posts.require(:area).permit(:code, :identifier, :display_name, :short_intro, :description,
@@ -24,18 +27,18 @@ module API
 
 				desc "POST new area"
 				post do
-					area = Area.new(area_params)
+					area = context_resource
 			    area.save ? message("Area created.") : standard_validation_error(area)
 				end
 
 				desc "GET area with id"
 				get ':id' do
-					Area.includes(:videos, :games, :photos, :discounts, :fun_facts, places: [:photos, :games, :videos, :categories]).friendly.find(params[:id])
+					area
 				end
 
 				desc "PUT update existing area"
 				put ':id' do
-					area = Area.friendly.find(params[:id])
+					area = context_resource
 					if area.update area_params
 						area.photos.each do |photo|
 			        photo.add_or_remove_from_country(area.country)
@@ -61,7 +64,7 @@ module API
 
 				desc "DELETE an area"
 				delete ':id' do
-					area = Area.friendly.find params[:id]
+					area = context_resource
 					place.destroy ? message("#{area.display_name} is destroyed." ) : standard_permission_denied_error
 				end
 

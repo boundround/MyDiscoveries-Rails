@@ -10,7 +10,7 @@ module Responder
 
 			def standard_validation_error object = nil, options = { error: "Unprocessable entity" }
 				if object.kind_of?(ActiveRecord::Base) || options[:detail].is_a?(Hash)
-					options[:detail] = object.errors if options[:detail].is_a?(Hash)
+					options[:detail] = object.errors unless options[:detail].is_a?(Hash)
 					error!(options, 422)
 				end
 			end

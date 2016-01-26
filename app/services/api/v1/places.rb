@@ -2,6 +2,8 @@ module API
 	module V1
 		class Places < Base
 
+			use_resource!
+
 			helpers do
 				def place_params
 					posts.require(:place).permit(:code, :identifier, :display_name, :description, :show_on_school_safari, :school_safari_description, :booking_url, :display_address, :subscription_level,
@@ -28,7 +30,7 @@ module API
 
 				desc "POST new place"
 				post do
-					place = Place.new(place_params)
+					place = context_resource
 			    if place.identifier == ''
 			      place.identifier = place.display_name.gsub(/\W/, '').downcase
 			    end
@@ -41,12 +43,12 @@ module API
 
 				desc "GET existing place."
 				get ':id' do
-					place = Place.friendly.find params[:id]
+					place
 				end
 
 				desc "PUT update existing place."
 				put ':id' do
-					place = Place.friendly.find(params[:id])
+					place = context_resource
 
 			    if place.update(place_params)
 
@@ -74,7 +76,7 @@ module API
 
 				desc "DELETE existing place."
 				delete ':id' do
-					place = Place.friendly.find params[:id]
+					place = context_resource
 					place.destroy ? message("#{place.display_name} is destroyed." ) : standard_permission_denied_error
 				end
 
