@@ -109,7 +109,7 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
+    @place = Place.includes(:games, :photos, :videos, :reviews, :stories, :user_photos).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
     @reviewable = @place
     @reviews = @reviewable.reviews.active
@@ -126,10 +126,10 @@ class PlacesController < ApplicationController
     @stories = @storiable.stories.active + api_blogs
 
     @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse
-    
+
     @story = Story.new
     @user_photos = @story.user_photos.build
-    @active_user_photos = UserPhoto.active.where(place_id: @place.id)
+    @active_user_photos = @place.user_photos.active
 
     # distance = 20
     # center_point = [@place.latitude, @place.longitude]
@@ -359,6 +359,11 @@ class PlacesController < ApplicationController
     @discount = Discount.new
   end
 
+  def new_edit
+    @set_body_class = "br-body"
+    @place = Place.friendly.find(params[:id])
+  end
+
   def tags
     params[:sort] ||= "id"
     params[:direction] ||= "asc"
@@ -514,7 +519,7 @@ class PlacesController < ApplicationController
 #     render plain: params.inspect
   end
 
-    
+
   def wp_blog
     @blog = ApiBlog.find_blog_id(params[:id].to_i, params[:place])
     # debugger
@@ -682,16 +687,16 @@ class PlacesController < ApplicationController
   private
     def place_params
       params.require(:place).permit(:code, :identifier, :display_name, :description, :show_on_school_safari, :school_safari_description, :booking_url, :display_address, :subscription_level,
-                                    :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon, :published_at, :unpublished_at,
+                                    :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon, :published_at, :unpublished_at, :minimum_age, :maximum_age,
                                     :street_number, :route, :sublocality, :locality, :state, :post_code, :created_by, :user_created, :hero_image, :remote_hero_image_url, :crop_x, :crop_y, :crop_h, :crop_w,
-                                    :customer_approved, :customer_review, :approved_at, :country_id, :bound_round_place_id,
-                                    :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status,
+                                    :customer_approved, :customer_review, :approved_at, :country_id, :bound_round_place_id, :short_description, :primary_category_id,
+                                    :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status, :is_area, :special_requirements,
                                     photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
                                     videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
                                     games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :customer_approved, :customer_review, :approved_at, :_destroy],
                                     fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
                                     discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
                                     user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
-                                    category_ids: [])
+                                    category_ids: [], secondary_category_ids: [], accessibility_category_ids: [], best_time_to_visit_category_ids: [], duration_category_ids: [], price_category_ids: [], category_ids: [], weather_category_ids: [])
     end
 end

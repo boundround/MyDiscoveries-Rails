@@ -150,6 +150,7 @@ Rails.application.routes.draw do
   end
 
   post '/places/transfer_assets' => 'places#transfer_assets'
+  get '/places/:id/new_edit' => 'places#new_edit'
   # get '/places/:id/hero_image_picker' => 'places#hero_image_picker'
   resources :places do
     member { get 'preview' }

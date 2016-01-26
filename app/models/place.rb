@@ -123,6 +123,7 @@ class Place < ActiveRecord::Base
 
   scope :to_be_published, -> { where('published_at >= ?', Time.now) }
   scope :to_be_removed, -> { where('unpublished_at >= ?', Time.now) }
+  scope :is_area, -> {where(is_area: true)}
 
   # include PgSearch
   # pg_search_scope :search, against: [:display_name, :description],
@@ -134,8 +135,23 @@ class Place < ActiveRecord::Base
   belongs_to :area
   belongs_to :country
   belongs_to :user
+  belongs_to :primary_category
   has_many :categorizations
   has_many :categories, through: :categorizations
+  has_many :places_secondary_categories
+  has_many :secondary_categories, through: :places_secondary_categories
+  has_many :accessibility_categories_places
+  has_many :accessibility_categories, through: :accessibility_categories_places
+  has_many :best_time_to_visit_categories_places
+  has_many :best_time_to_visit_categories, through: :best_time_to_visit_categories_places
+  has_many :duration_categories_places
+  has_many :duration_categories, through: :duration_categories_places
+  has_many :best_time_to_visit_categories_places
+  has_many :best_time_to_visit_categories, through: :best_time_to_visit_categories_places
+  has_many :places_price_categories
+  has_many :price_categories, through: :places_price_categories
+  has_many :places_weather_categories
+  has_many :weather_categories, through: :places_weather_categories
   has_many :photos, -> { order "created_at ASC"}
   has_many :discounts, -> { order "created_at ASC"}
   has_many :games, -> { order "created_at ASC"}
@@ -271,9 +287,9 @@ class Place < ActiveRecord::Base
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
             },
-            "videoCount" => place.videos.length,
-            "gameCount" => place.games.length,
-            "imageCount" => place.photos.length,
+            "videoCount" => place.videos.count,
+            "gameCount" => place.games.count,
+            "imageCount" => place.photos.count,
             "heroImage" => !place.photos.blank? ? place.photos.first.path_url(:small) : "https://d1w99recw67lvf.cloudfront.net/category_icons/small_generic_" + place_type + ".jpg",
             "placeId" => place.slug,
             "area" => area_info
