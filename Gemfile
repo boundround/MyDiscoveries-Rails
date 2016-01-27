@@ -184,3 +184,7 @@ gem 'puma'
 
 # use grape as api stack
 gem 'grape'
+gem 'grape-entity'
+gem 'grape-pagination'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'

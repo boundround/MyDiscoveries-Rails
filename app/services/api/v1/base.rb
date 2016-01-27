@@ -14,6 +14,8 @@ module API
 			mount FactualPlaces
 			mount FamousFaces
 			mount FunFacts
+			mount FunFactsUsers
+			mount Games
 
 		end
 	end

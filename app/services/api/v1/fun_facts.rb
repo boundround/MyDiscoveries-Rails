@@ -15,7 +15,7 @@ module API
 
 				desc "GET all fun facts"
 				get do
-					FunFact.where("length(content) > 140").order(:id)
+					presenter FunFact.where("length(content) > 140").order(:id)
 				end
 
 				desc "POST new fun fact"

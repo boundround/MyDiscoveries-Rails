@@ -23,6 +23,17 @@ module Responder
 				error!({ error: "Unauthorized!"}, 403)
 			end
 
+			def presenter collection, model_name=nil
+				if collection.is_a?(ActiveRecord::Relation)
+					model_name = collection.model.name
+				elsif collection.is_a?(ActiveRecord::Base)
+					model_name = collection.class.name
+				end
+				ver = version.upcase
+				presenter_class = "API::#{ver}::Presenters::#{model_name}".constantize
+				present collection, with: presenter_class
+			end
+
 		end
 	end
 end

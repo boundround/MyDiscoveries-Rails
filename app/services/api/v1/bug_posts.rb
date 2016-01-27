@@ -13,7 +13,7 @@ module API
 
 				desc "GET all bug posts"
 				get do
-					BugPost.all
+					presenter BugPost.all
 				end
 
 				desc "POST new bug post"
@@ -28,7 +28,7 @@ module API
 
 				desc "GET existing bug post"
 				get ':id' do
-					bug_post
+					presenter bug_post
 				end
 
 				desc "PUT edit on bug post"

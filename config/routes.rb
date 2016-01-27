@@ -13,8 +13,9 @@ end
 require 'api_constraints'
 
 Rails.application.routes.draw do
-  
+
   mount API::Base => '/'
+  mount GrapeSwaggerRails::Engine => '/apidoc'
 
   #namespace :api, defaults: { format: 'json' } do
   #  scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
@@ -216,7 +217,7 @@ Rails.application.routes.draw do
 
   get "/users/username/new" => "users/accounts#forgot_username"
   post "/users/username/send_username" => "users/accounts#send_username"
-  
+
   get "/wp-blog/:id/:place", to: "places#wp_blog"
 
   # The priority is based upon order of creation: first created -> highest priority.

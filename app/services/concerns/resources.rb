@@ -89,7 +89,7 @@ module Resources
 	  end
 
 	  def resource_name
-	    resource_class.downcase
+	    resource_class.underscore.downcase
 	  end
 
 	  def identifier_params
@@ -97,6 +97,7 @@ module Resources
 	  	if identifier.is_a? Symbol
 	  		par = {}
 	  		par[identifier] = params[identifier]
+	  		friendly_identifier? ? par[identifier] : par
 	  	elsif identifier.is_a? Array
 	  		Hash[identifier.map {|i|[i,params[i]]}]
 	  	else

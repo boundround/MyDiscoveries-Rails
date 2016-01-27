@@ -25,7 +25,7 @@ module API
 
 				desc "GET all places."
 				get do
-					Place.joins(:area).select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, "areas.display_name AS area_name")
+					presenter Place.joins(:area).select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, "areas.display_name AS area_name")
 				end
 
 				desc "POST new place"
@@ -43,7 +43,7 @@ module API
 
 				desc "GET existing place."
 				get ':id' do
-					place
+					presenter place
 				end
 
 				desc "PUT update existing place."

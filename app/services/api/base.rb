@@ -1,12 +1,12 @@
 module API
 	class Base < Grape::API
-		
+
     include StrongParams
-    include Responder 
+    include Responder
 
 		prefix 'API'
 		format 'json'
-		
+
 		helpers do
       def logger
         Rails.logger
@@ -34,6 +34,10 @@ module API
     end
 
     mount API::V1::Base
+    add_swagger_documentation(
+      base_path: "/api",
+      hide_documentation_path: true
+    )
 
     route :any, '*path' do
       error!({ error:  'Not Found',

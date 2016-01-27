@@ -23,7 +23,7 @@ module API
 
 				desc "GET all countries"
 				get do
-					Country.all
+					presenter Country.all
 				end
 
 				desc "POST new country"
@@ -34,7 +34,7 @@ module API
 
 				desc "GET existing country"
 				get ':id' do
-					country
+					presenter country
 				end
 
 				desc "PUT edit on existing country"

@@ -22,7 +22,7 @@ module API
 
 				desc "GET all areas"
 				get do
-					Area.all
+					presenter Area.all
 				end
 
 				desc "POST new area"
@@ -33,7 +33,7 @@ module API
 
 				desc "GET area with id"
 				get ':id' do
-					area
+					presenter area
 				end
 
 				desc "PUT update existing area"

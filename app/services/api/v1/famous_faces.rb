@@ -13,7 +13,7 @@ module API
 
 				desc "GET all famous faces"
 				get do
-					FamousFace.all
+					presenter FamousFace.all
 				end
 
 				desc "POST new famous face"
