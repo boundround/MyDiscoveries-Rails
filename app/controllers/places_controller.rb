@@ -3,12 +3,7 @@ class PlacesController < ApplicationController
   # before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms, :debug]
 
   def index
-    @places = Place.joins(:area).pluck(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, "areas.display_name AS area_name")
-
-    @no_area = Place.where(area_id: nil).pluck(:display_name, :id, :place_id, :subscription_level, :status, :updated_at)
-
-    @places = @places + @no_area
-    # @areas = Area.includes(:places => [:categories, :versions])
+    @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug).where.not(status: "removed")
 
     respond_to do |format|
       format.html

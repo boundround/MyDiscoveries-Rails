@@ -5,7 +5,7 @@
   <table class="table table-striped" id="place-table">
     <thead>
     <tr>
-      <th>Area</th>
+      <th>Area?</th>
       <th>Place</th>
       <th>Edit Link</th>
       <th>Google Place ID</th>
@@ -17,13 +17,13 @@
     <tbody>
     <% @places.each do |place| %>
         <tr>
-          <td><%= place[6].blank? ? "" : place[6] %></td>
-          <td><%= link_to place[0], "/places/" + place[1].to_s + "/edit" %></td>
-          <td><%= link_to "Edit Place", "/places/" + place[1].to_s + "/new_edit" %></td>
-          <td><%= place[2] %></td>
-          <td><%= place[3] %></td>
-          <td><%= place[4] %></td>
-          <td><%= place[5].strftime('%F at %T') %></td>
+          <td><%= place.is_area? ? "Yes" : "No" %></td>
+          <td><%= link_to place.display_name, edit_place_path(place) %></td>
+          <td><%= link_to "Edit Place", "/places/" + place.slug + "/new_edit" %></td>
+          <td><%= place.place_id %></td>
+          <td><%= place.subscription_level %></td>
+          <td><%= place.status %></td>
+          <td><%= place.updated_at.strftime('%F at %T') %></td>
         </tr>
       <% end %>
     </tbody>
