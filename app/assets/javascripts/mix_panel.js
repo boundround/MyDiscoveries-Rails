@@ -86,10 +86,10 @@ $(document).ready(function(){
 		}
 
 		// if alert present then assume user failed to sign in before
-		//if ($('div.alert-warning').length)
-		//{
-		//	mixpanel.track("Failed to sign in");
-		//}
+		if ($('div.alert-warning').length && $('form[action="/users/sign_in"][method="post"]').length)
+		{
+			mixpanel.track("Failed to sign in");
+		}
 
 		//track visited page
 		opts = $.extend(options, {'title': $('title').text()});
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 		// track video click
 		$(document).on('click', '.bg-play',function(e){
-			//mixpanel.track("Play Video")
+			mixpanel.track("Click video")
 		});
 
 		// track photos click
@@ -127,6 +127,34 @@ $(document).ready(function(){
 			}
 		}
 
+		new_place_photo_form = $('form[action^="/places/"][action$="/user_photos"]');
+		if (new_place_photo_form.length)
+		{
+			action_arr = new_place_photo_form.attr('action').split("/");
+			place_name = action_arr.pop();
+			place_name = action_arr.pop();
+			place_name = toTitleCase(place_name.split('-').join(' '))
+			opts = opts = $.extend(options, {"place": place_name});
+
+			modal = new_place_photo_form.parents('div.modal');
+			if (modal.length)
+			{
+				modal.on("show.bs.modal", function(e){
+					mixpanel.track("Opens create photo form on place "+place_name);
+				});
+				modal.on("hide.bs.modal", function(e){
+					mixpanel.track("Close create photo form on place "+place_name);
+				});
+			}
+			new_place_photo_form.on("submit", function(e){
+				mixpanel.track("Submit photo on "+place_name, opts);
+			});
+
+			$("div#user-photo-upload-button .btn").on("click", function(e){
+				mixpanel.track("Submit photo on "+place_name, opts);
+			});		 
+		}
+
 		// track places click
 		// track user when click place links
 		$(document).on("click", 'a[href^="/places/"]', function(e){
@@ -143,23 +171,55 @@ $(document).ready(function(){
 		$(document).on("mousedown", 'a[href="/users/stories"]', function(e){
 			mouse_click_on_middle_or_left(e) ? mixpanel.track("Click user's stories") : null;
 		});
-		// track user when click new story modal
-		$("div#storyModal").on("show.bs.modal", function(e){
-			mixpanel.track("Opens new story modal form");
-		});
-		// track user when close new story modal
-		$("div#storyModal").on("hide.bs.modal", function(e){
-			mixpanel.track("Closes new story modal form");
-		});
 		// track when user create story
-		$(document).on("submit", 'form[action="/stories/profile_create"][method="post"]', function(e){
-			mixpanel.track("Submit new story");
-		});
+		if ($('form[action="/stories/profile_create"][method="post"]').length)
+		{
+			user_story_form = $('form[action="/stories/profile_create"][method="post"]');
+			modal = user_story_form.parents('div.modal');
+			if (modal.length)
+			{
+				// track user when click new story modal
+				modal.on("show.bs.modal", function(e){
+					mixpanel.track("Open new story modal form");
+				});
+				// track user when close new story modal
+				modal.on("hide.bs.modal", function(e){
+					mixpanel.track("Closes new story modal form");
+				});	
+			}
+			$(document).on("submit", 'form[action="/stories/profile_create"][method="post"]', function(e){
+				mixpanel.track("Submit new user story");
+			});
+		}
 		//track user when click read story
 		$(document).on("click", 'a#userStory', function(e){
 			opts = $.extend(options, {"title": $(this).data("title")});
 			mixpanel.track("View story on his story index", opts);
 		});
+		//track user when create story for some places
+		if ($('form[action^="/places/"][action$="/stories"]').length)
+		{
+			leave_story_form = $('form[action^="/places/"][action$="/stories"]');
+			action_arr = leave_story_form.attr('action').split("/");
+			place_name = action_arr.pop();
+			place_name = action_arr.pop();
+			place_name = toTitleCase(place_name.split('-').join(' '))
+			opts = opts = $.extend(options, {"place": place_name});
+			
+			modal = leave_story_form.parents('div.modal');
+			if (modal.length)
+			{
+				modal.on("show.bs.modal", function(e){
+					mixpanel.track("Opens create story form on place "+place_name);
+				});
+				modal.on("hide.bs.modal", function(e){
+					mixpanel.track("Close create story form on place "+place_name);
+				});
+			}
+			leave_story_form.on("submit", function(e){
+				mixpanel.track("Submit story on "+place_name, opts);
+			});		
+		}
 
 		//track review
 		//track user when click user review index
@@ -169,13 +229,14 @@ $(document).ready(function(){
 		// track user when open leave review form
 		if ($('form[action^="/places/"][action$="/reviews"]').length)
 		{
+			console.log('asup');
 			leave_review_form = $('form[action^="/places/"][action$="/reviews"]');
 			action_arr = leave_review_form.attr('action').split("/");
 			place_name = action_arr.pop();
 			place_name = action_arr.pop();
 			place_name = toTitleCase(place_name.split('-').join(' '))
-			opts = opts = $.extend(options, {"place": place_name});
-
+			opts = $.extend(options, {"place": place_name});
+			
 			modal = leave_review_form.parents('div.modal');
 			if (modal.length)
 			{
@@ -199,6 +260,28 @@ $(document).ready(function(){
 				mixpanel.track('Hit Result', opts);
 			}
 		});
+
+		// track user when edit his profile
+		user_profile_form = $('form.edit_user');
+		if (user_profile_form.length)
+		{
+			if (user_profile_form.find('input[name="_method"]').val() == 'patch')
+			{
+				modal = user_profile_form.parents('div.modal');
+				if (modal.length)
+				{
+					modal.on("show.bs.modal", function(e){
+						mixpanel.track("Opens edit profile form");
+					});
+					modal.on("hide.bs.modal", function(e){
+						mixpanel.track("Close edit profile form");
+					});
+				}
+				user_profile_form.on("submit", function(){
+					mixpanel.track("Submit edit profile form");
+				});
+			}
+		}
 
 	}
 })

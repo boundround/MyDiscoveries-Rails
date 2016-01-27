@@ -52,6 +52,10 @@ GEM
     autoprefixer-rails (6.1.0.1)
       execjs
       json
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -83,6 +87,7 @@ GEM
       terminal-table (~> 1.4)
     browser (1.0.1)
     builder (3.2.2)
+    byebug (8.2.1)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -120,6 +125,8 @@ GEM
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -138,6 +145,8 @@ GEM
     daemons (1.2.3)
     dalli (2.7.4)
     debug_inspector (0.0.2)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
     devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -146,6 +155,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    equalizer (0.0.11)
     erubis (2.7.0)
     eventmachine (1.0.8)
     excon (0.45.4)
@@ -281,6 +291,28 @@ GEM
     geocomplete_rails (1.6.5)
       railties (>= 3.1)
     git-version-bump (0.15.1)
+    grape (0.14.0)
+      activesupport
+      builder
+      hashie (>= 2.1.0)
+      multi_json (>= 1.3.2)
+      multi_xml (>= 0.5.2)
+      rack (>= 1.3.0)
+      rack-accept
+      rack-mount
+      virtus (>= 1.0.0)
+    grape-entity (0.5.0)
+      activesupport
+      multi_json (>= 1.3.2)
+    grape-pagination (0.1.0)
+      addressable
+      grape (~> 0.3)
+    grape-swagger (0.10.2)
+      grape (>= 0.8.0)
+      grape-entity
+    grape-swagger-rails (0.1.0)
+      grape-swagger (>= 0.7.2)
+      railties (>= 3.2.12)
     haml (4.0.7)
       tilt
     hashie (3.4.3)
@@ -291,6 +323,7 @@ GEM
     httpclient (2.7.0.1)
     i18n (0.7.0)
     i18n_data (0.7.0)
+    ice_nine (0.11.1)
     iconv (1.0.4)
     inflecto (0.0.2)
     instagram (1.1.6)
@@ -376,11 +409,15 @@ GEM
     polyglot (0.3.5)
     puma (2.15.3)
     rack (1.5.5)
+    rack-accept (0.4.5)
+      rack (>= 0.4)
     rack-cache (1.5.1)
       rack (>= 0.4)
     rack-contrib (1.4.0)
       git-version-bump (~> 0.15)
       rack (~> 1.4)
+    rack-mount (0.8.3)
+      rack (>= 1.0.0)
     rack-pjax (0.8.0)
       nokogiri (~> 1.5)
       rack (~> 1.1)
@@ -543,6 +580,11 @@ GEM
       rest-client (~> 1.6.7)
     vegas (0.1.11)
       rack (>= 1.0.0)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.3)
       rack (>= 1.0)
     whenever (0.9.4)
@@ -565,6 +607,7 @@ DEPENDENCIES
   bootsy
   brakeman
   browser
+  byebug
   carrierwave
   carrierwave-crop
   carrierwave_backgrounder
@@ -580,6 +623,11 @@ DEPENDENCIES
   friendly_id
   geocoder
   geocomplete_rails
+  grape
+  grape-entity
+  grape-pagination
+  grape-swagger
+  grape-swagger-rails
   hirb
   iconv
   instagram
@@ -632,3 +680,6 @@ DEPENDENCIES
   whenever
   will_paginate (~> 3.0)
   wiselinks
+
+BUNDLED WITH
+   1.11.2
