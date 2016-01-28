@@ -16,6 +16,12 @@ module API
 			mount FunFacts
 			mount FunFactsUsers
 			mount Games
+			mount GamesUsers
+			mount InfoBits
+			mount JournalInfos
+			mount Photos
+			mount PhotosUsers
+			mount Videos
 
 		end
 	end
