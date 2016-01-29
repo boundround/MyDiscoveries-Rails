@@ -21,7 +21,16 @@ module API
 			mount JournalInfos
 			mount Photos
 			mount PhotosUsers
+			mount PointsValues
+			mount Programs
+			mount ReviewsUsers
+			mount SearchQueries
+			mount StoriesUsers
+			mount Transactions
+			mount UserPhotos
+			mount UserPhotosUsers
 			mount Videos
+			mount VideosUsers
 
 		end
 	end
