@@ -2,85 +2,88 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   </head>
   <body>
-    <h1>Weekly User Generated Content Report</h1>
-    <% if @photos.count > 0 %>
-      <h3><%= @photos.count.to_s %> New User Photos</h3>
-        <table class="table table-striped" id="photo-table">
+    <div class="container">
+      <h1>Weekly User Generated Content Report</h1>
+      <% if @photos.count > 0 %>
+        <h3><%= @photos.count.to_s %> New User Photos</h3>
+          <table class="table table-striped" id="photo-table">
+            <thead>
+              <tr>
+                <th>Place</th>
+                <th>Thumbnail</th>
+                <th>User</th>
+                <th>Created At</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @photos.each do | photo | %>
+                <tr>
+                  <td><%= photo.place.display_name %> | ID: <%= photo.place.id %></td>
+                  <td><img src="<%= asset_path(photo.path_url) %>" height="150"></td>
+                  <td><%= photo.user.email ? photo.user.email : photo.user.username %></td>
+                  <td><%= photo.created_at %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+      <% else %>
+        <h3>No New User Photos</h3>
+      <% end %>
+
+      <% if @reviews.count > 0 %>
+        <h3><%= @reviews.count.to_s %> New User Reviews</h3>
+        <table class="table table-striped">
           <thead>
             <tr>
               <th>Place</th>
-              <th>Thumbnail</th>
+              <th>Content</th>
               <th>User</th>
               <th>Created At</th>
             </tr>
           </thead>
           <tbody>
-            <% @photos.each do | photo | %>
+            <% @reviews.each do | review | %>
               <tr>
-                <td><%= photo.place.display_name %> | ID: <%= photo.place.id %></td>
-                <td><img src="<%= asset_path(photo.path_url) %>" height="150"></td>
-                <td><%= photo.user.email ? photo.user.email : photo.user.username %></td>
-                <td><%= photo.created_at %></td>
+                <td><%= review.reviewable.display_name %> | ID: <%= review.reviewable.id %></td>
+                <td><%= review.content %></td>
+                <td><%= review.user.email ? review.user.email : review.user.username %></td>
+                <td><%= review.created_at %></td>
               </tr>
             <% end %>
           </tbody>
         </table>
-    <% else %>
-      <h3>No New User Photos</h3>
-    <% end %>
+      <% else %>
+        <h3>No New User Reviews</h3>
+      <% end %>
 
-    <% if @reviews.count > 0 %>
-      <h3><%= @reviews.count.to_s %> New User Reviews</h3>
-      <table class="table table-striped" id="photo-table">
-        <thead>
-          <tr>
-            <th>Place</th>
-            <th>Content</th>
-            <th>User</th>
-            <th>Created At</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @reviews.each do | review | %>
+      <% if @stories.count > 0 %>
+        <h3><%= @stories.count.to_s %> User Stories</h3>
+        <table class="table table-striped" id="photo-table">
+          <thead>
             <tr>
-              <td><%= review.reviewable.display_name %> | ID: <%= review.reviewable.id %></td>
-              <td><%= review.content %></td>
-              <td><%= review.user.email ? review.user.email : review.user.username %></td>
-              <td><%= review.created_at %></td>
+              <th>Place</th>
+              <th>Content</th>
+              <th>User</th>
+              <th>Created At</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <h3>No New User Reviews</h3>
-    <% end %>
-
-    <% if @stories.count > 0 %>
-      <h3><%= @stories.count.to_s %> User Stories</h3>
-      <table class="table table-striped" id="photo-table">
-        <thead>
-          <tr>
-            <th>Place</th>
-            <th>Content</th>
-            <th>User</th>
-            <th>Created At</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @stories.each do | story | %>
-            <tr>
-              <td><%= story.storiable.display_name %> | ID: <%= story.storiable.id %></td>
-              <td><%= story.content %></td>
-              <td><%= story.user.email ? story.user.email : story.user.username %></td>
-              <td><%= story.created_at %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <h3>No New User Stories</h3>
-    <% end %>
+          </thead>
+          <tbody>
+            <% @stories.each do | story | %>
+              <tr>
+                <td><%= story.storiable.display_name %> | ID: <%= story.storiable.id %></td>
+                <td><%= story.content %></td>
+                <td><%= story.user.email ? story.user.email : story.user.username %></td>
+                <td><%= story.created_at %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <h3>No New User Stories</h3>
+      <% end %>
+    </div>
   </body>
 </html>
