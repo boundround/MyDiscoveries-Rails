@@ -1,5 +1,5 @@
 class UcgUpdate < ActionMailer::Base
-  default to: "natasha@boundround.com", "janeece@boundround.com",
+  default to: ["natasha@boundround.com", "janeece@boundround.com"],
           from: "website@BoundRound.com"
 
   def send_update
