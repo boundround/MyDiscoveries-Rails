@@ -62,3 +62,4 @@
 //= require places_crop
 //= require markerclusterer
 //= require jquery.confirm.min
+//= require mix_panel
