@@ -1,0 +1,6 @@
+<% unless user_signed_in? %>
+  <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+  <script type="text/javascript">
+    require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us2.list-manage.com","uuid":"6051712f456110a147312e3c9","lid":"04725db6a8"}) })
+  </script>
+<% end %>
