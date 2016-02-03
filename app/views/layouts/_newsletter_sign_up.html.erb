@@ -1,6 +1,25 @@
 <% unless user_signed_in? %>
-  <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
-  <script type="text/javascript">
-    require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us2.list-manage.com","uuid":"6051712f456110a147312e3c9","lid":"04725db6a8"}) })
+  <script>
+    window.onload = function(){
+      var createNewsletterSignupPopup = function(){
+        var script = document.createElement('script');
+        script.src = "//s3.amazonaws.com/downloads.mailchimp.com/js/signup-forms/popup/embed.js";
+        script.setAttribute('type', 'text/javascript');
+        script.dataset.dojoConfig = "usePlainJson: true, isDebug: false";
+        document.getElementsByTagName('head')[0].appendChild(script);
+
+        var mojoScript = document.createElement('script');
+        mojoScript.setAttribute('type', 'text/javascript');
+        mojoScript.innerHTML = 'require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us2.list-manage.com","uuid":"6051712f456110a147312e3c9","lid":"04725db6a8"}) })'
+        document.getElementsByTagName('head')[0].appendChild(mojoScript);
+      }
+
+      setTimeout(createNewsletterSignupPopup(), 30000);
+
+    }
   </script>
 <% end %>
+
+<script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+
+<script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us2.list-manage.com","uuid":"6051712f456110a147312e3c9","lid":"04725db6a8"}) })</script>
