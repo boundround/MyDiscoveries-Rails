@@ -63,3 +63,4 @@
 //= require markerclusterer
 //= require jquery.confirm.min
 //= require mix_panel
+//= require instafeed.min
