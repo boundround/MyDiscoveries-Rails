@@ -2,7 +2,8 @@ class PagesController < ApplicationController
 
   def index
     @set_body_class = "white-body"
-    @last_20_videos = Video.active.order(created_at: :desc).limit(20)
+    # @last_20_videos = Video.active.order(created_at: :desc).limit(20)
+    @last_20_videos = Video.find_by_sql("SELECT videos.* FROM videos WHERE videos.status = 'live' AND (videos.youtube_id IS NOT NULL OR videos.youtube_id != '') ORDER BY videos.created_at DESC LIMIT 20")
     @videos = @last_20_videos.to_a.uniq {|video| video.vimeo_id}
     @photos = UserPhoto.active.where('path is not null').where('user_photos.place_id is not null').joins(:place).where("places.status = 'live'").order(created_at: :desc).limit(20)
     @reviews = Review.active.order(created_at: :desc).limit(5)
