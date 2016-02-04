@@ -82,8 +82,6 @@ Rails.application.routes.draw do
 
   post 'fun_facts_users/create' => 'fun_facts_users#create'
   post 'fun_facts_users/destroy' => 'fun_facts_users#destroy'
-  post 'areas_users/create' => 'areas_users#create'
-  post 'areas_users/destroy' => 'areas_users#destroy'
   post 'photos_users/create' => 'photos_users#create'
   post 'photos_users/destroy' => 'photos_users#destroy'
   post 'places_users/create' => 'places_users#create'
@@ -105,17 +103,20 @@ Rails.application.routes.draw do
   resources :stories
   post 'stories/profile_create' => 'stories#profile_create'
 
-  resources :areas do
-    resources :photos
-    resources :videos
-    resources :games
-    resources :fun_facts
-    resources :discounts
-    resources :reviews
-    resources :stories
-    resources :user_photos
-    collection { post :import }
-  end
+  # post 'areas_users/create' => 'areas_users#create'
+  # post 'areas_users/destroy' => 'areas_users#destroy'
+
+  # resources :areas do
+  #   resources :photos
+  #   resources :videos
+  #   resources :games
+  #   resources :fun_facts
+  #   resources :discounts
+  #   resources :reviews
+  #   resources :stories
+  #   resources :user_photos
+  #   collection { post :import }
+  # end
 
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
