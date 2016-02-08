@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126030328) do
+ActiveRecord::Schema.define(version: 20160208031839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "accessibility_categories", force: true do |t|
     t.string   "name"
@@ -198,6 +197,22 @@ ActiveRecord::Schema.define(version: 20160126030328) do
     t.integer "user_id"
     t.integer "place_id"
   end
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -628,6 +643,16 @@ ActiveRecord::Schema.define(version: 20160126030328) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "three_d_videos", force: true do |t|
+    t.string   "link"
+    t.string   "caption"
+    t.integer  "place_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "three_d_videos", ["place_id"], name: "index_three_d_videos_on_place_id", using: :btree
 
   create_table "transactions", force: true do |t|
     t.integer  "user_id"
