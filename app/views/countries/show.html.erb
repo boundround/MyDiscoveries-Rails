@@ -152,15 +152,15 @@
             <h3 class="br15_semi_font">Capital City</h3>
             <h2 class="br15_light_font"><a href="#"><%= @country.capital_city %></a></h2>
                <div class="col-xs-12 br_left br_pad br_light">
-                    <% if area = Area.find_by(display_name: @country.capital_city) %>
+                    <% if area = Place.find_by(display_name: @country.capital_city) %>
                     <% if area.description && area.description.length < 85 %>
                     <%= area.description %><br>
                     <% elsif area.description %>
-                    <%= area.description[0..80] %>...<br>
+                    <%= raw area.description[0..80] %>...<br>
                     <% else %>
                     <%= @country.capital_city_description if @country.capital_city_description %>
                     <% end %>
-                    <a href="<%= area_path(area)%>">Visit on Bound Round</a>
+                    <a href="<%= place_path(area)%>">Visit on Bound Round</a>
                     <% end %>
                   </div>
             <h3 class="br15_semi_font">Tallest Mountain</h3>

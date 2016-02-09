@@ -27,7 +27,8 @@ doc/
 .idea
 .secret
 .ssl
-
+.vagrant/
+Vagrantfile
 # ignore videos for android apk
 /public/videos
 /vendor/*

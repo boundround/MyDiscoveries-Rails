@@ -1,7 +1,7 @@
 class Video < ActiveRecord::Base
   include CustomerApprovable
 
-  before_save :set_approval_time, :check_customer_approved
+  before_save :set_approval_time, :check_customer_approved, :validate_youtube_id
 
   belongs_to :area
   belongs_to :place
@@ -76,6 +76,14 @@ class Video < ActiveRecord::Base
 
   def video_service_id
     errors.add(:base, 'Video Service ID can not be empty.') if vimeo_id.blank? and youtube_id.blank?
+  end
+
+  def validate_youtube_id
+    unless self.youtube_id.blank?
+      if self.youtube_id.match /^http/
+        self.youtube_id = self.youtube_id.split('/').last
+      end
+    end
   end
 
 end

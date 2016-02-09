@@ -3,12 +3,7 @@ class PlacesController < ApplicationController
   # before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms, :debug]
 
   def index
-    @places = Place.joins(:area).pluck(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, "areas.display_name AS area_name")
-
-    @no_area = Place.where(area_id: nil).pluck(:display_name, :id, :place_id, :subscription_level, :status, :updated_at)
-
-    @places = @places + @no_area
-    # @areas = Area.includes(:places => [:categories, :versions])
+    @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug).where.not(status: "removed")
 
     respond_to do |format|
       format.html
@@ -362,6 +357,7 @@ class PlacesController < ApplicationController
   def new_edit
     @set_body_class = "br-body"
     @place = Place.friendly.find(params[:id])
+    @three_d_video = ThreeDVideo.new
   end
 
   def tags
@@ -686,17 +682,73 @@ class PlacesController < ApplicationController
 
   private
     def place_params
-      params.require(:place).permit(:code, :identifier, :display_name, :description, :show_on_school_safari, :school_safari_description, :booking_url, :display_address, :subscription_level,
-                                    :latitude, :longitude, :logo, :phone_number, :website, :booking_url, :icon, :map_icon, :published_at, :unpublished_at, :minimum_age, :maximum_age,
-                                    :street_number, :route, :sublocality, :locality, :state, :post_code, :created_by, :user_created, :hero_image, :remote_hero_image_url, :crop_x, :crop_y, :crop_h, :crop_w,
-                                    :customer_approved, :customer_review, :approved_at, :country_id, :bound_round_place_id, :short_description, :primary_category_id,
-                                    :passport_icon, :address, :area_id, :tag_list, :location_list, :activity_list, :place_id, :status, :is_area, :special_requirements,
-                                    photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-                                    videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
-                                    games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :customer_approved, :customer_review, :approved_at, :_destroy],
-                                    fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-                                    discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-                                    user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
-                                    category_ids: [], secondary_category_ids: [], accessibility_category_ids: [], best_time_to_visit_category_ids: [], duration_category_ids: [], price_category_ids: [], category_ids: [], weather_category_ids: [])
+      params.require(:place).permit(
+        :code,
+        :identifier,
+        :display_name,
+        :description,
+        :show_on_school_safari,
+        :school_safari_description,
+        :booking_url,
+        :display_address,
+        :subscription_level,
+        :latitude,
+        :longitude,
+        :logo,
+        :phone_number,
+        :website,
+        :booking_url,
+        :icon,
+        :map_icon,
+        :published_at,
+        :unpublished_at,
+        :minimum_age,
+        :maximum_age,
+        :street_number,
+        :route,
+        :sublocality,
+        :locality,
+        :state,
+        :post_code,
+        :created_by,
+        :user_created,
+        :hero_image,
+        :remote_hero_image_url,
+        :crop_x,
+        :crop_y,
+        :crop_h,
+        :crop_w,
+        :customer_approved,
+        :customer_review,
+        :approved_at,
+        :country_id,
+        :bound_round_place_id,
+        :short_description,
+        :primary_category_id,
+        :passport_icon,
+        :address,
+        :area_id,
+        :tag_list,
+        :location_list,
+        :activity_list,
+        :place_id,
+        :status,
+        :is_area,
+        :special_requirements,
+        photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
+        games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :customer_approved, :customer_review, :approved_at, :_destroy],
+        fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
+        three_d_videos_attributes: [:link, :caption, :place_id],
+        category_ids: [],
+        secondary_category_ids: [],
+        accessibility_category_ids: [],
+        best_time_to_visit_category_ids: [],
+        duration_category_ids: [],
+        price_category_ids: [],
+        category_ids: [],
+        weather_category_ids: [])
     end
 end

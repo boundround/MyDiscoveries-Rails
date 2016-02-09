@@ -104,8 +104,6 @@
         <% @user_photos.each do |user_photo| %>
             <% if user_photo.place %>
               <% @location = user_photo.place %>
-            <% else %>
-              <% @location = user_photo.area %>
             <% end %>
           <%= simple_form_for [@location, user_photo] do |f| %>
             <tr>

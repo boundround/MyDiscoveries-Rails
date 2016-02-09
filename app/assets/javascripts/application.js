@@ -24,7 +24,6 @@
 //= require jquery.keep-ratio
 //= require progressbar
 //= require bootstrap-datepicker
-//= require sign_in
 //= require countries
 //= require places
 //= require avatarupload
@@ -64,3 +63,4 @@
 //= require markerclusterer
 //= require jquery.confirm.min
 //= require mix_panel
+//= require instafeed.min
