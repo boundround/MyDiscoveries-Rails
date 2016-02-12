@@ -7,6 +7,7 @@
     <tr>
       <th>Area?</th>
       <th>Place</th>
+      <th>Top 100</th>
       <th>Edit Link</th>
       <th>Google Place ID</th>
       <th>Subscription Level</th>
@@ -19,6 +20,7 @@
         <tr>
           <td><%= place.is_area? ? "Yes" : "No" %></td>
           <td><%= link_to place.display_name, edit_place_path(place) %></td>
+          <td><%= place.top_100? ? "Yes" : "No" %></td>
           <td><%= link_to "Edit Place", "/places/" + place.slug + "/new_edit" %></td>
           <td><%= place.place_id %></td>
           <td><%= place.subscription_level %></td>

@@ -46,10 +46,18 @@ class ApiBlog
     respon = get_request(url)
     results = []
     respon.each_with_index do |json, index|
+      has_image = json["_links"]["https://api.w.org/featuredmedia"]
+      if has_image
+        image = json["_links"]["https://api.w.org/featuredmedia"][0]["href"]
+      else
+        image = ""
+      end
       blog = ApiBlog.new(:title => json["title"]["rendered"], :content => json["content"]["rendered"],
-      :image => json["_links"]["https://api.w.org/featuredmedia"][0]["href"], :id=>json["id"], :created_at=>json["date"])
-      image_url = get_request(blog.image)
-      blog.image = parse_image(image_url, json)
+      :image => image, :id=>json["id"], :created_at=>json["date"])
+      if has_image
+        image_url = get_request(blog.image)
+        blog.image = parse_image(image_url, json)
+      end
       results << blog
     end
     # set_cached_blogs(results, place_param)
@@ -61,7 +69,7 @@ class ApiBlog
   end
 
   def self.get_cached_blogs(place_slug)
-    Rails.cache.fetch(place_slug) do
+    Rails.cache.fetch(place_slug, :expires_in => 1.day) do
       blog_request(place_slug)
     end
   end
