@@ -65,7 +65,9 @@
                 'width=626,height=436');
                 return false;"> <i class="fa fa-twitter-square fa-lg"></i></a>
               </div>
-                <%#= render 'layouts/search_input'%>
+                <% unless @place.viator_link.blank? %>
+                  <a href="<%= @place.viator_link%>" class="button btn book-now-button" target="_blank">Book Now!</a>
+                <% end %>
             </div>
 
             <nav class=" br15_fixed nav row" data-spy="affix" data-offset-top="300">
