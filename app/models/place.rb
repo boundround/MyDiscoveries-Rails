@@ -182,6 +182,12 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :stories, allow_destroy: true
   accepts_nested_attributes_for :user_photos, allow_destroy: true
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
+  accepts_nested_attributes_for :secondary_categories, allow_destroy: true
+  accepts_nested_attributes_for :accessibility_categories, allow_destroy: true
+  accepts_nested_attributes_for :price_categories, allow_destroy: true
+  accepts_nested_attributes_for :weather_categories, allow_destroy: true
+  accepts_nested_attributes_for :best_time_to_visit_categories, allow_destroy: true
+  accepts_nested_attributes_for :duration_categories, allow_destroy: true
 
   mount_uploader :map_icon, IconUploader
   mount_uploader :hero_image, PlaceHeroImageUploader
