@@ -1,3 +1,28 @@
+
+//FUNCTION TO GET QUERY PARAMETERS FROM URL
+var QueryString = function () {
+  // This function is anonymous, is executed immediately and
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+        // If first entry with this name
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+        // If second entry with this name
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+        // If third or later entry with this name
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  }
+    return query_string;
+}();
+
 function setUpCarosul(){
         $("#br15_owl_reviews,#br15_owl_fun_facts,#br15_owl_good").owlCarousel({
             items:1,
@@ -223,7 +248,7 @@ function wpBlogs(){
     // $("#userStory iframe");
     $("#userStory").modal();
   });
-  
+
   $('#userStory').on('hidden.bs.modal', function () {
     $("#userStory .modal-dialog").css("max-width","830px");
     $("#userStory iframe").prop("src","");
@@ -245,4 +270,13 @@ $(document).ready(function(){
   selectVIdeoId($( ".select_video_id" ));
   onChangeVideo();
   wpBlogs();
+
+  if (QueryString.video){
+    var video = $('#' + QueryString.video)[0];
+    if (video){
+      data_src = $(video).data("src");
+      $("#video-modal iframe").prop("src", data_src);
+      $("#video-modal").modal("show");
+    }
+  }
 });

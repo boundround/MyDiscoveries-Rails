@@ -123,8 +123,7 @@
             <th>Priority</th>
             <th>Status</th>
             <th>Include In Country</th>
-            <th>In Customer Review</th>
-            <th>Customer Approved</th>
+            <th>Open Modal Link</th>
             <th>Updated By</th>
             <th>Remove</th>
           </tr>
@@ -144,8 +143,7 @@
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
-                <td><%= ff.check_box :customer_review, class: 'customer-review' %></td>
-                <td><%= ff.check_box :customer_approved, class: 'customer-approve' %><br><%= video.approved_at.strftime('%F at %T') if video.approved_at %></td>
+                <td>http://www.boundround.com/places/<%= @place.slug + '/?video=' + (video.vimeo_id.to_s || video.youtube_id.to_s) %></td>
                 <td><%= !video.versions.blank? && video.versions.last.whodunnit ? User.find(video.versions.last.whodunnit).email : "" %><br><%= video.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
