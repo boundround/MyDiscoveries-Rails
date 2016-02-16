@@ -278,5 +278,19 @@ $(document).ready(function(){
       $("#video-modal iframe").prop("src", data_src);
       $("#video-modal").modal("show");
     }
+  } else if (QueryString.story){
+    var story = $('#blog-' + QueryString.story)[0];
+    if (story){
+      var id = $(story).data("id");
+      var place = $(story).data("place");
+      var image = $(story).data("image");
+      var place_name = $(story).data("place-name");
+      var host = document.location.origin;
+      $("#modal-dialog-story").hide();
+      $("#modal-dialog-blog").show();
+      $("#userStory iframe").prop("src", host+"/wp-blog/"+id+"/"+place);
+      $("#userStory .modal-dialog").css("max-width","1120px");
+      $("#userStory").modal();
+    }
   }
 });

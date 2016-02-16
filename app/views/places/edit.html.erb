@@ -143,7 +143,7 @@
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.check_box :country_include %></td>
-                <td>http://www.boundround.com/places/<%= @place.slug + '/?video=' + (video.vimeo_id.to_s || video.youtube_id.to_s) %></td>
+                <td>https://www.boundround.com/places/<%= @place.slug + '/?video=' + (video.vimeo_id.to_s || video.youtube_id.to_s) %></td>
                 <td><%= !video.versions.blank? && video.versions.last.whodunnit ? User.find(video.versions.last.whodunnit).email : "" %><br><%= video.updated_at.strftime('%F at %T') %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
@@ -258,6 +258,25 @@
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-container">
+      <h3>Blogs From WP Site</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Popup Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @blogs.each do |blog| %>
+            <tr>
+              <td><%= blog.title %></td>
+              <td>https://www.boundround.com/places/<%= @place.slug + "/?story=" + blog.id.to_s %></td>
+            </tr>
           <% end %>
         </tbody>
       </table>

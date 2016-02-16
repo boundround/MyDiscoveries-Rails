@@ -104,7 +104,7 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.includes(:games, :photos, :videos, :reviews, :stories, :user_photos).find_by_slug(params[:id])
+    @place = Place.includes(:games, :photos, :videos, :reviews, :stories, :user_photos, :quality_average).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
     @reviewable = @place
     @reviews = @reviewable.reviews.active
@@ -352,6 +352,7 @@ class PlacesController < ApplicationController
     @photo = Photo.new
     @program = Program.new
     @discount = Discount.new
+    @blogs = ApiBlog.get_cached_blogs(@place.slug)
   end
 
   def new_edit
