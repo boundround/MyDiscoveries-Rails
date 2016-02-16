@@ -138,6 +138,9 @@ class Place < ActiveRecord::Base
   belongs_to :primary_category
   has_many :categorizations
   has_many :categories, through: :categorizations
+  has_many :places_subcategories
+  has_many :subcategories, through: :places_subcategories
+  ###############################################
   has_many :places_secondary_categories
   has_many :secondary_categories, through: :places_secondary_categories
   has_many :accessibility_categories_places
@@ -152,6 +155,7 @@ class Place < ActiveRecord::Base
   has_many :price_categories, through: :places_price_categories
   has_many :places_weather_categories
   has_many :weather_categories, through: :places_weather_categories
+  ###############################################
   has_many :photos, -> { order "created_at ASC"}
   has_many :discounts, -> { order "created_at ASC"}
   has_many :games, -> { order "created_at ASC"}
@@ -182,12 +186,14 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :stories, allow_destroy: true
   accepts_nested_attributes_for :user_photos, allow_destroy: true
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
+  ###############################################
   accepts_nested_attributes_for :secondary_categories, allow_destroy: true
   accepts_nested_attributes_for :accessibility_categories, allow_destroy: true
   accepts_nested_attributes_for :price_categories, allow_destroy: true
   accepts_nested_attributes_for :weather_categories, allow_destroy: true
   accepts_nested_attributes_for :best_time_to_visit_categories, allow_destroy: true
   accepts_nested_attributes_for :duration_categories, allow_destroy: true
+  ##############################################
 
   mount_uploader :map_icon, IconUploader
   mount_uploader :hero_image, PlaceHeroImageUploader
