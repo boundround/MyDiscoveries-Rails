@@ -4,7 +4,8 @@
 
     <table class="table table-striped" id="place-table">
       <thead>
-      <tr>
+        <tr>
+        <th>ID</th>
         <th>Description</th>
         <th>Screenshot</th>
         <th>Author</th>
@@ -12,7 +13,8 @@
       </thead>
       <tbody>
       <% @bug_posts.each do |bug_post| %>
-          <tr>
+        <tr>
+          <td><%= bug_post.id %></td>
             <td><%= bug_post.description %></td>
             <% if !bug_post.screen_shot.blank? %>
               <td><%= link_to 'Screenshot', bug_post.screen_shot_url, target: "_blank" %></td>
