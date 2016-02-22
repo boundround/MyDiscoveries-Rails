@@ -28,6 +28,22 @@ class ThreeDVideosController < ApplicationController
     redirect_to :back, notice: "3D Video deleted"
   end
 
+  def new
+    @place = Place.find(params[:place_id])
+    @three_d_video = ThreeDVideo.new
+    # render :new
+  end
+
+  def index
+    if params[:place_id]
+      # @three_d_videos = Place.three_d_videos.find(params[:place_id]).three_d_videos
+      @place = Place.find(params[:place_id])
+      @three_d_videos = @place.three_d_videos
+      # @place.three_d_videos = ThreeDVideo.all
+    end
+
+  end
+
 
   private
     def three_d_video_params
