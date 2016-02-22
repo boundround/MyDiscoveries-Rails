@@ -152,6 +152,8 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
+  resources :three_d_videos
+
   resources :photos do
     collection { post :import }
   end
