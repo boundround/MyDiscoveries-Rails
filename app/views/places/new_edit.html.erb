@@ -32,10 +32,12 @@
       </div>
       <div class="field">
         <strong>Secondary categories</strong><br>
-        <% SecondaryCategory.all.each do |category| %>
-          <%= hidden_field_tag "place[secondary_category_ids][]", nil%>
-          <%= check_box_tag "place[secondary_category_ids][]", category.id, @place.secondary_category_ids.include?(category.id), id: dom_id(category) %>
-          <%= label_tag dom_id(category), category.name %><br/>
+        <% Subcategory.all.each do |category| %>
+            <% if category.category_type == "subcategory" %>
+            <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+            <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+            <%= label_tag dom_id(category), category.name %><br/>
+          <% end %>
         <% end %>
       </div>
       <div class="form-group">
@@ -47,46 +49,56 @@
       <div class="field js-primary-category">
         <br>
         <strong>Price categories</strong><br>
-        <% PriceCategory.all.each do |category| %>
-          <%= hidden_field_tag "place[price_category_ids][]", nil%>
-          <%= check_box_tag "place[price_category_ids][]", category.id, @place.price_category_ids.include?(category.id), id: dom_id(category) %>
-          <%= label_tag dom_id(category), category.name %><br/>
+        <% Subcategory.all.each do |category| %>
+            <% if category.category_type == "price" %>
+            <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+            <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+            <%= label_tag dom_id(category), category.name %><br/>
+          <% end %>
         <% end %>
       </div>
       <div class="field js-primary-category">
         <br>
         <strong>Accessibility</strong><br>
-        <% AccessibilityCategory.all.each do |category| %>
-          <%= hidden_field_tag "place[accessibility_category_ids][]", nil%>
-          <%= check_box_tag "place[accessibility_category_ids][]", category.id, @place.accessibility_category_ids.include?(category.id), id: dom_id(category) %>
-          <%= label_tag dom_id(category), category.name %><br/>
+        <% Subcategory.all.each do |category| %>
+            <% if category.category_type == "accessibility" %>
+            <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+            <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+            <%= label_tag dom_id(category), category.name %><br/>
+          <% end %>
         <% end %>
       </div>
       <div class="field js-primary-category">
         <br>
         <strong>Place visit duration</strong><br>
-        <% DurationCategory.all.each do |category| %>
-          <%= hidden_field_tag "place[duration_category_ids][]", nil%>
-          <%= check_box_tag "place[duration_category_ids][]", category.id, @place.duration_category_ids.include?(category.id), id: dom_id(category) %>
-          <%= label_tag dom_id(category), category.name %><br/>
+        <% Subcategory.all.each do |category| %>
+            <% if category.category_type == "duration" %>
+            <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+            <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+            <%= label_tag dom_id(category), category.name %><br/>
+          <% end %>
         <% end %>
       </div>
       <div class="field js-primary-category">
         <br>
         <strong>Best time of day</strong><br>
-        <% BestTimeToVisitCategory.all.each do |category| %>
-          <%= hidden_field_tag "place[best_time_to_visit_category_ids][]", nil%>
-          <%= check_box_tag "place[best_time_to_visit_category_ids][]", category.id, @place.best_time_to_visit_category_ids.include?(category.id), id: dom_id(category) %>
-          <%= label_tag dom_id(category), category.name %><br/>
+        <% Subcategory.all.each do |category| %>
+            <% if category.category_type == "optimum_time" %>
+            <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+            <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+            <%= label_tag dom_id(category), category.name %><br/>
+          <% end %>
         <% end %>
       </div>
       <div class="field js-primary-category">
         <br>
         <strong>Weather Conditions</strong><br>
-        <% WeatherCategory.all.each do |category| %>
-          <%= hidden_field_tag "place[weather_category_ids][]", nil%>
-          <%= check_box_tag "place[weather_category_ids][]", category.id, @place.weather_category_ids.include?(category.id), id: dom_id(category) %>
-          <%= label_tag dom_id(category), category.name %><br/>
+        <% Subcategory.all.each do |category| %>
+            <% if category.category_type == "weather" %>
+            <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+            <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+            <%= label_tag dom_id(category), category.name %><br/>
+          <% end %>
         <% end %>
       </div>
       <div class="form-group js-primary-category">
