@@ -45,6 +45,7 @@ class ApiBlog
     url = "https://corporate.boundround.com/wp-json/wp/v2/posts?filter[cat]=772&filter[tag]=#{place_param}"
     respon = get_request(url)
     results = []
+    has_image = nil
     respon.each_with_index do |json, index|
       has_image = json["_links"]["https://api.w.org/featuredmedia"]
       if has_image

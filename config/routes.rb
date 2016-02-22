@@ -13,17 +13,6 @@ end
 require 'api_constraints'
 
 Rails.application.routes.draw do
-  get 'three_d_videos/show'
-
-  get 'three_d_videos/new'
-
-  get 'three_d_videos/index'
-
-  get 'three_d_videos/edit'
-
-  get 'three_d_videos/update'
-
-  get 'three_d_videos/destroy'
 
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
@@ -115,21 +104,6 @@ Rails.application.routes.draw do
   resources :stories
   post 'stories/profile_create' => 'stories#profile_create'
 
-  # post 'areas_users/create' => 'areas_users#create'
-  # post 'areas_users/destroy' => 'areas_users#destroy'
-
-  # resources :areas do
-  #   resources :photos
-  #   resources :videos
-  #   resources :games
-  #   resources :fun_facts
-  #   resources :discounts
-  #   resources :reviews
-  #   resources :stories
-  #   resources :user_photos
-  #   collection { post :import }
-  # end
-
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
     get '/users/sign_out' => 'devise/sessions#destroy'
@@ -138,12 +112,6 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions" }
 
   resources :pages
-
-#  root :to => 'pages#globe'
-
-#  get '/map' => 'pages#index'
-
-#  get '/map_only' => 'pages#map_only'
 
   get '/google_map_home' => 'pages#google_map_home'
 
@@ -164,6 +132,7 @@ Rails.application.routes.draw do
 
   post '/places/transfer_assets' => 'places#transfer_assets'
   get '/places/:id/new_edit' => 'places#new_edit'
+  get '/places/:id/refresh_blog' => 'places#refresh_blog'
   # get '/places/:id/hero_image_picker' => 'places#hero_image_picker'
   resources :places do
     member { get 'preview' }
