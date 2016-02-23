@@ -166,6 +166,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'thin'
+  gem 'byebug'
 end
 
 
@@ -183,3 +184,9 @@ gem "bullet", :group => "development"
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# use grape as api stack
+gem 'grape'
+gem 'grape-entity'
+gem 'grape-pagination'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'

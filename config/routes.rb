@@ -13,23 +13,15 @@ end
 require 'api_constraints'
 
 Rails.application.routes.draw do
-  get 'three_d_videos/show'
 
-  get 'three_d_videos/new'
+  mount API::Base => '/'
+  mount GrapeSwaggerRails::Engine => '/apidoc'
 
-  get 'three_d_videos/index'
-
-  get 'three_d_videos/edit'
-
-  get 'three_d_videos/update'
-
-  get 'three_d_videos/destroy'
-
-  namespace :api, defaults: { format: 'json' } do
-    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :places
-    end
-  end
+  #namespace :api, defaults: { format: 'json' } do
+  #  scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+  #    resources :places
+  #  end
+  #end
 
   resources :bug_posts
   get '/bugs' => 'bug_posts#new'
