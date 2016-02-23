@@ -1,0 +1,42 @@
+.background-colour,
+.about-icon {
+	background: #0072bc;
+	background: -moz-linear-gradient(45deg,  #0072bc 0%, #8dc63f 100%);
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#0072bc), color-stop(100%,#8dc63f));
+	background: -webkit-linear-gradient(45deg,  #0072bc 0%,#8dc63f 100%);
+	background: -o-linear-gradient(45deg,  #0072bc 0%,#8dc63f 100%);
+	background: -ms-linear-gradient(45deg,  #0072bc 0%,#8dc63f 100%);
+	background: linear-gradient(45deg,  #0072bc 0%,#8dc63f 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0072bc', endColorstr='#8dc63f',GradientType=1 );
+}
+.background-colour input[type="submit"],
+.background-image input[type="submit"] { color: #0072bc;}
+.background-colour { color: #fff;}
+
+.btn-flat-colour { border: 2px solid #0072bc; color: #0072bc;}
+
+.btn-flat-colour:hover { color: #0072bc;}
+
+
+
+
+
+@media (min-width: 992px) {
+
+.btn-flat-white:hover { color: #0072bc; background: #fff;}
+
+.btn-flat-colour:hover { color: #fff; background: #0072bc;}
+
+.background-colour input[type="submit"]:hover,
+.background-image input[type="submit"]:hover { color: #fff; background: #0072bc;}
+input[type="email"]:focus { border: 3px solid #fff;}
+
+.team-module a:hover { color: #0072bc;}
+
+.social-nav a:hover { color: #0072bc; border: 2px solid #0072bc;}
+
+.footer-nav a:hover { color: #0072bc;}
+
+
+
+} /*========== 992px MEDIA QUERY END ==========*/
