@@ -64,3 +64,4 @@
 //= require jquery.confirm.min
 //= require mix_panel
 //= require instafeed.min
+//= require dual_list_box

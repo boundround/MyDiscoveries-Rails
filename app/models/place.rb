@@ -132,13 +132,15 @@ class Place < ActiveRecord::Base
 
   validates_presence_of :display_name, :slug
 
-  belongs_to :area
+  # belongs_to :area
   belongs_to :country
   belongs_to :user
   belongs_to :primary_category
   has_many :categorizations
   has_many :categories, through: :categorizations
   has_many :places_subcategories
+  has_many :similar_places
+  has_many :associated_areas, through: :similar_places, source: :similar_place
   has_many :subcategories, through: :places_subcategories
   has_many :photos, -> { order "created_at ASC"}
   has_many :discounts, -> { order "created_at ASC"}

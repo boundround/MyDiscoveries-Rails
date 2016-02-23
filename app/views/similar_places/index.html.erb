@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Similar Destinations</h1>
+  <%= simple_form_for [@place, @similar_place] do |f| %>
+    <div id="dual-list-box-employees" class="form-group row">
+      <select id="js-area-dual-box" class="dualbox" data-json="false" data-title="Destinations" multiple="">
+        <%= @areas.each do |area| %>
+        <option value="<%= area.id %>" name="<%= area.display_name %>"><%= area.display_name + " " + area.id.to_s %></option>
+        <% end %>
+     </select>
+   </div>
+    <%= f.submit :submit %>
+  <% end %>
+</div>

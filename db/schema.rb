@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216060848) do
+ActiveRecord::Schema.define(version: 20160223031842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -598,6 +598,17 @@ ActiveRecord::Schema.define(version: 20160216060848) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "similar_places", force: true do |t|
+    t.integer  "place_id"
+    t.integer  "similar_place_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "similar_places", ["place_id", "similar_place_id"], name: "index_similar_places_on_place_id_and_similar_place_id", unique: true, using: :btree
+  add_index "similar_places", ["place_id"], name: "index_similar_places_on_place_id", using: :btree
+  add_index "similar_places", ["similar_place_id"], name: "index_similar_places_on_similar_place_id", using: :btree
 
   create_table "stories", force: true do |t|
     t.string   "title"
