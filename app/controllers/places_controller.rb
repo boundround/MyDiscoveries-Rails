@@ -1,14 +1,92 @@
 class PlacesController < ApplicationController
   layout false, :only => :wp_blog
-  # before_action :redirect_if_not_admin, :except => [:show, :send_postcard, :mapdata, :search, :liked_places, :programsearch, :programsearchresultslist, :programsearchresultsmap, :placeprograms, :debug]
 
-  def index
-    @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug).where.not(status: "removed")
+  def new
+    @place = Place.new
+    @place.photos.build
+    @areas = Area.all
+  end
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @places }  # respond with the created JSON object
+  def create
+    @place = Place.new(place_params)
+
+    if @place.identifier == ''
+      @place.identifier = @place.display_name.gsub(/\W/, '').downcase
     end
+
+    if @place.save
+      JournalInfo.create(place_id: @place.id)
+      redirect_to :back, notice: 'Place succesfully saved'
+    else
+      redirect_to '/places#new', notice: 'Place not saved!'
+    end
+  end
+
+  def edit
+    @set_body_class = "br-body"
+    @place = Place.friendly.find(params[:id])
+    @areas = Area.select(:id, :display_name).order(:display_name)
+    @photo = Photo.new
+    @program = Program.new
+    @discount = Discount.new
+    @blogs = ApiBlog.get_cached_blogs(@place.slug)
+  end
+
+  def update
+    @place = Place.friendly.find(params[:id])
+
+    if @place.update(place_params)
+
+      @place.photos.each do |photo|
+        photo.add_or_remove_from_country(@place.country)
+      end
+
+      @place.videos.each do |video|
+        video.add_or_remove_from_country(@place.country)
+      end
+
+      @place.fun_facts.each do |fun_fact|
+        fun_fact.add_or_remove_from_country(@place.country)
+      end
+
+      @place.discounts.each do |discount|
+        discount.add_or_remove_from_country(@place.country)
+      end
+
+      if params[:place][:hero_image].present? || params[:place][:remote_hero_image_url].present?
+        render :crop
+      else
+        redirect_to :back, notice: 'Place succesfully updated'
+      end
+
+    else
+      redirect_to edit_place_path(@place), notice: 'Error: Place not updated'
+    end
+  end
+
+  def refresh_blog
+    @place = Place.find_by_slug(params[:id])
+    Rails.cache.delete(@place.slug)
+    redirect_to :back, notice: "Blog posts for #{@place.display_name} have been refreshed"
+  end
+
+  def new_edit
+    @set_body_class = "br-body"
+    @place = Place.friendly.find(params[:id])
+    @three_d_video = ThreeDVideo.new
+  end
+
+  def destroy
+  end
+
+  def content_rejected
+    place_id = params["place-id"].to_i
+    asset_type = params["asset-type"]
+    asset_id = params["asset-id"]
+    email = params["email"]
+    comments = params["comments"]
+    ContentRejected.send_rejected(place_id, asset_type, asset_id, email, comments)
+    redirect_to :back, notice: 'Thank you. Comments sent'
   end
 
   def geoquery
@@ -26,63 +104,78 @@ class PlacesController < ApplicationController
   def merge
   end
 
-  def transfer_assets
-    if user_signed_in? && current_user.admin?
-      @from_place = Place.find(params[:place][:from_place_id])
-      @to_place = Place.find(params[:place][:to_place_id])
+  def index
+    @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed")
 
-      if params[:remove] == true
-        @from_place.status = "removed"
+    respond_to do |format|
+      format.html
+      format.json { render json: @places }  # respond with the created JSON object
+    end
+  end
+
+  def preview
+    @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
+    if @place.area_id
+      @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
+      @area_videos = @place.area.videos
+    end
+
+    if @place.subscription_level == "Premium"
+      @videos = @place.videos.where.not(priority: 1) || []
+      @hero_video = @place.videos.find_by(priority: 1)
+    else
+      @videos = []
+    end
+
+    if !@hero_video
+      @hero_photo = @place.photos.find_by(priority: 1)
+      @photos = @place.photos.where.not(priority: 1)
+    else
+      @photos = @place.photos
+    end
+
+    @request_xhr = request.xhr?
+
+    if @place.display_name == "Virgin Australia"
+      @set_body_class = "virgin-body"
+    end
+
+    respond_to do |format|
+      format.html { render 'preview', :layout => !request.xhr? }
+      format.json { render json: @place }
+    end
+  end
+
+  def all_edited
+
+    @all_edited = Place.joins(:photos).where("photos.status = 'edited'")
+    @all_edited += Place.joins(:games).where("games.status = 'edited'")
+    @all_edited += Place.joins(:videos).where("videos.status = 'edited'")
+    @all_edited += Place.joins(:fun_facts).where("fun_facts.status = 'edited'")
+    @all_edited += Place.joins(:discounts).where("discounts.status = 'edited'")
+
+    @all_edited = @all_edited.uniq
+
+    @all_content = []
+
+    @all_edited.each do |place|
+      place.photos.edited.each do |photo|
+        @all_content.push photo
       end
-
-      @from_place.photos.each do |photo|
-        photo.place_id = @to_place.id
-        unless photo.save
-          raise "Photo #{photo.id} not transferred"
-        end
+      place.videos.edited.each do |video|
+        @all_content.push video
       end
-
-      @from_place.games.each do |game|
-        game.place_id = @to_place.id
-        unless game.save
-          raise "Game #{game.id} not transferred"
-        end
+      place.games.edited.each do |game|
+        @all_content.push game
       end
-
-      @from_place.videos.each do |photo|
-        video.place_id = @to_place.id
-        unless video.save
-          raise "Video #{video.id} not transferred"
-        end
+      place.fun_facts.edited.each do |fun_fact|
+        @all_content.push fun_fact
       end
-
-      @from_place.reviews.each do |review|
-        review.reviewable = @to_place
-        unless review.save
-          raise "Review not transferred"
-        end
-      end
-
-      @from_place.stories.each do |story|
-        story.reviewable = @to_place
-        unless story.save
-          raise "Story #{story.id} not transferred"
-        end
-      end
-
-      @from_place.user_photos.each do |photo|
-        photo.place_id = @to_place.id
-        unless photo.save
-          raise "Photo #{photo.id} not transferred"
-        end
+      place.discounts.edited.each do |discount|
+        @all_content.push discount
       end
     end
 
-  end
-
-  def debug
-    render plain: "Host="+request.host+","+"Domain(1)="+request.domain(1)+", "+"Domain(2)="+request.domain(2)+" Subdomain="+request.subdomain()+"\n"+request.inspect
-    #find_subdomain(request)
   end
 
   def search
@@ -104,7 +197,7 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.includes(:games, :photos, :videos, :reviews, :stories, :user_photos).find_by_slug(params[:id])
+    @place = Place.includes(:games, :photos, :videos, :reviews, :stories, :user_photos, :quality_average).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
     @reviewable = @place
     @reviews = @reviewable.reviews.active
@@ -192,83 +285,56 @@ class PlacesController < ApplicationController
     end
   end
 
-  def preview
-    @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
-    if @place.area_id
-      @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
-      @area_videos = @place.area.videos
-    end
+  def transfer_assets
+    if user_signed_in? && current_user.admin?
+      @from_place = Place.find(params[:place][:from_place_id])
+      @to_place = Place.find(params[:place][:to_place_id])
 
-    if @place.subscription_level == "Premium"
-      @videos = @place.videos.where.not(priority: 1) || []
-      @hero_video = @place.videos.find_by(priority: 1)
-    else
-      @videos = []
-    end
-
-    if !@hero_video
-      @hero_photo = @place.photos.find_by(priority: 1)
-      @photos = @place.photos.where.not(priority: 1)
-    else
-      @photos = @place.photos
-    end
-
-    @request_xhr = request.xhr?
-
-    if @place.display_name == "Virgin Australia"
-      @set_body_class = "virgin-body"
-    end
-
-    respond_to do |format|
-      format.html { render 'preview', :layout => !request.xhr? }
-      format.json { render json: @place }
-    end
-  end
-
-  def all_edited
-
-    @all_edited = Place.joins(:photos).where("photos.status = 'edited'")
-    @all_edited += Place.joins(:games).where("games.status = 'edited'")
-    @all_edited += Place.joins(:videos).where("videos.status = 'edited'")
-    @all_edited += Place.joins(:fun_facts).where("fun_facts.status = 'edited'")
-    @all_edited += Place.joins(:discounts).where("discounts.status = 'edited'")
-
-    @all_edited = @all_edited.uniq
-
-    @all_content = []
-
-    @all_edited.each do |place|
-      place.photos.edited.each do |photo|
-        @all_content.push photo
+      if params[:remove] == true
+        @from_place.status = "removed"
       end
-      place.videos.edited.each do |video|
-        @all_content.push video
-      end
-      place.games.edited.each do |game|
-        @all_content.push game
-      end
-      place.fun_facts.edited.each do |fun_fact|
-        @all_content.push fun_fact
-      end
-      place.discounts.edited.each do |discount|
-        @all_content.push discount
-      end
-    end
 
-  end
+      @from_place.photos.each do |photo|
+        photo.place_id = @to_place.id
+        unless photo.save
+          raise "Photo #{photo.id} not transferred"
+        end
+      end
 
-  def create
-    @place = Place.new(place_params)
+      @from_place.games.each do |game|
+        game.place_id = @to_place.id
+        unless game.save
+          raise "Game #{game.id} not transferred"
+        end
+      end
 
-    if @place.identifier == ''
-      @place.identifier = @place.display_name.gsub(/\W/, '').downcase
-    end
+      @from_place.videos.each do |photo|
+        video.place_id = @to_place.id
+        unless video.save
+          raise "Video #{video.id} not transferred"
+        end
+      end
 
-    if @place.save
-      JournalInfo.create(place_id: @place.id)
-      redirect_to :back, notice: 'Place succesfully saved'
-    else
-      redirect_to '/places#new', notice: 'Place not saved!'
+      @from_place.reviews.each do |review|
+        review.reviewable = @to_place
+        unless review.save
+          raise "Review not transferred"
+        end
+      end
+
+      @from_place.stories.each do |story|
+        story.reviewable = @to_place
+        unless story.save
+          raise "Story #{story.id} not transferred"
+        end
+      end
+
+      @from_place.user_photos.each do |photo|
+        photo.place_id = @to_place.id
+        unless photo.save
+          raise "Photo #{photo.id} not transferred"
+        end
+      end
     end
   end
 
@@ -339,69 +405,6 @@ class PlacesController < ApplicationController
     @places = Place.where(user_created: true).reorder(:created_at)
   end
 
-  def new
-    @place = Place.new
-    @place.photos.build
-    @areas = Area.all
-  end
-
-  def edit
-    @set_body_class = "br-body"
-    @place = Place.friendly.find(params[:id])
-    @areas = Area.select(:id, :display_name).order(:display_name)
-    @photo = Photo.new
-    @program = Program.new
-    @discount = Discount.new
-  end
-
-  def new_edit
-    @set_body_class = "br-body"
-    @place = Place.friendly.find(params[:id])
-    @three_d_video = ThreeDVideo.new
-  end
-
-  def tags
-    params[:sort] ||= "id"
-    params[:direction] ||= "asc"
-    @places = Place.order(params[:sort] + " " + params[:direction]).paginate(:per_page => 30, :page => params[:page])
-  end
-
-  def update
-    @place = Place.friendly.find(params[:id])
-
-    if @place.update(place_params)
-
-      @place.photos.each do |photo|
-        photo.add_or_remove_from_country(@place.country)
-      end
-
-      @place.videos.each do |video|
-        video.add_or_remove_from_country(@place.country)
-      end
-
-      @place.fun_facts.each do |fun_fact|
-        fun_fact.add_or_remove_from_country(@place.country)
-      end
-
-      @place.discounts.each do |discount|
-        discount.add_or_remove_from_country(@place.country)
-      end
-
-      if params[:place][:hero_image].present? || params[:place][:remote_hero_image_url].present?
-        render :crop
-      else
-        redirect_to :back, notice: 'Place succesfully updated'
-      end
-
-    else
-      redirect_to edit_place_path(@place), notice: 'Error: Place not updated'
-    end
-
-  end
-
-  def destroy
-  end
-
   def publishing_queue
   end
 
@@ -422,18 +425,7 @@ class PlacesController < ApplicationController
     redirect_to :back, notice: 'Postcard sent'
   end
 
-  def content_rejected
-    place_id = params["place-id"].to_i
-    asset_type = params["asset-type"]
-    asset_id = params["asset-id"]
-    email = params["email"]
-    comments = params["comments"]
-    ContentRejected.send_rejected(place_id, asset_type, asset_id, email, comments)
-    redirect_to :back, notice: 'Thank you. Comments sent'
-  end
-
   def mapdata
-
     # geojson for MapBox map
     @places_geojson = Place.all_geojson
 
@@ -441,6 +433,40 @@ class PlacesController < ApplicationController
       format.html
       format.json { render json: @places_geojson }  # respond with the created JSON object
     end
+  end
+
+  def liked_places
+    @places = {}
+    @liked_places = Place.where.not(slug: params[:placeIds])
+
+    @liked_places.each do |place|
+      @places[place.slug] = like_icon(place)
+    end
+
+    respond_to do |format|
+      format.json { render json: @places}
+    end
+  end
+
+  def tags
+    params[:sort] ||= "id"
+    params[:direction] ||= "asc"
+    @places = Place.order(params[:sort] + " " + params[:direction]).paginate(:per_page => 30, :page => params[:page])
+  end
+
+############################################################################
+############################################################################
+# Below are controller actions for School Safari (www.schoolsafari.com)
+# At some point we need to split these code bases.
+# For the time being, if you are working on Bound Round,
+# be careful when altering the code below.
+#
+#############################################################################
+#############################################################################
+
+  def debug
+    render plain: "Host="+request.host+","+"Domain(1)="+request.domain(1)+", "+"Domain(2)="+request.domain(2)+" Subdomain="+request.subdomain()+"\n"+request.inspect
+    #find_subdomain(request)
   end
 
   def placeareasmapdata
@@ -455,19 +481,6 @@ class PlacesController < ApplicationController
 
   def check_all_boundround
     Rails.cache.fetch('all_bound_round_places') do
-    end
-  end
-
-  def liked_places
-    @places = {}
-    @liked_places = Place.where.not(slug: params[:placeIds])
-
-    @liked_places.each do |place|
-      @places[place.slug] = like_icon(place)
-    end
-
-    respond_to do |format|
-      format.json { render json: @places}
     end
   end
 
@@ -680,6 +693,12 @@ class PlacesController < ApplicationController
       @categories = ["All", "Excursion", "Incursion", "Virtual Excursion"]
     end
 
+##############################################################################
+#
+# END OF SCHOOL SAFARI PLACES CONTROLLER ACTIONS
+#
+###############################################################################
+
   private
     def place_params
       params.require(:place).permit(
@@ -735,6 +754,8 @@ class PlacesController < ApplicationController
         :status,
         :is_area,
         :special_requirements,
+        :top_100,
+        :viator_link,
         photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
         games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :customer_approved, :customer_review, :approved_at, :_destroy],
@@ -743,6 +764,7 @@ class PlacesController < ApplicationController
         user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
         three_d_videos_attributes: [:link, :caption, :place_id],
         category_ids: [],
+        subcategory_ids: [],
         secondary_category_ids: [],
         accessibility_category_ids: [],
         best_time_to_visit_category_ids: [],

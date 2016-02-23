@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe "three_d_videos/index.html.erb", type: :view do
+RSpec.describe Subcategories, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

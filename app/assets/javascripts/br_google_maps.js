@@ -908,8 +908,8 @@ function initialize() {
 */
 
 	$.getJSON("../google_home/js/countries30_na.topojson", function(data) {
-		var geoJsonObject = topojson.feature(data, data.objects.countries_no_antarctica);
-		br_map.data.addGeoJson(geoJsonObject);
+		//var geoJsonObject = topojson.feature(data, data.objects.countries_no_antarctica);
+		//br_map.data.addGeoJson(geoJsonObject);
 		// Set the stroke width, and fill color for each polygon
 		var featureStyle = {
 			fillColor: 'transparent',

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208031839) do
+ActiveRecord::Schema.define(version: 20160216060848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -418,6 +418,8 @@ ActiveRecord::Schema.define(version: 20160208031839) do
     t.integer  "minimum_age"
     t.integer  "maximum_age"
     t.text     "special_requirements"
+    t.boolean  "top_100",                   default: false
+    t.text     "viator_link",               default: ""
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -444,6 +446,14 @@ ActiveRecord::Schema.define(version: 20160208031839) do
 
   add_index "places_secondary_categories", ["place_id", "secondary_category_id"], name: "place_categories", using: :btree
   add_index "places_secondary_categories", ["secondary_category_id", "place_id"], name: "category_places", using: :btree
+
+  create_table "places_subcategories", id: false, force: true do |t|
+    t.integer "place_id",       null: false
+    t.integer "subcategory_id", null: false
+  end
+
+  add_index "places_subcategories", ["place_id", "subcategory_id"], name: "index_places_subcategories_on_place_id_and_subcategory_id", using: :btree
+  add_index "places_subcategories", ["subcategory_id", "place_id"], name: "index_places_subcategories_on_subcategory_id_and_place_id", using: :btree
 
   create_table "places_users", force: true do |t|
     t.integer "user_id",  null: false
@@ -615,6 +625,14 @@ ActiveRecord::Schema.define(version: 20160208031839) do
   add_index "stories_users", ["story_id", "user_id"], name: "index_stories_users_on_story_id_and_user_id", using: :btree
   add_index "stories_users", ["user_id", "story_id"], name: "index_stories_users_on_user_id_and_story_id", using: :btree
 
+  create_table "subcategories", force: true do |t|
+    t.text     "name"
+    t.text     "category_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "identifier"
+  end
+
   create_table "suggested_places", force: true do |t|
     t.string   "user_ip"
     t.string   "place"
@@ -645,7 +663,7 @@ ActiveRecord::Schema.define(version: 20160208031839) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "three_d_videos", force: true do |t|
-    t.string   "link"
+    t.text     "link"
     t.string   "caption"
     t.integer  "place_id"
     t.datetime "created_at"
