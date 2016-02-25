@@ -90,11 +90,6 @@ $(document).ready(function(){
         window.location = link;
       });
 
-      //This function lives in br_google_maps
-      if ($('#br15_map').length){
-        updateMapWithAlgoliaSearchResults(content);
-      }
-
       renderStats(content);
       renderPagination(content);
     } else {

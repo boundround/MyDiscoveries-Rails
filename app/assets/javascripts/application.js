@@ -31,18 +31,12 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require cms
-//= require leaflet.label
-//= require leaflet.markercluster
-//= require L.Control.Zoomslider
-//= require leaflet-hash
 //= require bootsy
 //= require bootstrap
 //= require bootstrap/transition
 //= require geocomplete
-//= require iconlabel
 //= require cookie
 //= require like
-//= require search_suggestions
 //= require jquery.raty
 //= require ratyrate
 //= require user-photo-upload
@@ -60,7 +54,6 @@
 //= require custom
 //= require jquery.Jcrop.min
 //= require places_crop
-//= require markerclusterer
 //= require jquery.confirm.min
 //= require mix_panel
 //= require instafeed.min

@@ -132,7 +132,6 @@ class Place < ActiveRecord::Base
 
   validates_presence_of :display_name, :slug
 
-  belongs_to :area
   belongs_to :country
   belongs_to :user
   belongs_to :primary_category

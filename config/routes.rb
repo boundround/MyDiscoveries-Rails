@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   end
 
   constraints(BRConstraint.new) do
-#    get '/', to: 'pages#globe', as: :root
     get '/', to: 'pages#index', as: :root
   end
 
