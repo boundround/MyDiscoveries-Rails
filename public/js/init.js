@@ -25,7 +25,7 @@ $(document).ready(function(){
     	callback: mailChimpResponse,
 
     	// ADD YOUR MAILCHIMP URL BELOW HERE!
-	    url: 'http://boundround.us2.list-manage.com/subscribe/post?u=6051712f456110a147312e3c9&amp;id=d9ce55c051'
+	    url: 'https://boundround.us2.list-manage.com/subscribe/post?u=6051712f456110a147312e3c9&amp;id=d9ce55c051'
 
 	});
 	function mailChimpResponse(resp) {
