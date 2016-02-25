@@ -24,3 +24,4 @@ $(document).ready(function(){
     });
 
 });
+console.log("style-switcher.js");
