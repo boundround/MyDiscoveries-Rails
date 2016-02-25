@@ -764,13 +764,6 @@ class PlacesController < ApplicationController
         user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
         three_d_videos_attributes: [:link, :caption, :place_id],
         category_ids: [],
-        subcategory_ids: [],
-        secondary_category_ids: [],
-        accessibility_category_ids: [],
-        best_time_to_visit_category_ids: [],
-        duration_category_ids: [],
-        price_category_ids: [],
-        category_ids: [],
-        weather_category_ids: [])
+        subcategory_ids: [])
     end
 end

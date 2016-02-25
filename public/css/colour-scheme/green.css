@@ -1,0 +1,31 @@
+.background-colour,
+.about-icon { background: #a4d266;}
+.background-colour input[type="submit"],
+.background-image input[type="submit"] { color: #fff; background: #f5755a;}
+.background-colour { color: #fff;}
+
+.btn-flat-colour { border: 2px solid #f5755a; color: #f5755a;}
+
+.btn-flat-colour:hover { color: #f5755a;}
+
+
+
+@media (min-width: 992px) {
+
+.btn-flat-white:hover { color: #f5755a; background: #fff;}
+
+.btn-flat-colour:hover { color: #fff; background: #f5755a;}
+
+.background-colour input[type="submit"]:hover,
+.background-image input[type="submit"]:hover { color: #f5755a; background: #fff;}
+input[type="email"]:focus { border: 3px solid #fff;}
+
+.team-module a:hover { color: #f5755a;}
+
+.social-nav a:hover { color: #f5755a; border: 2px solid #f5755a;}
+
+.footer-nav a:hover { color: #f5755a;}
+
+
+
+} /*========== 992px MEDIA QUERY END ==========*/
