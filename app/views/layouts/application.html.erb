@@ -152,7 +152,6 @@
 
 
 		<div id="place-holder"></div>
-	  <%= render "/layouts/newsletter_sign_up" %>
   	  <% flash.each do |type, message| %>
         <% if !bootstrap_class_for(type).eql?("timedout")%>
 		  <% if is_flash_key_for_tracking?(type) %>
