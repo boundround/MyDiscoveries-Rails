@@ -197,16 +197,21 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.includes(:games, :photos, :videos, :reviews, :stories, :user_photos, :quality_average).find_by_slug(params[:id])
+    #we dont need includes methods here, because we are not use it on views and some instance variable are not needed because we are not use it on views 
+    #we can use local variable if we are not use it on views
+    @reviewable = @place = Place.find_by_slug(params[:id])
     # @place_blog = @place.blog_request
-    @reviewable = @place
-    @reviews = @reviewable.reviews.active
+    # @reviewable = @place
+    # @reviews = @reviewable.reviews.active
     if user_signed_in?
-      @user_reviews_not_public = @reviewable.reviews.where('(status = ? OR status = ?) AND user_id = ?', "draft", "user", current_user.id)
+      @user_reviews_not_public = @reviewable.reviews.where('status = ? OR ((status = ? OR status = ?) AND user_id = ?)', "live", "draft", "user", current_user.id)
+    else
+      @reviews = @reviewable.reviews.active
     end
-    if !@user_reviews_not_public.blank?
-      @reviews += @user_reviews_not_public
-    end
+
+    # if !@user_reviews_not_public.blank?
+    #   @reviews += @user_reviews_not_public
+    # end
     @review = Review.new
 
     @storiable = @place
@@ -223,7 +228,7 @@ class PlacesController < ApplicationController
     # center_point = [@place.latitude, @place.longitude]
     # box = Geocoder::Calculations.bounding_box(center_point, distance)
     # @nearby_places = Place.within_bounding_box(box)
-    @nearby_places = @place.nearbys(20).active.includes(:games, :videos, :photos, :categories)
+    @nearby_places = @place.nearbys(20).active.includes(:photos, :categories, :quality_average, :user_photos)
 
     @top_places = @nearby_places.sort do |x, y|
       (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
@@ -232,7 +237,7 @@ class PlacesController < ApplicationController
     @top_places = @top_places[0..4]
 
     categories = @place.categories.map {|category| category.id}
-    @similar_places = @place.nearbys(30).active.includes(:games, :videos, :photos, :categories).where('categorizations.category_id' => categories)
+    @similar_places = @place.nearbys(30).active.includes(:photos, :categories).where('categorizations.category_id' => categories)
 
     if @place.subscription_level == "Premium"
       @hero_video = @place.videos.find_by(hero: true) || @place.videos.find_by(priority: 1)
@@ -255,22 +260,22 @@ class PlacesController < ApplicationController
     # @all_photos_and_videos.sort {|x, y| x.created_at <=> y.created_at}
 
     #NEW
-    @videos = []
-    @photos = []
+    @videos = @place.videos.active.order('created_at DESC')
+    @photos = @place.photos.active.includes(:users, :place) + @active_user_photos
 
-    @place.videos.active.each do |video|
-        @videos << video
-    end
+    # @place.videos.active.each do |video|
+    #     @videos << video
+    # end
 
-    @place.photos.active.each do |photo|
-      @photos << photo
-    end
-    @active_user_photos.each do |photo|
-      @photos << photo
-    end
+    # @place.photos.active.each do |photo|
+    #   @photos << photo
+    # end
+    # @active_user_photos.each do |photo|
+    #   @photos << photo
+    # end
 
     @photos.sort {|x, y| x.created_at <=> y.created_at}
-    @videos.sort {|x, y| x.created_at <=> y.created_at}
+    # @videos.sort {|x, y| x.created_at <=> y.created_at}
     ###############################
 
     @request_xhr = request.xhr?
