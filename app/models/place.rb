@@ -172,6 +172,8 @@ class Place < ActiveRecord::Base
 
   has_many :three_d_videos
 
+  has_many :stamps
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true

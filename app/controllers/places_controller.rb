@@ -11,6 +11,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def stamp_confirmation
+    @place = Place.find_by_slug params[:id]
+  end
+
   def geoquery
     @place_areas = Place.active.pluck(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, "areas.display_name AS area_name").where("categories.name='Area'")
 

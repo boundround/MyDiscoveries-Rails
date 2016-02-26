@@ -13,17 +13,6 @@ end
 require 'api_constraints'
 
 Rails.application.routes.draw do
-  get 'three_d_videos/show'
-
-  get 'three_d_videos/new'
-
-  get 'three_d_videos/index'
-
-  get 'three_d_videos/edit'
-
-  get 'three_d_videos/update'
-
-  get 'three_d_videos/destroy'
 
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
@@ -115,6 +104,10 @@ Rails.application.routes.draw do
   resources :stories
   post 'stories/profile_create' => 'stories#profile_create'
 
+  resources :stamps
+  get 'stamp_transactions/stamp_here' => 'stamp_transactions#stamp_here'
+  resources :stamp_transactions
+
   # post 'areas_users/create' => 'areas_users#create'
   # post 'areas_users/destroy' => 'areas_users#destroy'
 
@@ -167,6 +160,7 @@ Rails.application.routes.draw do
   # get '/places/:id/hero_image_picker' => 'places#hero_image_picker'
   resources :places do
     member { get 'preview' }
+    member { get 'stamp_confirmation' }
     member { get 'hero_image_picker'}
     collection { get 'all_edited'} # all place content in draft
     collection { get 'user_created'} # all place content in draft

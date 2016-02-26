@@ -177,6 +177,8 @@ gem 'puma'
 
 gem "bullet", :group => "development"
 
+gem "snowshoe"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
