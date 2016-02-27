@@ -1,13 +1,11 @@
-#map2d,
+/*#map2d,
 #map-wrapper,
 #map {
     height: 100%;
     width: 100%;
     position: absolute;
 }
-/*.blur {
-opacity: .5; -webkit-filter: blur(5px); -moz-filter: blur(5px); -o-filter: blur(5px); -ms-filter: blur(5px); filter: blur(5px);
-}*/
+
 
 #info-box {
     background-color: white;
@@ -38,3 +36,4 @@ opacity: .5; -webkit-filter: blur(5px); -moz-filter: blur(5px); -o-filter: blur(
 .no-bg {
     background: transparent !important;
 }
+*/

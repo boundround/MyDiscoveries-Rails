@@ -21,24 +21,12 @@
                         <button class="btn btn-default" id="magnifying-glass" type="button"><span class="fa fa-search"></span></button>
                     </span>
                 </div>
-
-<!--               <%# if @place.country %>
-                <a href="<%#= country_path(@place.country) %>">
-                  <img src="<%#= asset_path('flags/' + @place.country.country_code.downcase + '.png') %>" class="img-resposive country-flag" >
-                </a>
-              <%# end %>-->
             </div>
             <div class="br15_search_result cs-br15_search_result">
               <%= render "search_suggestions/search_results" %>
             </div>
-           <!--  <div class="btn-group br15_signup_btn_group hidden-xs" role="group" aria-label="...">
-                <a type="button" class="btn btn-default">Sign In</a>
-                <a type="button" class="btn btn-default">Sign Up</a>
-            </div> -->
 
             <div class="col-xs-12 col-sm-6 text-right pull-right"> <%= render 'layouts/profile_dropdown' %> </div>
-            <!-- <div class="col-xs-12 visible-xs"> <%#= render 'layouts/mobile_nav' %> </div>   -->
-
             <div class="row br15_city_header text-center">
                 <% if @place.country %>
                     <p class="br_time cs-br-time">
@@ -65,9 +53,6 @@
                 'width=626,height=436');
                 return false;"> <i class="fa fa-twitter-square fa-lg"></i></a>
               </div>
-                <% unless @place.viator_link.blank? %>
-                  <a href="<%= @place.viator_link%>" class="button btn book-now-button" target="_blank">Book Now!</a>
-                <% end %>
             </div>
 
             <nav class=" br15_fixed nav row" data-spy="affix" data-offset-top="300">
@@ -87,9 +72,6 @@
                 <div class="col-sm-5 col-xs-12">
                     <h3 class="text-uppercase br15_semi_font">
                         <%= body_title(@place.display_name, category) %>
-                        <!-- <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span> -->
-                        <!-- <li class="hero-hearts"> -->
                           <% if @place.quality_average %>
                             <% if user_signed_in? %>
                               <a href="#" class="no-anchor-decoration" data-toggle="modal" data-target="#myModal3">
@@ -146,11 +128,7 @@
                     <p>
                       <%= raw @place.description %>
                     </p>
- <!--                    <a href="#" class="visible-xs">Read More</a>
-                    <br/>
-                    <p class="hidden-xs">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis lorem ut semper ullamcorper. Aenean in quam auctor, convallis nibh ac, semper sem. Duis mi libero, egestas in imperdiet eu, sollicitudin a est. Vivamus ut eros nisl. Sed et risus in urna finibus varius. Suspendisse blandit dictum lacus, at mattis sem fermentum sed.
-                    </p> -->
+
                 </div>
             </div>
         </div>
@@ -163,7 +141,7 @@
                 <div id="br15_owl_video" class="owl-carousel">
                     <% @videos.each_with_index do |video, index| %>
                       <div>
-                          <div class="embed-responsive embed-responsive-16by9 for-video-modal" id="<%= video.vimeo_id || video.youtube_id %>"
+                          <div class="embed-responsive embed-responsive-16by9 for-video-modal"
                               data-src=<% if !video.vimeo_id.blank? %>
                                          <%= "//player.vimeo.com/video/#{video.vimeo_id}" %>
                                         <% else %>
@@ -202,15 +180,7 @@
             <a  href="#" class="btn btn-default new-btn-orange br15_Title_See_All">Photos</a>
             <div class="row">
                 <div id="br15_owl_photos" class="owl-carousel">
-
-                    <!-- <div>
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <img class="embed-responsive-item" src="img/frame.jpg">
-                        </div>
-                    </div>-->
-                    <%# @all_photos_and_videos.each_with_index do |asset, index| %>
                     <% @photos.each_with_index do |photo, index| %>
-                     <%# unless photo.class.to_s == "Video" || photo.class.to_s == "UserPhoto" %>
                       <div>
                           <div class="embed-responsive embed-responsive-16by9">
                             <img src="<%= photo.path_url(:medium)%>" alt='<%= photo.caption ? photo.caption : "" %>' class="embed-responsive-item" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : '' %>">
@@ -221,7 +191,6 @@
                             <h3><%= link_to photo.caption, place_path(photo.place) %></h3>
                           </div>
                       </div>
-                      <%# end %>
                     <% end %>
 
                 </div><!--/.carousel -->
@@ -239,38 +208,6 @@
             </div>
         </div>
         <% end %>
-
-
-
-<!--       <div class="modal fade" id="wp-blog-modal" data-backdrop="static">
-          <div class="modal-dialog cs-modal-lg">
-            <div class="modal-content cs-modal-content-video">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body" align="center">
-                  <iframe class="embed-reponsive-item player-vimeo" src="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen width="100%"></iframe>
-                </div>
-            </div>
-          </div>
-        </div> -->
-
-        <%# unless @stories.blank? %>
-<!--         <div class="br15_features hidden-xs container-fluid">
-            <div class="row">
-                <div class="col-sm-12" id="stories">
-                    <div class=" br15_stories br15_reviews">
-                        <div class="col-xs-12">
-                                <a href="#" class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All"> Story</a>
-                            <hr class="br15_hr visible-xs"/>
-                            <%#= render 'stories/all_stories' %>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <%# end %>
-
         <%= render 'user_photos/form' %>
         <%= render 'stories/form' %>
 
@@ -402,12 +339,6 @@
                 <div class="col-sm-10 col-sm-offset-1">
                     <a href="#" class="btn btn-default new-btn-orange a-fun bt-fun br15_pad_bot_5  br15_features_btn  br15_Title_See_All">Fun Facts</a>
                     <div id="br15_owl_fun_facts" class="owl-carousel">
-                        <!-- <div> for looping
-                            <div class="br15_img_round_cont">
-                                <img src="img/hugh.jpg" alt="">
-                            </div>
-                            <h1 class="br15_light_font text-center">Sydney Harbour is one the largest natural harbours in the world. </h1>
-                        </div> -->
                         <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
                             <div>
                                 <div class="br15_img_round_cont">
@@ -416,24 +347,6 @@
                                 <h1 class="br15_light_font text-center"><%= raw fun_fact.content %></h1>
                             </div>
                         <% end %>
-
-                       <!--  <%# @place.fun_facts.active.each_with_index do |fun_fact, index| %>
-                            <div class="br_fun_fact hidden-xs">
-                              <div class="row">
-                                <div class="col-sm-4 col-md-3 col-lg-2">
-                                  <img src="<%#= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" class="fun-fact-image">
-                                </div>
-                                <div class="col-sm-8 col-md-9 col-lg-10">
-                                  <h2> </h2>
-                                  <p>
-                                    <%#= raw fun_fact.content %>
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                        <%# end %> -->
-
-                        <%#= render 'fun_facts/all_fun_facts' %>
                     </div><!--/.carousel -->
                 </div>
             </div>
@@ -451,19 +364,6 @@
 </div>
 
 <script>
-    // $(document).ready(function(){
-    //     console.log("WP GET");
-    //     $.ajax({
-    //         url: "//boundround.com/wp-json/wp/v2/posts?filter[s]=" + "<%= @place.display_name %>",
-    //         success: function(data){
-    //             for(var i = 0; i < data.length; i++){
-    //                 $('#blogs').append("<h2>" + data[i]["title"]["rendered"]) + "</h2>";
-    //                 $('#blogs').append("<div>" + data[i]["content"]["rendered"]) + "</div>";
-    //                 $('#blogs').append("<hr><br><br>");
-    //             }
-    //         }
-    //     });
-    // });
 </script>
 <style>
 </style>

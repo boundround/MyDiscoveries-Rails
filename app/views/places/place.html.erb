@@ -1,0 +1,484 @@
+
+<% provide(:title, @place.display_name) %>
+<% category = @place.categories.first.identifier rescue "default"%>
+<% provide(:category,  category) %>
+
+<% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
+
+<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
+  <div class="container" id="search-nav" style="display:none;background:white;">
+  <div class="row">
+    <div class="col-xs-1 col-sm-1 top15">
+        <i class="fa fa-search pink fontbig-signin i-big-isize"></i>
+    </div>
+    <div class="col-xs-9 col-sm-9" style="height:60px">
+      <form>
+        <div class="form-group top13">
+          <input type="text" class="form-control navbar-form navbar-search-form" placeholder="Search for places, experiences & more...">
+        </div>
+      </form>
+    </div>
+    <div class="top15" align="center">
+      <i id="fa-times-nav-xs" class="fa fa-times grey fontbig-signin i-big-isize"></i>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="header-image-with-nav">
+  <img src="<%= draw_hero_background(@place) %>" alt="" class="img-header" >
+  <div class="container padding-style">
+    <div class="title-container hidden-xs">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+          <h1 class="text-center white"><%= @place.display_name %></h1>
+        </div>
+      </div>
+    </div>
+    <div class="action bg-place">
+      <div class="left">
+        <% if user_signed_in? %>
+          <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o"></i> Leave review </a>
+        <% else %>
+          <a href="#" class="white" data-toggle="modal" data-target="#ReviewModal"><i class="fa fa-smile-o"></i> Leave review </a>
+        <% end %>
+        </div>
+      <div class="center"><a class="white" href="#"><i class="fa fa-plus"></i> Add media</a>  </div>
+      <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#StoryModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+      <div class="pull-right hidden-xs">
+        <div class="component-desk">
+          <ul>
+            <li><a href="#"><i class="fa fa-image"></i> 8 Photos</a></li>
+            <li><a href="#"><i class="fa fa-youtube-play"></i> 2 Videos</a></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /action bg-place -->
+    <div class="component visible-xs">
+      <ul>
+        <li><a href="#"><i class="fa fa-image"></i> 8 Photos</a></li>
+        <li><a href="#"><i class="fa fa-youtube-play"></i> 2 Videos</a></li>
+      </ul>
+    </div>
+  </div> <!-- /container -->
+</div> <!-- /header-image-with-nav -->
+
+<div class="container mobile-container padding-style"> <!-- main container -->
+<section class="place-details country-details">
+  <div class="text-center visible-xs">
+    <h2 class="place-title2 place-color2"><%= @place.display_name %></h2>
+  </div>
+
+  <div class="row"> <!-- main row -->
+    <div class="col-xs-12 col-sm-8 col-md-8">
+      <div class="detail-place">
+        <div class="located"><p class="gray-font">For ages</p><p>9 - 18</p></div>
+        <div class="language"><p class="gray-font">Best visited</p><p>Daytime</p></div>
+        <div class="population"><p class="gray-font">Duration</p><p>2 - 3 hours</p></div>
+        <div class="suka"><p class="gray-font">Average rating</i></p><p><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i></p></div>
+      </div>
+      <div class="desc-place">
+        <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Proin eget tortor risus. Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. </p><a class="blueish">More <span class="caret"></span></a>
+      </div>
+      <div class="border-section"></div>
+      <div class="row top20 btm20">
+        <div class="col-xs-12">
+          <div class="rel-dest">
+            <ul>
+              <li class="gray-color">Found in</li>
+               <li><a href="#" class="badge"><i class="fa fa-male"></i> Do</a> </li>
+               <li><a href="#" class="badge">Museum</a> </li>
+               <li><a href="#" class="badge">Cultural</a> </li>
+             </ul>
+          </div>
+        </div>
+      </div>
+      <div class="border-section btm20"></div>
+        <div class="row">
+          <div class="col-xs-4">
+            <p class="gray-font">Opening hours</p><p>Open now</p><p><a href="#" data-toggle="modal" data-target="#OpeningHourModal">View details</a></p>
+          </div>
+          <div class="col-xs-4">
+            <p class="gray-font">Other services</p><p><i class="fa fa-wheelchair"></i> <i class="fa fa-headphones"></i></p>
+          </div>
+          <div class="col-xs-4">
+            <p class="gray-font">Price</p><p>Free for kids</p><p><a href="#" data-toggle="modal" data-target="#TicketsModal">View details</a></p>
+          </div>
+        </div>
+      </div><!-- col-sm-8 -->
+
+      <div class="col-xs-12 col-sm-4 col-md-4 border-left-desk"> <!-- for map -->
+          <div class="text-center clearfix  visible-xs">
+            <a href="#" class="btn button-orange button-style-booking fontbig-button btn-radius" data-toggle="modal" data-target="#BookingModal">Book Now!</a>
+          </div>
+        <div class="text-center div-btn-country top15 btm15 visible-xs">
+          <a href="" class=""><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
+        </div>
+        <div id="map"></div>
+        <div class="text-center btn-map btn-direction-margin">
+          <a href="" class="btn btn-primary btn-shadow btn-direction"><i class="fa fa-share blue-nero-icon"></i> Get directions </a>
+        </div>
+        <div class="top15">
+          <p class="grey btm0">Address</p>
+          <p class="btm15" >6 College Street, Sydney NSW 2010, Australia</p>
+        </div>
+          <p class="grey">Contact</p>
+        <div class="row">
+          <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
+            <button type="button" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-envelope-o blue-nero-icon leftmin7responsive"></i> Send a message</button>
+          </div>
+          <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
+            <button type="button" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-phone blue-nero-icon leftmin7responsive"></i> +61 2 9320 6000</button>
+          </div>
+        </div>
+
+          <p class="grey btm0 top15">Website</p>
+          <p class="mrg0"><a href="#">australianmuseum.net.au</a></p>
+      </div><!-- /col-sm-4 map-->
+    </div><!-- /main row -->
+  </section>
+  <div class="text-center clearfix  hidden-xs" style="clear:both;z-index:1;position: relative;">
+    <a href="#" style="margin:-5px" class="btn button-orange button-style-booking fontbig-button btn-radius" data-toggle="modal" data-target="#BookingModal">Book Now!</a>
+  </div>
+  <div class="text-center div-btn-country top20 btm20 hidden-xs">
+    <a href="#" class="black"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
+  </div>
+  <div class="row hidden-xs btm20">
+    <div class="col-md-12 col-xs-12">
+       <div class="for-owl">
+            <div id="top-owl" class="owl-carousel">
+              <div class="item"> 
+              <a href="#">
+                <img src="http://www.liburkeluarga.com/wp-content/uploads/2012/10/museum.jpg" class="img-responsive-carousel"></a></div>
+              <div class="item">
+                <a href="#"><img src="http://www.liburkeluarga.com/wp-content/uploads/2012/10/museum.jpg" class="img-responsive-carousel"></a>
+              </div>
+              <div class="item">
+                <a href="#"><img src="http://www.liburkeluarga.com/wp-content/uploads/2012/10/museum.jpg" class="img-responsive-carousel"></a>
+                </div>
+              <div class="item">
+                <a href="#"><img src="http://www.liburkeluarga.com/wp-content/uploads/2012/10/museum.jpg" class="img-responsive-carousel">
+              </a>
+              </div>
+              <div class="item">
+                <a href="#"><img src="http://www.liburkeluarga.com/wp-content/uploads/2012/10/museum.jpg" class="img-responsive-carousel"></a>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /maincontainer -->
+
+<section class="travelling-tips themuseum fun-fact mrg0">
+  <div class="container padding-style">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 ">
+      <h4>Good To Know</h4>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a>
+      </div>
+      <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs">
+        <h4 class="text-left">Fun Facts</h4>
+        <div id="carousel-fun-fact" class="carousel slide carousel-desk-fun" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <div class="fun-image">
+                <div class="img">
+                    <img src="http://www.spd.org/images%20blog/JoeC.jpg" alt="">
+                </div>
+                <div class="number"><span>1</span>
+                </div>
+              </div>
+              <div class="carousel-caption cs-caption">
+                <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.Quisque velit nisi, pretium ut lacinia in, elementum id enim</p>
+              </div>
+            </div> <!-- /item -->
+            <div class="item">
+              <div class="fun-image">
+                <div class="img">
+                    <img src="http://www.spd.org/images%20blog/JoeC.jpg" alt="">
+                </div>
+                <div class="number"><span>2</span>
+                </div>
+              </div>
+              <div class="carousel-caption cs-caption">
+                <p>text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 </p>
+              </div>
+            </div> <!-- /item -->
+          </div>
+          <!-- Controls -->
+          <a class="left carousel-control left30" href="#carousel-fun-fact" role="button" data-slide="prev">
+            <i class="fa fa-arrow-left i-funfact"></i>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <i class="fa fa-arrow-right i-funfact"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- AFTER THIS -->
+
+<!-- <div class="container">
+  <div class="text-left">
+    <h4 class="section-title">Your Stories</h4>
+  </div>
+</div> -->
+<div class="container padding-style">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
+      <div class="text-left">
+        <h4 class="section-title">Your Stories</h4>
+      </div>
+      <section class="your-stories">
+              <div class="head-stories">
+                <div class="left">
+                  <a href="#">
+                    <div class="profile-outer">
+                      <img src="./img/face1.jpg" alt="">
+                    </div>
+                    <div class="profile-text">
+                      Stephen71
+                    </div>
+                   </a>
+                </div>
+                <div class="right"><a href="#"><i class="fa fa-image"></i> 9
+                </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+                </div>
+              </div>
+              <div class="body-stories btm15">
+                <div class="p-dynamic">
+                <p class="visited">Visited Dec 2015</p>
+                <p class="mrg0 pink">Title of Story </p>
+                Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor....</div>
+                <div class="img-story-place outer-js">
+                  <img class="inner-js"align="right" src="./img/images.jpg" alt="">
+                </div>
+              </div>
+              <div class="head-stories">
+                <div class="left">
+                  <a href="#">
+                    <div class="profile-outer">
+                      <img src="./img/face1.jpg" alt="">
+                    </div>
+                    <div class="profile-text">
+                      Stephen71
+                    </div>
+                   </a>
+                </div>
+                <div class="right"><a href="#"><i class="fa fa-image"></i> 9
+                </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+                </div>
+              </div>
+              <div class="body-stories btm15">
+                <div>
+                <p class="visited">Visited Dec 2015</p>
+                <p class="mrg0 pink">Title of Story </p>
+                Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor....</div>
+              </div>
+          <div class="text-center clearfix">
+            <a href="#" class="btn btn-default black top5">Load more stories</a>
+          </div>
+      </section>
+    <div class="border-section clearfix btm0 top20 visible-xs"></div>
+    </div> <!-- /left-col -->
+
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
+      <section class="your-stories btm15">
+        <div class="row">
+        <div class="col-xs-12">
+            <div class="btm15">
+              <div class="text-left">
+                <h4 class="section-title">Member Reviews</h4>
+              </div>
+              <div class="body-stories">
+                <p>"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor...."</p>
+              </div>
+              <div class="head-stories">
+                <div class="left">
+                  <a href="#" class="black">
+                    Samuel K
+                  </a>
+                  <span class="grey">Jul 2015</span>
+
+                </div>
+                <div class="right">
+                  <i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i>
+                </div>
+              </div>
+
+            </div> <!-- /btm -->
+
+            <div class="btm15">
+
+              <div class="body-stories">
+                <p>"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor...."</p>
+              </div>
+
+              <div class="head-stories">
+                <div class="left">
+                  <a href="#" class="black">
+                    Mia123
+                  </a>
+                  <span class="grey">Jul 2015</span>
+
+                </div>
+                <div class="right">
+                  <i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="btm15">
+              <div class="body-stories">
+                <p>"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet..."</p>
+              </div>
+
+              <div class="head-stories">
+                <div class="left">
+                  <a href="#" class="pink">
+                    Hughes Family
+                  </a>
+                  <span class="grey">Jul 2015</span>
+
+                </div>
+                <div class="right">
+                  <i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i>
+                </div>
+              </div>
+
+            </div>
+          <div class="text-center clearfix">
+            <a href="#" class="btn btn-default black top5 btm5">Load more</a>
+          </div>
+          </div>
+        </div> <!-- row -->
+      </section>
+      <section class="travelling-tips themuseum fun-fact mrg0 visible-xs margin-fun-fact">
+        <div class="container">
+          <h4>Fun Facts</h4>
+          <div class="row">
+            <div class="position-js">
+              <div class="col-xs-12">
+                <div class="fun-image">
+                  <div class="img">
+                      <img src="./img/face1.jpg" alt="">
+                  </div>
+                  <div class="number"><span>1</span>
+                  </div>
+                </div>
+                <div class="text">
+                  <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
+                </div>
+              </div>
+            </div>
+            <div class="position-js">
+              <div class="col-xs-12">
+                <div class="fun-image">
+                  <div class="img">
+                      <img src="./img/face1.jpg" alt="">
+                  </div>
+                  <div class="number"><span>2</span>
+                  </div>
+                </div>
+                <div class="text">
+                  <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center clearfix">
+            <a href="#" class="btn btn-default black ">Load more fun facts</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="places-to-go visit-place">
+          <div class="text-left">
+            <h4 class="section-title">More places like this</h4>
+          </div>
+          <div class="row">
+           <div class="col-xs-12">
+            <div class="thumbnail">
+              <div class="image-cat image-cat-left outer-js">
+                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
+              </div>
+              <div class="caption caption-right">
+                <h4 class="gray-font">Sydney</h4>
+                <h2>Taronga Zoo</h2>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                  <a href="#"> Museum</a>
+                </div>
+                <div class="right">
+                  <a href="#"> $$</a>
+                </div>
+                </div>
+              </div>
+            <div class="thumbnail">
+              <div class="image-cat image-cat-left outer-js">
+                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
+              </div>
+              <div class="caption caption-right">
+                <h4 class="gray-font">Sydney</h4>
+                <h2>Taronga Zoo</h2>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                  <a href="#"> Animals</a>
+                </div>
+                <div class="right">
+                  <a href="#"> $$</a>
+                </div>
+                </div>
+              </div>
+            <div class="thumbnail">
+              <div class="image-cat image-cat-left outer-js">
+                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
+              </div>
+              <div class="caption caption-right">
+                <h4 class="gray-font">Sydney</h4>
+                <h2>Taronga Zoo</h2>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                </div>
+                <div class="right">
+                  <a href="#"> $$</a>
+                </div>
+                </div>
+              </div>
+            <div class="text-center clearfix">
+              <a href="#" class="btn btn-default btm20 top5">Load more places</a>
+            </div>
+            </div>
+          </div> <!-- row -->
+        </div>
+      </section>
+    </div> <!-- /col-md-8 -->
+  </div> <!-- /main row -->
+</div> <!-- /main container -->
+</div><!--/.area-content -->
+<% end %>
+
+<%= render 'layouts/all_modal' %>
+<%#= render 'layouts/video_modal' %>
+<%#= render 'stories/modal_story' %>
+
+<!-- <div class="container" id="blogs">
+    <h2 id="blog-title"></h2>
+    <div id="blog-content"></div>
+</div> -->
+<%= render 'layouts/footer' %>

@@ -1,317 +1,317 @@
-.blue_page {
-  background-color: #6cb7cc !important;
-}
-.left-user {
-  width: 80%;
-  position: absolute;
-  left: 0;
-  background-color: #7CC1FA;
-}
+// .blue_page {
+//   background-color: #6cb7cc !important;
+// }
+// .left-user {
+//   width: 80%;
+//   position: absolute;
+//   left: 0;
+//   background-color: #7CC1FA;
+// }
 
-.right-user {
-  width: 18%;
-  height: 100%;
-  position: absolute;
-  right: 0;
-  background-color: #FD7E56;
-}
+// .right-user {
+//   width: 18%;
+//   height: 100%;
+//   position: absolute;
+//   right: 0;
+//   background-color: #FD7E56;
+// }
 
-.user-gen-map {
-  min-height: 138px;
-  display: none;
-}
+// .user-gen-map {
+//   min-height: 138px;
+//   display: none;
+// }
 
-.large-avatar-container {
-  width: 112px;
-  height: 112px;
-}
+// .large-avatar-container {
+//   width: 112px;
+//   height: 112px;
+// }
 
-.large-avatar {
-  width: 112px !important;
-  height: auto !important;
-}
+// .large-avatar {
+//   width: 112px !important;
+//   height: auto !important;
+// }
 
-.insta-sign-in-button {
-  background-color: #3F729B;
-  color: white;
-  font-weight: lighter;
-  height: 40px;
-  padding-top: 10px;
-}
+// .insta-sign-in-button {
+//   background-color: #3F729B;
+//   color: white;
+//   font-weight: lighter;
+//   height: 40px;
+//   padding-top: 10px;
+// }
 
-.sign-in-footer {
-  font-size: .7em;
-    text-align: center;
-}
+// .sign-in-footer {
+//   font-size: .7em;
+//     text-align: center;
+// }
 
-.insta-sign-in-button:hover {
-  color:white;
-}
+// .insta-sign-in-button:hover {
+//   color:white;
+// }
 
-.user-upload-button {
-  background-color: #FD7E56;
-  color: white;
-  box-shadow: none;
-  text-shadow: none;
-}
+// .user-upload-button {
+//   background-color: #FD7E56;
+//   color: white;
+//   box-shadow: none;
+//   text-shadow: none;
+// }
 
-.delete-photo {
-  float: right;
-}
+// .delete-photo {
+//   float: right;
+// }
 
-.user-upload-button:hover {
-  border: 1px solid white;
-}
+// .user-upload-button:hover {
+//   border: 1px solid white;
+// }
 
-.user-view-title {
-  text-align: center;
-  font-size: 24px;
-  color: #efefef;
-  font-weight: 200;
-}
+// .user-view-title {
+//   text-align: center;
+//   font-size: 24px;
+//   color: #efefef;
+//   font-weight: 200;
+// }
 
-.wishlist-place {
-  float: left;
-  padding-bottom: 10px;
-}
+// .wishlist-place {
+//   float: left;
+//   padding-bottom: 10px;
+// }
 
-.user-story-card {
-  position: relative;
-  text-align: center;
-  color: #428bca;
-  text-shadow: 1px 1px skyblue;
-  font-size: 1.1em;
-  padding: 15px;
-  z-index: 1;
-  background-color: white;
-}
+// .user-story-card {
+//   position: relative;
+//   text-align: center;
+//   color: #428bca;
+//   text-shadow: 1px 1px skyblue;
+//   font-size: 1.1em;
+//   padding: 15px;
+//   z-index: 1;
+//   background-color: white;
+// }
 
-.user-story-card:before {
-  position: absolute;
-  content: "";
-  background: url(asset_path('br_logo_new.png')) center center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  opacity: 0.4;
-}
+// .user-story-card:before {
+//   position: absolute;
+//   content: "";
+//   background: url(asset_path('br_logo_new.png')) center center;
+//   background-size: contain;
+//   background-repeat: no-repeat;
+//   z-index: -1;
+//   top: 0;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   opacity: 0.4;
+// }
 
-.story-text {
-  width: 100%;
-  min-height: 200px;
-  color: #428bca;
-}
+// .story-text {
+//   width: 100%;
+//   min-height: 200px;
+//   color: #428bca;
+// }
 
-.photo-wrapper {
-  margin-bottom: 10px;
-  border-radius: 4px;
-}
+// .photo-wrapper {
+//   margin-bottom: 10px;
+//   border-radius: 4px;
+// }
 
-.my-photos {
-  height: 225px;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 4px;
-  background-color: gainsboro;
-  text-align: center;
-}
+// .my-photos {
+//   height: 225px;
+//   width: 100%;
+//   overflow: hidden;
+//   border-radius: 4px;
+//   background-color: gainsboro;
+//   text-align: center;
+// }
 
-.photo-status {
-  float: left;
-}
+// .photo-status {
+//   float: left;
+// }
 
-.user-photo-caption {
-  margin-top: 5px;
-  font-weight: bold;
-}
+// .user-photo-caption {
+//   margin-top: 5px;
+//   font-weight: bold;
+// }
 
-.click-to-edit {
-  font-size: .8em;
-  font-style: italic;
-}
+// .click-to-edit {
+//   font-size: .8em;
+//   font-style: italic;
+// }
 
-.my-photo {
-}
+// .my-photo {
+// }
 
-.passport td {
-  text-align: center;
-  border: 1px solid black;
-}
+// .passport td {
+//   text-align: center;
+//   border: 1px solid black;
+// }
 
-.passport {
-  margin: 5% auto;
-  width: 48%;
-}
+// .passport {
+//   margin: 5% auto;
+//   width: 48%;
+// }
 
-.passport-page {
-  background-color: #7CC1FA;
-}
+// .passport-page {
+//   background-color: #7CC1FA;
+// }
 
-.left-passport {
-  width: 30%;
-}
+// .left-passport {
+//   width: 30%;
+// }
 
-.passport-form {
-  position: relative;
-}
+// .passport-form {
+//   position: relative;
+// }
 
-.spinner {
-  position: absolute;
-  top: 30%;
-  color: white;
-  left: 36%;
-  visibility: hidden;
-}
+// .spinner {
+//   position: absolute;
+//   top: 30%;
+//   color: white;
+//   left: 36%;
+//   visibility: hidden;
+// }
 
-.passport-form input {
-  background-color: skyblue;
-  border: none;
-  /* padding-top: 15px; */
-  margin-top: 15px;
-  height: 30px;
-  width: 80%;
-}
+// .passport-form input {
+//   background-color: skyblue;
+//   border: none;
+//   /* padding-top: 15px; */
+//   margin-top: 15px;
+//   height: 30px;
+//   width: 80%;
+// }
 
-.passport.sign-up input {
-  width: 100%;
-  height: 50px;
-  text-align: left;
-}
+// .passport.sign-up input {
+//   width: 100%;
+//   height: 50px;
+//   text-align: left;
+// }
 
-.sidebar {
-  color: white;
-  text-align: center;
-  background-color: #FD7E56;
-}
+// .sidebar {
+//   color: white;
+//   text-align: center;
+//   background-color: #FD7E56;
+// }
 
-.sidebar-top {
-  position: relative;
-  background: url(asset_path('chevrons_orange.png'));
-  height: 35%;
-  overflow: hidden;
-}
+// .sidebar-top {
+//   position: relative;
+//   background: url(asset_path('chevrons_orange.png'));
+//   height: 35%;
+//   overflow: hidden;
+// }
 
-.sidebar-item {
-  height: 11%;
-  border-bottom: 1px solid white;
-  text-decoration: none;
-  font-size: 1.4em;
-  padding: 14px;
-  color: white;
-}
+// .sidebar-item {
+//   height: 11%;
+//   border-bottom: 1px solid white;
+//   text-decoration: none;
+//   font-size: 1.4em;
+//   padding: 14px;
+//   color: white;
+// }
 
-.sidebar-icon {
-  width: 20px;
-}
+// .sidebar-icon {
+//   width: 20px;
+// }
 
-.sidebar a:hover {
-  text-decoration: none;
-}
+// .sidebar a:hover {
+//   text-decoration: none;
+// }
 
-.sidebar-item:hover {
-  background-color: #d29eff;
-}
+// .sidebar-item:hover {
+//   background-color: #d29eff;
+// }
 
-.sidebar-stamp {
-  position: absolute;
-  right: -30px;
-  top: 12%;
-  z-index: 20;
-  transform: rotate(-15deg);
-  width: 45%;
-}
+// .sidebar-stamp {
+//   position: absolute;
+//   right: -30px;
+//   top: 12%;
+//   z-index: 20;
+//   transform: rotate(-15deg);
+//   width: 45%;
+// }
 
-.user-avatar {
-  width: 100%;
-}
+// .user-avatar {
+//   width: 100%;
+// }
 
-.passport-stamp {
-  transform: rotate(-15deg);
-  margin-left: -100px;
-  margin-bottom: -50px;
-}
+// .passport-stamp {
+//   transform: rotate(-15deg);
+//   margin-left: -100px;
+//   margin-bottom: -50px;
+// }
 
-.passport-photo {
-  border: 1px solid white;
-  height: 80%;
-  width: 60%;
-  margin: 10% auto auto;
-  background: white;
-}
+// .passport-photo {
+//   border: 1px solid white;
+//   height: 80%;
+//   width: 60%;
+//   margin: 10% auto auto;
+//   background: white;
+// }
 
-.passport-plane {
-  padding-top: 20px;
-}
+// .passport-plane {
+//   padding-top: 20px;
+// }
 
-.profile-container {/*
-    width: 65%;
-    margin-left: 10%;*/
-  }
+// .profile-container {/*
+//     width: 65%;
+//     margin-left: 10%;*/
+//   }
 
-.middle-align {
-  margin-top: 50%;
-}
+// .middle-align {
+//   margin-top: 50%;
+// }
 
-.signature {
-  font-family: 'Homemade Apple', cursive;
-  font-size: 1.8em;
-}
+// .signature {
+//   font-family: 'Homemade Apple', cursive;
+//   font-size: 1.8em;
+// }
 
-.user-signature {
-  padding: 10px;
-}
+// .user-signature {
+//   padding: 10px;
+// }
 
-.bar {
-  height: 18px;
-  background: green;
-}
+// .bar {
+//   height: 18px;
+//   background: green;
+// }
 
-#fileupload {
-  width: 100%;
-  display: none;
-}
+// #fileupload {
+//   width: 100%;
+//   display: none;
+// }
 
-#change-photo:hover {
-  color: lightblue;
-}
+// #change-photo:hover {
+//   color: lightblue;
+// }
 
-#user_avatar {
-  display: none;
-}
+// #user_avatar {
+//   display: none;
+// }
 
-.hidden-input {
-  display: none !important;
-}
+// .hidden-input {
+//   display: none !important;
+// }
 
-.sign-up {
-  font-size: 18px;
-  text-decoration: none !important;
-}
+// .sign-up {
+//   font-size: 18px;
+//   text-decoration: none !important;
+// }
 
-.sign-up:hover {
-  text-decoration: none;
-}
+// .sign-up:hover {
+//   text-decoration: none;
+// }
 
-.sign-up a {
-  color: darkblue !important;
-}
+// .sign-up a {
+//   color: darkblue !important;
+// }
 
-.click-to-upload {
-  background-color: rgba(70,70,70,0.5);
-  color: white;
-  display: none;
-}
+// .click-to-upload {
+//   background-color: rgba(70,70,70,0.5);
+//   color: white;
+//   display: none;
+// }
 
-@media (max-width: 768px) {
-  .passport {
-    width: 90%;
-  }
+// @media (max-width: 768px) {
+//   .passport {
+//     width: 90%;
+//   }
 
-  .sidebar-item {
-    font-size: 1em;
-  }
-}
+//   .sidebar-item {
+//     font-size: 1em;
+//   }
+// }

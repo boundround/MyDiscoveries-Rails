@@ -1,88 +1,88 @@
-// Place all the styles related to the Photos controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// // Place all the styles related to the Photos controller here.
+// // They will automatically be included in application.css.
+// // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.place-photo {
-  width: 100%;
-  height: auto;
-}
+// .place-photo {
+//   width: 100%;
+//   height: auto;
+// }
 
-.photo-caption {
-  background-color: #ffffff;
-  padding: 10px 10px 0 10px;
-  width: 100%;
-  display: inline-block;
-  border-radius: 0 0 3px 3px;
-}
+// .photo-caption {
+//   background-color: #ffffff;
+//   padding: 10px 10px 0 10px;
+//   width: 100%;
+//   display: inline-block;
+//   border-radius: 0 0 3px 3px;
+// }
 
-.photo-card {
-  width: 30%;
-  border-radius: 3px;
-}
+// .photo-card {
+//   width: 30%;
+//   border-radius: 3px;
+// }
 
-.photo-card-expanded {
-  position: relative;
-  min-width: 100%;
-  height: auto;
-}
+// .photo-card-expanded {
+//   position: relative;
+//   min-width: 100%;
+//   height: auto;
+// }
 
-.photo-label {
-  height: auto;
-  width: 100%;
-  margin-bottom: -10px;
-}
+// .photo-label {
+//   height: auto;
+//   width: 100%;
+//   margin-bottom: -10px;
+// }
 
-.photo-frame {
-  width: 100%;
-  height: auto;
-  border-radius: 3px;
-}
+// .photo-frame {
+//   width: 100%;
+//   height: auto;
+//   border-radius: 3px;
+// }
 
-.photo-transparent-placeholder {
-  width: 100%;
-  height: auto;
-}
+// .photo-transparent-placeholder {
+//   width: 100%;
+//   height: auto;
+// }
 
-.about-hero {
-  height: auto;
-  width: 100%%;
-}
+// .about-hero {
+//   height: auto;
+//   width: 100%%;
+// }
 
-.hero-photo {
-  width: 100%;
-  height: auto;
-}
+// .hero-photo {
+//   width: 100%;
+//   height: auto;
+// }
 
-.fun-fact {
-  margin-top: -6px;
-  display: none;
-  padding: 15px;
-  background-color: #efefef;
-  border-radius: 0 0 3px 3px;
-  position: relative;
-}
+// .fun-fact {
+//   margin-top: -6px;
+//   display: none;
+//   padding: 15px;
+//   background-color: #efefef;
+//   border-radius: 0 0 3px 3px;
+//   position: relative;
+// }
 
-.fun-fact-icon {
-  position: absolute;
-  margin-top: 4px;
-}
+// .fun-fact-icon {
+//   position: absolute;
+//   margin-top: 4px;
+// }
 
-.fun-fact-like {
-  position: absolute;
-  bottom: 50px;
-  left: 58%;
-}
+// .fun-fact-like {
+//   position: absolute;
+//   bottom: 50px;
+//   left: 58%;
+// }
 
-.photo-container {
-}
+// .photo-container {
+// }
 
-@media (max-width: 900px) {
-  .about-wrapper {
-    width: 100%;
-  }
+// @media (max-width: 900px) {
+//   .about-wrapper {
+//     width: 100%;
+//   }
 
-  .photo-card {
-    width: 100%;
-  }
+//   .photo-card {
+//     width: 100%;
+//   }
 
-}
+// }

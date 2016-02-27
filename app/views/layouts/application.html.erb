@@ -10,7 +10,7 @@
 
 	  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	  <link href='//fonts.googleapis.com/css?family=Signika:300,400,600,700' rel='stylesheet' type='text/css'>
-	  <link href='//fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
+	  <!-- <link href='//fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'> -->
 
 	 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -141,7 +141,11 @@
 	</head>
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>" data-mixpanel-identity="<%= current_user.present? ? "signed-in signed-in-#{current_user.id}" : "guest-#{request.remote_ip}" %>">
-    <%= javascript_include_tag 'application' %>
+    <%# if params[:controller].eql?("places") &&  params[:action].eql?("show") %>
+      <%#= javascript_include_tag 'show_places/application' %>
+    <%# else %>
+      <%= javascript_include_tag 'application' %>
+    <%# end %>
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
     <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <%= javascript_include_tag 'froogaloop' %>
@@ -177,8 +181,8 @@
 	    <%= yield %>
 	  </div>
 
-	  <%= render "/layouts/signin_modals" unless user_signed_in? %>
-	  <%= render "/layouts/share_modal" %>
+	  <%#= render "/layouts/signin_modals" unless user_signed_in? %>
+	  <%#= render "/layouts/share_modal" %>
 
 	</body>
 

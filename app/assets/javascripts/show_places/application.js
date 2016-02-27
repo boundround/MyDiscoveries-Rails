@@ -32,9 +32,9 @@
 // require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 // require cms
 // require bootsy
-//= require bootstrap
+// require bootstrap
 // require bootstrap/transition
-//= require geocomplete
+// require geocomplete
 // require cookie
 //= require like
 //= require jquery.raty
@@ -51,12 +51,12 @@
 // require bug_posts
 //= require gmaps.min
 //= require owl.carousel.min
-// require custom
+//= require custom
 //= require jquery.Jcrop.min
 // require places_crop
 //= require jquery.confirm.min
-// require mix_panel
+//= require mix_panel
 //= require instafeed.min
-//= require chart.min
-//= require boundround
+//= chart.min
+//= boundround
 

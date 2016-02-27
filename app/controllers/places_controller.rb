@@ -199,6 +199,9 @@ class PlacesController < ApplicationController
   def show
     @place = Place.includes(:games, :photos, :videos, :reviews, :stories, :user_photos, :quality_average).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
+    
+    
+
     @reviewable = @place
     @reviews = @reviewable.reviews.active
     if user_signed_in?
@@ -279,10 +282,17 @@ class PlacesController < ApplicationController
       @set_body_class = "virgin-body"
     end
 
+    view = if @place.is_area?
+      "area"
+    else
+      "place"
+    end
+
     respond_to do |format|
-      format.html { render 'show', :layout => !request.xhr? }
+      format.html { render view, :layout => !request.xhr? }
       format.json { render json: @place }
     end
+
   end
 
   def transfer_assets
