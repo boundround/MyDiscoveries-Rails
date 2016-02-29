@@ -77,8 +77,8 @@ class ApplicationController < ActionController::Base
 
   private
   def correct_domain!
-    if request.host == 'app.boundround.com'
-      redirect_to "https://www.boundround.com", :status => 301  # or explicitly 'http://www.mysite.com/'
+    if request.host == 'app.boundround.com' || request.host == 'boundround.com'
+      redirect_to dubdomain: "www", :status => 301  # or explicitly 'http://www.mysite.com/'
     end
   end
 
