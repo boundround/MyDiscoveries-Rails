@@ -100,11 +100,13 @@ var doughnutData = [
 function funFact(){
 	var position = $(".position-js");
 	$.each(position, function(index, val) {
-		 if (index == 1) {
+		 if (index % 2 != 0) {
 		 	$(val).find('.fun-image').css({"float":"right","margin":"0"});
 		 	$(val).find('.number').css({"left":"89px"});
 		 }
 	});
+	item = $("#carousel-fun-fact").find(".item")[0]
+	$(item).addClass("active");
 }
 function setupNav(){
 	$(".navbar-toggle").click(function(){
