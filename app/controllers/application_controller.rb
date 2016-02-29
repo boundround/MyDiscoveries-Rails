@@ -2,7 +2,9 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
-  before_filter :correct_domain!
+  if ENV["BOUNDROUND_ENV"] == "boundround_production"
+    before_filter :correct_domain!
+  end
 
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
@@ -76,7 +78,7 @@ class ApplicationController < ActionController::Base
   private
   def correct_domain!
     if request.host == 'app.boundround.com'
-      redirect_to root_url, :status => 301  # or explicitly 'http://www.mysite.com/'
+      redirect_to "https://boundround.com", :status => 301  # or explicitly 'http://www.mysite.com/'
     end
   end
 
