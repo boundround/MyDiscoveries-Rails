@@ -224,7 +224,7 @@
               <% @photos.each_with_index do |photo, index| %>
                   <div>
                     <div class="embed-responsive embed-responsive-16by9">
-                     <img src="<%= photo.path_url(:medium)%>" class="embed-responsive-item" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= photo.place ? place_path(photo.place) : photo.area ? area_path(photo.area) : '' %>" data-placeName="<%= photo.place ? photo.place.display_name : photo.area ? photo.area.display_name : '' %>">
+                     <img src="<%= photo.path_url(:medium)%>" class="embed-responsive-item" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= place_path(photo.place) rescue "" %>" data-placeName="<%= photo.place.display_name rescue "" %>">
                      <div class="place-photo-credit"><%= photo.credit rescue "" %></div>
                     </div>
                        <div class="caption-photo-carousel">
