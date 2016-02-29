@@ -6,8 +6,9 @@ class StampsController < ApplicationController
 
 	def create
 		@stamp = Stamp.new(stamp_params)
+		@place = Place.friendly.find(params[:place_id])
 		if @stamp.save
-			redirect_to stamps_path
+			redirect_to place_stamps_path(@place)
 		else
 			render action: "new"
 		end
@@ -26,12 +27,16 @@ class StampsController < ApplicationController
 	end
 
 	def edit
+		@stamp = Stamp.find(params[:id])
+		@place = Place.friendly.find(params[:place_id])
 	end
 
 	def update
 		@stamp = Stamp.find(params[:id])
+		@place = Place.friendly.find(params[:place_id])
 		if @stamp.update(stamp_params)
 			@stamp.save
+			redirect_to place_stamps_path(@place)
 		end
 	end
 
@@ -40,7 +45,9 @@ class StampsController < ApplicationController
 	end
 
 	def index
-		@stamps = Stamp.all
+		@place = Place.friendly.find(params[:place_id])
+		@stamps = @place.stamps
+		@stamp = Stamp.new
 		# @stamp_transactions = StampTransaction.all
 	end
 

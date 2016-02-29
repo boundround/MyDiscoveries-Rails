@@ -2,7 +2,8 @@
   <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
     <h1>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
     <p>
-      <a href="<%= place_path(@place) %>" target="blank">View Place Page</a>
+      <a href="<%= place_path(@place) %>" target="blank">View Place Page</a> || 
+      <a href="<%= place_stamps_path(@place)%>">Stamps</a>
     </p>
 
     <%= simple_form_for @place, html: { role: 'form'} do |f| %>

@@ -104,7 +104,6 @@ Rails.application.routes.draw do
   resources :stories
   post 'stories/profile_create' => 'stories#profile_create'
 
-  resources :stamps
   get 'stamp_transactions/stamp_here' => 'stamp_transactions#stamp_here'
   resources :stamp_transactions
 
@@ -165,6 +164,7 @@ Rails.application.routes.draw do
     collection { get 'all_edited'} # all place content in draft
     collection { get 'user_created'} # all place content in draft
     collection { get 'merge'}
+    resources :stamps
     resources :photos
     resources :videos
     resources :discounts

@@ -190,6 +190,7 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :weather_categories, allow_destroy: true
   accepts_nested_attributes_for :best_time_to_visit_categories, allow_destroy: true
   accepts_nested_attributes_for :duration_categories, allow_destroy: true
+  accepts_nested_attributes_for :stamps, allow_destroy: true
 
   mount_uploader :map_icon, IconUploader
   mount_uploader :hero_image, PlaceHeroImageUploader
