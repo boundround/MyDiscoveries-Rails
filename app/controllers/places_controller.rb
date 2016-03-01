@@ -13,6 +13,7 @@ class PlacesController < ApplicationController
 
   def stamp_confirmation
     @place = Place.find_by_slug params[:id]
+    @photo = @place.photos.where(hero: true).first
   end
 
   def geoquery
