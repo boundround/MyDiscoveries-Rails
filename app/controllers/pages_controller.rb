@@ -48,7 +48,7 @@ class PagesController < ApplicationController
 
   def robots
     robot_type = ENV["BOUNDROUND_ENV"] == "boundround_production" ? "production" : "development"
-    robots = File.read(Rails.root + "config/robots/robots.#{robot_type}.txt")
+    robots = File.read(Rails.root + "config/robots.#{robot_type}.txt")
     render :text => robots, :layout => false, :content_type => "text/plain"
   end
 
