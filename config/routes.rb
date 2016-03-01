@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   get 'pages/terms' => 'pages#terms'
   get 'pages/privacy' => 'pages#privacy'
+  get '/robots.txt' => 'pages#robots'
 
   resources :search_suggestions
 
