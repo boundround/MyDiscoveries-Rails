@@ -3,7 +3,6 @@ class Video < ActiveRecord::Base
 
   before_save :set_approval_time, :check_customer_approved, :validate_youtube_id
 
-  belongs_to :area
   belongs_to :place
 
   has_many :videos_users

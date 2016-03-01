@@ -4,7 +4,6 @@ class PlacesController < ApplicationController
   def new
     @place = Place.new
     @place.photos.build
-    @areas = Area.all
   end
 
   def create
@@ -25,7 +24,6 @@ class PlacesController < ApplicationController
   def edit
     @set_body_class = "br-body"
     @place = Place.friendly.find(params[:id])
-    @areas = Area.select(:id, :display_name).order(:display_name)
     @photo = Photo.new
     @program = Program.new
     @discount = Discount.new
@@ -90,7 +88,7 @@ class PlacesController < ApplicationController
   end
 
   def geoquery
-    @place_areas = Place.active.pluck(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, "areas.display_name AS area_name").where("categories.name='Area'")
+    @place_areas = Place.active.pluck(:display_name, :id, :place_id, :subscription_level, :status, :updated_at)
 
     respond_to do |format|
       format.json { render json: @place_areas }  # respond with the created JSON object
@@ -143,19 +141,14 @@ class PlacesController < ApplicationController
 
   def search
     @places = Place.where.not(subscription_level: ['out', 'draft'])
-             .text_search(params[:term]).includes(:area)
+             .text_search(params[:term])
 
     # @places = Place.where("display_name @@ :q or description @@ :q", q: params[:term])
-    @areas = Area.where("display_name @@ :q", q: params[:term])
 
-    @places = ActiveSupport::JSON.decode(@places.to_json(include: :area))
-
-    @areas = ActiveSupport::JSON.decode(@areas.to_json)
-
-    both = @areas + @places
+    @places = ActiveSupport::JSON.decode(@places.to_json)
 
     respond_to do |format|
-      format.json { render json: both.to_json}  # respond with the created JSON object
+      format.json { render json: @places.to_json}  # respond with the created JSON object
     end
   end
 
@@ -523,10 +516,10 @@ class PlacesController < ApplicationController
           place_query = '(places.display_name ILIKE :st OR programs.name ILIKE :st) AND ' + full_query
 
           if filtering_programs then
-            @places = Place.joins(:photos,:programs,:categories).includes(:photos, :categories).where(place_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).distinct.limit(@MAX_TO_RETURN)
+            @places = Place.joins(:photos,:programs).includes(:photos).where(place_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).distinct.limit(@MAX_TO_RETURN)
           else
             #Do outer left join if want places that may not have programs but still want to see
-            @places = Place.joins(:photos,:categories).includes(:photos, :categories, :programs).where(place_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).distinct.limit(@MAX_TO_RETURN)
+            @places = Place.joins(:photos).includes(:photos, :programs).where(place_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).distinct.limit(@MAX_TO_RETURN)
           end
 
           @places.each do |p|
@@ -546,10 +539,10 @@ class PlacesController < ApplicationController
         else
 #          @places = Place.joins(:area, :programs, :photos, :categories).includes(:programs, :area, :photos, :categories).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
           if filtering_programs then
-            @places = Place.joins(:photos,:programs,:categories).includes(:photos, :categories).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).limit(@MAX_TO_RETURN)
+            @places = Place.joins(:photos,:programs).includes(:photos).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).limit(@MAX_TO_RETURN)
           else
             #Do outer left join if want places that may not have programs but still want to see
-            @places = Place.joins(:photos,:categories).includes(:photos, :categories, :programs).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).limit(@MAX_TO_RETURN)
+            @places = Place.joins(:photos).includes(:photos, :programs).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).limit(@MAX_TO_RETURN)
           end
 
           @places.each do |p|

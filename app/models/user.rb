@@ -10,8 +10,6 @@ class User < ActiveRecord::Base
   has_many :videos, through: :videos_users
   has_many :games_users
   has_many :games, through: :games_users
-  has_many :areas_users
-  has_many :favorite_areas, through: :areas_users, source: :area
   has_many :places_users
   has_many :favorite_places, through: :places_users, source: :place
   has_many :fun_facts_users
@@ -124,7 +122,7 @@ class User < ActiveRecord::Base
   end
 
   def timeout_in
-    if self.admin? 
+    if self.admin?
       3.months
     else
       1.month

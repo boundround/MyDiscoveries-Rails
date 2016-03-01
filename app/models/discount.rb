@@ -4,7 +4,6 @@ class Discount < ActiveRecord::Base
   before_save :set_approval_time, :check_customer_approved
 
   belongs_to :place
-  belongs_to :area
   belongs_to :country
 
   has_paper_trail

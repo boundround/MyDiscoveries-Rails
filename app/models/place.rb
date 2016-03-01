@@ -233,7 +233,7 @@ class Place < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
     Rails.cache.fetch('places_geojson') do
       geojson = {"type" => "FeatureCollection","features" => [],"countries" => []}
-      places = self.active.includes(:categories, :games, :videos, :photos, :country, :area => [:country, :places])
+      places = self.active.includes(:categories, :games, :videos, :photos, :country)
       places.each do |place|
         if place.area != nil
           area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.length, "country" => (place.country ? place.country.display_name : "") }

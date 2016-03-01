@@ -5,13 +5,8 @@ class SearchSuggestion < ActiveRecord::Base
              .text_search(prefix).includes(:area)
 
     # @places = Place.where("display_name @@ :q or description @@ :q", q: params[:term])
-    @areas = Area.where("display_name @@ :q", q: prefix)
 
-    @places = ActiveSupport::JSON.decode(@places.to_json(include: :area))
-
-    @areas = ActiveSupport::JSON.decode(@areas.to_json)
-
-    both = @areas + @places
+    @places = ActiveSupport::JSON.decode(@places.to_json)
 
   end
 

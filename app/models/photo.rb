@@ -3,7 +3,6 @@ class Photo < ActiveRecord::Base
 
   before_save :set_approval_time, :check_customer_approved
 
-  belongs_to :area
   belongs_to :place
 
   has_many :countries_photos

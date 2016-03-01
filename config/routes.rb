@@ -49,6 +49,8 @@ Rails.application.routes.draw do
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
 
+  mount Soulmate::Server, :at => "/sm"
+
   get 'factual_places/search' => 'factual_places#search'
 
   post 'search_suggestions' => 'search_suggestions#index'

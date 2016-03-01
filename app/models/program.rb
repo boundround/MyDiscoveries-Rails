@@ -65,10 +65,9 @@ class Program < ActiveRecord::Base
 #    puts id
 #    if self.subscription_level.downcase == 'premium' || self.subscription_level.downcase == 'standard' || self.subscription_level == 'basic'
       loader = Soulmate::Loader.new("program")
-      loader.add("term" => self.name.downcase + ' ' + self.description.downcase + ' ' + self.place.display_name.downcase + ' ' + self.place.area.display_name.downcase,
+      loader.add("term" => self.name.downcase + ' ' + self.description.downcase + ' ' + self.place.display_name.downcase,
                 "display_name" => self.name, "id" => self.id, "latitude" => self.place.latitude, "longitude" => self.place.longitude,
-                "url" => '/programs/' + self.id + '.html', "placeType" => "program",
-                "area" => {"display_name" => self.place.area.display_name, "country" => self.place.area.country.display_name})
+                "url" => '/programs/' + self.id + '.html', "placeType" => "program")
   end
 
   def remove_from_soulmate

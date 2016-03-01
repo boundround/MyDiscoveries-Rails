@@ -14,7 +14,7 @@
 			var ss_g_places = {};
 			var ss_g_map = null; //Set a global that's unlikely to clash
 			var ss_open_window = null;
-			
+
       function initialize() {
         var mapOptions = {
 					<% if @zoom && !@places.nil? then %>
@@ -36,12 +36,8 @@
 
 			<% @places.each do |place| %>
 				(function (){
-	        <%if place.categories[0].nil? %>
-						var image ="https://d1w99recw67lvf.cloudfront.net/category_icons/sights_pin.png";
-					<% else %>
-						var image ="https://d1w99recw67lvf.cloudfront.net/category_icons/<%=place.categories[0].identifier%>_pin.png";
-	        <% end %>
 
+					var image ="https://d1w99recw67lvf.cloudfront.net/category_icons/sights_pin.png";
 					var myLatLng = new google.maps.LatLng(<%=place.latitude%>, <%=place.longitude%>);
 
 
@@ -49,7 +45,7 @@
 						'<div id="siteNotice">'+
 						'</div>'+
 						//      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-						'<div class="popup_img" content: "<%=place.categories[0].name%>" style="background: transparent url("<%=first_category_icon(place)%>")"><img src="<%=asset_path(place.photos[0].path_url(:small))%>"/></div>'+
+						'<div class="popup_img" content: "Sights" style="background: transparent url("<%=first_category_icon(place)%>")"><img src="<%=asset_path(place.photos[0].path_url(:small))%>"/></div>'+
 						'<div id="bodyContent">'+
 						'<p><b><%=place.display_name%></b> <h6><%=place.locality%></h6>'+
 						'</p>'+
@@ -68,7 +64,7 @@
 						title: "<%=place.display_name%>",
 						icon: image
 				  });
-					
+
 					ss_g_places[<%=place.id%>] = {
 							latitude : <%=place.latitude%>,
 							longitude : <%=place.longitude%>,
@@ -268,7 +264,7 @@
 												</div>
                     </figure>
                     <div class="col-sm-8 col-md-8 map-left-zero ">
-                        <div class="col-sm-8 col-md-8 gr map-pad "><span class="footprint " style="background: url(<%=first_category_icon(place)%>)no-repeat; background-size:100%; color:#a2d549;"></span><%=place.categories[0].name%></div><div class="col-sm-4 col-md-4 map-star"><span class="fa  fa-star map-gray"></span></div>
+                        <div class="col-sm-8 col-md-8 gr map-pad "><span class="footprint " style="background: url(<%=first_category_icon(place)%>)no-repeat; background-size:100%; color:#a2d549;"></span><%="Sights"%></div><div class="col-sm-4 col-md-4 map-star"><span class="fa  fa-star map-gray"></span></div>
                         <div class="col-sm-12 col-md-12 map-name-1"><h5 class="gr"><%=place.display_name%></h5><h6><%=place.locality%></h6></div>
                         <div class="col-sm-4 col-md-4 col-lg-4">K-12</div><div class="col-sm-8 col-md-8 map-heat"><span class="fa"><!--IMPLEMENT WITH RATINGS--&#xf004; &#xf004; &#xf004; &#xf08a; &#xf08a;0--></span></div>
                     </div>
@@ -362,19 +358,19 @@ function ss_focus_on_place(place_id)
 {
 	var place = ss_g_places[place_id];
 	ss_open_window && ss_open_window.close();
-	
+
 
 	ss_g_pancallbackhandle = google.maps.event.addListenerOnce(ss_g_map, 'idle', function(){
-    
-		if ($('.map-wrapper.enabled').length == 0)	
+
+		if ($('.map-wrapper.enabled').length == 0)
 		{
 			$('.map-wrapper').toggleClass('enabled');
 		}
-		
+
 		place.infowindow.open(ss_g_map,place.marker);
-		google.maps.event.removeListener(ss_g_pancallbackhandle);		
-	});	
-	
+		google.maps.event.removeListener(ss_g_pancallbackhandle);
+	});
+
 	//The small adjustment to longitude ensures the idle function gets called if
 	//happen to be near or on the place lat/lon already
 	ss_g_map.panTo({lat: place.latitude, lng: (place.longitude+.0000001)});

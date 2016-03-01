@@ -9,7 +9,6 @@ class UserPhoto < ActiveRecord::Base
   belongs_to :user
   belongs_to :story
   belongs_to :place
-  belongs_to :area
   belongs_to :country
 
   has_many :user_photos_users

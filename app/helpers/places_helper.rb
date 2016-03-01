@@ -1,8 +1,8 @@
 module PlacesHelper
   def pick_a_place_hero_url(place)
     #counts kill performance!
-#    place.photos[rand(place.photos.size-1)].path      
-    place.photos[0].path      
+#    place.photos[rand(place.photos.size-1)].path
+    place.photos[0].path
   end
   def pick_a_place_photo_url(place)
 #    asset_path(place.photos[rand(place.photos.size-1)].path_url(:small))
@@ -14,9 +14,9 @@ module PlacesHelper
 #      p1 = place.programs[rand(place.programs.size-1)].heroimagepath
       p1 = place.programs[0].heroimagepath
     end
-    
+
     if !p1 then
-      pick_a_place_hero_url(place)      
+      pick_a_place_hero_url(place)
     else
       p1
     end
@@ -29,11 +29,11 @@ module PlacesHelper
       pick_a_place_hero_url(program.place)
     end
   end
-  
+
   def first_category_icon(place)
-    "https://d1w99recw67lvf.cloudfront.net/category_icons/"+place.categories[0].identifier+"_icon.png"
+    "https://d1w99recw67lvf.cloudfront.net/category_icons/activity_icon.png"
   end
-  
+
   def valid_program_activity_tags_csv()
     ActsAsTaggableOn::Tagging.includes(:tag).where(context: "programactivities").uniq.pluck(:name).join(", ")
   end
@@ -53,13 +53,13 @@ module PlacesHelper
   def valid_program_subject_tags()
     ActsAsTaggableOn::Tagging.includes(:tag).where(context: "programsubjects").uniq.pluck(:name)
   end
-  
+
   def place_getcategory_icon_img_span(place)
     if place.categories[0] then
-      '<img src="https://d1w99recw67lvf.cloudfront.net/category_icons/'+place.categories[0].identifier+'_icon.png" alt="sights icon"><span>'+place.categories[0].name+'<span>'
+      '<img src="https://d1w99recw67lvf.cloudfront.net/category_icons/activity_icon.png" alt="sights icon"><span>activity<span>'
     end
   end
-    
+
   # def place_categories(place)
   #   res = String.new
   #   place.categories.each do |p|
@@ -72,10 +72,10 @@ module PlacesHelper
     a_programyearlevels.each do |yl|
       if yls != "" then yls += "," end
       yls += yl.name
-    end 
+    end
     yls
   end
-  
+
   def place_yearlevels(place)
     allyears = String.new
     if place.programs then
@@ -85,7 +85,7 @@ module PlacesHelper
     end
     get_yearlevel_range(allyears)
   end
-  
+
   def program_yearlevels(program)
     get_yearlevel_range(yl_as_csv_string(program.programyearlevels))
   end
@@ -101,9 +101,9 @@ module PlacesHelper
     #Sort based on year level sort order
     first = String.new('')
     last = String.new('')
-    
+
     als = allyears.split(",")
-    
+
     @ylvec.each do |yl|
       als.each do |al|
 #        puts "al = " + al + " : yl = " + yl
@@ -112,8 +112,8 @@ module PlacesHelper
           break
         end
       end
-      if first != '' then 
-        break 
+      if first != '' then
+        break
       end
     end
 
@@ -125,28 +125,28 @@ module PlacesHelper
           break
         end
       end
-      if last != '' then 
-        break 
+      if last != '' then
+        break
       end
     end
-    
-    if first == last then 
+
+    if first == last then
       first
-    else 
+    else
       first+' - '+last
     end
-  
+
   end
-  
+
   def program_subjects(program)
     #Sort based on year level sort order
     yls = ""
     program.programsubjects.each do |yl|
       if yls != "" then yls += "," end
       yls += yl.name
-    end 
+    end
     yls
-    #program.programyearlevel_list 
+    #program.programyearlevel_list
   end
 
   def program_subjects_max(program,max_num)
@@ -158,9 +158,9 @@ module PlacesHelper
       yls += yl.name
       idx = idx + 1
       break if idx > max_num
-    end 
+    end
     yls
-    #program.programyearlevel_list 
+    #program.programyearlevel_list
   end
 
   def program_activities(program)
@@ -169,8 +169,8 @@ module PlacesHelper
     program.programactivities.each do |pa|
       if pas != "" then pas += ", " end
       pas += pa.name
-    end 
+    end
     pas
-    #program.programyearlevel_list 
+    #program.programyearlevel_list
   end
 end
