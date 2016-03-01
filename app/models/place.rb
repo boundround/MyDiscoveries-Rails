@@ -158,6 +158,8 @@ class Place < ActiveRecord::Base
   has_many :stories, as: :storiable
 
   has_many :three_d_videos
+  
+  # has_many :good_to_knows
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true

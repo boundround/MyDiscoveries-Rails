@@ -200,10 +200,19 @@ class PlacesController < ApplicationController
     @place = Place.includes(:games, :photos, :videos, :reviews, :stories, :user_photos, :quality_average).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
     
-    
+    # Details information
+    @optimum_times = @place.subcategories.best_visited
+    @durations = @place.subcategories.duration
+    @subcategories = @place.subcategories.subcategory
+    @accessibilities = @place.subcategories.accessibility
+    @prices = @place.subcategories.price
 
+    @more_places = Place.where(primary_category: @place.primary_category).limit(6)
+    # debugger
     @reviewable = @place
     @reviews = @reviewable.reviews.active
+    # debugger
+
     if user_signed_in?
       @user_reviews_not_public = @reviewable.reviews.where('(status = ? OR status = ?) AND user_id = ?', "draft", "user", current_user.id)
     end
