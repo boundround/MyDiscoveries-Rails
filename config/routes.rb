@@ -49,8 +49,6 @@ Rails.application.routes.draw do
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
 
-  mount Soulmate::Server, :at => "/sm"
-
   get 'factual_places/search' => 'factual_places#search'
 
   post 'search_suggestions' => 'search_suggestions#index'
@@ -65,8 +63,6 @@ Rails.application.routes.draw do
   get "places/liked_places" => "places#liked_places"
   get "places/tags" => "places#tags"
   get "programs/tags" => "programs#tags"
-
-  post "places/user_create" => "places#user_create"
 
   get "places/publishing_queue" => "places#publishing_queue"
 

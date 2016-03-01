@@ -113,43 +113,9 @@ class PlacesController < ApplicationController
     end
   end
 
-  def preview
-    @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:id])
-    if @place.area_id
-      @area = Area.includes(places: [:photos, :games, :videos, :categories]).find(@place.area_id)
-      @area_videos = @place.area.videos
-    end
-
-    if @place.subscription_level == "Premium"
-      @videos = @place.videos.where.not(priority: 1) || []
-      @hero_video = @place.videos.find_by(priority: 1)
-    else
-      @videos = []
-    end
-
-    if !@hero_video
-      @hero_photo = @place.photos.find_by(priority: 1)
-      @photos = @place.photos.where.not(priority: 1)
-    else
-      @photos = @place.photos
-    end
-
-    @request_xhr = request.xhr?
-
-    if @place.display_name == "Virgin Australia"
-      @set_body_class = "virgin-body"
-    end
-
-    respond_to do |format|
-      format.html { render 'preview', :layout => !request.xhr? }
-      format.json { render json: @place }
-    end
-  end
-
   def all_edited
 
     @all_edited = Place.joins(:photos).where("photos.status = 'edited'")
-    @all_edited += Place.joins(:games).where("games.status = 'edited'")
     @all_edited += Place.joins(:videos).where("videos.status = 'edited'")
     @all_edited += Place.joins(:fun_facts).where("fun_facts.status = 'edited'")
     @all_edited += Place.joins(:discounts).where("discounts.status = 'edited'")
@@ -164,9 +130,6 @@ class PlacesController < ApplicationController
       end
       place.videos.edited.each do |video|
         @all_content.push video
-      end
-      place.games.edited.each do |game|
-        @all_content.push game
       end
       place.fun_facts.edited.each do |fun_fact|
         @all_content.push fun_fact
@@ -197,7 +160,7 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.includes(:games, :photos, :videos, :reviews, :stories, :user_photos, :quality_average).find_by_slug(params[:id])
+    @place = Place.includes(:photos, :videos, :reviews, :stories, :user_photos, :quality_average).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
     @reviewable = @place
     @reviews = @reviewable.reviews.active
@@ -219,20 +182,16 @@ class PlacesController < ApplicationController
     @user_photos = @story.user_photos.build
     @active_user_photos = @place.user_photos.active
 
-    # distance = 20
-    # center_point = [@place.latitude, @place.longitude]
-    # box = Geocoder::Calculations.bounding_box(center_point, distance)
-    # @nearby_places = Place.within_bounding_box(box)
-    @nearby_places = @place.nearbys(20).active.includes(:games, :videos, :photos, :categories)
+    # @nearby_places = @place.nearbys(20).active.includes(:videos, :photos)
 
-    @top_places = @nearby_places.sort do |x, y|
-      (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
-    end
+    # @top_places = @nearby_places.sort do |x, y|
+    #   (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
+    # end
 
-    @top_places = @top_places[0..4]
+    # @top_places = @top_places[0..4]
 
-    categories = @place.categories.map {|category| category.id}
-    @similar_places = @place.nearbys(30).active.includes(:games, :videos, :photos, :categories).where('categorizations.category_id' => categories)
+    # categories = @place.categories.map {|category| category.id}
+    # @similar_places = @place.nearbys(30).active.includes(:videos, :photos, :categories).where('categorizations.category_id' => categories)
 
     if @place.subscription_level == "Premium"
       @hero_video = @place.videos.find_by(hero: true) || @place.videos.find_by(priority: 1)
@@ -334,69 +293,6 @@ class PlacesController < ApplicationController
         unless photo.save
           raise "Photo #{photo.id} not transferred"
         end
-      end
-    end
-  end
-
-  def user_create
-    existing_place = Place.not_removed.find_by(place_id: params[:place][:place_id]) || Area.find_by(google_place_id: params[:place][:place_id]) || Country.find_by(display_name: params[:place][:display_name])
-
-    if existing_place.class.to_s == "Place"
-      render :json => {place_id: place_path(existing_place) }
-    elsif existing_place.class.to_s == "Area"
-      render :json => {place_id: area_path(existing_place) }
-    elsif existing_place.class.to_s == "Country"
-      render :json => {place_id: country_path(existing_place) }
-    else
-      @place = Place.new(place_params)
-      country = ""
-      address_components = params[:address_components]
-      address_components.each do |k, v|
-        v["types"].each_with_index do |type, index|
-          if type == "country"
-            country = Country.find_by country_code: v["short_name"]
-            @place.country = country
-          end
-          if type == "street_number"
-            @place.street_number = v[v.keys[index]]
-          end
-          if type == "route"
-            @place.route = v[v.keys[index]]
-          end
-          if type == "locality"
-            @place.locality =  v[v.keys[index]]
-          end
-          if type == "postal_code"
-            @place.post_code = v["short_name"]
-          end
-          if type == "sublocality"
-            @place.sublocality = v[v.keys[index]]
-          end
-          if type == "administrative_area_level_1"
-            @place.state = v[v.keys[index]]
-          end
-        end
-      end
-
-      if user_signed_in?
-        @place.created_by = current_user.id.to_s
-        @place.user_id = current_user.id
-        if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?
-          @place.status = "live"
-        else
-          @place.status = "draft"
-        end
-      else
-        @place.created_by = "Guest User"
-        @place.status = "guest"
-      end
-
-      if @place.save
-        NewPlace.delay.notification(@place)
-        JournalInfo.create(place_id: @place.id)
-        render :json => {place_id: "/places/" + @place.slug}
-      else
-        render :json => {place_id: "error" }
       end
     end
   end
@@ -758,12 +654,10 @@ class PlacesController < ApplicationController
         :viator_link,
         photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
-        games_attributes: [:id, :url, :area_id, :place_id, :priority, :game_type, :status, :customer_approved, :customer_review, :approved_at, :_destroy],
         fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
         three_d_videos_attributes: [:link, :caption, :place_id],
-        category_ids: [],
         subcategory_ids: [])
     end
 end

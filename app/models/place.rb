@@ -96,9 +96,7 @@ class Place < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude
   after_validation :reverse_geocode
 
-  after_save :load_into_soulmate
   after_update :crop_hero_image
-  before_destroy :remove_from_soulmate
   before_save :check_valid_url, :set_approval_time, :fix_australian_states
   after_create :create_bound_round_id
 
@@ -135,18 +133,13 @@ class Place < ActiveRecord::Base
   belongs_to :country
   belongs_to :user
   belongs_to :primary_category
-  has_many :categorizations
-  has_many :categories, through: :categorizations
   has_many :places_subcategories
   has_many :subcategories, through: :places_subcategories
   has_many :photos, -> { order "created_at ASC"}
-  has_many :discounts, -> { order "created_at ASC"}
-  has_many :games, -> { order "created_at ASC"}
   has_many :videos, -> { order "created_at ASC"}
   has_many :fun_facts, -> { order "created_at ASC"}
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
-  has_one :journal_info
 
   has_many :places_users
   has_many :users, through: :places_users
@@ -162,8 +155,6 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
-  accepts_nested_attributes_for :discounts, allow_destroy: true
-  accepts_nested_attributes_for :games, allow_destroy: true
   accepts_nested_attributes_for :programs, allow_destroy: true
   accepts_nested_attributes_for :reviews, allow_destroy: true
   accepts_nested_attributes_for :stories, allow_destroy: true
@@ -331,23 +322,6 @@ class Place < ActiveRecord::Base
         website.prepend("http://")
       end
     end
-  end
-
-  def load_into_soulmate
-    if self.status == "live"
-      loader = Soulmate::Loader.new("place")
-      loader.add("term" => display_name.downcase + ' ' + (description ? description.downcase : "") + ' ' + (self.area_id ? self.area.display_name.downcase : ""),
-                "display_name" => display_name, "id" => id, "latitude" => latitude, "longitude" => longitude,
-                "url" => '/places/' + slug + '.html', "slug" => slug, "placeType" => "place",
-                "area" => {"display_name" => (self.area_id ? self.area.display_name : (self.locality ? self.locality : "")), "country" => (self.country ? self.country.display_name : "") })
-    else
-      self.remove_from_soulmate
-    end
-  end
-
-  def remove_from_soulmate
-    loader = Soulmate::Loader.new("place")
-    loader.remove("id" => self.id)
   end
 
   def slug_candidates
