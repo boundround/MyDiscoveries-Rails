@@ -3,7 +3,7 @@
   <h2>All 3D Videos</h2>
   <% @place.three_d_videos.each do |video| %>
   <p>Link: <%= video.link %> || Caption: <%= video.caption %> ||
-    <a href="<%= edit_place_three_d_video_path(@place, video)%>">Edit</a> ||
+    <%= link_to 'Edit', edit_place_three_d_video_path(@place, video.id) %> ||
     <%= link_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' } %>
   </p>
   <% end %>
