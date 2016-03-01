@@ -21,6 +21,7 @@ class ThreeDVideosController < ApplicationController
   end
 
   def destroy
+    @place = Place.friendly.find(params[:place_id])
     @three_d_video = ThreeDVideo.find(params[:id])
     @three_d_video.destroy
     redirect_to place_three_d_videos_path(@place), notice: "3D Video Deleted"
