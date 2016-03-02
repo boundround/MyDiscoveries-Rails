@@ -157,9 +157,21 @@ class PlacesController < ApplicationController
     #we dont need includes methods here, because we are not use it on views and some instance variable are not needed because we are not use it on views
     #we can use local variable if we are not use it on views
     @reviewable = @place = Place.find_by_slug(params[:id])
-    # @place_blog = @place.blog_request
-    # @reviewable = @place
-    # @reviews = @reviewable.reviews.active
+    # @place_blog = @place.blog_request\
+
+    # Details information
+    @optimum_times = @place.subcategories.best_visited
+    @durations = @place.subcategories.duration
+    @subcategories = @place.subcategories.subcategory
+    @accessibilities = @place.subcategories.accessibility
+    @prices = @place.subcategories.price
+
+    @more_places = Place.where(primary_category: @place.primary_category).limit(6)
+    # debugger
+    @reviewable = @place
+    @reviews = @reviewable.reviews.active
+    # debugger
+
     if user_signed_in?
       @user_reviews_not_public = @reviewable.reviews.where('status = ? OR ((status = ? OR status = ?) AND user_id = ?)', "live", "draft", "user", current_user.id)
     else
@@ -240,10 +252,17 @@ class PlacesController < ApplicationController
       @set_body_class = "virgin-body"
     end
 
+    view = if @place.is_area?
+      "area"
+    else
+      "place"
+    end
+
     respond_to do |format|
-      format.html { render 'show', :layout => !request.xhr? }
+      format.html { render view, :layout => !request.xhr? }
       format.json { render json: @place }
     end
+
   end
 
   def transfer_assets

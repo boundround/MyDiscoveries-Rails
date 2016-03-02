@@ -1,0 +1,472 @@
+
+<% provide(:title, @place.display_name) %>
+<% category = @place.categories.first.identifier rescue "default"%>
+<% provide(:category,  category) %>
+
+<% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
+
+<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
+  <div class="container" id="search-nav" style="display:none;background:white;">
+  <div class="row">
+    <div class="col-xs-1 col-sm-1 top15">
+        <i class="fa fa-search pink fontbig-signin i-big-isize"></i>
+    </div>
+    <div class="col-xs-9 col-sm-9" style="height:60px">
+      <form>
+        <div class="form-group top13">
+          <input type="text" class="form-control navbar-form navbar-search-form" placeholder="Search for places, experiences & more...">
+        </div>
+      </form>
+    </div>
+    <div class="top15" align="center">
+      <i id="fa-times-nav-xs" class="fa fa-times grey fontbig-signin i-big-isize"></i>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="header-image-with-nav">
+  <img src="<%= draw_hero_background(@place) %>" alt="" class="img-header" >
+  <div class="container padding-style">
+    <div class="title-container hidden-xs">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+          <h1 class="text-center white"><%= @place.display_name %></h1>
+        </div>
+      </div>
+    </div>
+    <div class="action bg-place">
+      <div class="left">
+        <% if user_signed_in? %>
+          <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o"></i> Leave review </a>
+        <% else %>
+          <a href="#" class="white" data-toggle="modal" data-target="#ReviewModal"><i class="fa fa-smile-o"></i> Leave review </a>
+        <% end %>
+        </div>
+      <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#PhotoStoryModal" ><i class="fa fa-plus"></i> Add media</a>  </div>
+      <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#StoryModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+      <div class="pull-right hidden-xs">
+        <div class="component-desk">
+          <ul>
+            <li><a href="#"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
+            <li><a href="#"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /action bg-place -->
+    <div class="component visible-xs">
+      <ul>
+        <li><a href="#"><i class="fa fa-image"></i> 8 Photos</a></li>
+        <li><a href="#"><i class="fa fa-youtube-play"></i> 2 Videos</a></li>
+      </ul>
+    </div>
+  </div> <!-- /container -->
+</div> <!-- /header-image-with-nav -->
+
+<div class="container mobile-container padding-style"> <!-- main container -->
+<section class="place-details country-details">
+  <div class="text-center visible-xs">
+    <h2 class="place-title2 place-color2"><%= @place.display_name %></h2>
+  </div>
+
+  <div class="row"> <!-- main row -->
+    <div class="col-xs-12 col-sm-8 col-md-8">
+      <div class="detail-place">
+        <div class="located"><p class="gray-font">For ages</p><p><%= @place.minimum_age.to_s + " - " + @place.maximum_age.to_s %></p></div>
+        <div class="language"><p class="gray-font">Best visited</p><p><%=  @optimum_times.first %></p></div>
+        <div class="population">
+          <p class="gray-font">Duration</p><p><%= @durations.first %></p>
+          </div>
+        <div class="suka">
+          <p class="gray-font">Average rating</i></p>
+          <p>
+          <% if !@place.quality_average.blank? %>
+            <% (1..@place.quality_average.qty).each do %>
+                <i class='fa fa-smile-o'></i>
+              <% end %>
+            <% else %>
+              0 
+            <% end %>
+            </p>
+          </div>
+      </div>
+      <div class="desc-place">
+        <p><%= @place.description %></p>
+        <!-- <a class="blueish">More <span class="caret"></span></a> -->
+      </div>
+      <div class="border-section"></div>
+      <div class="row top20 btm20">
+        <div class="col-xs-12">
+          <div class="rel-dest">
+            <ul>
+              <li class="gray-color">Found in</li>
+              <% if !@subcategories.blank? %>
+                <% @subcategories.each do |c| %>
+                 <!-- <li><a href="#" class="badge"><i class="fa fa-male"></i> Do</a> </li> -->
+                 <li><a href="#" class="badge"><%= c.name %></a> </li>
+                <% end %>
+               <% end %>
+
+             </ul>
+          </div>
+        </div>
+      </div>
+      <div class="border-section btm20"></div>
+        <div class="row">
+          <div class="col-xs-4">
+            <p class="gray-font">Opening hours</p><p>Open now</p><p><a href="#" data-toggle="modal" data-target="#OpeningHourModal">View details</a></p>
+          </div>
+          <div class="col-xs-4">
+            <p class="gray-font">Other services</p>
+            <p>
+              <!-- <i class="fa fa-wheelchair"></i><i class="fa fa-headphones"></i> -->
+              <% if !@accessibilities.blank? %>
+                <% @accessibilities.each do |c| %>
+                  <%= c.name %>
+                <% end %>
+               <% end %>
+            </p>
+          </div>
+          <div class="col-xs-4">
+            <p class="gray-font">Price</p>
+            <p><%= @prices.first %>
+            </p>
+            <p><a href="#" data-toggle="modal" data-target="#TicketsModal">View details</a></p>
+          </div>
+        </div>
+      </div><!-- col-sm-8 -->
+
+      <div class="col-xs-12 col-sm-4 col-md-4 border-left-desk"> <!-- for map -->
+          <div class="text-center clearfix  visible-xs">
+            <!-- <a href="#" class="btn button-orange button-style-booking fontbig-button btn-radius" data-toggle="modal" data-target="#BookingModal">Book Now!</a> -->
+            <a href="<%= @place.viator_link %>" data-target="blank" class="btn button-orange button-style-booking fontbig-button btn-radius">Book Now!</a>
+          </div>
+        <div class="text-center div-btn-country top15 btm15 visible-xs">
+
+          <!-- <a id="place-favorite" class=""><i class="fa fa-bookmark-o"></i> Add To Favourites</a> -->
+          <% if user_signed_in? && @place.users.include?(current_user) %>
+            <a href="#" id="place-favorite" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"><i class="fa fa-bookmark-o"></i> Remove from wishlist</a>
+          <% else %>
+            <a href="#" id="place-favorite" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> <i class="fa fa-bookmark-o"></i> Add to wishlist</a>
+          <% end %>
+        </div>
+        <div id="map"></div>
+        <div class="text-center btn-map">
+          <a href="" class="btn btn-primary btn-shadow btn-direction btn-direct"><i class="fa fa-share blue-nero-icon"></i> Get directions </a>
+        </div>
+        <div class="top15">
+          <p class="grey btm0">Address</p>
+          <p class="btm15" ><%= @place.display_address %></p>
+        </div>
+          <p class="grey">Contact</p>
+        <div class="row">
+          <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
+            <a href="mailto:<%= @place.email rescue "" %>" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-envelope-o blue-nero-icon leftmin7responsive"></i> Send a message </a>
+          </div>
+          <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
+            <a href="tel: <%= @place.phone_number %>" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-phone blue-nero-icon leftmin7responsive"></i> <%= @place.phone_number %></a>
+          </div>
+        </div>
+
+          <p class="grey btm0 top15">Website</p>
+          <p class="mrg0"><a href="<%= @place.website %>" target="blank"><%= extract_domain(@place.website) %></a></p>
+      </div><!-- /col-sm-4 map-->
+    </div><!-- /main row -->
+  </section>
+  <div class="text-center clearfix  hidden-xs" style="clear:both;z-index:1;position: relative;">
+    <!-- "Book Now" - place.viator_link -->
+    <a href="<%= @place.viator_link %>" data-target="blank" style="margin:-5px" class="btn button-orange button-style-booking fontbig-button btn-radius">Book Now!</a>
+
+  </div>
+  <div class="text-center div-btn-country top20 btm20 hidden-xs">
+    <a href="#" class="black"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
+  </div>
+
+<% unless @photos.blank? %>        
+  <div class="row hidden-xs btm20">
+    <div class="col-md-12 col-xs-12">
+       <div class="for-owl">
+            <div id="top-owl" class="owl-carousel">
+              <% @photos.each do |photo| %>
+                <div class="item"> 
+                  <a href="#">
+                  <!-- <img src="<%#= photo.path_url(:medium)%>" class="img-responsive-carousel"></a> -->
+                  <img src="<%= showing_image(photo.path_url(:medium))%>" class="img-responsive-carousel"></a>
+                  <div class="title-fun-caro">
+                    <p><%= photo.credit rescue "" %></p>
+                    <h5><%= link_to photo.caption, place_path(photo.place), class: "white" %></h5>
+                  </div>   
+                </div>
+              <% end %>
+          </div>
+      </div>
+    </div>
+  </div> <!-- /owl -->
+<% end %>
+
+</div><!-- /maincontainer -->
+
+<section class="travelling-tips themuseum fun-fact mrg0">
+  <div class="container padding-style">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 ">
+      <%# if  !@place.good_to_knows.blank? %>
+        <h4>Good To Know</h4>
+         <%# @place.good_to_knows.each do |gtk| %>
+          <p class="mrg0"> <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet!<%#= gtk.content %></a></p>
+         <%# end %>
+      <%# end %>
+        </div>
+
+
+      <% if !@place.fun_facts.blank? %>      
+        <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs">
+          <h4 class="text-left">Fun Facts</h4>
+          <div id="carousel-fun-fact" class="carousel slide carousel-desk-fun" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+              <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
+                <div class="item">
+                  <div class="fun-image">
+                    <div class="img">
+                        <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" alt="">
+                    </div>
+                    <div class="number"><span><%= index+1 %></span>
+                    </div>
+                  </div>
+                  <div class="carousel-caption cs-caption">
+                    <p><%= raw fun_fact.content %></p>
+                  </div>
+                </div> <!-- /item -->
+              <% end %>
+
+            </div>
+            <!-- Controls -->
+            <a class="left carousel-control left30" href="#carousel-fun-fact" role="button" data-slide="prev">
+              <i class="fa fa-arrow-left i-funfact"></i>
+            </a>
+            <a class="right carousel-control" href="#carousel-fun-fact" role="button" data-slide="next">
+              <i class="fa fa-arrow-right i-funfact"></i>
+            </a>
+          </div>
+        </div> <!-- /hidden-xs -->
+      <% end %>
+
+    </div>
+  </div>
+</section>
+
+
+<div class="container padding-style">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
+      
+      <% unless @stories.blank? %>
+        <div class="text-left">
+          <h4 class="section-title">Your Stories</h4>
+        </div>
+        <section class="your-stories">
+        <% @stories.each_with_index do |story, index| %>
+          <% if  story.class.to_s.eql? "Story" %>
+              <div class="head-stories">
+                <div class="left">
+                  <a href="#">
+                    <div class="profile-outer">
+                      <img src="./img/face1.jpg" alt="">
+                    </div>
+                    <div class="profile-text">
+                      Stephen71
+                    </div>
+                   </a>
+                </div>
+                <div class="right"><a href="#"><i class="fa fa-image"></i> 9
+                </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+                </div>
+              </div>
+              <div class="body-stories btm15">
+                <div 
+                  <% if !story.user_photos.blank? %>
+                  class="p-dynamic"
+                  <% end %>
+                  >
+                  <p class="visited">Visited Dec 2015</p>
+                  <p class="mrg0 pink"><%= story.title %> </p>
+                   <%= story.content[0..280] + "..." %>
+                     <% if review.content.length > 280 %>
+                            <!-- <button class="entire-review" data-size="contracted" data-entire-review="<%= review.content %>">See entire review</button> -->
+                     <% end %>
+                  <%#= story.content %>
+                </div>
+                <div class="img-story-place outer-js">
+                <% if !story.user_photos.blank? %>
+                  <img class="inner-js" align="right" src="<%= story.user_photos.first.path_url(:medium) %>" alt="">
+                  <% end %>
+                </div>
+              </div>
+          <% elsif story.class.to_s.eql? "ApiBlog" %>
+              <div class="head-stories">
+                <div class="left">
+                  <a href="#">
+                    <div class="profile-outer">
+                      <img src="./img/face1.jpg" alt="">
+                    </div>
+                    <div class="profile-text">
+                      Stephen71
+                    </div>
+                   </a>
+                </div>
+                <div class="right"><a href="#"><i class="fa fa-image"></i> 9
+                </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+                </div>
+              </div>
+              <div class="body-stories btm15">
+                <div class="p-dynamic">
+                  <p class="visited">Visited Dec 2015</p>
+                  <p class="mrg0 pink"><%= story.title %> </p>
+                  <%= raw story.content.html_safe[0..280] + "..." %>
+                </div>
+                <div class="img-story-place outer-js">
+                <%# if !story.user_photos.blank? %>
+                  <img class="inner-js" align="right" src="<%= story.image.blank? ? draw_hero_background(@place) : story.image %>" alt="">
+                  <%# end %>
+                </div>
+              </div>
+            <% end %> <!-- /each -->
+          <% end %>
+            <div class="text-center btm20 clearfix">
+              <a href="#" class="btn btn-default black top5">Load more stories</a>
+            </div>
+        </section> <!-- /story -->
+      <% end %>
+
+    <div class="border-section clearfix btm0 top20 visible-xs"></div>
+    </div> <!-- /left-col -->
+
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
+      <section class="your-stories btm15">
+        <div class="row">
+        <div class="col-xs-12">
+            
+          <% unless @reviews.blank? %>
+              <div class="text-left">
+                  <h4 class="section-title">Member Reviews</h4>
+              </div>
+            <% @reviews.each do |review| %>
+              <div class="btm15">
+                <div class="body-stories">
+                  <p>
+                    <%= review.content[0..280] + "..." %>
+                      <% if review.content.length > 280 %>
+                          <!-- <button class="entire-review" data-size="contracted" data-entire-review="<%#= review.content %>">See entire review</button> -->
+                    <% end %>
+                  </p>
+                </div>
+                <div class="head-stories">
+                  <div class="left">
+                    <a href="#" class="black">
+                      <%= strip_domain_from_username review.user %>
+                    </a>
+                    <span class="grey">Jul 2015</span>
+                  </div>
+                  <div class="right">
+                    <%# get_user_place_rating_from_review(review).times do |star| %>
+                      <i class="fa fa-smile-o"></i>
+                    <%# end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
+          <div class="text-center clearfix">
+            <a href="#" class="btn btn-default black top5 btm5">Load more</a>
+          </div>
+          <% end %>
+
+          </div>
+        </div> <!-- row -->
+      </section>
+      
+
+
+      <% if !@place.fun_facts.blank? %>
+      <section class="travelling-tips themuseum fun-fact mrg0 visible-xs margin-fun-fact">
+        <div class="container">
+          <h4>Fun Facts</h4>
+          <div class="row">
+            <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
+              <div class="position-js">
+                <div class="col-xs-12">
+                  <div class="fun-image">
+                    <div class="img">
+                        <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" alt="">
+                    </div>
+                    <div class="number"><span><%= index+1 %></span>
+                    </div>
+                  </div>
+                  <div class="text">
+                    <p><%= raw fun_fact.content %></p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="text-center clearfix">
+            <a href="#" class="btn btn-default black ">Load more fun facts</a>
+          </div>
+        </div>
+      </section> <!-- /fun -->
+      <% end %>
+
+      <% unless @more_places.blank? %>
+        <section class="places-to-go visit-place">
+          <div class="text-left">
+            <h4 class="section-title">More places like this</h4>
+          </div>
+          <div class="row">
+           <div class="col-xs-12">
+            <% @more_places.each do |place| %>
+              <div class="thumbnail">
+                <div class="image-cat image-cat-left outer-js">
+                  <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive img-full-div inner-js">
+                </div>
+                <div class="caption caption-right">
+                  <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
+                  <h2><%= place.display_name %></h2>
+                </div>
+                <div class="details-dest">
+                  <div class="left">
+                  <% place.categories.each do |c| %>
+                    <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
+                    <a href="#"><%= c.name %></a>
+
+                  <% end %>
+                  </div>
+                  <div class="right">
+                    <a href="#"> $$</a>
+                  </div>
+                  </div>
+                </div>
+            <% end %>
+            <div class="text-center clearfix btm20">
+              <a href="#" class="btn btn-default top5">Load more places</a>
+            </div>
+            </div>
+          </div> <!-- row -->
+      </section>
+    <% end %>
+    </div> <!-- /col-md-8 -->
+  </div> <!-- /main row -->
+</div> <!-- /main container -->
+</div><!--/.area-content -->
+<% end %>
+
+<%= render 'layouts/all_modal' %>
+<%#= render 'layouts/video_modal' %>
+<%#= render 'stories/modal_story' %>
+
+<!-- <div class="container" id="blogs">
+    <h2 id="blog-title"></h2>
+    <div id="blog-content"></div>
+</div> -->
+<%= render 'layouts/footer' %>
