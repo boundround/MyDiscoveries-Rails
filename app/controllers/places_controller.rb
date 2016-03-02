@@ -225,7 +225,7 @@ class PlacesController < ApplicationController
     api_blogs = ApiBlog.get_cached_blogs(@place.slug)
     @stories = @storiable.stories.active + api_blogs
 
-    @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse
+    @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.first(6)
 
     @story = Story.new
     @user_photos = @story.user_photos.build

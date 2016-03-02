@@ -23,12 +23,11 @@
     </div>
   </div>
 </div>
-</div>
 
 
 
 <div class="header-image-with-nav">
-  <img src="<%= draw_hero_background(@place) %>" alt="" class="img-header" >
+  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header" >
   <div class="container padding-style">
     <div class="title-container hidden-xs">
       <div class="row">
@@ -116,7 +115,10 @@
       <div class="border-section btm20"></div>
         <div class="row">
           <div class="col-xs-4">
-            <p class="gray-font">Opening hours</p><p>Open now</p><p><a href="#" data-toggle="modal" data-target="#OpeningHourModal">View details</a></p>
+            <p class="gray-font">Opening hours</p>
+            <p id="operating-hours"></p>
+            <p id="hours"></p>
+            <p><a href="#" data-toggle="modal" data-target="#OpeningHourModal">View details</a></p>
           </div>
           <div class="col-xs-4">
             <p class="gray-font">Other services</p>
@@ -154,7 +156,7 @@
         </div>
         <div id="map"></div>
         <div class="text-center btn-map">
-          <a href="" class="btn btn-primary btn-shadow btn-direction btn-direct"><i class="fa fa-share blue-nero-icon"></i> Get directions </a>
+          <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="btn btn-primary btn-shadow btn-direction btn-direct"><i class="fa fa-share blue-nero-icon"></i> Get directions </a>
         </div>
         <div class="top15">
           <p class="grey btm0">Address</p>
@@ -230,7 +232,7 @@
                 <div class="item">
                   <div class="fun-image">
                     <div class="img">
-                        <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" alt="">
+                        <img src="<%=showing_image(fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place))) %>" alt="">
                     </div>
                     <div class="number"><span><%= index+1 %></span>
                     </div>
@@ -266,38 +268,39 @@
         <div class="text-left">
           <h4 class="section-title">Your Stories</h4>
         </div>
-        <section class="your-stories">
+        <section class="your-stories cards">
         <% @stories.each_with_index do |story, index| %>
           <% if  story.class.to_s.eql? "Story" %>
-              <div class="head-stories">
-                <div class="left">
-                  <a href="#">
-                    <div class="profile-outer">
-                      <img src="./img/face1.jpg" alt="">
-                    </div>
-                    <div class="profile-text">
-                      Stephen71
-                    </div>
-                   </a>
+              <div class="card">
+                <div class="head-stories">
+                  <div class="left">
+                    <a href="#">
+                      <div class="profile-outer">
+                        <img src="<%= showing_image(story.user.avatar_url)%>" alt="">
+                      </div>
+                      <div class="profile-text">
+                        <%= story.user.name %>
+                      </div>
+                     </a>
+                  </div>
+                  <div class="right"><a href="#"><i class="fa fa-image"></i> <%= story.user.photos.size %>
+                  </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%= story.user.videos.size %></a>
+                  </div>
                 </div>
-                <div class="right"><a href="#"><i class="fa fa-image"></i> 9
-                </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
-                </div>
-              </div>
-              <div class="body-stories btm15">
-                <div 
-                  <% if !story.user_photos.blank? %>
-                  class="p-dynamic"
-                  <% end %>
-                  >
-                  <p class="visited">Visited Dec 2015</p>
-                  <p class="mrg0 pink"><%= story.title %> </p>
-                   <%= story.content[0..280] + "..." %>
-                     <% if review.content.length > 280 %>
-                            <!-- <button class="entire-review" data-size="contracted" data-entire-review="<%= review.content %>">See entire review</button> -->
-                     <% end %>
-                  <%#= story.content %>
-                </div>
+                <div class="body-stories btm15">
+                  <div 
+                    <% if !story.user_photos.blank? %>
+                    class="p-dynamic"
+                    <% end %>
+                    >
+                    <p class="visited">Visited Dec 2015</p>
+                    <p class="mrg0 pink"><%= story.title %> </p>
+                     <%= story.content[0..280] + "..." %>
+                       <% if story.content.length > 280 %>
+                              <!-- <button class="entire-review" data-size="contracted" data-entire-review="<%= review.content %>">See entire review</button> -->
+                       <% end %>
+                    <%#= story.content %>
+                  </div>
                 <div class="img-story-place outer-js">
                 <% if !story.user_photos.blank? %>
                   <img class="inner-js" align="right" src="<%= story.user_photos.first.path_url(:medium) %>" alt="">
@@ -305,23 +308,25 @@
                 </div>
               </div>
           <% elsif story.class.to_s.eql? "ApiBlog" %>
+            <div class="card">
               <div class="head-stories">
-                <div class="left">
+              <p class="mrg0">From Blog</p>
+                <!-- <div class="left">
                   <a href="#">
                     <div class="profile-outer">
                       <img src="./img/face1.jpg" alt="">
                     </div>
                     <div class="profile-text">
-                      Stephen71
+                      <%#= story.user.name %>
                     </div>
                    </a>
                 </div>
                 <div class="right"><a href="#"><i class="fa fa-image"></i> 9
-                </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
-                </div>
+                  </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+                </div> -->
               </div>
               <div class="body-stories btm15">
-                <div class="p-dynamic">
+                <div class="p-dynamic blog">
                   <p class="visited">Visited Dec 2015</p>
                   <p class="mrg0 pink"><%= story.title %> </p>
                   <%= raw story.content.html_safe[0..280] + "..." %>
@@ -332,10 +337,11 @@
                   <%# end %>
                 </div>
               </div>
+              </div>
             <% end %> <!-- /each -->
           <% end %>
             <div class="text-center btm20 clearfix">
-              <a href="#" class="btn btn-default black top5">Load more stories</a>
+              <button class="btn btn-default black top5 load-more">Load more stories</button>
             </div>
         </section> <!-- /story -->
       <% end %>
@@ -344,7 +350,7 @@
     </div> <!-- /left-col -->
 
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
-      <section class="your-stories btm15">
+      <section class="your-stories btm15 cards">
         <div class="row">
         <div class="col-xs-12">
             
@@ -353,13 +359,13 @@
                   <h4 class="section-title">Member Reviews</h4>
               </div>
             <% @reviews.each do |review| %>
-              <div class="btm15">
+              <div class="btm15 card review-content">
                 <div class="body-stories">
-                  <p>
+                  <p class="some-text">
                     <%= review.content[0..280] + "..." %>
-                      <% if review.content.length > 280 %>
-                          <!-- <button class="entire-review" data-size="contracted" data-entire-review="<%#= review.content %>">See entire review</button> -->
-                    <% end %>
+                  </p>
+                  <p class="full-text">
+                    <%= review.content %>
                   </p>
                 </div>
                 <div class="head-stories">
@@ -379,7 +385,7 @@
             <% end %>
 
           <div class="text-center clearfix">
-            <a href="#" class="btn btn-default black top5 btm5">Load more</a>
+            <button href="#" class="btn btn-default black top5 btm5 load-more">Load more</button>
           </div>
           <% end %>
 
@@ -419,14 +425,14 @@
       <% end %>
 
       <% unless @more_places.blank? %>
-        <section class="places-to-go visit-place">
+        <section class="places-to-go visit-place cards">
           <div class="text-left">
             <h4 class="section-title">More places like this</h4>
           </div>
           <div class="row">
            <div class="col-xs-12">
             <% @more_places.each do |place| %>
-              <div class="thumbnail">
+              <div class="thumbnail card">
                 <div class="image-cat image-cat-left outer-js">
                   <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive img-full-div inner-js">
                 </div>
@@ -449,7 +455,7 @@
                 </div>
             <% end %>
             <div class="text-center clearfix btm20">
-              <a href="#" class="btn btn-default top5">Load more places</a>
+              <button class="btn btn-default top5 load-more">Load more places</button>
             </div>
             </div>
           </div> <!-- row -->
