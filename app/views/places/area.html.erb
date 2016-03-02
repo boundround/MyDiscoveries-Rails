@@ -1,1 +1,408 @@
-<h1>Is area</h1>
+
+<% provide(:title, @place.display_name) %>
+<% category = @place.categories.first.identifier rescue "default"%>
+<% provide(:category,  category) %>
+
+<% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
+
+<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
+
+<div class="container" id="search-nav" style="display:none;background:white;">
+  <div class="row">
+    <div class="col-xs-1 col-sm-1 top15">
+        <i class="fa fa-search pink fontbig-signin i-big-isize"></i>
+    </div>
+    <div class="col-xs-9 col-sm-9" style="height:60px">
+      <form>
+        <div class="form-group top13">
+          <input type="text" class="form-control navbar-form navbar-search-form" placeholder="Search for places, experiences & more...">
+        </div>
+      </form>
+    </div>
+    <div class="top15" align="center">
+      <i id="fa-times-nav-xs" class="fa fa-times grey fontbig-signin i-big-isize"></i>
+    </div>
+  </div>
+</div>
+
+<div class="header-image-with-nav outer-js">
+  <img clas="inner-js" src="<%= showing_image(draw_hero_background(@place)) %>" alt="" class="img-header">
+    <div class="container padding-style">
+      <div class="title-container hidden-xs">
+        <div class="row">
+          <div class="col-md-offset-2 col-md-8">
+            <h1 class="text-center white"><%= @place.display_name %></h1>
+          </div>
+        </div>
+      </div>
+      <div class="action">
+        <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div>
+        <div class="center"><a href="#"><i class="fa fa-plus"></i></a> Add media </div>
+        <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#StoryModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+        <div class="pull-right hidden-xs">
+          <div class="component-desk">
+            <ul>
+              <li><a href="#"><i class="fa fa-image"></i> 8 Photos</a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i> 2 Videos</a></li>
+            </ul>
+          </div>
+        </div>
+          <div class="for-owl hidden-xs">
+              <div id="top-owl" class="owl-carousel">
+                <div class="item outer-js"> 
+                <a href="#">
+                  <img class="inner-js" src="http://www.liburkeluarga.com/wp-content/uploads/2012/10/museum.jpg" class="img-responsive-carousel"></a></div>
+                <div class="item outer-js">
+                  <a href="#"><img class="inner-js"  src="http://www.liburkeluarga.com/wp-content/uploads/2012/10/museum.jpg" class="img-responsive-carousel"></a>
+                </div>
+                <div class="item outer-js">
+                  <a href="#"><img class="inner-js" src="http://www.liburkeluarga.com/wp-content/uploads/2012/10/museum.jpg" class="img-responsive-carousel"></a>
+                  </div>
+                <div class="item outer-js">
+                  <a href="#"><img class="inner-js" src="http://www.liburkeluarga.com/wp-content/uploads/2012/10/museum.jpg" class="img-responsive-carousel">
+                </a>
+                </div>
+                <div class="item outer-js">
+                  <a href="#"><img class="inner-js" src="http://www.liburkeluarga.com/wp-content/uploads/2012/10/museum.jpg" class="img-responsive-carousel"></a>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="component visible-xs">
+        <ul>
+          <li><a href="#"><i class="fa fa-image"></i> 8 Photos</a></li>
+          <li><a href="#"><i class="fa fa-youtube-play"></i> 2 Videos</a></li>
+        </ul>
+      </div>
+   </div> 
+ </div>
+
+<!-- container -->
+<div class="container mobile-container padding-style"> <!-- main container -->
+  <section class="place-details">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 border-right-desk">
+      <div class="text-center visible-xs ">
+        <h2 class="place-title place-color btm20 top0"><%= @place.display_name %></h2>
+      </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="detail-place">
+              <div class="located"><p class="gray-font">Located in</p><p>Australia</p></div>
+              <div class="language"><p class="gray-font">Language</p><p>English</p></div>
+              <div class="population"><p class="gray-font">Population</p><p>21 Million</p></div>
+              <div class="likes"><p class="gray-font"><i class="fa fa-thumbs-o-up"></i></p><p>95%</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="desc-place">
+          <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Proin eget tortor risus. Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.</p>
+        </div>
+        <div class="border-section"></div>
+        <div class="row top20 btm20">
+            <div class="col-xs-12 ">
+              <div class="rel-dest">
+                <p class="gray-color">Related Destinations</p>
+                <ul>
+                  <li><a href="#" class="badge">Australia</a></li>
+                  <li><a href="#" class="badge">New Zealand</a></li>
+                  <li><a href="#" class="badge">New Melbourne</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+      <!-- </div> -->
+    <!-- </section> -->
+    </div> <!-- /col-left -->
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+          
+
+      <section class="map">
+          <div class="text-center btn-map">
+            <a href="" class="btn btn-default btn-shadow"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
+          </div>
+        <div id="map">
+        </div>
+      </section>
+    </div> <!-- /col-right -->
+  </div>
+  </section>
+</div>
+<!-- END container -->
+
+<section class="travelling-tips fun-fact mrg0">
+  <div class="container padding-style">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 ">
+      <h4>Good To Know</h4>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a>
+      </div>
+      <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs">
+        <h4 class="text-left">Fun Facts</h4>
+        <div id="carousel-example-generic" class="carousel slide carousel-desk-fun" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <div class="fun-image">
+                <div class="img">
+                    <img src="./img/face1.jpg" alt="">
+                </div>
+                <div class="number pink"><span>1</span>
+                </div>
+              </div>
+              <div class="carousel-caption cs-caption">
+                <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.Quisque velit nisi, pretium ut lacinia in, elementum id enim</p>
+              </div>
+            </div> <!-- /item -->
+            <div class="item">
+              <div class="fun-image">
+                <div class="img">
+                    <img src="./img/face1.jpg" alt="">
+                </div>
+                <div class="number pink"><span>2</span>
+                </div>
+              </div>
+              <div class="carousel-caption cs-caption">
+                <p>text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 </p>
+              </div>
+            </div> <!-- /item -->
+          </div>
+          <!-- Controls -->
+          <a class="left carousel-control left30" href="#carousel-example-generic" role="button" data-slide="prev">
+            <i class="fa fa-arrow-left i-funfact"></i>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <i class="fa fa-arrow-right i-funfact"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container padding-style">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
+      <div class="text-left">
+        <h4 class="section-title">Your Stories</h4>
+      </div>
+      <section class="your-stories">
+              <div class="head-stories">
+                <div class="left">
+                  <a href="#">
+                    <div class="profile-outer">
+                      <img src="./img/face1.jpg" alt="">
+                    </div>
+                    <div class="profile-text">
+                      Stephen71
+                    </div>
+                   </a>
+                </div>
+                <div class="right"><a href="#"><i class="fa fa-image"></i> 9
+                </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+                </div>
+              </div>
+              <div class="body-stories btm15">
+                <div class="p-dynamic">
+                <p class="visited">Visited Dec 2015</p>
+                <p class="mrg0 pink">Title of Story </p>
+                Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor....</div>
+                <div class="img-story-place outer-js">
+                  <img class="inner-js" align="right" src="./img/images.jpg" alt="">
+                </div>
+              </div>
+              <div class="head-stories">
+                <div class="left">
+                  <a href="#">
+                    <div class="profile-outer">
+                      <img src="./img/face1.jpg" alt="">
+                    </div>
+                    <div class="profile-text">
+                      Stephen71
+                    </div>
+                   </a>
+                </div>
+                <div class="right"><a href="#"><i class="fa fa-image"></i> 9
+                </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+                </div>
+              </div>
+              <div class="body-stories btm15">
+                <div>
+                <p class="visited">Visited Dec 2015</p>
+                <p class="mrg0 pink">Title of Story </p>
+                Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor....</div>
+              </div>
+          <div class="text-center clearfix">
+            <a href="#" class="btn btn-default black btm20 top5">Load more stories</a>
+          </div>
+      </section>
+    <div class="border-section clearfix btm0 top20 visible-xs"></div>
+    </div> <!-- /left-col -->
+
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
+      
+      <section class="travelling-tips fun-fact mrg0 visible-xs margin-fun-fact">
+        <div class="container">
+          <h4>Fun Facts</h4>
+          <div class="row">
+            <div class="position-js">
+              <div class="col-xs-12">
+                <div class="fun-image">
+                  <div class="img">
+                      <img src="./img/face1.jpg" alt="">
+                  </div>
+                  <div class="number"><span>1</span>
+                  </div>
+                </div>
+                <div class="text">
+                  <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
+                </div>
+              </div>
+            </div>
+            <div class="position-js">
+              <div class="col-xs-12">
+                <div class="fun-image" style="float: right; margin: 0px;">
+                  <div class="img">
+                      <img src="./img/face1.jpg" alt="">
+                  </div>
+                  <div class="number" style="left: 89px;"><span>2</span>
+                  </div>
+                </div>
+                <div class="text">
+                  <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center clearfix">
+            <a href="#" class="btn btn-default black ">Load more fun facts</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="places-to-go visit-place">
+          <div class="text-left">
+            <h4 class="section-title">Places to visit in Sydney</h4>
+          </div>
+          <div class="row">
+           <div class="col-xs-12">
+            <div class="thumbnail">
+              <div class="image-cat image-cat-left outer-js">
+                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
+              </div>
+              <div class="caption caption-right">
+                <h4 class="gray-font">Sydney</h4>
+                <h2>Taronga Zoo</h2>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                  <a href="#"> Museum</a>
+                </div>
+                <div class="right">
+                  <a href="#"> $$</a>
+                </div>
+                </div>
+              </div>
+            <div class="thumbnail">
+              <div class="image-cat image-cat-left outer-js">
+                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
+              </div>
+              <div class="caption caption-right">
+                <h4 class="gray-font">Sydney</h4>
+                <h2>Taronga Zoo</h2>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                  <a href="#"> Animals</a>
+                </div>
+                <div class="right">
+                  <a href="#"> $$</a>
+                </div>
+                </div>
+              </div>
+            <div class="thumbnail">
+              <div class="image-cat image-cat-left outer-js">
+                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
+              </div>
+              <div class="caption caption-right">
+                <h4 class="gray-font">Sydney</h4>
+                <h2>Taronga Zoo</h2>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                </div>
+                <div class="right">
+                  <a href="#"> $$</a>
+                </div>
+                </div>
+              </div>
+            <div class="text-center clearfix">
+              <a href="#" class="btn btn-default btm20 top5">Load more places</a>
+            </div>
+            </div>
+          </div> <!-- row -->
+        </section></div>
+      
+    </div> <!-- /col-md-8 -->
+  </div>
+<!--  -->
+<section class="famous-faces">
+  <div class="container padding-style">
+    <div class="row">
+    <h4 class="section-title">Famous Faces</h4>
+      <div class="col-xs-6">
+        <div class="img">
+          <img src="./img/face1.jpg" alt="">
+        </div>
+        <div class="famous-text">
+          <p class="title">Russel Crowe</p>
+          <p class="gray-font">Actor</p>
+          <p class="desc">Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada.</p>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="img">
+          <img src="./img/face2.jpg" alt="">
+        </div>
+        <div class="famous-text">
+          <p class="title">Name 2</p>
+          <p class="gray-font">Actor</p>
+          <p class="desc">Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="member-saying">
+  <div class="container padding-style">
+      <h4 class="section-title">What our member are saying</h4>
+    <div class="row">
+      <div class="col-xs-6 col-sm-offset-2 col-sm-4 text-center">
+        <div class="canvas-holder">
+          <canvas id="chart-area" width="500" height="500"/>
+        </div>
+        <p>would love to come back and visit again</p>
+      </div>
+      <div class="col-xs-6 col-sm-4 text-center">
+        <div class="canvas-holder">
+          <canvas id="chart-area2" width="500" height="500"/>
+        </div>
+        <p>would recommend others to visit</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div> <!-- area-content -->
+<% end %>
+
+<%= render 'layouts/all_modal' %>
+<%#= render 'layouts/video_modal' %>
+<%#= render 'stories/modal_story' %>
+<%= render 'layouts/footer' %>

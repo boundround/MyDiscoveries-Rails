@@ -25,7 +25,7 @@
 // require progressbar
 // require bootstrap-datepicker
 // require countries
-// require places
+//= require places
 // require avatarupload
 // require user
 // require dataTables/jquery.dataTables

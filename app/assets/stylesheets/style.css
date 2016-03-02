@@ -249,9 +249,32 @@ ul.nav.navbar-nav.first-ul{
 	border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 }
+.top-img-radius {
+	border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
 .image-cat{
     height: 150px;
     overflow: hidden;
+    position: relative;
+}
+@media (max-width: 360px) {
+	.image-cat {
+	    height: 130px;
+	}
+}
+.image-left img {
+    position: relative;
+    left: -100px;
+}
+.image-top img {
+	position: relative;
+    top: -50px;
+}
+@media (max-width: 375px) {
+	.image-top img {
+		top:0;
+	}
 }
 .gray-font{
 	color: #A0A0A0;
@@ -273,8 +296,16 @@ ul.nav.navbar-nav.first-ul{
 	background: #fff;
 }
 .img-full-div{
+	position: relative;
 	width: 100%;
+	overflow: hidden;
 }
+@media (max-width: 360px) {
+	.img-full-div {
+		height: 100%;
+	}
+}
+
 .top7{
 	margin-top: 7px;
 }
@@ -463,6 +494,9 @@ ul.nav.navbar-nav.first-ul{
 .left10{
 	margin-left: 10px;
 }
+.left15{
+	margin-left: 15px;
+}
 .left30 {
 	margin-left: 30px;
 }
@@ -601,12 +635,12 @@ ul.nav.navbar-nav.first-ul{
 }
 .details-dest .left{
 	float: left;
-	width:50%;
+	width: 55%;
 	color: #B8B8B8;
 }
 .details-dest .right{
 	float: right;
-	width:50%;
+	width: 45%;
 	color: #B8B8B8;
 	text-align: right;
 }
@@ -651,6 +685,16 @@ section.places-to-go .details-dest .left a{
 	float: left;
 	height: 113px;
 	border-top-left-radius: 4px;
+	position: relative;
+}
+.image-cat-left img{
+/*	position: relative;
+	top: -35px;*/
+}
+@media (max-width: 430px) {
+	.image-cat-left img{
+		top: 0px;
+	}
 }
 .caption-right{
 	text-align: left;
@@ -727,6 +771,7 @@ section.your-stories .body-stories{
     background: #fff;
     /*margin: 0 -15px 15px;*/
     display: inline-block;
+    font-weight: 100;
 }
 section.your-stories .body-stories .p-dynamic,section.your-stories .body-stories .body-image{
 	/*display: inline-block;*/
@@ -940,6 +985,7 @@ section.photo-latest .image img{
 	position: absolute;
 	/*z-index: -1;*/
 }
+
 .header-image-with-nav .component{
     position: relative;
     top: 44px;
@@ -1563,6 +1609,9 @@ section.everyone .desc{
 .style-dropdown-bg {
 	background-color: #242424 !important;
 }
+.dropdown-menu > li > a {
+  color: #FFFFFF !important;
+}
 .style-text-status {
 	font-size: 65px;
     margin-top: 17px;
@@ -1579,6 +1628,15 @@ section.everyone .desc{
 .i-big-isize{
 	font-size: 25px;
 }
+@media (max-width: 400px) {
+	.font17 {
+		font-size: 15px !important;
+	}
+	.font20 {
+		font-size: 20px !important;
+	}
+}
+
 
 @media(max-width: 350px){
 	.fontbig-signin {
@@ -1871,6 +1929,32 @@ section.modal-booking .left img{
 	.image-height {
 		height: 137px;
 	}
+	.image-booking {
+		overflow: hidden;
+		max-height: 100%;
+		position: relative;
+	}
+	.image-booking img {
+		position: relative;
+		width: 200% !important;
+		left: -60px;
+		top: -20px;
+		overflow: hidden;
+	}
+
+
+/*	.img-inner {
+	    overflow: hidden;
+	    max-height: 115px;
+	    position: relative;
+	}
+	.img-inner img {
+	    position: relative;
+	    width: 200% !important;
+	    left: -60px;
+	    overflow: hidden;
+	}*/
+
 }
 .container-margin {
 	margin-top: 150px;
@@ -2435,12 +2519,27 @@ footer ul{
 	    top: 281px;	
 	}
 }
+.blog img{
+	width: 100%;
+    max-width: 226px;
+    float: none;
+    font-weight: 100;
+}
+.blog{
+    font-weight: 100;
+}
+.body-stories .full-text{
+	display: none;
+}
 /*END*/
 
 
 .btn-no-border {
 	border: 1px solid transparent !important;
 	background-color: transparent !important;
+	width: 200% !important;
+	margin-left: -35px;
+	text-align: right;
 }
 .img-top-margin22 {
 	margin-top: -22px;

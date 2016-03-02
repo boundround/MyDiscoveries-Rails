@@ -1,27 +1,5 @@
-function initMap() {
-	var latlng = new google.maps.LatLng(-25.2744, 133.7751);
-
-	// function addmarker(latilongi) {
-    // var marker = new google.maps.Marker({
-    //     position: latlng,
-    //     title: 'new marker',
-    //     draggable: true,
-    //     map: map
-    // });
-    // map.setCenter(marker.getPosition())
-	// }
-
-	var mapDiv = document.getElementById('map');
-	var map = new google.maps.Map(mapDiv, {
-	  // center: {lat: -25.2744, lng: 133.7751},
-	  center: latlng,
-	  zoom: 2
-	});
-}
 // Setup chart
 function setUpChart(){
-	// if () {};
-	// var ctx = document.getElementById("chart-area").getContext("2d");
 	if ( ($("#chart-area").length ) || ($("#chart-area2").length) ){
 		var ctx = $("#chart-area")[0].getContext("2d");
 
@@ -332,9 +310,11 @@ function setModalEditPhoto(){
 	});
 }
 
+$(window).resize(function() {
+	setImagesPosition();
+});
 
 $(document).ready(function() {
-	// alert("run");
 	setUpModal();
 	setModalOpeningHour();
 	setModalTickets();
@@ -349,5 +329,4 @@ $(document).ready(function() {
 	funFact();
 	setUpChart();
 
-	initMap();
 });
