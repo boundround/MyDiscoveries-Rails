@@ -196,7 +196,7 @@ class PlacesController < ApplicationController
     # center_point = [@place.latitude, @place.longitude]
     # box = Geocoder::Calculations.bounding_box(center_point, distance)
     # @nearby_places = Place.within_bounding_box(box)
-    @nearby_places = @place.nearbys(20).active.includes(:photos, :categories, :quality_average, :user_photos)
+    # @nearby_places = @place.nearbys(20).active.includes(:photos, :categories, :quality_average, :user_photos)
 
     # @top_places = @nearby_places.sort do |x, y|
     #   (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
@@ -205,7 +205,7 @@ class PlacesController < ApplicationController
     # @top_places = @top_places[0..4]
 
     # categories = @place.categories.map {|category| category.id}
-    @similar_places = @place.nearbys(30).active.includes(:photos, :categories).where('categorizations.category_id' => categories)
+    # @similar_places = @place.nearbys(30).active.includes(:photos, :categories).where('categorizations.category_id' => categories)
 
     if @place.subscription_level == "Premium"
       @hero_video = @place.videos.find_by(hero: true) || @place.videos.find_by(priority: 1)
