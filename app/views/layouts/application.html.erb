@@ -130,7 +130,7 @@
 <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 	</head>
 
-	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>" data-mixpanel-identity="<%= current_user.present? ? "signed-in signed-in-#{current_user.id}" : "guest-#{request.remote_ip}" %>">
+	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
     <%# if params[:controller].eql?("places") &&  params[:action].eql?("show") %>
       <%#= javascript_include_tag 'show_places/application' %>
     <%# else %>

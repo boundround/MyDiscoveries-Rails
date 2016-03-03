@@ -55,7 +55,6 @@
 //= require jquery.Jcrop.min
 // require places_crop
 //= require jquery.confirm.min
-//= require mix_panel
 //= require instafeed.min
 //= chart.min
 //= boundround
