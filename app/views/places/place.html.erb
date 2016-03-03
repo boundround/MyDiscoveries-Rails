@@ -26,8 +26,8 @@
 
 
 
-<div class="header-image-with-nav">
-  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header" >
+<div class="header-image-with-nav top-outer-js">
+  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header top-inner-js" >
   <div class="container padding-style">
     <div class="title-container hidden-xs">
       <div class="row">
@@ -57,8 +57,8 @@
     </div><!-- /action bg-place -->
     <div class="component visible-xs">
       <ul>
-        <li><a href="#"><i class="fa fa-image"></i> 8 Photos</a></li>
-        <li><a href="#"><i class="fa fa-youtube-play"></i> 2 Videos</a></li>
+        <li><a href="#"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
+        <li><a href="#"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
       </ul>
     </div>
   </div> <!-- /container -->
@@ -92,8 +92,8 @@
           </div>
       </div>
       <div class="desc-place">
-        <p><%= @place.description %></p>
-        <!-- <a class="blueish">More <span class="caret"></span></a> -->
+        <p data-full-text="<%= @place.description.html_safe %>"><%= raw  @place.description.html_safe[0..280]+"..." %></p>
+        <button class="blueish" style="background:none;border:none;">More <span class="caret"></span></button>
       </div>
       <div class="border-section"></div>
       <div class="row top20 btm20">
@@ -186,27 +186,7 @@
     <a href="#" class="black"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
   </div>
 
-<% unless @photos.blank? %>        
-  <div class="row hidden-xs btm20">
-    <div class="col-md-12 col-xs-12">
-       <div class="for-owl">
-            <div id="top-owl" class="owl-carousel">
-              <% @photos.each do |photo| %>
-                <div class="item"> 
-                  <a href="#">
-                  <!-- <img src="<%#= photo.path_url(:medium)%>" class="img-responsive-carousel"></a> -->
-                  <img src="<%= showing_image(photo.path_url(:medium))%>" class="img-responsive-carousel"></a>
-                  <div class="title-fun-caro">
-                    <p><%= photo.credit rescue "" %></p>
-                    <h5><%= link_to photo.caption, place_path(photo.place), class: "white" %></h5>
-                  </div>   
-                </div>
-              <% end %>
-          </div>
-      </div>
-    </div>
-  </div> <!-- /owl -->
-<% end %>
+<%= render "photo_carousel" %>
 
 </div><!-- /maincontainer -->
 
@@ -263,88 +243,9 @@
 <div class="container padding-style">
   <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
-      
-      <% unless @stories.blank? %>
-        <div class="text-left">
-          <h4 class="section-title">Your Stories</h4>
-        </div>
-        <section class="your-stories cards">
-        <% @stories.each_with_index do |story, index| %>
-          <% if  story.class.to_s.eql? "Story" %>
-              <div class="card">
-                <div class="head-stories">
-                  <div class="left">
-                    <a href="#">
-                      <div class="profile-outer">
-                        <img src="<%= showing_image(story.user.avatar_url)%>" alt="">
-                      </div>
-                      <div class="profile-text">
-                        <%= story.user.name %>
-                      </div>
-                     </a>
-                  </div>
-                  <div class="right"><a href="#"><i class="fa fa-image"></i> <%= story.user.photos.size %>
-                  </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%= story.user.videos.size %></a>
-                  </div>
-                </div>
-                <div class="body-stories btm15">
-                  <div 
-                    <% if !story.user_photos.blank? %>
-                    class="p-dynamic"
-                    <% end %>
-                    >
-                    <p class="visited">Visited Dec 2015</p>
-                    <p class="mrg0 pink"><%= story.title %> </p>
-                     <%= story.content[0..280] + "..." %>
-                       <% if story.content.length > 280 %>
-                              <!-- <button class="entire-review" data-size="contracted" data-entire-review="<%= review.content %>">See entire review</button> -->
-                       <% end %>
-                    <%#= story.content %>
-                  </div>
-                <div class="img-story-place outer-js">
-                <% if !story.user_photos.blank? %>
-                  <img class="inner-js" align="right" src="<%= story.user_photos.first.path_url(:medium) %>" alt="">
-                  <% end %>
-                </div>
-              </div>
-          <% elsif story.class.to_s.eql? "ApiBlog" %>
-            <div class="card">
-              <div class="head-stories">
-              <p class="mrg0">From Blog</p>
-                <!-- <div class="left">
-                  <a href="#">
-                    <div class="profile-outer">
-                      <img src="./img/face1.jpg" alt="">
-                    </div>
-                    <div class="profile-text">
-                      <%#= story.user.name %>
-                    </div>
-                   </a>
-                </div>
-                <div class="right"><a href="#"><i class="fa fa-image"></i> 9
-                  </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
-                </div> -->
-              </div>
-              <div class="body-stories btm15">
-                <div class="p-dynamic blog">
-                  <p class="visited">Visited Dec 2015</p>
-                  <p class="mrg0 pink"><%= story.title %> </p>
-                  <%= raw story.content.html_safe[0..280] + "..." %>
-                </div>
-                <div class="img-story-place outer-js">
-                <%# if !story.user_photos.blank? %>
-                  <img class="inner-js" align="right" src="<%= story.image.blank? ? draw_hero_background(@place) : story.image %>" alt="">
-                  <%# end %>
-                </div>
-              </div>
-              </div>
-            <% end %> <!-- /each -->
-          <% end %>
-            <div class="text-center btm20 clearfix">
-              <button class="btn btn-default black top5 load-more">Load more stories</button>
-            </div>
-        </section> <!-- /story -->
-      <% end %>
+  
+    <%= render "stories/all_stories" %>
+    <%= render "stories/modal_story" %>
 
     <div class="border-section clearfix btm0 top20 visible-xs"></div>
     </div> <!-- /left-col -->
@@ -361,11 +262,8 @@
             <% @reviews.each do |review| %>
               <div class="btm15 card review-content">
                 <div class="body-stories">
-                  <p class="some-text">
+                  <p class="some-text" data-full-text="<%= review.content %>">
                     <%= review.content[0..280] + "..." %>
-                  </p>
-                  <p class="full-text">
-                    <%= review.content %>
                   </p>
                 </div>
                 <div class="head-stories">
@@ -392,7 +290,6 @@
           </div>
         </div> <!-- row -->
       </section>
-      
 
 
       <% if !@place.fun_facts.blank? %>
@@ -460,10 +357,10 @@
             </div>
           </div> <!-- row -->
       </section>
-    <% end %>
-    </div> <!-- /col-md-8 -->
-  </div> <!-- /main row -->
-</div> <!-- /main container -->
+      <% end %>
+      </div> <!-- /col-md-8 -->
+    </div> <!-- /main row -->
+  </div> <!-- /main container -->
 </div><!--/.area-content -->
 <% end %>
 

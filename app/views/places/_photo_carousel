@@ -1,0 +1,21 @@
+<% unless @photos.blank? %>        
+  <div class="row hidden-xs btm20">
+    <div class="col-md-12 col-xs-12">
+       <div class="for-owl">
+            <div id="top-owl" class="owl-carousel">
+              <% @photos.each do |photo| %>
+                <div class="item"> 
+                  <a href="#">
+                  <!-- <img src="<%#= photo.path_url(:medium)%>" class="img-responsive-carousel"></a> -->
+                  <img src="<%= showing_image(photo.path_url(:medium))%>" class="img-responsive-carousel"></a>
+                  <div class="title-fun-caro">
+                    <p><%= photo.credit rescue "" %></p>
+                    <h5><%= link_to photo.caption, place_path(photo.place), class: "white" %></h5>
+                  </div>   
+                </div>
+              <% end %>
+          </div>
+      </div>
+    </div>
+  </div> <!-- /owl -->
+<% end %>

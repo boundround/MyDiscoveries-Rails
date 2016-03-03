@@ -25,6 +25,7 @@
 // require progressbar
 // require bootstrap-datepicker
 // require countries
+//= require area
 //= require places
 // require avatarupload
 // require user
