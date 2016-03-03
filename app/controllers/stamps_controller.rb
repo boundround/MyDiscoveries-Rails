@@ -40,10 +40,6 @@ class StampsController < ApplicationController
 		end
 	end
 
-	def stamp_error
-		redirect_to stamp_transactions_path
-	end
-
 	def index
 		@place = Place.friendly.find(params[:place_id])
 		@stamps = @place.stamps

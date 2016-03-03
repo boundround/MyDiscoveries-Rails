@@ -105,6 +105,7 @@ Rails.application.routes.draw do
   post 'stories/profile_create' => 'stories#profile_create'
 
   get 'stamp_transactions/stamp_here' => 'stamp_transactions#stamp_here'
+  get 'stamp_transactions/stamp_error' => 'stamp_transactions#stamp_error'
   resources :stamp_transactions
 
   # post 'areas_users/create' => 'areas_users#create'
@@ -160,6 +161,7 @@ Rails.application.routes.draw do
   resources :places do
     member { get 'preview' }
     member { get 'stamp_confirmation' }
+    # member { get 'stamp_error' }
     member { get 'hero_image_picker'}
     collection { get 'all_edited'} # all place content in draft
     collection { get 'user_created'} # all place content in draft

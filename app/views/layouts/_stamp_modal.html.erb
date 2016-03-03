@@ -193,8 +193,6 @@ See GitHub project page for Documentation and License
           $('#snowshoe-progress-bar').removeClass("snowshoe-progress-bar");
           console.log("SUCCESS");
           console.log(response);
-          window.location = "/places/" + response["slug"] + "/stamp_confirmation"
-
           
         // SUCCESS passes the snowshoe tests 
 
@@ -263,7 +261,6 @@ See GitHub project page for Documentation and License
         // clear animation
       },
       error: function(response){
-                
         console.log("FAIL");
         console.log(response);
         // handle failure
