@@ -1,6 +1,6 @@
 
 <% provide(:title, @place.display_name) %>
-<% category = @place.categories.first.identifier rescue "default"%>
+<% category = @place.primary_category.identifier rescue "default"%>
 <% provide(:category,  category) %>
 
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
@@ -86,7 +86,7 @@
                 <i class='fa fa-smile-o'></i>
               <% end %>
             <% else %>
-              0 
+              0
             <% end %>
             </p>
           </div>
@@ -186,20 +186,20 @@
     <a href="#" class="black"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
   </div>
 
-<% unless @photos.blank? %>        
+<% unless @photos.blank? %>
   <div class="row hidden-xs btm20">
     <div class="col-md-12 col-xs-12">
        <div class="for-owl">
             <div id="top-owl" class="owl-carousel">
               <% @photos.each do |photo| %>
-                <div class="item"> 
+                <div class="item">
                   <a href="#">
                   <!-- <img src="<%#= photo.path_url(:medium)%>" class="img-responsive-carousel"></a> -->
                   <img src="<%= showing_image(photo.path_url(:medium))%>" class="img-responsive-carousel"></a>
                   <div class="title-fun-caro">
                     <p><%= photo.credit rescue "" %></p>
                     <h5><%= link_to photo.caption, place_path(photo.place), class: "white" %></h5>
-                  </div>   
+                  </div>
                 </div>
               <% end %>
           </div>
@@ -223,7 +223,7 @@
         </div>
 
 
-      <% if !@place.fun_facts.blank? %>      
+      <% if !@place.fun_facts.blank? %>
         <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs">
           <h4 class="text-left">Fun Facts</h4>
           <div id="carousel-fun-fact" class="carousel slide carousel-desk-fun" data-ride="carousel">
@@ -263,7 +263,7 @@
 <div class="container padding-style">
   <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
-      
+
       <% unless @stories.blank? %>
         <div class="text-left">
           <h4 class="section-title">Your Stories</h4>
@@ -288,7 +288,7 @@
                   </div>
                 </div>
                 <div class="body-stories btm15">
-                  <div 
+                  <div
                     <% if !story.user_photos.blank? %>
                     class="p-dynamic"
                     <% end %>
@@ -353,7 +353,7 @@
       <section class="your-stories btm15 cards">
         <div class="row">
         <div class="col-xs-12">
-            
+
           <% unless @reviews.blank? %>
               <div class="text-left">
                   <h4 class="section-title">Member Reviews</h4>
@@ -392,7 +392,7 @@
           </div>
         </div> <!-- row -->
       </section>
-      
+
 
 
       <% if !@place.fun_facts.blank? %>
@@ -442,7 +442,7 @@
                 </div>
                 <div class="details-dest">
                   <div class="left">
-                  <% place.categories.each do |c| %>
+                  <% place.subcategories.each do |c| %>
                     <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
                     <a href="#"><%= c.name %></a>
 
