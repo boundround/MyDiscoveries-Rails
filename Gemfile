@@ -166,7 +166,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'thin'
-  gem 'byebug'
+  # gem 'byebug'
 end
 
 
@@ -175,6 +175,8 @@ end
 
 # Use puma as the app server
 gem 'puma'
+
+gem 'httparty'
 
 gem "bullet", :group => "development"
 
