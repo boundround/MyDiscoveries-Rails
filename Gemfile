@@ -35,6 +35,8 @@ gem 'jquery-fileupload-rails'
 
 gem 'carrierwave-crop'
 
+gem 'httparty'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end

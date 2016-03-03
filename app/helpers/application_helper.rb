@@ -1,5 +1,5 @@
 module ApplicationHelper
-  include HTTParty
+
   def resource_name
     :user
   end
