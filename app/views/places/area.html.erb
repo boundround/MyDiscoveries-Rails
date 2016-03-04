@@ -89,9 +89,9 @@
               <div class="rel-dest">
                 <p class="gray-color">Related Destinations</p>
                 <ul>
-                <% @related_places.each do |place| %>
-                  <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
-                  <% end %>
+                <%# @related_places.each do |place| %>
+                  <li><a href="/places/<%#= place.slug %>" class="badge"><%#= place.display_name %></a></li>
+                  <%# end %>
                 </ul>
               </div>
             </div>
@@ -128,9 +128,10 @@
         <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
         <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a>
       </div>
-      <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs">
-        <h4 class="text-left">Fun Facts</h4>
-        <div id="carousel-example-generic" class="carousel slide carousel-desk-fun" data-ride="carousel">
+      <!-- <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs"> -->
+        <!-- <h4 class="text-left">Fun Facts</h4> -->
+        <%= render :partial => "fun_facts", :locals => { :color => "pink" } %>
+        <!-- <div id="carousel-example-generic" class="carousel slide carousel-desk-fun" data-ride="carousel">
           <div class="carousel-inner" role="listbox">
             <div class="item active">
               <div class="fun-image">
@@ -143,7 +144,7 @@
               <div class="carousel-caption cs-caption">
                 <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.Quisque velit nisi, pretium ut lacinia in, elementum id enim</p>
               </div>
-            </div> <!-- /item -->
+            </div> 
             <div class="item">
               <div class="fun-image">
                 <div class="img">
@@ -155,17 +156,18 @@
               <div class="carousel-caption cs-caption">
                 <p>text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 </p>
               </div>
-            </div> <!-- /item -->
+            </div>
           </div>
-          <!-- Controls -->
+          
           <a class="left carousel-control left30" href="#carousel-example-generic" role="button" data-slide="prev">
             <i class="fa fa-arrow-left i-funfact"></i>
           </a>
           <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
             <i class="fa fa-arrow-right i-funfact"></i>
           </a>
-        </div>
-      </div>
+        </div> -->
+
+      <!-- </div> -->
     </div>
   </div>
 </section>

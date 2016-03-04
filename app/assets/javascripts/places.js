@@ -180,14 +180,18 @@ $('#story-close').on('click', function(){
   $('#image-3').remove();
 });
 
-$('#story-publish-button').on('click', function(){
-  $('#storyModal').modal("hide");
-  $('.loader-bound-round').show();
-});
+// $('#story-publish-button').on('click', function(){
+//   $('#storyModal').modal("hide");
+//   $('.loader-bound-round').show();
+// });
 
 }
 
 $(document).ready(function() {
+    $('#publish-review-button').on('click', function(){
+      $('#ReviewModal').modal("hide");
+    })
+    
    allMap();
    addToFav();
    setUpLoadMore();

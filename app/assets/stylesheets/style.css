@@ -2531,6 +2531,25 @@ footer ul{
 .body-stories .full-text{
 	display: none;
 }
+
+div.star i{
+	display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-size: 40px !important;
+    color: #eaeaea;
+}
+div.star i:hover{
+    color: #fd7e56;
+
+}
+
+div.star i::before{
+	content: "\f118" !important;
+}
 /*END*/
 
 

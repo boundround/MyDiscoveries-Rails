@@ -745,10 +745,17 @@
     scoreName    : 'score',
     single       : false,
     space        : true,
+    starType     : 'i',
     starHalf     : 'star-half.png',
     starOff      : 'star-off.png',
     starOn       : 'star-on.png',
-    starType     : 'img',
+    // starType     : 'img',
+    
+    // starHalf     : 'star-half.png',
+    // starOff      : 'star-off.png',
+    // starOn       : 'star-on.png',
+    
+
     target       : undefined,
     targetFormat : '{score}',
     targetKeep   : false,
