@@ -1,0 +1,23 @@
+<% @stories.each_with_index do |story, index| %>
+   <div>
+      <% if  story.class.to_s.eql? "Story" %>
+            <div class="embed-responsive embed-responsive-16by9 cs-blog" data-class="story"
+               data-toggle="modal" data-content="<%= story.content %>"
+               data-title="<%= story.title ? story.title : @storiable.display_name %>"
+               data-user="<%= strip_domain_from_username(story.user) %>"
+                              <% story.user_photos.each_with_index do |photo, index| %>
+                                data-image-<%= index %>="<%= photo.path_url(:medium) %>"
+                              <% end %>>
+                <img class="embed-responsive-item cs-item-blog" src="<%= story.user_photos.first.path_url(:medium)%>">
+              <div class="video-title"><%= story.title %></div>
+            </div>
+          <% elsif story.class.to_s.eql? "ApiBlog" %>
+          <div class="embed-responsive embed-responsive-16by9 cs-blog" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-place="<%= @place.slug %>" data-place-object="<%= @place %>" data-content="<%= story.content %>">
+              <img class="embed-responsive-item cs-item-blog" src="<%= story.image.blank? ? draw_hero_background(@place) : story.image %>">
+              <div  class="video-title"><%= story.title %></div>
+          </div>
+      <% end %>
+      </div>
+<% end %>
+
+

@@ -26,8 +26,8 @@
 
 
 
-<div class="header-image-with-nav">
-  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header" >
+<div class="header-image-with-nav top-outer-js">
+  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header top-inner-js" >
   <div class="container padding-style">
     <div class="title-container hidden-xs">
       <div class="row">
@@ -57,8 +57,8 @@
     </div><!-- /action bg-place -->
     <div class="component visible-xs">
       <ul>
-        <li><a href="#"><i class="fa fa-image"></i> 8 Photos</a></li>
-        <li><a href="#"><i class="fa fa-youtube-play"></i> 2 Videos</a></li>
+        <li><a href="#"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
+        <li><a href="#"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
       </ul>
     </div>
   </div> <!-- /container -->
@@ -92,8 +92,8 @@
           </div>
       </div>
       <div class="desc-place">
-        <p><%= @place.description %></p>
-        <!-- <a class="blueish">More <span class="caret"></span></a> -->
+        <p data-full-text="<%= @place.description.html_safe %>"><%= raw  @place.description.html_safe[0..280]+"..." %></p>
+        <button class="blueish" style="background:none;border:none;">More <span class="caret"></span></button>
       </div>
       <div class="border-section"></div>
       <div class="row top20 btm20">
@@ -186,6 +186,7 @@
     <a href="#" class="black"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
   </div>
 
+<<<<<<< HEAD
 <% unless @photos.blank? %>
   <div class="row hidden-xs btm20">
     <div class="col-md-12 col-xs-12">
@@ -207,6 +208,7 @@
     </div>
   </div> <!-- /owl -->
 <% end %>
+<%= render "photo_carousel" %>
 
 </div><!-- /maincontainer -->
 
@@ -263,6 +265,7 @@
 <div class="container padding-style">
   <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
+<<<<<<< HEAD
 
       <% unless @stories.blank? %>
         <div class="text-left">
@@ -346,6 +349,9 @@
         </section> <!-- /story -->
       <% end %>
 
+    <%= render "stories/all_stories" %>
+    <%= render "stories/modal_story" %>
+
     <div class="border-section clearfix btm0 top20 visible-xs"></div>
     </div> <!-- /left-col -->
 
@@ -361,11 +367,8 @@
             <% @reviews.each do |review| %>
               <div class="btm15 card review-content">
                 <div class="body-stories">
-                  <p class="some-text">
+                  <p class="some-text" data-full-text="<%= review.content %>">
                     <%= review.content[0..280] + "..." %>
-                  </p>
-                  <p class="full-text">
-                    <%= review.content %>
                   </p>
                 </div>
                 <div class="head-stories">
@@ -392,7 +395,6 @@
           </div>
         </div> <!-- row -->
       </section>
-
 
 
       <% if !@place.fun_facts.blank? %>
@@ -460,10 +462,10 @@
             </div>
           </div> <!-- row -->
       </section>
-    <% end %>
-    </div> <!-- /col-md-8 -->
-  </div> <!-- /main row -->
-</div> <!-- /main container -->
+      <% end %>
+      </div> <!-- /col-md-8 -->
+    </div> <!-- /main row -->
+  </div> <!-- /main container -->
 </div><!--/.area-content -->
 <% end %>
 

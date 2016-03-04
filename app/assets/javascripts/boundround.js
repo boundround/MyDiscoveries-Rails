@@ -133,19 +133,10 @@ function setImagesPosition(){
 		var  outerHeight = $(val).height();
 			 outerWidth = $(val).width();
 			 inner = $(val).find(".inner-js") //image innner outer div
-			 // console.log(inner.height());
 		if ( inner.height() > outerHeight) {
-			// console.log("init outer width "+outerWidth);
-			// console.log("init image width "+innerWidth);
-			// image > div
 			margin = inner.height() - outerHeight;
 			margin = margin/2;
 			$(inner).css({"position":"relative","top":-margin});
-			// console.log(a = $(inner).html());
-			// console.log(innerHeight.height());
-			// console.log("now outer width "+outerWidth);
-			// margin = outerHeight - inner;
-			// console.log(margin);
 		}else{
 			// console.log("no margin");
 			// image.css({"height":"100%","width":"initial"});
@@ -156,7 +147,24 @@ function setImagesPosition(){
 			
 		}
 	});
+
+setTimeout(function() {
+	var top_outer = $(".top-outer-js");
+
+	$.each(top_outer, function(index, val) {
+		 var outerHeight = $(val).height();
+		 	 outerWidth = $(val).width();
+		 	 inner = $(val).find(".top-inner-js") //image innner outer div
+		 	// console.log(inner.height());
+		 if ( inner.height() > outerHeight ) {
+			 	margin = inner.height() - outerHeight;
+				margin = margin/2;
+				$(inner).css({"top":-margin});
+		 }
+	});
+	}, 1000);
 }
+
 function setUpModal(){
 		$('#myModal').on('shown.bs.modal', function () {
 		$('#myInput').focus()
@@ -310,10 +318,6 @@ function setModalEditPhoto(){
 	});
 }
 
-$(window).resize(function() {
-	setImagesPosition();
-});
-
 $(document).ready(function() {
 	setUpModal();
 	setModalOpeningHour();
@@ -329,4 +333,8 @@ $(document).ready(function() {
 	funFact();
 	setUpChart();
 
+});
+
+$(window).resize(function() {
+	setImagesPosition();
 });
