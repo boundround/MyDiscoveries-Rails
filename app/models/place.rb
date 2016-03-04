@@ -339,10 +339,10 @@ class Place < ActiveRecord::Base
   def load_into_soulmate
     if self.status == "live"
       loader = Soulmate::Loader.new("place")
-      loader.add("term" => display_name.downcase + ' ' + (description ? description.downcase : "") + ' ' + (self.area_id ? self.area.display_name.downcase : ""),
+      loader.add("term" => display_name.downcase + ' ' + (description ? description.downcase : ""),
                 "display_name" => display_name, "id" => id, "latitude" => latitude, "longitude" => longitude,
                 "url" => '/places/' + slug + '.html', "slug" => slug, "placeType" => "place",
-                "area" => {"display_name" => (self.area_id ? self.area.display_name : (self.locality ? self.locality : "")), "country" => (self.country ? self.country.display_name : "") })
+                "area" => {"display_name" => (self.locality ? self.locality : ""), "country" => (self.country ? self.country.display_name : "") })
     else
       self.remove_from_soulmate
     end
