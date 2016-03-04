@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20160225023829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -171,6 +170,22 @@ ActiveRecord::Schema.define(version: 20160225023829) do
     t.integer "user_id"
     t.integer "place_id"
   end
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -509,6 +524,20 @@ ActiveRecord::Schema.define(version: 20160225023829) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "stamp_transactions", force: true do |t|
+    t.string  "user_info"
+    t.integer "stamp_id"
+  end
+
+  add_index "stamp_transactions", ["stamp_id"], name: "index_stamp_transactions_on_stamp_id", using: :btree
+
+  create_table "stamps", force: true do |t|
+    t.string  "serial"
+    t.integer "place_id"
+  end
+
+  add_index "stamps", ["place_id"], name: "index_stamps_on_place_id", using: :btree
 
   create_table "stories", force: true do |t|
     t.string   "title"
