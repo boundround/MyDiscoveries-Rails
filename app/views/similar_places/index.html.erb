@@ -5,6 +5,7 @@
     </div>
   </div>
   <h1>Similar Destinations</h1>
+  <%= render "/places/admin_tabs" %>
   <%= simple_form_for [@place, @similar_places] do |f| %>
     <div id="dual-list-box-employees" class="form-group row">
       <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="Destinations" name="similar_place[similar_place_ids][]">

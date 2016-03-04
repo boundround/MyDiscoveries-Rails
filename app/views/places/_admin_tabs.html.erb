@@ -1,5 +1,6 @@
 <p>
-  <a href="<%= place_path(@place) %>" target="blank">View Place Page</a> ||
-  <a href="<%= "/places/" + @place.slug + "/new_edit"%>">Edit <%= @place.display_name %></a> ||
-  <a href="<%= place_three_d_videos_path(@place) %>">3D Videos</a>
+  <a href="<%= place_path(@place) %>" class="btn btn-primary" target="blank">View Place Page</a>
+  <a href="<%= "/places/" + @place.slug + "/new_edit"%>" class="btn btn-primary" >Main Edit Page</a>
+  <a href="<%= place_three_d_videos_path(@place) %>" class="btn btn-primary" >3D Videos</a>
+  <a href="<%= place_similar_places_path(@place) %>" class="btn btn-primary" >Associated Areas</a>
 </p>
