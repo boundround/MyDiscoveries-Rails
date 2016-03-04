@@ -18,7 +18,7 @@ class StampTransactionsController < ApplicationController
 	end
 
 	def create
-		
+
 		# storing the stamp ID - get it from the response
 		# make sure the user info is signed in, or log in as guest
 		# grab the user unfo from devise
@@ -37,7 +37,7 @@ class StampTransactionsController < ApplicationController
 			if user_signed_in? # active record
 				user_info = current_user.id.to_s # a devise method - storing the id
 			else
-				user_info = "guest" 
+				user_info = "guest"
 			end
 
 			# assign stamp id to stamp transaction
@@ -51,10 +51,13 @@ class StampTransactionsController < ApplicationController
 			      format.json { render json: @place }  # respond with the created JSON object
 			    end
 			end
-		else 
-			redirect_to "/stamp_transactions/stamp_error"
+		else
+			respond_to do |format|
+				format.html
+				format.json { render json: {id: "error"}}
+			end
 		end
-		
+
 	end
 
 	def destroy

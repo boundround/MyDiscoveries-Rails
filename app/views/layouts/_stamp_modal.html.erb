@@ -11,8 +11,8 @@
           <div id="stamp-screen" class="boundround-stamp"></div>
           <div class="clearfix"></div>
 
-          <div class="br_modal-footer text-center" id="share-form">
-
+          <div class="br_modal-footer text-center">
+            <!-- <div class="button btn btn-info" id="stamp-test-button">Test</div> -->
           </div>
         </div>
       </div>
@@ -21,14 +21,14 @@
 <!-- Share Modal Finish -->
 <script type="text/javascript">
     window.addEventListener('load', function(){ // on page load
-   
+
       document.body.addEventListener('touchstart', function(e){
           // alert(e.changedTouches[0].pageX) // alert pageX coordinate of touch point
         if (e.touches.length >= 5){
           $('#stampModal').modal('show');
         }
       }, false)
-   
+
   }, false)
   </script>
   <script>
@@ -78,7 +78,7 @@ See GitHub project page for Documentation and License
           if (event.touches.length < 5 && event.touches.length >= pointsMin ) {
             $('#snowshoe-progress-bar').removeClass("snowshoe-progress-bar");
             // Teach users to stamp and hold for 2 seconds before displaying user-defined message
-            if (helpMessage) { 
+            if (helpMessage) {
               $("#snowshoe-messages").append(holdMessage);
               holdMsg = setTimeout(function(){ displayCustomMessage(helpMessage) }, 2000);
             }
@@ -188,22 +188,25 @@ See GitHub project page for Documentation and License
 
       "stampScreenElmId": "stamp-screen",
       "progressBarOn": true,
-      "postViaAjax": true, // post via Ajax  
+      "postViaAjax": true, // post via Ajax
       success: function(response){
           $('#snowshoe-progress-bar').removeClass("snowshoe-progress-bar");
-          console.log("SUCCESS");
-          console.log(response);
-          
-        // SUCCESS passes the snowshoe tests 
+          if(response["id"] == "error"){
+            window.location = "/stamp_transactions/stamp_error";
+          } else {
+            window.location = "places/" + response.slug + "/stamp_confirmation";
+          }
+
+        // SUCCESS passes the snowshoe tests
 
         // on success do our own calls to Ajax
-        // Post something to the stamp_transactions 
+        // Post something to the stamp_transactions
 
-            // touches.length (by id) >= 5, 
+            // touches.length (by id) >= 5,
             // Passing 26 to 52 of jquery snowshoe touchstart event
-      
+
         // creates actions
-          // creates API get request 
+          // creates API get request
           // Get Stamp ID
           // Get Place ID
           // Creates new stamp record in boundround stamp_transactions database
@@ -261,11 +264,7 @@ See GitHub project page for Documentation and License
         // clear animation
       },
       error: function(response){
-        console.log("FAIL");
-        console.log(response);
-        // handle failure
-        console.log(" :-( ");
-        // clear animation
+        window.location = "places/" + response.slug + "/stamp_confirmation";
         $('#snowshoe-progress-bar').removeClass("snowshoe-progress-bar");
       }
 
@@ -276,4 +275,22 @@ See GitHub project page for Documentation and License
       };
 
       $.snowshoe.stampScreen.init(stampScreenInitData, $.snowshoe.client);
+
+
+    // $('#stamp-test-button').on('click', function(){
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "/stamp_transactions.json",
+    //     success: function(response){
+    //       if(response["id"] == "error"){
+    //         window.location = "/stamp_transactions/stamp_error";
+    //       } else {
+    //         window.location = "places/" + response.slug + "/stamp_confirmation";
+    //       }
+    //     },
+    //     error: function(){
+    //       window.location = "places/" + response.slug + "/stamp_confirmation";
+    //     }
+    //   });
+    // });
   </script>

@@ -599,6 +599,17 @@ ActiveRecord::Schema.define(version: 20160224071548) do
     t.datetime "updated_at"
   end
 
+  create_table "similar_places", force: true do |t|
+    t.integer  "place_id"
+    t.integer  "similar_place_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "similar_places", ["place_id", "similar_place_id"], name: "index_similar_places_on_place_id_and_similar_place_id", unique: true, using: :btree
+  add_index "similar_places", ["place_id"], name: "index_similar_places_on_place_id", using: :btree
+  add_index "similar_places", ["similar_place_id"], name: "index_similar_places_on_similar_place_id", using: :btree
+
   create_table "stamp_transactions", force: true do |t|
     t.string  "user_info"
     t.integer "stamp_id"
@@ -606,8 +617,7 @@ ActiveRecord::Schema.define(version: 20160224071548) do
 
   add_index "stamp_transactions", ["stamp_id"], name: "index_stamp_transactions_on_stamp_id", using: :btree
 
-  create_table 
-  "stamps", force: true do |t|
+  create_table "stamps", force: true do |t|
     t.string  "serial"
     t.integer "place_id"
   end
