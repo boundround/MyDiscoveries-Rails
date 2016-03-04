@@ -130,10 +130,14 @@ class Place < ActiveRecord::Base
 
   validates_presence_of :display_name, :slug
 
+  # belongs_to :area
+
   belongs_to :country
   belongs_to :user
   belongs_to :primary_category
   has_many :places_subcategories
+  has_many :similar_places
+  has_many :associated_areas, through: :similar_places, source: :similar_place
   has_many :subcategories, through: :places_subcategories
   has_many :photos, -> { order "created_at ASC"}
   has_many :videos, -> { order "created_at ASC"}
@@ -151,7 +155,7 @@ class Place < ActiveRecord::Base
   has_many :stories, as: :storiable
 
   has_many :three_d_videos
-  
+
   # has_many :good_to_knows
 
   accepts_nested_attributes_for :photos, allow_destroy: true
@@ -324,6 +328,23 @@ class Place < ActiveRecord::Base
         website.prepend("http://")
       end
     end
+  end
+
+  def load_into_soulmate
+    if self.status == "live"
+      loader = Soulmate::Loader.new("place")
+      loader.add("term" => display_name.downcase + ' ' + (description ? description.downcase : ""),
+                "display_name" => display_name, "id" => id, "latitude" => latitude, "longitude" => longitude,
+                "url" => '/places/' + slug + '.html', "slug" => slug, "placeType" => "place",
+                "area" => {"display_name" => (self.locality ? self.locality : ""), "country" => (self.country ? self.country.display_name : "") })
+    else
+      self.remove_from_soulmate
+    end
+  end
+
+  def remove_from_soulmate
+    loader = Soulmate::Loader.new("place")
+    loader.remove("id" => self.id)
   end
 
   def slug_candidates

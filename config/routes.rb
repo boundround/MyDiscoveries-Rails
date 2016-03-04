@@ -144,6 +144,7 @@ Rails.application.routes.draw do
     resources :stories
     resources :user_photos
     resources :three_d_videos
+    resources :similar_places
     collection { post :import }
   end
 
