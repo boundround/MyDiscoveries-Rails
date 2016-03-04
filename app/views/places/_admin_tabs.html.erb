@@ -1,0 +1,5 @@
+<p>
+  <a href="<%= place_path(@place) %>" target="blank">View Place Page</a> ||
+  <a href="<%= "/places/" + @place.slug + "/new_edit"%>">Edit <%= @place.display_name %></a> ||
+  <a href="<%= place_three_d_videos_path(@place) %>">3D Videos</a>
+</p>
