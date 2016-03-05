@@ -30,7 +30,8 @@ h2, h3, h4{
 
 .brw-navbar-brand>img{
 	/*width: 26px;*/
-	width: 100%
+	/*width: 100%*/
+	width: 80px
 }
 .sign{
 	position: absolute;
@@ -465,7 +466,7 @@ ul.nav.navbar-nav.first-ul{
 .right0{
 	margin-right: 0 !important;
 }
-.navbar-nav>li>a{
+.navbar-nav > li > a:not(.join){
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
@@ -2531,24 +2532,8 @@ footer ul{
 .body-stories .full-text{
 	display: none;
 }
-
-div.star i{
-	display: inline-block;
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    font-size: 40px !important;
-    color: #eaeaea;
-}
-div.star i:hover{
-    color: #fd7e56;
-
-}
-
-div.star i::before{
-	content: "\f118" !important;
+.gray-color{
+	color: #eaeaea;
 }
 /*END*/
 
