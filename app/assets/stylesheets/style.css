@@ -975,7 +975,8 @@ section.photo-latest .image img{
 
 /*HEADER IMAGE WITH NAV*/
 .header-image-with-nav{
-    height: 194px;
+    /*height: 194px;*/
+    height: 265px;
     z-index: 0; 
     overflow: hidden;
     position: relative;
@@ -988,7 +989,8 @@ section.photo-latest .image img{
 
 .header-image-with-nav .component{
     position: relative;
-    top: 44px;
+    /* was 44 */
+    top: 134px;
     height: 40px;
     width: 90%;
     margin: 0 auto;
@@ -1007,7 +1009,7 @@ section.photo-latest .image img{
 
 .header-image-with-nav .action{
     position: relative;
-    top: 154px;
+    top: 225px;
     padding: 0 13px;
     height: 40px;
     width: 90%;
@@ -1060,10 +1062,10 @@ section.photo-latest .image img{
 }
 @media(min-width: 768px){
 	.header-image-with-nav{
-		height: 500px ;
+		height: 700px ;
 	}
 	.header-image-with-nav .action{
-	    top: 402px;
+	    top: 605px;
     	/*height: 220px;*/
 	}
 }
@@ -1087,7 +1089,7 @@ section.photo-latest .image img{
 }
 @media (max-width: 426px){
 	.header-image-with-nav .action{
-		font-size: 10px;
+		font-size: 13px;
 	}
 }
 @media(max-width: 339px){
@@ -1095,7 +1097,7 @@ section.photo-latest .image img{
 		font-size: 13px !important;
 	}
 	.header-image-with-nav .action{
-		font-size: 9px;
+		font-size: 11px;
 	}
 }
 /*END HEADER IMAGE WITH NAV*/
@@ -1169,15 +1171,17 @@ section.country-details .place-title2{
 .detail-place .suka{
 	border: none;
 	text-align: center;
-	width :20.5%;
+	/* was 20.5 */
+	width :25%;
 	padding-top: 8px;
 }
 .detail-place .suka i{
-    font-size: 20px;
+    font-size: 12px;
     color: #3A548B;
 }
 .component-desk ul{
     list-style: none;
+    display: -webkit-inline-flex;
     display: inline-flex;
 }
 .component-desk ul li{
@@ -1204,20 +1208,23 @@ section.country-details .place-title2{
     border-radius: 4px;
     border: 1px solid #D2D2D2;
     width: 100%;
+    display: -webkit-inline-flex;
     display: inline-flex;
 }
 .detail-place .located,.detail-place .language,.detail-place .population{
     float: left;
     border-right: 1px;
     border-right: 1px solid #D2D2D2;
-    width: 26.5%;
+    /* was 20.5 */
+    width: 25%;
     text-align: center;
     padding-top: 8px;
 }
 .detail-place .likes{
 	border: none;
 	text-align: center;
-	width :20.5%;
+	/* was 20.5 */
+	width :25%;
 	padding-top: 8px;
 }
 .detail-place .likes i{

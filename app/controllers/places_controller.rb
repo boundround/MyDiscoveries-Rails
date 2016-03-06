@@ -167,7 +167,7 @@ class PlacesController < ApplicationController
     @prices = @place.subcategories.price
 
     @more_places = Place.where(primary_category: @place.primary_category).limit(6)
-    @related_places = Place.is_area
+    @related_places = Place.is_area.limit(6)
     @reviewable = @place
     @reviews = @reviewable.reviews.active
     # debugger
