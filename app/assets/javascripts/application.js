@@ -25,6 +25,7 @@
 // require progressbar
 // require bootstrap-datepicker
 // require countries
+//= require area
 //= require places
 // require avatarupload
 // require user
@@ -58,4 +59,4 @@
 //= require instafeed.min
 //= require chart.min
 //= require boundround
-
+//= require dual_list_box

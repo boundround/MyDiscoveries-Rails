@@ -178,10 +178,6 @@ end
 # Use puma as the app server
 gem 'puma'
 
-gem 'httparty'
-
-gem "bullet", :group => "development"
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -1,9 +1,7 @@
 <div class="container">
+  <%= render "/places/admin_tabs" %>
   <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
     <h1>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
-    <p>
-      <a href="<%= place_path(@place) %>" target="blank">View Place Page</a>
-    </p>
 
     <%= simple_form_for @place, html: { role: 'form'} do |f| %>
       <div class="form-group">
@@ -113,17 +111,6 @@
       </div>
     <% end %>
     <hr>
-    <h2>All 3D Videos</h2>
-    <% @place.three_d_videos.each do |video| %>
-      <p>Link: <%= video.link %> || Caption: <%= video.caption %></p>
-    <% end %>
-    <h2>Create New 3D Video</h2>
-    <%= simple_form_for [@place, @three_d_video] do |f|%>
-      <%= f.input :link, input_html: { class: 'form-control' } %>
-      <%= f.input :caption, input_html: { class: 'form-control' } %>
-      <%= f.hidden_field :place_id, value: @place.id %>
-      <%= f.submit :submit %>
-    <% end %>
   <% else %>
     <h2>You do not have sufficient privileges to view this page</h2>
     <%= link_to "Home", root_path %>

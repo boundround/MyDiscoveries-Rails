@@ -233,27 +233,27 @@ function selectVIdeoId(_this){
       }
 }
 
-function wpBlogs(){
-  $(".cs-blog[data-class='apiblog']").click(function(){
-    var id = $(this).data("id");
-    var place = $(this).data("place");
-    var image = $(this).data("image");
-    var place_name = $(this).data("place-name");
-    var host = document.location.origin;
-    $("#modal-dialog-story").hide();
-    $("#modal-dialog-blog").show();
-    $("#userStory iframe").prop("src", host+"/wp-blog/"+id+"/"+place);
-    $("#userStory .modal-dialog").css("max-width","1120px");
-    // $("#frame-blog").prop("src", host+"/wp-blog/"+id+"/"+place);
-    // $("#userStory iframe");
-    $("#userStory").modal();
-  });
+// function wpBlogs(){
+//   $(".cs-blog[data-class='apiblog']").click(function(){
+//     var id = $(this).data("id");
+//     var place = $(this).data("place");
+//     var image = $(this).data("image");
+//     var place_name = $(this).data("place-name");
+//     var host = document.location.origin;
+//     $("#modal-dialog-story").hide();
+//     $("#modal-dialog-blog").show();
+//     $("#userStory iframe").prop("src", host+"/wp-blog/"+id+"/"+place);
+//     $("#userStory .modal-dialog").css("max-width","1120px");
+//     // $("#frame-blog").prop("src", host+"/wp-blog/"+id+"/"+place);
+//     // $("#userStory iframe");
+//     $("#userStory").modal();
+//   });
 
-  $('#userStory').on('hidden.bs.modal', function () {
-    $("#userStory .modal-dialog").css("max-width","830px");
-    $("#userStory iframe").prop("src","");
-  });
-}
+//   $('#userStory').on('hidden.bs.modal', function () {
+//     $("#userStory .modal-dialog").css("max-width","830px");
+//     $("#userStory iframe").prop("src","");
+//   });
+// }
 
 $(window).resize(function(){
   responsiveHomeVideo();

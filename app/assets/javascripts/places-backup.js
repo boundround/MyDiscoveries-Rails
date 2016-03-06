@@ -234,40 +234,40 @@ $(document).ready(function(){
     });
   }
 
-  $(".cs-blog[data-class='story']").on('click', function(e){
-      e.preventDefault();
-      var title = $(this).data('title');
-      var user = $(this).data('user');
-      var content = $(this).data('content');
-      var image1 = $(this).data('image-0');
-      console.log(image1);
-      var image2 = $(this).data('image-1');
-      var image3 = $(this).data('image-2');
-      $('#story-user').html("by " + user);
-      $('#story-title').html(title);
-      $('#story-content').html(content);
-      if (image1)
-        $('#storyHeroImage').prepend("<div id='image-1' class='img-cont share story-hero-container'><img src=" + image1 + " class='story-image'></div>");
-      if (image2)
-        $('#story-image-2a').prepend('<div id="image-2" class="pull-right side-img-cont share"><div class="share-btn"><img src=' + image2 + ' class="story-image"></div></div>');
-      if (image3)
-        $('#story-image-3a').html("<div id='image-3' class='img-cont2 share z-up'><div class='share-btn'><img src=" + image3 + " class='story-image'></div></div>");
-      $("#userStory .modal-dialog").css("max-width","830px");
-      $("#userStory").modal();
-      $("#modal-dialog-story").show();
-      $("#modal-dialog-blog").hide();
-    });
+  // $(".cs-blog[data-class='story']").on('click', function(e){
+  //     e.preventDefault();
+  //     var title = $(this).data('title');
+  //     var user = $(this).data('user');
+  //     var content = $(this).data('content');
+  //     var image1 = $(this).data('image-0');
+  //     console.log(image1);
+  //     var image2 = $(this).data('image-1');
+  //     var image3 = $(this).data('image-2');
+  //     $('#story-user').html("by " + user);
+  //     $('#story-title').html(title);
+  //     $('#story-content').html(content);
+  //     if (image1)
+  //       $('#storyHeroImage').prepend("<div id='image-1' class='img-cont share story-hero-container'><img src=" + image1 + " class='story-image'></div>");
+  //     if (image2)
+  //       $('#story-image-2a').prepend('<div id="image-2" class="pull-right side-img-cont share"><div class="share-btn"><img src=' + image2 + ' class="story-image"></div></div>');
+  //     if (image3)
+  //       $('#story-image-3a').html("<div id='image-3' class='img-cont2 share z-up'><div class='share-btn'><img src=" + image3 + " class='story-image'></div></div>");
+  //     $("#userStory .modal-dialog").css("max-width","830px");
+  //     $("#userStory").modal();
+  //     $("#modal-dialog-story").show();
+  //     $("#modal-dialog-blog").hide();
+  //   });
 
-    $('#story-close').on('click', function(){
-      $('#image-1').remove();
-      $('#image-2').remove();
-      $('#image-3').remove();
-    });
+  //   $('#story-close').on('click', function(){
+  //     $('#image-1').remove();
+  //     $('#image-2').remove();
+  //     $('#image-3').remove();
+  //   });
 
-    $('#story-publish-button').on('click', function(){
-      $('#storyModal').modal("hide");
-      $('.loader-bound-round').show();
-    });
+  //   $('#story-publish-button').on('click', function(){
+  //     $('#storyModal').modal("hide");
+  //     $('.loader-bound-round').show();
+  //   });
 
     if (document.getElementById('place-map-canvas')){
       var map = new google.maps.Map(document.getElementById('place-map-canvas'), {

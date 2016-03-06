@@ -1,23 +1,71 @@
-<% @stories.each_with_index do |story, index| %>
-   <div>
-      <% if  story.class.to_s.eql? "Story" %>
-            <div class="embed-responsive embed-responsive-16by9 cs-blog" data-class="story"
-               data-toggle="modal" data-content="<%= story.content %>"
+<% unless @stories.blank? %>
+  <section class="your-stories cards">
+    <div class="text-left">
+      <h4 class="section-title">Your Stories</h4>
+    </div>
+      <% @stories.each_with_index do |story, index| %>
+          <% if  story.class.to_s.eql? "Story" %>
+              <div class="card"
+               data-class="story"
+               data-content="<%= story.content.html_safe %>"
                data-title="<%= story.title ? story.title : @storiable.display_name %>"
-               data-user="<%= strip_domain_from_username(story.user) %>"
+               data-user="<%= story.user.name %>"
                               <% story.user_photos.each_with_index do |photo, index| %>
                                 data-image-<%= index %>="<%= photo.path_url(:medium) %>"
                               <% end %>>
-                <img class="embed-responsive-item cs-item-blog" src="<%= story.user_photos.first.path_url(:medium)%>">
-              <div class="video-title"><%= story.title %></div>
-            </div>
+                <div class="head-stories">
+                  <div class="left">
+                    <a href="#">
+                      <div class="profile-outer">
+                        <img src="<%= showing_image(story.user.avatar_url)%>" alt="">
+                      </div>
+                      <div class="profile-text">
+                        <%= story.user.name %>
+                      </div>
+                     </a>
+                  </div>
+                  <div class="right"><a href="#"><i class="fa fa-image"></i> <%= story.user.photos.size %>
+                  </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%= story.user.videos.size %></a>
+                  </div>
+                </div>
+                <div class="body-stories btm15">
+                  <div 
+                    <% if !story.user_photos.blank? %>
+                    class="p-dynamic"
+                    <% end %>
+                    >
+                    <p class="visited">Visited Dec 2015</p>
+                    <p class="mrg0 pink"><%= story.title %> </p>
+                     <%= story.content[0..280] + "..." %>
+                  </div>
+                <div class="img-story-place outer-js">
+                  <% if !story.user_photos.blank? %>
+                    <img class="inner-js" align="right" src="<%= story.user_photos.first.path_url(:medium) %>" alt="">
+                  <% end %>
+                </div>
+            </div><!-- card -->
           <% elsif story.class.to_s.eql? "ApiBlog" %>
-          <div class="embed-responsive embed-responsive-16by9 cs-blog" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-place="<%= @place.slug %>" data-place-object="<%= @place %>" data-content="<%= story.content %>">
-              <img class="embed-responsive-item cs-item-blog" src="<%= story.image.blank? ? draw_hero_background(@place) : story.image %>">
-              <div  class="video-title"><%= story.title %></div>
-          </div>
-      <% end %>
+            <div class="card" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-place="<%= @place.slug %>">
+              <div class="head-stories">
+                <p class="mrg0">From Blog</p>
+              </div>
+              <div class="body-stories btm15">
+                <div class="p-dynamic blog">
+                  <p class="visited">Visited Dec 2015</p>
+                  <p class="mrg0 pink"><%= story.title %> </p>
+                  <%= story.content.html_safe %>
+                </div>
+                <div class="img-story-place outer-js">
+                <%# if !story.user_photos.blank? %>
+                  <img class="inner-js" align="right" src="<%= story.image.blank? ? draw_hero_background(@place) : story.image %>" alt="">
+                  <%# end %>
+                </div>
+              </div>
+              </div>
+            <% end %> <!-- /if -->
+          <% end %> <!-- /each -->
+      <div class="text-center btm20 clearfix">
+        <button class="btn btn-default black top5 load-more">Load more stories</button>
       </div>
+  </section> <!-- /story -->
 <% end %>
-
-
