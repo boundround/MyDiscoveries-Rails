@@ -159,7 +159,7 @@ class PlacesController < ApplicationController
     @reviewable = @place = Place.find_by_slug(params[:id])
     # @place_blog = @place.blog_request\
 
-    @place = Place.includes(:quality_average, :categories).find_by_slug(params[:id])
+    @place = Place.includes(:quality_average).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
 
     # Details information
@@ -177,7 +177,7 @@ class PlacesController < ApplicationController
     # @accessibilities = Subcategory.accessibility(informations) #@place.subcategories.accessibility
     # @prices = Subcategory.price(informations) #@place.subcategories.price
 
-    @more_places = Place.includes(:country, :categories).where(primary_category: @place.primary_category).limit(6)
+    @more_places = Place.includes(:country).where(primary_category: @place.primary_category).limit(6)
 
     # @related_places = Place.is_area
     # @reviewable = @place
