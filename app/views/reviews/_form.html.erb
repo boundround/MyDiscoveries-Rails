@@ -1,47 +1,79 @@
-<% if user_signed_in? %>
-<div id="myModal3" class="modal fade" >
-  <div class="modal-dialog">
-    <div class="modal-content text-center">
-      <div class="col-md-12 modal-middle center-block">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h2 class="text-center">Leave a review</h2>
-        <h3 class="text-center">
-          <% if user_signed_in? && @reviewable.can_rate?(current_user, "quality") %>
-            Rate this place<br>
-            <%= rating_for (@place ? @place : @area), "quality", :disable_after_rate => false %>
+
+<!-- MODAL LEAVE REVIEW -->
+<%# if user_signed_in? %>
+<div id="ReviewModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-margin-top">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close close-modal-orange" data-dismiss="modal">&times;</button>
+        <!-- <a type="button" class="btn story left-modal"><i class="fa fa-arrow-left"></i></a> -->
+        <h3 class="modal-title" align="center">Add a review</h3>
+        <h4 class="modal-title font-orange2" align="center">The Australian Museum</h4>
+      </div>
+      <div class="modal-body" align="center">
+         <p align="left" class="btm10">Your rating</p>
+         
+         <div class="row row-border-review top10">
+           <div class="col-xs-12 col-sm-12">
+
+          <% if user_signed_in? && @place.can_rate?(current_user, "quality") %>
+            <!-- Rate this place<br> -->
+            <%#= rating_for (@place ? @place : @area), "quality", :disable_after_rate => false %>
+            <div class="star-place" data-classname="<%= @place.class.to_s %>" >
+            </div>
+          
           <% else %>
-            Change your rating<br>
-            <%= rating_for (@place ? @place : @area), "quality", :disable_after_rate => false %>
+            <!-- Change your rating<br> -->
+            <%#= rating_for (@place ? @place : @area), "quality", :disable_after_rate => false %>
+            <div class="star-place" data-classname="<%= @place.class.to_s %>" data-id="<%= @place.id %>" data-dimension="quality" data-rating="" data-star-count=""  >
+            </div>
           <% end %>
-        </h3>
-        <hr>
-        <%= simple_form_for [@reviewable, @review], remote: true do |f| %>
-          <div class="col-md-2"></div>
-          <div class="col-md-4 review-buttons">
+          
+           </div>
+         </div>
+
+
+        <%= simple_form_for [@place, @review], remote: true do |f| %>
             <%= f.input :user_id, as: :hidden, :input_html => { :value => (current_user.id if user_signed_in?) } %>
             <%= f.input :status, as: :hidden, :input_html => { :value => "draft" } %>
-            <input type="radio" name="radio-review" class="review-radio" value="It was awesome. You should definitely go!"><label for="review1">&nbsp;It was awesome, you should definitely go!</label><br>
-            <input type="radio" name="radio-review" class="review-radio" value="It was pretty good. Most kids would like it."><label for="review2">&nbsp;It was pretty good. Most kids would like it.</label><br>
-            <input type="radio" name="radio-review" class="review-radio" value="It was ok. Some kids would think it's good."><label for="review3">&nbsp;It was ok. Some kids would think it's good.</label><br>
-            <input type="radio" name="radio-review" class="review-radio" value="I didn't really like it."><label for="review4">&nbsp;I didn't really like it</label><br>
-            <strong>Or write your own review</strong>
-          </div>
-          <div class="col-md-4">
-            <%= f.input :title, placeholder: "Give your review a title", label: false, input_html: {class: "form-control"} %>
-            <textarea class="form-control" name="review[content]" rows="10" placeholder="Leave your review here"></textarea>
-          </div>
-          <div class="col-md-2"></div>
-          <div class="clearfix"></div>
-          <p></p>
-          <div class="col-md-12">
-            <%= f.submit "Publish", class: "pub", id: "publish-review-button" %>
-          <% end %>
-          <a  data-dismiss="modal" aria-hidden="true" class="can">Cancel</a>
-          </div>
-          <p>&nbsp;</p>
+         <div class="form-group top20">
+           <!-- <textarea class="form-control" rows="5" placeholder="Enter your review (max 1000 characters)."></textarea> -->
+            <textarea class="form-control" name="review[content]" rows="5" placeholder="Enter your review (max 1000 characters)."></textarea>
+           <%#= f.text_field :content %>
+         </div>
+         <div class="row">
+            <div class="col-xs-6 col-sm-6 top10" align="left">
+              Reviewing as
+            </div>
+            <div class="col-xs-6 col-sm-6" align="left">
+            <section class="your-stories style-bg-transparent">
+              <div class="head-stories style-bg-transparent">
+                <div class="left">
+                <% if user_signed_in? %>
+                  <div class="profile-outer style-bg-transparent">
+                      <img src="<%= showing_image(current_user.avatar_url)%>" alt="">
+                  </div>
+                  <div class="profile-text style-bg-transparent grey">
+                    <%= current_user.name %>
+                  </div>
+                  <% end %>
+
+                </div>
+              </div>
+            </section>
+            </div>
+         </div>
+         <br>
+         <div class="form-group">
+            <!-- <button type="button" class="btn btn-danger button-orange btn-block btn-height fontbig-button">Submit review</button> -->
+            <%= f.submit "Publish", class: "btn btn-danger button-orange btn-block btn-height fontbig-button", id: "publish-review-button" %>
+         </div>
+        <% end %> <!--/simple_form -->
       </div>
-      <div class="clearfix"></div>
     </div>
   </div>
 </div>
-<% end %>
+<%# end %>
+<!-- END MODAL LEAVE REVIEW -->

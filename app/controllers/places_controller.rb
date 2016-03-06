@@ -159,23 +159,36 @@ class PlacesController < ApplicationController
     @reviewable = @place = Place.find_by_slug(params[:id])
     # @place_blog = @place.blog_request\
 
-    # Details information
-    @optimum_times = @place.subcategories.best_visited
-    @durations = @place.subcategories.duration
-    @subcategories = @place.subcategories.subcategory
-    @accessibilities = @place.subcategories.accessibility
-    @prices = @place.subcategories.price
+    @place = Place.includes(:quality_average, :categories).find_by_slug(params[:id])
+    # @place_blog = @place.blog_request
 
-    @more_places = Place.where(primary_category: @place.primary_category).limit(6)
-    @related_places = Place.is_area
-    @reviewable = @place
-    @reviews = @reviewable.reviews.active
+    # Details information
+    informations = @place.subcategories.get_all_informations
+
+    @optimum_times =  Subcategory.get_data_by_type(informations, "Optimum Times")
+    @durations = Subcategory.get_data_by_type(informations, "Duration")
+    @subcategories = Subcategory.get_data_by_type(informations, "Subcategory")
+    @accessibilities = Subcategory.get_data_by_type(informations, "Accessibility")
+    @prices = Subcategory.get_data_by_type(informations, "Price")
+
+    # @optimum_times =  Subcategory.best_visited(informations)  #@place.subcategories.best_visited
+    # @durations = Subcategory.duration(informations) #@place.subcategories.duration
+    # @subcategories = Subcategory.subcategory(informations) #@place.subcategories.subcategory
+    # @accessibilities = Subcategory.accessibility(informations) #@place.subcategories.accessibility
+    # @prices = Subcategory.price(informations) #@place.subcategories.price
+
+    @more_places = Place.includes(:country, :categories).where(primary_category: @place.primary_category).limit(6)
+
+    # @related_places = Place.is_area
+    # @reviewable = @place
+    @reviews = @place.reviews.active
     # debugger
 
     if user_signed_in?
-      @user_reviews_not_public = @reviewable.reviews.where('status = ? OR ((status = ? OR status = ?) AND user_id = ?)', "live", "draft", "user", current_user.id)
-    else
-      @reviews = @reviewable.reviews.active
+      @user_reviews_not_public = @place.reviews.where('(status = ? OR status = ?) AND user_id = ?', "draft", "user", current_user.id)
+    end
+    if !@user_reviews_not_public.blank?
+      @reviews += @user_reviews_not_public
     end
 
     # if !@user_reviews_not_public.blank?
@@ -183,10 +196,9 @@ class PlacesController < ApplicationController
     # end
     @review = Review.new
 
-    @storiable = @place
+    # @storiable = @place
     api_blogs = ApiBlog.get_cached_blogs(@place.slug)
-    @stories = @storiable.stories.active + api_blogs
-
+    @stories = @place.stories.active + api_blogs
     @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.first(6)
 
     @story = Story.new
@@ -196,7 +208,7 @@ class PlacesController < ApplicationController
     # center_point = [@place.latitude, @place.longitude]
     # box = Geocoder::Calculations.bounding_box(center_point, distance)
     # @nearby_places = Place.within_bounding_box(box)
-    # @nearby_places = @place.nearbys(20).active.includes(:photos, :categories, :quality_average, :user_photos)
+    @nearby_places = @place.nearbys(20).active.includes(:quality_average)
 
     # @top_places = @nearby_places.sort do |x, y|
     #   (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
@@ -228,8 +240,8 @@ class PlacesController < ApplicationController
     # @all_photos_and_videos.sort {|x, y| x.created_at <=> y.created_at}
 
     #NEW
-    @videos = @place.videos.active.order('created_at DESC')
-    @photos = @place.photos.active.includes(:users, :place) + @active_user_photos
+    # @videos = @place.videos.active#.sort {|x, y| x.created_at <=> y.created_at}
+    @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}
 
     # @place.videos.active.each do |video|
     #     @videos << video
@@ -242,15 +254,15 @@ class PlacesController < ApplicationController
     #   @photos << photo
     # end
 
-    @photos.sort {|x, y| x.created_at <=> y.created_at}
+    # @photos.sort {|x, y| x.created_at <=> y.created_at}
     # @videos.sort {|x, y| x.created_at <=> y.created_at}
     ###############################
 
-    @request_xhr = request.xhr?
+    # @request_xhr = request.xhr?
 
-    if @place.display_name == "Virgin Australia"
-      @set_body_class = "virgin-body"
-    end
+    # if @place.display_name == "Virgin Australia"
+      @set_body_class = "virgin-body" if @place.display_name == "Virgin Australia"
+    # end
 
     view = if @place.is_area?
       "area"

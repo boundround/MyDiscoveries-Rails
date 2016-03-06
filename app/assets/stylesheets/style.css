@@ -30,7 +30,8 @@ h2, h3, h4{
 
 .brw-navbar-brand>img{
 	/*width: 26px;*/
-	width: 100%
+	/*width: 100%*/
+	width: 80px
 }
 .sign{
 	position: absolute;
@@ -465,7 +466,7 @@ ul.nav.navbar-nav.first-ul{
 .right0{
 	margin-right: 0 !important;
 }
-.navbar-nav>li>a{
+.navbar-nav > li > a:not(.join){
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
@@ -2530,6 +2531,9 @@ footer ul{
 }
 .body-stories .full-text{
 	display: none;
+}
+.gray-color{
+	color: #eaeaea;
 }
 /*END*/
 
