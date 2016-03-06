@@ -1,0 +1,51 @@
+<% if user_signed_in? %>
+<div id="myModal3" class="modal fade" >
+  <div class="modal-dialog">
+    <div class="modal-content text-center">
+      <div class="col-md-12 modal-middle center-block">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h2 class="text-center">Leave a review</h2>
+        <h3 class="text-center">
+          <% if user_signed_in? && @reviewable.can_rate?(current_user, "quality") %>
+            Rate this place<br>
+            <%= rating_for (@place ? @place : @area), "quality", :disable_after_rate => false %>
+          <% else %>
+            Change your rating<br>
+            <%= rating_for (@place ? @place : @area), "quality", :disable_after_rate => false %>
+          <% end %>
+        </h3>
+        <hr>
+        <%= simple_form_for [@reviewable, @review], remote: true do |f| %>
+          <div class="col-md-2"></div>
+          <!-- unused -->
+          <div class="col-md-4 review-buttons">
+            <%= f.input :user_id, as: :hidden, :input_html => { :value => (current_user.id if user_signed_in?) } %>
+            <%= f.input :status, as: :hidden, :input_html => { :value => "draft" } %>
+
+            <input type="radio" name="radio-review" class="review-radio" value="It was awesome. You should definitely go!"><label for="review1">&nbsp;It was awesome, you should definitely go!</label><br>
+            <input type="radio" name="radio-review" class="review-radio" value="It was pretty good. Most kids would like it."><label for="review2">&nbsp;It was pretty good. Most kids would like it.</label><br>
+            <input type="radio" name="radio-review" class="review-radio" value="It was ok. Some kids would think it's good."><label for="review3">&nbsp;It was ok. Some kids would think it's good.</label><br>
+            <input type="radio" name="radio-review" class="review-radio" value="I didn't really like it."><label for="review4">&nbsp;I didn't really like it</label><br>
+            <strong>Or write your own review</strong>
+            
+          </div>
+
+          <div class="col-md-4">
+            <%= f.input :title, placeholder: "Give your review a title", label: false, input_html: {class: "form-control"} %>
+            <textarea class="form-control" name="review[content]" rows="10" placeholder="Leave your review here"></textarea>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="clearfix"></div>
+          <p></p>
+          <div class="col-md-12">
+            <%= f.submit "Publish", class: "pub", id: "publish-review-button" %>
+          <% end %>
+          <a  data-dismiss="modal" aria-hidden="true" class="can">Cancel</a>
+          </div>
+          <p>&nbsp;</p>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<% end %>

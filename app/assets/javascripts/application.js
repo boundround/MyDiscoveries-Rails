@@ -26,6 +26,7 @@
 // require bootstrap-datepicker
 // require countries
 //= require area
+//= require jquery.raty-fa
 //= require places
 // require avatarupload
 // require user
@@ -38,7 +39,7 @@
 //= require geocomplete
 // require cookie
 //= require like
-//= require jquery.raty
+// require jquery.raty
 //= require ratyrate
 //= require user-photo-upload
 //= require ckeditor/init
@@ -59,4 +60,4 @@
 //= require instafeed.min
 //= require chart.min
 //= require boundround
-
+//= require dual_list_box

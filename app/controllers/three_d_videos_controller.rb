@@ -11,21 +11,20 @@ class ThreeDVideosController < ApplicationController
   end
 
   def update
-    @three_d_videos = ThreeDVideo.find(params[:id])
-    if @three_d_videos.update(three_d_video_params)
-      redirect_to :back
-    end
-
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { render json: @three_d_videos }
+    @three_d_video = ThreeDVideo.find(params[:id])
+    @place = Place.friendly.find(params[:place_id])
+    if @three_d_video.update(three_d_video_params)
+      redirect_to place_three_d_videos_path(@place), notice: "3D Video Updated"
+    else
+      render "edit", notice: "Sorry, there was an error updating this video"
     end
   end
 
   def destroy
+    @place = Place.friendly.find(params[:place_id])
     @three_d_video = ThreeDVideo.find(params[:id])
     @three_d_video.destroy
-    redirect_to :back, notice: "3D Video deleted"
+    redirect_to place_three_d_videos_path(@place), notice: "3D Video Deleted"
   end
 
   def new
@@ -34,11 +33,17 @@ class ThreeDVideosController < ApplicationController
     # render :new
   end
 
+  def edit
+    @three_d_video = ThreeDVideo.find(params[:id])
+    @place = Place.friendly.find(params[:place_id])
+  end
+
   def index
     if params[:place_id]
       # @three_d_videos = Place.three_d_videos.find(params[:place_id]).three_d_videos
-      @place = Place.find(params[:place_id])
+      @place = Place.friendly.find(params[:place_id])
       @three_d_videos = @place.three_d_videos
+      @three_d_video = ThreeDVideo.new
       # @place.three_d_videos = ThreeDVideo.all
     end
 

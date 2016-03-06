@@ -4,6 +4,7 @@
 <% provide(:category,  category) %>
 
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
+<%= render "layouts/navbar" %>
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
   <div class="container" id="search-nav" style="display:none;background:white;">
@@ -74,7 +75,7 @@
     <div class="col-xs-12 col-sm-8 col-md-8">
       <div class="detail-place">
         <div class="located"><p class="gray-font">For ages</p><p><%= @place.minimum_age.to_s + " - " + @place.maximum_age.to_s %></p></div>
-        <div class="language"><p class="gray-font">Best visited</p><p><%=  @optimum_times.first %></p></div>
+        <div class="language"><p class="gray-font">Best visited</p><p><%=  @optimum_times.first rescue "" %></p></div>
         <div class="population">
           <p class="gray-font">Duration</p><p><%= @durations.first %></p>
           </div>
@@ -133,7 +134,7 @@
           </div>
           <div class="col-xs-4">
             <p class="gray-font">Price</p>
-            <p><%= @prices.first %>
+            <p><%= @prices.first rescue "" %>
             </p>
             <p><a href="#" data-toggle="modal" data-target="#TicketsModal">View details</a></p>
           </div>
@@ -223,6 +224,7 @@
       <%# end %>
         </div>
 
+      <%= render :partial => "fun_facts", :locals => { :color => "" }  %>
 
       <% if !@place.fun_facts.blank? %>
         <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs">
@@ -255,7 +257,6 @@
           </div>
         </div> <!-- /hidden-xs -->
       <% end %>
-
     </div>
   </div>
 </section>
@@ -467,6 +468,8 @@
 <% end %>
 
 <%= render 'layouts/all_modal' %>
+<%= render 'new_story' %>
+<%= render 'reviews/form' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
 

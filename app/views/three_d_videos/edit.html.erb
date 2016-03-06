@@ -1,0 +1,10 @@
+<div class="container">
+  <%= render "/places/admin_tabs" %>
+  <h2>Edit 3d Video</h2>
+  <%= simple_form_for [@place, @three_d_video] do |f| %>
+    <%= f.input :link, input_html: { class: 'form-control' } %>
+    <%= f.input :caption, input_html: { class: 'form-control' } %>
+    <%= f.hidden_field :place_id, value: @place.id %>
+    <%= f.submit :submit %>
+  <% end %>
+</div>

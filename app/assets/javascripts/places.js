@@ -180,14 +180,23 @@ $('#story-close').on('click', function(){
   $('#image-3').remove();
 });
 
-$('#story-publish-button').on('click', function(){
-  $('#storyModal').modal("hide");
-  $('.loader-bound-round').show();
-});
-
+// $('#story-publish-button').on('click', function(){
+//   $('#storyModal').modal("hide");
+//   $('.loader-bound-round').show();
+// });
+}
+function ratyRate() {
+  // $(".star-place").raty({
+  //   // cancel:true
+  // });
 }
 
 $(document).ready(function() {
+    $('#publish-review-button').on('click', function(){
+      $('#ReviewModal').modal("hide");
+    })
+    ratyRate();
+    
    allMap();
    addToFav();
    setUpLoadMore();
