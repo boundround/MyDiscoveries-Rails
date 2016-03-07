@@ -1,0 +1,9 @@
+<div class="container">
+  <%= render "/places/admin_tabs" %>
+  <h2>Edit Good To Know</h2>
+  <%= simple_form_for [@place, @good_to_know] do |f| %>
+    <%= f.input :description, input_html: { class: 'form-control' } %>
+    <%= f.input :show_on_page %>
+    <%= f.submit :submit %>
+  <% end %>
+</div>

@@ -145,6 +145,7 @@ Rails.application.routes.draw do
     resources :user_photos
     resources :three_d_videos
     resources :similar_places
+    resources :good_to_knows
     collection { post :import }
   end
 
@@ -180,6 +181,7 @@ Rails.application.routes.draw do
     resources :fun_facts
     resources :famous_faces
     resources :info_bits
+    resources :good_to_knows
     collection { post :import }
   end
 

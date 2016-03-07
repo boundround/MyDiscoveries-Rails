@@ -52,6 +52,8 @@ class Country < ActiveRecord::Base
   has_many :stories
   has_many :user_photos
 
+  has_many :good_to_knows, as: :good_to_knowable
+
   has_many :countries_discounts
   has_many :discounts, through: :countries_discounts
 

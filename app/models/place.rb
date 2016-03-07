@@ -145,6 +145,8 @@ class Place < ActiveRecord::Base
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
 
+  has_many :good_to_knows, as: :good_to_knowable
+
   has_many :places_users
   has_many :users, through: :places_users
 
