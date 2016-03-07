@@ -223,48 +223,100 @@ function setModalTickets(){
 }
 
 function setModalStory(){
+	$("#aStoryModal").click(function() {
+		$("#StoryModal").modal();
+		$('#TitleStoryModal').hide();
+	   $('#PhotoStoryModal').hide();
+	   $('#DateStoryModal').hide();
+	   $('#AboutStoryModal').hide();
+	   $('#AgeBracketModal').hide();
+	   $('#FirstNameModal').hide();
+	});
+
 	$('#StoryModal').on('shown.bs.modal', function () {
   	$('#myInput').focus()
+	// $('#TitleStoryModal').hide();
+	// $('#PhotoStoryModal').hide();
+	// $('#DateStoryModal').hide();
+	// $('#AboutStoryModal').hide();
+	// $('#AgeBracketModal').hide();
+	// $('#FirstNameModal').hide();
 	});
 
 	$(".story").on('click', function() {
-	   $('#StoryModal').modal('show');
-	   $('#TitleStoryModal').modal('hide');
-	   $('#PhotoStoryModal').modal('hide');
-	   $('#DateStoryModal').modal('hide');
-	   $('#AboutStoryModal').modal('hide');
-	   $('#AgeBracketModal').modal('hide');
-	   $('#FirstNameModal').modal('hide');
+	   $('#ContentStoryModal').show();
+	   $('#TitleStoryModal').hide();
+	   $('#PhotoStoryModal').hide();
+	   $('#DateStoryModal').hide();
+	   $('#AboutStoryModal').hide();
+	   $('#AgeBracketModal').hide();
+	   $('#FirstNameModal').hide();
 	});
 
 	$(".title-story").on('click', function() {
-	   $('#StoryModal').modal('hide');
-	   $('#TitleStoryModal').modal('show');
+	   // $('#StoryModal').modal('hide');
+		$('#TitleStoryModal').show();
+		$('#PhotoStoryModal').hide();
+		$('#ContentStoryModal').hide();
+		$('#DateStoryModal').hide();
+		$('#AboutStoryModal').hide();
+		$('#AgeBracketModal').hide();
+		$('#FirstNameModal').hide();
 	});
 
 	$(".photo-story").on('click', function() {
-	   $('#StoryModal').modal('hide');
-	   $('#PhotoStoryModal').modal('show');
+	   // $('#StoryModal').modal('hide');
+		$('#PhotoStoryModal').show();
+		$('#TitleStoryModal').hide();
+		$('#ContentStoryModal').hide();
+		$('#DateStoryModal').hide();
+		$('#AboutStoryModal').hide();
+		$('#AgeBracketModal').hide();
+		$('#FirstNameModal').hide();
 	});
 
 	$(".date-story").on('click', function() {
-	   $('#StoryModal').modal('hide');
-	   $('#DateStoryModal').modal('show');
+	   // $('#StoryModal').modal('hide');
+		$('#DateStoryModal').show();
+	    $('#PhotoStoryModal').hide();
+		$('#TitleStoryModal').hide();
+		$('#ContentStoryModal').hide();
+		$('#AboutStoryModal').hide();
+		$('#AgeBracketModal').hide();
+		$('#FirstNameModal').hide();
 	});
 
 	$(".about-story").on('click', function() {
-	   $('#StoryModal').modal('hide');
-	   $('#AboutStoryModal').modal('show');
+	   // $('#StoryModal').modal('hide');
+		$('#AboutStoryModal').show();
+		$('#PhotoStoryModal').hide();
+		$('#DateStoryModal').hide();
+		$('#TitleStoryModal').hide();
+		$('#ContentStoryModal').hide();
+		$('#AgeBracketModal').hide();
+		$('#FirstNameModal').hide();
 	});
 
 	$(".agebracket").on('click', function() {
-	   $('#StoryModal').modal('hide');
-	   $('#AgeBracketModal').modal('show');
+	   // $('#StoryModal').modal('hide');
+		$('#AgeBracketModal').show();
+		$('#PhotoStoryModal').hide();
+		$('#AboutStoryModal').hide();
+		$('#DateStoryModal').hide();
+		$('#TitleStoryModal').hide();
+		$('#ContentStoryModal').hide();
+		$('#FirstNameModal').hide();
 	});
 
 	$(".firstname").on('click', function() {
-	   $('#StoryModal').modal('hide');
-	   $('#FirstNameModal').modal('show');
+	   // $('#StoryModal').modal('hide');
+		$('#FirstNameModal').show();
+		$('#PhotoStoryModal').hide();
+		$('#AgeBracketModal').hide();
+		$('#AboutStoryModal').hide();
+		$('#DateStoryModal').hide();
+		$('#TitleStoryModal').hide();
+		$('#ContentStoryModal').hide();
 	});
 }
 

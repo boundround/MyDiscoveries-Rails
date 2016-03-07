@@ -222,13 +222,15 @@ class PlacesController < ApplicationController
     @reviews = @place.reviews.active
     # debugger
 
+    @review = Review.new
     if user_signed_in?
       @user_reviews_not_public = @place.reviews.where('(status = ? OR status = ?) AND user_id = ?', "draft", "user", current_user.id)
+      @review = @user_review = @user_reviews_not_public.find{|r|r.user_id.eql?(current_user.id)} 
     end
     if !@user_reviews_not_public.blank?
       @reviews += @user_reviews_not_public
     end
-    @review = Review.new
+    
 
     # @storiable = @place
     api_blogs = ApiBlog.get_cached_blogs(@place.slug)

@@ -23,7 +23,8 @@
 // require jquery.bxslider
 // require jquery.keep-ratio
 // require progressbar
-// require bootstrap-datepicker
+//= require jquery.MultiFile
+//= require bootstrap-datepicker
 // require countries
 //= require area
 //= require jquery.raty-fa
