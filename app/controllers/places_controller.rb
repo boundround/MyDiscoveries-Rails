@@ -163,17 +163,6 @@ class PlacesController < ApplicationController
     # @place_blog = @place.blog_request
 
     # Details information
-
-    @optimum_times = @place.subcategories.best_visited
-    @durations = @place.subcategories.duration
-    @subcategories = @place.subcategories.subcategory
-    @accessibilities = @place.subcategories.accessibility
-    @prices = @place.subcategories.price
-
-    @more_places = Place.where(primary_category: @place.primary_category).limit(6)
-    @related_places = Place.is_area.limit(6)
-    @reviewable = @place
-    @reviews = @reviewable.reviews.active
     informations = @place.subcategories.get_all_informations
 
     @optimum_times =  Subcategory.get_data_by_type(informations, "Optimum Times")

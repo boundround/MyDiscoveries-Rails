@@ -15,7 +15,7 @@ body{
 	font-family:'Signika', sans-serif !important;
 	font-weight: 100 ;
 }
-h2, h3, h4{
+h1, h2, h3, h4{
 	font-weight: 100 !important;
 
 }
@@ -198,8 +198,9 @@ ul.nav.navbar-nav.first-ul{
 }
 .section-title{
 	/*font-family: */
-	/*font-weight: bold;*/
-	margin: 20px 0;
+	font-weight: 500 !important;
+	margin: 10px 0;
+	margin-top: 30px;
 }
 .border-section{
 	border-bottom: 1px solid #D2D2D2;
@@ -209,6 +210,9 @@ ul.nav.navbar-nav.first-ul{
 }
 .btn{
 	font-weight: 100 !important;
+}
+.btn-default {
+	border: none !important
 }
 .btn-brw-blue,.btn-brw-orange,.btn-brw-purple,.btn-brw-green2,.btn-brw-green,.btn-brw-orange2{
 	color: #fff;
@@ -288,10 +292,14 @@ ul.nav.navbar-nav.first-ul{
 }
 .load-more{
 	/*margin: 15px 0;*/
+	border: none !important;
+	box-shadow: 1px 1px 3px rgba(66,66,66,0.15);
 }
 .thumbnail{
-	border: none;
+	border: none !important;
 	background: none;
+	box-shadow: 1px 1px 3px rgba(66,66,66,0.15);
+
 }
 .thumbnail .caption{
 	background: #fff;
@@ -732,7 +740,7 @@ section.travelling-tips h4{
 
 section.travelling-tips .fa{
 	color: rgba(0, 0, 0, 0.29);
-	margin-right: 25px;
+	margin-right: 20px;
 }
 /*END*/
 
@@ -878,13 +886,13 @@ section.video-show .title, .title-fun-caro{
     width: 77%;
 }
 .title-fun-caro{
-	text-shadow: 0px 0px 10px #000,5px 2px 7px #000;
+	color: #ffffff;
 }
 .title-fun-caro p{
-	font-weight: 400;
+	font-weight: 500;
 }
 .title-fun-caro h5{
-	font-weight: 700 !important;
+	font-weight: 100 !important;
 }
 
 section.video-show .detail-dest .left{
@@ -977,7 +985,7 @@ section.photo-latest .image img{
 /*HEADER IMAGE WITH NAV*/
 .header-image-with-nav{
     /*height: 194px;*/
-    height: 265px;
+    height: 200px;
     z-index: 0; 
     overflow: hidden;
     position: relative;
@@ -991,10 +999,11 @@ section.photo-latest .image img{
 .header-image-with-nav .component{
     position: relative;
     /* was 44 */
-    top: 134px;
-    height: 40px;
+    top: 60px;
+    height: 50px;
     width: 90%;
-    margin: 0 auto;
+    margin: 0;
+    font-size: 13px;
 }
 
 .header-image-with-nav .component ul{
@@ -1002,7 +1011,7 @@ section.photo-latest .image img{
     padding: 0;
 }
 .header-image-with-nav .component ul li{
-	margin-bottom: 3px;
+	margin-bottom: 5px;
 }
 .header-image-with-nav .component ul li a{
 	color:#fff;
@@ -1010,10 +1019,10 @@ section.photo-latest .image img{
 
 .header-image-with-nav .action{
     position: relative;
-    top: 225px;
+    top: 160px;
     padding: 0 13px;
     height: 40px;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     line-height: 40px;
     border-top-left-radius: 4px;
@@ -1100,6 +1109,13 @@ section.photo-latest .image img{
 	.header-image-with-nav .action{
 		font-size: 11px;
 	}
+	.detail-place p {
+		font-size: 11px;
+	}
+	.detail-place .suka i {
+		font-size: 3px;
+	}
+
 }
 /*END HEADER IMAGE WITH NAV*/
 /*PLACE DETAIL/COUNTRY*/
@@ -1173,11 +1189,12 @@ section.country-details .place-title2{
 	border: none;
 	text-align: center;
 	/* was 20.5 */
-	width :25%;
+	width :30%;
 	padding-top: 8px;
+	padding-left: 8px;
 }
 .detail-place .suka i{
-    font-size: 12px;
+    font-size: 17px;
     color: #3A548B;
 }
 .component-desk ul{
@@ -1211,22 +1228,34 @@ section.country-details .place-title2{
     width: 100%;
     display: -webkit-inline-flex;
     display: inline-flex;
+    font-size: 13px;
 }
 .detail-place .located,.detail-place .language,.detail-place .population{
     float: left;
     border-right: 1px;
     border-right: 1px solid #D2D2D2;
     /* was 20.5 */
-    width: 25%;
+    width: 22.5%;
     text-align: center;
     padding-top: 8px;
+    padding-left: 8px;
 }
+
+.detail-place .language, .detail-place .population {
+		width: 25%;
+}
+
+.detail-place .population {
+	width: 30%;
+}
+
 .detail-place .likes{
 	border: none;
 	text-align: center;
 	/* was 20.5 */
-	width :25%;
+	width :20.5%;
 	padding-top: 8px;
+	padding-left: 8px;
 }
 .detail-place .likes i{
     font-size: 20px;
@@ -1267,6 +1296,8 @@ section.visit-place{
 	background: #eaeaea;
 	/*padding: 0 0 20px 0;*/
 }
+
+mrg-btm30
 /*END VISIT-PLACE*/
 
 /*FAMOUS-FACE*/
@@ -1427,8 +1458,11 @@ a.left.carousel-control.carousel-fun{
   margin: auto;
 }*/
 .for-owl{
+		background: #ffffff;
     margin: auto;
-    width: 90%;
+    width: 100%;
+    padding: 18px;
+    border-radius: 5px;
     /*width: 845px;*/
     /*padding-top: 50px;*/
 }
@@ -1485,6 +1519,14 @@ a.left.carousel-control.carousel-fun{
     height: 50px;
     width: 50px !important;
     line-height: 50px;
+}
+
+.owl-buttons i {
+	padding: 5px;
+	background: #ffffff;
+	color: grey;
+	box-shadow: 1px 1px 3px rgba(66,66,66,0.25);
+	border-radius: 3px;
 }
 /**/
 /*EVERYONE*/
@@ -2039,15 +2081,21 @@ section.modal-booking .left img{
 }
 .button-style-booking {
 	/*width: 190px;*/
-	width: 180px;
+	width: 200px;
 	height: 50px;
 	/*margin-left: 10px;*/
 	/*margin-right: 5px;*/
 	margin-top: 10px;
+	border-radius: 10px !important;
+	font-size: 21px !important;
+	padding: 0 !important;
+	line-height: 50px !important;
 }
 .button-orange {
 	background-color: #FF704D !important;
 	color: #FFFFFF !important;
+	border: 0 !important;
+	box-shadow: 1px 1px 2px rgba(66, 66, 66, 0.25);
 }
 .button-orange:hover {
 	background-color: #FF704D !important;
@@ -2074,6 +2122,7 @@ section.modal-booking .left img{
 .btn.btn-museum {
 	border-color: #57B6CB;
 	background-color: #57B6CB;
+	border-radius: 6px !important;
 	/*margin-right: 15px;*/
 /*	margin-left: 7px;*/
 	/*width: 45%;*/
@@ -2086,6 +2135,7 @@ section.modal-booking .left img{
 .btn.btn-direction {
 	border-color: #57B6CB;
 	background-color: #57B6CB;
+	border-radius: 6px !important;
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
@@ -2469,6 +2519,7 @@ footer li{
 }
 footer li a{
 	color: #fff;
+	font-weight: 100;
 }
 footer img{
 	width: 88px;
