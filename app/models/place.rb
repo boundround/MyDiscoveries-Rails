@@ -151,6 +151,8 @@ class Place < ActiveRecord::Base
   has_many :user_photos
   has_one :journal_info
 
+  has_many :good_to_knows, as: :good_to_knowable
+
   has_many :places_users
   has_many :users, through: :places_users
 
