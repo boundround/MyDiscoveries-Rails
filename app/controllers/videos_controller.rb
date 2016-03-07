@@ -7,7 +7,7 @@ class VideosController < ApplicationController
       @videos = Place.friendly.find(params[:place_id]).videos
       @place = Place.friendly.find(params[:place_id])
     else
-      @videos = Video.includes(:place => :area).order('areas.display_name ASC, places.display_name ASC').paginate(:page => params[:page])
+      @videos = Video.includes(:place).order('places.display_name ASC').where('videos.place_id IS NOT NULL').paginate(:page => params[:page])
     end
   end
 
