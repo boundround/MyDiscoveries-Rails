@@ -33,6 +33,24 @@ class UserPhoto < ActiveRecord::Base
     end
   end
 
+  def credit
+    if user.username
+      if user.username.match(/@/)
+        user.username.match(/^(.*?)@/)[1]
+      else
+        user.username
+      end
+    elsif user.email
+      if user.email.match(/@/)
+        user.email.match(/^(.*?)@/)[1]
+      else
+        user.username
+      end
+    else
+      ""
+    end
+  end
+
   def send_live_notification
     if self.story_id.blank?
 

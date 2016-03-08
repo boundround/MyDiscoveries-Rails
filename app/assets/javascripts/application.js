@@ -66,3 +66,4 @@
 //= require instafeed.min
 //= require jquery.snowshoe
 //= require stamps
+//= require dual_list_box

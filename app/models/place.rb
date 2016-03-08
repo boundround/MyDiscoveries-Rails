@@ -132,26 +132,16 @@ class Place < ActiveRecord::Base
 
   validates_presence_of :display_name, :slug
 
-  belongs_to :area
+  # belongs_to :area
   belongs_to :country
   belongs_to :user
   belongs_to :primary_category
   has_many :categorizations
   has_many :categories, through: :categorizations
-  has_many :places_secondary_categories
-  has_many :secondary_categories, through: :places_secondary_categories
-  has_many :accessibility_categories_places
-  has_many :accessibility_categories, through: :accessibility_categories_places
-  has_many :best_time_to_visit_categories_places
-  has_many :best_time_to_visit_categories, through: :best_time_to_visit_categories_places
-  has_many :duration_categories_places
-  has_many :duration_categories, through: :duration_categories_places
-  has_many :best_time_to_visit_categories_places
-  has_many :best_time_to_visit_categories, through: :best_time_to_visit_categories_places
-  has_many :places_price_categories
-  has_many :price_categories, through: :places_price_categories
-  has_many :places_weather_categories
-  has_many :weather_categories, through: :places_weather_categories
+  has_many :places_subcategories
+  has_many :similar_places
+  has_many :associated_areas, through: :similar_places, source: :similar_place
+  has_many :subcategories, through: :places_subcategories
   has_many :photos, -> { order "created_at ASC"}
   has_many :discounts, -> { order "created_at ASC"}
   has_many :games, -> { order "created_at ASC"}
@@ -160,6 +150,8 @@ class Place < ActiveRecord::Base
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
   has_one :journal_info
+
+  has_many :good_to_knows, as: :good_to_knowable
 
   has_many :places_users
   has_many :users, through: :places_users
@@ -184,12 +176,6 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :stories, allow_destroy: true
   accepts_nested_attributes_for :user_photos, allow_destroy: true
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
-  accepts_nested_attributes_for :secondary_categories, allow_destroy: true
-  accepts_nested_attributes_for :accessibility_categories, allow_destroy: true
-  accepts_nested_attributes_for :price_categories, allow_destroy: true
-  accepts_nested_attributes_for :weather_categories, allow_destroy: true
-  accepts_nested_attributes_for :best_time_to_visit_categories, allow_destroy: true
-  accepts_nested_attributes_for :duration_categories, allow_destroy: true
   accepts_nested_attributes_for :stamps, allow_destroy: true
 
   mount_uploader :map_icon, IconUploader
@@ -358,10 +344,10 @@ class Place < ActiveRecord::Base
   def load_into_soulmate
     if self.status == "live"
       loader = Soulmate::Loader.new("place")
-      loader.add("term" => display_name.downcase + ' ' + (description ? description.downcase : "") + ' ' + (self.area_id ? self.area.display_name.downcase : ""),
+      loader.add("term" => display_name.downcase + ' ' + (description ? description.downcase : ""),
                 "display_name" => display_name, "id" => id, "latitude" => latitude, "longitude" => longitude,
                 "url" => '/places/' + slug + '.html', "slug" => slug, "placeType" => "place",
-                "area" => {"display_name" => (self.area_id ? self.area.display_name : (self.locality ? self.locality : "")), "country" => (self.country ? self.country.display_name : "") })
+                "area" => {"display_name" => (self.locality ? self.locality : ""), "country" => (self.country ? self.country.display_name : "") })
     else
       self.remove_from_soulmate
     end

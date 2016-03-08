@@ -163,7 +163,7 @@
                 <div id="br15_owl_video" class="owl-carousel">
                     <% @videos.each_with_index do |video, index| %>
                       <div>
-                          <div class="embed-responsive embed-responsive-16by9 for-video-modal"
+                          <div class="embed-responsive embed-responsive-16by9 for-video-modal" id="<%= video.vimeo_id || video.youtube_id %>"
                               data-src=<% if !video.vimeo_id.blank? %>
                                          <%= "//player.vimeo.com/video/#{video.vimeo_id}" %>
                                         <% else %>

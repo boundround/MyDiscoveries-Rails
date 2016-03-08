@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
   get 'pages/terms' => 'pages#terms'
   get 'pages/privacy' => 'pages#privacy'
+  get '/robots.txt' => 'pages#robots'
 
   resources :search_suggestions
 
@@ -132,12 +133,6 @@ Rails.application.routes.draw do
 
   resources :pages
 
-#  root :to => 'pages#globe'
-
-#  get '/map' => 'pages#index'
-
-#  get '/map_only' => 'pages#map_only'
-
   get '/google_map_home' => 'pages#google_map_home'
 
   get '/puzzles/:action' => 'puzzles#:action'
@@ -157,6 +152,7 @@ Rails.application.routes.draw do
 
   post '/places/transfer_assets' => 'places#transfer_assets'
   get '/places/:id/new_edit' => 'places#new_edit'
+  get '/places/:id/refresh_blog' => 'places#refresh_blog'
   # get '/places/:id/hero_image_picker' => 'places#hero_image_picker'
   resources :places do
     member { get 'preview' }
@@ -176,8 +172,12 @@ Rails.application.routes.draw do
     resources :stories
     resources :user_photos
     resources :three_d_videos
+    resources :similar_places
+    resources :good_to_knows
     collection { post :import }
   end
+
+  resources :three_d_videos
 
   resources :photos do
     collection { post :import }
@@ -209,6 +209,7 @@ Rails.application.routes.draw do
     resources :fun_facts
     resources :famous_faces
     resources :info_bits
+    resources :good_to_knows
     collection { post :import }
   end
 
