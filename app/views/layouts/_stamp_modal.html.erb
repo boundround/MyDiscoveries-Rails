@@ -194,7 +194,7 @@ See GitHub project page for Documentation and License
           if(response["id"] == "error"){
             window.location = "/stamp_transactions/stamp_error";
           } else {
-            window.location = "places/" + response.slug + "/stamp_confirmation";
+            window.location = "/places/" + response.slug + "/stamp_confirmation";
           }
 
         // SUCCESS passes the snowshoe tests

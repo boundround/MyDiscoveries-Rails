@@ -29,7 +29,7 @@ class StampTransactionsController < ApplicationController
 		# client = Snowshoe::Client.new(ENV["SNOWSHOE_APP_KEY"], ENV["SNOWSHOE_APP_SECRET"])
 		# data = { "data" => params[:data] }
 		# response = client.post data
-		response = JSON.parse '{ "error": { "serial": "26731" }, "receipt": "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "secure": false, "created": "2015-03-24 11:27:33.014149" }'
+		response = JSON.parse '{ "stamp": { "serial": "26731" }, "receipt": "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "secure": false, "created": "2015-03-24 11:27:33.014149" }'
 
 		if response.include? "stamp" # checking for valid response
 			# store it in our database
