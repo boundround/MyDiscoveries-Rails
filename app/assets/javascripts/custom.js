@@ -247,6 +247,12 @@ function wpBlogs(){
     // $("#frame-blog").prop("src", host+"/wp-blog/"+id+"/"+place);
     // $("#userStory iframe");
     $("#userStory").modal();
+    if (window.innerWidth < 600){
+      setTimeout(function(){
+        $('#userStory iframe').contents().find('.alignleft').css('width', '100%');
+      }, 3000);
+    }
+    
   });
 
   $('#userStory').on('hidden.bs.modal', function () {
