@@ -185,19 +185,28 @@ $('#story-close').on('click', function(){
 //   $('.loader-bound-round').show();
 // });
 }
-function setUpfileUpload(){
-  $('.file-upload').MultiFile({
-    list: '#lis-file-upload',
+function setUpfileUpload(input, list){
+  $(input).MultiFile({
+    list: list,
     max: 10,
-    accept: 'jpg|png|gif'
+    accept: 'jpg|png|gif|mp4|3gp'
   });
+
+  //   $('.file-upload2').MultiFile({
+  //   list: '.lis-file-upload2',
+  //   max: 10,
+  //   accept: 'jpg|png|gif|mp4|3gp'
+  // });
 }
+
 $(document).ready(function() {
     $('#publish-review-button').on('click', function(){
       $('#ReviewModal').modal("hide");
     })
     $('.place-date').datepicker();
 
+   setUpfileUpload('.file-upload','.lis-file-upload');
+   setUpfileUpload('.file-upload2','.lis-file-upload2');
    setUpfileUpload();
    allMap();
    addToFav();

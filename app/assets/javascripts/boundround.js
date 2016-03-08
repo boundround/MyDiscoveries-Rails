@@ -90,10 +90,10 @@ function setupNav(){
 	$(".navbar-toggle").click(function(){
 		if ( $(this).attr("aria-expanded") == "false"){
 			$(this).find(".fa-bars").hide();
-			$(this).find(".fa-close").show();
+			$(this).find(".fa-times").show();
 		}else{
 			$(this).find(".fa-bars").show();
-			$(this).find(".fa-close").hide();
+			$(this).find(".fa-times").hide();
 
 		}
 	});

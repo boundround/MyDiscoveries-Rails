@@ -1,4 +1,6 @@
  <!-- MODAL TELL STORY-->
+ <!-- #hardcode /file backup dari sebelumnya = stories-> _form.html.erb -->
+
 <% if user_signed_in? %>
 <%= form_for [@place, @story], :html => { :id => "story-form" } do |f| %>
 <div id="StoryModal" class="modal fade">
@@ -106,7 +108,7 @@
               <div class="row">
               <div class="col-xs-12">
                 <!-- <button class="btn btn-height-width btn-default"><i class="fa fa-plus pink"></i> Add</button> -->
-                <div id="lis-file-upload" class="">
+                <div class="lis-file-upload" class="">
                   
                 </div>
                     <div class="fileinput-button">
@@ -161,27 +163,21 @@
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
         <h4 class="modal-title" align="center">Your age bracket</h4>
       </div>
-      <div class="modal-body" align="left">
-         <a href="#" class="btn btn-default btn-block">
-          <p align="left">
-         5-8 years old
-          </p>
-         </a>
-         <a href="#" class="btn btn-default btn-block">
-          <p align="left">
-         9-12 years old
-          </p>
-         </a>
-         <a href="#" class="btn btn-default btn-block">
-          <p align="left">
-         A teenager
-          </p>
-         </a>
-         <a href="#" class="btn btn-default btn-block">
-          <p align="left">
-         An adult
-          </p>
-         </a>
+      <div class="modal-body">
+         <div class="" data-toggle="buttons">
+          <label class="btn btn-default btn-block ">
+            <input type="radio" name="options" id="option1" autocomplete="off">5-8 years old
+          </label>
+          <label class="btn btn-default btn-block ">
+            <input type="radio" name="options" id="option2" autocomplete="off"> 9-12 years old
+          </label>
+          <label class="btn btn-default btn-block ">
+            <input type="radio" name="options" id="option3" autocomplete="off"> A teenager
+          </label>
+          <label class="btn btn-default btn-block ">
+            <input type="radio" name="options" id="option4" autocomplete="off"> An adult
+          </label>
+        </div>
       </div>
     </div>
 

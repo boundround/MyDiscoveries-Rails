@@ -4,7 +4,7 @@
 <% provide(:category,  category) %>
 
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
-
+<%= render "layouts/navbar" %>
 <div id='country-data' data-country-code=<%= @place.country.country_code %> data-capital-city=<%= @place.country.capital_city %>></div>
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
@@ -40,7 +40,11 @@
       <div class="action">
         <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div>
         <div class="center"><a class="white"href="#"><i class="fa fa-plus"></i> Add media</a>  </div>
-        <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#StoryModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+        <% if user_signed_in?%>
+          <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+        <% else %>
+          <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+        <% end %>
         <div class="pull-right hidden-xs">
           <div class="component-desk">
             <ul>
@@ -344,6 +348,8 @@
 <% end %>
 
 <%= render 'layouts/all_modal' %>
+<%= render 'new_story' %>
+<%= render 'layouts/signin_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
 <%= render 'layouts/footer' %>
