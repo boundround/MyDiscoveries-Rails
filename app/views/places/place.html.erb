@@ -40,13 +40,21 @@
     <div class="action bg-place">
       <div class="left">
         <% if user_signed_in? %>
-          <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o"></i> Leave review </a>
-        <% else %>
           <a href="#" class="white" data-toggle="modal" data-target="#ReviewModal"><i class="fa fa-smile-o"></i> Leave review </a>
+        <% else %>
+          <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o"></i> Leave review </a>
         <% end %>
         </div>
-      <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#PhotoStoryModal" ><i class="fa fa-plus"></i> Add photo</a>  </div>
-      <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#StoryModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+      <% if user_signed_in? %>
+        <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#addMediaModal" ><i class="fa fa-plus"></i> Add media</a>  </div>
+        <% else %>
+        <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add media</a>  </div>
+      <% end %>
+      <% if user_signed_in? %>
+        <div class="right"><a  href="#" class="white" id="aStoryModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+        <% else %>
+        <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+      <% end %>
       <div class="pull-right hidden-xs">
         <div class="component-desk">
           <ul>
@@ -150,10 +158,13 @@
 
           <!-- <a id="place-favorite" class=""><i class="fa fa-bookmark-o"></i> Add To Favourites</a> -->
           <% if user_signed_in? && @place.users.include?(current_user) %>
-            <a href="#" id="place-favorite" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"><i class="fa fa-bookmark-o"></i> Remove from wishlist</a>
+            <i class="fa fa-bookmark-o"></i>
+            <a href="#" class="place-favorite black" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
           <% else %>
-            <a href="#" id="place-favorite" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> <i class="fa fa-bookmark-o"></i> Add to wishlist</a>
+            <i class="fa fa-bookmark-o"></i>
+            <a href="#" class="place-favorite black" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
           <% end %>
+
         </div>
         <div id="map"></div>
         <div class="text-center btn-map">
@@ -183,8 +194,15 @@
     <a href="<%= @place.viator_link %>" data-target="blank" style="margin:-5px" class="btn button-orange button-style-booking fontbig-button btn-radius btn-shadow">Book Now!</a>
 
   </div>
+
   <div class="text-center div-btn-country top20 btm20 hidden-xs">
-    <a href="#" class="black"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
+    <% if user_signed_in? && @place.users.include?(current_user) %>
+    <i class="fa fa-bookmark-o"></i>
+     <a href="#" class="place-favorite black" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
+    <% else %>
+    <i class="fa fa-bookmark-o"></i>
+    <a href="#" class="place-favorite black" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
+    <% end %>
   </div>
 
 <% unless @photos.blank? %>
@@ -366,7 +384,11 @@
               <div class="btm15 card review-content">
                 <div class="body-stories">
                   <p class="some-text" data-full-text="<%= review.content %>">
-                    <%= review.content[0..280] + "..." %>
+                    <% if review.content.length > 280 %>
+                        <%= review.content[0..280] + "..." %>
+                      <% else %>
+                       <%= review.content %>
+                    <% end %>
                   </p>
                 </div>
                 <div class="head-stories">
@@ -377,9 +399,12 @@
                     <span class="grey">Jul 2015</span>
                   </div>
                   <div class="right">
+                  <!-- #hardcode -->
+                  <%# debugger %>
                     <%# get_user_place_rating_from_review(review).times do |star| %>
                       <i class="fa fa-smile-o"></i>
                     <%# end %>
+                  <%# end %>
                   </div>
                 </div>
               </div>
@@ -470,6 +495,7 @@
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
 <%= render 'reviews/form' %>
+<%= render 'layouts/signin_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
 

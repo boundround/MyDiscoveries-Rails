@@ -1,9 +1,11 @@
-<!-- MODAL TELL STORY-->
-<div id="StoryModal" class="modal fade" role="dialog">
+ <!-- MODAL TELL STORY-->
+<% if user_signed_in? %>
+<%= form_for [@place, @story], :html => { :id => "story-form" } do |f| %>
+<div id="StoryModal" class="modal fade">
   <div class="modal-dialog modal-margin-top">
 
     <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" id="ContentStoryModal">
       <div class="modal-header">
         <button type="button" class="close close-modal-orange" data-dismiss="modal">&times;</button>
         <!-- <span class="left-modal"><a type="button" class="btn custom-close-register"><i class="fa fa-arrow-left"></i></a></span> -->
@@ -51,25 +53,19 @@
               </a>
             </div>
             <div class="col-xs-12 col-md-12">
-              <button style="text-align:center" class="btn btn-danger btn-block btn-height btn-radius button-orange fontbig-button btm15">Publish</button>
+              <!-- <button style="text-align:center" class="btn btn-danger btn-block btn-height btn-radius button-orange fontbig-button btm15">Publish</button> -->
+              <%= f.submit "Publish", class: "btn btn-danger btn-block btn-height btn-radius button-orange fontbig-button btm15", id: "story-publish-button" %>
             </div>
             <div class="col-xs-12 ">
               <button class="btn btn-default pink">Save as draft</button>
             </div>
+
           </div>
         </section>
       </div>
     </div>
-  </div>
-</div>
-<!-- END MODAL TELL STORY-->
 
-<!-- MODAL TITLE STORY-->
-<div id="TitleStoryModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
-
-    <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" id="TitleStoryModal">
       <div class="modal-header">
         <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
@@ -81,57 +77,72 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-<!-- END MODAL TITLE STORY-->
 
+  <%= f.fields_for :user_photos do |ff| %>
+    <!-- <div class="img-cont share"> -->
+      <!-- <div class="story-image-container" id="story-image-1-container"> -->
+        <!-- <img id="story-image-1" class="story-image-preview" src="#" alt="Your Image" /> -->
+      <!-- </div> -->
 
-<!-- MODAL PHOTO STORY-->
-<div id="PhotoStoryModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
+      <!-- <div class="share-btn"> -->
+        <!-- <a class="btn btn-default"><span class="fa fa-picture-o"></span>
+            <br>Click To Select Image
+            <%#= ff.file_field :path, label: false %>
+          </a> -->
+          <%#= ff.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+          <%#= ff.hidden_field :status, :value => "draft" %>
+          <%#= ff.hidden_field :story_priority, :value => 1 %>
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
-        <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
-        <h4 class="modal-title" align="center">Photos & Videos</h4>
-      </div>
-      <div class="modal-body" align="left">
-        <p align="left">
-          <button class="btn btn-height-width btn-default"><i class="fa fa-plus pink"></i> Add</button>
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- END MODAL PHOTO STORY-->
+          <div class="modal-content" id="PhotoStoryModal">
+            <div class="modal-header">
+              <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
+              <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
+              <h4 class="modal-title" align="center">Photos & Videos</h4>
+            </div>
+            <div class="modal-body" align="left">
+<!--               <div id="" class="progress">
+                  <div class="progress-bar progress-bar-success"></div>
+              </div> -->
+              <div class="row">
+              <div class="col-xs-12">
+                <!-- <button class="btn btn-height-width btn-default"><i class="fa fa-plus pink"></i> Add</button> -->
+                <div id="lis-file-upload" class="">
+                  
+                </div>
+                    <div class="fileinput-button">
+                        <!-- <i class="glyphicon glyphicon-plus"></i> -->
+                        <!-- <span>Add files...</span> -->
+                        <!-- The file input field used as target for the file upload widget -->
+                        <!-- <input id="fileupload" type="file" name="files[]" multiple> -->
+                        <div class="btn btn-height-width btn-default block-import" >
+                          <i class="fa fa-plus pink"></i> Add
+                          <%= ff.file_field :path, label: false, class: "file-upload with-preview"%>
+                        </div>
+                    </div>
+                    <!-- <span class="fileinput-button">
+                        <div id="files" class="files"></div>
+                    </span> -->
+              </div>
+              </div>
+            </div>
+          </div>
+      <!-- </div> -->
+    <!-- </div> -->
+  <% end %>
 
-<!-- MODAL DATE STORY-->
-<div id="DateStoryModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
-
-    <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" id="DateStoryModal">
       <div class="modal-header">
         <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
         <h4 class="modal-title" align="center">When did you visit?</h4>
       </div>
       <div class="modal-body" align="center">
-         <p class="grey">Select the month and year that you visited this place</p>
+         <p class="grey top15 btm15 ">Select the month and year that you visited this place</p>
+            <input type="text" class="form-control place-date">
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-<!-- END MODAL DATE STORY-->
 
-<!-- MODAL ABOUT STORY-->
-<div id="AboutStoryModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
-
-    <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" id="AboutStoryModal">
       <div class="modal-header">
         <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
@@ -143,6 +154,53 @@
          </div>
       </div>
     </div>
+
+    <div class="modal-content" id="AgeBracketModal">
+      <div class="modal-header">
+        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
+        <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
+        <h4 class="modal-title" align="center">Your age bracket</h4>
+      </div>
+      <div class="modal-body" align="left">
+         <a href="#" class="btn btn-default btn-block">
+          <p align="left">
+         5-8 years old
+          </p>
+         </a>
+         <a href="#" class="btn btn-default btn-block">
+          <p align="left">
+         9-12 years old
+          </p>
+         </a>
+         <a href="#" class="btn btn-default btn-block">
+          <p align="left">
+         A teenager
+          </p>
+         </a>
+         <a href="#" class="btn btn-default btn-block">
+          <p align="left">
+         An adult
+          </p>
+         </a>
+      </div>
+    </div>
+
+    <div class="modal-content" id="FirstNameModal">
+      <div class="modal-header">
+        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
+        <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
+        <h4 class="modal-title" align="center">Your first name</h4>
+      </div>
+      <div class="modal-body" align="center">
+         <div class="form-group">
+           <textarea class="form-control" rows="5" placeholder="Enter your name you'd like to appear with your story."></textarea>
+         </div>
+      </div>
+    </div>
+
   </div>
 </div>
-<!-- END MODAL ABOUT STORY-->
+
+<% end %> <!-- /form for -->
+<% end %> 
+<!-- END MODAL ABOUT STORY

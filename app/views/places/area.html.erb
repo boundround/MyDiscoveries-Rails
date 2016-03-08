@@ -89,9 +89,9 @@
               <div class="rel-dest">
                 <p class="gray-color">Related Destinations</p>
                 <ul>
-                <%# @related_places.each do |place| %>
-                  <li><a href="/places/<%#= place.slug %>" class="badge"><%#= place.display_name %></a></li>
-                  <%# end %>
+                <% @similar_places.each do |place| %>
+                  <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                  <% end %>
                 </ul>
               </div>
             </div>
