@@ -1,4 +1,4 @@
-## MODAL LOGIN ACCOUNT -->
+<!-- ## MODAL LOGIN ACCOUNT --> -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-margin-top">
 
@@ -9,7 +9,7 @@
         <h4 class="modal-title" align="center">Login to Bound Round</h4>
       </div>
       <div class="modal-body">
-	        
+
 	        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 		       <div class="col-sm-12">
 		        	<div class="form-group">
@@ -26,7 +26,7 @@
 	                <!--<a href="#" class="forgot-password">FORGOT PASSWORD</a>-->
 	                <%= link_to "FORGOT PASSWORD", new_user_password_path, class: "forgot-password"  %>
 	            </div>
-		            
+
 	            <div class="col-sm-6 text-right div-forgot">
 	                <!--<a href="#" class="forgot-password">FORGOT PASSWORD</a>-->
 	                <%= link_to "FORGOT USERNAME", users_username_new_path, class: "forgot-password"  %>
@@ -41,7 +41,7 @@
 		        <!-- </div> -->
 	        <% end %>
 			         <p align="center" class="btm15 top15 grey">or sign in with...</p>
-<!-- 
+<!--
         <form>
           <div class="form-group">
             <input type="email" class="form-control" placeholder="Email Address">
