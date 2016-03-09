@@ -1660,7 +1660,7 @@ section.everyone .desc{
 	background-color: #242424 !important;
 }
 .dropdown-menu > li > a {
-  color: #FFFFFF !important;
+  color: #FFFFFF;
 }
 .style-text-status {
 	font-size: 65px;
@@ -2601,8 +2601,9 @@ footer ul{
     position: relative;
 	overflow: hidden;
 	display: inline-block;
+	width: 100px;
 }
-.fileinput-button input.file-upload{
+.fileinput-button input.file-upload, .fileinput-button input.file-upload2{
     position: absolute;
     top: 0;
     right: 0;
@@ -2617,8 +2618,77 @@ footer ul{
 	padding-top: 40px;
 }
 .block-import{
-	display: block !important
+	display: block !important;
+	width:100%;
 }
+.lis-file-upload,.lis-file-upload2{
+    float: left;
+    display: block;
+ }
+.lis-file-upload .MultiFile-label,.lis-file-upload2 .MultiFile-label {
+	position: relative;
+	width: 100px;
+    height: 100px;
+}
+.lis-file-upload .MultiFile-title, .lis-file-upload2 .MultiFile-title{
+	display: none
+}
+.lis-file-upload .MultiFile-remove, .lis-file-upload2 .MultiFile-remove{
+	background: red;
+    font-size: 18px;
+    color: #fff;
+    padding: 0px 8px;
+    font-weight: bold;
+    border-radius: 50%;
+    position: absolute;
+    right: -6px;
+    top: -8px;
+    text-decoration: none;
+    z-index: 2;
+}
+.lis-file-upload .MultiFile-label img, .lis-file-upload2 .MultiFile-label img {
+    max-width: initial !Important;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.lis-file-upload .MultiFile-label, .lis-file-upload2 .MultiFile-label{
+    position: relative;
+    margin: 0 10px 10px 0;
+    float: left;
+}
+#AgeBracketModal label{
+	text-align: left;
+}
+.outer-profile{
+    overflow: hidden;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin: -3px 7px 0px 7px;
+    border-radius: 50%
+}
+.outer-profile img{
+	width: 100%
+}
+.badge.badge-profile{
+	position: absolute;
+    z-index: 1;
+    background: red;
+    top: 32px;
+    left: 20px;
+    padding: 2px 5px;
+    border-radius: 50%;
+    width: 19px;
+    height: 19px;
+    line-height: 17px;
+}
+@media (min-width: 1200px){
+	.container.big-container {
+		width:1196px;
+	}
+}
+
 /*END*/
 
 

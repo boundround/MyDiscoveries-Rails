@@ -413,10 +413,23 @@
         <h4 class="modal-title" align="center">Photos & Videos</h4>
       </div>
       <div class="modal-body" align="left">
-      <!-- #harcode -->
-        <p align="left">
-          <button class="btn btn-height-width btn-default"><i class="fa fa-plus pink"></i> Add</button>
-        </p>
+          <div class="row">
+            <div class="col-xs-12">
+              <!-- <button class="btn btn-height-width btn-default"><i class="fa fa-plus pink"></i> Add</button> -->
+              <div class="lis-file-upload2" class="">
+                
+              </div>
+              <form action="">
+                  <div class="fileinput-button">
+                      <div class="btn btn-height-width btn-default block-import" >
+                        <i class="fa fa-plus pink"></i> Add
+                        <%#= ff.file_field :path, label: false, class: "file-upload with-preview"%>
+                        <input type="file" class="file-upload2 with-preview">
+                      </div>
+                  </div>
+              </form>
+            </div>
+          </div>
       </div>
     </div>
   </div>
