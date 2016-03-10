@@ -31,15 +31,10 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require cms
-//= require leaflet.label
-//= require leaflet.markercluster
-//= require L.Control.Zoomslider
-//= require leaflet-hash
 //= require bootsy
 //= require bootstrap
 //= require bootstrap/transition
 //= require geocomplete
-//= require iconlabel
 //= require cookie
 //= require like
 //= require search_suggestions

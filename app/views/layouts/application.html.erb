@@ -44,22 +44,14 @@
           <script type="text/javascript">var _CnvMonk = {};_CnvMonk.cguid = "MzA4MzM";_CnvMonk.in_url = document.location.href;
             (function() {var cm = document.createElement('script'); cm.type = 'text/javascript'; cm.async = true;cm.src = '//app.conversionmonk.com/v1/cm_embed.js?cguid='+_CnvMonk.cguid+'&in_url='+encodeURIComponent(_CnvMonk.in_url);var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cm, s);})();
           </script>
-          <script>(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
-            for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
-            mixpanel.init("6fa4f292952736c51daa1d250d2bf343");
-          </script>
 
           <!-- Alexa Metrics Tracking -->
           <meta name="alexaVerifyID" content="rCx4wAynuVnH_ioayBEVT5PQS0I">
 
           <!-- Sumo Me Metrics Trackings -->
-          <script src="//load.sumome.com/" data-sumo-site-id="eaa1ee3dce26f5b527d1dda134d49555b7be44aebc0a9766069667c82fc3666f" async="async"></script>
 
           <!-- HEAP Analytics Trackings -->
-          <script type="text/javascript">
-            window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
-            heap.load("245399408");
-          </script>
+
 
           <!-- Facebook Pixel Code -->
           <script>
@@ -77,10 +69,7 @@
           /></noscript>
           <!-- End Facebook Pixel Code -->
       <% else %>
-      <script>(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
-            for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
-            mixpanel.init("");
-          </script>
+
       <% end %>
 
     <!-- Google Tag Manager -->
@@ -148,8 +137,7 @@
 <script src="//maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
 	</head>
 
-	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>" data-mixpanel-identity="<%= current_user.present? ? "signed-in signed-in-#{current_user.id}" : "guest-#{request.remote_ip}" %>">
-		<%= javascript_include_tag 'mapbox' %>
+	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
     <%= javascript_include_tag 'application' %>
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
     <%= javascript_include_tag 'froogaloop' %>
