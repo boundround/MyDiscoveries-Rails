@@ -1,0 +1,256 @@
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.6.0/jquery.matchHeight-min.js"></script>
+
+
+          <script type="text/javascript">
+              $(document).ready(function(){
+                  $("#br15_owl_video").owlCarousel({
+                      items:3,
+                      itemsDesktopSmall:[1199,3],
+                      itemsTablet:[768,2],
+                      itemsMobile:[500,1],
+                      navigation:true,
+                      pagination:false,
+                      navigationText: [
+                          "<i class='fa fa-chevron-left'></i>",
+                          "<i class='fa fa-chevron-right'></i>"
+                      ],
+                      afterInit: function(){
+                          $( "#br15_owl_video .glyphicon-menu-left,#br15_owl_video .glyphicon-menu-right" ).empty();
+                      }
+                  });
+                  $("#br15_owl_photos").owlCarousel({
+                      items:3,
+                      itemsDesktopSmall:[1199,3],
+                      itemsTablet:[768,2],
+                      itemsMobile:[500,1],
+                      navigation:true,
+                      pagination:false,
+                      navigationText: [
+                          "<i class='fa fa-chevron-left'></i>",
+                          "<i class='fa fa-chevron-right'></i>"
+                      ],
+                      afterInit: function(){
+                          $( "#br15_owl_photos .glyphicon-menu-left,#br15_owl_photos .glyphicon-menu-right" ).empty();
+                      }
+                  });
+                  $('.br15_instagram,.br15_leaderboard,.br15_reviews,.br15_blog .row .col-sm-6').matchHeight();
+
+                  $('.br15_Slide_Up_BTN').click(function(e){
+                      e.preventDefault();
+                      $('#br15_map').toggleClass('br15_min_h_530');
+                      $('.br15_map').toggleClass('br15_collapse');
+											$('.br15_header').slideToggle(400,function(){
+                          $('.br15_search_result').slideToggle();
+													//Important, google needs to know container changed
+		                      google.maps.event.trigger(br_map, "resize");
+                      });
+
+
+                  });
+              });
+
+          </script>
+    </head>
+        <div class="br15_top_search container-fluid">
+            <div class="br15_search cs-br15_search">
+                <div class="input-group">
+                    <input type="text" id="search-box" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="magnifying-glass" type="button"><span class="fa fa-search"></span></button>
+                    </span>
+                </div>
+            </div>
+            <div class="br15_search_result cs-br15_search_result">
+              <%= render "search_suggestions/search_results" %>
+            </div>
+              <%= render 'layouts/profile_dropdown' %>
+            <div class="row br15_header cs-br15_header" id="rowVideo">
+              <div class="col-xs-12 text-center img_bg_header">
+                <a href="#" class="center-block br15_logo"><img src="<%= asset_path('br_logo_new.png') %>" class="img-responsive center-block home-logo" alt=""></a>
+                <h3 class="text-center text-uppercase br15_heading_main">Sign Up For Bound Round And Get Access to Amazing features!</h3>
+              </div>
+
+              <video autoplay loop muted poster="/assets/br_15_main.jpg" class="video_bg_header" id="home-background-video">
+                <source src="https://brwebproduction.s3.amazonaws.com/background_videos/small.mp4" type="video/mp4">
+                <source src="https://brwebproduction.s3.amazonaws.com/background_videos/small.webm" type="video/webm">
+                <source src="https://brwebproduction.s3.amazonaws.com/background_videos/small.ogv" type="video/ogg">
+              </video>
+            </div>
+            <div class="row br15_map br15_collapse hidden-xs">
+                <div class="br15_map_overlay"></div>
+                <a href="#" class="btn btn-default br15_Slide_Up_BTN"><span class="fa fa-globe"></span> <span class="fa fa-chevron-up"></span></a>
+                    <div id="br15_map">
+
+                    </div>
+            </div>
+        </div>
+        <div class="br15_videos container-fluid">
+            <a href="<%= videos_path %>" class="btn btn-default br15_Title_See_All">videos <span>See All</span></a>
+            <div class="row">
+                <div id="br15_owl_video" class="owl-carousel">
+                  <% @videos.each_with_index do | video, index| %>
+                      <div><!-- 16:9 aspect ratio -->
+                          <div class="embed-responsive embed-responsive-16by9 for-video-modal"
+                              data-src=<% if !video.vimeo_id.blank? %>
+                                         <%= "//player.vimeo.com/video/#{video.vimeo_id}" %>
+                                        <% else %>
+                                          <%= "https://www.youtube.com/embed/#{video.youtube_id}"%>
+                                        <% end %>>
+                            <img for="thumb-video" id="video-<%= video.vimeo_id || video.youtube_id %>" src="<%= video.vimeo_thumbnail %>" data-thumb="<%= !video.vimeo_id.blank? ? 'vimeo' : 'youtube' %>">
+                              <div class="video-title"><%= video.title %></div>
+                              <div class="div-modal-video"></div>
+                                <div class="bg-play">
+                                  <i class="fa fa-play play-icon"></i>
+                                </div>
+                          </div>
+                      </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="br15_videos br15_photos_cont container-fluid">
+            <a href="#" class="btn btn-default br15_Title_See_All">Photos</a>
+            <div class="row">
+                <div id="br15_owl_photos" class="owl-carousel">
+                  <% @photos.each do |photo| %>
+                    <div><!-- 16:9 aspect ratio -->
+                      <a href="<%= place_path(photo.place) %>">
+                        <div class="embed-responsive embed-responsive-16by9 line-after">
+                            <img class="embed-responsive-item" src="<%= photo.path_url(:medium) %>">
+                        </div>
+                      </a>
+                      <div class="caption-photo-carousel">
+                        <h3><a href="<%= place_path(photo.place) %>"><%= photo.caption %><br><h5><%= photo.place.display_name%></h5></h3>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="br15_features container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row br15_instagram">
+                        <div class="col-xs-12">
+                            <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">Instagram</a>
+                            <div class="br15_row_mob">
+                              <div id="instafeed"></div>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <img src="" class="img-responsive" alt="">
+                                    </li>
+                                    <li class="clearfix"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row br15_leaderboard">
+                        <div class="col-xs-12">
+                            <a href="#" class="btn btn-default br15_features_btn br15_features_btn_leader br15_Title_See_All">Leaderboard</a>
+                            <ul class="list-unstyled br_Leaderboard">
+                              <% @leaderboard.each_with_index do |leader, index| %>
+                                <li>
+                                  <a href="">
+                                  <span class="br_avtar">
+                                    <% if leader.user.avatar.blank? %>
+                                      <img src="<%= asset_path('Badge.png') %>" alt="">
+                                    <% else %>
+                                      <img src="<%= leader.user.avatar_url %>" alt="">
+                                    <% end %>
+                                      <span>
+                                          <%= leader.balance %>
+                                      </span>
+                                  </span>
+                                  <span class="br_avtar_no">
+                                      <%= (index + 1).to_s %>
+                                  </span>
+                                  <span class="br_user_name"><%= strip_domain_from_username(leader.user) %></span>
+                                  </a>
+                                </li>
+                              <% end %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="br15_features container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row br15_reviews">
+                        <div class="col-xs-12">
+                            <a href="#" class="btn btn-default br15_features_btn br15_Title_See_All">Reviews</a>
+                            <hr class="br15_hr"/>
+                            <ul class="list-unstyled">
+                              <% @reviews.each do |review| %>
+                                <li>
+                                    <a href="<%= place_path(review.reviewable) + "#reviews" %>" class="row center-block">
+                                      <span class="col-xs-6 center-block">
+                                          <span class="row center-block">
+                                              <%= !review.title.blank? ? review.title : review.reviewable.display_name %>
+                                          </span>
+                                      </span>
+                                      <span class="col-xs-6 center-block text-right">
+                                          <span class="row center-block">
+                                            <% if review.reviewable.quality_average %>
+                                              <% review.reviewable.quality_average.avg.round.times do %>
+                                                <span class="fa fa-star"></span>
+                                              <% end %>
+                                            <% end %>
+                                          </span>
+                                      </span>
+                                    </a>
+                                </li>
+                              <% end %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row br15_stories br15_reviews">
+                        <div class="col-xs-12">
+                            <a href="#" class="btn btn-default br15_features_btn  br15_Title_See_All">Stories</a>
+                            <hr class="br15_hr"/>
+                            <ul class="list-unstyled ">
+                              <% @stories.each do |story| %>
+                                <li>
+                                    <a href="<%= place_path(story.storiable) + "#stories" %>" class="row center-block">
+                                        <%= story.title.blank? ? story.storiable.display_name : story.title %>
+                                    </a>
+                                </li>
+                              <% end %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<%= render 'layouts/video_modal' %>
+<%= render 'layouts/footer' %>
+
+        <%= javascript_include_tag 'instafeed.min' %>
+        <script type="text/javascript">
+          var feed = new Instafeed({
+              clientId: '914a2ec1ca824b89b6eac7fb7538d35a',
+              sortBy: 'most-recent',
+              get: 'user',
+              userId: 303316084,
+              limit: 33,
+              template: '<a href="{{link}}" target="_blank"><img src="{{image}}" /></a>'
+          });
+          feed.run();
+      </script>
+
+    <style>
+      .pac-container {
+        width: 300px !important;
+        border-radius: 4px;
+        margin: 0 auto 0 auto;
+        left: 0 !important;
+        top: 0 !important;
+      }
+    </style>
