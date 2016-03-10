@@ -16,7 +16,9 @@ class PagesController < ApplicationController
       end
     end
     @leaderboard = @leaderboard[0..5]
-
+    #check
+    #task psoude code = "Places To Go" == Place.where(is_area: true).order(like_percentage ASC).limit(6)
+    @places_to_go =  Place.is_area.limit(6).includes(:photos)
   end
 
   def globe

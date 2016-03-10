@@ -262,6 +262,8 @@ ul.nav.navbar-nav.first-ul{
     height: 150px;
     overflow: hidden;
     position: relative;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 @media (max-width: 360px) {
 	.image-cat {
@@ -458,6 +460,9 @@ ul.nav.navbar-nav.first-ul{
 .btm20{
  	margin-bottom: 20px;
 }
+.btm30{
+ 	margin-bottom: 30px;
+}
 .btm25{
  	margin-bottom: 25px;
 }
@@ -469,6 +474,9 @@ ul.nav.navbar-nav.first-ul{
 }
 .btm60 {
 	margin-bottom: 60px;
+}
+.thumbnail.padd0{
+	padding: 0;
 }
 
 .right0{

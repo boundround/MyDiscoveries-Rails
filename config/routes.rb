@@ -200,6 +200,8 @@ Rails.application.routes.draw do
 
   get "/wp-blog/:id/:place", to: "places#wp_blog"
 
+  get "categories", to: "categories#index"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
