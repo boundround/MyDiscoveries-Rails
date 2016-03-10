@@ -83,9 +83,6 @@ GEM
       terminal-table (~> 1.4)
     browser (1.0.1)
     builder (3.2.2)
-    bullet (5.0.0)
-      activesupport (>= 3.0.0)
-      uniform_notifier (~> 1.9.0)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -542,7 +539,6 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicode_utils (1.4.0)
-    uniform_notifier (1.9.0)
     unirest (1.1.2)
       addressable (~> 2.3.5)
       json (~> 1.8.1)
@@ -571,7 +567,6 @@ DEPENDENCIES
   bootsy
   brakeman
   browser
-  bullet
   carrierwave
   carrierwave-crop
   carrierwave_backgrounder

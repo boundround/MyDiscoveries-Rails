@@ -175,8 +175,6 @@ end
 # Use puma as the app server
 gem 'puma'
 
-gem "bullet", :group => "development"
-
 gem "snowshoe"
 
 # Use Capistrano for deployment

@@ -3279,6 +3279,20 @@ body.br_place_page.br_edit .br_create_btn.open-mod.btn.btn-default {
   }
 }
 
+@media(max-width: 414px){
+
+   #userStory .mid-cont h2{
+    font-size: 18px;
+  }
+
+  #userStory .modal-dialog .modal-content {
+    width: 90%;
+    padding-right: 12px;
+  }
+
+}
+
+
 /*Override bootstrap _modals.scss, get rid of margin to get rid of scroll bar on galley*/
 .modal-dialog {
     margin: 0px;
