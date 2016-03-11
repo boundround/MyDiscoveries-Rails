@@ -1,5 +1,7 @@
 class StoriesController < ApplicationController
   before_filter :load_storiable, :except => :profile_create
+  before_action :set_story_as_draft, only: [:create, :update]
+  before_action :set_user_photos, only: [:create, :update]
   before_action :set_story, only: [:edit, :update, :show]
 
   def index
@@ -15,7 +17,6 @@ class StoriesController < ApplicationController
 
   def create
     @story = @storiable.stories.new(story_params)
-
     if @story.save
       NewStory.notification(@story).deliver
       redirect_to @storiable, notice: "Thanks for the story. We'll let you know when others can see it too!"
@@ -70,7 +71,32 @@ class StoriesController < ApplicationController
     end
 
     def story_params
-      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id,
+      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id, :age_bracket, :author_name,
                                     user_photos_attributes: [:id, :title, :content, :user_id, :story_id, :story_priority, :place_id, :path, :status])
+    end
+
+    def set_story_as_draft
+      if params[:story].present?
+        params[:commit].to_s.downcase.eql?('publish') ? status= 'live' : status= 'draft'
+        params[:story][:status]= status
+      end
+    end
+
+    def set_user_photos
+      if params[:story].present?
+        if params[:files]
+          if params.traverse(:story, :user_photos_attributes).blank?
+            params[:story][:user_photos_attributes] = {}
+          end
+          indexlala= 0
+          unless params[:story][:user_photos_attributes].blank?
+            indexlala= params[:story][:user_photos_attributes].keys.last.to_i + 1
+          end
+          params[:files].each do |file|
+            params[:story][:user_photos_attributes][indexlala.to_s]= { path: file, user_id: current_user.id }
+            indexlala= indexlala+1
+          end
+        end
+      end
     end
 end

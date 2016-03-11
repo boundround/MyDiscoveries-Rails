@@ -115,6 +115,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Forms made easy for Rails! It's tied to a simple DSL, with no opinion on markup.
 gem 'simple_form'
 gem 'simple-form-datepicker'
+gem 'nested_form'
 
 # Console goodies include a no-wrap table, auto-pager, tree and menu.
 gem 'hirb'
@@ -166,7 +167,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'thin'
-  # gem 'byebug'
+  gem 'byebug'
 end
 
 

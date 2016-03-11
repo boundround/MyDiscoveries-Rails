@@ -62,4 +62,5 @@
 //= require instafeed.min
 //= require chart.min
 //= require boundround
+//= require jquery_nested_form
 

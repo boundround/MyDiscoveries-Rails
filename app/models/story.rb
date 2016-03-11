@@ -11,11 +11,21 @@ class Story < ActiveRecord::Base
   has_many :stories_users
   has_many :users, through: :stories_users
 
-  accepts_nested_attributes_for :user_photos
+  accepts_nested_attributes_for :user_photos, reject_if: :all_blank, allow_destroy: true
 
   scope :active, -> { where(status: "live") }
   scope :draft, -> { where(status: "draft") }
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }
+
+  attr_accessor :age_bracket
+
+  AGE_BRACKET= { toddlers: 5..8, kids: 9..12, teenagers: 13..19, adults: 20..50 }
+
+  validates :title, presence: true
+  validates :content, presence: true
+  validates :date, presence: true
+
+  before_save :determine_age_bracket
 
   def send_live_notification
     places = []
@@ -34,4 +44,14 @@ class Story < ActiveRecord::Base
       end
     end
   end
+
+  protected
+
+    def determine_age_bracket
+      if age_bracket.present?
+        self.min_age = AGE_BRACKET[age_bracket.to_sym].try(:first)
+        self.max_age = AGE_BRACKET[age_bracket.to_sym].try(:last)
+      end
+    end
+
 end

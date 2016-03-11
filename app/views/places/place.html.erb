@@ -101,7 +101,7 @@
           </div>
       </div>
       <div class="desc-place">
-        <p data-full-text="<%= @place.description.html_safe %>"><%= raw  @place.description.html_safe[0..280]+"..." %></p>
+        <p data-full-text="<%= @place.description.try(:html_safe) %>"><%= raw  @place.description.try(:html_safe[0..280]+"...") %></p>
         <button class="blueish" style="background:none;border:none;">More <span class="caret"></span></button>
       </div>
       <div class="border-section"></div>

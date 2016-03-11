@@ -35,7 +35,7 @@
          </div>
 
 
-        <%= simple_form_for [@place, @review], remote: true do |f| %>
+        <%= simple_form_for [@place, @review.blank?? @place.reviews.new : @review ], remote: true do |f| %>
             <%= f.input :user_id, as: :hidden, :input_html => { :value => (current_user.id if user_signed_in?) } %>
             <%= f.input :status, as: :hidden, :input_html => { :value => "draft" } %>
          <div class="form-group top20">
