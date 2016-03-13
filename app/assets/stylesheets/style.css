@@ -19,6 +19,9 @@ h1, h2, h3, h4{
 	font-weight: 100 !important;
 
 }
+.border {
+	border:1px solid pink;
+}
 /*NAVBAR*/
 .navbar.navbar-brw{
 	background-color: #fff;
@@ -87,6 +90,7 @@ h1, h2, h3, h4{
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
 	color: #000;
 	background: none;
+	background: #e7e7e7;
 }
 ul.nav.navbar-nav.first-ul{
 	border-right: 1px solid #eaeaea;
@@ -215,25 +219,25 @@ ul.nav.navbar-nav.first-ul{
 	border: none !important
 }
 .btn-brw-blue,.btn-brw-orange,.btn-brw-purple,.btn-brw-green2,.btn-brw-green,.btn-brw-orange2{
-	color: #fff;
+	color: #fff !important;
 }
 .btn-brw-blue{
-	background:#385D8A
+	background:#385D8A !important;
 }
 .btn-brw-orange{
-	background: #FF9702
+	background: #FF9702 !important;
 }
 .btn-brw-purple{
-	background: #C157ED;
+	background: #C157ED !important;
 }
 .btn-brw-green2{
-	background: #0DBEAE;
+	background: #0DBEAE !important;
 }
 .btn-brw-green{
-	background: #7ABF00;
+	background: #7ABF00 !important;
 }
 .btn-brw-orange2{
-	background: #fd7e56
+	background: #fd7e56 !important;
 }
 .btn-padding {
 	padding: 0px 12px;
@@ -249,26 +253,21 @@ ul.nav.navbar-nav.first-ul{
 	margin-bottom: 15px;
 }
 .top-rounded{
-	/*height: 200px !important;*/
-	min-width: 300%;
+	height: 200px !important;
+	min-width: 100%;
 	border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
 }
 .top-img-radius {
 	border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
 }
 .image-cat{
-    height: 150px;
+    height: 141px;
     overflow: hidden;
     position: relative;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-}
-@media (max-width: 360px) {
-	.image-cat {
-	    height: 130px;
-	}
 }
 .image-left img {
     position: relative;
@@ -299,24 +298,40 @@ ul.nav.navbar-nav.first-ul{
 }
 .thumbnail{
 	border: none !important;
+	padding: 0 !important;
+	overflow: hidden;
+	border-radius: 4px;
 	background: none;
 	box-shadow: 1px 1px 3px rgba(66,66,66,0.15);
-
 }
 .thumbnail .caption{
 	background: #fff;
 }
 .img-full-div{
 	position: relative;
-	width: 100%;
+	height: 125px !important;
+	min-width: 100%;
 	overflow: hidden;
 }
 @media (max-width: 360px) {
 	.img-full-div {
 		height: 100%;
 	}
-}
+	.top-rounded {
+		height: 100px !important;
+		min-width: 100%;
+		border-top-left-radius: 4px;
+  	border-top-right-radius: 4px;
+	}
+	.image-cat {
+		height: 100px;
+	}
+	.thumbnail .caption {
+		padding-top: 0 !important;
+		padding-bottom: 0 !important;
+	}
 
+}
 .top7{
 	margin-top: 7px;
 }
@@ -579,8 +594,9 @@ ul.nav.navbar-nav.first-ul{
 /*END GLOBAL*/
 
 /*STYLE CLOSE MODAL*/
+
 .modal-header {
-	border: 0px solid transparent;
+	border: 0px solid transparent !important;
 }
 @media (max-width: 767px){
 	.modal-margin-top {
@@ -698,6 +714,7 @@ section.places-to-go .details-dest .left a{
     border-radius: 4px;
 }
 .image-cat-left{
+	overflow: hidden;
 	width: 50%;
 	float: left;
 	height: 113px;
@@ -1574,10 +1591,10 @@ section.everyone .desc{
 /*------------------NEW------------------*/
 /*TEXT STYLE COLOR*/
 .blue {
-	font-color: #3A5A8C !important;
+	color: #3A5A8C !important;
 }
 .blueish {
-	color: #64BAD2;
+	color: #64BAD2 !important;
 }
 .pink {
 	color: #FA7D5B !important;
@@ -1627,6 +1644,16 @@ section.everyone .desc{
 .text-margin {
 	margin-left: 40px;
 }
+.text-light {
+	font-weight: 100;
+}
+.emphasize {
+	font-size: 1.25em;
+	font-weight: 400 !important;
+}
+.text-bold {
+	font-weight: 500! important;
+}
 .bg-row-orange{
 	background-color: #FA7D5B;
 	border-radius: 50%;
@@ -1662,7 +1689,8 @@ section.everyone .desc{
 	border-radius: 5px !important;
 }
 .row-border-grey {
-	border: 1px solid #b2b2b2 !important;
+	border: 1px solid #b2b
+	2b2 !important;
 }
 .style-dropdown-bg {
 	background-color: #242424 !important;
@@ -1817,8 +1845,11 @@ section.everyone .desc{
     opacity: 1 !important;
     font-size: 28px;
 }
+.modal-blue {
+	background-color: #69b7c9;
+}
 .modal-header {
-	border: 0px solid transparent;
+	border: 0px solid transparent !important;
 }
 .margin-arrow-modal {
 /*	--webkit-margin-top: 17px;
@@ -1855,6 +1886,9 @@ section.everyone .desc{
 .modal-title {
 	margin-top: 3px;
 }
+.modal-footer {
+	padding: 20px;
+}
 #StoryModal, #myModal{
 	overflow-y: auto;
 }
@@ -1864,18 +1898,24 @@ section.everyone .desc{
 /*.modal-body p.title{
 	margin-bottom: 15px;
 }*/
+
+.box-shadow {
+	box-shadow: 1px 1px 2px rgba(66,66,66,.25);
+}
+
 .modal-body .underline{
 	color: #69b7c9;
 
 }
 .blue-light{
-	color: #69b7c9;
+	color: #69b7c9 !important;
 }
 
 .btn-blue-light{
 	background: #69b7c9;
 	border: none;
 }
+
 .btn-fb	{
 	background-color: #3C4FA2;
 }
@@ -1884,9 +1924,27 @@ section.everyone .desc{
 	background-color: transparent;
 	color: #FFFFFF;
 }
+.btn-white-shaded {
+	border: 0px solid #ffffff !important;
+	background: white;
+	color: #333333;
+	border-radius: 6px !important;
+	box-shadow: 1px 1px 3px rgba(66, 66, 66, 0.2);
+}
+.btn-shadow2 {
+	border: 0px solid transparent !important;
+	box-shadow: 1px 1px 3px rgba(66, 66, 66, 0.2);
+}
+.btn-radius2 {
+		border-radius: 6px !important;
+}
 .btn-white:hover {
 	color: #0E0E0E !important;
+	background: #eaeaea;
+	background: #ffffff;
 }
+
+
 @media (min-width: 1200px){
 	.font-btn {
 		font-size: 12px !important;
@@ -1896,6 +1954,7 @@ section.everyone .desc{
 	background: #eaeaea;
 	border: none;
 	box-shadow: none;
+	font-weight: 100;
 }
 
 .modal-body p{
@@ -1939,6 +1998,12 @@ section.modal-booking .left img{
 }
 
 /*END TEXT STYLE COLOR*/
+
+/* MODAL CONTENT*/
+.b-radius {
+	border-radius: 6px !important;
+}
+/* END MODAL CONTENT */
 
 /*IMAGE BACKGROUND*/
 .image-background {
@@ -2123,6 +2188,11 @@ section.modal-booking .left img{
 .btn-margin-style {
 	margin-bottom: 15px;
 }
+.btn-margin-top-bottom {
+	margin-bottom: 20px !important;
+	margin-top: 10px;
+	margin: 0 auto;
+}
 .btn-ig {
 	background-color: #7B6A53;
 	border-color: #7B6A53;
@@ -2228,7 +2298,7 @@ section.modal-booking .left img{
 	border-color: #DE3823;
 }
 .btn-radius {
-	border-radius: 10px;
+	border-radius: 10px !important;
 }
 .btn-radius3 {
 	border-radius: 7px;
