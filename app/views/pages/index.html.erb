@@ -82,7 +82,7 @@
         <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
             <div class="thumbnail padd0">
               <div class="image-cat">
-                <img src="<%= showing_image(place.photos.first.path_url) %>" alt="" class="top-rounded img-responsive">
+                <img src="<%= showing_image(place.photos.first.path_url) rescue "" %>" alt="" class="top-rounded img-responsive">
               </div>
               <div class="caption text-center">
                 <h4 class="font-orange2"><%= place.display_name %></h4>
@@ -159,7 +159,7 @@
     </div>
     <div class="col-md-8 col-lg-8">
       <div class="head-title col-md-12 col-lg-12" align="right">
-        
+
       </div>
       <div class="col-md-12 col-lg-12 topmin20">
         <p class="white" align="left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lacinia magna non vehicula commodo. Nullam dapibus pellentesque euismod. Donec tempus eleifend libero, a viverra urna rutrum vel. Integer luctus nulla et bibendum vulputate. Sed vel aliquet enim. </p>
@@ -289,10 +289,10 @@
 <!-- #hardcode end-->
 
 <!-- #hardcode -->
-<!-- 
+<!--
 #tasks "Explore Experiences"
 Each card will link to subcategories page where places.subcategory == "driving" or whatever the text of the card says
-Bottom button will link to "all_subcategories" page 
+Bottom button will link to "all_subcategories" page
 -->
 
 <div class="container padding-style hidden-xs">
