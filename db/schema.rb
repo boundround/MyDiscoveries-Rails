@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307024436) do
+ActiveRecord::Schema.define(version: 20160310053405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -545,6 +544,10 @@ ActiveRecord::Schema.define(version: 20160307024436) do
     t.boolean  "user_notified"
     t.datetime "user_notified_at"
     t.integer  "country_id"
+    t.date     "date"
+    t.integer  "min_age"
+    t.integer  "max_age"
+    t.string   "author_name"
   end
 
   add_index "stories", ["storiable_id", "storiable_type"], name: "index_stories_on_storiable_id_and_storiable_type", using: :btree

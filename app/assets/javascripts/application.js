@@ -62,3 +62,4 @@
 //= require chart.min
 //= require boundround
 //= require dual_list_box
+//= require jquery_nested_form
