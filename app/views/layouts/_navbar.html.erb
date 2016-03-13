@@ -1,6 +1,6 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-default navbar-brw navbar-static-top" id="menu-nav">
-  <div class="container">
+  <div class="container big-container">
     <div class="navbar-header">
       <div class="sign visible-xs">
         <a href="#" data-toggle="modal" data-target="#myModal">
@@ -12,7 +12,7 @@
       </div>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <i class="fa fa-bars"></i>
-          <i class="fa fa-close" style="display:none"></i>
+          <i class="fa fa-times" style="display:none"></i>
       </button>
       <a class="navbar-brand brw-navbar-brand" href="#">
         <img src="/assets/br_logo_new.png" alt="" class="img-logo-index">
@@ -220,8 +220,45 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right hidden-xs">
-        <li class=""><a style="cursor:pointer" data-toggle="modal" data-target="#myModal">Sign in</a></li>
-        <li class=""><a href="#" class="join-nav">Join</a></li>
+        <% if user_signed_in? %>
+        <li>
+          <!-- <span class="badge badge-profile"> 1 </span>
+          <div class="outer-profile">
+            <img src="http://www.tahupedia.com/img/uploaded/post/post_3/anjing_peliharaan.jpg" class="img-rounded-mini"/>
+          </div> -->
+        </li>
+        <li class="dropdown">
+          
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
+          <span class="badge badge-profile"> 2 </span>
+            <div class="outer-profile">
+              <img src="<%= showing_image(current_user.avatar_url) %>" />
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="#">Separated link</a></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+
+          <!-- <li class="">
+            <a href="#">
+              <span class="badge badge-danger notif"> 1 </span>
+              <img src="http://www.tahupedia.com/img/uploaded/post/post_3/anjing_peliharaan.jpg" class="img-rounded-mini"/>
+            </a>
+          </li>
+          <li class="">
+            <a href="#" style="margin-top: 10px; margin-left: 5px; margin-right: -25px;">My Account <span class="caret"></span></a>
+          </li> -->
+        <% else %>
+          <li class=""><a style="cursor:pointer" data-toggle="modal" data-target="#myModal">Sign in</a></li>
+          <li class=""><a href="#" class="join-nav">Join</a></li>
+        <% end %>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

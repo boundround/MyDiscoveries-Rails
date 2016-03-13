@@ -1,8 +1,4 @@
 <!-- MODAL SECTION -->
-<!-- ## MODAL LOGIN ACCOUNT -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -279,64 +275,6 @@
 <!-- END MODAL TICKETS -->
 
 
-<!-- MODAL PHOTO STORY-->
-<div id="AgeBracketModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
-        <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
-        <h4 class="modal-title" align="center">Your age bracket</h4>
-      </div>
-      <div class="modal-body" align="left">
-         <a href="#" class="btn btn-default btn-block">
-          <p align="left">
-         5-8 years old
-          </p>
-         </a>
-         <a href="#" class="btn btn-default btn-block">
-          <p align="left">
-         9-12 years old
-          </p>
-         </a>
-         <a href="#" class="btn btn-default btn-block">
-          <p align="left">
-         A teenager
-          </p>
-         </a>
-         <a href="#" class="btn btn-default btn-block">
-          <p align="left">
-         An adult
-          </p>
-         </a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- END MODAL PHOTO STORY-->
-
-<!-- MODAL ABOUT STORY-->
-<div id="FirstNameModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
-        <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
-        <h4 class="modal-title" align="center">Your first name</h4>
-      </div>
-      <div class="modal-body" align="center">
-         <div class="form-group">
-           <textarea class="form-control" rows="5" placeholder="Enter your name you'd like to appear with your story."></textarea>
-         </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- END MODAL ABOUT STORY-->
 
 <!-- MODAL BOOKING-->
 <div id="BookingModal" class="modal fade" role="dialog">
@@ -506,3 +444,40 @@
 </div>
 <!-- END MODAL CREDIT BOOKING CARD STORY-->
 
+
+<!--MODAL ADD MEDIA  -->
+<% if user_signed_in? %>
+<div id="addMediaModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-margin-top">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+        <!-- <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a> -->
+        <h4 class="modal-title" align="center">Photos & Videos</h4>
+      </div>
+      <div class="modal-body" align="left">
+          <div class="row">
+            <div class="col-xs-12">
+              <!-- <button class="btn btn-height-width btn-default"><i class="fa fa-plus pink"></i> Add</button> -->
+              <div class="lis-file-upload2" class="">
+                
+              </div>
+              <form action="">
+                  <div class="fileinput-button">
+                      <div class="btn btn-height-width btn-default block-import" >
+                        <i class="fa fa-plus pink"></i> Add
+                        <%#= ff.file_field :path, label: false, class: "file-upload with-preview"%>
+                        <input type="file" class="file-upload2 with-preview">
+                      </div>
+                  </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+<!--END MODAL ADD MEDIA

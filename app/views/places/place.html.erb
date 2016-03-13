@@ -40,13 +40,21 @@
     <div class="action bg-place">
       <div class="left">
         <% if user_signed_in? %>
-          <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o"></i> Leave review </a>
-        <% else %>
           <a href="#" class="white" data-toggle="modal" data-target="#ReviewModal"><i class="fa fa-smile-o"></i> Leave review </a>
+        <% else %>
+          <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o"></i> Leave review </a>
         <% end %>
         </div>
-      <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#PhotoStoryModal" ><i class="fa fa-plus"></i> Add media</a>  </div>
-      <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#StoryModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+      <% if user_signed_in? %>
+        <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#addMediaModal" ><i class="fa fa-plus"></i> Add media</a>  </div>
+        <% else %>
+        <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add media</a>  </div>
+      <% end %>
+      <% if user_signed_in? %>
+        <div class="right"><a  href="#" class="white" id="aStoryModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+        <% else %>
+        <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+      <% end %>
       <div class="pull-right hidden-xs">
         <div class="component-desk">
           <ul>
@@ -93,7 +101,7 @@
           </div>
       </div>
       <div class="desc-place">
-        <p data-full-text="<%= @place.description.html_safe %>"><%= raw  @place.description.html_safe[0..280]+"..." %></p>
+        <p data-full-text="<%= @place.description.try(:html_safe) %>"><%= raw  @place.description.try(:html_safe[0..280]+"...") %></p>
         <button class="blueish" style="background:none;border:none;">More <span class="caret"></span></button>
       </div>
       <div class="border-section"></div>
@@ -144,16 +152,19 @@
       <div class="col-xs-12 col-sm-4 col-md-4 border-left-desk"> <!-- for map -->
           <div class="text-center clearfix  visible-xs">
             <!-- <a href="#" class="btn button-orange button-style-booking fontbig-button btn-radius" data-toggle="modal" data-target="#BookingModal">Book Now!</a> -->
-            <a href="<%= @place.viator_link %>" data-target="blank" class="btn button-orange button-style-booking fontbig-button btn-radius">Book Now!</a>
+            <a href="<%= @place.viator_link %>" data-target="blank" class="btn button-orange button-style-booking btn-shadow fontbig-button btn-radius">Book Now!</a>
           </div>
         <div class="text-center div-btn-country top15 btm15 visible-xs">
 
           <!-- <a id="place-favorite" class=""><i class="fa fa-bookmark-o"></i> Add To Favourites</a> -->
           <% if user_signed_in? && @place.users.include?(current_user) %>
-            <a href="#" id="place-favorite" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"><i class="fa fa-bookmark-o"></i> Remove from wishlist</a>
+            <i class="fa fa-bookmark-o"></i>
+            <a href="#" class="place-favorite black" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
           <% else %>
-            <a href="#" id="place-favorite" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> <i class="fa fa-bookmark-o"></i> Add to wishlist</a>
+            <i class="fa fa-bookmark-o"></i>
+            <a href="#" class="place-favorite black" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
           <% end %>
+
         </div>
         <div id="map"></div>
         <div class="text-center btn-map">
@@ -166,7 +177,7 @@
           <p class="grey">Contact</p>
         <div class="row">
           <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
-            <a href="mailto:<%= @place.email rescue "" %>" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-envelope-o blue-nero-icon leftmin7responsive"></i> Send a message </a>
+            <a href="mailto:<%= @place.email rescue "" %>" class="btn btn-primary btn-block btn-museum btn-shadow font-btn"><i class="fa fa-envelope-o blue-nero-icon leftmin7responsive"></i> Send a message </a>
           </div>
           <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
             <a href="tel: <%= @place.phone_number %>" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-phone blue-nero-icon leftmin7responsive"></i> <%= @place.phone_number %></a>
@@ -174,17 +185,24 @@
         </div>
 
           <p class="grey btm0 top15">Website</p>
-          <p class="mrg0"><a href="<%= @place.website %>" target="blank"><%= extract_domain(@place.website) %></a></p>
+          <p class="mrg0 blueish"><a href="<%= @place.website %>" target="blank"><%= extract_domain(@place.website) %></a></p>
       </div><!-- /col-sm-4 map-->
     </div><!-- /main row -->
   </section>
   <div class="text-center clearfix  hidden-xs" style="clear:both;z-index:1;position: relative;">
     <!-- "Book Now" - place.viator_link -->
-    <a href="<%= @place.viator_link %>" data-target="blank" style="margin:-5px" class="btn button-orange button-style-booking fontbig-button btn-radius">Book Now!</a>
+    <a href="<%= @place.viator_link %>" data-target="blank" style="margin:-5px" class="btn button-orange button-style-booking fontbig-button btn-radius btn-shadow">Book Now!</a>
 
   </div>
+
   <div class="text-center div-btn-country top20 btm20 hidden-xs">
-    <a href="#" class="black"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
+    <% if user_signed_in? && @place.users.include?(current_user) %>
+    <i class="fa fa-bookmark-o"></i>
+     <a href="#" class="place-favorite black" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
+    <% else %>
+    <i class="fa fa-bookmark-o"></i>
+    <a href="#" class="place-favorite black" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
+    <% end %>
   </div>
 
 <% unless @photos.blank? %>
@@ -265,87 +283,7 @@
 <div class="container padding-style">
   <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
-      <% unless @stories.blank? %>
-        <div class="text-left">
-          <h4 class="section-title">Your Stories</h4>
-        </div>
-        <section class="your-stories cards">
-        <% @stories.each_with_index do |story, index| %>
-          <% if  story.class.to_s.eql? "Story" %>
-              <div class="card">
-                <div class="head-stories">
-                  <div class="left">
-                    <a href="#">
-                      <div class="profile-outer">
-                        <img src="<%= showing_image(story.user.avatar_url)%>" alt="">
-                      </div>
-                      <div class="profile-text">
-                        <%= story.user.name %>
-                      </div>
-                     </a>
-                  </div>
-                  <div class="right"><a href="#"><i class="fa fa-image"></i> <%= story.user.photos.size %>
-                  </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%= story.user.videos.size %></a>
-                  </div>
-                </div>
-                <div class="body-stories btm15">
-                  <div
-                    <% if !story.user_photos.blank? %>
-                    class="p-dynamic"
-                    <% end %>
-                    >
-                    <p class="visited">Visited Dec 2015</p>
-                    <p class="mrg0 pink"><%= story.title %> </p>
-                     <%= story.content[0..280] + "..." %>
-                       <% if story.content.length > 280 %>
-                              <!-- <button class="entire-review" data-size="contracted" data-entire-review="<%= review.content %>">See entire review</button> -->
-                       <% end %>
-                    <%#= story.content %>
-                  </div>
-                <div class="img-story-place outer-js">
-                <% if !story.user_photos.blank? %>
-                  <img class="inner-js" align="right" src="<%= story.user_photos.first.path_url(:medium) %>" alt="">
-                  <% end %>
-                </div>
-              </div>
-          <% elsif story.class.to_s.eql? "ApiBlog" %>
-            <div class="card">
-              <div class="head-stories">
-              <p class="mrg0">From Blog</p>
-                <!-- <div class="left">
-                  <a href="#">
-                    <div class="profile-outer">
-                      <img src="./img/face1.jpg" alt="">
-                    </div>
-                    <div class="profile-text">
-                      <%#= story.user.name %>
-                    </div>
-                   </a>
-                </div>
-                <div class="right"><a href="#"><i class="fa fa-image"></i> 9
-                  </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
-                </div> -->
-              </div>
-              <div class="body-stories btm15">
-                <div class="p-dynamic blog">
-                  <p class="visited">Visited Dec 2015</p>
-                  <p class="mrg0 pink"><%= story.title %> </p>
-                  <%= raw story.content.html_safe[0..280] + "..." %>
-                </div>
-                <div class="img-story-place outer-js">
-                <%# if !story.user_photos.blank? %>
-                  <img class="inner-js" align="right" src="<%= story.image.blank? ? draw_hero_background(@place) : story.image %>" alt="">
-                  <%# end %>
-                </div>
-              </div>
-              </div>
-            <% end %> <!-- /each -->
-          <% end %>
-            <div class="text-center btm20 clearfix">
-              <button class="btn btn-default black top5 load-more">Load more stories</button>
-            </div>
-        </section> <!-- /story -->
-      <% end %>
+
 
     <%= render "stories/all_stories" %>
     <%= render "stories/modal_story" %>
@@ -366,7 +304,11 @@
               <div class="btm15 card review-content">
                 <div class="body-stories">
                   <p class="some-text" data-full-text="<%= review.content %>">
-                    <%= review.content[0..280] + "..." %>
+                    <% if review.content.length > 280 %>
+                        <%= review.content[0..280] + "..." %>
+                      <% else %>
+                       <%= review.content %>
+                    <% end %>
                   </p>
                 </div>
                 <div class="head-stories">
@@ -377,9 +319,12 @@
                     <span class="grey">Jul 2015</span>
                   </div>
                   <div class="right">
+                  <!-- #hardcode -->
+                  <%# debugger %>
                     <%# get_user_place_rating_from_review(review).times do |star| %>
                       <i class="fa fa-smile-o"></i>
                     <%# end %>
+                  <%# end %>
                   </div>
                 </div>
               </div>
@@ -418,7 +363,7 @@
             <% end %>
           </div>
           <div class="text-center clearfix">
-            <a href="#" class="btn btn-default black ">Load more fun facts</a>
+            <a href="#" class="btn btn-default load-more black ">Load more fun facts</a>
           </div>
         </div>
       </section> <!-- /fun -->
@@ -470,6 +415,7 @@
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
 <%= render 'reviews/form' %>
+<%= render 'layouts/signin_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
 

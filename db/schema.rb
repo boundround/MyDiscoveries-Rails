@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225023829) do
+ActiveRecord::Schema.define(version: 20160310053405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -248,6 +247,17 @@ ActiveRecord::Schema.define(version: 20160225023829) do
   end
 
   add_index "games_users", ["game_id", "user_id"], name: "index_games_users_on_game_id_and_user_id", unique: true, using: :btree
+
+  create_table "good_to_knows", force: true do |t|
+    t.text     "description",                          null: false
+    t.boolean  "show_on_page",          default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "good_to_knowable_id"
+    t.string   "good_to_knowable_type"
+  end
+
+  add_index "good_to_knows", ["good_to_knowable_id", "good_to_knowable_type"], name: "good_to_knowable_index", using: :btree
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
@@ -534,6 +544,10 @@ ActiveRecord::Schema.define(version: 20160225023829) do
     t.boolean  "user_notified"
     t.datetime "user_notified_at"
     t.integer  "country_id"
+    t.date     "date"
+    t.integer  "min_age"
+    t.integer  "max_age"
+    t.string   "author_name"
   end
 
   add_index "stories", ["storiable_id", "storiable_type"], name: "index_stories_on_storiable_id_and_storiable_type", using: :btree

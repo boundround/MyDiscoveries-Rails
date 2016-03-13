@@ -1,9 +1,13 @@
-<!-- MODAL TELL STORY-->
-<div id="StoryModal" class="modal fade" role="dialog">
+ <!-- MODAL TELL STORY-->
+ <!-- #hardcode /file backup dari sebelumnya = stories-> _form.html.erb -->
+
+<% if user_signed_in? %>
+<%= nested_form_for [@place, @story], :html => { :id => "story-form" , multipart: true} do |f| %>
+<div id="StoryModal" class="modal fade">
   <div class="modal-dialog modal-margin-top">
 
     <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" id="ContentStoryModal">
       <div class="modal-header">
         <button type="button" class="close close-modal-orange" data-dismiss="modal">&times;</button>
         <!-- <span class="left-modal"><a type="button" class="btn custom-close-register"><i class="fa fa-arrow-left"></i></a></span> -->
@@ -51,25 +55,19 @@
               </a>
             </div>
             <div class="col-xs-12 col-md-12">
-              <button style="text-align:center" class="btn btn-danger btn-block btn-height btn-radius button-orange fontbig-button btm15">Publish</button>
+              <!-- <button style="text-align:center" class="btn btn-danger btn-block btn-height btn-radius button-orange fontbig-button btm15">Publish</button> -->
+              <%= f.submit "Publish", class: "btn btn-danger btn-block btn-height btn-radius button-orange fontbig-button btm15", id: "story-publish-button" %>
             </div>
             <div class="col-xs-12 ">
               <button class="btn btn-default pink">Save as draft</button>
             </div>
+
           </div>
         </section>
       </div>
     </div>
-  </div>
-</div>
-<!-- END MODAL TELL STORY-->
 
-<!-- MODAL TITLE STORY-->
-<div id="TitleStoryModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
-
-    <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" id="TitleStoryModal">
       <div class="modal-header">
         <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
@@ -77,61 +75,61 @@
       </div>
       <div class="modal-body" align="center">
         <div class="form-group">
-          <textarea class="form-control" rows="5" placeholder="Enter title of your story"></textarea>
+          <%= f.text_area :title, :class => 'form-control', rows: 5, placeholder: 'Enter title of your story' %>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<!-- END MODAL TITLE STORY-->
 
-
-<!-- MODAL PHOTO STORY-->
-<div id="PhotoStoryModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
-
-    <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" id="PhotoStoryModal">
       <div class="modal-header">
-        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
         <h4 class="modal-title" align="center">Photos & Videos</h4>
       </div>
       <div class="modal-body" align="left">
-        <p align="left">
-          <button class="btn btn-height-width btn-default"><i class="fa fa-plus pink"></i> Add</button>
-        </p>
+        <div class="row">
+        <div class="col-xs-12">
+          
+          
+        <div class="lis-file-upload" class="">
+          <%= f.fields_for :user_photos do |ff| %>
+            <% next if ff.object.path.file.blank? %>
+            <div class="MultiFile-label">
+              <%= ff.link_to_remove "x", class: 'MultiFile-remove'  %>
+              <span>
+                <span class="MultiFile-label" title="File selected: <%= ff.object.path.file.file_name %>">
+                  <span class="MultiFile-title"><%= ff.object.path.file.file_name %></span>
+                  <%= image_tag ff.object.path.url.to_s, style: "max-height:100px; max-width:100px;", class: 'MultiFile-preview' %>
+                  </span>
+                </span>
+            </div>
+          <% end %>
+        </div>  
+
+          <div class="fileinput-button">
+              <div class="btn btn-height-width btn-default block-import" >
+                <i class="fa fa-plus pink"></i> Add
+                <%= file_field_tag 'files[]', label: false, class: 'file-upload with-preview' %>
+              </div>
+          </div>
+        </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<!-- END MODAL PHOTO STORY-->
 
-<!-- MODAL DATE STORY-->
-<div id="DateStoryModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
-
-    <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" id="DateStoryModal">
       <div class="modal-header">
         <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
         <h4 class="modal-title" align="center">When did you visit?</h4>
       </div>
       <div class="modal-body" align="center">
-         <p class="grey">Select the month and year that you visited this place</p>
+         <p class="grey top15 btm15 ">Select the month and year that you visited this place</p>
+            <%= f.text_field :age_bracket, class: 'form-control place-date' %>
+            <input type="text" class="form-control place-date">
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-<!-- END MODAL DATE STORY-->
 
-<!-- MODAL ABOUT STORY-->
-<div id="AboutStoryModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
-
-    <!-- Modal content-->
-    <div class="modal-content">
+    <div class="modal-content" id="AboutStoryModal">
       <div class="modal-header">
         <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
@@ -139,10 +137,51 @@
       </div>
       <div class="modal-body" align="center">
          <div class="form-group">
-           <textarea class="form-control" rows="5" placeholder="In a few paragraphs, tell is about your experience visiting to this place."></textarea>
+           <%= f.text_area :content, class: 'form-control', rows: 5, placeholder: 'In a few paragraphs, tell is about your experience visiting to this place.' %>
          </div>
       </div>
     </div>
+
+    <div class="modal-content" id="AgeBracketModal">
+      <div class="modal-header">
+        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
+        <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
+        <h4 class="modal-title" align="center">Your age bracket</h4>
+      </div>
+      <div class="modal-body">
+         <div class="" data-toggle="buttons">
+          <label class="btn btn-default btn-block ">
+            <%= f.radio_button :age_bracket, value: 'toodlers', autocomplete: 'off', id: 'option1' %> 5-8 years old
+          </label>
+          <label class="btn btn-default btn-block ">
+            <%= f.radio_button :age_bracket, value: 'kids', autocomplete: 'off', id: 'option2' %> 9-12 years old
+          </label>
+          <label class="btn btn-default btn-block ">
+            <%= f.radio_button :age_bracket, value: 'teenagers', autocomplete: 'off', id: 'option3' %> A teenager
+          </label>
+          <label class="btn btn-default btn-block ">
+            <%= f.radio_button :age_bracket, value: 'adults', autocomplete: 'off', id: 'option4' %> An adult
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-content" id="FirstNameModal">
+      <div class="modal-header">
+        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
+        <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
+        <h4 class="modal-title" align="center">Your first name</h4>
+      </div>
+      <div class="modal-body" align="center">
+         <div class="form-group">
+          <%= f.text_area :author_name, class: 'form-control', rows: 5, placeholder: "Enter your name you'd like to appear with your story." %>
+         </div>
+      </div>
+    </div>
+
   </div>
 </div>
-<!-- END MODAL ABOUT STORY-->
+
+<% end %> <!-- /form for -->
+<% end %> 
+<!-- END MODAL ABOUT STORY

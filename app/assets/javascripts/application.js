@@ -23,7 +23,8 @@
 // require jquery.bxslider
 // require jquery.keep-ratio
 // require progressbar
-// require bootstrap-datepicker
+//= require jquery.MultiFile
+//= require bootstrap-datepicker
 // require countries
 //= require area
 //= require jquery.raty-fa
@@ -61,3 +62,4 @@
 //= require chart.min
 //= require boundround
 //= require dual_list_box
+//= require jquery_nested_form

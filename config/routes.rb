@@ -145,6 +145,7 @@ Rails.application.routes.draw do
     resources :user_photos
     resources :three_d_videos
     resources :similar_places
+    resources :good_to_knows
     collection { post :import }
   end
 
@@ -180,6 +181,7 @@ Rails.application.routes.draw do
     resources :fun_facts
     resources :famous_faces
     resources :info_bits
+    resources :good_to_knows
     collection { post :import }
   end
 
@@ -197,6 +199,8 @@ Rails.application.routes.draw do
   post "/users/username/send_username" => "users/accounts#send_username"
 
   get "/wp-blog/:id/:place", to: "places#wp_blog"
+
+  get "categories", to: "categories#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

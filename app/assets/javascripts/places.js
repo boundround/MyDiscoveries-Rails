@@ -1,6 +1,6 @@
 // Add to Wishlist
 function addToFav(){
-  $('#place-favorite').on('click', function(e){
+  $('.place-favorite').on('click', function(e){
     e.preventDefault();
     e.stopPropagation();
     var userId = $(this).data("user-id");
@@ -8,7 +8,7 @@ function addToFav(){
     data = {};
     data["places_user"] = { user_id: userId, place_id: placeId };
     if(userId === "no-user"){
-      alert("You must be logged in to add to your wishlist!");
+      alert("You must be logged in to add to your favorite!");
     } else if ($(this).data("liked") === false) {
       $.ajax({
         type: "POST",
@@ -16,7 +16,7 @@ function addToFav(){
         data: data,
         success: console.log('LIKE SAVED')
       });
-      $(this).text("Remove from wishlist");
+      $(this).text("Remove From Favourites");
       $(this).data("liked", true);
     } else if ($(this).data("liked") === true) {
       $.ajax({
@@ -26,7 +26,7 @@ function addToFav(){
         data: data,
         success: console.log('LIKE DELETED')
       });
-      $(this).text("Add to wishlist");
+      $(this).text("Add To Favourites");
       $(this).data("liked", false);
     }
   });
@@ -185,9 +185,17 @@ $('#story-close').on('click', function(){
 //   $('.loader-bound-round').show();
 // });
 }
-function ratyRate() {
-  // $(".star-place").raty({
-  //   // cancel:true
+function setUpfileUpload(input, list){
+  $(input).MultiFile({
+    list: list,
+    max: 10,
+    accept: 'jpg|png|gif|mp4|3gp'
+  });
+
+  //   $('.file-upload2').MultiFile({
+  //   list: '.lis-file-upload2',
+  //   max: 10,
+  //   accept: 'jpg|png|gif|mp4|3gp'
   // });
 }
 
@@ -195,8 +203,11 @@ $(document).ready(function() {
     $('#publish-review-button').on('click', function(){
       $('#ReviewModal').modal("hide");
     })
-    ratyRate();
-    
+    $('.place-date').datepicker();
+
+   setUpfileUpload('.file-upload','.lis-file-upload');
+   setUpfileUpload('.file-upload2','.lis-file-upload2');
+   setUpfileUpload();
    allMap();
    addToFav();
    setUpLoadMore();
