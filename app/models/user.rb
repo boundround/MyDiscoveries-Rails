@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, # :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :authentication_keys => [:username]
+         :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :authentication_keys => [:email]
   devise :omniauthable, :omniauth_providers => [:instagram]
 
   after_create :create_mixpanel_profile
@@ -127,19 +127,6 @@ class User < ActiveRecord::Base
     else
       1.month
     end
-  end
-
-  def create_mixpanel_profile
-    tracker = Mixpanel::Tracker.new(ENV['MIXPANEL_PROJECT_TOKEN'])
-    tracker.people.set( id, {
-      '$first_name'       => first_name,
-      '$last_name'        => last_name,
-      '$email'            => email
-    })
-    tracker.track(id, "Signed up", {
-      "first_name"              => first_name,
-      "last_name"               => last_name
-    })
   end
 
 end
