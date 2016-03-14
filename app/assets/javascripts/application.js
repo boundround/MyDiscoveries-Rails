@@ -31,9 +31,9 @@
 //= require places
 // require avatarupload
 // require user
-// require dataTables/jquery.dataTables
-// require dataTables/bootstrap/3/jquery.dataTables.bootstrap
-// require cms
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require cms
 // require bootsy
 //= require bootstrap
 // require bootstrap/transition
