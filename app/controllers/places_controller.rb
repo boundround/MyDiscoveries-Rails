@@ -681,6 +681,7 @@ class PlacesController < ApplicationController
         :status,
         :footer_include,
         :is_area,
+        :primary_area,
         :special_requirements,
         :top_100,
         :viator_link,
