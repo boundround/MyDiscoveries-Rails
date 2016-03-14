@@ -5,7 +5,8 @@
 
     <%= simple_form_for @place, html: { role: 'form'} do |f| %>
       <div class="form-group">
-        <%= f.input :top_100, label: "Top 100", input_html: { class: 'form-control' } %>
+        <%= f.input :top_100, label: "Top 100", wrapper: :inline_checkbox %>
+        <%= f.input :footer_include, label: "Include In Footer?", wrapper: :inline_checkbox %>
       </div>
       <div class="form-group">
         <%= f.input :display_name, input_html: { class: 'form-control' } %>
@@ -20,7 +21,7 @@
         <%= f.input :description, label: "Long description", input_html: { class: 'form-control area-description-input' } %>
       </div>
       <div class="form-group">
-        <%= f.input :is_area, as: :boolean, label: "Is this an area?", input_html: { class: 'form-control' } %>
+        <%= f.input :is_area, as: :boolean, label: "Is this an area?", wrapper: :inline_checkbox %>
       </div>
       <div class="form-group">
         <%= f.input :viator_link, input_html: { class: 'form-control' } %>

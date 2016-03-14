@@ -683,6 +683,7 @@ class PlacesController < ApplicationController
         :activity_list,
         :place_id,
         :status,
+        :footer_include,
         :is_area,
         :special_requirements,
         :top_100,
