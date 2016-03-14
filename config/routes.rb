@@ -199,6 +199,8 @@ Rails.application.routes.draw do
   post "/users/username/send_username" => "users/accounts#send_username"
 
   get "/wp-blog/:id/:place", to: "places#wp_blog"
+  # get "/wp-blog-cat/:id", to: "primary_categories#wp_blog"
+
 
   get "categories", to: "categories#index"
 

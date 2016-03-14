@@ -133,10 +133,16 @@ function setupModal(){
         place = $(this).data("place");
         image = $(this).data("image");
         place_name = $(this).data("place-name");
+        category = $(this).data("cat");
         host = document.location.origin;
     $("#modal-dialog-story").hide();
     $("#modal-dialog-blog").show();
-    $("#show-story-modal iframe").prop("src", host+"/wp-blog/"+id+"/"+place);
+    if (category == "") {
+      $("#show-story-modal iframe").prop("src", host+"/wp-blog/"+id+"/"+place);
+    }else{
+      $("#show-story-modal iframe").prop("src", host+"/wp-blog/"+id+"/"+category);
+    }
+    
     $("#show-story-modal .modal-dialog").css("max-width","1120px");
     // $("#frame-blog").prop("src", host+"/wp-blog/"+id+"/"+place);
     // $("#userStory iframe");
