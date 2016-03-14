@@ -12,20 +12,6 @@
     <% if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin? %>
       <div class="form-group">
         <a href="<%= hero_image_picker_place_path(@place)%>" class="btn btn-default">Choose Hero Image</a>
-      </div><div class="form-group">
-        <%= f.input :display_name, input_html: { class: 'form-control' } %>
-      </div>
-      <div class="form-group">
-        <%= f.input :country_id, label: 'Country', collection: Country.all, as: :select, label_method: :display_name, value_method: :id, required: true %>
-      </div>
-      <div class="form-group">
-        <%= f.input :description, as: :bootsy, label: false, input_html: { class: 'form-control area-description-input' } %>
-      </div>
-      <div class="form-group">
-				<%= f.check_box :show_on_school_safari %>Show on School Safari
-      </div>
-      <div class="form-group">
-        <%= f.input :school_safari_description, as: :bootsy, label: 'School Safari Description', input_html: { class: 'form-control area-description-input' } %>
       </div>
       <div class="form-group">
         <%= f.input :tag_list, label: 'Tags (Comma Separated Values)', input_html: { class: 'form-control'} %>
@@ -37,38 +23,8 @@
         <%= f.input :activity_list, label: 'Activity Tags (Comma Separated Values)', input_html: { class: 'form-control'} %>
       </div>
       <div class="form-group">
-        <%= f.input :website, input_html: { class: 'form-control' } %>
-      </div>
-      <div class="form-group">
         <%= f.input :booking_url, input_html: { class: 'form-control' } %>
       </div>
-    <% end %>
-    <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
-      <div class="form-group published-radio">
-        <%= f.input :subscription_level, as: :radio_buttons, collection: ["basic", "standard", "Premium"] %>
-      </div>
-      <div class="form-group published-radio">
-        <%= f.input :status, as: :radio_buttons, collection: ["draft", "edited", "live", "removed"] %>
-      </div>
-      <div class="form-group">
-        <%= f.input :published_at, as: :date, order: [:day, :month, :year], include_blank: true, label: "Publish At" %>
-      </div>
-      <div class="form-group">
-        <%= f.input :unpublished_at, as: :date, order: [:day, :month, :year], include_blank: true, label: "Remove At" %>
-      </div>
-    <% elsif current_user.has_role?("editor") %>
-      <div class="form-group published-radio">
-        <%= f.input :subscription_level, as: :radio_buttons, collection: ["basic", "standard", "Premium"] %>
-      </div>
-      <% if @place.status == "draft" || @place.status == "edited" %>
-        <div class="form-group published-radio">
-          <%= f.input :status, as: :radio_buttons, collection: ["draft", "edited"] %>
-        </div>
-      <% else %>
-      <div class="form-group published-radio">
-        <%= f.input :status, as: :radio_buttons, collection: [@place.status] %>
-      </div>
-      <% end %>
     <% end %>
     <% if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin? %>
     <p><input id="pac-input" class="controls" type="text"
