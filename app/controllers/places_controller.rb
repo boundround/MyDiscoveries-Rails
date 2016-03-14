@@ -47,10 +47,6 @@ class PlacesController < ApplicationController
         fun_fact.add_or_remove_from_country(@place.country)
       end
 
-      @place.discounts.each do |discount|
-        discount.add_or_remove_from_country(@place.country)
-      end
-
       if params[:place][:hero_image].present? || params[:place][:remote_hero_image_url].present?
         render :crop
       else
