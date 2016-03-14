@@ -16,6 +16,9 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
+  Rails.application.eager_load!
+  config.included_models = ActiveRecord::Base.descendants.map!(&:name)
+
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory

@@ -31,12 +31,14 @@ class Place < ActiveRecord::Base
     end
 
     attribute :category do
-      if categories.blank?
-        "sights"
-      elsif categories.any? {|category| category.identifier == "area"}
-        "area"
-      else
-        categories[0].identifier
+      if self.try(:categories)
+        if categories.blank?
+          "sights"
+        elsif categories.any? {|category| category.identifier == "area"}
+          "area"
+        else
+          categories[0].identifier
+        end
       end
     end
 

@@ -202,8 +202,8 @@ Rails.application.routes.draw do
 
   get "categories", to: "categories#index"
 
-  get "sub_category/:id", to: "sub_categories#show"
-  get "primary_category/:id", to: "primary_categories#show"
+  resources :primary_categories, only: [:index, :show]
+  resources :sub_categories, only: [:index, :show]
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
