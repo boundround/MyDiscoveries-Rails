@@ -1,0 +1,17 @@
+<div class="thumbnail padd0">
+  <div class="image-cat image-cat-left outer-js">
+    <img src="<%= showing_image(place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive img-full-div inner-js">
+  </div>
+  <div class="caption caption-right">
+    <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
+    <h2 class="cruises-color"><%= place.display_name %></h2>
+  </div>
+  <div class="details-dest">
+    <div class="left">
+      <%= link_to "<i class=\"fa fa-ship\"></i> #{place.primary_category.try(:name)}".html_safe, place.primary_category.present?? primary_categories_path : '#' %>
+    </div>
+    <div class="right">
+      <a href="#"> $$</a>
+    </div>
+    </div>
+ </div>

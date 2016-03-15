@@ -1,23 +1,23 @@
 class PrimaryCategoriesController < ApplicationController
 
+	before_action :category, only: [:show]
+	before_action :stories, only: [:show] #get stories
 
 	def show
-	#hardcode #check
-	@cat = params[:id] #using on place
-	# debugger
-	@primary_category = PrimaryCategory.find_by_identifier(@cat)
-	if !@primary_category.nil?
-		@areas = @primary_category.places.is_area
-		@places = @primary_category.places.where.not(is_area: true)
-	end
-	@stories = ApiBlog.get_cached_blogs(@cat,"primary_cat")
-
+		@areas= category.places.is_area.paginate(per_page: 10, page: params[:areas_page])
+		@places= category.places.is_not_area.paginate(per_page: 6, page: params[:places_page])
 	end
 
-	# def wp_blog
- #    	@blog = ApiBlog.find_blog_primary_cat(params[:id].to_i, params[:cat])
- #    	debugger
-	# end
+	private
 
+		def category
+			@category ||= PrimaryCategory.includes(:places => :stories).find_by_identifier(params[:id])
+			raise ActiveRecord::RecordNotFound if @category.nil?
+			@category
+		end
+
+		def stories
+			@stories ||= ApiBlog.get_cached_blogs(params[:id], "primary_cat")
+		end
 
 end

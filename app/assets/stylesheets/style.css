@@ -245,6 +245,16 @@ ul.nav.navbar-nav.first-ul{
 .font-orange2{
 	color: #fd7e56;
 }
+
+.font-orange2 a{
+	color: #fd7e56;
+}
+.font-orange2 a:hover{
+	color: #fd7e56;
+	text-decoration: none;
+}
+
+
 .font-weight-style {
 	font-weight: 400 !important;
 }

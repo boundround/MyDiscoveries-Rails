@@ -1,0 +1,8 @@
+<% unless @categories.blank? %>
+	$("div#categories-list").append("<%= escape_javascript( render('categories_list', categories: @categories) ) %>");
+	<% if last_page? @categories %>
+		$('a.single-pagination').remove();
+	<% else %>	
+		$('a.single-pagination').attr('href', '<%= categories_path(page: @categories.next_page) %>');
+	<% end %>
+<% end %>
