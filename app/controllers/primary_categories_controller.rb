@@ -1,10 +1,10 @@
 class PrimaryCategoriesController < ApplicationController
-	
+
 
 	def show
 	#hardcode #check
 	@cat = params[:id] #using on place
-	debugger
+	# debugger
 	@primary_category = PrimaryCategory.find_by_identifier(@cat)
 	if !@primary_category.nil?
 		@areas = @primary_category.places.is_area
