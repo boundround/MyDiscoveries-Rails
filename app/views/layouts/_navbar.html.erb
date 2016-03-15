@@ -22,7 +22,7 @@
       <ul class="nav navbar-nav">
         <li class="dropdown menu-large">
           <p class="find visible-xs">Find</p>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Places to go</a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Places to go<span class="caret"></span></a>
 
           <ul class="dropdown-menu megamenu row megamenu-bg">
         </li>
@@ -236,13 +236,13 @@
             </div>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
+            <li><a href="<%= destroy_user_session_path %>">Signout</a></li>
+            <!-- <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
             <li class="dropdown-header">Nav header</li>
             <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="#">One more separated link</a></li> -->
           </ul>
         </li>
 

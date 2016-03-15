@@ -149,7 +149,8 @@
       
     </div>
 </section> -->
-    <%= render "stories/all_stories" %>
+    <%#= render "stories/all_stories" %>
+    <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories" }%>
     <%= render "stories/modal_story" %>
 <!-- <div class="text-center clearfix btm20">
   <a href="#" class="btn btn-default">Load more Stories</a>
