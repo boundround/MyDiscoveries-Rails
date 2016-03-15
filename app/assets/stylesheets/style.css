@@ -30,6 +30,12 @@ h1, h2, h3, h4{
 	margin: 0;
 }
 
+.navbar.navbar-brw a {
+/*	color: #ffffff !important;*/
+}
+.navbar.navbar-brw a:hover {
+
+}
 
 .brw-navbar-brand>img{
 	/*width: 26px;*/
@@ -91,6 +97,7 @@ h1, h2, h3, h4{
 	color: #000;
 	background: none;
 	background: #e7e7e7;
+	/*text-decoration: underline;*/
 }
 ul.nav.navbar-nav.first-ul{
 	border-right: 1px solid #eaeaea;
@@ -135,7 +142,8 @@ ul.nav.navbar-nav.first-ul{
 }
 
 .btn-become{
-    width: 90%;
+    width: 100%;
+    margin: 0 auto;
     border-radius: 10px;
     color: #6cb7ca !important;
     font-size: 22px;
@@ -204,7 +212,7 @@ ul.nav.navbar-nav.first-ul{
 	/*font-family: */
 	font-weight: 500 !important;
 	margin: 10px 0;
-	margin-top: 30px;
+	margin-top: 24px;
 }
 .border-section{
 	border-bottom: 1px solid #D2D2D2;
@@ -1097,10 +1105,10 @@ section.photo-latest .image img{
 }
 @media(min-width: 768px){
 	.header-image-with-nav{
-		height: 700px ;
+		height: 360px;
 	}
 	.header-image-with-nav .action{
-	    top: 605px;
+	    top: 320px;
     	/*height: 220px;*/
 	}
 }
@@ -1116,11 +1124,20 @@ section.photo-latest .image img{
 	    width: 20%;
 	}
 }*/
+
+@media (min-width: 992px) {
+	.header-image-with-nav{
+		height: 680px;
+	}
+	.header-image-with-nav .action {
+		top: 640px;
+	}
+}
 @media(max-width: 767px){
 .header-image-with-nav .action .left, .header-image-with-nav .action .center,.header-image-with-nav .action .right{
-    float: left;
-    width: 33.333333333333336%;
-}
+  float: left;
+  width: 33.333333333333336%;
+	}
 }
 @media (max-width: 426px){
 	.header-image-with-nav .action{
@@ -1146,7 +1163,7 @@ section.photo-latest .image img{
 /*PLACE DETAIL/COUNTRY*/
 @media (min-width: 768px){
 	.place-details.country-details, .place-details{
-	    margin-top: -58px;
+	    margin-top: 0;
 	    /*width: 90%;*/
 	    margin-left: auto;
 	    margin-right: auto;
@@ -1554,6 +1571,7 @@ a.left.carousel-control.carousel-fun{
 	border-radius: 3px;
 }
 /**/
+
 /*EVERYONE*/
 section.everyone{
 	padding: 20px 0;
@@ -1646,6 +1664,9 @@ section.everyone .desc{
 }
 .text-light {
 	font-weight: 100;
+}
+.text-shadow {
+	text-shadow: none !important;
 }
 .emphasize {
 	font-size: 1.25em;
@@ -2025,8 +2046,39 @@ section.modal-booking .left img{
 }
 
 .fix-img {
-	max-height: 400px;
+	/*was 400px*/
+	height: 350px; 
+	max-height: 350px !important;
+	overflow: hidden;
 	position: relative;
+}
+
+@media (max-width: 400px) {
+	.home-carousel > .item > img, .home-carousel > .item > a > img {
+		max-width: none !important;
+		width: auto !important;
+		max-height: 350px !important;
+	}
+	.fix-img {
+		height: 350px; 
+		max-height: 350px !important;
+		overflow: hidden;
+		position: relative;
+	}
+}
+
+@media (min-width: 768px){
+	.fix-img {
+		height: 340px;
+		max-height: 340px !important;
+	}
+}
+
+@media (min-width: 992px) {
+	.fix-img  {
+		height: 670px;
+		max-height: 670px !important;
+	}
 }
 
 .image-fit {
