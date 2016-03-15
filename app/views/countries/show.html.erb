@@ -1,378 +1,353 @@
+
 <% provide(:title, @country.display_name) %>
 
-<style>
-/*.br_lightbox {*/
-   /*background: url(<%= @country.hero_photo.url || asset_path('flags/style="font-size:21px; font-weight:300;"' + @country.country_code.downcase + '.png') %>) no-repeat; padding: 20px 0 0 0; color: #fff; background-position: center center !important; background-size:cover !important; }*/
+<% if @country.published_status == "live" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@country) && @country.published_status!= "removed")) %>
+<%= render "layouts/navbar" %>
+<div id='country-data' data-country-code=<%= @country.country_code %> data-capital-city=<%= @country.capital_city %>></div>
 
-   .br15_city_header{
-    background: url(<%= @country.hero_photo.url || asset_path('flags/style="font-size:21px;
-    font-weight:300;"' + @country.country_code.downcase + '.png') %>) no-repeat;
-    background-size: cover;
-    min-height: 334px;
-    background-position: center;
-   }
-    .carousel-inner .item.new-bg-countries {
-      min-height: 680px;
-    }
-    .br_mob_links.cs-br_mob_links{
-      top:104px !important;
-    }
-    h1#country-name-heading{
-      color: white !important;
-      margin: 10px 0;
+<div class="area-content" data-lat="<%= @country.latitude %>" data-long="<%= @country.longitude %>">
 
-    }
-
-  .slider .fa.fa-chevron-right.prev { color: #fc7e56; cursor: pointer; font-size: 25px; right: -25px; position: absolute; top: 50%; }
-  .br_country_sidebar { border-radius: 0 20px 0 0; }
-  .slider .fa.fa-chevron-left.next { color: #fc7e56; cursor: pointer; font-size: 25px; position: absolute; left: -25px; top: 50%; z-index: 999; }
-
-  #country-population {font-size:21px; font-weight:300;}
-  #country-name-heading {
-    font-size: 78px;
-    font-weight: 300;
-    line-height: 28px;
-    margin-top: 60px;
-    text-shadow: 1px 1px grey;
-  }
-
-      .pac-container {
-        width: 300px !important;
-        border-radius: 4px;
-        margin: 0 auto 0 auto;
-        left: 0 !important;
-        top: 0 !important;
-      }
-</style>
-<div id='country-data' data-country-code=<%= @country.country_code %> data-capital-city=<%= @country.capital_city %>> </div>
-
-        <div class="br15_top_search container-fluid">
-        <!-- #CHANGED -->
-            <div class="br15_search cs-br15_search">
-                <div class="input-group">
-                    <input type="text" id="search-box" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" id="magnifying-glass" type="button"><span class="fa fa-search"></span></button>
-                    </span>
-                </div>
-            </div>
-            <div class="br15_search_result cs-br15_search_result">
-              <%= render "search_suggestions/search_results" %>
-            </div>
-              <%= render 'layouts/profile_dropdown' %>
-
-            </div>
-
-           <!--  <div class="btn-group br15_signup_btn_group hidden-xs" role="group" aria-label="...">
-                <a type="button" class="btn btn-default">Sign In</a>
-                <a type="button" class="btn btn-default">Sign Up</a>
-            </div> -->
-            <div class="col-xs-12 col-sm-6 text-right pull-right"> <%= render 'layouts/profile_dropdown' %> </div>
-            <!-- <div class="col-xs-12 visible-xs"> <%#= render 'layouts/mobile_nav' %> </div>   -->
-
-            <div class="row br15_city_header cs-br15_city_header text-center">
-               <p class="br_time cs-br-time"> <img class="country-flag" src="<%= asset_path('flags/' + @country.country_code.downcase + '.png') %>"/>
-               <span class="hidden-xs">
-                  <% if @weather %>
-                    <span class="temperature">
-                    <% if @weather_temp %>
-                    <%= @weather_temp %>&deg;
-                    <% end %>
-                    </span>&nbsp; <span class="weather-description">
-                    <% if @weather_description %>
-                    <%= @weather_description %> in <%= @country.capital_city %>
-                    <% end %>
-                    </span>
-                    <% end %>
-                  </span>
-                </p>
-                <div class="col-sm-12 ">
-                    <a href="<%= root_path %>" class="center-block br15_logo">
-                    <img src="/assets/br_logo_new.png" class="img-responsive center-block" alt=""></a>
-                </div>
-            <%#= render 'layouts/search_input'%>
-            <h1 class="text-center" id="country-name-heading"><%= body_title(@country.display_name) %><br/>
-              <span id="country-population">Population: </span>
-            </h1>
-              <span class="hero-hearts text-center"><a href="#"
-              onclick="
-              window.open(
-                'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
-                'facebook-share-dialog',
-                'width=626,height=436');
-                return false;"> <i class="fa fa-facebook-square fa-lg"></i> </a>&nbsp;&nbsp;&nbsp; <a href=""
-                onclick="
-              window.open(
-                'https://twitter.com/intent/tweet?text=<%= request.original_url %>%20%23seeitmyway',
-                'twitter-hashtag-button',
-                'width=626,height=436');
-                return false;"> <i class="fa fa-twitter-square fa-lg"></i></a>
-              </span>
-            </div>
-            <nav class=" br15_fixed br15_fixed_country nav row" data-spy="affix" data-offset-top="300">
-                <div class="col-sm-4 col-sm-offset-4 col-xs-12">
-                    <h3 class="text-uppercase br15_semi_font text-center">
-                        <%= @country.display_name %>
-                    </h3>
-                </div>
-                <div class="col-sm-4 col-xs-12 text-right br15_light_font">
-                    <div class="row">
-                        <div class="col-sm-12 col-xs-12">
-                                <!-- <a href="#" class="btn btn-primary br15_btn_add_wish">Add To Wishlist</a> -->
-                            <%# if user_signed_in? && @country.users.include?(current_user) %>
-                            <% if user_signed_in? %>
-                              <a href="#" class="btn btn-primary br15_btn_add_wish" id="place-favorite" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from wishlist</a>
-                            <% else %>
-                              <a href="#"  class="btn btn-primary br15_btn_add_wish" id="place-favorite" data-liked="false" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Add to wishlist</a>
-                            <% end %>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
+<div class="container" id="search-nav" style="display:none;background:white;">
+  <div class="row">
+    <div class="col-xs-1 col-sm-1 top15">
+        <i class="fa fa-search pink fontbig-signin i-big-isize"></i>
+    </div>
+    <div class="col-xs-9 col-sm-9" style="height:60px">
+      <form>
+        <div class="form-group top13">
+          <input type="text" class="form-control navbar-form navbar-search-form" placeholder="Search for places, experiences & more...">
         </div>
-        <div class="clearfix"></div>
-        <div class="br15_about col-sm-8">
-            <div class="br15_row_mob">
-                <div class="col-xs-12">
-                    <p><%= @country.description %></p>
-                    <a href="#" class="visible-xs">Read More</a>
-                    <br/>
-                    <!-- <p class="hidden-xs">description
-                    </p> -->
-                </div>
-            </div>
+      </form>
+    </div>
+    <div class="top15" align="center">
+      <i id="fa-times-nav-xs" class="fa fa-times grey fontbig-signin i-big-isize"></i>
+    </div>
+  </div>
+</div>
+
+<div class="header-image-with-nav top-outer-js">
+  <img clas="top-inner-js" src="<%= showing_image(draw_hero_background(@country)) %>" alt="" class="img-header">
+    <div class="container padding-style">
+      <div class="title-container hidden-xs">
+        <div class="row">
+          <div class="col-md-offset-2 col-md-8">
+            <h1 class="text-center white"><%= @country.display_name %></h1>
+          </div>
         </div>
-
-        <div class="col-sm-4 br15_about_sidebar text-uppercase">
-          <h3 class="text-center">Did you know ?</h3></br>
-            <h3 class="br15_semi_font">Language(s)</h3>
-            <h2 class="br15_light_font"><%= @country.official_language %></h2>
-
-            <h3 class="br15_semi_font">Capital City</h3>
-            <h2 class="br15_light_font"><a href="#"><%= @country.capital_city %></a></h2>
-               <div class="col-xs-12 br_left br_pad br_light">
-                    <% if area = Place.find_by(display_name: @country.capital_city) %>
-                    <% if area.description && area.description.length < 85 %>
-                    <%= area.description %><br>
-                    <% elsif area.description %>
-                    <%= raw area.description[0..80] %>...<br>
-                    <% else %>
-                    <%= @country.capital_city_description if @country.capital_city_description %>
-                    <% end %>
-                    <a href="<%= place_path(area)%>">Visit on Bound Round</a>
-                    <% end %>
-                  </div>
-            <h3 class="br15_semi_font">Tallest Mountain</h3>
-            <h2 class="br15_light_font"><%= @country.tallest_mountain %></h2>
-
-            <h3 class="br15_semi_font">Longest River</h3>
-            <h2 class="br15_light_font"><%= @country.longest_river %></h2>
-        </div>
-
-        <div class="clearfix"></div>
-         <!-- Videos -->
-        <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid">
-            <a href="#" class="btn btn-default new-btn-orange a-photo br15_Title_See_All">Videos</a>
-            <div class="row">
-            <!-- <div class="col-lg-12"> -->
-                <div id="br15_owl_video" class="owl-carousel">
-              <!--  <div>
-                  <div class="embed-responsive embed-responsive-16by9">
-                      <img class="embed-responsive-item" src="/assets/frame.jpg">
-                  </div>
-              </div> -->
-              <% @videos.each_with_index do |video, index| %>
-                <div>
-                  <div class="embed-responsive embed-responsive-16by9 for-video-modal"
-                              data-src=<% if !video.vimeo_id.blank? %>
-                                         <%= "//player.vimeo.com/video/#{video.vimeo_id}" %>
-                                        <% else %>
-                                          <%= "https://www.youtube.com/embed/#{video.youtube_id}"%>
-                                        <% end %>>
-                    <img for="thumb-video" id="video-<%= video.vimeo_id || video.youtube_id %>" src="<%= video.vimeo_thumbnail %>" data-thumb="<%= !video.vimeo_id.blank? ? 'vimeo' : 'youtube' %>">
-                    <h4 class="video-title"><%= video.title %></h4>
-                    <div class="div-modal-video"></div>
-                    <div class="bg-play">
-                      <i class="fa fa-play play-icon"></i>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-                </div>
-            </div>
-        </div>
-        <div class="br15_map br15_collapse">
-            <a href="#" class="btn btn-default new-btn-orange btn-map br15_pad_bot_5  br15_features_btn  br15_Title_See_All">map</a>
-            <div id="br15_map" class="map-country">
-
-            </div>
-        </div>
-
-
-        <!-- Photos -->
-        <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid">
-            <a href="#" class="btn btn-default new-btn-orange a-photo br15_Title_See_All">Photos</a>
-            <div class="row">
-            <!-- <div class="col-lg-12"> -->
-                <div id="br15_owl_photos" class="owl-carousel">
-              <!--  <div>
-                  <div class="embed-responsive embed-responsive-16by9">
-                      <img class="embed-responsive-item" src="/assets/frame.jpg">
-                  </div>
-              </div> -->
-              <% @photos.each_with_index do |photo, index| %>
-                  <div>
-                    <div class="embed-responsive embed-responsive-16by9">
-                     <img src="<%= photo.path_url(:medium)%>" class="embed-responsive-item" data-slide-number="<%= index %>" data-caption="<%= photo.caption ? photo.caption : '' %>" data-placeUrl="<%= place_path(photo.place) rescue "" %>" data-placeName="<%= photo.place.display_name rescue "" %>">
-                     <div class="place-photo-credit"><%= photo.credit rescue "" %></div>
-                    </div>
-                       <div class="caption-photo-carousel">
-                        <h3><%= link_to photo.caption, place_path(photo.place) rescue "" %></h3>
-                      </div>
-                  </div>
-                 <% end %>
-                </div>
-            <!-- </div> -->
-            </div>
-        </div>
-
-        <% unless @reviews.blank? %>
-        <div class="br15_review container-fluid">
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1" id="reviews">
-                        <a class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">Reviews</a>
-                    <%= render "reviews/reviews" %>
-                </div>
-            </div>
-        </div>
+      </div>
+      <div class="action">
+        <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div>
+        <div class="center"><a class="white"href="#"><i class="fa fa-plus"></i> Add photos</a>  </div>
+        <% if user_signed_in?%>
+          <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div>
+        <% else %>
+          <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
         <% end %>
-        <% unless @stories.blank? %>
-        <div class="br15_videos  br15_bor_bot br15_photos_cont container-fluid">
-            <a  href="#" class="btn btn-default new-btn-orange br15_Title_See_All">Story</a>
-            <div class="row">
-             <div id="br15_owl_blogs" class="owl-carousel">
-                <%= render "stories/all_stories"%>
-             </div>
-            </div>
+        <div class="pull-right hidden-xs">
+          <div class="component-desk">
+            <ul>
+              <li><a href="#"><i class="fa fa-image"></i> <%= @country.photos.size %> Photos</a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i> <%= @country.videos.size %> Videos</a></li>
+            </ul>
+          </div>
         </div>
-        <% end %>
-      <!-- <%# unless @stories.blank? %>
-        <div class="br15_features hidden-xs container-fluid">
-            <div class="row">
-                <div class="col-sm-12" id="stories">
-                    <div class=" br15_stories br15_reviews">
-                        <div class="col-xs-12">
-                                <a class="btn btn-default new-btn-orange br15_features_btn  br15_Title_See_All">Story</a>
-                            <hr class="br15_hr visible-xs"/>
-                        </div>
-                    </div>
+
+      </div>
+      <div class="component visible-xs">
+        <ul>
+          <li><a href="#"><i class="fa fa-image"></i> <%= @country.photos.size %> Photos</a></li>
+          <li><a href="#"><i class="fa fa-youtube-play"></i> <%= @country.videos.size %> Videos</a></li>
+        </ul>
+      </div>
+   </div>
+ </div>
+
+<!-- container -->
+<div class="container mobile-container padding-style"> <!-- main container -->
+  <section class="place-details">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 border-right-desk">
+      <div class="text-center visible-xs ">
+        <h2 class="place-title place-color btm20 top0"><%= @country.display_name %></h2>
+      </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="detail-place">
+              <div class="located"><p class="gray-font">Located in</p><p><%= @country.display_name %></p></div>
+              <div class="language"><p class="gray-font">Language</p><p id="language" ></p></div>
+              <div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>
+              <div class="likes"><p class="gray-font"><i class="fa fa-thumbs-o-up"></i></p><p>95%</p></div>
+            </div>
+          </div>
+        </div>
+      <div class="desc-place">
+        <p data-full-text="<%= @country.description.html_safe %>"><%= raw @country.description.html_safe[0..280]+"..." %></p>
+        <button class="blueish" style="background:none;border:none;">More <span class="caret"></span></button>
+      </div>
+        <div class="border-section"></div>
+        <div class="row top20 btm20">
+            <div class="col-xs-12 ">
+              <div class="rel-dest">
+                <p class="gray-color">Related Destinations</p>
+                <ul>
+                <% #@similar_places.each do |place| %>
+                  <li><a href="/places/<%#= place.slug %>" class="badge"><%#= place.display_name %></a></li>
+                  <% #end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+      <!-- </div> -->
+    <!-- </section> -->
+    </div> <!-- /col-left -->
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+
+      <section class="map">
+          <div class="text-center btn-map">
+            <a href="" class="btn btn-default btn-shadow"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
+          </div>
+        <div id="map">
+        </div>
+      </section>
+    </div> <!-- /col-right -->
+  </div>
+  </section>
+
+<%= render "photo_carousel" %>
+
+</div> <!-- /main container -->
+
+<section class="travelling-tips fun-fact mrg0">
+  <div class="container padding-style">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4 ">
+      <h4>Good To Know</h4>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a>
+      </div>
+      <!-- <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs"> -->
+        <!-- <h4 class="text-left">Fun Facts</h4> -->
+        <%= render :partial => "fun_facts", :locals => { :color => "pink" } %>
+        <!-- <div id="carousel-example-generic" class="carousel slide carousel-desk-fun" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <div class="fun-image">
+                <div class="img">
+                    <img src="./img/face1.jpg" alt="">
                 </div>
-            </div>
-        </div>
-        <%# end %> -->
-
-        <div class="br15_info br15_famous container-fluid">
-            <a href="#" class="btn btn-default new-btn-orange a-famous br15_pad_bot_5  br15_features_btn  br15_Title_See_All br15_btn_lg ">Famous Faces</a>
-            <!-- <p> From legendary musicians and award winning actors to sporting superstars and history's most influential personalities, see where these famous faces got their start. </p> -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <div id="br15_owl_famous" class="owl-carousel text-center">
-                        <% if !@country.famous_faces.blank? %>
-                        <% @country.famous_faces.active.each_with_index do |famous_face, index| %>
-                          <div class="carousel-item">
-                            <div class="br15_img_round_cont for-img-famous-modal" data-slide-number="<%= index %>">
-                              <img src="<%= famous_face.photo.url || asset_path('generic-grey.jpg') %>" class="famous carousel-modal-photo" data-caption="<%= famous_face.name %>" data-description="<%= famous_face.description %>">
-                            </div>
-                            <h2 class="text-center"><%= famous_face.name %></h2>
-                            <h4><%= famous_face.description %></h4>
-                          </div>
-                        <% end %>
-
-                        <% end %>
-                    </div>
+                <div class="number pink"><span>1</span>
                 </div>
+              </div>
+              <div class="carousel-caption cs-caption">
+                <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.Quisque velit nisi, pretium ut lacinia in, elementum id enim</p>
+              </div>
             </div>
-        </div>
-        <div class="br15_review br15_good_to_know container-fluid">
-            <div class="row">
-              <a href="#" class="btn btn-default new-btn-orange a-to-know br15_pad_bot_5  br15_features_btn  br15_Title_See_All ">Good TO Know</a>
-                <div id="br15_owl_good" class="owl-carousel cs1-owl-carousel">
-                   <% @country.info_bits.active.each_with_index do |info_bit, index| %>
-                        <!-- <div>
-                            <h1 class="br15_bush_tucker text-center">Bush Tucker</h1>
-                            <h2>
-                                Bush tucker is the name given to any native Australian flora and fauna that can be hunted or harvested in the bush, and was traditionally used for sustenance by Australia’s original indigenous inhabitants. Popular bush tucker examples include meats such as kangaroo, emu and goanna, as well as plants like finger lime, quandong and macadamia nuts. Not forgetting the famous witchetty grub- large, white moth larvae that are rich in protein and have a crispy outside like roast chicken when cooked.
-                            </h2>
-                        </div> -->
+            <div class="item">
+              <div class="fun-image">
+                <div class="img">
+                    <img src="./img/face1.jpg" alt="">
+                </div>
+                <div class="number pink"><span>2</span>
+                </div>
+              </div>
+              <div class="carousel-caption cs-caption">
+                <p>text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 </p>
+              </div>
+            </div>
+          </div>
 
-                         <style>
-                          #info-bit-<%= index %> {
-                            background: url(<%= info_bit.photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>) no-repeat;
-                            background-size:cover;
-                            background-position:center;
-                          }
-                        </style>
-                        <div>
-                            <h1 class="br15_bush_tucker text-center" id="info-bit-<%= index %>"><%= info_bit.title %></h1>
-                            <h2><%= info_bit.description %></h2>
-                        </div>
-                    <% end %>
+          <a class="left carousel-control left30" href="#carousel-example-generic" role="button" data-slide="prev">
+            <i class="fa fa-arrow-left i-funfact"></i>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <i class="fa fa-arrow-right i-funfact"></i>
+          </a>
+        </div> -->
+
+      <!-- </div> -->
+    </div>
+  </div>
+</section>
+
+<div class="container padding-style">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
+
+      <%= render "stories/all_stories" %>
+      <%= render "stories/modal_story" %>
+
+      <div class="border-section clearfix btm0 top20 visible-xs"></div>
+    </div> <!-- /left-col -->
+
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
+      <section class="travelling-tips fun-fact mrg0 visible-xs margin-fun-fact">
+        <div class="container">
+          <h4>Fun Facts</h4>
+          <div class="row">
+            <div class="position-js">
+              <div class="col-xs-12">
+                <div class="fun-image">
+                  <div class="img">
+                      <img src="./img/face1.jpg" alt="">
+                  </div>
+                  <div class="number"><span>1</span>
+                  </div>
+                </div>
+                <div class="text">
+                  <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
                 </div>
               </div>
             </div>
-        </div>
-
-        <div class="br15_review container-fluid">
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <a href="#" class="btn btn-default new-btn-orange a-fun br15_pad_bot_5  br15_features_btn  br15_Title_See_All ">Fun Facts</a>
-                    <div id="br15_owl_fun_facts" class="owl-carousel">
-                        <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
-
-                        <!-- <div>
-                            <div class="br15_img_round_cont">
-                                <img src="/assets/hugh.jpg" alt="">
-                            </div>
-                            <h1 class="br15_light_font text-center">Sydney Harbour is one the largest natural harbours in the world. </h1>
-                        </div>
-                        <div>
-                            <div class="br15_img_round_cont">
-                                <img src="/assets/hugh.jpg" alt="">
-                            </div>
-                            <h1 class="br15_light_font text-center">Sydney Harbour is one the largest natural harbours in the world. </h1>
-                        </div> -->
-                        <div>
-                            <div class="br15_img_round_cont">
-                                <img src="<%= fun_fact.hero_photo.url || asset_path('flags/' + @country.country_code.downcase + '.png') %>">
-                            </div>
-                            <h1 class="br15_light_font text-center"><%= raw fun_fact.content %></h1>
-                        </div>
-
-
-                    <% end %>
-                    </div>
+            <div class="position-js">
+              <div class="col-xs-12">
+                <div class="fun-image" style="float: right; margin: 0px;">
+                  <div class="img">
+                      <img src="./img/face1.jpg" alt="">
+                  </div>
+                  <div class="number" style="left: 89px;"><span>2</span>
+                  </div>
                 </div>
+                <div class="text">
+                  <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="text-center clearfix">
+            <a href="#" class="btn btn-default load-more black ">Load more fun facts</a>
+          </div>
         </div>
+      </section>
 
-  <div class="modal fade" id="carousel-modal" class="cs-carousel-modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <section class="places-to-go visit-place">
+          <div class="text-left">
+            <h4 class="section-title">Places to visit in Sydney</h4>
+          </div>
+          <div class="row">
+           <div class="col-xs-12">
+            <div class="thumbnail">
+              <div class="image-cat image-cat-left outer-js">
+                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
+              </div>
+              <div class="caption caption-right">
+                <h4 class="gray-font">Sydney</h4>
+                <h2>Taronga Zoo</h2>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                  <a href="#"> Museum</a>
+                </div>
+                <div class="right">
+                  <a href="#"> $$</a>
+                </div>
+                </div>
+              </div>
+            <div class="thumbnail">
+              <div class="image-cat image-cat-left outer-js">
+                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
+              </div>
+              <div class="caption caption-right">
+                <h4 class="gray-font">Sydney</h4>
+                <h2>Taronga Zoo</h2>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                  <a href="#"> Animals</a>
+                </div>
+                <div class="right">
+                  <a href="#"> $$</a>
+                </div>
+                </div>
+              </div>
+            <div class="thumbnail">
+              <div class="image-cat image-cat-left outer-js">
+                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
+              </div>
+              <div class="caption caption-right">
+                <h4 class="gray-font">Sydney</h4>
+                <h2>Taronga Zoo</h2>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                  <a href="#"><i class="fa fa-user"></i> Do</a>
+                </div>
+                <div class="right">
+                  <a href="#"> $$</a>
+                </div>
+                </div>
+              </div>
+            <div class="text-center clearfix">
+              <a href="#" class="btn btn-default load-more btm20 mrg-btm30 top5">Load more places</a>
+            </div>
+            </div>
+          </div> <!-- row -->
+      </section>
+    </div>
+
+    </div> <!-- /col-md-8 -->
+  </div>
+<!--  -->
+<section class="famous-faces">
+  <div class="container padding-style">
+    <div class="row">
+    <h4 class="section-title">Famous Faces</h4>
+      <div class="col-xs-6">
+        <div class="img">
+          <img src="./img/face1.jpg" alt="">
         </div>
-        <div class="modal-body">
-          <div class="owl-carousel" id="content-modal-carousel">
-
-           </div>
+        <div class="famous-text">
+          <p class="title">Russel Crowe</p>
+          <p class="gray-font">Actor</p>
+          <p class="desc">Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada.</p>
         </div>
       </div>
-      <!-- /.modal-content -->
+      <div class="col-xs-6">
+        <div class="img">
+          <img src="./img/face2.jpg" alt="">
+        </div>
+        <div class="famous-text">
+          <p class="title">Name 2</p>
+          <p class="gray-font">Actor</p>
+          <p class="desc">Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada.</p>
+        </div>
+      </div>
     </div>
-    <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal -->
-<%= render 'layouts/video_modal' %>
+</section>
+<section class="member-saying">
+  <div class="container padding-style">
+      <h4 class="section-title">What our member are saying</h4>
+    <div class="row">
+      <div class="col-xs-6 col-sm-offset-2 col-sm-4 text-center">
+        <div class="canvas-holder">
+          <canvas id="chart-area" width="500" height="500"/>
+        </div>
+        <p>would love to come back and visit again</p>
+      </div>
+      <div class="col-xs-6 col-sm-4 text-center">
+        <div class="canvas-holder">
+          <canvas id="chart-area2" width="500" height="500"/>
+        </div>
+        <p>would recommend others to visit</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div> <!-- area-content -->
+<% end %>
+
+<%= render 'layouts/all_modal' %>
+<%= render 'new_story' %>
+<%= render 'layouts/signin_modal' %>
+<%#= render 'layouts/video_modal' %>
+<%#= render 'stories/modal_story' %>
 <%= render 'layouts/footer' %>
-<%= render 'stories/modal_story' %>
