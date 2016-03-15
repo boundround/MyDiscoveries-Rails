@@ -10,7 +10,7 @@
     <div id="dual-list-box-employees" class="form-group row">
       <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="Destinations" name="similar_place[similar_place_ids][]">
         <%= @areas.each do |area| %>
-        <option value="<%= area.id %>" name="<%= area.display_name %>"><%= area.display_name + " " + area.id.to_s %></option>
+        <option value="<%= area.id %>" name="<%= area.display_name %>"><%= area.display_name + (area.primary_area ? " (Primary Area)" : "") %></option>
         <% end %>
      </select>
    </div>

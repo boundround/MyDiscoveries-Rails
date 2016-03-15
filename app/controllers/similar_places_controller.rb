@@ -24,7 +24,7 @@ class SimilarPlacesController < ApplicationController
   def index
     @place = Place.friendly.find(params[:place_id])
     @similar_places = @place.similar_places.build
-    @areas = Place.active.where(is_area: true)
+    @areas = Place.active.where(is_area: true).order(display_name: :asc).where("places.display_name != ?", @place.display_name)
   end
 
   def destroy
