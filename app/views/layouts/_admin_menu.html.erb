@@ -1,68 +1,88 @@
 <% if user_signed_in? %>
   <% if current_user.try(:admin) || current_user.has_role?("publisher") || current_user.has_role?("editor") %>
-    <nav class="navbar navbar-default hidden-xs" role="navigation">
+    <nav class="navbar navbar-default admin-navbar" role="navigation">
       <div class="container-fluid">
         <div class="collapse navbar-collapse">
-          <ul class='nav navbar-nav'>
-            <li><%= link_to 'Home', root_path %></li>
-            <li><%= link_to 'All Countries', countries_path %></li>
-            <li><%= link_to 'New Country', new_country_path %></li>
-            <li><%= link_to 'All Places', places_path %></li>
-            <li><%= link_to 'Assets In Review', "/places/all_edited" %></li>
-            <li><%= link_to 'Publishing Queue', "/places/publishing_queue" %></li>
-            <li><%= link_to 'New Place', new_place_path %></li>
-            <li><%= link_to 'All Programs', programs_path %></li>
-            <li><%= link_to 'New Program', new_program_path %></li>
-            <li><%= link_to 'Edit Place Tags', "/places/tags" %></li>
-            <li><%= link_to 'Edit Program Tags', "/programs/tags" %></li>
-            <li><%= link_to 'User Content Review', "/users/draft_content" %></li>
-            <li><%= link_to 'User Created Places', "/places/user_created" %></li>
-            <% if current_user.try(:admin) %>
-              <li><%= link_to 'Assign Points Values to Assets', points_values_path %>
-              <li><%= link_to 'See All Transactions', transactions_path %>
-              <li><%= link_to 'See Complete Leaderboard', "/users/leaderboard" %>
-              <li><%= link_to 'Show/Edit Users', users_path %></li>
-              <li><%= link_to 'Rails Admin', rails_admin_path %></li>
-              <li><%= link_to 'Merge Places', "/places/merge" %></li>
-            <% end %>
-            <% if user_signed_in? %>
-              <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-            <% end %>
-          </ul>
+          <div class="navbar-header">
+            ADMIN
+            <ul class='nav navbar-nav'>
+              <li><%= link_to 'Home', root_path %></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+                  Countries
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'All Countries', countries_path %></li>
+                  <li><%= link_to 'New Country', new_country_path %></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+                  Areas
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'All Areas', "/places?is_area=true" %></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+                  Places
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'All Places', places_path %></li>
+                  <li><%= link_to 'New Place', new_place_path %></li>
+                  <li><%= link_to 'Assets In Review', "/places/all_edited" %></li>
+                  <li><%= link_to 'Publishing Queue', "/places/publishing_queue" %></li>
+                  <li><%= link_to 'Merge Places', "/places/merge" %></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+                  Users
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'User Content Review', "/users/draft_content" %></li>
+                  <li><%= link_to 'User Created Places', "/places/user_created" %></li>
+                  <li><%= link_to 'Show/Edit Users', users_path %></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+                  School Safari
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'All Programs', programs_path %></li>
+                  <li><%= link_to 'New Program', new_program_path %></li>
+                  <li><%= link_to 'Edit Place Tags', "/places/tags" %></li>
+                  <li><%= link_to 'Edit Program Tags', "/programs/tags" %></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+                  Other
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <% if current_user.try(:admin) %>
+                    <li><%= link_to 'Rails Admin', rails_admin_path %></li>
+                    <li><%= link_to 'Assign Points Values to Assets', points_values_path %>
+                    <li><%= link_to 'See All Transactions', transactions_path %>
+                    <li><%= link_to 'See Complete Leaderboard', "/users/leaderboard" %>
+                  <% end %>
+                </ul>
+              </li>
+              <% if user_signed_in? %>
+                <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+              <% end %>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
   <% end %>
 <% end %>
-
-<!-- <% if !@no_mobile_nav %>
-  <nav class="navbar navbar-default inline-list" role="navigation">
-    <ul class="nav navbar-nav">
-      <% if @place || @area %>
-        <li><a href="/map_only"><i class="fa fa-globe fa-2x centered-icon home-item"></i><br>Home</a></li>
-        <li><a onclick="goToInfoSlide()"><i class="fa fa-question-circle fa-2x centered-icon about-item"></i><br>About</a></li>
-        <li><a onclick="goToPlacesSlide()"><i class="fa fa-th-large fa-2x centered-icon"></i><br>Search</a></li>
-      <% elsif @map %>
-        <li><a onclick="goToInfoSlide()"><i class="fa fa-globe fa-2x centered-icon home-item"></i><br>Map</a></li>
-        <li><a onclick="goToPlacesSlide()"><i class="fa fa-th-large fa-2x centered-icon cards-item"></i><br>Search</a></li>
-      <% else %>
-        <li><a href="/map_only"><i class="fa fa-globe fa-2x centered-icon home-item"></i><br>Map</a></li>
-        <li><a href="/map"><i class="fa fa-th-large fa-2x centered-icon cards-item"></i><br>Search</a></li>
-      <% end %>
-      <li><a href="/videos"><i class="fa fa-youtube-play fa-2x centered-icon videos-item"></i><br>Videos</a></li>
-      <li><a href="/games"><i class="fa fa-puzzle-piece fa-2x centered-icon games-item"></i><br>Games</a></li>
-      <% if user_signed_in? %>
-        <li><a href="<%= users_places_path %>"><i class="fa fa-user fa-2x centered-icon"></i><br>My Profile</a></li>
-        <li><a href="<%= destroy_user_session_path %>" data-method="delete"><i class="fa fa-user fa-2x centered-icon"></i><br>Log Out</a></li>
-      <% else %>
-        <li><a href="<%= new_user_session_path %>"><i class="fa fa-user fa-2x centered-icon"></i><br>Sign In</a></li>
-      <% end %>
-    </ul>
-  </nav>
-<% end %>
-<%if !browser.mobile? && !@set_body_class %>
-  <a href="<%= user_signed_in? ? users_places_path : new_user_session_path %>">
-  <button style="background-image:url(<%= user_signed_in? && current_user.avatar_url ? '"' + current_user.avatar_url + '"' : asset_path("user_copy_2.png") %>)" class="profile-icon menu-button" type="button" id="profile-icon" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="<%= user_signed_in? ? "My Profile" : "Sign In" %>">
-</button></a>
-<% end %> -->
-

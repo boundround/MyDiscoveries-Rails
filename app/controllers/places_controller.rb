@@ -99,8 +99,11 @@ class PlacesController < ApplicationController
   end
 
   def index
-    @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed")
-
+    if params[:is_area]
+      @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where(is_area: true)
+    else
+      @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where.not(is_area: true)
+    end
     respond_to do |format|
       format.html
       format.json { render json: @places }  # respond with the created JSON object
@@ -197,7 +200,7 @@ class PlacesController < ApplicationController
     api_blogs = ApiBlog.get_cached_blogs(@place.slug, 'place')
     @stories = @place.stories.active + api_blogs
     @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.first(6)
-    
+
     @story = Story.new
     @user_photos = @story.user_photos.build
     @active_user_photos = @place.user_photos.active
