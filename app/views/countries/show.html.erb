@@ -178,7 +178,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
 
-      <%= render "stories/all_stories" %>
+      <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories"}%>
       <%= render "stories/modal_story" %>
 
       <div class="border-section clearfix btm0 top20 visible-xs"></div>

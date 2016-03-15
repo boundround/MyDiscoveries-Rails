@@ -312,7 +312,7 @@
             </div> -->
             <a name="stories"></a>
             <div class="row  br_place_or_story">
-              <%= render 'stories/all_stories' %>
+              <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories" }%>
             </div>
             <% if !@area.fun_facts.blank? %>
               <a name="fun-facts"></a>
