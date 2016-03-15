@@ -31,12 +31,14 @@ class Place < ActiveRecord::Base
     end
 
     # attribute :category do
-    #   if categories.blank?
-    #     "sights"
-    #   elsif categories.any? {|category| category.identifier == "area"}
-    #     "area"
-    #   else
-    #     categories[0].identifier
+    #   if self.try(:categories)
+    #     if categories.blank?
+    #       "sights"
+    #     elsif categories.any? {|category| category.identifier == "area"}
+    #       "area"
+    #     else
+    #       categories[0].identifier
+    #     end
     #   end
     # end
 
@@ -207,7 +209,7 @@ class Place < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
 #    Rails.cache.fetch('placeareas_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
-      places = self.active.includes(:categories, :country).where(:categories => {:name => 'Area'})
+      places = self.active.includes(:country)
       places.each do |place|
         geojson['features'] << {
           type: 'Feature',
@@ -241,17 +243,17 @@ class Place < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
     Rails.cache.fetch('places_geojson') do
       geojson = {"type" => "FeatureCollection","features" => [],"countries" => []}
-      places = self.active.includes(:categories, :games, :videos, :photos, :country)
+      places = self.active.includes(:games, :videos, :photos, :country)
       places.each do |place|
         if place.area != nil
           area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.length, "country" => (place.country ? place.country.display_name : "") }
         end
         # Assign icon based on 'premium' level and category
-        if place.categories[0].nil?
-          place_type = 'sights'
-        else
-          place_type = place.categories[0].identifier
-        end
+        # if place.categories[0].nil?
+        #   place_type = 'sights'
+        # else
+        #   place_type = place.categories[0].identifier
+        # end
 
         icon_file_name = place_type + "_pin.png"
 

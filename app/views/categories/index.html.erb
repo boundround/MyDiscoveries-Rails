@@ -10,95 +10,77 @@
 <div class="border-section btm20"></div>
 
 <div class="container padding-style">
-<div class="row">
+  <div class="row">
 
-<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden-md hidden-lg">
-<section class="explore">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="#" class="btn btn-brw-blue btn-block">
-        <i class="fa fa-male i-left"></i><i class="fa fa-arrow-right"></i>Something To Do</a>
+  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden-md hidden-lg">
+  <section class="explore">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <a href="#" class="btn btn-brw-blue btn-block">
+          <i class="fa fa-male i-left"></i><i class="fa fa-arrow-right"></i>Something To Do</a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <a href="#" class="btn btn-brw-orange btn-block">
+          <i class="fa fa-cutlery i-left"></i>
+          <i class="fa fa-arrow-right"></i>Somewhere To Eat</a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <a href="#" class="btn btn-brw-purple btn-block i-stay">
+          <i class="fa fa-home i-left"></i> <i class="fa fa-arrow-right"></i>Somewhere To Stay</a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <a href="#" class="btn btn-brw-green2 btn-block i-cruises">
+          <i class="fa fa-ship i-left"></i><i class="fa fa-arrow-right"></i>Cruises</a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <a href="#" class="btn btn-brw-green btn-block i-tour">
+          <i class="fa fa-map-signs i-left"></i><i class="fa fa-arrow-right"></i>Tours</a>
+        </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="#" class="btn btn-brw-orange btn-block">
-        <i class="fa fa-cutlery i-left"></i>
-        <i class="fa fa-arrow-right"></i>Somewhere To Eat</a>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="#" class="btn btn-brw-purple btn-block i-stay">
-        <i class="fa fa-home i-left"></i> <i class="fa fa-arrow-right"></i>Somewhere To Stay</a>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="#" class="btn btn-brw-green2 btn-block i-cruises">
-        <i class="fa fa-ship i-left"></i><i class="fa fa-arrow-right"></i>Cruises</a>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <a href="#" class="btn btn-brw-green btn-block i-tour">
-        <i class="fa fa-map-signs i-left"></i><i class="fa fa-arrow-right"></i>Tours</a>
-      </div>
-    </div>
-</section>
-</div> -->
+  </section>
+  </div> -->
 
-<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm20"> -->
-  
-  <!--#hardcode -->
-  <!-- Primary Category -->
-  <div class="col-lg-12 col-md-12 btm15">
-    <div class="img-bg-wide outer-js">
-      <img src="http://kidsplayground-web.com/wp-content/uploads/2015/01/19.jpg" class="img-explore-wide inner-js">
-      <span class="text-explore-wide">
-        Driving
-      </span>
-    </div>
-  </div>
+  <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm20"> -->
+     
+    <% @categories.each do |category| %>
+      <!-- Primary categories  -->
+      <div class="col-lg-12 col-md-12 btm15">
+        <%= link_to primary_category_path(category.identifier) do %>
+          <div class="img-bg-wide outer-js">   
+            <%= image_tag category.icon.url.to_s , class: 'img-explore-wide inner-js' %>
+            <span class="text-explore">
+              <%= category.name %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+      <% category.get_sub_categories.each do |sub| %>
+        <!-- Sub categories -->
+        <div class="col-lg-6 col-md-6 btm15">
+          <div class="img-bg outer-js">
+            <%= link_to sub_category_path(sub.identifier) do %>
+              <%= image_tag category.icon.url.to_s , class: 'img-explore- inner-js' %>
+              <span class="text-explore">
+                <%= sub.name %>
+              </span>
+            <% end %>
+          </div>
+        </div>
 
-  <!-- Sub Category  -->
-  <div class="col-lg-6 col-md-6 btm15">
-    <div class="img-bg outer-js">
-      <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" class="img-explore inner-js">
-      <span class="text-explore">
-        City
-      </span>
-    </div>
-  </div>
+      <% end %>
 
-  <div class="col-lg-6 col-md-6 btm15">
-    <div class="img-bg outer-js">
-      <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" class="img-explore inner-js">
-      <span class="text-explore">
-        Theme Parks
-      </span>
-    </div>
-  </div>
-  <div class="col-lg-6 col-md-6 btm15">
-    <div class="img-bg outer-js">
-      <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" class="img-explore inner-js">
-      <span class="text-explore">
-        Foods
-      </span>
-    </div>
-  </div>
-  <div class="col-lg-6 col-md-6 btm15">
-    <div class="img-bg outer-js">
-      <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" class="img-explore inner-js">
-      <span class="text-explore">
-        Resorts
-      </span>
-    </div>
-  </div>
- 
+    <% end %>
 
-  <div class="col-lg-12 col-md-12 btm15" align="center">
-    <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
   </div>
 </div>
-</div>
 
-    </div> <!-- row -->
+<% if last_page? @categories %>
+  <div class="text-center clearfix hidden-md pagination-single">
+    <div class="col-lg-12 col-md-12 btm15 hidden-lg" align="center">
+      <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+    </div>
+    <%= link_to 'Load more..', categories_path(page: @categories.next_page, per_page: 10 ), :class => 'btn btn-default btm20', remote: true %>
   </div>
-  
-  <div class="text-center clearfix hidden-md hidden-lg">
-    <a href="#" class="btn btn-default btm20">Load More</a>
-  </div>
+<% end %>
+
 <!--hardcode end-->

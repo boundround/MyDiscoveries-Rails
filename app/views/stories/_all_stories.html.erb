@@ -45,7 +45,7 @@
                 </div>
             </div><!-- card -->
           <% elsif story.class.to_s.eql? "ApiBlog" %>
-            <div class="card" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-place="<%= @place.slug %>">
+            <div class="card" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-cat="<%= @cat rescue '' %>" data-place="<%= @place.slug rescue '' %>">
               <div class="head-stories">
                 <p class="mrg0">From Blog</p>
               </div>

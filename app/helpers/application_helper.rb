@@ -357,4 +357,8 @@ module ApplicationHelper
     response.code == 200 && response.headers['Content-Type'].start_with?('image')
   end
 
+  def last_page? collection
+    collection.total_pages == collection.current_page
+  end
+
 end
