@@ -124,6 +124,7 @@ class Place < ActiveRecord::Base
   scope :to_be_published, -> { where('published_at >= ?', Time.now) }
   scope :to_be_removed, -> { where('unpublished_at >= ?', Time.now) }
   scope :is_area, -> {where(is_area: true)}
+  scope :is_not_area, -> {where(is_area: nil)}
 
   # include PgSearch
   # pg_search_scope :search, against: [:display_name, :description],

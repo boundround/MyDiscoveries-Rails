@@ -72,4 +72,6 @@ $(document).on('ajax:beforeSend', 'a.single-pagination', function(){
   container= $(this).closest('div.single-pagination-container');
   container.find('div.single-pagination-loader').addClass('hidden-lg');
   $(this).removeClass('hidden');
+}).on('ajax:error', 'a.single-pagination', function(){
+	alert('das')
 });
