@@ -1,10 +1,11 @@
 class PrimaryCategoriesController < ApplicationController
 	
 	before_action :category, only: [:show]
+	before_action :stories, only: [:show] #get stories
 
 	def show
 		@areas= category.places.is_area.paginate(per_page: 10, page: params[:areas_page])
-		@places= category.places.is_not_area.paginate(per_page: 1, page: params[:places_page])
+		@places= category.places.is_not_area.paginate(per_page: 6, page: params[:places_page])
 	end
 
 	private 
@@ -18,6 +19,5 @@ class PrimaryCategoriesController < ApplicationController
 		def stories
 			@stories ||= ApiBlog.get_cached_blogs(params[:id], "primary_cat")
 		end
-
 
 end
