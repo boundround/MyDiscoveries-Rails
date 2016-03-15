@@ -1147,7 +1147,7 @@ section.photo-latest .image img{
 	}
 	.header-image-with-nav .action{
 		/*z-index:-1;*/
-		/*width: 76%*/
+		width: 90%
 	}
 }
 section.place-details{

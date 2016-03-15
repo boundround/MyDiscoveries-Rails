@@ -27,7 +27,7 @@ class PlacesController < ApplicationController
     @photo = Photo.new
     @program = Program.new
     @discount = Discount.new
-    @blogs = ApiBlog.get_cached_blogs(@place.slug)
+    @blogs = ApiBlog.get_cached_blogs(@place.slug, 'place')
   end
 
   def update
@@ -182,7 +182,6 @@ class PlacesController < ApplicationController
     # @related_places = Place.is_area
     # @reviewable = @place
     @reviews = @place.reviews.active
-    # debugger
 
     @review = Review.new
     if user_signed_in?
@@ -199,10 +198,10 @@ class PlacesController < ApplicationController
     @review = Review.new
 
     # @storiable = @place
-    api_blogs = ApiBlog.get_cached_blogs(@place.slug)
+    api_blogs = ApiBlog.get_cached_blogs(@place.slug, 'place')
     @stories = @place.stories.active + api_blogs
     @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.first(6)
-
+    
     @story = Story.new
     @user_photos = @story.user_photos.build
     @active_user_photos = @place.user_photos.active
@@ -462,8 +461,6 @@ class PlacesController < ApplicationController
 
   def wp_blog
     @blog = ApiBlog.find_blog_id(params[:id].to_i, params[:place])
-    # debugger
-    # @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:place])
     @place = Place.find_by_slug(params[:place])
   end
 
