@@ -62,3 +62,14 @@
 //= require chart.min
 //= require boundround
 //= require dual_list_box
+
+
+$(document).on('ajax:beforeSend', 'a.single-pagination', function(){
+  container= $(this).closest('div.single-pagination-container');
+  container.find('div.single-pagination-loader').removeClass('hidden-lg');
+  $(this).addClass('hidden');
+}).on('ajax:success', 'a.single-pagination', function(){
+  container= $(this).closest('div.single-pagination-container');
+  container.find('div.single-pagination-loader').addClass('hidden-lg');
+  $(this).removeClass('hidden');
+});
