@@ -5,18 +5,10 @@ class PrimaryCategory < ActiveRecord::Base
 
   mount_uploader :icon, IconUploader
 
-  attr_accessor :sub_categories
+  attr_accessor :subcategories
 
-  def get_sub_categories
-  	if self.sub_categories.blank?
-	  	self.sub_categories ||= []
-	  	places.each do |place|
-				place.subcategories.each do |sub|
-					self.sub_categories << sub
-				end
-			end
-		end
-		self.sub_categories.compact.uniq
+  def get_subcategories
+  	Subcategory.where(category_type: "subcategory").limit(6)
   end
 
 end

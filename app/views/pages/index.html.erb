@@ -79,8 +79,9 @@
     </div>
     <div class="row" id="places_to_go-list">
         <% @places_to_go.each do |place| %>
-        <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
-            <%= render partial: 'primary_categories/places_list', locals: { place: place} %>
+          <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
+              <%= render partial: 'primary_categories/places_list', locals: { place: place} %>
+          </div>
         <% end %>
     </div> <!-- row -->
   <% end %>
@@ -145,7 +146,7 @@
     </div>
     <div class="col-md-8 col-lg-8">
       <div class="head-title col-md-12 col-lg-12" align="right">
-        
+
       </div>
       <div class="col-md-12 col-lg-12 topmin20">
         <p class="white" align="left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lacinia magna non vehicula commodo. Nullam dapibus pellentesque euismod. Donec tempus eleifend libero, a viverra urna rutrum vel. Integer luctus nulla et bibendum vulputate. Sed vel aliquet enim. </p>
@@ -217,7 +218,7 @@
   </div>
   <div class="row">
     <% @categories.each do |category| %>
-      
+
       <div class="col-sm-6 col-md-3 col-xs-6">
         <div class="thumbnail">
           <div class="image-cat">
@@ -238,20 +239,20 @@
 <!-- #hardcode -->
 <!-- button will link to "all_subcategories" page -->
 <div class="text-center clearfix visible-xs">
-  <%= link_to 'View more experiences', sub_categories_path, :class => 'btn button-orange top5 btm20' %>
+  <%= link_to 'View more experiences', subcategories_path, :class => 'btn button-orange top5 btm20' %>
 </div>
 <!-- #hardcode end-->
 
 <!-- #hardcode -->
-<!-- 
+<!--
 #tasks "Explore Experiences"
 Each card will link to subcategories page where places.subcategory == "driving" or whatever the text of the card says
-Bottom button will link to "all_subcategories" page 
+Bottom button will link to "all_subcategories" page
 -->
 
 <div class="container padding-style hidden-xs">
   <div class="text-left top20 btm30">
-    <h4 class="section-title font-weight-style">Explore Experiences</h4>
+    <h4 class="section-title font-weight-style">Explore Things To Do</h4>
   </div>
   <div class="row" id="categories-list">
 
@@ -259,7 +260,7 @@ Bottom button will link to "all_subcategories" page
 
     <!-- button will link to "all_subcategories" page -->
     <div class="col-lg-12 col-md-12 top20 btm60" align="center">
-        <%= link_to 'View more experiences', sub_categories_path, :class => 'btn button-orange btn-padding single-pagination' %>
+        <%= link_to 'View more experiences', subcategories_path, :class => 'btn button-orange btn-padding single-pagination' %>
     </div>
   </div>
 </div>

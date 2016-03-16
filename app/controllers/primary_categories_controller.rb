@@ -1,5 +1,5 @@
 class PrimaryCategoriesController < ApplicationController
-	
+
 	before_action :category, only: [:show]
 	before_action :stories, only: [:show] #get stories
 
@@ -8,7 +8,10 @@ class PrimaryCategoriesController < ApplicationController
 		@places= category.places.is_not_area.paginate(per_page: 6, page: params[:places_page])
 	end
 
-	private 
+	def index
+	end
+
+	private
 
 		def category
 			@category ||= PrimaryCategory.includes(:places => :stories).find_by_identifier(params[:id])
