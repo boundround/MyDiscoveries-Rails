@@ -212,7 +212,7 @@ ul.nav.navbar-nav.first-ul{
 	/*font-family: */
 	font-weight: 500 !important;
 	margin: 10px 0;
-	margin-top: 24px;
+	margin-top: 20px;
 }
 .border-section{
 	border-bottom: 1px solid #D2D2D2;
@@ -315,6 +315,32 @@ ul.nav.navbar-nav.first-ul{
 .thumbnail .caption{
 	background: #fff;
 }
+
+@media (min-width: 320px) and (max-width: 480px) {
+	.place-caption {
+		padding: 3px !important;
+		min-height: 60px;
+		max-height: 60px;
+		color: #333333;
+		line-height: 60px;
+	}
+	.image-cat {
+		height: 100px;
+	}
+}
+@media (min-width: 480px) and (max-width: 600px) {
+	.place-caption {
+		padding: 5px !important;
+		min-height: 65px;
+		max-height: 65px;
+		color: #333333;
+		line-height: 65px;
+	}
+	.image-cat {
+		height: 120px;
+		background: gray;
+	}
+}
 .img-full-div{
 	position: relative;
 	height: 125px !important;
@@ -338,7 +364,6 @@ ul.nav.navbar-nav.first-ul{
 		padding-top: 0 !important;
 		padding-bottom: 0 !important;
 	}
-
 }
 .top7{
 	margin-top: 7px;
@@ -472,31 +497,38 @@ ul.nav.navbar-nav.first-ul{
 	margin-top: 150px;
 }
 .btm0{
-	margin-bottom: 0px;
+	margin-bottom: 0px !important;
 }
 .btm5{
- 	margin-bottom: 5px;
+ 	margin-bottom: 5px !important;
 }
 .btm10{
  	margin-bottom: 10px !important;
 }
 .btm20{
- 	margin-bottom: 20px;
+ 	margin-bottom: 20px !important;
 }
 .btm30{
- 	margin-bottom: 30px;
+ 	margin-bottom: 30px !important;
 }
 .btm25{
- 	margin-bottom: 25px;
+ 	margin-bottom: 25px!important ;
 }
 .btm15{
 	margin-bottom: 15px !important;
 }
 .btm40 {
-	margin-bottom: 40px;
+	margin-bottom: 40px !important;
 }
 .btm60 {
-	margin-bottom: 60px;
+	margin-bottom: 60px !important;
+}
+.btmminus52 {
+	margin-bottom: -52px !important;
+}
+.top36all180 {
+	margin: 18px 0;
+	margin-top: 36px;
 }
 .thumbnail.padd0{
 	padding: 0;
@@ -516,6 +548,10 @@ ul.nav.navbar-nav.first-ul{
 .btn-shadow{
     box-shadow: 0px 0px 2px 0px #B7B7B7;
 }
+.btn-border {
+	border: 1px solid #cdcdcd !important;
+}
+
 .mrg0{
  margin: 0 !important;
 }
@@ -569,8 +605,18 @@ ul.nav.navbar-nav.first-ul{
 	font-weight: normal !important;
 }
 .paddleft0{
-	padding-left: 0;
+	padding-left: 0 !important;
 }
+.paddingall0 {
+	padding: 0 !important;
+}
+
+.paddingleftright0 {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+
 
 @media (min-width: 768px) {
 	.border-section{
@@ -1339,7 +1385,6 @@ section.visit-place{
 	/*padding: 0 0 20px 0;*/
 }
 
-mrg-btm30
 /*END VISIT-PLACE*/
 
 /*FAMOUS-FACE*/
@@ -2161,7 +2206,7 @@ section.modal-booking .left img{
 }
 .text-caption {
 	margin-right: 0% !important;
-	margin-bottom: 18% !important;
+	margin-bottom: 32% !important;
 }
 .padding-dropdown {
 	margin:0 ;
