@@ -1,9 +1,9 @@
-<% unless @stories.blank? %>
+<% unless stories.blank? %>
   <section class="your-stories cards">
     <div class="text-left">
-      <h4 class="section-title">Your Stories</h4>
+      <h4 class="section-title"><%= title %></h4>
     </div>
-      <% @stories.each_with_index do |story, index| %>
+      <% stories.each_with_index do |story, index| %>
           <% if  story.class.to_s.eql? "Story" %>
               <div class="card"
                data-class="story"
