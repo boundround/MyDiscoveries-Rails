@@ -27,7 +27,7 @@ class PlacesController < ApplicationController
     @photo = Photo.new
     @program = Program.new
     @discount = Discount.new
-    @blogs = ApiBlog.get_cached_blogs(@place.slug)
+    @blogs = ApiBlog.get_cached_blogs(@place.slug, 'place')
   end
 
   def update
@@ -45,10 +45,6 @@ class PlacesController < ApplicationController
 
       @place.fun_facts.each do |fun_fact|
         fun_fact.add_or_remove_from_country(@place.country)
-      end
-
-      @place.discounts.each do |discount|
-        discount.add_or_remove_from_country(@place.country)
       end
 
       if params[:place][:hero_image].present? || params[:place][:remote_hero_image_url].present?
@@ -103,8 +99,11 @@ class PlacesController < ApplicationController
   end
 
   def index
-    @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed")
-
+    if params[:is_area]
+      @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where(is_area: true)
+    else
+      @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where.not(is_area: true)
+    end
     respond_to do |format|
       format.html
       format.json { render json: @places }  # respond with the created JSON object
@@ -182,7 +181,6 @@ class PlacesController < ApplicationController
     # @related_places = Place.is_area
     # @reviewable = @place
     @reviews = @place.reviews.active
-    # debugger
 
     @review = Review.new
     if user_signed_in?
@@ -199,7 +197,7 @@ class PlacesController < ApplicationController
     @review = Review.new
 
     # @storiable = @place
-    api_blogs = ApiBlog.get_cached_blogs(@place.slug)
+    api_blogs = ApiBlog.get_cached_blogs(@place.slug, 'place')
     @stories = @place.stories.active + api_blogs
     @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.first(6)
 
@@ -292,13 +290,6 @@ class PlacesController < ApplicationController
         photo.place_id = @to_place.id
         unless photo.save
           raise "Photo #{photo.id} not transferred"
-        end
-      end
-
-      @from_place.games.each do |game|
-        game.place_id = @to_place.id
-        unless game.save
-          raise "Game #{game.id} not transferred"
         end
       end
 
@@ -462,8 +453,6 @@ class PlacesController < ApplicationController
 
   def wp_blog
     @blog = ApiBlog.find_blog_id(params[:id].to_i, params[:place])
-    # debugger
-    # @place = Place.includes(:games, :photos, :videos).find_by_slug(params[:place])
     @place = Place.find_by_slug(params[:place])
   end
 
@@ -683,7 +672,9 @@ class PlacesController < ApplicationController
         :activity_list,
         :place_id,
         :status,
+        :footer_include,
         :is_area,
+        :primary_area,
         :special_requirements,
         :top_100,
         :viator_link,

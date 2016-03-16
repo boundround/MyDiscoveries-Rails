@@ -1,0 +1,175 @@
+<%= render 'layouts/navbar' %>
+<!-- #hardcode -->
+
+<div class="container">
+  <div class="row">
+    <div class="head-title">
+      <h2 class="gray-font"><%= @category.name rescue "" %></h2>
+    </div>
+  </div>
+</div>
+<div class="border-section "></div>
+<div class="container top10 padding-style">
+  <div class="row search-nearby">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+      <div class="input-group search-responsive">
+        <input type="text" class="form-control" placeholder="Search for destinations">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+        </span>
+      </div><!-- /input-group -->
+    </div>
+    <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
+      <a href="#" class="btn btn-brw-orange2 btn-search"><i class="fa fa-map-marker"></i><br>Nearby</a>
+    </div>
+    <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
+      <a href="#" class="btn btn-brw-orange2 btn-search btn-responsive-search"><i class="fa fa-map-marker top10 font-orange-black2"></i> Nearby</a>
+    </div>
+  </div> <!-- row -->
+</div>
+
+<div class="border-section"></div>
+<!-- Looping places params category -->
+<% if @category.places.is_area.present? %>
+  <div class="container padding-style">
+    <div class="text-left">
+      <h4 class="section-title">Amazing Destinations</h4>
+    </div>
+    <div class="row">
+      <div id="areas-list">  
+        <%= render partial: 'areas_list', collection: @areas, as: :area %>
+      </div>
+      <% unless last_page? @areas %>
+        <div class="text-center clearfix btm15 single-pagination-container" id="areas-single-pagination-container" style="clear:both">
+          <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+            <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+          </div>
+          <%= link_to "Load More", primary_category_path(areas_page: @areas.next_page), class: 'btn btn-default single-pagination', remote: true %>
+        </div>
+      <% end %>
+    </div> <!-- row -->
+  </div>
+<% end %>
+
+<div class="border-section"></div>
+
+<div class="container padding-style">
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 topmin20-responsive">
+  <section class="travelling-tips cruises-section margin-fun-fact">
+    <!-- <div class="container"> -->
+      <div class="row left10-responsive">
+        <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+        <h4>Travelling Tips</h4>
+          <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a><br>
+          <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a><br>
+          <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a><br>
+          <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a><br>
+          <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a>
+        </div>
+      </div>
+    <!-- </div> -->
+  </section>
+  <div class="triangle-down hidden-xs topmin10">
+  </div>
+
+<!-- <div class="text-left">
+	<h4 class="section-title">Your Stories</h4>
+</div> -->
+
+
+<!-- <section class="your-stories">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm15">
+        <div class="head-stories">
+          <div class="left">
+            <a href="#">
+              <div class="profile-outer">
+                <img src="./img/face1.jpg" alt="">
+              </div>
+              <div class="profile-text">
+                Stephen71
+              </div>
+             </a>
+          </div>
+          <div class="right"><a href="#"><i class="fa fa-image"></i> 9
+          </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+          </div>
+        </div>
+        <div class="body-stories btm15">
+          <div class="p-dynamic">
+          <p class="visited">Visited Dec 2015</p>
+          <p class="mrg0 pink">Title of Story </p>
+          Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor....</div>
+          <div class="img-story-place">
+            <img align="right" src="./img/images.jpg" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="head-stories">
+          <div class="left">
+            <a href="#">
+              <div class="profile-outer">
+                <img src="./img/face1.jpg" alt="">
+              </div>
+              <div class="profile-text">
+                Stephen71
+              </div>
+             </a>
+          </div>
+          <div class="right"><a href="#"><i class="fa fa-image"></i> 9
+          </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+          </div>
+        </div>
+        <div class="body-stories btm15">
+          <div class="p-dynamic">
+          <p class="visited">Visited Dec 2015</p>
+          <p class="mrg0 pink">Title of Story </p>
+          Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor....</div>
+          <div class="img-story-place">
+            <img align="right" src="./img/images.jpg" alt="">
+          </div>
+        </div>
+      </div>
+      
+    </div>
+</section> -->
+    <%#= render "stories/all_stories" %>
+    <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories" }%>
+    <%= render "stories/modal_story" %>
+<!-- <div class="text-center clearfix btm20">
+  <a href="#" class="btn btn-default">Load more Stories</a>
+</div> -->
+</div> <!-- end col -->
+
+<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+<% unless @places.blank? %>
+  <section class="places-to-go">
+      <div class="text-left">
+        <h4 class="section-title">Featured <%= @category.name %></h4>
+      </div>
+      <div class="row">
+       <div class="col-xs-12">
+
+          <div id="places-list">  
+            <%= render partial: 'places_list', collection: @places, as: :place %>
+          </div>
+
+        </div>
+      </div> <!-- row -->
+  </section>
+  <% unless last_page? @places %>
+    <div class="text-center clearfix btm15 single-pagination-container" id="places-single-pagination-container" style="clear:both">
+      <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+        <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+      </div>
+      <%= link_to "Load More", primary_category_path(places_page: @places.next_page, resources: 'places'), class: 'btn btn-default single-pagination', remote: true %>
+    </div>
+  <% end %>
+<% end %>
+
+</div> <!-- end col -->
+</div><!-- row -->
+</div><!-- container -->
+<%= render 'layouts/footer' %>

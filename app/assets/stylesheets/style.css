@@ -253,6 +253,16 @@ ul.nav.navbar-nav.first-ul{
 .font-orange2{
 	color: #fd7e56;
 }
+
+.font-orange2 a{
+	color: #fd7e56;
+}
+.font-orange2 a:hover{
+	color: #fd7e56;
+	text-decoration: none;
+}
+
+
 .font-weight-style {
 	font-weight: 400 !important;
 }
@@ -894,7 +904,7 @@ section.your-stories .body-stories .body-image-responsive {
 }
 
 .img-story-place{
-	margin: 15px 0;	
+	margin: 15px 0;
 }
 .p-dynamic.member-profile{
 	float: left;
@@ -917,7 +927,7 @@ section.your-stories .body-stories .body-image-responsive {
 		padding-right: 20px;
 	}
 	.img-story-place{
-		margin:0;	
+		margin:0;
 	}
 
 	section.your-stories .body-stories .body-image-responsive {
@@ -1065,7 +1075,7 @@ section.photo-latest .image img{
 .header-image-with-nav{
     /*height: 194px;*/
     height: 200px;
-    z-index: 0; 
+    z-index: 0;
     overflow: hidden;
     position: relative;
 }
@@ -1227,7 +1237,7 @@ section.photo-latest .image img{
 	}
 	.header-image-with-nav .action{
 		/*z-index:-1;*/
-		/*width: 76%*/
+		width: 90%
 	}
 }
 section.place-details{
@@ -1599,7 +1609,7 @@ a.left.carousel-control.carousel-fun{
 	left: -7px;
 }
 .top-carousel a.right{
-	right: -7px;	
+	right: -7px;
 }
 .top-carousel a.left, .top-carousel a.right{
 	top: 50%;
@@ -2247,7 +2257,7 @@ section.modal-booking .left img{
 	height: 50px;
 	/*margin-left: 10px;*/
 	/*margin-right: 5px;*/
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 }
 .button-style-booking {
 	/*width: 190px;*/
@@ -2521,13 +2531,14 @@ section.modal-booking .left img{
 	overflow: hidden;
 }
 .text-explore {
-	position: absolute !important;
-	color: white !important;
-	font-size: 24px !important;
-	font-weight: 400 !important;
-	top: 43%;
-	left: 42%;
-	margin-right: -50%;
+    color: white !important;
+    font-size: 24px !important;
+    font-weight: 400 !important;
+    top: 43%;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
 
 }
 .text-explore-wide {
@@ -2574,7 +2585,7 @@ section.modal-booking .left img{
   /*margin-top: 199px;*/
 }
 .left10-responsive {
-  margin-left: 10px;
+  margin-left: 10px !important;
 }
 
 
@@ -2751,7 +2762,7 @@ footer ul{
 }*/
 @media(max-width: 767px){
 	.btn.btn-direct{
-	    top: 281px;	
+	    top: 281px;
 	}
 }
 .blog img{

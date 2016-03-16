@@ -69,8 +69,8 @@ class ApiBlog
     CLIENT.set(place_slug, blogs)
   end
 
-  def self.get_cached_blogs(place_slug)
-    Rails.cache.fetch(place_slug, :expires_in => 1.day) do
+  def self.get_cached_blogs(place_slug, model)
+    Rails.cache.fetch(model+"_"+place_slug, :expires_in => 1.day) do
       blog_request(place_slug)
     end
   end
@@ -78,9 +78,27 @@ class ApiBlog
   def self.clear_cached_blogs(place_slug)
     Rails.cache.delete(place_slug)
   end
-
+  
+  # for palce
   def self.find_blog_id(id, place_slug)
-    arys = get_cached_blogs(place_slug)
+    arys = get_cached_blogs(place_slug, 'place')
     arys.find{|obj|obj.id.eql?(id)}
   end
+  
+  # for primary category
+  def self.find_blog_primary_cat(id, primary_cat)
+    arys = get_cached_blogs(primary_cat, 'primary_cat')
+    arys.find{|obj|obj.id.eql?(id)}
+  end
+  
+  # for primary category
+  def self.find_blog_sub_cat(id, place_slug)
+    arys = get_cached_blogs(place_slug, 'sub_cat')
+    arys.find{|obj|obj.id.eql?(id)}
+  end
+
+  # def self.find_blog_cat(cat)
+  #   arys = get_cached_blogs(place_slug)
+
+  # end
 end

@@ -31,9 +31,9 @@
 //= require places
 // require avatarupload
 // require user
-// require dataTables/jquery.dataTables
-// require dataTables/bootstrap/3/jquery.dataTables.bootstrap
-// require cms
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require cms
 // require bootsy
 //= require bootstrap
 // require bootstrap/transition
@@ -63,3 +63,16 @@
 //= require boundround
 //= require dual_list_box
 //= require jquery_nested_form
+
+
+$(document).on('ajax:beforeSend', 'a.single-pagination', function(){
+  container= $(this).closest('div.single-pagination-container');
+  container.find('div.single-pagination-loader').removeClass('hidden-lg');
+  $(this).addClass('hidden');
+}).on('ajax:success', 'a.single-pagination', function(){
+  container= $(this).closest('div.single-pagination-container');
+  container.find('div.single-pagination-loader').addClass('hidden-lg');
+  $(this).removeClass('hidden');
+}).on('ajax:error', 'a.single-pagination', function(){
+	alert('das')
+});

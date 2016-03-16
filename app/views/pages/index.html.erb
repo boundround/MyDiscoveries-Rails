@@ -82,6 +82,8 @@
         <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
             <div class="thumbnail padd0">
               <div class="image-cat">
+
+                <img src="<%= showing_image(place.photos.first.path_url) rescue "" %>" alt="" class="top-rounded img-responsive">
                 
               </div>
               <div class="caption place-caption text-center">
@@ -163,7 +165,7 @@
     </div>
     <div class="col-md-8 col-lg-8">
       <div class="head-title col-md-12 col-lg-12" align="right">
-        
+
       </div>
       <div class="col-md-12 col-lg-12 topmin20">
         <p class="white" align="left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lacinia magna non vehicula commodo. Nullam dapibus pellentesque euismod. Donec tempus eleifend libero, a viverra urna rutrum vel. Integer luctus nulla et bibendum vulputate. Sed vel aliquet enim. </p>
@@ -288,20 +290,20 @@
 <!-- #hardcode -->
 <!-- button will link to "all_subcategories" page -->
 <div class="text-center clearfix visible-xs">
-  <a href="#" class="btn button-orange top5 btm20">View more experiences</a>
+  <a href="#" class="btn button-orange top5 btm20">View More Things To Do</a>
 </div>
 <!-- #hardcode end-->
 
 <!-- #hardcode -->
-<!-- 
+<!--
 #tasks "Explore Experiences"
 Each card will link to subcategories page where places.subcategory == "driving" or whatever the text of the card says
-Bottom button will link to "all_subcategories" page 
+Bottom button will link to "all_subcategories" page
 -->
 
 <div class="container padding-style hidden-xs">
   <div class="text-left top20 btm30">
-    <h4 class="section-title font-weight-style">Explore Experiences</h4>
+    <h4 class="section-title font-weight-style">Explore Things To Do</h4>
   </div>
   <div class="row">
     <div class="col-lg-12 col-md-12 btm15">
@@ -336,8 +338,18 @@ Bottom button will link to "all_subcategories" page
     </div>
     <!-- button will link to "all_subcategories" page -->
     <div class="col-lg-12 col-md-12 top20 btm60" align="center">
-        <a href="#" class="btn button-orange btn-padding">View more experiences</a>
+        <a href="#" class="btn button-orange btn-padding">View More Things To Do</a>
     </div>
   </div>
 </div>
 <!-- #hardcode end -->
+<%= render 'layouts/all_modal' %>
+<%= render 'layouts/signin_modal' %>
+<%#= render 'layouts/video_modal' %>
+<%#= render 'stories/modal_story' %>
+
+<!-- <div class="container" id="blogs">
+    <h2 id="blog-title"></h2>
+    <div id="blog-content"></div>
+</div> -->
+<%= render 'layouts/footer' %>

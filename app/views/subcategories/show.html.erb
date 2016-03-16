@@ -1,0 +1,334 @@
+<%= render 'layouts/navbar' %>
+<!-- #hardcode -->
+
+<div class="container">
+  <div class="row">
+    <div class="head-title">
+      <h2 class="gray-font"><%= @sub_category.try(:name) %></h2>
+    </div>
+  </div>
+</div>
+<div class="border-section btm30"></div>
+<div class="container top10 padding-style">
+  <div class="row search-nearby">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+      <div class="input-group search-responsive">
+        <input type="text" class="form-control" placeholder="Search for destinations">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+        </span>
+      </div><!-- /input-group -->
+    </div>
+    <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
+      <a href="#" class="btn btn-brw-orange2 btn-search"><i class="fa fa-map-marker"></i><br>Nearby</a>
+    </div>
+    <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
+      <a href="#" class="btn btn-brw-orange2 btn-search btn-responsive-search"><i class="fa fa-map-marker top10 font-orange-black2"></i> Nearby</a>
+    </div>
+  </div> <!-- row -->
+</div>
+
+<div class="border-section"></div>
+<!-- Looping places params category -->
+<div class="container padding-style">
+  <div class="text-left">
+    <h4 class="section-title">Amazing Destinations</h4>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-4 col-xs-6">
+      <div class="thumbnail padd0">
+        <div class="image-cat">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Sydney_Opera_house_HDR_Sydney_Australia.jpg" alt="" class="top-rounded img-responsive">
+        </div>
+        <div class="caption text-center">
+          <h4 class="font-orange2">Sydney</h4>
+        </div>
+        <div class="details-dest">
+          <div class="left">
+            <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
+          </div>
+          <div class="right">
+            <a href="#">
+            <i class="fa fa-thumbs-o-up"></i> 100%</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center clearfix btm15" style="clear:both">
+      <a href="#" class="btn btn-default">Load More</a>
+    </div>
+  </div> <!-- row -->
+</div>
+
+<div class="border-section"></div>
+
+<div class="container padding-style">
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 topmin20-responsive">
+<section class="travelling-tips cruises-section margin-fun-fact">
+  <!-- <div class="container"> -->
+    <div class="row left10-responsive">
+      <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+      <h4>Travelling Tips</h4>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a><br>
+        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a>
+      </div>
+    </div>
+  <!-- </div> -->
+</section>
+<div class="triangle-down hidden-xs topmin10">
+</div>
+
+<div class="text-left">
+	<h4 class="section-title">Stories</h4>
+</div>
+
+
+<section class="your-stories">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm15">
+        <div class="head-stories">
+          <div class="left">
+            <a href="#">
+              <div class="profile-outer">
+                <img src="./img/face1.jpg" alt="">
+              </div>
+              <div class="profile-text">
+                Stephen71
+              </div>
+             </a>
+          </div>
+          <div class="right"><a href="#"><i class="fa fa-image"></i> 9
+          </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+          </div>
+        </div>
+        <div class="body-stories btm15">
+          <div class="p-dynamic">
+          <p class="visited">Visited Dec 2015</p>
+          <p class="mrg0 pink">Title of Story </p>
+          Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor....</div>
+          <div class="img-story-place">
+            <img align="right" src="./img/images.jpg" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="head-stories">
+          <div class="left">
+            <a href="#">
+              <div class="profile-outer">
+                <img src="./img/face1.jpg" alt="">
+              </div>
+              <div class="profile-text">
+                Stephen71
+              </div>
+             </a>
+          </div>
+          <div class="right"><a href="#"><i class="fa fa-image"></i> 9
+          </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
+          </div>
+        </div>
+        <div class="body-stories btm15">
+          <div class="p-dynamic">
+          <p class="visited">Visited Dec 2015</p>
+          <p class="mrg0 pink">Title of Story </p>
+          Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor....</div>
+          <div class="img-story-place">
+            <img align="right" src="./img/images.jpg" alt="">
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- row -->
+</section>
+<div class="text-center clearfix btm20">
+  <a href="#" class="btn btn-default">Load more Stories</a>
+</div>
+</div> <!-- end col -->
+
+<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+<section class="places-to-go">
+    <div class="text-left">
+      <h4 class="section-title">Featured cruises</h4>
+    </div>
+    <div class="row">
+     <div class="col-xs-12">
+
+      <div class="thumbnail padd0">
+        <div class="image-cat image-cat-left">
+          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
+        </div>
+        <div class="caption caption-right">
+          <h4 class="gray-font">Caribbean</h4>
+          <h2 class="cruises-color">Celebrity Summit</h2>
+        </div>
+        <div class="details-dest">
+          <div class="left">
+            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+          </div>
+          <div class="right">
+            <a href="#"> $$</a>
+          </div>
+          </div>
+        </div>
+
+        <div class="thumbnail padd0">
+          <div class="image-cat image-cat-left">
+            <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
+          </div>
+          <div class="caption caption-right">
+            <h4 class="gray-font">Caribbean</h4>
+            <h2 class="cruises-color">Celebrity Summit</h2>
+          </div>
+          <div class="details-dest">
+            <div class="left">
+              <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+            </div>
+            <div class="right">
+              <a href="#"> $$</a>
+            </div>
+            </div>
+          </div>
+
+          <div class="thumbnail padd0">
+            <div class="image-cat image-cat-left">
+              <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
+            </div>
+            <div class="caption caption-right">
+              <h4 class="gray-font">Caribbean</h4>
+              <h2 class="cruises-color">Celebrity Summit</h2>
+            </div>
+            <div class="details-dest">
+              <div class="left">
+                <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+              </div>
+              <div class="right">
+                <a href="#"> $$</a>
+              </div>
+              </div>
+            </div>
+
+            <div class="thumbnail padd0">
+              <div class="image-cat image-cat-left">
+                <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
+              </div>
+              <div class="caption caption-right">
+                <h4 class="gray-font">Caribbean</h4>
+                <h2 class="cruises-color">Celebrity Summit</h2>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+                </div>
+                <div class="right">
+                  <a href="#"> $$</a>
+                </div>
+                </div>
+              </div>
+
+      <div class="thumbnail padd0">
+        <div class="image-cat image-cat-left">
+          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
+        </div>
+        <div class="caption caption-right">
+          <h4 class="gray-font">Caribbean</h4>
+          <h2 class="cruises-color">Celebrity Summit</h2>
+        </div>
+        <div class="details-dest">
+          <div class="left">
+            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+          </div>
+          <div class="right">
+            <a href="#"> $$</a>
+          </div>
+          </div>
+        </div>
+      <div class="thumbnail padd0">
+        <div class="image-cat image-cat-left">
+          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
+        </div>
+        <div class="caption caption-right">
+          <h4 class="gray-font">Caribbean</h4>
+          <h2 class="cruises-color">Celebrity Summit</h2>
+        </div>
+        <div class="details-dest">
+          <div class="left">
+            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+          </div>
+          <div class="right">
+            <a href="#"> $$</a>
+          </div>
+          </div>
+        </div>
+
+      <div class="thumbnail padd0">
+        <div class="image-cat image-cat-left">
+          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
+        </div>
+        <div class="caption caption-right">
+          <h4 class="gray-font">Caribbean</h4>
+          <h2 class="cruises-color">Celebrity Summit</h2>
+        </div>
+        <div class="details-dest">
+          <div class="left">
+            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+          </div>
+          <div class="right">
+            <a href="#"> $$</a>
+          </div>
+          </div>
+        </div>
+
+      <div class="thumbnail padd0">
+        <div class="image-cat image-cat-left">
+          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
+        </div>
+        <div class="caption caption-right">
+          <h4 class="gray-font">Caribbean</h4>
+          <h2 class="cruises-color">Celebrity Summit</h2>
+        </div>
+        <div class="details-dest">
+          <div class="left">
+            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+          </div>
+          <div class="right">
+            <a href="#"> $$</a>
+          </div>
+          </div>
+        </div>
+
+      <div class="thumbnail padd0">
+        <div class="image-cat image-cat-left">
+          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
+        </div>
+        <div class="caption caption-right">
+          <h4 class="gray-font">Caribbean</h4>
+          <h2 class="cruises-color">Celebrity Summit</h2>
+        </div>
+        <div class="details-dest">
+          <div class="left">
+            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+          </div>
+          <div class="right">
+            <a href="#"> $$</a>
+          </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div> <!-- row -->
+
+</section>
+<div class="text-center clearfix btm60">
+  <a href="#" class="btn btn-default">Load More</a>
+</div>
+
+</div> <!-- end col -->
+</div><!-- row -->
+</div><!-- container -->
+<%= render 'layouts/footer' %>

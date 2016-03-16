@@ -5,8 +5,10 @@ class Subcategory < ActiveRecord::Base
 
 	before_save :parameterize_identifier
 	
-	has_many :places_subcategories
+	has_many :places_subcategories, :dependent => :destroy
 	has_many :places, through: :places_subcategories
+
+	mount_uploader :icon, IconUploader
 
 
 	def self.get_data_by_type(records, type)
