@@ -2,6 +2,10 @@ class PhotosController < ApplicationController
 
   def index
     @photos = Photo.all
+    @featured_places = Photo.limit(3) #task uncompleted
+    
+    @latest = (Photo.all + UserPhoto.all).sort{|x,y|x.created_at <=> y.created_at} #check #add paginate
+    # @popular #task uncompleted
 
     respond_to do |format|
       format.html
