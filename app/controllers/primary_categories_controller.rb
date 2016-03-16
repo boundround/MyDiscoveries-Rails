@@ -8,6 +8,9 @@ class PrimaryCategoriesController < ApplicationController
 		@places= category.places.is_not_area.paginate(per_page: 6, page: params[:places_page])
 	end
 
+	def index
+	end
+
 	private
 
 		def category
