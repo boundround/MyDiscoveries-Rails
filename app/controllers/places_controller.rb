@@ -13,8 +13,9 @@ class PlacesController < ApplicationController
       @place.identifier = @place.display_name.gsub(/\W/, '').downcase
     end
 
+    # debugger
+
     if @place.save
-      JournalInfo.create(place_id: @place.id)
       redirect_to :back, notice: 'Place succesfully saved'
     else
       redirect_to '/places#new', notice: 'Place not saved!'
