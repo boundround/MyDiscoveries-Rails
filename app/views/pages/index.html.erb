@@ -210,27 +210,51 @@
 </div>
 <!-- #hardcode end-->
 
-<% if @categories.present? %>
+<% if @primary_categories.present? or @subcategories.present? %>
 <div class="container visible-xs">
   <div class="text-left">
     <h4 class="section-title">Things to do</h4>
   </div>
   <div class="row">
-    <% @categories.each do |category| %>
-      
-      <div class="col-sm-6 col-md-3 col-xs-6">
-        <div class="thumbnail">
-          <div class="image-cat">
-             <%= image_tag category.icon.try(:url).try(:to_s) , class: 'top-rounded img-responsive' %>
-          </div>
-          <div class="details-dest">
-            <div class="left">
-              <%= category.name %>
+    
+    <% if @primary_categories.present? %>
+      <% @primary_categories.each do |category| %>
+        <div class="col-sm-6 col-md-3 col-xs-6">
+          <%= link_to primary_category_path(category.identifier) do %>
+            <div class="thumbnail">
+              <div class="image-cat">
+                 <%= image_tag category.icon.try(:url).try(:to_s) , class: 'top-rounded img-responsive' %>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <%= category.name %>
+                </div>
+              </div>
             </div>
-          </div>
+          <% end %>
         </div>
-      </div>
+      <% end %>
     <% end %>
+
+    <% if @sub_categories.present? %>
+      <% @sub_categories.each do |category| %>
+        <div class="col-sm-6 col-md-3 col-xs-6">
+          <%= link_to sub_category_path(category.identifier) do %>
+            <div class="thumbnail">
+              <div class="image-cat">
+                 <%= image_tag category.icon.try(:url).try(:to_s) , class: 'top-rounded img-responsive' %>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <%= category.name %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
   </div> <!-- row -->
 </div>
 <%- end %>
@@ -255,7 +279,57 @@ Bottom button will link to "all_subcategories" page
   </div>
   <div class="row" id="categories-list">
 
-    <%= render 'categories/categories_list', categories: @categories %>
+    <% @primary_categories.each do |category| %>
+      <% if category.eql? @primary_categories.first %>
+        <div class="col-lg-12 col-md-12 btm15">
+          <%= link_to primary_category_path(category.identifier) do %>
+            <div class="img-bg-wide outer-js">   
+              <%= image_tag category.icon.url.to_s , class: 'img-explore-wide inner-js' %>
+              <span class="text-explore">
+                <%= category.name %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="col-lg-6 col-md-6 btm15">
+          <div class="img-bg outer-js">
+            <%= link_to sub_category_path(sub.identifier) do %>
+              <%= image_tag category.icon.url.to_s , class: 'img-explore- inner-js' %>
+              <span class="text-explore">
+                <%= sub.name %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% @sub_categories.each do |category| %>
+      <% if category.eql? @sub_categories.first %>
+        <div class="col-lg-12 col-md-12 btm15">
+          <%= link_to primary_category_path(category.identifier) do %>
+            <div class="img-bg-wide outer-js">   
+              <%= image_tag category.icon.url.to_s , class: 'img-explore-wide inner-js' %>
+              <span class="text-explore">
+                <%= category.name %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="col-lg-6 col-md-6 btm15">
+          <div class="img-bg outer-js">
+            <%= link_to sub_category_path(sub.identifier) do %>
+              <%= image_tag category.icon.url.to_s , class: 'img-explore- inner-js' %>
+              <span class="text-explore">
+                <%= sub.name %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
 
     <!-- button will link to "all_subcategories" page -->
     <div class="col-lg-12 col-md-12 top20 btm60" align="center">
