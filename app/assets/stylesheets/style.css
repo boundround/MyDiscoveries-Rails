@@ -211,7 +211,7 @@ ul.nav.navbar-nav.first-ul{
 .section-title{
 	/*font-family: */
 	font-weight: 500 !important;
-	margin: 10px 0;
+	margin: 20px 0;
 	margin-top: 20px;
 }
 .border-section{
@@ -917,8 +917,12 @@ section.your-stories .body-stories .body-image-responsive {
 	}
 }
 @media (max-width: 767px) {
-	section.your-stories .head-stories, section.your-stories .body-stories{
+	section.your-stories .head-stories, section.your-stories .body-stories {
 		margin: 0 -15px;
+		/* width: 100%;*/
+	}
+	.review-content .body-stories {
+		display: block !important;
 	}
 	section.your-stories .body-stories .p-dynamic{
 		width: 60%;
@@ -1729,6 +1733,10 @@ section.everyone .desc{
 }
 .text-bold {
 	font-weight: 500! important;
+}
+.grey-bold {
+	color: #8A8A8A;
+	font-weight: 400;
 }
 .bg-row-orange{
 	background-color: #FA7D5B;
