@@ -293,13 +293,6 @@ class PlacesController < ApplicationController
         end
       end
 
-      @from_place.games.each do |game|
-        game.place_id = @to_place.id
-        unless game.save
-          raise "Game #{game.id} not transferred"
-        end
-      end
-
       @from_place.videos.each do |photo|
         video.place_id = @to_place.id
         unless video.save
