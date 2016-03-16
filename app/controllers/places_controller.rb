@@ -13,6 +13,10 @@ class PlacesController < ApplicationController
       @place.identifier = @place.display_name.gsub(/\W/, '').downcase
     end
 
+    if @place.is_area.blank?
+      @place.is_area = false
+    end
+
     # debugger
 
     if @place.save
