@@ -2,22 +2,49 @@
 <footer class="footer">
   <div class="container padding-style">
     <div class="row">
-    <div class="col-xs-8 col-sm-10 text-left">
-      <ul>
-        <li><a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a></li>
-        <li><a href="http://boundround.com/education/" target="blank">Teachers</a></li>
-        <li><a href="http://boundround.com/media/" target="blank">Media</a></span></p></li>
-        <li><a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a></li>
-        <li><a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a></li>
-        <li><a href="http://boundround.com/about-us/" target="blank">About Us</a></li>
-        <li><a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a></li>
-        <li><a href="https://heapanalytics.com/?utm_source=badge"><img id="heap-img" style="width:108px;height:41px;margin-top:-10px;float:left" src="//heapanalytics.com/img/badgeLight.png" alt="Heap | Mobile and Web Analytics" /></a></li>
-        <li class="li-copy"><a href="#" class="copy">&copy; 2016. Boundround</a></li>
-      </ul>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <ul>
+          <li><a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a></li>
+          <li><a href="http://boundround.com/education/" target="blank">Teachers</a></li>
+          <li><a href="http://boundround.com/media/" target="blank">Media</a></span></p></li>
+          <li><a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a></li>
+          <li><a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a></li>
+          <li><a href="http://boundround.com/about-us/" target="blank">About Us</a></li>
+          <li><a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a></li>
+          <li class="li-copy"><a href="#" class="copy"></a></li>
+        </ul>
+      </div>
+      <div class="hidden-xs col-sm-6 col-md-4">
+        <ul>
+          <li><h5>Popular Searches</h5></li>
+          <li><%= link_to "Things To Do With Kids In Sydney", place_path(Place.active.find_by display_name: "Sydney") %></li>
+          <li><%= link_to "Things To Do With Kids In Brisbane", place_path(Place.active.find_by display_name: "Brisbane") %></li>
+          <li><%= link_to "Things To Do With Kids In Manly", place_path(Place.active.find_by display_name: "Manly") %></li>
+          <li><%= link_to "Things To Do With Kids In Melbourne", place_path(Place.active.find_by display_name: "Melbourne") %></li>
+          <li><%= link_to "Things To Do With Kids In Gold Coast", place_path(Place.active.find_by display_name: "Gold Coast") %></li>
+          <li><%= link_to "Things To Do With Kids In Adelaide", place_path(Place.active.find_by display_name: "Adelaide") %></li>
+          <li><%= link_to "Things To Do With Kids In Perth", place_path(Place.active.find_by display_name: "Perth") %></li>
+        </ul>
+      </div>
+      <div class="hidden-xs col-sm-6 col-md-4">
+        <ul>
+          <li><h5>Countries</h5></li>
+          <li><%= link_to "Australia", country_path(Country.find_by country_code: "AU") %></li>
+          <li><%= link_to "United States", country_path(Country.find_by country_code: "US") %></li>
+          <li><%= link_to "United Kingdom", country_path(Country.find_by country_code: "GB") %></li>
+          <li><%= link_to "Singapore", country_path(Country.find_by country_code: "SG") %></li>
+          <li><%= link_to "Thailand", country_path(Country.find_by country_code: "TH") %></li>
+          <li><%= link_to "Japan", country_path(Country.find_by country_code: "JP") %></li>
+          <li><%= link_to "China", country_path(Country.find_by country_code: "CN") %></li>
+        </ul>
+      </div>
     </div>
-    <div class="col-xs-4 col-sm-2">
-      <a href="/"><img src="/assets/br_logo_new.png" class="text-light" alt=""></a>
+    <div class="row">
+      <hr>
+      <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+        <div class="text-light">&copy; 2016 Bound Round Pty Ltd.</div>
+        <a href="/"><img src="<%= asset_path('br-logo-new-2016-white.png') %>" class="text-light" alt=""></a>
+      </div>
     </div>
-  </div>
   </div>
 </footer>

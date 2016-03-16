@@ -2598,6 +2598,7 @@ footer{
 	min-height: 180px;
 	background: #6CB7CA;
 	padding-top: 20px;
+	color: #fff;
 	/*margin-top: 20px*/
 }
 
@@ -2605,6 +2606,7 @@ footer li{
 	color: #fff;
 	display: block;
 	margin-top: 7px;
+	text-align: center;
 }
 footer li a{
 	color: #fff;
@@ -2612,7 +2614,6 @@ footer li a{
 }
 footer img{
 	width: 88px;
-    float: right;
 
 }
 footer .copy{
@@ -2626,16 +2627,12 @@ footer ul{
 	margin-left: -38px;
 }
 @media (min-width:768px){
-		footer{
-		height: 120px;
-	}
 	footer img{
 		/*margin-top: 14px;*/
     	/*width: 120px;*/
 	}
 	footer li{
-			float: left;
-		    margin-right: 15px;
+    text-align: left;
 	}
 	footer .li-copy{
 		clear: both;
