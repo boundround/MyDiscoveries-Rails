@@ -341,27 +341,29 @@
           <div class="row">
            <div class="col-xs-12">
             <% @more_places.each do |place| %>
-              <div class="thumbnail card">
-                <div class="image-cat image-cat-left outer-js">
-                  <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive img-full-div inner-js">
-                </div>
-                <div class="caption caption-right">
-                  <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
-                  <h2><%= place.display_name %></h2>
-                </div>
-                <div class="details-dest">
-                  <div class="left">
-                  <% place.subcategories.subcats.each do |c| %>
-                    <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
-                    <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
+              <a href="<%= place_path(place) %>">
+                <div class="thumbnail card">
+                  <div class="image-cat image-cat-left outer-js">
+                    <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive img-full-div inner-js">
+                  </div>
+                  <div class="caption caption-right">
+                    <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
+                    <h2><%= place.display_name %></h2>
+                  </div>
+                  <div class="details-dest">
+                    <div class="left">
+                    <% place.subcategories.subcats.each do |c| %>
+                      <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
+                      <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
 
-                  <% end %>
+                    <% end %>
+                    </div>
+                    <div class="right">
+                      <a href="#"> $$</a>
+                    </div>
+                    </div>
                   </div>
-                  <div class="right">
-                    <a href="#"> $$</a>
-                  </div>
-                  </div>
-                </div>
+                </a>
             <% end %>
             <div class="text-center clearfix btm20">
               <button class="btn btn-default top5 load-more">Load more places</button>
