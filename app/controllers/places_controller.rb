@@ -175,11 +175,7 @@ class PlacesController < ApplicationController
     @accessibilities = Subcategory.get_data_by_type(informations, "Accessibility")
     @prices = Subcategory.get_data_by_type(informations, "Price")
 
-    # @optimum_times =  Subcategory.best_visited(informations)  #@place.subcategories.best_visited
-    # @durations = Subcategory.duration(informations) #@place.subcategories.duration
-    # @subcategories = Subcategory.subcategory(informations) #@place.subcategories.subcategory
-    # @accessibilities = Subcategory.accessibility(informations) #@place.subcategories.accessibility
-    # @prices = Subcategory.price(informations) #@place.subcategories.price
+    @good_to_know = @place.good_to_knows.limit(6)
 
     @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category)
 

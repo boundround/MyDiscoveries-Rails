@@ -1562,7 +1562,8 @@ a.left.carousel-control.carousel-fun{
 		background: #ffffff;
     margin: auto;
     width: 100%;
-    padding: 18px;
+    /*padding: 18px;*/
+    padding: 12px 15px 12px 9px;
     border-radius: 5px;
     /*width: 845px;*/
     /*padding-top: 50px;*/
@@ -1572,8 +1573,9 @@ a.left.carousel-control.carousel-fun{
 	overflow: hidden;
     height: 149px;
     border-radius: 4px;
-    width: 93%;
-    margin-left: 15px;
+    width: 97%;
+    /*margin-left: 15px;*/
+    margin-left: auto;
 }
 @media (min-width:768px ) and (max-width:991px ){
 	#top-owl .item{
@@ -1587,12 +1589,12 @@ a.left.carousel-control.carousel-fun{
   height: 100%;
 }
 #top-owl .owl-prev{
-    left: -35px;
+    left: -50px;
     position: absolute;
     top: 40%;
   }
 #top-owl .owl-next{
-    right: -35px;
+    right: -50px;
     position: absolute;
     top:40%;
   }
@@ -1625,7 +1627,7 @@ a.left.carousel-control.carousel-fun{
 .owl-buttons i {
 	padding: 5px;
 	background: #ffffff;
-	color: grey;
+	color: grey !important;
 	box-shadow: 1px 1px 3px rgba(66,66,66,0.25);
 	border-radius: 3px;
 }
@@ -2892,4 +2894,13 @@ footer ul{
 }
 .img-top-margin22 {
 	margin-top: -22px;
+}
+.blue{
+	color: #3a548b;
+}
+.bg-blue{
+	background: #3a548b !important;
+}
+.bg-orange{
+	background: #fd7e56;
 }
