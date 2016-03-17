@@ -181,7 +181,13 @@ class PlacesController < ApplicationController
     # @accessibilities = Subcategory.accessibility(informations) #@place.subcategories.accessibility
     # @prices = Subcategory.price(informations) #@place.subcategories.price
 
-    @more_places = Place.includes(:country).where(primary_category: @place.primary_category).limit(6)
+    @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category)
+
+    @more_places = @more_places.sort do |x, y|
+      (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
+    end
+
+    @more_places = @more_places[0..5]
 
     # @related_places = Place.is_area
     # @reviewable = @place
@@ -213,7 +219,7 @@ class PlacesController < ApplicationController
     # center_point = [@place.latitude, @place.longitude]
     # box = Geocoder::Calculations.bounding_box(center_point, distance)
     # @nearby_places = Place.within_bounding_box(box)
-    @nearby_places = @place.nearbys(20).active.includes(:quality_average)
+    # @nearby_places = @place.nearbys(20).active.includes(:quality_average)
 
     # @top_places = @nearby_places.sort do |x, y|
     #   (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)

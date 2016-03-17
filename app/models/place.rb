@@ -353,10 +353,20 @@ class Place < ActiveRecord::Base
   end
 
   def slug_candidates
+    country = self.country
+    primary_area = self.find_first_primary_area
     [
-      :display_name,
-      [:display_name, :post_code]
+      "things to do with kids in #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}",
+      ["things to do with kids in #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}", :post_code]
     ]
+  end
+
+  def find_first_primary_area
+    self.similar_places.each do |association|
+      if association.similar_place.primary_area == true
+        return association.similar_place
+      end
+    end
   end
 
   def publish
