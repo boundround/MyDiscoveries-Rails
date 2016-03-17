@@ -74,7 +74,7 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="detail-place">
-              <div class="located"><p class="gray-font">Located in</p><p><%= @country.display_name %></p></div>
+              <div class="located"><p class="gray-font">Located in</p><p><span id="region"></span></p></div>
               <div class="language"><p class="gray-font">Language</p><p id="language" ></p></div>
               <div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>
               <div class="likes"><p class="gray-font"><i class="fa fa-thumbs-o-up"></i></p><p>95%</p></div>
@@ -91,9 +91,9 @@
               <div class="rel-dest">
                 <p class="gray-color">Related Destinations</p>
                 <ul>
-                <% #@similar_places.each do |place| %>
-                  <li><a href="/places/<%#= place.slug %>" class="badge"><%#= place.display_name %></a></li>
-                  <% #end %>
+                <% @similar_places.each do |place| %>
+                  <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                  <% end %>
                 </ul>
               </div>
             </div>

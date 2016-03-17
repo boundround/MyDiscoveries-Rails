@@ -35,7 +35,9 @@ var LANGUAGES = {"af":"Afrikaans","agq":"Aghem","ak":"Akan","sq":"Albanian","am"
             success: function(data){
                 console.log(data);
                 var population = data.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var region = data.region;
                 $('#country-population').append(population);
+                $('#region').append(region);
                 languages = data.languages;
                 // console.log(languages);
                 if ($('#language').html() === ""){
@@ -45,9 +47,6 @@ var LANGUAGES = {"af":"Afrikaans","agq":"Aghem","ak":"Akan","sq":"Albanian","am"
                         }
                     }
                 }
-                // if (capitalCity === ""){
-                //     capitalCity = data.capital;
-                // }
             }
 
         });

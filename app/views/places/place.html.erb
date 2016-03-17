@@ -110,10 +110,10 @@
           <div class="rel-dest">
             <ul>
               <li class="gray-color">Found in</li>
-              <% if !@subcategories.blank? %>
-                <% @subcategories.each do |c| %>
+              <% if !@place.similar_places.blank? %>
+                <% @place.similar_places.each do |place| %>
                  <!-- <li><a href="#" class="badge"><i class="fa fa-male"></i> Do</a> </li> -->
-                 <li><a href="#" class="badge"><%= c.name %></a> </li>
+                 <li><a href="<%= place_path(place.similar_place) %>" class="badge"><%= place.similar_place.display_name %></a> </li>
                 <% end %>
                <% end %>
 

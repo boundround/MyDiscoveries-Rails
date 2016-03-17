@@ -11,6 +11,7 @@ class CountriesController < ApplicationController
     @reviews = @country.reviews.where(status:"live")
     @videos = @country.videos
     @photos = @country.user_photos.where(status:"live") + @country.photos
+    @similar_places = @country.places.where(primary_area: true)
 
 
 

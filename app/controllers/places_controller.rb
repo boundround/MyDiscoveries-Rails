@@ -163,7 +163,7 @@ class PlacesController < ApplicationController
     @reviewable = @place = Place.find_by_slug(params[:id])
     # @place_blog = @place.blog_request\
 
-    @place = Place.includes(:quality_average).find_by_slug(params[:id])
+    @place = Place.includes(:quality_average, :similar_places => :similar_place).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
 
     # Details information
