@@ -150,7 +150,7 @@ module ApplicationHelper
         photo.path_url(:small)
       end
     else
-      "generic-grey.jpg"
+      "https://d1w99recw67lvf.cloudfront.net/category_icons/small_generic_sights.jpg"
     end
   end
 
