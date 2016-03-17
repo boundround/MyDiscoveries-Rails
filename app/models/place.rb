@@ -355,10 +355,14 @@ class Place < ActiveRecord::Base
   def slug_candidates
     country = self.country
     primary_area = self.find_first_primary_area
-    [
-      "things to do with kids in #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}",
-      ["things to do with kids in #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}", :post_code]
-    ]
+    if is_area == true
+      "things to do with kids in #{country.display_name rescue ""} #{self.display_name}"
+    else
+      [
+        "things to do with kids in #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}",
+        ["things to do with kids in #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}", :post_code]
+      ]
+    end
   end
 
   def find_first_primary_area
