@@ -11,47 +11,56 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner home-carousel" role="listbox">
-    <div class="item active hero-bg fix-img">
-      <img src="http://newflowerwallpaper.com/download/flower-garden-images-and-wallpapers/flower-garden-images-and-wallpapers-27.jpg" class="crop-image"  alt="Chania">
+
+    <div class="item fix-img">
+      <div class="hero-bg">
+        <img src="http://newflowerwallpaper.com/download/flower-garden-images-and-wallpapers/flower-garden-images-and-wallpapers-27.jpg" class="crop-image"  alt="Chania">
+      </div>
       <div class="carousel-caption text-center text-light text-shadow">
         <div class="text-caption">
-        <h1>Wet 'N' Wild</h1>
-        <!--<h4>Explore Sydney.</h4>-->
+          <h1>Wet 'N' Wild</h1>
+          <!--<h4>Explore Sydney.</h4>-->
         </div>
       </div>
     </div>
 
-    <div class="item hero-bg fix-img">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/A_Daisy_flower.jpg" class="crop-image" alt="Chania">
+    <div class="item active fix-img">
+      <div class="hero-bg">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/A_Daisy_flower.jpg" class="crop-image" alt="Chania">
+      </div>
       <div class="carousel-caption text-center text-light text-shadow">
         <div class="text-caption">
-        <h1>Bilpin Fruit Bowl</h1>
+          <h1>Bilpin Fruit Bowl</h1>
         </div>
       </div>
     </div>
 
-    <div class="item hero-bg fix-img">
-      <img src="http://www.thedailyindia.in/wp-content/uploads/2015/11/beautiful-flower-pictures.jpg" class="crop-image" alt="Flower">
+    <div class="item fix-img">
+      <div class="hero-bg">
+        <img src="http://www.thedailyindia.in/wp-content/uploads/2015/11/beautiful-flower-pictures.jpg" class="crop-image" alt="Flower">
+      </div>
       <div class="carousel-caption text-center text-light text-shadow">
         <div class="text-caption">
-        <h1>Wet 'N' Wild</h1>
-        <!--<h4>Explore Sydney.</h4>-->
+          <h1>Dead Sea</h1>
+          <!--<h4>Explore Sydney.</h4>-->
         </div>
       </div>
     </div>
 
-    <div class="item hero-bg fix-img">
-      <img src="https://static.pexels.com/photos/3948/field-meadow-flower-pink.jpg" class="crop-image" alt="Flower">
+    <div class="item fix-img">
+      <div class="hero-bg">
+        <img src="https://static.pexels.com/photos/3948/field-meadow-flower-pink.jpg" class="crop-image" alt="Flower">
+      </div>
       <div class="carousel-caption text-center text-light text-shadow">
         <div class="text-caption">
-        <h1>Bilpin Fruit Bowl</h1>
+          <h1>Taronga Zoo</h1>
         </div>
       </div>
     </div>
   </div>
 
 </div>
-<div class="container top10 hidden-xs positionrelative padding-style">
+<div class="container-fluid top10 hidden-xs searchbackground padding-style">
   <div class="row search-nearby">
     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
       <div class="input-group search-responsive">
@@ -71,7 +80,7 @@
 </div>
 <!--<div class="border-section hidden-xs"></div>-->
 
-
+<div class="positionrelative">
 <div class="container padding-style">
   <% unless @places_to_go.blank? %>
     <div class="text-left top20 btm20">
@@ -342,6 +351,8 @@ Bottom button will link to "all_subcategories" page
     </div>
   </div>
 </div>
+</div>
+
 <!-- #hardcode end -->
 <%= render 'layouts/all_modal' %>
 <%= render 'layouts/signin_modal' %>
