@@ -11,6 +11,45 @@ class PrimaryCategoriesController < ApplicationController
 	def index
 	end
 
+	def new
+		@primary_category = PrimaryCategory.new
+	end
+
+	def create
+		@primary_category = PrimaryCategory.new(primary_category_params)
+
+		if @primary_category.save
+      redirect_to :back, notice: "Primary Category added."
+    else
+      render :new
+    end
+	end
+
+	def cms_index
+		@primary_categories = PrimaryCategory.all
+		@primary_category = PrimaryCategory.new
+	end
+
+	def edit
+		@primary_category = PrimaryCategory.find(params[:id])
+	end
+
+	def update
+		@primary_category = PrimaryCategory.find(params[:id])
+
+		if @primary_category.update(primary_category_params)
+			redirect_to :back, notice: "#{@primary_category.name} updated"
+		else
+			redirect_to primary_category_edit_path(@primary_category), notice: "Sorry there was an error saving your changes"
+		end
+	end
+
+	def destroy
+		@primary_category = PrimaryCategory.find(params[:id])
+		@primary_category.destroy
+		redirect_to :back, notice: "Primary Category Deleted"
+	end
+
 	private
 
 		def category
@@ -22,5 +61,9 @@ class PrimaryCategoriesController < ApplicationController
 		def stories
 			@stories ||= ApiBlog.get_cached_blogs(params[:id], "primary_cat")
 		end
+
+		def primary_category_params
+      params.require(:primary_category).permit(:name, :icon)
+    end
 
 end

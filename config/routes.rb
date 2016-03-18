@@ -202,10 +202,12 @@ Rails.application.routes.draw do
   # get "/wp-blog-cat/:id", to: "primary_categories#wp_blog"
 
 
+  get "/primary_categories/cms_index", to: "primary_categories#cms_index"
+  get "/subcategories/cms_index", to: "subcategories#cms_index"
   get "categories", to: "categories#index"
 
-  resources :primary_categories, only: [:index, :show]
-  resources :subcategories, only: [:index, :show]
+  resources :primary_categories
+  resources :subcategories
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
