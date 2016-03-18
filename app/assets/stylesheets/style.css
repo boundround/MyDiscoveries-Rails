@@ -211,8 +211,8 @@ ul.nav.navbar-nav.first-ul{
 .section-title{
 	/*font-family: */
 	font-weight: 500 !important;
-	margin: 20px 0;
-	margin-top: 20px;
+	margin: 10px 0;
+	/*margin-top: 30px;*/
 }
 .border-section{
 	border-bottom: 1px solid #D2D2D2;
@@ -2112,7 +2112,7 @@ section.modal-booking .left img{
 
 .fix-img {
 	/*was 400px*/
-	height: 350px; 
+	height: 350px;
 	max-height: 350px !important;
 	overflow: hidden;
 	position: relative;
@@ -2125,7 +2125,7 @@ section.modal-booking .left img{
 		max-height: 350px !important;
 	}
 	.fix-img {
-		height: 350px; 
+		height: 350px;
 		max-height: 350px !important;
 		overflow: hidden;
 		position: relative;
@@ -2895,6 +2895,7 @@ footer ul{
 .img-top-margin22 {
 	margin-top: -22px;
 }
+
 .blue{
 	color: #3a548b;
 }
@@ -2903,4 +2904,8 @@ footer ul{
 }
 .bg-orange{
 	background: #fd7e56;
+}
+
+.paddright2{
+	padding-right: 2px;
 }

@@ -1,0 +1,73 @@
+<%= render "layouts/navbar" %>
+
+<div class="container">
+  <div class="row">
+    <div class="head-title">
+      <h2 class="gray-font">Photos</h2>
+    </div>
+  </div>
+</div>
+
+<div class="border-section "></div>
+
+<div class="container text-left">
+    <h4 class="section-title btm15 top15">Featured Gallery</h4>
+</div>
+
+<section class="your-stories video-show photo">
+  <div class="container">
+    <div class="row">
+      
+      <% @featured_places.each do |photo| %>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="head-stories">
+          <!-- #hardcode -->
+            <div class="left">
+              <a href="#">
+                <div class="profile-outer">
+                  <img src="./img/face1.jpg" alt="">
+                </div>
+                <div class="profile-text">
+                  Stephen71
+                </div>
+               </a>
+            </div>
+            <div class="right"><a href="#"><i class="fa fa-image"></i> 9 </a>
+            </div>
+          </div>
+          <div class="body-stories">
+            <div class="title">
+              <p><%= photo.place.display_name rescue "" %></p>
+              <h4><%= photo.caption %></h4>
+            </div>
+            <div class="image">
+              <img src="<%= showing_image(photo.path_url(:medium)) %>" alt="">
+            </div>
+          </div>
+          <div class="details-dest btm15">
+          <!-- #hardcode -->
+            <div class="left">
+              <a href="#">Active</a>
+            </div>
+          </div>
+        </div> <!-- /col -->
+       <% end %>
+      </div>
+      
+    </div> <!-- row -->
+  </div>
+</section>
+<!-- Latest -->
+<%= render partial: "photos/photos",
+           locals: {title: "Latest", margin: "top5 btm15", global_photo: @latest }
+    
+%>
+
+<div class="border-section"></div>
+<!-- buat  Popular sementara pake "" -->
+<%= render partial: "photos/photos",
+           locals: {title: "Most Popular", margin: "btm15 top15", global_photo: ""}
+    
+%>
+
+<%= render "layouts/footer" %>
