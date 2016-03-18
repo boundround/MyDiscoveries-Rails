@@ -2904,3 +2904,10 @@ footer ul{
 .bg-orange{
 	background: #fd7e56;
 }
+.btn.a-fav-area{
+	padding-left: 30px;
+}
+.i-fav-area{
+	left: 25px;
+	position: relative;
+}
