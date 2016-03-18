@@ -44,7 +44,7 @@
         <% else %>
         <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
       <% end %>
-        
+
         <% if user_signed_in?%>
           <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div>
         <% else %>
@@ -137,7 +137,7 @@
 <section class="travelling-tips fun-fact mrg0">
   <div class="container padding-style">
     <div class="row">
-      
+
       <%= render :partial => "good_to_knows" %>
 
       <%= render :partial => "fun_facts", :locals => { :color => "pink" } %>
@@ -165,27 +165,29 @@
           </div>
           <div class="row">
            <div class="col-xs-12">
-            
+
             <% @places_to_visit.each do |place| %>
-              <div class="thumbnail">
-                <div class="image-cat image-cat-left outer-js">
-                  <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive inner-js">
-                </div>
-                <div class="caption caption-right">
-                  <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
-                  <h2><%= place.display_name %></h2>
-                </div>
-                <!-- hardcode #get category + sub category-->
-                <div class="details-dest">
-                  <div class="left">
-                    <a href="#"><i class="fa fa-user"></i> Do</a>
-                    <a href="#"> Museum</a>
+              <a href="<%= place_path(place) %>">
+                <div class="thumbnail">
+                  <div class="image-cat image-cat-left outer-js">
+                    <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive inner-js">
                   </div>
-                  <div class="right">
-                    <a href="#"> $$</a>
+                  <div class="caption caption-right">
+                    <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
+                    <h2><%= place.display_name %></h2>
                   </div>
+                  <!-- hardcode #get category + sub category-->
+                  <div class="details-dest">
+                    <div class="left">
+                      <a href="#"><i class="fa fa-user"></i> Do</a>
+                      <a href="#"> Museum</a>
+                    </div>
+                    <div class="right">
+                      <a href="#"> $$</a>
+                    </div>
+                    </div>
                   </div>
-                </div>
+                </a>
               <% end %>
             <!-- hardcode paginate -->
             <div class="text-center clearfix">

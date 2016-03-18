@@ -208,7 +208,7 @@ class PlacesController < ApplicationController
     @review = Review.new
 
     # @storiable = @place
-    api_blogs = ApiBlog.get_cached_blogs(@place.slug, 'place')
+    api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')
     @stories = @place.stories.active + api_blogs
     @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.first(6)
 

@@ -29,7 +29,7 @@
                   </div>
                 </div>
                 <div class="body-stories btm15">
-                  <div 
+                  <div
                     <% if !story.user_photos.blank? %>
                     class="p-dynamic"
                     <% end %>
@@ -45,7 +45,7 @@
                 </div>
             </div><!-- card -->
           <% elsif story.class.to_s.eql? "ApiBlog" %>
-            <div class="card" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-cat="<%= params[:id] rescue '' %>" data-place="<%= @place.slug rescue '' %>">
+            <div class="card" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-cat="<%= (@category ? params[:id] : "") rescue '' %>" data-place="<%= @place.display_name.parameterize rescue '' %>">
               <div class="head-stories">
                 <p class="mrg0 grey-bold">From Blog</p>
               </div>
