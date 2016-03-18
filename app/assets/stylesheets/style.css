@@ -2909,3 +2909,10 @@ footer ul{
 .paddright2{
 	padding-right: 2px;
 }
+.btn.a-fav-area{
+	padding-left: 30px;
+}
+.i-fav-area{
+	left: 25px;
+	position: relative;
+}

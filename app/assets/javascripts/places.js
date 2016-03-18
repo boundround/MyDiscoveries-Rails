@@ -8,7 +8,8 @@ function addToFav(){
     data = {};
     data["places_user"] = { user_id: userId, place_id: placeId };
     if(userId === "no-user"){
-      alert("You must be logged in to add to your favorite!");
+      // alert("You must be logged in to add to your favorite!");
+      $("#myModal").modal();
     } else if ($(this).data("liked") === false) {
       $.ajax({
         type: "POST",
