@@ -124,54 +124,11 @@
 <section class="travelling-tips fun-fact mrg0">
   <div class="container padding-style">
     <div class="row">
-      <div class="col-xs-12 col-sm-4 col-md-4 ">
-      <h4>Good To Know</h4>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a>
-      </div>
-      <!-- <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs"> -->
-        <!-- <h4 class="text-left">Fun Facts</h4> -->
-        <%= render :partial => "fun_facts", :locals => { :color => "pink" } %>
-        <!-- <div id="carousel-example-generic" class="carousel slide carousel-desk-fun" data-ride="carousel">
-          <div class="carousel-inner" role="listbox">
-            <div class="item active">
-              <div class="fun-image">
-                <div class="img">
-                    <img src="./img/face1.jpg" alt="">
-                </div>
-                <div class="number pink"><span>1</span>
-                </div>
-              </div>
-              <div class="carousel-caption cs-caption">
-                <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.Quisque velit nisi, pretium ut lacinia in, elementum id enim</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="fun-image">
-                <div class="img">
-                    <img src="./img/face1.jpg" alt="">
-                </div>
-                <div class="number pink"><span>2</span>
-                </div>
-              </div>
-              <div class="carousel-caption cs-caption">
-                <p>text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 </p>
-              </div>
-            </div>
-          </div>
+      
+      <%= render :partial => "good_to_knows" %>
 
-          <a class="left carousel-control left30" href="#carousel-example-generic" role="button" data-slide="prev">
-            <i class="fa fa-arrow-left i-funfact"></i>
-          </a>
-          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <i class="fa fa-arrow-right i-funfact"></i>
-          </a>
-        </div> -->
+      <%= render :partial => "fun_facts", :locals => { :color => "pink" } %>
 
-      <!-- </div> -->
     </div>
   </div>
 </section>
@@ -187,44 +144,7 @@
     </div> <!-- /left-col -->
 
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
-      <section class="travelling-tips fun-fact mrg0 visible-xs margin-fun-fact">
-        <div class="container">
-          <h4>Fun Facts</h4>
-          <div class="row">
-            <div class="position-js">
-              <div class="col-xs-12">
-                <div class="fun-image">
-                  <div class="img">
-                      <img src="./img/face1.jpg" alt="">
-                  </div>
-                  <div class="number"><span>1</span>
-                  </div>
-                </div>
-                <div class="text">
-                  <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
-                </div>
-              </div>
-            </div>
-            <div class="position-js">
-              <div class="col-xs-12">
-                <div class="fun-image" style="float: right; margin: 0px;">
-                  <div class="img">
-                      <img src="./img/face1.jpg" alt="">
-                  </div>
-                  <div class="number" style="left: 89px;"><span>2</span>
-                  </div>
-                </div>
-                <div class="text">
-                  <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center clearfix">
-            <a href="#" class="btn btn-default load-more black ">Load more fun facts</a>
-          </div>
-        </div>
-      </section>
+       <%= render :partial => "fun_facts_mobile", :locals => { :color => "pink", bg: "bg-orange" }  %>
 
       <section class="places-to-go visit-place">
           <div class="text-left">
