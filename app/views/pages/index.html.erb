@@ -79,8 +79,9 @@
     </div>
     <div class="row" id="places_to_go-list">
         <% @places_to_go.each do |place| %>
-        <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
-            <%= render partial: 'primary_categories/places_list', locals: { place: place} %>
+          <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
+              <%= render partial: 'primary_categories/places_list', locals: { place: place} %>
+          </div>
         <% end %>
     </div> <!-- row -->
   <% end %>
@@ -113,13 +114,19 @@
           </div>
           <div class="btn-everyone">
             <div class="col-xs-12 col-sm-12 col-md-6">
-              <a href="#" class="btn btn-default btn-block">5 - 8 year olds<i class="fa fa-caret-right"></i></a>
+              <%= link_to specific_sub_categories_path(age_ranges: '5-8'), class: 'btn btn-default btn-block' do %>
+                5 - 8 year olds<i class="fa fa-caret-right"></i>
+              <% end %>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6">
-              <a href="#" class="btn btn-default btn-block">9 - 12 year olds<i class="fa fa-caret-right"></i></a>
+              <%= link_to specific_sub_categories_path(age_ranges: '9-12'), class: 'btn btn-default btn-block' do %>
+                9 - 12 year olds<i class="fa fa-caret-right"></i>
+              <% end %>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6">
-              <a href="#" class="btn btn-default btn-block">Teenagers<i class="fa fa-caret-right"></i></a>
+              <%= link_to specific_sub_categories_path(age_ranges: '13-18'), class: 'btn btn-default btn-block' do %>
+                Teenagers<i class="fa fa-caret-right"></i>
+              <% end %>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6">
               <a href="#" class="btn btn-default btn-block">People with special needs<i class="fa fa-caret-right"></i></a>
@@ -165,7 +172,7 @@
 <div class="container hidden-sm hidden-xs topmin140 padding-style">
   <div class="row">
     <div class="col-md-4 col-lg-4">
-      <a target="blank" href="#">
+      <%= link_to specific_sub_categories_path(age_ranges: '5-8') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
             <img src="https://iitandtheworld.files.wordpress.com/2014/12/kids-and-summer-vacation-2.jpg" alt="" class="img-responsive">
@@ -176,10 +183,10 @@
             </div>
           </div>
         </div>
-      </a>
+      <% end %>
     </div>
     <div class="col-md-4 col-lg-4">
-      <a target="blank" href="#">
+      <%= link_to specific_sub_categories_path(age_ranges: '9-12') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
             <img src="https://iitandtheworld.files.wordpress.com/2014/12/kids-and-summer-vacation-2.jpg" alt="" class="img-responsive">
@@ -190,10 +197,10 @@
             </div>
           </div>
         </div>
-      </a>
+      <% end %>
     </div>
     <div class="col-md-4 col-lg-4">
-      <a target="blank" href="#">
+      <%= link_to specific_sub_categories_path(age_ranges: '13-18') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
             <img src="http://previews.123rf.com/images/mandygodbehear/mandygodbehear0807/mandygodbehear080700022/3291600-group-of-teens-on-vacation-Stock-Photo.jpg" alt="" class="img-responsive">
@@ -204,7 +211,7 @@
             </div>
           </div>
         </div>
-      </a>
+      <% end %>
     </div>
   </div>
 </div>
@@ -320,10 +327,10 @@ Bottom button will link to "all_subcategories" page
       <% else %>
         <div class="col-lg-6 col-md-6 btm15">
           <div class="img-bg outer-js">
-            <%= link_to sub_category_path(sub.identifier) do %>
+            <%= link_to sub_category_path(category.identifier) do %>
               <%= image_tag category.icon.url.to_s , class: 'img-explore- inner-js' %>
               <span class="text-explore">
-                <%= sub.name %>
+                <%= category.name %>
               </span>
             <% end %>
           </div>
