@@ -23,14 +23,16 @@
           <div class="head-stories">
           <!-- #hardcode -->
             <div class="left">
-              <a href="#">
+             <% if photo.respond_to?(:user) and photo.user.present? %>
+              <%= link_to user_path(photo.user) do %>
                 <div class="profile-outer">
-                  <img src="./img/face1.jpg" alt="">
+                  <%= image_tag photo.user.avatar_url(:thumb) %>
                 </div>
                 <div class="profile-text">
-                  Stephen71
+                  <%= photo.profile.user_name %>
                 </div>
-               </a>
+               <%- end %>
+             <% end %>
             </div>
             <div class="right"><a href="#"><i class="fa fa-image"></i> 9 </a>
             </div>
@@ -47,7 +49,11 @@
           <div class="details-dest btm15">
           <!-- #hardcode -->
             <div class="left">
-              <a href="#">Active</a>
+              <% if photo.place.present? %>
+              <% photo.place.subcategories.each do |sub| %>
+                <%= link_to sub.name, subcategory_path(sub) %>
+              <% end %>
+            <% end %>
             </div>
           </div>
         </div> <!-- /col -->
