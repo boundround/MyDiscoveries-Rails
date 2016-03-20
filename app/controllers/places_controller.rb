@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class PlacesController < ApplicationController
   layout false, :only => :wp_blog
 
@@ -187,7 +189,7 @@ class PlacesController < ApplicationController
       (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
     end
 
-    @more_places = @more_places[0..5]
+    @more_places = @more_places.paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
 
     # @related_places = Place.is_area
     # @reviewable = @place
@@ -283,6 +285,7 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       format.html { render view, :layout => !request.xhr? }
+      format.js
       format.json { render json: @place }
     end
 

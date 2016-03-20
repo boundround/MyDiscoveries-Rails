@@ -256,40 +256,21 @@
             <h4 class="section-title">More places like this</h4>
           </div>
           <div class="row">
-           <div class="col-xs-12">
-            <% @more_places.each do |place| %>
-              <a href="<%= place_path(place) %>">
-                <div class="thumbnail card">
-                  <div class="image-cat image-cat-left outer-js">
-                    <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive  inner-js">
-                  </div>
-                  <div class="caption caption-right">
-                    <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
-                    <h2><%= place.display_name %></h2>
-                  </div>
-                  <div class="details-dest">
-                    <div class="left">
-                    <% place.subcategories.subcats.each do |c| %>
-                      <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
-                      <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
-
-                    <% end %>
-                    </div>
-                    <div class="right">
-                      <a href="#"> $$</a>
-                    </div>
-                    </div>
-                  </div>
-                </a>
-            <% end %>
-            <!-- #hardcode activate paginate (6 cards per page) -->
-            <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
-            <div class="text-center clearfix btm20">
-              <button class="btn btn-default top5 load-more">Load more places</button>
-            </div>
+           <div class="col-xs-12" id="more_places-list">
+              <%= render partial: 'primary_categories/places_list', collection: @more_places, as: :place %>
+              <!-- #hardcode activate paginate (6 cards per page) -->
+              <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
             </div>
           </div> <!-- row -->
-      </section>
+        </section>
+        <% unless last_page? @more_places %>
+          <div class="text-center clearfix btm20 single-pagination-container" id="more_places-single-pagination-container" style="clear:both">
+            <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+              <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+            </div>
+            <%= link_to "Load More", place_path(@place, more_places_page: @more_places.next_page, resources: 'more_places', pagination_template: 'primary_categories/places_list', collection_object: 'place'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+          </div>
+        <% end %>
       <% end %>
       </div> <!-- /col-md-8 -->
     </div> <!-- /main row -->
