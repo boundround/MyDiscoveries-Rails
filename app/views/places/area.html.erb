@@ -206,7 +206,7 @@
 <section class="famous-faces">
   <div class="container padding-style">
     <div class="row">
-    <h4 class="section-title">Famous Faces</h4>
+    <h4 class="section-title">Famous Faces <%= ("From " + @place.country.display_name) rescue "" %></h4>
       <% @famous_faces.each do |famous| %>
       <div class="col-xs-6">
         <div class="img">
@@ -226,7 +226,7 @@
 <% end %>
 <section class="member-saying">
   <div class="container padding-style">
-      <h4 class="section-title">What our member are saying</h4>
+      <h4 class="section-title">What our members are saying</h4>
     <div class="row">
       <div class="col-xs-6 col-sm-offset-2 col-sm-4 text-center">
         <div class="canvas-holder">
