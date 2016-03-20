@@ -58,10 +58,33 @@
   </div>
 </section>
 <!-- Latest -->
-<%= render partial: "photos/photos",
-           locals: {title: "Latest", margin: "top5 btm15", global_photo: @latest }
-    
-%>
+
+<% unless @photos.blank? %>
+  <div class="container ">
+    <div class="text-left">
+      <h4 class="section-title btm15 top15 ">Latest</h4>
+    </div>
+  </div>
+  
+  <section class="your-stories video-show video-latest photo-latest">
+    <div class="container ">
+      <div class="row" id="photos-list">
+        <%= render partial: "photos/photos_list", collection: @photos, as: :photo %>
+      </div>
+    </div>
+  </section>
+
+  <% unless last_page? @photos %>
+    <div class="text-center clearfix btm15 single-pagination-container" id="photos-single-pagination-container" style="clear:both">
+      <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+        <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+      </div>
+      <%= link_to "Load More", photos_path(page: @photos.next_page, resources: 'photos'), class: 'btn btn-default single-pagination', remote: true %>
+    </div>
+  <% end %>
+
+<% end %>
+
 
 <div class="border-section"></div>
 <!-- buat  Popular sementara pake "" -->
