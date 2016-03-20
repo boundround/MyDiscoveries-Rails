@@ -123,6 +123,7 @@ Rails.application.routes.draw do
   get '/users/draft_content' => 'users#draft_content' # All User Uploaded Content in Draft
   resources :users do
     collection { get 'leaderboard' }
+    member { get 'favourites' }
   end
 
   post '/places/transfer_assets' => 'places#transfer_assets'
