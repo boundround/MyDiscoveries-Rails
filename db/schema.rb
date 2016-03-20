@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20160317083600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -543,20 +542,6 @@ ActiveRecord::Schema.define(version: 20160317083600) do
   add_index "similar_places", ["place_id", "similar_place_id"], name: "index_similar_places_on_place_id_and_similar_place_id", unique: true, using: :btree
   add_index "similar_places", ["place_id"], name: "index_similar_places_on_place_id", using: :btree
   add_index "similar_places", ["similar_place_id"], name: "index_similar_places_on_similar_place_id", using: :btree
-
-  create_table "stamp_transactions", force: true do |t|
-    t.string  "user_info"
-    t.integer "stamp_id"
-  end
-
-  add_index "stamp_transactions", ["stamp_id"], name: "index_stamp_transactions_on_stamp_id", using: :btree
-
-  create_table "stamps", force: true do |t|
-    t.string  "serial"
-    t.integer "place_id"
-  end
-
-  add_index "stamps", ["place_id"], name: "index_stamps_on_place_id", using: :btree
 
   create_table "stories", force: true do |t|
     t.string   "title"

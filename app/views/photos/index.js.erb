@@ -1,0 +1,10 @@
+<% if instance_variable_get("@#{params[:resources]}").present? and params[:resources].present? %>
+	
+	$("div#<%= params[:resources] %>-list").append("<%= escape_javascript( render(partial: "#{params[:resources]}_list", collection: instance_variable_get("@#{params[:resources]}"), as: params[:resources].singularize.to_sym )) %>");
+	<% if last_page? instance_variable_get("@#{params[:resources]}") %>
+		$("div#<%= params[:resources] %>-single-pagination-container").remove();
+	<% else %>	
+		$("div#<%= params[:resources] %>-single-pagination-container").find("a.single-pagination").attr('href', "<%= photos_path(page: instance_variable_get("@#{params[:resources]}").next_page, resources: params[:resources])%>" )
+	<% end %>
+
+<% end %>
