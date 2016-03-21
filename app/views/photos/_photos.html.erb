@@ -1,0 +1,55 @@
+<% unless global_photo.blank? %>
+<div class="container ">
+  <div class="text-left">
+    <h4 class="section-title <%= margin %> "><%= title %></h4>
+  </div>
+</div>
+<section class="your-stories video-show video-latest photo-latest">
+  <div class="container ">
+    <div class="row">
+        <% global_photo.each do |photo|%>
+          <div class="col-xs-12 col-sm-6 col-md-4 bg">
+            <div class="head-stories">
+            <!-- #hardcode -->
+              <div class="left">
+                <a href="#">
+                  <div class="profile-outer">
+                    <img src="./img/face1.jpg" alt="">
+                  </div>
+                  <div class="profile-text">
+                    Stephen71
+                  </div>
+                 </a>
+              </div>
+              <div class="right"><a href="#"><i class="fa fa-image"></i> 9 </a>
+              </div>
+            </div>
+            <div class="body-stories">
+              <div class="left">
+                  <p><%= photo.place.display_name rescue "" %></p>
+                  <h4 class="cruises-color paddright2"><%= photo.caption %></h4>
+              </div>
+              <div class="right">
+                <div class="image">
+                  <img src="<%= showing_image(photo.path_url(:medium)) %>" alt="">
+                </div>
+              </div>
+            </div>
+            <!-- #hardcode -->
+            <div class="details-dest">
+              <div class="left">
+                <a href="#"><i class="i-do i-do-video"></i>Do</a>
+                <a href="#">Active</a>
+              </div>
+            </div>
+        </div>
+      <% end %>
+      
+    </div> <!-- row -->
+  </div>
+</section>
+<!-- #hardcode #add paginate-->
+<div class="text-center clearfix btm20">
+  <a href="#" class="btn btn-default ">Load More</a>
+</div>
+<% end %>

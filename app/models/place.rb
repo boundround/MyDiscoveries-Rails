@@ -125,6 +125,7 @@ class Place < ActiveRecord::Base
   scope :to_be_removed, -> { where('unpublished_at >= ?', Time.now) }
   scope :is_area, -> {where(is_area: true)}
   scope :is_not_area, -> {where(is_area: nil)}
+  scope :primary_areas_with_photos, -> { includes(:photos).where(primary_area: true)}
 
   # include PgSearch
   # pg_search_scope :search, against: [:display_name, :description],
@@ -353,10 +354,24 @@ class Place < ActiveRecord::Base
   end
 
   def slug_candidates
-    [
-      :display_name,
-      [:display_name, :post_code]
-    ]
+    country = self.country
+    primary_area = self.find_first_primary_area
+    if is_area == true
+      "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
+    else
+      [
+        "things to do with kids and families #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}",
+        ["things to do with kids and families #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}", :post_code]
+      ]
+    end
+  end
+
+  def find_first_primary_area
+    self.similar_places.each do |association|
+      if association.similar_place.primary_area == true
+        return association.similar_place
+      end
+    end
   end
 
   def publish

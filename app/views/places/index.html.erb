@@ -19,7 +19,7 @@
     <% @places.each do |place| %>
         <tr>
           <td><%= place.is_area? ? "Yes" : "No" %></td>
-          <td><%= link_to place.display_name, edit_place_path(place) %></td>
+          <td><%= link_to "#{place.display_name} || #{place.id}", edit_place_path(place) %></td>
           <td><%= place.top_100? ? "Yes" : "No" %></td>
           <td><%= link_to "Edit Place", "/places/" + place.slug + "/new_edit" %></td>
           <td><%= place.place_id %></td>

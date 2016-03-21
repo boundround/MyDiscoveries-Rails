@@ -38,8 +38,13 @@
         </div>
       </div>
       <div class="action">
-        <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div>
-        <div class="center"><a class="white"href="#"><i class="fa fa-plus"></i> Add photos</a>  </div>
+        <!-- <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div> -->
+      <% if user_signed_in? %>
+        <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#addMediaModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
+        <% else %>
+        <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
+      <% end %>
+
         <% if user_signed_in?%>
           <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div>
         <% else %>
@@ -76,10 +81,10 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="detail-place">
-              <div class="located"><p class="gray-font">Located in</p><p><%= @place.display_name %></p></div>
+              <div class="located"><p class="gray-font">Located in</p><p><%= @place.country.display_name rescue "" %></p></div>
               <div class="language"><p class="gray-font">Language</p><p id="language" ></p></div>
               <div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>
-              <div class="likes"><p class="gray-font"><i class="fa fa-thumbs-o-up"></i></p><p>95%</p></div>
+              <div class="likes"><p class="gray-font">Capital</p><p><%= (link_to @capital_city.display_name, place_path(@capital_city)) rescue "" %></p></div>
             </div>
           </div>
         </div>
@@ -107,9 +112,17 @@
 
 
       <section class="map">
-          <div class="text-center btn-map">
-            <a href="" class="btn btn-default btn-shadow"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
-          </div>
+          <% if user_signed_in? && @place.users.include?(current_user) %>
+            <div class="text-center btn-map">
+              <i class="fa fa-bookmark-o i-fav-area"></i>
+              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Remove To Favourites</a>
+            </div>
+              <% else %>
+            <div class="text-center btn-map">
+              <i class="fa fa-bookmark-o i-fav-area"></i>
+              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Add To Favourites</a>
+            </div>
+          <% end %>
         <div id="map">
         </div>
       </section>
@@ -124,54 +137,11 @@
 <section class="travelling-tips fun-fact mrg0">
   <div class="container padding-style">
     <div class="row">
-      <div class="col-xs-12 col-sm-4 col-md-4 ">
-      <h4>Good To Know</h4>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a>
-      </div>
-      <!-- <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs"> -->
-        <!-- <h4 class="text-left">Fun Facts</h4> -->
-        <%= render :partial => "fun_facts", :locals => { :color => "pink" } %>
-        <!-- <div id="carousel-example-generic" class="carousel slide carousel-desk-fun" data-ride="carousel">
-          <div class="carousel-inner" role="listbox">
-            <div class="item active">
-              <div class="fun-image">
-                <div class="img">
-                    <img src="./img/face1.jpg" alt="">
-                </div>
-                <div class="number pink"><span>1</span>
-                </div>
-              </div>
-              <div class="carousel-caption cs-caption">
-                <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.Quisque velit nisi, pretium ut lacinia in, elementum id enim</p>
-              </div>
-            </div>
-            <div class="item">
-              <div class="fun-image">
-                <div class="img">
-                    <img src="./img/face1.jpg" alt="">
-                </div>
-                <div class="number pink"><span>2</span>
-                </div>
-              </div>
-              <div class="carousel-caption cs-caption">
-                <p>text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 text2 </p>
-              </div>
-            </div>
-          </div>
 
-          <a class="left carousel-control left30" href="#carousel-example-generic" role="button" data-slide="prev">
-            <i class="fa fa-arrow-left i-funfact"></i>
-          </a>
-          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <i class="fa fa-arrow-right i-funfact"></i>
-          </a>
-        </div> -->
+      <%= render :partial => "good_to_knows" %>
 
-      <!-- </div> -->
+      <%= render :partial => "fun_facts", :locals => { :color => "pink" } %>
+
     </div>
   </div>
 </section>
@@ -187,146 +157,78 @@
     </div> <!-- /left-col -->
 
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
-      <section class="travelling-tips fun-fact mrg0 visible-xs margin-fun-fact">
-        <div class="container">
-          <h4>Fun Facts</h4>
-          <div class="row">
-            <div class="position-js">
-              <div class="col-xs-12">
-                <div class="fun-image">
-                  <div class="img">
-                      <img src="./img/face1.jpg" alt="">
-                  </div>
-                  <div class="number"><span>1</span>
-                  </div>
-                </div>
-                <div class="text">
-                  <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
-                </div>
-              </div>
-            </div>
-            <div class="position-js">
-              <div class="col-xs-12">
-                <div class="fun-image" style="float: right; margin: 0px;">
-                  <div class="img">
-                      <img src="./img/face1.jpg" alt="">
-                  </div>
-                  <div class="number" style="left: 89px;"><span>2</span>
-                  </div>
-                </div>
-                <div class="text">
-                  <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-center clearfix">
-            <a href="#" class="btn btn-default load-more black ">Load more fun facts</a>
-          </div>
-        </div>
-      </section>
-
+       <%= render :partial => "fun_facts_mobile", :locals => { :color => "pink", bg: "bg-orange" }  %>
+      <% unless @places_to_visit.blank? %>
       <section class="places-to-go visit-place">
           <div class="text-left">
-            <h4 class="section-title">Places to visit in Sydney</h4>
+            <h4 class="section-title">Places to visit in <% @place.display_name %></h4>
           </div>
           <div class="row">
            <div class="col-xs-12">
-            <div class="thumbnail">
-              <div class="image-cat image-cat-left outer-js">
-                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
-              </div>
-              <div class="caption caption-right">
-                <h4 class="gray-font">Sydney</h4>
-                <h2>Taronga Zoo</h2>
-              </div>
-              <div class="details-dest">
-                <div class="left">
-                  <a href="#"><i class="fa fa-user"></i> Do</a>
-                  <a href="#"> Museum</a>
-                </div>
-                <div class="right">
-                  <a href="#"> $$</a>
-                </div>
-                </div>
-              </div>
-            <div class="thumbnail">
-              <div class="image-cat image-cat-left outer-js">
-                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
-              </div>
-              <div class="caption caption-right">
-                <h4 class="gray-font">Sydney</h4>
-                <h2>Taronga Zoo</h2>
-              </div>
-              <div class="details-dest">
-                <div class="left">
-                  <a href="#"><i class="fa fa-user"></i> Do</a>
-                  <a href="#"> Animals</a>
-                </div>
-                <div class="right">
-                  <a href="#"> $$</a>
-                </div>
-                </div>
-              </div>
-            <div class="thumbnail">
-              <div class="image-cat image-cat-left outer-js">
-                <img src="./img/images.jpg" alt="" class="img-responsive img-full-div inner-js">
-              </div>
-              <div class="caption caption-right">
-                <h4 class="gray-font">Sydney</h4>
-                <h2>Taronga Zoo</h2>
-              </div>
-              <div class="details-dest">
-                <div class="left">
-                  <a href="#"><i class="fa fa-user"></i> Do</a>
-                  <a href="#"><i class="fa fa-user"></i> Do</a>
-                </div>
-                <div class="right">
-                  <a href="#"> $$</a>
-                </div>
-                </div>
-              </div>
+
+            <% @places_to_visit.each do |place| %>
+              <a href="<%= place_path(place) %>">
+                <div class="thumbnail">
+                  <div class="image-cat image-cat-left outer-js">
+                    <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive inner-js">
+                  </div>
+                  <div class="caption caption-right">
+                    <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
+                    <h2><%= place.display_name %></h2>
+                  </div>
+                  <!-- hardcode #get category + sub category-->
+                  <div class="details-dest">
+                    <div class="left">
+                      <a href="#"><i class="fa fa-user"></i> Do</a>
+                      <a href="#"> Museum</a>
+                    </div>
+                    <div class="right">
+                      <% if !place.viator_link.blank? %>
+                        <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+                      <% end %>
+                    </div>
+                    </div>
+                  </div>
+                </a>
+              <% end %>
+            <!-- hardcode paginate -->
             <div class="text-center clearfix">
               <a href="#" class="btn btn-default load-more btm20 mrg-btm30 top5">Load more places</a>
             </div>
             </div>
           </div> <!-- row -->
       </section>
+      <% end %>
     </div>
 
     </div> <!-- /col-md-8 -->
   </div>
 <!--  -->
+<% unless @famous_faces.blank? %>
 <section class="famous-faces">
   <div class="container padding-style">
     <div class="row">
-    <h4 class="section-title">Famous Faces</h4>
+    <h4 class="section-title">Famous Faces <%= ("From " + @place.country.display_name) rescue "" %></h4>
+      <% @famous_faces.each do |famous| %>
       <div class="col-xs-6">
         <div class="img">
-          <img src="./img/face1.jpg" alt="">
+          <img src="<%= showing_image(famous.photo_url) %>" alt="">
         </div>
         <div class="famous-text">
-          <p class="title">Russel Crowe</p>
+          <p class="title"><% famous.name %></p>
           <p class="gray-font">Actor</p>
-          <p class="desc">Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada.</p>
+          <p class="desc"><%= famous.description %></p>
         </div>
       </div>
-      <div class="col-xs-6">
-        <div class="img">
-          <img src="./img/face2.jpg" alt="">
-        </div>
-        <div class="famous-text">
-          <p class="title">Name 2</p>
-          <p class="gray-font">Actor</p>
-          <p class="desc">Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada.</p>
-        </div>
-      </div>
+      <% end %>
+
     </div>
   </div>
 </section>
-<section class="member-saying">
+<% end %>
+<!-- <section class="member-saying">
   <div class="container padding-style">
-      <h4 class="section-title">What our member are saying</h4>
+      <h4 class="section-title">What our members are saying</h4>
     <div class="row">
       <div class="col-xs-6 col-sm-offset-2 col-sm-4 text-center">
         <div class="canvas-holder">
@@ -342,7 +244,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 </div> <!-- area-content -->
 <% end %>

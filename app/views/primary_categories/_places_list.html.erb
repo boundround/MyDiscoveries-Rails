@@ -1,17 +1,24 @@
+
+<a href="<%= place_path(place) %>">
 <div class="thumbnail padd0">
-  <div class="image-cat image-cat-left outer-js">
-    <img src="<%= showing_image(place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive img-full-div inner-js">
+  <div class="image-cat">
+
+    <img src="<%= showing_image(place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="top-rounded img-responsive">
+
   </div>
-  <div class="caption caption-right">
-    <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
-    <h2 class="cruises-color"><%= place.display_name %></h2>
+  <div class="caption place-caption text-center">
+    <h4 class="font-orange2"><%= place.display_name %></h4>
   </div>
   <div class="details-dest">
     <div class="left">
       <%= link_to "<i class=\"fa fa-ship\"></i> #{place.primary_category.try(:name)}".html_safe, place.primary_category.present?? primary_categories_path : '#' %>
     </div>
+    <!-- #hardcode -->
     <div class="right">
-      <a href="#"> $$</a>
+      <% if !place.viator_link.blank? %>
+        <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+      <% end %>
     </div>
-    </div>
- </div>
+  </div>
+</div>
+</a>

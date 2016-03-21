@@ -1,10 +1,16 @@
+require 'will_paginate/array'
+
 class PhotosController < ApplicationController
 
   def index
-    @photos = Photo.all
+    @featured_places = Photo.limit(3) #task uncompleted
+
+    @photos = (Photo.all.order("created_at DESC") + UserPhoto.all.order("created_at DESC") ).sort{|x,y|x.created_at <=> y.created_at}.paginate(page: params[:page], per_page: 10) #check #add paginate
+    # @popular #task uncompleted
 
     respond_to do |format|
       format.html
+      format.js
       format.json { render json: @photos }
     end
   end

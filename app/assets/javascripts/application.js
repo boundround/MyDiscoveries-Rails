@@ -43,8 +43,8 @@
 // require jquery.raty
 //= require ratyrate
 //= require user-photo-upload
-//= require ckeditor/init
-//= require ckeditor/config.js
+// require ckeditor/init
+// require ckeditor/config.js
 //= require rest_in_place
 // require reviews
 //= require algoliasearch
@@ -55,10 +55,10 @@
 //= require gmaps.min
 //= require owl.carousel.min
 // require custom
-//= require jquery.Jcrop.min
+// require jquery.Jcrop.min
 // require places_crop
 //= require jquery.confirm.min
-//= require instafeed.min
+// require instafeed.min
 //= require chart.min
 //= require boundround
 //= require dual_list_box

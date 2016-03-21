@@ -1,0 +1,20 @@
+<% if user_signed_in? && current_user.admin? %>
+<div class="container">
+  <h1>All Primary Categories</h1>
+    <% @primary_categories.each do |category| %>
+      <p>Category Name: <%= category.name %><br>
+      <%= link_to 'Edit', edit_primary_category_path(category) %> ||
+      <%= link_to 'Destroy', primary_category_path(category), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <hr>
+    </p>
+    <% end %>
+  <h2>Create New Primary Category</h2>
+  <%= simple_form_for @primary_category do |f| %>
+    <%= f.input :name, input_html: {class: "form-control"} %>
+    <%= f.input :icon, as: :file, label: "Image File", input_html: {class: "form-control"} %>
+    <%= f.submit :submit %>
+  <% end %>
+</div>
+<% else %>
+  <h1>You do not have sufficient privileges to access this page</h1>
+<% end %>

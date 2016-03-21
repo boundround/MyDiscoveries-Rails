@@ -86,38 +86,23 @@
     <div class="text-left top20 btm20">
       <h4 class="section-title font-weight-style">Places to go</h4>
     </div>
-    <div class="row">
+    <div class="row" id="places_to_go-list">
         <% @places_to_go.each do |place| %>
-        <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
-            <div class="thumbnail padd0">
-              <div class="image-cat">
-
-                <img src="<%= showing_image(place.photos.first.path_url) rescue "" %>" alt="" class="top-rounded img-responsive">
-
-              </div>
-              <div class="caption place-caption text-center">
-                <h4 class="font-orange2"><%= place.display_name %></h4>
-              </div>
-              <div class="details-dest">
-                <div class="left">
-                  <a href="#"><i class="fa fa-file-text-o"></i> <%= place.stories.size %></a>
-                </div>
-                <!-- #hardcode -->
-                <div class="right">
-                  <a href="#">
-                  <i class="fa fa-thumbs-o-up"></i> 95%</a>
-                </div>
-              </div>
-            </div>
+          <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
+              <%= render partial: 'primary_categories/places_list', locals: { place: place} %>
           </div>
         <% end %>
     </div> <!-- row -->
   <% end %>
 </div>
-
-<div class="text-center clearfix top10 btm40">
-  <a href="#" class="btn button-orange btn-padding">View more destinations</a>
-</div>
+<% unless last_page? @places_to_go %>
+  <div class="text-center clearfix top10 btm40 single-pagination-container" id="places_to_go-single-pagination-container" style="clear:both">
+    <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+      <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+    </div>
+    <%= link_to "View more destinations", pages_path(areas_page: @places_to_go.next_page, resources: 'places_to_go'), class: 'btn button-orange btn-padding single-pagination', remote: true %>
+  </div>
+<% end %>
 
 <!-- #hardcode (show on device mobile only) -->
 <!-- #activate link_to  -->
@@ -239,67 +224,35 @@
 </div>
 <!-- #hardcode end-->
 
-
+<% if @categories.present? %>
 <div class="container visible-xs">
   <div class="text-left">
     <h4 class="section-title top36all180">Things to do</h4>
   </div>
   <div class="row">
-    <div class="col-sm-6 col-md-3 col-xs-6">
-      <div class="thumbnail">
-        <div class="image-cat">
-          <img src="./img/images.jpg" alt="" class="top-rounded img-responsive">
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            Cruises
+    <% @categories.each do |category| %>
+
+      <div class="col-sm-6 col-md-3 col-xs-6">
+        <div class="thumbnail">
+          <div class="image-cat">
+             <%= image_tag category.icon.try(:url).try(:to_s) , class: 'top-rounded img-responsive' %>
+          </div>
+          <div class="details-dest">
+            <div class="left">
+              <%= category.name %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-xs-6">
-      <div class="thumbnail">
-        <div class="image-cat">
-          <img src="./img/images.jpg" alt="" class="top-rounded img-responsive">
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            Food Tours
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-xs-6">
-      <div class="thumbnail">
-        <div class="image-cat">
-          <img src="./img/images.jpg" alt="" class="top-rounded img-responsive">
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            Cruises
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-xs-6">
-      <div class="thumbnail">
-        <div class="image-cat">
-          <img src="./img/images.jpg" alt="" class="top-rounded img-responsive">
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            Resorts
-          </div>
-        </div>
-      </div>
-    </div>
+    <% end %>
   </div> <!-- row -->
 </div>
+<%- end %>
 
 <!-- #hardcode -->
 <!-- button will link to "all_subcategories" page -->
 <div class="text-center clearfix visible-xs">
-  <a href="#" class="btn button-orange top5 btm20">View More Things To Do</a>
+  <%= link_to 'View more things to do', subcategories_path, :class => 'btn button-orange top5 btm20' %>
 </div>
 <!-- #hardcode end-->
 
@@ -314,40 +267,13 @@ Bottom button will link to "all_subcategories" page
   <div class="text-left top20 btm30">
     <h4 class="section-title font-weight-style">Explore Things To Do</h4>
   </div>
-  <div class="row">
-    <div class="col-lg-12 col-md-12 btm15">
-      <a href="#">
-        <div class="img-bg-wide">
-          <img src="http://kidsplayground-web.com/wp-content/uploads/2015/01/19.jpg" class="img-explore-wide">
-          <span class="text-explore-wide">
-            Driving
-          </span>
-        </div>
-      </a>
-    </div>
-    <div class="col-lg-6 col-md-6 btm15">
-      <a href="#">
-        <div class="img-bg">
-          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" class="img-explore">
-          <span class="text-explore">
-            City
-          </span>
-        </div>
-      </a>
-    </div>
-    <div class="col-lg-6 col-md-6 btm15">
-      <a href="">
-        <div class="img-bg">
-          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" class="img-explore">
-          <span class="text-explore">
-            Theme Parks
-          </span>
-        </div>
-      </a>
-    </div>
+  <div class="row" id="categories-list">
+
+    <%= render 'categories/categories_list', categories: @categories %>
+
     <!-- button will link to "all_subcategories" page -->
     <div class="col-lg-12 col-md-12 top20 btm60" align="center">
-        <a href="#" class="btn button-orange btn-padding">View More Things To Do</a>
+        <%= link_to 'View more things to do', subcategories_path, :class => 'btn button-orange btn-padding single-pagination' %>
     </div>
   </div>
 </div>
