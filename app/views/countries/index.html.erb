@@ -13,7 +13,7 @@
     <tbody>
     <% @countries.each do |country| %>
         <tr>
-          <td><%= link_to country.display_name, edit_country_path(country) %></td>
+          <td><%= link_to "#{country.display_name} || #{country.id} ", edit_country_path(country) %></td>
           <td><%= country.published_status %></td>
           <td><%= country.updated_at.strftime('%F at %T') %></td>
         </tr>
