@@ -29,12 +29,11 @@
                   </div>
                 </div>
                 <div class="body-stories btm15">
-                  <div
+                  <div class="p-dynamic">
                     <% if !story.user_photos.blank? %>
-                    class="p-dynamic"
+
                     <% end %>
-                    >
-                    <p class="visited">Visited Dec 2015</p>
+                    <p class="visited"><%= story.created_at.strftime("%B %Y") %></p>
                     <p class="mrg0 pink"><%= story.title %> </p>
                      <%= story.content[0..280] + "..." %>
                   </div>
@@ -51,9 +50,9 @@
               </div>
               <div class="body-stories btm15">
                 <div class="p-dynamic blog">
-                  <p class="visited">Visited Dec 2015</p>
-                  <p class="mrg0 pink"><%= story.title %> </p>
-                  <%= story.content.html_safe %>
+                  <p class="visited"><%= DateTime.parse(story.created_at).strftime("%B %Y") %></p>
+                  <p class="mrg0 pink"><%= raw story.title %></p>
+                  <div class="blog-content"><%= raw story.content %></div>
                 </div>
                 <div class="img-story-place outer-js">
                 <%# if !story.user_photos.blank? %>
@@ -61,9 +60,9 @@
                   <%# end %>
                 </div>
               </div>
-              </div>
-            <% end %> <!-- /if -->
-          <% end %> <!-- /each -->
+            </div>
+          <% end %> <!-- /if -->
+        <% end %> <!-- /each -->
       <div class="text-center btm20 clearfix">
         <button class="btn btn-default black top5 load-more">Load more stories</button>
       </div>
