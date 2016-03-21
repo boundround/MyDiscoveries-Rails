@@ -1,22 +1,22 @@
-// window.onload = function(){
-//   $("#pac-input").geocomplete({
-//     types: ['geocode', 'establishment'],
-//     map: ".map-canvas",
-//     markerOptions: {
-//       draggable: true
-//     },
-//     details: "body",
-//     detailsAttribute: "data-geo",
-//   });
+window.onload = function(){
+  $("#pac-input").geocomplete({
+    types: ['geocode', 'establishment'],
+    map: ".map-canvas",
+    markerOptions: {
+      draggable: true
+    },
+    details: "body",
+    detailsAttribute: "data-geo",
+  });
 
 
-//   $("#pac-input")
-//     .geocomplete()
-//     .bind("geocode:dragged", function(event, result){
-//       // repopulate lat long and address fields on marker drag
-//       $("#pac-input").geocomplete("find", result.lat() + "," + result.lng());
-//     });
-// }
+  $("#pac-input")
+    .geocomplete()
+    .bind("geocode:dragged", function(event, result){
+      // repopulate lat long and address fields on marker drag
+      $("#pac-input").geocomplete("find", result.lat() + "," + result.lng());
+    });
+}
 
 function detailsArea(){
 
@@ -35,7 +35,9 @@ var LANGUAGES = {"af":"Afrikaans","agq":"Aghem","ak":"Akan","sq":"Albanian","am"
             success: function(data){
                 console.log(data);
                 var population = data.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var region = data.region;
                 $('#country-population').append(population);
+                $('#region').append(region);
                 languages = data.languages;
                 // console.log(languages);
                 if ($('#language').html() === ""){
@@ -45,9 +47,6 @@ var LANGUAGES = {"af":"Afrikaans","agq":"Aghem","ak":"Akan","sq":"Albanian","am"
                         }
                     }
                 }
-                // if (capitalCity === ""){
-                //     capitalCity = data.capital;
-                // }
             }
 
         });

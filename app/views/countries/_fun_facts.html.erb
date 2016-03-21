@@ -1,10 +1,10 @@
-<% if !@country.fun_facts.blank? %>
+<% if !@fun_facts.blank? %>
 <%# debugger  %>
 <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs">
   <h4 class="text-left">Fun Facts</h4>
   <div id="carousel-fun-fact" class="carousel slide carousel-desk-fun" data-ride="carousel">
     <div class="carousel-inner" role="listbox">
-      <% @country.fun_facts.active.each_with_index do |fun_fact, index| %>
+      <% @fun_facts.each_with_index do |fun_fact, index| %>
         <div class="item">
           <div class="fun-image">
             <div class="img">

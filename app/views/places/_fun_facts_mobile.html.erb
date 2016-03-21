@@ -1,0 +1,28 @@
+<% if !@place.fun_facts.blank? %>
+<section class="travelling-tips fun-fact mrg0 visible-xs margin-fun-fact <%= bg %>">
+  <div class="container">
+    <h4>Fun Facts</h4>
+    <div class="row">
+      <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
+        <div class="position-js">
+          <div class="col-xs-12">
+            <div class="fun-image">
+              <div class="img">
+                  <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" alt="">
+              </div>
+              <div class="number <%= color %>"><span><%= index+1 %></span>
+              </div>
+            </div>
+            <div class="text">
+              <p><%= raw fun_fact.content %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="text-center clearfix">
+      <a href="#" class="btn btn-default load-more black ">Load more fun facts</a>
+    </div>
+  </div>
+</section> <!-- /fun -->
+<% end %>

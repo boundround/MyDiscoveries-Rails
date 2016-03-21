@@ -86,6 +86,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def favourites
+    @user = User.includes(:favorite_places).find(params[:id])
+  end
+
 
   def photos
     if user_signed_in?

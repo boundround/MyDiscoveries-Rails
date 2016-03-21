@@ -3,8 +3,10 @@ class Subcategory < ActiveRecord::Base
 
 	scope :get_all_informations, -> { where(category_type: ["Optimum Time", "Duration", "Subcategory", "Accessibility", "Price"] ) }
 
+	scope :subcats, -> { where(category_type: "subcategory") }
+
 	before_save :parameterize_identifier
-	
+
 	has_many :places_subcategories, :dependent => :destroy
 	has_many :places, through: :places_subcategories
 

@@ -1,4 +1,4 @@
-unless Rails.env.development?
+
   CarrierWave.configure do |config|
     config.storage = :fog
     config.fog_credentials = {
@@ -13,4 +13,3 @@ unless Rails.env.development?
     config.asset_host = "https://d1w99recw67lvf.cloudfront.net"
     config.fog_public = true
   end
-end

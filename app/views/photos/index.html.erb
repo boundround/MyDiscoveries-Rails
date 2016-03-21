@@ -1,0 +1,102 @@
+<%= render "layouts/navbar" %>
+
+<div class="container">
+  <div class="row">
+    <div class="head-title">
+      <h2 class="gray-font">Photos</h2>
+    </div>
+  </div>
+</div>
+
+<div class="border-section "></div>
+
+<div class="container text-left">
+    <h4 class="section-title btm15 top15">Featured Gallery</h4>
+</div>
+
+<section class="your-stories video-show photo">
+  <div class="container">
+    <div class="row">
+      
+      <% @featured_places.each do |photo| %>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="head-stories">
+          <!-- #hardcode -->
+            <div class="left">
+             <% if photo.respond_to?(:user) and photo.user.present? %>
+              <%= link_to user_path(photo.user) do %>
+                <div class="profile-outer">
+                  <%= image_tag photo.user.avatar_url(:thumb) %>
+                </div>
+                <div class="profile-text">
+                  <%= photo.profile.user_name %>
+                </div>
+               <%- end %>
+             <% end %>
+            </div>
+            <div class="right"><a href="#"><i class="fa fa-image"></i> 9 </a>
+            </div>
+          </div>
+          <div class="body-stories">
+            <div class="title">
+              <p><%= photo.place.display_name rescue "" %></p>
+              <h4><%= photo.caption %></h4>
+            </div>
+            <div class="image">
+              <img src="<%= showing_image(photo.path_url(:medium)) %>" alt="">
+            </div>
+          </div>
+          <div class="details-dest btm15">
+          <!-- #hardcode -->
+            <div class="left">
+              <% if photo.place.present? %>
+              <% photo.place.subcategories.each do |sub| %>
+                <%= link_to sub.name, subcategory_path(sub) %>
+              <% end %>
+            <% end %>
+            </div>
+          </div>
+        </div> <!-- /col -->
+       <% end %>
+      </div>
+      
+    </div> <!-- row -->
+  </div>
+</section>
+<!-- Latest -->
+
+<% unless @photos.blank? %>
+  <div class="container ">
+    <div class="text-left">
+      <h4 class="section-title btm15 top15 ">Latest</h4>
+    </div>
+  </div>
+  
+  <section class="your-stories video-show video-latest photo-latest">
+    <div class="container ">
+      <div class="row" id="photos-list">
+        <%= render partial: "photos/photos_list", collection: @photos, as: :photo %>
+      </div>
+    </div>
+  </section>
+
+  <% unless last_page? @photos %>
+    <div class="text-center clearfix btm15 single-pagination-container" id="photos-single-pagination-container" style="clear:both">
+      <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+        <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+      </div>
+      <%= link_to "Load More", photos_path(page: @photos.next_page, resources: 'photos'), class: 'btn btn-default single-pagination', remote: true %>
+    </div>
+  <% end %>
+
+<% end %>
+
+
+<div class="border-section"></div>
+<!-- buat  Popular sementara pake "" -->
+<%= render partial: "photos/photos",
+           locals: {title: "Most Popular", margin: "btm15 top15", global_photo: ""}
+    
+%>
+
+<%= render "layouts/footer" %>

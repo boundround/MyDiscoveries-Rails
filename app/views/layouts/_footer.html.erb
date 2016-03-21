@@ -2,22 +2,44 @@
 <footer class="footer">
   <div class="container padding-style">
     <div class="row">
-    <div class="col-xs-8 col-sm-10 text-left">
-      <ul>
-        <li><a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a></li>
-        <li><a href="http://boundround.com/education/" target="blank">Teachers</a></li>
-        <li><a href="http://boundround.com/media/" target="blank">Media</a></span></p></li>
-        <li><a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a></li>
-        <li><a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a></li>
-        <li><a href="http://boundround.com/about-us/" target="blank">About Us</a></li>
-        <li><a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a></li>
-        <li><a href="https://heapanalytics.com/?utm_source=badge"><img id="heap-img" style="width:108px;height:41px;margin-top:-10px;float:left" src="//heapanalytics.com/img/badgeLight.png" alt="Heap | Mobile and Web Analytics" /></a></li>
-        <li class="li-copy"><a href="#" class="copy">&copy; 2016. Boundround</a></li>
-      </ul>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <ul>
+          <li><a href="http://boundround.com/travel-industry/" target="blank">The Travel Industry</a></li>
+          <li><a href="http://boundround.com/education/" target="blank">Teachers</a></li>
+          <li><a href="http://boundround.com/media/" target="blank">Media</a></span></p></li>
+          <li><a href="https://www.surveygizmo.co.uk/s3/1997229/Kids-in-travel/" target="blank">Your Say</a></li>
+          <li><a href="http://boundround.com/privacy-terms/" target="blank">Privacy Policy</a></li>
+          <li><a href="http://boundround.com/about-us/" target="blank">About Us</a></li>
+          <li><a href="http://boundround.com/contact-bound-round/" target="blank">Contact</a></li>
+          <li class="li-copy"><a href="#" class="copy"></a></li>
+        </ul>
+      </div>
+      <div class="hidden-xs col-sm-6 col-md-4">
+        <ul>
+          <li><h5>Popular Searches</h5></li>
+          <% @footer_places = Place.find([233, 1071, 1182, 1060, 1160, 1126, 1203])%>
+          <% @footer_places.each do |place| %>
+            <li><%= link_to "Things To Do With Kids In #{place.display_name}", place_path(place) %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="hidden-xs col-sm-6 col-md-4">
+        <ul>
+          <li><h5>Countries</h5></li>
+          <% @footer_countries = Country.find([194, 185, 184, 155, 172, 84, 35]) %>
+          <% @footer_countries.each do |country| %>
+            <li><%= link_to country.display_name, country_path(country) %></li>
+          <% end %>
+
+        </ul>
+      </div>
     </div>
-    <div class="col-xs-4 col-sm-2">
-      <a href="/"><img src="https://s3-ap-southeast-2.amazonaws.com/brwebproduction/images/br-logo-new-blue-bkgd.png" class="text-light" alt=""></a>
+    <div class="row">
+      <hr>
+      <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+        <div class="text-light">&copy; 2016 Bound Round Pty Ltd.</div>
+        <a href="/"><img src="<%= asset_path('br-logo-new-2016-white.png') %>" class="text-light" alt=""></a>
+      </div>
     </div>
-  </div>
   </div>
 </footer>

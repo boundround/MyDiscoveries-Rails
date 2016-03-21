@@ -13,8 +13,13 @@ class PlacesController < ApplicationController
       @place.identifier = @place.display_name.gsub(/\W/, '').downcase
     end
 
+    if @place.is_area.blank?
+      @place.is_area = false
+    end
+
+    # debugger
+
     if @place.save
-      JournalInfo.create(place_id: @place.id)
       redirect_to :back, notice: 'Place succesfully saved'
     else
       redirect_to '/places#new', notice: 'Place not saved!'
@@ -158,7 +163,7 @@ class PlacesController < ApplicationController
     @reviewable = @place = Place.find_by_slug(params[:id])
     # @place_blog = @place.blog_request\
 
-    @place = Place.includes(:quality_average).find_by_slug(params[:id])
+    @place = Place.includes(:quality_average, :similar_places => :similar_place).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
 
     # Details information
@@ -170,17 +175,25 @@ class PlacesController < ApplicationController
     @accessibilities = Subcategory.get_data_by_type(informations, "Accessibility")
     @prices = Subcategory.get_data_by_type(informations, "Price")
 
-    # @optimum_times =  Subcategory.best_visited(informations)  #@place.subcategories.best_visited
-    # @durations = Subcategory.duration(informations) #@place.subcategories.duration
-    # @subcategories = Subcategory.subcategory(informations) #@place.subcategories.subcategory
-    # @accessibilities = Subcategory.accessibility(informations) #@place.subcategories.accessibility
-    # @prices = Subcategory.price(informations) #@place.subcategories.price
+    @good_to_know = @place.good_to_knows.limit(6)
 
-    @more_places = Place.includes(:country).where(primary_category: @place.primary_category).limit(6)
+    @places_to_visit = Place.joins(:similar_places).where('similar_places.similar_place_id = ?', @place.id).order("RANDOM()")
+
+    @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category).order("RANDOM()")
+
+    @famous_faces = @place.country.famous_faces.active
+
+    @more_places = @more_places.sort do |x, y|
+      (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
+    end
+
+    @more_places = @more_places[0..5]
 
     # @related_places = Place.is_area
     # @reviewable = @place
     @reviews = @place.reviews.active
+
+    @capital_city = Place.active.find_by(display_name: @place.country.capital_city)
 
     @review = Review.new
     if user_signed_in?
@@ -197,7 +210,7 @@ class PlacesController < ApplicationController
     @review = Review.new
 
     # @storiable = @place
-    api_blogs = ApiBlog.get_cached_blogs(@place.slug, 'place')
+    api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')
     @stories = @place.stories.active + api_blogs
     @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.first(6)
 
@@ -208,7 +221,7 @@ class PlacesController < ApplicationController
     # center_point = [@place.latitude, @place.longitude]
     # box = Geocoder::Calculations.bounding_box(center_point, distance)
     # @nearby_places = Place.within_bounding_box(box)
-    @nearby_places = @place.nearbys(20).active.includes(:quality_average)
+    # @nearby_places = @place.nearbys(20).active.includes(:quality_average)
 
     # @top_places = @nearby_places.sort do |x, y|
     #   (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)

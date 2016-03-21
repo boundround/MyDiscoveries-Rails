@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315093224) do
+ActiveRecord::Schema.define(version: 20160317083600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,22 +170,6 @@ ActiveRecord::Schema.define(version: 20160315093224) do
     t.integer "user_id"
     t.integer "place_id"
   end
-
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -393,7 +377,7 @@ ActiveRecord::Schema.define(version: 20160315093224) do
     t.text     "school_safari_description"
     t.string   "hero_image"
     t.string   "bound_round_place_id"
-    t.boolean  "is_area"
+    t.boolean  "is_area",                   default: false
     t.text     "short_description"
     t.string   "weather_conditions"
     t.integer  "primary_category_id"
@@ -409,7 +393,6 @@ ActiveRecord::Schema.define(version: 20160315093224) do
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
   add_index "places", ["bound_round_place_id"], name: "index_places_on_bound_round_place_id", unique: true, using: :btree
   add_index "places", ["country_id"], name: "index_places_on_country_id", using: :btree
-  add_index "places", ["description"], name: "index_places_on_description", using: :btree
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
   add_index "places", ["primary_category_id"], name: "index_places_on_primary_category_id", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
@@ -559,20 +542,6 @@ ActiveRecord::Schema.define(version: 20160315093224) do
   add_index "similar_places", ["place_id", "similar_place_id"], name: "index_similar_places_on_place_id_and_similar_place_id", unique: true, using: :btree
   add_index "similar_places", ["place_id"], name: "index_similar_places_on_place_id", using: :btree
   add_index "similar_places", ["similar_place_id"], name: "index_similar_places_on_similar_place_id", using: :btree
-
-  create_table "stamp_transactions", force: true do |t|
-    t.string  "user_info"
-    t.integer "stamp_id"
-  end
-
-  add_index "stamp_transactions", ["stamp_id"], name: "index_stamp_transactions_on_stamp_id", using: :btree
-
-  create_table "stamps", force: true do |t|
-    t.string  "serial"
-    t.integer "place_id"
-  end
-
-  add_index "stamps", ["place_id"], name: "index_stamps_on_place_id", using: :btree
 
   create_table "stories", force: true do |t|
     t.string   "title"

@@ -14,8 +14,8 @@
           <i class="fa fa-bars"></i>
           <i class="fa fa-times" style="display:none"></i>
       </button>
-      <a class="navbar-brand brw-navbar-brand" href="#">
-        <img src="https://s3-ap-southeast-2.amazonaws.com/brwebproduction/images/br-logo-new-blue-bkgd.png" alt="" class="img-logo-index">
+      <a class="navbar-brand brw-navbar-brand" href="<%= root_path %>">
+        <img src="<%= asset_path('br-logo-new-blue-bkgd.png')%>" alt="Bound Round Logo" class="img-logo-index">
       </a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -33,88 +33,33 @@
                     <div class="border-section"></div>
 
                     <div class="text-left padding-left">
-                      <h4 class="section-title emphasize megamenu-font-color">Featured places</h4>
+                      <h4 class="section-title emphasize megamenu-font-color">Featured destinations</h4>
                     </div>
-
+                    <% @featured_nav_destinations = Place.find([1064, 1221, 1071, 1060]) %>
+                    <% @featured_nav_destinations.each do |place| %>
                       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                          <div class="thumbnail box-shadow">
-                            <div class="image-cat">
-                              <img src="http://www.easyjet.com/en/holidays/shared/images/guides/spain/majorca.jpg" alt="" class="top-rounded img-responsive inner-js">
-                            </div>
-                            <div class="caption text-center">
-                              <h4 class="font-orange2">Majorca</h4>
-                            </div>
-                            <div class="details-dest">
-                              <div class="left">
-                                <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
+                        <a href="<% place_path(place) %>">
+                            <div class="thumbnail box-shadow">
+                              <div class="image-cat">
+                                <img src="<%= draw_small_background(place) %>" alt="" class="top-rounded img-responsive inner-js">
                               </div>
-                              <div class="right">
-                                <a href="#">
-                                <i class="fa fa-thumbs-o-up"></i> 100%</a>
+                              <div class="caption text-center">
+                                <h4 class="font-orange2"><%= place.display_name %></h4>
                               </div>
-                            </div>
-                          </div>
-                      </div>
-
-                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                          <div class="thumbnail box-shadow">
-                            <div class="image-cat">
-                              <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Sydney_Opera_house_HDR_Sydney_Australia.jpg" alt="" class="top-rounded img-responsive inner-js">
-                            </div>
-                            <div class="caption text-center">
-                              <h4 class="font-orange2">Sydney</h4>
-                            </div>
-                            <div class="details-dest">
-                              <div class="left">
-                                <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
-                              </div>
-                              <div class="right">
-                                <a href="#">
-                                <i class="fa fa-thumbs-o-up"></i> 100%</a>
+                              <div class="details-dest">
+                                <div class="left">
+                                  <!-- <a href="#"><i class="fa fa-newspaper-o"></i> 2</a> -->
+                                </div>
+                                <div class="right">
+                                  <% if !place.viator_link.blank? %>
+                                    <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+                                  <% end %>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                      </div>
-
-                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                          <div class="thumbnail box-shadow">
-                            <div class="image-cat">
-                              <img src="http://www.easyjet.com/en/holidays/shared/images/guides/spain/majorca.jpg" alt="" class="top-rounded img-responsive inner-js">
-                            </div>
-                            <div class="caption text-center">
-                              <h4 class="font-orange2">Majorca</h4>
-                            </div>
-                            <div class="details-dest">
-                              <div class="left">
-                                <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
-                              </div>
-                              <div class="right">
-                                <a href="#">
-                                <i class="fa fa-thumbs-o-up"></i> 100%</a>
-                              </div>
-                            </div>
-                          </div>
-                      </div>
-
-                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                          <div class="thumbnail box-shadow">
-                            <div class="image-cat">
-                              <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Sydney_Opera_house_HDR_Sydney_Australia.jpg" alt="" class="top-rounded img-responsive inner-js">
-                            </div>
-                            <div class="caption text-center">
-                              <h4 class="font-orange2">Sydney</h4>
-                            </div>
-                            <div class="details-dest">
-                              <div class="left">
-                                <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
-                              </div>
-                              <div class="right">
-                                <a href="#">
-                                <i class="fa fa-thumbs-o-up"></i> 100%</a>
-                              </div>
-                            </div>
-                          </div>
-                      </div>
+                        </div>
+                      </a>
+                    <% end %>
 
                       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                         <a class="btn btn-default btn-margin-top-bottom btn-radius2 btn-shadow2 btn-brw-orange2">View all places to go</a>
@@ -126,69 +71,37 @@
                       <div class="border-section"></div>
                             <section class="places-to-go">
                                 <div class="text-left">
-                                  <h4 class="section-title padding-left emphasize megamenu-font-color">Featured cruises</h4>
+                                  <h4 class="section-title padding-left emphasize megamenu-font-color">Featured places</h4>
                                 </div>
                                 <div class="row">
-                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                  <div class="thumbnail margin-both box-shadow">
-                                    <div class="image-cat image-cat-left">
-                                      <img src="http://digipraim.com/data_images/out/1/578760-cruise-liners.jpg" alt="" class="img-responsive img-full-div inner-js">
-                                    </div>
-                                    <div class="caption caption-right">
-                                      <h4 class="gray-font">Caribbean</h4>
-                                      <h4 class="cruises-color">Celebrity Summit</h4>
-                                    </div>
-                                    <div class="details-dest">
-                                      <div class="left">
-                                        <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+                                  <% @featured_nav_places = Place.find([233, 117, 921]) %>
+                                  <% @featured_nav_places.each do |place| %>
+                                    <a href = "<%= place_path(place) %>">
+                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                      <div class="thumbnail margin-both box-shadow">
+                                        <div class="image-cat image-cat-left">
+                                          <img src="<%= draw_small_background(place) %>" alt="" class="img-responsive img-full-div inner-js">
+                                        </div>
+                                        <div class="caption caption-right">
+                                          <h4 class="gray-font"><%= place.country.display_name %></h4>
+                                          <h4 class="cruises-color"><%= place.display_name %></h4>
+                                        </div>
+                                        <div class="details-dest">
+                                          <div class="left">
+                                            <% place.subcategories.subcats.each do |category| %>
+                                              <a href="<%= subcategory_path(category) %>"><i class="fa fa-ship"></i><%= category.name %></a>
+                                            <% end %>
+                                          </div>
+                                          <div class="right">
+                                            <% if !place.viator_link.blank? %>
+                                              <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+                                            <% end %>
+                                          </div>
+                                          </div>
+                                        </div>
                                       </div>
-                                      <div class="right">
-                                        <a href="#"> $$</a>
-                                      </div>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                   <div class="thumbnail margin-both box-shadow">
-                                     <div class="image-cat image-cat-left">
-                                       <img src="http://digipraim.com/data_images/out/1/578760-cruise-liners.jpg" alt="" class="img-responsive img-full-div inner-js">
-                                     </div>
-                                     <div class="caption caption-right">
-                                       <h4 class="gray-font">Caribbean</h4>
-                                       <h4 class="cruises-color">Celebrity Summit</h4>
-                                     </div>
-                                     <div class="details-dest">
-                                       <div class="left">
-                                         <a href="#"><i class="fa fa-ship"></i> Cruises</a>
-                                       </div>
-                                       <div class="right">
-                                         <a href="#"> $$</a>
-                                       </div>
-                                       </div>
-                                     </div>
-                                   </div>
-
-                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                   <div class="thumbnail margin-both box-shadow">
-                                     <div class="image-cat image-cat-left">
-                                       <img src="http://digipraim.com/data_images/out/1/578760-cruise-liners.jpg" alt="" class="img-responsive img-full-div inner-js">
-                                     </div>
-                                     <div class="caption caption-right">
-                                       <h4 class="gray-font">Caribbean</h4>
-                                       <h4 class="cruises-color">Celebrity Summit</h4>
-                                     </div>
-                                     <div class="details-dest">
-                                       <div class="left">
-                                         <a href="#"><i class="fa fa-ship"></i> Cruises</a>
-                                       </div>
-                                       <div class="right">
-                                         <a href="#"> $$</a>
-                                       </div>
-                                       </div>
-                                     </div>
-                                   </div>
-
+                                    </a>
+                                  <% end %>
                                 </div> <!-- row -->
                               </section>
 
@@ -197,13 +110,13 @@
               </li>
           </ul>
         </li>
-        <li class=""><a href="#">Things To Do</a></li>
-        <li class=""><a href="#">Trips For Everyone</a></li>
+        <li class=""><%= link_to "Things To Do", primary_categories_path %></li>
+        <li class=""><a href="#">Trips for Everyone</a></li>
       </ul>
       <ul class="nav navbar-nav first-ul">
         <p class="find visible-xs">Browse</p>
-        <li class=""><a href="#"><i class="fa fa-youtube-play find-c"></i>&nbsp; Galleries</a></li>
-        <li class=""><a href="#"><i class="fa fa-camera find-c"></i>&nbsp; Videos</a></li>
+        <li class=""><a href="/photos"><i class="fa fa-youtube-play find-c"></i>&nbsp; Galleries</a></li>
+        <li class=""><a href="/videos"><i class="fa fa-camera find-c"></i>&nbsp; Videos</a></li>
       </ul>
       <ul class="nav first-ul visible-xs">
       <li>
@@ -237,7 +150,8 @@
           </a>
           <ul class="dropdown-menu">
             <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
-            <li><a href="<%= destroy_user_session_path %>">Signout</a></li>
+            <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li>
+            <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
             <!-- <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
             <li class="dropdown-header">Nav header</li>

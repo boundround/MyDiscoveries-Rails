@@ -8,7 +8,8 @@ function addToFav(){
     data = {};
     data["places_user"] = { user_id: userId, place_id: placeId };
     if(userId === "no-user"){
-      alert("You must be logged in to add to your favorite!");
+      // alert("You must be logged in to add to your favorite!");
+      $("#myModal").modal();
     } else if ($(this).data("liked") === false) {
       $.ajax({
         type: "POST",
@@ -89,7 +90,7 @@ function allMap(){
 }
 
 function setUpLoadMore() {
-    
+
       var sec_card = $("section.cards")
       $.each(sec_card, function(index, val) {
         var  cards = $(val).find(".card")
@@ -112,13 +113,13 @@ function setUpLoadMore() {
           $(this).find(".some-text").html($(this).find(".some-text").data("full-text"));
         });
     });
-    
+
     var desc = $(".desc-place");
         desc.find("button").click(function() {
           $(this).siblings("p").html($(this).siblings("p").data("full-text"));
           $(this).hide();
         });
-  var blog_text = $(".body-stories .blog");
+  var blog_text = $(".blog-content");
     $.each(blog_text, function(index, val) {
       text = $(val).text();
       $(val).text(text.substring(0, 280)+"...") ;
@@ -127,7 +128,7 @@ function setUpLoadMore() {
 
 function setupModal(){
   $(".your-stories .card").css({"cursor":"pointer"});
-  
+
   $(".card[data-class='apiblog']").click(function(){
     var id = $(this).data("id");
         place = $(this).data("place");
@@ -142,7 +143,7 @@ function setupModal(){
     }else{
       $("#show-story-modal iframe").prop("src", host+"/wp-blog/"+id+"/"+category);
     }
-    
+
     $("#show-story-modal .modal-dialog").css("max-width","1120px");
     // $("#frame-blog").prop("src", host+"/wp-blog/"+id+"/"+place);
     // $("#userStory iframe");

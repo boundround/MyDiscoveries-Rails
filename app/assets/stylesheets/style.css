@@ -212,8 +212,8 @@ ul.nav.navbar-nav.first-ul{
 .section-title{
 	/*font-family: */
 	font-weight: 500 !important;
-	margin: 20px 0;
-	margin-top: 20px;
+	margin: 10px 0;
+	/*margin-top: 30px;*/
 }
 .border-section{
 	border-bottom: 1px solid #D2D2D2;
@@ -1564,7 +1564,8 @@ a.left.carousel-control.carousel-fun{
 		background: #ffffff;
     margin: auto;
     width: 100%;
-    padding: 18px;
+    /*padding: 18px;*/
+    padding: 12px 15px 12px 9px;
     border-radius: 5px;
     /*width: 845px;*/
     /*padding-top: 50px;*/
@@ -1574,8 +1575,9 @@ a.left.carousel-control.carousel-fun{
 	overflow: hidden;
     height: 149px;
     border-radius: 4px;
-    width: 93%;
-    margin-left: 15px;
+    width: 97%;
+    /*margin-left: 15px;*/
+    margin-left: auto;
 }
 @media (min-width:768px ) and (max-width:991px ){
 	#top-owl .item{
@@ -1589,12 +1591,12 @@ a.left.carousel-control.carousel-fun{
   height: 100%;
 }
 #top-owl .owl-prev{
-    left: -35px;
+    left: -50px;
     position: absolute;
     top: 40%;
   }
 #top-owl .owl-next{
-    right: -35px;
+    right: -50px;
     position: absolute;
     top:40%;
   }
@@ -1627,7 +1629,7 @@ a.left.carousel-control.carousel-fun{
 .owl-buttons i {
 	padding: 5px;
 	background: #ffffff;
-	color: grey;
+	color: grey !important;
 	box-shadow: 1px 1px 3px rgba(66,66,66,0.25);
 	border-radius: 3px;
 }
@@ -2159,7 +2161,7 @@ section.modal-booking .left img{
 	}
 	.searchpadding {
 		padding-left: 7.5px !important;
-		padding-right: 7.5px !important;		
+		padding-right: 7.5px !important;
 	}
 }
 @media (min-width: 992px) {
@@ -2177,7 +2179,7 @@ section.modal-booking .left img{
 	}
 	.searchpadding {
 		padding-left: 157.5px !important;
-		padding-right: 157.5px !important;		
+		padding-right: 157.5px !important;
 	}
 }
 /* HERO BACKGROUND */
@@ -2213,7 +2215,7 @@ section.modal-booking .left img{
 
 .fix-img {
 	/*was 400px*/
-	height: 400px; 
+	height: 400px;
 	/*max-height: 400px !important;
 	overflow: hidden;
 	position: relative;*/
@@ -2238,6 +2240,7 @@ section.modal-booking .left img{
     min-width: 100% !important;
     width: auto !important;
 	}
+<<<<<<< HEAD
 }
 @media (max-width: 1099px) and (min-width: 768px) {
 	.fix-img img {
@@ -2248,17 +2251,23 @@ section.modal-booking .left img{
 @media (min-width: 768px){
 	.home-carousel {
 		height: 600px;
-	}	
+	}
 }
 @media (min-width: 1100px) {
 	.fix-img img {
 		height: auto !important;
 		width: 100% !important;
 		min-height: 100%;
+		margin-top: -16%;
 	}
 	.home-carousel {
 		height: 700px;
-	}	
+	}
+	/*
+	.crop-image {
+		width: 100%;
+		margin-top: -20%;
+	}*/
 }
 /* END HERO CAROUSEL */
 .image-fit {
@@ -2859,6 +2868,7 @@ footer{
 	min-height: 180px;
 	background: #6CB7CA;
 	padding-top: 20px;
+	color: #fff;
 	/*margin-top: 20px*/
 }
 
@@ -2866,6 +2876,7 @@ footer li{
 	color: #fff;
 	display: block;
 	margin-top: 7px;
+	text-align: center;
 }
 footer li a{
 	color: #fff;
@@ -2873,7 +2884,6 @@ footer li a{
 }
 footer img{
 	width: 88px;
-    float: right;
 
 }
 footer .copy{
@@ -2887,16 +2897,12 @@ footer ul{
 	margin-left: -38px;
 }
 @media (min-width:768px){
-		footer{
-		height: 120px;
-	}
 	footer img{
 		/*margin-top: 14px;*/
     	/*width: 120px;*/
 	}
 	footer li{
-			float: left;
-		    margin-right: 15px;
+    text-align: left;
 	}
 	footer .li-copy{
 		clear: both;
@@ -3051,4 +3057,25 @@ footer ul{
 }
 .img-top-margin22 {
 	margin-top: -22px;
+}
+
+.blue{
+	color: #3a548b;
+}
+.bg-blue{
+	background: #3a548b !important;
+}
+.bg-orange{
+	background: #fd7e56;
+}
+
+.paddright2{
+	padding-right: 2px;
+}
+.btn.a-fav-area{
+	padding-left: 30px;
+}
+.i-fav-area{
+	left: 25px;
+	position: relative;
 }

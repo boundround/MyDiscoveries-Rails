@@ -82,10 +82,10 @@
   <div class="row"> <!-- main row -->
     <div class="col-xs-12 col-sm-8 col-md-8">
       <div class="detail-place">
-        <div class="located"><p class="gray-font">For ages</p><p><%= @place.minimum_age.to_s + " - " + @place.maximum_age.to_s %></p></div>
-        <div class="language"><p class="gray-font">Best visited</p><p><%=  @optimum_times.first rescue "" %></p></div>
+        <div class="located"><p class="gray-font">For kids</p><p><%= @place.minimum_age.to_s + " - " + @place.maximum_age.to_s %></p></div>
+        <div class="language"><p class="gray-font">Best visited</p><p><%=  @optimum_times.first.name rescue "" %></p></div>
         <div class="population">
-          <p class="gray-font">Duration</p><p><%= @durations.first %></p>
+          <p class="gray-font">Duration</p><p><%= @durations.first.name rescue "" %></p>
           </div>
         <div class="suka">
           <p class="gray-font">Average rating</i></p>
@@ -110,10 +110,10 @@
           <div class="rel-dest">
             <ul>
               <li class="gray-color">Found in</li>
-              <% if !@subcategories.blank? %>
-                <% @subcategories.each do |c| %>
+              <% if !@place.similar_places.blank? %>
+                <% @place.similar_places.each do |place| %>
                  <!-- <li><a href="#" class="badge"><i class="fa fa-male"></i> Do</a> </li> -->
-                 <li><a href="#" class="badge"><%= c.name %></a> </li>
+                 <li><a href="<%= place_path(place.similar_place) %>" class="badge"><%= place.similar_place.display_name %></a> </li>
                 <% end %>
                <% end %>
 
@@ -205,27 +205,7 @@
     <% end %>
   </div>
 
-<% unless @photos.blank? %>
-  <div class="row hidden-xs btm20">
-    <div class="col-md-12 col-xs-12">
-       <div class="for-owl">
-            <div id="top-owl" class="owl-carousel">
-              <% @photos.each do |photo| %>
-                <div class="item">
-                  <a href="#">
-                  <!-- <img src="<%#= photo.path_url(:medium)%>" class="img-responsive-carousel"></a> -->
-                  <img src="<%= showing_image(photo.path_url(:medium))%>" class="img-responsive-carousel"></a>
-                  <div class="title-fun-caro">
-                    <p><%= photo.credit rescue "" %></p>
-                    <h5><%= link_to photo.caption, place_path(photo.place), class: "white" %></h5>
-                  </div>
-                </div>
-              <% end %>
-          </div>
-      </div>
-    </div>
-  </div> <!-- /owl -->
-<% end %>
+
 <%= render "photo_carousel" %>
 
 </div><!-- /maincontainer -->
@@ -233,48 +213,12 @@
 <section class="travelling-tips themuseum fun-fact mrg0">
   <div class="container padding-style">
     <div class="row">
-      <div class="col-xs-12 col-sm-4 col-md-4 ">
-      <%# if  !@place.good_to_knows.blank? %>
-        <h4>Good To Know</h4>
-         <%# @place.good_to_knows.each do |gtk| %>
-          <p class="mrg0"> <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet!<%#= gtk.content %></a></p>
-         <%# end %>
-      <%# end %>
-        </div>
 
+
+      <%= render :partial => "good_to_knows" %>
       <%= render :partial => "fun_facts", :locals => { :color => "" }  %>
 
-      <% if !@place.fun_facts.blank? %>
-        <div class="col-sm-8 col-sm-8 col-md-8 hidden-xs">
-          <h4 class="text-left">Fun Facts</h4>
-          <div id="carousel-fun-fact" class="carousel slide carousel-desk-fun" data-ride="carousel">
-            <div class="carousel-inner" role="listbox">
-              <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
-                <div class="item">
-                  <div class="fun-image">
-                    <div class="img">
-                        <img src="<%=showing_image(fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place))) %>" alt="">
-                    </div>
-                    <div class="number"><span><%= index+1 %></span>
-                    </div>
-                  </div>
-                  <div class="carousel-caption cs-caption">
-                    <p><%= raw fun_fact.content %></p>
-                  </div>
-                </div> <!-- /item -->
-              <% end %>
 
-            </div>
-            <!-- Controls -->
-            <a class="left carousel-control left30" href="#carousel-fun-fact" role="button" data-slide="prev">
-              <i class="fa fa-arrow-left i-funfact"></i>
-            </a>
-            <a class="right carousel-control" href="#carousel-fun-fact" role="button" data-slide="next">
-              <i class="fa fa-arrow-right i-funfact"></i>
-            </a>
-          </div>
-        </div> <!-- /hidden-xs -->
-      <% end %>
     </div>
   </div>
 </section>
@@ -303,34 +247,7 @@
       </section>
 
 
-      <% if !@place.fun_facts.blank? %>
-      <section class="travelling-tips themuseum fun-fact mrg0 visible-xs margin-fun-fact">
-        <div class="container">
-          <h4>Fun Facts</h4>
-          <div class="row">
-            <% @place.fun_facts.active.each_with_index do |fun_fact, index| %>
-              <div class="position-js">
-                <div class="col-xs-12">
-                  <div class="fun-image">
-                    <div class="img">
-                        <img src="<%= fun_fact.hero_photo.url || asset_path(get_random_place_photo(@place)) %>" alt="">
-                    </div>
-                    <div class="number"><span><%= index+1 %></span>
-                    </div>
-                  </div>
-                  <div class="text">
-                    <p><%= raw fun_fact.content %></p>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
-          <div class="text-center clearfix">
-            <a href="#" class="btn btn-default load-more black ">Load more fun facts</a>
-          </div>
-        </div>
-      </section> <!-- /fun -->
-      <% end %>
+      <%= render :partial => "fun_facts_mobile", :locals => { :color => "blue", bg:"bg-blue" }  %>
 
       <% unless @more_places.blank? %>
         <section class="places-to-go visit-place cards">
@@ -341,28 +258,34 @@
           <div class="row">
            <div class="col-xs-12">
             <% @more_places.each do |place| %>
-              <div class="thumbnail card">
-                <div class="image-cat image-cat-left outer-js">
-                  <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive img-full-div inner-js">
-                </div>
-                <div class="caption caption-right">
-                  <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
-                  <h2><%= place.display_name %></h2>
-                </div>
-                <div class="details-dest">
-                  <div class="left">
-                  <% place.subcategories.each do |c| %>
-                    <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
-                    <a href="#"><%= c.name %></a>
+              <a href="<%= place_path(place) %>">
+                <div class="thumbnail card">
+                  <div class="image-cat image-cat-left outer-js">
+                    <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive  inner-js">
+                  </div>
+                  <div class="caption caption-right">
+                    <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
+                    <h2><%= place.display_name %></h2>
+                  </div>
+                  <div class="details-dest">
+                    <div class="left">
+                    <% place.subcategories.subcats.each do |c| %>
+                      <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
+                      <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
 
-                  <% end %>
+                    <% end %>
+                    </div>
+                    <div class="right">
+                      <% if !place.viator_link.blank? %>
+                        <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+                      <% end %>
+                    </div>
+                    </div>
                   </div>
-                  <div class="right">
-                    <a href="#"> $$</a>
-                  </div>
-                  </div>
-                </div>
+                </a>
             <% end %>
+            <!-- #hardcode activate paginate (6 cards per page) -->
+            <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
             <div class="text-center clearfix btm20">
               <button class="btn btn-default top5 load-more">Load more places</button>
             </div>
