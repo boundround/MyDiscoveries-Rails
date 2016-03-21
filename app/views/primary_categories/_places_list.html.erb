@@ -15,8 +15,9 @@
     </div>
     <!-- #hardcode -->
     <div class="right">
-      <a href="#">
-      <i class="fa fa-thumbs-o-up"></i> 95%</a>
+      <% if !place.viator_link.blank? %>
+        <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+      <% end %>
     </div>
   </div>
 </div>
