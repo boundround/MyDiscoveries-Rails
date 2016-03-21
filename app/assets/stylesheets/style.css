@@ -2161,7 +2161,7 @@ section.modal-booking .left img{
 	}
 	.searchpadding {
 		padding-left: 7.5px !important;
-		padding-right: 7.5px !important;		
+		padding-right: 7.5px !important;
 	}
 }
 @media (min-width: 992px) {
@@ -2179,7 +2179,7 @@ section.modal-booking .left img{
 	}
 	.searchpadding {
 		padding-left: 157.5px !important;
-		padding-right: 157.5px !important;		
+		padding-right: 157.5px !important;
 	}
 }
 /* HERO BACKGROUND */
@@ -2256,10 +2256,16 @@ section.modal-booking .left img{
 		height: auto !important;
 		width: 100% !important;
 		min-height: 100%;
+		margin-top: -16%;
 	}
 	.home-carousel, .fix-img {
 		height: 700px;
-	}	
+	}
+	/*
+	.crop-image {
+		width: 100%;
+		margin-top: -20%;
+	}*/
 }
 /* END HERO CAROUSEL */
 .image-fit {

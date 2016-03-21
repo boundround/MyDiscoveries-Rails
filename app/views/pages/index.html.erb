@@ -11,52 +11,18 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner home-carousel" role="listbox">
-
-    <div class="item fix-img">
-      <div class="hero-bg">
-        <img src="http://newflowerwallpaper.com/download/flower-garden-images-and-wallpapers/flower-garden-images-and-wallpapers-27.jpg" class="crop-image"  alt="Chania">
-      </div>
+    <% @carousel_places.each_with_index do |place, index| %>
+    <div class="item <%= ("active" if index == 0) %> fix-img">
+      <img src="<%= draw_hero_background(place) %>" class="crop-image"  alt="<%= "Hero Image for #{place.display_name }"%>">
       <div class="carousel-caption text-center text-light text-shadow">
         <div class="text-caption">
-          <h1>Wet 'N' Wild</h1>
-          <!--<h4>Explore Sydney.</h4>-->
+        <h1><%= place.display_name %></h1>
+        <!-- <h4></h4> -->
         </div>
       </div>
     </div>
+    <% end %>
 
-    <div class="item active fix-img">
-      <div class="hero-bg">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/A_Daisy_flower.jpg" class="crop-image" alt="Chania">
-      </div>
-      <div class="carousel-caption text-center text-light text-shadow">
-        <div class="text-caption">
-          <h1>Bilpin Fruit Bowl</h1>
-        </div>
-      </div>
-    </div>
-
-    <div class="item fix-img">
-      <div class="hero-bg">
-        <img src="http://www.thedailyindia.in/wp-content/uploads/2015/11/beautiful-flower-pictures.jpg" class="crop-image" alt="Flower">
-      </div>
-      <div class="carousel-caption text-center text-light text-shadow">
-        <div class="text-caption">
-          <h1>Dead Sea</h1>
-          <!--<h4>Explore Sydney.</h4>-->
-        </div>
-      </div>
-    </div>
-
-    <div class="item fix-img">
-      <div class="hero-bg">
-        <img src="https://static.pexels.com/photos/3948/field-meadow-flower-pink.jpg" class="crop-image" alt="Flower">
-      </div>
-      <div class="carousel-caption text-center text-light text-shadow">
-        <div class="text-caption">
-          <h1>Taronga Zoo</h1>
-        </div>
-      </div>
-    </div>
   </div>
 
 </div>

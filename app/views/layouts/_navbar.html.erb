@@ -15,7 +15,7 @@
           <i class="fa fa-times" style="display:none"></i>
       </button>
       <a class="navbar-brand brw-navbar-brand" href="<%= root_path %>">
-        <img src="https://s3-ap-southeast-2.amazonaws.com/brwebproduction/images/br-logo-new-blue-bkgd.png" alt="" class="img-logo-index">
+        <img src="<%= asset_path('br-logo-new-blue-bkgd.png')%>" alt="Bound Round Logo" class="img-logo-index">
       </a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -33,7 +33,7 @@
                     <div class="border-section"></div>
 
                     <div class="text-left padding-left">
-                      <h4 class="section-title emphasize megamenu-font-color">Featured places</h4>
+                      <h4 class="section-title emphasize megamenu-font-color">Featured destinations</h4>
                     </div>
                     <% @featured_nav_destinations = Place.find([1064, 1221, 1071, 1060]) %>
                     <% @featured_nav_destinations.each do |place| %>
