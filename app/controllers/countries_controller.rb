@@ -6,21 +6,14 @@ class CountriesController < ApplicationController
 
   def show
     @set_body_class = "br-body"
-    @country = Country.friendly.find(params[:id])
+    @country = Country.includes(:photos, :places).friendly.find(params[:id])
     @stories = @country.stories.where(status:"live")
     @reviews = @country.reviews.where(status:"live")
     @videos = @country.videos
+    @fun_facts = @country.fun_facts.where(status: "live")
     @photos = @country.user_photos.where(status:"live") + @country.photos
-    @similar_places = @country.places.where(primary_area: true)
-
-
-
-    # if @country.capital_city
-    #   @weather = OpenWeather::Current.city("#{@country.capital_city}, #{@country.country_code}")
-    #   # @weather_time = @weather["dt"] ? Time.at(@weather["dt"]).strftime("%I:%M%p") : nil
-    #   @weather_description = @weather["weather"] ? @weather["weather"][0]["description"] : nil
-    #   @weather_temp = @weather["main"] ? (@weather["main"]["temp"] - 273.15).to_i.to_s : nil
-    # end
+    @similar_places = @country.places.primary_areas_with_photos
+    @famous_faces = @country.famous_faces.active
   end
 
   def edit

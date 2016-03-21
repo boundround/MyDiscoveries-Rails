@@ -330,15 +330,8 @@ module ApplicationHelper
 
   def showing_image(url)
     return "/images/generic-grey-large.jpg" if url.blank?
-    url2 = Rails.root.to_s+"/public"+url if url.split("/").first().eql?("")
 
-    if url.include?("https://") || url.include?("http://")
-      return url if remote_file_exists?(url)
-    else
-      return url if File.exist?(url2)
-    end
-
-    "/images/generic-grey-large.jpg"
+    url
   end
 
   def remote_file_exists?(url)
