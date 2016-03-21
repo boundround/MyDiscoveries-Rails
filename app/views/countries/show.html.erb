@@ -78,7 +78,7 @@
               <div class="located"><p class="gray-font">Located in</p><p><span id="region"></span></p></div>
               <div class="language"><p class="gray-font">Language</p><p id="language" ></p></div>
               <div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>
-              <div class="likes"><p class="gray-font"><i class="fa fa-thumbs-o-up"></i></p><p>95%</p></div>
+              <div class="likes"><p class="gray-font">Capital</p><p><%= (link_to @capital_city.display_name, place_path(@capital_city)) rescue "" %></p></div>
             </div>
           </div>
         </div>

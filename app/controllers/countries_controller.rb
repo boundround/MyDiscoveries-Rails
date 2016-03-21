@@ -14,6 +14,7 @@ class CountriesController < ApplicationController
     @photos = @country.user_photos.where(status:"live") + @country.photos
     @similar_places = @country.places.primary_areas_with_photos
     @famous_faces = @country.famous_faces.active
+    @capital_city = Place.active.find_by(display_name: @country.capital_city)
   end
 
   def edit

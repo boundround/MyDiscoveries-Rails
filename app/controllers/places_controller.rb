@@ -177,9 +177,9 @@ class PlacesController < ApplicationController
 
     @good_to_know = @place.good_to_knows.limit(6)
 
-    @places_to_visit = Place.joins(:similar_places).where('similar_places.similar_place_id = ?', @place.id)
+    @places_to_visit = Place.joins(:similar_places).where('similar_places.similar_place_id = ?', @place.id).order("RANDOM()")
 
-    @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category)
+    @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category).order("RANDOM()")
 
     @famous_faces = @place.country.famous_faces.active
 
@@ -192,6 +192,8 @@ class PlacesController < ApplicationController
     # @related_places = Place.is_area
     # @reviewable = @place
     @reviews = @place.reviews.active
+
+    @capital_city = Place.active.find_by(display_name: @place.country.capital_city)
 
     @review = Review.new
     if user_signed_in?
