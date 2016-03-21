@@ -276,7 +276,9 @@
                     <% end %>
                     </div>
                     <div class="right">
-                      <a href="#"> $$</a>
+                      <% if !place.viator_link.blank? %>
+                        <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+                      <% end %>
                     </div>
                     </div>
                   </div>

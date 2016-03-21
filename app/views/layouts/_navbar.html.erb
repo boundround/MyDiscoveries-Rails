@@ -51,8 +51,9 @@
                                   <!-- <a href="#"><i class="fa fa-newspaper-o"></i> 2</a> -->
                                 </div>
                                 <div class="right">
-                                  <!-- <a href="#">
-                                  <i class="fa fa-thumbs-o-up"></i> 100%</a> -->
+                                  <% if !place.viator_link.blank? %>
+                                    <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+                                  <% end %>
                                 </div>
                               </div>
                             </div>
@@ -92,7 +93,9 @@
                                             <% end %>
                                           </div>
                                           <div class="right">
-                                            <!-- <a href="#"> $$</a> -->
+                                            <% if !place.viator_link.blank? %>
+                                              <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+                                            <% end %>
                                           </div>
                                           </div>
                                         </div>
