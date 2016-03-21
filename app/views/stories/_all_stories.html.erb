@@ -46,7 +46,18 @@
           <% elsif story.class.to_s.eql? "ApiBlog" %>
             <div class="card" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-cat="<%= (@category ? params[:id] : "") rescue '' %>" data-place="<%= @place.display_name.parameterize rescue '' %>">
               <div class="head-stories">
-                <p class="mrg0 grey-bold">From Blog</p>
+                <div class="left">
+                  <a href="#">
+                    <div class="profile-outer">
+                      <img src="<%= asset_path('br-logo-new-blue.png') %>" alt="">
+                    </div>
+                    <div class="profile-text">
+                      Bound Round
+                    </div>
+                   </a>
+                </div>
+                <div class="right">
+                </div>
               </div>
               <div class="body-stories btm15">
                 <div class="p-dynamic blog">

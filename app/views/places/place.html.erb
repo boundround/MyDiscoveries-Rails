@@ -82,10 +82,10 @@
   <div class="row"> <!-- main row -->
     <div class="col-xs-12 col-sm-8 col-md-8">
       <div class="detail-place">
-        <div class="located"><p class="gray-font">For ages</p><p><%= @place.minimum_age.to_s + " - " + @place.maximum_age.to_s %></p></div>
-        <div class="language"><p class="gray-font">Best visited</p><p><%=  @optimum_times.first rescue "" %></p></div>
+        <div class="located"><p class="gray-font">For kids</p><p><%= @place.minimum_age.to_s + " - " + @place.maximum_age.to_s %></p></div>
+        <div class="language"><p class="gray-font">Best visited</p><p><%=  @optimum_times.first.name rescue "" %></p></div>
         <div class="population">
-          <p class="gray-font">Duration</p><p><%= @durations.first %></p>
+          <p class="gray-font">Duration</p><p><%= @durations.first.name rescue "" %></p>
           </div>
         <div class="suka">
           <p class="gray-font">Average rating</i></p>
