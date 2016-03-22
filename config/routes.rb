@@ -11,6 +11,7 @@ class BRConstraint
 end
 
 require 'api_constraints'
+require 'routes/constraints/subcategories'
 
 Rails.application.routes.draw do
 
@@ -208,7 +209,12 @@ Rails.application.routes.draw do
   get "categories", to: "categories#index"
 
   resources :primary_categories
-  resources :subcategories
+
+  resources :subcategories do
+    collection do
+      get 'specific/:age_ranges', action: 'specific', as: :specific, constraints: Routes::Constraints::Subcategories.new
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,5 +1,7 @@
 class SubcategoriesController < ApplicationController
 
+  def index
+  end
 
 	def show
   	#hardcode #check
@@ -51,9 +53,20 @@ class SubcategoriesController < ApplicationController
     redirect_to :back, notice: "Primary Category Deleted"
   end
 
+  def specific
+      @areas= Place.filter(age_ranges_params).paginate page: params[:areas_page], per_page: 2
+    end
+
   private
     def subcategory_params
       params.require(:subcategory).permit(:name, :icon)
+    end
+
+    def age_ranges_params
+      if params[:age_ranges].present?
+        ranges= params[:age_ranges].split('-')
+        return { min_age: ranges.first.to_i, max_age: ranges.last.to_i } unless ranges.blank?
+      end
     end
 
 end
