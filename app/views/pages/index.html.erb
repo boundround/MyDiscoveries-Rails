@@ -26,25 +26,31 @@
   </div>
 
 </div>
+
+<!-- #hardcode -->
 <div class="container-fluid top10 hidden-xs searchbackground">
   <div class="row containerwidth searchpadding search-nearby">
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-      <div class="input-group search-responsive">
-        <input type="text" class="form-control" placeholder="Search for destinations">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-        </span>
-      </div><!-- /input-group -->
-    </div>
-    <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
-      <a href="#" class="btn btn-brw-orange2 btn-search"><i class="fa fa-map-marker"></i><br>Nearby</a>
-    </div>
-    <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
-      <a href="#" class="btn btn-brw-orange2 btn-search btn-responsive-search"><i class="fa fa-map-marker top10"></i> Nearby</a>
-    </div>
-  </div> <!-- row -->
+    <form action="">
+      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10"> 
+        <div class="input-group search-responsive">
+          <input type="text" class="form-control input-text-nearby" placeholder="Search for destinations">
+          <div class="cs-input-group-btn">
+            <input class="btn btn-default input-btn-nearby0 " type="submit" value="" >
+            <i class="fa fa-search cs-fa-nearby"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
+        <input type="submit" value="" class="btn btn-brw-orange2 btn-search input-btn-nearby0"><i class="fa fa-map-marker cs-marker-nearby"></i><br>Nearby
+      </div>
+      <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
+        <input value="" type="submit"  class="btn btn-brw-orange2 btn-search btn-responsive-search input-btn-nearby1 ">
+        <span class="nearby-text"><i class="fa fa-map-marker top10"></i>
+        <span>Nearby</span></span>
+      </div>
+    </form>
+  </div> 
 </div>
-<!--<div class="border-section hidden-xs"></div>-->
 
 <div class="positionrelative">
 <div class="container padding-style">

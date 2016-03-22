@@ -38,8 +38,7 @@ Rails.application.routes.draw do
   get 'pages/privacy' => 'pages#privacy'
   get '/robots.txt' => 'pages#robots'
 
-  resources :search_suggestions
-
+    
   resources :transactions
 
   require 'sidekiq/web'
@@ -53,8 +52,11 @@ Rails.application.routes.draw do
   mount Soulmate::Server, :at => "/sm"
 
   get 'factual_places/search' => 'factual_places#search'
+  
+  # resources :search_suggestions
 
-  post 'search_suggestions' => 'search_suggestions#index'
+  # post 'search_suggestions' => 'search_suggestions#index'
+  get 'search', to: 'search_suggestions#index'
 
   post 'searchqueries/create' => 'search_queries#create'
   post 'pages/want_notification' => 'pages#want_notification'

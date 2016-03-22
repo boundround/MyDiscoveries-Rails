@@ -127,8 +127,13 @@
       <ul class="nav navbar-nav first-ul hidden-xs">
         <li>
           <div class="input-group input-search-nav">
-            <a href=""><i class="fa fa-search"></i></a>
-            <input type="text" class="search-nav" placeholder="Search for destinations">
+          <!-- #check -->
+            <%= form_tag('/serach', method: :post) do %>
+              <%= submit_tag '', class: "btn btn-default", id: "btn-search-top" %>
+              <i class="fa fa-search"></i>
+              <%= text_field_tag 'query', nil , placeholder: 'Search for destinations', class: "search-nav" %>
+            <% end %>
+
           </div><!-- /input-group -->
         </li>
       </ul>
