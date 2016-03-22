@@ -165,17 +165,17 @@ class PlacesController < ApplicationController
     @reviewable = @place = Place.find_by_slug(params[:id])
     # @place_blog = @place.blog_request\
 
-    @place = Place.includes(:quality_average, :similar_places => :similar_place).find_by_slug(params[:id])
+    @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
     # @place_blog = @place.blog_request
 
     # Details information
     informations = @place.subcategories.get_all_informations
 
-    @optimum_times =  Subcategory.get_data_by_type(informations, "Optimum Times")
-    @durations = Subcategory.get_data_by_type(informations, "Duration")
-    @subcategories = Subcategory.get_data_by_type(informations, "Subcategory")
-    @accessibilities = Subcategory.get_data_by_type(informations, "Accessibility")
-    @prices = Subcategory.get_data_by_type(informations, "Price")
+    @optimum_times =  @place.subcategories.select {|cat| cat.category_type == "optimum_time"}
+    @durations = @place.subcategories.select {|cat| cat.category_type == "duration"}
+    @subcategories = @place.subcategories.select {|cat| cat.category_type == "subcategory"}
+    @accessibilities = @place.subcategories.select {|cat| cat.category_type == "accessibility"}
+    @prices = @place.subcategories.select {|cat| cat.category_type == "price"}
 
     @good_to_know = @place.good_to_knows.limit(6)
 

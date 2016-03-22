@@ -91,12 +91,10 @@
           <p class="gray-font">Average rating</i></p>
           <p>
           <% if !@place.quality_average.blank? %>
-            <% (1..@place.quality_average.qty).each do %>
-                <i class='fa fa-smile-o'></i>
-              <% end %>
-            <% else %>
-              0
+            <% (0..@place.quality_average.avg.to_i).each do %>
+              <i class='fa fa-smile-o'></i>
             <% end %>
+          <% end %>
             </p>
           </div>
       </div>
@@ -142,9 +140,9 @@
           </div>
           <div class="col-xs-4">
             <p class="gray-font">Price</p>
-            <p><%= @prices.first rescue "" %>
+            <p><%= @prices.first.name rescue "" %>
             </p>
-            <p><a href="#" data-toggle="modal" data-target="#TicketsModal">View details</a></p>
+            <!-- <p><a href="#" data-toggle="modal" data-target="#TicketsModal">View details</a></p> -->
           </div>
         </div>
       </div><!-- col-sm-8 -->
