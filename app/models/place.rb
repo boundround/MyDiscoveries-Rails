@@ -408,4 +408,20 @@ class Place < ActiveRecord::Base
       "place_#{id}" # ensure the place & country IDs are not conflicting
     end
 
+  class << self
+    def filter params= {}
+      res= self.all#where(id: nil)
+      if params.present?
+        #res= res.joins(:primary_category)
+        if params[:min_age]
+          res= res.where(" places.minimum_age >= ?", params[:min_age])
+        end
+        if params[:max_age]
+          res= res.where(" places.maximum_age <= ?", params[:max_age])
+        end
+      end
+      res
+    end
+  end
+
 end

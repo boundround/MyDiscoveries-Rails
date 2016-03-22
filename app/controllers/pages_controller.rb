@@ -19,7 +19,8 @@ class PagesController < ApplicationController
     #check
     #task psoude code = "Places To Go" == Place.where(is_area: true).order(like_percentage ASC).limit(6)
     @places_to_go =  Place.is_area.limit(6).includes(:photos).paginate(page: params[:places_to_go_page], per_page: 6)
-    @categories = PrimaryCategory.all.includes(:places => :subcategories).paginate(per_page: 10, page: params[:categories_page])
+    @primary_categories= PrimaryCategory.all.limit(3).paginate(per_page: 3, page: params[:primary_categories_page])
+    @subcategories = Subcategory.all.includes(:places => :subcategories).paginate(per_page: 3, page: params[:subcategories_page])
   end
 
   def globe

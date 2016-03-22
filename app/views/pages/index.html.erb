@@ -114,13 +114,19 @@
           </div>
           <div class="btn-everyone">
             <div class="col-xs-12 col-sm-12 col-md-6">
-              <a href="#" class="btn btn-default btn-block">5 - 8 year olds<i class="fa fa-caret-right"></i></a>
+              <%= link_to specific_subcategories_path(age_ranges: '5-8'), class: 'btn btn-default btn-block' do %>
+                5 - 8 year olds<i class="fa fa-caret-right"></i>
+              <% end %>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6">
-              <a href="#" class="btn btn-default btn-block">9 - 12 year olds<i class="fa fa-caret-right"></i></a>
+              <%= link_to specific_subcategories_path(age_ranges: '9-12'), class: 'btn btn-default btn-block' do %>
+                9 - 12 year olds<i class="fa fa-caret-right"></i>
+              <% end %>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6">
-              <a href="#" class="btn btn-default btn-block">Teenagers<i class="fa fa-caret-right"></i></a>
+              <%= link_to specific_subcategories_path(age_ranges: '13-18'), class: 'btn btn-default btn-block' do %>
+                Teenagers<i class="fa fa-caret-right"></i>
+              <% end %>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6">
               <a href="#" class="btn btn-default btn-block">People with special needs<i class="fa fa-caret-right"></i></a>
@@ -166,7 +172,7 @@
 <div class="container hidden-sm hidden-xs topmin140 padding-style">
   <div class="row">
     <div class="col-md-4 col-lg-4">
-      <a target="blank" href="#">
+      <%= link_to specific_subcategories_path(age_ranges: '5-8') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
             <img src="https://iitandtheworld.files.wordpress.com/2014/12/kids-and-summer-vacation-2.jpg" alt="" class="img-responsive">
@@ -177,10 +183,10 @@
             </div>
           </div>
         </div>
-      </a>
+      <% end %>
     </div>
     <div class="col-md-4 col-lg-4">
-      <a target="blank" href="#">
+      <%= link_to specific_subcategories_path(age_ranges: '9-12') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
             <img src="https://iitandtheworld.files.wordpress.com/2014/12/kids-and-summer-vacation-2.jpg" alt="" class="img-responsive">
@@ -191,10 +197,10 @@
             </div>
           </div>
         </div>
-      </a>
+      <% end %>
     </div>
     <div class="col-md-4 col-lg-4">
-      <a target="blank" href="#">
+      <%= link_to specific_subcategories_path(age_ranges: '13-18') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
             <img src="http://previews.123rf.com/images/mandygodbehear/mandygodbehear0807/mandygodbehear080700022/3291600-group-of-teens-on-vacation-Stock-Photo.jpg" alt="" class="img-responsive">
@@ -205,33 +211,56 @@
             </div>
           </div>
         </div>
-      </a>
+      <% end %>
     </div>
   </div>
 </div>
 <!-- #hardcode end-->
 
-<% if @categories.present? %>
+<% if @primary_categories.present? or @subcategories.present? %>
 <div class="container visible-xs">
   <div class="text-left">
     <h4 class="section-title">Things to do</h4>
   </div>
   <div class="row">
-    <% @categories.each do |category| %>
-
-      <div class="col-sm-6 col-md-3 col-xs-6">
-        <div class="thumbnail">
-          <div class="image-cat">
-             <%= image_tag category.icon.try(:url).try(:to_s) , class: 'top-rounded img-responsive' %>
-          </div>
-          <div class="details-dest">
-            <div class="left">
-              <%= category.name %>
+    <% if @primary_categories.present? %>
+      <% @primary_categories.each do |category| %>
+        <div class="col-sm-6 col-md-3 col-xs-6">
+          <%= link_to primary_category_path(category.identifier) do %>
+            <div class="thumbnail">
+              <div class="image-cat">
+                 <%= image_tag category.icon.try(:url).try(:to_s) , class: 'top-rounded img-responsive' %>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <%= category.name %>
+                </div>
+              </div>
             </div>
-          </div>
+          <% end %>
         </div>
-      </div>
+      <% end %>
     <% end %>
+
+    <% if @subcategories.present? %>
+      <% @subcategories.each do |category| %>
+        <div class="col-sm-6 col-md-3 col-xs-6">
+          <%= link_to subcategory_path(category.identifier) do %>
+            <div class="thumbnail">
+              <div class="image-cat">
+                 <%= image_tag category.icon.try(:url).try(:to_s) , class: 'top-rounded img-responsive' %>
+              </div>
+              <div class="details-dest">
+                <div class="left">
+                  <%= category.name %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
   </div> <!-- row -->
 </div>
 <%- end %>
@@ -256,7 +285,57 @@ Bottom button will link to "all_subcategories" page
   </div>
   <div class="row" id="categories-list">
 
-    <%= render 'categories/categories_list', categories: @categories %>
+    <% @primary_categories.each do |category| %>
+      <% if category.eql? @primary_categories.first %>
+        <div class="col-lg-12 col-md-12 btm15">
+          <%= link_to primary_category_path(category.identifier) do %>
+            <div class="img-bg-wide outer-js">
+              <%= image_tag category.icon.url.to_s , class: 'img-explore-wide inner-js' %>
+              <span class="text-explore">
+                <%= category.name %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="col-lg-6 col-md-6 btm15">
+          <div class="img-bg outer-js">
+            <%= link_to subcategory_path(category.identifier) do %>
+              <%= image_tag category.icon.url.to_s , class: 'img-explore- inner-js' %>
+              <span class="text-explore">
+                <%= category.name %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% @subcategories.each do |category| %>
+      <% if category.eql? @subcategories.first %>
+        <div class="col-lg-12 col-md-12 btm15">
+          <%= link_to primary_category_path(category.identifier) do %>
+            <div class="img-bg-wide outer-js">
+              <%= image_tag category.icon.url.to_s , class: 'img-explore-wide inner-js' %>
+              <span class="text-explore">
+                <%= category.name %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="col-lg-6 col-md-6 btm15">
+          <div class="img-bg outer-js">
+            <%= link_to subcategory_path(category.identifier) do %>
+              <%= image_tag category.icon.url.to_s , class: 'img-explore- inner-js' %>
+              <span class="text-explore">
+                <%= category.name %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
 
     <!-- button will link to "all_subcategories" page -->
     <div class="col-lg-12 col-md-12 top20 btm60" align="center">
