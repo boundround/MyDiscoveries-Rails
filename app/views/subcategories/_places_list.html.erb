@@ -1,0 +1,30 @@
+
+<a href="<%= place_path(place) %>">
+  <div class="col-md-4 col-sm-6">
+<div class="thumbnail padd0">
+  <div class="image-cat">
+
+    <img src="<%= showing_image(place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="top-rounded img-responsive">
+
+  </div>
+  <div class="caption place-caption text-center">
+    <h4 class="font-orange2"><%= place.display_name %></h4>
+  </div>
+  <div class="details-dest">
+    <div class="left">
+      <% place.subcategories.subcats.each do |c| %>
+        <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
+        <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
+
+      <% end %>
+    </div>
+    <!-- #hardcode -->
+    <div class="right">
+      <% if !place.viator_link.blank? %>
+        <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+</a>

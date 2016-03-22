@@ -38,7 +38,7 @@
                     <% @featured_nav_destinations = Place.find([1064, 1221, 1071, 1060]) %>
                     <% @featured_nav_destinations.each do |place| %>
                       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <a href="<% place_path(place) %>">
+                        <a href="<%= place_path(place) %>">
                             <div class="thumbnail box-shadow">
                               <div class="image-cat">
                                 <img src="<%= draw_small_background(place) %>" alt="" class="top-rounded img-responsive inner-js">
