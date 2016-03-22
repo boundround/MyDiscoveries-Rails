@@ -1,43 +1,61 @@
-  <%= render 'user_nav' %>
-  <div class="container">
-    <div class="user-view-title">
-      <h1 class="br_top_heading hidden-xs">
-        My Reviews
-      </h1>
-      <div class="col-xs-12">
-        <a href="<%= root_path %>">
-          <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
-        </a>
-      </div>
-      <div class="hidden-xs">
-        <%= render 'layouts/search_input' %>
-      </div>
+<%= render "layouts/navbar" %>
+<div class="container">
+  <div class="row">
+    <div class="head-title">
+        <%= render 'user_status' %>
+      <h4 class="top20">My account</h4>
+      <h2 class="gray-font">Reviews</h2>
     </div>
-    <% unless @user.reviews.blank? %>
-      <div class="row" id="reviews">
+  </div>
+  </div> <!-- row -->
+</div>
+
+    <div class="border-section btm10"></div>
+
+<section class="places-to-go top10 btm15">
+  <div class="container">
+    <div class="text-left">
+
+      <span class="left-modal">
+        <!-- <a href="#" class="grey btn"> Edit </a> -->
+      </span>
+
+      <!-- <p><a href="#" class="grey btn top5">Edit</a></p> -->
+      <!-- <h4 class="section-title">Featured places to go</h4> -->
+    </div>
+  </div>
+</section>
+
+<section class="your-stories btm15">
+  <div class="container">
+    <div class="row">
+      <% if !@user.reviews.blank? %>
         <% @user.reviews.each do |review| %>
-          <div class="col-sm-6 col-md-3">
-            <h4><%= !review.title.blank? ? review.title : review.reviewable.display_name %></h4>
-            <h6><a href="<%= place_path(review.reviewable) %>"><%= review.reviewable.display_name %></a></h6>
-            <% get_user_place_rating_from_review(review).times do |star| %>
-              <img src="<%= asset_path('star-on.png') %>" />
-            <% end %>
-            <p>
-              "<%= review.content[0..280] %>"
-            </p>
-              <p class="anchor">
-            <% if review.content.length > 280 %>
-                <a href="#">See entire review</a>
-            <% end %>
-              </p>
-            <p><%= raw user_generated_content_credit(review.user) %></p>
-            <div class="clearfix"></div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 btm15">
+
+            <div class="body-stories">
+              <p><%= review.content %></p>
+            </div>
+
+            <div class="head-stories">
+              <div class="left">
+                <a href="<%= place_path(review.place) rescue "" %>" class="black">
+                  <%= review.reviewable.display_name rescue "" %>
+                </a>
+                <span class="grey2"><%= review.created_at.strftime("%B %Y") %></span>
+              </div>
+              <div class="right">
+                <% Rate.where(rater_id: @user.id).where(rateable_id: review.reviewable_id).first.stars.to_i.times do %>
+                  <i class="fa fa-smile-o"></i>
+                <% end %>
+              </div>
+            </div>
+
           </div>
         <% end %>
+      <% end %>
+
       </div>
-    <% else %>
-      <div class="home-text">
-        <p>You have not left a review yet.</p>
-      </div>
-    <% end %>
+    </div> <!-- row -->
   </div>
+</section>

@@ -1,0 +1,43 @@
+  <%= render 'user_nav' %>
+  <div class="container">
+    <div class="user-view-title">
+      <h1 class="br_top_heading hidden-xs">
+        My Reviews
+      </h1>
+      <div class="col-xs-12">
+        <a href="<%= root_path %>">
+          <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
+        </a>
+      </div>
+      <div class="hidden-xs">
+        <%= render 'layouts/search_input' %>
+      </div>
+    </div>
+    <% unless @user.reviews.blank? %>
+      <div class="row" id="reviews">
+        <% @user.reviews.each do |review| %>
+          <div class="col-sm-6 col-md-3">
+            <h4><%= !review.title.blank? ? review.title : review.reviewable.display_name %></h4>
+            <h6><a href="<%= place_path(review.reviewable) %>"><%= review.reviewable.display_name %></a></h6>
+            <% get_user_place_rating_from_review(review).times do |star| %>
+              <img src="<%= asset_path('star-on.png') %>" />
+            <% end %>
+            <p>
+              "<%= review.content[0..280] %>"
+            </p>
+              <p class="anchor">
+            <% if review.content.length > 280 %>
+                <a href="#">See entire review</a>
+            <% end %>
+              </p>
+            <p><%= raw user_generated_content_credit(review.user) %></p>
+            <div class="clearfix"></div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="home-text">
+        <p>You have not left a review yet.</p>
+      </div>
+    <% end %>
+  </div>

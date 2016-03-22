@@ -1,75 +1,54 @@
-<%= render 'user_nav' %>
-  <div class="container">
-    <div class="user-view-title">
-      <h1 class="br_top_heading hidden-xs">
-        My Photos
-      </h1>
-      <div class="col-xs-12">
-        <a href="<%= root_path %>">
-          <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
-        </a>
-      </div>
-      <div class="hidden-xs">
-        <%= render 'layouts/search_input' %>
-      </div>
-    </div>
-    <div class="text-center"><a href="#" data-toggle="modal" data-target="#myModal" class="user-upload-button btn btn-default"><i class="fa fa-picture-o"></i> Add Photo</a></div>
-    <br>
-    <% unless @user.user_photos.active_path.no_story.blank? %>
-      <% @user.user_photos.active_path.no_story.recent.each_with_index do |photo, index| %>
-        <div class="col-md-3 photo-wrapper">
-          <div class="my-photos">
-            <%= content_tag "div", class: "photo-data", data: { photo_url: photo.path_url(:large)
-                                                                } do %>
-            <% end %>
-            <img class="my-photo" src="<%= photo.path_url(:small) %>" alt="<%= photo.path.path.gsub('photos/', '') %>" /><br>
-          </div>
-          <p><span class="user-photo-caption"><span class="rest-in-place" data-url="<%= user_photo_path(photo) %>" data-object="user_photo" data-attribute="caption" data-placeholder="Enter a caption"><%= photo.caption %></span></span><span class="click-to-edit"><br>Click to edit</span></p>
-          <div class="photo-status">Status: <%= photo.status %></div>
-          <%= link_to '<i class="fa fa-close"></i> Delete'.html_safe, photo, method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-photo" %>
-          <div class="clearfix"></div><br>
-        </div>
-        <div class="col-md-1"></div>
-      <% end %>
-    <% else %>
-      <div class="home-text">
-        <p>You have not added any Photos</p>
-      </div>
-    <% end %>
-  </div>
-
-<div class="modal fade br_add_pic" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog text-center" role="document">
-   <img src="<%= asset_path('Badge.png') %>"/>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-   <h1>Add a photo</h1>
-   <div class="modal-content">
-      <div class="br_upload">
-        <%= form_for UserPhoto.new, url: user_photos_profile_create_path, :html => { :id => "user-profile-photo-upload"  } do |f| %>
-          <%= f.file_field :path, label: false %>
-          <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
-          <%= f.hidden_field :status, :value => "draft" %>
-
-        <h4>Click <span class="br_underline">Browse</span> and navigate to the file,<br/> or, just drag the file <strong>here</strong></h4>
-        <img id="image-preview" class="user-upload-image-preview" src="#" alt="Your Image" />
-      </div>
-      <%= f.text_field :caption, label: false, placeholder: "Enter a caption for your photo", class: "form-group user-photo-caption-form" %>
-      <div>
-        <input id="pac-input" class="controls" type="text"
-        placeholder="Where was this taken?">
-        <%= f.hidden_field :google_place_id, data: {"geo" => "place_id"}, class: 'form-control', label: "Google Place ID" %>
-        <div class="user-gen-map"></div>
-      </div>
-      <div id="user-photo-upload-button">
-
-      </div>
-      <div id="progress">
-          <div class="bar" style="width: 0%;"></div>
-      </div>
-      <% end %>
+<%= render "layouts/navbar" %>
+<div class="container">
+  <div class="row">
+    <div class="head-title">
+        <%= render 'user_status' %>
+      <h4 class="top20">My account</h4>
+      <h2 class="gray-font">Photos</h2>
     </div>
   </div>
+  </div> <!-- row -->
 </div>
 
-<%= javascript_include_tag 'user_gen_map.js' %>
+    <div class="border-section btm10"></div>
 
+
+<section class="places-to-go btm15">
+  <div class="container">
+    <div class="text-left">
+
+      <span class="left-modal">
+        <!-- <a href="#" class="grey btn top5"> Edit </a> -->
+      </span>
+      <span class="right-modal">
+        <!-- <a href="#" class="btn btn-default top5 btn-radius3" data-toggle="modal" data-target="#PhotoModal" ><i class="fa fa-plus font-orange2"></i> Add photo</a> -->
+      </span>
+
+      <!-- <p><a href="#" class="grey btn top5">Edit</a></p> -->
+      <!-- <h4 class="section-title">Featured places to go</h4> -->
+    </div>
+  </div>
+</section>
+
+<section class="your-stories btm15">
+  <div class="container">
+    <div class="row">
+      <% if !@user.user_photos.blank? %>
+        <% @user.user_photos.each do |photo| %>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 btm15">
+            <div class="body-stories">
+              <div class="p-dynamic member-profile">
+              <p class="top10"><%= photo.place.display_name rescue "" %></p>
+              <h3 class="font-orange2 topmin5 btm20"><%= photo.caption rescue "" %></h3>
+              <p class="grey"><i class="fa fa-camera"></i> 9 </p>
+              </div>
+                <div class="img-story-place">
+                  <img align="right" src="<%= photo.path_url %>" alt="<%= photo.caption rescue "" %>">
+                </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div> <!-- row -->
+  </div>
+</section>

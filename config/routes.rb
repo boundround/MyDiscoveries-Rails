@@ -112,18 +112,18 @@ Rails.application.routes.draw do
 
   get '/puzzles/:action' => 'puzzles#:action'
 
-  get '/users/photos' => 'users#photos'
-  get '/users/reviews' => 'users#reviews'
   get '/users/games' => 'users#games'
   get '/users/videos' => 'users#videos'
   get '/users/places' => 'users#places'
   get '/users/fun_facts' => 'users#fun_facts'
-  get '/users/stories' => 'users#stories'
   get '/users/instagram_feed' => 'users#instagram_feed'
   get '/users/draft_content' => 'users#draft_content' # All User Uploaded Content in Draft
   resources :users do
     collection { get 'leaderboard' }
     member { get 'favourites' }
+    member { get 'photos' }
+    member { get 'reviews' }
+    member { get 'stories' }
   end
 
   post '/places/transfer_assets' => 'places#transfer_assets'
