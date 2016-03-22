@@ -1,6 +1,6 @@
 <div class="thumbnail">
   <div class="image-cat image-cat-left outer-js">
-    <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive inner-js">
+    <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>" alt="" class="img-responsive inner-js">
   </div>
   <div class="caption caption-right">
     <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
