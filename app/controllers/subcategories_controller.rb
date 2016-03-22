@@ -1,6 +1,8 @@
 class SubcategoriesController < ApplicationController
 
   def index
+    @subcategories = Subcategory.subcats.includes(:places => :subcategories)
+    @subcategories = @subcategories.sort {|x, y| y.places.size <=> x.places.size}
   end
 
 	def show
