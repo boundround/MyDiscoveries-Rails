@@ -11,7 +11,11 @@
   </div>
   <div class="details-dest">
     <div class="left">
-      <%= link_to "<i class=\"fa fa-ship\"></i> #{place.primary_category.try(:name)}".html_safe, place.primary_category.present?? primary_categories_path : '#' %>
+      <% place.subcategories.subcats.each do |c| %>
+        <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
+        <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
+
+      <% end %>
     </div>
     <!-- #hardcode -->
     <div class="right">

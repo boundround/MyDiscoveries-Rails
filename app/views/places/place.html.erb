@@ -238,10 +238,26 @@
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
       <section class="your-stories btm15 cards">
         <div class="row">
-        <div class="col-xs-12">
+          <div class="col-xs-12">
+            <% unless @reviews.blank? %>
+              <div class="text-left">
+                <h4 class="section-title">Member Reviews</h4>
+              </div>
 
-           <%= render partial: "reviews/all_reviews", locals: { reviews: @reviews, title: "Member Reviews" }%>
+              <div id="reviews-list">
+                <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
+              </div>
 
+              <% unless last_page? @reviews %>
+                <div class="text-center clearfix btm20 single-pagination-container" id="reviews-single-pagination-container" style="clear:both">
+                  <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+                    <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+                  </div>
+                  <%= link_to "Load More", place_path(@place, reviews_page: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+                </div>
+              <% end %>
+
+            <% end %>
           </div>
         </div> <!-- row -->
       </section>
@@ -256,42 +272,21 @@
             <h4 class="section-title">More places like this</h4>
           </div>
           <div class="row">
-           <div class="col-xs-12">
-            <% @more_places.each do |place| %>
-              <a href="<%= place_path(place) %>">
-                <div class="thumbnail card">
-                  <div class="image-cat image-cat-left outer-js">
-                    <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg')) %>" alt="" class="img-responsive  inner-js">
-                  </div>
-                  <div class="caption caption-right">
-                    <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
-                    <h2><%= place.display_name %></h2>
-                  </div>
-                  <div class="details-dest">
-                    <div class="left">
-                    <% place.subcategories.subcats.each do |c| %>
-                      <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
-                      <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
-
-                    <% end %>
-                    </div>
-                    <div class="right">
-                      <% if !place.viator_link.blank? %>
-                        <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
-                      <% end %>
-                    </div>
-                    </div>
-                  </div>
-                </a>
-            <% end %>
-            <!-- #hardcode activate paginate (6 cards per page) -->
-            <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
-            <div class="text-center clearfix btm20">
-              <button class="btn btn-default top5 load-more">Load more places</button>
-            </div>
+           <div class="col-xs-12" id="more_places-list">
+              <%= render partial: 'primary_categories/places_list', collection: @more_places, as: :place %>
+              <!-- #hardcode activate paginate (6 cards per page) -->
+              <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
             </div>
           </div> <!-- row -->
-      </section>
+        </section>
+        <% unless last_page? @more_places %>
+          <div class="text-center clearfix btm20 single-pagination-container" id="more_places-single-pagination-container" style="clear:both">
+            <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+              <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+            </div>
+            <%= link_to "Load More", place_path(@place, more_places_page: @more_places.next_page, resources: 'more_places', pagination_template: 'primary_categories/places_list', collection_object: 'place'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+          </div>
+        <% end %>
       <% end %>
       </div> <!-- /col-md-8 -->
     </div> <!-- /main row -->

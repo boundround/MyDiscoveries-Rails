@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class PlacesController < ApplicationController
   layout false, :only => :wp_blog
 
@@ -177,7 +179,7 @@ class PlacesController < ApplicationController
 
     @good_to_know = @place.good_to_knows.limit(6)
 
-    @places_to_visit = Place.joins(:similar_places).where('similar_places.similar_place_id = ?', @place.id).order("RANDOM()")
+    @places_to_visit = Place.joins(:similar_places).where('similar_places.similar_place_id = ?', @place.id).paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
 
     @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category).order("RANDOM()")
 
@@ -187,22 +189,22 @@ class PlacesController < ApplicationController
       (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
     end
 
-    @more_places = @more_places[0..5]
+    @more_places = @more_places.paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
 
     # @related_places = Place.is_area
     # @reviewable = @place
-    @reviews = @place.reviews.active
+    @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
 
     @capital_city = Place.active.find_by(display_name: @place.country.capital_city)
 
     @review = Review.new
-    if user_signed_in?
-      @user_reviews_not_public = @place.reviews.where('(status = ? OR status = ?) AND user_id = ?', "draft", "user", current_user.id)
-      @review = @user_review = @user_reviews_not_public.find{|r|r.user_id.eql?(current_user.id)}
-    end
-    if !@user_reviews_not_public.blank?
-      @reviews += @user_reviews_not_public
-    end
+    #if user_signed_in?
+      #@user_reviews_not_public = @place.reviews.where('(status = ? OR status = ?) AND user_id = ?', "draft", "user", current_user.id)
+    # @review = @user_review = @user_reviews_not_public.find{|r|r.user_id.eql?(current_user.id)}
+    #end
+    #if !@user_reviews_not_public.blank?
+    #  @reviews += @user_reviews_not_public
+    #end
 
     # if !@user_reviews_not_public.blank?
     #   @reviews += @user_reviews_not_public
@@ -285,6 +287,7 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       format.html { render view, :layout => !request.xhr? }
+      format.js
       format.json { render json: @place }
     end
 
