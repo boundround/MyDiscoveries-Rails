@@ -78,22 +78,22 @@ class ApiBlog
   def self.clear_cached_blogs(place_slug)
     Rails.cache.delete(place_slug)
   end
-  
+
   # for palce
   def self.find_blog_id(id, place_slug)
     arys = get_cached_blogs(place_slug, 'place')
     arys.find{|obj|obj.id.eql?(id)}
   end
-  
+
   # for primary category
   def self.find_blog_primary_cat(id, primary_cat)
     arys = get_cached_blogs(primary_cat, 'primary_cat')
     arys.find{|obj|obj.id.eql?(id)}
   end
-  
+
   # for primary category
   def self.find_blog_sub_cat(id, place_slug)
-    arys = get_cached_blogs(place_slug, 'sub_cat')
+    arys = get_cached_blogs(place_slug, 'subcat')
     arys.find{|obj|obj.id.eql?(id)}
   end
 

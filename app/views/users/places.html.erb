@@ -21,7 +21,7 @@
               <a href="<%= place_path(place) %>" class="no-anchor-decoration">
                 <div class="br_top_place">
                   <div class="br_place_top">
-                    <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                    <img src="<%= place.photos.length > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg') %>">
                   </div>
                   <div class="br_place_mid">
                     <h4><%= place.display_name %></h4>
@@ -51,7 +51,7 @@
                 <a href="<%= area_path(area) %>" class="no-anchor-decoration">
                   <div class="br_top_place">
                     <div class="br_place_top">
-                      <img src="<%= area.photos.length > 0 ? area.photos.first.path_url(:small) : asset_path('generic-grey.jpg') %>">
+                      <img src="<%= area.photos.length > 0 ? area.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg') %>">
                     </div>
                     <div class="br_place_mid">
                       <h4><%= area.display_name %></h4>

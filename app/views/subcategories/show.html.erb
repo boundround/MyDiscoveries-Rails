@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="head-title">
-      <h2 class="gray-font"><%= @sub_category.try(:name) %></h2>
+      <h2 class="gray-font"><%= @subcategory.try(:name) %></h2>
     </div>
   </div>
 </div>
@@ -28,6 +28,7 @@
   </div> <!-- row -->
 </div>
 
+    <% unless @areas.blank? %>
 <div class="border-section"></div>
 <!-- Looping places params category -->
 <div class="container padding-style">
@@ -35,29 +36,26 @@
     <h4 class="section-title">Amazing Destinations</h4>
   </div>
   <div class="row">
-    <div class="col-sm-6 col-md-4 col-lg-4 col-xs-6">
-      <div class="thumbnail padd0">
-        <div class="image-cat">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Sydney_Opera_house_HDR_Sydney_Australia.jpg" alt="" class="top-rounded img-responsive">
-        </div>
-        <div class="caption text-center">
-          <h4 class="font-orange2">Sydney</h4>
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
-          </div>
-          <div class="right">
-            <a href="#">
-            <i class="fa fa-thumbs-o-up"></i> 100%</a>
-          </div>
-        </div>
-      </div>
-    </div>
+        <section class="places-to-go visit-place cards">
 
-    <div class="text-center clearfix btm15" style="clear:both">
-      <a href="#" class="btn btn-default">Load More</a>
-    </div>
+          <div class="row">
+           <div class="col-xs-12" id="areas-list">
+              <%= render partial: 'subcategories/areas_list', collection: @areas, as: :area %>
+              <!-- #hardcode activate paginate (6 cards per page) -->
+              <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
+            </div>
+          </div> <!-- row -->
+        </section>
+        <% unless last_page? @areas %>
+          <div class="text-center clearfix btm20 single-pagination-container" id="areas-single-pagination-container" style="clear:both">
+            <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+              <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+            </div>
+            <%= link_to "Load More", subcategory_path(@subcategory, areas_page: @areas.next_page, resources: 'areas', pagination_template: 'subcategories/areas_list', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+          </div>
+        <% end %>
+      <% end %>
+
   </div> <!-- row -->
 </div>
 
@@ -65,9 +63,7 @@
 
 <div class="container padding-style">
 <div class="row">
-<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 topmin20-responsive">
-<section class="travelling-tips cruises-section margin-fun-fact">
-  <!-- <div class="container"> -->
+<!-- <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 topmin20-responsive">
     <div class="row left10-responsive">
       <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
       <h4>Travelling Tips</h4>
@@ -78,7 +74,6 @@
         <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor sit amet</a>
       </div>
     </div>
-  <!-- </div> -->
 </section>
 <div class="triangle-down hidden-xs topmin10">
 </div>
@@ -143,184 +138,45 @@
         </div>
       </div>
 
-    </div> <!-- row -->
-</section>
+    </div> --> <!-- row -->
+<!-- </section>
 <div class="text-center clearfix btm20">
   <a href="#" class="btn btn-default">Load more Stories</a>
 </div>
-</div> <!-- end col -->
+</div> --><!-- end col -->
 
 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 <section class="places-to-go">
     <div class="text-left">
-      <h4 class="section-title">Featured cruises</h4>
+      <h4 class="section-title">Featured places</h4>
     </div>
     <div class="row">
      <div class="col-xs-12">
-
-      <div class="thumbnail padd0">
-        <div class="image-cat image-cat-left">
-          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
-        </div>
-        <div class="caption caption-right">
-          <h4 class="gray-font">Caribbean</h4>
-          <h2 class="cruises-color">Celebrity Summit</h2>
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
-          </div>
-          <div class="right">
-            <a href="#"> $$</a>
-          </div>
-          </div>
-        </div>
-
+      <% unless @places.blank? %>
+      <% @places.each do |place| %>
+      <a href="<%= place_path(place) %>">
         <div class="thumbnail padd0">
           <div class="image-cat image-cat-left">
-            <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
+            <img src="<%= draw_small_background(place) %>" alt="" class="img-responsive img-full-div inner-js">
           </div>
           <div class="caption caption-right">
-            <h4 class="gray-font">Caribbean</h4>
-            <h2 class="cruises-color">Celebrity Summit</h2>
+            <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
+            <h2 class="cruises-color"><%= place.display_name %></h2>
           </div>
           <div class="details-dest">
             <div class="left">
-              <a href="#"><i class="fa fa-ship"></i> Cruises</a>
+              <% place.subcategories.subcats.each do |category| %>
+                <a href="<%= subcategory_path(category) %>"><%= category.name %></a>
+              <% end %>
             </div>
             <div class="right">
               <a href="#"> $$</a>
             </div>
             </div>
           </div>
-
-          <div class="thumbnail padd0">
-            <div class="image-cat image-cat-left">
-              <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
-            </div>
-            <div class="caption caption-right">
-              <h4 class="gray-font">Caribbean</h4>
-              <h2 class="cruises-color">Celebrity Summit</h2>
-            </div>
-            <div class="details-dest">
-              <div class="left">
-                <a href="#"><i class="fa fa-ship"></i> Cruises</a>
-              </div>
-              <div class="right">
-                <a href="#"> $$</a>
-              </div>
-              </div>
-            </div>
-
-            <div class="thumbnail padd0">
-              <div class="image-cat image-cat-left">
-                <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
-              </div>
-              <div class="caption caption-right">
-                <h4 class="gray-font">Caribbean</h4>
-                <h2 class="cruises-color">Celebrity Summit</h2>
-              </div>
-              <div class="details-dest">
-                <div class="left">
-                  <a href="#"><i class="fa fa-ship"></i> Cruises</a>
-                </div>
-                <div class="right">
-                  <a href="#"> $$</a>
-                </div>
-                </div>
-              </div>
-
-      <div class="thumbnail padd0">
-        <div class="image-cat image-cat-left">
-          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
-        </div>
-        <div class="caption caption-right">
-          <h4 class="gray-font">Caribbean</h4>
-          <h2 class="cruises-color">Celebrity Summit</h2>
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
-          </div>
-          <div class="right">
-            <a href="#"> $$</a>
-          </div>
-          </div>
-        </div>
-      <div class="thumbnail padd0">
-        <div class="image-cat image-cat-left">
-          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
-        </div>
-        <div class="caption caption-right">
-          <h4 class="gray-font">Caribbean</h4>
-          <h2 class="cruises-color">Celebrity Summit</h2>
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
-          </div>
-          <div class="right">
-            <a href="#"> $$</a>
-          </div>
-          </div>
-        </div>
-
-      <div class="thumbnail padd0">
-        <div class="image-cat image-cat-left">
-          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
-        </div>
-        <div class="caption caption-right">
-          <h4 class="gray-font">Caribbean</h4>
-          <h2 class="cruises-color">Celebrity Summit</h2>
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
-          </div>
-          <div class="right">
-            <a href="#"> $$</a>
-          </div>
-          </div>
-        </div>
-
-      <div class="thumbnail padd0">
-        <div class="image-cat image-cat-left">
-          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
-        </div>
-        <div class="caption caption-right">
-          <h4 class="gray-font">Caribbean</h4>
-          <h2 class="cruises-color">Celebrity Summit</h2>
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
-          </div>
-          <div class="right">
-            <a href="#"> $$</a>
-          </div>
-          </div>
-        </div>
-
-      <div class="thumbnail padd0">
-        <div class="image-cat image-cat-left">
-          <img src="https://bestvacationsever.files.wordpress.com/2010/07/highres_3251797.jpg" alt="" class="img-responsive img-full-div inner-js">
-        </div>
-        <div class="caption caption-right">
-          <h4 class="gray-font">Caribbean</h4>
-          <h2 class="cruises-color">Celebrity Summit</h2>
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            <a href="#"><i class="fa fa-ship"></i> Cruises</a>
-          </div>
-          <div class="right">
-            <a href="#"> $$</a>
-          </div>
-          </div>
-        </div>
-      </div>
-
-
+        </a>
+        <% end %>
+        <% end %>
     </div> <!-- row -->
 
 </section>
