@@ -19,7 +19,7 @@
     <div class="body-stories">
       <div class="left">
           <p><%= photo.place.display_name rescue "" %></p>
-          <h4 class="cruises-color paddright2"><%= photo.caption %></h4>
+          <h5 class="cruises-color text-light paddright2"><%= raw(photo.caption) %></h5>
       </div>
       <div class="right">
         <div class="image">

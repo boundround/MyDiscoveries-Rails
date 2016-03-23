@@ -725,9 +725,17 @@ ul.nav.navbar-nav.first-ul{
 	width:100%;
 	min-height: 38px;
 	line-height: 38px;
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-    padding: 0 10px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding: 0 10px;
+	/* T */
+	min-height: 57px;
+	min-height: 70px;
+	line-height: 24px;
+	font-size: 12px;
+	padding: 5px 10px;
+	/*line-height: 30px;*/
+	margin-top: 1px;
 }
 .details-dest a{
 	color: #B6B6B6;
@@ -735,7 +743,10 @@ ul.nav.navbar-nav.first-ul{
 .details-dest .left{
 	float: left;
 	width: 55%;
+	width: 100%;
 	color: #B8B8B8;
+	padding: 5px;
+	/*height: 20%;*/
 }
 .details-dest .right{
 	float: right;
@@ -872,6 +883,7 @@ section.your-stories .body-stories{
     /*margin: 0 -15px 15px;*/
     display: inline-block;
     font-weight: 100;
+    margin-top: 1px;
 }
 section.your-stories .body-stories .p-dynamic,section.your-stories .body-stories .body-image{
 	/*display: inline-block;*/
@@ -969,8 +981,18 @@ section.video-show .details-dest{
 section.video-show .details-dest a{
 	background: #EAEAEA;
     padding: 2px 9px;
+    padding: 5px 10px;
     border-radius: 4px;
     color: #3A3A3A;
+    
+}
+section.video-show .details-dest a:hover{
+    color: #FFFFFF;
+    text-decoration: none;
+    background: #A0A0A0;
+    background: #B3B3B3;
+    opacity: 0.8;
+    transition: 0.1s all;
 }
 section.video-show .title, .title-fun-caro{
     position: absolute;
@@ -979,6 +1001,10 @@ section.video-show .title, .title-fun-caro{
     text-align: left;
     color: #fff;
     width: 77%;
+    z-index: 10;
+
+    /* T */
+    z-index: 10;
 }
 .title-fun-caro{
 	color: #ffffff;
@@ -1023,6 +1049,8 @@ section.video-latest .body-stories .left{
 	text-align: left;
 	width: 50%;
 	padding-right: 3px;
+	min-height: 180px;
+	max-height: 180px;
 }
 section.video-latest .body-stories .right{
 	float: right;
@@ -1037,12 +1065,17 @@ section.video-latest .bg{
 @media (max-width: 767px){
 	section.video-show .details-dest, section.video-show .body-stories, section.video-latest .body-stories {
 		margin: 0 -15px;
+		margin-bottom: 15px;
 	}
 	section.video-latest .bg{
 		background: #fff;
 	}
 	section.video-latest .body-stories{
 		display: block;
+	}
+	section.video-latest .body-stories .left {
+		min-height: 180px;
+		max-height: 180px;
 	}
 
 }
@@ -1055,8 +1088,38 @@ section.photo .image{
     border-radius: 4px;
 }
 section.photo .image img{
-	width: 100%
+	width: 100%;
+	/* T */
 }
+
+@media (min-width: 599px) {
+	section.photo .image {
+		/*height: 225px;*/
+		overflow: hidden;
+		position: relative;
+		z-index: 1;
+	}
+	section.photo .image img {
+		position: absolute;
+		bottom: -50%;
+		z-index: -1;
+	}
+}
+
+@media (min-width: 768px) {
+	section.photo .image {
+		/*height: 225px;*/
+		overflow: hidden;
+		position: relative;
+		z-index: 1;
+	}
+	section.photo .image img {
+		position: absolute;
+		bottom: 0;
+		z-index: -1;
+	}
+}
+
 /*LATEST*/
 section.photo-latest .image{
 	overflow: hidden;
@@ -1064,14 +1127,27 @@ section.photo-latest .image{
     height: 116px;
 }
 section.photo-latest .body-stories{
+	display: -webkit-flex;
+	display: -ms-flex;	
 	display: flex;
 }
 section.photo-latest .image img{
 	width: 100%;
+	/*T*/
+	height: auto;
+	max-width: 100%;
+	min-width: 100%;
 }
 @media (max-width: 767px){
 	section.photo-latest .image{
 		height: 120px;
+		/*height: 210px;*/
+		height: 180px;
+	}
+	section.video-show .details-dest {
+		min-height: 44px;
+		padding: 5px;
+		margin-bottom: 1px;
 	}
 }
 
@@ -2192,6 +2268,19 @@ section.modal-booking .left img{
   background: linear-gradient(to top, rgba(0,0,0,0.1), rgba(0,0,0,0.3)); /* Standard syntax (must be last) */
 	overflow: hidden;
 }
+/*.places-bg {
+	width: 100%;
+	height: 100%;
+}*/
+.places-bg {
+	background: rgba(0,0,0,0.1);
+	padding: 15px 20px;
+	border: 1px solid white;
+	display: inline;
+	margin: 0 auto !important;
+	position: relative;
+	top: 60px;
+}
 /*
 .hero-background {
 	bottom: 0;
@@ -2209,7 +2298,8 @@ section.modal-booking .left img{
 	width: auto !important;
 	min-width: 100%;
 	vertical-align: middle;
-	position: relative;
+	/*position: absolute;
+	bottom: 0;*/
 	z-index: -1;
 }
 
@@ -2255,8 +2345,8 @@ section.modal-booking .left img{
 	.fix-img img {
 		height: auto !important;
 		width: 100% !important;
-		min-height: 100%;
-		margin-top: -16%;
+/*	min-height: 100%;	*/
+/*	margin-top: -16%; */
 	}
 	.home-carousel, .fix-img {
 		height: 700px;
@@ -2326,6 +2416,9 @@ section.modal-booking .left img{
 }
 .img-header {
 	z-index: 0;
+	z-index: -1;
+	position: relative;
+	width: 100%;
 }
 
 /* NAVBAR TRANSPARENT */
