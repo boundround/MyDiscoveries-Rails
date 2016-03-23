@@ -57,7 +57,7 @@ class SubcategoriesController < ApplicationController
   end
 
   def specific
-      @areas= Place.filter(age_ranges_params).paginate page: params[:areas_page], per_page: 2
+      @areas= Place.active.filter(age_ranges_params).paginate page: params[:areas_page], per_page: 2
     end
 
   private
@@ -68,7 +68,7 @@ class SubcategoriesController < ApplicationController
     def age_ranges_params
       if params[:age_ranges].present?
         ranges= params[:age_ranges].split('-')
-        return { min_age: ranges.first.to_i, max_age: ranges.last.to_i } unless ranges.blank?
+        return { minimum_age: ranges.first.to_i, maximum_age: ranges.last.to_i } unless ranges.blank?
       end
     end
 
