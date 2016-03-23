@@ -18,7 +18,7 @@
           </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 row-index row-margin-top" align="left">
+        <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 row-index row-margin-top" align="left">
           <div class="row row-border row-bgcolor-orange row-height120 row-index" align="left">
             <div class="col-xs-12 col-sm-12 col-height20 row-bg-transparent">
               <span class="left-modal font-orange-black-responsive top5 margin-min-left10">Joined <%= @user.created_at.strftime("%m/%d/%Y") %></span>
@@ -26,14 +26,14 @@
             <div class="col-xs-12 col-sm-12 col-height10 border-profile topmin5 border-orange visible-xs">
             </div>
             <div class="col-xs-12 col-sm-12 top10 row-status-orange big-font">
-            <span class="left-modal top8-responsive">
-              <i class="fa fa-trophy font-orange-black"></i> <a class="white">Top Storyteller</a>
-            </span>
-            <span class="right-modal top8-responsive">
-              <i class="fa fa-file-text-o font-orange-black"></i> <span class="white"> <%= @user.stories.size %> </span>
-              <i class="fa fa-camera font-orange-black"></i> <span class="white"> <%= @user.photos.size %> </span>
-              <!-- <i class="fa fa-youtube-play font-orange-black"></i> <span class="white"> 1 </span> -->
-            </span>
+              <span class="left-modal top8-responsive">
+                <i class="fa fa-trophy font-orange-black"></i> <a class="white">Top Storyteller</a>
+              </span>
+              <span class="right-modal top8-responsive">
+                <i class="fa fa-file-text-o font-orange-black"></i> <span class="white"> <%= @user.stories.size %> </span>
+                <i class="fa fa-camera font-orange-black"></i> <span class="white"> <%= @user.photos.size %> </span>
+                <i class="fa fa-youtube-play font-orange-black"></i> <span class="white"> 1 </span>
+              </span>
             </div>
             <div class="col-xs-12 col-sm-12 col-height10 border-profile border-orange visible-xs">
             </div>
@@ -43,18 +43,18 @@
               </div>
             <div class="col-md-12 col-lg-12 col-height20 top20 hidden-xs row-bg-transparent top10">
              <span class="font-orange-black-responsive margin-min-left10">Made up of</span>
-             <span class="bg-white-text"> <%= @user.min_age %> - <%= @user.max_age %> </span> 
-             <!-- <span class="bg-white-text"> Teenagers </span> <span class="bg-white-text"> Adults </span> -->
+             <span class="bg-white-text"> <%= @user.min_age %> - <%= @user.max_age %> </span>
+             <span class="bg-white-text"> Teenagers </span> <span class="bg-white-text"> Adults </span>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
       </div>
     </div>
 
     </div><!-- row -->
-  </div> 
+  </div>
 
 <div class="col-md-12 col-lg-12 border-profile hidden-xs">
 </div>
@@ -67,7 +67,7 @@
   <h4 class="section-title">Stories</h4>
 </div> -->
     <%= render partial: "stories/all_stories", locals: { stories: @user.stories, title: "Stories"}%>
-    
+
     <%#= render partial("stories/all_stories") %>
     <%= render "stories/modal_story" %>
 <!-- <section class="your-stories"> -->
