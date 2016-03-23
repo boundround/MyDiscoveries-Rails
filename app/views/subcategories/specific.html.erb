@@ -1,0 +1,33 @@
+<%= render 'layouts/navbar' %>
+<!-- #hardcode -->
+
+<div class="container">
+  <div class="row">
+
+    <div class="head-title">
+      <h2 class="gray-font">Places for <%= params[:age_ranges] %> year Olds</h2>
+    </div>
+
+    <div class="container padding-style">
+      <% unless @areas.blank? %>
+        <div class="row" id="areas-list">
+          <% @areas.each do |place| %>
+            <%= render partial: 'primary_categories/areas_list', locals: { area: place} %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% unless last_page? @areas %>
+        <div class="text-center clearfix btm15 single-pagination-container" id="areas-single-pagination-container" style="clear:both">
+          <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+            <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+          </div>
+          <%= link_to "Load More", specific_subcategories_path(params[:age_ranges], areas_page: @areas.next_page, resources: 'areas'), class: 'btn btn-default single-pagination', remote: true %>
+        </div>
+      <% end %>
+
+    </div>
+
+  </div><!-- row -->
+</div><!-- container -->
+<%= render 'layouts/footer' %>

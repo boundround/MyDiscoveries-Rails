@@ -87,15 +87,17 @@ class UsersController < ApplicationController
   end
 
   def favourites
-    @user = User.includes(:favorite_places).find(params[:id])
+    if user_signed_in? || current_user.admin?
+      @user = User.includes(:favorite_places).find(params[:id])
+    else
+      redirect_to new_user_registration_path, notice: "You must be logged in to view that"
+    end
   end
 
 
   def photos
-    if user_signed_in?
-      @set_body_class = 'br_tab blue_page'
-      @user = current_user
-      @active_photos = true
+    if user_signed_in? || current_user.admin?
+      @user = User.includes(:user_photos).find(params[:id])
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
@@ -139,22 +141,16 @@ class UsersController < ApplicationController
   end
 
   def stories
-    if user_signed_in?
-      @set_body_class = 'br_tab blue_page'
-      @user = current_user
-      @story = Story.new
-      @user_photos = @story.user_photos.build
-      @active_stories = true
+    if user_signed_in? || current_user.admin?
+      @user = User.includes(:stories).find(params[:id])
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
   end
 
   def reviews
-    if user_signed_in?
-      @set_body_class = 'br_tab blue_page'
-      @user = current_user
-      @active_reviews = true
+    if user_signed_in? || current_user.admin?
+      @user = User.includes(:reviews).find(params[:id])
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
