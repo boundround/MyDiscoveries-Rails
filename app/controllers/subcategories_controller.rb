@@ -57,7 +57,7 @@ class SubcategoriesController < ApplicationController
   end
 
   def specific
-      @areas= Place.active.filter(age_ranges_params).paginate page: params[:areas_page], per_page: 2
+      @areas= Place.active.includes(:subcategories).order(top_100: :desc).filter(age_ranges_params).paginate page: params[:areas_page], per_page: 3
     end
 
   private
