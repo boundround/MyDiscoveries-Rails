@@ -115,7 +115,7 @@
           <% if user_signed_in? && @place.users.include?(current_user) %>
             <div class="text-center btn-map">
               <i class="fa fa-bookmark-o i-fav-area"></i>
-              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Remove To Favourites</a>
+              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Remove From Favourites</a>
             </div>
               <% else %>
             <div class="text-center btn-map">
