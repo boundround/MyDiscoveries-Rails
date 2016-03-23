@@ -56,7 +56,8 @@ Rails.application.routes.draw do
   # resources :search_suggestions
 
   # post 'search_suggestions' => 'search_suggestions#index'
-  get 'search', to: 'search_suggestions#index'
+
+  get 'results' => 'search_suggestions#results', as: 'searching'
 
   post 'searchqueries/create' => 'search_queries#create'
   post 'pages/want_notification' => 'pages#want_notification'

@@ -115,6 +115,8 @@ ul.nav.navbar-nav.first-ul{
     background: none;
     height: 26px;
     z-index: 4;
+    border: none;
+    width: 23px;
 }
 .input-search-nav i{
     position: relative;

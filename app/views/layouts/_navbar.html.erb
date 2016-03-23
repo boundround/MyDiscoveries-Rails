@@ -128,11 +128,19 @@
         <li>
           <div class="input-group input-search-nav">
           <!-- #check -->
-            <%= form_tag('/serach', method: :post) do %>
-              <%= submit_tag '', class: "btn btn-default", id: "btn-search-top" %>
+<!--             <%#= form_tag('/serach', method: :get, id: "top-search") do %>
+              <%#= submit_tag '', class: "btn btn-default", id: "btn-search-top" %>
               <i class="fa fa-search"></i>
-              <%= text_field_tag 'query', nil , placeholder: 'Search for destinations', class: "search-nav" %>
-            <% end %>
+              <%#= text_field_tag 'term', nil , placeholder: 'Search for destinations', class: "search-nav", id: "search-box"%>
+            <%# end %> -->
+            <div class="input-group input-search-nav">
+              <form id="form-search" action="<%= searching_path %>"  method="post">
+                <input type="submit" value="" id="btn-search-top"><i class="fa fa-search"></i>
+                <input name="query-top" type="text" class="search-nav" placeholder="Search for destinations">
+              </form>
+            </div><!-- /input-group -->
+
+
 
           </div><!-- /input-group -->
         </li>

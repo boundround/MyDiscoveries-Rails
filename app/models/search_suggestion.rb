@@ -1,5 +1,6 @@
 class SearchSuggestion < ActiveRecord::Base
 
+  #backup
   def self.terms_for(prefix)
     @places = Place.where(status: "live")
              .text_search(prefix).includes(:area)
@@ -7,8 +8,15 @@ class SearchSuggestion < ActiveRecord::Base
     # @places = Place.where("display_name @@ :q or description @@ :q", q: params[:term])
 
     @places = ActiveSupport::JSON.decode(@places.to_json)
-
   end
+  #backup-end
+
+  # def self.terms_for(prefix)
+  #   @places = Place.where(status: "live").limit
+
+  #   @places = ActiveSupport::JSON.decode(@places.to_json)
+  #   # debugger
+  # end
 
   def self.index_places
     Place.find_each do |place|
