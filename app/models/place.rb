@@ -30,17 +30,17 @@ class Place < ActiveRecord::Base
       end
     end
 
-    # attribute :category do
-    #   if self.try(:categories)
-    #     if categories.blank?
-    #       "sights"
-    #     elsif categories.any? {|category| category.identifier == "area"}
-    #       "area"
-    #     else
-    #       categories[0].identifier
-    #     end
-    #   end
-    # end
+    attribute :primary_category do 
+       if self.primary_category
+        "#{primary_category.name}"
+      else
+        ""
+      end
+    end
+
+    attribute :subcategories do 
+      subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
+    end
 
     attribute :name do
       string = "#{display_name}"

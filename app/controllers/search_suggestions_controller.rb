@@ -1,10 +1,14 @@
 class SearchSuggestionsController < ApplicationController
 
-  #backup
   def index
-    render json: SearchSuggestion.terms_for(params[:term])
+    render json: SearchSuggestion.terms_for(search_params[:common])
   end
-  #backup end
+
+  private
+
+  	def search_params
+  		params[:search] ||= {}
+  	end
   
 
 

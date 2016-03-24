@@ -2,8 +2,8 @@ class SearchSuggestion < ActiveRecord::Base
 
   #backup
   def self.terms_for(prefix)
-    @places = Place.where(status: "live")
-             .text_search(prefix).includes(:area)
+    @places = Place.where(status: "live").includes(:area, :primary_category, :subcategories)
+             .raw_search(prefix)
 
     # @places = Place.where("display_name @@ :q or description @@ :q", q: params[:term])
 

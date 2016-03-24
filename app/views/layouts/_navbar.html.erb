@@ -134,10 +134,11 @@
               <%#= text_field_tag 'term', nil , placeholder: 'Search for destinations', class: "search-nav", id: "search-box"%>
             <%# end %> -->
             <div class="input-group input-search-nav">
-              <form id="form-search" action="<%= searching_path %>"  method="post">
-                <input type="submit" value="" id="btn-search-top"><i class="fa fa-search"></i>
-                <input name="query-top" type="text" class="search-nav" placeholder="Search for destinations">
-              </form>
+              
+              <%= form_tag searching_path, id: 'form-search', method: :get  do %>
+                <%= submit_tag "", id: 'btn-search-top'  %><i class="fa fa-search"></i>
+                <%= text_field_tag "search[common]", params.traverse('search', 'common'), class: 'search-nav', placeholder: 'Search for destinations' %>
+              <% end %>
             </div><!-- /input-group -->
 
 
