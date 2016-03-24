@@ -29,8 +29,6 @@ gem 'bootsy'
 gem 'rails4-autocomplete'
 gem "algoliasearch-rails"
 
-gem 'best_in_place', '~> 3.0.1'
-
 gem 'jquery-fileupload-rails'
 
 gem 'carrierwave-crop'
