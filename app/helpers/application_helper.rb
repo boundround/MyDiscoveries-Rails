@@ -330,7 +330,6 @@ module ApplicationHelper
 
   def showing_image(url)
     return "/images/generic-grey-large.jpg" if url.blank?
-
     url
   end
 

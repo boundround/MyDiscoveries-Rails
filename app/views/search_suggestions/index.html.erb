@@ -39,145 +39,48 @@
    <div class="text-left">
    </div>
    <div class="row">
-     <div class="col-sm-6 col-md-3 col-xs-6">
-       <div class="thumbnail">
-         <div class="image-cat">
-           <img src="./img/images.jpg" alt="" class="top-rounded img-responsive">
-         </div>
-         <div class="caption text-center">
-           <h4 class="font-orange2">Majorca</h4>
-         </div>
-         <div class="details-dest">
-           <div class="left">
-             <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
-           </div>
-           <div class="right">
-             <a href="#">
-             <i class="fa fa-thumbs-o-up"></i> 100%</a>
-           </div>
-         </div>
-       </div>
-     </div>
-     <div class="col-sm-6 col-md-3 col-xs-6">
-       <div class="thumbnail">
-         <div class="image-cat">
-           <img src="./img/images.jpg" alt="" class="top-rounded img-responsive">
-         </div>
-         <div class="caption text-center">
-           <h4 class="font-orange2">The Maldives</h4>
-         </div>
-         <div class="details-dest">
-           <div class="left">
-             <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
-           </div>
-           <div class="right">
-             <a href="#">
-             <i class="fa fa-thumbs-o-up"></i> 100%</a>
-           </div>
-         </div>
-       </div>
-     </div>
-     <div class="col-sm-6 col-md-3 col-xs-6">
-       <div class="thumbnail">
-         <div class="image-cat">
-           <img src="./img/images.jpg" alt="" class="top-rounded img-responsive">
-         </div>
-         <div class="caption text-center">
-           <h4 class="font-orange2">Majorca</h4>
-         </div>
-         <div class="details-dest">
-           <div class="left">
-             <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
-           </div>
-           <div class="right">
-             <a href="#">
-             <i class="fa fa-thumbs-o-up"></i> 100%</a>
-           </div>
-         </div>
-       </div>
-     </div>
-     <div class="col-sm-6 col-md-3 col-xs-6">
-       <div class="thumbnail">
-         <div class="image-cat">
-           <img src="./img/images.jpg" alt="" class="top-rounded img-responsive">
-         </div>
-         <div class="caption text-center">
-           <h4 class="font-orange2">The Maldives</h4>
-         </div>
-         <div class="details-dest">
-           <div class="left">
-             <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
-           </div>
-           <div class="right">
-             <a href="#">
-             <i class="fa fa-thumbs-o-up"></i> 100%</a>
-           </div>
-         </div>
-       </div>
-     </div>
+      <% @areas.each do |area| %>
+          <div class="col-sm-6 col-md-3 col-xs-6">
+           <div class="thumbnail">
+             <div class="image-cat outer-js">
+               <img class="inner-js" src="<%= showing_image(area["photos"].first["url"]) unless area["photos"].blank? %>" alt="" class="top-rounded img-responsive">
+             </div>
+             <div class="caption text-center">
+               <h4 class="font-orange2"><%= area["_highlightResult"]["display_name"]["value"].html_safe  %></h4>
+             </div>
+             <div class="details-dest">
+               <div class="left">
+                 <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
+               </div>
+               <div class="right">
+                 <a href="#">
+                 <i class="fa fa-thumbs-o-up"></i> 100%</a>
+               </div>
+             </div>
+            </div>
+          </div>
+    <% end %>
    </div> <!-- row -->
  </div>
 
 <section class="places-to-go top15">
   <div class="container">
     <div class="row">
-     <div class="col-xs-12 col-md-6">
-      <div class="thumbnail">
-        <div class="image-cat image-cat-left">
-          <img src="./img/images.jpg" alt="" class="img-responsive img-full-div">
-        </div>
-        <div class="caption caption-right">
-          <h4 class="gray-font">Sydney</h4>
-          <h2>The Powerhouse Museum</h2>
-        </div>
-        <div class="details-dest">
-          <div class="left">
-            <a href="#"><i class="fa fa-male"></i> Do</a>
-            <a href="#">Museum</a>
-          </div>
-          <div class="right">
-            $$
-          </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="col-xs-12 col-md-6">
-       <div class="thumbnail">
-         <div class="image-cat image-cat-left">
-           <img src="./img/images.jpg" alt="" class="img-responsive img-full-div">
-         </div>
-         <div class="caption caption-right">
-           <h4 class="gray-font">New Zealand</h4>
-           <h2>Palmer & Co Hotel</h2>
-         </div>
-         <div class="details-dest">
-           <div class="left">
-             <a href="#"><i class="fa fa-home"></i>Stay</a>
-           </div>
-           <div class="right">
-             $$
-           </div>
-           </div>
-         </div>
-       </div>
-
-
+     <!-- Lopping 4 kali load more  -->
+     <% @places.each do |place| %>
        <div class="col-xs-12 col-md-6">
         <div class="thumbnail">
           <div class="image-cat image-cat-left">
             <img src="./img/images.jpg" alt="" class="img-responsive img-full-div">
           </div>
           <div class="caption caption-right">
-            <h4 class="gray-font">California</h4>
-            <h2>Segway Adventures</h2>
+            <h4 class="gray-font"><%= place["country"] %></h4>
+            <h2><%= place["_highlightResult"]["display_name"]["value"].html_safe  %></h2>
           </div>
           <div class="details-dest">
             <div class="left">
-              <a href="#"><i class="fa fa-map-signs"></i> Tours</a>
-              <a href="#">City</a>
-              
+              <a href="#"><i class="fa fa-male"></i> Do</a>
+              <a href="#">Museum</a>
             </div>
             <div class="right">
               $$
@@ -185,12 +88,16 @@
             </div>
           </div>
         </div>
-
+      <% end %>
 
     </div> <!-- row -->
   </div>
 </section>
-<div class="text-center clearfix btm20 top5">
-  <span><img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64"></span>
+
+<div class="text-center btm20">
+ <%= link_to "Load More", "" , class: 'btn btn-default btn btn-default top5 load-more' %>
 </div>
+<!-- <div class="text-center clearfix btm20 top5">
+  <span><img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64"></span>
+</div> -->
 <%= render "layouts/footer" %>
