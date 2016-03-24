@@ -93,7 +93,7 @@
           <p class="gray-font">Average rating</i></p>
           <p>
           <% if !@place.quality_average.blank? %>
-            <% (0..@place.quality_average.avg.to_i).each do %>
+            <% (1..@place.quality_average.avg.to_i).each do %>
               <i class='fa fa-smile-o'></i>
             <% end %>
           <% end %>

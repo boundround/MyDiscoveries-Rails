@@ -2,7 +2,7 @@
 <% if  !@place.good_to_knows.blank? %>
 <h4>Good To Know</h4>
  <% @good_to_know.each do |gtk| %>
-  <p class="mrg0"> <a href="#"><i class="fa fa-caret-right"></i><%= gtk.description %></a></p>
+  <p class="mrg0 white-text"><i class="fa fa-caret-right"></i><%= gtk.description %></p><br>
  <% end %>
 <% end %>
 </div>
