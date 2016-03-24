@@ -1,23 +1,21 @@
-
 <a href="<%= place_path(place) %>">
-<div class="thumbnail padd0">
-  <div class="image-cat">
-
-    <img src="<%= showing_image(place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>" alt="" class="top-rounded img-responsive">
-
+<div class="thumbnail">
+  <div class="image-cat image-cat-left outer-js">
+    <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>" alt="" class="img-responsive inner-js">
   </div>
-  <div class="caption place-caption text-center">
-    <h4 class="font-orange2"><%= place.display_name %></h4>
+  <div class="caption caption-right">
+    <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
+    <h2><%= place.display_name %></h2>
   </div>
+    <!-- hardcode #get category + sub category-->
   <div class="details-dest">
     <div class="left">
-      <% place.subcategories.subcats.each do |c| %>
-        <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
-        <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
-
+      <% place.subcategories.subcats.each do |sub| %>
+        <%= link_to subcategory_path(sub) do %>
+          <%= sub.name %>
+        <% end %>
       <% end %>
     </div>
-    <!-- #hardcode -->
     <div class="right">
       <% if !place.viator_link.blank? %>
         <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>

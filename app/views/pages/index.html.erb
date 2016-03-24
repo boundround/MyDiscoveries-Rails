@@ -48,25 +48,21 @@
 
 <div class="positionrelative">
 <div class="container padding-style">
-  <% unless @places_to_go.blank? %>
+  <% unless @areas.blank? %>
     <div class="text-left top20 btm20">
       <h4 class="section-title font-weight-style">Places to go</h4>
     </div>
-    <div class="row" id="places_to_go-list">
-        <% @places_to_go.each do |place| %>
-          <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
-              <%= render partial: 'primary_categories/places_list', locals: { place: place} %>
-          </div>
-        <% end %>
+    <div class="row" id="areas-list">
+              <%= render partial: 'primary_categories/areas_list', collection: @areas, as: :area %>
     </div> <!-- row -->
   <% end %>
 </div>
-<% unless last_page? @places_to_go %>
-  <div class="text-center clearfix top10 btm40 single-pagination-container" id="places_to_go-single-pagination-container" style="clear:both">
+<% unless last_page? @areas %>
+  <div class="text-center clearfix top10 btm40 single-pagination-container" id="areas-single-pagination-container" style="clear:both">
     <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
       <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
     </div>
-    <%= link_to "View more destinations", pages_path(areas_page: @places_to_go.next_page, resources: 'places_to_go'), class: 'btn button-orange btn-padding single-pagination', remote: true %>
+    <%= link_to "Load More", pages_path(areas_page: @areas.next_page, resources: 'areas', pagination_template: 'primary_categories/areas_list', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
   </div>
 <% end %>
 

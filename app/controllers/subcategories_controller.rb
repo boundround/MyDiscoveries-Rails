@@ -11,8 +11,8 @@ class SubcategoriesController < ApplicationController
     @cat = params[:id]
   	@subcategory = Subcategory.find_by_identifier(params[:id]) || Subcategory.find(params[:id])
     if !@subcategory.nil?
-      @places = @subcategory.places.where.not(is_area: true).paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
-      @areas = @subcategory.places.where(is_area: true).paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
+      @places = @subcategory.places.where.not(is_area: true).paginate(page: params[:places_page], per_page: params[:places_page].nil?? 6 : 3 )
+      @areas = @subcategory.places.where(is_area: true).paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
     end
     @stories = ApiBlog.get_cached_blogs(@cat,"subcategory")
 	end
