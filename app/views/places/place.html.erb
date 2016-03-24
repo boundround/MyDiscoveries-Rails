@@ -29,7 +29,7 @@
 
 <div class="header-image-with-nav top-outer-js">
   <!--<div class="places-bg">-->
-  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header top-inner-js" >
+  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header stop-inner-js" >
  <!-- </div>-->
   <div class="container padding-style">
     <div class="title-container hidden-xs">
@@ -93,7 +93,7 @@
           <p class="gray-font">Average rating</i></p>
           <p>
           <% if !@place.quality_average.blank? %>
-            <% (0..@place.quality_average.avg.to_i).each do %>
+            <% (1..@place.quality_average.avg.to_i).each do %>
               <i class='fa fa-smile-o'></i>
             <% end %>
           <% end %>
@@ -226,7 +226,8 @@
 
 <div class="container padding-style">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
+    <!-- <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> left-col -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <!-- left-col -->
 
 
     <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories" }%>
@@ -235,7 +236,8 @@
     <div class="border-section clearfix btm0 top20 visible-xs"></div>
     </div> <!-- /left-col -->
 
-    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
+     <!-- <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> right-col -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <!-- right-col -->
       <section class="your-stories btm15 cards">
         <div class="row">
           <div class="col-xs-12">
