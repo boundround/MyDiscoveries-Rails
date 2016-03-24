@@ -18,7 +18,6 @@ class PagesController < ApplicationController
     # @leaderboard = @leaderboard[0..5]
     #check
     #task psoude code = "Places To Go" == Place.where(is_area: true).order(like_percentage ASC).limit(6)
-    @carousel_places = Place.find([1071, 1064, 233, 921])
     @areas = Place.active.is_area.where(primary_area: true).includes(:country).order("countries.display_name asc").includes(:photos).shuffle
     @areas = @areas.paginate(page: params[:areas_page], per_page: 6)
     # @categories = PrimaryCategory.all.includes(:places => :subcategories).paginate(per_page: 10, page: params[:categories_page])

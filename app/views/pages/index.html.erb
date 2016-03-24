@@ -6,22 +6,39 @@
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner home-carousel" role="listbox">
-    <% @carousel_places.each_with_index do |place, index| %>
-    <div class="item <%= ("active" if index == 0) %> fix-img">
-      <img src="<%= draw_hero_background(place) %>" class="crop-image"  alt="<%= "Hero Image for #{place.display_name }"%>">
+    <div class="item active fix-img">
+      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-2.jpg" class="crop-image"  alt="kids-and-families-explore-1">
       <div class="carousel-caption text-center text-light text-shadow">
         <div class="text-caption">
-        <h1><%= place.display_name %></h1>
-        <!-- <h4></h4> -->
+        <h3>
+          Looking for fun things to do or places to go with kids?<br>Search by destination, kids ages, or interest area.
+        </h3>
         </div>
       </div>
     </div>
-    <% end %>
+
+    <div class="item fix-img">
+      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-2.jpg" class="crop-image"  alt="kids-and-families-explore-2">
+      <div class="carousel-caption text-center text-light text-shadow">
+        <div class="text-caption">
+        <h3>"Kids are going to grow up and inherit the world. It's up to their parents and anybody who has a child in their life, to reach out a little bit and put them on that road"</h3>
+        <h6>Keith Bellows</h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="item fix-img">
+      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-3.jpg" class="crop-image"  alt="kids-and-families-explore-3">
+      <div class="carousel-caption text-center text-light text-shadow">
+        <div class="text-caption">
+        <h3>Find the best family-friendly activities and things to do around Australia. And get insider tips from local kids.</h3>
+        </div>
+      </div>
+    </div>
 
   </div>
 
