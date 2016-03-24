@@ -57,20 +57,11 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-
+    @user.update(user_params)
     respond_to do |format|
-      if @user.update(user_params)
-        if @user == current_user
-          format.html { redirect_to user_path(current_user) }
-          format.js
-        else
-          format.html { redirect_to users_path }
-          format.js
-        end
-      else
+
         format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+        format.json { render json: @user }
     end
   end
 

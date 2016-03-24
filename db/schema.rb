@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317083600) do
+ActiveRecord::Schema.define(version: 20160324045437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -170,22 +171,6 @@ ActiveRecord::Schema.define(version: 20160317083600) do
     t.integer "user_id"
     t.integer "place_id"
   end
-
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -702,12 +687,12 @@ ActiveRecord::Schema.define(version: 20160317083600) do
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -734,6 +719,7 @@ ActiveRecord::Schema.define(version: 20160317083600) do
     t.string   "post_code"
     t.integer  "min_age"
     t.integer  "max_age"
+    t.boolean  "is_private",             default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

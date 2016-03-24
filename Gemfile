@@ -29,7 +29,7 @@ gem 'bootsy'
 gem 'rails4-autocomplete'
 gem "algoliasearch-rails"
 
-gem 'rest_in_place'
+gem 'best_in_place', '~> 3.0.1'
 
 gem 'jquery-fileupload-rails'
 

@@ -103,6 +103,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
     get '/users/sign_out' => 'devise/sessions#destroy'
+    put 'users/:id' => 'users#update'
   end
 
   devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions" }

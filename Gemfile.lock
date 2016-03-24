@@ -57,6 +57,9 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.10)
+    best_in_place (3.0.3)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -478,8 +481,6 @@ GEM
       railties (>= 3.2, < 4.2)
     rest-client (1.6.9)
       mime-types (~> 1.16)
-    rest_in_place (2.5.0)
-      rails (>= 3.1)
     rolify (4.1.1)
     roo (2.2.0)
       nokogiri (~> 1)
@@ -603,6 +604,7 @@ DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
   algoliasearch-rails
   authority
+  best_in_place (~> 3.0.1)
   better_errors
   binding_of_caller
   bootstrap-glyphicons
@@ -664,7 +666,6 @@ DEPENDENCIES
   rails_admin
   ratyrate
   redis
-  rest_in_place
   rolify
   roo
   rspec-rails (~> 3.0)

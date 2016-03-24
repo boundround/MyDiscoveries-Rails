@@ -45,7 +45,8 @@
 //= require user-photo-upload
 // require ckeditor/init
 // require ckeditor/config.js
-//= require rest_in_place
+//= require best_in_place
+//= require best_in_place.jquery-ui
 // require reviews
 //= require algoliasearch
 //= require algoliasearchhelper
