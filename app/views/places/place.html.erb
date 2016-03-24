@@ -251,7 +251,7 @@
               <% unless last_page? @reviews %>
                 <div class="text-center clearfix btm20 single-pagination-container" id="reviews-single-pagination-container" style="clear:both">
                   <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
-                    <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                   </div>
                   <%= link_to "Load More", place_path(@place, reviews_page: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
                 </div>
