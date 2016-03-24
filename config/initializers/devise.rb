@@ -232,8 +232,10 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   require 'omniauth-facebook'
   require 'omniauth-instagram'
+  require 'omniauth-google-oauth2'
   config.omniauth :facebook, ENV['FACEBOOK_ID'], ENV['FACEBOOK_SECRET']
   config.omniauth :instagram, ENV['INSTAGRAM_ID'], ENV['INSTAGRAM_SECRET']
+  config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH2_ID'], ENV['GOOGLE_OAUTH2_SECRET']
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

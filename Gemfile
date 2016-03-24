@@ -52,6 +52,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-instagram', github: 'ropiku/omniauth-instagram'
+gem "omniauth-google-oauth2"
 
 gem 'instagram'
 gem "lazyload-rails"
