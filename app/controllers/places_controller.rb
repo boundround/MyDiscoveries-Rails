@@ -683,6 +683,7 @@ class PlacesController < ApplicationController
         :passport_icon,
         :address,
         :area_id,
+        :email,
         :tag_list,
         :location_list,
         :activity_list,

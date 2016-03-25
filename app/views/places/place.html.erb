@@ -173,14 +173,20 @@
           <p class="grey btm0">Address</p>
           <p class="btm15" ><%= @place.display_address %></p>
         </div>
+        <% unless @place.email.blank? && @place.phone_number.blank? %>
           <p class="grey">Contact</p>
+        <% end %>
         <div class="row">
+        <% unless @place.email.blank? %>
           <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
             <a href="mailto:<%= @place.email rescue "" %>" class="btn btn-primary btn-block btn-museum btn-shadow font-btn"><i class="fa fa-envelope-o blue-nero-icon leftmin7responsive"></i> Send a message </a>
           </div>
-          <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
-            <a href="tel: <%= @place.phone_number %>" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-phone blue-nero-icon leftmin7responsive"></i> <%= @place.phone_number %></a>
-          </div>
+          <% end %>
+          <% unless @place.phone_number.blank? %>
+            <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
+              <a href="tel: <%= @place.phone_number %>" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-phone blue-nero-icon leftmin7responsive"></i> <%= @place.phone_number %></a>
+            </div>
+          <% end %>
         </div>
 
           <p class="grey btm0 top15">Website</p>
