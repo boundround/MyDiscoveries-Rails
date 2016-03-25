@@ -42,14 +42,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :authentication_keys => [:email]
   devise :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
-  after_create :create_mixpanel_profile
+  # after_create :create_mixpanel_profile
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
-  validates :username,
-  :presence => true,
-  :uniqueness => {
-    :case_sensitive => false
-  }
 
   # def self.find_for_facebook_oauth(auth)
   #   where(auth.slice(:provider, :uid)).first_or_create do |user|
@@ -114,11 +109,11 @@ class User < ActiveRecord::Base
   end
 
   def email_required?
-    false
+    true
   end
 
   def email_changed?
-    false
+    true
   end
 
   def timeout_in

@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-4 col-lg-4 hidden-xs top20" align="center">
       <div class="img-rounded-big">
-      <img src="<%= showing_image(@user.avatar_url) %>" class="hidden-xs"/>
+      <img src="<%= @user.avatar_url rescue "" %>" class="hidden-xs"/>
       </div>
     </div>
     <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 leftmin16">
