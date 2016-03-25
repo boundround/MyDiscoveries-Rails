@@ -11,14 +11,14 @@
     </div>
     <div class="details-dest">
       <div class="left">
-        <% if place.traverse("primary_category").present? %>
-          <%= link_to "<i class=\"fa fa-male\"></i>#{place["primary_category"]["name"]}".html_safe, primary_category_path(place["primary_category"]["identifier"]) %>
-        <% end %>
-        <% if place.traverse("subcategories").present? %>
-          <% place.traverse("subcategories").each do |sub| %>
-            <%= link_to sub['name'], subcategory_path(sub["identifier"]) %>
-          <% end %>
-        <% end %>
+        <%# if place.traverse("primary_category").present? %>
+          <%#= link_to "<i class=\"fa fa-male\"></i>#{place["primary_category"]["name"]}".html_safe, primary_category_path(place["primary_category"]["identifier"]) %>
+        <%# end %>
+        <%# if place.traverse("subcategories").present? %>
+          <%# place.traverse("subcategories").each do |sub| %>
+            <%#= link_to sub['name'], subcategory_path(sub["identifier"]) %>
+          <%# end %>
+        <%# end %>
        </div>
       <div class="right">
         <!-- $$ -->
