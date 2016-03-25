@@ -1,5 +1,3 @@
-<%= render "layouts/navbar" %>
-
 <div class="container">
   <div class="row">
     <div class="head-title">
@@ -34,12 +32,15 @@
                <%- end %>
              <% end %>
             </div>
-            <div class="right"><a href="#"><i class="fa fa-image"></i> 9 </a>
+            <div class="right">
+              <% if photo.respond_to?(:user) and photo.user.present? %>
+                <a href="#"><i class="fa fa-image"></i> <%= photo.user.photos.size rescue "" %></a>
+              <% end %>
             </div>
           </div>
           <div class="body-stories">
             <div class="title">
-              <p><%= photo.place.display_name rescue "" %></p>
+              <p><%= link_to photo.place ? photo.place.display_name : photo.countries.first.display_name, photo.place ? place_path(photo.place) : country_path(photo.countries.first), class: "white-text" %></p>
               <h4><%= photo.caption %></h4>
             </div>
             <div class="image">
@@ -98,5 +99,3 @@
            locals: {title: "Most Popular", margin: "btm15 top15", global_photo: ""}
 
 %>
-
-<%= render "layouts/footer" %>

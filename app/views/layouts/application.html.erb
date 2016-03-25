@@ -161,6 +161,7 @@
 		<% end %>
 
 		<%= render "/layouts/admin_menu" %>
+    <%= render "layouts/navbar" %>
 
 	  <div class="app-wrap">
 	    <%= yield %>
@@ -168,6 +169,8 @@
 
 	  <%#= render "/layouts/signin_modals" unless user_signed_in? %>
 	  <%#= render "/layouts/share_modal" %>
+    <%= render 'layouts/signin_modal' %>
+    <%= render "layouts/footer" %>
 
 	</body>
 

@@ -2,7 +2,6 @@
 <% provide(:title, @country.display_name) %>
 
 <% if @country.published_status == "live" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@country) && @country.published_status!= "removed")) %>
-<%= render "layouts/navbar" %>
 <div class="area-content" data-lat="<%= @country.latitude %>" data-long="<%= @country.longitude %>">
 <div id='country-data' data-country-code=<%= @country.country_code %> data-capital-city=<%= @country.capital_city %>></div>
 
@@ -266,7 +265,5 @@
 
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
-<%= render 'layouts/signin_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
-<%= render 'layouts/footer' %>

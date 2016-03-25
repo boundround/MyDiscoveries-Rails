@@ -4,7 +4,6 @@
 <% provide(:category,  category) %>
 
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
-<%= render "layouts/navbar" %>
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
   <div class="container" id="search-nav" style="display:none;background:white;">
@@ -297,7 +296,6 @@
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
 <%= render 'reviews/form' %>
-<%= render 'layouts/signin_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
 
@@ -305,4 +303,3 @@
     <h2 id="blog-title"></h2>
     <div id="blog-content"></div>
 </div> -->
-<%= render 'layouts/footer' %>
