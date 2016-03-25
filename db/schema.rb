@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317083600) do
+ActiveRecord::Schema.define(version: 20160324095140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -388,6 +388,7 @@ ActiveRecord::Schema.define(version: 20160317083600) do
     t.text     "viator_link",               default: ""
     t.boolean  "footer_include"
     t.boolean  "primary_area"
+    t.integer  "algolia_id"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree

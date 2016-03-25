@@ -6,7 +6,7 @@
     <div class="text-left">
       <!-- <p> -->
         <span class="left-modal top5">
-          12 results <a class="pink">Refine</a>
+          <%= @places.traverse('nbHits') %> results <a class="pink">Refine</a>
         </span>
         <span class="right-modal width-select">
           <div class="row">
@@ -36,67 +36,42 @@
 
 
  <div class="container">
-   <div class="text-left">
-   </div>
-   <div class="row">
-      <% @areas.each do |area| %>
-          <div class="col-sm-6 col-md-3 col-xs-6">
-           <div class="thumbnail">
-             <div class="image-cat outer-js">
-               <img class="inner-js" src="<%= showing_image(area["photos"].first["url"]) unless area["photos"].blank? %>" alt="" class="top-rounded img-responsive">
-             </div>
-             <div class="caption text-center">
-               <h4 class="font-orange2"><%= area["_highlightResult"]["display_name"]["value"].html_safe  %></h4>
-             </div>
-             <div class="details-dest">
-               <div class="left">
-                 <a href="#"><i class="fa fa-newspaper-o"></i> 2</a>
-               </div>
-               <div class="right">
-                 <a href="#">
-                 <i class="fa fa-thumbs-o-up"></i> 100%</a>
-               </div>
-             </div>
-            </div>
-          </div>
+  <div class="text-left">
+  </div>
+  <div class="row" id="areas-list">
+    <% unless @areas.traverse("hits").blank? %>
+      <%= render partial: 'raw_result_areas_list', collection: @areas.traverse('hits'), as: :area %>
     <% end %>
-   </div> <!-- row -->
+  </div> <!-- row -->
+  <% unless algolia_raw_last_page? @areas %>
+    <div class="text-center clearfix btm15 single-pagination-container" id="areas-single-pagination-container" style="clear:both">
+      <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+        <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+      </div>
+      <%= link_to "Load More", searching_path(areas_page: algolia_raw_next_page(@areas), areas_per_page: 6, pagination_template: 'raw_result_areas_list', resources: 'areas', ), class: 'btn btn-default single-pagination', remote: true %>
+     </div>
+   <% end %>
  </div>
 
 <section class="places-to-go top15">
   <div class="container">
-    <div class="row">
-     <!-- Lopping 4 kali load more  -->
-     <% @places.each do |place| %>
-       <div class="col-xs-12 col-md-6">
-        <div class="thumbnail">
-          <div class="image-cat image-cat-left">
-            <img src="./img/images.jpg" alt="" class="img-responsive img-full-div">
-          </div>
-          <div class="caption caption-right">
-            <h4 class="gray-font"><%= place["country"] %></h4>
-            <h2><%= place["_highlightResult"]["display_name"]["value"].html_safe  %></h2>
-          </div>
-          <div class="details-dest">
-            <div class="left">
-              <a href="#"><i class="fa fa-male"></i> Do</a>
-              <a href="#">Museum</a>
-            </div>
-            <div class="right">
-              $$
-            </div>
-            </div>
-          </div>
-        </div>
+    <div class="row" id="places-list">
+      <!-- Lopping 4 kali load more  -->
+      <% unless @places.traverse('hits').blank? %>
+        <%= render partial: 'raw_result_places_list', collection: @places.traverse('hits'), as: :place %>
       <% end %>
-
     </div> <!-- row -->
   </div>
 </section>
 
-<div class="text-center btm20">
- <%= link_to "Load More", "" , class: 'btn btn-default btn btn-default top5 load-more' %>
-</div>
+<% unless algolia_raw_last_page? @places %>
+  <div class="text-center clearfix btm15 single-pagination-container" id="places-single-pagination-container" style="clear:both">
+    <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+      <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+    </div>
+    <%= link_to "Load More", searching_path(places_page: algolia_raw_next_page(@places), pagination_template: 'raw_result_places_list' ,places_per_page: 6, resources: 'places'), class: 'btn btn-default single-pagination', remote: true %>
+  </div>
+<% end %>
 <!-- <div class="text-center clearfix btm20 top5">
   <span><img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64"></span>
 </div> -->

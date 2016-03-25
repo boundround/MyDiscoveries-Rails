@@ -1,27 +1,13 @@
 class SearchSuggestion < ActiveRecord::Base
 
   #backup
-  def self.terms_for_area(prefix)
-    @areas = Place.where(status: "live", is_area: true).includes(:area, :primary_category, :subcategories)
-             .raw_search(prefix)
-
-    # @places = Place.where("display_name @@ :q or description @@ :q", q: params[:term])
-    
-    # @places = ActiveSupport::JSON.decode(@places.to_json)
+  def self.terms_for_area(text, options= { page: 0, hitsPerPage: 6 })
+    @areas = Place.is_area.includes(:area, :primary_category, :subcategories).raw_search(text, options)
   end
   
-  def self.terms_for_place(prefix)
-    @places = Place.where(status: "live", is_area: false).includes(:area, :primary_category, :subcategories)
-             .raw_search(prefix)
+  def self.terms_for_place(text, options= { page: 0, hitsPerPage: 6 })
+    @places = Place.is_not_area.includes(:area, :primary_category, :subcategories).raw_search(text, options)
   end
-  #backup-end
-
-  # def self.terms_for(prefix)
-  #   @places = Place.where(status: "live").limit
-
-  #   @places = ActiveSupport::JSON.decode(@places.to_json)
-  #   # debugger
-  # end
 
   def self.index_places
     Place.find_each do |place|
