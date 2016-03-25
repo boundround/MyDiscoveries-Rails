@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, # :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :authentication_keys => [:email]
-  devise :omniauthable, :omniauth_providers => [:instagram]
+  devise :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
   after_create :create_mixpanel_profile
 
