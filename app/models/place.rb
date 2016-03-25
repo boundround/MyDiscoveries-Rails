@@ -4,9 +4,10 @@ class Place < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
-  algoliasearch index_name: 'place', id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
-    attributes :display_name, :latitude, :longitude, :locality, :post_code, :display_address
+    attributes :display_name, :is_area, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug
+    # attributes :is_area
     attribute :country do
       if self.country
         "#{country.display_name}"
@@ -30,17 +31,17 @@ class Place < ActiveRecord::Base
       end
     end
 
-    # attribute :category do
-    #   if self.try(:categories)
-    #     if categories.blank?
-    #       "sights"
-    #     elsif categories.any? {|category| category.identifier == "area"}
-    #       "area"
-    #     else
-    #       categories[0].identifier
-    #     end
-    #   end
-    # end
+    attribute :primary_category do 
+       if self.primary_category
+        { name: "#{primary_category.name}", identifier: primary_category.identifier}
+      else
+        ""
+      end
+    end
+
+    attribute :subcategories do 
+      subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
+    end
 
     attribute :name do
       string = "#{display_name}"
@@ -68,7 +69,7 @@ class Place < ActiveRecord::Base
     # you want to search in: here `title`, `subtitle` & `description`.
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
-    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)']
+    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'status']
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
@@ -191,6 +192,7 @@ class Place < ActiveRecord::Base
   #   if query.present?
   #     search(query)
   #   else
+  #   # rescue ""
   #     scoped
   #   end
   # end

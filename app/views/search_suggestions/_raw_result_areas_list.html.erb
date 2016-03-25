@@ -1,0 +1,21 @@
+<div class="col-sm-6 col-md-3 col-xs-6">
+ <div class="thumbnail">
+   <div class="image-cat outer-js">
+     <img class="inner-js" src="<%= showing_image(area["photos"].first["url"]) unless area["photos"].blank? %>" alt="" class="top-rounded img-responsive">
+   </div>
+   <div class="caption text-center">
+    <%= link_to place_path(area["slug"]) do %>
+     <h4 class="font-orange2"><%= area["_highlightResult"]["display_name"]["value"].html_safe  %></h4>
+    <% end %>
+   </div>
+   <div class="details-dest">
+     <div class="left">
+       <!-- <a href="#"><i class="fa fa-newspaper-o"></i> 2</a> -->
+     </div>
+     <div class="right">
+       <!-- <a href="#">
+       <i class="fa fa-thumbs-o-up"></i> 100%</a> -->
+     </div>
+   </div>
+  </div>
+</div>

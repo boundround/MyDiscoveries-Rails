@@ -303,7 +303,6 @@ module ApplicationHelper
 
   def showing_image(url)
     return asset_path('generic-hero.jpg') if url.blank?
-
     url
   end
 
@@ -315,5 +314,14 @@ module ApplicationHelper
   def last_page? collection
     collection.total_pages == collection.current_page
   end
+
+  def algolia_raw_last_page? collection
+    collection.traverse('hits').blank?
+  end
+
+  def algolia_raw_next_page collection
+    collection.traverse('page').to_i + 1
+  end
+
 
 end

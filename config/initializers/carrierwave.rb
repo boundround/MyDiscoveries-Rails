@@ -1,4 +1,4 @@
-
+if Rails.env.production?
   CarrierWave.configure do |config|
     config.storage = :fog
     config.fog_credentials = {
@@ -13,3 +13,20 @@
     config.asset_host = "https://d1w99recw67lvf.cloudfront.net"
     config.fog_public = true
   end
+else
+  CarrierWave.configure do |config|
+      config.root = Rails.root
+      config.storage :file
+
+      def
+      store_dir
+        "#{Rails.root}/public/uploads"
+
+      end
+
+      #I am not sure about this one ~SS
+      def cache_dir
+        "#{Rails.root}/public/uploads"
+      end
+    end
+end

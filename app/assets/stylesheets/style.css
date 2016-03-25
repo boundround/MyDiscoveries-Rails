@@ -119,12 +119,21 @@ ul.nav.navbar-nav.first-ul{
 	height: 65px;
 	width: 300px;
 }
+#btn-search-top{
+    position: absolute;
+    top: 21px;
+    background: none;
+    height: 26px;
+    z-index: 4;
+    border: none;
+    width: 23px;
+}
 .input-search-nav i{
     position: relative;
-    top: 23px;
-    left: 10px;
     z-index: 3;
+    top: 23px;
     color: #6CB7CA;
+    left: 6px;
 }
 .search-nav{
 	border-radius: 4px;
@@ -364,7 +373,7 @@ ul.nav.navbar-nav.first-ul{
 }
 .img-full-div{
 	position: relative;
-	height: 125px !important;
+	/*height: 125px !important;*/
 	min-width: 100%;
 	overflow: hidden;
 }
@@ -2230,7 +2239,7 @@ section.modal-booking .left img{
 }
 /* SEARCH BAR */
 .searchbackground {
-	background: rgba(0, 0, 0, 0.3);
+	/*background: rgba(0, 0, 0, 0.3);*/
 	margin-top: 20px;
 	margin-bottom: 20px;
 	padding-top: 15px;
@@ -3180,4 +3189,44 @@ footer ul{
 .i-fav-area{
 	left: 25px;
 	position: relative;
+}
+input.form-control.input-text-nearby{
+	height: 72px;
+	width: 91%
+}
+.input-btn-nearby0{
+	width: 60px;
+	background: none !important;
+	right: -24px;
+}
+.input-btn-nearby1{
+	padding: 37px !important;
+}
+.input-group-btn.cs-input-group-btn{
+	width: 11%;
+}
+.fa.fa-search.cs-fa-nearby{
+    right: 20px;
+    top: 25px;
+    position: absolute;
+}
+.fa.fa-map-marker.cs-marker-nearby{
+    top: 0;
+    position: absolute;
+    left: 25px;
+}
+.nearby-text{
+    position: absolute;
+    left: 39px;
+    bottom: 22px;
+}
+.nearby-text>span{
+	color: white;
+}
+.input-group-btn.cs-input-group-btn{
+	background: none;
+}
+.search-post{
+	    position: relative;
+    top: -203px;
 }

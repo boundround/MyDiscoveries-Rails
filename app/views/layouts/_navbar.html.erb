@@ -127,8 +127,22 @@
       <ul class="nav navbar-nav first-ul hidden-xs">
         <li>
           <div class="input-group input-search-nav">
-            <a href=""><i class="fa fa-search"></i></a>
-            <input type="text" class="search-nav" placeholder="Search for destinations">
+          <!-- #check -->
+<!--             <%#= form_tag('/serach', method: :get, id: "top-search") do %>
+              <%#= submit_tag '', class: "btn btn-default", id: "btn-search-top" %>
+              <i class="fa fa-search"></i>
+              <%#= text_field_tag 'term', nil , placeholder: 'Search for destinations', class: "search-nav", id: "search-box"%>
+            <%# end %> -->
+            <div class="input-group input-search-nav">
+              
+              <%= form_tag searching_path, id: '', method: :get  do %>
+                <%= submit_tag "", id: 'btn-search-top'  %><i class="fa fa-search"></i>
+                <%= text_field_tag "search[common]", params.traverse('search', 'common'), class: 'search-nav', placeholder: 'Search for destinations' %>
+              <% end %>
+            </div><!-- /input-group -->
+
+
+
           </div><!-- /input-group -->
         </li>
       </ul>
