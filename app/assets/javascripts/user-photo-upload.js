@@ -20,7 +20,7 @@ $(function () {
             }
         },
         send: function(){
-            $('#myModal').modal("hide");
+            $('#userPhotoModal').modal("hide");
             $('#image-preview').attr('src', "#").hide();
             $('#user-photo-upload-button').html("");
             $('#user_photo_caption').val("");
@@ -74,7 +74,7 @@ $(function () {
                   $.each($('.my-photo'), function(index, item){ fitToDiv($(item).parent(), $(item)) });
             }
             reader.readAsDataURL(data.files[0]);
-            $('#myModal').modal("hide");
+            $('#userPhotoModal').modal("hide");
             $('#image-preview').attr('src', "#").hide();
             $('#user-photo-upload-button').html("");
             var message = "Thanks for your photo! We'll let you know when others can see it too.";

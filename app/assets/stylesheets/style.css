@@ -1571,6 +1571,7 @@ section.fun-fact .desc{
 }
 section.fun-fact img{
 	width: 100%;
+	height: 100%;
 }
 section.fun-fact .number{
     width: 35px;
