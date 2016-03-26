@@ -12,18 +12,24 @@
 <div class="container top10 padding-style">
   <div class="row search-nearby">
     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-      <div class="input-group search-responsive">
-        <input type="text" class="form-control" placeholder="Search for destinations">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-        </span>
-      </div><!-- /input-group -->
+      <%= form_tag searching_path, method: :get do %>
+        <div class="input-group search-responsive">
+          <%= text_field_tag "search[common]", params.traverse('search', 'common'), class: 'search-nav', placeholder: 'Search for destinations' %>
+          <span class="input-group-btn">
+            <%= button_tag '<i class="fa fa-search"></i>'.html_safe, type: 'submit' %>
+          </span>
+        </div><!-- /input-group -->
+      <% end %>
     </div>
     <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
-      <a href="#" class="btn btn-brw-orange2 btn-search"><i class="fa fa-map-marker"></i><br>Nearby</a>
+      <%= link_to searching_nearby_path, class: 'btn btn-brw-orange2 btn-search' do %>
+        <i class="fa fa-map-marker"></i><br>Nearby
+      <% end %>
     </div>
     <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
-      <a href="#" class="btn btn-brw-orange2 btn-search btn-responsive-search"><i class="fa fa-map-marker top10 font-orange-black2"></i> Nearby</a>
+      <%= link_to searching_nearby_path, class: 'btn btn-brw-orange2 btn-search btn-responsive-search' do %>
+        <i class="fa fa-map-marker top10 font-orange-black2"></i> Nearby
+      <% end %>
     </div>
   </div> <!-- row -->
 </div>
