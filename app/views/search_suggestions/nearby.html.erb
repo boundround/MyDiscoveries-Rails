@@ -1,4 +1,3 @@
-<%= render "layouts/navbar" %>
 <%= render "search_suggestions/search_results" %>
 <!--#hardcode  -->
 <section class="places-to-go top20">
@@ -6,9 +5,9 @@
     <div class="text-left">
       <!-- <p> -->
         <span class="left-modal top5">
-          <%= @places.length %> results <a class="pink">Refine</a>
+          <%= @places.length %> results <!-- <a class="pink">Refine</a> -->
         </span>
-        <span class="right-modal width-select">
+        <!-- <span class="right-modal width-select">
           <div class="row">
             <div class="col-xs-4 col-sm-4">
               <label class="grey top5"> Sort by : </label>
@@ -27,7 +26,7 @@
               </form>
             </div>
             </div>
-        </span>
+        </span> -->
       <!-- </p> -->
       <!-- <h4 class="section-title">Featured places to go</h4> -->
     </div>
@@ -56,4 +55,3 @@
 <!-- <div class="text-center clearfix btm20 top5">
   <span><img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64"></span>
 </div> -->
-<%= render "layouts/footer" %>

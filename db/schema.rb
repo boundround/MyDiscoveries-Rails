@@ -388,15 +388,8 @@ ActiveRecord::Schema.define(version: 20160326052254) do
     t.text     "viator_link",               default: ""
     t.boolean  "footer_include"
     t.boolean  "primary_area"
-<<<<<<< HEAD
-<<<<<<< HEAD
     t.string   "email"
-=======
-    t.integer  "algolia_id"
->>>>>>> brw-286-searching
-=======
     t.string   "algolia_id"
->>>>>>> brw-286-searching
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
