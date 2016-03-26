@@ -6,7 +6,7 @@ class Place < ActiveRecord::Base
 
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
-    attributes :display_name, :is_area, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug
+    attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug
     # attributes :is_area
     attribute :country do
       if self.country
@@ -14,6 +14,9 @@ class Place < ActiveRecord::Base
       else
         ""
       end
+    end
+    attribute :area do 
+      self.is_area ? 't' : 'f'
     end
     attribute :url do
       Rails.application.routes.url_helpers.place_path(self)
@@ -69,11 +72,13 @@ class Place < ActiveRecord::Base
     # you want to search in: here `title`, `subtitle` & `description`.
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
-    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'status']
+    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'status', 'primary_category', 'subcategories']
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
     # customRanking ['desc(likes_count)']
+
+    attributesForFaceting ['area']
   end
 
   # ratyrate_rateable "quality"

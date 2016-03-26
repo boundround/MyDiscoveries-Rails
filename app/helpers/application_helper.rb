@@ -316,7 +316,7 @@ module ApplicationHelper
   end
 
   def algolia_raw_last_page? collection
-    collection.traverse('hits').blank?
+    ( (collection['nbPages'].to_i - 1) == collection['page']) or collection.traverse('hits').blank?
   end
 
   def algolia_raw_next_page collection
