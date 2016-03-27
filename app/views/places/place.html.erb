@@ -30,6 +30,9 @@
   <!--<div class="places-bg">-->
   <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header top-inner-js" >
  <!-- </div>-->
+ <div class="breadcrumbs">
+  <%= raw create_breadcrumb_for(@place) %>
+ </div>
   <div class="container padding-style">
     <div class="title-container hidden-xs">
       <div class="row">
