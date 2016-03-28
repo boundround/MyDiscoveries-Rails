@@ -3260,3 +3260,84 @@ input.form-control.input-text-nearby{
 	    position: relative;
     top: -203px;
 }
+
+
+/*Video modal*/
+.modal-dialog.cs-modal-lg {
+    min-width: 951px !important
+}
+
+
+@media (min-width: 5000px) {
+    .modal-dialog.cs-modal-lg {
+        max-width: 3500px !important
+    }
+}
+
+@media (min-width: 3000px) and (max-width: 4999px) {
+    .modal-dialog.cs-modal-lg {
+        max-width: 2800px !important
+    }
+}
+
+@media (min-width: 1920px) and (max-width: 2999px) {
+    .modal-dialog.cs-modal-lg {
+        max-width: 1500px !important
+    }
+}
+
+@media (min-width: 2000px) {
+    .modal-content.cs-modal-content-video {
+        top: 300px !important
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1919px) {
+    .modal-content.cs-modal-content-video {
+        top: 10px !important
+    }
+    .modal-dialog.cs-modal-lg {
+        max-width: 960px !important
+    }
+}
+
+@media (min-width: 500px) and (max-width: 1023px) {
+    .modal-dialog.cs-modal-lg {
+        min-width: initial !important
+    }
+    .modal-content.cs-modal-content-video {
+        top: 20px !important;
+        width: 440px !important;
+        margin: auto !important;
+        min-height: initial !important
+    }
+}
+
+@media (min-width: 415px) and (max-width: 499px) {
+    #video-modal {
+        height: 276px !important;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px
+    }
+    .modal-dialog.cs-modal-lg {
+        min-width: 350px !important
+    }
+    .cs-modal-content-video {
+        min-height: initial;
+        width: 360px !important;
+        text-align: center;
+        margin: 0 auto
+    }
+}
+
+@media (max-width: 414px) {
+    .modal-dialog.cs-modal-lg {
+        min-width: 250px !important
+    }
+    .modal-content.cs-modal-content-video {
+        min-height: initial !important;
+        width: 250px !important;
+        margin: auto
+    }
+}
+/*end*/

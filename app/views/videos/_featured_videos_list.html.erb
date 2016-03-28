@@ -11,7 +11,8 @@
   <div class="body-stories">
     <div class="title">
       <p>Mount Fujiyama</p>
-      <h4>Climbing Mt. Fujiyama on our trip to Japan</h4>
+      <!-- <h4>Climbing Mt. Fujiyama on our trip to Japan</h4> -->
+      <h4><%= video.title %></h4>
     </div>
     <!-- <div class="video"> -->
       <video poster="<%= video.vimeo_thumbnail %>" class="play-in-modal" data-modal="<%= video.vimeo_id.blank?? '#youtube-video-modal' : '#vimeo-video-modal' %>" data-video-url="<%= video.url %>">
