@@ -20,12 +20,17 @@ class Video < ActiveRecord::Base
   scope :ordered_by_place_name, -> { includes(:area, :place).order('areas.display_name ASC') } #reorder("places.display_name ASC") }
 
   scope :active, -> { where(status: "live") }
+  scope :featured, -> { order("created_at DESC").limit(3) }
   scope :edited, -> { where(status: "edited") }
   scope :preview, -> { where('status=? OR customer_review=?', 'live', 'true') }
 
   # before_save :validate_vimeo_id
 
   self.per_page = 200
+
+  attr_accessor :url
+
+  after_initialize :set_url
 
   def add_or_remove_from_country(country)
     row = CountriesVideo.where(video_id: self.id).where(country_id: country.id)
@@ -84,5 +89,16 @@ class Video < ActiveRecord::Base
       end
     end
   end
+
+  private
+
+    def set_url
+      if vimeo_id.present?
+        self.url= "https://player.vimeo.com/video/" + self.vimeo_id.to_s
+      end
+      if youtube_id.present?
+        self.url= "http://www.youtube.com/embed/" + self.youtube_id.to_s
+      end
+    end
 
 end
