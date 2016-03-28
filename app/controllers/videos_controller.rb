@@ -3,13 +3,14 @@ class VideosController < ApplicationController
     # @videos = Video.ordered_by_place_name.paginate(:page => params[:page])
 #    @videos = Video.includes(:place => :area).order('areas.display_name ASC, places.display_name ASC').paginate(:page => params[:page])
 #    @videos = Video.includes(:place => :area).order('places.display_name ASC, areas.display_name ASC').paginate(:page => params[:page])
-    if params[:place_id]
-      @videos = Place.friendly.find(params[:place_id]).videos
+    if params[:place_id].present?
+      @videos = Place.friendly.find(params[:place_id]).videos.paginate(:page => params[:latest_videos_page], per_page: 6)
       @place = Place.friendly.find(params[:place_id])
     else
       @featured_videos= Video.featured
       @latest_videos = Video.includes(:place).order('places.display_name ASC').where('videos.place_id IS NOT NULL').paginate(:page => params[:latest_videos_page], per_page: 6)
     end
+    @latest_videos ||= @videos
     respond_to do |f|
       f.html
       f.js
