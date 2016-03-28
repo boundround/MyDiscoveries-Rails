@@ -33,6 +33,7 @@ h1, h2, h3, h4{
 	color: #fff;
 }
 
+
 .hero-search {
 	position: absolute !important;
     right: 0;
@@ -156,6 +157,17 @@ ul.nav.navbar-nav.first-ul{
 .search-nav{
 	border-radius: 4px;
     height: 27px;
+    background: #eaeaea;
+    border: none;
+    box-shadow: none;
+    padding-left: 28px !important;
+    width: 100%;
+    outline: none;
+}
+
+.search-nav-mobile {
+	height: 60px !important;
+	border-radius: 4px;
     background: #eaeaea;
     border: none;
     box-shadow: none;

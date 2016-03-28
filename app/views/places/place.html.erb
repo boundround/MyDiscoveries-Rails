@@ -6,22 +6,6 @@
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
-  <div class="container" id="search-nav" style="display:none;background:white;">
-  <div class="row">
-    <div class="col-xs-1 col-sm-1 top15">
-        <i class="fa fa-search pink fontbig-signin i-big-isize"></i>
-    </div>
-    <div class="col-xs-9 col-sm-9" style="height:60px">
-      <form>
-        <div class="form-group top13">
-          <input type="text" class="form-control navbar-form navbar-search-form" placeholder="Search for places, experiences & more...">
-        </div>
-      </form>
-    </div>
-    <div class="top15" align="center">
-      <i id="fa-times-nav-xs" class="fa fa-times grey fontbig-signin i-big-isize"></i>
-    </div>
-  </div>
 </div>
 
 
@@ -103,7 +87,7 @@
           </div>
       </div>
       <div class="desc-place">
-        <p data-full-text="<%= @place.description.try(:html_safe) %>"><%= raw  @place.description[0..280]+"..." %></p>
+        <p data-full-text="<%= raw @place.description %>"><%= raw @place.description[0..280]+"..." %></p>
         <button class="blueish" style="background:none;border:none;">More <span class="caret"></span></button>
       </div>
       <div class="border-section"></div>
