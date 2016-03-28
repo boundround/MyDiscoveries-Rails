@@ -7,7 +7,12 @@ class VideosController < ApplicationController
       @videos = Place.friendly.find(params[:place_id]).videos
       @place = Place.friendly.find(params[:place_id])
     else
-      @videos = Video.includes(:place).order('places.display_name ASC').where('videos.place_id IS NOT NULL').paginate(:page => params[:page])
+      @featured_videos= Video.featured
+      @latest_videos = Video.includes(:place).order('places.display_name ASC').where('videos.place_id IS NOT NULL').paginate(:page => params[:latest_videos_page], per_page: 6)
+    end
+    respond_to do |f|
+      f.html
+      f.js
     end
   end
 
