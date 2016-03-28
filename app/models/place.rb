@@ -15,7 +15,7 @@ class Place < ActiveRecord::Base
         ""
       end
     end
-    attribute :area do 
+    attribute :area do
       self.is_area ? 't' : 'f'
     end
     attribute :url do
@@ -34,7 +34,7 @@ class Place < ActiveRecord::Base
       end
     end
 
-    attribute :primary_category do 
+    attribute :primary_category do
        if self.primary_category
         { name: "#{primary_category.name}", identifier: primary_category.identifier}
       else
@@ -42,7 +42,7 @@ class Place < ActiveRecord::Base
       end
     end
 
-    attribute :subcategories do 
+    attribute :subcategories do
       subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
     end
 
@@ -168,7 +168,7 @@ class Place < ActiveRecord::Base
 
   has_many :three_d_videos
 
-  # has_many :good_to_knows
+  has_many :stamps
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
@@ -178,6 +178,7 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :stories, allow_destroy: true
   accepts_nested_attributes_for :user_photos, allow_destroy: true
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
+  accepts_nested_attributes_for :stamps, allow_destroy: true
 
   mount_uploader :map_icon, IconUploader
   mount_uploader :hero_image, PlaceHeroImageUploader

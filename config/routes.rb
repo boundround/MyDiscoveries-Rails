@@ -104,6 +104,25 @@ Rails.application.routes.draw do
   resources :stories
   post 'stories/profile_create' => 'stories#profile_create'
 
+  get 'stamp_transactions/stamp_here' => 'stamp_transactions#stamp_here'
+  get 'stamp_transactions/stamp_error' => 'stamp_transactions#stamp_error'
+  resources :stamp_transactions
+
+  # post 'areas_users/create' => 'areas_users#create'
+  # post 'areas_users/destroy' => 'areas_users#destroy'
+
+  # resources :areas do
+  #   resources :photos
+  #   resources :videos
+  #   resources :games
+  #   resources :fun_facts
+  #   resources :discounts
+  #   resources :reviews
+  #   resources :stories
+  #   resources :user_photos
+  #   collection { post :import }
+  # end
+
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"
     get '/users/sign_out' => 'devise/sessions#destroy'
@@ -138,10 +157,13 @@ Rails.application.routes.draw do
   # get '/places/:id/hero_image_picker' => 'places#hero_image_picker'
   resources :places do
     member { get 'preview' }
+    member { get 'stamp_confirmation' }
+    # member { get 'stamp_error' }
     member { get 'hero_image_picker'}
     collection { get 'all_edited'} # all place content in draft
     collection { get 'user_created'} # all place content in draft
     collection { get 'merge'}
+    resources :stamps
     resources :photos
     resources :videos
     resources :discounts

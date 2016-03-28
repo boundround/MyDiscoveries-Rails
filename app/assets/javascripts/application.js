@@ -34,11 +34,11 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require cms
-// require bootsy
+//= require bootsy
 //= require bootstrap
 // require bootstrap/transition
 //= require geocomplete
-// require cookie
+//= require cookie
 //= require like
 // require jquery.raty
 //= require ratyrate
@@ -57,9 +57,12 @@
 // require jquery.Jcrop.min
 // require places_crop
 //= require jquery.confirm.min
-// require instafeed.min
 //= require chart.min
 //= require boundround
+// require mix_panel
+// require instafeed.min
+//= require jquery.snowshoe
+//= require stamps
 //= require dual_list_box
 //= require jquery_nested_form
 
