@@ -129,11 +129,9 @@
 	</head>
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
-    <%# if params[:controller].eql?("places") &&  params[:action].eql?("show") %>
-      <%#= javascript_include_tag 'show_places/application' %>
-    <%# else %>
+
       <%= javascript_include_tag 'application' %>
-    <%# end %>
+
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
     <%= javascript_include_tag 'froogaloop' %>
 

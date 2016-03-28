@@ -549,16 +549,6 @@ ActiveRecord::Schema.define(version: 20160326052254) do
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
-  create_table "similar_places", force: true do |t|
-    t.integer  "place_id"
-    t.integer  "similar_place_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-=======
->>>>>>> staging
   add_index "similar_places", ["place_id", "similar_place_id"], name: "index_similar_places_on_place_id_and_similar_place_id", unique: true, using: :btree
   add_index "similar_places", ["place_id"], name: "index_similar_places_on_place_id", using: :btree
   add_index "similar_places", ["similar_place_id"], name: "index_similar_places_on_similar_place_id", using: :btree
