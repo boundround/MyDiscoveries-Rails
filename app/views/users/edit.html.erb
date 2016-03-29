@@ -1,22 +1,98 @@
-<!-- <div class="container">
-  <h1>Edit User: <%= @user.email %></h1>
-  <%= render 'form' %>
 
-  <%= link_to 'Show', @user %> |
-  <%= link_to 'Back', users_path %>
-</div> -->
-<link href='https://fonts.googleapis.com/css?family=Homemade+Apple' rel='stylesheet' type='text/css'>
-<div class="profile-container">
-  <div class="user-container">
-    <div class="left-user">
-      <div style="margin-top: 50px;" class="row hidden-xs"></div>
-      <a href="<%= root_path %>">
-        <img src="<%= asset_path('br_logo_new.png') %>" class="img-resposive center-block hidden-xs place-logo" >
-      </a>
-      <%= render 'passport_form' %>
+<div class="container btm40">
+  <div class="row">
+    <div class="head-title">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+      <h4 class="top20">My Account</h4>
+      <h2 class="gray-font">Edit Profile</h2>
+      <div class="img-rounded" align="center">
+        <img src="<%= @user.avatar_url %>"/>
+      </div>
     </div>
-    <div class="right-user">
-      <%= render 'sidebar' %>
     </div>
   </div>
+  </div> <!-- row -->
 </div>
+
+<section class="explore topmin16">
+  <div class="container container-white">
+    <div class="row">
+      <%= simple_form_for @user do |f| %>
+        <div class="col-xs-12 col-sm-12 top15">
+          <span class="btn btn-default btn-block">
+          <span class="grey">Email</span><br>
+          <%= f.input :email, label: false, input_html: { class: "form-control"} %></span>
+          </span>
+        </div>
+        <!-- <div class="col-xs-12 col-sm-12 top15">
+          <span class="btn btn-default btn-block">
+          <span class="grey">Password</span><br>
+          <span class="rest-in-place" data-attribute="password" data-placeholder="**********"><%= @user.password %></span>
+          </span>
+        </div> -->
+        <div class="col-xs-12 col-sm-12 top15">
+          <span class="btn btn-default btn-block">
+            <span class="grey">Name</span><br>
+            <%= f.input :name, label: false, input_html: { class: "form-control" } %>
+            </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top5">
+          <p class="pink">Your profile</p>
+          <span href="#" class="btn btn-default btn-block">
+          <span class="grey">Keep my profile private</span><br>
+          <%= f.input :is_private, as: :boolean, label: false, input_html: { class: "form-control" } %>
+          </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top15">
+          <span class="btn btn-default btn-block">
+            <span class="grey">User Name to Appear in Reviews, Stories.....</span><br>
+            <%= f.input :username, label: false, input_html: { class: "form-control" } %>
+          </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top15">
+          <span class="btn btn-default btn-block">
+          <span class="grey">Date Of Birth</span><br>
+          <%= f.input :date_of_birth, as: :date, label: false %>
+          </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top15">
+          <span class="btn btn-default btn-block">
+          <span class="grey">Country</span><br>
+          <%= f.input :country, label: false %>
+          </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top15">
+          <%= f.submit "Save", class: "btn btn-alert" %>
+        </div>
+        <!-- <div class="col-xs-12 col-sm-12 top5">
+          <p class="pink">I'm interested in</p>
+          <a href="#" class="btn btn-default btn-block">
+          Destinations
+          <i class="fa fa-arrow-right margin-arrow-modal"></i>
+          <p class="grey">Australia, New Zealand, Bali, Spain...</p>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-12 top5">
+          <a href="#" class="btn btn-default btn-block">
+          Experiences
+          <i class="fa fa-arrow-right margin-arrow-modal"></i>
+          <p class="grey">Food, Technology, Resort, Theme Park...</p>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-12 top5">
+          <a href="#" class="btn btn-default btn-block">
+          Experiences for
+          <i class="fa fa-arrow-right margin-arrow-modal"></i>
+          <p class="grey">5 - 8 year olds, 9 - 12 year olds, teenager...</p>
+          </a>
+        </div> -->
+      <% end %>
+    </div><!-- row -->
+  </div><!-- container -->
+</section>
+<style>
+  #user_is_private {
+    margin-left: 0;
+  }
+</style>
+

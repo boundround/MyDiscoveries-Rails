@@ -1,0 +1,28 @@
+<div class="col-xs-12 col-md-6">
+  <div class="thumbnail">
+    <div class="image-cat image-cat-left">
+      <%= image_tag showing_image(place["photos"].first["url"]), class: 'img-responsive img-full-div' unless place["photos"].blank? %>
+    </div>
+    <div class="caption caption-right">
+      <h4 class="gray-font"><%= place["country"] %></h4>
+      <%= link_to place_path(place["slug"]) do %>
+        <h2><%= place["_highlightResult"]["display_name"]["value"].html_safe  %></h2>
+      <% end %>
+    </div>
+    <div class="details-dest">
+      <div class="left">
+        <%# if place.traverse("primary_category").present? %>
+          <%#= link_to "<i class=\"fa fa-male\"></i>#{place["primary_category"]["name"]}".html_safe, primary_category_path(place["primary_category"]["identifier"]) %>
+        <%# end %>
+        <%# if place.traverse("subcategories").present? %>
+          <%# place.traverse("subcategories").each do |sub| %>
+            <%#= link_to sub['name'], subcategory_path(sub["identifier"]) %>
+          <%# end %>
+        <%# end %>
+       </div>
+      <div class="right">
+        <!-- $$ -->
+      </div>
+    </div>
+  </div>
+</div>

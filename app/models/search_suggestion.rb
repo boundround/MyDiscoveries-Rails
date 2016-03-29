@@ -1,13 +1,12 @@
 class SearchSuggestion < ActiveRecord::Base
 
-  def self.terms_for(prefix)
-    @places = Place.where(status: "live")
-             .text_search(prefix).includes(:area)
-
-    # @places = Place.where("display_name @@ :q or description @@ :q", q: params[:term])
-
-    @places = ActiveSupport::JSON.decode(@places.to_json)
-
+  #backup
+  def self.terms_for_area(text, options= { page: 0, hitsPerPage: 6 })
+    @areas = Place.is_area.includes(:area, :primary_category, :subcategories).raw_search(text, options)
+  end
+  
+  def self.terms_for_place(text, options= { page: 0, hitsPerPage: 6 })
+    @places = Place.is_not_area.includes(:area, :primary_category, :subcategories).raw_search(text, options)
   end
 
   def self.index_places

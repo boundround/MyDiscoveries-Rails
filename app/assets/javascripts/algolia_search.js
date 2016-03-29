@@ -24,6 +24,7 @@ $(document).ready(function(){
       $('.br15_map').addClass('br15_collapse');
   };
 
+  // $searchInput = $('#search-box');
   $searchInput = $('#search-box');
   $searchInputIcon = $('#search-button');
   $main = $('main');
@@ -71,39 +72,39 @@ $(document).ready(function(){
   })
   .focus();
 
-  // Search results
-  algoliaHelper.on('result', function(content, state) {
-    if (content.hits.length > 0){
-      $noResult.hide();
-      $('#br15_map').addClass('br15_min_h_530');
-      $('.br15_map').removeClass('br15_collapse');
-      $('.br15_header').slideUp(400,function(){google.maps.event.trigger(br_map, "resize");});
-      $('.br15_search_result').show();
-      $('.search-results').show();
-      $('.search-results-container').show();
-      $('.google-results-container').show();
-      $('.google-results-container').append($('.pac-container'));
-      renderHits(content);
-      $('#magnifying-glass').on('click', function(){
-        var data = $('.hit-result')[0];
-        var link = $(data).data("link");
-        window.location = link;
-      });
+  // // Search results
+  // algoliaHelper.on('result', function(content, state) {
+  //   if (content.hits.length > 0){
+  //     $noResult.hide();
+  //     $('#br15_map').addClass('br15_min_h_530');
+  //     $('.br15_map').removeClass('br15_collapse');
+  //     $('.br15_header').slideUp(400,function(){google.maps.event.trigger(br_map, "resize");});
+  //     $('.br15_search_result').show();
+  //     $('.search-results').show();
+  //     $('.search-results-container').show();
+  //     $('.google-results-container').show();
+  //     $('.google-results-container').append($('.pac-container'));
+  //     renderHits(content);
+  //     $('#magnifying-glass').on('click', function(){
+  //       var data = $('.hit-result')[0];
+  //       var link = $(data).data("link");
+  //       window.location = link;
+  //     });
 
-      renderStats(content);
-      renderPagination(content);
-    } else {
-      $('.br15_search_result').show();
-      $('.search-results-container').show();
-      $('.search-results').show();
-      $('.google-results-container').show();
-      $('.google-results-container').append($('.pac-container'));
-      renderNoResults(content);
-      $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
-      $('#br15_map').removeClass('br15_min_h_530');
-      $('.br15_map').addClass('br15_collapse');
-    }
-  });
+  //     renderStats(content);
+  //     renderPagination(content);
+  //   } else {
+  //     $('.br15_search_result').show();
+  //     $('.search-results-container').show();
+  //     $('.search-results').show();
+  //     $('.google-results-container').show();
+  //     $('.google-results-container').append($('.pac-container'));
+  //     renderNoResults(content);
+  //     $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
+  //     $('#br15_map').removeClass('br15_min_h_530');
+  //     $('.br15_map').addClass('br15_collapse');
+  //   }
+  // });
 
   function renderNoResults(content){
     $noResult.html(noResultsTemplate.render(content));
@@ -195,5 +196,57 @@ $(document).ready(function(){
     // $('html, body').animate({scrollTop: 0}, '500', 'swing');
     algoliaHelper.setCurrentPage(+$(this).data('page') - 1).search();
   });
+
+//#NewCode
+function searchRequest(){
+
+    $('#form-search').submit(function(event) {
+      event.preventDefault();
+      // alert("klik");
+      var query = $(this).find('input[name=query-top]').val();
+      // searchCondition(query);
+      algoliaHelper.setQuery(query);
+      algoliaHelper.search();
+    });
+      // Search results
+      algoliaHelper.on('result', function(content, state) {
+        if (content.hits.length > 0){
+          // alert("content > 0")
+          // window.location = "/results"
+          
+          console.log(content);
+          console.log(content.index);
+          console.log(state);
+
+          var place_card = "<div class='col-xs-12 col-md-6'>"+
+                            "<div class='thumbnail'>"+
+                              "<div class='image-cat image-cat-left'>"+
+                                "<img src='./img/images.jpg' alt=' class='img-responsive img-full-div'>"+
+                              "</div>"+
+                              "<div class='caption caption-right'>"+
+                                "<h4 class='gray-font'>Sydney</h4>"+
+                                "<h2>The Powerhouse Museum</h2>"+
+                              "</div>"+
+                              "<div class='details-dest'>"+
+                                "<div class='left'>"+
+                                  "<a href='#'><i class='fa fa-male'></i> Do</a>"+
+                                  "<a href='#'>Museum</a>"+
+                                "</div>"+
+                                "<div class='right'>"+
+                                  "$$"+
+                                "</div>"+
+                                "</div>"+
+                              "</div>"+
+                            "</div>";
+      $("#area-card").append(place_card);
+      // console.log(place_card);
+
+        } else {
+          // alert("content < 0")
+          
+        }
+      });     
+    }
+searchRequest();
 
 });

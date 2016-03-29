@@ -34,18 +34,17 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require cms
-// require bootsy
+//= require bootsy
 //= require bootstrap
 // require bootstrap/transition
 //= require geocomplete
-// require cookie
+//= require cookie
 //= require like
 // require jquery.raty
 //= require ratyrate
 //= require user-photo-upload
 // require ckeditor/init
 // require ckeditor/config.js
-//= require rest_in_place
 // require reviews
 //= require algoliasearch
 //= require algoliasearchhelper
@@ -58,9 +57,12 @@
 // require jquery.Jcrop.min
 // require places_crop
 //= require jquery.confirm.min
-// require instafeed.min
 //= require chart.min
 //= require boundround
+// require mix_panel
+// require instafeed.min
+//= require jquery.snowshoe
+//= require stamps
 //= require dual_list_box
 //= require jquery_nested_form
 
@@ -74,5 +76,7 @@ $(document).on('ajax:beforeSend', 'a.single-pagination', function(){
   container.find('div.single-pagination-loader').addClass('hidden-lg');
   $(this).removeClass('hidden');
 }).on('ajax:error', 'a.single-pagination', function(){
-	alert('We\'re sorry. There was an error loading more destinations');
+	container= $(this).closest('div.single-pagination-container');
+  container.find('div.single-pagination-loader').addClass('hidden-lg');
+  $(this).removeClass('hidden');
 });

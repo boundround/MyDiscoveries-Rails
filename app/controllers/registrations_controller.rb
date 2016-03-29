@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit({ role_ids: [] }, :name, :email, :username, :country, :promo_code, :password, :password_confirmation, :avatar, :date_of_birth)}
-    devise_parameter_sanitizer.for(:account_update) {|u| u.permit({ role_ids: [] },:name, :email, :password, :password_confirmation, :current_password, :avatar, :date_of_birth)}
+    devise_parameter_sanitizer.for(:account_update) {|u| u.permit({ role_ids: [] },:name, :email, :password, :password_confirmation, :username, :current_password, :avatar, :date_of_birth)}
   end
 
   def edit

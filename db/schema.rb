@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317083600) do
+ActiveRecord::Schema.define(version: 20160326052254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,22 +170,6 @@ ActiveRecord::Schema.define(version: 20160317083600) do
     t.integer "user_id"
     t.integer "place_id"
   end
-
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -404,6 +388,8 @@ ActiveRecord::Schema.define(version: 20160317083600) do
     t.text     "viator_link",               default: ""
     t.boolean  "footer_include"
     t.boolean  "primary_area"
+    t.string   "email"
+    t.string   "algolia_id"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -418,6 +404,14 @@ ActiveRecord::Schema.define(version: 20160317083600) do
     t.integer "place_id",       null: false
     t.integer "subcategory_id", null: false
     t.text    "desc"
+  end
+
+  add_index "places_subcategories", ["place_id", "subcategory_id"], name: "index_places_subcategories_on_place_id_and_subcategory_id", using: :btree
+  add_index "places_subcategories", ["subcategory_id", "place_id"], name: "index_places_subcategories_on_subcategory_id_and_place_id", using: :btree
+
+  create_table "places_subcategories", id: false, force: true do |t|
+    t.integer "place_id",       null: false
+    t.integer "subcategory_id", null: false
   end
 
   add_index "places_subcategories", ["place_id", "subcategory_id"], name: "index_places_subcategories_on_place_id_and_subcategory_id", using: :btree
@@ -559,20 +553,6 @@ ActiveRecord::Schema.define(version: 20160317083600) do
   add_index "similar_places", ["place_id"], name: "index_similar_places_on_place_id", using: :btree
   add_index "similar_places", ["similar_place_id"], name: "index_similar_places_on_similar_place_id", using: :btree
 
-  create_table "stamp_transactions", force: true do |t|
-    t.string  "user_info"
-    t.integer "stamp_id"
-  end
-
-  add_index "stamp_transactions", ["stamp_id"], name: "index_stamp_transactions_on_stamp_id", using: :btree
-
-  create_table "stamps", force: true do |t|
-    t.string  "serial"
-    t.integer "place_id"
-  end
-
-  add_index "stamps", ["place_id"], name: "index_stamps_on_place_id", using: :btree
-
   create_table "stories", force: true do |t|
     t.string   "title"
     t.text     "content"
@@ -702,12 +682,12 @@ ActiveRecord::Schema.define(version: 20160317083600) do
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -734,6 +714,7 @@ ActiveRecord::Schema.define(version: 20160317083600) do
     t.string   "post_code"
     t.integer  "min_age"
     t.integer  "max_age"
+    t.boolean  "is_private",             default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

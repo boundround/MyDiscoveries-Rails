@@ -10,11 +10,11 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
+// require jquery
+// require jquery_ujs
 // require jquery-ui
-//= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/tmpl
+// require jquery-fileupload/basic
+// require jquery-fileupload/vendor/tmpl
 // require bootstrap-select.min
 // require jcarousel.responsive
 // require jquery.jcarousel.min
@@ -36,26 +36,25 @@
 // require bootstrap/transition
 // require geocomplete
 // require cookie
-//= require like
-//= require jquery.raty
-//= require ratyrate
-//= require user-photo-upload
-//= require ckeditor/init
-//= require ckeditor/config.js
-//= require rest_in_place
+// require like
+// require jquery.raty
+// require ratyrate
+// require user-photo-upload
+// require ckeditor/init
+// require ckeditor/config.js
 // require reviews
-//= require algoliasearch
-//= require algoliasearchhelper
-//= require hogan
-//= require algolia_search
+// require algoliasearch
+// require algoliasearchhelper
+// require hogan
+// require algolia_search
 // require bug_posts
-//= require gmaps.min
-//= require owl.carousel.min
-//= require custom
-//= require jquery.Jcrop.min
+// require gmaps.min
+// require owl.carousel.min
+// require custom
+// require jquery.Jcrop.min
 // require places_crop
-//= require jquery.confirm.min
-//= require instafeed.min
-//= chart.min
-//= boundround
+// require jquery.confirm.min
+// require instafeed.min
+// chart.min
+// boundround
 

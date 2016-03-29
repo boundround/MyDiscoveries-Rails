@@ -1,3 +1,4 @@
+<a href="<%= place_path(place) %>">
 <div class="thumbnail">
   <div class="image-cat image-cat-left outer-js">
     <img src="<%= showing_image (place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>" alt="" class="img-responsive inner-js">
@@ -9,7 +10,7 @@
     <!-- hardcode #get category + sub category-->
   <div class="details-dest">
     <div class="left">
-      <% place.subcategories.each do |sub| %>
+      <% place.subcategories.subcats.each do |sub| %>
         <%= link_to subcategory_path(sub) do %>
           <%= sub.name %>
         <% end %>
@@ -22,3 +23,4 @@
     </div>
   </div>
 </div>
+</a>

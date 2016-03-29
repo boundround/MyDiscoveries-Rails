@@ -2,29 +2,10 @@
 <% provide(:title, @country.display_name) %>
 
 <% if @country.published_status == "live" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@country) && @country.published_status!= "removed")) %>
-<%= render "layouts/navbar" %>
 <div class="area-content" data-lat="<%= @country.latitude %>" data-long="<%= @country.longitude %>">
 <div id='country-data' data-country-code=<%= @country.country_code %> data-capital-city=<%= @country.capital_city %>></div>
 
 <div class="area-content" data-lat="<%= @country.latitude %>" data-long="<%= @country.longitude %>">
-
-<div class="container" id="search-nav" style="display:none;background:white;">
-  <div class="row">
-    <div class="col-xs-1 col-sm-1 top15">
-        <i class="fa fa-search pink fontbig-signin i-big-isize"></i>
-    </div>
-    <div class="col-xs-9 col-sm-9" style="height:60px">
-      <form>
-        <div class="form-group top13">
-          <input type="text" class="form-control navbar-form navbar-search-form" placeholder="Search for places, experiences & more...">
-        </div>
-      </form>
-    </div>
-    <div class="top15" align="center">
-      <i id="fa-times-nav-xs" class="fa fa-times grey fontbig-signin i-big-isize"></i>
-    </div>
-  </div>
-</div>
 
 <div class="header-image-with-nav top-outer-js">
   <img clas="top-inner-js" src="<%= showing_image(draw_hero_background(@country)) %>" alt="" class="img-header">
@@ -39,11 +20,11 @@
       <div class="action">
         <!-- <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div> -->
         <div class="center"><a class="white"href="#"><i class="fa fa-plus"></i> Add photos</a>  </div>
-        <% if user_signed_in?%>
-          <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div>
-        <% else %>
-          <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
-        <% end %>
+        <%# if user_signed_in?%>
+          <!-- <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
+        <%# else %>
+          <!-- <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
+        <%# end %>
         <div class="pull-right hidden-xs">
           <div class="component-desk">
             <ul>
@@ -188,43 +169,28 @@
         </div>
       </section>
 
-      <% unless @similar_places.blank? %>
+      <% unless @areas.blank? %>
       <section class="places-to-go visit-place">
           <div class="text-left">
-            <h4 class="section-title">Places to visit in <%= @country.display_name %></h4>
+            <h4 class="section-title">Destinations in <%= @country.display_name %></h4>
           </div>
           <div class="row">
-           <div class="col-xs-12">
-
-            <% @similar_places.each do |place| %>
-              <a href="<%= place_path(place) %>">
-                <div class="thumbnail">
-                  <div class="image-cat image-cat-left outer-js">
-                    <img src="<%= showing_image (place.photos.size > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero.jpg')) %>" alt="" class="img-responsive inner-js">
-                  </div>
-                  <div class="caption caption-right">
-                    <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
-                    <h2><%= place.display_name %></h2>
-                  </div>
-                  <!-- hardcode #get category + sub category-->
-                  <div class="details-dest">
-                    <div class="left">
-                      <a href="#"><i class="fa fa-user"></i> Do</a>
-                      <a href="#"> Museum</a>
-                    </div>
-                    <div class="right">
-                      <% if !place.viator_link.blank? %>
-                        <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
-                      <% end %>
-                    </div>
-                    </div>
-                  </div>
-                </a>
-              <% end %>
-            <!-- hardcode paginate -->
-            <div class="text-center clearfix">
-              <a href="#" class="btn btn-default load-more btm20 mrg-btm30 top5">Load more places</a>
+            <div class="col-xs-12">
+              <div class="col-xs-12" id="areas-list">
+              <%= render partial: 'countries/areas_list', collection: @areas, as: :area %>
+              <!-- #hardcode activate paginate (6 cards per page) -->
+              <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
+              </div>
+            </div> <!-- row -->
+          </section>
+          <% unless last_page? @areas %>
+            <div class="text-center clearfix btm20 single-pagination-container" id="areas-single-pagination-container" style="clear:both">
+              <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+              </div>
+              <%= link_to "Load More", country_path(@country, areas_page: @areas.next_page, resources: 'areas', pagination_template: 'countries/areas_list', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
             </div>
+          <% end %>
             </div>
           </div> <!-- row -->
       </section>
@@ -281,7 +247,5 @@
 
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
-<%= render 'layouts/signin_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
-<%= render 'layouts/footer' %>

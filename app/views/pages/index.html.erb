@@ -1,72 +1,105 @@
-<%= render "layouts/navbar" %>
-
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner home-carousel" role="listbox">
-    <% @carousel_places.each_with_index do |place, index| %>
-    <div class="item <%= ("active" if index == 0) %> fix-img">
-      <img src="<%= draw_hero_background(place) %>" class="crop-image"  alt="<%= "Hero Image for #{place.display_name }"%>">
+    <div class="item active fix-img">
+      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-2.jpg" class="crop-image"  alt="kids-and-families-explore-1">
       <div class="carousel-caption text-center text-light text-shadow">
         <div class="text-caption">
-        <h1><%= place.display_name %></h1>
-        <!-- <h4></h4> -->
+        <h3>
+          Looking for fun things to do or places to go with kids?<br>Search by destination, kids ages, or interest area.
+        </h3>
         </div>
       </div>
     </div>
-    <% end %>
+
+    <div class="item fix-img">
+      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-2.jpg" class="crop-image"  alt="kids-and-families-explore-2">
+      <div class="carousel-caption text-center text-light text-shadow">
+        <div class="text-caption">
+        <h3>"Kids are going to grow up and inherit the world. It's up to their parents and anybody who has a child in their life, to reach out a little bit and put them on that road"</h3>
+        <h6>Keith Bellows</h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="item fix-img">
+      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-3.jpg" class="crop-image"  alt="kids-and-families-explore-3">
+      <div class="carousel-caption text-center text-light text-shadow">
+        <div class="text-caption">
+        <h3>Find the best family-friendly activities and things to do around Australia. And get insider tips from local kids.</h3>
+        </div>
+      </div>
+    </div>
 
   </div>
 
 </div>
+<!-- #hardcode -->
 <div class="container-fluid top10 hidden-xs searchbackground">
   <div class="row containerwidth searchpadding search-nearby">
     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
       <div class="input-group search-responsive">
-        <input type="text" class="form-control" placeholder="Search for destinations">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-        </span>
+        <form action="/results" method="get">
+          <input id="" type="text" name="search[common]" id="search-common" class="form-control search-nav" placeholder="Search for destinations">
+          <span class="input-group-btn">
+            <button class="btn btn-default hero-search" type="submit"><i class="fa fa-search"></i></button>
+          </span>
+        </form>
+
       </div><!-- /input-group -->
-    </div>
+    </div><!--
     <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
       <a href="#" class="btn btn-brw-orange2 btn-search"><i class="fa fa-map-marker"></i><br>Nearby</a>
     </div>
     <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
       <a href="#" class="btn btn-brw-orange2 btn-search btn-responsive-search"><i class="fa fa-map-marker top10"></i> Nearby</a>
-    </div>
-  </div> <!-- row -->
+    </div> -->
+    <!-- <form action="">
+      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <div class="input-group search-responsive">
+          <input type="text" class="form-control input-text-nearby" placeholder="Search for destinations">
+          <div class="cs-input-group-btn">
+            <input class="btn btn-default input-btn-nearby0 " type="submit" value="" >
+            <i class="fa fa-search cs-fa-nearby"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
+        <input type="submit" value="" class="btn btn-brw-orange2 btn-search input-btn-nearby0"><i class="fa fa-map-marker cs-marker-nearby"></i><br>Nearby
+      </div>
+      <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
+        <input value="" type="submit"  class="btn btn-brw-orange2 btn-search btn-responsive-search input-btn-nearby1 ">
+        <span class="nearby-text"><i class="fa fa-map-marker top10"></i>
+        <span>Nearby</span></span>
+      </div>
+    </form> -->
+  </div>
 </div>
-<!--<div class="border-section hidden-xs"></div>-->
 
 <div class="positionrelative">
 <div class="container padding-style">
-  <% unless @places_to_go.blank? %>
+  <% unless @areas.blank? %>
     <div class="text-left top20 btm20">
       <h4 class="section-title font-weight-style">Places to go</h4>
     </div>
-    <div class="row" id="places_to_go-list">
-        <% @places_to_go.each do |place| %>
-          <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
-              <%= render partial: 'primary_categories/places_list', locals: { place: place} %>
-          </div>
-        <% end %>
+    <div class="row" id="areas-list">
+              <%= render partial: 'primary_categories/areas_list', collection: @areas, as: :area %>
     </div> <!-- row -->
   <% end %>
 </div>
-<% unless last_page? @places_to_go %>
-  <div class="text-center clearfix top10 btm40 single-pagination-container" id="places_to_go-single-pagination-container" style="clear:both">
+<% unless last_page? @areas %>
+  <div class="text-center clearfix top10 btm40 single-pagination-container" id="areas-single-pagination-container" style="clear:both">
     <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
-      <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+      <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
     </div>
-    <%= link_to "View more destinations", pages_path(areas_page: @places_to_go.next_page, resources: 'places_to_go'), class: 'btn button-orange btn-padding single-pagination', remote: true %>
+    <%= link_to "Load More", pages_path(areas_page: @areas.next_page, resources: 'areas', pagination_template: 'primary_categories/areas_list', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
   </div>
 <% end %>
 
@@ -85,7 +118,7 @@
         	<h4 class="pink">Travelling with people of all ages</h4>
           <p class="desc">Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vivamus magna justo, </p>
           <div class="image">
-            <img src="http://previews.123rf.com/images/dolgachov/dolgachov1307/dolgachov130701779/21034493-holidays-and-tourism-concept-beautiful-girls-looking-into-tourist-map-in-the-city-Stock-Photo.jpg">
+            <img src="<%= asset_path('9-12.jpg') %>">
           </div>
           <div class="btn-everyone">
             <div class="col-xs-12 col-sm-12 col-md-6 paddingleftright0">
@@ -103,9 +136,9 @@
                 Teenagers<i class="fa fa-caret-right"></i>
               <% end %>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 paddingleftright0">
+            <!-- <div class="col-xs-12 col-sm-12 col-md-6 paddingleftright0">
               <a href="#" class="btn btn-default btn-border btn-block">People with special needs<i class="fa fa-caret-right"></i></a>
-            </div>
+            </div> -->
           </div>
         </div>
     </div> <!-- row -->
@@ -118,7 +151,7 @@
 
 
 <div class="header-image-with-nav no-nav hidden-sm hidden-xs btm20 superheight">
-  <img src="http://onehdwallpaper.com/wp-content/uploads/2015/07/Full-HD-Green-Nature-Wallpapers-1080p.jpg" alt="">
+  <img src="<%= asset_path('nature-green.jpg') %>" alt="">
   <div class="container top0 padding-style">
   <div class="row">
     <div class="col-md-4 col-lg-4">
@@ -134,7 +167,7 @@
 
       </div>
       <div class="col-md-12 col-lg-12 topmin20">
-        <p class="white" align="left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lacinia magna non vehicula commodo. Nullam dapibus pellentesque euismod. Donec tempus eleifend libero, a viverra urna rutrum vel. Integer luctus nulla et bibendum vulputate. Sed vel aliquet enim. </p>
+        <p class="white" align="left"><!-- Need To Add Copy --></p>
       </div>
     </div>
   </div>
@@ -154,7 +187,7 @@
       <%= link_to specific_subcategories_path(age_ranges: '5-8') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
-            <img src="https://iitandtheworld.files.wordpress.com/2014/12/kids-and-summer-vacation-2.jpg" alt="" class="img-responsive">
+            <img src="<%= asset_path('5-8.jpg') %>" alt="" class="img-responsive">
           </div>
           <div class="details-dest lineheight">
             <div align="center">
@@ -168,7 +201,7 @@
       <%= link_to specific_subcategories_path(age_ranges: '9-12') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
-            <img src="https://iitandtheworld.files.wordpress.com/2014/12/kids-and-summer-vacation-2.jpg" alt="" class="img-responsive">
+            <img src="<%= asset_path('9-12.jpg') %>" alt="" class="img-responsive">
           </div>
           <div class="details-dest lineheight">
             <div align="center">
@@ -182,7 +215,7 @@
       <%= link_to specific_subcategories_path(age_ranges: '13-18') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
-            <img src="http://previews.123rf.com/images/mandygodbehear/mandygodbehear0807/mandygodbehear080700022/3291600-group-of-teens-on-vacation-Stock-Photo.jpg" alt="" class="img-responsive">
+            <img src="<%= asset_path('teens.jpg') %>" alt="" class="img-responsive">
           </div>
           <div class="details-dest lineheight">
             <div align="center">
@@ -280,7 +313,6 @@ Bottom button will link to "all_subcategories" page
 
 <!-- #hardcode end -->
 <%= render 'layouts/all_modal' %>
-<%= render 'layouts/signin_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
 
@@ -288,4 +320,3 @@ Bottom button will link to "all_subcategories" page
     <h2 id="blog-title"></h2>
     <div id="blog-content"></div>
 </div> -->
-<%= render 'layouts/footer' %>

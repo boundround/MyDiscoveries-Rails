@@ -1,19 +1,26 @@
-<div class="col-sm-6 col-md-4 col-lg-4 col-xs-6">
+<a href="<%= place_path(area) %>">
+  <div class="col-sm-6 col-md-4 col-xs-6 col-lg-4">
   <div class="thumbnail padd0">
     <div class="image-cat">
-      <%= image_tag area.hero_image.try(:url), class: 'top-rounded img-responsive' %>
+      <img src="<%= draw_small_background(area)%>" class="top-rounded img-responsive">
     </div>
     <div class="caption text-center">
-      <h4 class="font-orange2"><%= link_to area.display_name, place_path(area) %></h4>
+      <h4 class="font-orange2"><%= area.display_name %></h4>
     </div>
     <div class="details-dest">
       <div class="left">
-        <%= link_to "<i class='fa fa-newspaper-o'></i>#{area.stories.count}".html_safe, place_stories_path(area) %>
+        <% area.subcategories.subcats.each do |c| %>
+          <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
+          <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
+
+        <% end %>
       </div>
       <div class="right">
-        <a href="#">
-        <i class="fa fa-thumbs-o-up"></i> 100%</a>
+        <% if !area.viator_link.blank? %>
+          <a href="<%= area.viator_link%>" target="_blank" class="pink">Book Now</a>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
+</a>

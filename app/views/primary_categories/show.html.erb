@@ -12,18 +12,24 @@
 <div class="container top10 padding-style">
   <div class="row search-nearby">
     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-      <div class="input-group search-responsive">
-        <input type="text" class="form-control" placeholder="Search for destinations">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-        </span>
-      </div><!-- /input-group -->
+      <%= form_tag searching_path, method: :get do %>
+        <div class="input-group search-responsive">
+          <%= text_field_tag "search[common]", params.traverse('search', 'common'), class: 'search-nav', placeholder: 'Search for destinations' %>
+          <span class="input-group-btn">
+            <%= button_tag '<i class="fa fa-search"></i>'.html_safe, type: 'submit' %>
+          </span>
+        </div><!-- /input-group -->
+      <% end %>
     </div>
     <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
-      <a href="#" class="btn btn-brw-orange2 btn-search"><i class="fa fa-map-marker"></i><br>Nearby</a>
+      <%= link_to searching_nearby_path, class: 'btn btn-brw-orange2 btn-search' do %>
+        <i class="fa fa-map-marker"></i><br>Nearby
+      <% end %>
     </div>
     <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
-      <a href="#" class="btn btn-brw-orange2 btn-search btn-responsive-search"><i class="fa fa-map-marker top10 font-orange-black2"></i> Nearby</a>
+      <%= link_to searching_nearby_path, class: 'btn btn-brw-orange2 btn-search btn-responsive-search' do %>
+        <i class="fa fa-map-marker top10 font-orange-black2"></i> Nearby
+      <% end %>
     </div>
   </div> <!-- row -->
 </div>
@@ -36,13 +42,13 @@
       <h4 class="section-title">Amazing Destinations</h4>
     </div>
     <div class="row">
-      <div id="areas-list">  
+      <div id="areas-list">
         <%= render partial: 'areas_list', collection: @areas, as: :area %>
       </div>
       <% unless last_page? @areas %>
         <div class="text-center clearfix btm15 single-pagination-container" id="areas-single-pagination-container" style="clear:both">
           <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
-            <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
           </div>
           <%= link_to "Load More", primary_category_path(areas_page: @areas.next_page, resources: 'areas'), class: 'btn btn-default single-pagination', remote: true %>
         </div>
@@ -132,7 +138,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
 </section> -->
     <%#= render "stories/all_stories" %>
@@ -152,7 +158,7 @@
       <div class="row">
        <div class="col-xs-12">
 
-          <div id="places-list">  
+          <div id="places-list">
             <%= render partial: 'places_list', collection: @places, as: :place %>
           </div>
 
@@ -162,7 +168,7 @@
   <% unless last_page? @places %>
     <div class="text-center clearfix btm15 single-pagination-container" id="places-single-pagination-container" style="clear:both">
       <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
-        <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+        <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
       </div>
       <%= link_to "Load More", primary_category_path(places_page: @places.next_page, resources: 'places'), class: 'btn btn-default single-pagination', remote: true %>
     </div>

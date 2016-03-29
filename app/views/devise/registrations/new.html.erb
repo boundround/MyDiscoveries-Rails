@@ -1,45 +1,3 @@
-<script type="text/javascript">
-              $(document).ready(function(){
-                  $('.day').datepicker({
-                      format: "dd",
-                      viewMode: "day",
-                      minViewMode: "day",
-                      autoclose: true
-                  });
-                  $('.month').datepicker({
-                      format: "mm",
-                      viewMode: "months",
-                      minViewMode: "months",
-                      autoclose: true
-                  });
-                  $('.year').datepicker({
-                      format: "yyyy",
-                      viewMode: "years",
-                      minViewMode: "years",
-                      autoclose: true
-                  });
-                  $('.br_sign_style_modal select').selectpicker();
-
-                  $('[data-toggle="offcanvas"]').click(function () {
-                      $('header').toggleClass('active')
-                  });
-                  $("#owl-example").owlCarousel({
-                      itemsTablet:[767,2],
-                      itemsMobile:[500,1],
-                      autoPlay:true,
-                      navigation:true,
-                      navigationText: [
-                          "<i class='glyphicon glyphicon-menu-left'><</i>",
-                          "<i class='glyphicon glyphicon-menu-right'>></i>"
-                      ],
-                      afterInit: function(){
-                          $( "#owl-example .glyphicon-menu-left,#owl-example .glyphicon-menu-right" ).empty();
-                      }
-                  });
-
-              });
-
-  </script>
 <div class="br_sign_style_modal" id="signup_modal" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -55,62 +13,53 @@
                         </div>
 
 
-                        <div class="modal-body">
+                        <div class="modal-body sign-in-pad">
                             <div class="row">
-                                <!-- <div class="col-sm-6"> -->
-
-                                    <%#= f.input_field :username, required: true, autofocus: true, placeholder: "Username", class: "form-control" %>
-
-                                <!-- </div> -->
-                                <div class="col-sm-6">
-                                    <!-- <input type="email" class="form-control" value="jdoe@gmail.com"/> -->
+                                <div>
                                     <%= f.input_field :email, required: true, autofocus: true, placeholder: "Email", class: "form-control" %>
-
-                                </div>
+                                </div><br>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div>
                                     <%= f.password_field :password, required: true, placeholder: "Password", class: "form-control"%>
-
-                                </div>
-                                <div class="col-sm-6">
+                                </div><br>
+                                <div>
                                     <%= f.password_field :password_confirmation, required: true, placeholder: "Password Confirmation",class: "form-control" %>
-
-                                </div>
+                                </div><br>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div>
                                     <%= f.input :promo_code, label: false, placeholder: "Promo Code (optional)", wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                              <%= f.button :submit, "Join", :class=>'btn btn-default btn-block btn-radius btn-height fontbig-button pink' %>
                             </div>
                             <div class="row">
                                 <hr>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12 text-center">
-                                    <label>Birthdate</label>
-                                </div>
-                            </div>
-                            <div class="form-inline">
-                                <%= f.input :date_of_birth, label: false, as: :date, start_year: Date.today.year - 90, end_year: Date.today.year, order: [:day, :month, :year], required: true, class: "form-control"%>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6 br_modal_contry_left">
-                                  <%= f.country_select :country, priority: ["AU", "US"], selected: "AU" %>
-                                </div>
-                                <div class="col-sm-6 br_modal_contry_right">
-                                    <%#- if devise_mapping.omniauthable? %>
-                                      <%#- resource_class.omniauth_providers.each do |provider| %>
-                                        <%# if provider.to_s == 'instagram' %>
-                                        <!-- <p><a href="<%#= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;&nbsp;Sign In With Instagram</a></p> -->
-                                        <%# end %>
-                                      <%# end -%>
-                                    <%# end -%>
 
-                                <input type="text" class="form-control" placeholder="Instagram Name">
-
-                                </div>
-                            </div>
+                            <% end %> <!--/simple form -->
+                              Or sign up with...
+                            <div class="row">
+                              <%- if devise_mapping.omniauthable? %>
+                                <%- resource_class.omniauth_providers.each do |provider| %>
+                                  <% if provider.to_s == "facebook" %>
+                                    <div class="col-xs-6 col-sm-6">
+                                      <a href="<%= omniauth_authorize_path(resource_name, provider) %>">
+                                        <button type="button" class="btn btn-primary btn-block button-style btn-radius fontbig-signin btn-facebook mrg0"><i class="fa fa-<%= provider.to_s %>"></i> Facebook</button>
+                                      </a>
+                                    </div>
+                                  <% elsif provider.to_s == "google_oauth2" %>
+                                    <div class="col-xs-6 col-sm-6">
+                                      <a href="<%= omniauth_authorize_path(resource_name, provider) %>">
+                                        <button type="button" class="btn btn-danger btn-block button-style btn-google-plus btn-radius fontbig-signin"><i class="fa fa-google"></i> Google+</button>
+                                      </a>
+                                    </div>
+                                  <% end %>
+                                <% end %>
+                              <% end %>
+                              </div>
                         </div><!--/modal body -->
 
                         <div class="modal-footer">
@@ -120,14 +69,8 @@
                                 <p class="text-center">We're committed to protecting your privacy. By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %></p>
                               </div>
                             </div>
-                            <div class="col-xs-4">
-                            <div class="right">
-                                <%= f.submit 'Submit', class: "btn btn-warning btn-orange" %>
-                            </div>
-                            </div>
                           </div>
                         </div>
-                    <% end %> <!--/simple form -->
                 </div>
             </div>
         </div><!--/modal-->

@@ -13,12 +13,15 @@
            <%- end %>
          <% end %>
       </div>
-      <div class="right"><a href="#"><i class="fa fa-image"></i> 9 </a>
+      <div class="right">
+        <% if photo.respond_to?(:user) and photo.user.present? %>
+          <a href="#"><i class="fa fa-image"></i> 9 </a>
+        <% end %>
       </div>
     </div>
     <div class="body-stories">
       <div class="left">
-          <p><%= photo.place.display_name rescue "" %></p>
+          <p><%= link_to photo.place ? photo.place.display_name : photo.countries.first.display_name, photo.place ? place_path(photo.place) : country_path(photo.countries.first) %></p>
           <h5 class="cruises-color text-light paddright2"><%= raw(photo.caption) %></h5>
       </div>
       <div class="right">

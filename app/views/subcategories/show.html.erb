@@ -1,4 +1,3 @@
-<%= render 'layouts/navbar' %>
 <!-- #hardcode -->
 
 <div class="container">
@@ -8,17 +7,29 @@
     </div>
   </div>
 </div>
-<div class="border-section btm30"></div>
-<div class="container top10 padding-style">
+<!-- <div class="border-section btm30"></div> -->
+<!-- <div class="container top10 padding-style">
   <div class="row search-nearby">
     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <div class="input-group search-responsive">
+          <form action="/results" method="get">
+            <input id="" type="text" name="search[common]" id="search-common" class="form-control search-nav" placeholder="Search for destinations">
+            <span class="input-group-btn">
+              <button class="btn btn-default hero-search" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+          </form>
+
+        </div> --><!-- /input-group -->
+      <!--</div>
+    </div>
       <div class="input-group search-responsive">
         <input type="text" class="form-control" placeholder="Search for destinations">
         <span class="input-group-btn">
           <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
         </span>
       </div><!-- /input-group -->
-    </div>
+    <!-- </div>
     <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
       <a href="#" class="btn btn-brw-orange2 btn-search"><i class="fa fa-map-marker"></i><br>Nearby</a>
     </div>
@@ -26,10 +37,10 @@
       <a href="#" class="btn btn-brw-orange2 btn-search btn-responsive-search"><i class="fa fa-map-marker top10 font-orange-black2"></i> Nearby</a>
     </div>
   </div> <!-- row -->
-</div>
+<!-- </div> -->
 
     <% unless @areas.blank? %>
-<div class="border-section"></div>
+<!-- <div class="border-section"></div> -->
 <!-- Looping places params category -->
 <div class="container padding-style">
   <div class="text-left">
@@ -40,7 +51,7 @@
 
           <div class="row">
            <div class="col-xs-12" id="areas-list">
-              <%= render partial: 'subcategories/areas_list', collection: @areas, as: :area %>
+              <%= render partial: 'primary_categories/areas_list', collection: @areas, as: :area %>
               <!-- #hardcode activate paginate (6 cards per page) -->
               <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
             </div>
@@ -51,7 +62,7 @@
             <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
               <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
             </div>
-            <%= link_to "Load More", subcategory_path(@subcategory, areas_page: @areas.next_page, resources: 'areas', pagination_template: 'subcategories/areas_list', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+            <%= link_to "Load More", subcategory_path(@subcategory, areas_page: @areas.next_page, resources: 'areas', pagination_template: 'primary_categories/areas_list', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
           </div>
         <% end %>
       <% end %>
@@ -151,40 +162,27 @@
       <h4 class="section-title">Featured places</h4>
     </div>
     <div class="row">
-     <div class="col-xs-12">
+     <div class="col-xs-12" id="places-list">
       <% unless @places.blank? %>
-      <% @places.each do |place| %>
-      <a href="<%= place_path(place) %>">
-        <div class="thumbnail padd0">
-          <div class="image-cat image-cat-left">
-            <img src="<%= draw_small_background(place) %>" alt="" class="img-responsive img-full-div inner-js">
-          </div>
-          <div class="caption caption-right">
-            <h4 class="gray-font"><%= place.country.display_name rescue "" %></h4>
-            <h2 class="cruises-color"><%= place.display_name %></h2>
-          </div>
-          <div class="details-dest">
-            <div class="left">
-              <% place.subcategories.subcats.each do |category| %>
-                <a href="<%= subcategory_path(category) %>"><%= category.name %></a>
-              <% end %>
+        <%= render partial: 'primary_categories/places_list', collection: @places, as: :place %>
+              <!-- #hardcode activate paginate (6 cards per page) -->
+              <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
             </div>
-            <div class="right">
-              <a href="#"> $$</a>
+          </div> <!-- row -->
+        </section>
+        <% unless last_page? @places %>
+          <div class="text-center clearfix btm20 single-pagination-container" id="places-single-pagination-container" style="clear:both">
+            <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+              <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
             </div>
-            </div>
+            <%= link_to "Load More", subcategory_path(@subcategory, places_page: @places.next_page, resources: 'places', pagination_template: 'primary_categories/places_list', collection_object: 'place'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
           </div>
-        </a>
         <% end %>
-        <% end %>
+      <% end %>
     </div> <!-- row -->
 
 </section>
-<div class="text-center clearfix btm60">
-  <a href="#" class="btn btn-default">Load More</a>
-</div>
 
 </div> <!-- end col -->
 </div><!-- row -->
 </div><!-- container -->
-<%= render 'layouts/footer' %>

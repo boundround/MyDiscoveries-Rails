@@ -29,8 +29,6 @@ gem 'bootsy'
 gem 'rails4-autocomplete'
 gem "algoliasearch-rails"
 
-gem 'rest_in_place'
-
 gem 'jquery-fileupload-rails'
 
 gem 'carrierwave-crop'
@@ -54,6 +52,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-instagram', github: 'ropiku/omniauth-instagram'
+gem "omniauth-google-oauth2"
 
 gem 'instagram'
 gem "lazyload-rails"
@@ -178,6 +177,8 @@ end
 
 # Use puma as the app server
 gem 'puma'
+
+gem "snowshoe"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

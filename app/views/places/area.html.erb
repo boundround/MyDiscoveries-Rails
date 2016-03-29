@@ -4,28 +4,9 @@
 <% provide(:category,  category) %>
 
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
-<%= render "layouts/navbar" %>
 <div id='country-data' data-country-code=<%= @place.country.country_code %> data-capital-city=<%= @place.country.capital_city %>></div>
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
-
-<div class="container" id="search-nav" style="display:none;background:white;">
-  <div class="row">
-    <div class="col-xs-1 col-sm-1 top15">
-        <i class="fa fa-search pink fontbig-signin i-big-isize"></i>
-    </div>
-    <div class="col-xs-9 col-sm-9" style="height:60px">
-      <form>
-        <div class="form-group top13">
-          <input type="text" class="form-control navbar-form navbar-search-form" placeholder="Search for places, experiences & more...">
-        </div>
-      </form>
-    </div>
-    <div class="top15" align="center">
-      <i id="fa-times-nav-xs" class="fa fa-times grey fontbig-signin i-big-isize"></i>
-    </div>
-  </div>
-</div>
 
 <div class="header-image-with-nav top-outer-js">
   <img clas="stop-inner-js" src="<%= showing_image(draw_hero_background(@place)) %>" alt="" class="img-header">
@@ -45,11 +26,11 @@
         <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
       <% end %>
 
-        <% if user_signed_in?%>
-          <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div>
-        <% else %>
-          <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div>
-        <% end %>
+        <%# if user_signed_in?%>
+          <!-- <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
+        <%# else %>
+          <!-- <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
+        <%# end %>
         <div class="pull-right hidden-xs">
           <div class="component-desk">
             <ul>
@@ -81,7 +62,7 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="detail-place">
-              <div class="located"><p class="gray-font">Located in</p><p><%= @place.country.display_name rescue "" %></p></div>
+              <div class="located"><p class="gray-font">Located in</p><p><%= link_to @place.country.display_name, country_path(@place.country) %></p></div>
               <div class="language"><p class="gray-font">Language</p><p id="language" ></p></div>
               <div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>
               <div class="likes"><p class="gray-font">Capital</p><p><%= (link_to @capital_city.display_name, place_path(@capital_city)) rescue "" %></p></div>
@@ -115,7 +96,7 @@
           <% if user_signed_in? && @place.users.include?(current_user) %>
             <div class="text-center btn-map">
               <i class="fa fa-bookmark-o i-fav-area"></i>
-              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Remove To Favourites</a>
+              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Remove From Favourites</a>
             </div>
               <% else %>
             <div class="text-center btn-map">
@@ -173,7 +154,7 @@
               <% unless last_page? @places_to_visit %>
                 <div class="text-center clearfix btm20 single-pagination-container" id="places_to_visit-single-pagination-container" style="clear:both">
                   <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
-                    <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                   </div>
                   <%= link_to "Load More", place_path(@place, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', collection_object: 'place'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
                 </div>
@@ -234,7 +215,5 @@
 
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
-<%= render 'layouts/signin_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
-<%= render 'layouts/footer' %>

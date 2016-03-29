@@ -1,5 +1,10 @@
 class Subcategory < ActiveRecord::Base
 	include Parameterizable
+	include AlgoliaSearch
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_subcategory_id do
+  	attributesToIndex [:name, :identifier]
+  	attribute :name, :identifier
+	end
 
 	scope :get_all_informations, -> { where(category_type: ["Optimum Time", "Duration", "Subcategory", "Accessibility", "Price"] ) }
 
@@ -16,6 +21,12 @@ class Subcategory < ActiveRecord::Base
 	def self.get_data_by_type(records, type)
 		records.find_all{|r|r.category_type.eql?(type)}
 	end
+
+	private
+
+		def algolia_subcategory_id
+			"algolia_subcategory_#{self.id}"
+		end
 
 end
 
