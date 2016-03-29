@@ -11,16 +11,13 @@
   <div class="body-stories">
     <div class="title">
       <p>Mount Fujiyama</p>
-      <!-- <h4>Climbing Mt. Fujiyama on our trip to Japan</h4> -->
       <h4><%= video.title %></h4>
     </div>
-    <!-- <div class="video"> -->
-      <video poster="<%= video.vimeo_thumbnail %>" class="play-in-modal" data-modal="<%= video.vimeo_id.blank?? '#youtube-video-modal' : '#vimeo-video-modal' %>" data-video-url="<%= video.url %>">
-        <source src="./videos/movie.mp4" type="video/mp4">
-        <source src="./videos/movie.ogg" type="video/ogg">
-      </video>
-    <!-- </div> -->
-    <i class="fa fa-play"></i>
+    <video poster="<%= video.vimeo_thumbnail %>" class="play-in-modal" data-modal="#video-modal" data-video-url="<%= video.url %>">
+    </video>
+    <%= link_to '', class: 'play-video' do %>
+      <i class="fa fa-play play-video"></i>
+    <% end %>
   </div>
   <div class="details-dest btm15">
     <div class="left">

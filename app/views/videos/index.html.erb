@@ -28,6 +28,34 @@
   <div class="container">
     <div class="row" id="latest_videos-list">
       <%= render partial: 'latest_videos_list', collection: @latest_videos, as: :video %>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="head-stories">
+          <div class="left">
+            <a href="#">
+              <div class="profile-outer">
+                <img src="assets/images/BR_Logo.png" alt="">
+              </div>
+             </a>
+          </div>
+        </div>
+        <div class="body-stories">
+          <div class="title">
+            <p>Youtube Test</p>
+            <!-- <h4>Climbing Mt. Fujiyama on our trip to Japan</h4> -->
+            <h4>Youtube test</h4>
+          </div>
+          <video poster="" class="play-in-modal" data-modal="#video-modal" data-video-url="https://www.youtube.com/embed/lL-h12cu1H8">
+            <source src="./videos/movie.mp4" type="video/mp4">
+          </video>
+          <%= link_to '', class: 'play-video' do %>
+            <i class="fa fa-play play-video"></i>
+          <% end %>
+        </div>
+        <div class="details-dest btm15">
+          <div class="left">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -42,4 +70,4 @@
 <% end %>
 
 
-<%= render partial: 'shared/vimeo_video_modal' %>
+<%= render partial: 'shared/video_modal' %>

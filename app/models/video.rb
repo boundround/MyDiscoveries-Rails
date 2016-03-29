@@ -97,7 +97,7 @@ class Video < ActiveRecord::Base
         self.url= "https://player.vimeo.com/video/" + self.vimeo_id.to_s
       end
       if youtube_id.present?
-        self.url= "http://www.youtube.com/embed/" + self.youtube_id.to_s
+        self.url= "https://www.youtube.com/embed/" + self.youtube_id.to_s
       end
     end
 

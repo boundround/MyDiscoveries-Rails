@@ -81,14 +81,26 @@ $(document).on('ajax:beforeSend', 'a.single-pagination', function(){
 $(document).ready(function(){
 
 	$(document).on('click', 'video.play-in-modal', function(e){
-		modal= $(this).data('modal');
-    vid_src = $(this).data('video-url');
-    $(modal).modal('show');
-    $(modal+' iframe').attr('src', vid_src+'?autoplay=1');
+		showAndPlayVideoOnModal($(this))
 	});
 
 	$('div.modal-video').on('hidden.bs.modal', function(e){
 		$(this).find('iframe').attr('src', null);
 	});
 
+  $(document).on('click', 'a.play-video', function(e){
+    div= $(this).closest('div');
+    video= div.find('video.play-in-modal');
+    showAndPlayVideoOnModal($(video))
+    e.preventDefault();
+  })
+
 });
+
+function showAndPlayVideoOnModal(video)
+{
+  modal= video.data('modal');
+  vid_src = video.data('video-url');
+  $(modal).modal('show');
+  $(modal+' iframe').attr('src', vid_src+'?autoplay=1');
+} 
