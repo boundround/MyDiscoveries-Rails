@@ -1,0 +1,296 @@
+<!-- Share Modal Partial -->
+<div class="modal fade" id="stampModal">
+  <div class="modal-dialog">
+    <div class="modal-content brw-stamp" style="height: 40px; box-shadow: 0 3px 9px rgba(0, 0, 0, 0.2); border-radius: 10px; padding: 5px 0px;">
+      <button type="button" style="position:relative; left: -5px;" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="mid-cont">
+          <h3 class="text-center">
+            <!-- <i class="fa fa-share"></i> FONT AWESOME FOR STAMP?????? -->
+          </h3>
+
+          <div id="stamp-screen" class="boundround-stamp"></div>
+          <div class="clearfix"></div>
+
+          <div class="br_modal-footer text-center">
+            <!-- <div class="button btn btn-info" id="stamp-test-button">Test</div> -->
+          </div>
+        </div>
+      </div>
+  </div><!-- /.modal-content -->
+</div>
+<!-- Share Modal Finish -->
+<script type="text/javascript">
+    window.addEventListener('load', function(){ // on page load
+
+      document.body.addEventListener('touchstart', function(e){
+          // alert(e.changedTouches[0].pageX) // alert pageX coordinate of touch point
+        if (e.touches.length >= 5){
+          $('#stampModal').modal('show');
+        }
+      }, false)
+
+  }, false)
+  </script>
+  <script>
+  /*
+Snowshoe jQuery (https://github.com/snowshoestamp/snowshoe_jquery)
+jquery.snowshoe.js
+Version 0.3.0
+See GitHub project page for Documentation and License
+*/
+
+(function($) {
+  $.snowshoe = {
+    stampScreen: {
+      init: function(configs, client){
+        var stampScreenElmId = configs.stampScreenElmId || "snowshoe-stamp-screen";
+        var progressAnimationOn = configs.progressBarOn || false;
+        var postViaAjax = configs.postViaAjax || false;
+        var messages = configs.messages || {};
+        var helpMessage = messages.insufficientPoints || "";
+        var holdMessage = messages.userTraining || "";
+        var postUrl = configs.postUrl || "/stampscreen";
+        var success = configs.success || {};
+        var error = configs.error || {};
+        var points = [];
+        var stampScreenElm = document.getElementById("stamp-screen");
+        var pointsMin = configs.insufficientPointsMin || 3;
+        var holdMsg;
+
+        stampScreenElm.addEventListener('touchstart', function(event) {
+          $("#snowshoe-messages").empty();
+          clearTimeout(holdMsg);
+          if (event.touches.length >= pointsMin && progressAnimationOn) {
+            $('#snowshoe-progress-bar').addClass("snowshoe-progress-bar");
+          };
+
+          if (event.touches.length >= 5) {
+            var data = [];
+            var touches = event.touches;
+            for (var i = 0; i <= event.touches.length; i++) {
+              if (touches[i]) {
+                data.push([touches[i].pageX, touches[i].pageY]);
+              }
+            }
+            send(data, postViaAjax);
+          }
+
+          if (event.touches.length < 5 && event.touches.length >= pointsMin ) {
+            $('#snowshoe-progress-bar').removeClass("snowshoe-progress-bar");
+            // Teach users to stamp and hold for 2 seconds before displaying user-defined message
+            if (helpMessage) {
+              $("#snowshoe-messages").append(holdMessage);
+              holdMsg = setTimeout(function(){ displayCustomMessage(helpMessage) }, 2000);
+            }
+          }
+        });
+
+        function displayCustomMessage(helpMsg) {
+          $("#snowshoe-messages").children().replaceWith(helpMsg);
+        };
+
+        function send(points, postViaAjax){
+          if (postViaAjax){
+            client.postAjax(points, postUrl, success, error);
+          } else {
+            client.post(points, postUrl);
+          }
+        }
+      }
+    },
+
+    client: {
+      //
+      // Coupled to $.snowshoe.Base64
+      //
+      postAjax: function(data, endpoint, cbk, cbkError) {
+        $.ajax({
+          'url': endpoint,
+          'data': "data=" + $.snowshoe.Base64.encode(JSON.stringify(data)),
+          'type': "POST",
+          'error': function(response) {
+            cbkError(response.responseJSON);
+          },
+          'success': function(response) {
+            cbk(response);
+          }
+        })
+      },
+
+      post: function(data, endpoint) {
+        var form = $('<form method="POST"></form>');
+        form.attr('action', endpoint);
+        var input = $('<input name="data" type="hidden"></input>');
+        input.val($.snowshoe.Base64.encode(JSON.stringify(data)));
+        form.append(input);
+        $('body').append(form);
+        form.submit();
+      }
+    },
+
+    Base64: {
+      //
+      // Base64 adapted from & courtesy of http://scotch.io
+      //
+      _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+      encode : function (input) {
+        var output = "";
+        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+        var i = 0;
+        input = this._utf8_encode(input);
+        while (i < input.length) {
+          chr1 = input.charCodeAt(i++);
+          chr2 = input.charCodeAt(i++);
+          chr3 = input.charCodeAt(i++);
+          enc1 = chr1 >> 2;
+          enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+          enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+          enc4 = chr3 & 63;
+          if (isNaN(chr2)) {
+            enc3 = enc4 = 64;
+          } else if (isNaN(chr3)) {
+            enc4 = 64;
+          }
+          output = output +
+          this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+          this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+        }
+        return output;
+      },
+
+      _utf8_encode : function (string) {
+        string = string.replace(/\r\n/g,"\n");
+        var utftext = "";
+        for (var n = 0; n < string.length; n++) {
+          var c = string.charCodeAt(n);
+          if (c < 128) {
+            utftext += String.fromCharCode(c);
+          }
+          else if((c > 127) && (c < 2048)) {
+            utftext += String.fromCharCode((c >> 6) | 192);
+            utftext += String.fromCharCode((c & 63) | 128);
+          }
+          else {
+            utftext += String.fromCharCode((c >> 12) | 224);
+            utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+            utftext += String.fromCharCode((c & 63) | 128);
+          }
+        }
+        return utftext;
+      }
+    }
+  }
+})(jQuery);
+  </script>
+  <script>
+  var stampScreenInitData = {
+      "postUrl": "/stamp_transactions.json",
+
+      "stampScreenElmId": "stamp-screen",
+      "progressBarOn": true,
+      "postViaAjax": true, // post via Ajax
+      success: function(response){
+          $('#snowshoe-progress-bar').removeClass("snowshoe-progress-bar");
+          if(response["id"] == "error"){
+            window.location = "/stamp_transactions/stamp_error";
+          } else {
+            window.location = "/places/" + response.slug + "/stamp_confirmation";
+          }
+
+        // SUCCESS passes the snowshoe tests
+
+        // on success do our own calls to Ajax
+        // Post something to the stamp_transactions
+
+            // touches.length (by id) >= 5,
+            // Passing 26 to 52 of jquery snowshoe touchstart event
+
+        // creates actions
+          // creates API get request
+          // Get Stamp ID
+          // Get Place ID
+          // Creates new stamp record in boundround stamp_transactions database
+          // Redirect to http://www.boundround.com/places/tarongazoo based on place_id
+
+          // REQUIRES
+            // New model
+              // stamp_transactions
+
+            // Create routes stamp_tranasactions
+
+            // New table stamp_transactions
+              // record of use
+              // time stamp etc (auto)
+              // number
+              // serial
+              // user_info == user signed in, put user else put guest
+
+
+            // New table stamps
+
+              // serial
+              //  refrences place_id # note foreign key
+
+
+              // relationship
+              // stamps belong to place
+              // places have many stamps
+
+            // New stamp views
+              // create custom view in the stamp controller
+              // * might want to put a button on places_show page // do this for now
+
+              // Stamp page - http://www.boundround.com/stamp
+              // Stamp fail http://www.boundround.com/stamp-error
+              // Stamp success = Redirect to http://www.boundround.com/places/tarongazoo based on place_id
+
+            // New controller
+              // post to create action / method
+              // in create method, find based on place_id
+              // then redirect to the place
+
+
+// old
+            // stamp the app
+            // sends a call to snowshoe and gets json response
+            // send / post the json data to stamp transactions create method, in stamp_transactions controller
+            // place to store the stamp id and associate it with a place
+
+
+
+        //  if (response === "success" ) {
+          // http://www.boundround.com/stamp
+          // handle success
+        // clear animation
+      },
+      error: function(response){
+        window.location = "places/" + response.slug + "/stamp_confirmation";
+        $('#snowshoe-progress-bar').removeClass("snowshoe-progress-bar");
+      }
+
+    }
+
+    window.onpopstate=function(){
+        $('#snowshoe-progress-bar').removeClass("snowshoe-progress-bar");
+      };
+
+      $.snowshoe.stampScreen.init(stampScreenInitData, $.snowshoe.client);
+
+
+    // $('#stamp-test-button').on('click', function(){
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "/stamp_transactions.json",
+    //     success: function(response){
+    //       if(response["id"] == "error"){
+    //         window.location = "/stamp_transactions/stamp_error";
+    //       } else {
+    //         window.location = "places/" + response.slug + "/stamp_confirmation";
+    //       }
+    //     },
+    //     error: function(){
+    //       window.location = "places/" + response.slug + "/stamp_confirmation";
+    //     }
+    //   });
+    // });
+  </script>

@@ -28,6 +28,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def stamp_confirmation
+    @place = Place.find_by_slug params[:id]
+    @photo = @place.photos.where(hero: true).first
+  end
   def edit
     @set_body_class = "br-body"
     @place = Place.friendly.find(params[:id])
@@ -223,7 +227,7 @@ class PlacesController < ApplicationController
     # center_point = [@place.latitude, @place.longitude]
     # box = Geocoder::Calculations.bounding_box(center_point, distance)
     # @nearby_places = Place.within_bounding_box(box)
-    # @nearby_places = @place.nearbys(20).active.includes(:quality_average)
+    @nearby_places = @place.nearbys(20).active.includes(:games, :videos, :user_photos, :photos, :subcategories, :quality_average)
 
     # @top_places = @nearby_places.sort do |x, y|
     #   (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
@@ -231,12 +235,11 @@ class PlacesController < ApplicationController
 
     # @top_places = @top_places[0..4]
 
-    # categories = @place.categories.map {|category| category.id}
-    # @similar_places = @place.nearbys(30).active.includes(:photos, :categories).where('categorizations.category_id' => categories)
+    @similar_places = @place.nearbys(30).active.includes(:games, :videos, :photos, :user_photos, :subcategories, :quality_average)
 
-    if @place.subscription_level == "Premium"
-      @hero_video = @place.videos.find_by(hero: true) || @place.videos.find_by(priority: 1)
-    end
+    # if @place.subscription_level == "Premium"
+    #   @hero_video = @place.videos.find_by(hero: true) || @place.videos.find_by(priority: 1)
+    # end
 
     ##########################
     # Get all photos and videos for this place and sort by created at date

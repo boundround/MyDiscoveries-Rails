@@ -409,6 +409,14 @@ ActiveRecord::Schema.define(version: 20160326052254) do
   add_index "places_subcategories", ["place_id", "subcategory_id"], name: "index_places_subcategories_on_place_id_and_subcategory_id", using: :btree
   add_index "places_subcategories", ["subcategory_id", "place_id"], name: "index_places_subcategories_on_subcategory_id_and_place_id", using: :btree
 
+  create_table "places_subcategories", id: false, force: true do |t|
+    t.integer "place_id",       null: false
+    t.integer "subcategory_id", null: false
+  end
+
+  add_index "places_subcategories", ["place_id", "subcategory_id"], name: "index_places_subcategories_on_place_id_and_subcategory_id", using: :btree
+  add_index "places_subcategories", ["subcategory_id", "place_id"], name: "index_places_subcategories_on_subcategory_id_and_place_id", using: :btree
+
   create_table "places_users", force: true do |t|
     t.integer "user_id",  null: false
     t.integer "place_id", null: false

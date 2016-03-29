@@ -178,6 +178,8 @@ end
 # Use puma as the app server
 gem 'puma'
 
+gem "snowshoe"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

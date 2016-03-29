@@ -1,0 +1,14 @@
+<div class="text-center">
+
+	<h1>Create New Stamp</h1>
+
+		<%= simple_form_for [@place, @stamp] do |f| %>
+
+			<div class="form-group">
+				<%= f.input :serial, label: "Stamp Serial", input_html: { class: 'form-control'} %>
+				<%= f.input :place_id, as: :hidden, :input_html => { :value => @place.id } %>
+				<%= f.button :submit %>
+			</div>
+
+		<% end %>
+<div>

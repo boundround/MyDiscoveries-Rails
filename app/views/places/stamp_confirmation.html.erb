@@ -1,0 +1,23 @@
+<div class="header-image-with-nav">
+
+  <img src="<%= @place.photos.first.path_url rescue "" %>" >
+</div>
+<div class="text-center">
+
+  <h2 class="place-title stamp-confimation do-color"><%= @place.display_name %></h2>
+</div>
+
+
+
+<div class="desc-place">
+	 <p><%= raw @place.description %></p>
+</div>
+
+<br>
+
+
+<div class="text-center brw-do brw-col-center">
+	<a href="https://s3-ap-southeast-2.amazonaws.com/brwebproduction/temp/byron_bay_map.pdf" class="btn btn-brw-orange brw-links btn-block brw-btn-shadow" download role="button">Map</a>
+	<a href="<%= place_path(@place) %>" class="btn btn-brw-red brw-links btn-block btn-shadow">Family Friendly</a>
+	<a href="http://www.byron-bay.com/events/" target="_blank" class="btn btn-brw-purple brw-links btn-block btn-shadow">Events</a>
+</div>

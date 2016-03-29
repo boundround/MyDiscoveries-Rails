@@ -9,7 +9,7 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner home-carousel" role="listbox">
     <div class="item active fix-img">
-      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-2.jpg" class="crop-image"  alt="kids-and-families-explore-1">
+      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg" class="crop-image"  alt="kids-and-families-explore-1">
       <div class="carousel-caption text-center text-light text-shadow">
         <div class="text-caption">
         <h3>
@@ -118,7 +118,7 @@
         	<h4 class="pink">Travelling with people of all ages</h4>
           <p class="desc">Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vivamus magna justo, </p>
           <div class="image">
-            <img src="http://previews.123rf.com/images/dolgachov/dolgachov1307/dolgachov130701779/21034493-holidays-and-tourism-concept-beautiful-girls-looking-into-tourist-map-in-the-city-Stock-Photo.jpg">
+            <img src="<%= asset_path('9-12.jpg') %>">
           </div>
           <div class="btn-everyone">
             <div class="col-xs-12 col-sm-12 col-md-6">
@@ -136,9 +136,9 @@
                 Teenagers<i class="fa fa-caret-right"></i>
               <% end %>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 paddingleftright0">
+            <!-- <div class="col-xs-12 col-sm-12 col-md-6 paddingleftright0">
               <a href="#" class="btn btn-default btn-border btn-block">People with special needs<i class="fa fa-caret-right"></i></a>
-            </div>
+            </div> -->
           </div>
         </div>
     </div> <!-- row -->
@@ -167,7 +167,7 @@
 
       </div>
       <div class="col-md-12 col-lg-12 topmin20">
-        <p class="white" align="left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lacinia magna non vehicula commodo. Nullam dapibus pellentesque euismod. Donec tempus eleifend libero, a viverra urna rutrum vel. Integer luctus nulla et bibendum vulputate. Sed vel aliquet enim. </p>
+        <p class="white" align="left"><!-- Need To Add Copy --></p>
       </div>
     </div>
   </div>
@@ -187,7 +187,7 @@
       <%= link_to specific_subcategories_path(age_ranges: '5-8') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
-            <img src="https://iitandtheworld.files.wordpress.com/2014/12/kids-and-summer-vacation-2.jpg" alt="" class="img-responsive">
+            <img src="<%= asset_path('5-8.jpg') %>" alt="" class="img-responsive">
           </div>
           <div class="details-dest lineheight">
             <div align="center">
@@ -201,7 +201,7 @@
       <%= link_to specific_subcategories_path(age_ranges: '9-12') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
-            <img src="https://iitandtheworld.files.wordpress.com/2014/12/kids-and-summer-vacation-2.jpg" alt="" class="img-responsive">
+            <img src="<%= asset_path('9-12.jpg') %>" alt="" class="img-responsive">
           </div>
           <div class="details-dest lineheight">
             <div align="center">
@@ -215,7 +215,7 @@
       <%= link_to specific_subcategories_path(age_ranges: '13-18') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
-            <img src="http://previews.123rf.com/images/mandygodbehear/mandygodbehear0807/mandygodbehear080700022/3291600-group-of-teens-on-vacation-Stock-Photo.jpg" alt="" class="img-responsive">
+            <img src="<%= asset_path('teens.jpg') %>" alt="" class="img-responsive">
           </div>
           <div class="details-dest lineheight">
             <div align="center">
