@@ -3,9 +3,9 @@ require 'will_paginate/array'
 class PhotosController < ApplicationController
 
   def index
-    @featured_places = Photo.limit(3) #task uncompleted
+    @featured_photos = Photo.limit(3) #task uncompleted
     
-    @photos = (Photo.all.order("created_at DESC") + UserPhoto.all.order("created_at DESC") ).sort{|x,y|x.created_at <=> y.created_at}.paginate(page: params[:page], per_page: 10) #check #add paginate
+    @photos = (Photo.all.order("created_at DESC") + UserPhoto.all.order("created_at DESC") ).sort{|x,y|x.created_at <=> y.created_at}.paginate(page: params[:page], per_page: 6) #check #add paginate
     # @popular #task uncompleted
 
     respond_to do |format|

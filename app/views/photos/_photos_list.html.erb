@@ -23,7 +23,9 @@
       </div>
       <div class="right">
         <div class="image">
-          <img src="<%= showing_image(photo.path_url(:medium)) %>" alt="">
+          <%= link_to showing_image(photo.path_url(:large)) , class: 'display-image-on-modal', data: { gallery: '' }  do %>
+            <%= image_tag showing_image(photo.path_url(:medium)) %>
+          <% end %>
         </div>
       </div>
     </div>
@@ -31,11 +33,13 @@
     <div class="details-dest">
       <div class="left">
         <% if photo.place.present? %>
+          <% if photo.place.primary_category.present?%>
+            <%= link_to photo.place.primary_category.name, primary_category_path(photo.place.primary_category.identifier) %>
+          <% end %>
           <% photo.place.subcategories.each do |sub| %>
-            <%= link_to sub.name, subcategory_path(sub) %>
+            <%= link_to sub.name, subcategory_path(sub.identifier) %>
           <% end %>
         <% end %>
-        <a href="#"><i class="i-do i-do-video"></i>Do</a>
       </div>
     </div>
 </div>
