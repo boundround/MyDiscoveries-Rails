@@ -1,4 +1,4 @@
-/*brw-blue:#6CB7CA*/
+/*brw-blue:#6CB7CA*/ /* DARKER #437682 #69b7c9 */ 
 /*font-gray:#A0A0A0*/
 /*btn-brw-blue:#385D8A*/
 /*btn-brw-orange:#FF9702*/
@@ -29,19 +29,17 @@ h1, h2, h3, h4{
 	min-height: 60px;
 	margin: 0;
 }
-
 .navbar.navbar-brw a {
 	/*color: #6CB7CA !important;*/
-/*	color: #ffffff !important;*/
+	/*color: #ffffff !important;*/
 }
 .navbar.navbar-brw a:hover {
 
 }
-
 .brw-navbar-brand>img{
 	/*width: 26px;*/
 	/*width: 100%*/
-	width: 80px
+	width: 80px;
 }
 .sign{
 	position: absolute;
@@ -50,9 +48,13 @@ h1, h2, h3, h4{
 	line-height: 60px;
 }
 .sign a{
-	color:#9B9B9B;
+	color: #9B9B9B;
 	margin-right: 20px;
 	font-size: 16px;
+}
+.sign a:hover {
+	color: #437682;
+	text-decoration: underline;
 }
 .sign i{
 	font-size: 25px;
@@ -96,12 +98,20 @@ h1, h2, h3, h4{
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
 	color: #000;
+	color: #69b7c9;
+	color: #437682;
 	background: none;
-	background: #e7e7e7;
+	background: #ffffff !important;
+	/*background: #e7e7e7;*/
 	/*text-decoration: underline;*/
 }
+ul.nav.navbar-nav {
+	background: #ffffff;
+	/*padding-bottom: 13px;
+	border-bottom: 1px solid rgba(0,0,0,0.3);*/
+}
 ul.nav.navbar-nav.first-ul{
-	border-right: 1px solid #eaeaea;
+/*	border-right: 1px solid #eaeaea;*/
 }
 .input-search-nav{
 	padding: 0 10px;
@@ -134,6 +144,7 @@ ul.nav.navbar-nav.first-ul{
 }
 .find{
 	color: #437682;
+	color: #6CB7CA;
 	margin-left: 15px;
 	margin-bottom: 0;
 }
@@ -141,27 +152,41 @@ ul.nav.navbar-nav.first-ul{
 .find-become{
 	margin-left: 0 !important;
 }
-
+.btn-blue {
+	background: #6CB7CA !important;
+	border-color: #6CB7CA !important;
+	color: #ffffff !important;
+	box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+.btn-blue:hover {
+	background: #6CB7CA !important;
+	color: #ffffff !important;
+	box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
 .btn-become{
     width: 100%;
     margin: 0 auto;
     border-radius: 10px;
-    color: #6cb7ca !important;
+    /*color: #6cb7ca !important;*/
     font-size: 22px;
     border: none;
     margin-bottom: 20px;
 }
+/*
 .btn-become:hover{
     color: #ACACAC !important;
     background-color: #EFEFEF !important;
 }
+*/
 .navbar-search-form{
 	width: 242px;
 }
-
+.navbar-default .navbar-nav>li>a {
+	color: #9B9B9B !important;
+}
 @media(max-width: 767px){
 	.navbar-default .navbar-nav>li>a{
-		color: #fff;
+		color: #ffffff;
 	}
 	.nav.first-ul{
 		margin-top: 15px;
@@ -176,7 +201,12 @@ ul.nav.navbar-nav.first-ul{
 }
 @media(max-width: 767px){
 	#navbar{
-		background:#69b7c9;
+		/*background:#69b7c9;*/
+		background: #ffffff;
+		margin: 0;
+		margin-top: 15px;
+		border-radius: 10px;
+
 	}
 
 }
@@ -265,26 +295,173 @@ ul.nav.navbar-nav.first-ul{
 .font-weight-style {
 	font-weight: 400 !important;
 }
+.thumbnail {
+	margin-bottom: 20px;
+	background: none;
+	background: #ffffff;
+	border: none !important;
+	padding: 0 !important;
+	overflow: hidden;
+	border-radius: 4px;
+	box-shadow: 1px 1px 3px rgba(66,66,66,0.15);
+	max-height: 200px;
+}
+.thumbnail .caption{
+	background: #fff;
+}
 .thumbnail{
 	padding: 0;
 	margin-bottom: 15px;
 }
 .top-rounded{
-	height: 200px !important;
+	height: 200px;
 	min-width: 100%;
 	border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
+
+/* NEW TL */
+.navbar .featured-places.thumbnail {
+	height: 165px;
+}
+.navbar .featured-places.thumbnail .details-dest {
+	height: 100px;
+}
+.navbar .featured-destinations.thumbnail img.top-rounded {
+	min-width: 100%;
+	height: auto;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	min-height: 100%;
+	max-width: 100%;
+	z-index: -1;
+}
+.navbar .thumbnail .details-dest .right {
+	width: 50%;
+}
+.navbar .thumbnail .details-dest .left {
+	width: 50%;
+}
+.navbar .thumbnail.featured-destinations .details-dest .right {
+	position: absolute;
+	bottom: 15px;
+	right: 20px;
+}
+.navbar .thumbnail.featured-places .details-dest .right {
+	position: absolute;
+	bottom: 15px;
+	right: 35px;
+}
+.navbar .thumbnail.featured-places .details-dest .left {
+	width: 100%;
+	}
+/* END TL */
+
 .top-img-radius {
 	border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
+/* NAV CARD IMAGE - IMAGE CAT */
 .image-cat{
-    height: 141px;
-    overflow: hidden;
-    position: relative;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+   /*height: 141px;*/
+  /* height: 110px;*/
+   overflow: hidden;
+   position: relative;
+   border-top-left-radius: 4px;
+   border-top-right-radius: 4px;
+   z-index: 1;
+}
+.navbar .featured-destinations.thumbnail {
+	max-height: 200px;
+}
+.navbar .featured-destinations.thumbnail .image-cat {
+	width: auto;
+	height: 100px;
+	min-height: 100px;
+}
+.navbar .featured-destinations.thumbnail .caption {
+	height: 50px;
+}
+.navbar .featured-destinations.thumbnail .details-dest {
+	height: 50px;
+}	
+@media (min-width: 480px) {
+	.navbar .featured-destinations.thumbnail   {
+		max-height: 220px
+	}
+	.navbar .featured-destinations.thumbnail .image-cat {
+		min-height: 125px;
+		/*min-height: 150px;*/
+		height: 100%;
+	}
+	.navbar .featured-destinations.thumbnail .caption {
+		height: 50px;
+	}
+	.navbar .featured-destinations.thumbnail .details-dest {
+		height: 50px;
+	}	
+}
+@media (min-width: 599px) {
+	.navbar .featured-destinations.thumbnail {
+		max-height: 250px;
+	}	
+	.navbar .featured-destinations.thumbnail .image-cat {
+		min-height: 150px;
+	}
+	.navbar .featured-destinations.thumbnail .caption {
+		height: 50px;
+	}
+	.navbar .featured-destinations.thumbnail .details-dest  {
+		height: 50px;
+	}	
+	.navbar .thumbnail.featured-destinations .details-dest .right {
+		bottom: 15px;
+		right: 22px;
+	}
+}
+@media (min-width: 768px) {	
+	.navbar .featured-destinations.thumbnail  {
+		max-height: 250px;
+		max-width: 300px;
+		margin: 20px auto;
+	}	
+	.navbar .featured-destinations.thumbnail .image-cat {
+		min-height: 150px;
+	}
+	.navbar .thumbnail.featured-destinations .details-dest .right {
+			right: 22px;
+	}
+}
+@media (min-width: 991px) {	
+	.navbar .featured-destinations.thumbnail  {
+		max-height: 230px;
+	}	
+	.navbar .featured-destinations.thumbnail .image-cat {
+		min-height: 130px;
+	}
+	.navbar .thumbnail.featured-destinations .details-dest .right {
+			right: 22px;
+	}
+}
+@media (min-width: 1199px) {	
+	.navbar .featured-destinations.thumbnail  {
+		max-height: 230px;
+	}	
+	.navbar .featured-destinations.thumbnail .image-cat {
+		min-height: 140px;
+	}
+	.navbar .featured-destinations.thumbnail .caption {
+		height: 45px;
+	}
+	.navbar .featured-destinations.thumbnail .details-dest  {
+		height: 45px;
+	}	
+	.navbar .thumbnail.featured-destinations .details-dest .right {
+		right: 20px;
+	}
 }
 .image-left img {
     position: relative;
@@ -313,18 +490,6 @@ ul.nav.navbar-nav.first-ul{
 	border: none !important;
 	box-shadow: 1px 1px 3px rgba(66,66,66,0.15);
 }
-.thumbnail{
-	border: none !important;
-	padding: 0 !important;
-	overflow: hidden;
-	border-radius: 4px;
-	background: none;
-	box-shadow: 1px 1px 3px rgba(66,66,66,0.15);
-}
-.thumbnail .caption{
-	background: #fff;
-}
-
 @media (min-width: 320px) and (max-width: 480px) {
 	.place-caption {
 		padding: 3px !important;
@@ -346,16 +511,75 @@ ul.nav.navbar-nav.first-ul{
 		line-height: 65px;
 	}
 	.image-cat {
-		height: 120px;
-		background: gray;
+		min-height: 130px;
+		max-height: 160px;
+		/*height: 130px;*/
+	}
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+	.image-cat {
+		min-height: 130px;
+		max-height: 160px;
+		height: 142px;
+	}
+	.megamenu-paddings {
+		padding-left: 65px !important;
+		padding-right: 65px !important;
+	}
+}
+@media (min-width: 1200px) {
+	.image-cat {
+		min-height: 130px;
+		max-height: 160px;
+		height: 142px;
+	}
+	.megamenu-paddings {
+		padding-left: 130px !important;
+		padding-right: 130px !important;
 	}
 }
 .img-full-div{
-	position: relative;
-	height: 125px !important;
+	position: absolute;
+	/*height: 125px;*/
 	min-width: 100%;
+	width: 100%;
 	overflow: hidden;
+	bottom: 0;
+	z-index: -1;
 }
+.navbar .featured-places.thumbnail .image-cat-left {
+	height: 100px;
+}
+.navbar .featured-places.thumbnail .caption-right {
+	min-height: 100px !important;
+}
+.navbar .featured-places.thumbnail {
+	height: 170px;
+}
+@media (min-width: 599px) {
+	.navbar .featured-places.thumbnail .image-cat-left {
+		height: 140px !important;
+	}
+	.navbar .featured-places.thumbnail {
+		height: 190px;
+	}
+	.navbar .featured-places.thumbnail .details-dest {
+		min-height: 50px;
+	}
+}
+/*
+@media (min-width: 768px) {
+	.navbar .featured-places.thumbnail .image-cat-left {
+		height: 140px !important;
+	}
+	.navbar .featured-places.thumbnail {
+		height: 190px;
+	}
+	.navbar .thumbnail.featured-destinations .details-dest .right {
+		right: 35px;
+	}
+}
+*/
 @media (max-width: 360px) {
 	.img-full-div {
 		height: 100%;
@@ -629,8 +853,8 @@ ul.nav.navbar-nav.first-ul{
 
 @media (min-width: 768px) {
 	.border-section{
-		/*margin-left:15px;
-		margin-right:15px;*/
+		margin-left:15px;
+		margin-right:15px;
 	}
 	.border-left-desk{
 		border-left: 1px solid #D2D2D2;
@@ -726,15 +950,21 @@ ul.nav.navbar-nav.first-ul{
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   padding: 0 10px;
-	/* T */
+	/* T old */
 	min-height: 57px;
-	min-height: 70px;
 	line-height: 24px;
+	margin-top: 1px;
+
+	/* MOBILE PHOTOS STORIES FOOTER */
+	min-height: 70px;
+	line-height: 30px;
 	font-size: 12px;
 	padding: 5px 10px;
+	padding-top: 1px !important;
 	/*line-height: 30px;*/
-	margin-top: 1px;
-	/*margin-bottom: 10px !important;*/
+	
+	margin-bottom: 10px !important;
+	/*margin: 0 -15px !important;*/
 }
 .details-dest a{
 	color: #B6B6B6;
@@ -742,14 +972,16 @@ ul.nav.navbar-nav.first-ul{
 .details-dest .left{
 	float: left;
 	width: 55%;
-	width: 100%;
+	width: 85%;
+/*	width: 100%;*/
 	color: #B8B8B8;
-	padding: 5px;
+	padding: 5px 0;
 	/*height: 20%;*/
 }
 .details-dest .right{
 	float: right;
 	width: 45%;
+	width: 15%;
 	color: #B8B8B8;
 	text-align: right;
 }
@@ -794,6 +1026,11 @@ section.places-to-go .details-dest .left a{
 	width: 50%;
 	float: left;
 	height: 113px;
+	border-top-left-radius: 4px;
+	position: relative;
+}
+.navbar .featured-places.thumbnail .image-cat-left{
+	height: 100px;
 	border-top-left-radius: 4px;
 	position: relative;
 }
@@ -852,8 +1089,8 @@ section.your-stories{
 section.your-stories .head-stories{
 	background: #F7F7F7;
 	min-height: 38px;
-    line-height: 38px;
-    /*margin: 0 -15px;*/
+  line-height: 38px;
+  margin: 0 -15px !important;
 	padding: 0 15px;
 }
 section.your-stories .head-stories a, section.your-stories .head-stories i,section.your-stories .body-stories .visited{
@@ -928,14 +1165,12 @@ section.your-stories .body-stories .body-image-responsive {
 }
 @media (min-width:768px){
 	.travelling-tips{
-   		margin-top: 10px !important;
+   	margin-top: 10px !important;
 		margin-bottom: 10px !important;
 	}
-}
-
 	section.your-stories .head-stories, section.your-stories .body-stories {
-		margin: 0 -15px;
-		/* width: 100%;*/
+		margin: 0 -15px !important;
+		width: 100%;
 	}
 	.review-content .body-stories {
 		display: block !important;
@@ -948,7 +1183,7 @@ section.your-stories .body-stories .body-image-responsive {
 		padding-right: 20px;
 	}
 	.img-story-place{
-		margin:0;
+		margin: 0;
 	}
 	section.your-stories .body-stories .body-image-responsive {
 		border-radius: 4px;
@@ -956,7 +1191,7 @@ section.your-stories .body-stories .body-image-responsive {
 		overflow: hidden;
 		padding: 0;
 	}
-
+}
 .img-border {
 	border-radius: 4px;
 }
@@ -976,6 +1211,7 @@ section.video-show{
 section.video-show .details-dest{
 	border-radius: 0;
 	width: initial;
+	/*width: 100%;*/
 	/*border-top: 1px solid #D2D2D2;*/
 	background: #fff;
 	background: #F7F7F7;
@@ -1052,9 +1288,9 @@ section.video-latest .body-stories .left{
 	float: left;
 	text-align: left;
 	width: 50%;
-	padding-right: 3px;
-	min-height: 180px;
-	max-height: 180px;
+	padding-right: 5px;
+	/*min-height: 180px;
+	max-height: 180px;*/
 }
 section.video-latest .body-stories .right{
 	float: right;
@@ -1078,66 +1314,60 @@ section.video-latest .bg{
 		display: block;
 	}
 	section.video-latest .body-stories .left {
-		min-height: 180px;
-		max-height: 180px;
+		/*min-height: 180px;
+		max-height: 180px;*/
 	}
-
 }
 /*END*/
 
 /*PHOTO SECTION*/
 section.photo .image{
 	overflow: hidden;
-    height: 200px;
-    border-radius: 4px;
+  /*height: 200px;
+  height: auto;
+	min-height: 200px;
+	min-height: 250px;
+	max-height: 360px;*/
+	min-height: 220px !important;
+  position: relative;
+  z-index: 1;
+  border-radius: 4px;
 }
 section.photo .image img{
 	width: 100%;
+	height: auto;
+	position: absolute;
+	z-index: -1;
+	bottom: 0;
 }
 
 @media (min-width: 599px) {
 	section.photo .image {
-		height: 225px;
+		/*height: 250px !important;*/
+		min-height: 250px !important;
 		overflow: hidden;
 		position: relative;
 		z-index: 1;
 	}
 	section.photo .image img {
-		position: absolute;
-		bottom: -50%;
-		z-index: -1;
+		bottom: -30%;
 	}
-}
-@media (max-width: 767px){
-	section.photo-latest .image{
-		height: 120px;
-		/*height: 210px;*/
-		/*height: 180px;*/
+	section.photo-latest .image {
+		/*height: 190px !important;/*
 	}
-	section.video-show .details-dest {
-		/* min-height: 44px; */
-		min-height: 38px;
-		line-height: 20px;
-		padding: 5px;
-		/* margin-bottom: 1px;*/
-	}
-	section.photo-latest .image img{
-		height: 100%;
-		width: auto;
-		min-width: 100%;
+	section.photo-latest .body-stories {
+		/*max-height: 210px !important;*/
 	}
 }
 @media (min-width: 768px) {
 	section.photo .image {
 		/*height: 225px;*/
+		min-height: 210px !important;
 		overflow: hidden;
 		position: relative;
-		z-index: 1;
 	}
 	section.photo .image img {
-		position: absolute;
 		bottom: 0;
-		z-index: -1;
 		width: 100% !important;
 		height: auto !important;
 	}
@@ -1149,37 +1379,119 @@ section.photo .image img{
 	section.video-show .details-dest {
 		line-height: 30px;
 		min-height: 72px;
-		padding-top: 2px;
-		margin-top: 0;
+		padding-top: 2px !important;
+		padding-left: 10px !important;
+		margin: 0 !important;
+		margin-bottom: 10px !important;
+		width: 100%;
+	}
+	section.video-show .body-stories, section.video-show .head-stories {
+		margin: 0 !important;
+	}
+	section.video-show .details-dest .left {
+		width: 85%;
+	}
+	section.video-show .details-dest .right {
+		width: 15%;
+	}
+	section.photo-latest .image{
+		height: 85px;
+	}
+	section.photo-latest .body-stories{
+		max-height: 130px;
+	}	
+	section.video-latest .body-stories .left {
+		max-height: 106.5px !important;
+		overflow: hidden;
 	}
 }
 @media (min-width: 992px) {
 	section.photo .image {
-		height: 200px;
+		/*height: 175px;*/
+		min-height: 200px !important;
+	}
+	section.photo .image img {
+		width: auto !important;
+		height: 100% !important;
+	}
+	section.photo-latest .image {
+		height: 95px !important;
+	}
+	section.photo-latest .image{
+		height: 116px;
+	}
+	section.photo-latest .body-stories {
+		max-height: 140px;
+		max-height: 115px !important;
+	}
+	section.photo-latest .body-stories .left {
+		max-height: 91px !important;
+		overflow: hidden;
+	}	
+}
+
+@media (min-width: 1199px) {
+	section.photo-latest .image {
+		height: 116px !important;
+	}
+	section.photo-latest .body-stories {
+		max-height: 140px !important;
+	}
+	section.photo .image {
+		/*height: 200px;*/
+		min-height: 216px !important;
 	}
 	section.photo .image img {
 		height: auto !important;
 		width: 100% !important;
-	}
+	}	
 }
-/*LATEST*/
+/* END PHOTO SECTION */
+
+/* SET .IMAGE WIDTH */
+
+.image {
+	width: 100%;
+}
+
+
+/* LATEST PHOTOS */
 section.photo-latest .image{
 	overflow: hidden;
 	border-radius: 4px;
-    height: 116px;
+  height: 110px;
+  position: relative;
+  width: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  max-width: 180px;
+  float: right;
 }
 section.photo-latest .body-stories{
 	display: -webkit-flex;
 	display: -ms-flex;	
 	display: flex;
-	max-height: 140px;
+	/*max-height: 140px;*/
+	max-height: 130px;
+	/*min-height: 180px;*/
+	/*overfow:hidden;*/
 }
 section.photo-latest .image img{
 	width: 100%;
 	/*T*/
 	height: auto;
-	/*max-width: 100%;*/
+	/*max-width: 100%;
 	min-width: 100%;
+	height: 100%;
+	width: auto;*/
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
 }
 /*END PHOTO SECTION*/
 

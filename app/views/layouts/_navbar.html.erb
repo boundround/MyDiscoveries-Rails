@@ -30,7 +30,7 @@
                 <div class="row megamenu-paddings megamenu-bg">
 
                   <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6">
-                    <div class="border-section"></div>
+                    <div class="border-section visible-xs visible-sm"></div>
 
                     <div class="text-left padding-left">
                       <h4 class="section-title emphasize megamenu-font-color">Featured destinations</h4>
@@ -39,9 +39,9 @@
                     <% @featured_nav_destinations.each do |place| %>
                       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <a href="<%= place_path(place) %>">
-                            <div class="thumbnail box-shadow">
+                            <div class="thumbnail featured-destinations box-shadow">
                               <div class="image-cat">
-                                <img src="<%= draw_small_background(place) %>" alt="" class="top-rounded img-responsive inner-js">
+                                <img src="<%= draw_small_background(place) %>" alt="" class="top-rounded inner-js">
                               </div>
                               <div class="caption text-center">
                                 <h4 class="font-orange2"><%= place.display_name %></h4>
@@ -68,7 +68,7 @@
                     </div> <!-- col -->
 
                     <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
-                      <div class="border-section"></div>
+                      <div class="border-section visible-xs visible-sm"></div>
                             <section class="places-to-go">
                                 <div class="text-left">
                                   <h4 class="section-title padding-left emphasize megamenu-font-color">Featured places</h4>
@@ -78,9 +78,9 @@
                                   <% @featured_nav_places.each do |place| %>
                                     <a href = "<%= place_path(place) %>">
                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                      <div class="thumbnail margin-both box-shadow">
+                                      <div class="thumbnail featured-places margin-both box-shadow">
                                         <div class="image-cat image-cat-left">
-                                          <img src="<%= draw_small_background(place) %>" alt="" class="img-responsive img-full-div inner-js">
+                                          <img src="<%= draw_small_background(place) %>" alt="" class="img-full-div inner-js">
                                         </div>
                                         <div class="caption caption-right">
                                           <h4 class="gray-font"><%= place.country.display_name %></h4>
@@ -121,7 +121,7 @@
       <ul class="nav first-ul visible-xs">
       <li>
         <p class="find find-become btm10 ">Become a member</p>
-        <a href="#" class="btn btn-default btn-become">Join Boundround</a>
+        <a href="#" class="btn btn-default btn-blue btm20 btn-become">Join Boundround</a>
       </li>
       </ul>
       <ul class="nav navbar-nav first-ul hidden-xs">
