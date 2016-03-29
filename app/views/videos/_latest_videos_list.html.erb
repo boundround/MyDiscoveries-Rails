@@ -1,16 +1,14 @@
 <div class="col-xs-12 col-sm-6 col-md-4 bg">
   <div class="head-stories">
     <div class="left">
-      <a href="#">
         <div class="profile-outer">
-         <img src="assets/images/BR_Logo.png" alt="">
+           <img src="<%= asset_path('br-logo-new-blue.png')%>" alt="">
         </div>
-       </a>
     </div>
   </div>
   <div class="body-stories">
     <div class="left">
-        <p>Caribbean Craze</p>
+        <p><%= place_or_country_link(video.place) %></p>
         <h4 class="eat-color"><%= video.title %></h4>
       </div>
     <div class="right">
@@ -24,14 +22,9 @@
   <div class="details-dest">
     <div class="left">
       <% if video.place %>
-        <% if video.place.primary_category.present? %>
-          <%= link_to primary_category_path(video.place.primary_category.identifier) do %>
-            <i class="i-do i-do-video"></i><%= video.place.primary_category.name %>
-          <% end %>
-          <% video.place.subcategories.each do |sub| %>
+          <% video.place.subcategories.subcats.each do |sub| %>
             <%= link_to sub.name, subcategory_path(sub.identifier) %>
           <% end %>
-        <% end %>
       <% end %>
     </div>
   </div>

@@ -20,6 +20,18 @@ module ApplicationHelper
     ''
   end
 
+  def place_or_country_link(place)
+    begin
+      if place.class.to_s == "Place"
+        link_to place.display_name, place_path(place)
+      elsif place.class.to_s == "Country"
+        link_to place.display_name, country_path(place)
+      end
+    rescue
+      ""
+    end
+  end
+
   def full_title(page_title = '', category='')
     base_title = "Bound Round"
     if category.empty?
