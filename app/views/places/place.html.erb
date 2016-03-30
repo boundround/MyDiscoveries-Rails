@@ -12,7 +12,7 @@
 
 <div class="header-image-with-nav top-outer-js">
   <!--<div class="places-bg">-->
-  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header top-inner-js" >
+  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header stop-inner-js" >
  <!-- </div>-->
  <div class="breadcrumbs">
   <%= raw create_breadcrumb_for(@place) %>
@@ -21,7 +21,7 @@
     <div class="title-container hidden-xs">
       <div class="row">
         <div class="col-md-offset-2 text-center col-md-8">
-          <h1 class="text-center places-bg white"><%= @place.display_name %></h1>
+          <h1 class="text-center text-shadowed white"><%= @place.display_name %></h1>
         </div>
       </div>
     </div>
@@ -110,10 +110,10 @@
       <div class="border-section btm20"></div>
         <div class="row">
           <div class="col-xs-4">
-            <p class="gray-font">Opening hours</p>
+            <!-- <p class="gray-font">Opening hours</p>
             <p id="operating-hours"></p>
             <p id="hours"></p>
-            <p><a href="#" data-toggle="modal" data-target="#OpeningHourModal">View details</a></p>
+            <p><a href="#" data-toggle="modal" data-target="#OpeningHourModal">View details</a></p> -->
           </div>
           <div class="col-xs-4">
             <p class="gray-font">Other services</p>
@@ -218,7 +218,7 @@
 
 <div class="container padding-style">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- left-col -->
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!--left-col-->
 
 
     <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories" }%>
@@ -226,6 +226,7 @@
 
     <div class="border-section clearfix btm0 top20 visible-xs"></div>
     </div> <!-- /left-col -->
+
 
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
       <section class="your-stories btm15 cards">

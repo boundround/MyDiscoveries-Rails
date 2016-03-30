@@ -9,7 +9,7 @@
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
 
 <div class="header-image-with-nav top-outer-js">
-  <img clas="top-inner-js" src="<%= showing_image(draw_hero_background(@place)) %>" alt="" class="img-header">
+  <img clas="stop-inner-js" src="<%= showing_image(draw_hero_background(@place)) %>" alt="" class="img-header">
   <div class="breadcrumbs">
     <%#= raw create_breadcrumb_for(@place) %>
    </div>
@@ -17,17 +17,17 @@
       <div class="title-container hidden-xs">
         <div class="row">
           <div class="col-md-offset-2 col-md-8">
-            <h1 class="text-center white"><%= @place.display_name %></h1>
+            <h1 class="text-center text-shadowed white"><%= @place.display_name %></h1>
           </div>
         </div>
       </div>
       <div class="action">
         <!-- <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div> -->
-      <% if user_signed_in? %>
-        <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#addMediaModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
-        <% else %>
-        <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
-      <% end %>
+      <%# if user_signed_in? %>
+        <!-- <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#addMediaModal" ><i class="fa fa-plus"></i> Add photos</a>  </div> -->
+        <%# else %>
+        <!-- <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div> -->
+      <%# end %>
 
         <%# if user_signed_in?%>
           <!-- <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
@@ -182,8 +182,8 @@
           <img src="<%= showing_image(famous.photo_url) %>" alt="">
         </div>
         <div class="famous-text">
-          <p class="title"><% famous.name %></p>
-          <p class="gray-font">Actor</p>
+          <p class="title"><%= famous.name %></p>
+          <!-- <p class="gray-font">Actor</p> -->
           <p class="desc"><%= famous.description %></p>
         </div>
       </div>

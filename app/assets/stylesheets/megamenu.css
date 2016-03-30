@@ -47,12 +47,13 @@
   font-size: 18px;
 }
 .megamenu-bg {
-  background: #57B6CB !important;
-  background: #eaeaea !important;
+  /*background: #57B6CB !important;
+  background: #eaeaea !important;*/
+  background: #ffffff;
 }
 .megamenu-font-color {
 	/*color: #336C74;*/
-  color: #555555;
+  /*color: #555555;*/
 }
 .padding-left {
   padding-left: 15px !important;
@@ -76,6 +77,12 @@
 .megamenu-padding {
   padding: 0 !important;
   margin: 0;
+}
+.dropdown-menu {
+  border: 1px solid #cccccc;
+}
+.navbar-nav > li > .dropdown-menu {
+  border: 0;
 }
 @media (max-width: 390px) {
   .megamenu-padding {

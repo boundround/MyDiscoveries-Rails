@@ -39,7 +39,7 @@
                   </div>
                 <div class="img-story-place outer-js">
                   <% if !story.user_photos.blank? %>
-                    <img class="inner-js" align="right" src="<%= story.user_photos.first.path_url(:medium) %>" alt="">
+                    <img class="no-inner-js" align="right" src="<%= story.user_photos.first.path_url(:medium) %>" alt="">
                   <% end %>
                 </div>
             </div><!-- card -->
@@ -67,7 +67,7 @@
                 </div>
                 <div class="img-story-place outer-js">
                 <%# if !story.user_photos.blank? %>
-                  <img class="inner-js" align="right" src="<%= story.image.blank? ? draw_hero_background(@place) : story.image %>" alt="">
+                  <img class="no-inner-js" align="right" src="<%= story.image.blank? ? draw_hero_background(@place) : story.image %>" alt="">
                   <%# end %>
                 </div>
               </div>
