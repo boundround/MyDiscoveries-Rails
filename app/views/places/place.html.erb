@@ -218,8 +218,7 @@
 
 <div class="container padding-style">
   <div class="row">
-    <!-- <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> left-col -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <!-- left-col -->
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!--left-col-->
 
 
     <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories" }%>
@@ -228,8 +227,8 @@
     <div class="border-section clearfix btm0 top20 visible-xs"></div>
     </div> <!-- /left-col -->
 
-     <!-- <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> right-col -->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <!-- right-col -->
+     
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
       <section class="your-stories btm15 cards">
         <div class="row">
           <div class="col-xs-12">
@@ -266,7 +265,7 @@
             <h4 class="section-title">More places like this</h4>
           </div>
           <div class="row">
-           <div class="col-xs-12 col-md-8" id="more_places-list">
+           <div class="col-xs-12" id="more_places-list">
               <%= render partial: 'primary_categories/places_list', collection: @more_places, as: :place %>
               <!-- #hardcode activate paginate (6 cards per page) -->
               <!-- sebelumnya di limit 6. pake js tampil lg 3  -->

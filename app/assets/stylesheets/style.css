@@ -1177,6 +1177,7 @@ section.explore .fa{
 /*PLACES TO GO*/
 section.places-to-go .thumbnail{
 	border-radius: 4px;
+	height: auto;
 }
 section.places-to-go .details-dest{
 	clear: both
@@ -1256,15 +1257,22 @@ section.your-stories .head-stories{
 	background: #F7F7F7;
 	min-height: 38px;
   line-height: 38px;
-  margin: 0 -15px !important;
+  /*margin: 0 -15px !important;*/
 	padding: 0 15px;
+}
+section.your-stories .body-stories {
+	/*display: inline-block;*/
+	display: block !important;
+	overflow: hidden;
 }
 section.your-stories .head-stories a, section.your-stories .head-stories i,section.your-stories .body-stories .visited{
 	color:#B3B3B3;
 }
+
 @media(min-width: 768px){
-	section.your-stories .body-stories{
-		width: 100%;
+	section.your-stories .body-stories {
+		/*width: 100%;*/
+		display: inline-block;
 	}
 }
 section.your-stories .body-stories .visited{
@@ -1329,14 +1337,23 @@ section.your-stories .body-stories .body-image-responsive {
 	float: left;
 	width:50%;
 }
+@media (min-width:420px){
+	section.your-stories .body-stories {
+		display: block;
+		overflow: hidden;
+	}
+}
 @media (min-width:768px){
+	section.your-stories .body-stories {
+		display: inline-block;
+	}
 	.travelling-tips{
    	margin-top: 10px !important;
 		margin-bottom: 10px !important;
 	}
 	section.your-stories .head-stories, section.your-stories .body-stories {
-		margin: 0 -15px !important;
-		width: 100%;
+		/*margin: 0 -15px !important;*/
+		/*width: 100%;*/
 	}
 	.review-content .body-stories {
 		display: block !important;
@@ -1344,7 +1361,7 @@ section.your-stories .body-stories .body-image-responsive {
 	section.your-stories .body-stories .p-dynamic{
 		width: 60%;
 		min-height: 50px;
-		max-height: 100px;
+		/*max-height: 100px;*/
 		float: left;
 		padding-right: 20px;
 	}
