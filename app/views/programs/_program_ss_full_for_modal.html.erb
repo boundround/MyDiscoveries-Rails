@@ -7,19 +7,19 @@
     		<span>What did you think?</span>
     	</h2>
     	<h1 class="text-center fff model-heart">
-    	<input type="hidden" value="3"  class="rating" data-filled="fa fa-heart" data-empty="fa fa-heart-o"/> 
+    	<input type="hidden" value="3"  class="rating" data-filled="fa fa-heart" data-empty="fa fa-heart-o"/>
     	</h1>
   	</div>
       <div class="modal-content">
           <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>                    
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
           </div>
           <div class="col-md-11 modal-middle center-block">
           	<div class="row">
           		<div class="col-sm-12">
           			<h1>
           				<%= program.name %><BR><br>
-										<div class = "side-btn">								
+										<div class = "side-btn">
 											<span><a class="btn btn-default ss_website_button" href="<%= program.programpath %>">Program Website</a></span>
 										</div>
           			</h1>
@@ -28,20 +28,20 @@
           			<div class="col-md-12 bar center-block">
           				<!--IMPLEMENT div class="col-sm-3">
           					Rating:&nbsp;&nbsp;<span><i class="fa fa-heart"></i>
-									<i class="fa fa-heart"></i> 
-									<i class="fa fa-heart"></i> 
-									<i class="fa fa-heart-o"></i> 
-									<i class="fa fa-heart-o"></i> 
+									<i class="fa fa-heart"></i>
+									<i class="fa fa-heart"></i>
+									<i class="fa fa-heart-o"></i>
+									<i class="fa fa-heart-o"></i>
 								</span>
           				</div-->
           				<div class="col-sm-3">
           					Year:&nbsp;&nbsp;<span><%=program_yearlevels(program)%></span>
           				</div>
           				<div class="col-sm-3">
-          					Subject:&nbsp;&nbsp;<span><%=program.programsubjects[0] ? program.programsubjects[0] : ""%></span>  
+          					Subject:&nbsp;&nbsp;<span><%=program.programsubjects[0] ? program.programsubjects[0] : ""%></span>
           				</div>
           				<div class="col-sm-3">
-          					Duration:&nbsp;&nbsp;<span><%program.duration%></span>
+          					Duration:&nbsp;&nbsp;<span><%= program.duration%></span>
           				</div>
           				<div class="clearfix"></div>
           			</div>
@@ -74,99 +74,99 @@
           			<h4>Times</h4>
           			<div class="model-slider">
           		   <ul class="bxslider">
-          				
-          					
+
+
           				<li>
-          					
-          					<p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
+
+          					<p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
           					</p>
-          					<p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
+          					<p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
           					</p>
-          					<p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
+          					<p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
           					</p>
-          					
+
           				</li>
           				<li>
-          					
-          						<p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="avial">Not available</span> 
+
+          						<p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="avial">Not available</span>
           					</p>
-          					
+
           				</li>
           				<li>
-          					
-          						<p class="times">July 24, 2015 – 
-          							<span class="avial">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
+
+          						<p class="times">July 24, 2015 –
+          							<span class="avial">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
           					</p>
-          					
+
           				</li>
           				<li>
-          					
-          						<p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="avial">Not available</span> 
+
+          						<p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="avial">Not available</span>
           					</p>
-          					
+
           				</li>
           				<li>
-          					
-          						<p class="times">July 24, 2015 – 
-          							<span class="avial">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
+
+          						<p class="times">July 24, 2015 –
+          							<span class="avial">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
           					</p>
-          					
+
           				</li><li>
-          					
-          						<p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="avial">Not available</span> 
+
+          						<p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="avial">Not available</span>
           					</p>
-          					
+
           				</li>
           				<li>
-          					
-          						<p class="times">July 24, 2015 – 
-          							<span class="avial">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
-          					</p><p class="times">July 24, 2015 – 
-          							<span class="not">Not available</span> 
+
+          						<p class="times">July 24, 2015 –
+          							<span class="avial">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
+          					</p><p class="times">July 24, 2015 –
+          							<span class="not">Not available</span>
           					</p>
-          					
+
           				</li>
 
-          				
-          			
-          		 
+
+
+
           		  </ul>
-          		
+
           			<span id="slider-next2" class="fa fa-caret-right"></span>
           			<span id="slider-prev2" class="fa fa-caret-left"></span-->
           		</div>
-          		
+
           			<div class="clearfix"></div>
           	    </div>
-          		
+
           	</div>
 						<% if program.webresources.size > 1 %>
 	          	<div class="row modal-bottom">
@@ -176,7 +176,7 @@
 								<% program.webresources.each do |webresource| %>
 		          		<div class="col-sm-4">
 		          			<a href="<%= webresource.path %>" target="_blank" class="text-center btn btn-default form-control">
-		          			<span class="glyphicon glyphicon-download pull-left"></span> 
+		          			<span class="glyphicon glyphicon-download pull-left"></span>
 		          				<%= webresource.caption %>
 		          			</a>
 		          		</div>
@@ -188,17 +188,17 @@
           		<h4 class="text-center"><%= program.cost %></h4>
           	</div>
           	<div class="col-sm-12 ">
-          		<a href="<%= program.booknowpath ? program.booknowpath : (program.contact ? 'mailto:'+program.contact : '')%>" data-toggle="modal" target="_blank" class="book-now  form-control btn btn-default">Book now!</a>                		
-          	</div> 
+          		<a href="<%= program.booknowpath ? program.booknowpath : (program.contact ? 'mailto:'+program.contact : '')%>" data-toggle="modal" target="_blank" class="book-now  form-control btn btn-default">Book now!</a>
+          	</div>
           	<div class="clearfix"></div>
           	<!--IMPLEMENT div class="col-md-12 ">
           		<p class="text-center last-star ">
-          			<i class="fa fa-star rate ">&nbsp; </i>Or save it to your 
+          			<i class="fa fa-star rate ">&nbsp; </i>Or save it to your
           			<span>Favourites</span>
-          		</p>                	
+          		</p>
           	</div-->
 
-          	
+
           </div>
           <div class="clearfix"></div>
       </div>

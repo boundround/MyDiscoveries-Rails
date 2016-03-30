@@ -5,18 +5,22 @@
   <div class="form-group">
     <%= f.input :name, input_html: { class: 'form-control' }%>
   </div>
- 
+
   <div class="form-group">
     <%= f.input :description, input_html: { class: 'form-control' }%>
   </div>
- 
+
   <div class="form-group">
     <%= f.input :yearlevelnotes, input_html: { class: 'form-control' }%>
   </div>
 
     <div class="form-group">
-    <%= f.input :cost, input_html: { class: 'form-control' }%>
-  </div>
+      <%= f.input :cost, input_html: { class: 'form-control' }%>
+    </div>
+
+    <div class="form-group">
+      <%= f.input :duration, input_html: { class: 'form-control' }%>
+    </div>
 
   <div class="form-group">
     <%= f.input :programpath, input_html: { class: 'form-control' }%>
@@ -60,7 +64,7 @@
         <%= f.input :place_id, input_html: {class: 'form-control'}%>
       <% end %>
     </div>
-		
+
     <div class="form-group">
       <%= f.button :submit%>
     </div>
