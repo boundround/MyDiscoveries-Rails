@@ -15,52 +15,7 @@
 <section class="your-stories video-show photo">
   <div class="container">
     <div class="row">
-
-      <% @featured_places.each do |photo| %>
-        <div class="col-xs-12 col-sm-6 col-md-4">
-          <div class="head-stories">
-          <!-- #hardcode -->
-            <div class="left">
-             <% if photo.respond_to?(:user) and photo.user.present? %>
-              <%= link_to user_path(photo.user) do %>
-                <div class="profile-outer">
-                  <%= image_tag photo.user.avatar_url(:thumb) %>
-                </div>
-                <div class="profile-text">
-                  <%= photo.profile.user_name %>
-                </div>
-               <%- end %>
-             <% end %>
-            </div>
-            <div class="right">
-              <% if photo.respond_to?(:user) and photo.user.present? %>
-                <a href="#"><i class="fa fa-image"></i> <%= photo.user.photos.size rescue "" %></a>
-              <% end %>
-            </div>
-          </div>
-          <div class="body-stories">
-            <div class="title">
-              <p><%= link_to photo.place ? photo.place.display_name : photo.countries.first.display_name, photo.place ? place_path(photo.place) : country_path(photo.countries.first), class: "white-text" %></p>
-              <h4><%= photo.caption %></h4>
-            </div>
-            <div class="image">
-              <img src="<%= showing_image(photo.path_url(:medium)) %>" alt="">
-            </div>
-          </div>
-          <div class="details-dest btm15">
-          <!-- #hardcode -->
-            <div class="left">
-              <% if photo.place.present? %>
-              <% photo.place.subcategories.each do |sub| %>
-                <%= link_to sub.name, subcategory_path(sub) %>
-              <% end %>
-            <% end %>
-            </div>
-          </div>
-        </div> <!-- /col -->
-       <% end %>
-      </div>
-
+      <%= render partial: 'featured_photos_list', collection: @featured_photos, as: :photo %>
     </div> <!-- row -->
   </div>
 </section>
@@ -92,10 +47,5 @@
 
 <% end %>
 
-
-<div class="border-section"></div>
-<!-- buat  Popular sementara pake "" -->
-<%= render partial: "photos/photos",
-           locals: {title: "Most Popular", margin: "btm15 top15", global_photo: ""}
-
-%>
+<%= render "layouts/footer" %>
+<%= render partial: 'shared/blueimp_gallery_modal' %>

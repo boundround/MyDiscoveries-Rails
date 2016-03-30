@@ -65,7 +65,7 @@
 //= require stamps
 //= require dual_list_box
 //= require jquery_nested_form
-
+//= require blueimp-gallery.min
 
 $(document).on('ajax:beforeSend', 'a.single-pagination', function(){
   container= $(this).closest('div.single-pagination-container');
