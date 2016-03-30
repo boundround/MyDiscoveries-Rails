@@ -19,7 +19,7 @@
       </div>
       <div class="action">
         <!-- <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div> -->
-        <div class="center"><a class="white"href="#"><i class="fa fa-plus"></i> Add photos</a>  </div>
+        <!-- <div class="center"><a class="white"href="#"><i class="fa fa-plus"></i> Add photos</a>  </div> -->
         <%# if user_signed_in?%>
           <!-- <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
         <%# else %>
@@ -211,8 +211,8 @@
           <img src="<%= showing_image(famous.photo_url) %>" alt="">
         </div>
         <div class="famous-text">
-          <p class="title"><% famous.name %></p>
-          <p class="gray-font">Actor</p>
+          <p class="title"><%= famous.name %></p>
+          <!-- <p class="gray-font">Actor</p> -->
           <p class="desc"><%= famous.description %></p>
         </div>
       </div>
