@@ -3260,21 +3260,27 @@ input.form-control.input-text-nearby{
 	    position: relative;
     top: -203px;
 }
-.search-results-container{
+#desktop-result .search-results-container{
 	position: absolute;
     background: #fff;
     width: 282px;
     left: 20px;
     top: 65px;
 }
-.search-results-container #hits{
-    /*padding: 10px;*/
+#small-result .search-results-container{
+    position: absolute;
+    background: #fff;
+    width: 100%;
+    left: 0;
+    top: 60px;
+    z-index: 1;
 }
-#hits .hit-result h5{
+
+.hits .hit-result h5{
 	color: black;
 	 margin: 0;
 }
-#hits .hit-result small{
+.hits .hit-result small{
 	color: #ababab;
 }
 .hit-result .hit-icon{
@@ -3303,10 +3309,26 @@ input.form-control.input-text-nearby{
     padding: 0 5px;
     margin: 10px 0;
 }
+#small-result .hit{
+    padding: 0 5px;
+    margin: 30px 0;
+}
+
 .more-result{
 	padding: 5px;
 }
 input.more-result{
 	border: none;
     background: none;
+}
+.search-results-bottom-container{
+	background: #fff;
+	background: #fff;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+}
+.search-results-bottom-container{
+
 }

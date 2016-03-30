@@ -140,8 +140,10 @@
                 <%= text_field_tag "search[common]", params.traverse('search', 'common'), class: 'search-nav search-box', placeholder: 'Search for destinations', autocomplete: "off" %>
               <% end %>
             </div><!-- /input-group -->
-            <%= render "search_suggestions/search_results" %>
+            <div id="desktop-result">
+              <%= render :partial=> "search_suggestions/search_results", :locals => { :data_class => "search-results-container"}%>
 
+            </div>
 
 
           </div><!-- /input-group -->

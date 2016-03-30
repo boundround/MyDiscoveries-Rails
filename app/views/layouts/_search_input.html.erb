@@ -16,7 +16,7 @@
       </span>
     </div>
     <div class="place-search-container">
-        <%= render "search_suggestions/search_results" %>
+<%= render :partial=> "search_suggestions/search_results", :locals => { :data_class=>"search-results-container"}%>
     </div>
   </div>
 </div>

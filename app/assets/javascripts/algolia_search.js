@@ -1,17 +1,27 @@
 $(document).ready(function(){
-  
+  // removeResultDesktop();
+
   var APPLICATION_ID = 'KXOYK344AM';
   var SEARCH_ONLY_API_KEY = 'fce29aca7a9b823b9cacdbc1faa225e2';
-  var INDEX_NAME = 'place';
+  // var INDEX_NAME = 'place';
+  // index
+  // country_#{Rails.env}
+  // primary_category_#{Rails.env}
+  // place_#{Rails.env}
+  // subcategory_#{Rails.env}
+
+  // var INDEX_NAME = "place_development","primary_category_development","country_development","subcategory_development";
+  var INDEX_NAME = 'place_development';
   var PARAMS = {
     hitsPerPage: 6,
     maxValuesPerFacet: 8,
   };
 
-  var br_place_markerCluster = null;
+  // var br_place_markerCluster = null;
 
   var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
   var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
+  var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
   var hideSearchResults = function(){
     $('.br15_search_result').show();
@@ -31,19 +41,19 @@ $(document).ready(function(){
   $searchInputIcon = $('#search-button');
   $main = $('main');
   $sortBySelect = $('#sort-by-select');
-  $hits = $('#hits');
+  $hits = $('.hits');
   $stats = $('#stats');
   $facets = $('#facets');
   // $pagination = $('#pagination');
   // $noResult = $('#no-result');
-  $moreResult = $('#more-result');
+  $moreResult = $('.more-result-id');
 
   var hitTemplate = Hogan.compile($('#hit-template').text());
-  var statsTemplate = Hogan.compile($('#stats-template').text());
+  // var statsTemplate = Hogan.compile($('#stats-template').text());
   var facetTemplate = Hogan.compile($('#facet-template').text());
-  var sliderTemplate = Hogan.compile($('#slider-template').text());
-  var paginationTemplate = Hogan.compile($('#pagination-template').text());
-  var noResultsTemplate = Hogan.compile($('#no-results-template').text());
+  // var sliderTemplate = Hogan.compile($('#slider-template').text());
+  // var paginationTemplate = Hogan.compile($('#pagination-template').text());
+  // var noResultsTemplate = Hogan.compile($('#no-results-template').text());
   var moreResultsTemplate = Hogan.compile($('#more-results-template').text());
 
   function searchCondition(query){
@@ -51,14 +61,15 @@ $(document).ready(function(){
       algoliaHelper.setQuery(query);
       algoliaHelper.search();
     } else {
-      $('.search-results').hide();
       $('.search-results-container').hide();
-      $('.google-results-container').hide();
-      $('.br15_search_result').hide();
-      $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
-      $('#br15_map').removeClass('br15_min_h_530');
-      $('.br15_map').addClass('br15_collapse');
-      //animate map overlay
+    }
+  }
+  function searchConditionBottom(query){
+    if (query.length > 0){
+      algoliaHelperBottom.setQuery(query);
+      algoliaHelperBottom.search();
+    } else {
+      $('.search-results-container').hide();
     }
   }
 
@@ -71,60 +82,64 @@ $(document).ready(function(){
       var elem = $(this);
       setTimeout(function() {
         query = elem.val();
-        searchCondition(query)
+        searchCondition(query);
       }, 100);
   })
   .focus();
+
+
   
-  // $searchInputBottom
-  // .on('keyup', function() {
-  //     var query = $(this).val();
-  //     searchCondition(query);
-  // })
-  // .bind("paste", function(){
-  //     var elem = $(this);
-  //     setTimeout(function() {
-  //       query = elem.val();
-  //       searchCondition(query)
-  //     }, 100);
-  // })
-  // .focus();
+  $searchInputBottom
+  .on('keyup', function() {
+      var query = $(this).val();
+      searchConditionBottom(query);
+  })
+  .bind("paste", function(){
+      var elem = $(this);
+      setTimeout(function() {
+        query = elem.val();
+        searchConditionBottom(query);
+      }, 100);
+  })
+  .focus();
 
   // Search results
   algoliaHelper.on('result', function(content, state) {
     if (content.hits.length > 0){
       // $noResult.hide();
-      // $('#br15_map').addClass('br15_min_h_530');
-      // $('.br15_map').removeClass('br15_collapse');
-      // $('.br15_header').slideUp(400,function(){google.maps.event.trigger(br_map, "resize");});
-      // $('.br15_search_result').show();
       $('.search-results-container').show();
-      $('.search-results').show();
-      // $('.google-results-container').show();
-      // $('.google-results-container').append($('.pac-container'));
+      $('.search-results-bottom-container').hide();
+      // $('.search-results').show();
       renderHits(content);
       renderMoreResults(content);
       rescueImage();
-      $('#magnifying-glass').on('click', function(){
-        var data = $('.hit-result')[0];
-        var link = $(data).data("link");
-        window.location = link;
-      });
-
+      console.log(content.query);
+      console.log(state);
       // renderStats(content);
       // renderPagination(content);
     } else {
-      $('.br15_search_result').show();
-      $('.search-results-container').show();
-      $('.search-results').show();
-      // $('.google-results-container').show();
-      // $('.google-results-container').append($('.pac-container'));
       // renderNoResults(content);
-      // $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
-      // $('#br15_map').removeClass('br15_min_h_530');
-      // $('.br15_map').addClass('br15_collapse');
     }
   });
+  algoliaHelperBottom.on('result', function(content, state){
+    if (content.hits.length > 0){
+          // $noResult.hide();
+          $('.search-results-bottom-container').show();
+          $('.search-results-container').hide();
+          // $('.search-results').show();
+          renderHits(content);
+          renderMoreResults(content);
+          rescueImage();
+          console.log(content.query);
+          console.log(state);
+          // renderStats(content);
+          // renderPagination(content);
+        } else {
+          // renderNoResults(content);
+        }
+  })
+
+
 
   function renderMoreResults(content){
     // alert("more result");
@@ -155,7 +170,7 @@ function rescueImage(){
        if ($(val).attr("src") == ""){
         // console.log($(val).attr("src") == "");
             $(val).attr('src', "/assets/generic_hero.jpg");
-            console.log($(val).html());
+            // console.log($(val).html());
        }
     });
 }
@@ -286,4 +301,19 @@ function rescueImage(){
 //     }
 // searchRequest();
 
+});
+
+function removeResultDesktop(){
+  // if ($(window).width() < 767) {
+  //   var desktop_result = $("#desktop-result");
+  //       html_desktop_result = $("#desktop-result").html();
+  //       desktop_result.children().remove();
+  //   }else{
+  //     desktop_result.html(html_desktop_result);
+  //   }
+
+}
+
+$(window).resize(function(event) {
+  removeResultDesktop();
 });
