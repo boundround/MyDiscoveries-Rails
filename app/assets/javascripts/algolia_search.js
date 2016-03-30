@@ -153,7 +153,7 @@ function rescueImage(){
     $.each(img, function(index, val) {
        if ($(val).attr("src") == ""){
         // console.log($(val).attr("src") == "");
-            $(val).attr('src', "/assets/generic_hero.jpg");
+            $(val).attr('src', "https://d1w99recw67lvf.cloudfront.net/images/generic_hero_small.jpg");
             console.log($(val).html());
        }
     });
