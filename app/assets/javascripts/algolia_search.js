@@ -11,7 +11,7 @@ $(document).ready(function(){
   // subcategory_#{Rails.env}
 
   // var INDEX_NAME = "place_development","primary_category_development","country_development","subcategory_development";
-  var INDEX_NAME = 'place_development';
+  var INDEX_NAME = 'place_production';
   var PARAMS = {
     hitsPerPage: 6,
     maxValuesPerFacet: 8,
@@ -88,7 +88,7 @@ $(document).ready(function(){
   .focus();
 
 
-  
+
   $searchInputBottom
   .on('keyup', function() {
       var query = $(this).val();
@@ -146,7 +146,7 @@ $(document).ready(function(){
     // console.log(content.query);
     $moreResult.html(moreResultsTemplate.render(content));
   }
-  
+
   // function renderNoResults(content){
   //   $noResult.html(noResultsTemplate.render(content));
   // }
@@ -265,7 +265,7 @@ function rescueImage(){
 //         if (content.hits.length > 0){
 //           // alert("content > 0")
 //           // window.location = "/results"
-          
+
 //           console.log(content);
 //           console.log(content.index);
 //           console.log(state);
@@ -295,9 +295,9 @@ function rescueImage(){
 
 //         } else {
 //           // alert("content < 0")
-          
+
 //         }
-//       });     
+//       });
 //     }
 // searchRequest();
 
