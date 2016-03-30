@@ -314,7 +314,8 @@ module ApplicationHelper
   end
 
   def showing_image(url)
-    return asset_path('generic-hero.jpg') if url.blank?
+    #return asset_path('generic-hero.jpg') if url.blank?
+    return 'generic-hero.jpg' if url.blank?
     url
   end
 

@@ -1,25 +1,16 @@
-<div class="search-results-container">
+<div class="<%= data_class %>">
   <main class="search-results">
-    <div id="no-result"></div>
+    <div class="no-result"></div>
       <!-- <div id="stats"></div> -->
-      <div id="recently-viewed"></div>
-      <div id="hits"></div>
+      <div class="recently-viewed"></div>
+      <div class="hits"></div>
       <!-- <div id="pagination"></div> -->
-      <div id="more-result"></div>
+      <div class="more-result-id"></div>
       <!-- <div id="google-hits"></div> -->
   </main>
 </div>
-<div class="search-results-container-bottom">
-  <main class="search-results">
-    <div id="no-result"></div>
-      <!-- <div id="stats"></div> -->
-      <div id="recently-viewed"></div>
-      <div id="hits"></div>
-      <!-- <div id="pagination"></div> -->
-      <div id="more-result"></div>
-      <!-- <div id="google-hits"></div> -->
-  </main>
-</div>
+
+
 
 <script type="text/template" id="hit-template">
 {{#hits}}
@@ -30,7 +21,7 @@
     </div>
       <div class="hit-content">
         <h5 class="hit-name">{{{ display_name }}}</h5>
-        <small class="hit-description hidden-xs">{{{ display_address }}}</small>
+        <small class="hit-description">{{{ display_address }}}</small>
       </div>
     </div>
   </a>
@@ -57,53 +48,4 @@
       <%= hidden_field_tag "search[common]","{{query}}" %>
   <% end %>
 </div>
-</script>
-
-<!-- Stats template -->
-<script type="text/template" id="stats-template">
-  {{ nbHits }} Bound Round place{{#nbHits_plural}}s{{/nbHits_plural}} <span class="found-in">found in {{ processingTimeMS }}ms</span>
-</script>
-
-<!-- No-Results template -->
-<script type="text/template" id="no-results-template">
-  <div id="no-results-message">
-    <p>We didn't find any results for the search <em>"{{ query }}"</em>.</p>
-    <ul>
-      {{#filters}}
-      <li class="{{ class }}" data-facet="{{ facet }}" data-value="{{ facet_value }}">
-        {{ label }}<span class="value">{{ label_value }}</span><a class="remove"><img src="img/remove.svg"/></a>
-      </li>
-      {{/filters}}
-      <br>
-    </ul>
-      <a class='clear-all'>Clear all</a>
-  </div>
-</script>
-
-<style>
-  .search-pagination-list {
-    display: inline !important;
-    padding: 0;
-  }
-
-  .search-pagination-list li {
-    display: inline !important;
-  }
-
-  .search-pagination-list li a {
-    font-size: 16px !important;
-    display: inline !important;
-  }
-</style>
-
-<!-- Pagination template -->
-<script type="text/template" id="pagination-template">
-  <a id="search-results">
-  <ul class="search-pagination-list">
-    <li {{^prev_page}}class="disabled"{{/prev_page}}><a href="#" {{#prev_page}}class="go-to-page" data-page="{{ prev_page }}"{{/prev_page}}>&#60;</a></li>
-    {{#pages}}
-    <li class="{{#current}}active{{/current}} {{#disabled}}disabled{{/disabled}}"><a href="#" {{^disabled}} class="go-to-page" data-page="{{ number }}" {{/disabled}}>{{ number }}</a></li>
-    {{/pages}}
-    <li {{^next_page}}class="disabled"{{/next_page}}><a href="#" {{#next_page}}class="go-to-page" data-page="{{ next_page }}"{{/next_page}}>&#62;</a></li>
-  </ul>
 </script>

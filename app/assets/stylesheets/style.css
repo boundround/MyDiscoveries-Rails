@@ -3890,14 +3890,20 @@ input.form-control.input-text-nearby{
     left: 20px;
     top: 65px;
 }
-.search-results-container #hits{
-    /*padding: 10px;*/
+#small-result .search-results-container{
+    position: absolute;
+    background: #fff;
+    width: 100%;
+    left: 0;
+    top: 60px;
+    z-index: 1;
 }
-#hits .hit-result h5{
+
+.hits .hit-result h5{
 	color: black;
 	 margin: 0;
 }
-#hits .hit-result small{
+.hits .hit-result small{
 	color: #ababab;
 }
 .hit-result .hit-icon{
@@ -3927,10 +3933,28 @@ input.form-control.input-text-nearby{
     margin: 10px 0;
     min-height: 30px;
 }
+#small-result .hit{
+    padding: 0 5px;
+    margin: 30px 0;
+}
+
 .more-result{
 	padding: 5px;
 }
 input.more-result{
 	border: none;
     background: none;
+}
+
+.search-results-bottom-container{
+	background: #fff;
+	background: #fff;
+    position: absolute;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    top: 47px;
+    border-bottom: 1px solid lightgrey;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
 }
