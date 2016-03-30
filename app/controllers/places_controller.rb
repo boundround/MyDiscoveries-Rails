@@ -429,7 +429,8 @@ class PlacesController < ApplicationController
     @placeprograms = "yes"
     @max_feature_places = 6
 #    @places = Place.wherelimit(6).order('id asc')
-    @places = Place.joins(:programs).order('id asc').distinct.limit(@max_feature_places)
+    @places = Place.where(id: 1533)
+    @places += Place.joins(:programs).order('id asc').distinct.limit(@max_feature_places)
     place_ids = @places.map{|x| x[:id]}
     @programs = Program.where("place_id IN (?)", place_ids)
     set_program_filters(@places)
