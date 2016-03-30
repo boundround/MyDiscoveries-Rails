@@ -1,7 +1,7 @@
 class Subcategory < ActiveRecord::Base
 	include Parameterizable
 	include AlgoliaSearch
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_subcategory_id do
+  algoliasearch index_name: "subcategory_#{Rails.env}", id: :algolia_id do
   	attributesToIndex [:name, :identifier]
   	attribute :name, :identifier
 	end
@@ -24,7 +24,7 @@ class Subcategory < ActiveRecord::Base
 
 	private
 
-		def algolia_subcategory_id
+		def algolia_id
 			"algolia_subcategory_#{self.id}"
 		end
 

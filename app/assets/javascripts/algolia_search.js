@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  
   var APPLICATION_ID = 'KXOYK344AM';
   var SEARCH_ONLY_API_KEY = 'fce29aca7a9b823b9cacdbc1faa225e2';
   var INDEX_NAME = 'place';

@@ -2,7 +2,7 @@ class Country < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
 
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "country_#{Rails.env}", id: :algolia_id, if: :published? do
 
     attributes :display_name
 
