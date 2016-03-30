@@ -10,16 +10,10 @@
     <!-- hardcode #get category + sub category-->
   <div class="details-dest">
     <div class="left">
-<<<<<<< HEAD
-      <% place.subcategories.subcats.each do |c| %>
-        <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
-        <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
-=======
       <% place.subcategories.subcats.each do |sub| %>
         <%= link_to subcategory_path(sub) do %>
           <%= sub.name %>
         <% end %>
->>>>>>> test
       <% end %>
     </div>
     <div class="right">

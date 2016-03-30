@@ -171,6 +171,22 @@ ActiveRecord::Schema.define(version: 20160326052254) do
     t.integer "place_id"
   end
 
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "discounts", force: true do |t|
     t.text     "description"
     t.integer  "place_id"
@@ -388,8 +404,8 @@ ActiveRecord::Schema.define(version: 20160326052254) do
     t.text     "viator_link",               default: ""
     t.boolean  "footer_include"
     t.boolean  "primary_area"
-    t.string   "email"
     t.string   "algolia_id"
+    t.string   "email"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -404,14 +420,6 @@ ActiveRecord::Schema.define(version: 20160326052254) do
     t.integer "place_id",       null: false
     t.integer "subcategory_id", null: false
     t.text    "desc"
-  end
-
-  add_index "places_subcategories", ["place_id", "subcategory_id"], name: "index_places_subcategories_on_place_id_and_subcategory_id", using: :btree
-  add_index "places_subcategories", ["subcategory_id", "place_id"], name: "index_places_subcategories_on_subcategory_id_and_place_id", using: :btree
-
-  create_table "places_subcategories", id: false, force: true do |t|
-    t.integer "place_id",       null: false
-    t.integer "subcategory_id", null: false
   end
 
   add_index "places_subcategories", ["place_id", "subcategory_id"], name: "index_places_subcategories_on_place_id_and_subcategory_id", using: :btree
@@ -552,6 +560,20 @@ ActiveRecord::Schema.define(version: 20160326052254) do
   add_index "similar_places", ["place_id", "similar_place_id"], name: "index_similar_places_on_place_id_and_similar_place_id", unique: true, using: :btree
   add_index "similar_places", ["place_id"], name: "index_similar_places_on_place_id", using: :btree
   add_index "similar_places", ["similar_place_id"], name: "index_similar_places_on_similar_place_id", using: :btree
+
+  create_table "stamp_transactions", force: true do |t|
+    t.string  "user_info"
+    t.integer "stamp_id"
+  end
+
+  add_index "stamp_transactions", ["stamp_id"], name: "index_stamp_transactions_on_stamp_id", using: :btree
+
+  create_table "stamps", force: true do |t|
+    t.string  "serial"
+    t.integer "place_id"
+  end
+
+  add_index "stamps", ["place_id"], name: "index_stamps_on_place_id", using: :btree
 
   create_table "stories", force: true do |t|
     t.string   "title"
