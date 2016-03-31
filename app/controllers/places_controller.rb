@@ -260,7 +260,7 @@ class PlacesController < ApplicationController
     #NEW
     # @videos = @place.videos.active#.sort {|x, y| x.created_at <=> y.created_at}
     @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}
-
+    @videos = @place.videos.active
     # @place.videos.active.each do |video|
     #     @videos << video
     # end
