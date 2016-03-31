@@ -2,6 +2,36 @@ class Country < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
 
+  algoliasearch index_name: "place", id: :algolia_id, if: :published? do
+
+    attributes :display_name
+
+    attribute :description do
+      if description
+        if description.length < 50
+          "#{description}"
+        else
+          "#{description[0..50]}..."
+        end
+      else
+        ""
+      end
+    end
+
+    attribute :photos do
+      photos.select { |photo| photo.published? }.map do |photo|
+        { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+      end
+    end
+
+    attribute :url do
+      Rails.application.routes.url_helpers.country_path(self)
+    end
+
+    attributesToIndex ['display_name', 'unordered(description)']
+
+  end
+
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
 
     attributes :display_name

@@ -22,6 +22,7 @@ $(document).ready(function(){
   var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
   var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
   var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
+  var algoliaHelperInstantSearch= algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
   var hideSearchResults = function(){
     $('.br15_search_result').show();
@@ -56,6 +57,13 @@ $(document).ready(function(){
   // var noResultsTemplate = Hogan.compile($('#no-results-template').text());
   var moreResultsTemplate = Hogan.compile($('#more-results-template').text());
 
+  //instant search
+  $instantSearchInput= $("input.instant-search");
+  $instantSearchHits= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.hits');
+  $instantSearchHits= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.pagination');
+  var instanthitTemplate = Hogan.compile($('#instant-hit-template').text());
+
+
   function searchCondition(query){
     if (query.length > 0){
       algoliaHelper.setQuery(query);
@@ -70,6 +78,16 @@ $(document).ready(function(){
       algoliaHelperBottom.search();
     } else {
       $('.search-results-container').hide();
+    }
+  }
+
+  function searchInstant(input)
+  {
+    query= input.val();
+    if (query.length > 0)
+    {
+      algoliaHelperInstantSearch.setQuery(query);
+      algoliaHelperInstantSearch.search();
     }
   }
 
@@ -102,6 +120,19 @@ $(document).ready(function(){
       }, 100);
   })
   .focus();
+
+  $instantSearchInput
+  .on('keyup', function() {
+    searchInstant($(this))
+  })
+  .bind("paste", function(){
+      var elem = $(this);
+      setTimeout(function() {
+        searchInstant($(this));
+      }, 100);
+  })
+  .focus();
+
 
   // $searchInputBottom
   // .on('keyup', function() {
@@ -153,6 +184,23 @@ $(document).ready(function(){
         }
   })
 
+  algoliaHelperInstantSearch.on('result', function(content, state){
+    renderInstantHits(content);
+    console.log(content)
+  })
+
+
+  function renderInstantHits(content)
+  {
+    if (content.hits.length > 0)
+    {
+      console.log()
+      $instantSearchHits.html(instanthitTemplate.render(content));
+    }else
+    {
+      $instantSearchHits.html('No result for '+ content.query);
+    }
+  }
 
 
   function renderMoreResults(content){
