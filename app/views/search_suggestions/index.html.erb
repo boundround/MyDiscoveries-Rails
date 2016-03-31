@@ -1,4 +1,72 @@
-<div class="row">
+<div class="container">
+  <div class="row">
+    <h4 class="query-title">Search Results For "query" <%= @places.traverse('nbHits') %></h4>
+  </div>
+</div>
+<div class="border-section top5"></div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 top70">
+        <div class="checkbox-wrapper" id="age">
+        <!--#template checkbox -->
+          <!-- <h5>Age</h5>
+          <div class="checkbox">
+            <label>
+              <input name="age" type="checkbox"> 5-8
+            </label>
+          </div> -->
+       </div>
+       <div class="checkbox-wrapper" id="category"></div>
+       <div class="checkbox-wrapper" id="sub-category"></div>
+       <div class="checkbox-wrapper" id="price"></div>
+       <div class="checkbox-wrapper" id="weather" ></div>
+       <div class="checkbox-wrapper" id="best-time"></div>
+       <div class="checkbox-wrapper" id="accessibility"></div>
+       <div class="checkbox-wrapper" id="materials"></div>
+
+     </div>
+
+<div class="col-lg-8">
+  <div class="conteiner">
+    <div class="row">
+      <div class="col-xs-12">
+
+        <div class="input-group input-search-nav refine">
+          <%= form_tag searching_path, id: '', method: :get  do %>
+            <%= submit_tag "", id: 'btn-search-top'  %><i class="fa fa-search"></i>
+            <%= text_field_tag "search[common]", params.traverse('search', 'common'), id: "query" ,class: 'search-nav', autocomplete: "off" %>
+          <% end %>
+        </div><!-- /input-group -->
+        
+        <main id="hits">
+        <!-- #hits-template -->
+        <!-- <div class="result-card">
+          <div class="outer-image outer-js">
+            <img class="inner-js" src="/assets/578760-cruise-liners.jpg" alt="">
+          </div>
+          <div class="list-result">
+            <h3>Taronga Zoo</h3>
+            <p class="desc-result">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident ex porro, consequuntur, necessitatibus, molestiae aliquid quas exercitationem error neque deleniti quibusdam laboriosam delectus est molestias praesentium dolores! Voluptate, reiciendis, atque.</p>
+            <div class="footer-result">
+              <p class="pull-left">For Ages 5-8</p>
+              <a class="pull-right" href="#">Book Now</a>
+            </div>
+          </div>
+        </div> -->
+        </main>
+
+      </div>
+    </div>
+  </div>
+
+
+
+    </div>
+  </div> <!-- row -->
+</div> <!-- con -->
+
+<!-- <div class="row">
   <div class="col-md-10 col-md-offset-1">
     <div class="col-md-3 well">
       <h4>
@@ -13,15 +81,18 @@
         </div>
       </div>
     </div>
-    <div class="col-md-9 well" id="instant-search-container">
+    <div class="col-md-9" id="instant-search-container">
       <div class="row">
         <div class="col-md-12">
           <div class="input-group">
-            <%= text_field_tag 'search[common]', params.traverse(:search, :common), class: 'form-control instant-search', autocomplete: 'off' %>
+            <%#= text_field_tag 'search[common]', params.traverse(:search, :common), class: 'form-control instant-search', autocomplete: 'off' %>
             <span class="input-group-addon">
                 <i class="fa fa-search"></i>
             </span>
           </div>
+
+            
+
         </div>
       </div>
 
@@ -29,9 +100,9 @@
       <div class="row">
         <div class="col-md-12" id="instant-search-results">
           <hr/>
-          <%= render partial: 'search_suggestions/instant_search_results' %>
+          <%#= render partial: 'search_suggestions/instant_search_results' %>
         </div>
       </div>
     </div>
   </div>
-</div>
+</div> -->

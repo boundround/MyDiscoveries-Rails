@@ -45,7 +45,8 @@
 //= require user-photo-upload
 // require ckeditor/init
 // require ckeditor/config.js
-// require reviews
+// require reviews 
+
 //= require algoliasearch
 //= require algoliasearchhelper
 //= require hogan
@@ -66,6 +67,8 @@
 //= require dual_list_box
 //= require jquery_nested_form
 //= require blueimp-gallery.min
+//= require instantsearch.min
+//= require instant_search_setup
 
 $(document).on('ajax:beforeSend', 'a.single-pagination', function(){
   container= $(this).closest('div.single-pagination-container');
