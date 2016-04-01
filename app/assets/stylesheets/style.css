@@ -32,15 +32,16 @@ h1, h2, h3, h4{
 
 .hero-search {
 	position: absolute !important;
-    right: 0;
+  right: 0;
 }
 button.hero-search {
-    padding: 11px 12px;
-    border-left: 0;
-    border-right: 0;
-    border: none;
-    padding-right: 18px;
-    z-index: 10;
+   padding: 11px 12px;
+   border-left: 0;
+   border-right: 0;
+   border: none;
+   padding-right: 18px;
+   z-index: 10;
+   width: 6%;
 }
 .sign-in-pad {
 	margin-left: 15px;
@@ -168,15 +169,38 @@ ul.nav.navbar-nav.first-ul{
 }
 .search-nav{
 	border-radius: 4px;
-    height: 27px;
+    /*height: 27px;*/
     background: #eaeaea;
     border: none;
     box-shadow: none;
     padding-left: 28px !important;
     width: 100%;
     outline: none;
+    color: #555555 !important;
 }
-
+.desktop-search {
+	border-radius: 4px;
+  /*height: 27px;*/
+   background: #ffffff;
+   border: none;
+   /*padding-left: 28px !important;*/
+   width: 94%;
+   padding: 12px !important;
+   outline: none;
+   color: #555555 !important;
+   font-size: 17px;
+   z-index: 100;
+}
+.input-group.search-responsive {
+	position: relative;
+	top: -3px;
+	width: 100%;
+}
+input.desktop-search {
+	color: #555555 !important;
+	position: relative;
+	z-index: 1000;
+}
 .search-nav-mobile {
 	height: 60px !important;
 	border-radius: 4px;

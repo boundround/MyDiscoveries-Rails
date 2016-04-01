@@ -46,14 +46,24 @@
   <div class="row containerwidth searchpadding search-nearby">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <div class="input-group search-responsive">
-        <form action="/results" method="get">
-          <input id="" type="text" name="search[common]" id="search-common" class="form-control search-nav" placeholder="Search for destinations">
-          <!--<span class="input-group-btn">-->
+        <form accept-charset="UTF-8" action="/results" method="get">
+          <div style="display:none">
+            <input name="utf8" value="✓" type="hidden">
+          </div>
+          <input type="text" name="search[common]" id="search-desktop" class="desktop-search" placeholder="Search for destinations">
             <button class="btn btn-default hero-search" type="submit"><i class="fa fa-search"></i></button>
+          <!--
+          <input id="" type="text" name="search[common]" id="search-common" class="form-control search-nav" placeholder="Search for destinations">-->
+          <!--<span class="input-group-btn">-->
+            <!--<button class="btn btn-default hero-search" type="submit"><i class="fa fa-search"></i></button>-->
           <!--</span>-->
         </form>
-
       </div><!-- /input-group -->
+
+
+
+
+
     </div><!--
     <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
       <a href="#" class="btn btn-brw-orange2 btn-search"><i class="fa fa-map-marker"></i><br>Nearby</a>
