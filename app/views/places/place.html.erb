@@ -110,10 +110,10 @@
       <div class="border-section btm20"></div>
         <div class="row">
           <div class="col-xs-4">
-            <p class="gray-font">Opening hours</p>
+            <!-- <p class="gray-font">Opening hours</p>
             <p id="operating-hours"></p>
             <p id="hours"></p>
-            <p><a href="#" data-toggle="modal" data-target="#OpeningHourModal">View details</a></p>
+            <p><a href="#" data-toggle="modal" data-target="#OpeningHourModal">View details</a></p> -->
           </div>
           <div class="col-xs-4">
             <p class="gray-font">Other services</p>
@@ -137,8 +137,9 @@
 
       <div class="col-xs-12 col-sm-4 col-md-4 border-left-desk"> <!-- for map -->
           <div class="text-center clearfix  visible-xs">
-            <!-- <a href="#" class="btn button-orange button-style-booking fontbig-button btn-radius" data-toggle="modal" data-target="#BookingModal">Book Now!</a> -->
-            <a href="<%= @place.viator_link %>" data-target="_blank" class="btn button-orange button-style-booking btn-shadow fontbig-button btn-radius">Book Now!</a>
+            <% unless @place.viator_link.blank? %>
+              <a href="<%= @place.viator_link %>" data-target="_blank" class="btn button-orange button-style-booking btn-shadow fontbig-button btn-radius">Book Now!</a>
+            <% end %>
           </div>
         <div class="text-center div-btn-country top15 btm15 visible-xs">
 
@@ -183,7 +184,9 @@
   </section>
   <div class="text-center clearfix  hidden-xs" style="clear:both;z-index:1;position: relative;">
     <!-- "Book Now" - place.viator_link -->
-    <a href="<%= @place.viator_link %>" data-target="_blank" style="margin:-5px" class="btn button-orange button-style-booking fontbig-button btn-radius btn-shadow">Book Now!</a>
+    <% unless @place.viator_link.blank? %>
+      <a href="<%= @place.viator_link %>" data-target="_blank" style="margin:-5px" class="btn button-orange button-style-booking fontbig-button btn-radius btn-shadow">Book Now!</a>
+    <% end %>
 
   </div>
 
@@ -197,7 +200,18 @@
     <% end %>
   </div>
 
-
+  <% if @videos.present? %>
+    <div class="text-center">
+      <h4>Videos</h4>
+    </div>
+    <section class="your-stories video-show">
+      <div class="container">
+        <div class="row">
+        <%= render partial: 'videos/featured_videos_list', collection: @videos, as: :video %>
+        </div>
+      </div>
+    </section>
+  <% end %>
 <%= render "photo_carousel" %>
 
 </div><!-- /maincontainer -->
@@ -209,6 +223,7 @@
 
       <%= render :partial => "good_to_knows" %>
       <%= render :partial => "fun_facts", :locals => { :color => "" }  %>
+      <%= render partial: 'shared/video_modal' %>
 
 
     </div>
@@ -227,7 +242,7 @@
     <div class="border-section clearfix btm0 top20 visible-xs"></div>
     </div> <!-- /left-col -->
 
-     
+
     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- right-col -->
       <section class="your-stories btm15 cards">
         <div class="row">

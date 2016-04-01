@@ -1,7 +1,7 @@
 class PrimaryCategory < ActiveRecord::Base
   include Parameterizable
   include AlgoliaSearch
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_primary_category_id do
+  algoliasearch index_name: "primary_category_#{Rails.env}", id: :algolia_id do
   	attribute :name, :identifier
 	end
 
@@ -18,7 +18,7 @@ class PrimaryCategory < ActiveRecord::Base
 
   private
 
-  	def algolia_primary_category_id
+  	def algolia_id
   		"primary_category_#{self.id}"
   	end
 

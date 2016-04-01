@@ -1,54 +1,57 @@
-<!--div class="vacuum-events-off">
-	<div class="card-large-content-hide">
-		<button id="close-large-content" style="position:absolute">Close</button>
-	</div>
-</div-->
-<% if params[:place_id] %>
-  <div class="container">
-    <br><br><br>
-    <h2>Embed Codes for All Videos in <%= @place.display_name %></h2>
-    <% @videos.each do |video| %>
-        PREVIEW:<br>
-        <iframe width="320" height="180" src="<%= "/places/#{video.place.slug}/videos/#{video.id}" %>"></iframe>
-        <p><textarea cols="120" rows="2"><iframe width="320" height="180" src="<%= "https://app.boundround.com/places/#{video.place.slug}/videos/#{video.id}" %>"></iframe></textarea></p>
-        <br><br>
-    <% end %>
-  </div>
-<% else %>
-  <div class="area-content all-videos">
-    <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
-    <div class="page-wrap">
-      <div class="banner-wrapper game-video-banner">
-        <div class="banner">
-          <div class="title-wrapper">
-            <h1 class="title">Videos</h1>
-          </div>
-        </div>
-      </div>
-      <%= will_paginate @videos %>
-
-  		<div class="card-large-content-hide">
-  			<button id="close-large-content" style="position:absolute">Close</button>
-  		</div>
-
-      <div class="cards-float">
-        <% @videos.each do |video| %>
-  				<% if (video != nil and video.vimeo_thumbnail != nil ) %>
-  	        <div class="card-item card-item-small card-item-hide video video-card">
-  	          <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %><% end %>
-  						<div class="card-small-content">
-  							<div class="video-label"><%= area_place_video_link(video) %><a class="debug" href"<%= video.vimeo_thumbnail %>"> <%= video.vimeo_thumbnail.gsub(/_\d+\.jpg/,"_300.jpg") %></a></div>
-  		          <div class="video-background-image">
-  							 	<img class="vimeo-thumb" src="<%= video.vimeo_thumbnail.gsub(/_\d+\.jpg/,"_300.jpg") %>"/>
-  		          </div>
-  						</div>
-  	        </div>
-  				<% end %>
-        <% end %>
-      </div>
-      <%= will_paginate @videos %>
+<div class="container">
+  <div class="row">
+    <div class="head-title">
+      <h2 class="gray-font">Videos</h2>
     </div>
   </div>
+</div>
 
+<div class="border-section btm20"></div>
+
+<% if @featured_videos.present? %>
+  <section class="your-stories video-show">
+    <div class="container">
+      <div class="row">
+      <%= render partial: 'featured_videos_list', collection: @featured_videos, as: :video %>
+      </div>
+    </div>
+  </section>
 <% end %>
 
+<div class="container">
+  <div class="text-left">
+    <h4 class="section-title top5">Latest</h4>
+  </div>
+</div>
+
+<section class="your-stories video-show video-latest">
+  <div class="container">
+    <div class="row" id="latest_videos-list">
+      <%= render partial: 'latest_videos_list', collection: @latest_videos, as: :video %>
+      <!-- <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="head-stories">
+          <div class="left">
+            <a href="#">
+              <div class="profile-outer">
+                <img src="assets/images/BR_Logo.png" alt="">
+              </div>
+             </a>
+          </div>
+        </div>
+
+      </div> -->
+    </div>
+  </div>
+</section>
+
+<% unless last_page? @latest_videos %>
+  <div class="text-center clearfix btm20 single-pagination-container" id="latest_videos-single-pagination-container" style="clear:both">
+    <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+      <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+    </div>
+    <%= link_to "Load More", videos_path(place_id: params[:place_id], latest_videos_page: @latest_videos.next_page, resources: 'latest_videos', pagination_template: 'latest_videos_list', collection_object: 'video'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+  </div>
+<% end %>
+
+
+<%= render partial: 'shared/video_modal' %>

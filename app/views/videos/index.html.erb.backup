@@ -1,0 +1,54 @@
+<!--div class="vacuum-events-off">
+	<div class="card-large-content-hide">
+		<button id="close-large-content" style="position:absolute">Close</button>
+	</div>
+</div-->
+<% if params[:place_id] %>
+  <div class="container">
+    <br><br><br>
+    <h2>Embed Codes for All Videos in <%= @place.display_name %></h2>
+    <% @videos.each do |video| %>
+        PREVIEW:<br>
+        <iframe width="320" height="180" src="<%= "/places/#{video.place.slug}/videos/#{video.id}" %>"></iframe>
+        <p><textarea cols="120" rows="2"><iframe width="320" height="180" src="<%= "https://app.boundround.com/places/#{video.place.slug}/videos/#{video.id}" %>"></iframe></textarea></p>
+        <br><br>
+    <% end %>
+  </div>
+<% else %>
+  <div class="area-content all-videos">
+    <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
+    <div class="page-wrap">
+      <div class="banner-wrapper game-video-banner">
+        <div class="banner">
+          <div class="title-wrapper">
+            <h1 class="title">Videos</h1>
+          </div>
+        </div>
+      </div>
+      <%= will_paginate @videos %>
+
+  		<div class="card-large-content-hide">
+  			<button id="close-large-content" style="position:absolute">Close</button>
+  		</div>
+
+      <div class="cards-float">
+        <% @videos.each do |video| %>
+  				<% if (video != nil and video.vimeo_thumbnail != nil ) %>
+  	        <div class="card-item card-item-small card-item-hide video video-card">
+  	          <%= content_tag "div", class: "video-data", data: {video_id: video.vimeo_id} do %><% end %>
+  						<div class="card-small-content">
+  							<div class="video-label"><%= area_place_video_link(video) %><a class="debug" href"<%= video.vimeo_thumbnail %>"> <%= video.vimeo_thumbnail.gsub(/_\d+\.jpg/,"_300.jpg") %></a></div>
+  		          <div class="video-background-image">
+  							 	<img class="vimeo-thumb" src="<%= video.vimeo_thumbnail.gsub(/_\d+\.jpg/,"_300.jpg") %>"/>
+  		          </div>
+  						</div>
+  	        </div>
+  				<% end %>
+        <% end %>
+      </div>
+      <%= will_paginate @videos %>
+    </div>
+  </div>
+
+<% end %>
+

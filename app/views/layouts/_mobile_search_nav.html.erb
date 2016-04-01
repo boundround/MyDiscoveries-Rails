@@ -6,8 +6,11 @@
     <div class="col-xs-9 col-sm-9" style="height:60px">
       <%= form_tag searching_path, id: '', method: :get  do %>
         <%= submit_tag "", id: 'btn-search-top'  %>
-        <%= text_field_tag "search[common]", params.traverse('search', 'common'), class: 'search-nav-mobile', placeholder: 'Search for destinations' %>
+        <%= text_field_tag "search[common]", params.traverse('search', 'common'), class: 'search-nav-mobile search-box', autocomplete: "off", placeholder: 'Search for destinations' %>
       <% end %>
+    </div>
+    <div id="small-result">
+      <%= render :partial=> "search_suggestions/search_results", :locals => { :data_class=>"search-results-container"}%>
     </div>
     <div class="top15" align="center">
       <i id="fa-times-nav-xs" class="fa fa-times grey fontbig-signin i-big-isize"></i>

@@ -116,7 +116,7 @@
       <ul class="nav navbar-nav first-ul">
         <p class="find visible-xs">Browse</p>
         <li class=""><a href="/photos"><i class="fa fa-camera find-c"></i>&nbsp; Galleries</a></li>
-        <!-- <li class=""><a href="/videos"><i class="fa fa-youtube-play find-c"></i>&nbsp; Videos</a></li> -->
+        <li class=""><a href="/videos"><i class="fa fa-youtube-play find-c"></i>&nbsp; Videos</a></li>
       </ul>
       <ul class="nav first-ul visible-xs">
       <li>
@@ -137,10 +137,13 @@
 
               <%= form_tag searching_path, id: '', method: :get  do %>
                 <%= submit_tag "", id: 'btn-search-top'  %><i class="fa fa-search"></i>
-                <%= text_field_tag "search[common]", params.traverse('search', 'common'), class: 'search-nav', placeholder: 'Search for destinations' %>
+                <%= text_field_tag "search[common]", params.traverse('search', 'common'), class: 'search-nav search-box', placeholder: 'Search for destinations', autocomplete: "off" %>
               <% end %>
             </div><!-- /input-group -->
+            <div id="desktop-result">
+              <%= render :partial=> "search_suggestions/search_results", :locals => { :data_class => "search-results-container"}%>
 
+            </div>
 
 
           </div><!-- /input-group -->

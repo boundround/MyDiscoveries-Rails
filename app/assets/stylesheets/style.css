@@ -1,4 +1,4 @@
-/*brw-blue:#6CB7CA*/ /* DARKER #437682 #69b7c9 */ 
+/*brw-blue:#6CB7CA*/ /* DARKER #437682 #69b7c9 */
 /*font-gray:#A0A0A0*/
 /*btn-brw-blue:#385D8A*/
 /*btn-brw-orange:#FF9702*/
@@ -146,7 +146,7 @@ ul.nav.navbar-nav.first-ul{
 /*	border-right: 1px solid #eaeaea;*/
 }
 .input-search-nav{
-	padding: 0 10px;
+	padding: 2px 10px;
 	margin-top: -5px;
 	height: 65px;
 	width: 300px;
@@ -482,7 +482,7 @@ img.top-rounded {
 }
 .navbar .featured-destinations.thumbnail .details-dest {
 	height: 50px;
-}	
+}
 @media (min-width: 480px) {
 	.navbar .featured-destinations.thumbnail   {
 		max-height: 252px;
@@ -497,7 +497,7 @@ img.top-rounded {
 	.navbar .featured-destinations.thumbnail .details-dest {
 		height: 50px;
 		top: -85px;
-	}	
+	}
 	.navbar .thumbnail.featured-places .details-dest .right {
 		right: 5px;
 	}
@@ -505,7 +505,7 @@ img.top-rounded {
 @media (min-width: 599px) {
 	.navbar .featured-destinations.thumbnail {
 		max-height: 280px;
-	}	
+	}
 	.navbar .featured-destinations.thumbnail .image-cat {
 		height: 230px;
 	}
@@ -516,7 +516,7 @@ img.top-rounded {
 	.navbar .featured-destinations.thumbnail .details-dest  {
 		height: 50px;
 		top: -60px;
-	}	
+	}
 	.navbar .thumbnail.featured-destinations .details-dest .right {
 		bottom: -2px;
 		right: 10px;
@@ -525,12 +525,12 @@ img.top-rounded {
 		right: 5px;
 	}
 }
-@media (min-width: 768px) {	
+@media (min-width: 768px) {
 	.navbar .featured-destinations.thumbnail  {
 		max-height: 284px;
 		max-width: 300px;
 		margin: 20px auto;
-	}	
+	}
 	.navbar .featured-destinations.thumbnail .image-cat {
 		min-height: 235px;
 	}
@@ -538,10 +538,10 @@ img.top-rounded {
 			right: 7px;
 	}
 }
-@media (min-width: 991px) {	
+@media (min-width: 991px) {
 	.navbar .featured-destinations.thumbnail  {
 		max-height: 230px;
-	}	
+	}
 	.navbar .featured-destinations.thumbnail .image-cat {
 		min-height: 180px;
 	}
@@ -560,10 +560,10 @@ img.top-rounded {
 		right: 7px;
 	}
 }
-@media (min-width: 1199px) {	
+@media (min-width: 1199px) {
 	.navbar .featured-destinations.thumbnail  {
 		max-height: 240px;
-	}	
+	}
 	.navbar .featured-destinations.thumbnail .image-cat {
 		min-height: 210px;
 	}
@@ -574,7 +574,7 @@ img.top-rounded {
 	.navbar .featured-destinations.thumbnail .details-dest  {
 		height: 45px;
 		top: -100px;
-	}	
+	}
 	.navbar .thumbnail.featured-destinations .details-dest .right {
 		right: 7px;
 	}
@@ -1198,7 +1198,7 @@ img.img-full-div{
   /*padding: 0 10px;*/
   min-height: 57px;
 
-	/* T old 
+	/* T old
 	line-height: 38px;
 	min-height: 38px;
 	line-height: 24px;
@@ -1234,7 +1234,7 @@ img.img-full-div{
 .details-dest .right{
 	float: right;
 	position: absolute;
-	/* FOR NAV 
+	/* FOR NAV
 	bottom: 15px;
 	right: 22px;*/
 	/*width: 45%;
@@ -1739,7 +1739,7 @@ section.photo .image img{
 	}
 	section.photo-latest .body-stories{
 		max-height: 130px;
-	}	
+	}
 	section.video-latest .body-stories .left {
 		max-height: 106.5px !important;
 		overflow: hidden;
@@ -1767,7 +1767,7 @@ section.photo .image img{
 	section.photo-latest .body-stories .left {
 		max-height: 91px !important;
 		overflow: hidden;
-	}	
+	}
 }
 
 @media (min-width: 1199px) {
@@ -1784,7 +1784,7 @@ section.photo .image img{
 	section.photo .image img {
 		height: auto !important;
 		width: 100% !important;
-	}	
+	}
 }
 /* END PHOTO SECTION */
 
@@ -3093,7 +3093,7 @@ section.modal-booking .left img{
 		height: auto !important;
 		width: 100% !important;
 /*	min-height: 100%;	*/
-/*	margin-top: -16%; */
+		margin-top: -16%;
 	}
 	.home-carousel, .fix-img {
 		height: 700px;
@@ -3956,4 +3956,162 @@ input.form-control.input-text-nearby{
 .search-post{
 	    position: relative;
     top: -203px;
+}
+
+
+
+/*Video modal*/
+.modal-dialog.cs-modal-lg {
+    min-width: 951px !important
+}
+
+
+@media (min-width: 5000px) {
+    .modal-dialog.cs-modal-lg {
+        max-width: 3500px !important
+    }
+}
+
+@media (min-width: 3000px) and (max-width: 4999px) {
+    .modal-dialog.cs-modal-lg {
+        max-width: 2800px !important
+    }
+}
+
+@media (min-width: 1920px) and (max-width: 2999px) {
+    .modal-dialog.cs-modal-lg {
+        max-width: 1500px !important
+    }
+}
+
+@media (min-width: 2000px) {
+    .modal-content.cs-modal-content-video {
+        top: 300px !important
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1919px) {
+    .modal-content.cs-modal-content-video {
+        top: 10px !important
+    }
+    .modal-dialog.cs-modal-lg {
+        max-width: 960px !important
+    }
+}
+
+@media (min-width: 500px) and (max-width: 1023px) {
+    .modal-dialog.cs-modal-lg {
+        min-width: initial !important
+    }
+    .modal-content.cs-modal-content-video {
+        top: 20px !important;
+        width: 440px !important;
+        margin: auto !important;
+        min-height: initial !important
+    }
+}
+
+@media (min-width: 415px) and (max-width: 499px) {
+    #video-modal {
+        height: 276px !important;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px
+    }
+    .modal-dialog.cs-modal-lg {
+        min-width: 350px !important
+    }
+    .cs-modal-content-video {
+        min-height: initial;
+        width: 360px !important;
+        text-align: center;
+        margin: 0 auto
+    }
+}
+
+@media (max-width: 414px) {
+    .modal-dialog.cs-modal-lg {
+        min-width: 250px !important
+    }
+    .modal-content.cs-modal-content-video {
+        min-height: initial !important;
+        width: 250px !important;
+        margin: auto
+    }
+}
+/*end*/
+
+.search-results-container{
+	position: absolute;
+    background: #fff;
+    width: 282px;
+    left: 20px;
+    top: 65px;
+}
+#small-result .search-results-container{
+    position: absolute;
+    background: #fff;
+    width: 100%;
+    left: 0;
+    top: 60px;
+    z-index: 1;
+}
+
+.hits .hit-result h5{
+	color: black;
+	 margin: 0;
+}
+.hits .hit-result small{
+	color: #ababab;
+}
+.hit-result .hit-icon{
+	float: left;
+	margin-right: 5px;
+	width: 50px;
+}
+.hit-result .hit-content{
+    margin-left: 56px;
+
+}
+.hit-result .hit-icon img{
+	max-width: 50px;
+    max-height: 37px;
+}
+.world-wide{
+	width: 100%;
+	background:#eaeaea;
+	margin: 5px 0;
+	padding-left: 5px;
+}
+.recently{
+	padding-left: 5px;
+}
+.hit{
+    padding: 0 5px;
+    margin: 10px 0;
+    min-height: 30px;
+}
+#small-result .hit{
+    padding: 0 5px;
+    margin: 30px 0;
+}
+
+.more-result{
+	padding: 5px;
+}
+input.more-result{
+	border: none;
+    background: none;
+}
+
+.search-results-bottom-container{
+	background: #fff;
+	background: #fff;
+    position: absolute;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    top: 47px;
+    border-bottom: 1px solid lightgrey;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
 }

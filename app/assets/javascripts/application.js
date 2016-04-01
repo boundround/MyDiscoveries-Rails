@@ -65,7 +65,7 @@
 //= require stamps
 //= require dual_list_box
 //= require jquery_nested_form
-
+//= require blueimp-gallery.min
 
 $(document).on('ajax:beforeSend', 'a.single-pagination', function(){
   container= $(this).closest('div.single-pagination-container');
@@ -80,3 +80,30 @@ $(document).on('ajax:beforeSend', 'a.single-pagination', function(){
   container.find('div.single-pagination-loader').addClass('hidden-lg');
   $(this).removeClass('hidden');
 });
+
+$(document).ready(function(){
+
+	$(document).on('click', 'video.play-in-modal', function(e){
+		showAndPlayVideoOnModal($(this))
+	});
+
+	$('div.modal-video').on('hidden.bs.modal', function(e){
+		$(this).find('iframe').attr('src', null);
+	});
+
+  $(document).on('click', 'a.play-video', function(e){
+    div= $(this).closest('div');
+    video= div.find('video.play-in-modal');
+    showAndPlayVideoOnModal($(video))
+    e.preventDefault();
+  })
+
+});
+
+function showAndPlayVideoOnModal(video)
+{
+  modal= video.data('modal');
+  vid_src = video.data('video-url');
+  $(modal).modal('show');
+  $(modal+' iframe').attr('src', vid_src+'?autoplay=1');
+} 

@@ -35,6 +35,13 @@ SitemapGenerator::Sitemap.create do
       add place_path(place), :lastmod => place.updated_at, :images => photo_array, :videos => video_array
     end
   end
+
+  # Add all countries:
+  Country.find_each do |country|
+    if country.published_status == 'live'
+      add country_path(country), :lastmod => country.updated_at
+    end
+  end
 end
 
 #SitemapGenerator::Sitemap.ping_search_engines('https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz')

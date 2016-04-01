@@ -10,6 +10,9 @@
 
 <div class="header-image-with-nav top-outer-js">
   <img clas="stop-inner-js" src="<%= showing_image(draw_hero_background(@place)) %>" alt="" class="img-header">
+  <div class="breadcrumbs">
+    <%#= raw create_breadcrumb_for(@place) %>
+   </div>
     <div class="container padding-style">
       <div class="title-container hidden-xs">
         <div class="row">
@@ -20,11 +23,11 @@
       </div>
       <div class="action">
         <!-- <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div> -->
-      <% if user_signed_in? %>
-        <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#addMediaModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
-        <% else %>
-        <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
-      <% end %>
+      <%# if user_signed_in? %>
+        <!-- <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#addMediaModal" ><i class="fa fa-plus"></i> Add photos</a>  </div> -->
+        <%# else %>
+        <!-- <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div> -->
+      <%# end %>
 
         <%# if user_signed_in?%>
           <!-- <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
@@ -111,6 +114,19 @@
   </div>
   </section>
 
+  <% if @videos.present? %>
+    <div class="text-center">
+      <h4>Videos</h4>
+    </div>
+    <section class="your-stories video-show">
+      <div class="container">
+        <div class="row">
+        <%= render partial: 'videos/featured_videos_list', collection: @videos, as: :video %>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
 <%= render "photo_carousel" %>
 
 </div> <!-- /main container -->
@@ -179,8 +195,8 @@
           <img src="<%= showing_image(famous.photo_url) %>" alt="">
         </div>
         <div class="famous-text">
-          <p class="title"><% famous.name %></p>
-          <p class="gray-font">Actor</p>
+          <p class="title"><%= famous.name %></p>
+          <!-- <p class="gray-font">Actor</p> -->
           <p class="desc"><%= famous.description %></p>
         </div>
       </div>
@@ -217,3 +233,4 @@
 <%= render 'new_story' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
+<%= render partial: 'shared/video_modal' %>

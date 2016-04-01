@@ -260,7 +260,7 @@ class PlacesController < ApplicationController
     #NEW
     # @videos = @place.videos.active#.sort {|x, y| x.created_at <=> y.created_at}
     @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}
-
+    @videos = @place.videos.active
     # @place.videos.active.each do |video|
     #     @videos << video
     # end
@@ -429,7 +429,8 @@ class PlacesController < ApplicationController
     @placeprograms = "yes"
     @max_feature_places = 6
 #    @places = Place.wherelimit(6).order('id asc')
-    @places = Place.joins(:programs).order('id asc').distinct.limit(@max_feature_places)
+    @places = Place.where(id: 1533)
+    @places += Place.joins(:programs).order('id asc').distinct.limit(@max_feature_places)
     place_ids = @places.map{|x| x[:id]}
     @programs = Program.where("place_id IN (?)", place_ids)
     set_program_filters(@places)

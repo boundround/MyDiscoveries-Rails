@@ -206,6 +206,50 @@ function setUpfileUpload(input, list){
   // });
 }
 
+function responsiveModalVideo(){
+
+    var iframe = $(".responsive-video-modal iframe");
+    // Extra Large Device
+    if ($(window).width() >= 5000){
+        iframe.prop("width", "100%");
+        iframe.prop("height", "1950px");
+    }
+    else if ( ($(window).width() >= 3000) && ($(window).width() < 5000) ){
+        iframe.prop("width", "100%");
+        iframe.prop("height", "1550px");
+    }
+    // Large Device
+    else if ( ($(window).width() >= 1920) && ($(window).width() < 3000) ) {
+        iframe.prop("width", "100%");
+        iframe.prop("height", "830px");
+    }
+    // Large Device
+    else if ( ($(window).width() >= 1024) && ($(window).width() < 1920) ) {
+        iframe.prop("width", "920px");
+        iframe.prop("height", "525px");
+    }
+    // Large Device(tablets)
+    else if ( ($(window).width() >= 500) && ($(window).width() < 1024) ) {
+        iframe.prop("width", "400px");
+        iframe.prop("height", "230px");
+    }
+    // Small Device
+    else if ( ($(window).width() > 415) && ($(window).width() < 500 ) ){
+       iframe.prop("width", "320px");
+       iframe.prop("height", "180px");
+    }
+    // Extra Small Device
+    else if ($(window).width() <= 414){
+       iframe.prop("width", "220px");
+       iframe.prop("height", "130px");
+    }
+    // alert("video");
+}
+
+$(window).resize(function(){
+  responsiveModalVideo();
+});
+
 $(document).ready(function() {
     $('#publish-review-button').on('click', function(){
       $('#ReviewModal').modal("hide");
@@ -219,4 +263,5 @@ $(document).ready(function() {
    addToFav();
    setUpLoadMore();
    setupModal();
+   responsiveModalVideo();
 });
