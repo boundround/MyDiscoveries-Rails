@@ -387,10 +387,11 @@ img.top-rounded {
 }
 /* NEW NAVBAR THUMBNAILS */
 .navbar .featured-places.thumbnail {
-	height: 165px;
+	height: 160px;
 }
 .navbar .featured-places.thumbnail .details-dest {
-	height: 100px;
+	height: 60px !important;
+	top: -60px !important;
 }
 .navbar .featured-destinations.thumbnail img.top-rounded {
 	min-width: 100%;
@@ -418,7 +419,7 @@ img.top-rounded {
 }
 .navbar .thumbnail.featured-places .details-dest .right {
 	position: absolute;
-	bottom: -5px;
+	bottom: 0;
 	right: 5px;
 }
 .navbar .thumbnail.featured-places .details-dest .left {
@@ -472,7 +473,6 @@ img.top-rounded {
 		top: -85px;
 	}	
 	.navbar .thumbnail.featured-places .details-dest .right {
-		bottom: 35px;
 		right: 5px;
 	}
 }
@@ -496,7 +496,6 @@ img.top-rounded {
 		right: 10px;
 	}
 	.navbar .thumbnail.featured-places .details-dest .right {
-		bottom: 55px;
 		right: 5px;
 	}
 }
@@ -532,7 +531,6 @@ img.top-rounded {
 		top: -115px;
 	}
 	.navbar .thumbnail.featured-places .details-dest .right {
-		bottom: 55px;
 		right: 7px;
 	}
 }
@@ -598,7 +596,7 @@ img.top-rounded {
 		line-height: 60px;
 	}
 	.thumbnail {
-		height: 235px;
+		height: 240px;
 	}
 	.thumbnail .image-cat {
 		height: 100px;
@@ -606,10 +604,13 @@ img.top-rounded {
 	.thumbnail .details-dest {
 		/*min-height: 70px;
 		max-height: 70px;*/
-		max-height: 60px;
+		max-height: 70px;
 	}
 	.thumbnail .caption {
 		height: 65px;
+	}
+	section.places-to-go .details-dest {
+		top: -10px; /* this might be the 0 thing */
 	}
 }
 @media (max-width: 360px) {
@@ -649,6 +650,15 @@ img.top-rounded {
 		/*height: 125px;*/
 		height: 135px;
 	}
+	section.places-to-go .details-dest {
+		top: -35px !important; 
+	}
+	section.places-to-go .thumbnail {
+		max-height: 200px !important;
+	}
+	.thumbnail .image-cat-left {
+		min-height: 120px;
+	}
 }
 @media (min-width: 599px) {
 	.image-cat {
@@ -658,12 +668,19 @@ img.top-rounded {
 		/*height: 220px;*/
 		height: 300px;
 	}
+	section.places-to-go .thumbnail {
+		max-height: 225px !important;
+	}
+	section.places-to-go .details-dest {
+		top: -10px !important; 
+	}
 }
 @media (min-width: 768px) {
 	.thumbnail {
-		/*height: 220px;
-		height: 330px;*/
-		height: 340px;
+		/*height: 220px;*/
+		height: 330px;
+		/*height: 340px;*/
+		/*height: 300px;*/
 	}
 	.image-cat {
 		/*min-height: 130px;
@@ -673,35 +690,70 @@ img.top-rounded {
 		height: 142px;
 		height: 155px;*/
 		height: 195px;
+		top: 0 !important;
+	}
+	.thumbnail .image-cat-left {
+		min-height: 125px;
+	}
+	.thumbnail .image-cat-left img {
+		top: 0;
+		height: 100%;
+		bottom: 0;
+		width: auto;
 	}
 	.megamenu-paddings {
 		padding-left: 65px !important;
 		padding-right: 65px !important;
 	}
+	section.places-to-go .thumbnail {
+		max-height: 200px !important;
+	}
+	section.places-to-go .details-dest {
+		top: -65px !important;
+	}
+	/*#areas-list .thumbnail {
+		height: 330px;
+	}*/
+	#areas-list .thumbnail .details-dest {
+		top: 0 !important;
+	}
 }
 @media (min-width: 991px) {
 	.thumbnail {
-		height: 310px;
+		/*height: 310px;*/
+		height: 300px;
 	}
 	.image-cat {
 		/*height: 190px;
 		height: 140px;*/
 		height: 165px;
 	}
+	section.places-to-go .thumbnail {
+		max-height: 220px !important;
+	}
+	section.places-to-go .details-dest {
+		top: -15px !important;
+	}
 }
 @media (min-width: 1199px) {
 	.thumbnail {
 		/*height: 220px;*/
-		height: 290px;
+		height: 300px;
 	}
 	.image-cat {
 		/*height: 180px;
 		height: 142px;*/
-		height: 145px;
+		height: 165px;
 	}
 	.megamenu-paddings {
 		padding-left: 130px !important;
 		padding-right: 130px !important;
+	}
+	section.places-to-go .thumbnail {
+		max-height: 220px !important;
+	}
+	section.places-to-go .details-dest {
+		top: -15px !important;
 	}
 }
 img.img-full-div{
@@ -723,34 +775,48 @@ img.img-full-div{
 	min-height: 100px !important;
 }
 .navbar .featured-places.thumbnail {
-	height: 170px;
+	height: 160px;
 }
+.navbar .featured-places.thumbnail .image-cat-left img {
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: auto;
+}
+
 @media (min-width: 599px) {
 	.navbar .featured-places.thumbnail .image-cat-left {
 		height: 140px !important;
 	}
 	.navbar .featured-places.thumbnail {
-		height: 190px;
+		min-height: 210px !important;
+
 	}
 	.navbar .featured-places.thumbnail .details-dest {
-		min-height: 50px;
+		height: 60px !important;
+		top: -10px !important;
 	}
 }
-
-
-/*
 @media (min-width: 768px) {
-	.navbar .featured-places.thumbnail .image-cat-left {
-		height: 140px !important;
-	}
 	.navbar .featured-places.thumbnail {
-		height: 190px;
+		/*min-height: 220px !important;*/
+		margin-right: 10% !important;
+		margin-left: 10% !important;
 	}
-	.navbar .thumbnail.featured-destinations .details-dest .right {
-		right: 35px;
+	.navbar .featured-places.thumbnail .details-dest {
+		top: -15px !important;
 	}
 }
-*/
+@media (min-width: 991px) {
+	.navbar .featured-places.thumbnail {
+		/*min-height: 220px !important;*/
+		min-height: 158px !important;
+		margin: 10px;
+	}
+	.navbar .featured-places.thumbnail .details-dest {
+		top: -65px !important;
+	}
+}
 /* END NAVBAR THUMBNAILS */
 
 .top7{
@@ -1178,36 +1244,93 @@ section.explore .fa{
 section.places-to-go .thumbnail{
 	border-radius: 4px;
 	height: auto;
+	max-height: 175px;
 }
 section.places-to-go .details-dest{
-	clear: both
+	clear: both;
+	top: -60px;
+	height: 70px !important;
 }
 section.places-to-go .details-dest .left a{
-    background: #EAEAEA;
-    padding: 2px 9px;
-    color: #3A3A3A;
-    border-radius: 4px;
+	background: #EAEAEA;
+  padding: 2px 9px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #3A3A3A;
+  line-height: 30px;
+  margin-right: 5px;
 }
-.image-cat-left{
+section.places-to-go .details-dest .left a:hover {
+  /*color: #FFFFFF !important;*/
+  text-decoration: underline;
+  /*background: #A0A0A0;
+  background: #B3B3B3;*/
+  transition: 0.1s all;
+}
+.navbar section.places-to-go .details-dest .left a{
+	background: #EAEAEA;
+  padding: 2px 9px;
+  border-radius: 4px;
+  color: #3A3A3A;
+  line-height: 22px;
+  margin-right: 2px;
+}
+/*section .details-dest a{
+	background: #EAEAEA;
+  padding: 2px 9px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #3A3A3A;
+  line-height: 30px;
+}
+section .details-dest a:hover{
+  color: #FFFFFF !important;
+  text-decoration: none;
+  background: #A0A0A0;
+  background: #B3B3B3;
+  transition: 0.1s all;
+}
+*/
+
+.thumbnail .image-cat-left{
 	overflow: hidden;
 	width: 50%;
 	float: left;
-	height: 113px;
+	min-height: 165px;
+	/*min-height: 100px;*/
 	border-top-left-radius: 4px;
+	border-top-right-radius: 0;
 	position: relative;
+	z-index: 1;
 }
 .navbar .featured-places.thumbnail .image-cat-left{
 	height: 100px;
 	border-top-left-radius: 4px;
+	border-top-right-radius: 0;
 	position: relative;
 }
-.image-cat-left img{
-/*	position: relative;
-	top: -35px;*/
+.thumbnail .image-cat-left img {
+	position: absolute !important;
+	top: 0;
+	height: 100%;
+	bottom: 0;
+	width: auto;
 }
+
 @media (max-width: 430px) {
-	.image-cat-left img{
-		top: 0px;
+.thumbnail .image-cat-left img{
+		top: 0;
+	}
+}
+
+@media (min-width: 480px) {
+	.thumbnail .image-cat-left img {
+	position: absolute !important;
+	top: 0 !important;
+	min-width: 100%;
+	bottom: 0;
+	width: 100%;
+	height: auto;
 	}
 }
 .caption-right{
@@ -1215,15 +1338,15 @@ section.places-to-go .details-dest .left a{
 	background: #fff;
 	border-top-right-radius: 4px;
 	width: 50%;
-    float: left;
-    min-height: 113px;
+  float: left;
+  min-height: 100px;
 }
 .caption-right h4{
 	font-size: 16px;
 }
 .caption-right h2{
 	color: #6683A1;
-	font-size: 22px;
+	font-size: 18px;
 	margin-top: 0px;
 }
 /*END*/
@@ -1378,6 +1501,7 @@ section.your-stories .body-stories .body-image-responsive {
 .img-border {
 	border-radius: 4px;
 }
+
 /*STORIES END */
 
 /*VIDEOS SECTION*/
@@ -1388,9 +1512,7 @@ section.video-show .head-stories{
 }
 section.video-show{
 	/*background: #fff;*/
-
 }
-
 section.video-show .details-dest{
 	border-radius: 0;
 	width: initial;
@@ -1403,11 +1525,11 @@ section.video-show .details-dest{
 }
 section.video-show .details-dest a{
 	background: #EAEAEA;
-    padding: 2px 9px;
-    padding: 5px 10px;
-    border-radius: 4px;
-    color: #3A3A3A;
-
+  padding: 2px 9px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #3A3A3A;
+  line-height: 30px;
 }
 section.video-show .details-dest a:hover{
     color: #FFFFFF;
@@ -1415,6 +1537,13 @@ section.video-show .details-dest a:hover{
     background: #A0A0A0;
     background: #B3B3B3;
     opacity: 0.8;
+    transition: 0.1s all;
+}
+section .details-dest a:hover{
+    color: #FFFFFF;
+    text-decoration: none;
+    background: #A0A0A0;
+    background: #B3B3B3;
     transition: 0.1s all;
 }
 section.video-show .title, .title-fun-caro{
