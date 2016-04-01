@@ -23,11 +23,11 @@
       </div>
       <div class="action">
         <!-- <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div> -->
-      <%# if user_signed_in? %>
-        <!-- <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#addMediaModal" ><i class="fa fa-plus"></i> Add photos</a>  </div> -->
-        <%# else %>
-        <!-- <div class="center"><a class="white"href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div> -->
-      <%# end %>
+        <% if user_signed_in? %>
+           <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#userPhotoModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
+          <% else %>
+          <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
+        <% end %>
 
         <%# if user_signed_in?%>
           <!-- <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
@@ -229,6 +229,7 @@
 </div> <!-- area-content -->
 <% end %>
 
+<%= render 'user_photos/form' %>
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
 <%#= render 'layouts/video_modal' %>
