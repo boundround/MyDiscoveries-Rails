@@ -84,7 +84,7 @@ class Place < ActiveRecord::Base
   #second indexing
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
-    attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug
+    attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug, :minimum_age, :maximum_age
     # attributes :is_area
     attribute :country do
       if self.country
@@ -120,6 +120,10 @@ class Place < ActiveRecord::Base
       end
     end
 
+    attribute :main_category do 
+      primary_category.name if primary_category.present?
+    end
+
     attribute :subcategories do
       subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
     end
@@ -153,6 +157,17 @@ class Place < ActiveRecord::Base
       end
       hero
     end
+
+    attribute :age_range do
+      if minimum_age.present? and maximum_age.present?
+        if ((5..8).include?(minimum_age) and (5..8).include?(maximum_age)) or ((9..12).include?(minimum_age) and (9..12).include?(maximum_age) )
+          "#{minimum_age}-#{maximum_age}"
+        else 
+          'Teens'
+        end
+      end
+    end
+
      #country and url
 
     # the attributesToIndex` setting defines the attributes
@@ -165,7 +180,7 @@ class Place < ActiveRecord::Base
     # records in case their text-relevance is equal. It should reflect your record popularity.
     # customRanking ['desc(likes_count)']
 
-    attributesForFaceting ['area']
+    attributesForFaceting ['area', 'main_category', 'range_age']
   end
 
   # ratyrate_rateable "quality"

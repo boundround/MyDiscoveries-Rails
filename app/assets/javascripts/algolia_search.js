@@ -22,7 +22,15 @@ $(document).ready(function(){
   var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
   var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
   var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
-  var algoliaHelperInstantSearch= algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
+
+  var INSTANT_SEARCH_PARAMS = {
+    hitsPerPage: 6,
+    maxValuesPerFacet: 8,
+    facets: ['area'],
+    disjunctiveFacets: ['main_category', 'age_range']
+  };
+
+  var algoliaHelperInstantSearch= algoliasearchHelper(algolia, INDEX_NAME, INSTANT_SEARCH_PARAMS);
 
   var hideSearchResults = function(){
     $('.br15_search_result').show();
@@ -59,10 +67,13 @@ $(document).ready(function(){
 
   //instant search
   $instantSearchInput= $("input.instant-search");
+  $instantSearchFacet= $('#facets-instant-search')
   $instantSearchHits= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.hits');
-  $instantSearchHits= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.pagination');
-  var instanthitTemplate = Hogan.compile($('#instant-hit-template').text());
+  $instantSearchPagination= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.pagination');
 
+  var instanthitTemplate = Hogan.compile($('#instant-hit-template').text());
+  var instantPaginationTemplate= Hogan.compile($('#instant-pagination-template').text());
+  var instantfacetTemplate = Hogan.compile($('#instant-facet-template').text());
 
   function searchCondition(query){
     if (query.length > 0){
@@ -186,9 +197,21 @@ $(document).ready(function(){
 
   algoliaHelperInstantSearch.on('result', function(content, state){
     renderInstantHits(content);
+    renderFacets(content, state);
+    renderPagination(content, $instantSearchPagination ,instantPaginationTemplate);
     console.log(content)
   })
 
+  $(document).on('click', '.go-to-page-instant-search', function(e) {
+    e.preventDefault();
+    $('html, body').animate({scrollTop: 0}, '500', 'swing');
+    algoliaHelperInstantSearch.setCurrentPage(+$(this).data('page') - 1).search();
+  });
+
+  $(document).on('click', '.instant-search-toggle-refine', function(e) {
+    e.preventDefault();
+    algoliaHelper.toggleRefine($(this).data('facet'), $(this).data('value')).search();
+  });
 
   function renderInstantHits(content)
   {
@@ -200,6 +223,47 @@ $(document).ready(function(){
     {
       $instantSearchHits.html('No result for '+ content.query);
     }
+    rescueImage();
+  }
+
+  function renderFacets(content, state) {
+    var facetsHtml = '';
+    var facetName = 'type';
+    var facetResult = content.getFacetByName(facetName);
+    var facetContent = {};
+    if (facetResult)   if (facetResult) {
+      facetContent = {
+        facet: facetName,
+        title: FACETS_LABELS[facetName],
+        values: content.getFacetValues(facetName, {sortBy: ['isRefined:desc', 'count:desc']}),
+        disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+      };
+      facetsHtml += instantfacetTemplate.render(facetContent);
+    }
+    $instantSearchFacet.html(facetsHtml);
+  }
+
+  function renderPagination(content, paginate_el, pagination_template) 
+  {
+    var pages = [];
+    if (content.page > 3) {
+      pages.push({current: false, number: 1});
+      pages.push({current: false, number: '...', disabled: true});
+    }
+    for (var p = content.page - 3; p < content.page + 3; ++p) {
+      if (p < 0 || p >= content.nbPages) continue;
+      pages.push({current: content.page === p, number: p + 1});
+    }
+    if (content.page + 3 < content.nbPages) {
+      pages.push({current: false, number: '...', disabled: true});
+      pages.push({current: false, number: content.nbPages});
+    }
+    var pagination = {
+      pages: pages,
+      prev_page: content.page > 0 ? content.page : false,
+      next_page: content.page + 1 < content.nbPages ? content.page + 2 : false
+    };
+    paginate_el.html(pagination_template.render(pagination));
   }
 
 
@@ -228,6 +292,14 @@ $(document).ready(function(){
 function rescueImage(){
       // $($(".hit-icon img")[0]).attr("src") == ""
     var img = $(".hit-icon img");
+    $.each(img, function(index, val) {
+       if ($(val).attr("src") == ""){
+        // console.log($(val).attr("src") == "");
+            $(val).attr('src', "https://d1w99recw67lvf.cloudfront.net/images/generic-hero-small.jpg");
+            // console.log($(val).html());
+       }
+    });
+    img = $("img.rescue-image");
     $.each(img, function(index, val) {
        if ($(val).attr("src") == ""){
         // console.log($(val).attr("src") == "");
