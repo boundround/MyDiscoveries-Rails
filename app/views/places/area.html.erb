@@ -24,7 +24,7 @@
       <div class="action">
         <!-- <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div> -->
         <% if user_signed_in? %>
-           <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#userPhotoModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
+           <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#userPhotoModal" ><i class="fa fa-plus"></i> Add photo</a>  </div>
           <% else %>
           <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div>
         <% end %>
@@ -160,7 +160,7 @@
       <% unless @places_to_visit.blank? %>
         <section class="places-to-go visit-place">
             <div class="text-left">
-              <h4 class="section-title">Places to visit in <%= @place.display_name %></h4>
+              <h4 class="section-title">Things to do in <%= @place.display_name %></h4>
             </div>
             <div class="row">
              <div class="col-xs-12" id="places_to_visit-list">
