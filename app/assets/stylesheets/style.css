@@ -759,7 +759,7 @@ img.top-rounded {
 		height: 165px;
 	}
 	section.places-to-go .thumbnail {
-		max-height: 220px !important;
+		/*max-height: 220px !important;*/
 	}
 	section.places-to-go .details-dest {
 		top: -15px !important;
@@ -780,7 +780,7 @@ img.top-rounded {
 		padding-right: 130px !important;
 	}
 	section.places-to-go .thumbnail {
-		max-height: 220px !important;
+		/*max-height: 220px !important;*/
 	}
 	section.places-to-go .details-dest {
 		top: -15px !important;
@@ -1437,7 +1437,7 @@ section.your-stories .head-stories a, section.your-stories .head-stories i,secti
 
 @media(min-width: 768px){
 	section.your-stories .body-stories {
-		/*width: 100%;*/
+		width: 100%;
 		display: inline-block;
 	}
 }
@@ -1445,8 +1445,8 @@ section.your-stories .body-stories .visited{
 	margin-bottom: 0px;
 }
 section.your-stories .head-stories .left{
-	/*width: 60%;*/
-	width: 100%;
+	width: 60%;
+	/*width: 100%;*/
 	float:left;
 }
 section.your-stories .head-stories .right{
