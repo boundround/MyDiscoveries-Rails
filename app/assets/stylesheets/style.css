@@ -639,9 +639,6 @@ img.top-rounded {
 	.thumbnail .caption {
 		height: 65px;
 	}
-	section.places-to-go .details-dest {
-		top: -10px; /* this might be the 0 thing */
-	}
 }
 @media (max-width: 360px) {
 	img.img-full-div {
@@ -680,12 +677,6 @@ img.top-rounded {
 		/*height: 125px;*/
 		height: 135px;
 	}
-	section.places-to-go .details-dest {
-		top: -35px !important;
-	}
-	section.places-to-go .thumbnail {
-		/*max-height: 200px !important;*/
-	}
 	.thumbnail .image-cat-left {
 		min-height: 120px;
 	}
@@ -697,12 +688,6 @@ img.top-rounded {
 	.thumbnail {
 		/*height: 220px;*/
 		height: 300px;
-	}
-	section.places-to-go .thumbnail {
-		/*max-height: 225px !important;*/
-	}
-	section.places-to-go .details-dest {
-		top: -10px !important;
 	}
 }
 @media (min-width: 768px) {
@@ -735,12 +720,6 @@ img.top-rounded {
 		padding-left: 65px !important;
 		padding-right: 65px !important;
 	}
-	section.places-to-go .thumbnail {
-		/*max-height: 200px !important;*/
-	}
-	section.places-to-go .details-dest {
-		top: -65px !important;
-	}
 	/*#areas-list .thumbnail {
 		height: 330px;
 	}*/
@@ -758,12 +737,6 @@ img.top-rounded {
 		height: 140px;*/
 		height: 165px;
 	}
-	section.places-to-go .thumbnail {
-		/*max-height: 220px !important;*/
-	}
-	section.places-to-go .details-dest {
-		top: -15px !important;
-	}
 }
 @media (min-width: 1199px) {
 	.thumbnail {
@@ -778,12 +751,6 @@ img.top-rounded {
 	.megamenu-paddings {
 		padding-left: 130px !important;
 		padding-right: 130px !important;
-	}
-	section.places-to-go .thumbnail {
-		/*max-height: 220px !important;*/
-	}
-	section.places-to-go .details-dest {
-		top: -15px !important;
 	}
 }
 img.img-full-div{
@@ -824,7 +791,6 @@ img.img-full-div{
 	}
 	.navbar .featured-places.thumbnail .details-dest {
 		height: 60px !important;
-		top: -10px !important;
 	}
 }
 @media (min-width: 768px) {
@@ -1290,7 +1256,7 @@ section.places-to-go .thumbnail{
 }
 section.places-to-go .details-dest{
 	clear: both;
-	top: -60px;
+	bottom: -10px;
 	height: 70px !important;
 }
 /*section.places-to-go .details-dest .left a{
