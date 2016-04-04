@@ -3990,6 +3990,7 @@ input.more-result{
     border-radius: 5px;
     float: left;
     margin-bottom: 15px;
+    width: 100%;
 
 }
 .desc-result,.footer-result{
@@ -4027,4 +4028,7 @@ input.more-result{
 	top: 33px;
     left: 15px;
     font-size: 25px;
+}
+.pagination {
+	text-align: center;
 }

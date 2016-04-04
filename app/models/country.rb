@@ -38,10 +38,10 @@ class Country < ActiveRecord::Base
 
     attribute :description do
       if description
-        if description.length < 50
+        if description.length < 180
           "#{description}"
         else
-          "#{description[0..50]}..."
+          "#{description[0..180]}..."
         end
       else
         ""
