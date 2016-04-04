@@ -18,6 +18,10 @@ body{
 h1, h2, h3, h4{
 	font-weight: 100 !important;
 }
+
+.body-stories:hover {
+	cursor: pointer;
+}
 .breadcrumbs {
 	position: absolute;
 	top: 30px;
@@ -677,7 +681,7 @@ img.top-rounded {
 		height: 135px;
 	}
 	section.places-to-go .details-dest {
-		top: -35px !important; 
+		top: -35px !important;
 	}
 	section.places-to-go .thumbnail {
 		max-height: 200px !important;
@@ -698,7 +702,7 @@ img.top-rounded {
 		max-height: 225px !important;
 	}
 	section.places-to-go .details-dest {
-		top: -10px !important; 
+		top: -10px !important;
 	}
 }
 @media (min-width: 768px) {
