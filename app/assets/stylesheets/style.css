@@ -4156,3 +4156,27 @@ input.more-result{
     border-left: 1px solid lightgrey;
     border-right: 1px solid lightgrey;
 }
+.btn-user-photo{
+	width: 142px;
+    margin: 0 auto;
+    position: relative;
+}
+.btn-user-photo i.fa{
+	font-size: 130px;
+    margin-bottom: -20px;
+    position: relative;
+    bottom: -6px;
+}
+.btn-user-photo .fileinput-button-user{
+	overflow: hidden;
+}
+#user_photo_caption{
+	width: 88%;
+    margin: 15px auto;
+}
+.user-upload-image-preview{
+	width: 100%;
+}
+#image-preview{
+	/*margin-bottom: 15px;*/
+}

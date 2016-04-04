@@ -1,31 +1,51 @@
-<div class="modal fade br_add_pic" id="userPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog text-center" role="document">
-   <img src="<%= asset_path('Badge.png') %>"/>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-   <h1>Add a photo</h1>
-   <div class="modal-content">
-      <div class="br_upload">
-        <%= form_for [(@place ? @place : @area), UserPhoto.new], :html => { :id => "user-photo-upload"  } do |f| %>
-          <%= f.file_field :path, label: false %>
-          <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
-          <%= f.hidden_field :status, :value => "draft" %>
-          <% if @place %>
-            <%= f.hidden_field :place_id, :value => @place.id %>
-          <% else %>
-            <%= f.hidden_field :area_id, :value => @area.id %>
-          <% end %>
+<% if user_signed_in? %>
+<div id="userPhotoModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-margin-top">
 
-        <h4>Click <span class="br_underline">Browse</span> and navigate to the file,<br/> or, just drag the file <strong>here</strong></h4>
-        <img id="image-preview" class="user-upload-image-preview" src="#" alt="Your Image" />
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+        <!-- <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a> -->
+        <h4 class="modal-title" align="center">Add a photo</h4>
       </div>
-      <%= f.text_field :caption, label: false, placeholder: "Enter a caption for your photo", class: "form-group user-photo-caption-form" %>
-      <div id="user-photo-upload-button">
+      <div class="modal-body" >
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="text-center">
+                   <!-- <div class="br_upload"> -->
 
+            <%= form_for [(@place ? @place : @area), UserPhoto.new], :html => { :id => "user-photo-upload"  } do |f| %>
+              <div class="btn-user-photo">
+                  <h5 id="upload-title">Click or drag bellow</h5>
+                <%= f.file_field :path, label: false, required: true %>
+                <i class="fa fa-image" id="icon-upload" ></i>
+              </div>
+
+            <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+            <%= f.hidden_field :status, :value => "draft" %>
+            <% if @place %>
+              <%= f.hidden_field :place_id, :value => @place.id %>
+            <% else %>
+              <%= f.hidden_field :area_id, :value => @area.id %>
+            <% end %>
+
+        <img id="image-preview" class="user-upload-image-preview"/>
+        
+        <%= f.text_field :caption, label: false, placeholder: "Enter a caption for your photo", class: "form-group form-control", required: true %>
+          <div id="user-photo-upload-button">
+
+          </div>
       </div>
       <div id="progress">
           <div class="bar" style="width: 0%;"></div>
       </div>
       <% end %>
+
+             </div>
+          </div>
+      </div>
     </div>
   </div>
 </div>
+<% end %>
