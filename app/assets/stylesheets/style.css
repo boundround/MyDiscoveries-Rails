@@ -1233,9 +1233,9 @@ img.img-full-div{
 }
 .details-dest .left{
 	float: left;
-	width: 55%;
-	width: 85%;
-/*	width: 100%;*/
+	/*width: 55%;*/
+	/*width: 85%;*/
+	width: 100%;
 	color: #B8B8B8;
 	padding: 5px 0;
 	line-height: 1.25em;
@@ -1289,7 +1289,7 @@ section.places-to-go .details-dest{
 	top: -60px;
 	height: 70px !important;
 }
-section.places-to-go .details-dest .left a{
+/*section.places-to-go .details-dest .left a{
 	background: #EAEAEA;
   padding: 2px 9px;
   padding: 5px 10px;
@@ -1298,6 +1298,7 @@ section.places-to-go .details-dest .left a{
   line-height: 30px;
   margin-right: 5px;
 }
+*/
 section.places-to-go .details-dest .left a:hover {
   /*color: #FFFFFF !important;*/
   text-decoration: underline;
@@ -1440,7 +1441,8 @@ section.your-stories .body-stories .visited{
 	margin-bottom: 0px;
 }
 section.your-stories .head-stories .left{
-	width: 60%;
+	/*width: 60%;*/
+	width: 100%;
 	float:left;
 }
 section.your-stories .head-stories .right{
@@ -1543,10 +1545,17 @@ section.your-stories .body-stories .body-image-responsive {
 /*STORIES END */
 
 /*VIDEOS SECTION*/
+
+/* VIDEO CARDS */
+/* New bottom placed title */
 section.video-show .head-stories{
+	margin: 0 -15px !important;
 	background: #fff;
 	background: #F7F7F7;
-	/*border-bottom: 1px solid #D2D2D2;*/
+	/*border-top: 1px solid #D2D2D2;*/
+	/*width: 100%;*/
+	/*height: 75px;*/
+	min-height: 100px;
 }
 section.video-show{
 	/*background: #fff;*/
@@ -1560,7 +1569,9 @@ section.video-show .details-dest{
 	background: #F7F7F7;
 	clear: both;
 	margin-bottom: 15px;
+	top: 0;
 }
+/*
 section.video-show .details-dest a{
 	background: #EAEAEA;
   padding: 2px 9px;
@@ -1569,32 +1580,50 @@ section.video-show .details-dest a{
   color: #3A3A3A;
   line-height: 30px;
 }
-section.video-show .details-dest a:hover{
-    color: #FFFFFF;
-    text-decoration: none;
-    background: #A0A0A0;
-    background: #B3B3B3;
-    opacity: 0.8;
-    transition: 0.1s all;
+*/
+/* VERSION BADGE */
+section.video-show .details-dest .left{
+	/*line-height: 2.25em;*/
+	line-height: 1.175em;
+	width: 100%;
 }
-section .details-dest a:hover{
-    color: #FFFFFF;
-    text-decoration: none;
-    background: #A0A0A0;
-    background: #B3B3B3;
+.details-dest .left {
+	width: 100%;
+	/*padding: 7px 2px;*/
+	/*line-height: 22px;*/
+}
+section.video-show .details-dest a, .details-dest .left a {
+	display: inline-block;
+	min-width: 10px;
+	/*padding: 3px 7px;*/
+	padding: 2px 7px;
+	font-size: 12px;
+	color: #3A3A3A;
+	line-height: 1;
+	/* line-height: 22px; */
+	vertical-align: middle;
+	white-space: nowrap;
+	text-align: center;
+	background-color: #EAEAEA;
+	border-radius: 4px;
+	font-weight: 100 !important;
+	margin-top: 2px;
+}
+section.video-show .details-dest a:hover, section .details-dest a:hover{
+    /*color: #FFFFFF;*/
+    text-decoration: underline;
+    /*background: #A0A0A0;
+    background: #B3B3B3;*/
     transition: 0.1s all;
 }
 section.video-show .title, .title-fun-caro{
-    position: absolute;
-    top: 20px;
-    left: 31px;
-    text-align: left;
-    color: #fff;
-    width: 77%;
-    z-index: 10;
-
-    /* T */
-    z-index: 10;
+	position: absolute;
+	top: 20px;
+	left: 31px;
+	text-align: left;
+	color: #fff;
+	width: 77%;
+	z-index: 10;
 }
 .title-fun-caro{
 	color: #ffffff;
@@ -1605,7 +1634,22 @@ section.video-show .title, .title-fun-caro{
 .title-fun-caro h5{
 	font-weight: 100 !important;
 }
-
+/* BOTTOM TITLE PLACEMENT */
+section.video-show .title {
+	position: relative;
+	top: 0;
+	left: 0;
+	color: #3a3a3a;
+	width: 100%;
+	padding: 2px;
+	line-height: 38px;
+}
+h4.small-video-title {
+	font-size: 14px !important;
+	color: #A0A0A0;
+	color: #3a3a3a;
+	font-weight: 400 !important;
+}
 section.video-show .detail-dest .left{
 	width: 100%;
 }
@@ -1613,16 +1657,18 @@ section.video-show .body-stories{
 	display: block;
 	margin: 0 auto;
 	position: relative;
+	padding: 15px;
+	padding-bottom: 10px;
 }
 section.video-show .body-stories .fa-play{
 	color: #fff;
-    position: absolute;
-    top: 46%;
-    left: 47%;
-    font-size: 38px;
+  position: absolute;
+  top: 46%;
+  left: 47%;
+  font-size: 38px;
 }
 video{
-    border-radius: 4px;
+  border-radius: 4px;
 	width: 100%;
 }
 /*LATEST*/
@@ -1736,10 +1782,10 @@ section.photo .image img{
 		width: 100%;
 	}
 	section.video-show .body-stories, section.video-show .head-stories {
-		margin: 0 !important;
+		margin: 1px 0 !important;
 	}
 	section.video-show .details-dest .left {
-		width: 85%;
+		/*width: 85%;*/
 	}
 	section.video-show .details-dest .right {
 		width: 15%;

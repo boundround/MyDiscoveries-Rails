@@ -201,11 +201,12 @@
   </div>
 
   <% if @videos.present? %>
-    <div class="text-center">
-      <h4>Videos</h4>
-    </div>
+
     <section class="your-stories video-show">
       <div class="container">
+        <div class="text-left">
+          <h4 class="section-title">Videos</h4>
+        </div>
         <div class="row">
         <%= render partial: 'videos/featured_videos_list', collection: @videos, as: :video %>
         </div>
