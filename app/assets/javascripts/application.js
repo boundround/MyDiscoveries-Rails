@@ -87,7 +87,7 @@ $(document).ready(function(){
 		showAndPlayVideoOnModal($(this))
 	});
 
-	$('div.modal-video').on('hidden.bs.modal', function(e){
+	$('div.modal-video').on('hide.bs.modal', function(e){
 		$(this).find('iframe').attr('src', null);
 	});
 
@@ -106,4 +106,4 @@ function showAndPlayVideoOnModal(video)
   vid_src = video.data('video-url');
   $(modal).modal('show');
   $(modal+' iframe').attr('src', vid_src+'?autoplay=1');
-} 
+}
