@@ -1229,7 +1229,7 @@ img.img-full-div{
 	/*margin: 0 -15px !important;*/
 	height: 70px;
 	position: relative;
-	top: 10px;
+	/*top: 10px;*/
 	z-index: 10;
 }
 .details-dest a{

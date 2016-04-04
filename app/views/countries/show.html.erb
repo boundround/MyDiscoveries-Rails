@@ -97,7 +97,29 @@
   </div>
   </section>
 
-<%= render "photo_carousel" %>
+<% if @videos.present? %>
+  <div class="text-center">
+    <h4>Videos</h4>
+  </div>
+  <section class="your-stories video-show">
+      <div class="row">
+      <%= render partial: 'videos/featured_videos_list', collection: @videos, as: :video %>
+      </div>
+  </section>
+<% end %>
+
+<% unless @photos.blank? %>
+<section class="your-stories video-show photo">
+<h4 class="text-center">
+  Photos
+</h4>
+  <div class="row">
+    <%= render partial: 'photos/featured_photos_list', collection: @photos, as: :photo %>
+  </div> <!-- row -->
+</section>
+<% end %>
+
+<%#= render "photo_carousel" %>
 
 </div> <!-- /main container -->
 
@@ -247,5 +269,6 @@
 
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
+
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
