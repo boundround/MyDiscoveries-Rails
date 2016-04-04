@@ -27,7 +27,7 @@ $(function () {
             }
         },
         send: function(){
-            $("#upload-title").text("Click or drag bellow");
+            $("#upload-title").text("Click or drag below");
             $("#icon-upload").show();
             $('#userPhotoModal').modal("hide");
             $('#image-preview').attr('src', "#").hide();

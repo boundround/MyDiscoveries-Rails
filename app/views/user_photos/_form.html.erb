@@ -17,7 +17,7 @@
 
             <%= form_for [(@place ? @place : @area), UserPhoto.new], :html => { :id => "user-photo-upload"  } do |f| %>
               <div class="btn-user-photo">
-                  <h5 id="upload-title">Click or drag bellow</h5>
+                  <h5 id="upload-title">Click or drag below</h5>
                 <%= f.file_field :path, label: false, required: true %>
                 <i class="fa fa-image" id="icon-upload" ></i>
               </div>
@@ -31,7 +31,7 @@
             <% end %>
 
         <img id="image-preview" class="user-upload-image-preview"/>
-        
+
         <%= f.text_field :caption, label: false, placeholder: "Enter a caption for your photo", class: "form-group form-control", required: true %>
           <div id="user-photo-upload-button">
 
