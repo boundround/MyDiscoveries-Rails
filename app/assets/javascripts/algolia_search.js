@@ -11,7 +11,7 @@ $(document).ready(function(){
   // subcategory_#{Rails.env}
 
   // var INDEX_NAME = "place_development","primary_category_development","country_development","subcategory_development";
-  var INDEX_NAME = 'place_production';
+  var INDEX_NAME = 'place_development';
   var PARAMS = {
     hitsPerPage: 6,
     maxValuesPerFacet: 8,
@@ -23,11 +23,14 @@ $(document).ready(function(){
   var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
   var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
+  var FACETS_ORDER_OF_DISPLAY = ['main_category', 'age_range'];
+  var FACETS_LABELS = {main_category: 'Category', age_range: 'Age'};
+  
   var INSTANT_SEARCH_PARAMS = {
     hitsPerPage: 6,
     maxValuesPerFacet: 8,
     facets: ['area'],
-    disjunctiveFacets: ['main_category', 'age_range']
+    disjunctiveFacets: FACETS_ORDER_OF_DISPLAY
   };
 
   var algoliaHelperInstantSearch= algoliasearchHelper(algolia, INDEX_NAME, INSTANT_SEARCH_PARAMS);
@@ -67,14 +70,18 @@ $(document).ready(function(){
 
   //instant search
   $instantSearchInput= $("input.instant-search");
-  $instantSearchFacet= $('#facets-instant-search')
-  $instantSearchHits= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.hits');
-  $instantSearchPagination= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.pagination');
+  if ($instantSearchInput.length) 
+  {
+    searchInstant($instantSearchInput)
+  
+    $instantSearchFacet= $('#facets-instant-search')
+    $instantSearchHits= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.instant-hits-result');
+    $instantSearchPagination= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.pagination');
 
-  var instanthitTemplate = Hogan.compile($('#instant-hit-template').text());
-  var instantPaginationTemplate= Hogan.compile($('#instant-pagination-template').text());
-  var instantfacetTemplate = Hogan.compile($('#instant-facet-template').text());
-
+    var instanthitTemplate = Hogan.compile($('#instant-hit-template').text());
+    var instantPaginationTemplate= Hogan.compile($('#instant-pagination-template').text());
+    var instantfacetTemplate = Hogan.compile($('#instant-facet-template').text());
+  }
   function searchCondition(query){
     if (query.length > 0){
       algoliaHelper.setQuery(query);
@@ -95,11 +102,8 @@ $(document).ready(function(){
   function searchInstant(input)
   {
     query= input.val();
-    if (query.length > 0)
-    {
-      algoliaHelperInstantSearch.setQuery(query);
-      algoliaHelperInstantSearch.search();
-    }
+    algoliaHelperInstantSearch.setQuery(query);
+    algoliaHelperInstantSearch.search();
   }
 
   $searchInput
@@ -144,21 +148,6 @@ $(document).ready(function(){
   })
   .focus();
 
-
-  // $searchInputBottom
-  // .on('keyup', function() {
-  //     var query = $(this).val();
-  //     searchCondition(query);
-  // })
-  // .bind("paste", function(){
-  //     var elem = $(this);
-  //     setTimeout(function() {
-  //       query = elem.val();
-  //       searchCondition(query)
-  //     }, 100);
-  // })
-  // .focus();
-
   // Search results
   algoliaHelper.on('result', function(content, state) {
     if (content.hits.length > 0){
@@ -169,8 +158,6 @@ $(document).ready(function(){
       renderHits(content);
       renderMoreResults(content);
       rescueImage();
-      console.log(content.query);
-      console.log(state);
       // renderStats(content);
       // renderPagination(content);
     } else {
@@ -186,8 +173,6 @@ $(document).ready(function(){
           renderHits(content);
           renderMoreResults(content);
           rescueImage();
-          console.log(content.query);
-          console.log(state);
           // renderStats(content);
           // renderPagination(content);
         } else {
@@ -199,7 +184,6 @@ $(document).ready(function(){
     renderInstantHits(content);
     renderFacets(content, state);
     renderPagination(content, $instantSearchPagination ,instantPaginationTemplate);
-    console.log(content)
   })
 
   $(document).on('click', '.go-to-page-instant-search', function(e) {
@@ -209,15 +193,13 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '.instant-search-toggle-refine', function(e) {
-    e.preventDefault();
-    algoliaHelper.toggleRefine($(this).data('facet'), $(this).data('value')).search();
+    algoliaHelperInstantSearch.toggleRefine($(this).data('facet'), $(this).data('value')).search();
   });
 
   function renderInstantHits(content)
   {
     if (content.hits.length > 0)
     {
-      console.log()
       $instantSearchHits.html(instanthitTemplate.render(content));
     }else
     {
@@ -226,22 +208,24 @@ $(document).ready(function(){
     rescueImage();
   }
 
-  function renderFacets(content, state) {
-    var facetsHtml = '';
-    var facetName = 'type';
+function renderFacets(content, state) {
+  var facetsHtml = '';
+  for (var facetIndex = 0; facetIndex < FACETS_ORDER_OF_DISPLAY.length; ++facetIndex) {
+    var facetName = FACETS_ORDER_OF_DISPLAY[facetIndex];
     var facetResult = content.getFacetByName(facetName);
+    if (!facetResult) continue;
     var facetContent = {};
-    if (facetResult)   if (facetResult) {
-      facetContent = {
-        facet: facetName,
-        title: FACETS_LABELS[facetName],
-        values: content.getFacetValues(facetName, {sortBy: ['isRefined:desc', 'count:desc']}),
-        disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
-      };
-      facetsHtml += instantfacetTemplate.render(facetContent);
+
+    facetContent = {
+      facet: facetName,
+      title: FACETS_LABELS[facetName],
+      values: content.getFacetValues(facetName, {sortBy: ['isRefined:desc', 'count:desc']}),
+      disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+    };
+    facetsHtml += instantfacetTemplate.render(facetContent);
     }
-    $instantSearchFacet.html(facetsHtml);
-  }
+  $instantSearchFacet.html(facetsHtml);
+}
 
   function renderPagination(content, paginate_el, pagination_template) 
   {
@@ -278,6 +262,7 @@ $(document).ready(function(){
   // }
 
   function renderHits(content) {
+    console.log($hits);
     $hits.html(hitTemplate.render(content));
   }
 

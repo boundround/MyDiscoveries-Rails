@@ -1,6 +1,6 @@
 <div class="instant-search-results">
   <div class="row">
-    <div class="instant-hits-result hits col-md-12">
+    <div class="instant-hits-result col-md-12">
     </div>  
   </div>
   <div class="row">
@@ -45,14 +45,15 @@
 <script type="text/template" id="instant-facet-template">
   <div class="facet">
     <h5>{{ title }}</h5>
-    <ul>
-      {{#values}}
-      <li>
-        <a href="" class="facet-link instant-search-toggle-refine {{#disjunctive}}facet-disjunctive{{/disjunctive}} {{#isRefined}}facet-refined{{/isRefined}}" data-facet="{{ facet }}" data-value="{{ name }}">
-          {{ name }}<span class="facet-count">{{ count }}</span>
-        </a>
-      </li>
-      {{/values}}
-    </ul>
+    {{#values}}
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="facet-link instant-search-toggle-refine {{#disjunctive}}facet-disjunctive{{/disjunctive}} {{#isRefined}}facet-refined{{/isRefined}}" data-facet="{{ facet }}" data-value="{{ name }}" {{#isRefined}}checked="true"{{/isRefined}}>
+            {{ name }} <span class="facet-count pull-right">({{ count }})</span>
+          </label>
+        </div>  
+      </div>
+    {{/values}}
   </div>
 </script>

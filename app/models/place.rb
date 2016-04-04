@@ -84,7 +84,7 @@ class Place < ActiveRecord::Base
   #second indexing
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
-    attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug, :minimum_age, :maximum_age
+    attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug, :minimum_age, :maximum_age, :viator_link
     # attributes :is_area
     attribute :country do
       if self.country
@@ -168,6 +168,10 @@ class Place < ActiveRecord::Base
       end
     end
 
+    attribute :weather do
+      weather_conditions
+    end
+
      #country and url
 
     # the attributesToIndex` setting defines the attributes
@@ -180,7 +184,7 @@ class Place < ActiveRecord::Base
     # records in case their text-relevance is equal. It should reflect your record popularity.
     # customRanking ['desc(likes_count)']
 
-    attributesForFaceting ['area', 'main_category', 'range_age']
+    attributesForFaceting ['area', 'main_category', 'age_range']
   end
 
   # ratyrate_rateable "quality"
