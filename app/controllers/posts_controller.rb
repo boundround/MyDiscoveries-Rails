@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_path, notice: "Post Created"
     else
-      redirect_to @post, notice: "Sorry, there was an error created your \"Post\"."
+      render :new, notice: "Sorry, there was an error created your \"Post\"."
     end
   end
 
@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to post_path(@post), notice: "Post Updated"
     else
-      render "edit", notice: "Sorry, there was an error updating this post"
+      render :edit, notice: "Sorry, there was an error updating this post"
     end
   end
 
@@ -39,6 +39,6 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:title, :content, :credit, :user_id)
+      params.require(:post).permit(:title, :content, :credit, :user_id, :bootsy_image_gallery_id)
     end
 end

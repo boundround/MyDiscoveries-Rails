@@ -24,7 +24,7 @@ gem 'bootstrap-glyphicons'
 # gem 'mercury-rails', git: 'https://github.com/jejacks0n/mercury.git'
 
 # Bootsy WYSIWYG Editor
-gem 'bootsy'
+gem 'bootsy', github: "volmer/bootsy"
 
 gem 'rails4-autocomplete'
 gem "algoliasearch-rails"

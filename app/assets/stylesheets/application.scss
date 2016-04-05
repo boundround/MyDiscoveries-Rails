@@ -14,16 +14,14 @@
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  *= require_self
  * require jquery-ui
- */
-@import 'bootstrap';
-@import 'bootstrap-sprockets';
- /*
- *= require bootsy
- *= require iconlabel
- *= require font-awesome
  *= require jquery.fileupload
  *= require jquery.fileupload-ui
+ *= require iconlabel
+ *= require font-awesome
  *= require blueimp-gallery
+ *= require bootsy
  */
 
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
 

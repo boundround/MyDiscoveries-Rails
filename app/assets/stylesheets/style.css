@@ -19,6 +19,14 @@ h1, h2, h3, h4{
 	font-weight: 100 !important;
 }
 
+.bootsy-modal {
+	    top: 50px !important;
+}
+
+.wysihtml5-toolbar li {
+	display: inline-block;
+}
+
 .body-stories:hover {
 	cursor: pointer;
 }
