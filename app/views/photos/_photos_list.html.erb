@@ -40,7 +40,7 @@
             <%= link_to photo.place.primary_category.name, primary_category_path(photo.place.primary_category.identifier) %>
           <% end %>
           <% photo.place.subcategories.each do |sub| %>
-            <%= link_to sub.name, subcategory_path(sub.identifier) %>
+            <%= link_to sub.name, subcategory_path(sub.identifier), class: "badge-link" %>
           <% end %>
         <% end %>
       </div>
