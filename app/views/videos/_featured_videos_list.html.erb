@@ -24,7 +24,7 @@
     <div class="left">
       <% if video.place.present? %>
           <% video.place.subcategories.subcats.each do |sub| %>
-            <%= link_to sub.name, subcategory_path(sub.identifier) %>
+            <%= link_to sub.name, subcategory_path(sub.identifier), class: 'badge-link' %>
           <% end %>
       <% end %>
     </div>
