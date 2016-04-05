@@ -102,10 +102,10 @@ class Place < ActiveRecord::Base
 
     attribute :description do
       if description
-        if description.length < 180
+        if description.length < 380
           "#{description}"
         else
-          "#{description[0..180]}..."
+          "#{description[0..380]}..."
         end
       else
         ""
@@ -127,6 +127,8 @@ class Place < ActiveRecord::Base
     attribute :subcategories do
       subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
     end
+
+    add_attribute :place_sub_subcategory
 
     attribute :name do
       string = "#{display_name}"
@@ -161,7 +163,7 @@ class Place < ActiveRecord::Base
     attribute :age_range do
       if minimum_age.present? and maximum_age.present?
         if ((5..8).include?(minimum_age) and (5..8).include?(maximum_age)) or ((9..12).include?(minimum_age) and (9..12).include?(maximum_age) )
-          "#{minimum_age}-#{maximum_age}"
+          "For Ages #{minimum_age}-#{maximum_age}"
         else 
           'Teens'
         end
@@ -178,13 +180,13 @@ class Place < ActiveRecord::Base
     # you want to search in: here `title`, `subtitle` & `description`.
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
-    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'status', 'primary_category', 'subcategories']
+    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'status', 'primary_category', 'subcategories', 'sub_subcategory']
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
     # customRanking ['desc(likes_count)']
 
-    attributesForFaceting ['area', 'main_category', 'age_range']
+    attributesForFaceting ['area', 'main_category', 'age_range', 'place_sub_subcategory']
   end
 
   # ratyrate_rateable "quality"
@@ -299,6 +301,15 @@ class Place < ActiveRecord::Base
       false
     end
   end
+
+
+  def place_sub_subcategory
+    self.places_subcategories.select { |s| true }.map do |s|
+      { name: s.subcategory.name, attr: s.subcategory.name }
+    end
+  end
+
+
 
   # def self.text_search(query)
   #   if query.present?

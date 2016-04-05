@@ -23,8 +23,8 @@ $(document).ready(function(){
   var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
   var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
-  var FACETS_ORDER_OF_DISPLAY = ['main_category', 'age_range'];
-  var FACETS_LABELS = {main_category: 'Category', age_range: 'Age'};
+  var FACETS_ORDER_OF_DISPLAY = ['main_category', 'age_range', 'place_sub_subcategory'];
+  var FACETS_LABELS = {main_category: 'Category', age_range: 'Age', place_sub_subcategory:'Sub Category'};
   
   var INSTANT_SEARCH_PARAMS = {
     hitsPerPage: 6,
@@ -104,6 +104,7 @@ $(document).ready(function(){
     query= input.val();
     algoliaHelperInstantSearch.setQuery(query);
     algoliaHelperInstantSearch.search();
+
   }
 
   $searchInput
@@ -181,11 +182,27 @@ $(document).ready(function(){
   })
 
   algoliaHelperInstantSearch.on('result', function(content, state){
+    console.log(content);
+    viatorLink(content.hits);
     renderInstantHits(content);
     renderFacets(content, state);
     renderPagination(content, $instantSearchPagination ,instantPaginationTemplate);
     setImagesPosition();
   })
+
+  function viatorLink(hits){
+    $.each(hits, function(index, val) {
+       console.log(val);
+       if (val.viator_link == ""){
+          // $(".viator_link").hide();
+          val.viator_link = {
+            klass: "hide"
+          }
+       }else{
+          // $(".viator_link").show();
+       }
+    });
+  }
 
   $(document).on('click', '.go-to-page-instant-search', function(e) {
     e.preventDefault();
@@ -207,6 +224,7 @@ $(document).ready(function(){
       $instantSearchHits.html('No result for '+ content.query);
     }
     rescueImage();
+    setImagesPosition();
   }
 
 function renderFacets(content, state) {
@@ -224,6 +242,7 @@ function renderFacets(content, state) {
       disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
     };
     facetsHtml += instantfacetTemplate.render(facetContent);
+    // console.log(facetContent);
     }
   $instantSearchFacet.html(facetsHtml);
 }
