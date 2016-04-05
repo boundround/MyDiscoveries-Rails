@@ -270,7 +270,28 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
+  resources :places do
+    member { get 'preview' }
+    member { get 'stamp_confirmation' }
+    # member { get 'stamp_error' }
+    member { get 'hero_image_picker'}
+    collection { get 'all_edited'} # all place content in draft
+    collection { get 'user_created'} # all place content in draft
+    collection { get 'merge'}
+    resources :stamps
+    resources :photos
+    resources :videos
+    resources :discounts
+    resources :fun_facts
+    resources :games
+    resources :reviews
+    resources :stories
+    resources :user_photos
+    resources :three_d_videos
+    resources :similar_places
+    resources :good_to_knows
+    collection { post :import }
+  end
   match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]
 
   get 'places/sweets-treats', to: redirect('/places/things-to-do-with-kids-and-families-australia-sweets-treats', status: 301)
@@ -1798,26 +1819,5 @@ Rails.application.routes.draw do
   get '/places/:id/new_edit' => 'places#new_edit'
   get '/places/:id/refresh_blog' => 'places#refresh_blog'
   # get '/places/:id/hero_image_picker' => 'places#hero_image_picker'
-  resources :places do
-    member { get 'preview' }
-    member { get 'stamp_confirmation' }
-    # member { get 'stamp_error' }
-    member { get 'hero_image_picker'}
-    collection { get 'all_edited'} # all place content in draft
-    collection { get 'user_created'} # all place content in draft
-    collection { get 'merge'}
-    resources :stamps
-    resources :photos
-    resources :videos
-    resources :discounts
-    resources :fun_facts
-    resources :games
-    resources :reviews
-    resources :stories
-    resources :user_photos
-    resources :three_d_videos
-    resources :similar_places
-    resources :good_to_knows
-    collection { post :import }
-  end
+
 end
