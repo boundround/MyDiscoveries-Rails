@@ -15,6 +15,8 @@ require 'routes/constraints/subcategories'
 
 Rails.application.routes.draw do
 
+  resources :posts
+
   mount API::Base => '/'
   mount GrapeSwaggerRails::Engine => '/apidoc'
 
