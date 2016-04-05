@@ -9,7 +9,7 @@
   </div>
 
     <div class="head-stories">
-    <div class="left">
+    <div>
         <div class="profile-outer">
           <img src="<%= asset_path('br-logo-new-blue.png')%>" alt="">
         </div>
@@ -24,7 +24,7 @@
     <div class="left">
       <% if video.place.present? %>
           <% video.place.subcategories.subcats.each do |sub| %>
-            <%= link_to sub.name, subcategory_path(sub.identifier) %>
+            <%= link_to sub.name, subcategory_path(sub.identifier), class: 'badge-link' %>
           <% end %>
       <% end %>
     </div>
