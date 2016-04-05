@@ -18,6 +18,10 @@ body{
 h1, h2, h3, h4{
 	font-weight: 100 !important;
 }
+
+.body-stories:hover {
+	cursor: pointer;
+}
 .breadcrumbs {
 	position: absolute;
 	top: 30px;
@@ -677,7 +681,7 @@ img.top-rounded {
 		height: 135px;
 	}
 	section.places-to-go .details-dest {
-		top: -35px !important; 
+		top: -35px !important;
 	}
 	section.places-to-go .thumbnail {
 		/*max-height: 200px !important;*/
@@ -698,7 +702,7 @@ img.top-rounded {
 		/*max-height: 225px !important;*/
 	}
 	section.places-to-go .details-dest {
-		top: -10px !important; 
+		top: -10px !important;
 	}
 }
 @media (min-width: 768px) {
@@ -1433,7 +1437,7 @@ section.your-stories .head-stories a, section.your-stories .head-stories i,secti
 
 @media(min-width: 768px){
 	section.your-stories .body-stories {
-		/*width: 100%;*/
+		width: 100%;
 		display: inline-block;
 	}
 }
@@ -1441,8 +1445,8 @@ section.your-stories .body-stories .visited{
 	margin-bottom: 0px;
 }
 section.your-stories .head-stories .left{
-	/*width: 60%;*/
-	width: 100%;
+	width: 60%;
+	/*width: 100%;*/
 	float:left;
 }
 section.your-stories .head-stories .right{
@@ -4197,4 +4201,28 @@ input.more-result{
     border-bottom: 1px solid lightgrey;
     border-left: 1px solid lightgrey;
     border-right: 1px solid lightgrey;
+}
+.btn-user-photo{
+	width: 142px;
+    margin: 0 auto;
+    position: relative;
+}
+.btn-user-photo i.fa{
+	font-size: 130px;
+    margin-bottom: -20px;
+    position: relative;
+    bottom: -6px;
+}
+.btn-user-photo .fileinput-button-user{
+	overflow: hidden;
+}
+#user_photo_caption{
+	width: 88%;
+    margin: 15px auto;
+}
+.user-upload-image-preview{
+	width: 100%;
+}
+#image-preview{
+	/*margin-bottom: 15px;*/
 }

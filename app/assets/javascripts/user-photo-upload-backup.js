@@ -2,19 +2,15 @@ $(function () {
     $('#user-photo-upload').fileupload({
         dataType: 'json',
         add: function (e, data) {
-            // console.log(e);
-            // console.log(data);
+            console.log(e);
+            console.log(data);
             $("#icon-upload").hide();
-                if ($('#user-photo-upload-button').find("button").length < 1 ) {
-
-                data.context = $('<button class="btn btn-primary"/>').text('Upload')
-                    .appendTo($('#user-photo-upload-button'))
-                    .click(function () {
-                        data.context = $('<p/>').text('Uploading...').replaceAll($(this));
-                        data.submit();
-                    });
-                };
-                $("#upload-title").text("Click image to change");
+            data.context = $('<button class="btn btn-primary"/>').text('Upload')
+                .appendTo($('#user-photo-upload-button'))
+                .click(function () {
+                    data.context = $('<p/>').text('Uploading...').replaceAll($(this));
+                    data.submit();
+                });
 
             if (data.files && data.files[0]) {
             var reader = new FileReader();
@@ -27,8 +23,6 @@ $(function () {
             }
         },
         send: function(){
-            $("#upload-title").text("Click or drag below");
-            $("#icon-upload").show();
             $('#userPhotoModal').modal("hide");
             $('#image-preview').attr('src', "#").hide();
             $('#user-photo-upload-button').html("");

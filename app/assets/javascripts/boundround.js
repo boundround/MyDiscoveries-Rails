@@ -369,9 +369,21 @@ function setModalEditPhoto(){
 	   $('#EditPhotoDataModal').modal('hide');
 	});
 }
+function setUpModalUserPhoto(){
+	$("#user_photo_path").hide();
+	$("#icon-upload").click(function(event) {
+		$("#user_photo_path").click();
+	});
+	$("#image-preview").click(function(event) {
+		$("#user_photo_path").click();
+	});
+	
+	
+}
 
 $(document).ready(function() {
 	setUpModal();
+	setUpModalUserPhoto();
 	setModalOpeningHour();
 	setModalTickets();
 	setModalStory();
