@@ -161,11 +161,11 @@
           <p class="grey btm0">Address</p>
           <p class="btm15" ><%= @place.display_address %></p>
         </div>
-        <% unless @place.email.blank? && @place.phone_number.blank? %>
+        <% unless @place.try(:email).blank? && @place.phone_number.blank? %>
           <p class="grey">Contact</p>
         <% end %>
         <div class="row">
-        <% unless @place.email.blank? %>
+        <% unless @place.try(:email).blank? %>
           <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
             <a href="mailto:<%= @place.email rescue "" %>" class="btn btn-primary btn-block btn-museum btn-shadow font-btn"><i class="fa fa-envelope-o blue-nero-icon leftmin7responsive"></i> Send a message </a>
           </div>
@@ -217,9 +217,17 @@
   <h4 class="text-center">
     Photos
   </h4>
-    <div class="row">
+    <div class="row" id="photos-list">
       <%= render partial: 'photos/featured_photos_list', collection: @photos, as: :photo %>
     </div> <!-- row -->
+    <% unless last_page? @photos %>
+      <div class="text-center clearfix btm20 single-pagination-container" id="photos-single-pagination-container" style="clear:both">
+        <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+          <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+        </div>
+        <%= link_to "Load More", place_path(@place, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'photos/featured_photos_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+      </div>
+    <% end %>
 </section>
 <% end %>
 
@@ -317,6 +325,7 @@
 <%= render 'new_story' %>
 <%= render 'reviews/form' %>
 <%= render 'user_photos/form' %>
+<%= render partial: 'shared/blueimp_gallery_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
 
