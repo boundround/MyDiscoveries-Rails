@@ -640,7 +640,7 @@ img.top-rounded {
 	.thumbnail .caption {
 		height: 65px;
 	}
-
+}
 @media (max-width: 360px) {
 	img.img-full-div {
 		height: 100%;
@@ -715,6 +715,10 @@ img.top-rounded {
 		padding-right: 65px !important;
 	}
 
+	/*#areas-list .thumbnail {
+		height: 330px;
+	}*/
+
 	#areas-list .thumbnail .details-dest {
 		top: 0 !important;
 	}
@@ -745,7 +749,6 @@ img.top-rounded {
 		padding-right: 130px !important;
 	}
 }
-
 img.img-full-div{
 	position: absolute;
 	/*height: 125px;*/
