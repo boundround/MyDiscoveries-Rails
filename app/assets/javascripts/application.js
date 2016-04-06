@@ -88,9 +88,13 @@ $(document).ready(function(){
 		showAndPlayVideoOnModal($(this))
 	});
 
-	$('div.modal-video').on('hide.bs.modal', function(e){
+	$('div.video-modal').on('hide.bs.modal', function(e){
 		$(this).find('iframe').attr('src', null);
 	});
+
+  $('div.modal-video').on('hide.bs.modal', function(e){
+    $(this).find('iframe').attr('src', null);
+  });
 
   $(document).on('click', 'a.play-video', function(e){
     div= $(this).closest('div');
