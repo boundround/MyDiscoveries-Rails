@@ -22,6 +22,18 @@ h1, h2, h3, h4{
 .body-stories {
 	min-height: 218px;
 }
+.bootsy-modal {
+	    top: 50px !important;
+}
+
+.blog-container {
+	background-color: white !important;
+}
+
+.wysihtml5-toolbar li {
+	display: inline-block;
+}
+
 .body-stories:hover {
 	cursor: pointer;
 }

@@ -1,0 +1,17 @@
+<% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
+<hr>
+<div class="container">
+  <%= render "/posts/admin_tabs" %>
+  <%= form_for @post do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+    <%= f.label :credit %>
+    <%= f.text_field :credit, class: "form-control" %>
+    <%= f.label :content %>
+    <%= f.cktext_area :content, class: "form-control", ckeditor: {toolbar: "Full"} %>
+    <%= f.submit :submit, class: "btn btn-default btn-lg btn-warning" %>
+  <% end %>
+</div>
+
+<%= javascript_include_tag Ckeditor.cdn_url %>
+<% end %>

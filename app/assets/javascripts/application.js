@@ -13,6 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 // require jquery-ui
+//= require bootstrap-sprockets
+//= require bootsy
+// require bootstrap
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 // require bootstrap-select.min
@@ -34,8 +37,6 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require cms
-//= require bootsy
-//= require bootstrap
 // require bootstrap/transition
 //= require geocomplete
 //= require cookie
@@ -43,7 +44,7 @@
 // require jquery.raty
 //= require ratyrate
 //= require user-photo-upload
-// require ckeditor/init
+//= require ckeditor/init
 // require ckeditor/config.js
 // require reviews
 //= require algoliasearch

@@ -1,0 +1,13 @@
+<hr>
+<div class="container">
+  <%= form_for @post do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+    <%= f.label :credit %>
+    <%= f.text_field :credit, class: "form-control" %>
+    <%= f.label :content %>
+    <%= f.cktext_area :content, class: "form-control" %>
+    <%= f.submit :submit, class: "btn btn-default btn-lg btn-warning" %>
+  <% end %>
+</div>
+<%= javascript_include_tag Ckeditor.cdn_url %>

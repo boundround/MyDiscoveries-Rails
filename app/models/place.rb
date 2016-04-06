@@ -160,6 +160,9 @@ class Place < ActiveRecord::Base
   has_many :places_users
   has_many :users, through: :places_users
 
+  has_many :places_posts
+  has_many :posts, through: :places_posts
+
   has_many :customers_places
   has_many :owners, through: :customers_places, :source => :user
 
