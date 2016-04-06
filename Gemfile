@@ -61,7 +61,7 @@ gem 'geocoder'
 
 gem 'ratyrate'
 
-gem 'ckeditor'
+gem 'ckeditor', github: 'galetahub/ckeditor'
 
 gem 'authority'
 gem 'rolify'

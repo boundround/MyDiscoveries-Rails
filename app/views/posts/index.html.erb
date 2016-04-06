@@ -1,3 +1,4 @@
+<div class="container">
 <% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
 <div id="table-container">
   <h1>All Posts</h1>
@@ -6,7 +7,6 @@
     <thead>
     <tr>
       <th>Title</th>
-      <th>Content</th>
       <th>Credit</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -15,8 +15,7 @@
     <tbody>
     <% @posts.each do |post| %>
         <tr>
-          <td><%= post.title %></td>
-          <td><%= post.content[0..140] %></td>
+          <td><%= link_to post.title, post_path(post) %></td>
           <td><%= post.credit %></td>
           <td><%= link_to "Edit", edit_post_path(post) %></td>
           <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -27,3 +26,4 @@
   <%= link_to "Create New Post", new_post_path, class: "btn btn-default btn-lg" %>
 </div>
 <% end %>
+</div>

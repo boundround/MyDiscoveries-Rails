@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/galetahub/ckeditor.git
+  revision: 123389ea325b1521a3ac68cc0b1bac627a12f34b
+  specs:
+    ckeditor (4.1.6)
+      cocaine
+      orm_adapter (~> 0.5.0)
+
+GIT
   remote: git://github.com/ropiku/omniauth-instagram.git
   revision: 9f88ca3cccd02e88d3117520a9ff8937fb020b1b
   specs:
@@ -102,9 +110,6 @@ GEM
     carrierwave_backgrounder (0.4.2)
       carrierwave (~> 0.5)
     chronic (0.10.2)
-    ckeditor (4.1.6)
-      cocaine
-      orm_adapter (~> 0.5.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.8)
@@ -617,7 +622,7 @@ DEPENDENCIES
   carrierwave
   carrierwave-crop
   carrierwave_backgrounder
-  ckeditor
+  ckeditor!
   coffee-rails (~> 4.0.0)
   country_select
   dalli

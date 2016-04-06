@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
     if @post.update(post_params)
       redirect_to post_path(@post), notice: "Post Updated"
     else
@@ -19,7 +19,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
     @post.destroy
     redirect_to posts_path, notice: "Post Deleted"
   end
@@ -29,16 +29,20 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
+    @post = Post.friendly.find(params[:id])
   end
 
   def index
     @posts = Post.all
   end
 
+  def show
+    @post = Post.find_by_slug(params[:id])
+  end
+
 
   private
     def post_params
-      params.require(:post).permit(:title, :content, :credit, :user_id, :bootsy_image_gallery_id)
+      params.require(:post).permit(:title, :content, :credit, :user_id)
     end
 end
