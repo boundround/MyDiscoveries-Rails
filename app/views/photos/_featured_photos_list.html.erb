@@ -18,24 +18,27 @@
     <% end %>
   <!--</div>-->
   <div class="body-stories">
-    <div class="title">
-      <p><%= photo.place.display_name rescue "" %></p>
-      <h4><%= photo.caption %></h4>
-    </div>
     <div class="image">
       <%= link_to showing_image(photo.path_url(:large)) , class: 'display-image-on-modal', data: { gallery: '' }  do %>
         <%= image_tag showing_image(photo.path_url(:medium)) %>
       <% end %>
+          <div class="title">
+      <p><%= photo.place.display_name rescue "" %></p>
+      <h4><%= photo.caption %></h4>
+    </div>
     </div>
   </div>
   <div class="details-dest btm15">
   <!-- #hardcode -->
     <div class="left">
-      <% if photo.place.present? %>
-      <% photo.place.subcategories.subcats.each do |sub| %>
-        <%= link_to sub.name, subcategory_path(sub.identifier) %>
-      <% end %>
-    <% end %>
+        <% if photo.place.present? %>
+          <% if photo.place.primary_category.present?%>
+            <%= link_to photo.place.primary_category.name, primary_category_path(photo.place.primary_category.identifier), class: "badge-link"  %>
+          <% end %>
+          <% photo.place.subcategories.each do |sub| %>
+            <%= link_to sub.name, subcategory_path(sub.identifier), class: "badge-link" %>
+          <% end %>
+        <% end %>
     </div>
   </div>
 </div> <!-- /col -->
