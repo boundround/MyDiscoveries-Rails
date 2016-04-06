@@ -128,7 +128,9 @@ class Place < ActiveRecord::Base
       subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
     end
 
-    add_attribute :place_sub_subcategory
+    attribute :subcategory do 
+      subcategories.map{|sub| sub.name}
+    end
 
     attribute :name do
       string = "#{display_name}"
@@ -171,7 +173,19 @@ class Place < ActiveRecord::Base
     end
 
     attribute :weather do
-      weather_conditions
+      subcategories.where(category_type: 'weather').map{ |sub|  sub.name }
+    end
+
+    attribute :price do 
+      subcategories.where(category_type: 'price').map{ |sub|  sub.name }
+    end
+
+    attribute :best_time_to_visit do 
+      subcategories.where(category_type: 'optimum_time').map{ |sub|  sub.name }
+    end
+
+    attribute :accessibility do 
+      subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
     end
 
      #country and url
@@ -186,7 +200,7 @@ class Place < ActiveRecord::Base
     # records in case their text-relevance is equal. It should reflect your record popularity.
     # customRanking ['desc(likes_count)']
 
-    attributesForFaceting ['area', 'main_category', 'age_range', 'place_sub_subcategory']
+    attributesForFaceting ['area', 'main_category', 'age_range', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility']
   end
 
   # ratyrate_rateable "quality"
