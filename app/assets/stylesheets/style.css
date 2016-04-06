@@ -379,6 +379,7 @@ input.desktop-search {
 	margin-bottom: 15px;
 }
 .thumbnail {
+	/*height: auto;*/
 	margin-bottom: 20px;
 	background: none;
 	background: #ffffff;
@@ -1622,6 +1623,14 @@ section.video-show .title {
 	width: 100%;
 	padding: 2px;
 	line-height: 38px;
+}
+@media (min-width: 768px) {
+	section.video-show .title {
+		min-height: 119px;
+	}
+	.body-stories .title p {
+		min-height: 38px;
+	}
 }
 h4.small-video-title {
 	font-size: 14px !important;
