@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="hidden">
+
+    <div id="similar-places-js" data-similar="<%= array_places_posts_ids(@post.places_posts) %>">
+    </div>
+  </div>
+  <h1>Similar Destinations</h1>
+  <%= render "/posts/admin_tabs" %>
+  <%= simple_form_for [@post, @places_posts] do |f| %>
+    <div id="dual-list-box-employees" class="form-group row">
+      <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="Places" name="places_post[place_ids][]">
+        <%= @places.each do |place| %>
+          <option value="<%= place.id %>" name="<%= place.display_name %>"><%= place.display_name + (place.primary_area ? " (Primary Area)" : "") %></option>
+        <% end %>
+     </select>
+   </div>
+    <%= f.submit :submit %>
+  <% end %>
+</div>
+<script>
+  $(document).ready(function(){
+    var availableDestinations = $('#dual-list-box-Destinations');
+    var similar_ids = $('#similar-places-js').data("similar");
+    var selectBox = $("[name*='places_post[place_ids][]']");
+    if(similar_ids.length > 0){
+      for (var i = 0; i < similar_ids.length; i++){
+        availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
+        if (similar_ids[i] !== "nil"){
+          $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
+                              "' name=" + similar_ids[i]['place_name'] +
+                              "' >" + similar_ids[i]['place_name'] + "</option>")
+        }
+      }
+    }
+  });
+</script>

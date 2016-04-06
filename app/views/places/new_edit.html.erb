@@ -1,6 +1,6 @@
 <div class="container">
-  <%= render "/places/admin_tabs" %>
   <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
+    <%= render "/places/admin_tabs" %>
     <h1>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
 
     <%= simple_form_for @place, html: { role: 'form'} do |f| %>

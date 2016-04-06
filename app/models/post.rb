@@ -12,6 +12,12 @@ class Post < ActiveRecord::Base
   has_many :places_posts
   has_many :places, through: :places_posts
 
+  has_many :countries_posts
+  has_many :countries, through: :countries_posts
+
+  accepts_nested_attributes_for :places
+  accepts_nested_attributes_for :countries
+
   private
     def slug_candidates
       :title

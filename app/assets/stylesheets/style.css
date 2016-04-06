@@ -23,6 +23,10 @@ h1, h2, h3, h4{
 	    top: 50px !important;
 }
 
+.blog-container {
+	background-color: white !important;
+}
+
 .wysihtml5-toolbar li {
 	display: inline-block;
 }

@@ -72,6 +72,9 @@ class Country < ActiveRecord::Base
   has_many :countries_info_bits
   has_many :info_bits, through: :countries_info_bits
 
+  has_many :countries_posts
+  has_many :posts, through: :countries_posts
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true

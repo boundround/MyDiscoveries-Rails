@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406025500) do
+ActiveRecord::Schema.define(version: 20160406041538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,6 +175,14 @@ ActiveRecord::Schema.define(version: 20160406025500) do
     t.integer "country_id"
     t.integer "photo_id"
   end
+
+  create_table "countries_posts", id: false, force: true do |t|
+    t.integer "country_id", null: false
+    t.integer "post_id",    null: false
+  end
+
+  add_index "countries_posts", ["country_id", "post_id"], name: "index_countries_posts_on_country_id_and_post_id", using: :btree
+  add_index "countries_posts", ["post_id", "country_id"], name: "index_countries_posts_on_post_id_and_country_id", using: :btree
 
   create_table "countries_videos", force: true do |t|
     t.integer "country_id"
@@ -414,6 +422,14 @@ ActiveRecord::Schema.define(version: 20160406025500) do
   add_index "places", ["primary_category_id"], name: "index_places_on_primary_category_id", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
   add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
+
+  create_table "places_posts", id: false, force: true do |t|
+    t.integer "place_id", null: false
+    t.integer "post_id",  null: false
+  end
+
+  add_index "places_posts", ["place_id", "post_id"], name: "index_places_posts_on_place_id_and_post_id", using: :btree
+  add_index "places_posts", ["post_id", "place_id"], name: "index_places_posts_on_post_id_and_place_id", using: :btree
 
   create_table "places_subcategories", force: true do |t|
     t.integer "place_id",       null: false
