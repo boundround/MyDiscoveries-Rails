@@ -24,7 +24,7 @@ $(document).ready(function(){
   var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
   var FACETS_ORDER_OF_DISPLAY = ['age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
-  var FACETS_LABELS = {main_category: 'Category', age_range: 'Age', subcategory:'Subcategory', weather: 'Weather', price: 'Price', best_time_to_visit: 'Best Time To Visit', accessiblity: 'Accessibility'};
+  var FACETS_LABELS = {main_category: 'Category', age_range: 'Age', subcategory:'Subcategory', weather: 'Weather', price: 'Price', best_time_to_visit: 'Best Time To Visit', accessibility: 'Accessibility'};
   
   var INSTANT_SEARCH_PARAMS = {
     hitsPerPage: 6,
