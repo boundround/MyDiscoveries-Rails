@@ -19,6 +19,9 @@ h1, h2, h3, h4{
 	font-weight: 100 !important;
 }
 
+.body-stories {
+	min-height: 218px;
+}
 .body-stories:hover {
 	cursor: pointer;
 }
