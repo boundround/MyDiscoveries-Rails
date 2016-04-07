@@ -6,7 +6,13 @@
       <h4 class="top20">My Account</h4>
       <h2 class="gray-font">Edit Profile</h2>
       <div class="img-rounded" align="center">
-        <img src="<%= @user.avatar_url %>"/>
+        <!-- <img src="<%= @user.avatar_url %>"/> -->
+          <% if @user.avatar_url %>
+            <%= image_tag @user.avatar_url, class: 'img-circle img-responsive large-avatar' %><br>
+          <% else %>
+            <!-- <img style="width:100%" src="http://shipping-time.com/assets/custom/dp-7d19b1f2dd46251129ec7c472e44aa68a82a2fdde74b7b4aee1b06c89017c843.jpg" class="img-circle img-responsive large-avatar"><br> -->
+            <%= image_tag 'imgdummy.jpg', class: 'img-circle img-responsive large-avatar' %>
+          <% end %>
       </div>
     </div>
     </div>
@@ -23,6 +29,20 @@
           <span class="grey">Email</span><br>
           <%= f.input :email, label: false, input_html: { class: "form-control"} %></span>
           </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top15">
+          <span class="btn btn-default btn-block">
+            <span class="grey">Password</span><br>
+            <%#= f.input :password, label: false, input_html: { class: "form-control" } %>
+            <%= f.password_field :password, label: false, class: "form-control" %>
+            </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top15">
+          <span class="btn btn-default btn-block">
+            <span class="grey">Confirm Password</span><br>
+            <%#= f.input :password_confirmation, label: false, input_html: { class: "form-control" } %>
+            <%= f.password_field :password_confirmation, label: false, class: "form-control" %>
+            </span>
         </div>
         <!-- <div class="col-xs-12 col-sm-12 top15">
           <span class="btn btn-default btn-block">
@@ -58,7 +78,7 @@
         <div class="col-xs-12 col-sm-12 top15">
           <span class="btn btn-default btn-block">
           <span class="grey">Country</span><br>
-          <%= f.input :country, label: false %>
+          <%= f.input :country, label: false, input_html: { class: "form-control" } %>
           </span>
         </div>
         <div class="col-xs-12 col-sm-12 top15">
