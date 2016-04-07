@@ -33,7 +33,23 @@ h1, h2, h3, h4{
 .breadcrumbs a {
 	color: #fff;
 }
-
+.brw-blue {
+	color: #6CB7CA !important;
+}
+.div-forgot {
+	min-height: 50px !important;
+	line-height: 40px;
+	padding: 0;
+}
+.not-member {
+	line-height: 35px;
+	padding: 0;
+	height: 40px;
+}
+h4.modal-title {
+	height: 45px;
+	line-height: 45px;
+}
 .hero-search {
 	position: absolute !important;
   right: 0;
@@ -54,7 +70,29 @@ button.hero-search {
 .white-text {
 	color: white;
 }
-
+/*
+.half {
+	width: 50%;
+	height: 50px;
+	float: left;
+	margin-top: 10px;
+}
+*/
+.half-left {
+	width: 48%;
+	display: inline-block;
+	/*float: left;*/
+}
+.half-right {
+	width: 48%;
+	display: inline-block;
+	float: right;
+}
+.half-left a, .half-right a {
+	height: 50px;
+	line-height: 50px !important;
+	padding: 0;
+}
 .border {
 	border:1px solid pink;
 }
@@ -2825,6 +2863,17 @@ p.blueish a {
 
 .border-orange {
 	border-color: #AC4E35 !important;
+}
+.border-rgba {
+	border: 1px solid rgba(0,0,0,0.1) !important;
+}
+.height-50 {
+	max-height: 50px !important;
+}
+.height-sign-in {
+	line-height: 8px;
+	padding: 0;
+	height: 20px;
 }
 /*END STYLE CLOSE MODAL*/
 

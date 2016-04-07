@@ -32,10 +32,7 @@
   <!-- #hardcode -->
     <div class="left">
         <% if photo.place.present? %>
-          <% if photo.place.primary_category.present?%>
-            <%= link_to photo.place.primary_category.name, primary_category_path(photo.place.primary_category.identifier), class: "badge-link"  %>
-          <% end %>
-          <% photo.place.subcategories.each do |sub| %>
+          <% photo.place.subcategories.subcats.each do |sub| %>
             <%= link_to sub.name, subcategory_path(sub.identifier), class: "badge-link" %>
           <% end %>
         <% end %>
