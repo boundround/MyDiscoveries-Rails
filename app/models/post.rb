@@ -4,6 +4,8 @@ class Post < ActiveRecord::Base
   validates :title, presence: true
   validates :content, presence: true
   validates :credit, presence: true
+  validates :user_id, presence: true
+  validates :seo_friendly_url, presence: true
 
   friendly_id :slug_candidates, :use => :slugged
 
@@ -20,6 +22,6 @@ class Post < ActiveRecord::Base
 
   private
     def slug_candidates
-      :title
+      :seo_friendly_url
     end
 end

@@ -5,8 +5,10 @@
   <%= form_for @post do |f| %>
     <%= f.label :title %>
     <%= f.text_field :title, class: "form-control" %>
-    <%= f.label :credit %>
-    <%= f.text_field :credit, class: "form-control" %>
+    <%= f.label "User" %>
+    <%= select_tag(:user_id, User.all, :id, :name) %>
+    <%= f.label :seo_friendly_url %>
+    <%= f.text_field :seo_friendly_url, class: "form-control" %>
     <%= f.label :content %>
     <%= f.cktext_area :content, class: "form-control", ckeditor: {toolbar: "Full"} %>
     <%= f.submit :submit, class: "btn btn-default btn-lg btn-warning" %>
