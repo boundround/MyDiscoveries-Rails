@@ -3,7 +3,6 @@ class Post < ActiveRecord::Base
 
   validates :title, presence: true
   validates :content, presence: true
-  validates :credit, presence: true
   validates :user_id, presence: true
   validates :seo_friendly_url, presence: true
 
