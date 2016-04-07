@@ -120,7 +120,7 @@ class Place < ActiveRecord::Base
       end
     end
 
-    attribute :main_category do 
+    attribute :main_category do
       primary_category.name if primary_category.present?
     end
 
@@ -128,8 +128,8 @@ class Place < ActiveRecord::Base
       subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
     end
 
-    attribute :subcategory do 
-      subcategories.map{|sub| sub.name}
+    attribute :subcategory do
+      subcategories.subcats.map{|sub| sub.name}
     end
 
     attribute :name do
@@ -153,11 +153,11 @@ class Place < ActiveRecord::Base
       photo_array
     end
 
-    attribute :hero_photo do 
+    attribute :hero_photo do
       hero_h= photos.where(photos: { hero: true }).first
       hero= {}
       if hero_h.present?
-        hero= { url: hero_h.url(:small), alt_tag: hero_h.caption }
+        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
       end
       hero
     end
@@ -166,7 +166,7 @@ class Place < ActiveRecord::Base
       if minimum_age.present? and maximum_age.present?
         if ((5..8).include?(minimum_age) and (5..8).include?(maximum_age)) or ((9..12).include?(minimum_age) and (9..12).include?(maximum_age) )
           "For Ages #{minimum_age}-#{maximum_age}"
-        else 
+        else
           'Teens'
         end
       end
@@ -176,15 +176,15 @@ class Place < ActiveRecord::Base
       subcategories.where(category_type: 'weather').map{ |sub|  sub.name }
     end
 
-    attribute :price do 
+    attribute :price do
       subcategories.where(category_type: 'price').map{ |sub|  sub.name }
     end
 
-    attribute :best_time_to_visit do 
+    attribute :best_time_to_visit do
       subcategories.where(category_type: 'optimum_time').map{ |sub|  sub.name }
     end
 
-    attribute :accessibility do 
+    attribute :accessibility do
       subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
     end
 

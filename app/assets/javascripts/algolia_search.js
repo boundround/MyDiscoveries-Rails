@@ -25,7 +25,7 @@ $(document).ready(function(){
 
   var FACETS_ORDER_OF_DISPLAY = ['age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
   var FACETS_LABELS = {main_category: 'Category', age_range: 'Age', subcategory:'Subcategory', weather: 'Weather', price: 'Price', best_time_to_visit: 'Best Time To Visit', accessibility: 'Accessibility'};
-  
+
   var INSTANT_SEARCH_PARAMS = {
     hitsPerPage: 6,
     maxValuesPerFacet: 8,
@@ -70,10 +70,10 @@ $(document).ready(function(){
 
   //instant search
   $instantSearchInput= $("input.instant-search");
-  if ($instantSearchInput.length) 
+  if ($instantSearchInput.length)
   {
     searchInstant($instantSearchInput)
-  
+
     $instantSearchFacet= $('#facets-instant-search')
     $instantSearchHits= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.instant-hits-result');
     $instantSearchPagination= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.pagination');
@@ -247,7 +247,7 @@ function renderFacets(content, state) {
   $instantSearchFacet.html(facetsHtml);
 }
 
-  function renderPagination(content, paginate_el, pagination_template) 
+  function renderPagination(content, paginate_el, pagination_template)
   {
     var pages = [];
     if (content.page > 3) {
@@ -333,7 +333,7 @@ function rescueImage(){
 //         // console.log(inner.width());
 //         // console.log(outerWidth);
 //       }, 1000);
-      
+
 //     }
 //   });
 // }
