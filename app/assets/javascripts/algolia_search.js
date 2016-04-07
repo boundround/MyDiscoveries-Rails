@@ -11,7 +11,7 @@ $(document).ready(function(){
   // subcategory_#{Rails.env}
 
   // var INDEX_NAME = "place_development","primary_category_development","country_development","subcategory_development";
-  var INDEX_NAME = 'place_development';
+  var INDEX_NAME = 'place_production';
   var PARAMS = {
     hitsPerPage: 6,
     maxValuesPerFacet: 8,
