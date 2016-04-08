@@ -91,7 +91,7 @@
                                         <div class="details-dest">
                                           <div class="left">
                                             <% place.subcategories.subcats.each do |category| %>
-                                              <a href="<%= subcategory_path(category) %>" class="badge-link"><i class="fa fa-ship"></i><%= category.name %></a>
+                                              <a href="<%= subcategory_path(category) %>" class="badge-link"><%= category.name %></a>
                                             <% end %>
                                           </div>
                                           <div class="right">
