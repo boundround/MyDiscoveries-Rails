@@ -193,7 +193,7 @@
       </div>
       <div class="col-md-12 col-lg-12 topmin50">
         <p class="white body-text" align="left">
-          Every family is different.  To help find the right things to do and places to go for your family, you can search or filter boundround.com by by the ages of the kids you travel with.<br><br>
+          Every family is different.  To help find the right things to do and places to go for your family, you can search or filter boundround.com by the ages of the kids you travel with.<br><br>
 
           Say goodbye to family feuds by letting the kids watch videos about what their peers think is fun. Then you can all make a decision on what to do together.
         </p>
@@ -203,13 +203,6 @@
   </div>
 </div>
 
-<!-- #hardcode -->
-<!-- #activate link_to  -->
-<!-- #task
-  "5 To 8 Year Olds" will link to a subcategories page where places.min_age > 4 AND places.max_age < 9
-  Same for 9 to 12 year olds except change min and max age
-  Teenagers where places.max_age > 12
--->
 <div class="container hidden-sm hidden-xs topmin140 padding-style">
   <div class="row">
     <div class="col-md-4 col-lg-4">
@@ -256,7 +249,6 @@
     </div>
   </div>
 </div>
-<!-- #hardcode end-->
 
 <% if @primary_categories.present? or @subcategories.present? %>
 <section class="things-to-do">
@@ -285,20 +277,9 @@
 </section>
 <%- end %>
 
-<!-- #hardcode -->
-<!-- button will link to "all_subcategories" page -->
 <div class="text-center clearfix visible-xs">
-  <!--<div class="text-center clearfix visible-xs">-->
   <%= link_to 'View more things to do', subcategories_path, :class => 'btn button-orange top5 btm20' %>
 </div>
-<!-- #hardcode end-->
-
-<!-- #hardcode -->
-<!--
-#tasks "Explore Experiences"
-Each card will link to subcategories page where places.subcategory == "driving" or whatever the text of the card says
-Bottom button will link to "all_subcategories" page
--->
 
 <div class="container padding-style hidden-xs">
   <div class="text-left top20 btm30">
@@ -331,7 +312,6 @@ Bottom button will link to "all_subcategories" page
       <% end %>
     <% end %>
 
-    <!-- button will link to "all_subcategories" page -->
     <div class="col-lg-12 col-md-12 top20 btm60" align="center">
         <%= link_to 'View more things to do', subcategories_path, :class => 'btn button-orange btn-padding single-pagination' %>
     </div>
@@ -339,12 +319,4 @@ Bottom button will link to "all_subcategories" page
 </div>
 </div>
 
-<!-- #hardcode end -->
 <%= render 'layouts/all_modal' %>
-<%#= render 'layouts/video_modal' %>
-<%#= render 'stories/modal_story' %>
-
-<!-- <div class="container" id="blogs">
-    <h2 id="blog-title"></h2>
-    <div id="blog-content"></div>
-</div> -->
