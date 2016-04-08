@@ -1,7 +1,7 @@
 <div class="instant-search-results">
   <div class="row">
     <div class="instant-hits-result col-md-12">
-    </div>  
+    </div>
   </div>
   <div class="row">
     <div class="instant-hits-result-pagination pagination col-md-12"></div>
@@ -28,7 +28,7 @@
           <a class="pull-right viator_link {{{ viator_link.klass }}}" href="{{{ viator_link }}}">Book Now</a>
         </div>
       </div>
-    </div> 
+    </div>
   {{/hits}}
 </script>
 
@@ -43,7 +43,7 @@
 </script>
 
 <script type="text/template" id="instant-facet-template">
-  <div class="facet">
+  <div class="facet hidden-xs hidden-sm">
     <h5>{{ title }}</h5>
     {{#values}}
       <div class="form-group">
@@ -52,7 +52,7 @@
             <input type="checkbox" class="facet-link instant-search-toggle-refine {{#disjunctive}}facet-disjunctive{{/disjunctive}} {{#isRefined}}facet-refined{{/isRefined}}" data-facet="{{ facet }}" data-value="{{ name }}" {{#isRefined}}checked="true"{{/isRefined}}>
             {{ name }} <span class="facet-count pull-right">({{ count }})</span>
           </label>
-        </div>  
+        </div>
       </div>
     {{/values}}
   </div>
