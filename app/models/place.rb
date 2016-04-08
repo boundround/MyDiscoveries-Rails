@@ -82,7 +82,7 @@ class Place < ActiveRecord::Base
   end
 
   #second indexing
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug, :minimum_age, :maximum_age, :viator_link
     # attributes :is_area
@@ -164,12 +164,28 @@ class Place < ActiveRecord::Base
 
     attribute :age_range do
       if minimum_age.present? and maximum_age.present?
-        if ((5..8).include?(minimum_age) and (5..8).include?(maximum_age)) or ((9..12).include?(minimum_age) and (9..12).include?(maximum_age) )
-          "For Ages #{minimum_age}-#{maximum_age}"
+        if minimum_age > 12
+          ["Teens"]
+        elsif minimum_age > 8 && maximum_age < 13
+          ["For Ages 9-12"]
+        elsif minimum_age > 8
+          ["For Ages 9-12", "Teens"]
+        elsif maximum_age < 13
+          ["For Ages 5-8", "For Ages 9-12"]
+        elsif maximum_age < 9
+          ["For Ages 5-8"]
         else
-          'Teens'
+          ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
         end
+      else
+        ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
       end
+
+        # if ((5..8).include?(minimum_age) and (5..8).include?(maximum_age)) or ((9..12).include?(minimum_age) and (9..12).include?(maximum_age) )
+        #   "For Ages #{minimum_age}-#{maximum_age}"
+        # else
+        #   'Teens'
+        # end
     end
 
     attribute :weather do
