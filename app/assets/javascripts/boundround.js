@@ -101,8 +101,9 @@ function setupNav(){
 	$("#fa-search-nav-xs").click(function(event) {
 		$("#menu-nav").hide();
 		$("#search-nav").show();
+		$(".search-nav-mobile").focus();
 	});
-	
+
 	$("#fa-times-nav-xs").click(function(event) {
 		$("#search-nav").hide();
 		$("#menu-nav").show();
@@ -138,13 +139,14 @@ function setImagesPosition(){
 			margin = margin/2;
 			$(inner).css({"position":"relative","top":-margin});
 		}else{
-			// console.log("no margin");
-			// image.css({"height":"100%","width":"initial"});
-			// margin = image.width() - outer.width();
-			// image.css({"position":"relative","left":-margin});
-			// console.log(-margin);
-			// console.log( - outer);
-			
+			$(inner).css({"position":"relative","width":"initial","height":"100%"});
+			setTimeout(function(){
+				margin = inner.width() - outerWidth;
+				margin = margin/2;
+				$(inner).css({"left":-margin});
+				// console.log(inner.width());
+				// console.log(outerWidth);
+			}, 1000);
 		}
 	});
 
@@ -377,8 +379,8 @@ function setUpModalUserPhoto(){
 	$("#image-preview").click(function(event) {
 		$("#user_photo_path").click();
 	});
-	
-	
+
+
 }
 
 $(document).ready(function() {

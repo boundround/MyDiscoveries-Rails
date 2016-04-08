@@ -57,9 +57,15 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    respond_to do |format|
+    
+    unless @user.update(user_params)
+      flash[:error] = @user.errors.full_messages.join(" and ")
+    end
 
+    sign_in(@user)
+
+    # flash[:notice] = "asdfasdfasdfasdf"
+    respond_to do |format|
         format.html { render :edit }
         format.json { render json: @user }
     end
@@ -206,7 +212,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name,
+      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :password, :password_confirmation, :is_private,
                                     :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username,
                                     :role_ids => [], :owned_place_ids => [])
     end

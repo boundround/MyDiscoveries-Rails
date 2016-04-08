@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug
     # attributes :is_area
@@ -24,7 +24,7 @@ class Place < ActiveRecord::Base
 
     attribute :description do
       if description
-        if description.length < 50
+        if description.length < 180
           "#{description}"
         else
           "#{description[0..50]}..."
@@ -79,6 +79,128 @@ class Place < ActiveRecord::Base
     # customRanking ['desc(likes_count)']
 
     attributesForFaceting ['area']
+  end
+
+  #second indexing
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+    # list of attribute used to build an Algolia record
+    attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug, :minimum_age, :maximum_age, :viator_link
+    # attributes :is_area
+    attribute :country do
+      if self.country
+        "#{country.display_name}"
+      else
+        ""
+      end
+    end
+    attribute :area do
+      self.is_area ? 't' : 'f'
+    end
+    attribute :url do
+      Rails.application.routes.url_helpers.place_path(self)
+    end
+
+    attribute :description do
+      if description
+        if description.length < 380
+          "#{description}"
+        else
+          "#{description[0..380]}..."
+        end
+      else
+        ""
+      end
+    end
+
+    attribute :primary_category do
+       if self.primary_category
+        { name: "#{primary_category.name}", identifier: primary_category.identifier}
+      else
+        ""
+      end
+    end
+
+    attribute :main_category do
+      primary_category.name if primary_category.present?
+    end
+
+    attribute :subcategories do
+      subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
+    end
+
+    attribute :subcategory do
+      subcategories.subcats.map{|sub| sub.name}
+    end
+
+    attribute :name do
+      string = "#{display_name}"
+      if !locality.blank?
+        string += ", #{locality}"
+      end
+      if country
+        string += ", #{self.country.display_name}"
+      end
+      string
+    end
+
+    attribute :photos do
+      photo_array = photos.select { |photo| photo.published? }.map do |photo|
+        { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+      end
+      photo_array += user_photos.select { |photo| photo.published? }.map do |photo|
+        { url: photo.path_url(:small), alt_tag: photo.caption }
+      end
+      photo_array
+    end
+
+    attribute :hero_photo do
+      hero_h= photos.where(photos: { hero: true }).first
+      hero= {}
+      if hero_h.present?
+        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
+      end
+      hero
+    end
+
+    attribute :age_range do
+      if minimum_age.present? and maximum_age.present?
+        if ((5..8).include?(minimum_age) and (5..8).include?(maximum_age)) or ((9..12).include?(minimum_age) and (9..12).include?(maximum_age) )
+          "For Ages #{minimum_age}-#{maximum_age}"
+        else
+          'Teens'
+        end
+      end
+    end
+
+    attribute :weather do
+      subcategories.where(category_type: 'weather').map{ |sub|  sub.name }
+    end
+
+    attribute :price do
+      subcategories.where(category_type: 'price').map{ |sub|  sub.name }
+    end
+
+    attribute :best_time_to_visit do
+      subcategories.where(category_type: 'optimum_time').map{ |sub|  sub.name }
+    end
+
+    attribute :accessibility do
+      subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
+    end
+
+     #country and url
+
+    # the attributesToIndex` setting defines the attributes
+    # you want to search in: here `title`, `subtitle` & `description`.
+    # You need to list them by order of importance. `description` is tagged as
+    # `unordered` to avoid taking the position of a match into account in that attribute.
+    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'status', 'primary_category', 'subcategories', 'sub_subcategory']
+
+    # the `customRanking` setting defines the ranking criteria use to compare two matching
+    # records in case their text-relevance is equal. It should reflect your record popularity.
+    # customRanking ['desc(likes_count)']
+
+    attributesForFaceting ['area', 'main_category', 'age_range', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility']
   end
 
   # ratyrate_rateable "quality"
@@ -160,6 +282,9 @@ class Place < ActiveRecord::Base
   has_many :places_users
   has_many :users, through: :places_users
 
+  has_many :places_posts
+  has_many :posts, through: :places_posts
+
   has_many :customers_places
   has_many :owners, through: :customers_places, :source => :user
 
@@ -193,6 +318,15 @@ class Place < ActiveRecord::Base
       false
     end
   end
+
+
+  def place_sub_subcategory
+    self.places_subcategories.select { |s| true }.map do |s|
+      { name: s.subcategory.name, attr: s.subcategory.name }
+    end
+  end
+
+
 
   # def self.text_search(query)
   #   if query.present?

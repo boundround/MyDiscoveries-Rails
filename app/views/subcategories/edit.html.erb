@@ -2,8 +2,24 @@
   <h2>Edit Subcategory</h2>
   <%= simple_form_for @subcategory do |f| %>
     <%= f.input :name, input_html: { class: 'form-control' } %>
-    <%= f.input :category_type, input_html: { class: 'form-control' } %>
+    <%= f.input :category_type, as: :select, collection: ["subcategory", "duration", "optimum_time", "price", "accessibility", "weather"],input_html: { class: 'form-control' } %>
     <%= f.input :icon, as: :file %>
+    <%= f.input :primary_description, label: "Primary Description", input_html: {class: "form-control", id: "primary_textarea"} %>
+    <div>Character Count: <span id="primary_count"></span></div>
+    <%= f.input :secondary_description, label: "Secondary Description", input_html: {class: "form-control", id: "secondary_textarea"} %>
+    <div>Character Count: <span id="secondary_count"></span></div>
     <%= f.submit :submit %>
   <% end %>
 </div>
+
+<script>
+  $("#primary_count").text($("#primary_textarea").val().length);
+  $("#secondary_count").text($("#secondary_textarea").val().length);
+  $("#primary_textarea").keyup(function(){
+    $("#primary_count").text($(this).val().length);
+  });
+
+  $("#secondary_textarea").keyup(function(){
+    $("#secondary_count").text($(this).val().length);
+  });
+</script>

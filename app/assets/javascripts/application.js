@@ -13,6 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 // require jquery-ui
+//= require bootstrap-sprockets
+//= require bootsy
+// require bootstrap
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 // require bootstrap-select.min
@@ -34,8 +37,6 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require cms
-//= require bootsy
-//= require bootstrap
 // require bootstrap/transition
 //= require geocomplete
 //= require cookie
@@ -43,9 +44,10 @@
 // require jquery.raty
 //= require ratyrate
 //= require user-photo-upload
-// require ckeditor/init
+//= require ckeditor/init
 // require ckeditor/config.js
-// require reviews
+// require reviews 
+
 //= require algoliasearch
 //= require algoliasearchhelper
 //= require hogan
@@ -66,6 +68,8 @@
 //= require dual_list_box
 //= require jquery_nested_form
 //= require blueimp-gallery.min
+//= require instantsearch.min
+//= require instant_search_setup
 
 $(document).on('ajax:beforeSend', 'a.single-pagination', function(){
   container= $(this).closest('div.single-pagination-container');
@@ -87,9 +91,13 @@ $(document).ready(function(){
 		showAndPlayVideoOnModal($(this))
 	});
 
-	$('div.modal-video').on('hide.bs.modal', function(e){
+	$('div.video-modal').on('hide.bs.modal', function(e){
 		$(this).find('iframe').attr('src', null);
 	});
+
+  $('div.modal-video').on('hide.bs.modal', function(e){
+    $(this).find('iframe').attr('src', null);
+  });
 
   $(document).on('click', 'a.play-video', function(e){
     div= $(this).closest('div');

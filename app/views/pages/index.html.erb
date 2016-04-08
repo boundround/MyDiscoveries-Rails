@@ -9,7 +9,7 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner home-carousel" role="listbox">
     <div class="item active fix-img">
-      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-2.jpg" class="crop-image"  alt="kids-and-families-explore-1">
+      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg" class="crop-image"  alt="kids-and-families-explore-1">
       <div class="carousel-caption text-center text-light text-shadow">
         <div class="text-caption">
         <h3>
@@ -58,6 +58,8 @@
             <!--<button class="btn btn-default hero-search" type="submit"><i class="fa fa-search"></i></button>-->
           <!--</span>-->
         </form>
+        <%= render :partial=> "search_suggestions/search_results", :locals => { :data_class=>"search-results-bottom-container"}%>
+
       </div><!-- /input-group -->
 
 
