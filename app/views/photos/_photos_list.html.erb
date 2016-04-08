@@ -1,23 +1,23 @@
 <div class="col-xs-12 col-sm-6 col-md-4">
     <!--<div class="head-stories">-->
     <!-- #hardcode -->
-      <div class="left">
-        <% if photo.respond_to?(:user) and photo.user.present? %>
-          <%= link_to user_path(photo.user) do %>
-            <div class="profile-outer">
-              <%= image_tag photo.user.avatar_url(:thumb) %>
-            </div>
-            <div class="profile-text">
-              <%= photo.profile.user_name %>
-            </div>
-           <%- end %>
-         <% end %>
+      <!-- <div class="left"> -->
+        <%# if photo.respond_to?(:user) and photo.user.present? %>
+          <%#= link_to user_path(photo.user) do %>
+            <!-- <div class="profile-outer"> -->
+              <%#= image_tag photo.user.avatar_url %>
+            <!-- </div> -->
+            <!-- <div class="profile-text"> -->
+              <%#= photo.user.username %>
+            <!-- </div> -->
+           <%#- end %>
+         <%# end %>
       <!--</div>-->
-      <div class="right">
-        <% if photo.respond_to?(:user) and photo.user.present? %>
-          <a href="#"><i class="fa fa-image"></i> 9 </a>
-        <% end %>
-      </div>
+      <!-- <div class="right"> -->
+        <%# if photo.respond_to?(:user) and photo.user.present? %>
+          <!-- <a href="#"><i class="fa fa-image"></i> 9 </a> -->
+        <%# end %>
+      <!-- </div> -->
     </div>
     <div class="body-stories">
       <div class="left">
