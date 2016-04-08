@@ -19,6 +19,14 @@ h1, h2, h3, h4{
 	font-weight: 100 !important;
 }
 
+.body-text {
+	font-size: 16px;
+}
+
+.topmin50 {
+	margin-top: -50px;
+}
+
 .body-stories {
 	min-height: 218px;
 }
