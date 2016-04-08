@@ -60,7 +60,13 @@ button.hero-search {
    border: none;
    padding-right: 18px;
    z-index: 10;
-   width: 6%;
+   width: 15%;
+   background-color: #fd7e56;
+   color: white;
+   text-align: center;
+   height: 49px;
+   font-size: 18px;
+   z-index: 1000 !important;
 }
 .sign-in-pad {
 	margin-left: 15px;
@@ -203,7 +209,7 @@ ul.nav.navbar-nav.first-ul{
    background: #ffffff;
    border: none;
    /*padding-left: 28px !important;*/
-   width: 94%;
+   width: 85%;
    padding: 12px !important;
    outline: none;
    color: #555555 !important;
@@ -3019,10 +3025,10 @@ section.modal-booking .left img{
 }
 /* SEARCH BAR */
 .searchbackground {
-	/*background: rgba(0, 0, 0, 0.3);*/
-	margin-top: 20px;
+	background: rgba(0, 0, 0, 0.3);
+	margin-top: 12px;
 	margin-bottom: 20px;
-	padding-top: 15px;
+	padding-top: 25px;
 	padding-bottom: 5px;
 	position: relative;
 	bottom: 100px;
@@ -3274,13 +3280,7 @@ section.modal-booking .left img{
 	/*bottom: 50% !important;*/
 }
 @media (min-width: 768px) {
-	.carousel-indicators {
-		bottom: 50% !important;
-	}
-	.carousel-caption {
-		margin-right: 0% !important;
-		bottom: 50% !important;
-	}
+
 }
 .padding-dropdown {
 	margin:0 ;
