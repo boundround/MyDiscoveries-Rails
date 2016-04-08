@@ -294,6 +294,7 @@
     margin: 25px;
     padding: 0;
 }
+/*
 .details-dest{
   background: #F7F7F7;
   width:100%;
@@ -317,6 +318,7 @@
   color: #B8B8B8;
   text-align: right;
 }
+*/
 /*END*/
 
 /*EXPLORE*/
@@ -333,6 +335,7 @@ section.explore .fa-arrow-right{
 /*END*/
 
 /*PLACES TO GO*/
+/*
 section.places-to-go .thumbnail{
   border-radius: 4px;
 }
@@ -367,6 +370,7 @@ section.places-to-go .details-dest .left a{
   font-size: 22px;
   margin-top: 0px;
 }
+/*
 /*END*/
 
 /*TRVELLING TIPS*/
@@ -448,95 +452,6 @@ section.your-stories .body-stories .body-image{
 
 /*STORIES END */
 
-/*VIDEOS SECTION*/
-section.video-show .head-stories{
-  background: #fff;
-  border-bottom: 1px solid #D2D2D2;
-}
-section.video-show{
-  /*background: #fff;*/
-
-}
-
-section.video-show .details-dest{
-  border-radius: 0;
-  width: initial;
-  border-top: 1px solid #D2D2D2;
-  background: #fff;
-  clear: both;
-  margin-bottom: 15px;
-}
-section.video-show .details-dest a{
-  background: #EAEAEA;
-    padding: 2px 9px;
-    border-radius: 4px;
-    color: #3A3A3A;
-}
-section.video-show .title{
-    position: absolute;
-    top: 20px;
-    left: 31px;
-    text-align: left;
-    color: #fff;
-    width: 77%;
-}
-section.video-show .detail-dest .left{
-  width: 100%;
-}
-section.video-show .body-stories{
-  display: block;
-  margin: 0 auto;
-  position: relative;
-}
-section.video-show .body-stories .fa-play{
-  color: #fff;
-    position: absolute;
-    top: 46%;
-    left: 47%;
-    font-size: 38px;
-}
-video{
-    border-radius: 4px;
-  width: 100%;
-}
-/*LATEST*/
-section.video-latest .body-stories{
-  display: inline-table;
-}
-section.video-latest .body-stories .fa-play{
-    top: 45%;
-    left: 45%;
-    font-size: 25px;
-}
-section.video-latest .body-stories .left{
-  float: left;
-  text-align: left;
-  width: 50%;
-  padding-right: 3px;
-}
-section.video-latest .body-stories .right{
-  float: right;
-  width: 50%;
-  position: relative;
-}
-section.video-latest .bg{
-  /*background: #fff;*/
-  margin-bottom: 15px;
-}
-
-@media (max-width: 767px){
-  section.video-show .details-dest, section.video-show .body-stories, section.video-latest .body-stories {
-    margin: 0 -15px;
-  }
-  section.video-latest .bg{
-    background: #fff;
-  }
-  section.video-latest .body-stories{
-    display: block;
-  }
-
-}
-/*END*/
 
 /*PHOTO SECTION*/
 section.photo .image{

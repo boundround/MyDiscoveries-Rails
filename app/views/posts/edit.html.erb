@@ -1,0 +1,21 @@
+<% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
+<hr>
+<div class="container">
+  <%= render "/posts/admin_tabs" %>
+  <%= form_for @post do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+    <%= f.label :seo_friendly_url %>
+    <%= f.text_field :seo_friendly_url, class: "form-control" %>
+    <%= f.label :user_id %>
+    <%= f.select(:user_id, User.all.collect{ |x| [x.email, x.id]})%><br>
+    <%= f.label :status %>
+    <%= f.select :status, ["draft", "live", "removed"] %><br>
+    <%= f.label :content %>
+    <%= f.cktext_area :content, class: "form-control" %>
+    <%= f.submit :submit, class: "btn btn-default btn-lg btn-warning" %>
+  <% end %>
+</div>
+
+<%= javascript_include_tag Ckeditor.cdn_url %>
+<% end %>

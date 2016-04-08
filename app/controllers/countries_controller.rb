@@ -9,10 +9,10 @@ class CountriesController < ApplicationController
     @country = Country.includes(:photos, :places).friendly.find(params[:id])
     @stories = @country.stories.where(status:"live")
     @reviews = @country.reviews.where(status:"live")
-    @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 3)
+    @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
     @fun_facts = @country.fun_facts.where(status: "live")
     photos = @country.user_photos.where(status:"live") + @country.photos
-    @photos = photos.paginate(:page => params[:active_photos], per_page: 3)
+    @photos = photos.paginate(:page => params[:active_photos], per_page: 4)
     @similar_places = @country.places.primary_areas_with_photos
     @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 4 : 2 )
     @famous_faces = @country.famous_faces.active

@@ -163,7 +163,12 @@
 	  <%#= render "/layouts/share_modal" %>
     <%= render 'layouts/signin_modal' %>
     <%= render "layouts/footer" %>
-	  <%= render "/layouts/stamp_modal" %>
+    <%= render "/layouts/stamp_modal" %>
+	  <%= render "/layouts/video_modal" %>
+
+    <script type="text/javascript">
+      setTimeout("$('.alert').fadeOut('slow')",4000);
+    </script>
 
 	</body>
 

@@ -1,6 +1,5 @@
 
 <a href="<%= place_path(area) %>">
-  <div class="col-md-4 col-sm-6">
 <div class="thumbnail padd0">
   <div class="image-cat">
 
@@ -13,8 +12,7 @@
   <div class="details-dest">
     <div class="left">
       <% area.subcategories.subcats.each do |c| %>
-        <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
-        <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
+        <a href="<%= subcategory_path(c) %>" class="badge-link"><%= c.name %></a>
 
       <% end %>
     </div>
@@ -25,6 +23,5 @@
       <% end %>
     </div>
   </div>
-</div>
 </div>
 </a>

@@ -19,7 +19,7 @@ class ApiBlog
   def self.get_request(url)
     url_parse = URI.parse(url)
     response = Net::HTTP.get_response(url_parse)
-    JSON.parse response.body
+    JSON.parse(response.body) rescue ""
   end
 
   def self.parse_image(image_url, json)

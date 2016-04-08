@@ -23,6 +23,18 @@ $(document).ready(function(){
   var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
   var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
+  var FACETS_ORDER_OF_DISPLAY = ['age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
+  var FACETS_LABELS = {main_category: 'Category', age_range: 'Age', subcategory:'Subcategory', weather: 'Weather', price: 'Price', best_time_to_visit: 'Best Time To Visit', accessibility: 'Accessibility'};
+
+  var INSTANT_SEARCH_PARAMS = {
+    hitsPerPage: 6,
+    maxValuesPerFacet: 8,
+    facets: ['area'],
+    disjunctiveFacets: FACETS_ORDER_OF_DISPLAY
+  };
+
+  var algoliaHelperInstantSearch= algoliasearchHelper(algolia, INDEX_NAME, INSTANT_SEARCH_PARAMS);
+
   var hideSearchResults = function(){
     $('.br15_search_result').show();
       $('.search-results-container').show();
@@ -56,6 +68,20 @@ $(document).ready(function(){
   // var noResultsTemplate = Hogan.compile($('#no-results-template').text());
   var moreResultsTemplate = Hogan.compile($('#more-results-template').text());
 
+  //instant search
+  $instantSearchInput= $("input.instant-search");
+  if ($instantSearchInput.length)
+  {
+    searchInstant($instantSearchInput)
+
+    $instantSearchFacet= $('#facets-instant-search')
+    $instantSearchHits= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.instant-hits-result');
+    $instantSearchPagination= $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.pagination');
+
+    var instanthitTemplate = Hogan.compile($('#instant-hit-template').text());
+    var instantPaginationTemplate= Hogan.compile($('#instant-pagination-template').text());
+    var instantfacetTemplate = Hogan.compile($('#instant-facet-template').text());
+  }
   function searchCondition(query){
     if (query.length > 0){
       algoliaHelper.setQuery(query);
@@ -71,6 +97,14 @@ $(document).ready(function(){
     } else {
       $('.search-results-container').hide();
     }
+  }
+
+  function searchInstant(input)
+  {
+    query= input.val();
+    algoliaHelperInstantSearch.setQuery(query);
+    algoliaHelperInstantSearch.search();
+
   }
 
   $searchInput
@@ -103,19 +137,17 @@ $(document).ready(function(){
   })
   .focus();
 
-  // $searchInputBottom
-  // .on('keyup', function() {
-  //     var query = $(this).val();
-  //     searchCondition(query);
-  // })
-  // .bind("paste", function(){
-  //     var elem = $(this);
-  //     setTimeout(function() {
-  //       query = elem.val();
-  //       searchCondition(query)
-  //     }, 100);
-  // })
-  // .focus();
+  $instantSearchInput
+  .on('keyup', function() {
+    searchInstant($(this))
+  })
+  .bind("paste", function(){
+      var elem = $(this);
+      setTimeout(function() {
+        searchInstant($(this));
+      }, 100);
+  })
+  .focus();
 
   // Search results
   algoliaHelper.on('result', function(content, state) {
@@ -127,8 +159,6 @@ $(document).ready(function(){
       renderHits(content);
       renderMoreResults(content);
       rescueImage();
-      console.log(content.query);
-      console.log(state);
       // renderStats(content);
       // renderPagination(content);
     } else {
@@ -144,8 +174,6 @@ $(document).ready(function(){
           renderHits(content);
           renderMoreResults(content);
           rescueImage();
-          console.log(content.query);
-          console.log(state);
           // renderStats(content);
           // renderPagination(content);
         } else {
@@ -153,6 +181,94 @@ $(document).ready(function(){
         }
   })
 
+  algoliaHelperInstantSearch.on('result', function(content, state){
+    console.log(content);
+    viatorLink(content.hits);
+    renderInstantHits(content);
+    renderFacets(content, state);
+    renderPagination(content, $instantSearchPagination ,instantPaginationTemplate);
+    setImagesPosition();
+  })
+
+  function viatorLink(hits){
+    $.each(hits, function(index, val) {
+       console.log(val);
+       if (val.viator_link == ""){
+          // $(".viator_link").hide();
+          val.viator_link = {
+            klass: "hide"
+          }
+       }else{
+          // $(".viator_link").show();
+       }
+    });
+  }
+
+  $(document).on('click', '.go-to-page-instant-search', function(e) {
+    e.preventDefault();
+    $('html, body').animate({scrollTop: 0}, '500', 'swing');
+    algoliaHelperInstantSearch.setCurrentPage(+$(this).data('page') - 1).search();
+  });
+
+  $(document).on('click', '.instant-search-toggle-refine', function(e) {
+    algoliaHelperInstantSearch.toggleRefine($(this).data('facet'), $(this).data('value')).search();
+  });
+
+  function renderInstantHits(content)
+  {
+    if (content.hits.length > 0)
+    {
+      $instantSearchHits.html(instanthitTemplate.render(content));
+    }else
+    {
+      $instantSearchHits.html('No result for '+ content.query);
+    }
+    rescueImage();
+    setImagesPosition();
+  }
+
+function renderFacets(content, state) {
+  var facetsHtml = '';
+  for (var facetIndex = 0; facetIndex < FACETS_ORDER_OF_DISPLAY.length; ++facetIndex) {
+    var facetName = FACETS_ORDER_OF_DISPLAY[facetIndex];
+    var facetResult = content.getFacetByName(facetName);
+    if (!facetResult) continue;
+    var facetContent = {};
+
+    facetContent = {
+      facet: facetName,
+      title: FACETS_LABELS[facetName],
+      values: content.getFacetValues(facetName, {sortBy: ['isRefined:desc', 'count:desc']}),
+      disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+    };
+    facetsHtml += instantfacetTemplate.render(facetContent);
+    // console.log(facetContent);
+    }
+  $instantSearchFacet.html(facetsHtml);
+}
+
+  function renderPagination(content, paginate_el, pagination_template)
+  {
+    var pages = [];
+    if (content.page > 3) {
+      pages.push({current: false, number: 1});
+      pages.push({current: false, number: '...', disabled: true});
+    }
+    for (var p = content.page - 3; p < content.page + 3; ++p) {
+      if (p < 0 || p >= content.nbPages) continue;
+      pages.push({current: content.page === p, number: p + 1});
+    }
+    if (content.page + 3 < content.nbPages) {
+      pages.push({current: false, number: '...', disabled: true});
+      pages.push({current: false, number: content.nbPages});
+    }
+    var pagination = {
+      pages: pages,
+      prev_page: content.page > 0 ? content.page : false,
+      next_page: content.page + 1 < content.nbPages ? content.page + 2 : false
+    };
+    paginate_el.html(pagination_template.render(pagination));
+  }
 
 
   function renderMoreResults(content){
@@ -166,6 +282,7 @@ $(document).ready(function(){
   // }
 
   function renderHits(content) {
+    console.log($hits);
     $hits.html(hitTemplate.render(content));
   }
 
@@ -187,7 +304,40 @@ function rescueImage(){
             // console.log($(val).html());
        }
     });
+    img = $("img.rescue-image");
+    $.each(img, function(index, val) {
+       if ($(val).attr("src") == ""){
+        // console.log($(val).attr("src") == "");
+            $(val).attr('src', "https://d1w99recw67lvf.cloudfront.net/images/generic-hero-small.jpg");
+            // console.log($(val).html());
+       }
+    });
 }
+// function setImagesPosition(){
+//   var outer = $(".outer-js"); //div outer image
+//   // var image = $(".inner-js");
+//   $.each(outer, function(index, val) {
+//     var  outerHeight = $(val).height();
+//        outerWidth = $(val).width();
+//        inner = $(val).find(".inner-js") //image innner outer div
+//     if ( inner.height() > outerHeight) {
+//       margin = inner.height() - outerHeight;
+//       margin = margin/2;
+//       $(inner).css({"position":"relative","top":-margin});
+//     }else{
+//       $(inner).css({"position":"relative","width":"initial","height":"100%"});
+//       setTimeout(function(){
+//         margin = inner.width() - outerWidth;
+//         margin = margin/2;
+//         $(inner).css({"left":-margin});
+//         // console.log(inner.width());
+//         // console.log(outerWidth);
+//       }, 1000);
+
+//     }
+//   });
+// }
+
 
   // function renderPagination(content) {
   //   var pages = [];
@@ -315,19 +465,4 @@ function rescueImage(){
 //     }
 // searchRequest();
 
-});
-
-function removeResultDesktop(){
-  // if ($(window).width() < 767) {
-  //   var desktop_result = $("#desktop-result");
-  //       html_desktop_result = $("#desktop-result").html();
-  //       desktop_result.children().remove();
-  //   }else{
-  //     desktop_result.html(html_desktop_result);
-  //   }
-
-}
-
-$(window).resize(function(event) {
-  removeResultDesktop();
 });

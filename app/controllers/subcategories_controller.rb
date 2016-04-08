@@ -62,7 +62,7 @@ class SubcategoriesController < ApplicationController
 
   private
     def subcategory_params
-      params.require(:subcategory).permit(:name, :icon)
+      params.require(:subcategory).permit(:name, :icon, :primary_description, :secondary_description)
     end
 
     def age_ranges_params

@@ -2,14 +2,16 @@
 <nav class="navbar navbar-default navbar-brw navbar-static-top" id="menu-nav">
   <div class="container big-container">
     <div class="navbar-header">
-      <div class="sign visible-xs">
-        <a href="#" data-toggle="modal" data-target="#myModal">
-          Sign in/Join
-        </a>
-        <a href="#">
-          <i class="fa fa-search" id="fa-search-nav-xs"></i>
-        </a>
-      </div>
+        <div class="sign visible-xs">
+          <% if !user_signed_in? %>
+          <a href="#" data-toggle="modal" data-target="#myModal">
+            Sign in/Join
+          </a>
+          <% end %>
+          <a href="#">
+            <i class="fa fa-search" id="fa-search-nav-xs"></i>
+          </a>
+        </div>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <i class="fa fa-bars"></i>
           <i class="fa fa-times" style="display:none"></i>
@@ -22,7 +24,7 @@
       <ul class="nav navbar-nav">
         <li class="dropdown menu-large">
           <p class="find visible-xs">Find</p>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Places to go<span class="caret"></span></a>
+          <a href="#" class="hidden-xs dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Places to go<span class="caret"></span></a>
 
           <ul class="dropdown-menu megamenu row megamenu-bg">
         </li>
@@ -89,7 +91,7 @@
                                         <div class="details-dest">
                                           <div class="left">
                                             <% place.subcategories.subcats.each do |category| %>
-                                              <a href="<%= subcategory_path(category) %>"><i class="fa fa-ship"></i><%= category.name %></a>
+                                              <a href="<%= subcategory_path(category) %>" class="badge-link"><%= category.name %></a>
                                             <% end %>
                                           </div>
                                           <div class="right">
@@ -118,12 +120,14 @@
         <li class=""><a href="/photos"><i class="fa fa-camera find-c"></i>&nbsp; Galleries</a></li>
         <li class=""><a href="/videos"><i class="fa fa-youtube-play find-c"></i>&nbsp; Videos</a></li>
       </ul>
-      <ul class="nav first-ul visible-xs">
-      <li>
-        <p class="find find-become btm10 ">Become a member</p>
-        <a href="#" class="btn btn-default btn-blue btm20 btn-become">Join Boundround</a>
-      </li>
-      </ul>
+      <% if !user_signed_in? %>
+        <ul class="nav first-ul visible-xs">
+        <li>
+          <p class="find find-become btm10 ">Become a member</p>
+          <a href="<%= new_user_registration_path %>" class="btn btn-default btn-blue btm20 btn-become">Join Boundround</a>
+        </li>
+        </ul>
+      <% end %>
       <ul class="nav navbar-nav first-ul hidden-xs">
         <li>
           <div class="input-group input-search-nav">
@@ -149,7 +153,7 @@
           </div><!-- /input-group -->
         </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right hidden-xs">
+      <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
         <li>
           <!-- <span class="badge badge-profile"> 1 </span>
@@ -191,8 +195,8 @@
             <a href="#" style="margin-top: 10px; margin-left: 5px; margin-right: -25px;">My Account <span class="caret"></span></a>
           </li> -->
         <% else %>
-          <li class=""><a style="cursor:pointer" data-toggle="modal" data-target="#myModal">Sign in</a></li>
-          <li class=""><a href="<%= new_user_registration_path %>" class="join-nav">Join</a></li>
+          <li class="hidden-xs"><a style="cursor:pointer" data-toggle="modal" data-target="#myModal">Sign in</a></li>
+          <li class="hidden-xs"><a href="<%= new_user_registration_path %>" class="join-nav">Join</a></li>
         <% end %>
       </ul>
     </div><!--/.nav-collapse -->

@@ -1,6 +1,7 @@
 class SearchSuggestionsController < ApplicationController
 
   include Locatable
+  helper_method :filters
 
   def index
     @areas = SearchSuggestion.terms_for_area(search_params[:common], page: page_params(:areas_page), facets: 'area', facetFilters: ['area:t'], hitsPerPage: per_page_params(:per_page_areas) )
@@ -32,6 +33,14 @@ class SearchSuggestionsController < ApplicationController
 
     def per_page_params resource_name
       params[resource_name] ||= 4
+    end
+
+    def filters
+      return @filter if @filter
+      @filter= {}
+      @filter[:category]= PrimaryCategory.all
+      @filter[:subcategory]= Subcategory.all
+      @filter[:price]= [ Openstruct.new(name: "free", value: "0"), Openstruct.new(name: '$10 - $99', value: '10-99'), Openstruct.new(name: '$100 - $999', value: '100-999'), Openstruct.new(name: '$1000') ]
     end
   
 
