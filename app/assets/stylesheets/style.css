@@ -3266,17 +3266,10 @@ section.modal-booking .left img{
 		height: auto !important;
 		width: 100% !important;
 		bottom: 0;
-/*	min-height: 100%;	*/
-		/*margin-top: -16%;*/
 	}
 	.home-carousel, .fix-img {
 		height: 700px;
 	}
-	/*
-	.crop-image {
-		width: 100%;
-		margin-top: -20%;
-	}*/
 }
 /* END HERO CAROUSEL */
 .image-fit {
