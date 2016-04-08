@@ -101,8 +101,9 @@ function setupNav(){
 	$("#fa-search-nav-xs").click(function(event) {
 		$("#menu-nav").hide();
 		$("#search-nav").show();
+		$(".search-nav-mobile").focus();
 	});
-	
+
 	$("#fa-times-nav-xs").click(function(event) {
 		$("#search-nav").hide();
 		$("#menu-nav").show();
@@ -146,7 +147,6 @@ function setImagesPosition(){
 				// console.log(inner.width());
 				// console.log(outerWidth);
 			}, 1000);
-			
 		}
 	});
 
@@ -379,8 +379,8 @@ function setUpModalUserPhoto(){
 	$("#image-preview").click(function(event) {
 		$("#user_photo_path").click();
 	});
-	
-	
+
+
 }
 
 $(document).ready(function() {
