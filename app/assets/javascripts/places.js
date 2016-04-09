@@ -85,7 +85,6 @@ function allMap(){
     };
 
     getPlaceDetails($('#place-id').data("place"));
-
   }
 }
 
@@ -259,9 +258,65 @@ $(document).ready(function() {
    setUpfileUpload('.file-upload','.lis-file-upload');
    setUpfileUpload('.file-upload2','.lis-file-upload2');
    setUpfileUpload();
-   allMap();
+   //allMap();
    addToFav();
    setUpLoadMore();
    setupModal();
    responsiveModalVideo();
+
+  if ($('#map').length)
+  {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: new google.maps.LatLng($('.area-content').data('lat'), $('.area-content').data('long')),
+      zoom: 13
+    });
+
+     if ($("#place-opening-hours").length)
+     {
+
+      opening_hours= $("#place-opening-hours");
+      place_id= opening_hours.data('place-id');
+
+      var service = new google.maps.places.PlacesService(map);
+      var request = {
+        placeId: place_id
+      };
+
+      service.getDetails(request, function(place, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          var i;
+          var day = new Date();
+          if (place.opening_hours){
+            var openingHours = place.opening_hours.weekday_text;
+          }
+          var placeInfo = '<p class="text-center"><b>No schedule found</b></p>';
+          if (openingHours){
+            placeInfo= '';
+            for(i = 0; i < openingHours.length; i++) {
+              open_now= '';
+              if (day.getDay() === i && place.opening_hours.open_now === true) {
+                open_now= '<span class="label label-info">Open now</span>';
+              }
+              schedule= openingHours[i];
+              schedule= schedule.split(' ');
+              placeInfo += '<div class="modal-footer">';
+              placeInfo += '<div class="col-xs-12 col-sm-12" align="left">';
+              placeInfo += '  <p> '+schedule.shift()+' '+open_now+'</p>';
+              placeInfo += '  <p><b>'+schedule.join(' ')+'</b></p>';
+              placeInfo += ' </div>';
+              placeInfo += '</div>';
+            }
+          }
+          modal_target= opening_hours.data('target');
+          if ($(modal_target).length)
+          {
+            $(modal_target).find("div.modal-footer").remove();
+            $(modal_target).find('div.modal-content').append(placeInfo)
+          }
+        }
+      });
+     }
+  }
+
 });
+
