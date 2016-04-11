@@ -530,6 +530,7 @@ class Place < ActiveRecord::Base
         return association.similar_place
       end
     end
+    ""
   end
 
   def publish

@@ -2,16 +2,18 @@ module PlacesHelper
 
   def create_breadcrumb_for(place)
     breadcrumb = ""
-    primary_area = place.find_first_primary_area
+    parent_area = place.find_first_primary_area
     unless place.country.blank?
       breadcrumb += link_to place.country.display_name, country_path(place.country)
       breadcrumb += " > "
     end
 
-    unless primary_area.blank?
-      breadcrumb += link_to primary_area.display_name, place_path(primary_area)
+    unless parent_area.blank?
+      debugger
+      breadcrumb += link_to parent_area.display_name, place_path(parent_area)
       breadcrumb += " > "
     end
+
 
     breadcrumb += place.display_name
   end
