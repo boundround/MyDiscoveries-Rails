@@ -399,6 +399,26 @@ $(document).ready(function() {
 	funFact();
 	setUpChart();
 
+	var lon = $('.area-content').data('long');
+	var lat = $('.area-content').data('lat');
+
+		$.ajax({
+ 			url: "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=be7c03a2939edf508c723b0729095bcc",
+ 			success: function(data){
+   		console.log(data);
+   		//var name = data.name;
+   		//console.log(name);
+   		//var icon = data.icon;
+   		var temperature = data.main.temp; // not in elms
+   		console.log(temperature);
+   		var icon = data.weather[0].icon;
+   		console.log(icon);
+   		$('#temperature').append(temperature); // for the #id to append
+      $('#icon').append(icon); // for the #id to append (is an img)
+ 	}
+});
+
+
 });
 
 $(window).resize(function() {

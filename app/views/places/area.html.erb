@@ -37,8 +37,8 @@
         <div class="pull-right hidden-xs">
           <div class="component-desk">
             <ul>
-              <li><a href="#photos"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
-              <li><a href="#videos"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
+              <li><a href="#"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
+              <li><a href="#"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
             </ul>
           </div>
         </div>
@@ -46,8 +46,8 @@
       </div>
       <div class="component visible-xs">
         <ul>
-          <li><a href="#photos"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
-          <li><a href="#videos"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
+          <li><a href="#"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
+          <li><a href="#"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
         </ul>
       </div>
    </div>
@@ -67,7 +67,8 @@
             <div class="detail-place">
               <div class="located"><p class="gray-font">Located in</p><p><%= link_to @place.country.display_name, country_path(@place.country) %></p></div>
               <div class="language"><p class="gray-font">Language</p><p id="language" ></p></div>
-              <div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>
+              <!--<div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>-->
+              <div class="weather"><p class="gray-font">Weather</p><p><span id="icon"></span> <span id="temperature"></span></p></div>
               <div class="likes"><p class="gray-font">Capital</p><p><%= (link_to @capital_city.display_name, place_path(@capital_city)) rescue "" %></p></div>
             </div>
           </div>
@@ -115,38 +116,19 @@
   </section>
 
   <% if @videos.present? %>
-    <a name="videos"></a>
-    <section class="your-stories video-show">
     <div class="text-center">
       <h4>Videos</h4>
     </div>
+    <section class="your-stories video-show">
+      <div class="container">
         <div class="row">
-        <%= render partial: 'featured_videos_list', collection: @videos, as: :video %>
+        <%= render partial: 'videos/featured_videos_list', collection: @videos, as: :video %>
         </div>
+      </div>
     </section>
   <% end %>
 
-<% unless @photos.blank? %>
-  <a name="photos"></a>
-  <section class="your-stories video-show photo">
-  <h4 class="text-center">
-    Photos
-  </h4>
-    <div class="row" id="photos-list">
-      <%= render partial: 'featured_photos_list', collection: @photos, as: :photo %>
-    </div> <!-- row -->
-    <% unless last_page? @photos %>
-      <div class="text-center clearfix btm20 single-pagination-container" id="photos-single-pagination-container" style="clear:both">
-        <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
-          <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-        </div>
-        <%= link_to "Load More", place_path(@place, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'featured_photos_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
-      </div>
-    <% end %>
-</section>
-<% end %>
-
-<%#= render "photo_carousel" %>
+<%= render "photo_carousel" %>
 
 </div> <!-- /main container -->
 
@@ -251,5 +233,5 @@
 <%= render 'user_photos/form' %>
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
+<%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>
-<%= render '/shared/video_modal' %>
