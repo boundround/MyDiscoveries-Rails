@@ -2281,6 +2281,7 @@ section.country-details .place-title2{
     display: -webkit-inline-flex;
     display: inline-flex;
     font-size: 13px;
+    height: 75px;
 }
 .detail-place .located, .detail-place .weather ,.detail-place .language,.detail-place .population{
     float: left;
@@ -2322,6 +2323,17 @@ section.country-details .place-title2{
     top: 78px;
     left: 0;
     right: 0;
+}
+/* WEATHER */
+img#icon {
+	position: relative;
+	top: -10px;
+	left: -12px;
+}
+span#temperature {
+	position: relative;
+	top: -13px;
+	left: 0;
 }
 /*END DETAIL PLACE*/
 

@@ -146,7 +146,7 @@ gem 'fog'
 
 gem "browser"
 
-gem 'geocomplete_rails'
+gem 'geocomplete_rails', github: 'guyisra/geocomplete_rails'
 
 # gem 'active_model_serializers'
 

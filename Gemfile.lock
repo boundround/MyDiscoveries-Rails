@@ -7,6 +7,13 @@ GIT
       orm_adapter (~> 0.5.0)
 
 GIT
+  remote: git://github.com/guyisra/geocomplete_rails.git
+  revision: a14fc8f6b707ebe0439122bf324e444211fad027
+  specs:
+    geocomplete_rails (1.6.5)
+      railties (>= 3.1)
+
+GIT
   remote: git://github.com/ropiku/omniauth-instagram.git
   revision: 9f88ca3cccd02e88d3117520a9ff8937fb020b1b
   specs:
@@ -297,8 +304,6 @@ GEM
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     geocoder (1.3.3)
-    geocomplete_rails (1.6.5)
-      railties (>= 3.1)
     git-version-bump (0.15.1)
     grape (0.16.1)
       activesupport
@@ -633,7 +638,7 @@ DEPENDENCIES
   fog
   friendly_id
   geocoder
-  geocomplete_rails
+  geocomplete_rails!
   grape
   grape-entity
   grape-pagination
