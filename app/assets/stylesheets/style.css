@@ -2281,9 +2281,9 @@ section.country-details .place-title2{
     display: -webkit-inline-flex;
     display: inline-flex;
     font-size: 13px;
-    height: 75px;
+    height: 70px;
 }
-.detail-place .located, .detail-place .weather ,.detail-place .language,.detail-place .population{
+.detail-place .located, .detail-place .weather , .detail-place .ages, .detail-place .language,.detail-place .population, .detail-place .capital {
     float: left;
     border-right: 1px;
     border-right: 1px solid #D2D2D2;
@@ -2294,14 +2294,15 @@ section.country-details .place-title2{
     /*padding-left: 8px;*/
 }
 
-.detail-place .language, .detail-place .population, .detail-place .weather {
-		width: 25%;
+.detail-place .language, .detail-place .population, .detail-place .located, .detail-place .weather, .detail-place .ages, .detail-place .capital {
+		width: 25% !important;
 }
-
-.detail-place .population , .detail-place .weather{
+.detail-place .population {
 	width: 30%;
 }
-
+.detail-place .capital {
+	border-right: 0;
+}
 .detail-place .likes{
 	border: none;
 	text-align: center;
@@ -2324,16 +2325,19 @@ section.country-details .place-title2{
     left: 0;
     right: 0;
 }
+
 /* WEATHER */
 img#icon {
+	height: 40px;
+	width: 40px;
 	position: relative;
 	top: -10px;
-	left: -12px;
+	left: -5px;
 }
 span#temperature {
 	position: relative;
-	top: -13px;
-	left: 0;
+	top: -10px;
+	left: -2px;
 }
 /*END DETAIL PLACE*/
 

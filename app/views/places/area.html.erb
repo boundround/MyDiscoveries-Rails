@@ -65,11 +65,22 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="detail-place">
-              <div class="located"><p class="gray-font">Located in</p><p><%= link_to @place.country.display_name, country_path(@place.country) %></p></div>
-              <div class="language"><p class="gray-font">Language</p><p id="language" ></p></div>
+              <div class="located"><p class="gray-font">Country</p><p><%= link_to @place.country.display_name, country_path(@place.country) %></p></div>
+              <!--<div class="language"><p class="gray-font">Language</p><p id="language" ></p></div>-->
+              <div class="ages"><p class="gray-font">Age ranges</p>
+                <% unless @place.minimum_age && @place.maximum_age %>
+                  <p class="age-ranges">
+                    All Ages
+                  </p>
+                <% else %>
+                <p id="age-ranges">
+                  <%= @place.minimum_age %> - <%= @place.maximum_age %>
+                </p>
+                <% end %>
+              </div>
               <!--<div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>-->
               <div class="weather"><p class="gray-font">Weather</p><img id="icon" src=""/> <span id="temperature"></span></div>
-              <div class="likes"><p class="gray-font">Capital</p><p><%= (link_to @capital_city.display_name, place_path(@capital_city)) rescue "" %></p></div>
+              <div class="capital"><p class="gray-font">Capital</p><p><%= (link_to @capital_city.display_name, place_path(@capital_city)) rescue "" %></p></div>
             </div>
           </div>
         </div>

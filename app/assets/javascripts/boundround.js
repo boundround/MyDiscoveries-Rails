@@ -406,11 +406,12 @@ $(document).ready(function() {
  			url: "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric" + "&APPID=be7c03a2939edf508c723b0729095bcc",
  			success: function(data){
    		console.log(data);
-   		var temperature = data.main.temp; // in elms
+   		var temperature = Math.round(data.main.temp); // in elms
+   		//temperature.toFixed(0);
    		// console.log(temperature);
    		var icon = data.weather[0].icon;
    		icon = "https://openweathermap.org/img/w/" + icon + ".png"; // source
-   		$('#temperature').append(temperature); // append to DOM #ID temperature
+   		$('#temperature').append(temperature + "&deg; C"); // append to DOM #ID temperature
    		document.getElementById("icon").src = icon; // JavaScript change img src
       // $('#icon').attr("src", icon); // JQuery change img src
  		}
