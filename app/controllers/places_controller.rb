@@ -476,6 +476,53 @@ class PlacesController < ApplicationController
     @place = Place.find_by_slug(params[:place])
   end
 
+  def choose_hero
+    @place = Place.find_by_slug(params[:id])
+    # @user_photos = @place.user_photos.where('hero=? OR hero=?', false, nil)
+    @user_photos = @place.user_photos
+    @place_photos = @place.photos
+    
+    # if params[:type].eql? "UserPhoto"
+    #   @place.user_photo.find(photo_id).update(hero:true)
+    # else
+    #   @place.photos.find(photo_id).update(hero:true)
+    # end
+  end
+
+  def update_hero
+    @place = Place.find(params[:id])
+    photo_id = params[:photo_id]
+
+    if params[:type].eql? "UserPhoto"
+      @place.user_photos.each do |photo|
+        if photo.id.to_s.eql? photo_id
+           photo.hero = true
+        else
+          photo.hero = false
+        end
+          photo.save
+      end
+      @place.photos.each do |photo|
+        photo.hero = false
+        photo.save
+      end
+      redirect_to choose_hero_place_path(@place)
+    else
+      @place.photos.each do |photo|
+        if photo.id.to_s.eql? photo_id
+           photo.hero = true
+        else
+          photo.hero = false
+        end
+          photo.save
+      end
+      @place.user_photos.each do |photo|
+        photo.hero = false
+        photo.save
+      end
+      redirect_to choose_hero_place_path(@place)
+    end
+  end
 
   protected
     def yl_array_from_range(yl_range)
