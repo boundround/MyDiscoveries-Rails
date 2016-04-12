@@ -22,6 +22,9 @@
         <%= f.input :country_id, label: 'Country', collection: Country.all, as: :select, label_method: :display_name, value_method: :id, required: true %>
       </div>
       <div class="form-group">
+        <%= f.input :parent_id, label: 'Parent Place', collection: Place.active.order(display_name: :asc), as: :select, label_method: :display_name, value_method: :id, required: true %>
+      </div>
+      <div class="form-group">
         <%= f.input :short_description, input_html: { class: 'form-control area-description-input' } %>
       </div>
       <div class="form-group">

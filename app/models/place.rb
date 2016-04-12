@@ -283,6 +283,10 @@ class Place < ActiveRecord::Base
   belongs_to :country
   belongs_to :user
   belongs_to :primary_category
+
+  belongs_to :parent, :class_name => 'Place'
+  has_many :children, :class_name => 'Place', :foreign_key => 'parent_id'
+
   has_many :places_subcategories
   has_many :similar_places
   has_many :associated_areas, through: :similar_places, source: :similar_place
