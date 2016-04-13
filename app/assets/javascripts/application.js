@@ -46,7 +46,7 @@
 //= require user-photo-upload
 //= require ckeditor/init
 // require ckeditor/config.js
-// require reviews 
+// require reviews
 
 //= require algoliasearch
 //= require algoliasearchhelper
