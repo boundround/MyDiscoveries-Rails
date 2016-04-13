@@ -1,19 +1,5 @@
 module ApplicationHelper
 
-  def array_of_parents_for(place, parents = [])
-    if place.parent.blank?
-      if !place.country.blank?
-        parents << place.country
-        return parents
-      else
-        return parents
-      end
-    else
-      parents << place.parent
-      return_parents(place.parent, parents)
-    end
-  end
-
   def resource_name
     :user
   end

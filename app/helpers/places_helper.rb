@@ -1,19 +1,21 @@
 module PlacesHelper
 
   def create_breadcrumb_for(place)
-    breadcrumb = ""
-    parent_area = place.find_first_primary_area
-    unless place.country.blank?
-      breadcrumb += link_to place.country.display_name, country_path(place.country)
-      breadcrumb += " > "
-    end
+    breadcrumb = link_to "Bound Round", root_path
+    breadcrumb += " > "
+    parents = place.get_parents(place)
 
-    unless parent_area.blank?
-      debugger
-      breadcrumb += link_to parent_area.display_name, place_path(parent_area)
-      breadcrumb += " > "
+    if !parents.blank?
+      parents.reverse_each do |parent|
+        if parent.class.to_s == "Place"
+          breadcrumb += link_to "#{parent.display_name rescue ''}", place_path(parent)
+          breadcrumb += " > "
+        elsif parent.class.to_s == "Country"
+          breadcrumb += link_to "#{parent.display_name rescue ''}", country_path(parent)
+          breadcrumb += " > "
+        end
+      end
     end
-
 
     breadcrumb += place.display_name
   end
