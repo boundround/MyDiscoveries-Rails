@@ -20,6 +20,30 @@ module ApplicationHelper
     end
   end
 
+  def draw_smile_review(review)
+    if Rate.find_by_rater_id_and_rateable_id(review.user.id, review.reviewable.id).stars.round > 0
+      orange = ""
+      grey = ""
+      rating = Rate.find_by_rater_id_and_rateable_id(review.user.id, review.reviewable.id).stars.round
+      remainder = 5 - Rate.find_by_rater_id_and_rateable_id(review.user.id, review.reviewable.id).stars.round
+
+      rating.times do
+        orange += "<i class='fa fa-smile-o'></i>"
+      end
+
+      remainder.times do
+        grey += "<i class='fa fa-smile-o'></i>"
+      end
+
+      solution = "<span class='orange-icon'>" + orange + "</span>" + "<span class='grey-icon'>" + grey + "</span>"
+
+    else
+      # rating = 0
+      # remainder = 5
+      solution = "<span class='grey-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>"
+    end
+  end
+
   def resource_name
     :user
   end

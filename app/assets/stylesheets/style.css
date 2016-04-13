@@ -2247,9 +2247,11 @@ section.country-details .place-title2{
 }
 span.orange-icon i {
 	color: #FF734C !important;
+	padding: 0 1px;
 }
 span.grey-icon i {
 	color: #A0A0A0 !important;
+	padding: 0 1px;
 }
 /*font-gray:#A0A0A0*/
 /*btn-brw-orange:#FF9702*/
