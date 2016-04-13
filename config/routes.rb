@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   # post 'search_suggestions' => 'search_suggestions#index'
 
   get 'results' => 'search_suggestions#index', as: 'searching'
+  get 'results/:sub_cat_id' => 'search_suggestions#index', as: 'searching_sub_cat'
   get 'nearby' => 'search_suggestions#nearby', as: 'searching_nearby'
 
   post 'searchqueries/create' => 'search_queries#create'
