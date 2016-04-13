@@ -1,5 +1,8 @@
 <div class="container blog-container">
-  <h1><%= @post.title %></h1>
-  <p>by <%= @post.credit %></p>
+  <h1 class="post-heading"><%= @post.title %></h1>
+  <p class="text-center">by Bound Round</p>
+  <p class="text-center">
+    <img src="<%= asset_path('br-logo-new-blue.png') %>" height="50px">
+  </p>
   <%= raw @post.content %>
 </div>
