@@ -2216,13 +2216,13 @@ section.country-details .place-title2{
 /*END*/
 /*START HEADER IMAGE WITH NAV FOR MUSEUM SECTION*/
 .header-image-with-nav .bg-place{
-    background: #3A548B;
+  background: #3A548B;
 }
 .header-image-with-nav .action2 i{
-    color: rgba(66, 66, 66, 0.7);
-    font-size: 20px;
-    position: relative;
-    top: 3px;
+  color: rgba(66, 66, 66, 0.7);
+  font-size: 20px;
+  position: relative;
+  top: 3px;
 }
 
 .place-title2 {
@@ -2232,7 +2232,7 @@ section.country-details .place-title2{
 	color: #3A548B;
 }
 
-.detail-place .suka{
+.detail-place .suka {
 	border: none;
 	text-align: center;
 	/* was 20.5 */
@@ -2242,8 +2242,18 @@ section.country-details .place-title2{
 }
 .detail-place .suka i{
     font-size: 17px;
-    color: #3A548B;
+    padding: 0 1px;
+    /* color: #3A548B; blue */
 }
+span.orange-icon i {
+	color: #FF734C !important;
+}
+span.grey-icon i {
+	color: #A0A0A0 !important;
+}
+/*font-gray:#A0A0A0*/
+/*btn-brw-orange:#FF9702*/
+
 .component-desk ul{
     list-style: none;
     display: -webkit-inline-flex;
@@ -2882,6 +2892,8 @@ p.blueish a {
     margin-top: -30px !important;
     opacity: 1 !important;
     font-size: 28px;
+
+
 }
 .modal-blue {
 	background-color: #69b7c9;
