@@ -278,6 +278,8 @@ Rails.application.routes.draw do
   resources :places do
     member { get 'preview' }
     member { get 'stamp_confirmation' }
+    member { get 'paginate_videos', as: :paginate_videos}
+    member { get 'paginate_photos', as: :paginate_photos}
     # member { get 'stamp_error' }
     member { get 'hero_image_picker'}
     collection { get 'all_edited'} # all place content in draft
