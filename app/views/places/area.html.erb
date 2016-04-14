@@ -80,7 +80,7 @@
               </div>
               <!--<div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>-->
               <div class="weather"><p class="gray-font">Weather</p><img id="icon" src=""/> <span id="temperature"></span></div>
-              <div class="capital"><p class="gray-font">Capital</p><p><%= (link_to @capital_city.display_name, place_path(@capital_city)) rescue "" %></p></div>
+              <div class="capital"><p class="gray-font">Found In</p><p><%= link_to_parent(@place) %></p></div>
             </div>
           </div>
         </div>

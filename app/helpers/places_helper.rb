@@ -16,6 +16,16 @@ module PlacesHelper
     breadcrumb += place.display_name
   end
 
+  def link_to_parent(place)
+    if !place.parent.blank?
+      link_to (place.parent.display_name), place_path(place.parent)
+    elsif !place.country.blank?
+      link_to (place.country.display_name), country_path(place.country)
+    else
+      ''
+    end
+  end
+
   def pick_a_place_hero_url(place)
     #counts kill performance!
 #    place.photos[rand(place.photos.size-1)].path
