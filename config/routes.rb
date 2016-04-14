@@ -278,6 +278,7 @@ Rails.application.routes.draw do
   resources :places do
     member { get 'preview' }
     member { get 'stamp_confirmation' }
+    member { get 'choose_hero', as: :choose_hero }
     # member { get 'stamp_error' }
     member { get 'hero_image_picker'}
     collection { get 'all_edited'} # all place content in draft
@@ -298,6 +299,8 @@ Rails.application.routes.draw do
     resources :good_to_knows
     collection { post :import }
   end
+  get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
+
   match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]
 
   post '/places/transfer_assets' => 'places#transfer_assets'

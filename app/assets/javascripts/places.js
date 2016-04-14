@@ -245,6 +245,23 @@ function responsiveModalVideo(){
     // alert("video");
 }
 
+function chooseHero(){
+$('input[name="hero_image"]').click(function() {
+  $('input[name="hero_image"]').not(this).prop('checked', false);
+  $(this).prop('checked', true);
+  var type = $(this).data("type");
+      place_id = $(this).data("place");
+      photo_id = $(this).data("photo");
+      if (type) {
+        window.location = '/places/'+place_id+'/update_hero/'+type+'/'+photo_id
+      }else{
+        alert("choose another image");
+      }
+
+});
+
+
+}
 $(window).resize(function(){
   responsiveModalVideo();
 });
@@ -255,6 +272,7 @@ $(document).ready(function() {
     })
     $('.place-date').datepicker();
 
+   chooseHero();
    setUpfileUpload('.file-upload','.lis-file-upload');
    setUpfileUpload('.file-upload2','.lis-file-upload2');
    setUpfileUpload();

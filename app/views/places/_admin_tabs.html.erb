@@ -1,7 +1,8 @@
-<p>
+<p class="top20">
   <a href="<%= "/places/" + @place.slug + "/new_edit"%>" class="btn btn-primary" >Primary Edit Page</a>
   <a href="<%= place_three_d_videos_path(@place) %>" class="btn btn-primary" >3D Videos</a>
   <a href="<%= place_similar_places_path(@place) %>" class="btn btn-primary" >Associated Areas</a>
   <a href="<%= place_good_to_knows_path(@place) %>" class="btn btn-primary" >Good To Knows</a>
   <a href="<%= place_path(@place) %>" class="btn btn-primary" target="blank">View Place Page</a>
+  <a href="<%= choose_hero_place_path(@place) %>" class="btn btn-primary" target="blank">Choose New Hero Image</a>
 </p>

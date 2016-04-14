@@ -1,0 +1,44 @@
+<div class="container">
+<%= render 'admin_tabs' %>
+<h1>Choose Hero Image For <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
+	<h3>User Photos</h3>
+	<div class="row">
+	<% @user_photos.each do |photo| %>
+		<div class="col-md-4 col-hero-list"> 
+			<div class="outer-image hero-list">
+			<img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
+			</div>
+			<% if photo.hero.eql? true %>
+				<label>
+					<input name="hero_image" type="checkbox" checked > Current hero image
+				</label>
+			<% else %>
+			<label>
+				<input name="hero_image" data-place="<%= @place.id %>" data-photo="<%= photo.id %>" data-type="<%= photo.class.to_s %>" type="checkbox"> Choose as hero image
+			</label>
+			<% end %>
+		</div>
+		<% end %>
+	</div>
+</div>
+<div class="container">
+	<h3>Place Photos</h3>
+	<div class="row">
+	<% @place_photos.each do |photo| %>
+		<div class="col-md-4 col-hero-list"> 
+			<div class="outer-image hero-list">
+				<img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
+			</div>
+			<% if photo.hero.eql? true %>
+				<label>
+					<input name="hero_image" type="checkbox" checked > Current hero image
+				</label>
+			<% else %>
+				<label>
+					<input name="hero_image" data-place="<%= @place.id %>" data-photo= "<%= photo.id %>" data-type="<%= photo.class.to_s %>" type="checkbox"> Choose as hero image
+				</label>
+			<% end %>
+		</div>
+	<% end %>
+	</div>
+</div>
