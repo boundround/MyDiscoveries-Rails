@@ -2245,14 +2245,31 @@ section.country-details .place-title2{
     padding: 0 1px;
     /* color: #3A548B; blue */
 }
-span.orange-icon i {
+span.orange-icon i, span.orange-font {
 	color: #FF734C !important;
 	padding: 0 1px;
 }
-span.grey-icon i {
+span.grey-icon i, span.grey-font {
 	color: #A0A0A0 !important;
 	padding: 0 1px;
 }
+span.green-font {
+	color: #0DBEAE !important;
+	padding: 0 1px;
+}
+
+.price {
+	padding-right: 10px !important;
+	padding-left: 0 !important;
+}
+
+/*btn-brw-green2:#0DBEAE*/
+/*btn-brw-green:#7ABF00*/
+/*orange-btn-text:#fd7e56*/
+/*.details-dest:#F7F7F7*/
+/*.details-dest i:#B6B6B6*/
+/*cruises-color:#0dbeae*/
+
 /*font-gray:#A0A0A0*/
 /*btn-brw-orange:#FF9702*/
 

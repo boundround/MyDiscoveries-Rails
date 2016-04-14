@@ -15,11 +15,12 @@
       </a>
       <span class="grey">Jul 2015</span>
     </div>
-    <div class="right">
-    <!-- #hardcode -->
+    <div class="right">    <!-- #hardcode -->
       <%# get_user_place_rating_from_review(review).times do |star| %>
-        <i class="fa fa-smile-o"></i>
+        <%# <i class="fa fa-smile-o"></i>
       <%# end %>
+      <!-- make tour helper method for review smiley -->
+      <%= raw draw_smile_review(review) %>
     </div>
   </div>
 </div>
