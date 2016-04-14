@@ -191,7 +191,7 @@ class PlacesController < ApplicationController
 
     @good_to_know = @place.good_to_knows.limit(6)
 
-    @places_to_visit = Place.joins(:similar_places).where('similar_places.similar_place_id = ?', @place.id).paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
+    @places_to_visit = @place.children.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
 
     @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category).order("RANDOM()")
 
