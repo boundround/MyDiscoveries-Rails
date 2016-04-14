@@ -90,7 +90,12 @@ button.hero-search {
    border: none;
    padding-right: 18px;
    z-index: 10;
-   width: 6%;
+   width: 16%;
+   color: #fff;
+   background-color: #fd7e56;
+   min-height: 48px;
+   font-size: 18px;
+
 }
 .sign-in-pad {
 	margin-left: 15px;
@@ -255,7 +260,7 @@ ul.nav.navbar-nav.first-ul{
    background: #ffffff;
    border: none;
    /*padding-left: 28px !important;*/
-   width: 94%;
+   width: 84%;
    padding: 12px !important;
    outline: none;
    color: #555555 !important;
@@ -4444,7 +4449,7 @@ input.more-result{
 }
 .col-hero-list{
 	margin: 0 0 15px 0;
-	
+
 	.outer-image.hero-list{
 		width: 100%;
 	}
