@@ -4,30 +4,30 @@ module ApplicationHelper
     prices_string = ""
 
     if prices.any? {|price| price.name == "Free"}
-      prices_string += "<span class='green-font price'>Free</span>"
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Free' class='green-font price'>Free</span>"
     else
-      prices_string += "<span class='grey-font price'>Free</span>"
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Free' class='grey-font price'>Free</span>"
     end
 
     if prices.any? {|price| price.name == "$"}
-      prices_string += "<span class='green-font price'>$</span>"
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Inexpensive' class='green-font price'>$</span>"
     else
-      prices_string += "<span class='grey-font price'>$</span>"
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Inexpensive' class='grey-font price'>$</span>"
     end
 
     if prices.any? {|price| price.name == "$$"}
-      prices_string += "<span class='green-font price'>$$</span>"
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Midrange' class='green-font price'>$$</span>"
     else
-      prices_string += "<span class='grey-font price'>$$</span>"
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Midrange' class='grey-font price'>$$</span>"
     end
 
     if prices.any? {|price| price.name == "$$$"}
-      prices_string += "<span class='green-font price'>$$$</span>"
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Expensive' class='green-font price'>$$$</span>"
     else
-      prices_string += "<span class='grey-font price'>$$$</span>"
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Expensive' class='grey-font price'>$$$</span>"
     end    
 
-    prices_string    
+    prices_string
 
   end
 
@@ -40,11 +40,9 @@ module ApplicationHelper
       rating.times do
         orange += "<i class='fa fa-smile-o'></i>"
       end
-
       remainder.times do
         grey += "<i class='fa fa-smile-o'></i>"
       end
-
       solution = "<span class='orange-icon'>" + orange + "</span>" + "<span class='grey-icon'>" + grey + "</span>"
     else
       solution = "<span class='orange-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>"
@@ -70,7 +68,7 @@ module ApplicationHelper
       solution = "<span class='orange-icon'>" + orange + "</span>" + "<span class='grey-icon'>" + grey + "</span>"
 
     else
-      
+
       solution = "<span class='grey-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>"
     end
   end

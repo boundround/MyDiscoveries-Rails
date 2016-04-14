@@ -2263,6 +2263,16 @@ span.green-font {
 	padding-left: 0 !important;
 }
 
+.hover-price {
+	display: none;
+}
+
+.hover-price:hover {
+	display: inline-block;
+	background: white;
+	border: 1px solid black;
+}
+
 /*btn-brw-green2:#0DBEAE*/
 /*btn-brw-green:#7ABF00*/
 /*orange-btn-text:#fd7e56*/
