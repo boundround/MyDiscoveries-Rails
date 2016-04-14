@@ -124,7 +124,8 @@
           </div>
           <div class="col-xs-4">
             <p class="gray-font">Price</p>
-            <%= raw draw_prices(@prices) %>
+            <p><%= @prices.first.name rescue "" %>
+            </p>
             <!-- <p><a href="#" data-toggle="modal" data-target="#TicketsModal">View details</a></p> -->
           </div>
         </div>
