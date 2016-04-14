@@ -106,10 +106,14 @@
       <div class="border-section btm20"></div>
         <div class="row">
           <div class="col-xs-4">
-            <!-- <p class="gray-font">Opening hours</p>
-            <p id="operating-hours"></p>
-            <p id="hours"></p>
-            <p><a href="#" data-toggle="modal" data-target="#OpeningHourModal">View details</a></p> -->
+            <% if @place.place_id.present? %>
+              <p class="gray-font">Opening hours</p>
+              <p id="operating-hours"></p>
+              <p id="hours"></p>
+              <p>
+                <%= link_to "Views details", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
+              </p> 
+            <% end %>
           </div>
           <div class="col-xs-4">
             <p class="gray-font">Other services</p>
