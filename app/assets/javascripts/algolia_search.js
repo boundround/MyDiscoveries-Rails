@@ -159,8 +159,6 @@ $(document).ready(function(){
       renderHits(content);
       renderMoreResults(content);
       rescueImage();
-      // renderStats(content);
-      // renderPagination(content);
     } else {
       // renderNoResults(content);
     }
@@ -170,36 +168,31 @@ $(document).ready(function(){
           // $noResult.hide();
           $('.search-results-bottom-container').show();
           $('.search-results-container').hide();
-          // $('.search-results').show();
           renderHits(content);
           renderMoreResults(content);
           rescueImage();
-          // renderStats(content);
-          // renderPagination(content);
         } else {
           // renderNoResults(content);
         }
   })
 
   algoliaHelperInstantSearch.on('result', function(content, state){
-    console.log(content);
+    // console.log(content);
     viatorLink(content.hits);
     renderInstantHits(content);
     renderFacets(content, state);
     renderPagination(content, $instantSearchPagination ,instantPaginationTemplate);
     setImagesPosition();
+  
   })
+
 
   function viatorLink(hits){
     $.each(hits, function(index, val) {
-       console.log(val);
        if (val.viator_link == ""){
-          // $(".viator_link").hide();
           val.viator_link = {
             klass: "hide"
           }
-       }else{
-          // $(".viator_link").show();
        }
     });
   }
@@ -242,10 +235,11 @@ function renderFacets(content, state) {
       disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
     };
     facetsHtml += instantfacetTemplate.render(facetContent);
-    // console.log(facetContent);
     }
   $instantSearchFacet.html(facetsHtml);
+    
 }
+
 
   function renderPagination(content, paginate_el, pagination_template)
   {
@@ -282,7 +276,6 @@ function renderFacets(content, state) {
   // }
 
   function renderHits(content) {
-    console.log($hits);
     $hits.html(hitTemplate.render(content));
   }
 
@@ -313,6 +306,20 @@ function rescueImage(){
        }
     });
 }
+  function checkedFacet(){
+    var input = $(".ischecked");
+    $.each(input, function(index, val) {
+      new_val = $(val).data("value").toLowerCase().split(" ").slice(-1)
+       if ( new_val[0] ==  $(val).data("checked") ) {
+          // $(val).prop('checked', true);
+          $(val).click();
+       }
+    });
+    
+  }
+  setTimeout(function(){
+    checkedFacet();
+  }, 1500)
 // function setImagesPosition(){
 //   var outer = $(".outer-js"); //div outer image
 //   // var image = $(".inner-js");
