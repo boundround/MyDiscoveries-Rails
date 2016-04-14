@@ -85,8 +85,9 @@
           </div>
         </div>
       <div class="desc-place">
-        <p data-full-text="<%= @place.description.try(:html_safe) %>"><%= raw @place.description.html_safe[0..280]+"..." rescue nil %></p>
-        <button class="blueish" style="background:none;border:none;">More <span class="caret"></span></button>
+        <p class="text"><%= raw @place.description[0..280]+"..." %></p>
+        <p class="text full" style="display: none;"><%= raw @place.description %></p>
+        <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;">More <span class="caret"></span></button>
       </div>
         <div class="border-section"></div>
         <div class="row top20 btm20">
