@@ -6,6 +6,7 @@
     <thead>
     <tr>
       <th>Place</th>
+      <th>Area?</th>
       <th>Parent</th>
       <th>Search For Parent</th>
       <th>Update</th>
@@ -15,6 +16,7 @@
     <% @places.each do |place| %>
         <tr>
           <td><%= place.display_name %></td>
+          <td><%= place.is_area? ? "Yes" : "No" %></td>
           <td><span class="current-parent"><%= place.parent.blank? ? "No Parent" : "#{place.parent.display_name}, #{place.parent.country.display_name rescue 'No Country'}, ID: #{place.parent.id}" %></span></td>
           <td class="search-input-cell"><input type="text" class="parent-search"></td>
           <td><a href="" class="update-parent-button" data-place="<%= place.id %>">Update</a></td>
