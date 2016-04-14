@@ -15,7 +15,7 @@
 }
 
 .white-body {
-  background-color: #fff;
+  background-color: #fff !important;
 }
 
 #progress {

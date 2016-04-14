@@ -32,6 +32,11 @@ class PlacesController < ApplicationController
     @place = Place.find_by_slug params[:id]
     @photo = @place.photos.where(hero: true).first
   end
+
+  def edit_parents
+    @places = Place.active.order(display_name: :asc)
+  end
+
   def edit
     @set_body_class = "br-body"
     @place = Place.friendly.find(params[:id])
@@ -45,25 +50,28 @@ class PlacesController < ApplicationController
     @place = Place.friendly.find(params[:id])
 
     if @place.update(place_params)
+      respond_to do |format|
+        format.json { render json: @place }
+        format.html do
+          @place.photos.each do |photo|
+            photo.add_or_remove_from_country(@place.country)
+          end
 
-      @place.photos.each do |photo|
-        photo.add_or_remove_from_country(@place.country)
+          @place.videos.each do |video|
+            video.add_or_remove_from_country(@place.country)
+          end
+
+          @place.fun_facts.each do |fun_fact|
+            fun_fact.add_or_remove_from_country(@place.country)
+          end
+
+          if params[:place][:hero_image].present? || params[:place][:remote_hero_image_url].present?
+            render :crop
+          else
+            redirect_to :back, notice: 'Place succesfully updated'
+          end
+        end
       end
-
-      @place.videos.each do |video|
-        video.add_or_remove_from_country(@place.country)
-      end
-
-      @place.fun_facts.each do |fun_fact|
-        fun_fact.add_or_remove_from_country(@place.country)
-      end
-
-      if params[:place][:hero_image].present? || params[:place][:remote_hero_image_url].present?
-        render :crop
-      else
-        redirect_to :back, notice: 'Place succesfully updated'
-      end
-
     else
       redirect_to edit_place_path(@place), notice: 'Error: Place not updated'
     end
@@ -687,6 +695,7 @@ class PlacesController < ApplicationController
         :passport_icon,
         :address,
         :area_id,
+        :parent_id,
         :email,
         :tag_list,
         :location_list,

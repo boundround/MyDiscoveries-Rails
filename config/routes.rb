@@ -283,6 +283,7 @@ Rails.application.routes.draw do
     collection { get 'all_edited'} # all place content in draft
     collection { get 'user_created'} # all place content in draft
     collection { get 'merge'}
+    collection { get 'edit_parents'}
     resources :stamps
     resources :photos
     resources :videos

@@ -37,6 +37,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @set_body_class = "white-body"
     @post = Post.find_by_slug(params[:id])
   end
 

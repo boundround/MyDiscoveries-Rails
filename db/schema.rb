@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407011811) do
+ActiveRecord::Schema.define(version: 20160412061711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -412,12 +413,14 @@ ActiveRecord::Schema.define(version: 20160407011811) do
     t.boolean  "primary_area"
     t.string   "algolia_id"
     t.string   "email"
+    t.integer  "parent_id"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
   add_index "places", ["bound_round_place_id"], name: "index_places_on_bound_round_place_id", unique: true, using: :btree
   add_index "places", ["country_id"], name: "index_places_on_country_id", using: :btree
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
+  add_index "places", ["parent_id"], name: "index_places_on_parent_id", using: :btree
   add_index "places", ["primary_category_id"], name: "index_places_on_primary_category_id", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
   add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
