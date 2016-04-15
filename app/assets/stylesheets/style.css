@@ -2328,8 +2328,8 @@ section.country-details .place-title2{
 
 /* WEATHER */
 img#icon {
-	height: 40px;
-	width: 40px;
+	height: 32px;
+	/*width: 40px;*/
 	position: relative;
 	top: -10px;
 	left: -5px;
