@@ -112,7 +112,7 @@
               <p id="hours"></p>
               <p>
                 <%= link_to "Views details", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
-              </p> 
+              </p>
             <% end %>
           </div>
           <div class="col-xs-4">
@@ -178,7 +178,7 @@
         </div>
 
           <p class="grey btm0 top15">Website</p>
-          <p class="mrg0 blueish"><a href="<%= @place.website %>" target="blank"><%= extract_domain(@place.website) %></a></p>
+          <p class="mrg0 blueish"><a href="<%= @place.website %>" target="_blank"><%= extract_domain(@place.website) %></a></p>
       </div><!-- /col-sm-4 map-->
     </div><!-- /main row -->
   </section>
