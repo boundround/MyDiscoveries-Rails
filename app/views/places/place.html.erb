@@ -121,7 +121,7 @@
               <!-- <i class="fa fa-wheelchair"></i><i class="fa fa-headphones"></i> -->
               <% if !@accessibilities.blank? %>
                 <% @accessibilities.each do |c| %>
-                  <%= c.name %>
+                  <%= raw draw_accessibilty_icons(c) %>
                 <% end %>
                <% end %>
             </p>

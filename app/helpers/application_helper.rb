@@ -1,5 +1,17 @@
 module ApplicationHelper
 
+  def draw_accessibilty_icons(category)
+    if category.identifier == "hearing-impaired"
+      "<i class='fa fa-deaf'></i>"
+    elsif category.identifier == "wheelchair-access"
+      "<i class='fa fa-wheelchair'></i>"
+    elsif category.identifier == "children-with-special-needs"
+      "<i class='fa fa-question-circle-o'></i>"
+    elsif category.identifier == "sight-impaired"
+      "<i class='fa fa-braille'></i>"      
+    end
+  end
+
   def draw_rating_smiles(place)
     if !@place.quality_average.blank?
       orange = ""
