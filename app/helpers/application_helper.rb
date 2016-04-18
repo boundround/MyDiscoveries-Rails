@@ -6,9 +6,9 @@ module ApplicationHelper
     elsif category.identifier == "wheelchair-access"
       "<i class='fa fa-wheelchair'></i>"
     elsif category.identifier == "children-with-special-needs"
-      "<i class='fa fa-question-circle-o'></i>"
+      "<i class='fa fa-child'></i>"
     elsif category.identifier == "sight-impaired"
-      "<i class='fa fa-braille'></i>"      
+      "<i class='fa fa-braille'></i>"      fa-braille
     end
   end
 
