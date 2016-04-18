@@ -1,5 +1,36 @@
 module ApplicationHelper
 
+  def draw_prices(prices)
+    prices_string = ""
+
+    if prices.any? {|price| price.name == "Free"}
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Free' class='green-font price'>Free</span>"
+    else
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Free' class='grey-font price'>Free</span>"
+    end
+
+    if prices.any? {|price| price.name == "$"}
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Inexpensive' class='green-font price'>$</span>"
+    else
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Inexpensive' class='grey-font price'>$</span>"
+    end
+
+    if prices.any? {|price| price.name == "$$"}
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Midrange' class='green-font price'>$$</span>"
+    else
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Midrange' class='grey-font price'>$$</span>"
+    end
+
+    if prices.any? {|price| price.name == "$$$"}
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Expensive' class='green-font price'>$$$</span>"
+    else
+      prices_string += "<span data-toggle='tooltip' title data-original-title='Expensive' class='grey-font price'>$$$</span>"
+    end
+
+    prices_string
+
+  end
+
   def draw_rating_smiles(place)
     if !@place.quality_average.blank?
       orange = ""
@@ -15,6 +46,7 @@ module ApplicationHelper
       end
 
       solution = "<span class='orange-icon'>" + orange + "</span>" + "<span class='grey-icon'>" + grey + "</span>"
+
     else
       solution = "<span class='orange-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>"
     end
@@ -39,9 +71,8 @@ module ApplicationHelper
       solution = "<span class='orange-icon'>" + orange + "</span>" + "<span class='grey-icon'>" + grey + "</span>"
 
     else
-      # rating = 0
-      # remainder = 5
-      solution = "<span class='orange-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>"
+
+      solution = "<span class='grey-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>"
     end
   end
 
