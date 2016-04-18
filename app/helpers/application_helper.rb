@@ -8,7 +8,7 @@ module ApplicationHelper
     elsif category.identifier == "children-with-special-needs"
       "<i class='fa fa-child'></i>"
     elsif category.identifier == "sight-impaired"
-      "<i class='fa fa-braille'></i>"      fa-braille
+      "<i class='fa fa-braille'></i>"
     end
   end
 
