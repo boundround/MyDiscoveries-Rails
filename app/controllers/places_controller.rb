@@ -298,10 +298,29 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       format.html { render view, :layout => !request.xhr? }
-      format.js
+      # format.js
       format.json { render json: @place }
     end
 
+  end
+
+  def paginate_photos
+    @place = Place.find_by_slug(params[:id])
+    @active_user_photos = @place.user_photos.active
+    @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: 4)
+
+    # respond_to do |format|
+    #   format.js
+    # end
+  end
+  
+  def paginate_videos
+    @place = Place.find_by_slug(params[:id])
+    @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page: 4)
+
+    # respond_to do |format|
+    #   format.js
+    # end
   end
 
   def transfer_assets

@@ -309,8 +309,12 @@ function rescueImage(){
   function checkedFacet(){
     var input = $(".ischecked");
     $.each(input, function(index, val) {
-      new_val = $(val).data("value").toLowerCase().split(" ").slice(-1)
-       if ( new_val[0] ==  $(val).data("checked") ) {
+      new_val = $(val).data("value").toLowerCase().replace(" /", "").replace(/\s+/g,"-").replace('/','-')
+      // console.log(new_val)
+      console.log(new_val)
+      // console.log($(val).data("checked"))
+          // alert("");
+       if ( new_val ==  $(val).data("checked") ) {
           // $(val).prop('checked', true);
           $(val).click();
        }
