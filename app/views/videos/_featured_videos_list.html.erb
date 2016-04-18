@@ -1,8 +1,13 @@
 <div class="col-xs-12 col-sm-6 col-md-4">
 
   <div class="body-stories">
-    <video poster="<%= video.vimeo_thumbnail %>" class="play-in-modal" data-modal="#video-modal" data-video-url="<%= video.url %>">
+  <% if !video.youtube_id.blank? %>
+    <video data-video="youtube" data-id="<%= video.youtube_id %>" poster="<%= video.vimeo_thumbnail %>" class="play-in-modal thumb-video" data-modal="#video-modal" data-video-url="<%= video.url %>">
     </video>
+  <% else %>
+    <video data-video="vimeo" data-id="<%= video.vimeo_id %>" poster="<%= video.vimeo_thumbnail %>" class="play-in-modal thumb-video" data-modal="#video-modal" data-video-url="<%= video.url %>">
+    </video>
+  <% end %>
     <%= link_to '', class: 'play-video' do %>
       <i class="fa fa-play play-video"></i>
     <% end %>

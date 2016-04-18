@@ -382,8 +382,26 @@ function setUpModalUserPhoto(){
 
 
 }
+function getThumbnail(){
+  var video = $("video.play-in-modal");
+  		if (video.length > 0 ) {
+	      	$.each(video, function(key, value){
+	      	var id = $(value).data("id")
+	        if ( $(value).data("video") == "youtube" &&  $(value).attr("poster") == "" ) {
+	        	$(value).prop("poster", "http://img.youtube.com/vi/"+id+"/maxresdefault.jpg")
+	        }else if ( $(value).data("video") == "vimeo" &&  $(value).attr("poster") == "" ){
+        	var url = "https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/"+id;
+        	 $.getJSON( url, function( data ) {
+	        	$(value).prop("poster", data.thumbnail_url);
+		      });
+
+	        }
+        });
+	}
+}
 
 $(document).ready(function() {
+	getThumbnail();
 	setUpModal();
 	setUpModalUserPhoto();
 	setModalOpeningHour();
@@ -398,6 +416,8 @@ $(document).ready(function() {
 	setImagesPosition();
 	funFact();
 	setUpChart();
+
+
 
 	var lon = $('.area-content').data('long');
 	var lat = $('.area-content').data('lat');
