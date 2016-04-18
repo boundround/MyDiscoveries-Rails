@@ -115,16 +115,10 @@ function setUpLoadMore() {
 
   $(".desc-place").find("button").click(function() {
     $(this).siblings("p.text").toggle();
-    if ($(this).siblings('.full').attr("style") == "display: none;") {
-      $(this).text("More");
-      $(this).find("span").toggleClass('fa fa-caret-down');
-      // console.log($(this).find("span"));
-    }else{
-      $(this).text("Less");
-      $(this).find("span").toggleClass('fa fa-caret-up');
-    }
+    $(this).siblings("button").toggle();
+    $(this).hide();
   });
-
+  
   var blog_text = $(".blog-content");
     $.each(blog_text, function(index, val) {
       text = $(val).text();
