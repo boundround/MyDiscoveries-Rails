@@ -436,9 +436,28 @@ $(document).ready(function() {
 		});
 	}
 
+	var story_title = new MediumEditor('.editable', {
+		    placeholder: {
+		    	text:'title'
+	    }
+	});
+	var story_body = new MediumEditor('.editable-body', {
+		    placeholder: {
+		    	text:'Tell your story',
+	    }
+	});
+
+	$(function () {
+	    $('.editable').mediumInsert({
+	        editor: story_title
+	    });
+	    $('.editable-body').mediumInsert({
+	        editor: story_body
+	    });
+	});
+
 
 });
-
 $(window).resize(function() {
 	setImagesPosition();
 });

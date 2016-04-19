@@ -4478,3 +4478,46 @@ input.more-result{
 .col-hero-list{
 	margin: 0 0 15px 0;
 }
+// .new-story{
+// 	.title{
+// 		position: relative;
+	
+// 	.mini-menu{
+// 	    position: absolute;
+// 	    z-index: 1;
+// 	    left: -50px;
+
+// 	    > button{
+// 			margin-right: 10px;
+// 	    }
+// 	    button{
+// 			border-radius: 22px;
+// 		    background: #fff;
+// 		    width: 43px;
+// 		    height: 43px;
+// 		    border: 1px solid black;
+// 		    padding: 8px 13px;
+// 		    outline: none;
+// 	    }
+// 		ul{
+// 			position: relative;
+// 			top: -43px;
+// 			list-style: none;
+// 			left: 11px;
+// 			li{
+// 			    float: left;
+// 			    margin-right: 6px;
+// 			    }
+// 			}
+// 		}
+// 	}
+// }
+.medium-editor-insert-plugin .medium-insert-buttons{
+	left: -30px !important;
+}
+.medium-editor-insert-plugin .medium-insert-buttons .medium-insert-buttons-addons li{
+	background: none;
+}
+.medium-editor-insert-plugin .medium-insert-buttons .medium-insert-buttons-addons li a{
+	background: #fff;
+}

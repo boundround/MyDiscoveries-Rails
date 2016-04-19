@@ -155,6 +155,7 @@ Rails.application.routes.draw do
     member { get 'photos' }
     member { get 'reviews' }
     member { get 'stories' }
+    member { get 'new_story' }
   end
 
   resources :three_d_videos
