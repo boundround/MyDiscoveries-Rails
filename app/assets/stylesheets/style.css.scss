@@ -2268,6 +2268,7 @@ section.country-details .place-title2{
     padding: 0 1px;
     /* color: #3A548B; blue */
 }
+
 span.orange-icon i {
 	color: #FF734C !important;
 	padding: 0 1px;
@@ -2276,8 +2277,34 @@ span.grey-icon i {
 	color: #A0A0A0 !important;
 	padding: 0 1px;
 }
-/*font-gray:#A0A0A0*/
-/*btn-brw-orange:#FF9702*/
+
+span.orange-icon i, span.orange-font {
+	color: #FF734C !important;
+	padding: 0 1px;
+}
+span.grey-icon i, span.grey-font {
+	color: #A0A0A0 !important;
+	padding: 0 1px;
+}
+span.green-font {
+	color: #0DBEAE !important;
+	padding: 0 1px;
+}
+
+.price {
+	padding-right: 10px !important;
+	padding-left: 0 !important;
+}
+
+.hover-price {
+	display: none;
+}
+
+.hover-price:hover {
+	display: inline-block;
+	background: white;
+	border: 1px solid black;
+}
 
 .component-desk ul{
     list-style: none;
@@ -4449,11 +4476,4 @@ input.more-result{
 }
 .col-hero-list{
 	margin: 0 0 15px 0;
-
-	.outer-image.hero-list{
-		width: 100%;
-	}
-	label{
-
-	}
 }
