@@ -432,7 +432,6 @@ $(window).resize(function() {
 	setImagesPosition();
 });
 
-
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
