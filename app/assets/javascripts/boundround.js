@@ -417,22 +417,24 @@ $(document).ready(function() {
 	funFact();
 	setUpChart();
 
-	var lon = $('.area-content').data('long');
-	var lat = $('.area-content').data('lat');
+	if (document.getElementById('icon')){
+		var lon = $('.area-content').data('long');
+		var lat = $('.area-content').data('lat');
 
-		$.ajax({
- 			url: "https://api.forecast.io/forecast/c652be9c98a1353375baff9c36ba0787/" + lat + "," + lon,
- 			dataType: 'jsonp',
- 			success: function(data){
-   		console.log(data);
-   		var farenheit = data.currently.temperature;
-   		var temperature = Math.round((farenheit - 32) * 5/9);
-   		var iconString = data.currently.icon;
-   		icon = "/assets/images/" + iconString+ ".png"; // source
-   		$('#temperature').append(temperature + "&deg; C"); // append to DOM #ID temperature
-   		document.getElementById("icon").src = icon; // JavaScript change img src
- 		}
-	});
+			$.ajax({
+	 			url: "https://api.forecast.io/forecast/c652be9c98a1353375baff9c36ba0787/" + lat + "," + lon,
+	 			dataType: 'jsonp',
+	 			success: function(data){
+	   		console.log(data);
+	   		var farenheit = data.currently.temperature;
+	   		var temperature = Math.round((farenheit - 32) * 5/9);
+	   		var iconString = data.currently.icon;
+	   		icon = "/assets/images/" + iconString+ ".png"; // source
+	   		$('#temperature').append(temperature + "&deg; C"); // append to DOM #ID temperature
+	   		document.getElementById("icon").src = icon; // JavaScript change img src
+	 		}
+		});
+	}
 
 
 });

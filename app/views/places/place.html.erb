@@ -83,8 +83,10 @@
         </div>
       </div>
       <div class="desc-place">
-        <p data-full-text="<%= raw @place.description %>"><%= raw @place.description[0..280]+"..." %></p>
-        <button class="blueish" style="background:none;border:none;">More <span class="caret"></span></button>
+        <p class="text"><%= raw @place.description[0..280]+"..." %></p>
+        <p class="text full" style="display: none;"><%= raw @place.description %></p>
+        <button class="blueish more" style="background:none;border:none;outline:none;padding-left:0;">More <span class="fa fa-caret-down"></span></button>
+        <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;display:none;">Less <span class="fa fa-caret-up"></span></button>
       </div>
       <div class="border-section"></div>
       <div class="row top20 btm20">

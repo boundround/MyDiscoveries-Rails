@@ -113,11 +113,12 @@ function setUpLoadMore() {
         });
     });
 
-    var desc = $(".desc-place");
-        desc.find("button").click(function() {
-          $(this).siblings("p").html($(this).siblings("p").data("full-text"));
-          $(this).hide();
-        });
+  $(".desc-place").find("button").click(function() {
+    $(this).siblings("p.text").toggle();
+    $(this).siblings("button").toggle();
+    $(this).hide();
+  });
+  
   var blog_text = $(".blog-content");
     $.each(blog_text, function(index, val) {
       text = $(val).text();
