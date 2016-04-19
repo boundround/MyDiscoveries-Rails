@@ -47,7 +47,7 @@ class GoodToKnowsController < ApplicationController
       @place = Place.friendly.find(params[:place_id])
       @good_to_knows = @place.good_to_knows
       @good_to_know = GoodToKnow.new
-      # @place.good_to_knows = GoodToKnow.all
+      @place.good_to_knows = GoodToKnow.all
     end
 
   end
