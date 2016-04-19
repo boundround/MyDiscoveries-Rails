@@ -684,7 +684,6 @@ img.top-rounded {
 	}
 	.thumbnail .image-cat {
 		height: 100px;
-		height
 	}
 	.thumbnail .details-dest {
 		/*min-height: 70px;
@@ -2328,7 +2327,7 @@ section.country-details .place-title2{
 
 /* WEATHER */
 img#icon {
-	height: 32px;
+	height: 22px;
 	/*width: 40px;*/
 	position: relative;
 	top: -10px;
@@ -2748,8 +2747,7 @@ p.blueish a {
 	border-radius: 5px !important;
 }
 .row-border-grey {
-	border: 1px solid #b2b
-	2b2 !important;
+	border: 1px solid #b2b2b2 !important;
 }
 .style-dropdown-bg {
 	background-color: #242424 !important;
