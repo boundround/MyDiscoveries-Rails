@@ -15,14 +15,8 @@ body{
 	font-family:'Signika', sans-serif !important;
 	font-weight: 100 ;
 }
-
 h1, h2, h3, h4{
 	font-weight: 100 !important;
-}
-
-.post-heading {
-	padding-top: 50px;
-	text-align: center;
 }
 
 .body-text {
@@ -90,12 +84,13 @@ button.hero-search {
    border: none;
    padding-right: 18px;
    z-index: 10;
-   width: 16%;
-   color: #fff;
+   width: 15%;
    background-color: #fd7e56;
-   min-height: 48px;
+   color: white;
+   text-align: center;
+   height: 49px;
    font-size: 18px;
-
+   z-index: 1000 !important;
 }
 .sign-in-pad {
 	margin-left: 15px;
@@ -104,14 +99,7 @@ button.hero-search {
 .white-text {
 	color: white;
 }
-/*
-.half {
-	width: 50%;
-	height: 50px;
-	float: left;
-	margin-top: 10px;
-}
-*/
+
 .half-left {
 	width: 48%;
 	display: inline-block;
@@ -136,13 +124,6 @@ button.hero-search {
 	border: none !important;
 	min-height: 60px;
 	margin: 0;
-}
-.navbar.navbar-brw a {
-	/*color: #6CB7CA !important;*/
-	/*color: #ffffff !important;*/
-}
-.navbar.navbar-brw a:hover {
-
 }
 .brw-navbar-brand>img{
 	/*width: 26px;*/
@@ -176,12 +157,8 @@ button.hero-search {
 	background: #6CB7CA !important;
 }
 .navbar-default .navbar-collapse, .navbar-default .navbar-form{
-	/*padding-top: 25px;*/
 	border: none;
 }
-/*.navbar-toggle{
-	margin-top: 14px !important;
-}*/
 .brw-navbar-brand img{
     margin-top: -18px;
 }
@@ -260,7 +237,7 @@ ul.nav.navbar-nav.first-ul{
    background: #ffffff;
    border: none;
    /*padding-left: 28px !important;*/
-   width: 84%;
+   width: 85%;
    padding: 12px !important;
    outline: none;
    color: #555555 !important;
@@ -2268,16 +2245,6 @@ section.country-details .place-title2{
     padding: 0 1px;
     /* color: #3A548B; blue */
 }
-
-span.orange-icon i {
-	color: #FF734C !important;
-	padding: 0 1px;
-}
-span.grey-icon i {
-	color: #A0A0A0 !important;
-	padding: 0 1px;
-}
-
 span.orange-icon i, span.orange-font {
 	color: #FF734C !important;
 	padding: 0 1px;
@@ -2305,6 +2272,16 @@ span.green-font {
 	background: white;
 	border: 1px solid black;
 }
+
+/*btn-brw-green2:#0DBEAE*/
+/*btn-brw-green:#7ABF00*/
+/*orange-btn-text:#fd7e56*/
+/*.details-dest:#F7F7F7*/
+/*.details-dest i:#B6B6B6*/
+/*cruises-color:#0dbeae*/
+
+/*font-gray:#A0A0A0*/
+/*btn-brw-orange:#FF9702*/
 
 .component-desk ul{
     list-style: none;
@@ -2338,9 +2315,8 @@ span.green-font {
     display: -webkit-inline-flex;
     display: inline-flex;
     font-size: 13px;
-    height: 70px;
 }
-.detail-place .located, .detail-place .weather , .detail-place .ages, .detail-place .language,.detail-place .population, .detail-place .capital {
+.detail-place .located,.detail-place .language,.detail-place .population{
     float: left;
     border-right: 1px;
     border-right: 1px solid #D2D2D2;
@@ -2351,15 +2327,14 @@ span.green-font {
     /*padding-left: 8px;*/
 }
 
-.detail-place .language, .detail-place .population, .detail-place .located, .detail-place .weather, .detail-place .ages, .detail-place .capital {
-		width: 25% !important;
+.detail-place .language, .detail-place .population {
+		width: 25%;
 }
+
 .detail-place .population {
 	width: 30%;
 }
-.detail-place .capital {
-	border-right: 0;
-}
+
 .detail-place .likes{
 	border: none;
 	text-align: center;
@@ -2381,20 +2356,6 @@ span.green-font {
     top: 78px;
     left: 0;
     right: 0;
-}
-
-/* WEATHER */
-img#icon {
-	height: 40px;
-	width: 40px;
-	position: relative;
-	top: -10px;
-	left: -5px;
-}
-span#temperature {
-	position: relative;
-	top: -10px;
-	left: -2px;
 }
 /*END DETAIL PLACE*/
 
@@ -2805,7 +2766,8 @@ p.blueish a {
 	border-radius: 5px !important;
 }
 .row-border-grey {
-	border: 1px solid #b2b2b2 !important;
+	border: 1px solid #b2b
+	2b2 !important;
 }
 .style-dropdown-bg {
 	background-color: #242424 !important;
@@ -3183,10 +3145,10 @@ section.modal-booking .left img{
 }
 /* SEARCH BAR */
 .searchbackground {
-	/*background: rgba(0, 0, 0, 0.3);*/
-	margin-top: 20px;
+	background: rgba(0, 0, 0, 0.3);
+	margin-top: 12px;
 	margin-bottom: 20px;
-	padding-top: 15px;
+	padding-top: 25px;
 	padding-bottom: 5px;
 	position: relative;
 	bottom: 100px;
@@ -3334,17 +3296,10 @@ section.modal-booking .left img{
 		height: auto !important;
 		width: 100% !important;
 		bottom: 0;
-/*	min-height: 100%;	*/
-		/*margin-top: -16%;*/
 	}
 	.home-carousel, .fix-img {
 		height: 700px;
 	}
-	/*
-	.crop-image {
-		width: 100%;
-		margin-top: -20%;
-	}*/
 }
 /* END HERO CAROUSEL */
 .image-fit {
@@ -3438,13 +3393,7 @@ section.modal-booking .left img{
 	/*bottom: 50% !important;*/
 }
 @media (min-width: 768px) {
-	.carousel-indicators {
-		bottom: 50% !important;
-	}
-	.carousel-caption {
-		margin-right: 0% !important;
-		bottom: 50% !important;
-	}
+
 }
 .padding-dropdown {
 	margin:0 ;
@@ -3452,7 +3401,7 @@ section.modal-booking .left img{
 @media (max-width: 420px) {
 	.text-caption {
 		bottom: 0 !important;
-		margin-bottom: -30px;
+		margin-bottom: -20px;
 	}
 }
 @media (min-width: 768px) {
@@ -4374,7 +4323,7 @@ input.more-result{
     z-index: 100;
     left: 0;
     right: 0;
-    top: 47px;
+    top: 46px;
     border-bottom: 1px solid lightgrey;
     border-left: 1px solid lightgrey;
     border-right: 1px solid lightgrey;
@@ -4474,7 +4423,4 @@ input.more-result{
 }
 .pagination {
 	text-align: center;
-}
-.col-hero-list{
-	margin: 0 0 15px 0;
 }
