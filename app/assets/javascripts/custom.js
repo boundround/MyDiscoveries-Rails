@@ -185,22 +185,7 @@ function wpBlogs(){
 //     });
 // }
 
-// function getThumbnail(){
-//   var imgthumb = $("img[for='thumb-video']");
-//     if (imgthumb.length > 0 ) {
-//       $.each(imgthumb, function(key, value){
-//         if($(value).prop("src") == ""){
-//           var id = $(value).prop("id").split("-")[1];
-//           if($(value).prop("data-thumb") == "vimeo"){
-//             var url = "https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/"+id;
-//           }else{
-//             var url = "http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v="+id+"&format=json";
-//           }
-//           vimeoLoadingThumb(id, url);
-//         }
-//       });
-//     }
-// }
+
 // function onChangeVideo(){
 //   $( ".select_video_id" ).change(function() {
 //     selectVIdeoId($(this));

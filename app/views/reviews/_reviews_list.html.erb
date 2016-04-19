@@ -20,7 +20,7 @@
         <%# <i class="fa fa-smile-o"></i>
       <%# end %>
       <!-- make tour helper method for review smiley -->
-      <%= raw draw_smile_review(review) %>
+      <%= raw draw_smile_review(review) rescue "" %>
     </div>
   </div>
 </div>

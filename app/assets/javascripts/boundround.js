@@ -382,8 +382,26 @@ function setUpModalUserPhoto(){
 
 
 }
+function getThumbnail(){
+  var video = $("video.play-in-modal");
+  		if (video.length > 0 ) {
+	      	$.each(video, function(key, value){
+	      	var id = $(value).data("id")
+	        if ( $(value).data("video") == "youtube" &&  $(value).attr("poster") == "" ) {
+	        	$(value).prop("poster", "http://img.youtube.com/vi/"+id+"/maxresdefault.jpg")
+	        }else if ( $(value).data("video") == "vimeo" &&  $(value).attr("poster") == "" ){
+        	var url = "https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/"+id;
+        	 $.getJSON( url, function( data ) {
+	        	$(value).prop("poster", data.thumbnail_url);
+		      });
+
+	        }
+        });
+	}
+}
 
 $(document).ready(function() {
+	getThumbnail();
 	setUpModal();
 	setUpModalUserPhoto();
 	setModalOpeningHour();
@@ -399,11 +417,6 @@ $(document).ready(function() {
 	funFact();
 	setUpChart();
 
-	//require("ti.forecast.io");
-	//var forecast = new ForecastIO({
-    //API_KEY: 'c652be9c98a1353375baff9c36ba0787'
-	//});
-
 	var lon = $('.area-content').data('long');
 	var lat = $('.area-content').data('lat');
 
@@ -412,16 +425,12 @@ $(document).ready(function() {
  			dataType: 'jsonp',
  			success: function(data){
    		console.log(data);
-   		// console.log(data.currently.temperature);
-   		// var temperature = Math.round(data.currently.temperature);
    		var farenheit = data.currently.temperature;
    		var temperature = Math.round((farenheit - 32) * 5/9);
-   		// console.log(temperature);
    		var iconString = data.currently.icon;
    		icon = "/assets/images/" + iconString+ ".png"; // source
    		$('#temperature').append(temperature + "&deg; C"); // append to DOM #ID temperature
    		document.getElementById("icon").src = icon; // JavaScript change img src
-      // $('#icon').attr("src", icon); // JQuery change img src
  		}
 	});
 
