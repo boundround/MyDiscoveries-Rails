@@ -13,6 +13,9 @@ class Post < ActiveRecord::Base
   has_many :places_posts
   has_many :places, through: :places_posts
 
+  has_many :posts_subcategories
+  has_many :subcategories, through: :posts_subcategories
+
   has_many :countries_posts
   has_many :countries, through: :countries_posts
 

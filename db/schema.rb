@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412061711) do
+ActiveRecord::Schema.define(version: 20160420034355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -476,9 +476,19 @@ ActiveRecord::Schema.define(version: 20160412061711) do
     t.string   "slug"
     t.datetime "publish_date"
     t.text     "seo_friendly_url"
+    t.integer  "minimum_age"
+    t.integer  "maximum_age"
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+
+  create_table "posts_subcategories", id: false, force: true do |t|
+    t.integer "post_id",        null: false
+    t.integer "subcategory_id", null: false
+  end
+
+  add_index "posts_subcategories", ["post_id", "subcategory_id"], name: "index_posts_subcategories_on_post_id_and_subcategory_id", using: :btree
+  add_index "posts_subcategories", ["subcategory_id", "post_id"], name: "index_posts_subcategories_on_subcategory_id_and_post_id", using: :btree
 
   create_table "primary_categories", force: true do |t|
     t.string   "name"

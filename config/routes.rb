@@ -15,9 +15,24 @@ require 'routes/constraints/subcategories'
 
 Rails.application.routes.draw do
 
+  get 'posts_subcategories/index'
+
+  get 'posts_subcategories/show'
+
+  get 'posts_subcategories/new'
+
+  get 'posts_subcategories/create'
+
+  get 'posts_subcategories/edit'
+
+  get 'posts_subcategories/update'
+
+  get 'posts_subcategories/destroy'
+
   resources :posts do
     resources :places, controller: :places_posts
     resources :countries
+    resources :subcategories, controller: :posts_subcategories
   end
 
   mount API::Base => '/'
