@@ -382,8 +382,26 @@ function setUpModalUserPhoto(){
 
 
 }
+function getThumbnail(){
+  var video = $("video.play-in-modal");
+  		if (video.length > 0 ) {
+	      	$.each(video, function(key, value){
+	      	var id = $(value).data("id")
+	        if ( $(value).data("video") == "youtube" &&  $(value).attr("poster") == "" ) {
+	        	$(value).prop("poster", "http://img.youtube.com/vi/"+id+"/maxresdefault.jpg")
+	        }else if ( $(value).data("video") == "vimeo" &&  $(value).attr("poster") == "" ){
+        	var url = "https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/"+id;
+        	 $.getJSON( url, function( data ) {
+	        	$(value).prop("poster", data.thumbnail_url);
+		      });
+
+	        }
+        });
+	}
+}
 
 $(document).ready(function() {
+	getThumbnail();
 	setUpModal();
 	setUpModalUserPhoto();
 	setModalOpeningHour();
@@ -399,31 +417,24 @@ $(document).ready(function() {
 	funFact();
 	setUpChart();
 
-	//require("ti.forecast.io");
-	//var forecast = new ForecastIO({
-    //API_KEY: 'c652be9c98a1353375baff9c36ba0787'
-	//});
+	if (document.getElementById('icon')){
+		var lon = $('.area-content').data('long');
+		var lat = $('.area-content').data('lat');
 
-	var lon = $('.area-content').data('long');
-	var lat = $('.area-content').data('lat');
-
-		$.ajax({
- 			url: "https://api.forecast.io/forecast/c652be9c98a1353375baff9c36ba0787/" + lat + "," + lon,
- 			dataType: 'jsonp',
- 			success: function(data){
-   		console.log(data);
-   		// console.log(data.currently.temperature);
-   		// var temperature = Math.round(data.currently.temperature);
-   		var farenheit = data.currently.temperature;
-   		var temperature = Math.round((farenheit - 32) * 5/9);
-   		// console.log(temperature);
-   		var iconString = data.currently.icon;
-   		icon = "/assets/images/" + iconString+ ".png"; // source
-   		$('#temperature').append(temperature + "&deg; C"); // append to DOM #ID temperature
-   		document.getElementById("icon").src = icon; // JavaScript change img src
-      // $('#icon').attr("src", icon); // JQuery change img src
- 		}
-	});
+			$.ajax({
+	 			url: "https://api.forecast.io/forecast/c652be9c98a1353375baff9c36ba0787/" + lat + "," + lon,
+	 			dataType: 'jsonp',
+	 			success: function(data){
+	   		console.log(data);
+	   		var farenheit = data.currently.temperature;
+	   		var temperature = Math.round((farenheit - 32) * 5/9);
+	   		var iconString = data.currently.icon;
+	   		icon = "/assets/images/" + iconString+ ".png"; // source
+	   		$('#temperature').append(temperature + "&deg; C"); // append to DOM #ID temperature
+	   		document.getElementById("icon").src = icon; // JavaScript change img src
+	 		}
+		});
+	}
 
 
 });
@@ -431,7 +442,6 @@ $(document).ready(function() {
 $(window).resize(function() {
 	setImagesPosition();
 });
-
 
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip()

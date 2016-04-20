@@ -56,6 +56,17 @@ class CountriesController < ApplicationController
   def destroy
   end
 
+  def paginate_videos
+    @country = Country.includes(:photos, :places).friendly.find(params[:id])
+    @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
+  end
+  
+  def paginate_photos
+    @country = Country.includes(:photos, :places).friendly.find(params[:id])
+    photos = @country.user_photos.where(status:"live") + @country.photos
+    @photos = photos.paginate(:page => params[:active_photos], per_page: 4)
+  end
+
   private
     def country_params
       params.require(:country).permit(:display_name, :country_code, :description, :capital_city, :short_name, :long_name, :address,

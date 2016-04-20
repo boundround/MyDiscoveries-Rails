@@ -317,7 +317,6 @@ class PlacesController < ApplicationController
   def paginate_videos
     @place = Place.find_by_slug(params[:id])
     @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page: 4)
-
     # respond_to do |format|
     #   format.js
     # end

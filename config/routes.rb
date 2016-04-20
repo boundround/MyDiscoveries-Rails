@@ -199,6 +199,8 @@ Rails.application.routes.draw do
   end
 
   resources :countries do
+    member { get 'paginate_videos', as: :paginate_videos}
+    member { get 'paginate_photos', as: :paginate_photos}
     resources :videos
     resources :photos
     resources :fun_facts
