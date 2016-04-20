@@ -15,22 +15,8 @@ body{
 	font-family:'Signika', sans-serif !important;
 	font-weight: 100 ;
 }
-
 h1, h2, h3, h4{
 	font-weight: 100 !important;
-}
-
-.post-heading {
-	padding-top: 50px;
-	text-align: center;
-}
-
-.body-text {
-	font-size: 16px;
-}
-
-.topmin50 {
-	margin-top: -50px;
 }
 
 .body-stories {
@@ -90,12 +76,7 @@ button.hero-search {
    border: none;
    padding-right: 18px;
    z-index: 10;
-   width: 16%;
-   color: #fff;
-   background-color: #fd7e56;
-   min-height: 48px;
-   font-size: 18px;
-
+   width: 6%;
 }
 .sign-in-pad {
 	margin-left: 15px;
@@ -260,7 +241,7 @@ ul.nav.navbar-nav.first-ul{
    background: #ffffff;
    border: none;
    /*padding-left: 28px !important;*/
-   width: 84%;
+   width: 94%;
    padding: 12px !important;
    outline: none;
    color: #555555 !important;
@@ -2239,13 +2220,13 @@ section.country-details .place-title2{
 /*END*/
 /*START HEADER IMAGE WITH NAV FOR MUSEUM SECTION*/
 .header-image-with-nav .bg-place{
-  background: #3A548B;
+    background: #3A548B;
 }
 .header-image-with-nav .action2 i{
-  color: rgba(66, 66, 66, 0.7);
-  font-size: 20px;
-  position: relative;
-  top: 3px;
+    color: rgba(66, 66, 66, 0.7);
+    font-size: 20px;
+    position: relative;
+    top: 3px;
 }
 
 .place-title2 {
@@ -2255,7 +2236,7 @@ section.country-details .place-title2{
 	color: #3A548B;
 }
 
-.detail-place .suka {
+.detail-place .suka{
 	border: none;
 	text-align: center;
 	/* was 20.5 */
@@ -2265,47 +2246,8 @@ section.country-details .place-title2{
 }
 .detail-place .suka i{
     font-size: 17px;
-    padding: 0 1px;
-    /* color: #3A548B; blue */
+    color: #3A548B;
 }
-
-span.orange-icon i {
-	color: #FF734C !important;
-	padding: 0 1px;
-}
-span.grey-icon i {
-	color: #A0A0A0 !important;
-	padding: 0 1px;
-}
-
-span.orange-icon i, span.orange-font {
-	color: #FF734C !important;
-	padding: 0 1px;
-}
-span.grey-icon i, span.grey-font {
-	color: #A0A0A0 !important;
-	padding: 0 1px;
-}
-span.green-font {
-	color: #0DBEAE !important;
-	padding: 0 1px;
-}
-
-.price {
-	padding-right: 10px !important;
-	padding-left: 0 !important;
-}
-
-.hover-price {
-	display: none;
-}
-
-.hover-price:hover {
-	display: inline-block;
-	background: white;
-	border: 1px solid black;
-}
-
 .component-desk ul{
     list-style: none;
     display: -webkit-inline-flex;
@@ -2388,12 +2330,10 @@ img#icon {
 	height: 22px;
 	/*width: 40px;*/
 	position: relative;
-	top: -10px;
 	left: -5px;
 }
 span#temperature {
 	position: relative;
-	top: -10px;
 	left: -2px;
 }
 /*END DETAIL PLACE*/
@@ -2959,8 +2899,6 @@ p.blueish a {
     margin-top: -30px !important;
     opacity: 1 !important;
     font-size: 28px;
-
-
 }
 .modal-blue {
 	background-color: #69b7c9;
@@ -4473,7 +4411,4 @@ input.more-result{
 }
 .pagination {
 	text-align: center;
-}
-.col-hero-list{
-	margin: 0 0 15px 0;
 }

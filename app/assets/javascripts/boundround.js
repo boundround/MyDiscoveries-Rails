@@ -399,23 +399,32 @@ $(document).ready(function() {
 	funFact();
 	setUpChart();
 
+	//require("ti.forecast.io");
+	//var forecast = new ForecastIO({
+    //API_KEY: 'c652be9c98a1353375baff9c36ba0787'
+	//});
+
 	var lon = $('.area-content').data('long');
 	var lat = $('.area-content').data('lat');
 
 		$.ajax({
- 			url: "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric" + "&APPID=be7c03a2939edf508c723b0729095bcc",
+ 			url: "https://api.forecast.io/forecast/c652be9c98a1353375baff9c36ba0787/" + lat + "," + lon,
+ 			dataType: 'jsonp',
  			success: function(data){
    		console.log(data);
-   		var temperature = Math.round(data.main.temp); // in elms
-   		//temperature.toFixed(0);
+   		// console.log(data.currently.temperature);
+   		// var temperature = Math.round(data.currently.temperature);
+   		var farenheit = data.currently.temperature;
+   		var temperature = Math.round((farenheit - 32) * 5/9);
    		// console.log(temperature);
-   		var icon = data.weather[0].icon;
-   		icon = "https://openweathermap.org/img/w/" + icon + ".png"; // source
+   		var iconString = data.currently.icon;
+   		icon = "/assets/images/" + iconString+ ".png"; // source
    		$('#temperature').append(temperature + "&deg; C"); // append to DOM #ID temperature
    		document.getElementById("icon").src = icon; // JavaScript change img src
       // $('#icon').attr("src", icon); // JQuery change img src
  		}
 	});
+
 
 });
 

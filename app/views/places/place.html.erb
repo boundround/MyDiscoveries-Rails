@@ -16,6 +16,9 @@
  <!-- </div>-->
  <div class="breadcrumbs">
   <%= raw create_breadcrumb_for(@place) %>
+  <% if user_signed_in? and current_user.admin? %>
+    <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
+  <% end %>
  </div>
   <div class="container padding-style">
     <div class="title-container hidden-xs">
@@ -111,7 +114,7 @@
               <p id="operating-hours"></p>
               <p id="hours"></p>
               <p>
-                <%= link_to "Views details", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
+                <%= link_to "View details", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
               </p>
             <% end %>
           </div>
