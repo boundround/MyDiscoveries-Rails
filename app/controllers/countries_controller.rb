@@ -17,6 +17,8 @@ class CountriesController < ApplicationController
     @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 4 : 2 )
     @famous_faces = @country.famous_faces.active
     @capital_city = Place.active.find_by(display_name: @country.capital_city)
+
+    @good_to_know = @country.good_to_knows.limit(6)
   end
 
   def edit
