@@ -72,8 +72,8 @@ class CountriesController < ApplicationController
       params.require(:country).permit(:display_name, :country_code, :description, :capital_city, :short_name, :long_name, :address,
                       :capital_city_description, :currency_code, :official_language, :tallest_mountain, :latitude, :longitude, :google_place_id,
                       :tallest_mountain_height, :longest_river, :longest_river_length, :published_status, :hero_photo, :photo_credit,
-                      photos_attributes: [:id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_include, :_destroy],
-                      videos_attributes: [:id, :vimeo_id, :priority, :status, :country_include, :_destroy],
+                      photos_attributes: [:id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_hero, :country_include, :_destroy],
+                      videos_attributes: [:id, :vimeo_id, :title, :description, :priority, :status, :country_include, :_destroy],
                       fun_facts_attributes: [:id, :content, :reference, :priority, :hero_photo, :photo_credit, :status, :country_include, :_destroy],
                       famous_faces_attributes: [:id, :name, :description, :photo, :photo_credit, :status, :_destroy],
                       info_bits_attributes: [:id, :title, :description, :photo, :photo_credit, :status, :_destroy])

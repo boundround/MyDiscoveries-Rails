@@ -96,10 +96,10 @@
                 <%= ff.input :id, as: :hidden %>
                 <td></td>
                 <td><%= ff.text_area :vimeo_id %></td>
-                <td><%= ff.text_area :title %></td>
-                <td><%= ff.text_area :description %></td>
                 <td><%= ff.select :priority, 1..10 %></td>
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.text_area :title %></td>
+                <td><%= ff.text_area :description %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>
@@ -118,6 +118,7 @@
               <th>Alt Tags</th>
               <th>Priority</th>
               <th>Status</th>
+              <th>Hero?</th>
               <th>Remove</th>
             </tr>
           </thead>
@@ -133,6 +134,7 @@
                   <td><%= ff.text_field :alt_tag %></td>
                   <td><%= ff.select :priority, 1..10 %></td>
                   <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                  <td><%= ff.check_box :country_hero %></td>
                   <td><%= ff.check_box :_destroy %></td>
                 </tr>
               <% end %>

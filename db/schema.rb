@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420034355) do
+ActiveRecord::Schema.define(version: 20160421005514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -345,6 +345,7 @@ ActiveRecord::Schema.define(version: 20160420034355) do
     t.boolean  "customer_approved"
     t.datetime "approved_at"
     t.boolean  "hero"
+    t.boolean  "country_hero"
   end
 
   add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
