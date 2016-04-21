@@ -45,6 +45,7 @@ module ApplicationHelper
 
   def draw_rating_smiles(place)
     if !@place.quality_average.blank?
+      count = place.quality_rates.size.to_s
       orange = ""
       grey = ""
       rating = place.quality_average.avg.round
@@ -57,10 +58,12 @@ module ApplicationHelper
         grey += "<i class='fa fa-smile-o'></i>"
       end
 
-      solution = "<span class='orange-icon'>" + orange + "</span>" + "<span class='grey-icon'>" + grey + "</span>"
+      rates_total = "<span class='rate-count grey-font'>( " + count + " )</span>"
+
+      solution = "<span class='orange-icon'>" + orange + "</span>" + "<span class='grey-icon'>" + grey + "</span>" + rates_total
 
     else
-      solution = "<span class='orange-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>"
+      solution = "<span class='orange-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>" + rates_total
     end
   end
 
