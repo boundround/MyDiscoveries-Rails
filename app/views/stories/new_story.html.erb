@@ -1,0 +1,26 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3 ">
+			<div class="col-md-12">
+				<div class="outer-profile">
+	              <img src="">
+	            </div>
+			</div>
+			<div class="col-md-12">
+				<div class="title-editable" > </div>
+				<div class="content-editable" ></div>
+				<button class="btn btn-primary top20 btm20" id="submit_story"> Post Story</button>
+			</div>
+			<!-- :url => {:controller => "your-controller-name", :action => "your-action-name"} -->
+
+			<%=  form_for @new_story ,  url: create_story_place_path, method: :post do |f| %>
+				<%= f.hidden_field :title %>
+				<%= f.hidden_field :content %>
+				<%= f.hidden_field :user_id, :value => current_user.id %>
+				<%= f.hidden_field :date, :value => Time.now %>
+				<%= f.submit "", style: :"display:none;", id:"submit-form-story" %>
+			<% end %>
+
+		</div>
+	</div>
+</div>

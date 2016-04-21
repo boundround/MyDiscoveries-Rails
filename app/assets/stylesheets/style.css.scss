@@ -4521,3 +4521,24 @@ input.more-result{
 .medium-editor-insert-plugin .medium-insert-buttons .medium-insert-buttons-addons li a{
 	background: #fff;
 }
+// .title-editable.medium-editor-insert-plugin{
+// 	font-size: 36px
+// }
+// .content-editable.medium-editor-insert-plugin{
+// 	font-size: 21px
+// }
+.medium-editor-insert-plugin p{
+	// margin: 0.5em 0;
+}
+.stories-show {
+	margin: 40px 40px;
+	.medium-insert-embeds-overlay{
+		display: none;
+	}
+	h1,h2,h3,h4,h5{
+		clear: both;
+	}
+	// .title-story{
+	// 	margin: 0px 25px 0 0 ;
+	// }
+}

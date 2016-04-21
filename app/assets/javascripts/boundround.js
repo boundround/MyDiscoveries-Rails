@@ -436,28 +436,87 @@ $(document).ready(function() {
 		});
 	}
 
-	var story_title = new MediumEditor('.editable', {
+	var title_editable = new MediumEditor('.title-editable', {
 		    placeholder: {
 		    	text:'title'
 	    }
 	});
-	var story_body = new MediumEditor('.editable-body', {
+	var content_editable = new MediumEditor('.content-editable', {
 		    placeholder: {
 		    	text:'Tell your story',
 	    }
 	});
 
 	$(function () {
-	    $('.editable').mediumInsert({
-	        editor: story_title
-	    });
-	    $('.editable-body').mediumInsert({
-	        editor: story_body
+		    $('.title-editable').mediumInsert({
+		        editor: title_editable,
+
+		        addons:{
+			        images: { 
+		            deleteScript: '/users/resolvejs', 
+		            fileUploadOptions: { 
+		                url: '/users/resolvejs', 
+		                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i 
+		            	},
+			        }
+		    	}
+			});
+	    $('.content-editable').mediumInsert({
+	        editor: content_editable,
+	         addons:{
+			        images: { 
+		            deleteScript: '/users/resolvejs', 
+		            fileUploadOptions: { 
+		                // url: '/users/'+ $("#user_id").data("id") +'/new_story', 
+		                url: '/users/resolvejs', 
+		                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i 
+		            	},
+			        }
+		    	}
+
 	    });
 	});
+$("#submit_story").click(function(event) {
+	var title = $(".title-editable")
+		content = $(".content-editable")
+		// if ( title.find("p").text() == "" ) {
+			// alert("Title can't be blank");
+		// 	}else{
+			$("#story_title").val(title.html());
+		// }
 
+		// if ( content.find("p").text() == "" ) {
+		// 	alert("Content can't be blank");
+		// }else{
+			$("#story_content").val(content.html());
+		// }
 
+		// if ( title.find("p").text() != "" &&  content.find("p").text() != "" ) {
+		// };
+			$("#submit-form-story").click();
 });
+
+function update_story(){
+	var title = $(".title-editable")
+		content = $(".content-editable")
+
+		title.html( $("#story_title").val());
+		content.html( $("#story_content").val() );
+}
+
+}); //doc ready
+
+function update_story(){
+	var title = $(".title-editable")
+		content = $(".content-editable")
+
+		title.html( $("#story_title").val());
+		content.html( $("#story_content").val());
+
+		$("#story_title").val("");
+		$("#story_content").val("");
+
+}
 $(window).resize(function() {
 	setImagesPosition();
 });

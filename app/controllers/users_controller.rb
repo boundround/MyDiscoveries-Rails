@@ -145,9 +145,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def new_story
-    
-  end
+  def resolvejs;end
 
   def reviews
     if user_signed_in? || current_user.admin?

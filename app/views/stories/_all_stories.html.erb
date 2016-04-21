@@ -7,7 +7,7 @@
           <% if  story.class.to_s.eql? "Story" %>
               <div class="card"
                data-class="story"
-               data-content="<%= story.content.html_safe %>"
+               data-content="<%= story.content %>"
                data-title="<%= story.title ? story.title : @storiable.display_name %>"
                data-user="<%= story.user.name %>"
                               <% story.user_photos.each_with_index do |photo, index| %>
@@ -34,7 +34,7 @@
 
                     <% end %>
                     <p class="visited"><%= story.created_at.strftime("%B %Y") %></p>
-                    <p class="mrg0 pink"><%= story.title %> </p>
+                    <p class="mrg0 pink"><%= story.title.html_safe %> </p>
                      <%= story.content[0..280] + "..." %>
                   </div>
                 <div class="img-story-place outer-js">
