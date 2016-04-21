@@ -30,12 +30,30 @@
     </div>
     <div class="action bg-place">
       <div class="left">
-        <% if user_signed_in? %>
-          <a href="#" class="white" data-toggle="modal" data-target="#ReviewModal"><i class="fa fa-smile-o white"></i> Leave review </a>
-        <% else %>
-          <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o white"></i> Leave review </a>
-        <% end %>
-        </div>
+        <ul>
+         <!-- Leave Review -->
+          <% if user_signed_in? %>
+           <li>
+            <a href="#" class="white" data-toggle="modal" data-target="#ReviewModal"><i class="fa fa-smile-o white"></i> Leave review </a>
+          </li>
+          <% else %>
+           <li>
+            <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o white"></i> Leave review </a>
+          </li>
+          <% end %>
+
+          <!-- Add To Favourites -->
+          <% if user_signed_in? && @place.users.include?(current_user) %>
+            <li>
+            <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
+          </li>
+          <% else %>
+            <li> 
+              <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
       <%# if user_signed_in? %>
          <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#userPhotoModal" ><i class="fa fa-plus white"></i> Add photo</a>  </div> -->
         <%# else %>
@@ -143,21 +161,10 @@
       <div class="col-xs-12 col-sm-4 col-md-4 border-left-desk"> <!-- for map -->
           <div class="text-center clearfix  visible-xs">
             <% unless @place.viator_link.blank? %>
-              <a href="<%= @place.viator_link %>" data-target="_blank" class="btn button-orange button-style-booking btn-shadow fontbig-button btn-radius">Book Now!</a>
+              <a href="<%= @place.viator_link %>" data-target="_blank" class="btn button-orange button-style-booking btn-shadow fontbig-button btm20 btn-radius">Book Now!</a>
             <% end %>
           </div>
-        <div class="text-center div-btn-country top15 btm15 visible-xs">
 
-          <!-- <a id="place-favorite" class=""><i class="fa fa-bookmark-o"></i> Add To Favourites</a> -->
-          <% if user_signed_in? && @place.users.include?(current_user) %>
-            <i class="fa fa-bookmark-o"></i>
-            <a href="#" class="place-favorite black" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
-          <% else %>
-            <i class="fa fa-bookmark-o"></i>
-            <a href="#" class="place-favorite black" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
-          <% end %>
-
-        </div>
         <div id="map"></div>
         <div class="text-center btn-map">
           <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="btn btn-primary btn-shadow btn-direction btn-direct"><i class="fa fa-share blue-nero-icon"></i> Get directions </a>
@@ -195,15 +202,7 @@
 
   </div>
 
-  <div class="text-center div-btn-country top20 btm20 hidden-xs">
-    <% if user_signed_in? && @place.users.include?(current_user) %>
-    <i class="fa fa-bookmark-o"></i>
-     <a href="#" class="place-favorite black" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
-    <% else %>
-    <i class="fa fa-bookmark-o"></i>
-    <a href="#" class="place-favorite black" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
-    <% end %>
-  </div>
+
 
    <%= render partial: "shared/videos_photos_list" %>
 

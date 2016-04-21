@@ -25,6 +25,23 @@
         <%# else %>
           <!-- <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
         <%# end %>
+
+        <div class="left">
+        <ul>
+          <!-- Add To Favourites -->
+          <% if user_signed_in? %>
+            <li>
+              <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
+            </li>
+          <% else %>
+            <li> 
+              <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+
         <div class="pull-right hidden-xs">
           <div class="component-desk">
             <ul>
@@ -89,9 +106,6 @@
 
 
       <section class="map">
-          <div class="text-center btn-map">
-            <a href="" class="btn btn-default btn-shadow"><i class="fa fa-bookmark-o"></i> Add To Favourites</a>
-          </div>
         <div id="map">
         </div>
       </section>
