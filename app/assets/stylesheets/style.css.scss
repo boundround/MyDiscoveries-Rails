@@ -2247,7 +2247,18 @@ section.country-details .place-title2{
   position: relative;
   top: 3px;
 }
-
+.rate-count {
+	font-size: 12px;
+	margin-left: 3px;
+}
+@media (max-width: 420px) {
+	.rate-count {
+		font-size: 10px;
+	}
+	.detail-place .suka i {
+		font-size: 13px !important;
+	}
+}
 .place-title2 {
 	margin: 20px 0;
 }
