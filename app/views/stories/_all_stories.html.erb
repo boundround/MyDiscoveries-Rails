@@ -5,16 +5,12 @@
     </div>
       <% stories.each_with_index do |story, index| %>
           <% if  story.class.to_s.eql? "Story" %>
-              <div class="card"
-               data-class="story"
-               data-content="<%= story.content %>"
-               data-title="<%= story.title ? story.title : @storiable.display_name %>"
-               data-user="<%= story.user.name %>"
-                              <% story.user_photos.each_with_index do |photo, index| %>
-                                data-image-<%= index %>="<%= photo.path_url(:medium) %>"
-                              <% end %>>
+              <div >
                 <div class="head-stories">
                   <div class="left">
+                    <% if user_signed_in? and current_user.id.eql? story.user_id %>
+                    <%= link_to "Edit My Story", edit_story_place_path(story.storiable, story), class: "" %>
+                  <% end %>
                     <a href="#">
                       <div class="profile-outer">
                         <img src="<%= showing_image(story.user.avatar_url)%>" alt="">
@@ -24,27 +20,38 @@
                       </div>
                      </a>
                   </div>
-                  <div class="right"><a href="#"><i class="fa fa-image"></i> <%= story.user.photos.size %>
+                  <div class="right">
+                  <a href="#"><i class="fa fa-image"></i> <%= story.user.photos.size %>
                   </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%= story.user.videos.size %></a>
                   </div>
                 </div>
-                <div class="body-stories btm15">
+                <div 
+                   class="card body-stories btm15"
+                   data-class="story"
+                   data-content="<%= story.content %>"
+                   data-title="<%= story.title ? story.title : @storiable.display_name %>"
+                   data-user="<%= story.user.name %>"
+                              <% story.user_photos.each_with_index do |photo, index| %>
+                                data-image-<%= index %>="<%= photo.path_url(:medium) %>"
+                              <% end %>>
+                <!-- class="body-stories btm15"> -->
                   <div class="p-dynamic">
                     <% if !story.user_photos.blank? %>
 
                     <% end %>
                     <p class="visited"><%= story.created_at.strftime("%B %Y") %></p>
                     <p class="mrg0 pink"><%= story.title.html_safe %> </p>
-                     <%= story.content[0..280] + "..." %>
+                     <%= story.content[0..280].html_safe + "..." %>
                   </div>
                 <div class="img-story-place outer-js">
+
                   <% if !story.user_photos.blank? %>
                     <img class="no-inner-js" align="right" src="<%= story.user_photos.first.path_url(:medium) %>" alt="">
                   <% end %>
                 </div>
             </div><!-- card -->
           <% elsif story.class.to_s.eql? "ApiBlog" %>
-            <div class="card" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-cat="<%= (@category ? params[:id] : "") rescue '' %>" data-place="<%= @place.display_name.parameterize rescue '' %>">
+            <div >
               <div class="head-stories">
                 <div class="left">
                   <a href="#">
@@ -59,7 +66,9 @@
                 <div class="right">
                 </div>
               </div>
-              <div class="body-stories btm15">
+              <div 
+              class="card body-stories btm15" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-cat="<%= (@category ? params[:id] : "") rescue '' %>" data-place="<%= @place.display_name.parameterize rescue '' %>">
+              <!-- class="body-stories btm15"> -->
                 <div class="p-dynamic blog">
                   <p class="visited"><%= DateTime.parse(story.created_at).strftime("%B %Y") %></p>
                   <p class="mrg0 pink"><%= raw story.title %></p>

@@ -4538,7 +4538,20 @@ input.more-result{
 	h1,h2,h3,h4,h5{
 		clear: both;
 	}
+	p{
+		font-size: 18px;
+	}
 	// .title-story{
 	// 	margin: 0px 25px 0 0 ;
 	// }
+}
+.title-editable.medium-editor-insert-plugin{
+	font-size: 22px;
+}
+.content-editable.medium-editor-insert-plugin{
+	font-size: 18px !important;
+}
+
+.bg-white{
+	background: #fff !important;
 }

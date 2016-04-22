@@ -3,6 +3,7 @@ class StoriesController < ApplicationController
   before_action :set_story_as_draft, only: [:create, :update]
   before_action :set_user_photos, only: [:create, :update]
   before_action :set_story, only: [:index, :edit, :update, :show, :destroy]
+  before_action :set_body, only: [:new_story, :index_new, :edit_story, :show]
 
   def index
     @stories = @storiable.stories
@@ -59,7 +60,6 @@ class StoriesController < ApplicationController
   end
 
   def destroy
-    # debugger
    if @story.destroy
       redirect_to  :back, notice: "Success"   
    end 
@@ -95,10 +95,12 @@ class StoriesController < ApplicationController
 
   def edit_story
     @new_story = Story.find(params[:story_id])
-    # debugger
   end
   def new_destroy
     
+  end
+  def set_body
+    @set_body_class ="bg-white"
   end
 
   private
