@@ -112,21 +112,24 @@
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 
 
-      <section class="map">
-          <% if user_signed_in? && @place.users.include?(current_user) %>
+      <!-- <section class="map">
+          <%# if user_signed_in? && @place.users.include?(current_user) %>
             <div class="text-center btn-map">
               <i class="fa fa-bookmark-o i-fav-area"></i>
-              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Remove From Favourites</a>
+              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="true" data-place-id="<%#= @place.id.to_s %>" data-user-id="<%#= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Remove From Favourites</a>
             </div>
-              <% else %>
+              <%# else %>
             <div class="text-center btn-map">
               <i class="fa fa-bookmark-o i-fav-area"></i>
-              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Add To Favourites</a>
+              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="false" data-place-id="<%#= @place.id.to_s %>" data-user-id="<%#= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Add To Favourites</a>
             </div>
-          <% end %>
+          <%# end %>
         <div id="map">
         </div>
-      </section>
+      </section> -->
+
+   <%= render partial: "shared/recent_video" %>
+
     </div> <!-- /col-right -->
   </div>
   </section>
@@ -237,5 +240,6 @@
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
+<%= render 'shared/video_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>

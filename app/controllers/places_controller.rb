@@ -269,6 +269,7 @@ class PlacesController < ApplicationController
     # @videos = @place.videos.active#.sort {|x, y| x.created_at <=> y.created_at}
     @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: 4)
     @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page: 4)
+    @last_video = @place.videos.active.last
     # @place.videos.active.each do |video|
     #     @videos << video
     # end
