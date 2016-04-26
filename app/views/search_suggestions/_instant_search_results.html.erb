@@ -57,3 +57,29 @@
     {{/values}}
   </div>
 </script>
+
+<script type="text/template" id="instant-no-result-template">
+  <div class="col-md-12">
+    <div id="message-query">
+        <p> Looking for {{ query }} ?, Sorry we haven't delivered the goods. We're always adding the best family friendly finds across the globe, and this has now been added to our 'To Do' list. Want to know when we've added it? <a class="show_form_request" style="cursor: pointer;"> Click here </a> and we'll let you know when it's live! </p>
+    </div>
+  </div>
+
+<div class="col-md-6">
+    <form id="search_request" style="display:none;">
+      <div class="form-group">
+        <label >Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Your Name" value="<%= user_signed_in? ? current_user.name : '' %>" required>
+      </div>
+      <div class="form-group">
+        <label >Email address</label>
+        <input name="email" type="email" class="form-control" placeholder="Your Email" value="<%= user_signed_in? ? current_user.email : '' %>" required >
+      </div>
+      <div class="form-group">
+        <label>Place You Would Like To Add To Bound Round</label>
+        <input name="term" type="text" class="form-control" placeholder="Search Term" value="{{ query }}" required >
+      </div>
+    <button type="submit" class="btn btn-primary button-loading">Submit</button>
+  </form>
+</div>
+</script>

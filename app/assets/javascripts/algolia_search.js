@@ -81,6 +81,7 @@ $(document).ready(function(){
     var instanthitTemplate = Hogan.compile($('#instant-hit-template').text());
     var instantPaginationTemplate= Hogan.compile($('#instant-pagination-template').text());
     var instantfacetTemplate = Hogan.compile($('#instant-facet-template').text());
+    var instantNoResultTemplate = Hogan.compile($('#instant-no-result-template').text());
   }
   function searchCondition(query){
     if (query.length > 0){
@@ -208,17 +209,82 @@ $(document).ready(function(){
   });
 
   function renderInstantHits(content)
-  {
-    if (content.hits.length > 0)
     {
-      $instantSearchHits.html(instanthitTemplate.render(content));
-    }else
-    {
-      $instantSearchHits.html('No result for '+ content.query);
+      if (content.hits.length > 0)
+      {
+        $instantSearchHits.html(instanthitTemplate.render(content));
+        $(".instant-hits-result-pagination").show();
+        // $("#looking-for").show();
+      
+      }else {       
+        
+        $instantSearchHits.html(instantNoResultTemplate.render(content));
+
+        $(".show_form_request").click( function(){
+          $("#search_request").show();
+        });
+
+
+          $("form#search_request").submit(function(event) {
+              event.preventDefault();
+              var form_value = ( $(this).serialize() );
+              
+                $(this).find("button").addClass('sending');
+              // setTimeout(function(){
+              // }, 500)
+
+                $.ajax({
+                  url: '/search_requests/create',
+                  type: 'post',
+                  dataType: 'json',
+                  data: form_value,
+                })
+                .done(function(data) {
+                  // console.log("success");
+                  success = "<div class='alert alert-success alert-dismissible' role='alert'>"
+                              +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+                              +"Thank you, Your request has been sent to <strong>info@boundround.com.</strong> &nbsp;&nbsp; <a href='/' style='color: #3c763d;'>Back to home</a>"
+                            +"</div>" 
+
+
+                  // $("#looking-for").hide();
+                  setTimeout(function(){
+                    $("#search_request").find("button").removeClass('sending');
+                  }, 1000);
+                  setTimeout(function(){
+                    $("#search_request").hide();
+                  }, 1000);
+                  setTimeout(function(){
+                    $("#message-query").html(success);
+                  }, 1000);
+
+
+                })
+                .fail(function(data) {
+                  // console.log("error");
+                  // console.log(data);
+                  error = "<div class='alert alert-warning alert-dismissible' role='alert'>"
+                              +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+                              +data.statusText
+                            +"</div>"
+                  $("#message-query").html(error);
+                  
+                  
+                });
+                // .always(function() {
+                //   console.log("complete");
+                //   setTimeout(function(){
+                //     $("#search_request").find("button").removeClass('sending');
+                //   }, 1000)
+                // });
+          });
+
+        $(".instant-hits-result-pagination").hide();
+
+      }
+      rescueImage();
+      setImagesPosition();
     }
-    rescueImage();
-    setImagesPosition();
-  }
 
 function renderFacets(content, state) {
   var facetsHtml = '';
@@ -311,7 +377,7 @@ function rescueImage(){
     $.each(input, function(index, val) {
       new_val = $(val).data("value").toLowerCase().replace(" /", "").replace(/\s+/g,"-").replace('/','-')
       // console.log(new_val)
-      console.log(new_val)
+      // console.log(new_val)
       // console.log($(val).data("checked"))
           // alert("");
        if ( new_val ==  $(val).data("checked") ) {
