@@ -1,0 +1,26 @@
+
+<%# if !@reviews.blank? %>
+<%# @reviews.each do |review| %>
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 btm15">
+    <div class="body-stories">
+      <p><%= review.content %></p>
+    </div>
+    <div class="head-stories">
+      <div class="left">
+        <a href="<%= place_path(review.place) rescue "" %>" class="black">
+          <%= review.reviewable.display_name rescue "" %>
+        </a>
+        <span class="grey2"><%= review.created_at.strftime("%B %Y") %></span>
+      </div>
+      <div class="right">
+      <% rate = getRatingByReview(@user.id, review.reviewable_id) %>
+        <% unless rate.blank? %>
+        <% rate.first.stars.to_i.times do %>
+          <i class="fa fa-smile-o"></i>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+<%# end %>
+<%#end %>

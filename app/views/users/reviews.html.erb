@@ -27,34 +27,18 @@
 
 <section class="your-stories btm15">
   <div class="container">
-    <div class="row">
-      <% if !@user.reviews.blank? %>
-        <% @user.reviews.each do |review| %>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 btm15">
-
-            <div class="body-stories">
-              <p><%= review.content %></p>
-            </div>
-
-            <div class="head-stories">
-              <div class="left">
-                <a href="<%= place_path(review.place) rescue "" %>" class="black">
-                  <%= review.reviewable.display_name rescue "" %>
-                </a>
-                <span class="grey2"><%= review.created_at.strftime("%B %Y") %></span>
-              </div>
-              <div class="right">
-                <% Rate.where(rater_id: @user.id).where(rateable_id: review.reviewable_id).first.stars.to_i.times do %>
-                  <i class="fa fa-smile-o"></i>
-                <% end %>
-              </div>
-            </div>
-
-          </div>
-        <% end %>
-      <% end %>
-
+    <div class="row" id="reviews-user-list">
+      <%= render partial: 'reviews_user_list', collection: @reviews, as: :review %>
       </div>
     </div> <!-- row -->
+    <% unless last_page? @reviews %>
+      <div class="text-center clearfix btm20 single-pagination-container" id="reviews-user-single-pagination-container" style="clear:both">
+        <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
+          <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+        </div>
+        <%= link_to "Load More", paginate_reviews_user_path(@user, active_reviews_user: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews_user_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+      </div>
+    <% end %>
+
   </div>
 </section>
