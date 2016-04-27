@@ -1,0 +1,16 @@
+<%# if !@user.user_photos.blank? %>
+<%# @user.user_photos.each do |photo| %>
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 btm15">
+    <div class="body-stories">
+      <div class="p-dynamic member-profile">
+      <p class="top10"><%= photo.place.display_name rescue "" %></p>
+      <h3 class="font-orange2 topmin5 btm20"><%= photo.caption rescue "" %></h3>
+      <p class="grey"><i class="fa fa-camera"></i> 9 </p>
+      </div>
+        <div class="img-story-place">
+          <img align="right" src="<%= photo.path_url %>" alt="<%= photo.caption rescue "" %>">
+        </div>
+    </div>
+  </div>
+<%# end %>
+<%# end %>

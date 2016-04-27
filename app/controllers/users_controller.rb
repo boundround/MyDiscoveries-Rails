@@ -95,10 +95,17 @@ class UsersController < ApplicationController
   def photos
     if user_signed_in? || current_user.admin?
       @user = User.includes(:user_photos).find(params[:id])
+      @photos = @user.user_photos.paginate(:page => params[:active_photos], per_page:12)
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
   end
+ 
+  def paginate_photos
+    @user = User.find(params[:id])
+    @photos = @user.user_photos.paginate(:page => params[:active_photos], per_page:12)
+  end
+
 
   def videos
     if user_signed_in?

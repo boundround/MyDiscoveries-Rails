@@ -31,23 +31,18 @@
 
 <section class="your-stories btm15">
   <div class="container">
-    <div class="row">
-      <% if !@user.user_photos.blank? %>
-        <% @user.user_photos.each do |photo| %>
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 btm15">
-            <div class="body-stories">
-              <div class="p-dynamic member-profile">
-              <p class="top10"><%= photo.place.display_name rescue "" %></p>
-              <h3 class="font-orange2 topmin5 btm20"><%= photo.caption rescue "" %></h3>
-              <p class="grey"><i class="fa fa-camera"></i> 9 </p>
-              </div>
-                <div class="img-story-place">
-                  <img align="right" src="<%= photo.path_url %>" alt="<%= photo.caption rescue "" %>">
-                </div>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
+    <div class="row" id="photos-user-list" >
+
+    <%= render partial: 'photos_user_list', collection: @photos, as: :photo %>
+
     </div> <!-- row -->
+    <% unless last_page? @photos %>
+      <div class="text-center clearfix btm20 single-pagination-container" id="photos-single-pagination-container" style="clear:both">
+        <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+          <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+        </div>
+        <%= link_to "Load More", paginate_photos_user_path(@user, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'photos_user_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+      </div>
+    <% end %>
   </div>
 </section>
