@@ -173,7 +173,7 @@
 
               <% unless last_page? @places_to_visit %>
                 <div class="text-center clearfix btm20 single-pagination-container" id="places_to_visit-single-pagination-container" style="clear:both">
-                  <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+                  <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
                     <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                   </div>
                   <%= link_to "Load More", place_path(@place, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
