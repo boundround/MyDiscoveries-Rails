@@ -10,11 +10,9 @@ class SearchRequestsController < ApplicationController
   	search_request.term = params[:term]
   	if search_request.save
   		NewSearchRequest.notification(search_request.name, search_request.email, search_request.term ).deliver
-  		# render json: statusText[status: "success"]
-  		render json: search_request
+  		render json: { success:true } 
   	else
-  		# render json: statusText[status: "error"]#search_request.errors.message
-  		render json: search_request
+  		render json: { success:false, messages: "Please check your input: #{search_request.errors.full_messages.to_sentence}" }
   	end
 
   	
