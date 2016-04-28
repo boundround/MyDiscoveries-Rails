@@ -271,6 +271,7 @@ class PlacesController < ApplicationController
     @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page: 4)
 
     @related_places = @place.children
+    @last_video = @place.videos.active.last
     # @place.videos.active.each do |video|
     #     @videos << video
     # end
@@ -315,7 +316,7 @@ class PlacesController < ApplicationController
     #   format.js
     # end
   end
-  
+
   def paginate_videos
     @place = Place.find_by_slug(params[:id])
     @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page: 4)
@@ -509,7 +510,7 @@ class PlacesController < ApplicationController
     # @user_photos = @place.user_photos.where('hero=? OR hero=?', false, nil)
     @user_photos = @place.user_photos
     @place_photos = @place.photos
-    
+
     # if params[:type].eql? "UserPhoto"
     #   @place.user_photo.find(photo_id).update(hero:true)
     # else

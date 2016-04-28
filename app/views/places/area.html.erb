@@ -33,7 +33,7 @@
               <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
             </li>
           <% else %>
-            <li> 
+            <li>
               <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
             </li>
           <% end %>
@@ -118,9 +118,9 @@
 
 
       <section class="map">
-        <div id="map">
-        </div>
-      </section>
+
+   <%= render partial: "shared/recent_video" %>
+
     </div> <!-- /col-right -->
   </div>
   </section>
@@ -231,5 +231,6 @@
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
+<%= render 'shared/video_modal' %>
 <%#= render 'layouts/video_modal' %>
 <%#= render 'stories/modal_story' %>

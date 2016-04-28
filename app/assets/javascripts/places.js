@@ -239,11 +239,11 @@ function responsiveModalVideo(){
        iframe.prop("height", "180px");
     }
     // Extra Small Device
-    else if ($(window).width() <= 414){
-       iframe.prop("width", "220px");
-       iframe.prop("height", "130px");
+   else if ($(window).width() <= 414){
+       iframe.prop("width", "270px");
+       iframe.prop("height", "155px");
+       // alert("asd");
     }
-    // alert("video");
 }
 
 function chooseHero(){

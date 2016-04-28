@@ -1,0 +1,31 @@
+<section class="video-last">
+  <% unless @last_video.blank? %>
+    <div class="text-center">
+      <h4>Featured Video</h4>
+    </div>
+    <div class="body-stories">
+    <% if !@last_video.youtube_id.blank? %>
+        <video data-id="<%= @last_video.youtube_id %>" data-video="youtube" poster="<%= @last_video.vimeo_thumbnail %>" class="play-in-modal" data-modal="#video-modal" data-video-url="<%= @last_video.url %>">
+      </video>
+      <% else %>
+        <video data-id="<%= @last_video.vimeo_id %>" data-video="vimeo" poster="<%= @last_video.vimeo_thumbnail %>" class="play-in-modal" data-modal="#video-modal" data-video-url="<%= @last_video.url %>">
+      </video>
+      <% end %>
+      <%= link_to '', class: 'play-video' do %>
+        <i class="fa fa-play play-video"></i>
+      <% end %>
+    </div>
+
+      <div class="head-stories">
+      <div>
+          <div class="profile-outer">
+            <img src="<%= asset_path('br-logo-new-blue.png')%>" alt="">
+          </div>
+          <div class="title">
+            <p><%= place_or_country_link(@last_video.place) %></p>
+            <h4 class="small-video-title"><%= @last_video.title %></h4>
+          </div>
+      </div>
+    </div>
+    <% end %>
+</section>

@@ -1761,6 +1761,11 @@ section.video-show .body-stories .fa-play{
   left: 47%;
   font-size: 38px;
 }
+@media (max-width: 320px){
+ 	section.video-show .body-stories .fa-play{
+ 		top: 36%;
+ 	}
+ }
 video{
   border-radius: 4px;
 	width: 100%;
@@ -2085,7 +2090,7 @@ section.photo-latest .image img{
 	    float: left;
 	    width: 20%;
 	}
-	.header-image-with-nav .action .left {	
+	.header-image-with-nav .action .left {
 		float: left;
 	}
 }
@@ -4339,7 +4344,7 @@ input.form-control.input-text-nearby{
     }
     .modal-content.cs-modal-content-video {
         min-height: initial !important;
-        width: 250px !important;
+        width: 300px !important;
         margin: auto
     }
 }
@@ -4519,8 +4524,30 @@ input.more-result{
 .col-hero-list{
 	margin: 0 0 15px 0;
 }
+
 #search_request{
 	button{
 		width: 120px;
+	}
+}
+section.video-last {
+	.body-stories {
+	    min-height: initial;
+	    position: relative;
+	}
+
+	a.play-video{
+		position: absolute;
+	    top: 40%;
+	    left: 45%;
+	    font-size: 30px;
+	    color: #fff;
+	}
+	.head-stories{
+	    height: 35px;
+    	line-height: 30px;
+	}
+	h4{
+		margin-top: 0;
 	}
 }
