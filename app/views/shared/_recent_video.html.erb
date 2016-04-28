@@ -1,6 +1,7 @@
 <section class="video-last">
+  <% unless @last_video.blank? %>
     <div class="text-center">
-      <h4>Most Recent Video</h4>
+      <h4>Featured Video</h4>
     </div>
     <div class="body-stories">
     <% if !@last_video.youtube_id.blank? %>
@@ -35,4 +36,5 @@
         <% end %>
       </div>
     </div>
+    <% end %>
 </section>
