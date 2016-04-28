@@ -2012,6 +2012,7 @@ section.photo-latest .image img{
     width: 90%;
     margin: 0;
     font-size: 13px;
+    float: left;
 }
 .header-image-with-nav .component ul{
 	list-style: none;
@@ -2080,9 +2081,12 @@ section.photo-latest .image img{
 	top: 0! important;
 }
 @media(min-width: 320px){
-	.header-image-with-nav .action .left, .header-image-with-nav .action .center,.header-image-with-nav .action .right{
+	.header-image-with-nav .action .center,.header-image-with-nav .action .right{
 	    float: left;
 	    width: 20%;
+	}
+	.header-image-with-nav .action .left {	
+		float: left;
 	}
 }
 @media(max-width: 339px){
@@ -2105,9 +2109,12 @@ section.photo-latest .image img{
 	}
 }
 @media(max-width: 767px){
-.header-image-with-nav .action .left, .header-image-with-nav .action .center,.header-image-with-nav .action .right{
+.header-image-with-nav .action .center,.header-image-with-nav .action .right{
   float: left;
   width: 33.333333333333336%;
+	}
+	.header-image-with-nav .action .left {
+		float: left;
 	}
 }
 @media(min-width: 768px){
@@ -2316,17 +2323,35 @@ span.green-font {
 	background: white;
 	border: 1px solid black;
 }
-
-.component-desk ul{
-    list-style: none;
-    display: -webkit-inline-flex;
-    display: inline-flex;
+/*  MINi NAV */
+.component-desk ul {
+	list-style: none;
+	display: -webkit-inline-flex;
+	display: inline-flex;
 }
-.component-desk ul li{
-	margin-right: 15px;
+.action .left ul {
+	float: left !important;
+	list-style-type: none;
+	display: -webkit-inline-flex;
+  display: inline-flex;
 }
-.component-desk ul li a, .component-desk ul li i{
+.component-desk ul li {
+	margin-left: 15px;
+}
+.action .component-desk ul li {
+	margin-left: 15px;
+}
+.component-desk ul li a, .component-desk ul li i, .action ul li i{
     color: #fff !important;
+}
+.action .left ul li {
+	margin-right: 15px;
+	float: left;
+	position: relative;
+	left: -40px;
+}
+a.place-favorite {
+	margin-left: 5px;
 }
 
 /*END HEADER IMAGE WITH NAV FOR MUSEUM SECTION*/
@@ -2399,12 +2424,10 @@ img#icon {
 	height: 22px;
 	/*width: 40px;*/
 	position: relative;
-	top: -10px;
 	left: -5px;
 }
 span#temperature {
 	position: relative;
-	top: -10px;
 	left: -2px;
 }
 /*END DETAIL PLACE*/
@@ -2413,19 +2436,26 @@ span#temperature {
 section.map{
 	background: #fff;
 	position: relative;
-	margin-top: 15px;
+	/*margin-top: 15px;*/
 }
 #map {
 	width: 100%;
 	min-height: 185px;
+	z-index: 1;
 }
 .btn-map{
 	z-index: 1;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -20px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -70px;
 }
+@media(min-width: 768px){
+	.btn-map {
+		top: -20px;
+	}
+}
+
 /*END MAP*/
 /*VISIT-PLACE*/
 section.visit-place{

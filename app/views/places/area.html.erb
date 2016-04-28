@@ -25,18 +25,21 @@
         </div>
       </div>
       <div class="action">
-        <!-- <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div> -->
-        <%# if user_signed_in? %>
-           <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#userPhotoModal" ><i class="fa fa-plus"></i> Add photo</a>  </div> -->
-          <%# else %>
-          <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus"></i> Add photos</a>  </div> -->
-        <%# end %>
+      <div class="left">
+        <ul>
+          <!-- Add To Favourites -->
+          <% if user_signed_in? && @place.users.include?(current_user) %>
+            <li>
+              <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
+            </li>
+          <% else %>
+            <li> 
+              <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
 
-        <%# if user_signed_in?%>
-          <!-- <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
-        <%# else %>
-          <!-- <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
-        <%# end %>
         <div class="pull-right hidden-xs">
           <div class="component-desk">
             <ul>
@@ -113,17 +116,6 @@
 
 
       <section class="map">
-          <% if user_signed_in? && @place.users.include?(current_user) %>
-            <div class="text-center btn-map">
-              <i class="fa fa-bookmark-o i-fav-area"></i>
-              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Remove From Favourites</a>
-            </div>
-              <% else %>
-            <div class="text-center btn-map">
-              <i class="fa fa-bookmark-o i-fav-area"></i>
-              <a href="#" class="btn btn-default btn-shadow place-favorite a-fav-area" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>" > Add To Favourites</a>
-            </div>
-          <% end %>
         <div id="map">
         </div>
       </section>
