@@ -1,4 +1,4 @@
-class LiveNotification < BaseMandrillMailer
+class LiveNotification < ActionMailer::Base
   helper :application
   default from: "website@boundround.com"
 

@@ -2,7 +2,7 @@ class Want < ActionMailer::Base
   default from: "website@boundround.com"
 
   def notification(place, address)
-    @email = "janeece@boundround.com"
+    @email = "donovan@boundround.com"
     @place = place
     @address = address
 
