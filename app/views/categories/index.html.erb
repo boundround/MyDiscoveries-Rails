@@ -19,7 +19,7 @@
 
 <% unless last_page? @categories %>
   <div class="text-center clearfix single-pagination-container">
-    <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+    <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
       <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
     </div>
     <%= link_to 'Load more..', categories_path(page: @categories.next_page, per_page: 10 ), :class => 'btn btn-default btm20 single-pagination', remote: true %>

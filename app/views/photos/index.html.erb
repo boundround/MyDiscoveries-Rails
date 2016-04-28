@@ -38,7 +38,7 @@
 
   <% unless last_page? @photos %>
     <div class="text-center clearfix btm15 single-pagination-container" id="photos-single-pagination-container" style="clear:both">
-      <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+      <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
         <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
       </div>
       <%= link_to "Load More", photos_path(page: @photos.next_page, resources: 'photos'), class: 'btn btn-default single-pagination', remote: true %>

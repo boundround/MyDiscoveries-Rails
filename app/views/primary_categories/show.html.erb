@@ -47,7 +47,7 @@
       </div>
       <% unless last_page? @areas %>
         <div class="text-center clearfix btm15 single-pagination-container" id="areas-single-pagination-container" style="clear:both">
-          <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+          <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
             <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
           </div>
           <%= link_to "Load More", primary_category_path(areas_page: @areas.next_page, resources: 'areas'), class: 'btn btn-default single-pagination', remote: true %>
@@ -167,7 +167,7 @@
   </section>
   <% unless last_page? @places %>
     <div class="text-center clearfix btm15 single-pagination-container" id="places-single-pagination-container" style="clear:both">
-      <div class="col-lg-12 col-md-12 btm15 hidden-lg single-pagination-loader" align="center">
+      <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
         <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
       </div>
       <%= link_to "Load More", primary_category_path(places_page: @places.next_page, resources: 'places'), class: 'btn btn-default single-pagination', remote: true %>
