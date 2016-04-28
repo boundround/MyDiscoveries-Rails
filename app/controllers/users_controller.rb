@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index, :draft_content]
@@ -95,10 +97,17 @@ class UsersController < ApplicationController
   def photos
     if user_signed_in? || current_user.admin?
       @user = User.includes(:user_photos).find(params[:id])
+      @photos = @user.user_photos.paginate(:page => params[:active_photos], per_page:12)
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
   end
+ 
+  def paginate_photos
+    @user = User.find(params[:id])
+    @photos = @user.user_photos.paginate(:page => params[:active_photos], per_page:12)
+  end
+
 
   def videos
     if user_signed_in?
@@ -148,9 +157,15 @@ class UsersController < ApplicationController
   def reviews
     if user_signed_in? || current_user.admin?
       @user = User.includes(:reviews).find(params[:id])
+      @reviews = @user.reviews.paginate(:page => params[:active_reviews_user], per_page:6)
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
+  end
+    
+  def paginate_reviews
+    @user = User.find(params[:id])
+    @reviews = @user.reviews.paginate(:page => params[:active_reviews_user], per_page:6)
   end
 
   def send_story

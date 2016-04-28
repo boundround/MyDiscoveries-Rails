@@ -164,12 +164,15 @@ Rails.application.routes.draw do
   get '/users/fun_facts' => 'users#fun_facts'
   get '/users/instagram_feed' => 'users#instagram_feed'
   get '/users/draft_content' => 'users#draft_content' # All User Uploaded Content in Draft
+  
   resources :users do
     collection { get 'leaderboard' }
     member { get 'favourites' }
+    member { get 'paginate_reviews' }
     member { get 'photos' }
     member { get 'reviews' }
     member { get 'stories' }
+    member { get 'paginate_photos' }
   end
 
   resources :three_d_videos
