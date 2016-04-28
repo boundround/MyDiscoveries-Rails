@@ -437,7 +437,8 @@ $(document).ready(function() {
 	}
 
 
-});
+
+}); //on ready
 
 $(window).resize(function() {
 	setImagesPosition();
