@@ -81,6 +81,7 @@ $(document).ready(function(){
     var instanthitTemplate = Hogan.compile($('#instant-hit-template').text());
     var instantPaginationTemplate= Hogan.compile($('#instant-pagination-template').text());
     var instantfacetTemplate = Hogan.compile($('#instant-facet-template').text());
+    var instantNoResultTemplate = Hogan.compile($('#instant-no-result-template').text());
   }
   function searchCondition(query){
     if (query.length > 0){
@@ -208,17 +209,81 @@ $(document).ready(function(){
   });
 
   function renderInstantHits(content)
-  {
-    if (content.hits.length > 0)
     {
-      $instantSearchHits.html(instanthitTemplate.render(content));
-    }else
-    {
-      $instantSearchHits.html('No result for '+ content.query);
+      if (content.hits.length > 0)
+      {
+        $instantSearchHits.html(instanthitTemplate.render(content));
+        $(".instant-hits-result-pagination").show();
+      }else {       
+        
+        $instantSearchHits.html(instantNoResultTemplate.render(content));
+
+        $(".show_form_request").click( function(){
+          $("#search_request").show();
+        });
+
+
+          $("form#search_request").submit(function(event) {
+              event.preventDefault();
+              var form_value = ( $(this).serialize() );
+              
+                $(this).find("button").addClass('sending');
+                $.ajax({
+                  url: '/search_requests/create',
+                  type: 'post',
+                  dataType: 'json',
+                  data: form_value,
+                })
+                .done(function(data) {
+                  // console.log(data);
+                  // console.log("done");
+                  if (data.success == true) {
+                      success = "<div class='alert alert-success alert-dismissible' role='alert'>"
+                                  +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+                                  +"Thank you, Your request has been sent to <strong>info@boundround.com.</strong> &nbsp;&nbsp; <a href='/' style='color: #3c763d;'>Back to home</a>"
+                                +"</div>" 
+                      setTimeout(function(){
+                        $("#search_request").find("button").removeClass('sending');
+                      }, 1000);
+                      setTimeout(function(){
+                        $("#search_request").hide();
+                      }, 1000);
+                      setTimeout(function(){
+                        $("#message-query").html(success);
+                      }, 1000);
+
+                  }else{
+                    // console.log("error");
+                    // console.log(data);
+                    error = "<div class='alert alert-warning alert-dismissible' role='alert'>"
+                                +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+                                +data.messages
+                              +"</div>"
+                    $("#message-query").html(error);
+                    setTimeout(function(){
+                        $("#search_request").find("button").removeClass('sending');
+                      }, 1000);
+                  };
+                })
+                .fail(function(data) {
+                  // console.log("error");
+                  // console.log(data);
+                  error = "<div class='alert alert-warning alert-dismissible' role='alert'>"
+                              +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+                              +data.statusText
+                            +"</div>"
+                  $("#message-query").html(error);
+                  
+                  
+                });
+          });
+
+        $(".instant-hits-result-pagination").hide();
+
+      }
+      rescueImage();
+      setImagesPosition();
     }
-    rescueImage();
-    setImagesPosition();
-  }
 
 function renderFacets(content, state) {
   var facetsHtml = '';
@@ -266,14 +331,8 @@ function renderFacets(content, state) {
 
 
   function renderMoreResults(content){
-    // alert("more result");
-    // console.log(content.query);
     $moreResult.html(moreResultsTemplate.render(content));
   }
-
-  // function renderNoResults(content){
-  //   $noResult.html(noResultsTemplate.render(content));
-  // }
 
   function renderHits(content) {
     $hits.html(hitTemplate.render(content));
@@ -287,35 +346,25 @@ function renderFacets(content, state) {
     };
     $stats.html(statsTemplate.render(stats));
   }
-function rescueImage(){
-      // $($(".hit-icon img")[0]).attr("src") == ""
-    var img = $(".hit-icon img");
-    $.each(img, function(index, val) {
-       if ($(val).attr("src") == ""){
-        // console.log($(val).attr("src") == "");
-            $(val).attr('src', "https://d1w99recw67lvf.cloudfront.net/images/generic-hero-small.jpg");
-            // console.log($(val).html());
-       }
-    });
-    img = $("img.rescue-image");
-    $.each(img, function(index, val) {
-       if ($(val).attr("src") == ""){
-        // console.log($(val).attr("src") == "");
-            $(val).attr('src', "https://d1w99recw67lvf.cloudfront.net/images/generic-hero-small.jpg");
-            // console.log($(val).html());
-       }
-    });
-}
+  function rescueImage(){
+      var img = $(".hit-icon img");
+      $.each(img, function(index, val) {
+         if ($(val).attr("src") == ""){
+              $(val).attr('src', "https://d1w99recw67lvf.cloudfront.net/images/generic-hero-small.jpg");
+         }
+      });
+      img = $("img.rescue-image");
+      $.each(img, function(index, val) {
+         if ($(val).attr("src") == ""){
+              $(val).attr('src', "https://d1w99recw67lvf.cloudfront.net/images/generic-hero-small.jpg");
+         }
+      });
+  }
   function checkedFacet(){
     var input = $(".ischecked");
     $.each(input, function(index, val) {
       new_val = $(val).data("value").toLowerCase().replace(" /", "").replace(/\s+/g,"-").replace('/','-')
-      // console.log(new_val)
-      console.log(new_val)
-      // console.log($(val).data("checked"))
-          // alert("");
        if ( new_val ==  $(val).data("checked") ) {
-          // $(val).prop('checked', true);
           $(val).click();
        }
     });

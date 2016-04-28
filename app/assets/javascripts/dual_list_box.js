@@ -352,6 +352,5 @@
 })(jQuery);
 
 $(document).ready(function(){
-    console.log("QHTA");
     $("#js-area-dual-box").DualListBox();
 });

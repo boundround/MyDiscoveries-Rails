@@ -1,4 +1,4 @@
-console.log('like.js');
+// console.log('like.js');
 $(document).ready(function() {
   $('.like-icon').on('click', function(e){
     e.preventDefault();

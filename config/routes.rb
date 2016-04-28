@@ -320,6 +320,7 @@ Rails.application.routes.draw do
     collection { post :import }
   end
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
+  post 'search_requests/create'
 
   match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]
 
