@@ -436,6 +436,49 @@ $(document).ready(function() {
 		});
 	}
 
+$(function(){
+	$("#form_change_password").submit(function(e) {
+		e.preventDefault();
+		var data_input = $(this).serialize();
+		// console.log(data_input);
+		$.ajax({
+			url: '/update_password_user',
+			type: 'post',
+			dataType: 'json',
+			data: data_input,
+		})
+		.done(function(data) {
+			if (data.success == true) {
+                  success = "<div class='alert alert-success alert-dismissible' role='alert'>"
+				              +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+				              +"Succes to change password"
+				            +"</div>" 
+				            $("#messages-devise").append(success);
+				            $("#form_change_password input").val("");
+
+			}else{
+					error = "<div class='alert alert-warning alert-dismissible' role='alert'>"
+	                            +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+	                            +data.messages
+	                          +"</div>"
+	                        $("#messages-devise").append(error);
+	                        $("#form_change_password input").val("");
+			};
+			// console.log("success");
+			// console.log(data);
+		})
+		.fail(function(data) {
+			console.log("error");
+			// console.log(data.status);
+			// console.log(data);
+			// console.log(data.responseText);
+		});
+		// .always(function() {
+		// 	console.log("complete");
+		// });
+		
+	});
+});
 
 });
 
