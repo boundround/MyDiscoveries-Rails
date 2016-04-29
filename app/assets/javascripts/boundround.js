@@ -435,9 +435,70 @@ $(document).ready(function() {
 	 		}
 		});
 	}
+	function setAvatarPosition(){
+		var img = $(".img-rounded.edit-profile img");
+		// var img = $(".img-rounded.edit-profile img")
+		$.each(img, function(index, val) {
+			setTimeout(function(){
+			if ($(val).height() < 200 ) {
+				$(val).css({"height":"200px", "max-width":"initial"});
+				// alert("height<200");
+			}
+			}, 500);
 
+			setTimeout(function(){
 
-});
+			if ($(val).width() > 200 ) {
+				width = $(val).width();
+				// console.log(width);
+				width_plus = width-200;
+				// console.log(width_plus);
+				margin = width_plus / 2;
+				// console.log(-margin);
+				$(val).css({"left":-margin});
+				// alert("width>200");
+			}
+			}, 500);
+		});
+	}
+	function avatarUpload(){
+		$(".img-rounded.edit-profile").mouseover(function() {
+			$(".avatar-text").show();
+		});
+		$(".img-rounded.edit-profile").mouseleave(function() {
+			$(".avatar-text").hide();
+		});
+		$(".img-rounded.edit-profile").click(function(event) {
+			$("#user_avatar").click();
+		});
+
+		    $('#avatar-upload').fileupload({
+				// dataType: 'json',
+		        add: function (e, data) {
+		            // console.log(e);
+		            // console.log(data);
+		            $(".avatar-img").hide();
+		            $(".avatar-text").text("Click to change your avatar");
+		            $("#submit-upload").click(function(event) {
+						data.submit();
+		            });
+		            if (data.files && data.files[0]) {
+			            var reader = new FileReader();
+
+			            reader.onload = function (e) {
+			                $('#image-avatar-preview').show().attr('src', e.target.result);
+			            }
+			            reader.readAsDataURL(data.files[0]);
+		            }
+		            setAvatarPosition();
+		        } //add
+			});
+	}
+
+	avatarUpload();
+	setAvatarPosition();
+
+}); //on ready
 
 $(window).resize(function() {
 	setImagesPosition();

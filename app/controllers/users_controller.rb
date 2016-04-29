@@ -57,9 +57,15 @@ class UsersController < ApplicationController
 
   end
 
+  # def upload_avatar
+  #   @user = User.find(params[:id])
+  #   if @user.update(user_params)
+  #     redirect_to root_path   
+  #   end
+  # end
+
   def update
     @user = User.find(params[:id])
-    
     unless @user.update(user_params)
       flash[:error] = @user.errors.full_messages.join(" and ")
     end

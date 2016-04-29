@@ -4551,3 +4551,22 @@ section.video-last {
 		margin-top: 0;
 	}
 }
+.img-rounded.edit-profile{
+	height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    position: relative;
+	img{
+		min-width: 100%;
+	    position: absolute;
+    	top: 0;
+	}
+}
+.avatar-text{
+	display: none;
+	position: absolute;
+    bottom: -20px;
+    width: 100%;
+    left: 0;
+    right: 0;
+}
