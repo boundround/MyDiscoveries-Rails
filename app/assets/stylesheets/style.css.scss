@@ -4551,3 +4551,35 @@ section.video-last {
 		margin-top: 0;
 	}
 }
+
+.medium-editor-insert-plugin .medium-insert-buttons{
+	left: -30px !important;
+}
+.medium-editor-insert-plugin .medium-insert-buttons .medium-insert-buttons-addons li{
+	background: none;
+}
+.medium-editor-insert-plugin .medium-insert-buttons .medium-insert-buttons-addons li a{
+	background: #fff;
+}
+.stories-show {
+	margin: 40px 40px;
+	.medium-insert-embeds-overlay{
+		display: none;
+	}
+	h1,h2,h3,h4,h5{
+		clear: both;
+	}
+	p{
+		font-size: 18px;
+	}
+}
+.title-editable.medium-editor-insert-plugin{
+	font-size: 22px;
+}
+.content-editable.medium-editor-insert-plugin{
+	font-size: 18px !important;
+}
+
+.bg-white{
+	background: #fff !important;
+}

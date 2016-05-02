@@ -44,7 +44,7 @@
 // require jquery.raty
 //= require ratyrate
 //= require user-photo-upload
-//= require ckeditor/init
+// require ckeditor/init
 // require ckeditor/config.js
 // require reviews
 
@@ -60,6 +60,12 @@
 // require places_crop
 //= require jquery.confirm.min
 //= require chart.min
+//= require jquery.iframe-transport 
+//= require jquery.ui.widget.js 
+//= require handlebars.runtime.js
+//= require medium-editor.min
+//= require medium-editor-insert-plugin.min
+//= require jquery-sortable-min.js
 //= require boundround
 // require mix_panel
 // require instafeed.min

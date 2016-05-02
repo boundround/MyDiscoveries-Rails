@@ -436,9 +436,136 @@ $(document).ready(function() {
 		});
 	}
 
+	var title_editable = new MediumEditor('.title-editable', {
+		    placeholder: {
+		    	text:'Title'
+	   		 },
+		     // align: 'center'
+	});
+	
+	// title_editable.trigger('editableClick', function(data, editable){
+	// 	console.log(data);
+	// 	alert("klk");
+	// 	console.log(editable);
+	// 	// console.log();
+		
+	// });
+	// title_editable.setContent("p", function(){
+	// 	alert("asd");
+	// });
+	
 
+	var content_editable = new MediumEditor('.content-editable', {
+		    placeholder: {
+		    	text:'Tell your story',
+	    	},
+	        autoLink: true
+	});
+
+	$(function () {
+		    $('.title-editable').mediumInsert({
+		        editor: title_editable,
+
+
+		        addons:{
+			        images: { 
+		            deleteScript: '/users/resolvejs', 
+		            fileUploadOptions: { 
+		                url: '/users/resolvejs', 
+		                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i 
+		            	},
+			        }
+		    	}
+			});
+	    $('.content-editable').mediumInsert({
+	        editor: content_editable,
+	         addons:{
+			        images: { 
+		            deleteScript: '/users/resolvejs', 
+		            fileUploadOptions: { 
+		                // url: '/users/'+ $("#user_id").data("id") +'/new_story', 
+		                url: '/users/resolvejs', 
+		                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i 
+		            	},
+			        }
+		    	}
+
+	    });
+	});
+$("#submit_story").click(function(event) {
+	var title = $(".title-editable")
+		content = $(".content-editable")
+		// if ( title.find("p").text() == "" ) {
+			// alert("Title can't be blank");
+		// 	}else{
+			$("#story_title").val(title.html());
+		// }
+
+		// if ( content.find("p").text() == "" ) {
+		// 	alert("Content can't be blank");
+		// }else{
+			$("#story_content").val(content.html());
+		// }
+
+		// if ( title.find("p").text() != "" &&  content.find("p").text() != "" ) {
+		// };
+			$("#submit-form-story").click();
 });
 
+$(".medium-editor-action").click(function(event){
+   setDefaultText();
+});
+
+
+
+setTimeout(function(){
+	// 
+	setDefaultText()
+ }, 1000);
+// $(".title-editable p").replaceWith("<h2></h2>")
+}); //doc ready
+
+
+function update_story(){
+	var title = $(".title-editable")
+		content = $(".content-editable")
+
+		title.html( $("#story_title").val());
+		content.html( $("#story_content").val() );
+}
+
+function setDefaultText(){
+	if($(".title-editable p").length != 0){
+	  text = $(".title-editable p").text();
+	  if(text == ""){
+	  	$(".title-editable p").replaceWith("<h2><br></h2>");		
+	  }else {
+	  	$(".title-editable p").replaceWith("<h2>"+text+"</h2>");
+	  	var sel = window.getSelection();
+	  	sel.removeAllRanges();
+	  }
+	  
+	}
+}
+
+function set_default_editor(){
+	var title = $(".title-editable")
+		content = $(".content-editable")
+
+	// if (title[0]) {};
+}
+
+function update_story(){
+	var title = $(".title-editable")
+		content = $(".content-editable")
+
+		title.html( $("#story_title").val());
+		content.html( $("#story_content").val());
+
+		$("#story_title").val("");
+		$("#story_content").val("");
+
+}
 $(window).resize(function() {
 	setImagesPosition();
 });

@@ -2,7 +2,8 @@ class StoriesController < ApplicationController
   before_filter :load_storiable, :except => :profile_create
   before_action :set_story_as_draft, only: [:create, :update]
   before_action :set_user_photos, only: [:create, :update]
-  before_action :set_story, only: [:edit, :update, :show]
+  before_action :set_story, only: [:index, :edit, :update, :show, :destroy]
+  before_action :set_body, only: [:new_story, :index_new, :edit_story, :show]
 
   def index
     @stories = @storiable.stories
@@ -59,6 +60,47 @@ class StoriesController < ApplicationController
   end
 
   def destroy
+   if @story.destroy
+      redirect_to  :back, notice: "Success"   
+   end 
+  end
+
+  def index_new
+    @stories = Story.where(user_id: current_user.id)
+  end
+
+  def new_story
+    place = Place.find_by_slug(params[:id])
+    @new_story = place.stories.new
+  end
+  def create_story
+    place = Place.find_by_slug(params[:id])
+    @new_story = place.stories.new(story_params)
+    if @new_story.save
+      redirect_to place_story_url(@new_story.storiable, @new_story), notice: "success"
+    else
+      redirect_to :back, notice: "error"
+    end
+  end
+
+  def update_story
+    @new_story = Story.find(params[:story_id])
+    if @new_story.update(story_params)
+      redirect_to place_story_url(@new_story.storiable, @new_story), notice: "success"
+    else
+      redirect_to :back, notice: "error"
+    end
+    
+  end
+
+  def edit_story
+    @new_story = Story.find(params[:story_id])
+  end
+  def new_destroy
+    
+  end
+  def set_body
+    @set_body_class ="bg-white"
   end
 
   private
@@ -67,11 +109,11 @@ class StoriesController < ApplicationController
     end
     def load_storiable
       resource, id = request.path.split("/")[1, 2]
-      @storiable = resource.singularize.classify.constantize.friendly.find(id)
+      # @storiable = resource.singularize.classify.constantize.friendly.find(id)
     end
 
     def story_params
-      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id, :age_bracket, :author_name,
+      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id, :age_bracket, :author_name, :date,
                                     user_photos_attributes: [:id, :title, :content, :user_id, :story_id, :story_priority, :place_id, :path, :status])
     end
 

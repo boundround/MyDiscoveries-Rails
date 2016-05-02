@@ -124,6 +124,7 @@ Rails.application.routes.draw do
 
   resources :stories
   post 'stories/profile_create' => 'stories#profile_create'
+  get 'stories_all' => 'stories#index_new'
 
   get 'stamp_transactions/stamp_here' => 'stamp_transactions#stamp_here'
   get 'stamp_transactions/stamp_error' => 'stamp_transactions#stamp_error'
@@ -164,9 +165,10 @@ Rails.application.routes.draw do
   get '/users/fun_facts' => 'users#fun_facts'
   get '/users/instagram_feed' => 'users#instagram_feed'
   get '/users/draft_content' => 'users#draft_content' # All User Uploaded Content in Draft
-  
+
   resources :users do
     collection { get 'leaderboard' }
+    collection { post 'resolvejs'}
     member { get 'favourites' }
     member { get 'paginate_reviews' }
     member { get 'photos' }
@@ -302,6 +304,12 @@ Rails.application.routes.draw do
     member { get 'choose_hero', as: :choose_hero }
     member { get 'paginate_videos', as: :paginate_videos}
     member { get 'paginate_photos', as: :paginate_photos}
+    # member { get 'new_story' }
+    member { get 'new_story' => 'stories#new_story'}
+    member { post 'create' => 'stories#create_story', as: :create_story}
+    member { get 'stories/:story_id/edit_story' => 'stories#edit_story', as: :edit_story }
+    member { post 'update_story/:story_id' => 'stories#update_story', as: :update_story}
+    # collection { delete 'stories/:story_id' => 'stories#new_destroy', as: :delete_new_story}
     # member { get 'stamp_error' }
     member { get 'hero_image_picker'}
     collection { get 'all_edited'} # all place content in draft
