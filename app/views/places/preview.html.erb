@@ -64,7 +64,7 @@
                   <div id="area-content">
                     <p><%= raw @place.description %></p>
                     <% unless @place.booking_url.blank? %>
-                      <a href="<%= @place.booking_url %>" target="blank" class="feedback">
+                      <a onclick="bookNowClicks()" href="<%= @place.booking_url %>" target="blank" class="feedback">
                         <button class="btn website-button">Book Now!</button>
                       </a>
                     <% end %>

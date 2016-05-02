@@ -19,7 +19,7 @@
     <!-- #hardcode -->
     <div class="right">
       <% if !area.viator_link.blank? %>
-        <a href="<%= area.viator_link%>" target="_blank" class="pink">Book Now</a>
+        <a onclick="bookNowClicks()" href="<%= area.viator_link%>" target="_blank" class="pink">Book Now</a>
       <% end %>
     </div>
   </div>
