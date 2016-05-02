@@ -102,13 +102,31 @@
               <% unless @related_places.blank? %>
                 <div class="rel-dest">
                   <p class="gray-color">Related Destinations</p>
-                  <ul>
-                  <% @related_places.each do |place| %>
-                    <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
-                    <% end %>
-                  </ul>
-                </div>
-              <% end %>
+
+                  <% if @related_places.size > 6 %>
+                    <ul>
+                      <% @related_places.first(6).each do |place| %>
+                        <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                      <% end %>
+                    </ul>
+                    <ul style="display:none">
+                      <% @related_places.each do |place| %>
+                        <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                      <% end %>
+                    </ul>
+                    <div class="clearfix btm15"></div>
+                    <button class="blueish more" style="background:none;border:none;outline:none;padding-left:0;">More <span class="fa fa-caret-down"></span></button>
+                    <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;display:none;">Less <span class="fa fa-caret-up"></span></button>
+                  <% else %>
+                    <ul>
+                      <% @related_places.each do |place| %>
+                        <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                      <% end %>
+                    </ul>
+
+                  <% end %>
+                  </div>
+                <% end %>
             </div>
           </div>
       <!-- </div> -->

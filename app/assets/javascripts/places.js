@@ -118,6 +118,11 @@ function setUpLoadMore() {
     $(this).siblings("button").toggle();
     $(this).hide();
   });
+  $(".rel-dest").find("button").click(function(){
+    $(this).siblings("button").toggle();
+    $(this).siblings("ul").toggle();
+    $(this).hide();
+  });
   
   var blog_text = $(".blog-content");
     $.each(blog_text, function(index, val) {
