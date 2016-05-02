@@ -143,7 +143,12 @@
   </div>
   </section>
 
-   <%= render partial: "shared/videos_photos_list" %>
+   <%= render partial: "shared/videos_list" %>
+
+   <%= render partial: "stories/all_stories", locals: { stories: @stories,title: "Your Stories" }%>
+   <%= render "stories/modal_story" %>
+
+
 
 </div> <!-- /main container -->
 
@@ -161,15 +166,12 @@
 
 <div class="container padding-style">
   <div class="row">
-    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- left-col -->
 
-      <%= render partial: "stories/all_stories", locals: { stories: @stories,title: "Your Stories" }%>
-      <%= render "stories/modal_story" %>
+      
 
       <div class="border-section clearfix btm0 top20 visible-xs"></div>
-    </div> <!-- /left-col -->
 
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- right-col -->
+    <div class="col-xs-12"> <!-- right-col -->
 
       <%= render :partial => "fun_facts_mobile", :locals => { :color => "pink", bg: "bg-orange" }  %>
 
@@ -198,7 +200,11 @@
     </div>
 
     </div> <!-- /col-md-8 -->
-  </div>
+  </div> <!-- container -->
+
+<div class="container padding-style">
+   <%= render partial: "shared/photos_list" %>
+</div>
 <!--  -->
 <% unless @famous_faces.blank? %>
 <section class="famous-faces">
@@ -222,6 +228,7 @@
   </div>
 </section>
 <% end %>
+
 <!-- <section class="member-saying">
   <div class="container padding-style">
       <h4 class="section-title">What our members are saying</h4>

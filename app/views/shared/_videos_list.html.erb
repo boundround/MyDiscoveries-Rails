@@ -1,0 +1,24 @@
+<% if @videos.present? %>
+  <a name="videos"></a>
+  <section class="your-stories video-show">
+  <div class="text-center">
+    <h4>Videos</h4>
+  </div>
+    <div class="row"  id="videos-list">
+      <%= render partial: 'shared/featured_videos_list', collection: @videos, as: :video %>
+    </div>
+  <% unless last_page? @videos %>
+    <div class="text-center clearfix btm20 single-pagination-container" id="videos-single-pagination-container" style="clear:both">
+      <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
+        <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+      </div>
+      <% if params[:controller].eql? "places" %>
+      <%= link_to "Load More", paginate_videos_place_path(@place, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+      <% else %>
+      <%= link_to "Load More", paginate_videos_country_path(@country, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+      <% end %>
+    </div>
+  <% end %>
+  </section>
+<% end %>
+
