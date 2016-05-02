@@ -148,9 +148,11 @@ Rails.application.routes.draw do
     get "/sign_in" => "devise/sessions#new"
     get '/users/sign_out' => 'devise/sessions#destroy'
     put 'users/:id' => 'users#update'
+    post '/update_password_user' =>  'users/user_password#update_password'  
   end
 
-  devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions" }
+  devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
+
 
   resources :pages
 
@@ -174,6 +176,8 @@ Rails.application.routes.draw do
     member { get 'stories' }
     member { get 'paginate_photos' }
   end
+  
+  
 
   resources :three_d_videos
 
