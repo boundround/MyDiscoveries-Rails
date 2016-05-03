@@ -37,10 +37,13 @@
               <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
             </li>
           <% end %>
+          <% if user_signed_in? %>
+            <li><a href="<%= new_story_place_path %>" class="white" ><i class="fa fa-file-text-o"></i> Tell your story</a></li>
+            <% else %>
+            <li><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></li>
+          <% end %>
         </ul>
       </div>
-
-          <div class="right"><a  href="<%= new_story_place_path %>" class="white" ><i class="fa fa-file-text-o"></i> Tell your story</a></div>
         <div class="pull-right hidden-xs">
           <div class="component-desk">
             <ul>
@@ -103,13 +106,31 @@
               <% unless @related_places.blank? %>
                 <div class="rel-dest">
                   <p class="gray-color">Related Destinations</p>
-                  <ul>
-                  <% @related_places.each do |place| %>
-                    <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
-                    <% end %>
-                  </ul>
-                </div>
-              <% end %>
+
+                  <% if @related_places.size > 6 %>
+                    <ul>
+                      <% @related_places.first(6).each do |place| %>
+                        <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                      <% end %>
+                    </ul>
+                    <ul style="display:none">
+                      <% @related_places.each do |place| %>
+                        <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                      <% end %>
+                    </ul>
+                    <div class="clearfix btm15"></div>
+                    <button class="blueish more" style="background:none;border:none;outline:none;padding-left:0;">More <span class="fa fa-caret-down"></span></button>
+                    <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;display:none;">Less <span class="fa fa-caret-up"></span></button>
+                  <% else %>
+                    <ul>
+                      <% @related_places.each do |place| %>
+                        <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                      <% end %>
+                    </ul>
+
+                  <% end %>
+                  </div>
+                <% end %>
             </div>
           </div>
       <!-- </div> -->
@@ -126,7 +147,12 @@
   </div>
   </section>
 
-   <%= render partial: "shared/videos_photos_list" %>
+   <%= render partial: "shared/videos_list" %>
+
+   <%= render partial: "stories/all_stories", locals: { stories: @stories,title: "Your Stories" }%>
+   <%= render "stories/modal_story" %>
+
+
 
 </div> <!-- /main container -->
 
@@ -144,15 +170,12 @@
 
 <div class="container padding-style">
   <div class="row">
-    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!-- left-col -->
 
-      <%= render partial: "stories/all_stories", locals: { stories: @stories,title: "Your Stories" }%>
-      <%= render "stories/modal_story" %>
+
 
       <div class="border-section clearfix btm0 top20 visible-xs"></div>
-    </div> <!-- /left-col -->
 
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- right-col -->
+    <div class="col-xs-12"> <!-- right-col -->
 
       <%= render :partial => "fun_facts_mobile", :locals => { :color => "pink", bg: "bg-orange" }  %>
 
@@ -181,7 +204,11 @@
     </div>
 
     </div> <!-- /col-md-8 -->
-  </div>
+  </div> <!-- container -->
+
+<div class="container padding-style">
+   <%= render partial: "shared/photos_list" %>
+</div>
 <!--  -->
 <% unless @famous_faces.blank? %>
 <section class="famous-faces">

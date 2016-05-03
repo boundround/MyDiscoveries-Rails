@@ -1,5 +1,7 @@
 class Story < ActiveRecord::Base
   include Transactionable
+  extend FriendlyId
+  friendly_id :slug_candidates, :use => :slugged
   after_update :add_transaction
   # after_update :send_live_notification
 
@@ -42,6 +44,18 @@ class Story < ActiveRecord::Base
           self.save
         end
       end
+    end
+  end
+
+  def slug_candidates
+    html_title = Nokogiri::HTML::Document.parse self.title
+
+    title = html_title.at_css('h2').text rescue ""
+
+    if !title.blank?
+      title
+    else
+      "story about things to do with kids and families in #{self.storiable.display_name rescue ""}"
     end
   end
 

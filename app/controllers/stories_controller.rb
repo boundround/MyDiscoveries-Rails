@@ -45,13 +45,13 @@ class StoriesController < ApplicationController
 
   def update
     if params[:add_country]
-      @story.country_id = @story.storiable.country_id 
+      @story.country_id = @story.storiable.country_id
     else
       @story.country_id = nil
     end
     if @story.update(story_params)
       redirect_to place_story_path(@story.storiable, @story)
-    
+
     # respond_to do |format|
     #   format.html { redirect_to :back }
     #   format.json { render json: @story }
@@ -61,8 +61,8 @@ class StoriesController < ApplicationController
 
   def destroy
    if @story.destroy
-      redirect_to  :back, notice: "Success"   
-   end 
+      redirect_to  :back, notice: "Success"
+   end
   end
 
   def index_new
@@ -90,14 +90,14 @@ class StoriesController < ApplicationController
     else
       redirect_to :back, notice: "error"
     end
-    
+
   end
 
   def edit_story
-    @new_story = Story.find(params[:story_id])
+    @new_story = Story.find_by_slug(params[:story_id])
   end
   def new_destroy
-    
+
   end
   def set_body
     @set_body_class ="bg-white"
@@ -105,7 +105,7 @@ class StoriesController < ApplicationController
 
   private
     def set_story
-      @story = Story.find(params[:id])
+      @story = Story.find_by_slug(params[:id])
     end
     def load_storiable
       resource, id = request.path.split("/")[1, 2]
@@ -113,7 +113,7 @@ class StoriesController < ApplicationController
     end
 
     def story_params
-      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id, :age_bracket, :author_name, :date,
+      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id, :age_bracket, :author_name, :public, :date,
                                     user_photos_attributes: [:id, :title, :content, :user_id, :story_id, :story_priority, :place_id, :path, :status])
     end
 

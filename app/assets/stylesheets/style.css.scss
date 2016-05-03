@@ -16,6 +16,10 @@ body{
 	font-weight: 100 ;
 }
 
+.app-wrap {
+	min-height: 500px;
+}
+
 h1, h2, h3, h4{
 	font-weight: 100 !important;
 }
@@ -2214,6 +2218,7 @@ section.photo-latest .image img{
     	padding-bottom: 40px;
     	position: relative;
     	z-index: 1;
+    	margin-bottom: 15px;
 	}
 	.place-details{
 		margin-bottom: 20px;

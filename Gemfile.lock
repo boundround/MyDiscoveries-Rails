@@ -661,6 +661,7 @@ DEPENDENCIES
   mixpanel-ruby
   nested_form
   newrelic_rpm
+  nokogiri
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-instagram!

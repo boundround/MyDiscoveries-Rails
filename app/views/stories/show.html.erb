@@ -1,20 +1,12 @@
 <% slug = @story.storiable.slug %>
 
-<!-- <div class="text-center review-show"> -->
-<!-- <div class="stories-show">
-    <div class=""> <%= @story.title.html_safe %><%#= !@review.title.blank? ? @review.title : @review.reviewable.display_name %></div>
-    <h2>- <%= @story.user.username %> <%#= strip_domain_from_username @review.user %>
-    </h2>
-    
-    <div class="">
-    	<%= @story.content.html_safe %>
-    </div>
-    <h3><%#= link_to  @story.storiable.display_name, place_path(slug) %></h3>
-</div> -->
-
 <div class="stories-show">
 <div class="container">
 	<div class="row">
+        <div class="outer-profile">
+          <img src="<%= @story.user.avatar_url rescue "" %>" />
+        </div>
+        <p><div style="color:#fd7c56;margin-top:-7px;"><%= @story.user.username rescue "" %></div></p>
 		<div class="col-md-12"><%= @story.title.html_safe %></div>
 		<div class="col-md-12"><%= @story.content.html_safe %></div>
 	</div>

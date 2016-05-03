@@ -442,18 +442,18 @@ $(document).ready(function() {
 	   		 },
 		     // align: 'center'
 	});
-	
+
 	// title_editable.trigger('editableClick', function(data, editable){
 	// 	console.log(data);
 	// 	alert("klk");
 	// 	console.log(editable);
 	// 	// console.log();
-		
+
 	// });
 	// title_editable.setContent("p", function(){
 	// 	alert("asd");
 	// });
-	
+
 
 	var content_editable = new MediumEditor('.content-editable', {
 		    placeholder: {
@@ -468,11 +468,11 @@ $(document).ready(function() {
 
 
 		        addons:{
-			        images: { 
-		            deleteScript: '/users/resolvejs', 
-		            fileUploadOptions: { 
-		                url: '/users/resolvejs', 
-		                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i 
+			        images: {
+		            deleteScript: '/users/resolvejs',
+		            fileUploadOptions: {
+		                url: '/users/resolvejs',
+		                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
 		            	},
 			        }
 		    	}
@@ -480,12 +480,12 @@ $(document).ready(function() {
 	    $('.content-editable').mediumInsert({
 	        editor: content_editable,
 	         addons:{
-			        images: { 
-		            deleteScript: '/users/resolvejs', 
-		            fileUploadOptions: { 
-		                // url: '/users/'+ $("#user_id").data("id") +'/new_story', 
-		                url: '/users/resolvejs', 
-		                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i 
+			        images: {
+		            deleteScript: '/users/resolvejs',
+		            fileUploadOptions: {
+		                // url: '/users/'+ $("#user_id").data("id") +'/new_story',
+		                url: '/users/resolvejs',
+		                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
 		            	},
 			        }
 		    	}
@@ -519,7 +519,7 @@ $(".medium-editor-action").click(function(event){
 
 
 setTimeout(function(){
-	// 
+	//
 	setDefaultText()
  }, 1000);
 // $(".title-editable p").replaceWith("<h2></h2>")
@@ -538,13 +538,13 @@ function setDefaultText(){
 	if($(".title-editable p").length != 0){
 	  text = $(".title-editable p").text();
 	  if(text == ""){
-	  	$(".title-editable p").replaceWith("<h2><br></h2>");		
+	  	$(".title-editable p").replaceWith("<h2><br></h2>");
 	  }else {
 	  	$(".title-editable p").replaceWith("<h2>"+text+"</h2>");
 	  	var sel = window.getSelection();
 	  	sel.removeAllRanges();
 	  }
-	  
+
 	}
 }
 
@@ -566,6 +566,51 @@ function update_story(){
 		$("#story_content").val("");
 
 }
+
+$(function(){
+	$("#form_change_password").submit(function(e) {
+		e.preventDefault();
+		var data_input = $(this).serialize();
+		// console.log(data_input);
+		$.ajax({
+			url: '/update_password_user',
+			type: 'post',
+			dataType: 'json',
+			data: data_input,
+		})
+		.done(function(data) {
+			if (data.success == true) {
+                  success = "<div class='alert alert-success alert-dismissible' role='alert'>"
+				              +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+				              +"Succes to change password"
+				            +"</div>"
+				            $("#messages-devise").append(success);
+				            $("#form_change_password input").val("");
+
+			}else{
+					error = "<div class='alert alert-warning alert-dismissible' role='alert'>"
+	                            +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+	                            +data.messages
+	                          +"</div>"
+	                        $("#messages-devise").append(error);
+	                        $("#form_change_password input").val("");
+			};
+			// console.log("success");
+			// console.log(data);
+		})
+		.fail(function(data) {
+			console.log("error");
+			// console.log(data.status);
+			// console.log(data);
+			// console.log(data.responseText);
+		});
+		// .always(function() {
+		// 	console.log("complete");
+		// });
+
+	});
+});
+
 $(window).resize(function() {
 	setImagesPosition();
 });

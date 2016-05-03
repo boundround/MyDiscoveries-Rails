@@ -5,11 +5,18 @@
     </div>
       <% stories.each_with_index do |story, index| %>
           <% if  story.class.to_s.eql? "Story" %>
-              <div >
+              <div class="card"
+               data-class="story"
+               data-content="<%= story.content %>"
+               data-title="<%= story.title ? story.title : @storiable.display_name %>"
+               data-user="<%= story.user.name %>"
+                              <% story.user_photos.each_with_index do |photo, index| %>
+                                data-image-<%= index %>="<%= photo.path_url(:medium) %>"
+                              <% end %>>
                 <div class="head-stories">
                   <div class="left">
                     <% if user_signed_in? and current_user.id.eql? story.user_id %>
-                    <%= link_to "Edit My Story", edit_story_place_path(story.storiable, story), class: "" %>
+                    <%= link_to "Edit My Story", edit_story_place_path(story.storiable, story.slug), class: "" %>
                   <% end %>
                     <a href="#">
                       <div class="profile-outer">
@@ -25,7 +32,7 @@
                   </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%= story.user.videos.size %></a>
                   </div>
                 </div>
-                <div 
+                <div
                    class="card body-stories btm15"
                    data-class="story"
                    data-content="<%= story.content %>"
@@ -40,8 +47,8 @@
 
                     <% end %>
                     <p class="visited"><%= story.created_at.strftime("%B %Y") %></p>
-                    <p class="mrg0 pink"><%= story.title.html_safe %> </p>
-                     <%= story.content[0..280].html_safe + "..." %>
+                    <p class="mrg0 pink"><%= raw story.title %> </p>
+                     <%= raw story.content[0..280] + "..." %>
                   </div>
                 <div class="img-story-place outer-js">
 
@@ -66,7 +73,7 @@
                 <div class="right">
                 </div>
               </div>
-              <div 
+              <div
               class="card body-stories btm15" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-cat="<%= (@category ? params[:id] : "") rescue '' %>" data-place="<%= @place.display_name.parameterize rescue '' %>">
               <!-- class="body-stories btm15"> -->
                 <div class="p-dynamic blog">

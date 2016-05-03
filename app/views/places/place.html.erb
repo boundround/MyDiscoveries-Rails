@@ -48,9 +48,14 @@
             <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
           </li>
           <% else %>
-            <li> 
+            <li>
               <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
             </li>
+          <% end %>
+          <% if user_signed_in? %>
+            <li><a href="<%= new_story_place_path %>" class="white" ><i class="fa fa-file-text-o"></i> Tell your story</a></li>
+            <% else %>
+            <li><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></li>
           <% end %>
         </ul>
       </div>
@@ -58,12 +63,6 @@
          <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#userPhotoModal" ><i class="fa fa-plus white"></i> Add photo</a>  </div> -->
         <%# else %>
         <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus white"></i> Add photo</a>  </div> -->
-      <%# end %>
-      <%# if user_signed_in? %>
-        <!-- <div class="right"><a  href="#" class="white" id="aStoryModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
-        <div class="right"><a  href="<%= new_story_place_path %>" class="white" ><i class="fa fa-file-text-o"></i> Tell your story</a></div>
-        <%# else %>
-        <!-- <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
       <%# end %>
       <div class="pull-right hidden-xs">
         <div class="component-desk">
@@ -205,7 +204,11 @@
 
 
 
-   <%= render partial: "shared/videos_photos_list" %>
+  <%= render partial: "shared/videos_list" %>
+  <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories" }%>
+  <%= render "stories/modal_story" %>
+
+
 
 <%#= render "photo_carousel" %>
 
@@ -226,22 +229,15 @@
 </section>
 
 
-<div class="container padding-style">
-  <div class="row">
-    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> <!--left-col-->
 
-
-    <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories" }%>
-    <%= render "stories/modal_story" %>
-
+<div class="container padding-style"> <!-- main-container -->
     <div class="border-section clearfix btm0 top20 visible-xs"></div>
-    </div> <!-- /left-col -->
+    <div class="row">
+    <div class="col-xs-12"> <!-- right-col -->
 
-
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> <!-- right-col -->
       <section class="your-stories btm15 cards">
-        <div class="row">
-          <div class="col-xs-12">
+        <!-- <div class="row"> -->
+          <!-- <div class="col-xs-12"> -->
             <% unless @reviews.blank? %>
               <div class="text-left">
                 <h4 class="section-title">Member Reviews</h4>
@@ -261,8 +257,8 @@
               <% end %>
 
             <% end %>
-          </div>
-        </div> <!-- row -->
+          <!-- </div> -->
+        <!-- </div> -->
       </section>
 
 
@@ -274,27 +270,27 @@
           <div class="text-left">
             <h4 class="section-title">More places like this</h4>
           </div>
-          <div class="row">
-           <div class="col-xs-12" id="more_places-list">
+          <!-- <div class="row"> -->
+           <div id="more_places-list">
               <%= render partial: 'subcategories/areas_list', collection: @more_places, as: :area %>
-              <!-- #hardcode activate paginate (6 cards per page) -->
-              <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
             </div>
-          </div> <!-- row -->
+          <!-- </div> -->
         </section>
         <% unless last_page? @more_places %>
           <div class="text-center clearfix btm20 single-pagination-container" id="more_places-single-pagination-container" style="clear:both">
-            <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
+            <div class="btm15 hidden single-pagination-loader" align="center">
               <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
             </div>
             <%= link_to "Load More", place_path(@place, more_places_page: @more_places.next_page, resources: 'more_places', pagination_template: 'primary_categories/places_list', collection_object: 'place'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
           </div>
         <% end %>
       <% end %>
-      </div> <!-- /col-md-8 -->
-    </div> <!-- /main row -->
-  </div> <!-- /main container -->
-</div><!--/.area-content -->
+    <%= render partial: "shared/photos_list" %>
+
+   </div> <!-- /col -->
+  </div> <!-- /row -->
+</div> <!-- main-container -->
+
 <% end %>
 
 <%= render 'layouts/all_modal' %>

@@ -35,6 +35,8 @@ gem 'carrierwave-crop'
 
 gem 'httparty'
 
+gem 'nokogiri'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
