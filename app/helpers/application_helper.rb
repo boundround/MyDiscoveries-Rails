@@ -215,14 +215,12 @@ module ApplicationHelper
       placeholder = "https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/br_logo_new-30eb3b9bb0267503159d6cab93191844.png"
 
       if @place && !@place.photos.blank?
-        photo = @place.photos.first.path_url
-      elsif @area && !@area.photos.blank?
-        photo = @area.photos.first.path_url
+        photo = @place.photos.first.path_url :large
       elsif @country && !@country.photos.blank?
-        photo = @country.photos.first.path_url
+        photo = @country.photos.first.path_url :large
       end
 
-      if photo
+      if !photo.blank?
         return "<meta property='og:image' content='#{photo.gsub('https://', 'http://') }' />\n" + "<meta property='og:image:secure_url' content='#{photo}' />\n" + "<meta property='og:image:type' content='image/jpeg' />"
       else
         return "<meta property='og:image' content='#{ placeholder.gsub('https://', 'http://') }' />\n" + "<meta property='og:image:secure_url' content='#{placeholder}' />\n" + "<meta property='og:image:type' content='image/jpeg' />"
