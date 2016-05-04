@@ -1,6 +1,8 @@
 class Post < ActiveRecord::Base
   extend FriendlyId
 
+  before_update :regenerate_slug
+
   validates :title, presence: true
   validates :content, presence: true
   validates :user_id, presence: true
@@ -25,5 +27,11 @@ class Post < ActiveRecord::Base
   private
     def slug_candidates
       :seo_friendly_url
+    end
+
+    def regenerate_slug
+      if self.seo_friendly_url_changed?
+        self.slug = seo_friendly_url.parameterize
+      end
     end
 end
