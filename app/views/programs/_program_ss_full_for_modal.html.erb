@@ -188,7 +188,7 @@
           		<h4 class="text-center"><%= program.cost %></h4>
           	</div>
           	<div class="col-sm-12 ">
-          		<a href="<%= program.booknowpath ? program.booknowpath : (program.contact ? 'mailto:'+program.contact : '')%>" data-toggle="modal" target="_blank" class="book-now  form-control btn btn-default">Book now!</a>
+          		<a onclick="bookNowClicks()" href="<%= program.booknowpath ? program.booknowpath : (program.contact ? 'mailto:'+program.contact : '')%>" data-toggle="modal" target="_blank" class="book-now  form-control btn btn-default">Book now!</a>
           	</div>
           	<div class="clearfix"></div>
           	<!--IMPLEMENT div class="col-md-12 ">

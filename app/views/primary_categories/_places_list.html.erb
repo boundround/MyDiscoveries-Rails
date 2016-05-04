@@ -18,7 +18,7 @@
     </div>
     <div class="right">
       <% if !place.viator_link.blank? %>
-        <a href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
+        <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" class="pink">Book Now</a>
       <% end %>
     </div>
   </div>

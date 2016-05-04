@@ -110,7 +110,7 @@
                     <li>
 
                       <% unless @place.booking_url.blank? %>
-                        <a href="<%= @place.booking_url %>" target="blank" class="btn btn-default">Book now!</a>
+                        <a onclick="bookNowClicks()" href="<%= @place.booking_url %>" target="blank" class="btn btn-default">Book now!</a>
                       <% else %>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <% end %>
