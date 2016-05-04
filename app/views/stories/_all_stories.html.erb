@@ -16,7 +16,7 @@
                 <div class="head-stories">
                   <div class="left">
                     <% if user_signed_in? and current_user.id.eql? story.user_id %>
-                    <%= link_to "Edit My Story", edit_story_place_path(story.storiable, story.slug), class: "" %>
+                    <%= link_to "Edit My Story", edit_story_place_path(story.storiable, story.slug), class: "" %>d
                   <% end %>
                     <a href="#">
                       <div class="profile-outer">

@@ -122,7 +122,12 @@ Rails.application.routes.draw do
   resources :user_photos
   post 'user_photos/profile_create' => 'user_photos#profile_create'
 
-  resources :stories
+  resources :stories do
+    member { get 'new_story' => 'stories#new_story'}
+    member { post 'create_story' => 'stories#create_story', as: :create_story}
+    member { get 'edit_story' => 'stories#edit_story', as: :edit_story }
+    member { post 'update_story' => 'stories#update_story', as: :update_story}
+  end
   post 'stories/profile_create' => 'stories#profile_create'
   get 'stories_all' => 'stories#index_new'
 
@@ -149,7 +154,7 @@ Rails.application.routes.draw do
     get "/sign_in" => "devise/sessions#new"
     get '/users/sign_out' => 'devise/sessions#destroy'
     put 'users/:id' => 'users#update'
-    post '/update_password_user' =>  'users/user_password#update_password'  
+    post '/update_password_user' =>  'users/user_password#update_password'
   end
 
   devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
@@ -178,8 +183,8 @@ Rails.application.routes.draw do
     member { get 'stories' }
     member { get 'paginate_photos' }
   end
-  
-  
+
+
 
   resources :three_d_videos
 

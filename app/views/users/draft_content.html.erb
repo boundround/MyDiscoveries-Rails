@@ -7,15 +7,8 @@
       <thead>
         <tr>
           <th>Location</th>
-          <th>Add To Country</th>
           <th>Title</th>
-          <th>Content</th>
-          <th>Photo 1</th>
-          <th>Photo 1 Status</th>
-          <th>Photo 2</th>
-          <th>Photo 2 Status</th>
-          <th>Photo 3</th>
-          <th>Photo 3 Status</th>
+          <th>Edit</th>
           <th>Story Status</th>
           <th>User</th>
           <th>Update</th>
@@ -26,22 +19,8 @@
           <%= simple_form_for [story.storiable, story] do |f| %>
             <tr>
               <td><%= f.association :storiable, label_method: :display_name, collection: @places, value_method: :id %></td>
-              <td>
-                <%= check_box_tag :add_country, nil, (story.country_id.nil? ? false : "checked") %>
-                <%= label_tag "Add to country" %>
-              </td>
               <td><%= f.input :title %></td>
-              <td><%= f.input :content %></td>
-              <% story.user_photos.each do |photo| %>
-
-              <td><img src="<%= thumbnail_for(photo) if photo.path %>" class="photo-edit-thumb"></td>
-                <%= f.simple_fields_for :user_photos, photo do |ff| %>
-                  <td>
-                    <%= ff.input :status, label: "Photo Status", as: :select, collection: ["draft", "live", "removed"] %>
-                    <%= ff.input :id, as: :hidden, value: photo.id %>
-                  </td>
-                <% end %>
-                <% end%>
+              <td><%= link_to "Edit Story", edit_story_story_path(story) %></td>
               <td><%= f.input :status, label: "Story Status", as: :select, collection: ["draft", "live", "removed"] %></td>
               <td><%= f.association :user, label_method: :username, collection: @users, value_method: :id %></td>
               <td><%= f.submit :submit %></td>
