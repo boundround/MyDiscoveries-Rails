@@ -1,29 +1,34 @@
 
+<%= simple_form_for @user , :html => { :id => "avatar-upload", :multipart => true  } do |f| %>
 <div class="container btm40">
   <div class="row">
     <div class="head-title">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
       <h4 class="top20">My Account</h4>
       <h2 class="gray-font">Edit Profile</h2>
-      <div class="img-rounded" align="center">
-        <!-- <img src="<%= @user.avatar_url %>"/> -->
+      <div class="img-rounded edit-profile" align="center">
           <% if @user.avatar_url %>
-            <%= image_tag @user.avatar_url, class: 'img-circle img-responsive large-avatar' %><br>
+            <%= image_tag @user.avatar_url, class: 'img-responsive large-avatar avatar-img' %><br>
+            <img id="image-avatar-preview" class="img-responsive" alt="">
           <% else %>
-            <!-- <img style="width:100%" src="http://shipping-time.com/assets/custom/dp-7d19b1f2dd46251129ec7c472e44aa68a82a2fdde74b7b4aee1b06c89017c843.jpg" class="img-circle img-responsive large-avatar"><br> -->
-            <%= image_tag 'imgdummy.jpg', class: 'img-circle img-responsive large-avatar' %>
+            <%= image_tag 'imgdummy.jpg', class: 'img-responsive large-avatar' %>
+            <img id="image-avatar-preview" class="img-responsive" alt="">
           <% end %>
-      </div>
+          </div>
+          <% if @user.avatar_url %>
+            <span class="avatar-text" >Click to change your avatar</span>
+            <% else %>
+            <span class="avatar-text" >Click to upload your avatar</span>
+          <% end %>
+          <%= f.input :avatar, as: :file, label: false, input_html: { class: "form-control hide" } %>
     </div>
     </div>
   </div>
   </div> <!-- row -->
-</div>
 
 <section class="explore topmin16">
   <div class="container container-white">
     <div class="row">
-      <%= simple_form_for @user do |f| %>
         <div class="col-xs-12 col-sm-12 top15">
           <span class="btn btn-default btn-block">
           <span class="grey">Email</span><br>
@@ -34,7 +39,7 @@
           <a href="" class="left15" data-toggle="modal" data-target="#change_password">Change Password</a>
         </div>
 
-        
+
         <!-- <div class="col-xs-12 col-sm-12 top15">
           <span class="btn btn-default btn-block">
             <span class="grey">Change Password</span><br>
@@ -87,8 +92,8 @@
           <%= f.input :country, label: false, input_html: { class: "form-control" } %>
           </span>
         </div>
-        <div class="col-xs-12 col-sm-12 top15 left15">
-          <%= f.submit "Save", class: "btn btn-alert" %>
+        <div class="col-xs-12 col-sm-12 top15">
+          <%= f.submit "Save", class: "btn btn-alert", id: "submit-upload" %>
         </div>
         <!-- <div class="col-xs-12 col-sm-12 top5">
           <p class="pink">I'm interested in</p>
@@ -127,7 +132,7 @@
       <div class="modal-body">
       <div id="messages-devise"></div>
         <form id="form_change_password">
-        
+
           <div class="top15">
               <span class="grey">Current Password</span><br>
               <input type="password" name="user[current_password]" class="form-control" required>

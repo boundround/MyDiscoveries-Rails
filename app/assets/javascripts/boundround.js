@@ -436,10 +436,37 @@ $(document).ready(function() {
 		});
 	}
 
+	function setAvatarPosition(){
+		var img = $(".img-rounded.edit-profile img");
+		// var img = $(".img-rounded.edit-profile img")
+		$.each(img, function(index, val) {
+			setTimeout(function(){
+			if ($(val).height() < 200 ) {
+				$(val).css({"height":"200px", "max-width":"initial"});
+				// alert("height<200");
+			}
+			}, 500);
+
+			setTimeout(function(){
+
+			if ($(val).width() > 200 ) {
+				width = $(val).width();
+				// console.log(width);
+				width_plus = width-200;
+				// console.log(width_plus);
+				margin = width_plus / 2;
+				// console.log(-margin);
+				$(val).css({"left":-margin});
+				// alert("width>200");
+			}
+			}, 500);
+		});
+	}
+
 	var title_editable = new MediumEditor('.title-editable', {
-		    placeholder: {
-		    	text:'Title'
-	   		 },
+		    																	placeholder: {
+		    																		text:'Title'
+	   		 																	}
 		     // align: 'center'
 	});
 
@@ -456,159 +483,189 @@ $(document).ready(function() {
 
 
 	var content_editable = new MediumEditor('.content-editable', {
-		    placeholder: {
-		    	text:'Tell your story',
-	    	},
-	        autoLink: true
+		    																		placeholder: {
+		    																			text:'Tell your story',
+	    																			},
+	        																	autoLink: true
 	});
 
-	$(function () {
-		    $('.title-editable').mediumInsert({
-		        editor: title_editable,
-
-
-		        addons:{
-			        images: {
-		            deleteScript: '/users/resolvejs',
-		            fileUploadOptions: {
-		                url: '/users/resolvejs',
-		                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-		            	},
-			        }
-		    	}
+	$(function() {
+		 $('.title-editable').mediumInsert({
+		        								editor: title_editable,
+		        								addons:{
+			        								images: {
+		            								deleteScript: '/users/resolvejs',
+		            									fileUploadOptions: {
+		                								url: '/users/resolvejs',
+		                								acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+		            									},
+			        								}
+		    									}
 			});
+
 	    $('.content-editable').mediumInsert({
 	        editor: content_editable,
-	         addons:{
-			        images: {
-		            deleteScript: '/users/resolvejs',
-		            fileUploadOptions: {
-		                // url: '/users/'+ $("#user_id").data("id") +'/new_story',
-		                url: '/users/resolvejs',
-		                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-		            	},
-			        }
-		    	}
-
+	         				addons:{
+			        			images: {
+		            			deleteScript: '/users/resolvejs',
+		            			fileUploadOptions: {
+		                	// url: '/users/'+ $("#user_id").data("id") +'/new_story',
+		                	url: '/users/resolvejs',
+		                	acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+		            			}
+		            		}
+			     				}
 	    });
 	});
-$("#submit_story").click(function(event) {
-	var title = $(".title-editable")
+
+	$("#submit_story").click(function(event) {
+		var title = $(".title-editable")
 		content = $(".content-editable")
 		// if ( title.find("p").text() == "" ) {
 			// alert("Title can't be blank");
 		// 	}else{
-			$("#story_title").val(title.html());
+		$("#story_title").val(title.html());
 		// }
 
 		// if ( content.find("p").text() == "" ) {
 		// 	alert("Content can't be blank");
 		// }else{
-			$("#story_content").val(content.html());
+		$("#story_content").val(content.html());
 		// }
 
 		// if ( title.find("p").text() != "" &&  content.find("p").text() != "" ) {
 		// };
 			$("#submit-form-story").click();
-});
+	});
 
-$(".medium-editor-action").click(function(event){
-   setDefaultText();
-});
+	$(".medium-editor-action").click(function(event){
+ 		setDefaultText();
+	});
 
-
-
-setTimeout(function(){
+	setTimeout(function(){
 	//
-	setDefaultText()
- }, 1000);
-// $(".title-editable p").replaceWith("<h2></h2>")
-}); //doc ready
+		setDefaultText()
+		}, 1000);
+		// $(".title-editable p").replaceWith("<h2></h2>")
 
-
-function update_story(){
-	var title = $(".title-editable")
-		content = $(".content-editable")
+	function update_story(){
+		var title = $(".title-editable");
+		content = $(".content-editable");
 
 		title.html( $("#story_title").val());
 		content.html( $("#story_content").val() );
-}
-
-function setDefaultText(){
-	if($(".title-editable p").length != 0){
-	  text = $(".title-editable p").text();
-	  if(text == ""){
-	  	$(".title-editable p").replaceWith("<h2><br></h2>");
-	  }else {
-	  	$(".title-editable p").replaceWith("<h2>"+text+"</h2>");
-	  	var sel = window.getSelection();
-	  	sel.removeAllRanges();
-	  }
-
 	}
-}
 
-function set_default_editor(){
-	var title = $(".title-editable")
-		content = $(".content-editable")
+	function setDefaultText(){
+		if($(".title-editable p").length != 0){
+	  	text = $(".title-editable p").text();
+  		if(text == ""){
+  			$(".title-editable p").replaceWith("<h2><br></h2>");
+  		} else {
+  			$(".title-editable p").replaceWith("<h2>"+text+"</h2>");
+  			var sel = window.getSelection();
+  			sel.removeAllRanges();
+  		}
+		}
+	}
 
-	// if (title[0]) {};
-}
+	function set_default_editor(){
+		var title = $(".title-editable");
+		content = $(".content-editable");
+		// if (title[0]) {};
+	}
 
-function update_story(){
-	var title = $(".title-editable")
-		content = $(".content-editable")
+	function update_story(){
+		var title = $(".title-editable");
+		content = $(".content-editable");
 
 		title.html( $("#story_title").val());
 		content.html( $("#story_content").val());
 
 		$("#story_title").val("");
 		$("#story_content").val("");
+	}
 
-}
-
-$(function(){
-	$("#form_change_password").submit(function(e) {
-		e.preventDefault();
-		var data_input = $(this).serialize();
-		// console.log(data_input);
-		$.ajax({
-			url: '/update_password_user',
-			type: 'post',
-			dataType: 'json',
-			data: data_input,
-		})
-		.done(function(data) {
-			if (data.success == true) {
-                  success = "<div class='alert alert-success alert-dismissible' role='alert'>"
-				              +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
-				              +"Succes to change password"
-				            +"</div>"
-				            $("#messages-devise").append(success);
-				            $("#form_change_password input").val("");
-
-			}else{
+	$(function(){
+		$("#form_change_password").submit(function(e) {
+			e.preventDefault();
+			var data_input = $(this).serialize();
+			// console.log(data_input);
+			$.ajax({
+				url: '/update_password_user',
+				type: 'post',
+				dataType: 'json',
+				data: data_input,
+			})
+			.done(function(data) {
+				if (data.success == true) {
+	        success = "<div class='alert alert-success alert-dismissible' role='alert'>"
+					              +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+					              +"Succes to change password"
+					            +"</div>";
+	        $("#messages-devise").append(success);
+	        $("#form_change_password input").val("");
+				} else {
 					error = "<div class='alert alert-warning alert-dismissible' role='alert'>"
-	                            +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
-	                            +data.messages
-	                          +"</div>"
-	                        $("#messages-devise").append(error);
-	                        $("#form_change_password input").val("");
-			};
+		              	+"<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"
+		                + data.messages
+		                + "</div>"
+		      $("#messages-devise").append(error);
+		      $("#form_change_password input").val("");
+				}
 			// console.log("success");
 			// console.log(data);
-		})
-		.fail(function(data) {
-			console.log("error");
-			// console.log(data.status);
-			// console.log(data);
-			// console.log(data.responseText);
+			})
+			.fail(function(data) {
+				console.log("error");
+				// console.log(data.status);
+				// console.log(data);
+				// console.log(data.responseText);
+			});
+			// .always(function() {
+			// 	console.log("complete");
+			// });
 		});
-		// .always(function() {
-		// 	console.log("complete");
-		// });
-
 	});
+
+	function avatarUpload(){
+		$(".img-rounded.edit-profile").mouseover(function() {
+			$(".avatar-text").show();
+		});
+		$(".img-rounded.edit-profile").mouseleave(function() {
+			$(".avatar-text").hide();
+		});
+		$(".img-rounded.edit-profile").click(function(event) {
+			$("#user_avatar").click();
+		});
+
+		$('#avatar-upload').fileupload({
+			// dataType: 'json',
+		  add: function (e, data) {
+		    // console.log(e);
+		    // console.log(data);
+		    $(".avatar-img").hide();
+		    $(".avatar-text").text("Click to change your avatar");
+		    $("#submit-upload").click(function(event) {
+					data.submit();
+		    });
+
+		    if (data.files && data.files[0]) {
+			    var reader = new FileReader();
+			    reader.onload = function (e) {
+			      $('#image-avatar-preview').show().attr('src', e.target.result);
+			    }
+			    reader.readAsDataURL(data.files[0]);
+		    }
+
+		    setAvatarPosition();
+		  } //add
+		});
+	}
+
+	avatarUpload();
+	setAvatarPosition();
+
 });
 
 $(window).resize(function() {
