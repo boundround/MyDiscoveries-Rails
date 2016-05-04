@@ -55,8 +55,30 @@ class Story < ActiveRecord::Base
     if !title.blank?
       title
     else
-      "story about things to do with kids and families in #{self.storiable.display_name rescue ""}"
+      "user story about things to do with kids and families in #{self.storiable.display_name rescue ""}"
     end
+  end
+
+  def story_title
+    html_title = Nokogiri::HTML::Document.parse self.title
+
+    title = html_title.at_css('h2').text rescue ""
+  end
+
+  def story_images
+    content = Nokogiri::HTML::Document.parse self.content
+
+    images = content.css('img').map{ |image| image['src'] }
+  end
+
+  def teaser
+    string = ""
+    content = Nokogiri::HTML::Document.parse self.content
+    content.css('p').each do |paragraph|
+      string += "<p>" + paragraph + "</p>"
+    end
+
+    string = string[0..280] + "..."
   end
 
   protected

@@ -8,16 +8,13 @@
               <div class="card"
                data-class="story"
                data-content="<%= story.content %>"
-               data-title="<%= story.title ? story.title : @storiable.display_name %>"
+               data-title="<%= story.story_title ? story.story_title : @storiable.display_name %>"
                data-user="<%= story.user.name %>"
-                              <% story.user_photos.each_with_index do |photo, index| %>
-                                data-image-<%= index %>="<%= photo.path_url(:medium) %>"
+                              <% story.story_images.each_with_index do |photo, index| %>
+                                data-image-<%= index %>="<%= photo %>"
                               <% end %>>
                 <div class="head-stories">
                   <div class="left">
-                    <% if user_signed_in? and current_user.id.eql? story.user_id %>
-                    <%= link_to "Edit My Story", edit_story_place_path(story.storiable, story.slug), class: "" %>d
-                  <% end %>
                     <a href="#">
                       <div class="profile-outer">
                         <img src="<%= showing_image(story.user.avatar_url)%>" alt="">
@@ -28,32 +25,33 @@
                      </a>
                   </div>
                   <div class="right">
-                  <a href="#"><i class="fa fa-image"></i> <%= story.user.photos.size %>
-                  </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%= story.user.videos.size %></a>
+                  <a href="#"><i class="fa fa-image"></i> <%= story.story_images.size %>
+                  <!-- </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%#= story.user.videos.size %></a> -->
                   </div>
                 </div>
                 <div
                    class="card body-stories btm15"
                    data-class="story"
                    data-content="<%= story.content %>"
-                   data-title="<%= story.title ? story.title : @storiable.display_name %>"
+                   data-title="<%= story.story_title ? story.story_title : @storiable.display_name %>"
                    data-user="<%= story.user.name %>"
-                              <% story.user_photos.each_with_index do |photo, index| %>
-                                data-image-<%= index %>="<%= photo.path_url(:medium) %>"
+                              <% story.story_images.each_with_index do |photo, index| %>
+                                data-image-<%= index %>="<%= photo %>"
                               <% end %>>
                 <!-- class="body-stories btm15"> -->
                   <div class="p-dynamic">
-                    <% if !story.user_photos.blank? %>
-
-                    <% end %>
                     <p class="visited"><%= story.created_at.strftime("%B %Y") %></p>
                     <p class="mrg0 pink"><%= raw story.title %> </p>
-                     <%= raw story.content[0..280] + "..." %>
+                     <%= raw story.teaser %>
                   </div>
                 <div class="img-story-place outer-js">
-
-                  <% if !story.user_photos.blank? %>
-                    <img class="no-inner-js" align="right" src="<%= story.user_photos.first.path_url(:medium) %>" alt="">
+                  <% if !story.story_images.blank? %>
+                    <img class="no-inner-js" align="right" src="<%= story.story_images.first %>" alt="">
+                  <% end %>
+                </div>
+                <div>
+                  <% if story.user == current_user %>
+                    <%= link_to "Edit Your Story", edit_story_place_path(story.storiable, story) %>
                   <% end %>
                 </div>
             </div><!-- card -->

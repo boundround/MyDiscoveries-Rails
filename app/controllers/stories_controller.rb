@@ -50,7 +50,7 @@ class StoriesController < ApplicationController
       @story.country_id = nil
     end
     if @story.update(story_params)
-      redirect_to place_story_path(@story.storiable, @story)
+      redirect_to :back
 
     # respond_to do |format|
     #   format.html { redirect_to :back }
@@ -95,6 +95,7 @@ class StoriesController < ApplicationController
 
   def edit_story
     @new_story = Story.find_by_slug(params[:story_id])
+    @place = Place.find_by_slug(params[:id])
   end
   def new_destroy
 

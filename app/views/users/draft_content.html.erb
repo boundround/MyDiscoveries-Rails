@@ -8,24 +8,22 @@
         <tr>
           <th>Location</th>
           <th>Title</th>
+          <th># of Photos</th>
           <th>Edit</th>
           <th>Story Status</th>
           <th>User</th>
-          <th>Update</th>
         </tr>
       </thead>
       <tbody>
         <% @stories.each do |story| %>
-          <%= simple_form_for [story.storiable, story] do |f| %>
             <tr>
-              <td><%= f.association :storiable, label_method: :display_name, collection: @places, value_method: :id %></td>
-              <td><%= f.input :title %></td>
-              <td><%= link_to "Edit Story", edit_story_story_path(story) %></td>
-              <td><%= f.input :status, label: "Story Status", as: :select, collection: ["draft", "live", "removed"] %></td>
-              <td><%= f.association :user, label_method: :username, collection: @users, value_method: :id %></td>
-              <td><%= f.submit :submit %></td>
+              <td><%= story.storiable.display_name %></td>
+              <td><%= story.story_title %></td>
+              <td><%= story.story_images.size %></td>
+              <td><%= link_to "Edit Story", edit_story_place_path(story.storiable, story.slug) %></td>
+              <td><%= story.status %></td>
+              <td><%= story.user.email %></td>
             </tr>
-            <% end %>
           <% end %>
       </tbody>
     </table>
