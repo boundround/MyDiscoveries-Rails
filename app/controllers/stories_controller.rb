@@ -77,16 +77,20 @@ class StoriesController < ApplicationController
     place = Place.find_by_slug(params[:id])
     @new_story = place.stories.new(story_params)
     if @new_story.save
-      redirect_to place_story_url(@new_story.storiable, @new_story), notice: "success"
+      if @new_story.public = true
+        redirect_to place_story_url(@new_story.storiable, @new_story), notice: "Thanks for the Story! We'll let you know when others can see it too."
+      else
+        redirect_to place_story_url(@new_story.storiable, @new_story), notice: "Thanks for the Story! Set this story's status to 'public' if you'd like others to see it too."
+      end
     else
       redirect_to :back, notice: "error"
     end
   end
 
   def update_story
-    @new_story = Story.find(params[:story_id])
+    @new_story = Story.find_by_slug(params[:story_id])
     if @new_story.update(story_params)
-      redirect_to place_story_url(@new_story.storiable, @new_story), notice: "success"
+      redirect_to :back, notice: "Succesfully Updated Story"
     else
       redirect_to :back, notice: "error"
     end

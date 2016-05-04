@@ -548,7 +548,7 @@ $(document).ready(function() {
 		}, 1000);
 		// $(".title-editable p").replaceWith("<h2></h2>")
 
-	function update_story(){
+	function edit_story(){
 		var title = $(".title-editable");
 		content = $(".content-editable");
 
