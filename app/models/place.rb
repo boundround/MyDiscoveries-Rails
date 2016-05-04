@@ -4,82 +4,82 @@ class Place < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
-  algoliasearch index_name: "place", id: :algolia_id, if: :published? do
-    # list of attribute used to build an Algolia record
-    attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug
-    # attributes :is_area
-    attribute :country do
-      if self.country
-        "#{country.display_name}"
-      else
-        ""
-      end
-    end
-    attribute :area do
-      self.is_area ? 't' : 'f'
-    end
-    attribute :url do
-      Rails.application.routes.url_helpers.place_path(self)
-    end
+  # algoliasearch index_name: "place", id: :algolia_id, if: :published? do
+  #   # list of attribute used to build an Algolia record
+  #   attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug
+  #   # attributes :is_area
+  #   attribute :country do
+  #     if self.country
+  #       "#{country.display_name}"
+  #     else
+  #       ""
+  #     end
+  #   end
+  #   attribute :area do
+  #     self.is_area ? 't' : 'f'
+  #   end
+  #   attribute :url do
+  #     Rails.application.routes.url_helpers.place_path(self)
+  #   end
 
-    attribute :description do
-      if description
-        if description.length < 180
-          "#{description}"
-        else
-          "#{description[0..50]}..."
-        end
-      else
-        ""
-      end
-    end
+  #   attribute :description do
+  #     if description
+  #       if description.length < 180
+  #         "#{description}"
+  #       else
+  #         "#{description[0..50]}..."
+  #       end
+  #     else
+  #       ""
+  #     end
+  #   end
 
-    attribute :primary_category do
-       if self.primary_category
-        { name: "#{primary_category.name}", identifier: primary_category.identifier}
-      else
-        ""
-      end
-    end
+  #   attribute :primary_category do
+  #      if self.primary_category
+  #       { name: "#{primary_category.name}", identifier: primary_category.identifier}
+  #     else
+  #       ""
+  #     end
+  #   end
 
-    attribute :subcategories do
-      subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
-    end
+  #   attribute :subcategories do
+  #     subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
+  #   end
 
-    attribute :name do
-      string = "#{display_name}"
-      if !locality.blank?
-        string += ", #{locality}"
-      end
-      if country
-        string += ", #{self.country.display_name}"
-      end
-      string
-    end
+  #   attribute :name do
+  #     string = "#{display_name}"
+  #     if !locality.blank?
+  #       string += ", #{locality}"
+  #     end
+  #     if country
+  #       string += ", #{self.country.display_name}"
+  #     end
+  #     string
+  #   end
 
-    attribute :photos do
-      photo_array = photos.select { |photo| photo.published? }.map do |photo|
-        { url: photo.path_url(:small), alt_tag: photo.alt_tag }
-      end
-      photo_array += user_photos.select { |photo| photo.published? }.map do |photo|
-        { url: photo.path_url(:small), alt_tag: photo.caption }
-      end
-      photo_array
-    end
-     #country and url
+  #   attribute :photos do
+  #     photo_array = photos.select { |photo| photo.published? }.map do |photo|
+  #       { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+  #     end
+  #     photo_array += user_photos.select { |photo| photo.published? }.map do |photo|
+  #       { url: photo.path_url(:small), alt_tag: photo.caption }
+  #     end
+  #     photo_array
+  #   end
+  #    #country and url
 
-    # the attributesToIndex` setting defines the attributes
-    # you want to search in: here `title`, `subtitle` & `description`.
-    # You need to list them by order of importance. `description` is tagged as
-    # `unordered` to avoid taking the position of a match into account in that attribute.
-    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'status', 'primary_category', 'subcategories']
+  #   # the attributesToIndex` setting defines the attributes
+  #   # you want to search in: here `title`, `subtitle` & `description`.
+  #   # You need to list them by order of importance. `description` is tagged as
+  #   # `unordered` to avoid taking the position of a match into account in that attribute.
+  #   attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'status', 'primary_category', 'subcategories']
 
-    # the `customRanking` setting defines the ranking criteria use to compare two matching
-    # records in case their text-relevance is equal. It should reflect your record popularity.
-    # customRanking ['desc(likes_count)']
+  #   # the `customRanking` setting defines the ranking criteria use to compare two matching
+  #   # records in case their text-relevance is equal. It should reflect your record popularity.
+  #   # customRanking ['desc(likes_count)']
 
-    attributesForFaceting ['area']
-  end
+  #   attributesForFaceting ['area']
+  # end
 
   #second indexing
   algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do

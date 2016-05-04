@@ -15,7 +15,7 @@ class Story < ActiveRecord::Base
 
   accepts_nested_attributes_for :user_photos, reject_if: :all_blank, allow_destroy: true
 
-  scope :active, -> { where(status: "live") }
+  scope :active, -> { where(status: "live").where(public: true) }
   scope :draft, -> { where(status: "draft") }
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }
 
