@@ -666,6 +666,15 @@ $(document).ready(function() {
 	avatarUpload();
 	setAvatarPosition();
 
+	var searchString = location.search.substring(1);
+	if(searchString.substr(0, 5) === "video"){
+		videoId = searchString.split('=')[1];
+		console.log(videoId);
+		div = $('*[data-id="' + videoId + '"]');
+    video = div.parents().find('video.play-in-modal');
+    showAndPlayVideoOnModal($(video));
+	}
+
 });
 
 $(window).resize(function() {
