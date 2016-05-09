@@ -311,18 +311,26 @@ class PlacesController < ApplicationController
     @place = Place.find_by_slug(params[:id])
     @active_user_photos = @place.user_photos.active
     @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: 4)
-
-    # respond_to do |format|
-    #   format.js
-    # end
   end
 
   def paginate_videos
     @place = Place.find_by_slug(params[:id])
     @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page: 4)
-    # respond_to do |format|
-    #   format.js
-    # end
+  end
+
+  def paginate_more_places
+    @place = Place.find_by_slug(params[:id])
+    @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category).order("RANDOM()")
+    @more_places = @more_places.sort do |x, y|
+      (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
+    end
+
+    @more_places = @more_places.paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
+  end
+
+  def paginate_place_to_visit
+    @place = Place.find_by_slug(params[:id])
+    @places_to_visit = @place.children.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit_page].nil?? 6 : 3 )
   end
 
   def transfer_assets
