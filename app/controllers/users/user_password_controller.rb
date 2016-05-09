@@ -22,7 +22,7 @@ class Users::UserPasswordController < Devise::RegistrationsController
   private
 
   def permit_resource_params
-    params.require(:user).permit(:password, :password_confirmation, :current_password)
+    params.require(:user).permit(:password, :password_confirmation, :current_password, :email)
   end
 
   # def configure_permitted_parameters

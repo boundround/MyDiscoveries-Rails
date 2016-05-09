@@ -30,13 +30,13 @@
   <div class="container container-white">
     <div class="row">
         <div class="col-xs-12 col-sm-12 top15">
-          <span class="btn btn-default btn-block">
-          <span class="grey">Email</span><br>
-          <%= f.input :email, label: false, input_html: { class: "form-control"} %></span>
-          </span>
+          <!-- <span class="btn btn-default btn-block"> -->
+          <!-- <span class="grey">Email</span><br> -->
+          <!-- <%#= f.input :email, label: false, input_html: { class: "form-control"} %></span> -->
+          <!-- </span> -->
         </div>
         <div class="col-xs-12 col-sm-12">
-          <a href="" class="left15" data-toggle="modal" data-target="#change_password">Change Password</a>
+          <a href="" class="left15" data-toggle="modal" data-target="#change_password">Change Email / Password</a>
         </div>
 
 
@@ -127,12 +127,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+        <h4 class="modal-title" id="myModalLabel">Change Email / Password</h4>
       </div>
       <div class="modal-body">
       <div id="messages-devise"></div>
         <form id="form_change_password">
 
+          <div class="top15">
+              <span class="grey">Change Email</span><br>
+              <input type="email" name="user[email]" class="form-control" value="<%= @user.email %>" required>
+          </div>
           <div class="top15">
               <span class="grey">Current Password</span><br>
               <input type="password" name="user[current_password]" class="form-control" required>
