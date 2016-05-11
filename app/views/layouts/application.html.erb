@@ -9,7 +9,7 @@
 	  <%= csrf_meta_tags %>
 
 	  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
-	  <link href='//fonts.googleapis.com/css?family=Signika:300,400,600,700' rel='stylesheet' type='text/css'>
+	  <!-- <link href='//fonts.googleapis.com/css?family=Signika:300,400,600,700' rel='stylesheet' type='text/css'> -->
 	  <!-- <link href='//fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'> -->
 
 	 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -154,8 +154,8 @@
 		<% end %>
 
 		<%= render "/layouts/admin_menu" %>
-    <%= render "layouts/navbar" %>
-    <%= render "layouts/mobile_search_nav" %>
+    <%#= render "layouts/navbar" %>
+    <%#= render "layouts/mobile_search_nav" %>
 
 	  <div class="app-wrap">
 	    <%= yield %>
@@ -164,7 +164,7 @@
 	  <%#= render "/layouts/signin_modals" unless user_signed_in? %>
 	  <%#= render "/layouts/share_modal" %>
     <%= render 'layouts/signin_modal' %>
-    <%= render "layouts/footer" %>
+    <%#= render "layouts/footer" %>
     <%= render "/layouts/stamp_modal" %>
 	  <%= render "/layouts/video_modal" %>
 

@@ -1,0 +1,244 @@
+
+<% provide(:title, @place.display_name) %>
+<% category = @place.categories.first.identifier rescue "default"%>
+<% provide(:category,  category) %>
+
+<% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
+<div id='country-data' data-country-code=<%= @place.country.country_code %> data-capital-city=<%= @place.country.capital_city %>></div>
+
+<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
+
+<div class="header-image-with-nav top-outer-js">
+  <img src="<%= showing_image(draw_hero_background(@place)) %>" alt="" class="img-header top-inner-js">
+  <div class="breadcrumbs">
+    <%= raw create_breadcrumb_for(@place) %>
+    <% if user_signed_in? and current_user.admin? %>
+      <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
+    <% end %>
+  </div>
+    <div class="container padding-style">
+      <div class="title-container hidden-xs">
+        <div class="row">
+          <div class="col-md-offset-2 col-md-8">
+            <h1 class="text-center text-shadowed white"><%= @place.display_name %></h1>
+          </div>
+        </div>
+      </div>
+      <div class="action">
+      <div class="left">
+        <ul>
+          <!-- Add To Favourites -->
+          <% if user_signed_in? && @place.users.include?(current_user) %>
+            <li>
+              <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
+            </li>
+          <% else %>
+            <li>
+              <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
+            </li>
+          <% end %>
+          <% if user_signed_in? %>
+            <li><a href="<%= new_story_place_path %>" class="white" ><i class="fa fa-file-text-o"></i> Tell your story</a></li>
+            <% else %>
+            <li><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></li>
+          <% end %>
+        </ul>
+      </div>
+        <div class="pull-right hidden-xs">
+          <div class="component-desk">
+            <ul>
+              <li><a href="#photos"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
+              <li><a href="#videos"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class="component visible-xs">
+        <ul>
+          <li><a href="#"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
+          <li><a href="#"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
+        </ul>
+      </div>
+   </div>
+ </div>
+
+<!-- container -->
+<div class="container mobile-container padding-style"> <!-- main container -->
+  <section class="place-details">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 border-right-desk">
+      <div class="text-center visible-xs ">
+        <h2 class="place-title place-color btm20 top0"><%= @place.display_name %></h2>
+      </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="detail-place">
+              <div class="located"><p class="gray-font">Country</p><p><%= link_to @place.country.display_name, country_path(@place.country) %></p></div>
+              <!--<div class="language"><p class="gray-font">Language</p><p id="language" ></p></div>-->
+              <div class="ages"><p class="gray-font">Age ranges</p>
+                <% unless @place.minimum_age && @place.maximum_age %>
+                  <p class="age-ranges">
+                    All Ages
+                  </p>
+                <% else %>
+                <p id="age-ranges">
+                  <%= @place.minimum_age %> - <%= @place.maximum_age %>
+                </p>
+                <% end %>
+              </div>
+              <!--<div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>-->
+              <div class="weather"><p class="gray-font">Weather</p><img id="icon" src=""/> <span id="temperature"></span></div>
+              <div class="capital"><p class="gray-font">Found In</p><p><%= link_to_parent(@place) %></p></div>
+            </div>
+          </div>
+        </div>
+      <div class="desc-place">
+        <p class="text"><%= raw @place.description[0..280]+"..." %></p>
+        <p class="text full" style="display: none;"><%= raw @place.description %></p>
+        <button class="blueish more" style="background:none;border:none;outline:none;padding-left:0;">More <span class="fa fa-caret-down"></span></button>
+        <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;display:none;">Less <span class="fa fa-caret-up"></span></button>
+      </div>
+        <div class="border-section"></div>
+        <div class="row top20 btm20">
+            <div class="col-xs-12 ">
+              <% unless @related_places.blank? %>
+                <div class="rel-dest">
+                  <p class="gray-color">Related Destinations</p>
+
+                  <% if @related_places.size > 6 %>
+                    <ul>
+                      <% @related_places.first(6).each do |place| %>
+                        <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                      <% end %>
+                    </ul>
+                    <ul style="display:none">
+                      <% @related_places.each do |place| %>
+                        <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                      <% end %>
+                    </ul>
+                    <div class="clearfix btm15"></div>
+                    <button class="blueish more" style="background:none;border:none;outline:none;padding-left:0;">More <span class="fa fa-caret-down"></span></button>
+                    <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;display:none;">Less <span class="fa fa-caret-up"></span></button>
+                  <% else %>
+                    <ul>
+                      <% @related_places.each do |place| %>
+                        <li><a href="/places/<%= place.slug %>" class="badge"><%= place.display_name %></a></li>
+                      <% end %>
+                    </ul>
+
+                  <% end %>
+                  </div>
+                <% end %>
+            </div>
+          </div>
+      <!-- </div> -->
+    <!-- </section> -->
+    </div> <!-- /col-left -->
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+
+
+      <section class="map">
+
+   <%= render partial: "shared/recent_video" %>
+
+    </div> <!-- /col-right -->
+  </div>
+  </section>
+
+   <%= render partial: "shared/videos_list" %>
+
+   <%= render partial: "stories/all_stories", locals: { stories: @stories,title: "Your Stories" }%>
+   <%= render "stories/modal_story" %>
+
+
+
+</div> <!-- /main container -->
+
+<section class="travelling-tips fun-fact mrg0">
+  <div class="container padding-style">
+    <div class="row">
+
+      <%= render :partial => "good_to_knows" %>
+
+      <%= render :partial => "fun_facts", :locals => { :color => "pink" } %>
+
+    </div>
+  </div>
+</section>
+
+<div class="container padding-style">
+  <div class="row">
+
+
+
+      <div class="border-section clearfix btm0 top20 visible-xs"></div>
+
+    <div class="col-xs-12"> <!-- right-col -->
+
+      <%= render :partial => "fun_facts_mobile", :locals => { :color => "pink", bg: "bg-orange" }  %>
+
+      <% unless @places_to_visit.blank? %>
+        <section class="places-to-go visit-place">
+            <div class="text-left">
+              <h4 class="section-title">Things to do in <%= @place.display_name %></h4>
+            </div>
+            <div class="row">
+            <div id="places_to_visit-list" >
+                <%= render partial: 'places_to_visit_list', collection: @places_to_visit, as: :area %>
+            </div>
+              <% unless last_page? @places_to_visit %>
+                <div class="text-center clearfix btm20 single-pagination-container" id="places_to_visit-single-pagination-container" style="clear:both">
+                  <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                  </div>
+                  <%= link_to "Load More", paginate_place_to_visit_place_path(@place, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+                </div>
+              <% end %>
+
+            </div> <!-- row -->
+        </section>
+      <% end %>
+    </div>
+
+    </div> <!-- /col-md-8 -->
+  </div> <!-- container -->
+
+<div class="container padding-style">
+   <%= render partial: "shared/photos_list" %>
+</div>
+<!--  -->
+<% unless @famous_faces.blank? %>
+<section class="famous-faces">
+  <div class="container padding-style">
+    <div class="row">
+    <h4 class="section-title">Famous Faces <%= ("From " + @place.country.display_name) rescue "" %></h4>
+      <% @famous_faces.each do |famous| %>
+      <div class="col-xs-6">
+        <div class="img">
+          <img src="<%= showing_image(famous.photo_url) %>" alt="">
+        </div>
+        <div class="famous-text">
+          <p class="title"><%= famous.name %></p>
+          <!-- <p class="gray-font">Actor</p> -->
+          <p class="desc"><%= famous.description %></p>
+        </div>
+      </div>
+      <% end %>
+
+    </div>
+  </div>
+</section>
+<% end %>
+
+</div> <!-- area-content -->
+<% end %>
+
+<%= render 'user_photos/form' %>
+<%= render 'layouts/all_modal' %>
+<%= render 'new_story' %>
+<%= render partial: 'shared/blueimp_gallery_modal' %>
+<%= render 'shared/video_modal' %>
+<%#= render 'layouts/video_modal' %>
+<%#= render 'stories/modal_story' %>

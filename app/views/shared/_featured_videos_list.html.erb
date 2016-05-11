@@ -1,44 +1,67 @@
-<div class="col-xs-12 col-sm-6 col-md-6">
-
-  <div class="body-stories">
-  <% if !video.youtube_id.blank? %>
-      <video data-id="<%= video.youtube_id %>" data-video="youtube" poster="<%= video.vimeo_thumbnail %>" class="play-in-modal" data-modal="#video-modal" data-video-url="<%= video.url %>">
-    </video>
-    <% else %>
-      <video data-id="<%= video.vimeo_id %>" data-video="vimeo" poster="<%= video.vimeo_thumbnail %>" class="play-in-modal" data-modal="#video-modal" data-video-url="<%= video.url %>">
-    </video>
-    <% end %>
-    <%= link_to '', class: 'play-video' do %>
-      <i class="fa fa-play play-video"></i>
-    <% end %>
-  </div>
-
-    <div class="head-stories">
-    <div>
-        <div class="profile-outer">
-          <img src="<%= asset_path('br-logo-new-blue.png')%>" alt="">
+<% if !video.youtube_id.blank? %>
+<div class="col-md-3 col-sm-6">
+    <div class="small-video-component">
+        <div class="video-img-wrapper play-in-modal" 
+                 style="background: url(<%= video.vimeo_thumbnail %>) no-repeat;background-size:cover;background-position:center;" 
+                 role="img"
+                 data-thumb="<%= video.vimeo_thumbnail %>"
+                 aria-label="<%= video.title %>"
+                 data-id="<%= video.youtube_id %>" 
+                 data-video="youtube"
+                 data-modal="#video-modal" 
+                 data-video-url="<%= video.url %>"
+                 >
+            <div class="video-img"
+                 >
+            </div>
+            <div class="main-play-icon-wrapper">
+                <div class="main-play-icon"></div>
+            </div>
         </div>
-        <div class="title">
-          <p><%= place_or_country_link(video.place) %></p>
-          <h4 class="small-video-title"><%= video.title %></h4>
+        <div class="title-wrapper">
+            <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
+
+            <div class="video-title"><%= video.title %></div>
         </div>
     </div>
-  </div>
-
-  <div class="details-dest btm15">
-    <div class="left">
-      <% if video.place.present? %>
-          <% video.place.subcategories.subcats.each do |sub| %>
-            <%= link_to sub.name, subcategory_path(sub.identifier), class: 'badge-link' %>
-          <% end %>
-      <% end %>
-    </div>
-  </div>
-
 </div>
+<% else %>
+<div class="col-md-3 col-sm-6">
+    <div class="small-video-component">
+        <div class="video-img-wrapper play-in-modal" 
+                style="background: url(<%= video.vimeo_thumbnail %>) no-repeat;background-size:cover;background-position:center;" 
+                role="img"
+                aria-label="lavender"
+                data-id="<%= video.vimeo_id %>" 
+                data-thumb="<%= video.vimeo_thumbnail %>"
+                data-video="vimeo" 
+                data-modal="#video-modal" 
+                data-video-url="<%= video.url %>"
+                >
+            <div class="video-img"
+                >
+            </div>
+            <div class="main-play-icon-wrapper">
+                <div class="main-play-icon"></div>
+            </div>
+        </div>
+        <div class="title-wrapper">
+            <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
+
+            <div class="video-title"><%= video.title %></div>
+        </div>
+    </div>
+</div>
+<% end %>
+
+
 
 <% if params[:active_videos].present? %>
   <%= javascript_tag do -%>
     getThumbnail();
+    
+    var injectSvgs = document.querySelectorAll("img.svg-inject");
+    SVGInjector(injectSvgs);
+
   <% end -%>
 <% end %>

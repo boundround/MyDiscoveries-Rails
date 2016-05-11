@@ -1,24 +1,26 @@
 <% if @videos.present? %>
-  <a name="videos"></a>
-  <section class="your-stories video-show">
-  <div class="text-center">
-    <h4>Videos</h4>
-  </div>
-    <div class="row"  id="videos-list">
-      <%= render partial: 'shared/featured_videos_list', collection: @videos, as: :video %>
+<a name="videos"></a>
+<div class="container small-videos-component-wrapper">
+        <div class="row">
+            <div class="owl-carousel carousel" id="videos-list">
+                <%= render partial: 'shared/featured_videos_list', collection: @videos, as: :video %>
+            </div>
+        </div>
+        <% unless last_page? @videos %>
+        <div class="row hidden-xs single-pagination-container" id="videos-single-pagination-container" >
+            <div class="col-xs-12">
+              <div class="hidden single-pagination-loader" align="center">
+                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+              </div>
+              <div class="load-more">
+                <% if params[:controller].eql? "places" %>
+                <%= link_to "LOAD MORE", paginate_videos_place_path(@place, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
+                <% else %>
+                <%= link_to "LOAD MORE", paginate_videos_country_path(@country, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
+                <% end %>
+              </div>
+            </div>
+        </div>
+        <% end %>
     </div>
-  <% unless last_page? @videos %>
-    <div class="text-center clearfix btm20 single-pagination-container" id="videos-single-pagination-container" style="clear:both">
-      <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
-        <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-      </div>
-      <% if params[:controller].eql? "places" %>
-      <%= link_to "Load More", paginate_videos_place_path(@place, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
-      <% else %>
-      <%= link_to "Load More", paginate_videos_country_path(@country, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
-      <% end %>
-    </div>
-  <% end %>
-  </section>
 <% end %>
-
