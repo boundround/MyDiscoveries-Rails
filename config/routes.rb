@@ -157,8 +157,7 @@ Rails.application.routes.draw do
     post '/update_password_user' =>  'users/user_password#update_password'
   end
 
-  devise_for :users, :controllers => { :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
-
+  devise_for :users, :controllers => { :passwords => "passwords", :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
 
   resources :pages
 
