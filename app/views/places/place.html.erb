@@ -270,18 +270,18 @@
           <div class="text-left">
             <h4 class="section-title">More places like this</h4>
           </div>
-          <!-- <div class="row"> -->
+          <div class="row">
            <div id="more_places-list">
               <%= render partial: 'subcategories/areas_list', collection: @more_places, as: :area %>
             </div>
-          <!-- </div> -->
+          </div>
         </section>
         <% unless last_page? @more_places %>
           <div class="text-center clearfix btm20 single-pagination-container" id="more_places-single-pagination-container" style="clear:both">
             <div class="btm15 hidden single-pagination-loader" align="center">
               <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
             </div>
-            <%= link_to "Load More", place_path(@place, more_places_page: @more_places.next_page, resources: 'more_places', pagination_template: 'primary_categories/places_list', collection_object: 'place'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+            <%= link_to "Load More", paginate_more_places_place_path(@place, more_places_page: @more_places.next_page, resources: 'more_places', pagination_template: 'subcategories/areas_list', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
           </div>
         <% end %>
       <% end %>
