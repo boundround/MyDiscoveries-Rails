@@ -11,3 +11,12 @@
         </div>
     </div>
 </div>
+
+<% if params[:active_photos].present? %>
+  <%= javascript_tag do -%>
+    
+    var injectSvgs = document.querySelectorAll("img.svg-inject");
+    SVGInjector(injectSvgs);
+
+  <% end -%>
+<% end %>

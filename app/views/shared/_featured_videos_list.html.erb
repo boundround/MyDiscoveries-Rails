@@ -1,7 +1,14 @@
+<%  grid, orange, stroke = if !@place.is_area?
+ ["col-md-3", "orange", "orange-stroke"]
+else
+ ["col-md-4", "", ""]
+end
+  %>
+
 <% if !video.youtube_id.blank? %>
-<div class="col-md-3 col-sm-6">
+<div class="<%= grid %> col-sm-6">
     <div class="small-video-component">
-        <div class="video-img-wrapper play-in-modal" 
+        <div class="video-img-wrapper play-in-modal <%= orange %>" 
                  style="background: url(<%= video.vimeo_thumbnail %>) no-repeat;background-size:cover;background-position:center;" 
                  role="img"
                  data-thumb="<%= video.vimeo_thumbnail %>"
@@ -15,20 +22,20 @@
                  >
             </div>
             <div class="main-play-icon-wrapper">
-                <div class="main-play-icon"></div>
+                <div class="main-play-icon <%= orange %> "></div>
             </div>
         </div>
         <div class="title-wrapper">
-            <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
+            <img class="svg-inject <%= stroke %>" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
 
             <div class="video-title"><%= video.title %></div>
         </div>
     </div>
 </div>
 <% else %>
-<div class="col-md-3 col-sm-6">
+<div class="<%= grid %> col-sm-6">
     <div class="small-video-component">
-        <div class="video-img-wrapper play-in-modal" 
+        <div class="video-img-wrapper play-in-modal <%= orange %>" 
                 style="background: url(<%= video.vimeo_thumbnail %>) no-repeat;background-size:cover;background-position:center;" 
                 role="img"
                 aria-label="lavender"
@@ -38,15 +45,15 @@
                 data-modal="#video-modal" 
                 data-video-url="<%= video.url %>"
                 >
-            <div class="video-img"
+            <span class="video-img"
                 >
-            </div>
+            </span>
             <div class="main-play-icon-wrapper">
-                <div class="main-play-icon"></div>
+                <div class="main-play-icon <%= orange %>"></div>
             </div>
         </div>
         <div class="title-wrapper">
-            <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
+            <img class="svg-inject <%= stroke %>" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
 
             <div class="video-title"><%= video.title %></div>
         </div>
@@ -54,7 +61,26 @@
 </div>
 <% end %>
 
+<!--             <div class="col-md-4 col-sm-6">
+                <div class="small-video-component">
+                    <div class="video-img-wrapper orange">
+                            <span class="video-img"
+                                  style="background-image:url(/assets/new-images/continental-car-small.jpg)"></span>
 
+                        <div class="main-play-icon-wrapper">
+                            <span class="main-play-icon orange"></span>
+                        </div>
+                    </div>
+                    <div class="title-wrapper">
+                        <img class="svg-inject orange-stroke"
+                             src="/assets/new-images/icon-play-rect-unfilled.svg"/>
+
+                        <div class="video-title">Rides and parks in Luna Park and Milson's
+                            Point
+                        </div>
+                    </div>
+                </div>
+            </div> -->
 
 <% if params[:active_videos].present? %>
   <%= javascript_tag do -%>

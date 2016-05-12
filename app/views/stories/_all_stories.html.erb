@@ -21,7 +21,7 @@
                 >
                     <div class="story-header-details-wrapper">
                         <div class="user-dp" 
-                             style="background: url(<%=  story.story_images.first %>) no-repeat;"
+                             style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"
                              role="img" 
                              aria-label="User: <%= story.user.name %>"></div>
                         <div class="username"><%= story.user.name %></div>
@@ -34,7 +34,7 @@
                         <div class="story-desc">
                             <%= raw story.content[0..280]+"..." %>
                         </div>
-                        <div class="story-img" style="background: url(/assets/new-images/goat.jpg) no-repeat;" role="img"
+                        <div class="story-img" style="background: url(<%= story.story_images.first %>) no-repeat;" role="img"
                              aria-label="Story Image"></div>
                     </div>
                 </div>

@@ -63,6 +63,8 @@
 //= require jquery.sticky
 //= require main
 //= require destination
+//= require thing
+//= require home-new-design
 
 // require custom
 // require jquery.Jcrop.min

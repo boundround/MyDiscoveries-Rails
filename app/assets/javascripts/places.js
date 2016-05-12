@@ -19,6 +19,7 @@ function addToFav(){
         success: console.log('LIKE SAVED')
       });
       $(".favourites-title").text("Remove From Favourites");
+      $(".text-favourite-place").text("Remove From Favourites");
       $(this).data("liked", true);
       icon.addClass("selected");
     } else if ($(this).data("liked") === true) {
@@ -30,6 +31,7 @@ function addToFav(){
         success: console.log('LIKE DELETED')
       });
       $(".favourites-title").text("Add To Favourites");
+      $(".text-favourite-place").text("Add To Favourites");
       $(this).data("liked", false);
       icon.removeClass("selected");
     }
