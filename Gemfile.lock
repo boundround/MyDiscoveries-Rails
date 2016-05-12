@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/guyisra/geocomplete_rails.git
-  revision: a14fc8f6b707ebe0439122bf324e444211fad027
+  revision: e2ba15fa355f234072e661df835f467d31216cc5
   specs:
-    geocomplete_rails (1.6.5)
+    geocomplete_rails (1.7.0)
       railties (>= 3.1)
 
 GIT
@@ -23,9 +23,9 @@ GIT
 
 GIT
   remote: git://github.com/volmer/bootsy.git
-  revision: c4c05b7178b243907fdb20acf806d3a12eaad205
+  revision: 4fb9a6341cbf9195072dccf6d208710a91dbdce8
   specs:
-    bootsy (2.2.1)
+    bootsy (2.2.2)
       carrierwave (~> 0.10)
       mini_magick (~> 4.4)
       remotipart (~> 1.2)
@@ -63,8 +63,8 @@ GEM
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
     addressable (2.3.8)
-    algoliasearch (1.7.0)
-      httpclient (~> 2.4)
+    algoliasearch (1.8.1)
+      httpclient (~> 2.7.1)
       json (>= 1.5.1)
     algoliasearch-rails (1.14.1)
       algoliasearch (>= 1.2.14)
@@ -75,6 +75,7 @@ GEM
       rake (>= 0.8.7)
     autoprefixer-rails (6.3.6)
       execjs
+    awesome_print (1.6.1)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -92,19 +93,10 @@ GEM
     bootstrap-sass (3.3.5)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
-    brakeman (3.2.1)
-      erubis (~> 2.6)
-      haml (>= 3.0, < 5.0)
-      highline (>= 1.6.20, < 2.0)
-      ruby2ruby (~> 2.3.0)
-      ruby_parser (~> 3.8.1)
-      safe_yaml (>= 1.0)
-      sass (~> 3.0)
-      slim (>= 1.3.6, < 4.0)
-      terminal-table (~> 1.4)
-    browser (2.0.3)
+    brakeman (3.3.0)
+    browser (2.1.0)
     builder (3.2.2)
-    byebug (8.2.2)
+    byebug (9.0.0)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -131,7 +123,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    concurrent-ruby (1.0.1)
+    concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
     countries (1.2.5)
       currencies (~> 0.4.2)
@@ -145,12 +137,11 @@ GEM
     debug_inspector (0.0.2)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (3.5.6)
+    devise (4.1.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
+      railties (>= 4.1.0, < 5.1)
       responders
-      thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     enumerable-lazy (0.0.1)
@@ -166,7 +157,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.9.2)
       faraday (>= 0.7.4, < 0.10)
-    fastly (1.3.0)
+    fastly (1.4.0)
     figaro (1.1.1)
       thor (~> 0.14)
     fission (0.5.0)
@@ -222,9 +213,9 @@ GEM
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
       ipaddress (~> 0.8)
-    fog-core (1.37.0)
+    fog-core (1.39.0)
       builder
-      excon (~> 0.45)
+      excon (~> 0.49)
       formatador (~> 0.2)
     fog-dynect (0.0.3)
       fog-core
@@ -242,8 +233,8 @@ GEM
       multi_json (~> 1.10)
     fog-local (0.3.0)
       fog-core (~> 1.27)
-    fog-openstack (0.1.2)
-      fog-core (>= 1.35)
+    fog-openstack (0.1.5)
+      fog-core (>= 1.38)
       fog-json (>= 1.0)
       fog-xml (>= 0.1)
       ipaddress (>= 0.8)
@@ -274,7 +265,7 @@ GEM
     fog-serverlove (0.1.2)
       fog-core
       fog-json
-    fog-softlayer (1.1.0)
+    fog-softlayer (1.1.1)
       fog-core
       fog-json
     fog-storm_on_demand (0.1.1)
@@ -289,7 +280,7 @@ GEM
     fog-voxel (0.1.0)
       fog-core
       fog-xml
-    fog-vsphere (0.6.3)
+    fog-vsphere (0.6.4)
       fog-core
       rbvmomi (~> 1.8)
     fog-xenserver (0.2.3)
@@ -298,14 +289,14 @@ GEM
     fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-rails (4.5.0.1)
+    font-awesome-rails (4.6.2.0)
       railties (>= 3.2, < 5.1)
     formatador (0.2.5)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
-    geocoder (1.3.3)
+    geocoder (1.3.4)
     git-version-bump (0.15.1)
-    grape (0.16.1)
+    grape (0.16.2)
       activesupport
       builder
       hashie (>= 2.1.0)
@@ -315,28 +306,28 @@ GEM
       rack (>= 1.3.0)
       rack-accept
       virtus (>= 1.0.0)
-    grape-entity (0.4.8)
+    grape-entity (0.5.1)
       activesupport
       multi_json (>= 1.3.2)
     grape-pagination (0.1.0)
       addressable
       grape (~> 0.3)
-    grape-swagger (0.10.4)
-      grape (>= 0.8.0)
-      grape-entity (< 0.5.0)
+    grape-swagger (0.20.3)
+      awesome_print
+      grape (>= 0.12.0)
+      grape-entity
     grape-swagger-rails (0.2.0)
       grape-swagger (>= 0.7.2)
       railties (>= 3.2.12)
     haml (4.0.7)
       tilt
-    hashie (3.4.3)
-    highline (1.7.8)
+    hashie (3.4.4)
     hike (1.2.3)
     hirb (0.7.3)
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    httpclient (2.7.1)
+    httpclient (2.7.2)
     i18n (0.7.0)
     i18n_data (0.7.0)
     ice_nine (0.11.2)
@@ -385,13 +376,13 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     mixpanel-ruby (2.2.0)
-    multi_json (1.11.2)
+    multi_json (1.12.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mustermann19 (0.4.3)
       enumerable-lazy
     nested_form (0.3.2)
-    newrelic_rpm (3.15.1.316)
+    newrelic_rpm (3.15.2.317)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     oauth (0.5.1)
@@ -427,7 +418,7 @@ GEM
       activesupport (>= 3.1)
       arel
     polyglot (0.3.5)
-    puma (3.2.0)
+    puma (3.4.0)
     rack (1.5.5)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -488,7 +479,7 @@ GEM
       trollop
     rdoc (4.2.2)
       json (~> 1.4)
-    redis (3.2.2)
+    redis (3.3.0)
     remotipart (1.2.1)
     request_store (1.3.1)
     responders (1.1.2)
@@ -516,11 +507,6 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    ruby2ruby (2.3.0)
-      ruby_parser (~> 3.1)
-      sexp_processor (~> 4.0)
-    ruby_parser (3.8.1)
-      sexp_processor (~> 4.1)
     rubyzip (1.2.0)
     safe_yaml (1.0.4)
     sass (3.2.19)
@@ -532,12 +518,11 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    sexp_processor (4.7.0)
-    sidekiq (4.1.1)
+    sidekiq (4.1.2)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       redis (~> 3.2, >= 3.2.1)
-    sidekiq-history (0.0.5)
+    sidekiq-history (0.0.6)
       sidekiq (>= 3.0.0)
     simple-form-datepicker (0.1.3)
       simple_form
@@ -562,7 +547,7 @@ GEM
       redis (>= 3.0)
       sinatra (>= 1.0)
       vegas (>= 0.1.0)
-    spring (1.6.4)
+    spring (1.7.1)
     sprockets (2.12.4)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -573,7 +558,6 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     temple (0.7.6)
-    terminal-table (1.5.2)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
