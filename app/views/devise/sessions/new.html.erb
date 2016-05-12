@@ -35,7 +35,17 @@
                                 <div class="col-sm-12">
                                     <%- if devise_mapping.omniauthable? %>
                                       <%- resource_class.omniauth_providers.each do |provider| %>
-                                        <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn btn-block btn-primary btn-blue"><i class="fa fa-instagram"></i>&nbsp;Sign In With Instagram</a>
+                                        <% if provider.to_s == "facebook" %>
+                                            <div class="half-left">
+                                              <a href="<%= omniauth_authorize_path(resource_name, provider) %>" role="button" class="btn btn-primary btn-block button btn-radius fontbig-signin btn-facebook mrg0"><i class="fa fa-<%= provider.to_s %>"></i> Facebook</button>
+                                              </a>
+                                            </div>
+                                          <% elsif provider.to_s == "google_oauth2" %>
+                                            <div class="half-right">
+                                              <a href="<%= omniauth_authorize_path(resource_name, provider) %>" type="button" class="btn button btn-danger btn-block btn-google-plus btn-radius fontbig-signin" role="button"><i class="fa fa-google"></i> Google+
+                                              </a>
+                                            </div>
+                                          <% end %>
                                       <% end -%>
                                     <% end -%>
                                 </div>

@@ -82,7 +82,7 @@ Rails.application.configure do
       enable_starttls_auto: true,
       user_name: ENV['SENDGRID_USERNAME'],
       password: ENV['SENDGRID_PASSWORD'],
-      domain: 'boundround.com',
+      domain: 'www.boundround.com',
       authentication: :plain
     }
   }

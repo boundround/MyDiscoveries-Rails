@@ -19,9 +19,18 @@ class Country < ActiveRecord::Base
     end
 
     attribute :photos do
-      photos.select { |photo| photo.published? }.map do |photo|
+      photos.order(country_hero: :desc).select { |photo| photo.published? }.map do |photo|
         { url: photo.path_url(:small), alt_tag: photo.alt_tag }
       end
+    end
+
+    attribute :hero_photo do
+      hero_h= photos.where(photos: { country_hero: true }).first
+      hero= {}
+      if hero_h.present?
+        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
+      end
+      hero
     end
 
     attribute :url do

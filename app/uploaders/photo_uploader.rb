@@ -36,15 +36,15 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :small do
-    process :resize_to_fit => [300, 300]
+    process :resize_to_fit => [500, 500]
   end
 
   version :medium do
-    process :resize_to_fit => [800, 800]
+    process :resize_to_fit => [900, 900]
   end
 
   version :large do
-    process :resize_to_fit => [1200, 1200]
+    process :resize_to_fit => [1400, 1400]
   end
   # version : do
   #   process :resize_to_fit => [800, 800]

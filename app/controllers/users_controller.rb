@@ -57,13 +57,6 @@ class UsersController < ApplicationController
 
   end
 
-  # def upload_avatar
-  #   @user = User.find(params[:id])
-  #   if @user.update(user_params)
-  #     redirect_to root_path   
-  #   end
-  # end
-
   def update
     @user = User.find(params[:id])
     unless @user.update(user_params)
@@ -72,7 +65,6 @@ class UsersController < ApplicationController
 
     sign_in(@user)
 
-    # flash[:notice] = "asdfasdfasdfasdf"
     respond_to do |format|
         format.html { render :edit }
         format.json { render json: @user }
@@ -108,7 +100,7 @@ class UsersController < ApplicationController
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
   end
- 
+
   def paginate_photos
     @user = User.find(params[:id])
     @photos = @user.user_photos.paginate(:page => params[:active_photos], per_page:12)
@@ -170,7 +162,7 @@ class UsersController < ApplicationController
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
   end
-    
+
   def paginate_reviews
     @user = User.find(params[:id])
     @reviews = @user.reviews.paginate(:page => params[:active_reviews_user], per_page:6)
@@ -223,24 +215,24 @@ class UsersController < ApplicationController
   end
 
   # def change_password
-    
+
   #   user = current_user
   #   # Devise::Models::DatabaseAuthenticatable#update_with_password
   #   # Update record attributes when :current_password matches, otherwise returns error on :current_password.
   #   # It also automatically rejects :password and :password_confirmation if they are blank.
   #   # debugger
   #   if user.update_without_password(params[:user])
-      
+
   #     # Sign in the user bypassing validation in case his password changed
   #     sign_in user, :bypass => true
-      
+
   #     # redirect_to root_path, :notice => "Your Password has been updated!"
   #     render  json: {success:true}
   #   else
 
   #     # flash[:alert] = @user.errors.full_messages.join("<br />")
   #     render json: {success:true, messages: "Please check your input: #{user.errors.full_messages.to_sentence}" }
-  
+
   # end
 
   # end
