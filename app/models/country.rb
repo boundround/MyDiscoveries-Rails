@@ -24,6 +24,15 @@ class Country < ActiveRecord::Base
       end
     end
 
+    attribute :hero_photo do
+      hero_h= photos.where(photos: { country_hero: true }).first
+      hero= {}
+      if hero_h.present?
+        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
+      end
+      hero
+    end
+
     attribute :url do
       Rails.application.routes.url_helpers.country_path(self)
     end
