@@ -19,7 +19,7 @@ class Country < ActiveRecord::Base
     end
 
     attribute :photos do
-      photos.select { |photo| photo.published? }.map do |photo|
+      photos.order(country_hero: :desc).select { |photo| photo.published? }.map do |photo|
         { url: photo.path_url(:small), alt_tag: photo.alt_tag }
       end
     end
