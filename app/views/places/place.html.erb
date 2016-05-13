@@ -5,289 +5,698 @@
 
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
 
-<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
+<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="thing-wrapper-zoo">
+                <span class="banner-image" style="background-image: url(<%=showing_image(draw_hero_background(@place)) %>)" role="img"
+                      aria-label="">
+                        </span>
+
+                <div class="overlay"></div>
+                <div class="thing-heading">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">
+                            <div class="thing-heading-breadcrumb">
+                            <!-- AUSTRALIA / NEW SOUTH WALES / SYDNEY / TARONGA ZOO -->
+                              <%= raw create_breadcrumb_for(@place).upcase %>
+                              <% if user_signed_in? and current_user.admin? %>
+                                <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
+                              <% end %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1 col-xs-8 col-xs-offset-2">
+                            <h1><%= @place.display_name %></h1>
+                        </div>
+                    </div>
+
+                    <div class="thing-heading-icons">
+                        <div class="thing-heading-icon left">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thing-heading-icon-holder">
+                                <span class="thing-icon" style="background-image: url('/assets/new-images/icon-play.png')"
+                                      role="img" aria-label=""></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs hidden-sm">
+                                <div class="col-md-12">
+                                    <div><%= @place.videos.size %> Videos</div>
+                                </div>
+                            </div>
+                            <div class="row hidden-md hidden-lg">
+                                <div class="col-md-12">
+                                    <div><%= @place.videos.size %></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="thing-heading-icon">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thing-heading-icon-holder thing-camera-adjustment">
+                                <span class="thing-icon" style="background-image: url('/assets/new-images/icon-camera.png')"
+                                      role="img" aria-label=""></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs hidden-sm">
+                                <div class="col-md-12">
+                                    <div><%= @place.photos.size %> Photos</div>
+                                </div>
+                            </div>
+                            <div class="row hidden-md hidden-lg">
+                                <div class="col-md-12">
+                                    <div><%= @place.photos.size %></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="thing-heading-icon right">
+                          <% if user_signed_in? && @place.users.include?(current_user) %>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thing-heading-icon-holder">
+                                        <div class="thing-icon icon-favourite selected" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs hidden-sm">
+                                <div class="col-md-12">
+                                    <div class="text-favourite-place">Remove from favourites</div>
+                                </div>
+                            </div>
+                          <% else %> <!-- not signin -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thing-heading-icon-holder">
+                                        <div class="thing-icon icon-favourite" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs hidden-sm">
+                                <div class="col-md-12">
+                                    <div class="text-favourite-place">Add to favourites</div>
+                                </div>
+                            </div>
+                          <% end %>
+
+                            <div class="row hidden-md hidden-lg">
+                                <div class="col-md-12">
+                                    <div>&nbsp;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="mobile-nav-container sticky-container hidden-md hidden-lg">
+                        <div class="white-background">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="thing-nav-option-container">
+                                            <div class="thing-nav-option-wrapper">
+                                                <div class="thing-nav-option"><a data-scroll href="#overview">OVERVIEW</a>
+                                                </div>
+                                                <div class="thing-nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
+                                                <div class="thing-nav-option"><a data-scroll href="#stories">STORIES</a>
+                                                </div>
+                                                <div class="thing-nav-option"><a data-scroll href="#galleries">GALLERIES</a>
+                                                </div>
+                                                <div class="thing-nav-option"><a data-scroll href="#memberreviews">MEMBER
+                                                    REVIEWS</a>
+                                                </div>
+                                                <div class="thing-nav-option-boxed">
+                                                    <div class="message-icon"
+                                                         style="background-image: url('/assets/new-images/icon-review.png')"
+                                                         role="img" aria-label=""></div>
+                                                    <span class="message-text">LEAVE A REVIEW</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mobile-booking-container">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="booking-wrapper">
+                                            <div class="hidden-xs hidden-sm">
+                                                <h4>$$</h4>
+                                            </div>
+                                            <div>
+                                                <a class="btn">BOOK NOW</a>
+                                            </div>
+                                            <div class="visible-xs visible-sm small-dollars">$$</div>
+                                            <div class="load-more"><a href="#">VIEW OPENING HOURS</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="desktop-booking-container visible-md visible-lg">
+                        <div class="booking-wrapper">
+                            <div>
+                                <h4>$$</h4>
+                            </div>
+                            <div>
+                                <a class="btn">BOOK NOW</a>
+                            </div>
+                            <div class="load-more"><a href="#">VIEW OPENING HOURS</a></div>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-md-12">Average Rating</div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-md-12 rating-wrapper">
+                                <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-8">Suitable for ages</div>
+                            <div class="col-xs-4 thing-side-bold">5-12</div>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-8">Best visited</div>
+                            <div class="col-xs-4 thing-side-bold">Daytime</div>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-8">Suitable for ages</div>
+                            <div class="col-xs-4 thing-side-bold">5-12</div>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-8">Duration</div>
+                            <div class="col-xs-4 thing-side-bold">1/2 Day</div>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-4">Found in</div>
+                            <div class="col-xs-8">
+                                <div class="tags">
+                                    <div class="tag">
+                                        <div class="v-center">ANIMALS</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="icon-holder">
+                            <span class="thing-icon" style="background-image: url('/assets/new-images/icon-wheelchair.png')"
+                                  role="img" aria-label="Wheelchair Accessible"></span>
+                        </div>
+                        <div class="icon-holder">
+                            <span class="thing-icon" style="background-image: url('/assets/new-images/icon-food.png')" role="img"
+                                  aria-label="Food"></span>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-12">Location</div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="thing-map-holder">
+                                    <a class="thing-map-directions"
+                                       href="https://maps.google.com?daddr=-33.84339960415683, 151.2457449984253"
+                                       target="_blank">GET DIRECTIONS</a>
+
+                                    <div style='overflow:hidden;height:100%;width:100%;'>
+                                        <div id='gmap_canvas' style='height:100%;width:100%;'></div>
+                                        <div>
+                                            <small><a href="http://embedgooglemaps.com"> embed google maps </a>
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <small><a href="http://freedirectorysubmissionsites.com/">directory
+                                                submission sites</a></small>
+                                        </div>
+                                        <style>#gmap_canvas img {
+                                            max-width: none !important;
+                                            background: none !important
+                                        }</style>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-xs-4">Address</div>
+                            <div class="col-xs-8 thing-side-bold">Bradleys Head Road<br/>Mosman NSW 2088<br/>Australia
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-xs-4">Phone</div>
+                            <div class="col-xs-8 thing-side-bold">(02) 9969 2777</div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-xs-4">Website</div>
+                            <div class="col-xs-8 thing-side-bold">taronga.org.au</div>
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-12">
+                    <div class="desktop-sub-nav thing-nav-option-wrapper hidden-xs hidden-sm">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-9 col-sm-12">
+                                    <div class="thing-nav-option"><a data-scroll href="#overview">OVERVIEW</a></div>
+                                    <div class="thing-nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
+                                    <div class="thing-nav-option"><a data-scroll href="#stories">STORIES</a></div>
+                                    <div class="thing-nav-option"><a data-scroll href="#galleries">GALLERIES</a></div>
+                                    <div class="thing-nav-option"><a data-scroll href="#memberreviews">MEMBER
+                                        REVIEWS</a></div>
+                                    <div class="thing-nav-option-boxed">
+                                        <div class="message-icon"
+                                             style="background-image: url('/assets/new-images/icon-review.png')"
+                                             role="img" aria-label=""></div>
+                                        <% if user_signed_in? %>
+                                        <span class="message-text" data-toggle="modal" data-target="#ReviewModal">LEAVE A REVIEW</span>
+                                        <% else %>
+                                        <span class="message-text" data-toggle="modal" data-target="#myModal">LEAVE A REVIEW</span>
+                                      <% end %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="overview" class="thing-page-segment">
+                        <div class="thing-overview-segment">
+                            <div>
+                                <h3>Overview</h3>
+                            </div>
+                            <div id="overview-copy"><%= raw @place.description %>
+                            </div>
+                            <% if  !@place.good_to_knows.blank? %>
+                              <div>
+                                <h4 class="good-to-know">Good to know</h4>
+                                <ul>
+                                 <% @good_to_know.each do |gtk| %>
+                                    <li><%= gtk.description %></li>
+                                 <% end %>
+                                </ul>
+                              </div>
+                            <% end %>
+                        </div>
+                    </div>
+
+                    <div id="videos" class="thing-page-segment">
+                        <div>
+                            <h3>Videos</h3>
+                        </div>
+
+                        <%= render partial: "shared/videos_list", locals:{container: "" } %>
+
+                    </div>
+
+                      <%= render partial: "stories/all_stories_place", locals: { stories: @stories, title: "Your Stories" }%>
+
+                    <div id="galleries" class="thing-page-segment galleries">
+                        <div>
+                            <h3>Galleries</h3>
+                        </div>
+
+                        <div class="photo-components-wrapper">
+                            <div class="row">
+                                <div class="owl-carousel carousel">
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="photo-component">
+                                            <div class="img-wrapper">
+                                                <a href="#"
+                                                   style="background: url(/assets/new-images/rowing.jpg) no-repeat;"></a>
+                                            </div>
+                                            <div class="title-wrapper">
+                                                <img class="svg-inject orange-stroke"
+                                                     src="/assets/new-images/icon-camera.svg"/>
+
+                                                <div class="photo-title">A day at the Royal National Park in
+                                                    Sydney's South
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="photo-component">
+                                            <div class="img-wrapper">
+                                                <a href="#"
+                                                   style="background: url(/assets/new-images/lavender.jpg) no-repeat;"></a>
+                                            </div>
+                                            <div class="title-wrapper">
+                                                <img class="svg-inject orange-stroke"
+                                                     src="/assets/new-images/icon-camera.svg"/>
+
+                                                <div class="photo-title">Lorem ipsum gallery</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="photo-component">
+                                            <div class="img-wrapper">
+                                                <a href="#"
+                                                   style="background: url(/assets/new-images/cloudy-opera-house.jpg) no-repeat;"></a>
+                                            </div>
+                                            <div class="title-wrapper">
+                                                <img class="svg-inject orange-stroke"
+                                                     src="/assets/new-images/icon-camera.svg"/>
+
+                                                <div class="photo-title">Lorem ipsum gallery</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs">
+                                <div class="col-xs-12">
+                                    <div class="load-more"><a href="#">LOAD MORE</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="memberreviews" class="thing-page-segment">
+                        <div>
+                            <h3>Member Reviews</h3>
+                        </div>
+                        <div class="row member-reviews-wrapper">
+                            <div class="owl-carousel auto-height-carousel">
+                                <div class="col-md-4">
+                                    <div class="member-review-wrapper">
+                                        <div class="user-wrapper">
+                                            <div class="user-dp"
+                                                 style="background: url(/assets/new-images/user-stephen.jpg) no-repeat;"></div>
+                                            <div class="username">Alex</div>
+                                        </div>
+                                        <div class="comment">
+                                            It has lots of different animals from bird to elephant and I saw a
+                                            elephant
+                                            playing Soccer!
+                                        </div>
+                                        <div class="rating-wrapper">
+                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                        </div>
+                                        <div class="date">July 2015</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="member-review-wrapper">
+                                        <div class="user-wrapper">
+                                            <div class="user-dp"
+                                                 style="background: url(/assets/new-images/user-stephen.jpg) no-repeat;"></div>
+                                            <div class="username">kjbaulder</div>
+                                        </div>
+                                        <div class="comment">
+                                            It was awesome. You should definitely go!
+                                        </div>
+                                        <div class="rating-wrapper">
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                        </div>
+                                        <div class="date">July 2015</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="member-review-wrapper">
+                                        <div class="user-wrapper">
+                                            <div class="user-dp"
+                                                 style="background: url(/assets/new-images/user-stephen.jpg) no-repeat;"></div>
+                                            <div class="username">brookiethecookie111</div>
+                                        </div>
+                                        <div class="comment">
+                                            I love Taronga Zoo as it has many fascinating animals to look at as well
+                                            as a
+                                            brand
+                                            new high ropes coarse. Stepping on the thin wire and obstacles above the
+                                            animal
+                                            enclosures
+                                            is the most amazing experience ever. I have done it myself and it was
+                                            breathtaking!!!
+                                        </div>
+                                        <div class="rating-wrapper">
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                        </div>
+                                        <div class="date">July 2015</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 temporary-class-1">
+                                    <!--TODO REMOVE TEMPORARY CLASS ONCE ISOTOPE FUNCTIONALITY IS IMPLEMENTED-->
+                                    <div class="member-review-wrapper">
+                                        <div class="user-wrapper">
+                                            <div class="user-dp"
+                                                 style="background: url(/assets/new-images/user-stephen.jpg) no-repeat;"></div>
+                                            <div class="username">donovan.whitworth</div>
+                                        </div>
+                                        <div class="comment">
+                                            Amazing!!!
+                                        </div>
+                                        <div class="rating-wrapper">
+                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
+                                        </div>
+                                        <div class="date">July 2015</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 temporary-class-2">
+                                    <!--TODO REMOVE TEMPORARY CLASS ONCE ISOTOPE FUNCTIONALITY IS IMPLEMENTED-->
+                                    <div class="member-review-wrapper">
+                                        <div class="user-wrapper">
+                                            <div class="user-dp"
+                                                 style="background: url(/assets/new-images/user-stephen.jpg) no-repeat;"></div>
+                                            <div class="username">Chelsea</div>
+                                        </div>
+                                        <div class="comment">
+                                            Taranga Zoo has recently renovated and they have many mesmerizing
+                                            creatures.
+                                            They have also
+                                            installed an amazing high ropes course. It is definitely a great place
+                                            for
+                                            people of all ages.
+                                        </div>
+                                        <div class="rating-wrapper">
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                        </div>
+                                        <div class="date">July 2015</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 hidden-xs">
+                                <div class="load-more member-reviews-load-more temporary-class-3"><a href="#">LOAD
+                                    MORE</a></div>
+                                <!--TODO REMOVE TEMPORARY CLASS ONCE ISOTOPE FUNCTIONALITY IS IMPLEMENTED-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-
-
-<div class="header-image-with-nav top-outer-js">
-  <!--<div class="places-bg">-->
-  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header top-inner-js" >
- <!-- </div>-->
- <div class="breadcrumbs">
-  <%= raw create_breadcrumb_for(@place) %>
-  <% if user_signed_in? and current_user.admin? %>
-    <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
-  <% end %>
- </div>
-  <div class="container padding-style">
-    <div class="title-container hidden-xs">
-      <div class="row">
-        <div class="col-md-offset-2 text-center col-md-8">
-          <h1 class="text-center text-shadowed white"><%= @place.display_name %></h1>
-        </div>
-      </div>
-    </div>
-    <div class="action bg-place">
-      <div class="left">
-        <ul>
-         <!-- Leave Review -->
-          <% if user_signed_in? %>
-           <li>
-            <a href="#" class="white" data-toggle="modal" data-target="#ReviewModal"><i class="fa fa-smile-o white"></i> Leave review </a>
-          </li>
-          <% else %>
-           <li>
-            <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o white"></i> Leave review </a>
-          </li>
-          <% end %>
-
-          <!-- Add To Favourites -->
-          <% if user_signed_in? && @place.users.include?(current_user) %>
-            <li>
-            <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
-          </li>
-          <% else %>
-            <li>
-              <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
-            </li>
-          <% end %>
-          <% if user_signed_in? && current_user.admin? %>
-            <li><a href="<%= new_story_place_path %>" class="white" ><i class="fa fa-file-text-o"></i> Tell your story</a></li>
-          <% end %>
-        </ul>
-      </div>
-      <%# if user_signed_in? %>
-         <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#userPhotoModal" ><i class="fa fa-plus white"></i> Add photo</a>  </div> -->
-        <%# else %>
-        <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus white"></i> Add photo</a>  </div> -->
-      <%# end %>
-      <div class="pull-right hidden-xs">
-        <div class="component-desk">
-          <ul>
-            <li><a href="#photos"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
-            <li><a href="#videos"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
-          </ul>
-        </div>
-      </div>
-    </div><!-- /action bg-place -->
-    <div class="component visible-xs">
-      <ul>
-        <li><a href="#photos"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
-        <li><a href="#videos"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
-      </ul>
-    </div>
-  </div> <!-- /container -->
-</div> <!-- /header-image-with-nav -->
-
-<div class="container mobile-container padding-style"> <!-- main container -->
-<section class="place-details country-details">
-  <div class="text-center visible-xs">
-    <h2 class="place-title2 place-color2"><%= @place.display_name %></h2>
-  </div>
-
-  <div class="row"> <!-- main row -->
-    <div class="col-xs-12 col-sm-8 col-md-8">
-      <div class="detail-place">
-        <div class="located"><p class="gray-font">For kids</p><p><%= @place.minimum_age.to_s + " - " + @place.maximum_age.to_s %></p></div>
-        <div class="language"><p class="gray-font">Best visited</p><p><%=  @optimum_times.first.name rescue "" %></p></div>
-        <div class="population">
-          <p class="gray-font">Duration</p><p><%= @durations.first.name rescue "" %></p>
-          </div>
-        <div class="suka">
-          <p class="gray-font">Average rating</i></p>
-          <p>
-            <%= raw draw_rating_smiles(@place) %>
-          </p>
-        </div>
-      </div>
-      <div class="desc-place">
-        <p class="text"><%= raw @place.description[0..280]+"..." %></p>
-        <p class="text full" style="display: none;"><%= raw @place.description %></p>
-        <button class="blueish more" style="background:none;border:none;outline:none;padding-left:0;">More <span class="fa fa-caret-down"></span></button>
-        <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;display:none;">Less <span class="fa fa-caret-up"></span></button>
-      </div>
-      <div class="border-section"></div>
-      <div class="row top20 btm20">
-        <div class="col-xs-12">
-          <div class="rel-dest">
-            <ul>
-              <li class="gray-color">Found in</li>
-              <% if !@place.similar_places.blank? %>
-                <% @place.similar_places.each do |place| %>
-                 <!-- <li><a href="#" class="badge"><i class="fa fa-male"></i> Do</a> </li> -->
-                 <li><a href="<%= place_path(place.similar_place) %>" class="badge"><%= place.similar_place.display_name %></a> </li>
-                <% end %>
-               <% end %>
-
-             </ul>
-          </div>
-        </div>
-      </div>
-      <div class="border-section btm20"></div>
+<div class="background">
+    <div class="container dest-things-wrapper">
         <div class="row">
-          <div class="col-xs-4">
-            <% if @place.place_id.present? %>
-              <p class="gray-font">Opening hours</p>
-              <p id="operating-hours"></p>
-              <p id="hours"></p>
-              <p>
-                <%= link_to "View details", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
-              </p>
-            <% end %>
-          </div>
-          <div class="col-xs-4">
-            <p class="gray-font">Other services</p>
-            <p>
-              <!-- <i class="fa fa-wheelchair"></i><i class="fa fa-headphones"></i> -->
-              <% if !@accessibilities.blank? %>
-                <% @accessibilities.each do |c| %>
-                  <%= raw draw_accessibilty_icons(c) %>
-                <% end %>
-               <% end %>
-            </p>
-          </div>
-          <div class="col-xs-4">
-            <p class="gray-font">Price</p>
-            <p><%= raw draw_prices(@prices) %></p>
-              <%# <%= raw draw_hover_prices(@prices) %>
-            <!-- <p><a href="#" data-toggle="modal" data-target="#TicketsModal">View details</a></p> -->
-          </div>
-        </div>
-      </div><!-- col-sm-8 -->
-
-      <div class="col-xs-12 col-sm-4 col-md-4 border-left-desk"> <!-- for map -->
-          <div class="text-center clearfix  visible-xs">
-            <% unless @place.viator_link.blank? %>
-              <a onclick="bookNowClicks()" href="<%= @place.viator_link %>" data-target="_blank" class="btn button-orange button-style-booking btn-shadow fontbig-button btm20 btn-radius">Book Now!</a>
-            <% end %>
-          </div>
-
-        <div id="map"></div>
-        <div class="text-center btn-map">
-          <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="btn btn-primary btn-shadow btn-direction btn-direct"><i class="fa fa-share blue-nero-icon"></i> Get directions </a>
-        </div>
-        <div class="top15">
-          <p class="grey btm0">Address</p>
-          <p class="btm15" ><%= @place.display_address %></p>
-        </div>
-        <% unless @place.try(:email).blank? && @place.phone_number.blank? %>
-          <p class="grey">Contact</p>
-        <% end %>
-        <div class="row">
-        <% unless @place.try(:email).blank? %>
-          <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
-            <a href="mailto:<%= @place.email rescue "" %>" class="btn btn-primary btn-block btn-museum btn-shadow font-btn"><i class="fa fa-envelope-o blue-nero-icon leftmin7responsive"></i> Send a message </a>
-          </div>
-          <% end %>
-          <% unless @place.phone_number.blank? %>
-            <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
-              <a onclick="phoneNumberClicks()" href="tel: <%= @place.phone_number %>" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-phone blue-nero-icon leftmin7responsive"></i> <%= @place.phone_number %></a>
+            <div class="col-xs-12">
+                <h3>Related things to do</h3>
             </div>
-          <% end %>
         </div>
+        <div class="row">
+            <div class="owl-carousel carousel">
+                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+                    <div class="dest-thing">
+                        <div class="dest-thing-overlay-wrapper">
+                            <div class="dest-thing-overlay">
+                                <div class="dollar-rating">$</div>
+                                <div class="book-wrapper">
+                                    <button class="btn" type="button">BOOK</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="things-img" style="background: url(/assets/new-images/catmosphere.jpg) no-repeat;"
+                             role="img"
+                             aria-label="Catmosphere"></div>
+                        <div class="dest-thing-content">
+                            <h4>Catmosphere Cat Cafe</h4>
 
-          <p class="grey btm0 top15">Website</p>
-          <p class="mrg0 blueish"><a onclick="websiteClicks()" href="<%= @place.website %>" target="_blank"><%= extract_domain(@place.website) %></a></p>
-      </div><!-- /col-sm-4 map-->
-    </div><!-- /main row -->
-  </section>
-  <div class="text-center clearfix  hidden-xs" style="clear:both;z-index:1;position: relative;">
-    <!-- "Book Now" - place.viator_link -->
-    <% unless @place.viator_link.blank? %>
-      <a onclick="bookNowClicks()" href="<%= @place.viator_link %>" data-target="_blank" style="margin:-5px" class="btn button-orange button-style-booking fontbig-button btn-radius btn-shadow">Book Now!</a>
-    <% end %>
-
-  </div>
-
-
-
-  <%= render partial: "shared/videos_list" %>
-  <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories" }%>
-  <%= render "stories/modal_story" %>
-
-
-
-<%#= render "photo_carousel" %>
-
-</div><!-- /maincontainer -->
-
-<section class="travelling-tips themuseum fun-fact mrg0">
-  <div class="container padding-style">
-    <div class="row">
-
-
-      <%= render :partial => "good_to_knows" %>
-      <%= render :partial => "fun_facts", :locals => { :color => "" }  %>
-      <%= render partial: 'shared/video_modal' %>
-
-
-    </div>
-  </div>
-</section>
-
-
-
-<div class="container padding-style"> <!-- main-container -->
-    <div class="border-section clearfix btm0 top20 visible-xs"></div>
-    <div class="row">
-    <div class="col-xs-12"> <!-- right-col -->
-
-      <section class="your-stories btm15 cards">
-        <!-- <div class="row"> -->
-          <!-- <div class="col-xs-12"> -->
-            <% unless @reviews.blank? %>
-              <div class="text-left">
-                <h4 class="section-title">Member Reviews</h4>
-              </div>
-
-              <div id="reviews-list">
-                <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
-              </div>
-
-              <% unless last_page? @reviews %>
-                <div class="text-center clearfix btm20 single-pagination-container" id="reviews-single-pagination-container" style="clear:both">
-                  <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
-                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                  </div>
-                  <%= link_to "Load More", place_path(@place, reviews_page: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+                            <div class="tags">
+                                <div class="tag">
+                                    <div class="v-center">ANIMALS</div>
+                                </div>
+                                <div class="tag">
+                                    <div class="v-center">FOOD</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              <% end %>
+                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+                    <div class="dest-thing">
+                        <div class="things-img" style="background: url(/assets/new-images/fish-market.jpg) no-repeat;"
+                             role="img"
+                             aria-label="Fish Market"></div>
+                        <div class="dest-thing-content">
+                            <h4>Sydney Fish Market</h4>
 
-            <% end %>
-          <!-- </div> -->
-        <!-- </div> -->
-      </section>
+                            <div class="tags">
+                                <div class="tag">
+                                    <div class="v-center">FOOD</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+                    <div class="dest-thing">
+                        <div class="dest-thing-overlay-wrapper">
+                            <div class="dest-thing-overlay">
+                                <div class="dollar-rating">$$$</div>
+                                <div class="book-wrapper">
+                                    <button class="btn" type="button">BOOK</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="things-img" style="background: url(/assets/new-images/parasailing.jpg) no-repeat;"
+                             role="img"
+                             aria-label="Parasailing"></div>
+                        <div class="dest-thing-content">
+                            <h4>Parasailing Tandem Flight in Sydney Harbour</h4>
 
+                            <div class="tags">
+                                <div class="tag">
+                                    <div class="v-center">WATER SPORTS</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-      <%= render :partial => "fun_facts_mobile", :locals => { :color => "blue", bg:"bg-blue" }  %>
+                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+                    <div class="dest-thing">
+                        <div class="dest-thing-overlay-wrapper">
+                            <div class="dest-thing-overlay">
+                                <div class="dollar-rating">$$</div>
+                                <div class="book-wrapper">
+                                    <button class="btn" type="button">BOOK</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="things-img" style="background: url(/assets/new-images/luna-park.jpg) no-repeat;"
+                             role="img"
+                             aria-label="Luna Park"></div>
+                        <div class="dest-thing-content">
+                            <h4>Luna Park</h4>
 
-      <% unless @more_places.blank? %>
-        <section class="places-to-go visit-place cards">
-          <div class="border-section"></div>
-          <div class="text-left">
-            <h4 class="section-title">More places like this</h4>
-          </div>
-          <div class="row">
-           <div id="more_places-list">
-              <%= render partial: 'subcategories/areas_list', collection: @more_places, as: :area %>
+                            <div class="tags">
+                                <div class="tag">
+                                    <div class="v-center">THEME PARK</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+                    <div class="dest-thing">
+                        <div class="dest-thing-overlay-wrapper">
+                            <div class="dest-thing-overlay">
+                                <div class="dollar-rating">$</div>
+                                <div class="book-wrapper">
+                                    <button class="btn" type="button">BOOK</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="things-img" style="background: url(/assets/new-images/makery-wrokshop.jpg) no-repeat;"
+                             role="img" aria-label="Makery Workshop"></div>
+                        <div class="dest-thing-content">
+                            <h4>The Makery Workshop Nights - Terrariums</h4>
+
+                            <div class="tags">
+                                <div class="tag">
+                                    <div class="v-center">CLASS / COURSE</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+                    <div class="dest-thing">
+                        <div class="things-img" style="background: url(/assets/new-images/bondi.jpg) no-repeat;" role="img"
+                             aria-label="Bondi"></div>
+                        <div class="dest-thing-content">
+                            <h4>Bondi Beach</h4>
+
+                            <div class="tags">
+                                <div class="tag">
+                                    <div class="v-center">BEACH</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </section>
-        <% unless last_page? @more_places %>
-          <div class="text-center clearfix btm20 single-pagination-container" id="more_places-single-pagination-container" style="clear:both">
-            <div class="btm15 hidden single-pagination-loader" align="center">
-              <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
+        </div>
+        <div class="row hidden-xs">
+            <div class="col-xs-12">
+                <div class="load-more"><a href="#">LOAD MORE</a></div>
             </div>
-            <%= link_to "Load More", paginate_more_places_place_path(@place, more_places_page: @more_places.next_page, resources: 'more_places', pagination_template: 'subcategories/areas_list', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
-          </div>
-        <% end %>
-      <% end %>
-    <%= render partial: "shared/photos_list" %>
-
-   </div> <!-- /col -->
-  </div> <!-- /row -->
-</div> <!-- main-container -->
+        </div>
+    </div>
+</div>
 
 <% end %>
 
@@ -297,10 +706,4 @@
 <%= render 'user_photos/form' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
-<%#= render 'layouts/video_modal' %>
-<%#= render 'stories/modal_story' %>
-
-<!-- <div class="container" id="blogs">
-    <h2 id="blog-title"></h2>
-    <div id="blog-content"></div>
-</div> -->
+<%= render "stories/modal_story" %>

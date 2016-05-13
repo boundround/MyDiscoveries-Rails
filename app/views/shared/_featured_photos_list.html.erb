@@ -1,22 +1,22 @@
-<div class="col-xs-12 col-sm-6 col-md-6">
-  <div class="body-stories">
-    <div class="image">
-      <%= link_to showing_image(photo.path_url(:large)) , class: 'display-image-on-modal', data: { gallery: '' }  do %>
-        <%= image_tag showing_image(photo.path_url(:medium)) %>
-      <% end %>
-          <div class="title">
-      <p><%= photo.place.display_name rescue "" %></p>
-      <h4><%= photo.caption %></h4>
+<div class="col-md-3 col-sm-6">
+    <div class="photo-component">
+        <div class="img-wrapper">
+            <%= link_to "" , showing_image(photo.path_url(:large)) , class: 'display-image-on-modal', data: { gallery: '' },
+                        style: "background: url( #{image_path showing_image(photo.path_url(:large))} ) no-repeat;"  %>
+        </div>
+        <div class="title-wrapper">
+            <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
+
+            <div class="photo-title"><%= photo.caption %></div>
+        </div>
     </div>
-    </div>
-  </div>
-  <div class="details-dest btm15">
-    <div class="left">
-        <% if photo.place.present? %>
-          <% photo.place.subcategories.subcats.each do |sub| %>
-            <%= link_to sub.name, subcategory_path(sub.identifier), class: "badge-link" %>
-          <% end %>
-        <% end %>
-    </div>
-  </div>
-</div> <!-- /col -->
+</div>
+
+<% if params[:active_photos].present? %>
+  <%= javascript_tag do -%>
+    
+    var injectSvgs = document.querySelectorAll("img.svg-inject");
+    SVGInjector(injectSvgs);
+
+  <% end -%>
+<% end %>

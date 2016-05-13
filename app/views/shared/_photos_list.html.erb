@@ -1,23 +1,27 @@
-<% unless @photos.blank? %>
-  <a name="photos"></a>
-  <section class="your-stories video-show photo">
-  <h4 class="text-center">
-    Photos
-  </h4>
-    <div class="row" id="photos-list">
-      <%= render partial: 'shared/featured_photos_list', collection: @photos, as: :photo %>
-    </div> <!-- row -->
-    <% unless last_page? @photos %>
-      <div class="text-center clearfix btm20 single-pagination-container" id="photos-single-pagination-container" style="clear:both">
-        <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
-          <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+  <div class="container photo-components-wrapper">
+        <div class="row">
+            <div class="owl-carousel carousel" id="photos-list">
+
+                <%= render partial: 'shared/featured_photos_list', collection: @photos, as: :photo %>
+              
+            </div>
         </div>
-        <% if params[:controller].eql? "places" %>
-        <%= link_to "Load More", paginate_photos_place_path(@place, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
-        <% else %>
-        <%= link_to "Load More", paginate_photos_country_path(@country, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+
+        <% unless last_page? @photos %>
+            <div class="row hidden-xs single-pagination-container" id="photos-single-pagination-container">
+                <div class="col-xs-12">
+                 <div class="hidden single-pagination-loader" align="center">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                 </div>
+                    <div class="load-more">
+                         <% if params[:controller].eql? "places" %>
+                        <%= link_to "LOAD MORE", paginate_photos_place_path(@place, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
+                        <% else %> <!-- area -->
+                        <%= link_to "LOAD MORE", paginate_photos_country_path(@country, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
         <% end %>
-      </div>
-    <% end %>
-</section>
-<% end %>
+
+    </div>

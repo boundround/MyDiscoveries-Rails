@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 
   def index
-    @set_body_class = "white-body"
+    @set_body_class = "home-page background"
     #task psoude code = "Places To Go" == Place.where(is_area: true).order(like_percentage ASC).limit(6)
     @areas = Place.active.is_area.where(primary_area: true).includes(:country).order("countries.display_name asc").includes(:photos)
     @areas = @areas.paginate(page: params[:areas_page], per_page: 6)

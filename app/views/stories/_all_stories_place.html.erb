@@ -1,0 +1,84 @@
+<div id="stories" class="thing-page-segment">
+    <div>
+        <h3>Stories</h3>
+    </div>
+
+    <div class="row">
+        <div class="owl-carousel carousel">
+            <% stories.each_with_index do |story, index| %>
+            <% if  story.class.to_s.eql? "Story" %>
+                <div class="col-md-12">
+                    <div class="thing-story-card-wrapper story"
+                         data-class="story"
+                         data-content="<%= story.content %>"
+                         data-title="<%= story.story_title ? story.story_title : @storiable.display_name %>"
+                         data-user="<%= story.user.name %>"
+                          <% story.story_images.each_with_index do |photo, index| %>
+                            data-image-<%= index %>="<%= photo %>"
+                          <% end %> >>
+                        <div class="thing-story ">
+                            <div class="thing-story-text-content">
+                                <div class="thing-story-header-details-wrapper">
+                                    <div class="user-dp"
+                                         style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"></div>
+                                    <div class="username"><%= story.user.name %></div>
+                                    <div class="date hidden-xs"><%= story.created_at.strftime("%B %Y") %></div>
+                                </div>
+                                <div class="thing-story-content">
+                                    <h4 class="thing-story-title"><%= raw story.title %></h4>
+
+                                    <div class="thing-story-desc">
+                                    <%= raw story.content[0..280]+"..." %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="thing-story-img-header">
+                        <span class="thing-story-img"
+                              style="background-image: url(<%= story.story_images.first %>)" role="img"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!--/col-md-12 -->
+            <% else %> <!-- API BLOG -->
+                <div  class="col-md-12">
+                    <div class="thing-story-card-wrapper story"
+                         id="blog-<%= story.id %>"
+                         data-class="apiblog" 
+                         data-id="<%= story.id %>" 
+                         data-cat="<%= (@category ? params[:id] : "") rescue '' %>" 
+                         data-place="<%= @place.display_name.parameterize rescue '' %>">
+                        <div class="thing-story ">
+                            <div class="thing-story-text-content">
+                                <div class="thing-story-header-details-wrapper">
+                                    <div class="user-dp"
+                                         style="background: url(<%= asset_path('br-logo-new-blue.png') %>) no-repeat;background-position: center;background-size: cover !important;"></div>
+                                    <div class="username">Boundround</div>
+                                    <div class="date hidden-xs"><%= DateTime.parse(story.created_at).strftime("%B %Y") %></div>
+                                </div>
+                                <div class="thing-story-content">
+                                    <h4 class="thing-story-title"><%= raw story.title %></h4>
+
+                                    <div class="thing-story-desc"><%= story.content.gsub(/(<[^>]+>)/, '').truncate(200) %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="thing-story-img-header">
+                        <span class="thing-story-img"
+                              style="background-image: url(<%= story.image.blank? ? draw_hero_background(@place) : story.image %>)" role="img"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!--/col-md-12 -->
+            <% end %>
+        </div>
+
+        <% end %>
+
+    </div>
+
+    <div class="row hidden-xs">
+        <div class="col-xs-12">
+            <div class="load-more"><a href="#">LOAD MORE</a></div>
+        </div>
+    </div>
+</div>
