@@ -186,38 +186,7 @@
             </div>
             <div class="row">
                 <div class="owl-carousel carousel" id="places_to_visit-list">
-                    <!-- <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-                        <div class="dest-thing">
-                            <div class="dest-thing-overlay-wrapper">
-                                <div class="dest-thing-overlay">
-                                    <div class="dollar-rating">$</div>
-                                    <div class="book-wrapper">
-                                        <button class="btn" type="button">BOOK</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="things-img" style="background: url(../images/catmosphere.jpg) no-repeat;"
-                                 role="img"
-                                 aria-label="Catmosphere"></div>
-                            <div class="dest-thing-content">
-                                <h4>Catmosphere Cat Cafe</h4>
-
-                                <div class="tags">
-                                    <div class="tag">
-                                        <div class="v-center"><a href="#">ANIMALS</a></div>
-                                    </div>
-                                    <div class="tag">
-                                        <div class="v-center"><a href="#">FOOD</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                <%= render partial: 'places_to_visit_list', collection: @places_to_visit, as: :area %>
-
-
-
+                  <%= render partial: 'places_to_visit_list', collection: @places_to_visit, as: :area %>
                 </div>
             </div>
 
@@ -277,7 +246,7 @@
     </div>
     <% end %>
 
-  <%= render partial: "shared/photos_list" %>
+  <%= render partial: "shared/photos_list", as: :photos, locals:{container: "container"} %>
 
     <div id="famousfaces" class="famous-faces-wrapper">
         <div class="container">

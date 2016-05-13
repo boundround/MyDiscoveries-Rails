@@ -156,11 +156,17 @@
                                             <div class="hidden-xs hidden-sm">
                                                 <h4>$$</h4>
                                             </div>
-                                            <div>
-                                                <a class="btn">BOOK NOW</a>
-                                            </div>
+                                            
+                                                <% unless @place.viator_link.blank? %>
+                                                <div>
+                                                    <a href="<%= @place.viator_link %>" onclick="bookNowClicks()" target="blank" class="btn">BOOK NOW</a>
+                                                </div>
+                                                <% end %>
+
                                             <div class="visible-xs visible-sm small-dollars">$$</div>
-                                            <div class="load-more"><a href="#">VIEW OPENING HOURS</a></div>
+                                            <div class="load-more">
+                                              <%= link_to "VIEW OPENING HOURS", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -172,10 +178,14 @@
                             <div>
                                 <h4>$$</h4>
                             </div>
-                            <div>
-                                <a class="btn">BOOK NOW</a>
+                              <% unless @place.viator_link.blank? %>
+                              <div>
+                                  <a href="<%= @place.viator_link %>" onclick="bookNowClicks()" target="blank" class="btn">BOOK NOW</a>
+                              </div>
+                              <% end %>
+                            <div class="load-more">
+                              <%= link_to "VIEW OPENING HOURS", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
                             </div>
-                            <div class="load-more"><a href="#">VIEW OPENING HOURS</a></div>
                         </div>
                     </div>
                     <div class="thing-side-info-segment">
@@ -186,59 +196,65 @@
 
                         <div class="row">
                             <div class="col-md-12 rating-wrapper">
-                                <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
+                                <%= raw draw_rating_smiles(@place) %>
                             </div>
                         </div>
                     </div>
+
                     <div class="thing-side-info-segment">
                         <div class="row">
                             <div class="col-xs-8">Suitable for ages</div>
-                            <div class="col-xs-4 thing-side-bold">5-12</div>
+                            <div class="col-xs-4 thing-side-bold"><%= @place.minimum_age.to_s + " - " + @place.maximum_age.to_s %></div>
                         </div>
                     </div>
                     <div class="thing-side-info-segment">
                         <div class="row">
                             <div class="col-xs-8">Best visited</div>
-                            <div class="col-xs-4 thing-side-bold">Daytime</div>
-                        </div>
-                    </div>
-                    <div class="thing-side-info-segment">
-                        <div class="row">
-                            <div class="col-xs-8">Suitable for ages</div>
-                            <div class="col-xs-4 thing-side-bold">5-12</div>
+                            <div class="col-xs-4 thing-side-bold"><%=  @optimum_times.first.name rescue "" %></div>
                         </div>
                     </div>
                     <div class="thing-side-info-segment">
                         <div class="row">
                             <div class="col-xs-8">Duration</div>
-                            <div class="col-xs-4 thing-side-bold">1/2 Day</div>
+                            <div class="col-xs-4 thing-side-bold"><%= @durations.first.name rescue "" %></div>
                         </div>
                     </div>
                     <div class="thing-side-info-segment">
                         <div class="row">
                             <div class="col-xs-4">Found in</div>
                             <div class="col-xs-8">
-                                <div class="tags">
+                              <% if !@place.similar_places.blank? %>
+                                <% @place.similar_places.each do |place| %>
+                                     <div class="tags">
+                                        <div class="tag">
+                                            <div class="v-center"><a href="<%= place_path(place.similar_place) %>"><%= place.similar_place.display_name %></a></div>
+                                        </div>
+                                    </div>
+                                <% end %>
+                               <% end %>
+<!--                                 <div class="tags">
                                     <div class="tag">
                                         <div class="v-center">ANIMALS</div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
+
                     <div class="thing-side-info-segment">
-                        <div class="icon-holder">
+                        <!-- <div class="icon-holder">
                             <span class="thing-icon" style="background-image: url('/assets/new-images/icon-wheelchair.png')"
                                   role="img" aria-label="Wheelchair Accessible"></span>
                         </div>
                         <div class="icon-holder">
                             <span class="thing-icon" style="background-image: url('/assets/new-images/icon-food.png')" role="img"
                                   aria-label="Food"></span>
-                        </div>
+                        </div> -->
+                          <% if !@accessibilities.blank? %>
+                            <% @accessibilities.each do |c| %>
+                              <%= raw draw_accessibilty_icons(c) %>
+                            <% end %>
+                           <% end %>
                     </div>
                     <div class="thing-side-info-segment">
                         <div class="row">
@@ -250,11 +266,11 @@
                             <div class="col-xs-12">
                                 <div class="thing-map-holder">
                                     <a class="thing-map-directions"
-                                       href="https://maps.google.com?daddr=-33.84339960415683, 151.2457449984253"
+                                       href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>"
                                        target="_blank">GET DIRECTIONS</a>
 
                                     <div style='overflow:hidden;height:100%;width:100%;'>
-                                        <div id='gmap_canvas' style='height:100%;width:100%;'></div>
+                                        <div id='map' style='height:100%;width:100%;'></div>
                                         <div>
                                             <small><a href="http://embedgooglemaps.com"> embed google maps </a>
                                             </small>
@@ -263,7 +279,7 @@
                                             <small><a href="http://freedirectorysubmissionsites.com/">directory
                                                 submission sites</a></small>
                                         </div>
-                                        <style>#gmap_canvas img {
+                                        <style>#map img {
                                             max-width: none !important;
                                             background: none !important
                                         }</style>
@@ -271,25 +287,27 @@
                                 </div>
                             </div>
                         </div>
-
                         <br/>
+
+
 
                         <div class="row">
                             <div class="col-xs-4">Address</div>
-                            <div class="col-xs-8 thing-side-bold">Bradleys Head Road<br/>Mosman NSW 2088<br/>Australia
-                            </div>
+                            <div class="col-xs-8 thing-side-bold"><%= @place.display_address.gsub("," , "<br>").html_safe %></div>
                         </div>
                         <br/>
 
                         <div class="row">
                             <div class="col-xs-4">Phone</div>
-                            <div class="col-xs-8 thing-side-bold">(02) 9969 2777</div>
+                            <div class="col-xs-8 thing-side-bold">
+                                <a class="" onclick="phoneNumberClicks()" href="tel: <%= @place.phone_number %>"><%= @place.phone_number %></a>
+                            </div>
                         </div>
                         <br/>
 
                         <div class="row">
                             <div class="col-xs-4">Website</div>
-                            <div class="col-xs-8 thing-side-bold">taronga.org.au</div>
+                            <div class="col-xs-8 thing-side-bold"><a onclick="websiteClicks()" href="<%= @place.website %>" target="_blank"><%= extract_domain(@place.website) %></a></div>
                         </div>
                         <br/>
                     </div>
@@ -349,201 +367,38 @@
 
                     </div>
 
-                      <%= render partial: "stories/all_stories_place", locals: { stories: @stories, title: "Your Stories" }%>
+                    <%= render partial: "stories/all_stories_place", locals: { stories: @stories }%>
 
-                    <div id="galleries" class="thing-page-segment galleries">
+                    <% unless @photos.blank? %>
+                        <div id="galleries" class="thing-page-segment galleries">
                         <div>
                             <h3>Galleries</h3>
                         </div>
-
-                        <div class="photo-components-wrapper">
-                            <div class="row">
-                                <div class="owl-carousel carousel">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="photo-component">
-                                            <div class="img-wrapper">
-                                                <a href="#"
-                                                   style="background: url(/assets/new-images/rowing.jpg) no-repeat;"></a>
-                                            </div>
-                                            <div class="title-wrapper">
-                                                <img class="svg-inject orange-stroke"
-                                                     src="/assets/new-images/icon-camera.svg"/>
-
-                                                <div class="photo-title">A day at the Royal National Park in
-                                                    Sydney's South
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="photo-component">
-                                            <div class="img-wrapper">
-                                                <a href="#"
-                                                   style="background: url(/assets/new-images/lavender.jpg) no-repeat;"></a>
-                                            </div>
-                                            <div class="title-wrapper">
-                                                <img class="svg-inject orange-stroke"
-                                                     src="/assets/new-images/icon-camera.svg"/>
-
-                                                <div class="photo-title">Lorem ipsum gallery</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="photo-component">
-                                            <div class="img-wrapper">
-                                                <a href="#"
-                                                   style="background: url(/assets/new-images/cloudy-opera-house.jpg) no-repeat;"></a>
-                                            </div>
-                                            <div class="title-wrapper">
-                                                <img class="svg-inject orange-stroke"
-                                                     src="/assets/new-images/icon-camera.svg"/>
-
-                                                <div class="photo-title">Lorem ipsum gallery</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row hidden-xs">
-                                <div class="col-xs-12">
-                                    <div class="load-more"><a href="#">LOAD MORE</a></div>
-                                </div>
-                            </div>
+                                <%= render partial: "shared/photos_list", as: :photos, locals:{container: ""} %>
                         </div>
-                    </div>
-
+                    <% end %>
+                    <% unless @reviews.blank? %>
                     <div id="memberreviews" class="thing-page-segment">
                         <div>
                             <h3>Member Reviews</h3>
                         </div>
                         <div class="row member-reviews-wrapper">
-                            <div class="owl-carousel auto-height-carousel">
-                                <div class="col-md-4">
-                                    <div class="member-review-wrapper">
-                                        <div class="user-wrapper">
-                                            <div class="user-dp"
-                                                 style="background: url(/assets/new-images/user-stephen.jpg) no-repeat;"></div>
-                                            <div class="username">Alex</div>
-                                        </div>
-                                        <div class="comment">
-                                            It has lots of different animals from bird to elephant and I saw a
-                                            elephant
-                                            playing Soccer!
-                                        </div>
-                                        <div class="rating-wrapper">
-                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                        </div>
-                                        <div class="date">July 2015</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="member-review-wrapper">
-                                        <div class="user-wrapper">
-                                            <div class="user-dp"
-                                                 style="background: url(/assets/new-images/user-stephen.jpg) no-repeat;"></div>
-                                            <div class="username">kjbaulder</div>
-                                        </div>
-                                        <div class="comment">
-                                            It was awesome. You should definitely go!
-                                        </div>
-                                        <div class="rating-wrapper">
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                        </div>
-                                        <div class="date">July 2015</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="member-review-wrapper">
-                                        <div class="user-wrapper">
-                                            <div class="user-dp"
-                                                 style="background: url(/assets/new-images/user-stephen.jpg) no-repeat;"></div>
-                                            <div class="username">brookiethecookie111</div>
-                                        </div>
-                                        <div class="comment">
-                                            I love Taronga Zoo as it has many fascinating animals to look at as well
-                                            as a
-                                            brand
-                                            new high ropes coarse. Stepping on the thin wire and obstacles above the
-                                            animal
-                                            enclosures
-                                            is the most amazing experience ever. I have done it myself and it was
-                                            breathtaking!!!
-                                        </div>
-                                        <div class="rating-wrapper">
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                        </div>
-                                        <div class="date">July 2015</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 temporary-class-1">
-                                    <!--TODO REMOVE TEMPORARY CLASS ONCE ISOTOPE FUNCTIONALITY IS IMPLEMENTED-->
-                                    <div class="member-review-wrapper">
-                                        <div class="user-wrapper">
-                                            <div class="user-dp"
-                                                 style="background: url(/assets/new-images/user-stephen.jpg) no-repeat;"></div>
-                                            <div class="username">donovan.whitworth</div>
-                                        </div>
-                                        <div class="comment">
-                                            Amazing!!!
-                                        </div>
-                                        <div class="rating-wrapper">
-                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject selected" src="/assets/new-images/icon-smiley-face.svg"/>
-                                        </div>
-                                        <div class="date">July 2015</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 temporary-class-2">
-                                    <!--TODO REMOVE TEMPORARY CLASS ONCE ISOTOPE FUNCTIONALITY IS IMPLEMENTED-->
-                                    <div class="member-review-wrapper">
-                                        <div class="user-wrapper">
-                                            <div class="user-dp"
-                                                 style="background: url(/assets/new-images/user-stephen.jpg) no-repeat;"></div>
-                                            <div class="username">Chelsea</div>
-                                        </div>
-                                        <div class="comment">
-                                            Taranga Zoo has recently renovated and they have many mesmerizing
-                                            creatures.
-                                            They have also
-                                            installed an amazing high ropes course. It is definitely a great place
-                                            for
-                                            people of all ages.
-                                        </div>
-                                        <div class="rating-wrapper">
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                            <img class="svg-inject" src="/assets/new-images/icon-smiley-face.svg"/>
-                                        </div>
-                                        <div class="date">July 2015</div>
-                                    </div>
-                                </div>
-
+                            <div class="owl-carousel auto-height-carousel" id="reviews-list" >
+                                <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
                             </div>
-                            <div class="col-xs-12 hidden-xs">
-                                <div class="load-more member-reviews-load-more temporary-class-3"><a href="#">LOAD
-                                    MORE</a></div>
-                                <!--TODO REMOVE TEMPORARY CLASS ONCE ISOTOPE FUNCTIONALITY IS IMPLEMENTED-->
-                            </div>
+                            <% unless last_page? @reviews %>
+                                <div class="col-xs-12 hidden-xs single-pagination-container" id="reviews-single-pagination-container">
+                                  <div class="hidden single-pagination-loader" align="center">
+                                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                                  </div>
+                                  <div class="load-more member-reviews-load-more temporary-class-3">
+                                  <%= link_to "LOAD MORE", paginate_reviews_place_path(@place, reviews_page: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list', collection_object: 'review'), class: 'single-pagination', remote: true %>
+                                </div>
+                                </div>
+                              <% end %>
                         </div>
                     </div>
+                    <% end %>
                 </div>
             </div>
         </div>
@@ -558,146 +413,26 @@
             </div>
         </div>
         <div class="row">
-            <div class="owl-carousel carousel">
-                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-                    <div class="dest-thing">
-                        <div class="dest-thing-overlay-wrapper">
-                            <div class="dest-thing-overlay">
-                                <div class="dollar-rating">$</div>
-                                <div class="book-wrapper">
-                                    <button class="btn" type="button">BOOK</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="things-img" style="background: url(/assets/new-images/catmosphere.jpg) no-repeat;"
-                             role="img"
-                             aria-label="Catmosphere"></div>
-                        <div class="dest-thing-content">
-                            <h4>Catmosphere Cat Cafe</h4>
-
-                            <div class="tags">
-                                <div class="tag">
-                                    <div class="v-center">ANIMALS</div>
-                                </div>
-                                <div class="tag">
-                                    <div class="v-center">FOOD</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-                    <div class="dest-thing">
-                        <div class="things-img" style="background: url(/assets/new-images/fish-market.jpg) no-repeat;"
-                             role="img"
-                             aria-label="Fish Market"></div>
-                        <div class="dest-thing-content">
-                            <h4>Sydney Fish Market</h4>
-
-                            <div class="tags">
-                                <div class="tag">
-                                    <div class="v-center">FOOD</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-                    <div class="dest-thing">
-                        <div class="dest-thing-overlay-wrapper">
-                            <div class="dest-thing-overlay">
-                                <div class="dollar-rating">$$$</div>
-                                <div class="book-wrapper">
-                                    <button class="btn" type="button">BOOK</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="things-img" style="background: url(/assets/new-images/parasailing.jpg) no-repeat;"
-                             role="img"
-                             aria-label="Parasailing"></div>
-                        <div class="dest-thing-content">
-                            <h4>Parasailing Tandem Flight in Sydney Harbour</h4>
-
-                            <div class="tags">
-                                <div class="tag">
-                                    <div class="v-center">WATER SPORTS</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-                    <div class="dest-thing">
-                        <div class="dest-thing-overlay-wrapper">
-                            <div class="dest-thing-overlay">
-                                <div class="dollar-rating">$$</div>
-                                <div class="book-wrapper">
-                                    <button class="btn" type="button">BOOK</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="things-img" style="background: url(/assets/new-images/luna-park.jpg) no-repeat;"
-                             role="img"
-                             aria-label="Luna Park"></div>
-                        <div class="dest-thing-content">
-                            <h4>Luna Park</h4>
-
-                            <div class="tags">
-                                <div class="tag">
-                                    <div class="v-center">THEME PARK</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-                    <div class="dest-thing">
-                        <div class="dest-thing-overlay-wrapper">
-                            <div class="dest-thing-overlay">
-                                <div class="dollar-rating">$</div>
-                                <div class="book-wrapper">
-                                    <button class="btn" type="button">BOOK</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="things-img" style="background: url(/assets/new-images/makery-wrokshop.jpg) no-repeat;"
-                             role="img" aria-label="Makery Workshop"></div>
-                        <div class="dest-thing-content">
-                            <h4>The Makery Workshop Nights - Terrariums</h4>
-
-                            <div class="tags">
-                                <div class="tag">
-                                    <div class="v-center">CLASS / COURSE</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-                    <div class="dest-thing">
-                        <div class="things-img" style="background: url(/assets/new-images/bondi.jpg) no-repeat;" role="img"
-                             aria-label="Bondi"></div>
-                        <div class="dest-thing-content">
-                            <h4>Bondi Beach</h4>
-
-                            <div class="tags">
-                                <div class="tag">
-                                    <div class="v-center">BEACH</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="owl-carousel carousel" id="more_places-list">
+                <%= render partial: 'subcategories/areas_list', collection: @more_places, as: :area %>
             </div>
         </div>
+        <% unless last_page? @more_places %>
         <div class="row hidden-xs">
-            <div class="col-xs-12">
-                <div class="load-more"><a href="#">LOAD MORE</a></div>
+          <div class="single-pagination-container" id="more_places-single-pagination-container">
+            <div class="hidden single-pagination-loader" align="center">
+              <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
             </div>
-        </div>
+            <div class="load-more">
+            <%= link_to "LOAD MORE", paginate_more_places_place_path(@place, more_places_page: @more_places.next_page, resources: 'more_places', pagination_template: 'subcategories/areas_list', collection_object: 'area'), class: ' single-pagination', remote: true %>
+            </div>
+          </div>
+          </div>
+        <% end %>
+
     </div>
 </div>
+
 
 <% end %>
 

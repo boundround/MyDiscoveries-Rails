@@ -267,9 +267,9 @@ class PlacesController < ApplicationController
 
     #NEW
     # @videos = @place.videos.active#.sort {|x, y| x.created_at <=> y.created_at}
-    @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: 4)
+    @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
     @photos_hero = @photos.first(6)
-    @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page: 4)
+    @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page:4)
 
     @related_places = @place.children
     @last_video = @place.videos.active.last
@@ -314,7 +314,7 @@ class PlacesController < ApplicationController
   def paginate_photos
     @place = Place.find_by_slug(params[:id])
     @active_user_photos = @place.user_photos.active
-    @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: 4)
+    @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
   end
 
   def paginate_videos
@@ -335,6 +335,10 @@ class PlacesController < ApplicationController
   def paginate_place_to_visit
     @place = Place.find_by_slug(params[:id])
     @places_to_visit = @place.children.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit_page].nil?? 6 : 3 )
+  end
+  def paginate_reviews
+    @place = Place.find_by_slug(params[:id])
+    @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
   end
 
   def transfer_assets

@@ -33,13 +33,13 @@ module ApplicationHelper
 
   def draw_accessibilty_icons(category)
     if category.identifier == "hearing-impaired"
-      "<i data-toggle='tooltip' title data-original-title='Hearing impaired' class='fa fa-deaf'></i>"
+      "<i data-toggle='tooltip' title data-original-title='Hearing impaired' class='fa fa-deaf accessibility'></i>"
     elsif category.identifier == "wheelchair-access"
-      "<i data-toggle='tooltip' title data-original-title='Wheelchair access' class='fa fa-wheelchair'></i>"
+      "<i data-toggle='tooltip' title data-original-title='Wheelchair access' class='fa fa-wheelchair accessibility'></i>"
     elsif category.identifier == "children-with-special-needs"
-      "<i data-toggle='tooltip' title data-original-title='Children with special needs' class='fa fa-child'></i>"
+      "<i data-toggle='tooltip' title data-original-title='Children with special needs' class='fa fa-child accessibility'></i>"
     elsif category.identifier == "sight-impaired"
-      "<i data-toggle='tooltip' title data-original-title='Sight impaired' class='fa fa-braille'></i>"
+      "<i data-toggle='tooltip' title data-original-title='Sight impaired' class='fa fa-braille accessibility'></i>"
     end
   end
 
