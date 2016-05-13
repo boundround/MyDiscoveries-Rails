@@ -1,0 +1,19 @@
+<div id="table-container">
+  <h3>Change Place For This Story</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Place</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%= simple_form_for [@story.storiable, @story] do |f| %>
+      <tr>
+        <td><%= f.association :storiable, label:false, label_method: :display_name, collection: Place.order(:display_name), value_method: :id %></td>
+        <td><%= f.submit :Update %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

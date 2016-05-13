@@ -1,9 +1,5 @@
 class StoriesController < ApplicationController
-  before_filter :load_storiable, :except => :profile_create
-  before_action :set_story_as_draft, only: [:create, :update]
-  before_action :set_user_photos, only: [:create, :update]
-  before_action :set_story, only: [:index, :edit, :update, :show, :destroy]
-  before_action :set_body, only: [:new_story, :index_new, :edit_story, :show]
+  before_filter :load_storiable
 
   def index
     @stories = @storiable.stories
@@ -11,51 +7,9 @@ class StoriesController < ApplicationController
 
   def show;end
 
-  def new
-    @story = @storiable.reviews.new
-    @story.user_photos.build
-  end
-
-  def create
-    @story = @storiable.stories.new(story_params)
-    if @story.save
-      NewStory.notification(@story).deliver
-      redirect_to @storiable, notice: "Thanks for the story. We'll let you know when others can see it too!"
-    else
-      redirect_to :back, notice: "We're sorry, there was an error uploading your story."
-    end
-  end
-
-  def profile_create
-    @story = Story.new(story_params)
-    place = Place.find_by(place_id: @story.google_place_id)
-    if place
-      @story.storiable = place
-    end
-
-    if @story.save
-      NewStory.notification(@story).deliver
-      redirect_to users_stories_path, notice: "Thanks for the story. We'll let you know when others can see it too!"
-    else
-      redirect_to users_stories_path, notice: "We're sorry, there was an error uploading your story."
-    end
-  end
-
-  def edit;end
-
   def update
-    if params[:add_country]
-      @story.country_id = @story.storiable.country_id
-    else
-      @story.country_id = nil
-    end
     if @story.update(story_params)
       redirect_to :back
-
-    # respond_to do |format|
-    #   format.html { redirect_to :back }
-    #   format.json { render json: @story }
-    # end
     end
   end
 
@@ -69,27 +23,22 @@ class StoriesController < ApplicationController
     @stories = Story.where(user_id: current_user.id)
   end
 
-  def new_story
-    place = Place.find_by_slug(params[:id])
-    @new_story = place.stories.new
+  def new
+    @new_story = @storiable.stories.new
   end
-  def create_story
-    place = Place.find_by_slug(params[:id])
-    @new_story = place.stories.new(story_params)
-    if @new_story.save
-      if @new_story.public = true
-        redirect_to place_story_url(@new_story.storiable, @new_story), notice: "Thanks for the Story! We'll let you know when others can see it too."
-      else
-        redirect_to place_story_url(@new_story.storiable, @new_story), notice: "Thanks for the Story! Set this story's status to 'public' if you'd like others to see it too."
-      end
+
+  def create
+    @story = @storiable.stories.new(story_params)
+    if @story.save
+      redirect_to @storiable, notice: "Your story has been saved."
     else
-      redirect_to :back, notice: "error"
+      redirect_to :back, notice: "Sorry, there was an error saving your story"
     end
   end
 
-  def update_story
-    @new_story = Story.find_by_slug(params[:story_id])
-    if @new_story.update(story_params)
+  def update
+    @story = Story.find_by_slug(params[:id])
+    if @story.update(story_params)
       redirect_to :back, notice: "Succesfully Updated Story"
     else
       redirect_to :back, notice: "error"
@@ -97,15 +46,8 @@ class StoriesController < ApplicationController
 
   end
 
-  def edit_story
-    @new_story = Story.find_by_slug(params[:story_id])
-    @place = Place.find_by_slug(params[:id])
-  end
-  def new_destroy
-
-  end
-  def set_body
-    @set_body_class ="bg-white"
+  def edit
+    @story = Story.find_by_slug(params[:id])
   end
 
   private
@@ -114,7 +56,7 @@ class StoriesController < ApplicationController
     end
     def load_storiable
       resource, id = request.path.split("/")[1, 2]
-      # @storiable = resource.singularize.classify.constantize.friendly.find(id)
+      @storiable = resource.singularize.classify.constantize.friendly.find(id)
     end
 
     def story_params
@@ -126,24 +68,6 @@ class StoriesController < ApplicationController
       if params[:story].present?
         params[:commit].to_s.downcase.eql?('publish') ? status= 'live' : status= 'draft'
         params[:story][:status]= status
-      end
-    end
-
-    def set_user_photos
-      if params[:story].present?
-        if params[:files]
-          if params.traverse(:story, :user_photos_attributes).blank?
-            params[:story][:user_photos_attributes] = {}
-          end
-          indexlala= 0
-          unless params[:story][:user_photos_attributes].blank?
-            indexlala= params[:story][:user_photos_attributes].keys.last.to_i + 1
-          end
-          params[:files].each do |file|
-            params[:story][:user_photos_attributes][indexlala.to_s]= { path: file, user_id: current_user.id }
-            indexlala= indexlala+1
-          end
-        end
       end
     end
 end

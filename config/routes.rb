@@ -122,13 +122,8 @@ Rails.application.routes.draw do
   resources :user_photos
   post 'user_photos/profile_create' => 'user_photos#profile_create'
 
-  resources :stories do
-    member { get 'new_story' => 'stories#new_story'}
-    member { post 'create_story' => 'stories#create_story', as: :create_story}
-    member { get 'edit_story' => 'stories#edit_story', as: :edit_story }
-    member { post 'update_story' => 'stories#update_story', as: :update_story}
-  end
-  post 'stories/profile_create' => 'stories#profile_create'
+  resources :stories
+
   get 'stories_all' => 'stories#index_new'
 
   get 'stamp_transactions/stamp_here' => 'stamp_transactions#stamp_here'
@@ -220,6 +215,7 @@ Rails.application.routes.draw do
     resources :famous_faces
     resources :info_bits
     resources :good_to_knows
+    resources :stories
     collection { post :import }
   end
 
@@ -313,10 +309,10 @@ Rails.application.routes.draw do
     member { get 'paginate_videos', as: :paginate_videos}
     member { get 'paginate_photos', as: :paginate_photos}
     # member { get 'new_story' }
-    member { get 'new_story' => 'stories#new_story'}
-    member { post 'create' => 'stories#create_story', as: :create_story}
-    member { get 'stories/:story_id/edit_story' => 'stories#edit_story', as: :edit_story }
-    member { post 'update_story/:story_id' => 'stories#update_story', as: :update_story}
+    # member { get 'new_story' => 'stories#new_story'}
+    # member { post 'create' => 'stories#create_story', as: :create_story}
+    # member { get 'stories/:story_id/edit_story' => 'stories#edit_story', as: :edit_story }
+    # member { post 'update_story/:story_id' => 'stories#update_story', as: :update_story}
     # collection { delete 'stories/:story_id' => 'stories#new_destroy', as: :delete_new_story}
     # member { get 'stamp_error' }
     member { get 'hero_image_picker'}

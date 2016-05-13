@@ -26,7 +26,7 @@
                   </div>
                   <div class="right">
                   <a href="#"><i class="fa fa-image"></i> <%= story.story_images.size %>
-                  <!-- </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%#= story.user.videos.size %></a> -->
+                  <!-- </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%#= story.story_videos.size %></a> -->
                   </div>
                 </div>
                 <div
@@ -51,9 +51,10 @@
                 </div>
                 <div>
                   <% if story.user == current_user %>
-                    <%= link_to "Edit Your Story", edit_story_place_path(story.storiable, story) %>
+                    <%= link_to "Edit Your Story", edit_polymorphic_path(story) %>
                   <% end %>
                 </div>
+              </div>
             </div><!-- card -->
           <% elsif story.class.to_s.eql? "ApiBlog" %>
             <div >
