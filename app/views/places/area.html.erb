@@ -94,7 +94,7 @@
         </div>
       <div class="desc-place">
         <p class="text"><%= raw @place.description[0..280]+"..." %></p>
-        <p class="text full" style="display: none;"><%= raw @place.description %></p>
+        <p class="text full" style="display: none;"><%= raw @place.description.gsub("\n", "<br>").gsub("\r", "<br>") %></p>
         <button class="blueish more" style="background:none;border:none;outline:none;padding-left:0;">More <span class="fa fa-caret-down"></span></button>
         <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;display:none;">Less <span class="fa fa-caret-up"></span></button>
       </div>
