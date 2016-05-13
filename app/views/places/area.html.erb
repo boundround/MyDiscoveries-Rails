@@ -17,7 +17,7 @@
                 <div class="col-xs-12">
                     <div class="location">
                     <!-- AUSTRALIA / NEW SOUTH WALES / SYDNEY -->
-                        <%= raw create_breadcrumb_for(@place).upcase %>
+                        <%= raw create_breadcrumb_for(@place) %>
                         <% if user_signed_in? and current_user.admin? %>
                           <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
                         <% end %>

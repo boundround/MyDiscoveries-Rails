@@ -20,7 +20,7 @@
                         <div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">
                             <div class="thing-heading-breadcrumb">
                             <!-- AUSTRALIA / NEW SOUTH WALES / SYDNEY / TARONGA ZOO -->
-                              <%= raw create_breadcrumb_for(@place).upcase %>
+                              <%= raw create_breadcrumb_for(@place) %>
                               <% if user_signed_in? and current_user.admin? %>
                                 <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
                               <% end %>
