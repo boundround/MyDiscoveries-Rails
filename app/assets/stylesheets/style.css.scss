@@ -2306,10 +2306,10 @@
 // 	padding: 0 1px;
 // }
 
-// span.orange-icon i, span.orange-font {
-// 	color: #FF734C !important;
-// 	padding: 0 1px;
-// }
+span.orange-icon i, span.orange-font {
+	color: #FF734C !important;
+	// padding: 0 1px;
+}
 // span.grey-icon i, span.grey-font {
 // 	color: #A0A0A0 !important;
 // 	padding: 0 1px;
@@ -4630,4 +4630,24 @@ span#temperature {
 	    left: 47px;
 	    width: 100%;
 	}
+}
+.rating-wrapper{
+	font-size: 40px;
+	color: #ddd;
+}
+.rating-wrapper i{
+	margin-right: 5px;
+}
+.comment{
+	word-wrap:break-word;
+}
+.accessibility{
+	font-size: 32px !important;
+    border-radius: 30px;
+    background: #ddd;
+    width: 50px;
+    height: 50px;
+    line-height: 50px !important;
+    text-align: center;
+    color: #333;
 }

@@ -1,11 +1,17 @@
-<div class="col-md-3 col-sm-6">
+<% grid, stroke = if !@place.is_area?
+    ["col-md-4", "orange-stroke"]
+else
+    ["col-md-3",""]
+end %>
+
+<div class="<%= grid %> col-sm-6">
     <div class="photo-component">
         <div class="img-wrapper">
             <%= link_to "" , showing_image(photo.path_url(:large)) , class: 'display-image-on-modal', data: { gallery: '' },
                         style: "background: url( #{image_path showing_image(photo.path_url(:large))} ) no-repeat;"  %>
         </div>
         <div class="title-wrapper">
-            <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
+            <img class="svg-inject <%= stroke %>" src="/assets/new-images/icon-camera.svg"/>
 
             <div class="photo-title"><%= photo.caption %></div>
         </div>
@@ -20,3 +26,18 @@
 
   <% end -%>
 <% end %>
+
+<!-- <div class="col-md-4 col-sm-6">
+<div class="photo-component">
+    <div class="img-wrapper">
+        <a href="#"
+           style="background: url(/assets/new-images/cloudy-opera-house.jpg) no-repeat;"></a>
+    </div>
+    <div class="title-wrapper">
+        <img class="svg-inject orange-stroke"
+             src="/assets/new-images/icon-camera.svg"/>
+
+        <div class="photo-title">Lorem ipsum gallery</div>
+    </div>
+</div>
+</div> -->

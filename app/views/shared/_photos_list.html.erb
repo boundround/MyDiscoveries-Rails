@@ -1,4 +1,4 @@
-  <div class="container photo-components-wrapper">
+  <div class="<%= container %> photo-components-wrapper">
         <div class="row">
             <div class="owl-carousel carousel" id="photos-list">
 
@@ -6,7 +6,6 @@
               
             </div>
         </div>
-
         <% unless last_page? @photos %>
             <div class="row hidden-xs single-pagination-container" id="photos-single-pagination-container">
                 <div class="col-xs-12">
