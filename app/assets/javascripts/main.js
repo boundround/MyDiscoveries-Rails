@@ -31,26 +31,26 @@ $(document).ready(function() {
         }
     });
 
-    var searchToggle = $("#search-toggle");
-    var searchContainer = $(".search-container");
-    var menuSearchResults = $(".mega-menu .search-results");
+    // var searchToggle = $("#search-toggle");
+    // var searchContainer = $(".search-container");
+    // var menuSearchResults = $(".mega-menu .search-results");
 
-    function showSearchBox() {
-        searchContainer.addClass("show");
-    }
+    // function showSearchBox() {
+    //     searchContainer.addClass("show");
+    // }
 
-    function hideSearchBox() {
-        searchContainer.removeClass("show");
-        menuSearchResults.addClass("hide");
-    }
+    // function hideSearchBox() {
+    //     searchContainer.removeClass("show");
+    //     menuSearchResults.addClass("hide");
+    // }
 
-    searchToggle.click(function(event) {
-        if (searchContainer.hasClass("show")) {
-            hideSearchBox();
-        } else {
-            showSearchBox();
-        }
-    });
+    // searchToggle.click(function(event) {
+    //     if (searchContainer.hasClass("show")) {
+    //         hideSearchBox();
+    //     } else {
+    //         showSearchBox();
+    //     }
+    // });
 
 
     var menuToggle = $(".menu-toggle");

@@ -1,0 +1,22 @@
+<a href="<%= place_path(area) %>">
+<div class="destination-card-item">
+    <div class="col-sm-4">
+        <div class="destination-card">
+            <div class="destination-image"
+                 style="background-image: url('<%= draw_small_background(area)%>')"
+                 role="img"
+                 aria-label="Destination Sydney">
+                <div class="overlay"></div>
+                <div class="geolocation">
+                    <img src="/assets/new-images/icon-geolocator.png"/><span><%= area.country.display_name %></span>
+                </div>
+                <div class="destination-city">
+                    <h2><%= area.display_name %></h2>
+                    <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png"/></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</a>

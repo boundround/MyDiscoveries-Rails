@@ -13,7 +13,7 @@ $(document).ready(function(){
   // var INDEX_NAME = "place_development","primary_category_development","country_development","subcategory_development";
   var INDEX_NAME = 'place_production';
   var PARAMS = {
-    hitsPerPage: 6,
+    hitsPerPage: 1,
     maxValuesPerFacet: 8,
   };
 
@@ -35,17 +35,17 @@ $(document).ready(function(){
 
   var algoliaHelperInstantSearch= algoliasearchHelper(algolia, INDEX_NAME, INSTANT_SEARCH_PARAMS);
 
-  var hideSearchResults = function(){
-    $('.br15_search_result').show();
-      $('.search-results-container').show();
-      $('.search-results').show();
-      $('.google-results-container').show();
-      $('.google-results-container').append($('.pac-container'));
-      // renderNoResults(content);
-      $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
-      $('#br15_map').removeClass('br15_min_h_530');
-      $('.br15_map').addClass('br15_collapse');
-  };
+  // var hideSearchResults = function(){
+  //   $('.br15_search_result').show();
+  //     $('.search-results-container').show();
+  //     $('.search-results').show();
+  //     $('.google-results-container').show();
+  //     $('.google-results-container').append($('.pac-container'));
+  //     // renderNoResults(content);
+  //     $('.br15_header').slideDown(400,function(){google.maps.event.trigger(br_map, "resize");});
+  //     $('#br15_map').removeClass('br15_min_h_530');
+  //     $('.br15_map').addClass('br15_collapse');
+  // };
 
   // $searchInput = $('#search-box');
   $searchInput = $('.search-box');
@@ -61,6 +61,7 @@ $(document).ready(function(){
   $moreResult = $('.more-result-id');
 
   var hitTemplate = Hogan.compile($('#hit-template').text());
+  var hitTemplateHome = Hogan.compile($('#hit-template-home').text());
   // var statsTemplate = Hogan.compile($('#stats-template').text());
   var facetTemplate = Hogan.compile($('#facet-template').text());
   // var sliderTemplate = Hogan.compile($('#slider-template').text());
@@ -88,15 +89,18 @@ $(document).ready(function(){
       algoliaHelper.setQuery(query);
       algoliaHelper.search();
     } else {
-      $('.search-results-container').hide();
+      // $('.search-results-container').hide();
     }
   }
   function searchConditionBottom(query){
     if (query.length > 0){
       algoliaHelperBottom.setQuery(query);
       algoliaHelperBottom.search();
+      // console.log(query);
+  
+      // $('.search-bottom').show();
     } else {
-      $('.search-results-container').hide();
+      // $('.search-bottom').hide();
     }
   }
 
@@ -128,6 +132,7 @@ $(document).ready(function(){
   .on('keyup', function() {
       var query = $(this).val();
       searchConditionBottom(query);
+      // console.log(query);
   })
   .bind("paste", function(){
       var elem = $(this);
@@ -154,12 +159,14 @@ $(document).ready(function(){
   algoliaHelper.on('result', function(content, state) {
     if (content.hits.length > 0){
       // $noResult.hide();
-      $('.search-results-container').show();
-      $('.search-results-bottom-container').hide();
+      $('#search-results-container').show();
+      $('#search-results-bottom-container').hide();
       // $('.search-results').show();
-      renderHits(content);
+      // renderHits(content);
+      renderHitsHome(content);
       renderMoreResults(content);
       rescueImage();
+      console.log(content.hits);
     } else {
       // renderNoResults(content);
     }
@@ -167,18 +174,18 @@ $(document).ready(function(){
   algoliaHelperBottom.on('result', function(content, state){
     if (content.hits.length > 0){
           // $noResult.hide();
-          $('.search-results-bottom-container').show();
-          $('.search-results-container').hide();
-          renderHits(content);
+          $('#search-results-bottom-container').show();
+          $('#search-results-container').hide();
+          renderHitsHome(content);
           renderMoreResults(content);
           rescueImage();
+          console.log(content.hits);
         } else {
           // renderNoResults(content);
         }
   })
 
   algoliaHelperInstantSearch.on('result', function(content, state){
-    // console.log(content);
     viatorLink(content.hits);
     renderInstantHits(content);
     renderFacets(content, state);
@@ -212,7 +219,7 @@ $(document).ready(function(){
     {
       if (content.hits.length > 0)
       {
-        $instantSearchHits.html(instanthitTemplate.render(content));
+        $instantSearchHits.html(instanthitTemplate.render(content)); 
         $(".instant-hits-result-pagination").show();
       }else {       
         
@@ -337,6 +344,10 @@ function renderFacets(content, state) {
   function renderHits(content) {
     $hits.html(hitTemplate.render(content));
   }
+  function renderHitsHome(content) {
+    $hits.html(hitTemplateHome.render(content));
+  }
+
 
   function renderStats(content) {
     var stats = {
