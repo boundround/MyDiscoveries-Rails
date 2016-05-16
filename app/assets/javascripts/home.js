@@ -64,27 +64,27 @@ $(document).ready(function(){
     }
 });
 
-(function(){
+// (function(){
 
-    var bannerSearchResults = $(".banner-wrapper .search-results");
+//     // var bannerSearchResults = $(".banner-wrapper .search-results");
 
-    function showSearchResults() {
-        bannerSearchResults.removeClass("hide");
-    }
+//     // function showSearchResults() {
+//     //     bannerSearchResults.removeClass("hide");
+//     // }
 
-    function hideSearchResults() {
-        bannerSearchResults.addClass("hide");
-    }
+//     // function hideSearchResults() {
+//     //     bannerSearchResults.addClass("hide");
+//     // }
 
-    var searchInput = $(".banner-wrapper input.search");
+//     // var searchInput = $(".banner-wrapper input.search");
 
-    //todo delete this. it's for demo purposes to show search result.
-    searchInput.focus(function(event) {
-        showSearchResults();
-    });
+//     //todo delete this. it's for demo purposes to show search result.
+//     // searchInput.focus(function(event) {
+//     //     showSearchResults();
+//     // });
 
-    //todo delete this. it's for demo purposes to hide search result.
-    $(".brief-background").click(function(event) {
-        hideSearchResults();
-    });
-})();
+//     //todo delete this. it's for demo purposes to hide search result.
+//     // $(".brief-background").click(function(event) {
+//     //     hideSearchResults();
+//     // });
+// })();

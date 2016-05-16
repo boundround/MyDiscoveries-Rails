@@ -1,117 +1,111 @@
-<!-- <div class="destination-page">
+<div class="destination-page">
     <div class="navigation-wrapper">
         <div class="menu-dark-background hide"></div>
         <div class="menu-toggle hidden-sm hidden-md hidden-lg">
             <div>
-                <img id="menu-closed" src="../images/icon-hamburger-menu.png"/>
-                <img id="menu-opened" class="hide" src="../images/icon-cross.png"/>
+                <img id="menu-closed" src="/assets/new-images/icon-hamburger-menu.png"/>
+                <img id="menu-opened" class="hide" src="/assets/new-images/icon-cross.png"/>
             </div>
         </div>
+        <!-- mobile -->
         <div class="mobile-menu hide hidden-sm hidden-md hidden-lg">
             <div class="mobile-menu-contents">
                 <div>Find</div>
                 <h4><a href="destination.html">Places to go</a></h4>
-                <h4><a href="thing.html">Things to do</a></h4>
+                <h4><a href="<%= subcategories_path %>">Things to do</a></h4>
 
                 <div>Browse</div>
-                <h4><a href="#"><img class="svg-inject" src="../images/icon-camera.svg"/> <span>Galleries</span></a></h4>
-                <h4><a href="#"><img class="svg-inject" src="../images/icon-play-rect-unfilled.svg"/>
+                <h4><a href="/photos"><img class="svg-inject" src="/assets/new-images/icon-camera.svg"/> <span>Galleries</span></a></h4>
+                <h4><a href="/videos"><img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
                     <span>Videos</span></a>
                 </h4>
 
                 <div>Become a member</div>
-                <button href="#">Join Bound Round</button>
+                <button href="<%= new_user_registration_path %>">Join Bound Round</button>
             </div>
         </div>
+
         <div class="mega-menu">
             <div class="menu-bar">
                 <div class="container">
                     <a href="home.html">
-                        <img class="logo" src="../images/logo-circle.png"/>
+                        <img class="logo" src="/assets/new-images/logo-circle.png"/>
                     </a>
 
                     <div class="menu-items">
                         <div class="menu-item hidden-xs">
                             <a id="places-to-go-link">PLACES TO GO <img class="active hide"
-                                                                        src="../images/icon-caret-active.png"><img
-                                    class="inactive" src="../images/icon-caret.png"></a>
+                                                                        src="/assets/new-images/icon-caret-active.png"><img
+                                    class="inactive" src="/assets/new-images/icon-caret.png"></a>
                         </div>
-                        <a class="menu-item hidden-xs" href="thing.html">
-                            THINGS TO DO
-                        </a>
-                        <a class="menu-item hidden-xs" href="#">
-                            <img class="svg-inject" src="../images/icon-camera.svg"/> <span>GALLERIES</span>
-                        </a>
-                        <a class="menu-item hidden-xs" href="#">
-                            <img class="svg-inject" src="../images/icon-play-rect-unfilled.svg"/> <span>VIDEOS</span>
+                        <%= link_to "THINGS TO DO", subcategories_path, class: "menu-item hidden-xs" %>
+                        <a class="menu-item hidden-xs" href="/photos">
+                            <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/> <span>GALLERIES</span>
                         </a>
 
-                        <a class="menu-item hidden-sm hidden-md hidden-lg" href="#">
-                            SIGN IN / LOGIN
+                        <a class="menu-item hidden-xs" href="/videos">
+                            <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/> <span>VIDEOS</span>
                         </a>
-
-                        <div class="search-results hide">
-                            <div class="search-results-card-wrapper">
-                                <a class="search-results-card" href="thing.html">
-                                    <div class="search-results-img"
-                                         style="background: url(../images/thing-fruit-world.jpg) no-repeat;" role="img"
-                                         aria-label="Luna Park">
-                                    </div>
-                                    <div class="search-results-card-content">
-                                        <h5>Sydney</h5>
-                                        <h4>Tropical Fruit World</h4>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="search-results-card-wrapper">
-                                <a class="search-results-card" href="thing.html">
-                                    <div class="search-results-img"
-                                         style="background: url(../images/thing-fruit-world.jpg) no-repeat;" role="img"
-                                         aria-label="Luna Park">
-                                    </div>
-                                    <div class="search-results-card-content">
-                                        <h5>Sydney</h5>
-                                        <h4>Tropical Fruit World</h4>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="search-results-card-wrapper">
-                                <a class="search-results-card" href="thing.html">
-                                    <div class="search-results-img"
-                                         style="background: url(../images/thing-fruit-world.jpg) no-repeat;" role="img"
-                                         aria-label="Luna Park">
-                                    </div>
-                                    <div class="search-results-card-content">
-                                        <h5>Sydney</h5>
-                                        <h4>Tropical Fruit World</h4>
-                                    </div>
-                                </a>
-                            </div>
-                            <a class="search-results-find-more" href="thing.html">
-                                <span>FIND MORE RESULTS FOR <span class="search-term">'SYD'</span></span><img
-                                    class="search-arrow" src="../images/carousel-nav-arrow.png"/>
+                        <%# if !user_signed_in? %>
+                            <a class="menu-item hidden-sm hidden-md hidden-lg" href="#" data-toggle="modal" data-target="#myModal">
+                                SIGN IN / LOGIN
                             </a>
+                        <%# end %>
+
+                        <div class="search-results" id="search-results-container" style="display:none;">
+                            <%= render :partial=> "search_suggestions/search_results" %>
                         </div>
 
                         <div class="menu-item">
                             <div class="search-container">
-                                <input class="search" placeholder="SEARCH"/>
-                                <img class="hidden-xs hidden-sm" src="../images/icon-search.png"/>
-                                <button class="hidden-md hidden-lg"><img src="../images/icon-search-white.png"/>
-                                    <span>SEARCH</span></button>
+                                <form accept-charset="UTF-8" action="/results" method="get">
+                                      <div style="display:none">
+                                        <input name="utf8" value="✓" type="hidden">
+                                      </div>
+                                      <input type="text" name="search[common]" class="search-box" placeholder="SEARCH" autocomplete="off">
+                                    <!-- <input class="search" placeholder="SEARCH" autocomplete: "off" /> -->
+                                    <button class="hidden-xs hidden-sm search-icon-nav" type="submit" >  
+                                        <img class="" src="/assets/new-images/icon-search.png"/>
+                                    </button>
+                                    <button class="hidden-md hidden-lg">
+                                        <img src="/assets/new-images/icon-search-white.png"/>
+                                        <span>SEARCH</span>
+                                    </button>
+
+                                </form>
                             </div>
-                            <img id="search-toggle" src="../images/icon-search.png"/>
+                            <img id="search-toggle" src="/assets/new-images/icon-search.png"/>
                         </div>
-                        <a class="menu-item hidden-xs" href="#">
+                        <% if !user_signed_in? %>
+                        <a class="menu-item hidden-xs" href="#" data-toggle="modal" data-target="#myModal">
                             SIGN IN
                         </a>
-
                         <div class="menu-item hidden-xs">
-                            <a class="join" href="#">JOIN</a>
+                            <a class="join" href="<%= new_user_registration_path %>">JOIN</a>
                         </div>
+                        <% else %>
+                        <ul class="nav navbar-nav navbar-right hidden-xs">
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
+                                <div class="outer-profile">
+                                  <img src="<%= current_user.avatar_url rescue "" %>" />
+                                </div>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
+                                <li><a href="<%= edit_user_path(current_user) %>">Edit Profile</a></li>
+                                <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li>
+                                <li><a href="<%= photos_user_path(current_user) %>">My Photos</a></li>
+                                <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
+                              </ul>
+                            </li>
+                        </ul>
+                        <% end %>
+
                     </div>
                 </div>
             </div>
+
             <div class="places-to-go hide">
                 <div class="container">
                     <div class="row">
@@ -120,86 +114,33 @@
                             <div class="row">
                                 <div class="carousel-wrapper">
                                     <div class="owl-carousel">
+                                        
+                                    <% @featured_nav_destinations = Place.find([1064, 1221, 1071, 1060]) %>
+                                    <% @featured_nav_destinations.each do |place| %>
                                         <div class="col-md-6">
-                                            <a href="destination.html">
+                                            <a href="<% place_path(place)%>">
                                                 <div class="destination-card">
                                                     <div class="destination-image"
-                                                         style="background-image: url('../images/destination-sydney.jpg')"
+                                                         style="background-image: url('<%= draw_small_background(place)%>')"
                                                          role="img" aria-label="Destination Sydney">
                                                         <div class="overlay"></div>
                                                         <div class="geolocation">
-                                                            <img src="../images/icon-geolocator.png"><span>AUSTRALIA</span>
+                                                            <img src="/assets/new-images/icon-geolocator.png"><span><%= place.country.display_name %></span>
                                                         </div>
                                                         <div class="destination-city">
-                                                            <h2>Sydney</h2>
+                                                            <h2><%= place.display_name %></h2>
 
-                                                            <div class="arrow"><img src="../images/hover-state-arrow.png"/>
+                                                            <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png"/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
-                                        <div class="col-md-6">
-                                            <a href="destination.html">
-                                                <div class="destination-card">
-                                                    <div class="destination-image"
-                                                         style="background-image: url('../images/destination-kyoto.jpg')"
-                                                         role="img" aria-label="Destination Kyoto">
-                                                        <div class="overlay"></div>
-                                                        <div class="geolocation">
-                                                            <img src="../images/icon-geolocator.png"/><span>JAPAN</span>
-                                                        </div>
-                                                        <div class="destination-city">
-                                                            <h2>Kyoto</h2>
+                                        <% end %>
 
-                                                            <div class="arrow"><img src="../images/hover-state-arrow.png"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <a href="destination.html">
-                                                <div class="destination-card">
-                                                    <div class="destination-image"
-                                                         style="background-image: url('../images/destination-sanfrancisco.jpg')"
-                                                         role="img" aria-label="Destination San Francisco">
-                                                        <div class="overlay"></div>
-                                                        <div class="geolocation">
-                                                            <img src="../images/icon-geolocator.png"/><span>UNITED STATES OF AMERICA</span>
-                                                        </div>
-                                                        <div class="destination-city">
-                                                            <h2>San Francisco</h2>
-
-                                                            <div class="arrow"><img src="../images/hover-state-arrow.png"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <a href="destination.html">
-                                                <div class="destination-card">
-                                                    <div class="destination-image"
-                                                         style="background-image: url('../images/destination-venice.jpg')"
-                                                         role="img" aria-label="Destination Venice">
-                                                        <div class="overlay"></div>
-                                                        <div class="geolocation">
-                                                            <img src="../images/icon-geolocator.png"/><span>ITALY</span>
-                                                        </div>
-                                                        <div class="destination-city">
-                                                            <h2>Venice</h2>
-
-                                                            <div class="arrow"><img src="../images/hover-state-arrow.png"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                                        
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -209,105 +150,39 @@
                             <div class="row">
                                 <div class="carousel-wrapper">
                                     <div class="owl-carousel">
+                                        
+                                  <% @featured_nav_places = Place.find([233, 117, 921]) %>
+                                  <% @featured_nav_places.each do |place| %>
                                         <div class="col-md-12 dest-thing-wrapper">
                                             <div class="dest-thing featured">
                                                 <div class="things-img"
-                                                     style="background: url(../images/thing-fruit-world.jpg) no-repeat;"
+                                                     style="background: url('<%= draw_small_background(place) %>') no-repeat;"
                                                      role="img" aria-label="Luna Park">
                                                     <div class="dest-thing-overlay-wrapper">
                                                         <div class="dest-thing-overlay">
                                                             <div class="dollar-rating">$$</div>
-                                                            <div class="book-wrapper">
-                                                                <button href="#" class="btn" type="button">BOOK</button>
-                                                            </div>
+                                                             <% if !place.viator_link.blank? %>
+                                                                <div class="book-wrapper">
+                                                                    <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" href="#" class="btn book-btn book-white" type="button">BOOK</a>
+                                                                </div>
+                                                            <% end %>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="dest-thing-content">
                                                     <h4>Tropical Fruit World</h4>
-
-                                                    <div class="tags">
-                                                        <div class="tag"><a href="#" class="v-center">5&mdash;8</a></div>
-                                                        <div class="tag"><a href="#" class="v-center">9&mdash;12</a></div>
-                                                        <div class="tag"><a href="#" class="v-center">FOOD</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 dest-thing-wrapper">
-                                            <div class="dest-thing featured">
-                                                <div class="things-img"
-                                                     style="background: url(../images/thing-lavender-estate.jpg) no-repeat;"
-                                                     role="img" aria-label="Luna Park">
-                                                    <div class="dest-thing-overlay-wrapper">
-                                                        <div class="dest-thing-overlay">
-                                                            <div class="dollar-rating">$</div>
-                                                            <div class="book-wrapper">
-                                                                <button href="#" class="btn" type="button">BOOK</button>
-                                                            </div>
+                                                    <% place.subcategories.subcats.each do |category| %>
+                                                        <div class="tags">
+                                                            <div class="tag"><a href="#" class="v-center"><%= category.name %></a></div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="dest-thing-content">
-                                                    <h4>Bridestowe Lavender Estate</h4>
+                                                    <% end %>
 
-                                                    <div class="tags">
-                                                        <div class="tag"><a href="#" class="v-center">ALL AGES</a></div>
-                                                        <div class="tag"><a href="#" class="v-center">CITY BREAK</a></div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 dest-thing-wrapper">
-                                            <div class="dest-thing featured">
-                                                <div class="things-img"
-                                                     style="background: url(../images/thing-zoo.jpg) no-repeat;" role="img"
-                                                     aria-label="Luna Park">
-                                                    <div class="dest-thing-overlay-wrapper">
-                                                        <div class="dest-thing-overlay">
-                                                            <div class="dollar-rating">$$</div>
-                                                            <div class="book-wrapper">
-                                                                <button href="#" class="btn" type="button">BOOK</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="dest-thing-content">
-                                                    <h4>Taronga Zoo</h4>
+                                        <% end %>
 
-                                                    <div class="tags">
-                                                        <div class="tag"><a href="#" class="v-center">ALL AGES</a></div>
-                                                        <div class="tag"><a href="#" class="v-center">CITY BREAK</a></div>
-                                                        <div class="tag"><a href="#" class="v-center">ANIMALS</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 dest-thing-wrapper">
-                                            <div class="dest-thing featured">
-                                                <div class="things-img"
-                                                     style="background: url(../images/thing-boatshed.jpg) no-repeat;"
-                                                     role="img"
-                                                     aria-label="Luna Park">
-                                                    <div class="dest-thing-overlay-wrapper">
-                                                        <div class="dest-thing-overlay">
-                                                            <div class="dollar-rating">$</div>
-                                                            <div class="book-wrapper">
-                                                                <button href="#" class="btn" type="button">BOOK</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="dest-thing-content">
-                                                    <h4>Audrey Boatshed</h4>
 
-                                                    <div class="tags">
-                                                        <div class="tag"><a href="#" class="v-center">ALL AGES</a></div>
-                                                        <div class="tag"><a href="#" class="v-center">WATER SPORTS</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -317,4 +192,4 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
