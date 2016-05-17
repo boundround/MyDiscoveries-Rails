@@ -64,7 +64,7 @@
                                       </div>
                                       <input type="text" name="search[common]" class="search-box" placeholder="SEARCH" autocomplete="off">
                                     <!-- <input class="search" placeholder="SEARCH" autocomplete: "off" /> -->
-                                    <button class="hidden-xs hidden-sm search-icon-nav" type="submit" >  
+                                    <button class="hidden-xs hidden-sm search-icon-nav" type="submit" >
                                         <img class="" src="/assets/new-images/icon-search.png"/>
                                     </button>
                                     <button class="hidden-md hidden-lg">
@@ -114,11 +114,11 @@
                             <div class="row">
                                 <div class="carousel-wrapper">
                                     <div class="owl-carousel">
-                                        
+
                                     <% @featured_nav_destinations = Place.find([1064, 1221, 1071, 1060]) %>
                                     <% @featured_nav_destinations.each do |place| %>
                                         <div class="col-md-6">
-                                            <a href="<% place_path(place)%>">
+                                            <a href="<%= place_path(place)%>">
                                                 <div class="destination-card">
                                                     <div class="destination-image"
                                                          style="background-image: url('<%= draw_small_background(place)%>')"
@@ -139,8 +139,8 @@
                                         </div>
                                         <% end %>
 
-                                        
-                                       
+
+
                                     </div>
                                 </div>
                             </div>
@@ -150,9 +150,10 @@
                             <div class="row">
                                 <div class="carousel-wrapper">
                                     <div class="owl-carousel">
-                                        
-                                  <% @featured_nav_places = Place.find([233, 117, 921]) %>
+
+                                  <% @featured_nav_places = Place.find([233, 117, 921, 1021]) %>
                                   <% @featured_nav_places.each do |place| %>
+                                    <a href="<%= place_path(place) %>">
                                         <div class="col-md-12 dest-thing-wrapper">
                                             <div class="dest-thing featured">
                                                 <div class="things-img"
@@ -170,19 +171,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="dest-thing-content">
-                                                    <h4>Tropical Fruit World</h4>
+                                                    <h4><%= place.display_name %></h4>
                                                     <% place.subcategories.subcats.each do |category| %>
                                                         <div class="tags">
                                                             <div class="tag"><a href="#" class="v-center"><%= category.name %></a></div>
                                                         </div>
                                                     <% end %>
-
                                                 </div>
                                             </div>
                                         </div>
+                                    </a>
                                         <% end %>
-
-
                                     </div>
                                 </div>
                             </div>
