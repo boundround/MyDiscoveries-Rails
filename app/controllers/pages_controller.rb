@@ -4,12 +4,17 @@ class PagesController < ApplicationController
     @set_body_class = "home-page background"
     #task psoude code = "Places To Go" == Place.where(is_area: true).order(like_percentage ASC).limit(6)
     @areas = Place.active.is_area.where(primary_area: true).includes(:country).order("countries.display_name asc").includes(:photos)
-    @areas = @areas.paginate(page: params[:areas_page], per_page: 6)
+    @areas = @areas.paginate(page: params[:areas_page], per_page: 1)
     # @categories = PrimaryCategory.all.includes(:places => :subcategories).paginate(per_page: 10, page: params[:categories_page])
     # @primary_categories= PrimaryCategory.all.limit(3).paginate(per_page: 3, page: params[:primary_categories_page])
     @subcategories = Subcategory.subcats.includes(:places => :subcategories)
     @subcategories = @subcategories.sort {|x, y| y.places.size <=> x.places.size}
-    @subcategories = @subcategories.paginate(per_page: 3, page: params[:subcategories_page])
+    @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
+    @category1 = @subcategories[0]
+    @category2 = @subcategories[1]
+    @category3 = @subcategories[2]
+    @category4 = @subcategories[3]
+    @sydney = Place.find_by_display_name("Sydney")
   end
 
   def globe
