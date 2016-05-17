@@ -31,26 +31,26 @@ $(document).ready(function() {
         }
     });
 
-    // var searchToggle = $("#search-toggle");
-    // var searchContainer = $(".search-container");
-    // var menuSearchResults = $(".mega-menu .search-results");
+    var searchToggle = $("#search-toggle");
+    var searchContainer = $(".search-container");
+    var menuSearchResults = $(".mega-menu .search-results");
 
-    // function showSearchBox() {
-    //     searchContainer.addClass("show");
-    // }
+    function showSearchBox() {
+        searchContainer.addClass("show");
+    }
 
-    // function hideSearchBox() {
-    //     searchContainer.removeClass("show");
-    //     menuSearchResults.addClass("hide");
-    // }
+    function hideSearchBox() {
+        searchContainer.removeClass("show");
+        menuSearchResults.addClass("hide");
+    }
 
-    // searchToggle.click(function(event) {
-    //     if (searchContainer.hasClass("show")) {
-    //         hideSearchBox();
-    //     } else {
-    //         showSearchBox();
-    //     }
-    // });
+    searchToggle.click(function(event) {
+        if (searchContainer.hasClass("show")) {
+            hideSearchBox();
+        } else {
+            showSearchBox();
+        }
+    });
 
 
     var menuToggle = $(".menu-toggle");
@@ -83,26 +83,26 @@ $(document).ready(function() {
         }
     });
 
-    var searchInput = $(".mega-menu input.search");
+    // var searchInput = $(".mega-menu input.search");
 
-    function showSearchResults() {
-        menuSearchResults.removeClass("hide");
-        showSearchBox();
-    }
+    // function showSearchResults() {
+    //     menuSearchResults.removeClass("hide");
+    //     showSearchBox();
+    // }
 
-    function hideSearchResults() {
-        menuSearchResults.addClass("hide");
-    }
+    // function hideSearchResults() {
+    //     menuSearchResults.addClass("hide");
+    // }
 
     //todo delete this. it's for demo purposes to show search result.
-    searchInput.focus(function(event) {
-        showSearchResults();
-    });
+    // searchInput.focus(function(event) {
+    //     showSearchResults();
+    // });
 
     //todo delete this. it's for demo purposes to hide search result.
-    $(".places-to-go, .dismiss-mega-menu-search").click(function(event) {
-        hideSearchResults();
-    });
+    // $(".places-to-go, .dismiss-mega-menu-search").click(function(event) {
+    //     hideSearchResults();
+    // });
 
 
     var mq = window.matchMedia('(max-width:991px)');

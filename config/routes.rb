@@ -315,6 +315,7 @@ Rails.application.routes.draw do
     member { get 'paginate_reviews'}
     member { get 'paginate_more_places'}
     member { get 'paginate_place_to_visit'}
+    member { get 'paginate_stories'}
     # member { get 'new_story' }
     member { get 'new_story' => 'stories#new_story'}
     member { post 'create' => 'stories#create_story', as: :create_story}
