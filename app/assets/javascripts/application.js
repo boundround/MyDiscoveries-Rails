@@ -90,15 +90,15 @@
 
 $(document).on('ajax:beforeSend', 'a.single-pagination', function(){
   container= $(this).closest('div.single-pagination-container');
-  container.find('div.single-pagination-loader').removeClass('hidden-lg');
+  container.find('div.single-pagination-loader').removeClass('hidden');
   $(this).addClass('hidden');
 }).on('ajax:success', 'a.single-pagination', function(){
   container= $(this).closest('div.single-pagination-container');
-  container.find('div.single-pagination-loader').addClass('hidden-lg');
+  container.find('div.single-pagination-loader').addClass('hidden');
   $(this).removeClass('hidden');
 }).on('ajax:error', 'a.single-pagination', function(){
 	container= $(this).closest('div.single-pagination-container');
-  container.find('div.single-pagination-loader').addClass('hidden-lg');
+  container.find('div.single-pagination-loader').addClass('hidden');
   $(this).removeClass('hidden');
 });
 

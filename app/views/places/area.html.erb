@@ -115,15 +115,16 @@
     
     <% unless @last_video.blank? %>
     <% if !@last_video.youtube_id.blank? %>
-      <div id="videos" class="large-video-component-wrapper"
+      <div id="videos" class="large-video-component-wrapper play-in-modal"
            style="background: url(<%= @last_video.vimeo_thumbnail %>) no-repeat;"
            role="img"
            data-id="<%= @last_video.youtube_id %>"
            data-video="youtube"
            data-modal="#video-modal"
            data-video-url="<%= @last_video.url %>"
-           aria-label="Kids View: Things to do in Sydney">
-          <!-- <div class="overlay"></div> -->
+           aria-label="Kids View: Things to do in Sydney"
+           data-thumb="<%= @last_video.vimeo_thumbnail %>" >
+          <div class="overlay"></div>
           <div class="container">
               <div class="row">
                   <div class="col-xs-12">
@@ -135,21 +136,22 @@
                   </div>
               </div>
           </div>
-         <!--  <div class="main-play-icon-wrapper">
+          <div class="main-play-icon-wrapper">
               <div class="main-play-icon"></div>
-          </div> -->
-        <iframe class="iframe-player" src="<%= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+        <!-- <iframe class="iframe-player" src="<%#= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
       </div>
     <% else %>
-      <div id="videos" class="large-video-component-wrapper"
+      <div id="videos" class="large-video-component-wrapper play-in-modal"
            style="background: url(<%= @last_video.vimeo_thumbnail %>) no-repeat;"
            role="img"
            data-id="<%= @last_video.vimeo_id %>"
            data-video="vimeo"
            data-modal="#video-modal"
            data-video-url="<%= @last_video.url %>"
-           aria-label="Kids View: Things to do in Sydney">
-          <!-- <div class="overlay"></div> -->
+           aria-label="Kids View: Things to do in Sydney"
+           data-thumb="<%= @last_video.vimeo_thumbnail %>">
+          <div class="overlay"></div>
           <div class="container">
               <div class="row">
                   <div class="col-xs-12">
@@ -161,10 +163,11 @@
                   </div>
               </div>
           </div>
-         <!--  <div class="main-play-icon-wrapper">
+
+          <div class="main-play-icon-wrapper">
               <div class="main-play-icon"></div>
-          </div> -->
-          <iframe class="iframe-player" src="<%= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+          <!-- <iframe class="iframe-player" src="<%#= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
       </div>
       <% end %>
     <% end %>
@@ -173,7 +176,7 @@
     
 
     <div class="stories-things-wrapper">
-        <%= render partial: "stories/all_stories", locals: { stories: @stories }%>
+        <%= render partial: "stories/all_stories" %>
         <%= render "stories/modal_story" %>
 
         
