@@ -215,6 +215,16 @@ module ApplicationHelper
     end
   end
 
+  def draw_medium_background(place)
+    if place.photos.find_by(hero: true)
+      place.photos.find_by(hero: true).path_url(:medium)
+    elsif place.user_photos.find_by(hero: true)
+      place.user_photos.find_by(hero: true).path_url(:medium)
+    else
+      asset_path('generic-hero-small.jpg')
+    end
+  end
+
   def open_graph_image
       placeholder = "https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/br_logo_new-30eb3b9bb0267503159d6cab93191844.png"
 

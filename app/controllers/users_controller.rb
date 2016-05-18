@@ -86,6 +86,9 @@ class UsersController < ApplicationController
   def favourites
     if user_signed_in? || current_user.admin?
       @user = User.includes(:favorite_places).find(params[:id])
+
+      @favorite_places = @user.favorite_places.where(is_area: false).paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
+      @areas = @user.favorite_places.where(is_area: true).paginate(page: params[:areas_page], per_page: 3)
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
