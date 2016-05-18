@@ -7,10 +7,10 @@
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>"></div>
 <div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="thing-wrapper-zoo">
-        <span class="banner-image" style="background-image: url(<%=showing_image(draw_hero_background(@place)) %>)" role="img"
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="thing-wrapper-zoo">
+                <span class="banner-image" style="background-image: url(<%=showing_image(draw_hero_background(@place)) %>)" role="img"
                       aria-label="">
                         </span>
 
@@ -412,93 +412,7 @@
             </div>
         </div>
     </div>
-  </div> <!-- /container -->
-</div> <!-- /header-image-with-nav -->
-
-<div class="container mobile-container padding-style"> <!-- main container -->
-<section class="place-details country-details">
-  <div class="text-center visible-xs">
-    <h2 class="place-title2 place-color2"><%= @place.display_name %></h2>
-  </div>
-
-  <div class="row"> <!-- main row -->
-    <div class="col-xs-12 col-sm-8 col-md-8">
-      <div class="detail-place">
-        <div class="located"><p class="gray-font">For kids</p><p><%= @place.minimum_age.to_s + " - " + @place.maximum_age.to_s %></p></div>
-        <div class="language"><p class="gray-font">Best visited</p><p><%=  @optimum_times.first.name rescue "" %></p></div>
-        <div class="population">
-          <p class="gray-font">Duration</p><p><%= @durations.first.name rescue "" %></p>
-          </div>
-        <div class="suka">
-          <p class="gray-font">Average rating</i></p>
-          <p>
-            <%= raw draw_rating_smiles(@place) %>
-          </p>
-        </div>
-      </div>
-      <div class="desc-place">
-        <p class="text"><%= raw @place.description[0..280]+"..." %></p>
-        <p class="text full" style="display: none;"><%= raw @place.description.gsub("\n", "<br>").gsub("\r", "<br>") %></p>
-        <button class="blueish more" style="background:none;border:none;outline:none;padding-left:0;">More <span class="fa fa-caret-down"></span></button>
-        <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;display:none;">Less <span class="fa fa-caret-up"></span></button>
-      </div>
-      <div class="border-section"></div>
-      <div class="row top20 btm20">
-        <div class="col-xs-12">
-          <div class="rel-dest">
-            <ul>
-              <li class="gray-color">Found in</li>
-              <% if !@place.similar_places.blank? %>
-                <% @place.similar_places.each do |place| %>
-                 <!-- <li><a href="#" class="badge"><i class="fa fa-male"></i> Do</a> </li> -->
-                 <li><a href="<%= place_path(place.similar_place) %>" class="badge"><%= place.similar_place.display_name %></a> </li>
-                <% end %>
-               <% end %>
-
-             </ul>
-          </div>
-        </div>
-      </div>
-      <div class="border-section btm20"></div>
-        <div class="row">
-          <div class="col-xs-4">
-            <% if @place.place_id.present? %>
-              <p class="gray-font">Opening hours</p>
-              <p id="operating-hours"></p>
-              <p id="hours"></p>
-              <p>
-                <%= link_to "View details", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
-              </p>
-            <% end %>
-          </div>
-          <div class="col-xs-4">
-            <p class="gray-font">Other services</p>
-            <p>
-              <!-- <i class="fa fa-wheelchair"></i><i class="fa fa-headphones"></i> -->
-              <% if !@accessibilities.blank? %>
-                <% @accessibilities.each do |c| %>
-                  <%= raw draw_accessibilty_icons(c) %>
-                <% end %>
-               <% end %>
-            </p>
-          </div>
-          <div class="col-xs-4">
-            <p class="gray-font">Price</p>
-            <p><%= raw draw_prices(@prices) %></p>
-              <%# <%= raw draw_hover_prices(@prices) %>
-            <!-- <p><a href="#" data-toggle="modal" data-target="#TicketsModal">View details</a></p> -->
-          </div>
-        </div>
-      </div><!-- col-sm-8 -->
-
-      <div class="col-xs-12 col-sm-4 col-md-4 border-left-desk"> <!-- for map -->
-          <div class="text-center clearfix  visible-xs">
-            <% unless @place.viator_link.blank? %>
-              <a onclick="bookNowClicks()" href="<%= @place.viator_link %>" data-target="_blank" class="btn button-orange button-style-booking btn-shadow fontbig-button btm20 btn-radius">Book Now!</a>
-            <% end %>
-          </div>
-      </div>
-
+</div>
 
 <div class="background">
     <div class="container dest-things-wrapper">
