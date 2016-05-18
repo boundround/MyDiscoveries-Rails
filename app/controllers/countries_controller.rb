@@ -5,7 +5,8 @@ class CountriesController < ApplicationController
   end
 
   def show
-    @country = Country.includes(:photos, :places).friendly.find(params[:id])
+    @place = @country = Country.includes(:photos, :places).friendly.find(params[:id])
+    debugger
     @stories = @country.stories.where(status:"live").paginate(:page => params[:stories_page], per_page: 1 )
     @reviews = @country.reviews.where(status:"live")
     @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
@@ -61,7 +62,7 @@ class CountriesController < ApplicationController
     @country = Country.includes(:photos, :places).friendly.find(params[:id])
     @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
   end
-  
+
   def paginate_photos
     @country = Country.includes(:photos, :places).friendly.find(params[:id])
     photos = @country.user_photos.where(status:"live") + @country.photos
