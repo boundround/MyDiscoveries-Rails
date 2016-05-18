@@ -54,7 +54,18 @@
 //= require algolia_search
 // require bug_posts
 //= require gmaps.min
-//= require owl.carousel.min
+
+// NEW DESIGN
+//= require owl.carousel.min 
+//= require svg-injector.min 
+//= require smooth-scroll.min
+//= require readmore.min 
+//= require jquery.sticky
+//= require main
+//= require destination
+//= require thing
+//= require home-new-design
+
 // require custom
 // require jquery.Jcrop.min
 // require places_crop
@@ -79,21 +90,21 @@
 
 $(document).on('ajax:beforeSend', 'a.single-pagination', function(){
   container= $(this).closest('div.single-pagination-container');
-  container.find('div.single-pagination-loader').removeClass('hidden-lg');
+  container.find('div.single-pagination-loader').removeClass('hidden');
   $(this).addClass('hidden');
 }).on('ajax:success', 'a.single-pagination', function(){
   container= $(this).closest('div.single-pagination-container');
-  container.find('div.single-pagination-loader').addClass('hidden-lg');
+  container.find('div.single-pagination-loader').addClass('hidden');
   $(this).removeClass('hidden');
 }).on('ajax:error', 'a.single-pagination', function(){
 	container= $(this).closest('div.single-pagination-container');
-  container.find('div.single-pagination-loader').addClass('hidden-lg');
+  container.find('div.single-pagination-loader').addClass('hidden');
   $(this).removeClass('hidden');
 });
 
 $(document).ready(function(){
 
-	$(document).on('click', 'video.play-in-modal', function(e){
+	$(document).on('click', '.play-in-modal', function(e){
 		showAndPlayVideoOnModal($(this))
 	});
 
@@ -107,7 +118,7 @@ $(document).ready(function(){
 
   $(document).on('click', 'a.play-video', function(e){
     div= $(this).closest('div');
-    video= div.find('video.play-in-modal');
+    video= div.find('.play-in-modal');
     showAndPlayVideoOnModal($(video))
     e.preventDefault();
   })

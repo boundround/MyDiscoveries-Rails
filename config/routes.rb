@@ -209,6 +209,8 @@ Rails.application.routes.draw do
   resources :countries do
     member { get 'paginate_videos', as: :paginate_videos}
     member { get 'paginate_photos', as: :paginate_photos}
+    member { get 'paginate_stories'}
+    member { get 'paginate_things_to_do'}
     resources :videos
     resources :photos
     resources :fun_facts
@@ -308,6 +310,10 @@ Rails.application.routes.draw do
     member { get 'choose_hero', as: :choose_hero }
     member { get 'paginate_videos', as: :paginate_videos}
     member { get 'paginate_photos', as: :paginate_photos}
+    member { get 'paginate_reviews'}
+    member { get 'paginate_more_places'}
+    member { get 'paginate_place_to_visit'}
+    member { get 'paginate_stories'}
     # member { get 'new_story' }
     # member { get 'new_story' => 'stories#new_story'}
     # member { post 'create' => 'stories#create_story', as: :create_story}

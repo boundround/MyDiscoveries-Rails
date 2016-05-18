@@ -5,77 +5,412 @@
 
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
 
-<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
-</div>
+<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="thing-wrapper-zoo">
+        <span class="banner-image" style="background-image: url(<%=showing_image(draw_hero_background(@place)) %>)" role="img"
+                      aria-label="">
+                        </span>
+
+                <div class="overlay"></div>
+                <div class="thing-heading">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">
+                            <div class="thing-heading-breadcrumb">
+                            <!-- AUSTRALIA / NEW SOUTH WALES / SYDNEY / TARONGA ZOO -->
+                              <%= raw create_breadcrumb_for(@place) %>
+                              <% if user_signed_in? and current_user.admin? %>
+                                <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
+                              <% end %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1 col-xs-8 col-xs-offset-2">
+                            <h1><%= @place.display_name %></h1>
+                        </div>
+                    </div>
+
+                    <div class="thing-heading-icons">
+                        <div class="thing-heading-icon left">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thing-heading-icon-holder">
+                                <span class="thing-icon" style="background-image: url('/assets/new-images/icon-play.png')"
+                                      role="img" aria-label=""></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs hidden-sm">
+                                <div class="col-md-12">
+                                    <div><%= @place.videos.size %> Videos</div>
+                                </div>
+                            </div>
+                            <div class="row hidden-md hidden-lg">
+                                <div class="col-md-12">
+                                    <div><%= @place.videos.size %></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="thing-heading-icon">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thing-heading-icon-holder thing-camera-adjustment">
+                                <span class="thing-icon" style="background-image: url('/assets/new-images/icon-camera.png')"
+                                      role="img" aria-label=""></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs hidden-sm">
+                                <div class="col-md-12">
+                                    <div><%= @place.photos.size %> Photos</div>
+                                </div>
+                            </div>
+                            <div class="row hidden-md hidden-lg">
+                                <div class="col-md-12">
+                                    <div><%= @place.photos.size %></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="thing-heading-icon right">
+                          <% if user_signed_in? && @place.users.include?(current_user) %>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thing-heading-icon-holder">
+                                        <div class="thing-icon icon-favourite selected" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs hidden-sm">
+                                <div class="col-md-12">
+                                    <div class="text-favourite-place">Remove from favourites</div>
+                                </div>
+                            </div>
+                          <% else %> <!-- not signin -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="thing-heading-icon-holder">
+                                        <div class="thing-icon icon-favourite" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs hidden-sm">
+                                <div class="col-md-12">
+                                    <div class="text-favourite-place">Add to favourites</div>
+                                </div>
+                            </div>
+                          <% end %>
+
+                            <div class="row hidden-md hidden-lg">
+                                <div class="col-md-12">
+                                    <div>&nbsp;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="mobile-nav-container sticky-container hidden-md hidden-lg">
+                        <div class="white-background">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="thing-nav-option-container">
+                                            <div class="thing-nav-option-wrapper">
+                                                <div class="thing-nav-option"><a data-scroll href="#overview">OVERVIEW</a>
+                                                </div>
+                                                <div class="thing-nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
+                                                <div class="thing-nav-option"><a data-scroll href="#stories">STORIES</a>
+                                                </div>
+                                                <div class="thing-nav-option"><a data-scroll href="#galleries">GALLERIES</a>
+                                                </div>
+                                                <div class="thing-nav-option"><a data-scroll href="#memberreviews">MEMBER
+                                                    REVIEWS</a>
+                                                </div>
+                                                <div class="thing-nav-option-boxed">
+                                                    <div class="message-icon"
+                                                         style="background-image: url('/assets/new-images/icon-review.png')"
+                                                         role="img" aria-label=""></div>
+                                                    <span class="message-text">LEAVE A REVIEW</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% unless @place.viator_link.blank? %>
+                        <div class="mobile-booking-container">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="booking-wrapper">
+                                            <div class="hidden-xs hidden-sm">
+                                                <h4>$$</h4>
+                                            </div>
+
+                                                <div>
+                                                    <a href="<%= @place.viator_link %>" onclick="bookNowClicks()" target="blank" class="btn">BOOK NOW</a>
+                                                </div>
+
+                                            <div class="visible-xs visible-sm small-dollars">$$</div>
+                                            <div class="load-more">
+                                              <%= link_to "VIEW OPENING HOURS", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% end %>
+                    </div>
+                    <div class="desktop-booking-container visible-md visible-lg">
+                      <% unless @place.viator_link.blank? %>
+                        <div class="booking-wrapper">
+                            <div>
+                                <h4>$$</h4>
+                            </div>
+                              <% unless @place.viator_link.blank? %>
+                              <div>
+                                  <a href="<%= @place.viator_link %>" onclick="bookNowClicks()" target="blank" class="btn">BOOK NOW</a>
+                              </div>
+                              <% end %>
+                            <div class="load-more">
+                              <%= link_to "VIEW OPENING HOURS", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
+                            </div>
+                        </div>
+                      <% end %>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-md-12">Average Rating</div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-md-12 rating-wrapper">
+                                <%= raw draw_rating_smiles(@place) %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-8">Suitable for ages</div>
+                            <div class="col-xs-4 thing-side-bold"><%= @place.minimum_age.to_s + " - " + @place.maximum_age.to_s %></div>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-8">Best visited</div>
+                            <div class="col-xs-4 thing-side-bold"><%=  @optimum_times.first.name rescue "" %></div>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-8">Duration</div>
+                            <div class="col-xs-4 thing-side-bold"><%= @durations.first.name rescue "" %></div>
+                        </div>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-4">Found in</div>
+                            <div class="col-xs-8">
+                              <% if !@place.similar_places.blank? %>
+                                <% @place.similar_places.each do |place| %>
+                                     <div class="tags">
+                                        <div class="tag">
+                                            <div class="v-center"><a href="<%= place_path(place.similar_place) %>"><%= place.similar_place.display_name %></a></div>
+                                        </div>
+                                    </div>
+                                <% end %>
+                               <% end %>
+<!--                                 <div class="tags">
+                                    <div class="tag">
+                                        <div class="v-center">ANIMALS</div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="thing-side-info-segment">
+                        <!-- <div class="icon-holder">
+                            <span class="thing-icon" style="background-image: url('/assets/new-images/icon-wheelchair.png')"
+                                  role="img" aria-label="Wheelchair Accessible"></span>
+                        </div>
+                        <div class="icon-holder">
+                            <span class="thing-icon" style="background-image: url('/assets/new-images/icon-food.png')" role="img"
+                                  aria-label="Food"></span>
+                        </div> -->
+                          <% if !@accessibilities.blank? %>
+                            <% @accessibilities.each do |c| %>
+                              <%= raw draw_accessibilty_icons(c) %>
+                            <% end %>
+                           <% end %>
+                    </div>
+                    <div class="thing-side-info-segment">
+                        <div class="row">
+                            <div class="col-xs-12">Location</div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="thing-map-holder">
+                                    <a class="thing-map-directions"
+                                       href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>"
+                                       target="_blank">GET DIRECTIONS</a>
+
+                                    <div style='overflow:hidden;height:100%;width:100%;'>
+                                        <div id='map' style='height:100%;width:100%;'></div>
+                                        <div>
+                                            <small><a href="http://embedgooglemaps.com"> embed google maps </a>
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <small><a href="http://freedirectorysubmissionsites.com/">directory
+                                                submission sites</a></small>
+                                        </div>
+                                        <style>#map img {
+                                            max-width: none !important;
+                                            background: none !important
+                                        }</style>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
 
 
 
-<div class="header-image-with-nav top-outer-js">
-  <!--<div class="places-bg">-->
-  <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header top-inner-js" >
- <!-- </div>-->
- <div class="breadcrumbs">
-  <%= raw create_breadcrumb_for(@place) %>
-  <% if user_signed_in? and current_user.admin? %>
-    <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
-  <% end %>
- </div>
-  <div class="container padding-style">
-    <div class="title-container hidden-xs">
-      <div class="row">
-        <div class="col-md-offset-2 text-center col-md-8">
-          <h1 class="text-center text-shadowed white"><%= @place.display_name %></h1>
+                        <div class="row">
+                            <div class="col-xs-4">Address</div>
+                            <div class="col-xs-8 thing-side-bold"><%= @place.display_address.gsub("," , "<br>").html_safe %></div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-xs-4">Phone</div>
+                            <div class="col-xs-8 thing-side-bold">
+                                <a class="" onclick="phoneNumberClicks()" href="tel: <%= @place.phone_number %>"><%= @place.phone_number %></a>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-xs-4">Website</div>
+                            <div class="col-xs-8 thing-side-bold"><a onclick="websiteClicks()" href="<%= @place.website %>" target="_blank"><%= extract_domain(@place.website) %></a></div>
+                        </div>
+                        <% if @place.viator_link.blank? %>
+                            <div class="row">
+                                <div class="col-xs-4">Opening Hours</div>
+                                <div class="col-xs-8 thing-side-bold">
+                                  <%= link_to "VIEW OPENING HOURS", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
+                                </div>
+                            </div>
+                        <% end %>
+                        <br/>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-12">
+                    <div class="desktop-sub-nav thing-nav-option-wrapper hidden-xs hidden-sm">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-9 col-sm-12">
+                                    <div class="thing-nav-option"><a data-scroll href="#overview">OVERVIEW</a></div>
+                                    <div class="thing-nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
+                                    <div class="thing-nav-option"><a data-scroll href="#stories">STORIES</a></div>
+                                    <div class="thing-nav-option"><a data-scroll href="#galleries">GALLERIES</a></div>
+                                    <div class="thing-nav-option"><a data-scroll href="#memberreviews">MEMBER
+                                        REVIEWS</a></div>
+                                    <div class="thing-nav-option-boxed">
+                                        <div class="message-icon"
+                                             style="background-image: url('/assets/new-images/icon-review.png')"
+                                             role="img" aria-label=""></div>
+                                        <% if user_signed_in? %>
+                                        <span class="message-text" data-toggle="modal" data-target="#ReviewModal">LEAVE A REVIEW</span>
+                                        <% else %>
+                                        <span class="message-text" data-toggle="modal" data-target="#myModal">LEAVE A REVIEW</span>
+                                      <% end %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="overview" class="thing-page-segment">
+                        <div class="thing-overview-segment">
+                            <div>
+                                <h3>Overview</h3>
+                            </div>
+                            <div id="overview-copy"><%= raw @place.description %>
+                            </div>
+                            <% if  !@place.good_to_knows.blank? %>
+                              <div>
+                                <h4 class="good-to-know">Good to know</h4>
+                                <ul>
+                                 <% @good_to_know.each do |gtk| %>
+                                    <li><%= gtk.description %></li>
+                                 <% end %>
+                                </ul>
+                              </div>
+                            <% end %>
+                        </div>
+                    </div>
+
+                    <div id="videos" class="thing-page-segment">
+                        <div>
+                            <h3>Videos</h3>
+                        </div>
+
+                        <%= render partial: "shared/videos_list", locals:{container: "" } %>
+
+                    </div>
+
+                    <%= render partial: "stories/all_stories_place"%>
+
+                    <% unless @photos.blank? %>
+                        <div id="galleries" class="thing-page-segment galleries">
+                        <div>
+                            <h3>Galleries</h3>
+                        </div>
+                                <%= render partial: "shared/photos_list", as: :photos, locals:{container: ""} %>
+                        </div>
+                    <% end %>
+                    <% unless @reviews.blank? %>
+                    <div id="memberreviews" class="thing-page-segment">
+                        <div>
+                            <h3>Member Reviews</h3>
+                        </div>
+                        <div class="row member-reviews-wrapper">
+                            <div class="owl-carousel auto-height-carousel" id="reviews-list" >
+                                <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
+                            </div>
+                            <% unless last_page? @reviews %>
+                                <div class="col-xs-12 hidden-xs single-pagination-container" id="reviews-single-pagination-container">
+                                  <div class="hidden single-pagination-loader" align="center">
+                                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                                  </div>
+                                  <div class="load-more member-reviews-load-more temporary-class-3">
+                                  <%= link_to "LOAD MORE", paginate_reviews_place_path(@place, reviews_page: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list', collection_object: 'review'), class: 'single-pagination', remote: true %>
+                                </div>
+                                </div>
+                              <% end %>
+                        </div>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="action bg-place">
-      <div class="left">
-        <ul>
-         <!-- Leave Review -->
-          <% if user_signed_in? %>
-           <li>
-            <a href="#" class="white" data-toggle="modal" data-target="#ReviewModal"><i class="fa fa-smile-o white"></i> Leave review </a>
-          </li>
-          <% else %>
-           <li>
-            <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o white"></i> Leave review </a>
-          </li>
-          <% end %>
-
-          <!-- Add To Favourites -->
-          <% if user_signed_in? && @place.users.include?(current_user) %>
-            <li>
-            <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
-          </li>
-          <% else %>
-            <li>
-              <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
-            </li>
-          <% end %>
-          <% if user_signed_in? && current_user.admin? %>
-            <li><a href="<%= new_polymorphic_path([@place, Story.new]) %>" class="white" ><i class="fa fa-file-text-o"></i> Tell your story</a></li>
-          <% end %>
-        </ul>
-      </div>
-      <%# if user_signed_in? %>
-         <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#userPhotoModal" ><i class="fa fa-plus white"></i> Add photo</a>  </div> -->
-        <%# else %>
-        <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus white"></i> Add photo</a>  </div> -->
-      <%# end %>
-      <div class="pull-right hidden-xs">
-        <div class="component-desk">
-          <ul>
-            <li><a href="#photos"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
-            <li><a href="#videos"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
-          </ul>
-        </div>
-      </div>
-    </div><!-- /action bg-place -->
-    <div class="component visible-xs">
-      <ul>
-        <li><a href="#photos"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
-        <li><a href="#videos"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
-      </ul>
     </div>
   </div> <!-- /container -->
 </div> <!-- /header-image-with-nav -->
@@ -162,132 +497,37 @@
               <a onclick="bookNowClicks()" href="<%= @place.viator_link %>" data-target="_blank" class="btn button-orange button-style-booking btn-shadow fontbig-button btm20 btn-radius">Book Now!</a>
             <% end %>
           </div>
+      </div>
 
-        <div id="map"></div>
-        <div class="text-center btn-map">
-          <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="btn btn-primary btn-shadow btn-direction btn-direct"><i class="fa fa-share blue-nero-icon"></i> Get directions </a>
-        </div>
-        <div class="top15">
-          <p class="grey btm0">Address</p>
-          <p class="btm15" ><%= @place.display_address %></p>
-        </div>
-        <% unless @place.try(:email).blank? && @place.phone_number.blank? %>
-          <p class="grey">Contact</p>
-        <% end %>
+
+<div class="background">
+    <div class="container dest-things-wrapper">
         <div class="row">
-        <% unless @place.try(:email).blank? %>
-          <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
-            <a href="mailto:<%= @place.email rescue "" %>" class="btn btn-primary btn-block btn-museum btn-shadow font-btn"><i class="fa fa-envelope-o blue-nero-icon leftmin7responsive"></i> Send a message </a>
-          </div>
-          <% end %>
-          <% unless @place.phone_number.blank? %>
-            <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
-              <a onclick="phoneNumberClicks()" href="tel: <%= @place.phone_number %>" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-phone blue-nero-icon leftmin7responsive"></i> <%= @place.phone_number %></a>
+            <div class="col-xs-12">
+                <h3>Related things to do</h3>
             </div>
-          <% end %>
         </div>
-
-          <p class="grey btm0 top15">Website</p>
-          <p class="mrg0 blueish"><a onclick="websiteClicks()" href="<%= @place.website %>" target="_blank"><%= extract_domain(@place.website) %></a></p>
-      </div><!-- /col-sm-4 map-->
-    </div><!-- /main row -->
-  </section>
-  <div class="text-center clearfix  hidden-xs" style="clear:both;z-index:1;position: relative;">
-    <!-- "Book Now" - place.viator_link -->
-    <% unless @place.viator_link.blank? %>
-      <a onclick="bookNowClicks()" href="<%= @place.viator_link %>" data-target="_blank" style="margin:-5px" class="btn button-orange button-style-booking fontbig-button btn-radius btn-shadow">Book Now!</a>
-    <% end %>
-
-  </div>
-
-
-
-  <%= render partial: "shared/videos_list" %>
-  <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Your Stories" }%>
-  <%= render "stories/modal_story" %>
-
-
-
-<%#= render "photo_carousel" %>
-
-</div><!-- /maincontainer -->
-
-<section class="travelling-tips themuseum fun-fact mrg0">
-  <div class="container padding-style">
-    <div class="row">
-
-
-      <%= render :partial => "good_to_knows" %>
-      <%= render :partial => "fun_facts", :locals => { :color => "" }  %>
-      <%= render partial: 'shared/video_modal' %>
-
-
-    </div>
-  </div>
-</section>
-
-
-
-<div class="container padding-style"> <!-- main-container -->
-    <div class="border-section clearfix btm0 top20 visible-xs"></div>
-    <div class="row">
-    <div class="col-xs-12"> <!-- right-col -->
-
-      <section class="your-stories btm15 cards">
-        <!-- <div class="row"> -->
-          <!-- <div class="col-xs-12"> -->
-            <% unless @reviews.blank? %>
-              <div class="text-left">
-                <h4 class="section-title">Member Reviews</h4>
-              </div>
-
-              <div id="reviews-list">
-                <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
-              </div>
-
-              <% unless last_page? @reviews %>
-                <div class="text-center clearfix btm20 single-pagination-container" id="reviews-single-pagination-container" style="clear:both">
-                  <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
-                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                  </div>
-                  <%= link_to "Load More", place_path(@place, reviews_page: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
-                </div>
-              <% end %>
-
-            <% end %>
-          <!-- </div> -->
-        <!-- </div> -->
-      </section>
-
-
-      <%= render :partial => "fun_facts_mobile", :locals => { :color => "blue", bg:"bg-blue" }  %>
-
-      <% unless @more_places.blank? %>
-        <section class="places-to-go visit-place cards">
-          <div class="border-section"></div>
-          <div class="text-left">
-            <h4 class="section-title">More places like this</h4>
-          </div>
-          <!-- <div class="row"> -->
-           <div id="more_places-list">
-              <%= render partial: 'subcategories/areas_list', collection: @more_places, as: :area %>
+        <div class="row">
+            <div class="owl-carousel carousel" id="more_places-list">
+                <%= render partial: 'subcategories/areas_list', collection: @more_places, as: :area %>
             </div>
-          <!-- </div> -->
-        </section>
+        </div>
         <% unless last_page? @more_places %>
-          <div class="text-center clearfix btm20 single-pagination-container" id="more_places-single-pagination-container" style="clear:both">
-            <div class="btm15 hidden single-pagination-loader" align="center">
+        <div class="row hidden-xs">
+          <div class="single-pagination-container" id="more_places-single-pagination-container">
+            <div class="hidden single-pagination-loader" align="center">
               <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
             </div>
-            <%= link_to "Load More", place_path(@place, more_places_page: @more_places.next_page, resources: 'more_places', pagination_template: 'primary_categories/places_list', collection_object: 'place'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
+            <div class="load-more">
+            <%= link_to "LOAD MORE", paginate_more_places_place_path(@place, more_places_page: @more_places.next_page, resources: 'more_places', pagination_template: 'subcategories/areas_list', collection_object: 'area'), class: ' single-pagination', remote: true %>
+            </div>
+          </div>
           </div>
         <% end %>
-      <% end %>
-    <%= render partial: "shared/photos_list" %>
 
-   </div> <!-- /col -->
-  </div> <!-- /row -->
-</div> <!-- main-container -->
+    </div>
+</div>
+
 
 <% end %>
 
@@ -297,10 +537,4 @@
 <%= render 'user_photos/form' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
-<%#= render 'layouts/video_modal' %>
-<%#= render 'stories/modal_story' %>
-
-<!-- <div class="container" id="blogs">
-    <h2 id="blog-title"></h2>
-    <div id="blog-content"></div>
-</div> -->
+<%= render "stories/modal_story" %>

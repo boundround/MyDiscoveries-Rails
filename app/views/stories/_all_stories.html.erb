@@ -1,96 +1,28 @@
-<% unless stories.blank? %>
-  <section class="your-stories cards">
-    <div class="text-left">
-      <h4 class="section-title"><%= title %></h4>
-    </div>
-      <% stories.each_with_index do |story, index| %>
-          <% if  story.class.to_s.eql? "Story" %>
-              <div class="card"
-               data-class="story"
-               data-content="<%= story.content %>"
-               data-title="<%= story.story_title ? story.story_title : @storiable.display_name %>"
-               data-user="<%= story.user.name %>"
-                              <% story.story_images.each_with_index do |photo, index| %>
-                                data-image-<%= index %>="<%= photo %>"
-                              <% end %>>
-                <div class="head-stories">
-                  <div class="left">
-                    <a href="#">
-                      <div class="profile-outer">
-                        <img src="<%= showing_image(story.user.avatar_url)%>" alt="">
-                      </div>
-                      <div class="profile-text">
-                        <%= story.user.name %>
-                      </div>
-                     </a>
-                  </div>
-                  <div class="right">
-                  <a href="#"><i class="fa fa-image"></i> <%= story.story_images.size %>
-                  <!-- </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%#= story.story_videos.size %></a> -->
-                  </div>
-                </div>
-                <div
-                   class="card body-stories btm15"
-                   data-class="story"
-                   data-content="<%= story.content %>"
-                   data-title="<%= story.story_title ? story.story_title : @storiable.display_name %>"
-                   data-user="<%= story.user.name %>"
-                              <% story.story_images.each_with_index do |photo, index| %>
-                                data-image-<%= index %>="<%= photo %>"
-                              <% end %>>
-                <!-- class="body-stories btm15"> -->
-                  <div class="p-dynamic">
-                    <p class="visited"><%= story.created_at.strftime("%B %Y") %></p>
-                    <p class="mrg0 pink"><%= raw story.title %> </p>
-                     <%= raw story.teaser %>
-                  </div>
-                <div class="img-story-place outer-js">
-                  <% if !story.story_images.blank? %>
-                    <img class="no-inner-js" align="right" src="<%= story.story_images.first %>" alt="">
-                  <% end %>
-                </div>
-                <div>
-                  <% if story.user == current_user %>
-                    <%= link_to "Edit Your Story", edit_polymorphic_path(story) %>
-                  <% end %>
-                </div>
-              </div>
-            </div><!-- card -->
-          <% elsif story.class.to_s.eql? "ApiBlog" %>
-            <div >
-              <div class="head-stories">
-                <div class="left">
-                  <a href="#">
-                    <div class="profile-outer">
-                      <img src="<%= asset_path('br-logo-new-blue.png') %>" alt="">
-                    </div>
-                    <div class="profile-text">
-                      Bound Round
-                    </div>
-                   </a>
-                </div>
-                <div class="right">
-                </div>
-              </div>
-              <div
-              class="card body-stories btm15" id="blog-<%= story.id %>"data-class="apiblog" data-id="<%= story.id %>" data-cat="<%= (@category ? params[:id] : "") rescue '' %>" data-place="<%= @place.display_name.parameterize rescue '' %>">
-              <!-- class="body-stories btm15"> -->
-                <div class="p-dynamic blog">
-                  <p class="visited"><%= DateTime.parse(story.created_at).strftime("%B %Y") %></p>
-                  <p class="mrg0 pink"><%= raw story.title %></p>
-                  <div class="blog-content"><%= raw story.content %></div>
-                </div>
-                <div class="img-story-place outer-js">
-                <%# if !story.user_photos.blank? %>
-                  <img class="no-inner-js" align="right" src="<%= story.image.blank? ? draw_hero_background(@place) : story.image %>" alt="">
-                  <%# end %>
-                </div>
-              </div>
-            </div>
-          <% end %> <!-- /if -->
-        <% end %> <!-- /each -->
-      <div class="text-center btm20 clearfix">
-        <button class="btn btn-default black top5 load-more">Load more stories</button>
+<div id="stories" class="container stories-wrapper">
+  <div class="row">
+      <div class="col-xs-12">
+          <h3>Stories</h3>
       </div>
-  </section> <!-- /story -->
-<% end %>
+  </div>
+  <div class="row">
+      <div class="owl-carousel carousel" id ="stories-list">
+           <%= render partial: "stories/all_stories_list", collection: @stories, as: :story %>
+      </div>
+  </div> <!-- row -->
+      <% unless last_page? @stories %>
+        <div class="row hidden-xs single-pagination-container" id="stories-single-pagination-container">
+          <div class="hidden single-pagination-loader" align="center">
+            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+          </div>
+            <div class="col-xs-12">
+                <div class="load-more">
+                <%if params[:controller].eql? "countries" %>
+                  <%= link_to "LOAD MORE", paginate_stories_country_path(@country, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+                <% else %>
+                  <%= link_to "LOAD MORE", paginate_stories_place_path(@place, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+                <% end %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>

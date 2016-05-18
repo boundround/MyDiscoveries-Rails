@@ -1,203 +1,194 @@
-<!-- NAVBAR -->
-<nav class="navbar navbar-default navbar-brw navbar-static-top" id="menu-nav">
-  <div class="container big-container">
-    <div class="navbar-header">
-        <div class="sign visible-xs">
-          <% if !user_signed_in? %>
-          <a href="#" data-toggle="modal" data-target="#myModal">
-            Sign in/Join
-          </a>
-          <% end %>
-          <a href="#">
-            <i class="fa fa-search" id="fa-search-nav-xs"></i>
-          </a>
+<div class="destination-page">
+    <div class="navigation-wrapper">
+        <div class="menu-dark-background hide"></div>
+        <div class="menu-toggle hidden-sm hidden-md hidden-lg">
+            <div>
+                <img id="menu-closed" src="/assets/new-images/icon-hamburger-menu.png"/>
+                <img id="menu-opened" class="hide" src="/assets/new-images/icon-cross.png"/>
+            </div>
         </div>
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <i class="fa fa-bars"></i>
-          <i class="fa fa-times" style="display:none"></i>
-      </button>
-      <a class="navbar-brand brw-navbar-brand" href="<%= root_path %>">
-        <img src="<%= asset_path('br-logo-new-blue-bkgd.png')%>" alt="Bound Round Logo" class="img-logo-index">
-      </a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="dropdown menu-large">
-          <p class="find visible-xs">Find</p>
-          <a href="#" class="hidden-xs dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Places to go<span class="caret"></span></a>
+        <!-- mobile -->
+        <div class="mobile-menu hide hidden-sm hidden-md hidden-lg">
+            <div class="mobile-menu-contents">
+                <div>Find</div>
+                <h4><a href="destination.html">Places to go</a></h4>
+                <h4><a href="<%= subcategories_path %>">Things to do</a></h4>
 
-          <ul class="dropdown-menu megamenu row megamenu-bg">
-        </li>
+                <div>Browse</div>
+                <h4><a href="/photos"><img class="svg-inject" src="/assets/new-images/icon-camera.svg"/> <span>Galleries</span></a></h4>
+                <h4><a href="/videos"><img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
+                    <span>Videos</span></a>
+                </h4>
+                <% if !user_signed_in? %>
+                  <div>Become a member</div>
+                  <button href="<%= new_user_registration_path %>">Join Bound Round</button>
+                <% end %>
+            </div>
+        </div>
 
-                <div class="row megamenu-paddings megamenu-bg">
+        <div class="mega-menu">
+            <div class="menu-bar">
+                <div class="container">
+                    <a href="<%= root_path %>">
+                        <img class="logo" src="/assets/new-images/logo-circle.png"/>
+                    </a>
 
-                  <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6">
-                    <div class="border-section visible-xs visible-sm"></div>
+                    <div class="menu-items">
+                        <div class="menu-item hidden-xs">
+                            <a id="places-to-go-link">PLACES TO GO <img class="active hide"
+                                                                        src="/assets/new-images/icon-caret-active.png"><img
+                                    class="inactive" src="/assets/new-images/icon-caret.png"></a>
+                        </div>
+                        <%= link_to "THINGS TO DO", subcategories_path, class: "menu-item hidden-xs" %>
+                        <a class="menu-item hidden-xs" href="/photos">
+                            <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/> <span>GALLERIES</span>
+                        </a>
 
-                    <div class="text-left padding-left">
-                      <h4 class="section-title emphasize megamenu-font-color">Featured destinations</h4>
+                        <a class="menu-item hidden-xs" href="/videos">
+                            <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/> <span>VIDEOS</span>
+                        </a>
+                        <% if !user_signed_in? %>
+                            <a class="menu-item hidden-sm hidden-md hidden-lg" href="#" data-toggle="modal" data-target="#myModal">
+                                SIGN IN / LOGIN
+                            </a>
+                        <% end %>
+
+                        <div class="search-results" id="search-results-container" style="display:none;">
+                            <%= render :partial=> "search_suggestions/search_results" %>
+                        </div>
+
+                        <div class="menu-item">
+                            <div class="search-container">
+                                <form accept-charset="UTF-8" action="/results" method="get">
+                                      <div style="display:none">
+                                        <input name="utf8" value="✓" type="hidden">
+                                      </div>
+                                      <input type="text" name="search[common]" class="search-box" placeholder="SEARCH" autocomplete="off">
+                                    <!-- <input class="search" placeholder="SEARCH" autocomplete: "off" /> -->
+                                    <button class="hidden-xs hidden-sm search-icon-nav" type="submit" >
+                                        <img class="" src="/assets/new-images/icon-search.png"/>
+                                    </button>
+                                    <button class="hidden-md hidden-lg">
+                                        <img src="/assets/new-images/icon-search-white.png"/>
+                                        <span>SEARCH</span>
+                                    </button>
+
+                                </form>
+                            </div>
+                            <img id="search-toggle" src="/assets/new-images/icon-search.png"/>
+                        </div>
+                        <% if !user_signed_in? %>
+                          <a class="menu-item hidden-xs" href="#" data-toggle="modal" data-target="#myModal">
+                              SIGN IN
+                          </a>
+                          <div class="menu-item hidden-xs">
+                              <a class="join" href="<%= new_user_registration_path %>">JOIN</a>
+                          </div>
+                        <% else %>
+                        <ul class="nav navbar-nav navbar-right hidden-xs">
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
+                                <div class="outer-profile">
+                                  <img src="<%= current_user.avatar_url rescue "" %>" />
+                                </div>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
+                                <li><a href="<%= edit_user_path(current_user) %>">Edit Profile</a></li>
+                                <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li>
+                                <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
+                              </ul>
+                            </li>
+                        </ul>
+                        <% end %>
+
                     </div>
-                    <% @featured_nav_destinations = Place.find([1064, 1221, 1071, 1060]) %>
-                    <% @featured_nav_destinations.each do |place| %>
-                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <a href="<%= place_path(place) %>">
-                            <div class="thumbnail featured-destinations box-shadow">
-                              <div class="image-cat">
-                                <img src="<%= draw_small_background(place) %>" alt="" class="top-rounded inner-js">
-                              </div>
-                              <div class="caption text-center">
-                                <h4 class="font-orange2"><%= place.display_name %></h4>
-                              </div>
-                              <div class="details-dest">
-                                <div class="left">
-                                  <!-- <a href="#"><i class="fa fa-newspaper-o"></i> 2</a> -->
+                </div>
+            </div>
+
+            <div class="places-to-go hide">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="places-title">Featured places to go</div>
+                            <div class="row">
+                                <div class="carousel-wrapper">
+                                    <div class="owl-carousel">
+
+                                    <% @featured_nav_destinations = Place.find([1064, 1221, 1071, 1060]) %>
+                                    <% @featured_nav_destinations.each do |place| %>
+                                        <div class="col-md-6">
+                                            <a href="<%= place_path(place)%>">
+                                                <div class="destination-card">
+                                                    <div class="destination-image"
+                                                         style="background-image: url('<%= draw_small_background(place)%>')"
+                                                         role="img" aria-label="Destination Sydney">
+                                                        <div class="overlay"></div>
+                                                        <div class="geolocation">
+                                                            <img src="/assets/new-images/icon-geolocator.png"><span><%= place.country.display_name %></span>
+                                                        </div>
+                                                        <div class="destination-city">
+                                                            <h2><%= place.display_name %></h2>
+
+                                                            <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <% end %>
+
+
+
+                                    </div>
                                 </div>
-                                <div class="right">
-                                  <% if !place.viator_link.blank? %>
-                                    <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" class=" pink">Book Now</a>
-                                  <% end %>
-                                </div>
-                              </div>
                             </div>
                         </div>
-                      </a>
-                    <% end %>
+                        <div class="col-md-6">
+                            <div class="places-title">Featured things to do</div>
+                            <div class="row">
+                                <div class="carousel-wrapper">
+                                    <div class="owl-carousel">
 
-                      <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                        <a class="btn btn-default btn-margin-top-bottom btn-radius2 btn-shadow2 btn-brw-orange2">View all places to go</a>
-                      </div> -->
-
-                    </div> <!-- col -->
-
-                    <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
-                      <div class="border-section visible-xs visible-sm"></div>
-                            <section class="places-to-go">
-                                <div class="text-left">
-                                  <h4 class="section-title padding-left emphasize megamenu-font-color">Featured places</h4>
-                                </div>
-                                <div class="row">
-                                  <% @featured_nav_places = Place.find([233, 117, 921]) %>
+                                  <% @featured_nav_places = Place.find([233, 117, 921, 1021]) %>
                                   <% @featured_nav_places.each do |place| %>
-                                    <a href = "<%= place_path(place) %>">
-                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                      <div class="thumbnail featured-places margin-both box-shadow">
-                                        <div class="image-cat image-cat-left">
-                                          <img src="<%= draw_small_background(place) %>" alt="" class="img-full-div inner-js">
-                                        </div>
-                                        <div class="caption caption-right">
-                                          <h4 class="gray-font"><%= place.country.display_name %></h4>
-                                          <h4 class="cruises-color"><%= place.display_name %></h4>
-                                        </div>
-                                        <div class="details-dest">
-                                          <div class="left">
-                                            <% place.subcategories.subcats.each do |category| %>
-                                              <a href="<%= subcategory_path(category) %>" class="badge-link"><%= category.name %></a>
-                                            <% end %>
+                                    <%= link_to place_path(place) do %>
+                                        <div class="col-md-12 dest-thing-wrapper">
+                                            <div class="dest-thing featured">
+                                                <div class="things-img"
+                                                     style="background: url('<%= draw_small_background(place) %>') no-repeat;"
+                                                     role="img" aria-label="<%= place.display_name %>">
+                                                    <div class="dest-thing-overlay-wrapper">
+                                                        <div class="dest-thing-overlay">
+                                                            <div class="dollar-rating">$$</div>
+                                                             <% if !place.viator_link.blank? %>
+                                                                <div class="book-wrapper">
+                                                                    <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" href="#" class="btn book-btn book-white" type="button" style="color:black">BOOK</a>
+                                                                </div>
+                                                            <% end %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="dest-thing-content">
+                                                    <h4><%= place.display_name %></h4>
+                                                        <div class="tags">
+                                                    <% place.subcategories.subcats.each do |category| %>
+                                                            <div class="tag"><a href="#" class="v-center"><%= category.name %></a></div>
+                                                    <% end %>
+                                                        </div>
+                                                </div>
+                                            </div>
                                           </div>
-                                          <div class="right">
-                                            <% if !place.viator_link.blank? %>
-                                              <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" class=" pink">Book Now</a>
-                                            <% end %>
-                                          </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </a>
-                                  <% end %>
-                                </div> <!-- row -->
-                              </section>
-
-                    </div> <!-- col -->
-                    </div> <!-- row -->
-              </li>
-          </ul>
-        </li>
-        <li class=""><%= link_to "Things To Do", subcategories_path %></li>
-        <!-- <li class=""><a href="#">Trips for Everyone</a></li> -->
-      </ul>
-      <ul class="nav navbar-nav first-ul">
-        <p class="find visible-xs">Browse</p>
-        <li class=""><a href="/photos"><i class="fa fa-camera find-c"></i>&nbsp; Galleries</a></li>
-        <li class=""><a href="/videos"><i class="fa fa-youtube-play find-c"></i>&nbsp; Videos</a></li>
-      </ul>
-      <% if !user_signed_in? %>
-        <ul class="nav first-ul visible-xs">
-        <li>
-          <p class="find find-become btm10 ">Become a member</p>
-          <a href="<%= new_user_registration_path %>" class="btn btn-default btn-blue btm20 btn-become">Join Boundround</a>
-        </li>
-        </ul>
-      <% end %>
-      <ul class="nav navbar-nav first-ul hidden-xs">
-        <li>
-          <div class="input-group input-search-nav">
-          <!-- #check -->
-<!--             <%#= form_tag('/serach', method: :get, id: "top-search") do %>
-              <%#= submit_tag '', class: "btn btn-default", id: "btn-search-top" %>
-              <i class="fa fa-search"></i>
-              <%#= text_field_tag 'term', nil , placeholder: 'Search for destinations', class: "search-nav", id: "search-box"%>
-            <%# end %> -->
-            <div class="input-group input-search-nav">
-
-              <%= form_tag searching_path, id: '', method: :get  do %>
-                <%= submit_tag "", id: 'btn-search-top'  %><i class="fa fa-search"></i>
-                <%= text_field_tag "search[common]", params.traverse('search', 'common'), class: 'search-nav search-box', placeholder: 'Search for destinations', autocomplete: "off" %>
-              <% end %>
-            </div><!-- /input-group -->
-            <div id="desktop-result">
-              <%= render :partial=> "search_suggestions/search_results", :locals => { :data_class => "search-results-container"}%>
-
+                                        <% end %>
+                                    <% end %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-          </div><!-- /input-group -->
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-        <li>
-          <!-- <span class="badge badge-profile"> 1 </span>
-          <div class="outer-profile">
-            <img src="http://www.tahupedia.com/img/uploaded/post/post_3/anjing_peliharaan.jpg" class="img-rounded-mini"/>
-          </div> -->
-        </li>
-        <li class="dropdown">
-
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
-          <!-- <span class="badge badge-profile"> 2 </span> -->
-            <div class="outer-profile">
-              <img src="<%= current_user.avatar_url rescue "" %>" />
-            </div>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
-            <li><a href="<%= edit_user_path(current_user) %>">Edit Profile</a></li>
-            <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li>
-            <li><a href="<%= photos_user_path(current_user) %>">My Photos</a></li>
-            <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
-            <!-- <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li> -->
-          </ul>
-        </li>
-
-          <!-- <li class="">
-            <a href="#">
-              <span class="badge badge-danger notif"> 1 </span>
-              <img src="http://www.tahupedia.com/img/uploaded/post/post_3/anjing_peliharaan.jpg" class="img-rounded-mini"/>
-            </a>
-          </li>
-          <li class="">
-            <a href="#" style="margin-top: 10px; margin-left: 5px; margin-right: -25px;">My Account <span class="caret"></span></a>
-          </li> -->
-        <% else %>
-          <li class="hidden-xs"><a style="cursor:pointer" data-toggle="modal" data-target="#myModal">Sign in</a></li>
-          <li class="hidden-xs"><a href="<%= new_user_registration_path %>" class="join-nav">Join</a></li>
-        <% end %>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
-</nav>
-<!-- // -->
+        </div>
+    </div>
+</div>

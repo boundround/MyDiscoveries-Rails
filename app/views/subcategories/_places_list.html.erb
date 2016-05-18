@@ -1,11 +1,8 @@
-
 <a href="<%= place_path(place) %>">
   <div class="col-md-4 col-sm-6">
 <div class="thumbnail padd0">
   <div class="image-cat">
-
     <img src="<%= showing_image(place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>" alt="" class="top-rounded img-responsive">
-
   </div>
   <div class="caption place-caption text-center">
     <h4 class="font-orange2"><%= place.display_name %></h4>
@@ -13,9 +10,7 @@
   <div class="details-dest">
     <div class="left">
       <% place.subcategories.subcats.each do |c| %>
-
         <a href="<%= subcategory_path(c) %>" class="badge-link"><%= c.name %></a>
-
       <% end %>
     </div>
     <!-- #hardcode -->

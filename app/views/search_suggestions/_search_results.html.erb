@@ -1,34 +1,70 @@
-<div class="<%= data_class %>">
-  <main class="search-results">
+<!-- <div class="search-results-card-wrapper">
+    <a class="search-results-card">
+        <div class="search-results-img"
+             style="background: url(/assets/new-images/thing-fruit-world.jpg) no-repeat;"
+             role="img" aria-label="Luna Park">
+        </div>
+        <div class="search-results-card-content">
+            <h5>Sydney</h5>
+            <h4>Tropical Fruit World</h4>
+        </div>
+    </a>
+</div> -->
+<!-- <a class="search-results-find-more">
+    <span>FIND MORE RESULTS FOR <span class="search-term">'SYD'</span></span><img
+        class="search-arrow" src="/assets/new-images/carousel-nav-arrow.png"/>
+</a> -->
+
+<!-- <div class="<%#= data_class %>"> -->
+  <!-- <main class="search-results-bottom"> -->
     <div class="no-result"></div>
-      <!-- <div id="stats"></div> -->
-      <div class="recently-viewed"></div>
+      <div id="stats"></div>
+      <!-- <div class="recently-viewed"></div> -->
       <div class="hits"></div>
       <!-- <div id="pagination"></div> -->
-      <div class="more-result-id"></div>
+      <div class="more-result-id-nav"></div>
       <!-- <div id="google-hits"></div> -->
-  </main>
-</div>
+  <!-- </main> -->
+<!-- </div> -->
 
+<!--   <div class="search-results-card-wrapper">
+      <a class="search-results-card" href="thing.html">
+          <div class="search-results-img"
+               style="background: url(/assets/new-images/thing-fruit-world.jpg) no-repeat;" role="img"
+               aria-label="Luna Park">
+          </div>
+          <div class="search-results-card-content">
+              <h5>Sydney</h5>
+              <h4>Tropical Fruit World</h4>
+          </div>
+      </a>
+  </div>
+  <a class="search-results-find-more" href="thing.html">
+      <span>FIND MORE RESULTS FOR <span class="search-term">'SYD'</span></span><img
+          class="search-arrow" src="/assets/new-images/carousel-nav-arrow.png"/>
+  </a> -->
 
-
-<script type="text/template" id="hit-template">
+<script type="text/template" id="hit-template-home">
 {{#hits}}
-  <a href="{{ url }}" class="no-anchor-decoration hit-result" data-link="{{ url }}">
-    <div class="hit">
-    <div class="hit-icon">
-      <img src="{{ photos.0.url }}"  alt="{{ photos.0.alt_tag }}">
-    </div>
-      <div class="hit-content">
-        <h5 class="hit-name">{{{ display_name }}}</h5>
-        <small class="hit-description">{{{ display_address }}}</small>
-      </div>
-    </div>
-  </a>
+  <div class="search-results-card-wrapper">
+      <a class="search-results-card" href="{{ url }}">
+          <div class="search-results-img hit-result"
+               style="background: url({{ photos.0.url }}) no-repeat;"
+               role="img" aria-label="{{{ display_name }}}"
+               alt="{{ photos.0.alt_tag }}"
+               data-link="{{ url }}"
+               >
+          </div>
+          <div class="search-results-card-content">
+              <h5>{{{ display_name }}} </h5>
+              <h4>{{{ display_address }}}</h4>
+          </div>
+      </a>
+  </div>
   {{/hits}}
 </script>
 
-<script type="text/template" id="google-hit-template">
+<!-- <script type="text/template" id="google-hit-template">
   {{#hits}}
   <div class="hit" data-url="{{ url }}">
     <div class="hit-content">
@@ -38,14 +74,16 @@
   </div>
   <hr>
   {{/hits}}
-</script>
+</script> -->
 
-<script type="text/template" id="more-results-template">
+<script type="text/template" id="more-results-template-nav">
 <hr class="btm0">
 <div class="more-result">
   <%= form_tag searching_path, id: '', method: :get  do %>
-      <%= submit_tag "Find more results for '{{ query }}' >>", class: "more-result" %>
+      <%= submit_tag "", class: "more-result search-results-find-more" %>
       <%= hidden_field_tag "search[common]","{{query}}" %>
+          <span>FIND MORE RESULTS FOR <span class="search-term">' {{ query }} '</span></span>
+          <img class="search-arrow" src="/assets/new-images/carousel-nav-arrow.png"/>
   <% end %>
 </div>
 </script>

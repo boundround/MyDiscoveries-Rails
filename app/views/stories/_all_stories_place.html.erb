@@ -1,0 +1,24 @@
+<div id="stories" class="thing-page-segment">
+    <div>
+        <h3>Stories</h3>
+    </div>
+
+    <div class="row">
+        <div class="owl-carousel carousel" id="stories-list">
+            <%= render partial: "stories/all_stories_place_list", collection: @stories, as: :story %>        
+        </div>
+    </div>
+    <% unless last_page? @stories %>
+        <div class="row hidden-xs single-pagination-container" id="stories-single-pagination-container">
+          <div class="hidden single-pagination-loader" align="center">
+            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+          </div>
+            <div class="col-xs-12">
+                <div class="load-more">
+                <%= link_to "LOAD MORE", paginate_stories_place_path(@place, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_place_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>
+<!-- paginate_stories_place -->

@@ -1,25 +1,16 @@
-<div class="btm15 card review-content">
-  <div class="body-stories">
-    <p class="some-text" data-full-text="<%= review.content %>">
-      <% if review.content.length > 280 %>
-          <%= review.content[0..280] + "..." %>
-        <% else %>
-         <%= review.content %>
-      <% end %>
-    </p>
-  </div>
-  <div class="head-stories">
-    <div class="left">
-      <a href="#" class="black">
-        <%= strip_domain_from_username review.user %>
-      </a>
-      <span class="grey">Jul 2015</span>
+<div class="col-md-4">
+    <div class="member-review-wrapper">
+        <div class="user-wrapper">
+            <div class="user-dp"
+                 style="background: url(<%= showing_image(review.user.avatar_url)%>) no-repeat;"></div>
+            <div class="username"> <%= review.user.name %></div>
+        </div>
+        <div class="comment">
+          <%= review.content %>
+        </div>
+        <div class="rating-wrapper">
+            <%= raw draw_smile_review(review) rescue "" %>
+        </div>
+        <div class="date"><%= review.created_at.strftime("%B %Y") %></div>
     </div>
-    <div class="right">    <!-- #hardcode -->
-      <%# get_user_place_rating_from_review(review).times do |star| %>
-        <%# <i class="fa fa-smile-o"></i>
-      <%# end %>
-      <%= raw draw_smile_review(review) rescue "" %>
-    </div>
-  </div>
 </div>

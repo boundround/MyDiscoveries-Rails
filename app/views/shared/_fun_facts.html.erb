@@ -1,0 +1,9 @@
+<div class="col-md-12 col-sm-12">
+    <div class="fun-fact">
+        <div class="fun-fact-img" style="background: url(<%= showing_image(asset_path(get_random_place_photo(@place))) rescue nil %>) no-repeat;"
+             role="img"
+             aria-label="Fish Market"></div>
+        <div class="fact"><%= raw funfact.content %>
+        </div>
+    </div>
+</div>

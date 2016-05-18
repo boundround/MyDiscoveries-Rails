@@ -33,13 +33,13 @@ module ApplicationHelper
 
   def draw_accessibilty_icons(category)
     if category.identifier == "hearing-impaired"
-      "<i data-toggle='tooltip' title data-original-title='Hearing impaired' class='fa fa-deaf'></i>"
+      "<i data-toggle='tooltip' title data-original-title='Hearing impaired' class='fa fa-deaf accessibility'></i>"
     elsif category.identifier == "wheelchair-access"
-      "<i data-toggle='tooltip' title data-original-title='Wheelchair access' class='fa fa-wheelchair'></i>"
+      "<i data-toggle='tooltip' title data-original-title='Wheelchair access' class='fa fa-wheelchair accessibility'></i>"
     elsif category.identifier == "children-with-special-needs"
-      "<i data-toggle='tooltip' title data-original-title='Children with special needs' class='fa fa-child'></i>"
+      "<i data-toggle='tooltip' title data-original-title='Children with special needs' class='fa fa-child accessibility'></i>"
     elsif category.identifier == "sight-impaired"
-      "<i data-toggle='tooltip' title data-original-title='Sight impaired' class='fa fa-braille'></i>"
+      "<i data-toggle='tooltip' title data-original-title='Sight impaired' class='fa fa-braille accessibility'></i>"
     end
   end
 
@@ -65,7 +65,11 @@ module ApplicationHelper
       solution = "<span class='orange-icon'>" + orange + "</span>" + "<span class='grey-icon'>" + grey + "</span>" + rates_total
 
     else
-      solution = "<span class='orange-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>" + rates_total
+      if user_signed_in?
+        solution = '<a href="javascript:void(0)"><span style="font-size:18px;" class="message-text" data-toggle="modal" data-target="#ReviewModal">LEAVE A REVIEW</span></a>'
+      else
+        solution = '<a href="javascript:void(0)"><span style="font-size:18px;" class="message-text" data-toggle="modal" data-target="#myModal">LEAVE A REVIEW</span></a>'
+      end
     end
   end
 
@@ -89,7 +93,7 @@ module ApplicationHelper
 
     else
 
-      solution = "<span class='grey-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>"
+      solution = ""
     end
   end
 
@@ -206,6 +210,16 @@ module ApplicationHelper
       place.photos.find_by(hero: true).path_url(:small)
     elsif place.user_photos.find_by(hero: true)
       place.user_photos.find_by(hero: true).path_url(:small)
+    else
+      asset_path('generic-hero-small.jpg')
+    end
+  end
+
+  def draw_medium_background(place)
+    if place.photos.find_by(hero: true)
+      place.photos.find_by(hero: true).path_url(:medium)
+    elsif place.user_photos.find_by(hero: true)
+      place.user_photos.find_by(hero: true).path_url(:medium)
     else
       asset_path('generic-hero-small.jpg')
     end

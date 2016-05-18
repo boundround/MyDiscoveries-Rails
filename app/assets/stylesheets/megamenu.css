@@ -1,5 +1,4 @@
-/* MEGA MENU */
-.menu-large {
+/*.menu-large {
   position: static !important;
 }
 .megamenu {
@@ -47,13 +46,11 @@
   font-size: 18px;
 }
 .megamenu-bg {
-  /*background: #57B6CB !important;
-  background: #eaeaea !important;*/
+ 
   background: #ffffff;
 }
 .megamenu-font-color {
-	/*color: #336C74;*/
-  /*color: #555555;*/
+
 }
 .padding-left {
   padding-left: 15px !important;
@@ -145,15 +142,5 @@
     padding: 3px 15px !important;
 
   }
-/*  .navbar-nav .open .dropdown-menu .dropdown-header{
-  color:#fff;
-  }*/
-}
 
-
-
-
-
-
-
-
+}*/
