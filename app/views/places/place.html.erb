@@ -147,6 +147,7 @@
                                 </div>
                             </div>
                         </div>
+                        <% unless @place.viator_link.blank? %>
                         <div class="mobile-booking-container">
                             <div class="container">
                                 <div class="row">
@@ -155,12 +156,10 @@
                                             <div class="hidden-xs hidden-sm">
                                                 <h4>$$</h4>
                                             </div>
-                                            
-                                                <% unless @place.viator_link.blank? %>
+
                                                 <div>
                                                     <a href="<%= @place.viator_link %>" onclick="bookNowClicks()" target="blank" class="btn">BOOK NOW</a>
                                                 </div>
-                                                <% end %>
 
                                             <div class="visible-xs visible-sm small-dollars">$$</div>
                                             <div class="load-more">
@@ -171,8 +170,10 @@
                                 </div>
                             </div>
                         </div>
+                        <% end %>
                     </div>
                     <div class="desktop-booking-container visible-md visible-lg">
+                      <% unless @place.viator_link.blank? %>
                         <div class="booking-wrapper">
                             <div>
                                 <h4>$$</h4>
@@ -186,6 +187,7 @@
                               <%= link_to "VIEW OPENING HOURS", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
                             </div>
                         </div>
+                      <% end %>
                     </div>
                     <div class="thing-side-info-segment">
                         <div class="row">
@@ -308,6 +310,14 @@
                             <div class="col-xs-4">Website</div>
                             <div class="col-xs-8 thing-side-bold"><a onclick="websiteClicks()" href="<%= @place.website %>" target="_blank"><%= extract_domain(@place.website) %></a></div>
                         </div>
+                        <% if @place.viator_link.blank? %>
+                            <div class="row">
+                                <div class="col-xs-4">Opening Hours</div>
+                                <div class="col-xs-8 thing-side-bold">
+                                  <%= link_to "VIEW OPENING HOURS", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
+                                </div>
+                            </div>
+                        <% end %>
                         <br/>
                     </div>
                 </div>

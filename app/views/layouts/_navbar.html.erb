@@ -19,9 +19,10 @@
                 <h4><a href="/videos"><img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
                     <span>Videos</span></a>
                 </h4>
-
-                <div>Become a member</div>
-                <button href="<%= new_user_registration_path %>">Join Bound Round</button>
+                <% if !user_signed_in? %>
+                  <div>Become a member</div>
+                  <button href="<%= new_user_registration_path %>">Join Bound Round</button>
+                <% end %>
             </div>
         </div>
 
@@ -46,11 +47,11 @@
                         <a class="menu-item hidden-xs" href="/videos">
                             <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/> <span>VIDEOS</span>
                         </a>
-                        <%# if !user_signed_in? %>
+                        <% if !user_signed_in? %>
                             <a class="menu-item hidden-sm hidden-md hidden-lg" href="#" data-toggle="modal" data-target="#myModal">
                                 SIGN IN / LOGIN
                             </a>
-                        <%# end %>
+                        <% end %>
 
                         <div class="search-results" id="search-results-container" style="display:none;">
                             <%= render :partial=> "search_suggestions/search_results" %>
@@ -77,12 +78,12 @@
                             <img id="search-toggle" src="/assets/new-images/icon-search.png"/>
                         </div>
                         <% if !user_signed_in? %>
-                        <a class="menu-item hidden-xs" href="#" data-toggle="modal" data-target="#myModal">
-                            SIGN IN
-                        </a>
-                        <div class="menu-item hidden-xs">
-                            <a class="join" href="<%= new_user_registration_path %>">JOIN</a>
-                        </div>
+                          <a class="menu-item hidden-xs" href="#" data-toggle="modal" data-target="#myModal">
+                              SIGN IN
+                          </a>
+                          <div class="menu-item hidden-xs">
+                              <a class="join" href="<%= new_user_registration_path %>">JOIN</a>
+                          </div>
                         <% else %>
                         <ul class="nav navbar-nav navbar-right hidden-xs">
                             <li class="dropdown">
@@ -95,7 +96,6 @@
                                 <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
                                 <li><a href="<%= edit_user_path(current_user) %>">Edit Profile</a></li>
                                 <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li>
-                                <li><a href="<%= photos_user_path(current_user) %>">My Photos</a></li>
                                 <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
                               </ul>
                             </li>
@@ -153,18 +153,18 @@
 
                                   <% @featured_nav_places = Place.find([233, 117, 921, 1021]) %>
                                   <% @featured_nav_places.each do |place| %>
-                                    <a href="<%= place_path(place) %>">
+                                    <%= link_to place_path(place) do %>
                                         <div class="col-md-12 dest-thing-wrapper">
                                             <div class="dest-thing featured">
                                                 <div class="things-img"
                                                      style="background: url('<%= draw_small_background(place) %>') no-repeat;"
-                                                     role="img" aria-label="Luna Park">
+                                                     role="img" aria-label="<%= place.display_name %>">
                                                     <div class="dest-thing-overlay-wrapper">
                                                         <div class="dest-thing-overlay">
                                                             <div class="dollar-rating">$$</div>
                                                              <% if !place.viator_link.blank? %>
                                                                 <div class="book-wrapper">
-                                                                    <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" href="#" class="btn book-btn book-white" type="button">BOOK</a>
+                                                                    <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" href="#" class="btn book-btn book-white" type="button" style="color:black">BOOK</a>
                                                                 </div>
                                                             <% end %>
                                                         </div>
@@ -179,9 +179,9 @@
                                                         </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </a>
+                                          </div>
                                         <% end %>
+                                    <% end %>
                                     </div>
                                 </div>
                             </div>

@@ -226,7 +226,7 @@ class PlacesController < ApplicationController
     # @storiable = @place
     api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')
     @stories = @place.stories.active + api_blogs
-    @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 6)
+    @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
 
     @story = Story.new
     @user_photos = @story.user_photos.build
@@ -341,7 +341,7 @@ class PlacesController < ApplicationController
     @place = Place.find_by_slug(params[:id])
     @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
   end
-  
+
   def paginate_stories
     @place = Place.find_by_slug(params[:id])
     api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')

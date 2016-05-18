@@ -1138,7 +1138,8 @@ h4 {
     height: 100%;
     width: calc(100% - 125px);
     vertical-align: top;
-    padding: 10px
+    padding: 10px;
+    overflow: hidden
 }
 .search-results-card-wrapper:hover,
 .search-results-card-wrapper:focus {

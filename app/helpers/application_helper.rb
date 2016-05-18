@@ -65,7 +65,11 @@ module ApplicationHelper
       solution = "<span class='orange-icon'>" + orange + "</span>" + "<span class='grey-icon'>" + grey + "</span>" + rates_total
 
     else
-      solution = "<span class='orange-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>" + rates_total
+      if user_signed_in?
+        solution = '<a href="javascript:void(0)"><span style="font-size:18px;" class="message-text" data-toggle="modal" data-target="#ReviewModal">LEAVE A REVIEW</span></a>'
+      else
+        solution = '<a href="javascript:void(0)"><span style="font-size:18px;" class="message-text" data-toggle="modal" data-target="#myModal">LEAVE A REVIEW</span></a>'
+      end
     end
   end
 
@@ -89,7 +93,7 @@ module ApplicationHelper
 
     else
 
-      solution = "<span class='grey-icon'><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i><i class='fa fa-smile-o'></i></span>"
+      solution = ""
     end
   end
 
