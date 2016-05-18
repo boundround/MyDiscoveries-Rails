@@ -273,7 +273,7 @@ class PlacesController < ApplicationController
 
     @related_places = @place.children
     @last_video = @place.videos.active.last
-    @funfacts = @place.fun_facts
+    @fun_facts = @place.fun_facts
     # @place.videos.active.each do |video|
     #     @videos << video
     # end

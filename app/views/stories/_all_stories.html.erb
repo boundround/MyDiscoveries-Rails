@@ -9,13 +9,6 @@
            <%= render partial: "stories/all_stories_list", collection: @stories, as: :story %>
       </div>
   </div> <!-- row -->
-
-  <!-- <div class="row">
-      <div class="col-xs-12">
-          <div class="load-more hidden-xs"><a href="#">LOAD MORE</a></div>
-          <hr/>
-      </div>
-  </div> -->
       <% unless last_page? @stories %>
         <div class="row hidden-xs single-pagination-container" id="stories-single-pagination-container">
           <div class="hidden single-pagination-loader" align="center">
@@ -23,7 +16,12 @@
           </div>
             <div class="col-xs-12">
                 <div class="load-more">
-                <%= link_to "LOAD MORE", paginate_stories_place_path(@place, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+                <%if params[:controller].eql? "countries" %>
+                  <%= link_to "LOAD MORE", paginate_stories_country_path(@country, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+                <% else %>
+                  <%= link_to "LOAD MORE", paginate_stories_place_path(@place, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+                <% end %>
+
                 </div>
             </div>
         </div>

@@ -5,20 +5,20 @@ class CountriesController < ApplicationController
   end
 
   def show
-    @set_body_class = "br-body"
     @country = Country.includes(:photos, :places).friendly.find(params[:id])
-    @stories = @country.stories.where(status:"live")
+    @stories = @country.stories.where(status:"live").paginate(:page => params[:stories_page], per_page: 1 )
     @reviews = @country.reviews.where(status:"live")
     @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
     @fun_facts = @country.fun_facts.where(status: "live")
     photos = @country.user_photos.where(status:"live") + @country.photos
     @photos = photos.paginate(:page => params[:active_photos], per_page: 4)
     @similar_places = @country.places.primary_areas_with_photos
-    @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 4 : 2 )
+    @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
     @famous_faces = @country.famous_faces.active
     @capital_city = Place.active.find_by(display_name: @country.capital_city)
     @good_to_know = @country.good_to_knows.limit(6)
     @last_video = @country.videos.active.last
+    @set_body_class = "destination-page"
   end
 
   def edit
@@ -55,8 +55,7 @@ class CountriesController < ApplicationController
     redirect_to countries_path, notice: "Countries imported."
   end
 
-  def destroy
-  end
+  def destroy;end
 
   def paginate_videos
     @country = Country.includes(:photos, :places).friendly.find(params[:id])
@@ -67,6 +66,17 @@ class CountriesController < ApplicationController
     @country = Country.includes(:photos, :places).friendly.find(params[:id])
     photos = @country.user_photos.where(status:"live") + @country.photos
     @photos = photos.paginate(:page => params[:active_photos], per_page: 4)
+  end
+
+  def paginate_stories
+    @country = Country.friendly.find(params[:id])
+    @stories = @country.stories.where(status:"live").paginate(:page => params[:stories_page], per_page: 1 )
+  end
+
+  def paginate_things_to_do
+    @country = Country.friendly.find(params[:id])
+    @similar_places = @country.places.primary_areas_with_photos
+    @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
   end
 
   private

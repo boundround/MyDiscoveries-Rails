@@ -24,11 +24,11 @@
               <div class="story-desc">
                   <%= raw story.content[0..280]+"..." %>
               </div>
-              <div class="story-img" style="background: url(<%= story.story_images.first %>) no-repeat;" role="img"
+              <div class="story-img" style="background: url(<%= showing_image( !story.story_images.first.blank? ? story.story_images.first : asset_path('generic-hero-small.jpg') ) %>) no-repeat;" role="img"
                    aria-label="Story Image"></div>
           </div>
       </div>
-  <!-- </div> -->
+  </div>
   <% else %> <!-- API BLOG -->
   <div class="col-md-6 story-wrapper">
       <div  class="story"
@@ -60,3 +60,7 @@
   </div>
 
 <% end %>
+
+<script>
+   setupModal();
+</script>

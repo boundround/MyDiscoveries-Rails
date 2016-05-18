@@ -1,24 +1,9 @@
-<% if @funfacts.present? %>
-<div id="funfacts" class="container fun-facts-wrapper">
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>Fun Facts</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="owl-carousel fun-fact-carousel">
-        <% @funfacts.each do |funfact| %>
-            <div class="col-md-12 col-sm-12">
-                <div class="fun-fact">
-                    <div class="fun-fact-img" style="background: url(<%= showing_image(asset_path(get_random_place_photo(@place))) %>) no-repeat;"
-                         role="img"
-                         aria-label="Fish Market"></div>
-                    <div class="fact"><%= raw funfact.content %>
-                    </div>
-                </div>
-            </div>
-            <% end %>
+<div class="col-md-12 col-sm-12">
+    <div class="fun-fact">
+        <div class="fun-fact-img" style="background: url(<%= showing_image(asset_path(get_random_place_photo(@place))) rescue nil %>) no-repeat;"
+             role="img"
+             aria-label="Fish Market"></div>
+        <div class="fact"><%= raw funfact.content %>
         </div>
     </div>
 </div>
-<% end %>

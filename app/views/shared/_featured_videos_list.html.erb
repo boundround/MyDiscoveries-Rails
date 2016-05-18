@@ -1,7 +1,14 @@
-<%  grid, orange, stroke = if !@place.is_area?
- ["col-md-3", "orange", "orange-stroke"]
+<%
+if !params[:controller].eql? "countries"
+  
+  grid, orange, stroke = if !@place.is_area? 
+   ["col-md-3", "orange", "orange-stroke"]
+  else
+   ["col-md-4", "", ""]
+  end
 else
- ["col-md-4", "", ""]
+  grid, orange, stroke = ["col-md-4", "", ""]
+
 end
   %>
 

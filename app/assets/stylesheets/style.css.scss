@@ -10,7 +10,7 @@
 // /*.details-dest i:#B6B6B6*/
 // /*cruises-color:#0dbeae*/
 // /*light-blue:#69b7c9*/
-body.passport-page{
+body.passport-page, body.homepage{
 	background: #eaeaea ;
 	// font-family:'Signika', sans-serif !important;
 	// font-weight: 100 ;
@@ -1305,24 +1305,24 @@ body.passport-page{
 // }
 // /*END*/
 
-// /*EXPLORE*/
-// section.explore .btn{
-// 	margin-bottom: 15px;
-// 	text-align: left;
+/*EXPLORE*/
+section.explore .btn{
+	margin-bottom: 15px;
+	text-align: left;
 
-// }
-// section.explore i.i-left {
-// 	float: left;
-// 	margin: 2px 10px 0px 0px !important;
-// }
+}
+section.explore i.i-left {
+	float: left;
+	margin: 2px 10px 0px 0px !important;
+}
 
-// section.explore .fa-arrow-right{
-// 	float: right;
-// 	margin-top: 2px;
-// }
-// section.explore .fa{
-// 	color: rgba(0, 0, 0, 0.5);
-// }
+section.explore .fa-arrow-right{
+	float: right;
+	margin-top: 2px;
+}
+section.explore .fa{
+	color: rgba(0, 0, 0, 0.5);
+}
 
 // /*END*/
 
@@ -3746,58 +3746,58 @@ section.modal-booking .left img{
 // 	border-top-left-radius: 5px;
 // 	border-bottom-left-radius: 5px;
 // }
-// .img-rounded-big {
-// 	max-width: 240px;
-// 	width: 100%;
-// 	height: 240px;
-// 	/*max-height: 220px;*/
-//     border-radius: 50%;
-//     /*margin-bottom: -15px;*/
-//     margin-top: 40px;
-//     overflow: hidden;
-// }
-// .img-rounded-profile {
-// 	max-width: 200px;
-// 	width: 100%;
-// 	height: 200px;
-// 	/*max-height: 220px;*/
-//     border-radius: 50%;
-//     margin-bottom: -15px;
-//     margin-top: 20px;
-//     overflow: hidden;
-// }
-// .img-rounded {
-// 	max-width: 200px;
-// 	width: 100%;
-// 	height: 200px;
-//     border-radius: 50%;
-//     margin-top: 20px;
-//     overflow: hidden;
-// }
+.img-rounded-big {
+	max-width: 240px;
+	width: 100%;
+	height: 240px;
+	/*max-height: 220px;*/
+    border-radius: 50%;
+    /*margin-bottom: -15px;*/
+    margin-top: 40px;
+    overflow: hidden;
+}
+.img-rounded-profile {
+	max-width: 200px;
+	width: 100%;
+	height: 200px;
+	/*max-height: 220px;*/
+    border-radius: 50%;
+    margin-bottom: -15px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+.img-rounded {
+	max-width: 200px;
+	width: 100%;
+	height: 200px;
+    border-radius: 50%;
+    margin-top: 20px;
+    overflow: hidden;
+}
 
-// .img-rounded-mini {
-//   width: 40px;
-//   height: 40px;
-//   border-radius: 50%;
-//   margin-top: -9px;
-//   margin-left: -7px;
-//   overflow: hidden;
-//   position: relative;
-//   vertical-align: 0 !important;
-// }
+.img-rounded-mini {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: -9px;
+  margin-left: -7px;
+  overflow: hidden;
+  position: relative;
+  vertical-align: 0 !important;
+}
 
-// @media (min-width: 768px){
-//     .img-rounded-mini {
-//     width: 40px;
-//     height: 40px;
-//     border-radius: 50%;
-//     margin-top: 10px !important;
-//     margin-left: -15px;
-//     margin-right: -15px;
-//     overflow: hidden;
-//     position: relative;
-//   }
-// }
+@media (min-width: 768px){
+    .img-rounded-mini {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-top: 10px !important;
+    margin-left: -15px;
+    margin-right: -15px;
+    overflow: hidden;
+    position: relative;
+  }
+}
 .img-explore {
 	width: 100% !important;
 	height: auto !important;

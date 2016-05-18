@@ -206,6 +206,7 @@ $('#story-close').on('click', function(){
 //   $('.loader-bound-round').show();
 // });
 }
+
 function setUpfileUpload(input, list){
   $(input).MultiFile({
     list: list,
