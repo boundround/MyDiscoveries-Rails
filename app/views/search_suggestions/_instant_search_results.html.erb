@@ -7,27 +7,29 @@
     <div class="instant-hits-result-pagination pagination col-md-12"></div>
   </div>
 </div>
-
 <script type="text/template" id="instant-hit-template">
-  {{#hits}}
-    <div class="result-card">
-      <div class="outer-image outer-js">
-        <img class="inner-js rescue-image" src="{{ hero_photo.url }}" alt="{{ hero_photo.alt_tag }}">
-      </div>
-      <div class="list-result">
-        <h3>
-          <a href="{{ url }}">
-            {{{ display_name }}}
-          </a>
-          </h3>
-        <p class="desc-result">
-          {{{ description }}}
-        </p>
-        <div class="footer-result">
-          <p class="pull-left">{{{ age_range }}}</p>
-          <a onclick="bookNowClicks()" class="pull-right viator_link {{{ viator_link.klass }}}" href="{{{ viator_link }}}">Book Now</a>
+{{#hits}}
+<div class="dest-thing-wrapper">
+        <div class="dest-thing search cs-dest-thing-search">
+            <div class="things-img cs-things-img" style="background: url({{ hero_photo.url }}) no-repeat;" role="img" aria-label="Luna Park">
+                <div class="dest-thing-overlay-wrapper">
+                    <div class="dest-thing-overlay">
+                        <div class="dollar-rating">{{ price }}</div>
+                        <div class="book-wrapper">
+                             <a onclick="bookNowClicks()" class="btn book-btn viator_link {{{ viator_link.klass }}}" href="{{{ viator_link }}}">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- don't remove comment
+            --><div class="dest-thing-content cs-dest-content">
+                <h4><a href="{{ url }}">{{{ display_name }}}</a></h4>
+                <div class="dest-thing-details">
+                    {{{ description }}}
+                </div>
+                <div class="tags tags-result" data-tags="{{subcategory}}" >
+                </div>
+            </div>
         </div>
-      </div>
     </div>
   {{/hits}}
 </script>

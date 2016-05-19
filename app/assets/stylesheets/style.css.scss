@@ -4524,18 +4524,18 @@ input.more-result{
     left: 15px;
     font-size: 25px;
 }
-// .pagination {
-// 	text-align: center;
-// }
-// .col-hero-list{
-// 	margin: 0 0 15px 0;
-// }
+.pagination {
+	text-align: center;
+}
+.col-hero-list{
+	margin: 0 0 15px 0;
+}
 
-// #search_request{
-// 	button{
-// 		width: 120px;
-// 	}
-// }
+#search_request{
+	button{
+		width: 120px;
+	}
+}
 // section.video-last {
 // 	.body-stories {
 // 	    min-height: initial;
@@ -4702,3 +4702,19 @@ input.more-result{
 .main-play-icon-wrapper{
   cursor: pointer;
 }
+
+@media (min-width: 992px){
+       .dest-thing-content.cs-dest-content{
+           width: 532px !important;
+       }
+       .things-img.cs-things-img{
+               width: 300px !important;
+       }
+       .dest-thing.search.cs-dest-thing-search{
+               width: 100% !important;
+       }
+ }
+ .dest-thing-wrapper{
+ 	margin-top: 0 !important;
+    margin-bottom: 20px !important;
+ }

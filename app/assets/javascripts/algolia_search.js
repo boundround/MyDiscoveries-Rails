@@ -1,23 +1,14 @@
 $(document).ready(function() {
-    // removeResultDesktop();
 
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'fce29aca7a9b823b9cacdbc1faa225e2';
-    // var INDEX_NAME = 'place';
-    // index
-    // country_#{Rails.env}
-    // primary_category_#{Rails.env}
-    // place_#{Rails.env}
-    // subcategory_#{Rails.env}
 
-    // var INDEX_NAME = "place_development","primary_category_development","country_development","subcategory_development";
     var INDEX_NAME = 'place_production';
     var PARAMS = {
         hitsPerPage: 3,
         maxValuesPerFacet: 8,
     };
 
-    // var br_place_markerCluster = null;
 
     var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
     var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
@@ -44,7 +35,6 @@ $(document).ready(function() {
     var algoliaHelperInstantSearch = algoliasearchHelper(algolia, INDEX_NAME, INSTANT_SEARCH_PARAMS);
 
 
-    // $searchInput = $('#search-box');
     $searchInput = $('.search-box');
     $searchInputBottom = $('.search-box-bottom');
     $searchInputIcon = $('#search-button');
@@ -53,18 +43,12 @@ $(document).ready(function() {
     $hits = $('.hits');
     $stats = $('#stats');
     $facets = $('#facets');
-    // $pagination = $('#pagination');
-    // $noResult = $('#no-result');
     $moreResultHome = $('.more-result-id-home');
     $moreResultNav = $('.more-result-id-nav');
 
     var hitTemplate = Hogan.compile($('#hit-template').text());
     var hitTemplateHome = Hogan.compile($('#hit-template-home').text());
-    // var statsTemplate = Hogan.compile($('#stats-template').text());
     var facetTemplate = Hogan.compile($('#facet-template').text());
-    // var sliderTemplate = Hogan.compile($('#slider-template').text());
-    // var paginationTemplate = Hogan.compile($('#pagination-template').text());
-    // var noResultsTemplate = Hogan.compile($('#no-results-template').text());
     var moreResultsTemplateNav = Hogan.compile($('#more-results-template-nav').text());
     var moreResultsTemplateHome = Hogan.compile($('#more-results-template-home').text());
 
@@ -87,21 +71,16 @@ $(document).ready(function() {
         if (query.length > 0) {
             algoliaHelper.setQuery(query);
             algoliaHelper.search();
-        } else {
-            // $('.search-results-container').hide();
-        }
+        } else {}
     }
 
     function searchConditionBottom(query) {
         if (query.length > 0) {
             algoliaHelperBottom.setQuery(query);
             algoliaHelperBottom.search();
-            // console.log(query);
 
-            // $('.search-bottom').show();
-        } else {
-            // $('.search-bottom').hide();
-        }
+
+        } else {}
     }
 
     function searchInstant(input) {
@@ -131,7 +110,7 @@ $(document).ready(function() {
         .on('keyup', function() {
             var query = $(this).val();
             searchConditionBottom(query);
-            // console.log(query);
+
         })
         .bind("paste", function() {
             var elem = $(this);
@@ -154,34 +133,25 @@ $(document).ready(function() {
         })
         .focus();
 
-    // Search results
     algoliaHelper.on('result', function(content, state) {
         if (content.hits.length > 0) {
-            // $noResult.hide();
             $('#search-results-container').show();
             $('#search-results-bottom-container').hide();
-            // $('.search-results').show();
-            // renderHits(content);
             renderHitsHome(content);
             renderMoreResultsNav(content);
             rescueImage();
-            console.log(content.hits);
-        } else {
-            // renderNoResults(content);
-        }
+
+        } else {}
     });
     algoliaHelperBottom.on('result', function(content, state) {
         if (content.hits.length > 0) {
-            // $noResult.hide();
             $('#search-results-bottom-container').show();
             $('#search-results-container').hide();
             renderHitsHome(content);
             renderMoreResultsHome(content);
             rescueImage();
-            console.log(content.hits);
-        } else {
-            // renderNoResults(content);
-        }
+
+        } else {}
     })
 
     algoliaHelperInstantSearch.on('result', function(content, state) {
@@ -190,6 +160,8 @@ $(document).ready(function() {
         renderFacets(content, state);
         renderPagination(content, $instantSearchPagination, instantPaginationTemplate);
         setImagesPosition();
+        subCats();
+
 
     })
 
@@ -200,6 +172,18 @@ $(document).ready(function() {
                 val.viator_link = {
                     klass: "hide"
                 }
+            }
+        });
+    }
+
+    function subCats() {
+        var tags = $(".tags-result");
+        $.each(tags, function(index, val) {
+            if ($(val).data("tags").length > 0) {
+                tag = $(val).data("tags").split(",");
+                $.each(tag, function(index2, val2) {
+                    $(val).append("<div class='tag'><div class='v-center'>" + val2 + "</div></div>");
+                });
             }
         });
     }
@@ -241,8 +225,8 @@ $(document).ready(function() {
                         data: form_value,
                     })
                     .done(function(data) {
-                        // console.log(data);
-                        // console.log("done");
+
+
                         if (data.success == true) {
                             success = "<div class='alert alert-success alert-dismissible' role='alert'>" +
                                 "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
@@ -259,8 +243,8 @@ $(document).ready(function() {
                             }, 1000);
 
                         } else {
-                            // console.log("error");
-                            // console.log(data);
+
+
                             error = "<div class='alert alert-warning alert-dismissible' role='alert'>" +
                                 "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                                 data.messages +
@@ -272,8 +256,8 @@ $(document).ready(function() {
                         };
                     })
                     .fail(function(data) {
-                        // console.log("error");
-                        // console.log(data);
+
+
                         error = "<div class='alert alert-warning alert-dismissible' role='alert'>" +
                             "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
                             data.statusText +
@@ -414,26 +398,22 @@ $(document).ready(function() {
     });
 
     $searchInputBottom.click(function(event) {
-        if ( $(this).val().length ) {
+        if ($(this).val().length) {
             $("#search-results-bottom-container").show();
         }
         $("#search-results-container").hide();
     });
 
     $searchInput.click(function(event) {
-        if ( $(this).val().length ) {
+        if ($(this).val().length) {
             $("#search-results-container").show();
         }
-         $("#search-results-bottom-container").hide();   
-        
+        $("#search-results-bottom-container").hide();
+
     });
 
     $(".app-wrap").click(function(event) {
-       $("#search-results-container").hide();
+        $("#search-results-container").hide();
     });
-
-
-
-
 
 });
