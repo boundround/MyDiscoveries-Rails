@@ -8,6 +8,7 @@
     <tr>
       <th>ID</th>
       <th>Title</th>
+      <th>Status</th>
       <th>Credit</th>
       <th>Associated Places</th>
       <th>Edit</th>
@@ -19,6 +20,7 @@
         <tr>
           <td><%= post.id %></td>
           <td><%= link_to post.title, post_path(post) %></td>
+          <td><%= post.status %></td>
           <td><%= post.credit %></td>
           <td><%= link_to "Edit Associated Places", post_places_path(post) %></td>
           <td><%= link_to "Edit", edit_post_path(post) %></td>
