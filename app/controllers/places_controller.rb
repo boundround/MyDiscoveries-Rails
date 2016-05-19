@@ -193,7 +193,7 @@ class PlacesController < ApplicationController
 
     @places_to_visit = @place.children.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
 
-    @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category).order("RANDOM()")
+    @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category).where(parent_id: @place.parent_id).order("RANDOM()")
 
     @famous_faces = @place.country.famous_faces.active
 
