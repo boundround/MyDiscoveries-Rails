@@ -162,19 +162,16 @@
                   </div>
               </div>
           </div>
-<<<<<<< HEAD
         </div>
       <div class="desc-place">
         <p class="text"><%= raw @place.description[0..280]+"..." %></p>
         <p class="text full" style="display: none;"><%= raw @place.description.gsub("\n", "<br>").gsub("\r", "<br>") %></p>
         <button class="blueish more" style="background:none;border:none;outline:none;padding-left:0;">More <span class="fa fa-caret-down"></span></button>
         <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;display:none;">Less <span class="fa fa-caret-up"></span></button>
-=======
           <div class="main-play-icon-wrapper">
               <div class="main-play-icon"></div>
           </div>
         <!-- <iframe class="iframe-player" src="<%#= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
->>>>>>> test
       </div>
     <% else %>
       <div id="videos" class="large-video-component-wrapper play-in-modal"
@@ -210,9 +207,7 @@
     <%= render partial: "shared/videos_list", locals:{container: "container" } %>
 
 
-    <div class="stories-things-wrapper">
-        <%= render partial: "stories/all_stories" %>
-        <%= render "stories/modal_story" %>
+
 
 
         <% unless @places_to_visit.blank? %>
@@ -243,6 +238,10 @@
         <% end %>
 
     </div>
+    <div class="stories-things-wrapper">
+        <%= render partial: "stories/all_stories" %>
+        <%= render "stories/modal_story" %>
+
     <% unless @photos_hero.blank? %>
     <div id="photos" class="large-carousel-wrapper">
         <div class="large-owl-carousel owl-carousel">
@@ -285,33 +284,6 @@
     <% end %>
 
   <%= render partial: "shared/photos_list", as: :photos, locals:{container: "container"} %>
-
-    <div id="famousfaces" class="famous-faces-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3>Famous faces from <%= @place.country.display_name %></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="owl-carousel carousel">
-                    <% unless @famous_faces.blank? %>
-                    <% @famous_faces.each do |famous| %>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="famous-face">
-                            <div class="famous-face-img" style="background: url(<%= image_path showing_image(famous.photo_url) %>) no-repeat;"
-                                 role="img" aria-label="Bindi Irwin"></div>
-                            <h4><%= famous.name %></h4>
-                            <p><%= famous.description %></p>
-                        </div>
-                    </div>
-                    <% end %>
-                    <% end %>
-
-                </div>
-            </div>
-        </div>
-    </div>
 
 <% if @fun_facts.present? %>
   <div id="funfacts" class="container fun-facts-wrapper">

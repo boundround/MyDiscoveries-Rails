@@ -9,6 +9,7 @@ class Subcategory < ActiveRecord::Base
 	scope :get_all_informations, -> { where(category_type: ["Optimum Time", "Duration", "Subcategory", "Accessibility", "Price"] ) }
 
 	scope :subcats, -> { where(category_type: "subcategory") }
+	scope :price_categories, -> { where(category_type: "price") }
 
 	before_save :parameterize_identifier
 
