@@ -154,36 +154,35 @@
                                   <% @featured_nav_places = Place.find([233, 117, 921, 1021]) %>
                                   <% @featured_nav_places.each do |place| %>
                                         <div class="col-md-12 dest-thing-wrapper">
-                                            <a href="<%= place_path(place)%>">
-                                                <div class="dest-thing featured">
-                                                    <div class="things-img"
-                                                         style="background: url('<%= draw_small_background(place) %>') no-repeat;"
-                                                         role="img" aria-label="<%= place.display_name %>">
-                                                        <div class="dest-thing-overlay-wrapper">
-                                                            <div class="dest-thing-overlay">
-                                                                <div class="dollar-rating">
-                                                                    <% place.subcategories.price_categories.each do |icon| %>
-                                                                        <%= icon.name + " " %>
-                                                                    <% end %>
-                                                                </div>
-                                                                <% if !place.viator_link.blank? %>
-                                                                    <div class="book-wrapper">
-                                                                        <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" href="#" class="btn book-btn book-white" type="button">BOOK</a>
-                                                                    </div>
+                                            <div class="dest-thing featured">
+                                            <a class="link_card" href="<%= place_path(place)%>"></a>
+                                                <div class="things-img"
+                                                     style="background: url('<%= draw_small_background(place) %>') no-repeat;"
+                                                     role="img" aria-label="<%= place.display_name %>">
+                                                    <div class="dest-thing-overlay-wrapper">
+                                                        <div class="dest-thing-overlay">
+                                                            <div class="dollar-rating">
+                                                                <% place.subcategories.price_categories.each do |icon| %>
+                                                                    <%= icon.name + " " %>
                                                                 <% end %>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="dest-thing-content">
-                                                        <h4><%= place.display_name %></h4>
-                                                        <div class="tags">
-                                                            <% place.subcategories.subcats.each do |category| %>
-                                                                <div class="tag"><a href="#" class="v-center"><%= category.name %></a></div>
+                                                            <% if !place.viator_link.blank? %>
+                                                                <div class="book-wrapper">
+                                                                    <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" class="btn book-btn book-white" type="button">BOOK</a>
+                                                                </div>
                                                             <% end %>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </a>
+                                                <div class="dest-thing-content">
+                                                    <h4><%= place.display_name %></h4>
+                                                    <div class="tags">
+                                                        <% place.subcategories.subcats.each do |category| %>
+                                                            <div class="tag"><a href="#" class="v-center"><%= category.name %></a></div>
+                                                        <% end %>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     <% end %>
                                     </div>

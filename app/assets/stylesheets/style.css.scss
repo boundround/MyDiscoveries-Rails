@@ -4698,7 +4698,12 @@ input.more-result{
 }
 .btn.book-btn.book-white{
 	background: #fff;
+	color: #000;
+	&:hover{
+	 color: #fd7e56;
+	}
 }
+
 .main-play-icon-wrapper{
   cursor: pointer;
 }
@@ -4717,4 +4722,21 @@ input.more-result{
  .dest-thing-wrapper{
  	margin-top: 0 !important;
     margin-bottom: 20px !important;
+ }
+ .dest-thing{
+ 	.link_card{
+		position: absolute !important;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background: transparent;
+		z-index: 1;
+ 	}
+ 	.book-wrapper{
+ 		z-index: 1 !important;
+ 	}
+ 	.tags{
+ 		z-index: 1 !important;
+ 	}
  }
