@@ -1,3 +1,37 @@
+function fixMobileOverflowTags() {
+
+    var card = $(".dest-thing.search.cs-dest-thing-search");
+
+    $.each(card, function(index, val) {
+        var tag = $(val).find(".tags.tags-result");
+        if ($(window).width() <= 320) {
+            if (tag.height() > 35) {
+                $(val).css({
+                    height: '535px'
+                });
+            } else if (tag.height() > 71) {
+                $(val).css({
+                    height: '544px'
+                });
+            }
+        } else if ($(window).width() <= 425) {
+            if (tag.height() > 35) {
+                $(val).css({
+                    height: '488px'
+                });
+            } else if (tag.height() > 71) {
+                $(val).css({
+                    height: '544px'
+                });
+            }
+        }
+    });
+}
+
+$(window).resize(function(event) {
+    fixMobileOverflowTags();
+});
+
 $(document).ready(function() {
 
     var APPLICATION_ID = 'KXOYK344AM';
@@ -78,16 +112,13 @@ $(document).ready(function() {
         if (query.length > 0) {
             algoliaHelperBottom.setQuery(query);
             algoliaHelperBottom.search();
-
-
-        } else {}
+        }
     }
 
     function searchInstant(input) {
         query = input.val();
         algoliaHelperInstantSearch.setQuery(query);
         algoliaHelperInstantSearch.search();
-
     }
 
     $searchInput
@@ -103,8 +134,6 @@ $(document).ready(function() {
             }, 100);
         })
         .focus();
-
-
 
     $searchInputBottom
         .on('keyup', function() {
@@ -132,7 +161,6 @@ $(document).ready(function() {
             }, 100);
         })
         .focus();
-
     algoliaHelper.on('result', function(content, state) {
         if (content.hits.length > 0) {
             $('#search-results-container').show();
@@ -140,8 +168,7 @@ $(document).ready(function() {
             renderHitsHome(content);
             renderMoreResultsNav(content);
             rescueImage();
-
-        } else {}
+        }
     });
     algoliaHelperBottom.on('result', function(content, state) {
         if (content.hits.length > 0) {
@@ -150,21 +177,19 @@ $(document).ready(function() {
             renderHitsHome(content);
             renderMoreResultsHome(content);
             rescueImage();
-
-        } else {}
+        }
     })
 
     algoliaHelperInstantSearch.on('result', function(content, state) {
         viatorLink(content.hits);
+        seText(content.hits);
         renderInstantHits(content);
         renderFacets(content, state);
         renderPagination(content, $instantSearchPagination, instantPaginationTemplate);
         setImagesPosition();
         subCats();
-
-
+        fixMobileOverflowTags();
     })
-
 
     function viatorLink(hits) {
         $.each(hits, function(index, val) {
@@ -185,6 +210,12 @@ $(document).ready(function() {
                     $(val).append("<div class='tag'><div class='v-center'>" + val2 + "</div></div>");
                 });
             }
+        });
+    }
+
+    function seText(hits) {
+        $.each(hits, function(index, val) {
+            val.description = val.description.substring(0, 235) + '...';
         });
     }
 
