@@ -12,50 +12,28 @@
 //
 //= require jquery
 //= require jquery_ujs
-// require jquery-ui
 //= require bootstrap-sprockets
 //= require bootsy
-// require bootstrap
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
-// require bootstrap-select.min
-// require jcarousel.responsive
-// require jquery.jcarousel.min
-// require jquery.matchHeight-min
-// require jquery.touchSwipe.min
-// require jquery.bxslider
-// require jquery.keep-ratio
-// require progressbar
 //= require jquery.MultiFile
 //= require bootstrap-datepicker
-// require countries
 //= require area
 //= require jquery.raty-fa
 //= require places
-// require avatarupload
-// require user
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require cms
-// require bootstrap/transition
 //= require geocomplete
 //= require cookie
 //= require like
-// require jquery.raty
 //= require ratyrate
 //= require user-photo-upload
-// require ckeditor/init
-// require ckeditor/config.js
-// require reviews
-
 //= require algoliasearch
 //= require algoliasearchhelper
 //= require hogan
 //= require algolia_search
-// require bug_posts
 //= require gmaps.min
-
-// NEW DESIGN
 //= require owl.carousel.min 
 //= require svg-injector.min 
 //= require smooth-scroll.min
@@ -65,10 +43,6 @@
 //= require destination
 //= require thing
 //= require home-new-design
-
-// require custom
-// require jquery.Jcrop.min
-// require places_crop
 //= require jquery.confirm.min
 //= require chart.min
 //= require jquery.iframe-transport 
@@ -78,57 +52,51 @@
 //= require medium-editor-insert-plugin.min
 //= require jquery-sortable-min.js
 //= require boundround
-// require mix_panel
-// require instafeed.min
 //= require jquery.snowshoe
-//= require stamps
 //= require dual_list_box
 //= require jquery_nested_form
 //= require blueimp-gallery.min
-//= require instantsearch.min
-//= require instant_search_setup
 
-$(document).on('ajax:beforeSend', 'a.single-pagination', function(){
-  container= $(this).closest('div.single-pagination-container');
-  container.find('div.single-pagination-loader').removeClass('hidden');
-  $(this).addClass('hidden');
-}).on('ajax:success', 'a.single-pagination', function(){
-  container= $(this).closest('div.single-pagination-container');
-  container.find('div.single-pagination-loader').addClass('hidden');
-  $(this).removeClass('hidden');
-}).on('ajax:error', 'a.single-pagination', function(){
-	container= $(this).closest('div.single-pagination-container');
-  container.find('div.single-pagination-loader').addClass('hidden');
-  $(this).removeClass('hidden');
+$(document).on('ajax:beforeSend', 'a.single-pagination', function() {
+    container = $(this).closest('div.single-pagination-container');
+    container.find('div.single-pagination-loader').removeClass('hidden');
+    $(this).addClass('hidden');
+}).on('ajax:success', 'a.single-pagination', function() {
+    container = $(this).closest('div.single-pagination-container');
+    container.find('div.single-pagination-loader').addClass('hidden');
+    $(this).removeClass('hidden');
+}).on('ajax:error', 'a.single-pagination', function() {
+    container = $(this).closest('div.single-pagination-container');
+    container.find('div.single-pagination-loader').addClass('hidden');
+    $(this).removeClass('hidden');
 });
 
-$(document).ready(function(){
+$(document).ready(function() {
 
-	$(document).on('click', '.play-in-modal', function(e){
-		showAndPlayVideoOnModal($(this))
-	});
+    $(document).on('click', '.play-in-modal', function(e) {
+        showAndPlayVideoOnModal($(this))
+    });
 
-	$('div.video-modal').on('hide.bs.modal', function(e){
-		$(this).find('iframe').attr('src', null);
-	});
+    $('div.video-modal').on('hide.bs.modal', function(e) {
+        $(this).find('iframe').attr('src', null);
+    });
 
-  $('div.modal-video').on('hide.bs.modal', function(e){
-    $(this).find('iframe').attr('src', null);
-  });
+    $('div.modal-video').on('hide.bs.modal', function(e) {
+        $(this).find('iframe').attr('src', null);
+    });
 
-  $(document).on('click', 'a.play-video', function(e){
-    div= $(this).closest('div');
-    video= div.find('.play-in-modal');
-    showAndPlayVideoOnModal($(video))
-    e.preventDefault();
-  })
+    $(document).on('click', 'a.play-video', function(e) {
+        div = $(this).closest('div');
+        video = div.find('.play-in-modal');
+        showAndPlayVideoOnModal($(video))
+        e.preventDefault();
+    })
 
 });
 
-function showAndPlayVideoOnModal(video)
-{
-  modal= video.data('modal');
-  vid_src = video.data('video-url');
-  $(modal).modal('show');
-  $(modal+' iframe').attr('src', vid_src+'?autoplay=1');
+function showAndPlayVideoOnModal(video) {
+    modal = video.data('modal');
+    vid_src = video.data('video-url');
+    $(modal).modal('show');
+    $(modal + ' iframe').attr('src', vid_src + '?autoplay=1');
 }

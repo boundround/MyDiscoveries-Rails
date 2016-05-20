@@ -2,11 +2,8 @@ class PagesController < ApplicationController
 
   def index
     @set_body_class = "home-page background"
-    #task psoude code = "Places To Go" == Place.where(is_area: true).order(like_percentage ASC).limit(6)
-    @areas = Place.active.is_area.where(primary_area: true).includes(:country).order("countries.display_name asc").includes(:photos)
-    @areas = @areas.paginate(page: params[:areas_page], per_page: 3)
-    # @categories = PrimaryCategory.all.includes(:places => :subcategories).paginate(per_page: 10, page: params[:categories_page])
-    # @primary_categories= PrimaryCategory.all.limit(3).paginate(per_page: 3, page: params[:primary_categories_page])
+    areas = Place.active.is_area.where(primary_area: true).includes(:country).order("countries.display_name asc").includes(:photos)
+    @areas = areas.paginate(page: params[:areas_page], per_page: 3)
     @subcategories = Subcategory.subcats.includes(:places => :subcategories)
     @subcategories = @subcategories.sort {|x, y| y.places.size <=> x.places.size}
     @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
@@ -23,7 +20,6 @@ class PagesController < ApplicationController
 
   def google_map_home
     @set_body_class = "google_map_background"
-#    @placeprograms = "yes"
   end
 
   def map_only

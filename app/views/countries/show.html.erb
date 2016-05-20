@@ -79,17 +79,8 @@
         </div>
       </div>
       <div class="action">
-        <!-- <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div> -->
-        <!-- <div class="center"><a class="white"href="#"><i class="fa fa-plus"></i> Add photos</a>  </div> -->
-        <%# if user_signed_in?%>
-          <!-- <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
-        <%# else %>
-          <!-- <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
-        <%# end %>
-
         <div class="left">
         <ul>
-          <!-- Add To Favourites -->
           <% if user_signed_in? %>
             <li>
               <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
@@ -133,7 +124,6 @@
           <div class="main-play-icon-wrapper">
               <div class="main-play-icon"></div>
           </div>
-        <!-- <iframe class="iframe-player" src="<%#= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
       </div>
     <% else %>
       <div id="videos" class="large-video-component-wrapper play-in-modal"
@@ -160,7 +150,6 @@
           <div class="main-play-icon-wrapper">
               <div class="main-play-icon"></div>
           </div>
-          <!-- <iframe class="iframe-player" src="<%#= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
       </div>
       <% end %>
     <% end %>
@@ -205,21 +194,6 @@
     <% unless @photos_hero.blank? %>
     <div id="photos" class="large-carousel-wrapper">
         <div class="large-owl-carousel owl-carousel">
-            <!-- <div class="carousel-slide">
-                <div class="carousel-img" style="background: url(/assets/new-images/rowing.jpg) no-repeat;"></div>
-                <div class="large-carousel-overlay">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="camera"></div>
-                                <div class="large-carousel-title"><h3>A day at the Royal National Park in Sydney's
-                                    South</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <% @photos_hero.each do |photo| %>
             <div class="carousel-slide">
                 <div class="carousel-img"
@@ -282,10 +256,7 @@
       <div class="row">
 
           <div class="owl-carousel fun-fact-carousel">
-
            <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
-
-
           </div>
       </div>
     </div>

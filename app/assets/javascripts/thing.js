@@ -4,23 +4,20 @@ $(document).ready(function() {
 
     var mobileOwlCarouselsCreated = false;
 
-    mq.addListener(function (changed) {
+    mq.addListener(function(changed) {
         if (!changed.matches && mobileOwlCarouselsCreated) {
             $(".thing-page .carousel").owlCarousel().trigger('destroy.owl.carousel');
             $(".thing-page .auto-height-carousel").owlCarousel().trigger('destroy.owl.carousel');
             mobileOwlCarouselsCreated = false;
-        }
-        else if (changed.matches && !mobileOwlCarouselsCreated) {
+        } else if (changed.matches && !mobileOwlCarouselsCreated) {
             createMobileOwlCarousels();
         }
     });
 
-    mq991.addListener(function (changed) {
+    mq991.addListener(function(changed) {
         if (!changed.matches) {
-            console.log('destroy');
             $('#overview-copy').readmore('destroy');
-        }
-        else {
+        } else {
             initReadMore();
         }
         $(".mobile-nav-container").sticky('update');
@@ -37,7 +34,7 @@ $(document).ready(function() {
         });
     }
 
-    var createMobileOwlCarousels = function () {
+    var createMobileOwlCarousels = function() {
         $(".thing-page .carousel").owlCarousel({
             loop: false,
             items: 1,
@@ -65,10 +62,10 @@ $(document).ready(function() {
     }
 
     //init sub nav smooth scrolling
-    smoothScroll.init({offset: 60});
+    smoothScroll.init({ offset: 60 });
 
-    $(".mobile-nav-container").sticky({topSpacing: 0, zIndex: 200});
-    $(".desktop-sub-nav").sticky({topSpacing: 0, zIndex: 200});
-    $(".desktop-booking-container .booking-wrapper").sticky({topSpacing: 0, zIndex: 200});
+    $(".mobile-nav-container").sticky({ topSpacing: 0, zIndex: 200 });
+    $(".desktop-sub-nav").sticky({ topSpacing: 0, zIndex: 200 });
+    $(".desktop-booking-container .booking-wrapper").sticky({ topSpacing: 0, zIndex: 200 });
 
 });

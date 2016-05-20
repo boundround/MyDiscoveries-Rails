@@ -1,31 +1,3 @@
-<!-- <a href="<%#= place_path(area) %>">
-  <div class="col-md-4">
-  <div class="thumbnail padd0">
-    <div class="image-cat">
-
-      <img src="<%#= showing_image(area.photos.count > 0 ? area.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>" alt="" class="top-rounded img-responsive">
-
-    </div>
-    <div class="caption place-caption text-center">
-      <h4 class="font-orange2"><%#= area.display_name %></h4>
-    </div>
-    <div class="details-dest">
-      <div class="left">
-        <%# area.subcategories.subcats.each do |c| %>
-          <a href="<%#= subcategory_path(c) %>" class="badge-link"><%#= c.name %></a>
-
-        <%# end %>
-      </div>
-      <div class="right">
-        <%# if !area.viator_link.blank? %>
-          <a onclick="bookNowClicks()" href="<%#= area.viator_link%>" target="_blank" class="pink">Book Now</a>
-        <%# end %>
-      </div>
-    </div>
-  </div>
-  </div>
-</a> -->
-
 <a href="<%= place_path(area) %>">
 <div class="col-md-4 col-sm-6 dest-thing-wrapper">
   <div class="dest-thing">
@@ -41,13 +13,6 @@
                   </div>
               </div>
           <% end %>
-
-          <!-- <div class="dest-thing-overlay">
-              <div class="dollar-rating">$</div>
-              <div class="book-wrapper">
-                  <button class="btn" type="button">BOOK</button>
-              </div>
-          </div> -->
       </div>
       <div class="things-img" style="background: url(<%= showing_image(area.photos.count > 0 ? area.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>) no-repeat;"
            role="img"

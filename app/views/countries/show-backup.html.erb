@@ -19,14 +19,6 @@
         </div>
       </div>
       <div class="action">
-        <!-- <div class="left">Rate it  <a href="#"><i class="fa fa-thumbs-o-up"></i></a> or <a href="#"><i class="fa fa-thumbs-o-down"></i></a></div> -->
-        <!-- <div class="center"><a class="white"href="#"><i class="fa fa-plus"></i> Add photos</a>  </div> -->
-        <%# if user_signed_in?%>
-          <!-- <div class="right"><a href="#" class="white" id="aStoryModal" ><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
-        <%# else %>
-          <!-- <div class="right"><a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-file-text-o"></i> Tell your story</a></div> -->
-        <%# end %>
-
         <div class="left">
         <ul>
           <!-- Add To Favourites -->
@@ -41,8 +33,6 @@
           <% end %>
         </ul>
       </div>
-
-
         <div class="pull-right hidden-xs">
           <div class="component-desk">
             <ul>
@@ -133,10 +123,6 @@
               <p class="white-text"><i class="fa fa-caret-right"></i><%= gtk.description %></p>
             <% end %>
         <% end %>
-        <!--<a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a><br>
-        <a href="#"><i class="fa fa-caret-right"></i>Lorem ipsum dolor </a> -->
       </div>
 
         <%= render :partial => "fun_facts", :locals => { :color => "pink" } %>

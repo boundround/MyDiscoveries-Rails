@@ -55,3 +55,6 @@ label.checkbox {
   height: 500px !important;
 }
 
+.admin-navbar {
+  z-index: 1001;
+}

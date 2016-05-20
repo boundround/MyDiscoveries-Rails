@@ -1,8 +1,5 @@
 class VideosController < ApplicationController
   def index
-    # @videos = Video.ordered_by_place_name.paginate(:page => params[:page])
-#    @videos = Video.includes(:place => :area).order('areas.display_name ASC, places.display_name ASC').paginate(:page => params[:page])
-#    @videos = Video.includes(:place => :area).order('places.display_name ASC, areas.display_name ASC').paginate(:page => params[:page])
     if params[:place_id].present?
       @videos = Place.friendly.find(params[:place_id]).videos.paginate(:page => params[:latest_videos_page], per_page: 6)
       @place = Place.friendly.find(params[:place_id])
