@@ -166,7 +166,11 @@
                                                                         <%= icon.name + " " %>
                                                                     <% end %>
                                                                 </div>
-
+                                                                <% if !place.viator_link.blank? %>
+                                                                    <div class="book-wrapper">
+                                                                        <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" href="#" class="btn book-btn book-white" type="button">BOOK</a>
+                                                                    </div>
+                                                                <% end %>
                                                             </div>
                                                         </div>
                                                     </div>
