@@ -102,10 +102,10 @@ class Place < ActiveRecord::Base
 
     attribute :description do
       if description
-        if description.length < 380
+        if description.length < 320
           "#{description}"
         else
-          "#{description[0..380]}..."
+          "#{description[0..320]}..."
         end
       else
         ""
