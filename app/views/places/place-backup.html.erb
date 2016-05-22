@@ -7,13 +7,8 @@
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
 </div>
-
-
-
 <div class="header-image-with-nav top-outer-js">
-  <!--<div class="places-bg">-->
   <img src="<%=showing_image(draw_hero_background(@place)) %>" alt="" class="img-header top-inner-js" >
- <!-- </div>-->
  <div class="breadcrumbs">
   <%= raw create_breadcrumb_for(@place) %>
   <% if user_signed_in? and current_user.admin? %>
@@ -31,7 +26,6 @@
     <div class="action bg-place">
       <div class="left">
         <ul>
-         <!-- Leave Review -->
           <% if user_signed_in? %>
            <li>
             <a href="#" class="white" data-toggle="modal" data-target="#ReviewModal"><i class="fa fa-smile-o white"></i> Leave review </a>
@@ -41,8 +35,6 @@
             <a href="#" class="white" data-toggle="modal" data-target="#myModal"><i class="fa fa-smile-o white"></i> Leave review </a>
           </li>
           <% end %>
-
-          <!-- Add To Favourites -->
           <% if user_signed_in? && @place.users.include?(current_user) %>
             <li>
             <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
@@ -59,11 +51,7 @@
           <% end %>
         </ul>
       </div>
-      <%# if user_signed_in? %>
-         <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#userPhotoModal" ><i class="fa fa-plus white"></i> Add photo</a>  </div> -->
-        <%# else %>
-        <!-- <div class="center"><a class="white" href="#" data-toggle="modal" data-target="#myModal" ><i class="fa fa-plus white"></i> Add photo</a>  </div> -->
-      <%# end %>
+     
       <div class="pull-right hidden-xs">
         <div class="component-desk">
           <ul>
@@ -117,11 +105,9 @@
               <li class="gray-color">Found in</li>
               <% if !@place.similar_places.blank? %>
                 <% @place.similar_places.each do |place| %>
-                 <!-- <li><a href="#" class="badge"><i class="fa fa-male"></i> Do</a> </li> -->
                  <li><a href="<%= place_path(place.similar_place) %>" class="badge"><%= place.similar_place.display_name %></a> </li>
                 <% end %>
                <% end %>
-
              </ul>
           </div>
         </div>
@@ -141,7 +127,6 @@
           <div class="col-xs-4">
             <p class="gray-font">Other services</p>
             <p>
-              <!-- <i class="fa fa-wheelchair"></i><i class="fa fa-headphones"></i> -->
               <% if !@accessibilities.blank? %>
                 <% @accessibilities.each do |c| %>
                   <%= raw draw_accessibilty_icons(c) %>
@@ -152,8 +137,6 @@
           <div class="col-xs-4">
             <p class="gray-font">Price</p>
             <p><%= raw draw_prices(@prices) %></p>
-              <%# <%= raw draw_hover_prices(@prices) %>
-            <!-- <p><a href="#" data-toggle="modal" data-target="#TicketsModal">View details</a></p> -->
           </div>
         </div>
       </div><!-- col-sm-8 -->
@@ -165,29 +148,29 @@
             <% end %>
           </div>
 
-        <div id="map"></div>
-        <div class="text-center btn-map">
-          <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="btn btn-primary btn-shadow btn-direction btn-direct"><i class="fa fa-share blue-nero-icon"></i> Get directions </a>
-        </div>
-        <div class="top15">
-          <p class="grey btm0">Address</p>
-          <p class="btm15" ><%= @place.display_address %></p>
-        </div>
-        <% unless @place.try(:email).blank? && @place.phone_number.blank? %>
-          <p class="grey">Contact</p>
-        <% end %>
-        <div class="row">
-        <% unless @place.try(:email).blank? %>
-          <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
-            <a href="mailto:<%= @place.email rescue "" %>" class="btn btn-primary btn-block btn-museum btn-shadow font-btn"><i class="fa fa-envelope-o blue-nero-icon leftmin7responsive"></i> Send a message </a>
+          <div id="map"></div>
+          <div class="text-center btn-map">
+            <a href="https://www.google.com/maps/dir/Current+Location/<%= raw @place.display_address %>" target="blank" class="btn btn-primary btn-shadow btn-direction btn-direct"><i class="fa fa-share blue-nero-icon"></i> Get directions </a>
           </div>
+          <div class="top15">
+            <p class="grey btm0">Address</p>
+            <p class="btm15" ><%= @place.display_address %></p>
+          </div>
+          <% unless @place.try(:email).blank? && @place.phone_number.blank? %>
+            <p class="grey">Contact</p>
           <% end %>
-          <% unless @place.phone_number.blank? %>
+          <div class="row">
+          <% unless @place.try(:email).blank? %>
             <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
-              <a onclick="phoneNumberClicks()" href="tel: <%= @place.phone_number %>" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-phone blue-nero-icon leftmin7responsive"></i> <%= @place.phone_number %></a>
+              <a href="mailto:<%= @place.email rescue "" %>" class="btn btn-primary btn-block btn-museum btn-shadow font-btn"><i class="fa fa-envelope-o blue-nero-icon leftmin7responsive"></i> Send a message </a>
             </div>
-          <% end %>
-        </div>
+            <% end %>
+            <% unless @place.phone_number.blank? %>
+              <div class="col-xs-6 col-sm-12 col-md-6 col-lg-6 btm10">
+                <a onclick="phoneNumberClicks()" href="tel: <%= @place.phone_number %>" class="btn btn-primary btn-block btn-museum font-btn"><i class="fa fa-phone blue-nero-icon leftmin7responsive"></i> <%= @place.phone_number %></a>
+              </div>
+            <% end %>
+          </div>
 
           <p class="grey btm0 top15">Website</p>
           <p class="mrg0 blueish"><a onclick="websiteClicks()" href="<%= @place.website %>" target="_blank"><%= extract_domain(@place.website) %></a></p>
@@ -195,11 +178,9 @@
     </div><!-- /main row -->
   </section>
   <div class="text-center clearfix  hidden-xs" style="clear:both;z-index:1;position: relative;">
-    <!-- "Book Now" - place.viator_link -->
     <% unless @place.viator_link.blank? %>
       <a onclick="bookNowClicks()" href="<%= @place.viator_link %>" data-target="_blank" style="margin:-5px" class="btn button-orange button-style-booking fontbig-button btn-radius btn-shadow">Book Now!</a>
     <% end %>
-
   </div>
 
 
@@ -213,18 +194,12 @@
 <section class="travelling-tips themuseum fun-fact mrg0">
   <div class="container padding-style">
     <div class="row">
-
-
       <%= render :partial => "good_to_knows" %>
       <%= render :partial => "fun_facts", :locals => { :color => "" }  %>
       <%= render partial: 'shared/video_modal' %>
-
-
     </div>
   </div>
 </section>
-
-
 
 <div class="container padding-style"> <!-- main-container -->
     <div class="border-section clearfix btm0 top20 visible-xs"></div>
@@ -232,8 +207,7 @@
     <div class="col-xs-12"> <!-- right-col -->
 
       <section class="your-stories btm15 cards">
-        <!-- <div class="row"> -->
-          <!-- <div class="col-xs-12"> -->
+        
             <% unless @reviews.blank? %>
               <div class="text-left">
                 <h4 class="section-title">Member Reviews</h4>
@@ -251,12 +225,8 @@
                   <%= link_to "Load More", place_path(@place, reviews_page: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
                 </div>
               <% end %>
-
             <% end %>
-          <!-- </div> -->
-        <!-- </div> -->
       </section>
-
 
       <%= render :partial => "fun_facts_mobile", :locals => { :color => "blue", bg:"bg-blue" }  %>
 
@@ -295,10 +265,4 @@
 <%= render 'user_photos/form' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
-<%#= render 'layouts/video_modal' %>
-<%#= render 'stories/modal_story' %>
 
-<!-- <div class="container" id="blogs">
-    <h2 id="blog-title"></h2>
-    <div id="blog-content"></div>
-</div> -->

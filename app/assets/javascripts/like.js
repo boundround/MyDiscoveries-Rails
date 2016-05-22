@@ -34,15 +34,13 @@ $(document).ready(function() {
       case "areas_user":
         data[postType] = {user_id: $(this).data("user"), area_id: $(this).data("contentId")};
     }
-    console.log($(this).data('liked'));
     if ($(this)[0].dataset.liked === 'false'){
       $(this).find('.like-heart').removeClass('fa-heart-o').removeClass("like-heart").addClass('fa-heart').addClass('liked-heart');
       $(this)[0].dataset.liked = 'true';
       $.ajax({
         type: "POST",
         url: '/' + postPath + '/create',
-        data: data,
-        success: console.log('LIKE SAVED')
+        data: data
       });
     } else if ($(this)[0].dataset.liked === 'true') {
         $(this).find('.liked-heart').removeClass('fa-heart').removeClass('liked-heart').addClass('fa-heart-o').addClass('like-heart');
@@ -51,8 +49,7 @@ $(document).ready(function() {
           type: "POST",
           _method: 'delete',
           url: '/' + postPath + '/destroy',
-          data: data,
-          success: console.log('LIKE DELETED')
+          data: data
         });
     } else {
       alert("You must be logged in to save favourites!");

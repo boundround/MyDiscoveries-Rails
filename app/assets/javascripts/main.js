@@ -82,33 +82,9 @@ $(document).ready(function() {
             openMenu();
         }
     });
-
-    // var searchInput = $(".mega-menu input.search");
-
-    // function showSearchResults() {
-    //     menuSearchResults.removeClass("hide");
-    //     showSearchBox();
-    // }
-
-    // function hideSearchResults() {
-    //     menuSearchResults.addClass("hide");
-    // }
-
-    //todo delete this. it's for demo purposes to show search result.
-    // searchInput.focus(function(event) {
-    //     showSearchResults();
-    // });
-
-    //todo delete this. it's for demo purposes to hide search result.
-    // $(".places-to-go, .dismiss-mega-menu-search").click(function(event) {
-    //     hideSearchResults();
-    // });
-
-
     var mq = window.matchMedia('(max-width:991px)');
 
     mq.addListener(function(changed){
-        console.log(changed);
         if (!changed.matches) {
             $('.mega-menu .owl-carousel').owlCarousel().trigger('destroy.owl.carousel').removeClass("owl-hidden");
         } else {
@@ -129,16 +105,5 @@ $(document).ready(function() {
     if ($(window).width() < 992) {
         createOwlCarousel();
     }
-
-    //TODO REMOVE
-    // $(".icon-favourite").click(function(){
-    //     var icon = $(this);
-    //     if(icon.hasClass("selected")){
-    //         icon.removeClass("selected");
-    //     }
-    //     else{
-    //         icon.addClass("selected");
-    //     }
-    //  });
 });
 // })();

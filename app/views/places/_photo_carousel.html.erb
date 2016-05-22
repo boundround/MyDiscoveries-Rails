@@ -6,7 +6,6 @@
               <% @photos.each do |photo| %>
                 <div class="item"> 
                   <a href="#">
-                  <!-- <img src="<%#= photo.path_url(:medium)%>" class="img-responsive-carousel"></a> -->
                   <img src="<%= showing_image(photo.path_url(:medium))%>" class="img-responsive-carousel"></a>
                   <div class="title-fun-caro">
                     <p><%= photo.credit rescue "" %></p>

@@ -1,49 +1,38 @@
 <% if user_signed_in? %>
 <div id="userPhotoModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-margin-top">
-
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
-        <!-- <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a> -->
         <h4 class="modal-title" align="center">Add a photo</h4>
       </div>
       <div class="modal-body" >
           <div class="row">
             <div class="col-xs-12">
               <div class="text-center">
-                   <!-- <div class="br_upload"> -->
-
-            <%= form_for [(@place ? @place : @area), UserPhoto.new], :html => { :id => "user-photo-upload"  } do |f| %>
-              <div class="btn-user-photo">
-                  <h5 id="upload-title">Click or drag below</h5>
-                <%= f.file_field :path, label: false, required: true %>
-                <i class="fa fa-image" id="icon-upload" ></i>
+              <%= form_for [(@place ? @place : @area), UserPhoto.new], :html => { :id => "user-photo-upload"  } do |f| %>
+                <div class="btn-user-photo">
+                    <h5 id="upload-title">Click or drag below</h5>
+                  <%= f.file_field :path, label: false, required: true %>
+                  <i class="fa fa-image" id="icon-upload" ></i>
+                </div>
+              <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
+              <%= f.hidden_field :status, :value => "draft" %>
+              <% if @place %>
+                <%= f.hidden_field :place_id, :value => @place.id %>
+              <% else %>
+                <%= f.hidden_field :area_id, :value => @area.id %>
+              <% end %>
+              <img id="image-preview" class="user-upload-image-preview"/>
+              <%= f.text_field :caption, label: false, placeholder: "Enter a caption for your photo", class: "form-group form-control", required: true %>
+              <div id="user-photo-upload-button"></div>
               </div>
-
-            <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
-            <%= f.hidden_field :status, :value => "draft" %>
-            <% if @place %>
-              <%= f.hidden_field :place_id, :value => @place.id %>
-            <% else %>
-              <%= f.hidden_field :area_id, :value => @area.id %>
+            <div id="progress">
+                <div class="bar" style="width: 0%;"></div>
+            </div>
             <% end %>
-
-        <img id="image-preview" class="user-upload-image-preview"/>
-
-        <%= f.text_field :caption, label: false, placeholder: "Enter a caption for your photo", class: "form-group form-control", required: true %>
-          <div id="user-photo-upload-button">
-
-          </div>
-      </div>
-      <div id="progress">
-          <div class="bar" style="width: 0%;"></div>
-      </div>
-      <% end %>
-
-             </div>
-          </div>
+            </div>
+        </div>
       </div>
     </div>
   </div>

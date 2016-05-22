@@ -19,8 +19,6 @@ class PlacesController < ApplicationController
       @place.is_area = false
     end
 
-    # debugger
-
     if @place.save
       redirect_to :back, notice: 'Place succesfully saved'
     else
@@ -89,8 +87,7 @@ class PlacesController < ApplicationController
     @three_d_video = ThreeDVideo.new
   end
 
-  def destroy
-  end
+  def destroy;end
 
   def content_rejected
     place_id = params["place-id"].to_i
@@ -160,9 +157,6 @@ class PlacesController < ApplicationController
   def search
     @places = Place.where.not(subscription_level: ['out', 'draft'])
              .text_search(params[:term])
-
-    # @places = Place.where("display_name @@ :q or description @@ :q", q: params[:term])
-
     @places = ActiveSupport::JSON.decode(@places.to_json)
 
     respond_to do |format|
@@ -171,18 +165,8 @@ class PlacesController < ApplicationController
   end
 
   def show
-
-    #we dont need includes methods here, because we are not use it on views and some instance variable are not needed because we are not use it on views
-    #we can use local variable if we are not use it on views
-    @reviewable = @place = Place.find_by_slug(params[:id])
-    # @place_blog = @place.blog_request\
-
     @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
-    # @place_blog = @place.blog_request
-
-    # Details information
     informations = @place.subcategories.get_all_informations
-
     @optimum_times =  @place.subcategories.select {|cat| cat.category_type == "optimum_time"}
     @durations = @place.subcategories.select {|cat| cat.category_type == "duration"}
     @subcategories = @place.subcategories.select {|cat| cat.category_type == "subcategory"}
@@ -203,97 +187,24 @@ class PlacesController < ApplicationController
 
     @more_places = @more_places.paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
 
-    # @related_places = Place.is_area
-    # @reviewable = @place
     @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
 
-    @capital_city = Place.active.find_by(display_name: @place.country.capital_city)
-
     @review = Review.new
-    #if user_signed_in?
-      #@user_reviews_not_public = @place.reviews.where('(status = ? OR status = ?) AND user_id = ?', "draft", "user", current_user.id)
-    # @review = @user_review = @user_reviews_not_public.find{|r|r.user_id.eql?(current_user.id)}
-    #end
-    #if !@user_reviews_not_public.blank?
-    #  @reviews += @user_reviews_not_public
-    #end
+    @story = Story.new
 
-    # if !@user_reviews_not_public.blank?
-    #   @reviews += @user_reviews_not_public
-    # end
-    @review = Review.new
-
-    # @storiable = @place
     api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')
     @stories = @place.stories.active + api_blogs
     @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
 
-    @story = Story.new
-    @user_photos = @story.user_photos.build
-    @active_user_photos = @place.user_photos.active
-    # distance = 20
-    # center_point = [@place.latitude, @place.longitude]
-    # box = Geocoder::Calculations.bounding_box(center_point, distance)
-    # @nearby_places = Place.within_bounding_box(box)
-    @nearby_places = @place.nearbys(20).active.includes(:games, :videos, :user_photos, :photos, :subcategories, :quality_average)
-
-    # @top_places = @nearby_places.sort do |x, y|
-    #   (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
-    # end
-
-    # @top_places = @top_places[0..4]
-
-    @similar_places = @place.nearbys(30).active.includes(:games, :videos, :photos, :user_photos, :subcategories, :quality_average)
-
-    # if @place.subscription_level == "Premium"
-    #   @hero_video = @place.videos.find_by(hero: true) || @place.videos.find_by(priority: 1)
-    # end
-
-    ##########################
-    # Get all photos and videos for this place and sort by created at date
-    # @all_photos_and_videos = []
-    # @place.videos.active.each do |video|
-    #   if !video.hero
-    #     @all_photos_and_videos << video
-    #   end
-    # end
-    # @place.photos.active.each do |photo|
-    #   @all_photos_and_videos << photo
-    # end
-    # @active_user_photos.each do |photo|
-    #   @all_photos_and_videos << photo
-    # end
-    # @all_photos_and_videos.sort {|x, y| x.created_at <=> y.created_at}
-
-    #NEW
-    # @videos = @place.videos.active#.sort {|x, y| x.created_at <=> y.created_at}
-    @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
+    active_user_photos = @place.user_photos.active
+    @photos = (@place.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
     @photos_hero = @photos.first(6)
     @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page:4)
 
     @related_places = @place.children
     @last_video = @place.videos.active.last
     @fun_facts = @place.fun_facts
-    # @place.videos.active.each do |video|
-    #     @videos << video
-    # end
-
-    # @place.photos.active.each do |photo|
-    #   @photos << photo
-    # end
-    # @active_user_photos.each do |photo|
-    #   @photos << photo
-    # end
-
-    # @photos.sort {|x, y| x.created_at <=> y.created_at}
-    # @videos.sort {|x, y| x.created_at <=> y.created_at}
-    ###############################
-
-    # @request_xhr = request.xhr?
-
-    # if @place.display_name == "Virgin Australia"
-      @set_body_class = "virgin-body" if @place.display_name == "Virgin Australia"
-    # end
+    @set_body_class = "virgin-body" if @place.display_name == "Virgin Australia"
 
     view = if @place.is_area?
       @set_body_class = "destination-page"
@@ -305,7 +216,6 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       format.html { render view, :layout => !request.xhr? }
-      # format.js
       format.json { render json: @place }
     end
 
@@ -313,8 +223,8 @@ class PlacesController < ApplicationController
 
   def paginate_photos
     @place = Place.find_by_slug(params[:id])
-    @active_user_photos = @place.user_photos.active
-    @photos = (@place.photos.active + @active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
+    active_user_photos = @place.user_photos.active
+    @photos = (@place.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
   end
 
   def paginate_videos
@@ -420,7 +330,6 @@ class PlacesController < ApplicationController
   end
 
   def mapdata
-    # geojson for MapBox map
     @places_geojson = Place.all_geojson
 
     respond_to do |format|
@@ -460,11 +369,9 @@ class PlacesController < ApplicationController
 
   def debug
     render plain: "Host="+request.host+","+"Domain(1)="+request.domain(1)+", "+"Domain(2)="+request.domain(2)+" Subdomain="+request.subdomain()+"\n"+request.inspect
-    #find_subdomain(request)
   end
 
   def placeareasmapdata
-    # geojson for MapBox map
     @placeareas_geojson = Place.all_placeareas_geojson
 
     respond_to do |format|
@@ -492,21 +399,13 @@ class PlacesController < ApplicationController
 
   def programsearchresultslist #xyrin search.html
     set_program_results_sql(params)
-#    set_program_results_state(params)
   end
 
   def programsearchresultsmap #xyrin map.html
     set_program_results_sql(params)
-#    set_program_results_state(params)
   end
 
   def placeprograms #xyrin result.html
-# By ID, moving to SEO friendly 26/10/2015
-#    set_program_constants()
-#    @placeprograms = "yes"
-#    puts "Trying to find"+params[:id]
-#    @place = Place.find(params[:id])
-#    puts "Found"+params[:id]
 
     set_program_constants()
     @placeprograms = "yes"
@@ -519,8 +418,6 @@ class PlacesController < ApplicationController
     end
     puts "Found"+params[:id]
 
-#    @place = Place.friendly.find(params[:id])
-#     render plain: params.inspect
   end
 
 
@@ -531,15 +428,8 @@ class PlacesController < ApplicationController
 
   def choose_hero
     @place = Place.find_by_slug(params[:id])
-    # @user_photos = @place.user_photos.where('hero=? OR hero=?', false, nil)
     @user_photos = @place.user_photos
     @place_photos = @place.photos
-
-    # if params[:type].eql? "UserPhoto"
-    #   @place.user_photo.find(photo_id).update(hero:true)
-    # else
-    #   @place.photos.find(photo_id).update(hero:true)
-    # end
   end
 
   def update_hero
@@ -598,11 +488,6 @@ class PlacesController < ApplicationController
       @MAX_TO_RETURN = 40
       @placeprograms = "yes"
       filtering_programs = false
-
-      # params.each do |pa|
-      #   params[pa[0]] = CGI.decode(pa[1])
-      #   puts params[pa[0]]
-      # end
 
       if params[:term] == "" then
         params[:term] = nil
@@ -676,12 +561,7 @@ class PlacesController < ApplicationController
           @places.each do |p|
             puts p.display_name
           end
-            #Better
-            # @pplaces = Place.joins(:programs).where(
-            #   'places.subscription_level NOT IN (:sl) AND
-            #   (places.display_name ILIKE :st OR places.description ILIKE :st
-            #   OR programs.name ILIKE :st OR programs.description ILIKE :st)', sl: ['out', 'draft'], st: '%'+@search_term+'%').distinct
-
+          
           full_query = "(programs.name ILIKE :st OR programs.description ILIKE :st) AND " + full_query
           @programs = Program.joins(:place,:webresources).includes(:webresources, {place: [:photos]}, :programyearlevels, :programactivities, :programsubjects).where(full_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:name).limit(@MAX_TO_RETURN)
           @programs.each do |qp|
@@ -704,7 +584,6 @@ class PlacesController < ApplicationController
             puts qp.name
           end
         end
-    #    render plain: @places.inspect
       end
 
       set_program_filters(@places)
@@ -712,24 +591,17 @@ class PlacesController < ApplicationController
 
     def set_program_constants()
       @locations = Rails.cache.fetch("australian_statesq_filter",expires_in: 4.hours) do
-#        locs = Place.includes(:country).where("countries.display_name ILIKE '%australia%' AND length(places.state)>4").pluck('DISTINCT places.state')
         locs = Place.includes(:country).where("countries.display_name ILIKE '%australia%' AND length(places.state)>=2").pluck('DISTINCT places.state')
         locs.unshift("All")
         locs
       end
-#      @locations.unshift('All')
       @ylvec = ['F','K','1','2','3','4','5','6','7','8','9','10','11','12']
       @yearlevels = ['All','F-2','3-4','5-6','7-8','9-10','11-12']
-#      @subjects = ['All','English', 'Mathematics', 'Science', 'History', 'Geography', 'Economics', 'Civics', 'Arts', 'Health','Languages']
       @subjects = ["All","Arts","Business & Enterprise","Education","English","Geography","Health & Physical Education","History","Language","Mathematics","Science","Society & Environment","Technology"]
     end
 
     def set_program_filters(places)
-#      place_ids = places.map{|x| x[:id]}
-#      @locations = Area.joins(:places).where("places.id IN (?)", place_ids).distinct.map{|l| l[:display_name]}
       set_program_constants()
-#      @categories = Category.all.map{|c| c[:name]}
-#      @categories.unshift('All')
       @categories = ["All", "Excursion", "Incursion", "Virtual Excursion"]
     end
 

@@ -93,7 +93,6 @@
               <td><img src="<%= thumbnail_for(user_photo) %>" class="photo-edit-thumb"></td>
               <td><%= f.input :caption %></td>
               <td><%= f.input :status, as: :select, collection: ["draft", "live", "removed"] %></td>
-              <!-- <td><%#= user_photo.user ? user_photo.user.username : "No User Associated" %></td> -->
               <%= f.hidden_field :path, :value => user_photo.path %>
               <td><%=
                 if user_photo.user
@@ -124,8 +123,6 @@
       };
       service.getDetails(request, function(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          console.log(place);
-          console.log(place.name.toLowerCase());
           $(element).html(place.name)
         }
       });
@@ -135,7 +132,6 @@
       var placeId = $(place).data("google-place-id");
       if (placeId){
         getGooglePlaceName($(place).data("google-place-id"), $('.google-place-name')[index]);
-        console.log($(place).data("google-place-id"));
       }
     });
   })();

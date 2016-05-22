@@ -1,6 +1,3 @@
- <!-- MODAL TELL STORY-->
- <!-- #hardcode /file backup dari sebelumnya = stories-> _form.html.erb -->
-
 <% if user_signed_in? %>
 <%= nested_form_for [@place, @story], :html => { :id => "story-form" , multipart: true} do |f| %>
 <div id="StoryModal" class="modal fade">
@@ -10,7 +7,6 @@
     <div class="modal-content" id="ContentStoryModal">
       <div class="modal-header">
         <button type="button" class="close close-modal-orange" data-dismiss="modal">&times;</button>
-        <!-- <span class="left-modal"><a type="button" class="btn custom-close-register"><i class="fa fa-arrow-left"></i></a></span> -->
         <h4 class="modal-title" align="center">Tell us your story</h4>
       </div>
       <div class="modal-body" align="center">
@@ -55,7 +51,6 @@
               </a>
             </div>
             <div class="col-xs-12 col-md-12">
-              <!-- <button style="text-align:center" class="btn btn-danger btn-block btn-height btn-radius button-orange fontbig-button btm15">Publish</button> -->
               <%= f.submit "Publish", class: "btn btn-danger btn-block btn-height btn-radius button-orange fontbig-button btm15", id: "story-publish-button" %>
             </div>
             <div class="col-xs-12 ">
@@ -118,7 +113,6 @@
 
     <div class="modal-content" id="DateStoryModal">
       <div class="modal-header">
-        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
         <h4 class="modal-title" align="center">When did you visit?</h4>
       </div>
@@ -131,7 +125,6 @@
 
     <div class="modal-content" id="AboutStoryModal">
       <div class="modal-header">
-        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
         <h4 class="modal-title" align="center">About your visit</h4>
       </div>
@@ -144,7 +137,6 @@
 
     <div class="modal-content" id="AgeBracketModal">
       <div class="modal-header">
-        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
         <h4 class="modal-title" align="center">Your age bracket</h4>
       </div>
@@ -168,7 +160,6 @@
 
     <div class="modal-content" id="FirstNameModal">
       <div class="modal-header">
-        <!-- <button type="button" class="close close-modal" data-dismiss="modal">&times;</button> -->
         <a type="button" class="btn grey story left-modal"><i class="fa fa-arrow-left"></i></a>
         <h4 class="modal-title" align="center">Your first name</h4>
       </div>
@@ -184,4 +175,3 @@
 
 <% end %> <!-- /form for -->
 <% end %> 
-<!-- END MODAL ABOUT STORY

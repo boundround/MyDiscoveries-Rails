@@ -12,12 +12,10 @@
   <div class="details-dest">
     <div class="left">
       <% area.subcategories.subcats.each do |c| %>
-        <!-- <a href="#"><i class="fa fa-user"></i> Do</a> -->
         <a href="<%= subcategory_path(c) %>" class="badge-link"><%= c.name %></a>
 
       <% end %>
     </div>
-    <!-- #hardcode -->
     <div class="right">
       <% if !area.viator_link.blank? %>
         <a onclick="bookNowClicks()" href="<%= area.viator_link%>" target="_blank" class="pink">Book Now</a>

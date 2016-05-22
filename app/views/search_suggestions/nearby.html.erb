@@ -1,34 +1,10 @@
 <%= render :partial=> "search_suggestions/search_results", :locals => { :data_class=>"search-results-container"}%>
-<!--#hardcode  -->
 <section class="places-to-go top20">
   <div class="container">
     <div class="text-left">
-      <!-- <p> -->
         <span class="left-modal top5">
-          <%= @places.length %> results <!-- <a class="pink">Refine</a> -->
+          <%= @places.length %> results 
         </span>
-        <!-- <span class="right-modal width-select">
-          <div class="row">
-            <div class="col-xs-4 col-sm-4">
-              <label class="grey top5"> Sort by : </label>
-            </div>
-            <div class="col-xs-8 col-sm-8">
-              <form class="form form-horizontal margin-right-select20">
-              <div class="form-group">
-                <select class="form-control">
-                  <option>Price</option>
-                  <option>Tours</option>
-                  <option>City</option>
-                  <option>Hotels</option>
-                  <option>Do</option>
-                </select>
-              </div>
-              </form>
-            </div>
-            </div>
-        </span> -->
-      <!-- </p> -->
-      <!-- <h4 class="section-title">Featured places to go</h4> -->
     </div>
   </div>
 </section>
@@ -36,7 +12,6 @@
 <section class="places-to-go top15">
   <div class="container">
     <div class="row" id="places-list">
-      <!-- Lopping 4 kali load more  -->
       <% unless @places.blank? %>
         <%= render partial: 'result_places_list', collection: @places, as: :place %>
       <% end %>
@@ -52,6 +27,3 @@
     <%= link_to "Load More", searching_nearby_path(places_page: @places.next_page, pagination_template: 'result_places_list' ,places_per_page: 6, resources: 'places'), class: 'btn btn-default single-pagination', remote: true %>
   </div>
 <% end %>
-<!-- <div class="text-center clearfix btm20 top5">
-  <span><img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64"></span>
-</div> -->

@@ -1,5 +1,4 @@
 <% categories.each do |category| %>
-  <!-- Primary categories  -->
   <div class="col-lg-12 col-md-12 btm15">
     <%= link_to primary_category_path(category.identifier) do %>
       <div class="img-bg-wide outer-js">
@@ -11,7 +10,6 @@
     <% end %>
   </div>
   <% category.get_subcategories.each do |sub| %>
-    <!-- Sub categories -->
     <div class="col-lg-6 col-md-6 btm15">
       <div class="img-bg outer-js">
         <%= link_to subcategory_path(sub) do %>
