@@ -154,7 +154,10 @@
                                     <div class="col-sm-12">
                                         <div class="booking-wrapper">
                                             <div class="hidden-xs hidden-sm">
-                                                <h4>$$</h4>
+                                                <h4>
+                                                    <% price = @place.subcategories.find_by_category_type("price")%>
+                                                    <%= !price.blank?? price.name : "" %>
+                                                </h4>
                                             </div>
 
                                                 <div>
@@ -176,7 +179,10 @@
                       <% unless @place.viator_link.blank? %>
                         <div class="booking-wrapper">
                             <div>
-                                <h4>$$</h4>
+                                <h4>
+                                    <% price = @place.subcategories.find_by_category_type("price")%>
+                                    <%= !price.blank?? price.name : "" %>
+                                </h4>
                             </div>
                               <% unless @place.viator_link.blank? %>
                               <div>
