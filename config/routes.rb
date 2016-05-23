@@ -172,10 +172,11 @@ Rails.application.routes.draw do
     collection { post 'resolvejs'}
     member { get 'favourites' }
     member { get 'paginate_reviews' }
+    member { get 'paginate_photos' }
+    member { get 'paginate_stories' }
     member { get 'photos' }
     member { get 'reviews' }
     member { get 'stories' }
-    member { get 'paginate_photos' }
   end
 
 

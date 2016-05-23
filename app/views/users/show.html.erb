@@ -1,174 +1,49 @@
 <% if @user == current_user || current_user.admin %>
-<div class="container padding-style">
+<div class="container">
   <div class="row">
     <div class="col-md-4 col-lg-4 hidden-xs top20" align="center">
-      <div class="img-rounded-big">
-      <img src="<%= @user.avatar_url rescue "" %>" class="hidden-xs"/>
+      <div class="img-rounded-big"  style="background: url('<%= showing_image(@user.avatar_url) %>')" >
       </div>
     </div>
-    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12 leftmin16">
-    <div class="head-title">
+    <div class="col-md-8 col-sm-12 col-xs-12 leftmin16">
+     <div class="head-title">
       <div class="row leftmin16" align="center">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm25">
           <h4 class="hitam top20 align-left left40">Member profile</h4>
           <h2 class="abu-abu align-left left40"><%= @user.name %></h2>
-          <div class="img-rounded-profile visible-xs">
-            <img src="<%= showing_image(@user.avatar_url) %>"/>
+          <div class="img-rounded-profile visible-xs" style="background: url('<%= showing_image(@user.avatar_url) %>')">
           </div>
         </div>
-
-        <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 row-index row-margin-top" align="left">
-          <div class="row row-border row-bgcolor-orange row-height120 row-index" align="left">
-            <div class="col-xs-12 col-sm-12 col-height20 row-bg-transparent">
-              <span class="left-modal font-orange-black-responsive top5 margin-min-left10">Joined <%= @user.created_at.strftime("%m/%d/%Y") %></span>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-height10 border-profile topmin5 border-orange visible-xs">
-            </div>
-            <div class="col-xs-12 col-sm-12 top10 row-status-orange big-font">
-              <span class="left-modal top8-responsive">
-                <i class="fa fa-trophy font-orange-black"></i> <a class="white">Top Storyteller</a>
-              </span>
-              <span class="right-modal top8-responsive">
-                <i class="fa fa-file-text-o font-orange-black"></i> <span class="white"> <%= @user.stories.size %> </span>
-                <i class="fa fa-camera font-orange-black"></i> <span class="white"> <%= @user.photos.size %> </span>
-                <i class="fa fa-youtube-play font-orange-black"></i> <span class="white"> 1 </span>
-              </span>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-height10 border-profile border-orange visible-xs">
-            </div>
-              <div class="col-xs-12 col-sm-12 row-bg-transparent margin-min-left10 visible-xs" align="left">
-                <p class="font-orange-black top5">Made up of</p>
-                <p class="white topmin10">9 - 12 year olds, teenagers and adults</p>
-              </div>
-            <div class="col-md-12 col-lg-12 col-height20 top20 hidden-xs row-bg-transparent top10">
-             <span class="font-orange-black-responsive margin-min-left10">Made up of</span>
-             <span class="bg-white-text"> <%= @user.min_age %> - <%= @user.max_age %> </span>
-             <span class="bg-white-text"> Teenagers </span> <span class="bg-white-text"> Adults </span>
-            </div>
-          </div>
-        </div> -->
-
       </div>
+
       </div>
     </div>
 
     </div><!-- row -->
-  </div>
 
-<div class="col-md-12 col-lg-12 border-profile hidden-xs">
-</div>
-
-<div class="container topmin16-responsive padding-style">
-<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-<%# unless !@user.stories.blank? %>
-<!-- <div class="text-left">
-  <h4 class="section-title">Stories</h4>
-</div> -->
-    <%= render partial: "stories/all_stories", locals: { stories: @user.stories, title: "Stories"}%>
-
-    <%#= render partial("stories/all_stories") %>
+    <%= render partial: "stories/all_stories_place" %>
     <%= render "stories/modal_story" %>
-<!-- <section class="your-stories"> -->
-  <%#@user.stories.each do |story| %>
-<!--     <div class="head-stories">
-      <div class="left">
-        <a href="#">
-          <div class="profile-outer">
-            <img src="./img/face1.jpg" alt="">
+    <% unless @reviews.blank? %>
+      <div id="memberreviews" class="thing-page-segment user-thing-page-segment">
+        <div>
+          <h3>My Reviews</h3> </div>
+        <div class="row member-reviews-wrapper">
+          <div class="owl-carousel auto-height-carousel" id="reviews-list">
+            <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
           </div>
-          <div class="profile-text">
-            Stephen71
-          </div>
-         </a>
-      </div>
-      <div class="right"><a href="#"><i class="fa fa-image"></i> <%#= story.photos.size %>
-      </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> <%#= story.videos.size %></a>
-      </div>
-    </div>
-    <div class="body-stories btm15">
-      <div class="p-dynamic member-profile">
-      <p class="visited">Visited Dec 2015</p>
-      <p class="mrg0 pink">Title of Story </p>
-      Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor....</div>
-      <div class="img-story-place">
-        <img align="right" src="./img/images.jpg" alt="">
-      </div>
-    </div> -->
-    <%# end %>
-
-    <!-- <div class="head-stories">
-      <div class="left">
-        <a href="#">
-          <div class="profile-outer">
-            <img src="./img/face1.jpg" alt="">
-          </div>
-          <div class="profile-text">
-            Stephen71
-          </div>
-         </a>
-      </div>
-      <div class="right"><a href="#"><i class="fa fa-image"></i> 9
-      </a>&nbsp;&nbsp;<a href="#"><i class="fa fa-youtube-play"></i> 1</a>
-      </div>
-    </div>
-    <div class="body-stories btm15">
-      <div>
-      <p class="visited">Visited Dec 2015</p>
-      <p class="mrg0 pink">Title of Story </p>
-      Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor....</div>
-    </div> -->
-
-<!--   <div class="text-center clearfix">
-  <a href="#" class="btn btn-default black ">Load more stories</a>
-</div> -->
-<!-- </section> -->
-<%# end %>
-</div> <!-- div col -->
-
-<div class="col-sm-12 col-xs-12 border-profile visible-xs">
-</div>
-
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-<section class="places-to-go">
-  <!-- <div class="container"> -->
-    <div class="text-left">
-
-<!--       <div class="text-left">
-        <h4 class="section-title">Reviews</h4>
-      </div> -->
-
-      <!-- <p><a href="#" class="grey btn top5">Edit</a></p> -->
-      <!-- <h4 class="section-title">Featured places to go</h4> -->
-    </div>
-  <!-- </div> -->
-</section>
-
-<section class="your-stories btm15">
- <!--  <div class="container"> -->
-    <!-- <div class="row"> -->
-      <%= render partial: "reviews/all_reviews", locals: { reviews: @user.reviews, title: "Reviews" }%>
-      <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm15">
-        <div class="body-stories">
-          <p>"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor...."</p>
+          <% unless last_page? @reviews %>
+            <div class="col-xs-12 hidden-xs single-pagination-container" id="reviews-single-pagination-container">
+              <div class="hidden single-pagination-loader" align="center"> <img src="<%= asset_path('loading.gif') %>" width="64" height="64"> </div>
+              <div class="load-more member-reviews-load-more temporary-class-3">
+                <%= link_to "LOAD MORE", paginate_reviews_user_path(@user, active_reviews_user: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list', collection_object: 'review'), class: 'single-pagination', remote: true %>
+              </div>
+            </div>
+            <% end %>
         </div>
-        <div class="head-stories">
-          <div class="left">
-            <a href="#" class="black">
-              Sydney
-            </a>
-          </div>
-          <div class="right">
-            <i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i><i class="fa fa-smile-o"></i>
-          </div>
-        </div>
-      </div> -->
-    <!-- </div> row -->
-<!--   </div> -->
-</section>
-</div> <!-- col -->
-</div> <!-- row -->
-</div> <!-- container -->
+      </div>
+    <% end %>
+
+  </div>
 
 <% else %>
   <h1>You must be logged into view this page</h1>

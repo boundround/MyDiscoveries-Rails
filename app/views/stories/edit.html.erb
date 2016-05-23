@@ -7,8 +7,7 @@
 						<%= f.select :public, [['Public', true], ['Private', false]] %>
 					</p>
 				</div>
-				<div class="outer-profile">
-          <img src="<%= @new_story.user.avatar_url rescue "" %>" />
+				<div class="outer-profile" style="background: url('<%= @new_story.user.avatar_url rescue '' %>') no-repeat;">
         </div>
         <div style="color:#fd7c56;"><%= @new_story.user.username rescue "" %></div>
 			</div>

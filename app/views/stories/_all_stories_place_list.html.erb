@@ -26,13 +26,13 @@
               </div>
               <div class="thing-story-img-header">
           <span class="thing-story-img"
-                style="background-image: url(<%= story.story_images.first %>)" role="img"></span>
+                style="background-image: url(<%= story.story_images.first.nil?? image_path("generic-hero.jpg") : story.story_images.first %>)" role="img"></span>
               </div>
           </div>
       </div>
       </div>
 <% else %> <!-- API BLOG -->
-<div  class="col-md-12">
+ <div class="col-md-12">
   <div class="thing-story-card-wrapper story"
        id="blog-<%= story.id %>"
        data-class="apiblog" 
@@ -63,3 +63,7 @@
   </div>
   </div>
   <% end %>
+
+  <script>
+    setupModal();
+  </script>
