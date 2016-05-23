@@ -170,6 +170,7 @@ Rails.application.routes.draw do
   resources :users do
     collection { get 'leaderboard' }
     collection { post 'resolvejs'}
+    member { get 'paginate_stories'}
     member { get 'favourites' }
     member { get 'paginate_reviews' }
     member { get 'photos' }

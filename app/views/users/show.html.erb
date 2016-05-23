@@ -65,10 +65,11 @@
 <!-- <div class="text-left">
   <h4 class="section-title">Stories</h4>
 </div> -->
-    <%= render partial: "stories/all_stories", locals: { stories: @user.stories, title: "Stories"}%>
-
+  <% if false #!@stories.blank? %>
+    <%= render partial: "stories/all_stories", locals: { stories: @stories, title: "Stories"}%>
     <%#= render partial("stories/all_stories") %>
     <%= render "stories/modal_story" %>
+  <% end %>
 <!-- <section class="your-stories"> -->
   <%#@user.stories.each do |story| %>
 <!--     <div class="head-stories">

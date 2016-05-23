@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @set_body_class = 'br_tab'
     @active_points = true
+    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
 
     verify_current_user
 
