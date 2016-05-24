@@ -11,22 +11,22 @@
 }
 @font-face {
     font-family: Signika-Bold;
-    src: url(https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/fonts/Signika-Bold.ttf);
+    src: url(fonts/Signika-Bold.ttf);
     font-weight: bold
 }
 @font-face {
     font-family: Signika-Light;
-    src: url(https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/fonts/Signika-Light.ttf);
+    src: url(fonts/Signika-Light.ttf);
     font-weight: 300
 }
 @font-face {
     font-family: Signika-Regular;
-    src: url(https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/fonts/Signika-Regular.ttf);
+    src: url(fonts/Signika-Regular.ttf);
     font-weight: 400
 }
 @font-face {
     font-family: Signika-Semibold;
-    src: url(https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/fonts/Signika-Semibold.ttf);
+    src: url(fonts/Signika-Semibold.ttf);
     font-weight: 500
 }
 body {
@@ -1186,8 +1186,9 @@ h4 {
     margin-bottom: 0
 }
 .destination-page .dest-things-wrapper h3 {
-    margin-top: 70px;
-    text-align: center
+    /*margin-top: 70px;*/
+    text-align: center;
+    margin-bottom: 40px;
 }
 .destination-page .dest-things-wrapper .load-more {
     margin-top: 45px
@@ -1290,8 +1291,9 @@ h4 {
         margin-top: 45px
     }
     .destination-page .dest-things-wrapper h3 {
-        margin-top: 50px;
-        text-align: center
+        /*margin-top: 50px;*/
+        text-align: center;
+        margin-bottom: 40px;
     }
     .destination-page .photo-components-wrapper {
         padding-bottom: 45px;
