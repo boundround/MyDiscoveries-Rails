@@ -389,3 +389,10 @@
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
 <%= render "stories/modal_story" %>
+<style>
+  @media (min-width: 767px){
+    h1 {
+      <%= 'font-size:80px !important;' if @place.display_name.size > 15 %>
+    }
+  }
+</style>
