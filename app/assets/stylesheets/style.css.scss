@@ -4324,7 +4324,7 @@ section.modal-booking .left img{
     }
     .modal-content.cs-modal-content-video {
         top: 20px !important;
-        width: 440px !important;
+        width: 630px !important;
         margin: auto !important;
         min-height: initial !important
     }
@@ -4744,6 +4744,40 @@ input.more-result{
  		z-index: 1 !important;
  	}
  }
+
  .thing-page-segment.user-thing-page-segment{
  	margin-bottom: 45px;
  }
+
+ @media(min-width:767px) {
+	 .md-what-does{
+	 	position: relative;
+	 	left: 4%;
+	 }
+ }
+
+.thing-page .background{
+	padding-top: 44px !important;
+	padding-bottom: 50px !important;
+}
+@media(min-width: 768px) and (max-width: 1024px){
+	.nav-option-wrapper{
+	    width: 582px !important;
+	    margin: auto !important;
+	    font-size:14px !important;
+		border:none !important;
+	}
+	.nav-option-outer-wrapper{
+		border-bottom:1px #eaeaea solid !important;
+	}
+	.nav-option{
+		width: auto !important;
+    	padding: 10px 11px !important;
+	}
+
+}
+@media (max-width: 425px) {
+	.rating-wrapper{
+		font-size: 35px;
+	}
+}

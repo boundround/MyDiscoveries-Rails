@@ -140,7 +140,7 @@ function setupModal() {
 
         $("#show-story-modal .modal-dialog").css("max-width", "1120px");
         $("#show-story-modal").modal();
-        $("#modal-dialog-story").remove();
+        $("#modal-dialog-story").hide();
         $("#modal-dialog-blog").show();
     });
 
@@ -163,7 +163,7 @@ function setupModal() {
             $('#story-image-3a').html("<div id='image-3' class='img-cont2 share z-up'><div class='share-btn'><img src=" + image3 + " class='story-image'></div></div>");
         $("#show-story-modal").modal();
         $("#modal-dialog-story").show();
-        $("#modal-dialog-blog").remove();
+        $("#modal-dialog-blog").hide();
     });
 
     $('#story-close').on('click', function() {
@@ -184,7 +184,7 @@ function setUpfileUpload(input, list) {
 function responsiveModalVideo() {
 
     var iframe = $(".responsive-video-modal iframe");
-    // Extra Large Device
+    // 4k 5k
     if ($(window).width() >= 5000) {
         iframe.prop("width", "100%");
         iframe.prop("height", "1950px");
@@ -192,20 +192,20 @@ function responsiveModalVideo() {
         iframe.prop("width", "100%");
         iframe.prop("height", "1550px");
     }
-    // Large Device
+    // 3k
     else if (($(window).width() >= 1920) && ($(window).width() < 3000)) {
         iframe.prop("width", "100%");
         iframe.prop("height", "830px");
     }
-    // Large Device
+    // FHD
     else if (($(window).width() >= 1024) && ($(window).width() < 1920)) {
         iframe.prop("width", "920px");
         iframe.prop("height", "525px");
     }
     // Large Device(tablets)
     else if (($(window).width() >= 500) && ($(window).width() < 1024)) {
-        iframe.prop("width", "400px");
-        iframe.prop("height", "230px");
+        iframe.prop("width", "600px");
+        iframe.prop("height", "345px");
     }
     // Small Device
     else if (($(window).width() > 415) && ($(window).width() < 500)) {
