@@ -3,6 +3,7 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index, :draft_content]
+  before_action :set_user, only: [:show, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews]
 
   def index
     @set_body_class = 'white-body'
@@ -10,7 +11,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @set_body_class = 'br_tab'
     @active_points = true
     @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
@@ -27,6 +27,8 @@ class UsersController < ApplicationController
     @leaderboard = @leaderboard[0..3]
     @story = Story.new
     @user_photos = @story.user_photos.build
+    @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
+    @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
 
   end
 
@@ -51,7 +53,6 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @set_body_class = 'passport-page'
-    @user = User.find(params[:id])
     @owned_places = @user.owned_places
 
     verify_current_user
@@ -59,7 +60,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     unless @user.update(user_params)
       flash[:error] = @user.errors.full_messages.join(" and ")
     end
@@ -75,8 +75,6 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user = User.find(params[:id])
-
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
@@ -105,11 +103,18 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def paginate_reviews
+    @reviews = @user.reviews.paginate(:page => params[:active_reviews_user], per_page: 3)
+  end
+
   def paginate_photos
-    @user = User.find(params[:id])
     @photos = @user.user_photos.paginate(:page => params[:active_photos], per_page:12)
   end
 
+  def paginate_stories
+    @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
+  end
 
   def videos
     if user_signed_in?
@@ -165,11 +170,6 @@ class UsersController < ApplicationController
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
-  end
-
-  def paginate_reviews
-    @user = User.find(params[:id])
-    @reviews = @user.reviews.paginate(:page => params[:active_reviews_user], per_page:6)
   end
 
   def send_story
