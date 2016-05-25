@@ -7,6 +7,10 @@ body.passport-page, body.homepage{
   height: 640px;
 }
 
+.promo-container {
+  padding-bottom: 30px;
+}
+
 .promo-hero {
   background: url("/images/win_thredbo.png");
   height: 100%;
@@ -1708,5 +1712,9 @@ input.more-result{
    .promo-wrapper {
       margin-top: 30px;
       height: 350px;
+    }
+
+    .promo-container {
+      padding-top: 80px;
     }
 }
