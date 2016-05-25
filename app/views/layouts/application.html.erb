@@ -117,33 +117,33 @@
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 
-      <%= javascript_include_tag 'application' %>
 
-		<div id="place-holder"></div>
-	  <% flash.each do |type, message| %>
+    <div id="place-holder"></div>
+    <% flash.each do |type, message| %>
       <% if !bootstrap_class_for(type).eql?("timedout")%>
-	      <% if is_flash_key_for_tracking?(type) %>
+        <% if is_flash_key_for_tracking?(type) %>
           <div class="hidden <%= type %>"></div>
         <% else %>
             <div class="alert <%= bootstrap_class_for(type) %> fade in">
-  		    <button class="close" data-dismiss="alert">×</button>
-  		    <%= message %>
-  		  </div>
+          <button class="close" data-dismiss="alert">×</button>
+          <%= message %>
+        </div>
         <% end %>
       <% end %>
-		<% end %>
+    <% end %>
 
-		<%= render "/layouts/admin_menu" %>
+    <%= render "/layouts/admin_menu" %>
     <%= render "layouts/navbar" %>
 
-	  <div class="app-wrap">
-	    <%= yield %>
-	  </div>
+    <div class="app-wrap">
+      <%= yield %>
+    </div>
     <%= render 'layouts/signin_modal' %>
     <%= render "layouts/footer" %>
     <%= render "/layouts/stamp_modal" %>
-	  <%= render "/layouts/video_modal" %>
+    <%= render "/layouts/video_modal" %>
 
+    <%= javascript_include_tag 'application' %>
     <script type="text/javascript">
       setTimeout("$('.alert').fadeOut('slow')",4000);
     </script>

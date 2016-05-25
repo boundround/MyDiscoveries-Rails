@@ -173,6 +173,7 @@ function setupModal() {
     });
 }
 
+
 function setUpfileUpload(input, list) {
     $(input).MultiFile({
         list: list,
@@ -238,6 +239,7 @@ function chooseHero() {
 $(window).resize(function() {
     responsiveModalVideo();
 });
+
 
 $(document).ready(function() {
     $('#publish-review-button').on('click', function() {
