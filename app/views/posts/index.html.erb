@@ -10,6 +10,7 @@
       <th>Title</th>
       <th>Status</th>
       <th>Credit</th>
+      <th>Created At</th>
       <th>Associated Places</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -22,6 +23,7 @@
           <td><%= link_to post.title, post_path(post) %></td>
           <td><%= post.status %></td>
           <td><%= post.credit %></td>
+          <td><%= post.created_at.strftime("%F") %></td>
           <td><%= link_to "Edit Associated Places", post_places_path(post) %></td>
           <td><%= link_to "Edit", edit_post_path(post) %></td>
           <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
