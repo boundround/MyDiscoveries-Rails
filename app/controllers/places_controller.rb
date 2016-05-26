@@ -41,7 +41,6 @@ class PlacesController < ApplicationController
     @photo = Photo.new
     @program = Program.new
     @discount = Discount.new
-    @blogs = ApiBlog.get_cached_blogs(@place.slug, 'place')
   end
 
   def update
