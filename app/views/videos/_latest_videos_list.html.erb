@@ -19,7 +19,7 @@
         </div>
     </div>
   </div>
-  
+
   <div class="details-dest">
     <div class="left">
       <% if video.place %>
@@ -28,5 +28,11 @@
           <% end %>
       <% end %>
     </div>
+    <% if user_signed_in? && current_user.admin? %>
+      <div style="font-size:14px">
+        EMBED CODE<br>
+        &lt;iframe width="320" height="180" src="https:/www.boundround.com/places/<%= @place.id %>/videos/<%= video.id%>"&gt;&lt;/iframe&gt;
+      </div>
+    <% end %>
   </div>
 </div>

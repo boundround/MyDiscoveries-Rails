@@ -19,7 +19,7 @@ class VideosController < ApplicationController
     key = "bearer " + ENV["VIMEO_OAUTH_KEY"]
     response = Unirest.get "https://api.vimeo.com/videos/" + @video.vimeo_id.to_s, headers: { "Authorization" => key }
     @video_link = response.body
-    @no_mobile_nav = true
+    @no_nav = true
   end
 
   def new

@@ -133,13 +133,17 @@
     <% end %>
 
     <%= render "/layouts/admin_menu" %>
-    <%= render "layouts/navbar" %>
+    <% if !@no_nav %>
+      <%= render "layouts/navbar" %>
+    <% end %>
 
     <div class="app-wrap">
       <%= yield %>
     </div>
     <%= render 'layouts/signin_modal' %>
-    <%= render "layouts/footer" %>
+    <% if !@no_nav %>
+      <%= render "layouts/footer" %>
+    <% end %>
     <%= render "/layouts/video_modal" %>
 
     <%= javascript_include_tag 'application' %>
