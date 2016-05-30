@@ -11,7 +11,7 @@ class PagesController < ApplicationController
     @category2 = @subcategories[1]
     @category3 = @subcategories[2]
     @category4 = @subcategories[3]
-    @sydney = Place.find_by_display_name("Sydney")
+    @sydney = Place.find 1064
   end
 
   def globe

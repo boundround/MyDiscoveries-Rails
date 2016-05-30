@@ -204,25 +204,6 @@
         </tbody>
       </table>
     </div>
-    <div class="table-container">
-      <h3>Blogs From WP Site</h3>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Popup Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @blogs.each do |blog| %>
-            <tr>
-              <td><%= blog.title %></td>
-              <td>https://www.boundround.com/places/<%= @place.slug + "/?story=" + blog.id.to_s %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
     <div id="table-container">
       <h3>Stories</h3>
       <table class="table table-striped" id="photo-table">

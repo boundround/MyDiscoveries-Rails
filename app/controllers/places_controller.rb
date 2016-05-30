@@ -41,7 +41,6 @@ class PlacesController < ApplicationController
     @photo = Photo.new
     @program = Program.new
     @discount = Discount.new
-    @blogs = ApiBlog.get_cached_blogs(@place.slug, 'place')
   end
 
   def update
@@ -200,8 +199,8 @@ class PlacesController < ApplicationController
     @review = Review.new
     @story = Story.new
 
-    api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')
-    @stories = @place.stories.active + api_blogs
+    # api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')
+    @stories = @place.stories.active # + api_blogs
     @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
 
     active_user_photos = @place.user_photos.active
