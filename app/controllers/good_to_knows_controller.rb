@@ -43,11 +43,9 @@ class GoodToKnowsController < ApplicationController
 
   def index
     if params[:place_id]
-      # @good_to_knows = Place.good_to_knows.find(params[:place_id]).good_to_knows
       @place = Place.friendly.find(params[:place_id])
       @good_to_knows = @place.good_to_knows
       @good_to_know = GoodToKnow.new
-      @place.good_to_knows = GoodToKnow.all
     end
 
   end

@@ -103,7 +103,6 @@
                         <div class="nav-option"><a data-scroll href="#stories">STORIES</a></div>
                         <div class="nav-option"><a data-scroll href="#thingstodo">THINGS TO DO</a></div>
                         <div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div>
-                        <div class="nav-option"><a data-scroll href="#famousfaces">FAMOUS FACES</a></div>
                         <div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div>
                     </div>
                 </div>
@@ -262,4 +261,12 @@
 <%= render 'new_story' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
+
+<style>
+  @media (min-width: 767px){
+    h1 {
+      <%= 'font-size:80px !important;' if @place.display_name.size > 15 %>
+    }
+  }
+</style>
 

@@ -1,12 +1,14 @@
 <div class="container">
   <%= render "/places/admin_tabs" %>
   <h2>All "Good To Know"</h2>
-  <% @place.good_to_knows.each do |good_to_know| %>
-  <p>Text: <%= good_to_know.description %> || Show On Page: <%= good_to_know.show_on_page %><br>
-    <%= link_to 'Edit', edit_place_good_to_know_path(@place, good_to_know.id) %> ||
-    <%= link_to 'Destroy', place_good_to_know_path(@place, good_to_know), method: :delete, data: { confirm: 'Are you sure?' } %>
-    <hr>
-  </p>
+  <% if !@good_to_knows.blank? %>
+    <% @good_to_knows.each do |good_to_know| %>
+    <p>Text: <%= good_to_know.description %> || Show On Page: <%= good_to_know.show_on_page %><br>
+      <%= link_to 'Edit', edit_place_good_to_know_path(@place, good_to_know.id) %> ||
+      <%= link_to 'Destroy', place_good_to_know_path(@place, good_to_know), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <hr>
+    </p>
+    <% end %>
   <% end %>
   <h2>Create New "Good To Know"</h2>
   <%= simple_form_for [@place, @good_to_know] do |f|%>
