@@ -200,7 +200,7 @@ class PlacesController < ApplicationController
     @story = Story.new
 
     # api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')
-    @stories = @place.stories.active # + api_blogs
+    @stories = @place.posts.active # + api_blogs
     @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
 
     active_user_photos = @place.user_photos.active
@@ -261,9 +261,8 @@ class PlacesController < ApplicationController
 
   def paginate_stories
     @place = Place.find_by_slug(params[:id])
-    api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')
-    @stories = @place.stories.active + api_blogs
-    @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 6)
+    @stories = @place.posts.active
+    @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
   end
 
   def transfer_assets

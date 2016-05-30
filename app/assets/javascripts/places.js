@@ -122,57 +122,6 @@ function setUpLoadMore() {
     });
 }
 
-function setupModal() {
-    $(".story[data-class='apiblog']").click(function() {
-        var id = $(this).data("id");
-        place = $(this).data("place");
-        image = $(this).data("image");
-        place_name = $(this).data("place-name");
-        category = $(this).data("cat");
-        host = document.location.origin;
-        $("#modal-dialog-story").hide();
-        $("#modal-dialog-blog").show();
-        if (category == "") {
-            $("#show-story-modal iframe").prop("src", host + "/wp-blog/" + id + "/" + place);
-        } else {
-            $("#show-story-modal iframe").prop("src", host + "/wp-blog/" + id + "/" + category);
-        }
-
-        $("#show-story-modal .modal-dialog").css("max-width", "1120px");
-        $("#show-story-modal").modal();
-        $("#modal-dialog-story").hide();
-        $("#modal-dialog-blog").show();
-    });
-
-    $(".story[data-class='story']").on('click', function(e) {
-        var title = $(this).data('title');
-        user = $(this).data('user');
-        content = $(this).data('content');
-        image1 = $(this).data('image-0');
-
-        image2 = $(this).data('image-1');
-        image3 = $(this).data('image-2');
-        $('#story-user').html("by : " + user);
-        $('#story-title').html(title);
-        $('#story-content').html(content);
-        if (image1)
-            $('#storyHeroImage').prepend("<div id='image-1' class='img-cont share story-hero-container'><img src=" + image1 + " class='story-image'></div>");
-        if (image2)
-            $('#story-image-2a').prepend('<div id="image-2" class="pull-right side-img-cont share"><div class="share-btn"><img src=' + image2 + ' class="story-image"></div></div>');
-        if (image3)
-            $('#story-image-3a').html("<div id='image-3' class='img-cont2 share z-up'><div class='share-btn'><img src=" + image3 + " class='story-image'></div></div>");
-        $("#show-story-modal").modal();
-        $("#modal-dialog-story").show();
-        $("#modal-dialog-blog").hide();
-    });
-
-    $('#story-close').on('click', function() {
-        $('#image-1').remove();
-        $('#image-2').remove();
-        $('#image-3').remove();
-    });
-}
-
 
 function setUpfileUpload(input, list) {
     $(input).MultiFile({
@@ -253,7 +202,6 @@ $(document).ready(function() {
     setUpfileUpload();
     addToFav();
     setUpLoadMore();
-    setupModal();
     responsiveModalVideo();
 
     if ($('#map').length) {

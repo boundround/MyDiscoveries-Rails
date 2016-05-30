@@ -3,6 +3,8 @@ class Post < ActiveRecord::Base
 
   before_update :regenerate_slug
 
+  scope :active, -> { where(status: "live") }
+
   validates :title, presence: true
   validates :content, presence: true
   validates :user_id, presence: true
@@ -23,6 +25,30 @@ class Post < ActiveRecord::Base
 
   accepts_nested_attributes_for :places
   accepts_nested_attributes_for :countries
+
+  def story_title
+    html_title = Nokogiri::HTML::Document.parse self.title
+
+    title = html_title.at_css('h2').text rescue ""
+  end
+
+  def story_images
+    content = Nokogiri::HTML::Document.parse self.content
+
+    images = content.css('img').map{ |image| image['src'] }
+  end
+
+  def teaser
+    string = ""
+    content = Nokogiri::HTML::Document.parse self.content
+    content.css('p').each do |paragraph|
+      if !paragraph.content.blank?
+        string += "<p>" + paragraph + "</p>"
+      end
+    end
+
+    string = string[0..280] + "..."
+  end
 
   private
     def slug_candidates

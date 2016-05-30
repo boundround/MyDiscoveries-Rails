@@ -100,22 +100,6 @@ function setupNav() {
     });
 }
 
-// function setUpOwlCarousel() {
-//     if ($("#top-owl").length > 0) {
-//         $("#top-owl").owlCarousel({
-//             autoPlay: 3000, //Set AutoPlay to 3 seconds
-//             items: 3,
-//             itemsDesktop: [736, 3],
-//             itemsDesktopSmall: [979, 3],
-//             navigation: true,
-//             navigationText: [
-//                 "<i class='fa fa-arrow-left white'></i>",
-//                 "<i class='fa fa-arrow-right white'></i>"
-//             ]
-//         });
-//     }
-// }
-
 function setImagesPosition() {
     var outer = $(".outer-js"); //div outer image
     // var image = $(".inner-js");
@@ -154,48 +138,6 @@ function setImagesPosition() {
     }, 1000);
 }
 
-// function setUpModal() {
-//     $('#myModal').on('shown.bs.modal', function() {
-//         $('#myInput').focus()
-//     });
-
-//     $(".custom-close-register").on('click', function() {
-//         $('#myModal').modal('hide');
-//         $('#myModal9').modal('show');
-//         $('#myModal10').modal('hide');
-//         $('#myModal11').modal('hide');
-//     });
-
-//     $(".custom-close-login").on('click', function() {
-//         $('#myModal').modal('show');
-//         $('#myModal9').modal('hide');
-//         $('#myModal10').modal('hide');
-//         $('#myModal11').modal('hide');
-//     });
-
-//     $(".custom-close-register-name").on('click', function() {
-//         $('#myModal10').modal('show');
-//         $('#myModal9').modal('hide');
-//         $('#myModal').modal('hide');
-//         $('#myModal11').modal('hide');
-//     });
-
-//     $(".custom-close-register-travelling").on('click', function() {
-//         $('#myModal11').modal('show');
-//         $('#myModal9').modal('hide');
-//         $('#myModal').modal('hide');
-//         $('#myModal10').modal('hide');
-//     });
-
-
-//     $(".custom-close-start-travelling").on('click', function() {
-//         $('#myModal11').modal('hide');
-//         $('#myModal9').modal('hide');
-//         $('#myModal').modal('hide');
-//         $('#myModal10').modal('hide');
-//     });
-// }
-
 function setModalOpeningHour() {
     $('#OpeningHourModal').on('shown.bs.modal', function() {
         $('#myInput').focus()
@@ -207,124 +149,6 @@ function setModalTickets() {
         $('#myInput').focus()
     });
 }
-
-// function setModalStory() {
-//     $("#aStoryModal").click(function() {
-//         $("#StoryModal").modal();
-//         $('#TitleStoryModal').hide();
-//         $('#PhotoStoryModal').hide();
-//         $('#DateStoryModal').hide();
-//         $('#AboutStoryModal').hide();
-//         $('#AgeBracketModal').hide();
-//         $('#FirstNameModal').hide();
-//     });
-
-//     $('#StoryModal').on('shown.bs.modal', function() {
-//         $('#myInput').focus()
-//     });
-
-//     $(".story").on('click', function() {
-//         $('#ContentStoryModal').show();
-//         $('#TitleStoryModal').hide();
-//         $('#PhotoStoryModal').hide();
-//         $('#DateStoryModal').hide();
-//         $('#AboutStoryModal').hide();
-//         $('#AgeBracketModal').hide();
-//         $('#FirstNameModal').hide();
-//     });
-
-//     $(".title-story").on('click', function() {
-//         $('#TitleStoryModal').show();
-//         $('#PhotoStoryModal').hide();
-//         $('#ContentStoryModal').hide();
-//         $('#DateStoryModal').hide();
-//         $('#AboutStoryModal').hide();
-//         $('#AgeBracketModal').hide();
-//         $('#FirstNameModal').hide();
-//     });
-
-//     $(".photo-story").on('click', function() {
-
-
-//         $('#PhotoStoryModal').show();
-//         $('#TitleStoryModal').hide();
-//         $('#ContentStoryModal').hide();
-//         $('#DateStoryModal').hide();
-//         $('#AboutStoryModal').hide();
-//         $('#AgeBracketModal').hide();
-//         $('#FirstNameModal').hide();
-//     });
-
-//     $(".date-story").on('click', function() {
-
-
-//         $('#DateStoryModal').show();
-//         $('#PhotoStoryModal').hide();
-//         $('#TitleStoryModal').hide();
-//         $('#ContentStoryModal').hide();
-//         $('#AboutStoryModal').hide();
-//         $('#AgeBracketModal').hide();
-//         $('#FirstNameModal').hide();
-//     });
-
-//     $(".about-story").on('click', function() {
-
-
-//         $('#AboutStoryModal').show();
-//         $('#PhotoStoryModal').hide();
-//         $('#DateStoryModal').hide();
-//         $('#TitleStoryModal').hide();
-//         $('#ContentStoryModal').hide();
-//         $('#AgeBracketModal').hide();
-//         $('#FirstNameModal').hide();
-//     });
-
-//     $(".agebracket").on('click', function() {
-
-
-//         $('#AgeBracketModal').show();
-//         $('#PhotoStoryModal').hide();
-//         $('#AboutStoryModal').hide();
-//         $('#DateStoryModal').hide();
-//         $('#TitleStoryModal').hide();
-//         $('#ContentStoryModal').hide();
-//         $('#FirstNameModal').hide();
-//     });
-
-//     $(".firstname").on('click', function() {
-
-
-//         $('#FirstNameModal').show();
-//         $('#PhotoStoryModal').hide();
-//         $('#AgeBracketModal').hide();
-//         $('#AboutStoryModal').hide();
-//         $('#DateStoryModal').hide();
-//         $('#TitleStoryModal').hide();
-//         $('#ContentStoryModal').hide();
-//     });
-// }
-
-
-// function setModalBooking() {
-//     $('#BookingModal').on('shown.bs.modal', function() {
-//         $('#myInput').focus()
-//     });
-
-//     $(".booking").on('click', function() {
-//         $('#BookingModal').modal('show');
-//         $('#TicketBookingModal').modal('hide');
-//         $('#PaymentModal').modal('hide');
-//     });
-//     $(".ticket-booking").on('click', function() {
-//         $('#BookingModal').modal('hide');
-//         $('#TicketBookingModal').modal('show');
-//     });
-
-//     $(".payment-booking").on('click', function() {
-//         $('#BookingModal').modal('hide');
-//         $('#PaymentModal').modal('show');
-//     });
-// }
 
 function setModalReview() {
     $('#ReviewModal').on('shown.bs.modal', function() {
@@ -390,13 +214,10 @@ $(document).ready(function() {
     setUpModalUserPhoto();
     setModalOpeningHour();
     setModalTickets();
-    // setModalStory();
-    setModalBooking();
     setModalReview();
     setModalPhoto();
     setModalEditPhoto();
     setupNav();
-    // setUpOwlCarousel();
     setImagesPosition();
     funFact();
     setUpChart();
