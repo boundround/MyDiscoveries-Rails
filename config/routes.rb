@@ -173,10 +173,11 @@ Rails.application.routes.draw do
     member { get 'paginate_stories'}
     member { get 'favourites' }
     member { get 'paginate_reviews' }
+    member { get 'paginate_photos' }
+    member { get 'paginate_stories' }
     member { get 'photos' }
     member { get 'reviews' }
     member { get 'stories' }
-    member { get 'paginate_photos' }
   end
 
 

@@ -40,9 +40,9 @@
 //= require readmore.min 
 //= require jquery.sticky
 //= require main
+//= require home-new-design
 //= require destination
 //= require thing
-//= require home-new-design
 //= require jquery.confirm.min
 //= require chart.min
 //= require jquery.iframe-transport 
@@ -56,47 +56,3 @@
 //= require dual_list_box
 //= require jquery_nested_form
 //= require blueimp-gallery.min
-
-$(document).on('ajax:beforeSend', 'a.single-pagination', function() {
-    container = $(this).closest('div.single-pagination-container');
-    container.find('div.single-pagination-loader').removeClass('hidden');
-    $(this).addClass('hidden');
-}).on('ajax:success', 'a.single-pagination', function() {
-    container = $(this).closest('div.single-pagination-container');
-    container.find('div.single-pagination-loader').addClass('hidden');
-    $(this).removeClass('hidden');
-}).on('ajax:error', 'a.single-pagination', function() {
-    container = $(this).closest('div.single-pagination-container');
-    container.find('div.single-pagination-loader').addClass('hidden');
-    $(this).removeClass('hidden');
-});
-
-$(document).ready(function() {
-
-    $(document).on('click', '.play-in-modal', function(e) {
-        showAndPlayVideoOnModal($(this))
-    });
-
-    $('div.video-modal').on('hide.bs.modal', function(e) {
-        $(this).find('iframe').attr('src', null);
-    });
-
-    $('div.modal-video').on('hide.bs.modal', function(e) {
-        $(this).find('iframe').attr('src', null);
-    });
-
-    $(document).on('click', 'a.play-video', function(e) {
-        div = $(this).closest('div');
-        video = div.find('.play-in-modal');
-        showAndPlayVideoOnModal($(video))
-        e.preventDefault();
-    })
-
-});
-
-function showAndPlayVideoOnModal(video) {
-    modal = video.data('modal');
-    vid_src = video.data('video-url');
-    $(modal).modal('show');
-    $(modal + ' iframe').attr('src', vid_src + '?autoplay=1');
-}

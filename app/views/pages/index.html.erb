@@ -111,22 +111,24 @@
                     <div>
                         Bookable things to do on Bound Round are categorised based on what it would cost for a whole family. For specific details, click the Book Now Button.
                     </div>
-                    <div class="col-md-3 col-sm-3 col-xs-4 smPadding">
-                        <h1>$</h1>
+                    <div class="md-what-does">
+                        <div class="col-md-3 col-sm-3 col-xs-4 smPadding">
+                            <h1>$</h1>
 
-                        <div class="arrow-up"></div>
-                        <div class="arrow-up-bubble">Inexpensive</div>
-                    </div>
-                    <div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-xs-4 smPadding">
-                        <h1>$$</h1>
+                            <div class="arrow-up"></div>
+                            <div class="arrow-up-bubble">Inexpensive</div>
+                        </div>
+                        <div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-xs-4 smPadding">
+                            <h1>$$</h1>
 
-                        <div class="arrow-up"></div>
-                        <div class="arrow-up-bubble">Midrange</div>
-                    </div>
-                    <div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-xs-4 smPadding">
-                        <h1>$$$</h1>
-                        <div class="arrow-up"></div>
-                        <div class="arrow-up-bubble">Premium</div>
+                            <div class="arrow-up"></div>
+                            <div class="arrow-up-bubble">Midrange</div>
+                        </div>
+                        <div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-xs-4 smPadding">
+                            <h1>$$$</h1>
+                            <div class="arrow-up"></div>
+                            <div class="arrow-up-bubble">Premium</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -243,6 +245,7 @@
                     </div>
                     <br/>
                     <div class="row hidden-sm hidden-xs">
+                    <% if @category1.present?  %>
                         <div class="col-md-4">
                             <%= link_to searching_sub_cat_path(@category1.identifier) do %>
                                 <div class="thing-tall-card-wrapper">
@@ -256,8 +259,10 @@
                                 </div>
                             <% end %>
                         </div>
+                        <% end %>
                         <div class="col-md-8">
                             <div class="row">
+                            <% if @category2.present?  %>
                                 <div class="col-md-6">
                                     <%= link_to searching_sub_cat_path(@category2.identifier) do %>
                                         <div class="thing-medium-card-wrapper">
@@ -271,6 +276,8 @@
                                         </div>
                                     <% end %>
                                 </div>
+                                <% end %>
+                                <% if @category3.present?  %>
                                 <div class="col-md-6">
                                     <%= link_to searching_sub_cat_path(@category3.identifier) do %>
                                         <div class="thing-medium-card-wrapper">
@@ -284,8 +291,10 @@
                                         </div>
                                     <% end %>
                                 </div>
+                                <% end %>
                             </div>
                             <!-- row -->
+                            <% if @category4.present?  %>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="thing-wide-card-wrapper">
@@ -299,6 +308,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <% end %>
                             <!-- row -->
                         </div>
                     </div>
@@ -321,7 +331,6 @@
                             <% end %>
                         </div>
                     </div>
-
                     <div class="row hidden-sm hidden-xs">
                         <div class="col-md-12">
                             <div class="load-more">
@@ -330,8 +339,8 @@
                         </div>
                     </div>
                 </div>
+        </div>
     </div>
-</div>
 </div>
 
 <%= render 'layouts/all_modal' %>

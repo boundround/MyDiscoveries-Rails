@@ -116,9 +116,9 @@ class PlacesController < ApplicationController
 
   def index
     if params[:is_area]
-      @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where(is_area: true)
+      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where(is_area: true)
     else
-      @places = Place.select(:display_name, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where.not(is_area: true)
+      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where.not(is_area: true)
     end
     respond_to do |format|
       format.html
@@ -561,7 +561,7 @@ class PlacesController < ApplicationController
           @places.each do |p|
             puts p.display_name
           end
-          
+
           full_query = "(programs.name ILIKE :st OR programs.description ILIKE :st) AND " + full_query
           @programs = Program.joins(:place,:webresources).includes(:webresources, {place: [:photos]}, :programyearlevels, :programactivities, :programsubjects).where(full_query, pstatus: "live", st: '%'+@search_term+'%', lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:name).limit(@MAX_TO_RETURN)
           @programs.each do |qp|

@@ -1186,8 +1186,9 @@ h4 {
     margin-bottom: 0
 }
 .destination-page .dest-things-wrapper h3 {
-    margin-top: 70px;
-    text-align: center
+    /*margin-top: 70px;*/
+    text-align: center;
+    margin-bottom: 40px;
 }
 .destination-page .dest-things-wrapper .load-more {
     margin-top: 45px
@@ -1290,8 +1291,9 @@ h4 {
         margin-top: 45px
     }
     .destination-page .dest-things-wrapper h3 {
-        margin-top: 50px;
-        text-align: center
+        /*margin-top: 50px;*/
+        text-align: center;
+        margin-bottom: 40px;
     }
     .destination-page .photo-components-wrapper {
         padding-bottom: 45px;
