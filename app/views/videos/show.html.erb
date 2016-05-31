@@ -1,8 +1,9 @@
 <style>
-  .profile-icon {
-    display: none !important;
+  video {
+    height: 100%;
+    width: auto;
   }
 </style>
-<video width="100%" poster="<%= @video_link["pictures"][2]["link"] %>" controls>
+<video poster="<%= @video_link["pictures"][2]["link"] %>" controls>
   <source src="<%= @video_link["files"][0]["link_secure"] %>" type="<%= @video_link["files"][0]["type"] %>">
 </video>
