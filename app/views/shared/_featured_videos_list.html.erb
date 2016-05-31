@@ -1,7 +1,7 @@
 <%
 if !params[:controller].eql? "countries"
-  
-  grid, orange, stroke = if !@place.is_area? 
+
+  grid, orange, stroke = if !@place.is_area?
    ["col-md-4", "orange", "orange-stroke"]
   else
    ["col-md-4", "", ""]
@@ -15,14 +15,14 @@ end
 <% if !video.youtube_id.blank? %>
 <div class="<%= grid %> col-sm-6">
     <div class="small-video-component">
-        <div class="video-img-wrapper play-in-modal <%= orange %>" 
-                 style="background: url(<%= video.vimeo_thumbnail %>) no-repeat;background-size:cover;background-position:center;" 
+        <div class="video-img-wrapper play-in-modal <%= orange %>"
+                 style="background: url(<%= video.vimeo_thumbnail %>) no-repeat;background-size:cover;background-position:center;"
                  role="img"
                  data-thumb="<%= video.vimeo_thumbnail %>"
                  aria-label="<%= video.title %>"
-                 data-id="<%= video.youtube_id %>" 
+                 data-id="<%= video.youtube_id %>"
                  data-video="youtube"
-                 data-modal="#video-modal" 
+                 data-modal="#video-modal"
                  data-video-url="<%= video.url %>"
                  >
             <div class="video-img"
@@ -42,14 +42,14 @@ end
 <% else %>
 <div class="<%= grid %> col-sm-6">
     <div class="small-video-component">
-        <div class="video-img-wrapper play-in-modal <%= orange %>" 
-                style="background: url(<%= video.vimeo_thumbnail %>) no-repeat;background-size:cover;background-position:center;" 
+        <div class="video-img-wrapper play-in-modal <%= orange %>" id="<%= video.vimeo_id %>"
+                style="background: url(<%= video.vimeo_thumbnail %>) no-repeat;background-size:cover;background-position:center;"
                 role="img"
                 aria-label="lavender"
-                data-id="<%= video.vimeo_id %>" 
+                data-id="<%= video.vimeo_id %>"
                 data-thumb="<%= video.vimeo_thumbnail %>"
-                data-video="vimeo" 
-                data-modal="#video-modal" 
+                data-video="vimeo"
+                data-modal="#video-modal"
                 data-video-url="<%= video.url %>"
                 >
             <span class="video-img"
@@ -71,7 +71,7 @@ end
 <% if params[:active_videos].present? %>
   <%= javascript_tag do -%>
     getThumbnail();
-    
+
     var injectSvgs = document.querySelectorAll("img.svg-inject");
     SVGInjector(injectSvgs);
 

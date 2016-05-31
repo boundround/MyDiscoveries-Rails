@@ -29,18 +29,22 @@
                             <% end %>
 
                         </div>
-                        <div class="photo-wrapper">
-                            <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
+                        <a data-scroll href="#photos" class="white">
+                          <div class="photo-wrapper">
+                              <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
 
-                            <div class="photo-title"><span class="count"> <%= @country.photos.size %></span> <span class="hidden-xs">Photos</span>
-                            </div>
-                        </div>
-                        <div class="video-wrapper">
-                            <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
+                              <div class="photo-title"><span class="count"> <%= @country.photos.size %></span> <span class="hidden-xs">Photos</span>
+                              </div>
+                          </div>
+                        </a>
+                        <a data-scroll href="#videos" class="white">
+                          <div class="video-wrapper">
+                              <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
 
-                            <div class="video-title"><span class="count"><%= @country.videos.size %></span><span class="hidden-xs"> Videos</span>
-                            </div>
-                        </div>
+                              <div class="video-title"><span class="count"><%= @country.videos.size %></span><span class="hidden-xs"> Videos</span>
+                              </div>
+                          </div>
+                        </a>
                     </div>
                 </div>
             </div>

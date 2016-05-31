@@ -29,46 +29,50 @@
               <h1><%= @place.display_name %></h1> </div>
           </div>
           <div class="thing-heading-icons">
-            <div class="thing-heading-icon left">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="thing-heading-icon-holder"> <span class="thing-icon" style="background-image: url('/assets/new-images/icon-play.png')" role="img" aria-label=""></span> </div>
+            <a data-scroll href="#videos" class="white">
+              <div class="thing-heading-icon left">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="thing-heading-icon-holder"> <span class="thing-icon" style="background-image: url('/assets/new-images/icon-play.png')" role="img" aria-label=""></span> </div>
+                  </div>
                 </div>
-              </div>
-              <div class="row hidden-xs hidden-sm">
-                <div class="col-md-12">
-                  <div>
-                    <%= @place.videos.size %> Videos</div>
+                <div class="row hidden-xs hidden-sm">
+                  <div class="col-md-12">
+                      <div>
+                        <%= @place.videos.size %> Videos</div>
+                  </div>
                 </div>
-              </div>
-              <div class="row hidden-md hidden-lg">
-                <div class="col-md-12">
-                  <div>
-                    <%= @place.videos.size %>
+                <div class="row hidden-md hidden-lg">
+                  <div class="col-md-12">
+                    <div>
+                      <%= @place.videos.size %>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="thing-heading-icon">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="thing-heading-icon-holder thing-camera-adjustment"> <span class="thing-icon" style="background-image: url('/assets/new-images/icon-camera.png')" role="img" aria-label=""></span> </div>
+            </a>
+            <a data-scroll href="#galleries" class="white">
+              <div class="thing-heading-icon">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="thing-heading-icon-holder thing-camera-adjustment"> <span class="thing-icon" style="background-image: url('/assets/new-images/icon-camera.png')" role="img" aria-label=""></span> </div>
+                  </div>
                 </div>
-              </div>
-              <div class="row hidden-xs hidden-sm">
-                <div class="col-md-12">
-                  <div>
-                    <%= @place.photos.size %> Photos</div>
+                <div class="row hidden-xs hidden-sm">
+                  <div class="col-md-12">
+                    <div>
+                      <%= @place.photos.size %> Photos</div>
+                  </div>
                 </div>
-              </div>
-              <div class="row hidden-md hidden-lg">
-                <div class="col-md-12">
-                  <div>
-                    <%= @place.photos.size %>
+                <div class="row hidden-md hidden-lg">
+                  <div class="col-md-12">
+                    <div>
+                      <%= @place.photos.size %>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </a>
             <div class="thing-heading-icon right">
               <% if user_signed_in? && @place.users.include?(current_user) %>
                 <div class="row">

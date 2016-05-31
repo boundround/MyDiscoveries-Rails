@@ -34,10 +34,10 @@
 //= require hogan
 //= require algolia_search
 //= require gmaps.min
-//= require owl.carousel.min 
-//= require svg-injector.min 
+//= require owl.carousel.min
+//= require svg-injector.min
 //= require smooth-scroll.min
-//= require readmore.min 
+//= require readmore.min
 //= require jquery.sticky
 //= require main
 //= require home-new-design
@@ -45,8 +45,8 @@
 //= require thing
 //= require jquery.confirm.min
 //= require chart.min
-//= require jquery.iframe-transport 
-//= require jquery.ui.widget.js 
+//= require jquery.iframe-transport
+//= require jquery.ui.widget.js
 //= require handlebars.runtime.js
 //= require medium-editor.min
 //= require medium-editor-insert-plugin.min
@@ -56,3 +56,4 @@
 //= require dual_list_box
 //= require jquery_nested_form
 //= require blueimp-gallery.min
+//= require custom
