@@ -12,6 +12,7 @@ class CountriesController < ApplicationController
     @fun_facts = @country.fun_facts.where(status: "live")
     photos = @country.user_photos.where(status:"live") + @country.photos
     @photos = photos.paginate(:page => params[:active_photos], per_page: 4)
+    @photos_hero = @photos.first(6)
     @similar_places = @country.places.primary_areas_with_photos
     @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
     @famous_faces = @country.famous_faces.active
