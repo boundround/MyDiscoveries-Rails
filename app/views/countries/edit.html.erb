@@ -87,6 +87,7 @@
               <th>Status</th>
               <th>Title</th>
               <th>Description</th>
+              <th>Open Modal Link</th>
               <th>Remove</th>
             </tr>
           </thead>
@@ -100,6 +101,7 @@
                 <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
                 <td><%= ff.text_area :title %></td>
                 <td><%= ff.text_area :description %></td>
+                <td>https://www.boundround.com/countries/<%= @country.slug + '/?video=' + (ff.object.vimeo_id.to_s || ff.object.youtube_id.to_s) %></td>
                 <td><%= ff.check_box :_destroy %></td>
               </tr>
             <% end %>
