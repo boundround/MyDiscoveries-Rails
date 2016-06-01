@@ -1,4 +1,3 @@
-<% if  story.class.to_s.eql? "Story" %>
   <div class="col-md-12">
       <div class="thing-story-card-wrapper story"
            data-class="story"
@@ -31,38 +30,6 @@
           </div>
       </div>
       </div>
-<% else %> <!-- API BLOG -->
- <div class="col-md-12">
-  <div class="thing-story-card-wrapper story"
-       id="blog-<%= story.id %>"
-       data-class="apiblog" 
-       data-id="<%= story.id %>" 
-       data-cat="<%= (@category ? params[:id] : "") rescue '' %>" 
-       data-place="<%= @place.display_name.parameterize rescue '' %>" 
-       >
-      <div class="thing-story ">
-          <div class="thing-story-text-content">
-              <div class="thing-story-header-details-wrapper">
-                  <div class="user-dp"
-                       style="background: url(<%= asset_path('br-logo-new-blue.png') %>) no-repeat;background-position: center;background-size: cover !important;"></div>
-                  <div class="username">Boundround</div>
-                  <div class="date hidden-xs"><%= DateTime.parse(story.created_at).strftime("%B %Y") %></div>
-              </div>
-              <div class="thing-story-content">
-                  <h4 class="thing-story-title"><%= raw story.title %></h4>
-
-                  <div class="thing-story-desc"><%= story.content.gsub(/(<[^>]+>)/, '').truncate(200) %>
-                  </div>
-              </div>
-          </div>
-          <div class="thing-story-img-header">
-      <span class="thing-story-img"
-            style="background-image: url(<%= story.image.blank? ? draw_hero_background(@place) : story.image %>)" role="img"></span>
-          </div>
-      </div>
-  </div>
-  </div>
-  <% end %>
 
 <!--   <script>
     setupModal();
