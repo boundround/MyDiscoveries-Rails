@@ -35,4 +35,69 @@ $(document).ready(function(){
     }
   }
 
+  if($("#dual-list-box-Places").length > 0){
+    var availableDestinations = $('#dual-list-box-Destinations');
+    var similar_ids = $('#similar-places-js').data("similar");
+    var selectBox = $("[name*='places_post[place_ids][]']");
+    if(similar_ids.length > 0){
+      for (var i = 0; i < similar_ids.length; i++){
+        availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
+        if (similar_ids[i] !== "nil"){
+          $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
+                              "' name=" + similar_ids[i]['place_name'] +
+                              "' >" + similar_ids[i]['place_name'] + "</option>")
+        }
+      }
+    }
+  }
+
+  if ($("#dual-list-box-Destinations").length > 0){
+    console.log("Similar Places");
+    var availableDestinations = $('#dual-list-box-Destinations');
+      var similar_ids = $('#similar-places-js').data("similar");
+      var selectBox = $("[name*='similar_place[similar_place_ids][]']");
+      if(similar_ids.length > 0){
+        for (var i = 0; i < similar_ids.length; i++){
+          availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
+          if (similar_ids[i] !== "nil"){
+            $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
+                                "' name=" + similar_ids[i]['place_name'] +
+                                "' >" + similar_ids[i]['place_name'] + "</option>")
+          }
+        }
+      }
+    }
+
+    if($("#place_is_area").length > 0){
+
+    if ($('#place_is_area').is(":checked")){
+      $('.js-primary-category').hide();
+      $('.js-special-requirements').hide();
+    }
+
+    if($('#place_special_requirements').val().length > 0){
+      $('#special-requirements-box').prop('checked', true);
+      $('.js-special-requirements').show();
+    } else {
+      $('.js-special-requirements').hide();
+    }
+
+    $('#place_is_area').change(function(){
+      if ($('#place_is_area').is(":checked")){
+        $('.js-primary-category').hide();
+      } else {
+        $('.js-primary-category').show();
+      }
+    });
+
+    $('#special-requirements-box').change(function(){
+      if ($('#special-requirements-box').is(":checked")){
+        $('.js-special-requirements').show();
+      } else {
+        $('.js-special-requirements').hide();
+        $('#place_special_requirements').val("");
+      }
+    });
+  }
+
 });

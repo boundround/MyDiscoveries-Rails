@@ -157,37 +157,3 @@
   <br>
   <p></p>
 </div>
-
-<script>
-  $(document).ready(function(){
-    if ($('#place_is_area').is(":checked")){
-      $('.js-primary-category').hide();
-      $('.js-special-requirements').hide();
-    }
-
-    if($('#place_special_requirements').val().length > 0){
-      $('#special-requirements-box').prop('checked', true);
-      $('.js-special-requirements').show();
-    } else {
-      $('.js-special-requirements').hide();
-    }
-
-    $('#place_is_area').change(function(){
-      if ($('#place_is_area').is(":checked")){
-        $('.js-primary-category').hide();
-      } else {
-        $('.js-primary-category').show();
-      }
-    });
-
-    $('#special-requirements-box').change(function(){
-      if ($('#special-requirements-box').is(":checked")){
-        $('.js-special-requirements').show();
-      } else {
-        $('.js-special-requirements').hide();
-        $('#place_special_requirements').val("");
-      }
-    });
-  });
-
-</script>
