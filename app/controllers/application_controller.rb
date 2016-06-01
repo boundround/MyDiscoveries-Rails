@@ -2,9 +2,9 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
-  if ENV["BOUNDROUND_ENV"] == "boundround_production"
-    before_filter :correct_domain!
-  end
+  # if ENV["BOUNDROUND_ENV"] == "boundround_production"
+  #   before_filter :correct_domain!
+  # end
 
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
