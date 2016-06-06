@@ -43,6 +43,14 @@ module ApplicationHelper
     end
   end
 
+  def draw_fun_fact_photo(funfact, place)
+    if funfact.hero_photo_url.blank?
+      showing_image(get_random_place_photo(place))
+    else
+      funfact.hero_photo_url
+    end
+  end
+
   def draw_rating_smiles(place)
     count = "0"
     rates_total = "<span class='rate-count grey-font'>( " + count + " )</span>"

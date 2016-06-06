@@ -15,21 +15,9 @@ require 'routes/constraints/subcategories'
 
 Rails.application.routes.draw do
 
-  get 'posts_subcategories/index'
-
-  get 'posts_subcategories/show'
-
-  get 'posts_subcategories/new'
-
-  get 'posts_subcategories/create'
-
-  get 'posts_subcategories/edit'
-
-  get 'posts_subcategories/update'
-
-  get 'posts_subcategories/destroy'
-
   resources :posts do
+    collection { get 'all_posts' }
+    collection { get 'paginate' }
     resources :places, controller: :places_posts
     resources :countries
     resources :subcategories, controller: :posts_subcategories
@@ -174,7 +162,6 @@ Rails.application.routes.draw do
     member { get 'favourites' }
     member { get 'paginate_reviews' }
     member { get 'paginate_photos' }
-    member { get 'paginate_stories' }
     member { get 'photos' }
     member { get 'reviews' }
     member { get 'stories' }
@@ -1873,4 +1860,3 @@ Rails.application.routes.draw do
   # get 'places/sailcorp', to: redirect('/places/things-to-do-with-kids-and-families-australia-sailcorp', status: 301)
 
 end
-

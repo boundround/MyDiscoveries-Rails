@@ -1238,6 +1238,10 @@ h4 {
         transform: rotateY(0deg);
         top: -89px
     }
+
+    .story-wrapper:nth-child(2n+1) {
+    clear:left
+    }
 }
 @media (max-width: 991px) {
     .destination-page .small-videos-component-wrapper {

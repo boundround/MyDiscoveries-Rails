@@ -36,11 +36,18 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def all_posts
+    @stories = Post.active.order(created_at: :desc).paginate(page: params[:stories_page], per_page: 6)
+  end
+
   def show
     @set_body_class = "white-body"
     @post = Post.find_by_slug(params[:id])
   end
 
+  def paginate
+    @stories = Post.active.order(created_at: :desc).paginate(page: params[:stories_page], per_page: 6)
+  end
 
   private
     def post_params
