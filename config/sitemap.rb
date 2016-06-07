@@ -39,7 +39,7 @@ SitemapGenerator::Sitemap.create do
 
   Post.find_each do |post|
     if post.status == 'live'
-      add post_path(post), :lastmod => country.updated_at
+      add post_path(post), :lastmod => post.updated_at
     end
   end
 end
