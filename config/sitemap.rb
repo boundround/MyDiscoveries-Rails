@@ -6,12 +6,6 @@ SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
 
 SitemapGenerator::Sitemap.create do
-  # Add all areas:
-  # Area.find_each do |area|
-  #   if area.published_status == 'live'
-  #     add area_path(area), :lastmod => area.updated_at
-  #   end
-  # end
 
   # Add all places:
   Place.find_each do |place|
@@ -40,6 +34,12 @@ SitemapGenerator::Sitemap.create do
   Country.find_each do |country|
     if country.published_status == 'live'
       add country_path(country), :lastmod => country.updated_at
+    end
+  end
+
+  Post.find_each do |post|
+    if post.status == 'live'
+      add post_path(post), :lastmod => country.updated_at
     end
   end
 end
