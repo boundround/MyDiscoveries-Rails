@@ -2,7 +2,7 @@ class Country < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
 
-  algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
 
     attributes :display_name
 
@@ -22,6 +22,10 @@ class Country < ActiveRecord::Base
       photos.order(country_hero: :desc).select { |photo| photo.published? }.map do |photo|
         { url: photo.path_url(:small), alt_tag: photo.alt_tag }
       end
+    end
+
+    attribute :viator_link do
+      ""
     end
 
     attribute :hero_photo do

@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503003944) do
+ActiveRecord::Schema.define(version: 20160607002814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -192,22 +193,6 @@ ActiveRecord::Schema.define(version: 20160503003944) do
     t.integer "user_id"
     t.integer "place_id"
   end
-
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -494,8 +479,11 @@ ActiveRecord::Schema.define(version: 20160503003944) do
     t.text     "seo_friendly_url"
     t.integer  "minimum_age"
     t.integer  "maximum_age"
+    t.integer  "primary_category_id"
+    t.string   "hero_photo"
   end
 
+  add_index "posts", ["primary_category_id"], name: "index_posts_on_primary_category_id", using: :btree
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "posts_subcategories", id: false, force: true do |t|
