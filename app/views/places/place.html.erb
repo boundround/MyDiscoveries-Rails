@@ -143,7 +143,13 @@
                           <h4>$$</h4> </div>
                         <div> <a href="<%= @place.viator_link %>" onclick="bookNowClicks()" target="blank" class="btn">BOOK NOW</a> </div>
                         <div class="visible-xs visible-sm small-dollars">
-                          
+                          <% @prices.each do |price| %>
+                            <% unless price == @prices.last %>
+                              <%= "#{price.identifier} - " %>
+                            <% else %>
+                            <%= "#{price.identifier}" %>
+                            <% end %>
+                          <% end %>
                         </div>
                         <div class="load-more">
                           <%= link_to "VIEW OPENING HOURS", '#', id: 'place-opening-hours', data: { 'place-id' => @place.place_id, toggle: 'modal', target: '#OpeningHourModal' }  %>
