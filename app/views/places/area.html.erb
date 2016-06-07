@@ -1,7 +1,7 @@
 
 <% provide(:title, @place.display_name) %>
 <% category = @place.categories.first.identifier rescue "default"%>
-<% provide(:category,  category) %>
+<% provide(:description, @place.short_description ? @place.short_description : @place.description) %>
 
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
   <div id='country-data' data-country-code=<%= @place.country.country_code %> data-capital-city=<%= @place.country.capital_city %>></div>

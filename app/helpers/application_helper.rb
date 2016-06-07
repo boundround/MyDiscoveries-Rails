@@ -179,19 +179,15 @@ module ApplicationHelper
     end
   end
 
-  def meta_description(title='', category='')
-    if category.empty?
-      if title.empty?
-        "Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards."
-      else
-        title+". Learn interesting facts about Australia, uncover fun things to do, activities, read reviews and watch videos full of insider tips by kids."
-      end
+  def meta_description(title='', description='')
+    if title.blank? && description.blank?
+      "Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards."
+    elsif title.blank?
+      "#{description}"
+    elsif description.blank?
+      "#{title} - Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards."
     else
-      if category.eql?("beach")
-        title+" : activities, reviews & videos about things to do. Kids, sign-up to share your experiences and earn points you can use for great rewards."
-      else
-        title+" : videos, reviews & stories about things to do. Kids, sign-up to share your experiences and earn points you can use for great rewards."
-      end
+      "#{title} - #{description}"
     end
   end
 

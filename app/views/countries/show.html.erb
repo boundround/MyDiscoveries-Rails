@@ -1,5 +1,6 @@
 
 <% provide(:title, @country.display_name) %>
+<% provide(:description, @country.description) %>
 
 <% if @country.published_status == "live" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@country) && @country.published_status!= "removed")) %>
 <div class="area-content" data-lat="<%= @country.latitude %>" data-long="<%= @country.longitude %>">

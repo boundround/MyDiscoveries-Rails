@@ -1,3 +1,5 @@
+<% provide(:title, @post.title) %>
+<% provide(:category, @post.teaser) %>
 <div class="container blog-container thing-page">
   <h1 class="post-heading"><%= @post.title %></h1>
   <p class="text-center">by <%= @post.user.username %></p>
