@@ -1,4 +1,4 @@
-/*
+w/*
 Theme Name: Launchify
 Theme URI: http://themes.kudosthemes.co.uk/launchify/
 Description: A responsive coming soon theme.
@@ -12,7 +12,7 @@ Version: 1.0
 
 /*=============================================================================
   ***************************************************************************
-  
+
   Table of contents
 
   1. Global - Lines 48 - 90
@@ -131,8 +131,8 @@ html,body { overflow-x: hidden;}
 h1,h2,h3,h4,h5,h6 { font-weight: 300;}
 
 a { outline: none; color: #fff;}
-a:hover, 
-a:active, 
+a:hover,
+a:active,
 a:focus { text-decoration: none; outline: none;}
 
 input,
