@@ -188,10 +188,6 @@ class PlacesController < ApplicationController
       @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(parent_id: @place.parent_id).order("RANDOM()")
     end
 
-    # if @more_places.size < 3
-    #   @more_places += @place.nearbys(20)
-    # end
-
     @famous_faces = @place.country.famous_faces.active
 
     @more_places = @more_places.sort do |x, y|
@@ -246,9 +242,13 @@ class PlacesController < ApplicationController
 
   def paginate_more_places
     @place = Place.find_by_slug(params[:id])
-    @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category).order("RANDOM()")
+    if @place.parent_id.blank?
+      @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id).order("RANDOM()")
+    else
+      @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(parent_id: @place.parent_id).order("RANDOM()")
+    end
     @more_places = @more_places.sort do |x, y|
-      (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
+      y.videos.size <=> x.videos.size
     end
 
     @more_places = @more_places.paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
