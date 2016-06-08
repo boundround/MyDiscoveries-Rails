@@ -65,7 +65,6 @@ class UserPhotosController < ApplicationController
   def edit;end
 
   def update
-
     if params[:add_country]
       @user_photo.country_id = @user_photo.place.country_id
     else
