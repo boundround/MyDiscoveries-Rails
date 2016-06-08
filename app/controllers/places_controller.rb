@@ -174,12 +174,18 @@ class PlacesController < ApplicationController
 
     @good_to_know = @place.good_to_knows.limit(6)
 
-    @places_to_visit = @place.children.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
+    @places_to_visit = @place.children
+
+    @places_to_visit = @places_to_visit.sort do |x, y|
+      y.videos.size <=> x.videos.size
+    end
+
+    @places_to_visit = @places_to_visit.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
 
     if @place.parent_id.blank?
-      @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id).order("RANDOM()")
+      @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id).order("RANDOM()")
     else
-      @more_places = Place.includes(:country, :quality_average).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(parent_id: @place.parent_id).order("RANDOM()")
+      @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(parent_id: @place.parent_id).order("RANDOM()")
     end
 
     # if @more_places.size < 3
@@ -189,13 +195,12 @@ class PlacesController < ApplicationController
     @famous_faces = @place.country.famous_faces.active
 
     @more_places = @more_places.sort do |x, y|
-      (y.average("quality") ? y.average("quality").avg : 0) <=> (x.average("quality") ? x.average("quality").avg : 0)
+      y.videos.size <=> x.videos.size
     end
 
     @more_places = @more_places.paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
 
     @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
-
     @review = Review.new
     @story = Story.new
 
