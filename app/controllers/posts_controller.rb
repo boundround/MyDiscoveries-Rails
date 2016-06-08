@@ -43,7 +43,7 @@ class PostsController < ApplicationController
   def show
     @set_body_class = "white-body"
     @post = Post.find_by_slug(params[:id])
-    @places = @post.places.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
+    @places_to_visit = @post.places.order(:display_name, :id).paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   def paginate
@@ -52,7 +52,7 @@ class PostsController < ApplicationController
 
   def paginate_place_to_visit
     @post = Post.find_by_slug(params[:id])
-    @places = @post.places.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit_page].nil?? 6 : 3 )
+    @places_to_visit = @post.places.order(:display_name, :id).paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   private
