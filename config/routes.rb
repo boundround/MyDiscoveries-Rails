@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :posts do
     collection { get 'all_posts' }
     collection { get 'paginate' }
+    member { get 'paginate_place_to_visit'}
     resources :places, controller: :places_posts
     resources :countries
     resources :subcategories, controller: :posts_subcategories

@@ -28,7 +28,7 @@
               <div class="hidden single-pagination-loader" align="center">
                 <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
               </div>
-            <%= link_to "LOAD MORE", paginate_place_to_visit_place_path(@place, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', collection_object: 'area'), class: 'single-pagination', remote: true %>
+            <%= link_to "LOAD MORE", paginate_place_to_visit_post_path(@post, places_to_visit_page: @places.next_page, resources: 'places_to_visit', collection_object: 'area'), class: 'single-pagination', remote: true %>
             </div>
         </div>
       <% end %>

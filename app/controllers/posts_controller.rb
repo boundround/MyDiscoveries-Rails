@@ -50,6 +50,11 @@ class PostsController < ApplicationController
     @stories = Post.active.order(created_at: :desc).paginate(page: params[:stories_page], per_page: 6)
   end
 
+  def paginate_place_to_visit
+    @post = Post.find_by_slug(params[:id])
+    @places = @post.places.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit_page].nil?? 6 : 3 )
+  end
+
   private
     def post_params
       params.require(:post).permit(:title, :content, :credit, :user_id, :status, :publish_date, :seo_friendly_url, :minimum_age, :maximum_age, :hero_photo, :primary_category_id, subcategory_ids: [])
