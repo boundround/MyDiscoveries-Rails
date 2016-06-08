@@ -37,14 +37,20 @@
         <div class="col-xs-12 col-sm-12 top15">
           <span class="btn btn-default btn-block">
             <span class="grey">Name</span><br>
-            <%= f.input :name, label: false, input_html: { class: "form-control" } %>
+              <%= f.input :name, label: false, input_html: { class: "form-control" } %>
+            </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top15">
+          <span class="btn btn-default btn-block">
+            <span class="grey">About Me</span><br>
+              <%= f.input :description, as: :bootsy, label: false, input_html: { class: "form-control" } %>
             </span>
         </div>
         <div class="col-xs-12 col-sm-12 top5">
           <p class="pink left15">Your profile</p>
           <span href="#" class="btn btn-default btn-block">
           <span class="grey">Keep my profile private</span><br>
-          <%= f.input :is_private, as: :boolean, label: false, input_html: { class: "form-control" } %>
+            <%= f.input :is_private, as: :boolean, label: false, input_html: { class: "form-control" } %>
           </span>
         </div>
         <div class="col-xs-12 col-sm-12 top15">
@@ -117,4 +123,3 @@
     margin-left: 0;
   }
 </style>
-
