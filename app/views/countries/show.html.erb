@@ -83,23 +83,6 @@
             </div>
         </div>
       </div>
-      <div class="action">
-        <div class="left">
-        <ul>
-          <% if user_signed_in? %>
-            <li>
-              <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
-            </li>
-          <% else %>
-            <li>
-              <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
-            </li>
-          <% end %>
-          <% if user_signed_in? && current_user.admin? %>
-            <li><a href="<%= new_polymorphic_path([@country, Story.new]) %>" class="white" ><i class="fa fa-file-text-o"></i> Tell your story</a></li>
-          <% end %>
-        </ul>
-      </div>
 
     </div>
 
