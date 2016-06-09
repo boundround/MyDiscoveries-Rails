@@ -439,7 +439,7 @@ class Place < ActiveRecord::Base
 
   def slug_candidates
     country = self.country
-    primary_area = self.find_first_primary_area
+    primary_area = self.parent if !self.parent.blank?
     if is_area == true
       "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
     else
@@ -521,6 +521,7 @@ class Place < ActiveRecord::Base
     def algolia_id
       "place_#{id}" # ensure the place & country IDs are not conflicting
     end
+
 
   class << self
     def filter params= {}
