@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     collection { get 'paginate' }
     member { get 'paginate_place_to_visit'}
     resources :places, controller: :places_posts
-    resources :countries
+    resources :countries, controller: :countries_posts
     resources :subcategories, controller: :posts_subcategories
   end
 

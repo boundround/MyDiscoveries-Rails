@@ -7,7 +7,7 @@
   <h1>Similar Destinations</h1>
   <%= render "/posts/admin_tabs" %>
   <%= simple_form_for [@post, @places_posts] do |f| %>
-    <div id="dual-list-box-Destinations" class="form-group row">
+    <div id="dual-list-box-Places" class="form-group row">
       <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="Places" name="places_post[place_ids][]">
         <%= @places.each do |place| %>
           <option value="<%= place.id %>" name="<%= place.display_name %>"><%= place.display_name + (place.primary_area ? " (Primary Area)" : "") %></option>

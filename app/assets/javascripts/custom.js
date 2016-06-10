@@ -36,7 +36,7 @@ $(document).ready(function(){
   }
 
   if($("#dual-list-box-Places").length > 0){
-    var availableDestinations = $('#dual-list-box-Destinations');
+    var availableDestinations = $('#dual-list-box-Places');
     var similar_ids = $('#similar-places-js').data("similar");
     var selectBox = $("[name*='places_post[place_ids][]']");
     if(similar_ids.length > 0){
@@ -46,6 +46,22 @@ $(document).ready(function(){
           $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
                               "' name=" + similar_ids[i]['place_name'] +
                               "' >" + similar_ids[i]['place_name'] + "</option>")
+        }
+      }
+    }
+  }
+
+  if($("#dual-list-box-Countries").length > 0){
+    var availableCountries = $('#dual-list-box-Countries');
+    var similar_ids = $('#similar-countries-js').data("similar");
+    var selectBox = $("[name*='countries_post[country_ids][]']");
+    if(similar_ids.length > 0){
+      for (var i = 0; i < similar_ids.length; i++){
+        availableCountries.find($("[name*='" + similar_ids[i]['country_name'] + "'")).remove();
+        if (similar_ids[i] !== "nil"){
+          $(selectBox).append("<option value='" + similar_ids[i]['country_id'] +
+                              "' name=" + similar_ids[i]['country_name'] +
+                              "' >" + similar_ids[i]['country_name'] + "</option>")
         }
       }
     }

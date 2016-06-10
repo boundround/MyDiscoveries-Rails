@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="hidden">
+
+    <div id="similar-countries-js" data-similar="<%= array_countries_posts_ids(@post.countries_posts) %>">
+    </div>
+  </div>
+  <h1>Add To Countries</h1>
+  <%= render "/posts/admin_tabs" %>
+  <%= simple_form_for [@post, @countries_posts] do |f| %>
+    <div id="dual-list-box-Countries" class="form-group row">
+      <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="Countries" name="countries_post[country_ids][]">
+        <%= @countries.each do |country| %>
+          <option value="<%= country.id %>" name="<%= country.display_name %>"><%= country.display_name %></option>
+        <% end %>
+     </select>
+   </div>
+    <%= f.submit :submit %>
+  <% end %>
+</div>
+<script>
+
+</script>
