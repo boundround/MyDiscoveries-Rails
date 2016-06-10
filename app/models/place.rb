@@ -49,7 +49,7 @@ class Place < ActiveRecord::Base
         if self.primary_category.blank?
           "Something To Do"
         else
-          self.primary_category.identifier
+          self.primary_category.name
         end
       end
     end
