@@ -37,6 +37,14 @@ class Country < ActiveRecord::Base
       hero
     end
 
+    attribute :result_type do
+      "Country"
+    end
+
+    attribute :result_icon do
+      "map-marker"
+    end
+
     attribute :url do
       Rails.application.routes.url_helpers.country_path(self)
     end

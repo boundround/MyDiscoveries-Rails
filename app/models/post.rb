@@ -36,6 +36,14 @@ class Post < ActiveRecord::Base
       end
     end
 
+    attribute :result_type do
+      "Story"
+    end
+
+    attribute :result_icon do
+      "book"
+    end
+
     attribute :main_category do
       primary_category.name if primary_category.present?
     end

@@ -42,6 +42,18 @@ class Place < ActiveRecord::Base
       end
     end
 
+    attribute :result_type do
+      if self.is_area == true
+        "Destination"
+      else
+        "Something To Do"
+      end
+    end
+
+    attribute :result_icon do
+      "map-marker"
+    end
+
     attribute :main_category do
       primary_category.name if primary_category.present?
     end
