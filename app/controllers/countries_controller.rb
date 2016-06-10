@@ -6,7 +6,8 @@ class CountriesController < ApplicationController
 
   def show
     @place = @country = Country.includes(:photos, :places).friendly.find(params[:id])
-    @stories = @country.stories.where(status:"live").paginate(:page => params[:stories_page], per_page: 1 )
+    @stories = @country.posts.active
+    @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
     @reviews = @country.reviews.where(status:"live")
     @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
     @fun_facts = @country.fun_facts.where(status: "live")

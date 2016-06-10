@@ -147,9 +147,8 @@
 
     <div class="stories-things-wrapper">
       <% if @stories.present? %>
-          <%= render partial: "stories/all_stories" %>
-          <%= render "stories/modal_story" %>
-        <% end %>
+        <%= render partial: "stories/all_stories" %>
+      <% end %>
 
         <% unless @areas.blank? %>
         <div id="thingstodo" class="container dest-things-wrapper">
