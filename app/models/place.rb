@@ -46,7 +46,11 @@ class Place < ActiveRecord::Base
       if self.is_area == true
         "Destination"
       else
-        "Something To Do"
+        if self.primary_category.blank?
+          "Something To Do"
+        else
+          self.primary_category.identifier
+        end
       end
     end
 
