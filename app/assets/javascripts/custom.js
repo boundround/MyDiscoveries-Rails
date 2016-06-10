@@ -41,7 +41,7 @@ $(document).ready(function(){
     var selectBox = $("[name*='places_post[place_ids][]']");
     if(similar_ids.length > 0){
       for (var i = 0; i < similar_ids.length; i++){
-        availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
+        //availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
         if (similar_ids[i] !== "nil"){
           $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
                               "' name=" + similar_ids[i]['place_name'] +
@@ -57,7 +57,7 @@ $(document).ready(function(){
     var selectBox = $("[name*='countries_post[country_ids][]']");
     if(similar_ids.length > 0){
       for (var i = 0; i < similar_ids.length; i++){
-        availableCountries.find($("[name*='" + similar_ids[i]['country_name'] + "'")).remove();
+        //availableCountries.find($("[name*='" + similar_ids[i]['country_name'] + "'")).remove();
         if (similar_ids[i] !== "nil"){
           $(selectBox).append("<option value='" + similar_ids[i]['country_id'] +
                               "' name=" + similar_ids[i]['country_name'] +
@@ -74,7 +74,7 @@ $(document).ready(function(){
       var selectBox = $("[name*='similar_place[similar_place_ids][]']");
       if(similar_ids.length > 0){
         for (var i = 0; i < similar_ids.length; i++){
-          availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
+          //availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
           if (similar_ids[i] !== "nil"){
             $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
                                 "' name=" + similar_ids[i]['place_name'] +
