@@ -30,8 +30,8 @@ class DealsController < ApplicationController
 
   def update
     @deal = Deal.find(params[:id])
-    if @deal.update
-      redirect_to edit_polymorphic_path([@dealable, @deal]), notice: "Deal Updated"
+    if @deal.update(deal_params)
+      redirect_to polymorphic_path([@dealable, Deal]), notice: "Deal Updated"
     end
   end
 
