@@ -1,8 +1,10 @@
 <div id="stories" class="container stories-wrapper">
   <div class="row">
     <div class="col-xs-12">
-      <% unless params[:controller].eql? "posts" %>
-        <h3>Stories</h3>
+      <% if params[:controller].eql? "posts" %>
+        <h3>More Stories Like This</h3>
+      <% else %>
+      <h3>Stories</h3>
       <% end %>
     </div>
   </div>

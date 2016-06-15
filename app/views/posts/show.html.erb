@@ -36,6 +36,18 @@
   </div>
 </div>
 <% end %>
+
+<% if @stories.present? %>
+  <section class="your-stories video-show">
+    <div class="container">
+      <div class="text-left">
+      </div>
+      <div class="row">
+        <%= render partial: "stories/all_stories"%>
+      </div>
+    </div>
+  </section>
+<% end %>
 <style>
   img {
     margin-right: 20px;
