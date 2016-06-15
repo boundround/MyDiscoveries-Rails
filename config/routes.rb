@@ -119,21 +119,6 @@ Rails.application.routes.draw do
   get 'stamp_transactions/stamp_error' => 'stamp_transactions#stamp_error'
   resources :stamp_transactions
 
-  # post 'areas_users/create' => 'areas_users#create'
-  # post 'areas_users/destroy' => 'areas_users#destroy'
-
-  # resources :areas do
-  #   resources :photos
-  #   resources :videos
-  #   resources :games
-  #   resources :fun_facts
-  #   resources :discounts
-  #   resources :reviews
-  #   resources :stories
-  #   resources :user_photos
-  #   collection { post :import }
-  # end
-
   devise_for :users, :controllers => { :passwords => "passwords", :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
 
   devise_scope :user do
@@ -208,6 +193,7 @@ Rails.application.routes.draw do
     resources :info_bits
     resources :good_to_knows
     resources :stories
+    resources :deals
     collection { post :import }
   end
 
@@ -328,8 +314,12 @@ Rails.application.routes.draw do
     resources :three_d_videos
     resources :similar_places
     resources :good_to_knows
+    resources :deals
     collection { post :import }
   end
+
+  resources :deals
+  
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   post 'search_requests/create'
 

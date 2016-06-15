@@ -1,0 +1,17 @@
+<% if user_signed_in? && current_user.admin? %>
+  <div class="container">
+    <h1>All Deals for <%= @dealable.display_name %></h1>
+    <% if !@deals.blank? %>
+      <% @deals.each do |deal| %>
+      <p>Title: <%= deal.title %> || Status: <%= deal.status %><br>
+        <%= link_to 'Edit', edit_polymorphic_path([@dealable, deal]) %> ||
+        <%= link_to 'Destroy', polymorphic_path([@dealable, deal]), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <hr>
+      </p>
+      <% end %>
+    <% end %>
+    <h4><%= link_to "Create New Deal", new_polymorphic_path([@dealable, Deal.new])%></h4>
+
+  </div>
+  </div>
+<% end %>

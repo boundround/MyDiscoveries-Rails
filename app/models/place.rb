@@ -248,6 +248,7 @@ class Place < ActiveRecord::Base
 
   has_many :reviews, as: :reviewable
   has_many :stories, as: :storiable
+  has_many :deals, as: :dealable
 
   has_many :three_d_videos
 
