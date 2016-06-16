@@ -4,7 +4,9 @@
       <% if params[:controller].eql? "posts" %>
         <h3>More Stories Like This</h3>
       <% else %>
-      <h3>Stories</h3>
+        <% unless @stories.blank? %>
+          <h3>Stories</h3>
+        <% end %>
       <% end %>
     </div>
   </div>

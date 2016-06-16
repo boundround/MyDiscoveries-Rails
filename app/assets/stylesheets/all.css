@@ -2282,7 +2282,7 @@ h4 {
 }
 .thing-page .thing-nav-option-wrapper {
     height: 60px;
-    font-size: 18px
+    font-size: 14px
 }
 .thing-page .thing-nav-option-wrapper .container .row div[class*=col-] {
     padding: 0
@@ -2510,7 +2510,7 @@ h4 {
     }
     .thing-page .thing-nav-option-container .thing-nav-option-wrapper {
         width: 738px;
-        font-size: 16px
+        font-size: 14px
     }
     .thing-page .thing-nav-option-container .thing-nav-option-wrapper .container {
         width: 100%;

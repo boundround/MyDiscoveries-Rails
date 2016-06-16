@@ -121,9 +121,18 @@
                     <div class="thing-nav-option-container">
                       <div class="thing-nav-option-wrapper">
                         <div class="thing-nav-option"><a data-scroll href="#overview">OVERVIEW</a> </div>
-                        <div class="thing-nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
-                        <div class="thing-nav-option"><a data-scroll href="#stories">STORIES</a> </div>
-                        <div class="thing-nav-option"><a data-scroll href="#galleries">GALLERIES</a> </div>
+                        <% unless @videos.blank? %>
+                          <div class="thing-nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
+                        <% end %>
+                        <% unless @stories.blank? %>
+                          <div class="thing-nav-option"><a data-scroll href="#stories">STORIES</a> </div>
+                        <% end %>
+                        <% unless @deals.blank? %>
+                          <div class="thing-nav-option"><a data-scroll href="#deals">DEALS</a> </div>
+                        <% end %>
+                        <% unless @photos.blank? %>
+                          <div class="thing-nav-option"><a data-scroll href="#galleries">PHOTOS</a> </div>
+                        <% end %>
                         <div class="thing-nav-option"><a data-scroll href="#memberreviews">MEMBER REVIEWS</a> </div>
                         <div class="thing-nav-option-boxed">
                           <div class="message-icon" style="background-image: url('/assets/new-images/icon-review.png')" role="img" aria-label=""></div> <span class="message-text">LEAVE A REVIEW</span> </div>
@@ -302,11 +311,21 @@
               <div class="row">
                 <div class="col-md-9 col-sm-12">
                   <div class="thing-nav-option"><a data-scroll href="#overview">OVERVIEW</a></div>
-                  <div class="thing-nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
+                  <% unless @videos.blank? %>
+                    <div class="thing-nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
+                  <% end %>
+                  <% unless @stories.blank? %>
                   <div class="thing-nav-option"><a data-scroll href="#stories">STORIES</a></div>
-                  <div class="thing-nav-option"><a data-scroll href="#galleries">GALLERIES</a></div>
-                  <div class="thing-nav-option"><a data-scroll href="#memberreviews">MEMBER
-                                        REVIEWS</a></div>
+                  <% end %>
+                  <% unless @deals.blank? %>
+                    <div class="thing-nav-option"><a data-scroll href="#deals">DEALS</a></div>
+                  <% end %>
+                  <% unless @photos.blank? %>
+                    <div class="thing-nav-option"><a data-scroll href="#galleries">PHOTOS</a></div>
+                  <% end %>
+                  <% unless @reviews.blank? %>
+                    <div class="thing-nav-option"><a data-scroll href="#memberreviews">MEMBER REVIEWS</a></div>
+                  <% end %>
                   <div class="thing-nav-option-boxed">
                     <div class="message-icon" style="background-image: url('/assets/new-images/icon-review.png')" role="img" aria-label=""></div>
                     <% if user_signed_in? %>
@@ -346,6 +365,13 @@
             <%= render partial: "shared/videos_list", locals:{container: "" } %>
           </div>
           <%= render partial: "stories/all_stories"%>
+          <% if user_signed_in? && current_user.admin? && !@place.deals.blank? %>
+            <div id="deals" class="thing-page-segment">
+              <div>
+                <h3>Deals</h3> </div>
+              <%= render partial: "deals/all_deals", locals:{container: "" } %>
+            </div>
+          <% end %>
             <% unless @photos.blank? %>
               <div id="galleries" class="thing-page-segment galleries">
                 <div>

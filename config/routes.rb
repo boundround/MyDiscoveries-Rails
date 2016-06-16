@@ -186,6 +186,7 @@ Rails.application.routes.draw do
     member { get 'paginate_photos', as: :paginate_photos}
     member { get 'paginate_stories'}
     member { get 'paginate_things_to_do'}
+    member { get 'paginate_deals'}
     resources :videos
     resources :photos
     resources :fun_facts
@@ -290,6 +291,7 @@ Rails.application.routes.draw do
     member { get 'paginate_more_places'}
     member { get 'paginate_place_to_visit'}
     member { get 'paginate_stories'}
+    member { get 'paginate_deals'}
     # member { get 'new_story' }
     # member { get 'new_story' => 'stories#new_story'}
     # member { post 'create' => 'stories#create_story', as: :create_story}
@@ -319,7 +321,7 @@ Rails.application.routes.draw do
   end
 
   resources :deals
-  
+
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   post 'search_requests/create'
 

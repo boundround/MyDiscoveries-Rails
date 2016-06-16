@@ -103,11 +103,22 @@
             <div class="container">
                 <div class="nav-option-outer-wrapper">
                     <div class="nav-option-wrapper">
-                        <div class="nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
-                        <div class="nav-option"><a data-scroll href="#stories">STORIES</a></div>
+                        <% unless @videos.blank? %>
+                          <div class="nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
+                        <% end %>
+                        <% unless @stories.blank? %>
+                          <div class="nav-option"><a data-scroll href="#stories">STORIES</a></div>
+                        <% end %>
+                        <% unless @deals.blank? %>
+                          <div class="nav-option"><a data-scroll href="#deals">DEALS</a></div>
+                        <% end %>
                         <div class="nav-option"><a data-scroll href="#thingstodo">THINGS TO DO</a></div>
-                        <div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div>
-                        <div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div>
+                        <% unless @photos.blank? %>
+                          <div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div>
+                        <% end %>
+                        <% unless @fun_facts.blank? %>
+                          <div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div>
+                        <% end %>
                     </div>
                 </div>
             </div>
@@ -217,6 +228,15 @@
     </div>
     <div class="stories-things-wrapper">
         <%= render partial: "stories/all_stories" %>
+    <% if user_signed_in? && current_user.admin? && !@place.deals.blank? %>
+      <div class="container stories-things-wrapper">
+        <div id="deals" class="thing-page-segment">
+          <div>
+            <h3>Deals</h3> </div>
+          <%= render partial: "deals/all_deals", locals:{container: "" } %>
+        </div>
+      </div>
+    <% end %>
     <% unless @photos_hero.blank? %>
       <div id="photos" class="large-carousel-wrapper">
           <div class="large-owl-carousel owl-carousel">

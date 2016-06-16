@@ -197,6 +197,7 @@ class PlacesController < ApplicationController
     @more_places = @more_places.paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
 
     @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
+    @deals = @place.deals.active #.paginate(page: params[:deals_page], per_page: params[:deals_page].nil?? 6 : 3 )
     @review = Review.new
     @story = Story.new
 
@@ -233,6 +234,11 @@ class PlacesController < ApplicationController
     @place = Place.find_by_slug(params[:id])
     active_user_photos = @place.user_photos.active
     @photos = (@place.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
+  end
+
+  def paginate_deals
+    @place = Place.find_by_slug(params[:id])
+    @deals = @place.deals.active.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
   end
 
   def paginate_videos

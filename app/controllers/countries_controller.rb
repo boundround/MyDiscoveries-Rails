@@ -79,6 +79,11 @@ class CountriesController < ApplicationController
     @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
   end
 
+  def paginate_deals
+    @country = Country.friendly.find(params[:id])
+    @deals = @country.deals.active.paginate(:page => params[:active_photos], per_page: 4)
+  end
+
   private
     def country_params
       params.require(:country).permit(:display_name, :country_code, :description, :capital_city, :short_name, :long_name, :address,

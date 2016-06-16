@@ -436,6 +436,13 @@ module ApplicationHelper
     url
   end
 
+  def deal_image(url)
+
+    return draw_hero_background(@place) if url.blank?
+
+    url
+  end
+
   def remote_file_exists?(url)
     response = HTTParty.get(url)
     response.code == 200 && response.headers['Content-Type'].start_with?('image')
