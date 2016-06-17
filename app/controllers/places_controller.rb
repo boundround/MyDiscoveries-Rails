@@ -45,7 +45,6 @@ class PlacesController < ApplicationController
 
   def update
     @place = Place.friendly.find(params[:id])
-    @place.slug = nil
     if @place.update(place_params)
       respond_to do |format|
         format.json { render json: @place }

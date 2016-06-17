@@ -425,7 +425,7 @@ class Place < ActiveRecord::Base
     end
   end
 
-  def should_generate_new_friendly_id?
+  def nerate_new_friendly_id?
     display_name_changed? || super
   end
 
@@ -532,6 +532,10 @@ class Place < ActiveRecord::Base
         self.state = "TAS"
       end
     end
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || display_name_changed? || self.country_id_changed? || self.parent_id_changed?
   end
 
   private
