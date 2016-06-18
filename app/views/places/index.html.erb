@@ -1,77 +1,35 @@
 <% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
-<div id="table-container">
-  <h1>All Places</h1>
+  <div id="table-container">
+    <h1>All Places</h1>
 
-  <table class="table table-striped" id="place-table">
-    <thead>
-    <tr>
-      <th>Area?</th>
-      <th>Place</th>
-      <th>Word Count</th>
-      <th>Edit Link</th>
-      <th>Subscription Level</th>
-      <th>Status</th>
-      <th>Updated At</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @places.each do |place| %>
-        <tr>
-          <td><%= place.is_area? ? "Yes" : "No" %></td>
-          <td><%= link_to "#{place.display_name} || #{place.id}", edit_place_path(place) %></td>
-          <td><%= place.description.blank? ? 0 : (place.description.size / 6) %></td>
-          <td><%= link_to "Edit Place", "/places/" + place.slug + "/new_edit" %></td>
-          <td><%= place.subscription_level %></td>
-          <td><%= place.status %></td>
-          <td><%= place.updated_at.strftime('%F at %T') %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
-<% if current_user.try(:admin) && (current_user.email == "chris.robertson@me.com" || current_user.email == "donovan.whitworth@gmail.com") %>
-  <h3>Import Places From Excel</h3>
-  <%= form_tag import_places_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
-  <br />
-  <br />
-  <h3>Import Videos From Excel</h3>
-  <%= form_tag import_videos_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
-  <br />
-  <br />
-  <h3>Import Photo URLs From Excel</h3>
-  <%= form_tag import_photos_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
-  <br />
-  <br />
-  <h3>Import Games From Excel</h3>
-  <%= form_tag import_games_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import" %>
-  <% end %>
-  <br />
-  <br />
-  <h3>Validate Import Programs From Excel</h3>
-  <%= form_tag validate_import_programs_path, multipart: true do %>
-    <%= file_field_tag :file %>
-		<%= hidden_field_tag :import , "false" %>
-    <%= submit_tag "Validate Import" %>
-  <% end %>
-  <h3>Import Programs From Excel</h3>
-  <%= form_tag validate_import_programs_path, multipart: true do %>
-    <%= file_field_tag :file %>
-		<%= hidden_field_tag :import , "true" %>
-    <%= submit_tag "Import" %>
-  <% end %>
-<% end %>
+    <table class="table table-striped" id="place-table">
+      <thead>
+      <tr>
+        <th>Area?</th>
+        <th>Place</th>
+        <th>Word Count</th>
+        <th>Edit Link</th>
+        <th>Subscription Level</th>
+        <th>Status</th>
+        <th>Updated At</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @places.each do |place| %>
+          <tr>
+            <td><%= place.is_area? ? "Yes" : "No" %></td>
+            <td><%= link_to "#{place.display_name} || #{place.id}", edit_place_path(place) %></td>
+            <td><%= place.description.blank? ? 0 : (place.description.size / 6) %></td>
+            <td><%= link_to "Edit Place", "/places/" + place.slug + "/new_edit" %></td>
+            <td><%= place.subscription_level %></td>
+            <td><%= place.status %></td>
+            <td><%= place.updated_at.strftime('%F at %T') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
 <h3>You are not signed in or do not have the proper permissions to view this page</h3>
 <% end %>
+<link href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css" type="text/css">

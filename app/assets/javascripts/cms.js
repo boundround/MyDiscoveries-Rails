@@ -20,11 +20,11 @@ $(document).ready(function(){
     $(this).find('a').css("background-color", "lightblue");
   });
 
-  $('#place-table').DataTable({
+  var placeTable = $('#place-table').DataTable({
     // ajax: ...,
     // autoWidth: false,
     // pagingType: 'full_numbers',
-    pageLength: 25
+    pageLength: 50
     // processing: true,
     // serverSide: true,
 
@@ -32,6 +32,17 @@ $(document).ready(function(){
     // Check dataTables documentation to learn more about available options.
     // http://datatables.net/reference/option/pagingType
   });
+
+  tableTools = new $.fn.dataTable.TableTools( placeTable, {
+      "buttons": [
+        "copy",
+        "csv",
+        "xls",
+        "pdf"
+      ]
+    } );
+
+    $( tableTools.fnContainer() ).insertBefore('table#place-table')
 
   $('#post-table').DataTable({
     // ajax: ...,
