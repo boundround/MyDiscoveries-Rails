@@ -29,6 +29,10 @@ module PlacesHelper
     end
   end
 
+  def display_boolean_place_category(place, subcategory)
+    place.subcategories.include?(subcategory)
+  end
+
   def pick_a_place_hero_url(place)
     #counts kill performance!
 #    place.photos[rand(place.photos.size-1)].path

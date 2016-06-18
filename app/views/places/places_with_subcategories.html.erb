@@ -1,0 +1,31 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+  <div id="table-container">
+    <h1>All Active Places With Subcategories</h1>
+
+    <table class="table table-striped" id="place-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Display Name</th>
+        <% @subcategories.each do |subcategory| %>
+          <th><%= subcategory.name %></th>
+        <% end %>
+      </tr>
+      </thead>
+      <tbody>
+      <% @places.each do |place| %>
+          <tr>
+            <td><%= place.id.to_s %></td>
+            <td><%= place.display_name %></td>
+            <% @subcategories.each do |subcategory| %>
+              <td><%= display_boolean_place_category(place, subcategory) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+<h3>You are not signed in or do not have the proper permissions to view this page</h3>
+<% end %>
+<link href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css" type="text/css">

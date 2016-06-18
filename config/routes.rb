@@ -292,6 +292,8 @@ Rails.application.routes.draw do
     member { get 'paginate_place_to_visit'}
     member { get 'paginate_stories'}
     member { get 'paginate_deals'}
+    collection { get 'places_with_subcategories'}
+    collection { get 'areas_with_subcategories'}
     # member { get 'new_story' }
     # member { get 'new_story' => 'stories#new_story'}
     # member { post 'create' => 'stories#create_story', as: :create_story}

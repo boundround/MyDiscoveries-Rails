@@ -31,6 +31,16 @@ class PlacesController < ApplicationController
     @photo = @place.photos.where(hero: true).first
   end
 
+  def places_with_subcategories
+    @places = Place.active.includes(:subcategories)
+    @subcategories = Subcategory.all.order(category_type: :asc)
+  end
+
+  def areas_with_subcategories
+    @places = Place.active.includes(:subcategories).where(is_area: true)
+    @subcategories = Subcategory.all.order(category_type: :asc)
+  end
+
   def edit_parents
     @places = Place.active.order(display_name: :asc)
   end
