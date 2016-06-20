@@ -92,6 +92,10 @@ class PlacesController < ApplicationController
   def new_edit
     @set_body_class = "br-body"
     @place = Place.friendly.find(params[:id])
+    @places = Place.active.order(display_name: :asc)
+    @countries = Country.all
+    @subcategories = Subcategory.all
+    @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new
   end
 
