@@ -38,6 +38,8 @@
                   <li><%= link_to 'Publishing Queue', "/places/publishing_queue" %></li>
                   <li><%= link_to 'Merge Places', "/places/merge" %></li>
                   <li><%= link_to 'Edit Parents', "/places/edit_parents" %></li>
+                  <li><%= link_to 'Places With Subcategories', places_with_subcategories_places_path %></li>
+                  <li><%= link_to 'Areas With Subcategories', areas_with_subcategories_places_path %></li>
                 </ul>
               </li>
               <li class="dropdown">
@@ -91,9 +93,9 @@
                 <ul class="dropdown-menu">
                   <% if current_user.try(:admin) %>
                     <li><%= link_to 'Rails Admin', rails_admin_path %></li>
-                    <li><%= link_to 'Assign Points Values to Assets', points_values_path %>
-                    <li><%= link_to 'See All Transactions', transactions_path %>
-                    <li><%= link_to 'See Complete Leaderboard', "/users/leaderboard" %>
+                    <li><%= link_to 'Assign Points Values to Assets', points_values_path %></li>
+                    <li><%= link_to 'See All Transactions', transactions_path %></li>
+                    <li><%= link_to 'See Complete Leaderboard', "/users/leaderboard" %></li>
                   <% end %>
                 </ul>
               </li>

@@ -5,8 +5,10 @@
     <table class="table table-striped" id="place-table">
       <thead>
       <tr>
-        <th>ID</th>
+        <th>Place ID</th>
         <th>Display Name</th>
+        <th>Parent Name</th>
+        <th>Parent ID</th>
         <% @subcategories.each do |subcategory| %>
           <th><%= subcategory.name %></th>
         <% end %>
@@ -17,6 +19,8 @@
           <tr>
             <td><%= place.id.to_s %></td>
             <td><%= place.display_name %></td>
+            <td><%= place.parent.display_name rescue "" %></td>
+            <td><%= place.parent_id rescue "" %></td>
             <% @subcategories.each do |subcategory| %>
               <td><%= display_boolean_place_category(place, subcategory) %></td>
             <% end %>

@@ -30,7 +30,11 @@ module PlacesHelper
   end
 
   def display_boolean_place_category(place, subcategory)
-    place.subcategories.include?(subcategory)
+    if place.subcategories.include?(subcategory)
+      "1"
+    else
+      "0"
+    end
   end
 
   def pick_a_place_hero_url(place)
