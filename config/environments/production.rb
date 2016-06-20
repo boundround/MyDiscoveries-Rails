@@ -22,7 +22,7 @@ Rails.application.configure do
                      :socket_failure_delay => 0.2
                     }
 
-  config.static_cache_control = 'public, s-maxage=2592000, maxage=86400'
+  config.static_cache_control = 'public, s-maxage=2592000, maxage=2592000'
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.

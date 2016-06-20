@@ -8,7 +8,6 @@ class CountriesController < ApplicationController
 
   def show
     @place = @country = Country.includes(:photos, :places).friendly.find(params[:id])
-    set_surrogate_key_header @country.record_key
     @stories = @country.posts.active
     @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
     @reviews = @country.reviews.where(status:"live")

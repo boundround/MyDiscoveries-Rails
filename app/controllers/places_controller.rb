@@ -180,7 +180,6 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
-    set_surrogate_key_header @place.record_key
     informations = @place.subcategories.get_all_informations
     @optimum_times =  @place.subcategories.select {|cat| cat.category_type == "optimum_time"}
     @durations = @place.subcategories.select {|cat| cat.category_type == "duration"}
