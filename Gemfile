@@ -71,7 +71,7 @@ gem 'rolify'
 gem 'factual-api'
 gem 'open-weather'
 
-gem 'fastly'
+gem 'fastly-rails'
 
 gem 'whenever', :require => false
 

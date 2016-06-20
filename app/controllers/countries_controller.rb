@@ -1,11 +1,14 @@
 class CountriesController < ApplicationController
+  before_action :set_cache_control_headers, only: [:index, :show]
 
   def index
     @countries = Country.all
+    set_surrogate_key_header Country.table_key, @countries.map(&:record_key)
   end
 
   def show
     @place = @country = Country.includes(:photos, :places).friendly.find(params[:id])
+    set_surrogate_key_header @country.record_key
     @stories = @country.posts.active
     @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
     @reviews = @country.reviews.where(status:"live")

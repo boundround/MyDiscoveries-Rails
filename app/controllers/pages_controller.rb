@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :set_cache_control_headers, only: :index
 
   def index
     @set_body_class = "home-page background"

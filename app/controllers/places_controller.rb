@@ -2,6 +2,7 @@ require 'will_paginate/array'
 
 class PlacesController < ApplicationController
   layout false, :only => :wp_blog
+  before_action :set_cache_control_headers, only: [:index, :show]
 
   def new
     @place = Place.new
@@ -132,6 +133,7 @@ class PlacesController < ApplicationController
     else
       @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where.not(is_area: true)
     end
+    set_surrogate_key_header Place.table_key, @places.map(&:record_key)
     respond_to do |format|
       format.html
       format.json { render json: @places }  # respond with the created JSON object
@@ -178,6 +180,7 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
+    set_surrogate_key_header @place.record_key
     informations = @place.subcategories.get_all_informations
     @optimum_times =  @place.subcategories.select {|cat| cat.category_type == "optimum_time"}
     @durations = @place.subcategories.select {|cat| cat.category_type == "duration"}
