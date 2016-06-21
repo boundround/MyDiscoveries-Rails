@@ -44,15 +44,15 @@ class PostsController < ApplicationController
     @set_body_class = "white-body"
     @post = Post.find_by_slug(params[:id])
     @places_to_visit = @post.places.order(:display_name, :id).paginate( page: params[:places_to_visit_page], per_page: 6 )
-    # subcategories = @post.subcategories.map { |category| category.name }
-    # subcategories = subcategories.join(" ").gsub(/\W/, " ")
-    # results = Post.raw_search(subcategories)
-    # @posts_like_this = []
-    # results["hits"].each do |post|
-    #   @posts_like_this << Post.find(post["objectID"].gsub("place_", "").to_i)
-    # end
-    # @post.places.each {|place| @posts_like_this << place.posts}
-    # @posts_like_this = @posts_like_this.flatten.uniq.delete_if {|post| post == @post}
+    subcategories = @post.subcategories.map { |category| category.name }
+    subcategories = subcategories.join(" ").gsub(/\W/, " ")
+    results = Post.raw_search(subcategories)
+    @posts_like_this = []
+    results["hits"].each do |post|
+      @posts_like_this << Post.find(post["objectID"].gsub("post_", "").to_i)
+    end
+    @post.places.each {|place| @posts_like_this << place.posts}
+    @posts_like_this = @posts_like_this.flatten.uniq.delete_if {|post| post == @post}
     @stories = [] #@posts_like_this.paginate(page: params[:stories_page], per_page: 6)
   end
 
