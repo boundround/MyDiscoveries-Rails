@@ -53,7 +53,7 @@ class PostsController < ApplicationController
     end
     @post.places.each {|place| @posts_like_this << place.posts}
     @posts_like_this = @posts_like_this.flatten.uniq.delete_if {|post| post == @post}
-    @stories = [] #@posts_like_this.paginate(page: params[:stories_page], per_page: 6)
+    @stories = @posts_like_this.paginate(page: params[:stories_page], per_page: 6)
   end
 
   def paginate
