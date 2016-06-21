@@ -298,6 +298,12 @@ class Post < ActiveRecord::Base
     images = content.css('img').map{ |image| image['src'] }
   end
 
+  def all_active_posts
+    Rails.cache.fetch("all_posts", expires_in: 12.hours) do
+      Post.active.includes(:user)
+    end
+  end
+
   def teaser
     string = ""
     content = Nokogiri::HTML::Document.parse self.content

@@ -10,6 +10,10 @@ class PagesController < ApplicationController
     @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
     @stories = Post.active.includes(:user).order(created_at: :desc).paginate(page: params[:stories_page], per_page: 2)
     @sydney = Place.find 1064
+    @category1 = @subcategories[0]
+    @category2 = @subcategories[1]
+    @category3 = @subcategories[2]
+    @category4 = @subcategories[3]
   end
 
   def globe
