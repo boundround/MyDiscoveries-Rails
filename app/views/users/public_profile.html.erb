@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-lg-4 hidden-xs top20" align="center">
+      <div class="img-rounded-big"  style="background: url('<%= showing_image(@user.avatar_url) %>')" >
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-12 col-xs-12 leftmin16">
+     <div class="head-title">
+      <div class="row leftmin16" align="center">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm25">
+          <h4 class="hitam top20 align-left left40">Member profile</h4>
+          <h2 class="abu-abu align-left left40"><%= @user.username %></h2>
+          <% if user_signed_in? && current_user.admin? %>
+            <p class="abu-abu align-left left40"><%= @user.description %></p>
+          <% end %>
+          <div class="img-rounded-profile visible-xs" style="background: url('<%= showing_image(@user.avatar_url) %>')">
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+
+    </div><!-- row -->
+    <% unless @stories.blank? %>
+      <%= render partial: "stories/all_stories_place" %>
+    <% end %>
+    <% unless @reviews.blank? %>
+      <div id="memberreviews" class="thing-page-segment user-thing-page-segment">
+        <div>
+          <h3>My Reviews</h3> </div>
+        <div class="row member-reviews-wrapper">
+          <div class="owl-carousel auto-height-carousel" id="reviews-list">
+            <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
+          </div>
+          <% unless last_page? @reviews %>
+            <div class="col-xs-12 hidden-xs single-pagination-container" id="reviews-single-pagination-container">
+              <div class="hidden single-pagination-loader" align="center"> <img src="<%= asset_path('loading.gif') %>" width="64" height="64"> </div>
+              <div class="load-more member-reviews-load-more temporary-class-3">
+                <%= link_to "LOAD MORE", paginate_reviews_user_path(@user, active_reviews_user: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list', collection_object: 'review'), class: 'single-pagination', remote: true %>
+              </div>
+            </div>
+            <% end %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>

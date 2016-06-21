@@ -5,7 +5,13 @@
                    style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"
                    role="img"
                    aria-label="User: <%= story.user.username %>"></div>
-              <div class="username"><%= story.user.username %></div>
+              <div class="username">
+                <% if story.user.is_private? %>
+                  <%= story.user.username %>
+                <% else %>
+                  <%= link_to story.user.username, public_profile_user_path(story.user) %>
+                <% end %>
+              </div>
               <div class="date hidden-xs"><%= story.created_at.strftime("%B %Y") %></div>
           </div>
           <div class="story-content">

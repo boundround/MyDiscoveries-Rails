@@ -3,6 +3,7 @@ require 'will_paginate/array'
 class PlacesController < ApplicationController
   layout false, :only => :wp_blog
   before_action :set_cache_control_headers, only: [:index, :show]
+  caches_page :show
 
   def new
     @place = Place.new

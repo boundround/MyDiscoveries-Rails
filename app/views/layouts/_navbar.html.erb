@@ -114,8 +114,6 @@
                             <div class="row">
                                 <div class="carousel-wrapper">
                                     <div class="owl-carousel">
-
-                                    <% @featured_nav_destinations = Place.find([1064, 1221, 1071, 1060]) %>
                                     <% @featured_nav_destinations.each do |place| %>
                                         <div class="col-md-6">
                                             <a href="<%= place_path(place)%>">
@@ -150,9 +148,7 @@
                             <div class="row">
                                 <div class="carousel-wrapper">
                                     <div class="owl-carousel">
-
-                                  <% @featured_nav_places = Place.find([233, 117, 921, 1021]) %>
-                                  <% @featured_nav_places.each do |place| %>
+                                    <% @featured_nav_places.each do |place| %>
                                         <div class="col-md-12 dest-thing-wrapper">
                                             <div class="dest-thing featured">
                                             <a class="link_card" href="<%= place_path(place)%>"></a>

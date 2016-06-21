@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
+  before_filter :get_header
+
   if ENV["BOUNDROUND_ENV"] == "boundround_production"
     before_filter :correct_domain!
   end
@@ -36,6 +38,11 @@ class ApplicationController < ActionController::Base
         !request.xhr?) # don't store ajax calls
       session[:previous_url] = request.fullpath
     end
+  end
+
+  def get_header
+    @featured_nav_destinations = Place.where(id: [1064, 1221, 1071, 1060]).includes(:country)
+    @featured_nav_places = Place.where(id: [233, 117, 921, 1021])
   end
 
   protected

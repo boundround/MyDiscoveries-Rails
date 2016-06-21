@@ -1,5 +1,6 @@
 class CountriesController < ApplicationController
   before_action :set_cache_control_headers, only: [:index, :show]
+  caches_page :show
 
   def index
     @countries = Country.all

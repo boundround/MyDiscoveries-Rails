@@ -1,17 +1,16 @@
 class PagesController < ApplicationController
   before_action :set_cache_control_headers, only: :index
 
+  caches_page :index
+
   def index
     @set_body_class = "home-page background"
-    areas = Place.active.is_area.where(primary_area: true).includes(:country).order("countries.display_name asc").includes(:photos)
+    areas = Place.active.is_area.where(primary_area: true).includes(:country, :photos).order("countries.display_name asc")
     @areas = areas.paginate(page: params[:areas_page], per_page: 3)
-    @subcategories = Subcategory.subcats.includes(:places => :subcategories)
+    @subcategories = Subcategory.subcats
     @subcategories = @subcategories.sort {|x, y| y.places.size <=> x.places.size}
     @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
-    @category1 = @subcategories[0]
-    @category2 = @subcategories[1]
-    @category3 = @subcategories[2]
-    @category4 = @subcategories[3]
+    @stories = Post.active.includes(:user).order(created_at: :desc).paginate(page: params[:stories_page], per_page: 2)
     @sydney = Place.find 1064
   end
 

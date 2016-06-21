@@ -151,6 +151,7 @@ Rails.application.routes.draw do
     member { get 'photos' }
     member { get 'reviews' }
     member { get 'stories' }
+    member { get 'public_profile' }
   end
 
 

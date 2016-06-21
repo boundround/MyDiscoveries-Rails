@@ -3,7 +3,7 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index, :draft_content]
-  before_action :set_user, only: [:show, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews]
+  before_action :set_user, only: [:show, :public_profile, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews]
 
   def index
     @set_body_class = 'white-body'
@@ -30,6 +30,10 @@ class UsersController < ApplicationController
     @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
     @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
 
+  end
+
+  def public_profile
+    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
   end
 
   # GET /users/new
