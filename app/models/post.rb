@@ -21,7 +21,7 @@ class Post < ActiveRecord::Base
     end
 
     attribute :description do
-      teaser[0..200] + "..."
+      content
     end
 
     attribute :viator_link do
@@ -326,7 +326,7 @@ class Post < ActiveRecord::Base
 
   private
     def algolia_id
-      "post_#{id}" # ensure the place & country IDs are not conflicting
+      "post_#{id}" # ensure the place, post & country IDs are not conflicting
     end
 
     def slug_candidates
