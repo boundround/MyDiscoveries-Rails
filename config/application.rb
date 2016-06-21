@@ -47,7 +47,5 @@ module BoundRoundWeb
     config.paths.add "app/services", glob: "**/*.rb"
     config.autoload_paths += Dir["#{Rails.root}/app/services/*"]
 
-    config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public/deploy"
-
   end
 end
