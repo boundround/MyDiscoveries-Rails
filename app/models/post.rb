@@ -298,9 +298,9 @@ class Post < ActiveRecord::Base
     images = content.css('img').map{ |image| image['src'] }
   end
 
-  def all_active_posts
+  def self.all_active_posts
     Rails.cache.fetch("all_posts", expires_in: 12.hours) do
-      Post.active.includes(:user)
+      Post.active.includes(:user).order(created_at: :desc)
     end
   end
 

@@ -8,7 +8,7 @@ class PagesController < ApplicationController
     @subcategories = Subcategory.subcats
     @subcategories = @subcategories.sort {|x, y| y.places.size <=> x.places.size}
     @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
-    @stories = Post.active.includes(:user).order(created_at: :desc).paginate(page: params[:stories_page], per_page: 2)
+    @stories = Post.all_active_posts.paginate(page: params[:stories_page], per_page: 2)
     @sydney = Place.find 1064
     @category1 = @subcategories[0]
     @category2 = @subcategories[1]
