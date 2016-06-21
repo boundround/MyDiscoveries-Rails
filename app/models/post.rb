@@ -120,7 +120,7 @@ class Post < ActiveRecord::Base
     # you want to search in: here `title`, `subtitle` & `description`.
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
-    attributesToIndex ['title', 'unordered(content)', 'unordered(display_address)', 'primary_category', 'subcategories']
+    attributesToIndex ['display_name', 'unordered(content)', 'unordered(display_address)', 'primary_category', 'subcategories']
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
@@ -326,7 +326,7 @@ class Post < ActiveRecord::Base
 
   private
     def algolia_id
-      "place_#{id}" # ensure the place & country IDs are not conflicting
+      "post_#{id}" # ensure the place & country IDs are not conflicting
     end
 
     def slug_candidates
