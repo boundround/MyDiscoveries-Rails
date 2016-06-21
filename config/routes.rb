@@ -77,6 +77,8 @@ Rails.application.routes.draw do
   get "places/mapdata" => "places#mapdata"
   get "places/placeareasmapdata" => "places#placeareasmapdata"
   get "places/search" => "places#search"
+  get "places/subcategory_match_test" => "places#subcategory_match_test"
+  get "places/subcategory_match" => "places#subcategory_match"
   get "places/liked_places" => "places#liked_places"
   get "places/tags" => "places#tags"
   get "programs/tags" => "programs#tags"

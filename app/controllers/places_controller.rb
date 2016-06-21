@@ -32,6 +32,22 @@ class PlacesController < ApplicationController
     @photo = @place.photos.where(hero: true).first
   end
 
+  def subcategory_match_test
+  end
+
+  def subcategory_match
+    @search_string = ""
+    @search_string << params[:ages].join(" ")
+    @search_string << " #{ params[:subcategories].join(' ')}"
+    @search_string << " #{params[:region]}"
+    @search_string << " #{params[:international_region]}"
+    @search_response = Place.raw_search(@search_string)
+    @place = Place.find(@search_response["hits"][0]["objectID"].gsub("place_", "").to_i)
+    debugger
+
+    redirect_to place_path(@place), notice: "This place closely matches your preferences"
+  end
+
   def places_with_subcategories
     @places = Place.active.includes(:subcategories)
     @subcategories = Subcategory.all.order(category_type: :asc)

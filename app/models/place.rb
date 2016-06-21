@@ -142,13 +142,25 @@ class Place < ActiveRecord::Base
       subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
     end
 
+    attribute :parents do
+      self.get_parents(self).map {|place| place.display_name}
+    end
+
+    attribute :accessible do
+      if subcategories.any? { |sub| sub.category_type == "accessibility" }
+        "accessible"
+      else
+        ""
+      end
+    end
+
      #country and url
 
     # the attributesToIndex` setting defines the attributes
     # you want to search in: here `title`, `subtitle` & `description`.
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
-    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'status', 'primary_category', 'subcategories', 'sub_subcategory']
+    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)', 'unordered(subcategories)', 'unordered(age_range)', 'unordered(accessible)', 'unordered(parents)']
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
