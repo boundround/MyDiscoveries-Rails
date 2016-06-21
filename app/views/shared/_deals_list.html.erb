@@ -1,24 +1,22 @@
-<%
-if !params[:controller].eql? "countries"
-    grid, stroke = if !@place.is_area?
-        ["col-md-4", "orange-stroke"]
-    else
-        ["col-md-3",""]
-    end
-end
-%>
-
-<div class="<%= grid %> col-sm-6">
-    <div class="photo-component">
-        <div class="img-wrapper">
-            <%= link_to "" , deal.url,
-                        style: "background: url( #{image_path deal_image(deal.hero_image_url)} ) no-repeat;", target: "_blank"  %>
-        </div>
-        <div class="title-wrapper text-center">
-            <!-- <img class="svg-inject <%= stroke %>" src="/assets/new-images/icon-camera.svg"/> -->
-
-            <a href="<%= deal.url %>" target="_blank"><%= deal.title %></a>
-            <br><span class="text-center">From $<%= deal.min_price.to_s %></span>
-        </div>
-    </div>
+<div class="col-md-6 col-sm-6 dest-thing-wrapper">
+  <div class="dest-thing">
+    <a class="link_card" href="<%= deal.url %>"></a>
+      <div class="dest-thing-overlay-wrapper">
+              <div class="dest-thing-overlay">
+                <div class="dollar-rating">
+                From $<%= deal.min_price %>
+                </div>
+                  <div class="book-wrapper">
+                      <a class="btn book-btn" onclick="bookNowClicks()" href="<%= deal.url %>" target="_blank">BOOK</a>
+                  </div>
+              </div>
+      </div>
+      <div class="things-img" style="background: url(<%= image_path deal_image(deal.hero_image_url) %>) no-repeat;"
+           role="img"
+           aria-label="Catmosphere"></div>
+      <div class="dest-thing-content">
+          <h4><%= deal.title %></h4>
+          <p><%= deal.description[0..150] %>...
+      </div>
+  </div>
 </div>
