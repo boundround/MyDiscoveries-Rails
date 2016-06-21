@@ -1,9 +1,10 @@
 <div class="banner-wrapper dismiss-mega-menu-search">
+    <% cache("home_page_hero", :expires_in => 12.hours) do %>
     <span class="banner-image" style="background-image: url('https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg')" role="img" aria-label="Destination Sydney">
                                 </span>
 
+    <% end %>
     <div class="overlay"></div>
-    <% cache("home_page_hero", :expires_in => 12.hours) do %>
       <div class="container">
           <div class="row">
               <div class="col-md-12">
@@ -37,7 +38,6 @@
                   </div>
               </div>
           </div>
-        <% end %>
     </div>
 </div>
 
