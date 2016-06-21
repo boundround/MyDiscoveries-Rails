@@ -285,7 +285,11 @@ class Place < ActiveRecord::Base
     end
   end
 
-
+  def self.home_page_areas
+    Rails.cache.fetch("home_page_areas", expires_in: 24.hours) do
+      Place.active.is_area.where(primary_area: true).includes(:country, :photos).order("countries.display_name asc")
+    end
+  end
 
   # def self.text_search(query)
   #   if query.present?

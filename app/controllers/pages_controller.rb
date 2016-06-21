@@ -3,8 +3,7 @@ class PagesController < ApplicationController
 
   def index
     @set_body_class = "home-page background"
-    areas = Place.active.is_area.where(primary_area: true).includes(:country, :photos).order("countries.display_name asc")
-    @areas = areas.paginate(page: params[:areas_page], per_page: 3)
+    @areas = Place.home_page_areas.paginate(page: params[:areas_page], per_page: 3)
     @subcategories = Subcategory.subcats
     @subcategories = @subcategories.sort {|x, y| y.places.size <=> x.places.size}
     @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
