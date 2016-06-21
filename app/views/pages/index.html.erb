@@ -3,39 +3,41 @@
                                 </span>
 
     <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12 banner-heading">
-                        <h1>Find Things To Do For Your Family</h1>
-                        <div>Explore <a href="<%= place_path(@sydney) %>">Sydney</a></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12">
-                        <form accept-charset="UTF-8" action="/results" method="get">
-                            <div class="input-group">
-                                <div style="display:none">
-                                    <input name="utf8" value="✓" type="hidden">
-                                </div>
-                                <input type="text" name="search[common]" class="search-box-bottom form-control search" placeholder="Search for family friendly things to do" autocomplete="off">
-                                <div class=" input-group-addon ">
-                                    <img src="/assets/new-images/icon-magnifier.png" />Search
-                                    <button class="hero-search" type="submit">
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="search-results-container" id="search-results-bottom-container" style="display: none">
-                            <div class="search-results ">
-                                <%= render :partial=> "search_suggestions/search_results_home" %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <% cache("home_page_hero", :expires_in => 12.hours) do %>
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="row">
+                      <div class="col-md-12 banner-heading">
+                          <h1>Find Things To Do For Your Family</h1>
+                          <div>Explore <a href="<%= place_path(@sydney) %>">Sydney</a></div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12">
+                          <form accept-charset="UTF-8" action="/results" method="get">
+                              <div class="input-group">
+                                  <div style="display:none">
+                                      <input name="utf8" value="✓" type="hidden">
+                                  </div>
+                                  <input type="text" name="search[common]" class="search-box-bottom form-control search" placeholder="Search for family friendly things to do" autocomplete="off">
+                                  <div class=" input-group-addon ">
+                                      <img src="/assets/new-images/icon-magnifier.png" />Search
+                                      <button class="hero-search" type="submit">
+                                      </button>
+                                  </div>
+                              </div>
+                          </form>
+                          <div class="search-results-container" id="search-results-bottom-container" style="display: none">
+                              <div class="search-results ">
+                                  <%= render :partial=> "search_suggestions/search_results_home" %>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        <% end %>
     </div>
 </div>
 
@@ -58,272 +60,275 @@
         </a>
     </div>
 </div> -->
+<% cache("home_page_brief", :expires_in => 12.hours) do %>
+  <div class="brief-background">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="brief-wrapper">
+                      <div class="row">
+                          <div class="col-md-12 text-center">
+                              <h3>Find the best family-friendly activities and things to do.
+                                      <br/>Get insider tips from local kids.</h3>
+                          </div>
+                      </div>
+                      <br/>
+                      <div class="row">
+                          <div class="owl-carousel activity-carousel">
+                              <div class="brief-item">
+                                  <div class="col-md-3">
+                                      <div class="brief-image-container">
+                                          <span class="brief-image" style="background-image: url('/assets/new-images/brief-thumb.jpg')" role="img" aria-label="">
+                                  </span>
+                                      </div>
+                                      <div class="brief-text">
+                                          Planning a vacation that will please everyone in your family may seem a little overwhelming. The destinations and things to do on Bound Round have been hand picked by our family travel experts.
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="brief-item">
+                                  <div class="col-md-3">
+                                      <div class="brief-image-container">
+                                          <span class="brief-image" style="background-image: url('/assets/new-images/brief-video.jpg')" role="img" aria-label="">
+                                  </span>
+                                      </div>
+                                      <div class="brief-text">Watch video reviews,share the load with your youngsters and find something you'll all enjoy.
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="brief-item">
+                                  <div class="col-md-3">
+                                      <div class="brief-image-container">
+                                          <span class="brief-image" style="background-image: url('/assets/new-images/brief-idea.jpg')" role="img" aria-label="">
+                                  </span>
+                                      </div>
+                                      <div class="brief-text">Just looking for inspiration and ideas? Bound Round contributors know all about traveling with kids, because they either have kids or are kids - use their stories to help decide things to do that your whole family will enjoy.
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="brief-item">
+                                  <div class="col-md-3">
+                                      <div class="brief-image-container">
+                                          <span class="brief-image" style="background-image: url('/assets/new-images/brief-face.jpg')" role="img" aria-label="">
+                                  </span>
+                                      </div>
+                                      <div class="brief-text">Happy family holiday planning!</div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+<% end %>
+<% cache("home_page_places_to_go", :expires_in => 12.hours) do %>
+  <div class="container">
+      <div class="row">
+          <% unless @areas.blank? %>
+              <div class="col-md-12">
+                  <div class="destination-wrapper">
+                      <div class="row">
+                          <div class="col-md-12 text-center">
+                              <h3>Places to go</h3>
+                          </div>
+                      </div>
+                      <br/>
 
-<div class="brief-background">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="brief-wrapper">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h3>Find the best family-friendly activities and things to do.
-                                    <br/>Get insider tips from local kids.</h3>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="owl-carousel activity-carousel">
-                            <div class="brief-item">
-                                <div class="col-md-3">
-                                    <div class="brief-image-container">
-                                        <span class="brief-image" style="background-image: url('/assets/new-images/brief-thumb.jpg')" role="img" aria-label="">
-                                </span>
-                                    </div>
-                                    <div class="brief-text">
-                                        Planning a vacation that will please everyone in your family may seem a little overwhelming. The destinations and things to do on Bound Round have been hand picked by our family travel experts.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="brief-item">
-                                <div class="col-md-3">
-                                    <div class="brief-image-container">
-                                        <span class="brief-image" style="background-image: url('/assets/new-images/brief-video.jpg')" role="img" aria-label="">
-                                </span>
-                                    </div>
-                                    <div class="brief-text">Watch video reviews,share the load with your youngsters and find something you'll all enjoy.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="brief-item">
-                                <div class="col-md-3">
-                                    <div class="brief-image-container">
-                                        <span class="brief-image" style="background-image: url('/assets/new-images/brief-idea.jpg')" role="img" aria-label="">
-                                </span>
-                                    </div>
-                                    <div class="brief-text">Just looking for inspiration and ideas? Bound Round contributors know all about traveling with kids, because they either have kids or are kids - use their stories to help decide things to do that your whole family will enjoy.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="brief-item">
-                                <div class="col-md-3">
-                                    <div class="brief-image-container">
-                                        <span class="brief-image" style="background-image: url('/assets/new-images/brief-face.jpg')" role="img" aria-label="">
-                                </span>
-                                    </div>
-                                    <div class="brief-text">Happy family holiday planning!</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <% unless @areas.blank? %>
-            <div class="col-md-12">
-                <div class="destination-wrapper">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h3>Places to go</h3>
-                        </div>
-                    </div>
-                    <br/>
+                      <div class="row">
+                          <div class="owl-carousel carousel" id="place_to_go-list">
+                              <%= render partial: 'place_to_go_list', collection: @areas, as: :area %>
+                          </div>
+                      </div>
+                  </div>
 
-                    <div class="row">
-                        <div class="owl-carousel carousel" id="place_to_go-list">
-                            <%= render partial: 'place_to_go_list', collection: @areas, as: :area %>
-                        </div>
-                    </div>
-                </div>
+                  <% unless last_page? @areas %>
+                      <div class="row hidden-xs">
+                          <div class="col-xs-12">
+                              <div class="single-pagination-container" id="areas-single-pagination-container">
+                                  <div class="hidden single-pagination-loader" align="center">
+                                      <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                                  </div>
+                                  <div class="load-more">
+                                      <%= link_to "LOAD MORE", pages_path(areas_page: @areas.next_page, resources: 'areas', pagination_template: 'place_to_go_list', collection_object: 'area'), class: 'single-pagination', remote: true %>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  <% end %>
+              </div>
+              <% end %>
 
-                <% unless last_page? @areas %>
-                    <div class="row hidden-xs">
-                        <div class="col-xs-12">
-                            <div class="single-pagination-container" id="areas-single-pagination-container">
-                                <div class="hidden single-pagination-loader" align="center">
-                                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                                </div>
-                                <div class="load-more">
-                                    <%= link_to "LOAD MORE", pages_path(areas_page: @areas.next_page, resources: 'areas', pagination_template: 'place_to_go_list', collection_object: 'area'), class: 'single-pagination', remote: true %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <% end %>
-            </div>
-            <% end %>
+                  <div class="travellers-wrapper">
+                      <div class="row">
+                          <div class="col-md-offset-2 col-md-8 text-center">
+                              <h3>Experiences for everyone</h3>
+                              <br/>
 
-                <div class="travellers-wrapper">
-                    <div class="row">
-                        <div class="col-md-offset-2 col-md-8 text-center">
-                            <h3>Experiences for everyone</h3>
-                            <br/>
+                              <div>Every family is different. To help find the right things to do and places to go for your family, you can search or filter Bound Round by the ages of the kids you travel with. Say goodbye to family feuds by letting the kids watch videos about what their peers think is fun. Then you can all make a decision on what to do together.
+                              </div>
+                          </div>
+                      </div>
+                      <br/><br/>
 
-                            <div>Every family is different. To help find the right things to do and places to go for your family, you can search or filter Bound Round by the ages of the kids you travel with. Say goodbye to family feuds by letting the kids watch videos about what their peers think is fun. Then you can all make a decision on what to do together.
-                            </div>
-                        </div>
-                    </div>
-                    <br/><br/>
+                      <div class="row">
+                          <div class="owl-carousel carousel">
+                              <div class="traveller-item">
+                                  <div class="col-md-offset-0 col-md-4 col-sm-4 col-xs-12">
+                                      <%= link_to searching_sub_cat_path('for-ages-5-8') do %>
+                                          <div class="travellers-component-wrapper">
+                                              <img src="/assets/new-images/travellers-5-8_square.jpg" class="img-circle img-responsive" />
 
-                    <div class="row">
-                        <div class="owl-carousel carousel">
-                            <div class="traveller-item">
-                                <div class="col-md-offset-0 col-md-4 col-sm-4 col-xs-12">
-                                    <%= link_to searching_sub_cat_path('for-ages-5-8') do %>
-                                        <div class="travellers-component-wrapper">
-                                            <img src="/assets/new-images/travellers-5-8_square.jpg" class="img-circle img-responsive" />
+                                              <div class="overlay img-circle"></div>
+                                              <div class="travellers-component-text">
+                                                  <h4>5 to 8 year olds</h4>
+                                                  <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                              </div>
+                                          </div>
+                                      <% end %>
+                                  </div>
+                              </div>
+                              <div class="traveller-item">
+                                  <div class="col-md-offset-0 col-md-4 col-sm-4 col-xs-12">
+                                      <%= link_to searching_sub_cat_path('for-ages-9-12') do %>
+                                          <div class="travellers-component-wrapper">
+                                              <img src="/assets/new-images/travellers-9-12_square.jpg" class="img-circle img-responsive" />
 
-                                            <div class="overlay img-circle"></div>
-                                            <div class="travellers-component-text">
-                                                <h4>5 to 8 year olds</h4>
-                                                <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                            </div>
-                                        </div>
-                                    <% end %>
-                                </div>
-                            </div>
-                            <div class="traveller-item">
-                                <div class="col-md-offset-0 col-md-4 col-sm-4 col-xs-12">
-                                    <%= link_to searching_sub_cat_path('for-ages-9-12') do %>
-                                        <div class="travellers-component-wrapper">
-                                            <img src="/assets/new-images/travellers-9-12_square.jpg" class="img-circle img-responsive" />
+                                              <div class="overlay img-circle"></div>
+                                              <div class="travellers-component-text">
+                                                  <h4>9 to 12 year olds</h4>
+                                                  <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                              </div>
+                                          </div>
+                                      <% end %>
+                                  </div>
+                              </div>
+                              <div class="traveller-item">
+                                  <div class="col-md-offset-0 col-md-4 col-sm-4 col-xs-12">
+                                      <%= link_to searching_sub_cat_path('teens') do %>
+                                          <div class="travellers-component-wrapper">
+                                              <img src="/assets/new-images/rowing_square.jpg" class="img-circle img-responsive" />
 
-                                            <div class="overlay img-circle"></div>
-                                            <div class="travellers-component-text">
-                                                <h4>9 to 12 year olds</h4>
-                                                <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                            </div>
-                                        </div>
-                                    <% end %>
-                                </div>
-                            </div>
-                            <div class="traveller-item">
-                                <div class="col-md-offset-0 col-md-4 col-sm-4 col-xs-12">
-                                    <%= link_to searching_sub_cat_path('teens') do %>
-                                        <div class="travellers-component-wrapper">
-                                            <img src="/assets/new-images/rowing_square.jpg" class="img-circle img-responsive" />
+                                              <div class="overlay img-circle"></div>
+                                              <div class="travellers-component-text">
+                                                  <h4>Teenagers</h4>
+                                                  <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                              </div>
+                                          </div>
+                                      <% end %>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
 
-                                            <div class="overlay img-circle"></div>
-                                            <div class="travellers-component-text">
-                                                <h4>Teenagers</h4>
-                                                <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                            </div>
-                                        </div>
-                                    <% end %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="thing-wrapper">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h3>Things to do</h3>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row hidden-sm hidden-xs">
-                    <% if @category1.present?  %>
-                        <div class="col-md-4">
-                            <%= link_to searching_sub_cat_path(@category1.identifier) do %>
-                                <div class="thing-tall-card-wrapper">
-                                    <div class="thing-image" style="background-image: url('<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name %>">
-                                        <div class="overlay"></div>
-                                        <div class="thing-text">
-                                            <h4><%= @category1.name %></h4>
-                                            <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <% end %>
-                        </div>
-                        <% end %>
-                        <div class="col-md-8">
-                            <div class="row">
-                            <% if @category2.present?  %>
-                                <div class="col-md-6">
-                                    <%= link_to searching_sub_cat_path(@category2.identifier) do %>
-                                        <div class="thing-medium-card-wrapper">
-                                            <div class="thing-image" style="background-image: url('<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name %>">
-                                                <div class="overlay"></div>
-                                                <div class="thing-text">
-                                                    <h4><%= @category2.name %></h4>
-                                                    <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <% end %>
-                                </div>
-                                <% end %>
-                                <% if @category3.present?  %>
-                                <div class="col-md-6">
-                                    <%= link_to searching_sub_cat_path(@category3.identifier) do %>
-                                        <div class="thing-medium-card-wrapper">
-                                            <div class="thing-image" style="background-image: url('<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name %>">
-                                                <div class="overlay"></div>
-                                                <div class="thing-text">
-                                                    <h4><%= @category3.name %></h4>
-                                                    <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <% end %>
-                                </div>
-                                <% end %>
-                            </div>
-                            <!-- row -->
-                            <% if @category4.present?  %>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="thing-wide-card-wrapper">
-                                        <div class="thing-image" style="background-image: url('<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
-                                            <div class="overlay"></div>
-                                            <div class="thing-text">
-                                                <h4><%= @category4.name rescue nil %></h4>
-                                                <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <% end %>
-                            <!-- row -->
-                        </div>
-                    </div>
-                    <div class="row hidden-md hidden-lg">
-                        <div class="owl-carousel carousel">
-                            <% @subcategories.each do |category| %>
-                                <div class="thing-item">
-                                    <div class="col-sm-3">
-                                        <div class="thing-medium-card-wrapper">
-                                            <div class="thing-image" style="background-image: url('<%= category.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= category.name %>">
-                                                <div class="overlay"></div>
-                                                <div class="thing-text">
-                                                    <h4><%= category.name %></h4>
-                                                    <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <% end %>
-                        </div>
-                    </div>
-                    <div class="row hidden-sm hidden-xs">
-                        <div class="col-md-12">
-                            <div class="load-more">
-                                <%= link_to 'VIEW ALL', subcategories_path, :class => '' %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
-</div>
+                  <div class="thing-wrapper">
+                      <div class="row">
+                          <div class="col-md-12 text-center">
+                              <h3>Things to do</h3>
+                          </div>
+                      </div>
+                      <br/>
+                      <div class="row hidden-sm hidden-xs">
+                      <% if @category1.present?  %>
+                          <div class="col-md-4">
+                              <%= link_to searching_sub_cat_path(@category1.identifier) do %>
+                                  <div class="thing-tall-card-wrapper">
+                                      <div class="thing-image" style="background-image: url('<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name %>">
+                                          <div class="overlay"></div>
+                                          <div class="thing-text">
+                                              <h4><%= @category1.name %></h4>
+                                              <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              <% end %>
+                          </div>
+                          <% end %>
+                          <div class="col-md-8">
+                              <div class="row">
+                              <% if @category2.present?  %>
+                                  <div class="col-md-6">
+                                      <%= link_to searching_sub_cat_path(@category2.identifier) do %>
+                                          <div class="thing-medium-card-wrapper">
+                                              <div class="thing-image" style="background-image: url('<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name %>">
+                                                  <div class="overlay"></div>
+                                                  <div class="thing-text">
+                                                      <h4><%= @category2.name %></h4>
+                                                      <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      <% end %>
+                                  </div>
+                                  <% end %>
+                                  <% if @category3.present?  %>
+                                  <div class="col-md-6">
+                                      <%= link_to searching_sub_cat_path(@category3.identifier) do %>
+                                          <div class="thing-medium-card-wrapper">
+                                              <div class="thing-image" style="background-image: url('<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name %>">
+                                                  <div class="overlay"></div>
+                                                  <div class="thing-text">
+                                                      <h4><%= @category3.name %></h4>
+                                                      <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      <% end %>
+                                  </div>
+                                  <% end %>
+                              </div>
+                              <!-- row -->
+                              <% if @category4.present?  %>
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <div class="thing-wide-card-wrapper">
+                                          <div class="thing-image" style="background-image: url('<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
+                                              <div class="overlay"></div>
+                                              <div class="thing-text">
+                                                  <h4><%= @category4.name rescue nil %></h4>
+                                                  <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <% end %>
+                              <!-- row -->
+                          </div>
+                      </div>
+                      <div class="row hidden-md hidden-lg">
+                          <div class="owl-carousel carousel">
+                              <% @subcategories.each do |category| %>
+                                  <div class="thing-item">
+                                      <div class="col-sm-3">
+                                          <div class="thing-medium-card-wrapper">
+                                              <div class="thing-image" style="background-image: url('<%= category.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= category.name %>">
+                                                  <div class="overlay"></div>
+                                                  <div class="thing-text">
+                                                      <h4><%= category.name %></h4>
+                                                      <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              <% end %>
+                          </div>
+                      </div>
+                      <div class="row hidden-sm hidden-xs">
+                          <div class="col-md-12">
+                              <div class="load-more">
+                                  <%= link_to 'VIEW ALL', subcategories_path, :class => '' %>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+          </div>
+      </div>
+  </div>
+<% end %>
 <div class="container">
   <div class="row">
     <div class="head-title">
@@ -347,40 +352,42 @@
 <% end %>
 
 <hr class="gradient-divider" />
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row  how-to-block">
-                <div class="col-md-offset-2 col-md-8 col-xs-12">
-                    <h4>What does it mean?</h4>
+<% cache("home_page_price_key", :expires_in => 12.hours) do %>
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="row  how-to-block">
+                  <div class="col-md-offset-2 col-md-8 col-xs-12">
+                      <h4>What does it mean?</h4>
 
-                    <div>
-                        Bookable things to do on Bound Round are categorised based on what it would cost for a whole family. For specific details, click the Book Now Button.
-                    </div>
-                    <div class="md-what-does">
-                        <div class="col-md-3 col-sm-3 col-xs-4 smPadding">
-                            <h1>$</h1>
+                      <div>
+                          Bookable things to do on Bound Round are categorised based on what it would cost for a whole family. For specific details, click the Book Now Button.
+                      </div>
+                      <div class="md-what-does">
+                          <div class="col-md-3 col-sm-3 col-xs-4 smPadding">
+                              <h1>$</h1>
 
-                            <div class="arrow-up"></div>
-                            <div class="arrow-up-bubble">Inexpensive</div>
-                        </div>
-                        <div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-xs-4 smPadding">
-                            <h1>$$</h1>
+                              <div class="arrow-up"></div>
+                              <div class="arrow-up-bubble">Inexpensive</div>
+                          </div>
+                          <div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-xs-4 smPadding">
+                              <h1>$$</h1>
 
-                            <div class="arrow-up"></div>
-                            <div class="arrow-up-bubble">Midrange</div>
-                        </div>
-                        <div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-xs-4 smPadding">
-                            <h1>$$$</h1>
-                            <div class="arrow-up"></div>
-                            <div class="arrow-up-bubble">Premium</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                              <div class="arrow-up"></div>
+                              <div class="arrow-up-bubble">Midrange</div>
+                          </div>
+                          <div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-xs-4 smPadding">
+                              <h1>$$$</h1>
+                              <div class="arrow-up"></div>
+                              <div class="arrow-up-bubble">Premium</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+<% end %>
 
 
 <%= render 'layouts/all_modal' %>
