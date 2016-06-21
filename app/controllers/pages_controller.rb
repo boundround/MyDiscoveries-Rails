@@ -1,8 +1,6 @@
 class PagesController < ApplicationController
   before_action :set_cache_control_headers, only: :index
 
-  caches_page :index
-
   def index
     @set_body_class = "home-page background"
     areas = Place.active.is_area.where(primary_area: true).includes(:country, :photos).order("countries.display_name asc")

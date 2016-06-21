@@ -150,8 +150,6 @@ gem "browser"
 
 gem 'geocomplete_rails', github: 'guyisra/geocomplete_rails'
 
-gem 'actionpack-page_caching'
-
 # gem 'active_model_serializers'
 
 
