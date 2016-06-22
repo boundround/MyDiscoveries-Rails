@@ -8,6 +8,11 @@ class Post < ActiveRecord::Base
     # list of attribute used to build an Algolia record
     attributes :title, :content, :status, :slug, :minimum_age, :maximum_age
 
+    synonyms [
+        ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping"],
+        ["disabled", "wheelchair access", "accessible"]
+      ]
+
     attribute :url do
       Rails.application.routes.url_helpers.post_path(self)
     end

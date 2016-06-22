@@ -8,6 +8,14 @@ class Place < ActiveRecord::Base
     # list of attribute used to build an Algolia record
     attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug, :minimum_age, :maximum_age, :viator_link
     # attributes :is_area
+
+    synonyms [
+        ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping", "playgrounds", "watersports"],
+        ["disabled", "wheelchair access", "accessible"],
+        ["culture", "museum", "indigenous", "gallery", "galleries", "museums", "historic", "history"],
+        ["science", "technology"]
+      ]
+
     attribute :country do
       if self.country
         "#{country.display_name}"
