@@ -12,8 +12,13 @@ class Place < ActiveRecord::Base
     synonyms [
         ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping", "playgrounds", "watersports"],
         ["disabled", "wheelchair access", "accessible"],
-        ["culture", "museum", "indigenous", "gallery", "galleries", "museums", "historic", "history"],
-        ["science", "technology"]
+        ["culture", "cultural", "museum", "indigenous", "gallery", "galleries", "museums", "historic", "history"],
+        ["science", "technology"],
+        ["things to do", "something to do", "stuff to do"],
+        ["year old", "ages", "year"],
+        ["6", "7", "5-8"],
+        ["10", "11", "9-12"],
+        ["teenager", "teens", "teenagers"]
       ]
 
     attribute :country do
