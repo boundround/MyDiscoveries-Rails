@@ -13,6 +13,7 @@ gem 'sass-rails', '~> 4.0.3'
 
 # Roo for importing Excel documents
 gem 'roo'
+gem 'roo-xls'
 gem 'iconv'
 
 # User Font Awesome for icons

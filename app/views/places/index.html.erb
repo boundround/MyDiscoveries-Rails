@@ -29,6 +29,14 @@
       </tbody>
     </table>
   </div>
+    <% if current_user.try(:admin) && current_user.email == "donovan.whitworth@gmail.com" %>
+      <h3>Import Subcategories From Excel</h3>
+      <%= form_tag import_subcategories_places_path, multipart: true do %>
+        <%= file_field_tag :file %>
+        <%= submit_tag "Import" %>
+      <% end %>
+      <br />
+    <% end %>
 <% else %>
 <h3>You are not signed in or do not have the proper permissions to view this page</h3>
 <% end %>

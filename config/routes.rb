@@ -323,6 +323,7 @@ Rails.application.routes.draw do
     resources :good_to_knows
     resources :deals
     collection { post :import }
+    collection { post :import_subcategories }
   end
 
   resources :deals

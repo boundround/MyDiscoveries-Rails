@@ -37,13 +37,30 @@ class PlacesController < ApplicationController
 
   def subcategory_match
     @search_string = ""
-    @search_string << params[:ages].join(" ")
     @search_string << " #{ params[:subcategories].join(' ')}"
+    if params[:ages].contains? "0-5"
+      @search_string << "All Ages"
+    else
+      @search_string << " #{ params[:ages].join(' ')}"
+    end
     @search_string << " #{params[:region]}"
     @search_string << " #{params[:international_region]}"
+    @search_string << " accessible" if params[:accessibility] == "yes"
+    @search_string = @search_string.gsub("international", "")
     @search_response = Place.raw_search(@search_string)
-    @place = Place.find(@search_response["hits"][0]["objectID"].gsub("place_", "").to_i)
-    debugger
+    id = ""
+
+    if @search_response["hits"].length > 0
+      @search_response["hits"].each do |hit|
+        if hit["objectID"].contains? "place"
+          id = hit["objectID"].gsub("place_", "").to_i
+          break
+        else
+          id = 1064
+        end
+      end
+    end
+    @place = Place.find(id)
 
     redirect_to place_path(@place), notice: "This place closely matches your preferences"
   end
@@ -362,6 +379,11 @@ class PlacesController < ApplicationController
 
   def import
     Place.import(params[:file])
+    redirect_to places_path, notice: "Places imported."
+  end
+
+  def import_subcategories
+    Place.import_subcategories(params[:file])
     redirect_to places_path, notice: "Places imported."
   end
 
