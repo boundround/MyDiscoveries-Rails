@@ -14,7 +14,7 @@ class Place < ActiveRecord::Base
         ["disabled", "wheelchair access", "accessible"],
         ["culture", "cultural", "museum", "indigenous", "gallery", "galleries", "museums", "historic", "history"],
         ["science", "technology"],
-        ["things to do", "something to do", "stuff to do"],
+        ["things to do", "something to do", "stuff to do", "activity", "activities"],
         ["year old", "ages", "year"],
         ["6", "7", "5-8"],
         ["10", "11", "9-12"],
