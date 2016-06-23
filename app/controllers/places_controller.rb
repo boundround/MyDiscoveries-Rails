@@ -43,8 +43,8 @@ class PlacesController < ApplicationController
     @country = nil
     @user = nil
 
-    if ages.include? "0-5"
-      @search_string << "All Ages"
+    if ages.include? "0-4"
+      @search_string << "5-8"
     else
       @search_string << " #{ params[:ages].join(' ')}"
     end
