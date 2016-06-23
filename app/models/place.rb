@@ -35,6 +35,10 @@ class Place < ActiveRecord::Base
       Rails.application.routes.url_helpers.place_path(self)
     end
 
+    attribute :content_count do
+      videos.size + photo.size + reviews.size
+    end
+
     attribute :description do
       if description
         if description.length < 320
