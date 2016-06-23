@@ -36,7 +36,7 @@ class Place < ActiveRecord::Base
     end
 
     attribute :content_count do
-      videos.size + photo.size + reviews.size
+      videos.size + photos.size + reviews.size + posts.size
     end
 
     attribute :description do
@@ -181,9 +181,10 @@ class Place < ActiveRecord::Base
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
-    # customRanking ['desc(likes_count)']
+    customRanking ['desc(content_count)']
 
     attributesForFaceting ['area', 'main_category', 'age_range', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility']
+
   end
 
   # ratyrate_rateable "quality"
