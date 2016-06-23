@@ -1,8 +1,9 @@
 
 <div class="container blog-container">
-<form method="get" action="/places/subcategory_match">
+<form method="get" name="one-minute" action="/places/subcategory_match">
   <h4>1 Minute Survey</h4>
   <label>My kids are: (check all that apply)</label><br>
+  <input type="checkbox" id="zero-to-four" value="all ages" name="ages[]"><label for="zero-to-four">&nbsp;Under 5</label><br>
   <input type="checkbox" id="five-to-eight" value="5-8" name="ages[]"><label for="five-to-eight">&nbsp;5-8</label><br>
   <input type="checkbox" id="nine-to-twelve" value="9-12" name="ages[]"><label for="nine-to-twelve">&nbsp;9-12</label><br>
   <input type="checkbox" id="teenagers" value="teens" name="ages[]"><label for="teenagers">&nbsp;Teenagers</label><br>
@@ -38,32 +39,47 @@
   </p>
   <p>
     <label>Confirm your email address</label><br>
-    <input type="text" name="email" class="form-control" style="height:50px;">
+    <input type="text" required name="email" class="form-control" style="height:50px;">
   </p>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Find my activity now!" class="btn btn-primary">
 </form>
 </div>
 <script>
-console.log("TEST");
+  var checkboxConfig = [
+    {name: 'subcategories[]', limit: 3}
+  ];
+
+  for (var i = 0; i < checkboxConfig.length; i += 1) {
+    setLimit(checkboxConfig[i].name, checkboxConfig[i].limit);
+  }
+
+  function setLimit(name, limit) {
+    var els = document.getElementsByName(name),
+        i;
+    for (i = 0; i < els.length; i += 1) {
+        els[i].onclick = checkboxClickHandler(els[i], limit);
+    }
+  }
+
+  function checkboxClickHandler(el, limit) {
+    return function () {
+        limitCheckbox(el, limit);
+    }
+  }
+
+  function limitCheckbox(el, max) {
+    var count = 0,
+        i;
+    var checkboxes = document.getElementsByName(el.name);
+    for (i = 0; i < checkboxes.length; i += 1) {
+        if (checkboxes[i].checked) {
+            count = count + 1;
+		}
+	}
+    if (count > max) {
+	    alert('Please select only ' + max + ' checkboxes.\nTo select this option unselect one of the others.');
+    	    el.checked = false;
+        }
+    }
+
 </script>
-
-
-My family is most interested in: (allow 3 responses here)
-Active (playgrounds, sport, watersports, snow)
-Adventure
-Animals
-Culture (museums, galleries, historic, indigenous)
-Food
-Movies
-Nature (nature reserves, parks)
-Science & technology
-Theme parks
-
-
-Does your family have accessibility needs to be considered?
-Yes
-No
-
-Confirm your email address
-
-Find my activity now! (make this a butt

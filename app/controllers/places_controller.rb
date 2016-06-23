@@ -38,31 +38,72 @@ class PlacesController < ApplicationController
   def subcategory_match
     @search_string = ""
     @search_string << " #{ params[:subcategories].join(' ')}"
-    if params[:ages].contains? "0-5"
+    ages = params[:ages].join(" ")
+    id = nil
+    @country = nil
+    @user = nil
+
+    if ages.include? "0-5"
       @search_string << "All Ages"
     else
       @search_string << " #{ params[:ages].join(' ')}"
     end
-    @search_string << " #{params[:region]}"
-    @search_string << " #{params[:international_region]}"
-    @search_string << " accessible" if params[:accessibility] == "yes"
-    @search_string = @search_string.gsub("international", "")
-    @search_response = Place.raw_search(@search_string)
-    id = ""
 
-    if @search_response["hits"].length > 0
-      @search_response["hits"].each do |hit|
-        if hit["objectID"].contains? "place"
-          id = hit["objectID"].gsub("place_", "").to_i
-          break
-        else
-          id = 1064
+    case params[:region]
+    when "asia"
+      id = 1168
+    when "na"
+      id = 1535
+    when "sa"
+      @country = Country.find 133
+    when "eu"
+      id = 1177
+    when "me"
+      id = 1152
+    when "af"
+      @country = Country.find 87
+    when "tasmania"
+      id = 545
+    else
+      @search_string << " #{params[:region]}"
+      @search_string << " accessible" if params[:accessibility] == "yes"
+      @search_response = Place.raw_search(@search_string)
+
+      if @search_response["hits"].length > 0
+        @search_response["hits"].each do |hit|
+          if hit["objectID"].include? "place"
+            id = hit["objectID"].gsub("place_", "").to_i
+            break
+          else
+            id = 1064
+          end
         end
+      else
+        id = 1064
       end
     end
-    @place = Place.find(id)
 
-    redirect_to place_path(@place), notice: "This place closely matches your preferences"
+    if params[:email].present?
+      pass = SecureRandom.base64(10)
+      @user = User.create_with(password: pass, password_confirmation: pass).find_or_create_by(email: params[:email])
+      if !user_signed_in?
+        sign_in(:user, @user)
+      end
+    end
+
+    if @user
+      OneMinuteForm.create!(results: params.to_s, user_id: @user.id)
+    else
+      OneMinuteForm.create(results: params.to_s, user_id: nil)
+    end
+
+    @place = Place.find(id)
+    debugger
+    if @country
+      redirect_to country_path(@country)
+    else
+      redirect_to place_path(@place)
+    end
   end
 
   def places_with_subcategories
