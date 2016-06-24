@@ -107,11 +107,16 @@ class PlacesController < ApplicationController
     end
 
     debugger
-    @place = Place.find(@id)
+
     if @country
       redirect_to country_path(@country)
     else
-      redirect_to place_path(@place)
+      if @id
+        @place = Place.find(@id)
+        redirect_to place_path(@place)
+      else
+        redirect_to @search_response["hits"][0]["url"]
+      end
     end
   end
 
