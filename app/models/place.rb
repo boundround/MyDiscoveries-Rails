@@ -10,7 +10,7 @@ class Place < ActiveRecord::Base
     # attributes :is_area
 
     synonyms [
-        ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping", "playgrounds", "watersports"],
+        ["active", "water sports", "sports", "sport", "watersports"],
         ["disabled", "wheelchair access", "accessible"],
         ["culture", "cultural", "museum", "indigenous", "gallery", "galleries", "museums", "historic", "history"],
         ["science", "technology"],
