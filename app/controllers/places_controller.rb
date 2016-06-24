@@ -38,6 +38,7 @@ class PlacesController < ApplicationController
   def subcategory_match
     index = Algolia::Index.new("place_production")
     @search_string = ""
+    @search = ""
     @ages = params[:ages].join(" ")
     @possible_subcategories = nil
     @id = nil
@@ -73,23 +74,27 @@ class PlacesController < ApplicationController
       @search_string << " accessible" if params[:accessibility] == "yes"
       @possible_subcategories = params[:subcategories]
       @possible_subcategories = (1..@possible_subcategories.length).flat_map{|size| @possible_subcategories.combination(size).to_a }
-      @search = @search_string + " " + @possible_subcategories.last.join(' ')
-      @search_response = index.search(@search_string)
+      @search = @search_string + " " + @possible_subcategories.pop.join(' ')
+      @search_response = index.search(@search)
+      debugger
     end
 
     @search_count = 1
-    while ((@search_response["hits"].length == 0) || (@search_count < 10)) && (@id.blank?)
-      @possible_subcategories.reverse_each do |cats|
-        @new_search = @search_string + " " + cats.join(" ")
-        @search_response = index.search(@new_search)
-        @search_response["hits"].each do |hit|
-          if (hit["objectID"].include?("place")) && (hit["area"] == "f") && (hit["parents"].any? { |x| x.include? @region.capitalize } )
-            @id = hit["objectID"].gsub("place_", "").to_i
+
+    if @search_response["hits"].size == 0
+      while (@search_count < @possible_subcategories.size) || (@id.blank?)
+        @possible_subcategories.reverse_each do |cats|
+          @new_search = @search_string + " " + cats.join(" ")
+          @search_response = index.search(@new_search)
+          @id = Place.return_first_place_id_from_search_results(@search_response, @region)
+          if @id
             break
           end
         end
+        @search_count += 1
       end
-      @search_count += 1
+    else
+      @id = Place.return_first_place_id_from_search_results(@search_response, @region)
     end
 
     if params[:email].present?
@@ -106,7 +111,6 @@ class PlacesController < ApplicationController
       OneMinuteForm.create(results: params.to_s, user_id: nil)
     end
 
-    debugger
 
     if @country
       redirect_to country_path(@country)

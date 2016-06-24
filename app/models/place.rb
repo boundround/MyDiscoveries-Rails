@@ -329,6 +329,16 @@ class Place < ActiveRecord::Base
   #     scoped
   #   end
   # end
+  def self.return_first_place_id_from_search_results(search_response, region)
+    id = nil
+    search_response["hits"].each do |hit|
+      if (hit["objectID"].include?("place")) && (hit["area"] == "f") && (hit["parents"].any? { |x| x.downcase.include? region } )
+        id = hit["objectID"].gsub("place_", "").to_i
+        break
+      end
+    end
+    id
+  end
 
   def flush_place_cache
     Rails.cache.delete('all_places')
