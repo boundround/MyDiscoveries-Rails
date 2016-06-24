@@ -36,8 +36,8 @@ class PlacesController < ApplicationController
   end
 
   def subcategory_match
+    index = Algolia::Index.new("place_development")
     @search_string = ""
-    @search_string << " #{ params[:subcategories].join(' ')}"
     ages = params[:ages].join(" ")
     id = nil
     @country = nil
@@ -46,8 +46,9 @@ class PlacesController < ApplicationController
     if ages.include? "0-4"
       @search_string << "5-8"
     else
-      @search_string << " #{ params[:ages].join(' ')}"
+      @search_string << " #{ages}"
     end
+
 
     case params[:region]
     when "asia"
@@ -67,11 +68,12 @@ class PlacesController < ApplicationController
     else
       @search_string << " #{params[:region]}"
       @search_string << " accessible" if params[:accessibility] == "yes"
-      @search_response = Place.raw_search(@search_string)
+      @search_string << " #{ params[:subcategories].join(',')}"
+      @search_response = index.search(@search_string, { removeWordsIfNoResults: 'lastWords'})
 
       if @search_response["hits"].length > 0
         @search_response["hits"].each do |hit|
-          if hit["objectID"].include? "place"
+          if (hit["objectID"].include?("place")) && (hit["area"] == "f")
             id = hit["objectID"].gsub("place_", "").to_i
             break
           else

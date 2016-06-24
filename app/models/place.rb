@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
-  algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug, :minimum_age, :maximum_age, :viator_link
     # attributes :is_area
@@ -177,7 +177,7 @@ class Place < ActiveRecord::Base
     # you want to search in: here `title`, `subtitle` & `description`.
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
-    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)', 'unordered(subcategories)', 'unordered(age_range)', 'unordered(accessible)', 'unordered(parents)']
+    attributesToIndex ['display_name', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)', 'age_range', 'accessible', 'subcategories', 'unordered(parents)']
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
