@@ -36,53 +36,60 @@ class PlacesController < ApplicationController
   end
 
   def subcategory_match
-    index = Algolia::Index.new("place_development")
+    index = Algolia::Index.new("place_production")
     @search_string = ""
-    ages = params[:ages].join(" ")
-    id = nil
+    @ages = params[:ages].join(" ")
+    @possible_subcategories = nil
+    @id = nil
     @country = nil
     @user = nil
+    @search_response = nil
+    @region = params[:region]
 
-    if ages.include? "0-4"
+    if @ages.include? "0-4"
       @search_string << "5-8"
     else
-      @search_string << " #{ages}"
+      @search_string << " #{@ages}"
     end
 
 
-    case params[:region]
+    case @region
     when "asia"
-      id = 1168
+      @id = 1168
     when "na"
-      id = 1535
+      @id = 1535
     when "sa"
       @country = Country.find 133
     when "eu"
-      id = 1177
+      @id = 1177
     when "me"
-      id = 1152
+      @id = 1152
     when "af"
       @country = Country.find 87
     when "tasmania"
-      id = 545
+      @id = 545
     else
-      @search_string << " #{params[:region]}"
+      @search_string << " #{@region}"
       @search_string << " accessible" if params[:accessibility] == "yes"
-      @search_string << " #{ params[:subcategories].join(',')}"
-      @search_response = index.search(@search_string, { removeWordsIfNoResults: 'lastWords'})
+      @possible_subcategories = params[:subcategories]
+      @possible_subcategories = (1..@possible_subcategories.length).flat_map{|size| @possible_subcategories.combination(size).to_a }
+      @search = @search_string + " " + @possible_subcategories.last.join(' ')
+      @search_response = index.search(@search_string)
+    end
 
-      if @search_response["hits"].length > 0
+    @search_count = 1
+    while ((@search_response["hits"].length == 0) || (@search_count < 10)) && (@id.blank?)
+      @possible_subcategories.reverse_each do |cats|
+        @new_search = @search_string + " " + cats.join(" ")
+        @search_response = index.search(@new_search)
         @search_response["hits"].each do |hit|
-          if (hit["objectID"].include?("place")) && (hit["area"] == "f")
-            id = hit["objectID"].gsub("place_", "").to_i
+          if (hit["objectID"].include?("place")) && (hit["area"] == "f") && (hit["parents"].any? { |x| x.include? @region.capitalize } )
+            @id = hit["objectID"].gsub("place_", "").to_i
             break
-          else
-            id = 1064
           end
         end
-      else
-        id = 1064
       end
+      @search_count += 1
     end
 
     if params[:email].present?
@@ -99,8 +106,8 @@ class PlacesController < ApplicationController
       OneMinuteForm.create(results: params.to_s, user_id: nil)
     end
 
-    @place = Place.find(id)
     debugger
+    @place = Place.find(@id)
     if @country
       redirect_to country_path(@country)
     else
