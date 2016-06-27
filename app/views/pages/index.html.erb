@@ -301,6 +301,7 @@
                       <div class="row hidden-md hidden-lg">
                           <div class="owl-carousel carousel">
                               <% @subcategories.each do |category| %>
+                                <%= link_to searching_sub_cat_path(category.identifier) do %>
                                   <div class="thing-item">
                                       <div class="col-sm-3">
                                           <div class="thing-medium-card-wrapper">
@@ -314,6 +315,7 @@
                                           </div>
                                       </div>
                                   </div>
+                                <% end %>
                               <% end %>
                           </div>
                       </div>
