@@ -76,7 +76,6 @@ class PlacesController < ApplicationController
       @possible_subcategories = (1..@possible_subcategories.length).flat_map{|size| @possible_subcategories.combination(size).to_a }
       @search = @search_string + " " + @possible_subcategories.pop.join(' ')
       @search_response = index.search(@search, restrictSearchableAttributes: "age_range,accessible,parents,subcategories")
-      debugger
     end
 
     @search_count = 1
@@ -113,13 +112,13 @@ class PlacesController < ApplicationController
 
 
     if @country
-      redirect_to country_path(@country)
+      redirect_to country_path(@country, modal: "true")
     else
       if @id
         @place = Place.find(@id)
-        redirect_to place_path(@place)
+        redirect_to place_path(@place, modal: "true")
       else
-        redirect_to @search_response["hits"][0]["url"]
+        redirect_to @search_response["hits"][0]["url"] + "?modal=true"
       end
     end
   end

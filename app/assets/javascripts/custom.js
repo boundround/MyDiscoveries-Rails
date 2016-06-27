@@ -23,16 +23,18 @@ $(document).ready(function(){
       return query_string;
   }();
 
-  console.log(QueryString);
 
   if (QueryString.video){
     var video = $('#' + QueryString.video)[0];
-    console.log(QueryString.video);
     if (video){
       data_src = $(video).data("video-url");
       $("#video-modal iframe").prop("src", data_src);
       $("#video-modal").modal("show");
     }
+  }
+  
+  if (QueryString.modal === 'true'){
+    $('#one-minute-modal').modal('show');
   }
 
   if($("#dual-list-box-Places").length > 0){

@@ -179,3 +179,51 @@
 </div>
 <% end %>
 <!--END MODAL ADD MEDIA-->
+
+<% if user_signed_in? %>
+  <div id="one-minute-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-margin-top">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" align="center"></h4>
+        </div>
+        <div class="modal-body" align="left">
+          <div class="row">
+            <div class="col-xs-12 text-center">
+              <p><h4>Hi <%= current_user.username.blank? ? current_user.email : current_user.username %></h4></p>
+              <p><br>
+                This is what Bound Round users most like you recommend for family fun this month. Check it out!
+              </p><br>
+              <p>
+                If you've already been, please write a review. Otherwise, happy planning!<br>
+                <i style="color: lightblue;" class="fa fa-thumbs-up fa-2x"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div id="one-minute-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-margin-top">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" align="center"></h4>
+        </div>
+        <div class="modal-body" align="left">
+          <div class="row">
+            <div class="col-xs-12">
+              <p>This is Bound Round's top family friendly destination in your region.</p>
+              <p>We love local suggestions for places to add.</p>
+              <p><a href="mailto:welcome@boundround.com" class="btn btn-primary">Please email us your top places</a></p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
