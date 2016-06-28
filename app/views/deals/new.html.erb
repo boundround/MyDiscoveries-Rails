@@ -4,7 +4,8 @@
     <%= simple_form_for [@dealable, @deal] do |f| %>
       <%= f.input :url, input_html: { class: "form-control"} %>
       <%= f.input :title, input_html: { class: "form-control"} %>
-      <%= f.input :description, input_html: { class: "form-control"} %>
+      <%= f.input :description, input_html: { id: "data", class: "form-control", onkeyup: "countChars('data', 'charCount')", onkeydown: "countChars('data', 'charCount')", onmouseout: "countChars('data', 'charCount')"} %>
+      <span id="charCount">0</span> characters entered. (255 max)<br>
       <%= f.input :min_price, label: "Priced From", input_html: { class: "form-control"} %>
       <%= f.input :status, collection: ["live", "draft", "removed"], input_html: { class: "form-control"} %>
       <%= f.input :hero_image, as: :file, input_html: { class: "form-control"} %>
@@ -12,4 +13,10 @@
     <% end %>
     <div class="border-section btm20"></div>
   </div>
+  <script type="text/javascript">
+    function countChars(countfrom,displayto) {
+      var len = document.getElementById(countfrom).value.length;
+      document.getElementById(displayto).innerHTML = len;
+    }
+  </script>
 <% end %>
