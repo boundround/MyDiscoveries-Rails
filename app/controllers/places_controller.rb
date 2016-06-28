@@ -289,13 +289,13 @@ class PlacesController < ApplicationController
     @places_to_visit = @places_to_visit.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
 
     if @place.parent_id.blank?
-      if @place.primary_category.id == 2
+      if @place.primary_category.present? && @place.primary_category.id == 2
         @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(country_id: @place.country_id).order("RANDOM()")
       else
         @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id).order("RANDOM()")
       end
     else
-      if @place.primary_category.id == 2
+      if @place.primary_category.present? && @place.primary_category.id == 2
         @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(parent_id: @place.parent_id).order("RANDOM()")
       else
         @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(parent_id: @place.parent_id).order("RANDOM()")
