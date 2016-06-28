@@ -28,10 +28,11 @@ body.passport-page, body.homepage{
 }
 
 .promo-hero {
-  background: url("/images/win_thredbo.jpg");
+  background: url("/images/win.jpg");
   height: 100%;
   border-radius: 5px;
   background-size: cover;
+	background-position: center;
   color: deeppink;
   text-align: center;
   text-shadow: 1px 1px black;
