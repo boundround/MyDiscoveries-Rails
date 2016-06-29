@@ -68,10 +68,10 @@
 						trackcmp.src = '//trackcmp.net/visit?actid=25096090&e='+encodeURIComponent(trackcmp_email)+'&r='+encodeURIComponent(document.referrer)+'&u='+encodeURIComponent(window.location.href);
 						var trackcmp_s = document.getElementsByTagName("script");
 						if (trackcmp_s.length) {
-						trackcmp_s[0].parentNode.appendChild(trackcmp);
+							trackcmp_s[0].parentNode.appendChild(trackcmp);
 						} else {
-						var trackcmp_h = document.getElementsByTagName("head");
-						trackcmp_h.length && trackcmp_h[0].appendChild(trackcmp);
+							var trackcmp_h = document.getElementsByTagName("head");
+							trackcmp_h.length && trackcmp_h[0].appendChild(trackcmp);
 						}
 					</script>
       <% else %>
