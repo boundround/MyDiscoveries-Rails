@@ -11,7 +11,7 @@
       </thead>
       <tbody>
       <% @photos.each do |photo| %>
-        <% if photo.place.present? %>
+        <% if photo.place.present? && photo.place.status == "live" %>
           <tr>
             <td><%= photo.place_id.to_s %></td>
             <td><%= link_to photo.place.display_name, edit_place_path(photo.place) %></td>
