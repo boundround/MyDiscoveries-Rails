@@ -1,0 +1,27 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+  <div id="table-container">
+    <h1>Photo Errors</h1>
+
+    <table class="table table-striped" id="place-table">
+      <thead>
+      <tr>
+        <th>Place ID</th>
+        <th>Display Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @photos.each do |photo| %>
+        <% if photo.place.present? %>
+          <tr>
+            <td><%= photo.place_id.to_s %></td>
+            <td><%= link_to photo.place.display_name, edit_place_path(photo.place) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+<h3>You are not signed in or do not have the proper permissions to view this page</h3>
+<% end %>
+<link href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css" type="text/css">

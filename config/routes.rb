@@ -50,6 +50,10 @@ Rails.application.routes.draw do
 
   resources :transactions
 
+  resources :custom_reports do
+    collection { get "photo_errors"}
+  end
+
   require 'sidekiq/web'
 
   mount Sidekiq::Web => '/sidekiq'
