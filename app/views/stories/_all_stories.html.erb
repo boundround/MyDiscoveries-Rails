@@ -1,4 +1,4 @@
-<div id="stories" class="thing-page-segment <%= "container" if (@place.present? && @place.is_area == true) %> stories-wrapper">
+<div id="stories" class="thing-page-segment <%= "container" if (@place.present? && @place.class.to_s != "Country" && @place.is_area == true) %> stories-wrapper">
   <div class="row">
     <div class="col-xs-12">
       <% if params[:controller].eql? "posts" %>
