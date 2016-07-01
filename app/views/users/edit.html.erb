@@ -64,7 +64,9 @@
         <div class="col-xs-12 col-sm-12 top15">
           <span class="btn btn-default btn-block">
           <span class="grey">Date Of Birth</span><br>
-          <%= f.input :date_of_birth, as: :date, label: false %>
+          <%= f.input :date_of_birth, label: false, as: :date, start_year: Date.today.year - 90,
+                              end_year: Date.today.year - 12,
+                              order: [:day, :month, :year] %>
           </span>
         </div>
         <div class="col-xs-12 col-sm-12 top15">
