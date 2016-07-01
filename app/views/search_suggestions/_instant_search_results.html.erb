@@ -53,7 +53,7 @@
         <div class="checkbox">
           <label>
             <input type="checkbox" data-checked="<%= params[:sub_cat_id] %>" class="ischecked facet-link instant-search-toggle-refine {{#disjunctive}}facet-disjunctive{{/disjunctive}} {{#isRefined}}facet-refined{{/isRefined}}" data-facet="{{ facet }}" data-value="{{ name }}" {{#isRefined}}checked="true"{{/isRefined}}>
-            {{ name }} <span class="facet-count pull-right">({{ count }})</span>
+            {{ name }} <span class="facet-count pull-right">&nbsp;{{ count }}</span>
           </label>
         </div>
       </div>
