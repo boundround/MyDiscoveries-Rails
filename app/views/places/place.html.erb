@@ -365,7 +365,7 @@
             <%= render partial: "shared/videos_list", locals:{container: "" } %>
           </div>
           <%= render partial: "stories/all_stories"%>
-          <% if user_signed_in? && current_user.admin? && !@place.deals.blank? %>
+          <% if @deals.present? %>
             <div id="deals" class="thing-page-segment">
               <div>
                 <h3>Deals</h3> </div>
