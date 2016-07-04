@@ -7,7 +7,6 @@
           <th>ID</th>
           <th>Username</th>
           <th>Email</th>
-          <th>Sign In</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -18,7 +17,6 @@
             <td><%= user.id %></td>
             <td><%= user.username if user.username %></td>
             <td><%= user.email if user.email %></td>
-            <td><%= link_to "Sign In", "/users/sign_in_as?user_id=#{user.id}" %></td>
             <td><%= link_to 'Edit', edit_user_path(user) %></td>
             <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
