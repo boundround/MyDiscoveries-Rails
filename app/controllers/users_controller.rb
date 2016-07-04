@@ -32,6 +32,15 @@ class UsersController < ApplicationController
 
   end
 
+  def sign_in_as
+    @user = User.find(params[:user_id].to_i)
+    if user_signed_in? and current_user.admin?
+      sign_in(@user)
+
+      render :edit, notice: "Signed in as #{@user.email}"
+    end
+  end
+
   def public_profile
     @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
   end

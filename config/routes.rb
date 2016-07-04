@@ -141,6 +141,7 @@ Rails.application.routes.draw do
   get '/puzzles/:action' => 'puzzles#:action'
 
   get '/users/games' => 'users#games'
+  get '/users/sign_in_as' => 'users#sign_in_as'
   get '/users/videos' => 'users#videos'
   get '/users/places' => 'users#places'
   get '/users/fun_facts' => 'users#fun_facts'
