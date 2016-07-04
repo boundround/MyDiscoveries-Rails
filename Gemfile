@@ -128,7 +128,7 @@ gem 'hirb'
 gem 'country_select'
 
 # Classier solution for file uploads for Rails.
-gem 'carrierwave-aws'
+gem 'carrierwave'
 gem 'carrierwave_backgrounder'
 gem 'sidekiq'
 gem 'sidekiq-history'

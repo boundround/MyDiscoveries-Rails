@@ -76,12 +76,6 @@ GEM
     autoprefixer-rails (6.3.6)
       execjs
     awesome_print (1.6.1)
-    aws-sdk (2.3.14)
-      aws-sdk-resources (= 2.3.14)
-    aws-sdk-core (2.3.14)
-      jmespath (~> 1.0)
-    aws-sdk-resources (2.3.14)
-      aws-sdk-core (= 2.3.14)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -108,9 +102,6 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
-    carrierwave-aws (1.0.1)
-      aws-sdk (~> 2.0)
-      carrierwave (~> 0.7)
     carrierwave-crop (0.1.2)
       carrierwave (>= 0.8.0, < 0.11.0)
       jquery-rails
@@ -355,8 +346,6 @@ GEM
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
-    jmespath (1.2.4)
-      json_pure (>= 1.8.1)
     jquery-datatables-rails (3.3.0)
       actionpack (>= 3.1)
       jquery-rails
@@ -372,7 +361,6 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
-    json_pure (1.8.3)
     jwt (1.5.1)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
@@ -631,7 +619,7 @@ DEPENDENCIES
   brakeman
   browser
   byebug
-  carrierwave-aws
+  carrierwave
   carrierwave-crop
   carrierwave_backgrounder
   ckeditor!
