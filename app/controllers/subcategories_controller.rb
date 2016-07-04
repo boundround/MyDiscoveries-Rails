@@ -32,7 +32,7 @@ class SubcategoriesController < ApplicationController
   end
 
   def cms_index
-    @subcategories = Subcategory.order(category_type: :asc)
+    @subcategories = Subcategory.order(category_type: :asc, name: :asc)
     @subcategory = Subcategory.new
   end
 

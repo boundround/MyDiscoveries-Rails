@@ -313,7 +313,6 @@ $(document).ready(function() {
             var facetResult = content.getFacetByName(facetName);
             if (!facetResult) continue;
             var facetContent = {};
-
             facetContent = {
                 facet: facetName,
                 title: FACETS_LABELS[facetName],
@@ -322,6 +321,9 @@ $(document).ready(function() {
                 }),
                 disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
             };
+            facetContent.values.sort(function(a, b){
+              return a.name.localeCompare(b.name);
+            })
             facetsHtml += instantfacetTemplate.render(facetContent);
         }
         $instantSearchFacet.html(facetsHtml);

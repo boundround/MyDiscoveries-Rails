@@ -28,9 +28,9 @@
     <%= f.input :name, input_html: {class: "form-control"} %>
     <%= f.input :category_type, as: :select, collection: ["subcategory", "duration", "optimum_time", "price", "accessibility", "weather"],input_html: { class: 'form-control' } %>
     <%= f.input :icon, as: :file, label: "Image File", input_html: {class: "form-control"} %>
-    <%= f.input :primary_description, label: "Primary Description", input_html: {class: "form-control", id: "primary_textarea"} %>
+    <%= f.input :primary_description, label: "Primary Description", input_html: {class: "form-control", id: "primary_textarea", onkeyup: "countChars('primary_textarea', 'primary_count')" } %>
     <div>Character Count: <span id="primary_count"></span></div>
-    <%= f.input :secondary_description, label: "Secondary Description", input_html: {class: "form-control", id: "secondary_textarea"} %>
+    <%= f.input :secondary_description, label: "Secondary Description", input_html: {class: "form-control", id: "secondary_textarea", onkeyup: "countChars('secondary_textarea', 'secondary_count')" } %>
     <div>Character Count: <span id="secondary_count"></span></div>
     <%= f.submit :submit %>
   <% end %>
@@ -40,13 +40,8 @@
 <% end %>
 
 <script>
-  $("#primary_count").text($("#primary_textarea").val().length);
-  $("#secondary_count").text($("#secondary_textarea").val().length);
-  $("#primary_textarea").keyup(function(){
-    $("#primary_count").text($(this).val().length);
-  });
-
-  $("#secondary_textarea").keyup(function(){
-    $("#secondary_count").text($(this).val().length);
-  });
+  function countChars(countfrom,displayto) {
+    var len = document.getElementById(countfrom).value.length;
+    document.getElementById(displayto).innerHTML = len;
+  }
 </script>

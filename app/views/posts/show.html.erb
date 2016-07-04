@@ -2,7 +2,13 @@
 <% provide(:category, @post.teaser) %>
 <div class="container blog-container thing-page">
   <h1 class="post-heading"><%= @post.title %></h1>
-  <p class="text-center">by <%= @post.user.username %></p>
+  <p class="text-center">by&nbsp;
+    <% if @post.user.is_private? %>
+      <%= @post.user.username %>
+    <% else %>
+      <%= link_to @post.user.username, public_profile_user_path(@post.user) %>
+    <% end %>
+  </p>
   <p class="text-center">
     <img src="<%= asset_path('br-logo-new-blue.png') %>" height="50px">
   </p>
