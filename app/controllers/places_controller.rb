@@ -75,7 +75,7 @@ class PlacesController < ApplicationController
       @possible_subcategories = params[:subcategories]
       @possible_subcategories = (1..@possible_subcategories.length).flat_map{|size| @possible_subcategories.combination(size).to_a }
       @search = @search_string + " " + @possible_subcategories.pop.join(' ')
-      @search_response = index.search(@search, restrictSearchableAttributes: "age_range,accessible,parents,subcategories")
+      @search_response = index.search(@search)
     end
 
     @search_count = 1
@@ -84,7 +84,7 @@ class PlacesController < ApplicationController
       while (@search_count < @possible_subcategories.size) || (@id.blank?)
         @possible_subcategories.reverse_each do |cats|
           @new_search = @search_string + " " + cats.join(" ")
-          @search_response = index.search(@new_search, restrictSearchableAttributes: "age_range,parents,accessible,subcategories")
+          @search_response = index.search(@new_search) #restrictSearchableAttributes: "age_range,parents,accessible,subcategories")
           @id = Place.return_first_place_id_from_search_results(@search_response, @region)
           if @id
             break
