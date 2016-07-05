@@ -321,6 +321,12 @@ class Post < ActiveRecord::Base
     string = string[0..280] + "..."
   end
 
+  def description
+    content = Nokogiri::HTML::Document.parse self.content
+
+    first_paragraph = content.css('p').first.content
+  end
+
   def published?
     if self.status == "live"
       true
