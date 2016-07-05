@@ -322,9 +322,17 @@ class Post < ActiveRecord::Base
   end
 
   def description
+
     content = Nokogiri::HTML::Document.parse self.content
 
-    first_paragraph = content.css('p').first.content
+    desc = content.css('h3').first.content
+
+    if desc.blank?
+      desc = content.css('p').first.content
+    end
+
+    desc
+
   end
 
   def published?
