@@ -323,12 +323,13 @@ class Post < ActiveRecord::Base
 
   def description
 
-    content = Nokogiri::HTML::Document.parse self.content
+    text = Nokogiri::HTML::Document.parse self.content
+    desc = ""
 
-    desc = content.css('h3').first.content
-
-    if desc.blank?
-      desc = content.css('p').first.content
+    if text.css('h3').present?
+      desc = text.css('h3').first.content
+    elsif text.css('p').present?
+      desc = text.css('p').first.content
     end
 
     desc

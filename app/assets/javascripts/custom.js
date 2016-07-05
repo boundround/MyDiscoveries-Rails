@@ -23,6 +23,20 @@ $(document).ready(function(){
       return query_string;
   }();
 
+  var dualListBox = function(selector, ids, selectBox){
+    if (selector.length > 0) {
+      if (ids.length > 0){
+        for(var i = 0; i < ids.length; i++){
+          if (ids[i] !== "nil"){
+            $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
+                              "' name=" + similar_ids[i]['place_name'] +
+                              "' >" + similar_ids[i]['place_name'] + "</option>");
+          }
+        }
+      }
+    }
+  }
+
 
   if (QueryString.video){
     var video = $('#' + QueryString.video)[0];
@@ -32,26 +46,28 @@ $(document).ready(function(){
       $("#video-modal").modal("show");
     }
   }
-  
+
   if (QueryString.modal === 'true'){
     $('#one-minute-modal').modal('show');
   }
 
-  if($("#dual-list-box-Places").length > 0){
-    var availableDestinations = $('#dual-list-box-Places');
-    var similar_ids = $('#similar-places-js').data("similar");
-    var selectBox = $("[name*='places_post[place_ids][]']");
-    if(similar_ids.length > 0){
-      for (var i = 0; i < similar_ids.length; i++){
-        //availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
-        if (similar_ids[i] !== "nil"){
-          $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
-                              "' name=" + similar_ids[i]['place_name'] +
-                              "' >" + similar_ids[i]['place_name'] + "</option>")
-        }
-      }
-    }
-  }
+  dualListBox($('#dual-list-box-Places'), $('#similar-places-js').data("similar"), $("[name*='places_post[place_ids][]']"));
+
+  // if($("#dual-list-box-Places").length > 0){
+  //   var availableDestinations = $('#dual-list-box-Places');
+  //   var similar_ids = $('#similar-places-js').data("similar");
+  //   var selectBox = $("[name*='places_post[place_ids][]']");
+  //   if(similar_ids.length > 0){
+  //     for (var i = 0; i < similar_ids.length; i++){
+  //       //availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
+  //       if (similar_ids[i] !== "nil"){
+  //         $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
+  //                             "' name=" + similar_ids[i]['place_name'] +
+  //                             "' >" + similar_ids[i]['place_name'] + "</option>")
+  //       }
+  //     }
+  //   }
+  // }
 
   if($("#dual-list-box-Countries").length > 0){
     var availableCountries = $('#dual-list-box-Countries');
