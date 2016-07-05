@@ -21,18 +21,10 @@ gem 'iconv'
 
 gem 'bootstrap-glyphicons'
 
-# Mercury HTML5 Editor for WYSIWYG capability
-# gem 'mercury-rails', git: 'https://github.com/jejacks0n/mercury.git'
-
-# Bootsy WYSIWYG Editor
-gem 'bootsy', github: "volmer/bootsy"
-
 gem 'rails4-autocomplete'
 gem "algoliasearch-rails"
 
 gem 'jquery-fileupload-rails'
-
-gem 'carrierwave-crop'
 
 gem 'httparty'
 
@@ -128,10 +120,14 @@ gem 'hirb'
 gem 'country_select'
 
 # Classier solution for file uploads for Rails.
-gem 'carrierwave'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'carrierwave_backgrounder'
+
 gem 'sidekiq'
 gem 'sidekiq-history'
+
+# Bootsy WYSIWYG Editor
+gem 'bootsy', github: "volmer/bootsy"
 
 gem 'slim', '>= 1.1.0'
 gem 'sinatra', '>= 1.3.0', :require => nil
@@ -145,7 +141,8 @@ gem 'figaro'
 
 gem 'mini_magick'
 
-gem 'fog'
+# gem 'fog'
+gem 'fog-aws'
 
 gem "browser"
 
