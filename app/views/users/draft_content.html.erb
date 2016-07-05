@@ -2,32 +2,6 @@
 <div class="area-content br_place_page">
   <div class="container-fluid br_area">
     <h2>User Content In Draft</h2>
-    <h4>Stories</h4>
-    <table class="table table-striped" id="stories-table">
-      <thead>
-        <tr>
-          <th>Location</th>
-          <th>Title</th>
-          <th># of Photos</th>
-          <th>Edit</th>
-          <th>Story Status</th>
-          <th>User</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @stories.each do |story| %>
-            <tr>
-              <td><%= story.storiable.display_name %></td>
-              <td><%= story.story_title %></td>
-              <td><%= story.story_images.size %></td>
-              <td><%= link_to "Edit Story", edit_story_place_path(story.storiable, story.slug) %></td>
-              <td><%= story.status %></td>
-              <td><%= story.user.email %></td>
-            </tr>
-          <% end %>
-      </tbody>
-    </table>
-    <hr>
     <h4>Reviews</h4>
     <table class="table table-striped" id="reviews-table">
       <thead>
