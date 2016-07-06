@@ -2,7 +2,7 @@ class Country < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
 
-  algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
 
     attributes :display_name
 
@@ -49,7 +49,9 @@ class Country < ActiveRecord::Base
       Rails.application.routes.url_helpers.country_path(self)
     end
 
-    attributesToIndex ['display_name', 'unordered(description)']
+    # attributesToIndex ['display_name', 'unordered(description)']
+    attributesToIndex ['display_name', 'age_range', 'accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)']
+
 
   end
 
