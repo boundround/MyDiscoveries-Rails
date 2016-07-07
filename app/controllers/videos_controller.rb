@@ -3,9 +3,12 @@ class VideosController < ApplicationController
     if params[:place_id].present?
       @videos = Place.friendly.find(params[:place_id]).videos.paginate(:page => params[:latest_videos_page], per_page: 6)
       @place = Place.friendly.find(params[:place_id])
+    elsif params[:country_id].present?
+      @videos = Country.friendly.find(params[:country_id]).videos.paginate(:page => params[:latest_videos_page], per_page: 6)
+      @place = Country.friendly.find(params[:country_id])
     else
       @featured_videos= Video.active.featured.where('vimeo_id is not null')
-      @latest_videos = Video.active.includes(:place).order('places.display_name ASC').where('videos.place_id IS NOT NULL').where('vimeo_id is not null').paginate(:page => params[:latest_videos_page], per_page: 6)
+      @latest_videos = Video.active.includes(:place).order('places.display_name ASC').where('vimeo_id is not null').paginate(:page => params[:latest_videos_page], per_page: 6)
     end
     @latest_videos ||= @videos
     respond_to do |f|
