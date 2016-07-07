@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
 
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
-    attributes :title, :content, :status, :slug, :minimum_age, :maximum_age
+    attributes :title, :content, :status, :slug, :minimum_age, :maximum_age, :description
 
     synonyms [
         ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping"],
@@ -23,10 +23,6 @@ class Post < ActiveRecord::Base
 
     attribute :display_address do
       "Bound Round Story"
-    end
-
-    attribute :description do
-      content
     end
 
     attribute :viator_link do
@@ -325,16 +321,17 @@ class Post < ActiveRecord::Base
 
   def description
 
-    text = Nokogiri::HTML::Document.parse self.content
-    desc = ""
-
-    if text.css('h3').present?
-      desc = text.css('h3').first.content
-    elsif text.css('p').present?
-      desc = text.css('p').first.content
+    text = Nokogiri::HTML::Document.parse content
+    desc = text.search("//text()").map(&:text)
+    result = ""
+    desc.each do |paragraph|
+      if paragraph.size > 20
+        result = paragraph
+        break
+      end
     end
 
-    desc
+    result
 
   end
 
