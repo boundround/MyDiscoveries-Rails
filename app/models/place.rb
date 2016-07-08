@@ -600,8 +600,11 @@ class Place < ActiveRecord::Base
   end
 
   def trip_advisor_info
-    trip_advisor_id = trip_advisor_url.match(/(.*)(d[0-9]+)(.*)/)[2].gsub("d", "")
     body = nil
+    trip_advisor_id = nil
+    if trip_advisor_url.present?
+      trip_advisor_id = trip_advisor_url.match(/(.*)(d[0-9]+)(.*)/)[2].gsub("d", "")
+    end
     if trip_advisor_id
       response = HTTParty.get("http://api.tripadvisor.com/api/partner/2.0/location/#{trip_advisor_id}?key=6cd1112100c1424a9368e441f50cb642")
     else
