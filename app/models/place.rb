@@ -529,7 +529,7 @@ class Place < ActiveRecord::Base
   end
 
   def get_parents(place, parents = [])
-    if place.parent.blank? || place.parent == self
+    if place.parent.blank? || (place.parent == self)
       if !place.country.blank?
         parents << place.country
         return parents
@@ -597,6 +597,22 @@ class Place < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     slug.blank? || display_name_changed? || self.country_id_changed? || self.parent_id_changed?
+  end
+
+  def trip_advisor_info
+    trip_advisor_id = trip_advisor_url.match(/(.*)(d[0-9]+)(.*)/)[2].gsub("d", "")
+    body = nil
+    if trip_advisor_id
+      response = HTTParty.get("http://api.tripadvisor.com/api/partner/2.0/location/#{trip_advisor_id}?key=6cd1112100c1424a9368e441f50cb642")
+    else
+      response = nil
+    end
+
+    if response.present?
+      body = JSON.parse(response.body)
+    end
+
+    body
   end
 
   private

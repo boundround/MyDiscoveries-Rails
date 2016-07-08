@@ -328,6 +328,7 @@ class PlacesController < ApplicationController
     @last_video = @place.videos.active.last
     @fun_facts = @place.fun_facts
     @set_body_class = "virgin-body" if @place.display_name == "Virgin Australia"
+    @trip_advisor_data = @place.trip_advisor_info
 
     view = if @place.is_area?
       @set_body_class = "destination-page"
@@ -808,6 +809,7 @@ class PlacesController < ApplicationController
         :special_requirements,
         :top_100,
         :viator_link,
+        :trip_advisor_url,
         photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
         fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],

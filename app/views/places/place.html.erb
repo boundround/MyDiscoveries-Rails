@@ -202,6 +202,19 @@
               </div>
             </div>
           </div>
+          <% if @trip_advisor_data %>
+            <div class="thing-side-info-segment">
+              <div class="row">
+                <div class="col-xs-12">TripAdvisor Traveler Rating</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <img src="<%= @trip_advisor_data["rating_image_url"] %>">
+                  &nbsp;<a href="<%= @trip_advisor_url %>"><%= @trip_advisor_data["num_reviews"] %> reviews</a>
+                </div>
+              </div>
+            </div>
+          <% end %>
           <div class="thing-side-info-segment">
             <div class="row">
               <div class="col-xs-8">Suitable for ages</div>

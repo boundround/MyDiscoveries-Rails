@@ -42,6 +42,9 @@
       <div class="form-group">
         <%= f.input :viator_link, input_html: { class: 'form-control' } %>
       </div>
+      <div class="form-group">
+        <%= f.input :trip_advisor_url, label: "Trip Advisor URL", input_html: { class: 'form-control' } %>
+      </div>
       <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
         <div class="form-group published-radio">
           <%= f.input :subscription_level, as: :radio_buttons, collection: ["basic", "standard", "Premium"] %>

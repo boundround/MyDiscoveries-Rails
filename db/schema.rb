@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630053841) do
+ActiveRecord::Schema.define(version: 20160708045952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -442,6 +442,7 @@ ActiveRecord::Schema.define(version: 20160630053841) do
     t.string   "algolia_id"
     t.string   "email"
     t.integer  "parent_id"
+    t.string   "trip_advisor_url"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree

@@ -58,3 +58,5 @@
 //= require jquery_nested_form
 //= require blueimp-gallery.min
 //= require custom
+//= require trip_advisor
+console.log("All Loaded");
