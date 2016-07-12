@@ -1,6 +1,9 @@
 <% provide(:title, @post.title) %>
 <% provide(:category, @post.teaser) %>
 <% provide(:description, @post.description) %>
+<% provide(:og_image, @post.story_images.first.gsub("https://", "http://")) %>
+<% provide(:og_secure_image, @post.story_images.first) %>
+
 <div class="container blog-container thing-page">
   <h1 class="post-heading"><%= @post.title %></h1>
   <p class="text-center">by&nbsp;
@@ -59,15 +62,26 @@
   <hr>
   <div class="share-title">Share this:</div>
   <ul class="share-buttons">
-    <li><a href="https://www.facebook.com/sharer/sharer.php?u=&t=" title="Share on Facebook" target="_blank"><img src="<%= asset_path('social_icons/Facebook.png') %>"></a></li>
-    <li><a href="https://twitter.com/intent/tweet?source=&text=:%20" target="_blank" title="Tweet"><img src="<%= asset_path('social_icons/Twitter.png') %>"></a></li>
-    <li><a href="https://plus.google.com/share?url=" target="_blank" title="Share on Google+"><img src="<%= asset_path('social_icons/Google+.png') %>"></a></li>
-    <li><a href="http://pinterest.com/pin/create/button/?url=&description=" target="_blank" title="Pin it"><img src="<%= asset_path('social_icons/Pinterest.png') %>"></a></li>
-    <li><a href="mailto:?subject=&body=:%20" target="_blank" title="Email"><img src="<%= asset_path('social_icons/Email.png') %>"></a></li>
+    <li><div class="share-button" id="shareBtn" title="Share on Facebook"><img class="share-icon" src="<%= asset_path('social_icons/Facebook.png') %>"></div></li>
+    <li><a class="twitter-share-button" href="https://twitter.com/intent/tweet?source=&text=<%= "#{@post.title} #{post_url(@post)}%20%23SeeItMyWay"%>" target="_blank" title="Tweet"><img  class="share-icon" src="<%= asset_path('social_icons/Twitter.png') %>"></a></li>
+    <!-- <li><div href="https://plus.google.com/share?url=" target="_blank" title="Share on Google+"><img src="<%= asset_path('social_icons/Google+.png') %>"></div></li>
+    <li><div href="http://pinterest.com/pin/create/button/?url=&description=" target="_blank" title="Pin it"><img src="<%= asset_path('social_icons/Pinterest.png') %>"></div></li> -->
+    <!-- <li><div href="mailto:?subject=&body=:%20" target="_blank" title="Email"><img  class="share-icon" src="<%= asset_path('social_icons/Email.png') %>"></div></li> -->
   </ul>
+
 </div>
 <style>
   img {
     margin-right: 20px;
   }
 </style>
+<script>
+document.getElementById('shareBtn').onclick = function() {
+  FB.ui({
+    method: 'share',
+    display: 'popup',
+    href: "<%= post_url(@post) %>"
+  }, function(response){});
+}
+
+</script>

@@ -2,13 +2,25 @@ body.passport-page, body.homepage{
 	background: #eaeaea ;
 }
 
+.share-icon {
+	margin-right: 2px;
+}
+
 ul.share-buttons{
   list-style: none;
   padding: 0;
 }
 
 ul.share-buttons li {
-	display: inline;
+	display: inline-block;
+}
+
+.share-button {
+	display: inline-block;
+}
+
+.share-button:hover{
+	cursor: pointer;
 }
 .navi-button {
 	color: #6cb7ca;

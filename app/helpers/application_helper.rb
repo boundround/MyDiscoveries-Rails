@@ -238,10 +238,10 @@ module ApplicationHelper
         photo = @country.photos.first.path_url :large
       end
 
-      if !photo.blank?
-        return "<meta property='og:image' content='#{photo.gsub('https://', 'http://') }' />\n" + "<meta property='og:image:secure_url' content='#{photo}' />\n" + "<meta property='og:image:type' content='image/jpeg' />"
+      if photo.present?
+        photo
       else
-        return "<meta property='og:image' content='#{ placeholder.gsub('https://', 'http://') }' />\n" + "<meta property='og:image:secure_url' content='#{placeholder}' />\n" + "<meta property='og:image:type' content='image/jpeg' />"
+        placeholder
       end
   end
 
