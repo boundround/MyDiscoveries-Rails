@@ -24,6 +24,8 @@ gem 'bootstrap-glyphicons'
 gem 'rails4-autocomplete'
 gem "algoliasearch-rails"
 
+gem 'active-campaign-rails'
+
 gem 'jquery-fileupload-rails'
 
 gem 'httparty'

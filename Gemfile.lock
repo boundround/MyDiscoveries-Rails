@@ -54,6 +54,7 @@ GEM
       activesupport (= 4.1.1)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active-campaign-rails (0.2.1)
     activemodel (4.1.1)
       activesupport (= 4.1.1)
       builder (~> 3.1)
@@ -485,6 +486,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active-campaign-rails
   acts-as-taggable-on (~> 3.4)
   algoliasearch-rails
   authority
