@@ -1,17 +1,28 @@
 // Add to Wishlist
-function addToFav() {
+function addToFav(assetType) {
+    var klass = assetType;
     $(".icon-favourite").on('click', function(e) {
+      console.log("CLICK");
         var icon = $(this);
         var userId = $(this).data("user-id");
         var placeId = $(this).data("place-id");
-        data = {};
-        data["places_user"] = { user_id: userId, place_id: placeId };
+        var postPath = $(this).data("post-path")
+        var data = {};
+        switch(klass){
+          case "place":
+            data["places_user"] = { user_id: userId, place_id: placeId };
+            break;
+          case "post":
+            data["posts_user"] = { user_id: userId, post_id: placeId };
+            break;
+        }
+
         if (userId === "no-user") {
             $("#myModal").modal();
         } else if ($(this).data("liked") === false) {
             $.ajax({
                 type: "POST",
-                url: '/places_users/create',
+                url: '/' + postPath + '/create',
                 data: data,
             });
             $(".favourites-title").text("Remove From Favourites");
@@ -22,7 +33,7 @@ function addToFav() {
             $.ajax({
                 type: "POST",
                 _method: 'delete',
-                url: '/places_users/destroy',
+                url: '/' + postPath + '/destroy',
                 data: data,
             });
             $(".favourites-title").text("Add To Favourites");
@@ -200,7 +211,9 @@ $(document).ready(function() {
     setUpfileUpload('.file-upload', '.lis-file-upload');
     setUpfileUpload('.file-upload2', '.lis-file-upload2');
     setUpfileUpload();
-    addToFav();
+    if (document.getElementById('favouriteType')){
+      addToFav($('#favouriteType').data('klass'));
+    }
     setUpLoadMore();
     responsiveModalVideo();
 

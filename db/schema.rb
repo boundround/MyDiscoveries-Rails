@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630053841) do
+ActiveRecord::Schema.define(version: 20160718020447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -442,6 +442,7 @@ ActiveRecord::Schema.define(version: 20160630053841) do
     t.string   "algolia_id"
     t.string   "email"
     t.integer  "parent_id"
+    t.string   "trip_advisor_url"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -520,6 +521,15 @@ ActiveRecord::Schema.define(version: 20160630053841) do
 
   add_index "posts_subcategories", ["post_id", "subcategory_id"], name: "index_posts_subcategories_on_post_id_and_subcategory_id", using: :btree
   add_index "posts_subcategories", ["subcategory_id", "post_id"], name: "index_posts_subcategories_on_subcategory_id_and_post_id", using: :btree
+
+  create_table "posts_users", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "post_id"
+    t.integer  "user_id"
+  end
+
+  add_index "posts_users", ["user_id", "post_id"], name: "index_posts_users_on_user_id_and_post_id", unique: true, using: :btree
 
   create_table "primary_categories", force: true do |t|
     t.string   "name"

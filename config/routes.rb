@@ -113,6 +113,8 @@ Rails.application.routes.draw do
   post 'stories_users/destroy' => 'stories_users#destroy'
   post 'reviews_users/create' => 'reviews_users#create'
   post 'reviews_users/destroy' => 'reviews_users#destroy'
+  post 'posts_users/create' => 'posts_users#create'
+  post 'posts_users/destroy' => 'posts_users#destroy'
 
   resources :user_photos
   post 'user_photos/profile_create' => 'user_photos#profile_create'

@@ -2280,6 +2280,28 @@ h4 {
 .thing-page .thing-heading .thing-heading-icons .thing-heading-icon-holder .thing-icon.icon-favourite:active:not(.selected) {
     background: url(/assets/new-images/icon-favourite.png) no-repeat center
 }
+
+.like-icon {
+    background: url(/assets/new-images/icon-favourite-unfilled.png) no-repeat center;
+    height: 53px;
+    width: 51px;
+}
+.like-icon.selected {
+    background: url(/assets/new-images/icon-favourite.png) no-repeat center;
+    height: 53px;
+    width: 51px;
+}
+.like-icon:hover:not(.selected) {
+    background: url(/assets/new-images/icon-favourite-hover.png) no-repeat center;
+    height: 53px;
+    width: 51px;
+}
+.like-icon:active:not(.selected) {
+    background: url(/assets/new-images/icon-favourite.png) no-repeat center;
+    height: 53px;
+    width: 51px;
+}
+
 .thing-page .thing-nav-option-wrapper {
     height: 60px;
     font-size: 14px
