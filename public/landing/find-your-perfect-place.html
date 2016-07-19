@@ -561,6 +561,127 @@ input[type="reset"].btn-block,
 input[type="button"].btn-block {
   width: 100%;
 }
+
+/* Absolute Center Spinner */
+.loading {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.loading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 1500ms infinite linear;
+  -moz-animation: spinner 1500ms infinite linear;
+  -ms-animation: spinner 1500ms infinite linear;
+  -o-animation: spinner 1500ms infinite linear;
+  animation: spinner 1500ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
     </style>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -602,6 +723,7 @@ src="https://www.facebook.com/tr?id=746879908782524&ev=PageView&noscript=1"
   <meta name="leadpages-meta-id" content="146d94873f72a2:15b110347f46dc" /><meta name="leadpages-serving-domain" content="https://boundround.leadpages.co" /><meta name="leadpages-served-by" content="html" />
 </head>
   <body>
+    <div class="loading">Loading&#8230;</div>
     <div class="page">
   <section class="section" data-guid="671abf27-1bed-1abb-129e-a586e721e72f" style="border-color: rgba(0, 0, 0, 0); background-image: url(&quot;&quot;); background-color: rgba(0, 0, 0, 0);">
     <div class="container">
@@ -741,7 +863,7 @@ src="https://www.facebook.com/tr?id=746879908782524&ev=PageView&noscript=1"
             <div class="row flex flex--12">
               <div class="composite flex__item--md-12 flex__item--xs-12">
                 <div class="inner-composite flex flex--12 undefined"></div>
-                <form method="get" name="one-minute" action="/places/subcategory_match" style="color:white;text-shadow:black 1px 1px">
+                <form method="get" name="one-minute" action="/places/subcategory_match" style="color:white;text-shadow:black 1px 1px" onsubmit="showLoading()">
                   <div class="form-group">
                     <label>My kids are: (check all that apply)</label><br>
                     <input type="checkbox" id="zero-to-four" value="all ages" name="ages[]"><label for="zero-to-four">&nbsp;Under 5</label><br>
@@ -987,5 +1109,12 @@ name:"An Nabaţīyah"}}},LC:{name:"Saint Lucia",sub:{"LC-11":{type:"District",na
 <script>"use strict";+function(t){function e(){var t=Array.prototype.slice.call(arguments);return t.reduce(function(t,e){var r;for(r in e)t[r]=e[r];return t})}function r(t,e,r){var i;return e=e||300,function(){var n=arguments;i&&clearTimeout(i),i=setTimeout(function(){t.apply(r,n)},e)}}function i(t,i,s){this.options=e(n,s||{}),t=t||document.querySelectorAll(this.options.inputSelector),i=i||document.querySelectorAll("form"),Array.prototype.forEach.call(t,function(t){t.addEventListener("input",r(this.handleInput,400,this)),t.addEventListener("invalid",function(e){e.preventDefault(),this.showError(t)}.bind(this))}.bind(this)),Array.prototype.forEach.call(i,function(t){t.addEventListener("submit",this.handleSubmit.bind(this))}.bind(this))}var n={groupClassName:"js-form-group",invalidClassName:"js-invalid",requiredClassName:"js-required",inputSelector:"input, select, textarea"};i.prototype.testInput=function(t){return t.checkValidity(),t.validity.valid?null:t},i.prototype.getParent=function(t){var e=t;do if(e=e.parentElement,e.classList.contains(this.options.groupClassName))return e;while(e)},i.prototype.showError=function(t){t.validity.valueMissing?this.getParent(t).classList.add(this.options.requiredClassName):this.getParent(t).classList.add(this.options.invalidClassName)},i.prototype.hideError=function(t){this.getParent(t).classList.remove(this.options.invalidClassName),this.getParent(t).classList.remove(this.options.requiredClassName)},i.prototype.handleInput=function(t){t&&t.preventDefault&&t.preventDefault();var e=t.srcElement||t.currentTarget||t.target,r=this.testInput(e);r?(this.hideError(e),this.showError(e)):this.hideError(e)},i.prototype.handleSubmit=function(t){var e=t.currentTarget,r=e.querySelectorAll(this.options.inputSelector);r=Array.prototype.slice.call(r),r=r.map(this.testInput).filter(function(t){return t}),r.length&&(r.forEach(this.showError.bind(this)),t.preventDefault())},t.sup=t.sup||{},t.sup.validator=new i}(window);</script>
 <script>"use strict";+function(t,e){function n(t){this.form=t,this.setupHiddenDateField(),this.setupListeners(),this.setupSalutation(),this.setupCountry(),this.setupState(),this.setupCountryCodePhoneNumber()}function r(e){try{t.center&&center(function(t){for(var n=Object.keys(e),r=0;r<n.length;r++)t("create",n[r]);n&&n.length>0&&t("send","view")})}catch(n){}}var o=".js-date-field",a=".js-salutation-field",i=".js-country-field",s=".js-state-field",u=".js-country-code-phone-number";n.prototype.setupSalutation=function(){var t,e;t=this.form.querySelectorAll(a),e=[{name:"Mr.",value:"Mr."},{name:"Mrs.",value:"Mrs."},{name:"Dr.",value:"Dr."},{name:"Ms.",value:"Ms."}],Array.prototype.forEach.call(t,function(t){t.options&&1===t.options.length&&this.setOptions(t,e)},this)},n.prototype.setupCountry=function(){var t=iso3166.data,e=this.form.querySelectorAll(i),n=[];e&&e.length>0&&(n=Object.keys(t).map(function(e,n){return{name:t[e].name,value:e}}).sort(function(t,e){return t.name.localeCompare(e.name)}),Array.prototype.forEach.call(e,function(t){t.addEventListener("change",this.countryChangeListener.bind(this)),this.setOptions(t,n)},this))},n.prototype.setupState=function(){var t=iso3166.country("US").sub,e=this.form.querySelectorAll(s),n=[];e&&e.length>0&&(n=Object.keys(t).map(function(e){return{name:t[e].name,value:e}}).sort(function(t,e){return t.name.localeCompare(e.name)}),Array.prototype.forEach.call(e,function(t){this.setOptions(t,n)},this))},n.prototype.countryChangeListener=function(t){var e=iso3166.data,n=this.form.querySelectorAll(s),r=[];n&&n.length>0&&(Object.keys(e).forEach(function(n,o){n===t.currentTarget.options[t.currentTarget.selectedIndex].value&&(r=Object.keys(e[n].sub).map(function(t){return{name:e[n].sub[t].name,value:t}}).sort(function(t,e){return t.name.localeCompare(e.name)}))}),Array.prototype.forEach.call(n,function(t){this.setOptions(t,r)},this))},n.prototype.setOptions=function(t,e,n){for(var r=0;t.length>0;)t.removeChild(t[0]);n?t.options[r++]=new Option(n.name,n.value):t.options[r++]=new Option("Select an option",""),e.forEach(function(e,n){t.options[r++]=new Option(e.name,e.value)})},n.prototype.setupListeners=function(){var t=this.form.querySelectorAll(o);Array.prototype.forEach.call(t,function(t){t.addEventListener("keyup",this.changeListener.bind(this)),t.addEventListener("change",this.changeListener.bind(this)),t.value&&this.updateHiddenField(t)},this)},n.prototype.setupHiddenDateField=function(){var t=this.form.querySelectorAll(o);Array.prototype.forEach.call(t,function(t){var n=e.createElement("input");n.setAttribute("type","hidden");var r=t.getAttribute("name");n.setAttribute("name",r),t.removeAttribute("name"),t.dataset.name=r,this.form.appendChild(n)},this)},n.prototype.convertTimeStamp=function(t,e){if(t=t.replace(/\//g,"-"),t.indexOf("-")===-1){var n=t.slice(0,2)+"-"+t.slice(2,4);8===t.length&&(n+="-"+t.slice(4)),t=n}try{var r;if("DateTimeField"===e)r=new Date(t).toISOString();else if("DateField"===e||"BirthdateField"===e){var o=t.split("-"),a=o.pop();o.unshift(a),r=o.join("-")}else r=t;return r}catch(i){return console.error(i),""}},n.prototype.updateHiddenField=function(t){var e=this.form.querySelector('[name="'+t.dataset.name+'"]'),n="";if(t.checkValidity()&&""!==t.value){var r=this.convertTimeStamp(t.value,t.dataset.kind);n=r}e.value=n},n.prototype.changeListener=function(t){var e=t.srcElement||t.currentTarget||t.target;this.updateHiddenField(e)},n.prototype.setupCountryCodePhoneNumber=function(){var e=t.phoneCountryCodes,n=this.form.querySelectorAll(u);if(n&&n.length>0){var r=e.map(function(t){var e=Object.keys(t)[0];return{name:"+"+t[e]+" "+e,value:t[e]}});Array.prototype.forEach.call(n,function(t){this.setOptions(t,r,{name:"+1 United States",value:"001"})},this)}},+function(){e.addEventListener("DOMContentLoaded",function(t){var o={};Array.prototype.forEach.call(e.forms,function(t){var e=(new n(t),t.getAttribute("data-tracking-code-id"));e&&(o[e]=e)}),r(o)})}()}(window,document);</script>
 
-  <script src="//my.leadpages.net/static/lp1468522675/min/tracking.js"></script></body>
+  <script src="//my.leadpages.net/static/lp1468522675/min/tracking.js"></script>
+  <script>
+    var showLoading = function(){
+      var loadingDiv = document.querySelector('.loading');
+      loadingDiv.style.display = "block";
+    }
+  </script>
+  </body>
 </html><!--  This beautiful and lightning fast landing page was proudly created with Leadpages ( see: https://www.leadpages.net ) and hosted on the Leadpages lead generation platform. -->
