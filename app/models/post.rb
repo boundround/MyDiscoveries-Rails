@@ -134,7 +134,7 @@ class Post < ActiveRecord::Base
 
   before_update :regenerate_slug
 
-  scope :active, -> { where(status: "live") }
+  #scope :active, -> { where(status: "live") }
 
   validates :title, presence: true
   validates :content, presence: true
@@ -161,6 +161,10 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :places
   accepts_nested_attributes_for :countries
 
+  def self.active
+    where(status: "live").where('publish_date < ?', Date.today + 10.hours) #Sydney Time
+  end
+
   def story_title
     html_title = Nokogiri::HTML::Document.parse self.title
 
@@ -175,7 +179,7 @@ class Post < ActiveRecord::Base
 
   def self.all_active_posts
     Rails.cache.fetch("all_posts", expires_in: 12.hours) do
-      Post.active.includes(:user).order(created_at: :desc)
+      Post.active.includes(:user).order(publish_date: :desc).order(created_at: :desc)
     end
   end
 
