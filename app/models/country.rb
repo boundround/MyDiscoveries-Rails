@@ -33,6 +33,8 @@ class Country < ActiveRecord::Base
       hero= {}
       if hero_h.present?
         hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
+      else
+        hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
       end
       hero
     end
@@ -50,7 +52,7 @@ class Country < ActiveRecord::Base
     end
 
     # attributesToIndex ['display_name', 'unordered(description)']
-    attributesToIndex ['display_name', 'age_range', 'accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)']
+    attributesToIndex ['display_name', 'age_range', 'accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)', 'publish_date']
 
 
   end
@@ -114,6 +116,10 @@ class Country < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def publish_date
+    update_at
   end
 
   def load_into_soulmate

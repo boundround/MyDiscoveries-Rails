@@ -70,7 +70,7 @@ class Post < ActiveRecord::Base
     attribute :hero_photo do
       if hero_photo_url.blank?
         if story_images.blank?
-          ""
+          { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
         else
           { url: story_images.first, alt_tag: story_images.first }
         end
@@ -122,7 +122,7 @@ class Post < ActiveRecord::Base
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
     # attributesToIndex ['display_name', 'unordered(content)', 'unordered(display_address)', 'primary_category', 'subcategories']
-    attributesToIndex ['display_name', 'age_range', 'unordered(content)','accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)']
+    attributesToIndex ['display_name', 'age_range', 'unordered(content)','accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)', 'publish_date']
 
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
