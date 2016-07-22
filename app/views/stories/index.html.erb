@@ -12,7 +12,7 @@
 				<tr>
 					<td><h3> <%= story.title.html_safe %></h3></td>
 					<td><%= link_to "Show", story_path(story) %>
-					<%= link_to "Edit", edit_story_place_path(story.storiable, story) %>
+					<%= link_to "Edit", edit_story_path(story) %>
 					<%= link_to "Delete", story_path(story), method: :delete, data: { confirm: 'Are you certain you want to delete this?' } %></td>
 				</tr>
 			<% end %>

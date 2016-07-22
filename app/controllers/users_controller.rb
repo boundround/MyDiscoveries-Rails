@@ -13,7 +13,6 @@ class UsersController < ApplicationController
   def show
     @set_body_class = 'br_tab'
     @active_points = true
-    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
 
     verify_current_user
 
@@ -25,8 +24,6 @@ class UsersController < ApplicationController
       end
     end
     @leaderboard = @leaderboard[0..3]
-    @story = Story.new
-    @user_photos = @story.user_photos.build
     @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
     @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
 

@@ -1,13 +1,17 @@
 class StoriesController < ApplicationController
-  before_filter :load_storiable
 
   def index
-    @stories = @storiable.stories
+    @stories = Story.all
   end
 
-  def show;end
+  def show
+    @story = Story.find_by_slug(params[:id])
+  end
 
   def update
+    if @story.content_changed?
+      @story.hero_image = @story.story_images.first
+    end
     if @story.update(story_params)
       redirect_to :back
     end
@@ -24,13 +28,16 @@ class StoriesController < ApplicationController
   end
 
   def new
-    @new_story = @storiable.stories.new
+    @new_story = Story.new
   end
 
   def create
-    @story = @storiable.stories.new(story_params)
+    @story = Story.new(story_params)
+    if @story.story_images.present?
+      @story.hero_image = @story.story_images.first
+    end
     if @story.save
-      redirect_to @storiable, notice: "Your story has been saved."
+      redirect_to @story, notice: "Your story has been saved."
     else
       redirect_to :back, notice: "Sorry, there was an error saving your story"
     end
@@ -60,8 +67,9 @@ class StoriesController < ApplicationController
     end
 
     def story_params
-      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id, :age_bracket, :author_name, :public, :date,
-                                    user_photos_attributes: [:id, :title, :content, :user_id, :story_id, :story_priority, :place_id, :path, :status])
+      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id,
+                                    :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
+                                    :primary_category_id, subcategory_ids: [])
     end
 
     def set_story_as_draft

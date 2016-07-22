@@ -268,21 +268,36 @@ $(document).ready(function() {
             }, 500);
         });
     }
-
-    var title_editable = new MediumEditor('.title-editable', {
+    if (!document.querySelector("#edit-story-page")){
+      var title_editable = new MediumEditor('.title-editable', {
+          placeholder: {
+              text: 'Title'
+          }
+      });
+    } else {
+      var title_editable = new MediumEditor('.title-editable', {
         placeholder: {
-            text: 'Title'
+            text: ''
         }
-    });
+      });
+    }
 
 
 
-    var content_editable = new MediumEditor('.content-editable', {
+    if (!document.querySelector("#edit-story-page")){
+      var content_editable = new MediumEditor('.content-editable', {
+            placeholder: {
+                text: 'Tell your story',
+            },
+            autoLink: true
+      });
+    } else {
+      var content_editable = new MediumEditor('.content-editable', {
         placeholder: {
-            text: 'Tell your story',
-        },
-        autoLink: true
-    });
+            text: ''
+        }
+      });
+    }
 
     $(function() {
         $('.title-editable').mediumInsert({
@@ -336,6 +351,17 @@ $(document).ready(function() {
         //
         setDefaultText()
     }, 1000);
+
+    if ($('#edit-story-page')){
+      $(".title-editable").data("placeholder", "");
+      $(".content-editable").data("placeholder", "");;
+      setTimeout(function() {
+        var storyTitle = $('#edit-story-page').data('title');
+        var storyContent = $('#edit-story-page').data('content');
+        $(".title-editable").find("h2").replaceWith(storyTitle);
+        $(".content-editable").find("p").replaceWith(storyContent);
+      }, 1000);
+    }
 
 
 

@@ -24,9 +24,10 @@
 
     </div><!-- row -->
     <% unless @stories.blank? %>
-      <%= render partial: "stories/all_stories_place" %>
+      <div class="row">
+        <%= render partial: "stories/all_stories_list", collection: @stories, as: :story %>
+      </div>
     <% end %>
-    <%= render "stories/modal_story" %>
     <% unless @reviews.blank? %>
       <div id="memberreviews" class="thing-page-segment user-thing-page-segment">
         <div>
