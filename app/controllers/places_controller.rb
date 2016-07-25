@@ -325,11 +325,10 @@ class PlacesController < ApplicationController
     @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
     @deals = @place.deals.active #.paginate(page: params[:deals_page], per_page: params[:deals_page].nil?? 6 : 3 )
     @review = Review.new
-    @story = Story.new
 
-    # api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')
-    @stories = @place.posts.active # + api_blogs
-    @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
+    @stories = @place.posts.active
+    @stories += @place.stories.active
+    @stories = @stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse.paginate(page: params[:stories_page], per_page: 4)
 
     active_user_photos = @place.user_photos.active
     @photos = (@place.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)

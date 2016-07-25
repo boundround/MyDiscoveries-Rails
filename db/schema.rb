@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718020447) do
+ActiveRecord::Schema.define(version: 20160722062315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,15 @@ ActiveRecord::Schema.define(version: 20160718020447) do
 
   add_index "countries_posts", ["country_id", "post_id"], name: "index_countries_posts_on_country_id_and_post_id", using: :btree
   add_index "countries_posts", ["post_id", "country_id"], name: "index_countries_posts_on_post_id_and_country_id", using: :btree
+
+  create_table "countries_stories", force: true do |t|
+    t.integer  "country_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "countries_stories", ["country_id", "story_id"], name: "index_countries_stories_on_country_id_and_story_id", unique: true, using: :btree
 
   create_table "countries_videos", force: true do |t|
     t.integer "country_id"
@@ -442,7 +451,6 @@ ActiveRecord::Schema.define(version: 20160718020447) do
     t.string   "algolia_id"
     t.string   "email"
     t.integer  "parent_id"
-    t.string   "trip_advisor_url"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -461,6 +469,15 @@ ActiveRecord::Schema.define(version: 20160718020447) do
 
   add_index "places_posts", ["place_id", "post_id"], name: "index_places_posts_on_place_id_and_post_id", using: :btree
   add_index "places_posts", ["post_id", "place_id"], name: "index_places_posts_on_post_id_and_place_id", using: :btree
+
+  create_table "places_stories", force: true do |t|
+    t.integer  "place_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "places_stories", ["place_id", "story_id"], name: "index_places_stories_on_place_id_and_story_id", unique: true, using: :btree
 
   create_table "places_subcategories", force: true do |t|
     t.integer "place_id",       null: false
@@ -672,24 +689,33 @@ ActiveRecord::Schema.define(version: 20160718020447) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "storiable_id"
-    t.string   "storiable_type"
     t.string   "status"
     t.string   "google_place_id"
     t.boolean  "user_notified"
     t.datetime "user_notified_at"
-    t.integer  "country_id"
     t.date     "date"
-    t.integer  "min_age"
-    t.integer  "max_age"
+    t.integer  "minimum_age"
+    t.integer  "maximum_age"
     t.string   "author_name"
     t.boolean  "public"
     t.string   "slug"
+    t.integer  "primary_category_id"
+    t.datetime "publish_date"
+    t.string   "hero_image"
   end
 
+  add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
   add_index "stories", ["slug"], name: "index_stories_on_slug", using: :btree
-  add_index "stories", ["storiable_id", "storiable_type"], name: "index_stories_on_storiable_id_and_storiable_type", using: :btree
   add_index "stories", ["user_id"], name: "index_stories_on_user_id", using: :btree
+
+  create_table "stories_subcategories", force: true do |t|
+    t.integer  "subcategory_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stories_subcategories", ["story_id", "subcategory_id"], name: "index_stories_subcategories_on_story_id_and_subcategory_id", unique: true, using: :btree
 
   create_table "stories_users", force: true do |t|
     t.integer "user_id",  null: false

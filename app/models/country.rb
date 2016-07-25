@@ -101,6 +101,9 @@ class Country < ActiveRecord::Base
   has_many :countries_posts
   has_many :posts, through: :countries_posts
 
+  has_many :countries_stories
+  has_many :stories, through: :countries_stories
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
