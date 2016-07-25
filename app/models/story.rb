@@ -163,7 +163,7 @@ class Story < ActiveRecord::Base
   validates :title, presence: true
   validates :content, presence: true
 
-  before_save :determine_age_bracket, :add_hero_image
+  before_save :determine_age_bracket, :add_hero_image, :check_null_publish_date
 
   def send_live_notification
     places = []
@@ -254,6 +254,12 @@ class Story < ActiveRecord::Base
 
   def add_hero_image
     hero_image = story_images.first
+  end
+
+  def check_null_publish_date
+    if publish_date.blank?
+      publish_date = Date.today
+    end
   end
 
   protected
