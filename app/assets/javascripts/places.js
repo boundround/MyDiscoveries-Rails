@@ -15,6 +15,9 @@ function addToFav(assetType) {
           case "post":
             data["posts_user"] = { user_id: userId, post_id: placeId };
             break;
+            case "story":
+              data["stories_user"] = { user_id: userId, story_id: placeId };
+              break;
         }
 
         if (userId === "no-user") {

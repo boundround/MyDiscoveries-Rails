@@ -31,10 +31,10 @@
     <div class="favourites-wrapper">
         <% if user_signed_in? && @story.users.include?(current_user) %>
           <div class="favourites-title hidden-xs">Remove from favourites</div>
-          <div class="icon-favourite selected like-icon" id="favouriteType" data-post-path="posts_users" data-klass="post" data-liked="true" data-place-id="<%= @story.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+          <div class="icon-favourite selected like-icon" id="favouriteType" data-post-path="stories_users" data-klass="story" data-liked="true" data-place-id="<%= @story.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
         <% else %>
           <div class="favourites-title hidden-xs" >Add to favourites</div>
-          <div class="icon-favourite like-icon" id="favouriteType" data-post-path="posts_users" data-klass="post" data-liked="false" data-place-id="<%= @story.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+          <div class="icon-favourite like-icon" id="favouriteType" data-post-path="stories_users" data-klass="story" data-liked="false" data-place-id="<%= @story.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
         <% end %>
     </div>
   </section>
