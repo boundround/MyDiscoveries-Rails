@@ -162,7 +162,6 @@ class Story < ActiveRecord::Base
 
   validates :title, presence: true
   validates :content, presence: true
-  validates :date, presence: true
 
   before_save :determine_age_bracket, :add_hero_image
 
@@ -274,13 +273,9 @@ class Story < ActiveRecord::Base
     def slug_candidates
       html_title = Nokogiri::HTML::Document.parse self.title
 
-      title = html_title.at_css('h2').text rescue ""
+      title = html_title.at_css('h2').text rescue "Bound Round Story"
 
-      if !title.blank?
-        title
-      else
-        "user story about things to do with kids and families in #{self.storiable.display_name rescue ""}"
-      end
+      ["#{title}", "#{title}-#{SecureRandom.hex(8)}"]
     end
 
 end
