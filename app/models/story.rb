@@ -258,7 +258,7 @@ class Story < ActiveRecord::Base
 
   def check_null_publish_date
     if publish_date.blank?
-      publish_date = Date.today
+      self.publish_date = Date.today
     end
   end
 
