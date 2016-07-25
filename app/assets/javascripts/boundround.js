@@ -347,10 +347,10 @@ $(document).ready(function() {
         setDefaultText();
     });
 
-    setTimeout(function() {
-        //
-        setDefaultText()
-    }, 1000);
+    // setTimeout(function() {
+    //     //
+    //     setDefaultText()
+    // }, 1000);
 
     if ($('#edit-story-page')){
       $(".title-editable").data("placeholder", "");
