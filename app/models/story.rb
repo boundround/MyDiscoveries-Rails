@@ -15,7 +15,7 @@ class Story < ActiveRecord::Base
       ]
 
     attribute :url do
-      Rails.application.routes.url_helpers.post_path(self)
+      Rails.application.routes.url_helpers.story_path(self)
     end
 
     attribute :content do
@@ -23,7 +23,7 @@ class Story < ActiveRecord::Base
     end
 
     attribute :display_name do
-      title
+      story_title
     end
 
     attribute :title do
@@ -164,7 +164,7 @@ class Story < ActiveRecord::Base
   validates :content, presence: true
   validates :date, presence: true
 
-  before_save :determine_age_bracket
+  before_save :determine_age_bracket, :add_hero_image
 
   def send_live_notification
     places = []
@@ -251,6 +251,10 @@ class Story < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def add_hero_image
+    hero_image = story_images.first
   end
 
   protected

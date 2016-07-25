@@ -9,9 +9,6 @@ class StoriesController < ApplicationController
   end
 
   def update
-    if @story.content_changed?
-      @story.hero_image = @story.story_images.first
-    end
     if @story.update(story_params)
       redirect_to :back
     end
@@ -33,13 +30,10 @@ class StoriesController < ApplicationController
 
   def create
     @story = Story.new(story_params)
-    if @story.story_images.present?
-      @story.hero_image = @story.story_images.first
-    end
     if @story.save
       redirect_to @story, notice: "Your story has been saved."
     else
-      redirect_to :back, notice: "Sorry, there was an error saving your story"
+      render :new, notice: "Sorry, there was an error saving your story"
     end
   end
 

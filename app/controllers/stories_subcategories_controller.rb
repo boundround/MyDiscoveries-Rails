@@ -8,7 +8,7 @@ class StoriesSubcategoriesController < ApplicationController
         @story.stories_subcategories.create(story_id: @story.id, subcategory_id: id)
       end
     end
-
+    
     redirect_to :back
 
   end

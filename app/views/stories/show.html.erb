@@ -88,6 +88,14 @@
 
 </style>
 <script>
+(function(){
+	setTimeout(function(){
+		var crosses = document.querySelectorAll('.medium-insert-buttons');
+		crosses.forEach(function(cross){
+			cross.style.display = "none";
+		});
+	}, 1000);
+})();
 document.getElementById('shareBtn').onclick = function() {
   FB.ui({
     method: 'share',
@@ -95,5 +103,4 @@ document.getElementById('shareBtn').onclick = function() {
     href: "<%= post_url(@story) %>"
   }, function(response){});
 }
-
 </script>
