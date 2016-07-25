@@ -5,9 +5,6 @@ class DealsController < ApplicationController
     @deal = @dealable.deals.new
   end
 
-  def create
-  end
-
   def index
     @deals = @dealable.deals
   end
@@ -50,4 +47,5 @@ class DealsController < ApplicationController
     def deal_params
       params.require(:deal).permit(:url, :status, :title, :description, :min_price, :hero_image, :url, :dealable_id, :dealable_id)
     end
+
 end
