@@ -398,6 +398,7 @@ class PlacesController < ApplicationController
   def paginate_stories
     @place = Place.find_by_slug(params[:id])
     @stories = @place.posts.active
+    @stories += @place.stories.active
     @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
   end
 

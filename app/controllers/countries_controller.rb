@@ -73,7 +73,9 @@ class CountriesController < ApplicationController
 
   def paginate_stories
     @country = Country.friendly.find(params[:id])
-    @stories = @country.stories.where(status:"live").paginate(:page => params[:stories_page], per_page: 1 )
+    @stories = @country.posts.active
+    @stories += @country.stories.active
+    @stories = @stories.sort{|x, y| y.created_at <=> x.created_at}.paginate(page: params[:stories_page], per_page: 1)
   end
 
   def paginate_things_to_do
