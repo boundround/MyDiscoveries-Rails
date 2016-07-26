@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  require 'will_paginate/array'
   before_action :set_cache_control_headers, only: :index
 
   def index
@@ -7,9 +8,9 @@ class PagesController < ApplicationController
     @subcategories = Subcategory.subcats
     @subcategories = @subcategories.sort {|x, y| y.places.size <=> x.places.size}
     @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
-    @stories = Post.all_active_posts
-    @stories += Story.all_active_stories
-    @stories = @stories.sort {|x, y| y.publish_date <=> x.publish_date}
+    @all_posts = Post.all_active_posts
+    @all_stories = Story.all_active_stories
+    @stories = (@all_posts + @all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
     @stories = @stories.paginate(page: params[:stories_page], per_page: 2)
     @sydney = Place.find 1064
     @category1 = @subcategories[0]
