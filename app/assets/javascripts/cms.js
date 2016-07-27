@@ -23,7 +23,27 @@ $(document).ready(function(){
       } );
 
       $( tableTools.fnContainer() ).insertBefore('table#place-table');
+      
+      $('#place-table thead th').each( function () {
+          var title = $(this).text();
+          $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+      } );
+
+      // Apply the search
+      placeTable.columns().every( function () {
+          var that = this;
+
+          $( 'input', this.header() ).on( 'keyup change', function () {
+              if ( that.search() !== this.value ) {
+                  that
+                      .search( this.value )
+                      .draw();
+              }
+          } );
+      } );
     }
+
+
 
   $('#post-table').DataTable({
     // ajax: ...,

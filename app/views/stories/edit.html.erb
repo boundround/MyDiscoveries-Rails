@@ -1,4 +1,5 @@
-<div id="edit-story-page" data-title="<%= @story.title %>" data-content="<%= @story.content %>"></div>
+<div class="loading">Loading&#8230;</div>
+<div id="edit-story-page" data-title="<%= @story.story_title %>" data-content="<%= @story.content %>"></div>
 <div class="container">
 	<% if current_user.admin? %>
 		<%= render "/stories/admin_tabs" %>

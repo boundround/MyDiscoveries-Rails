@@ -5,7 +5,6 @@
     <table class="table table-striped" id="place-table">
       <thead>
       <tr>
-        <th>Area?</th>
         <th>Place</th>
         <th>Word Count</th>
         <th>Edit Link</th>
@@ -14,10 +13,19 @@
         <th>Updated At</th>
       </tr>
       </thead>
+      <tfoot>
+        <tr>
+          <th>Place</th>
+          <th>Word Count</th>
+          <th></th>
+          <th>Subscription Level</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </tfoot>
       <tbody>
       <% @places.each do |place| %>
           <tr>
-            <td><%= place.is_area? ? "Yes" : "No" %></td>
             <td><%= link_to "#{place.display_name} || #{place.id}", edit_place_path(place) %></td>
             <td><%= place.description.blank? ? 0 : (place.description.size / 6) %></td>
             <td><%= link_to "Edit Place", "/places/" + place.slug + "/new_edit" %></td>

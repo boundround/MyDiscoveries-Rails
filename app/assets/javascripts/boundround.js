@@ -289,13 +289,47 @@ $(document).ready(function() {
             placeholder: {
                 text: 'Tell your story',
             },
-            autoLink: true
+            autoLink: true,
+            toolbar: {
+              /* These are the default options for the toolbar,
+                 if nothing is passed this is what is used */
+              allowMultiParagraphSelection: true,
+              buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'h4', 'quote'],
+              diffLeft: 0,
+              diffTop: -10,
+              firstButtonClass: 'medium-editor-button-first',
+              lastButtonClass: 'medium-editor-button-last',
+              relativeContainer: null,
+              standardizeSelectionStart: false,
+              static: false,
+              /* options which only apply when static is true */
+              align: 'center',
+              sticky: false,
+              updateOnEmptySelection: false
+          }
       });
     } else {
       var content_editable = new MediumEditor('.content-editable', {
         placeholder: {
             text: ''
-        }
+        },
+        toolbar: {
+          /* These are the default options for the toolbar,
+             if nothing is passed this is what is used */
+          allowMultiParagraphSelection: true,
+          buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'h4', 'quote'],
+          diffLeft: 0,
+          diffTop: -10,
+          firstButtonClass: 'medium-editor-button-first',
+          lastButtonClass: 'medium-editor-button-last',
+          relativeContainer: null,
+          standardizeSelectionStart: false,
+          static: false,
+          /* options which only apply when static is true */
+          align: 'center',
+          sticky: false,
+          updateOnEmptySelection: false
+      }
       });
     }
 
@@ -357,9 +391,9 @@ $(document).ready(function() {
       setTimeout(function() {
         var storyTitle = $('#edit-story-page').data('title');
         var storyContent = $('#edit-story-page').data('content');
-        $(".title-editable").find("h2").replaceWith(storyTitle);
+        $(".title-editable").find("h2").html(storyTitle);
         $(".content-editable").find("p").replaceWith(storyContent);
-      }, 1000);
+      }, 2000);
     }
 
 
