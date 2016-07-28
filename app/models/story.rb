@@ -7,7 +7,7 @@ class Story < ActiveRecord::Base
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
-    attributes :status, :slug, :minimum_age, :maximum_age, :description
+    attributes :title, :status, :slug, :minimum_age, :maximum_age, :description
 
     synonyms [
         ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping"],
@@ -23,11 +23,7 @@ class Story < ActiveRecord::Base
     end
 
     attribute :display_name do
-      story_title
-    end
-
-    attribute :title do
-      story_title
+      title
     end
 
     attribute :display_address do
@@ -163,7 +159,8 @@ class Story < ActiveRecord::Base
   validates :title, presence: true
   validates :content, presence: true
 
-  before_save :determine_age_bracket, :add_hero_image, :check_null_publish_date
+  before_update :regenerate_slug
+  before_save :determine_age_bracket, :add_hero_image, :check_null_publish_date, :populate_seo_friendly_url
 
   def send_live_notification
     places = []
@@ -277,11 +274,27 @@ class Story < ActiveRecord::Base
     end
 
     def slug_candidates
-      html_title = Nokogiri::HTML::Document.parse self.title
+      if seo_friendly_url.present?
+        :seo_friendly_url
+      else
+        :title
+      end
+    end
 
-      title = html_title.at_css('h2').text rescue "Bound Round Story"
+    def regenerate_slug
+      if self.seo_friendly_url_changed?
+        self.slug = seo_friendly_url.parameterize
+      end
+    end
 
-      ["#{title}", "#{title}-#{SecureRandom.hex(8)}"]
+    def populate_seo_friendly_url
+      if self.seo_friendly_url.blank?
+        if self.title.present?
+          self.seo_friendly_url = self.title
+        else
+          self.seo_friendly_url = "bound-round-story-#{SecureRandom.hex(8)}"
+        end
+      end
     end
 
 end

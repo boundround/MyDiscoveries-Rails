@@ -268,21 +268,6 @@ $(document).ready(function() {
             }, 500);
         });
     }
-    if (!document.querySelector("#edit-story-page")){
-      var title_editable = new MediumEditor('.title-editable', {
-          placeholder: {
-              text: 'Title'
-          }
-      });
-    } else {
-      var title_editable = new MediumEditor('.title-editable', {
-        placeholder: {
-            text: ''
-        }
-      });
-    }
-
-
 
     if (!document.querySelector("#edit-story-page")){
       var content_editable = new MediumEditor('.content-editable', {
@@ -334,19 +319,6 @@ $(document).ready(function() {
     }
 
     $(function() {
-        $('.title-editable').mediumInsert({
-            editor: title_editable,
-            addons: {
-                images: {
-                    deleteScript: '/users/resolvejs',
-                    fileUploadOptions: {
-                        url: '/users/resolvejs',
-                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-                    },
-                }
-            }
-        });
-
         $('.content-editable').mediumInsert({
             editor: content_editable,
             addons: {
@@ -364,12 +336,7 @@ $(document).ready(function() {
     });
 
     $("#submit_story").click(function(event) {
-        var title = $(".title-editable")
         content = $(".content-editable")
-
-
-        $("#story_title").val(title.html());
-
 
         $("#story_content").val(content.html());
 
@@ -377,21 +344,10 @@ $(document).ready(function() {
         $("#submit-form-story").click();
     });
 
-    $(".medium-editor-action").click(function(event) {
-        setDefaultText();
-    });
-
-    setTimeout(function(){
-      setDefaultText();
-    }, 2000);
-
     if ($('#edit-story-page')){
-      $(".title-editable").data("placeholder", "");
       $(".content-editable").data("placeholder", "");;
       setTimeout(function() {
-        var storyTitle = $('#edit-story-page').data('title');
         var storyContent = $('#edit-story-page').data('content');
-        $(".title-editable").find("h2").html(storyTitle);
         $(".content-editable").find("p").replaceWith(storyContent);
       }, 2000);
     }
@@ -399,24 +355,10 @@ $(document).ready(function() {
 
 
     function edit_story() {
-        var title = $(".title-editable");
         content = $(".content-editable");
 
         title.html($("#story_title").val());
         content.html($("#story_content").val());
-    }
-
-    function setDefaultText() {
-        if ($(".title-editable p").length != 0) {
-            text = $(".title-editable p").text();
-            if (text == "") {
-                $(".title-editable p").replaceWith("<h2><br></h2>");
-            } else {
-                $(".title-editable p").replaceWith("<h2>" + text + "</h2>");
-                var sel = window.getSelection();
-                sel.removeAllRanges();
-            }
-        }
     }
 
     function set_default_editor() {

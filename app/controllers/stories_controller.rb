@@ -40,9 +40,9 @@ class StoriesController < ApplicationController
   def update
     @story = Story.find_by_slug(params[:id])
     if @story.update(story_params)
-      redirect_to :back, notice: "Succesfully Updated Story"
+      redirect_to edit_story_path(@story), notice: "Succesfully Updated Story"
     else
-      redirect_to :back, notice: "error"
+      redirect_to edit_story_path(@story), notice: "error"
     end
 
   end
@@ -63,7 +63,7 @@ class StoriesController < ApplicationController
     def story_params
       params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id,
                                     :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
-                                    :primary_category_id, subcategory_ids: [])
+                                    :seo_friendly_url, :hero_image, :primary_category_id, subcategory_ids: [])
     end
 
     def set_story_as_draft

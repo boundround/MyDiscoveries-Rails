@@ -16,7 +16,7 @@
 	      <tbody>
 				<% @stories.each do |story| %>
 					<tr>
-						<td><%= story.story_title %></td>
+						<td><%= story.title %></td>
 						<td><%= story.status %></td>
 						<td><%= story.publish_date.strftime("%d.%m.%Y") %></td>
 						<td><%= link_to "Show", story_path(story) %></td>
