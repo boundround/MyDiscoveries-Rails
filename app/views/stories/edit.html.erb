@@ -20,7 +20,7 @@
 							<%= f.label "SEO Friendly URL" %><br>
 							<%= f.text_field :seo_friendly_url, class: "form-control" %><br>
 							<%= f.label "Choose a title for this story" %><br>
-							<%= f.text_field :title, class: "form-control" %>
+							<%= f.text_field :title, class: "form-control story-title-edit" %>
 						<% else %>
 							<%= f.hidden_field :status, :value => "draft" %><br>
 							<%= f.hidden_field :date, :value => Time.now %><br>
