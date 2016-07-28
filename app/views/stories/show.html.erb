@@ -1,4 +1,4 @@
-<% provide(:title, @story.story_title) %>
+<% provide(:title, @story.title) %>
 <% provide(:category, @story.teaser) %>
 <% provide(:description, @story.description) %>
 <% provide(:og_image, @story.hero_image_url.gsub("https://", "http://")) rescue "" %>
