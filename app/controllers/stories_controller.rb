@@ -8,12 +8,6 @@ class StoriesController < ApplicationController
     @story = Story.find_by_slug(params[:id])
   end
 
-  def update
-    if @story.update(story_params)
-      redirect_to :back
-    end
-  end
-
   def destroy
    if @story.destroy
       redirect_to  :back, notice: "Success"
