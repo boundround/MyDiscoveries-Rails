@@ -118,7 +118,9 @@ class PlacesController < ApplicationController
       email: params[:email],
       'field[%MY_KIDS_ARE_CHECK_ALL_THAT_APPLY%,0]' => params[:ages].to_s,
       'field[%I_LIVE_IN_ONLY_ONE_OPTION_POSSIBLE%,0]' => params[:region],
-      'field[%MY_FAMILY_IS_MOST_INTERESTED_IN_ONLY_ONE_OPTION_POSSIBLE%,0]' => params[:subcategories].to_s,
+      'field[%FAMILY_INTEREST_1%,0]' => params[:subcategories][0],
+      'field[%FAMILY_INTEREST_2%,0]' => params[:subcategories][1],
+      'field[%FAMILY_INTEREST_3%,0]' => params[:subcategories][2],
       'field[%DOES_YOUR_FAMILY_HAVE_ACCESSIBILITY_NEEDS_TO_BE_CONSIDERED%,0]' => params[:accessiblity],
       'p[8]' => 8)
 
