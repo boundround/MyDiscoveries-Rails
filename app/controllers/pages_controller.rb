@@ -18,6 +18,10 @@ class PagesController < ApplicationController
     @category2 = @subcategories[1]
     @category3 = @subcategories[2]
     @category4 = @subcategories[3]
+    respond_to do |format|
+      format.html
+      format.json {render :json => @page}
+    end
   end
 
   def new
@@ -26,6 +30,36 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
+    if @page.save(page_params)
+      respond_to do |format|
+        format.html { render :action => :edit }
+        format.json { render :json => @page }
+      end
+    else
+      respond_to do |format|
+        format.html { render :action  => :edit } # edit.html.erb
+        format.json { render :nothing =>  true }
+      end
+    end
+  end
+
+  def edit
+    @page = Page.find params[:id]
+  end
+
+  def update
+    @page = Page.find(params[:id])
+    if @page.update(page_params)
+      respond_to do |format|
+        format.html { render :action => :edit }
+        format.json { render :json => @page }
+      end
+    else
+      respond_to do |format|
+        format.html { render :action  => :edit } # edit.html.erb
+        format.json { render :nothing =>  true }
+      end
+    end
   end
 
   def all_pages
@@ -66,7 +100,7 @@ class PagesController < ApplicationController
 
   private
     def page_params
-      params.require(:story).permit(:title, :hero_image, :hero_image_text, :brief_headline, :page_header)
+      params.require(:page).permit(:title, :hero_image, :hero_image_text, :promo_headline, :page_header)
     end
 
 

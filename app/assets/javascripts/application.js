@@ -59,3 +59,4 @@
 //= require blueimp-gallery.min
 //= require custom
 //= require loading
+//= require rest_in_place
