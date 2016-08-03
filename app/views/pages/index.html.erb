@@ -64,6 +64,18 @@
         </a>
     </div>
 </div> -->
+<% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- BR first go -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-3125270010093298"
+       data-ad-slot="1632886169"
+       data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<% end %>
 <% cache("home_page_brief", :expires_in => 12.hours) do %>
   <div class="brief-background">
       <div class="container">
