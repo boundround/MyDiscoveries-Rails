@@ -113,6 +113,8 @@ class Place < ActiveRecord::Base
       hero= {}
       if hero_h.present?
         hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
+      else
+        hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
       end
       hero
     end
@@ -177,7 +179,7 @@ class Place < ActiveRecord::Base
     # you want to search in: here `title`, `subtitle` & `description`.
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
-    attributesToIndex ['display_name', 'age_range', 'accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)']
+    attributesToIndex ['display_name', 'age_range', 'accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)', 'publish_date']
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
@@ -273,11 +275,13 @@ class Place < ActiveRecord::Base
   has_many :places_posts
   has_many :posts, through: :places_posts
 
+  has_many :places_stories
+  has_many :stories, through: :places_stories
+
   has_many :customers_places
   has_many :owners, through: :customers_places, :source => :user
 
   has_many :reviews, as: :reviewable
-  has_many :stories, as: :storiable
   has_many :deals, as: :dealable
 
   has_many :three_d_videos
@@ -308,6 +312,9 @@ class Place < ActiveRecord::Base
     end
   end
 
+  def publish_date
+    update_at
+  end
 
   def place_sub_subcategory
     self.places_subcategories.select { |s| true }.map do |s|

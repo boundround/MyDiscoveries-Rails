@@ -269,35 +269,56 @@ $(document).ready(function() {
         });
     }
 
-    var title_editable = new MediumEditor('.title-editable', {
+    if (!document.querySelector("#edit-story-page")){
+      var content_editable = new MediumEditor('.content-editable', {
+            placeholder: {
+                text: 'Tell your story',
+            },
+            autoLink: true,
+            toolbar: {
+              /* These are the default options for the toolbar,
+                 if nothing is passed this is what is used */
+              allowMultiParagraphSelection: true,
+              buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'h4', 'quote'],
+              diffLeft: 0,
+              diffTop: -10,
+              firstButtonClass: 'medium-editor-button-first',
+              lastButtonClass: 'medium-editor-button-last',
+              relativeContainer: null,
+              standardizeSelectionStart: false,
+              static: false,
+              /* options which only apply when static is true */
+              align: 'center',
+              sticky: false,
+              updateOnEmptySelection: false
+          }
+      });
+    } else {
+      var content_editable = new MediumEditor('.content-editable', {
         placeholder: {
-            text: 'Title'
-        }
-    });
-
-
-
-    var content_editable = new MediumEditor('.content-editable', {
-        placeholder: {
-            text: 'Tell your story',
+            text: ''
         },
-        autoLink: true
-    });
+        toolbar: {
+          /* These are the default options for the toolbar,
+             if nothing is passed this is what is used */
+          allowMultiParagraphSelection: true,
+          buttons: ['bold', 'italic', 'underline', 'anchor', 'h2', 'h3', 'h4', 'quote'],
+          diffLeft: 0,
+          diffTop: -10,
+          firstButtonClass: 'medium-editor-button-first',
+          lastButtonClass: 'medium-editor-button-last',
+          relativeContainer: null,
+          standardizeSelectionStart: false,
+          static: false,
+          /* options which only apply when static is true */
+          align: 'center',
+          sticky: false,
+          updateOnEmptySelection: false
+      }
+      });
+    }
 
     $(function() {
-        $('.title-editable').mediumInsert({
-            editor: title_editable,
-            addons: {
-                images: {
-                    deleteScript: '/users/resolvejs',
-                    fileUploadOptions: {
-                        url: '/users/resolvejs',
-                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-                    },
-                }
-            }
-        });
-
         $('.content-editable').mediumInsert({
             editor: content_editable,
             addons: {
@@ -315,12 +336,7 @@ $(document).ready(function() {
     });
 
     $("#submit_story").click(function(event) {
-        var title = $(".title-editable")
         content = $(".content-editable")
-
-
-        $("#story_title").val(title.html());
-
 
         $("#story_content").val(content.html());
 
@@ -328,36 +344,21 @@ $(document).ready(function() {
         $("#submit-form-story").click();
     });
 
-    $(".medium-editor-action").click(function(event) {
-        setDefaultText();
-    });
-
-    setTimeout(function() {
-        //
-        setDefaultText()
-    }, 1000);
+    if ($('#edit-story-page')){
+      $(".content-editable").data("placeholder", "");;
+      setTimeout(function() {
+        var storyContent = $('#edit-story-page').data('content');
+        $(".content-editable").find("p").replaceWith(storyContent);
+      }, 2000);
+    }
 
 
 
     function edit_story() {
-        var title = $(".title-editable");
         content = $(".content-editable");
 
         title.html($("#story_title").val());
         content.html($("#story_content").val());
-    }
-
-    function setDefaultText() {
-        if ($(".title-editable p").length != 0) {
-            text = $(".title-editable p").text();
-            if (text == "") {
-                $(".title-editable p").replaceWith("<h2><br></h2>");
-            } else {
-                $(".title-editable p").replaceWith("<h2>" + text + "</h2>");
-                var sel = window.getSelection();
-                sel.removeAllRanges();
-            }
-        }
     }
 
     function set_default_editor() {

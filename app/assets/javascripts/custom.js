@@ -28,9 +28,9 @@ $(document).ready(function(){
       if (ids.length > 0){
         for(var i = 0; i < ids.length; i++){
           if (ids[i] !== "nil"){
-            $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
-                              "' name=" + similar_ids[i]['place_name'] +
-                              "' >" + similar_ids[i]['place_name'] + "</option>");
+            $(selectBox).append("<option value='" + ids[i]['place_id'] +
+                              "' name=" + ids[i]['place_name'] +
+                              "' >" + ids[i]['place_name'] + "</option>");
           }
         }
       }
@@ -52,22 +52,23 @@ $(document).ready(function(){
   }
 
   dualListBox($('#dual-list-box-Places'), $('#similar-places-js').data("similar"), $("[name*='places_post[place_ids][]']"));
+  dualListBox($('#dual-list-box-stories-places'), $('#similar-places-js').data("similar"), $("[name*='places_story[place_ids][]']"));
 
-  // if($("#dual-list-box-Places").length > 0){
-  //   var availableDestinations = $('#dual-list-box-Places');
-  //   var similar_ids = $('#similar-places-js').data("similar");
-  //   var selectBox = $("[name*='places_post[place_ids][]']");
-  //   if(similar_ids.length > 0){
-  //     for (var i = 0; i < similar_ids.length; i++){
-  //       //availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
-  //       if (similar_ids[i] !== "nil"){
-  //         $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
-  //                             "' name=" + similar_ids[i]['place_name'] +
-  //                             "' >" + similar_ids[i]['place_name'] + "</option>")
-  //       }
-  //     }
-  //   }
-  // }
+  if($("#dual-list-box-stories-countries").length > 0){
+    var availableCountries = $('#dual-list-box-stories-countries');
+    var similar_ids = $('#similar-countries-js').data("similar");
+    var selectBox = $("[name*='countries_story[country_ids][]']");
+    if(similar_ids.length > 0){
+      for (var i = 0; i < similar_ids.length; i++){
+        //availableCountries.find($("[name*='" + similar_ids[i]['country_name'] + "'")).remove();
+        if (similar_ids[i] !== "nil"){
+          $(selectBox).append("<option value='" + similar_ids[i]['country_id'] +
+                              "' name=" + similar_ids[i]['country_name'] +
+                              "' >" + similar_ids[i]['country_name'] + "</option>")
+        }
+      }
+    }
+  }
 
   if($("#dual-list-box-Countries").length > 0){
     var availableCountries = $('#dual-list-box-Countries');

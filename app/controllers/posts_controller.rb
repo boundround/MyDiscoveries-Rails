@@ -37,7 +37,11 @@ class PostsController < ApplicationController
   end
 
   def all_posts
-    @stories = Post.active.order(created_at: :desc).paginate(page: params[:stories_page], per_page: 6)
+    @stories = Post.all_active_posts
+    @stories += Story.all_active_stories
+    @stories = @stories.sort {|x, y| y.publish_date <=> x.publish_date}
+    @stories = @stories.paginate(page: params[:stories_page], per_page: 6)
+    #@stories = Post.active.order(created_at: :desc).paginate(page: params[:stories_page], per_page: 6)
   end
 
   def show
@@ -57,7 +61,9 @@ class PostsController < ApplicationController
   end
 
   def paginate
-    @stories = Post.active.order(created_at: :desc).paginate(page: params[:stories_page], per_page: 6)
+    @stories = Post.all_active_posts
+    @stories += Story.all_active_stories
+    @stories = @stories.paginate(page: params[:stories_page], per_page: 2)
   end
 
   def paginate_place_to_visit

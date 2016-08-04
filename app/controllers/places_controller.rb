@@ -110,6 +110,20 @@ class PlacesController < ApplicationController
       OneMinuteForm.create(results: params.to_s, user_id: nil)
     end
 
+    active_campaign = ActiveCampaign.new(
+        api_endpoint: ENV['ACTIVE_CAMPAIGN_ENDPOINT'], # e.g. 'https://yourendpoint.api-us1.com'
+        api_key: ENV['ACTIVE_CAMPAIGN_KEY'])
+
+    active_campaign.contact_add(
+      email: params[:email],
+      'field[%MY_KIDS_ARE_CHECK_ALL_THAT_APPLY%,0]' => params[:ages].to_s,
+      'field[%I_LIVE_IN_ONLY_ONE_OPTION_POSSIBLE%,0]' => params[:region],
+      'field[%FAMILY_INTEREST_1%,0]' => params[:subcategories][0],
+      'field[%FAMILY_INTEREST_2%,0]' => params[:subcategories][1],
+      'field[%FAMILY_INTEREST_3%,0]' => params[:subcategories][2],
+      'field[%DOES_YOUR_FAMILY_HAVE_ACCESSIBILITY_NEEDS_TO_BE_CONSIDERED%,0]' => params[:accessiblity],
+      'p[8]' => 8)
+
 
     if @country
       redirect_to country_path(@country, modal: "true")
@@ -313,11 +327,10 @@ class PlacesController < ApplicationController
     @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
     @deals = @place.deals.active #.paginate(page: params[:deals_page], per_page: params[:deals_page].nil?? 6 : 3 )
     @review = Review.new
-    @story = Story.new
 
-    # api_blogs = ApiBlog.get_cached_blogs(@place.display_name.parameterize, 'place')
-    @stories = @place.posts.active # + api_blogs
-    @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
+    @stories = @place.posts.active
+    @stories += @place.stories.active
+    @stories = @stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse.paginate(page: params[:stories_page], per_page: 4)
 
     active_user_photos = @place.user_photos.active
     @photos = (@place.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
@@ -388,6 +401,7 @@ class PlacesController < ApplicationController
   def paginate_stories
     @place = Place.find_by_slug(params[:id])
     @stories = @place.posts.active
+    @stories += @place.stories.active
     @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
   end
 

@@ -1,36 +1,37 @@
+<div class="loading">Loading&#8230;</div>
 <div class="container">
 	<div class="row">
-			<%=  form_for [@storiable, @new_story], method: :post do |f| %>
+			<%=  form_for @story, method: :post do |f| %>
 			<div class="col-md-12 top70">
 				<div>
 					<p style="padding-bottom:25px;">
-						<%= f.select :public, [['Public', true], ['Private', false]] %>
+						<%#= f.select :public, [['Public', true], ['Private', false]] %>
+						<% if current_user.admin? %>
+							<%= f.label "Status" %><br>
+							<%= f.select :status, ["draft", "live", "removed"] %><br>
+							<%= f.label "Publish Date" %><br>
+							<%= f.date_field :publish_date %><br>
+							<%= f.label "Change User" %><br>
+							<%= f.select :user_id, options_for_select(User.all.map {|user| [user.email, user.id]}, [current_user.email, current_user.id]) %><br>
+							<%= f.label "SEO Friendly URL" %><br>
+							<%= f.text_field :seo_friendly_url, class: "form-control" %><br>
+							<%= f.label "Choose a title for this story" %><br>
+							<%= f.text_field :title, class: "form-control story-title-edit" %>
+						<% else %>
+							<%= f.hidden_field :status, :value => "draft" %><br>
+							<%= f.hidden_field :publish_date, :value => Time.now %><br>
+							<%= f.hidden_field :user_id, :value => current_user.id %>
+						<% end %>
 					</p>
 				</div>
-				<div class="outer-profile" style="background: url('<%= current_user.avatar_url rescue "" %>') no-repeat;">
-        </div>
-        <div style="color:#fd7c56;"><%= current_user.username rescue "" %></div>
 			</div>
 			<div class="col-md-12">
-				<div class="title-editable" > </div>
 				<div class="content-editable" ></div>
-				<center> <button class="btn btn-primary top20 btm20" id="submit_story"> Post Story</button> </center>
+				<center> <button class="btn btn-primary top20 btm20" id="submit_story">Submit Story</button> </center>
 			</div>
-				<%= f.hidden_field :title %>
 				<%= f.hidden_field :content %>
-				<%= f.hidden_field :user_id, :value => current_user.id %>
-				<%= f.hidden_field :date, :value => Time.now %>
-				<%= f.hidden_field :status, :value => "draft" %>
 				<%= f.submit "", style: :"display:none;", id:"submit-form-story" %>
 			<% end %>
 
 	</div>
 </div>
-
-	<!-- $("#medium-editor-toolbar-1").find("button.medium-editor-action.medium-editor-action-h2").click(); -->
-<%= javascript_tag do -%>
-
-	$(document).ready(function(){
-		<!-- $(".title-editable").find("p").replaceWith("<h2>Titile...</h2>"); -->
-	 });
-<% end -%>

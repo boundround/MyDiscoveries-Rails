@@ -59,4 +59,4 @@
 //= require blueimp-gallery.min
 //= require custom
 //= require trip_advisor
-console.log("All Loaded");
+//= require loading

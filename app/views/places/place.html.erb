@@ -1,6 +1,8 @@
 <% provide(:title, @place.display_name) %>
 <% category = @place.primary_category.identifier rescue "default"%>
-<% provide(:description, @place.short_description ? @place.short_description : @place.description) %>
+<% provide(:description, (@place.short_description.present? ? @place.short_description : @place.description[0..280])) %>
+<% provide(:og_image, open_graph_image.gsub("https://", "http://")) %>
+<% provide(:og_secure_image, open_graph_image) %>
 
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
 
@@ -78,7 +80,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="thing-heading-icon-holder">
-                      <div class="thing-icon icon-favourite selected" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                      <div class="thing-icon icon-favourite selected" id="favouriteType" data-klass="place" data-post-path="places_users" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
                     </div>
                   </div>
                 </div>
@@ -92,7 +94,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="thing-heading-icon-holder">
-                        <div class="thing-icon icon-favourite" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                        <div class="thing-icon icon-favourite" id="favouriteType" data-post-path="places_users" data-klass="place" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
                       </div>
                     </div>
                   </div>
@@ -442,7 +444,6 @@
 <% end %>
 
 <%= render 'layouts/all_modal' %>
-<%= render 'new_story' %>
 <%= render 'reviews/form' %>
 <%= render 'user_photos/form' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>

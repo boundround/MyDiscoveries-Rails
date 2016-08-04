@@ -1,16 +1,11 @@
 class StoriesController < ApplicationController
-  before_filter :load_storiable
 
   def index
-    @stories = @storiable.stories
+    @stories = Story.all
   end
 
-  def show;end
-
-  def update
-    if @story.update(story_params)
-      redirect_to :back
-    end
+  def show
+    @story = Story.find_by_slug(params[:id])
   end
 
   def destroy
@@ -24,24 +19,24 @@ class StoriesController < ApplicationController
   end
 
   def new
-    @new_story = @storiable.stories.new
+    @story = Story.new
   end
 
   def create
-    @story = @storiable.stories.new(story_params)
+    @story = Story.new(story_params)
     if @story.save
-      redirect_to @storiable, notice: "Your story has been saved."
+      redirect_to @story, notice: "Your story has been saved."
     else
-      redirect_to :back, notice: "Sorry, there was an error saving your story"
+      render :new, notice: "Sorry, there was an error saving your story"
     end
   end
 
   def update
     @story = Story.find_by_slug(params[:id])
     if @story.update(story_params)
-      redirect_to :back, notice: "Succesfully Updated Story"
+      redirect_to edit_story_path(@story), notice: "Succesfully Updated Story"
     else
-      redirect_to :back, notice: "error"
+      redirect_to edit_story_path(@story), notice: "error"
     end
 
   end
@@ -60,8 +55,9 @@ class StoriesController < ApplicationController
     end
 
     def story_params
-      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id, :age_bracket, :author_name, :public, :date,
-                                    user_photos_attributes: [:id, :title, :content, :user_id, :story_id, :story_priority, :place_id, :path, :status])
+      params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id,
+                                    :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
+                                    :seo_friendly_url, :hero_image, :primary_category_id, subcategory_ids: [])
     end
 
     def set_story_as_draft

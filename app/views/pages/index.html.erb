@@ -1,3 +1,7 @@
+<% content_for :title, "Activities, Reviews and Things To Do For Kids and Families: Bound Round"%>
+<% content_for :og_image, "http://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
+<% content_for :og_secure_image, "https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
+<% content_for :description, "Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards." %>
 <div class="banner-wrapper dismiss-mega-menu-search">
     <% cache("home_page_hero", :expires_in => 12.hours) do %>
     <span class="banner-image" style="background-image: url('https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg')" role="img" aria-label="Destination Sydney">
@@ -41,12 +45,12 @@
     </div>
 </div>
 
-<div class="container promo-container">
+<!-- <div class="container promo-container">
     <div class="row">
         <a href="http://www.boundround.com/offers/club-med-scoot.html" target="_blank">
             <div class="promo-wrapper">
                 <div class="col-md-12 promo-hero banner-heading">
-                    <!-- <h2>WIN</h2>
+                    <h2>WIN</h2>
                     <h3>
                         1 of 3<br>
                         Adult + Child 1 day passes
@@ -54,12 +58,24 @@
                     </h3>
                     <h4>
                         PLUS 40 instant win prizes up for grabs
-                    </h4> -->
+                    </h4>
                 </div>
             </div>
         </a>
     </div>
-</div>
+</div> -->
+<% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- BR first go -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-3125270010093298"
+       data-ad-slot="1632886169"
+       data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<% end %>
 <% cache("home_page_brief", :expires_in => 12.hours) do %>
   <div class="brief-background">
       <div class="container">

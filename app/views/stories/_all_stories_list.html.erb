@@ -1,24 +1,28 @@
-  <div class="col-md-6 col-lg-6 col-lg-offset-0 story-wrapper thing-page-segment" onclick="window.location='<%= post_path(story) %>'">
-      <div class="story">
-          <div class="story-header-details-wrapper">
-              <div class="user-dp"
-                   style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"
-                   role="img"
-                   aria-label="User: <%= story.user.username %>"></div>
-              <div class="username">
-                <% if story.user.is_private? %>
-                  <%= story.user.username %>
-                <% else %>
-                  <%= link_to story.user.username, public_profile_user_path(story.user) %>
-                <% end %>
-              </div>
-              <div class="date hidden-xs"><%= story.created_at.strftime("%B %Y") %></div>
-          </div>
-          <div class="story-content">
-              <h4 class="story-title"><%= raw story.title %></h4>
-              <p><%= raw story.teaser %></p>
-              <div class="story-img" style="background: url(<%= showing_image( !story.story_images.first.blank? ? story.story_images.first : asset_path('generic-hero-small.jpg') ) %>) no-repeat;" role="img"
-                   aria-label="Story Image"></div>
-          </div>
+<div class="col-md-6 col-lg-6 col-lg-offset-0 story-wrapper thing-page-segment" onclick="window.location='<%= story_path(story) %>'">
+  <div class="story">
+    <div class="story-header-details-wrapper">
+      <div class="user-dp"
+           style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"
+           role="img"
+           aria-label="User: <%= story.user.username %>">
       </div>
+      <div class="username">
+        <% if story.user.is_private? %>
+          <%= story.user.username %>
+        <% else %>
+          <%= link_to story.user.username, public_profile_user_path(story.user) %>
+        <% end %>
+      </div>
+      <div class="date hidden-xs"><%= story.publish_date.strftime("%d %B %Y") %></div>
+    </div>
+    <div class="story-content">
+      <h4 class="story-title"><%= raw story.title %></h4>
+      <p><%= raw story.teaser %></p>
+      <div  class="story-img"
+            style="background: url(<%= showing_image( !story.story_images.first.blank? ? story.story_images.first : asset_path('generic-hero-small.jpg') ) %>) no-repeat;"
+            role="img"
+            aria-label="Story Image">
+      </div>
+    </div>
   </div>
+</div>

@@ -1,7 +1,8 @@
-
 <% provide(:title, @place.display_name) %>
 <% category = @place.categories.first.identifier rescue "default"%>
 <% provide(:description, @place.short_description ? @place.short_description : @place.description) %>
+<% provide(:og_image, open_graph_image.gsub("https://", "http://")) %>
+<% provide(:og_secure_image, open_graph_image) %>
 
 <% if @place.status == "live" || @place.status == "guest" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@place) && @place.status!= "removed")) %>
   <div id='country-data' data-country-code=<%= @place.country.country_code %> data-capital-city=<%= @place.country.capital_city %>></div>
@@ -45,10 +46,10 @@
                         </div>
                         <div class="favourites-wrapper">
                             <% if user_signed_in? && @place.users.include?(current_user) %>
-                              <div class="icon-favourite selected"></div>
-                              <div class="favourites-title hidden-xs" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from favourites</div>
+                              <div class="icon-favourite selected" id="favouriteType" data-post-path="places_users" data-klass="place" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                              <div class="favourites-title hidden-xs">Remove from favourites</div>
                             <% else %>
-                              <div class="icon-favourite" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                              <div class="icon-favourite" id="favouriteType" data-post-path="places_users" data-klass="place" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
                               <div class="favourites-title hidden-xs" >Add to favourites</div>
                             <% end %>
                         </div>
@@ -281,7 +282,6 @@
 
 <%= render 'user_photos/form' %>
 <%= render 'layouts/all_modal' %>
-<%= render 'new_story' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
 

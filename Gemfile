@@ -24,6 +24,8 @@ gem 'bootstrap-glyphicons'
 gem 'rails4-autocomplete'
 gem "algoliasearch-rails"
 
+gem 'active-campaign-rails'
+
 gem 'jquery-fileupload-rails'
 
 gem 'httparty'
@@ -121,6 +123,7 @@ gem 'country_select'
 
 # Classier solution for file uploads for Rails.
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave-base64'
 gem 'carrierwave_backgrounder'
 
 gem 'sidekiq'

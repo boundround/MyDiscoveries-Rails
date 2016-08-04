@@ -1,0 +1,33 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12" style="padding-top:50px;" id="table-container">
+			<table class="table table-striped" id="transactions-table">
+				<thead>
+	      <tr>
+	        <th>Title</th>
+					<th>Status</th>
+					<th>Publish Date</th>
+					<th>View Story</th>
+	        <th>Edit</th>
+	        <th>Delete</th>
+	      </tr>
+	      </thead>
+	      <tbody>
+				<% @stories.each do |story| %>
+					<tr>
+						<td><%= story.title %></td>
+						<td><%= story.status %></td>
+						<td><%= story.publish_date.strftime("%d.%m.%Y") %></td>
+						<td><%= link_to "Show", story_path(story) %></td>
+						<td><%= link_to "Edit", edit_story_path(story) %></td>
+						<td><%= link_to "Delete", story_path(story), method: :delete, data: { confirm: 'Are you certain you want to delete this?' } %></td>
+					</tr>
+				<% end %>
+			</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<% end %>
+<link href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css" type="text/css">

@@ -13,7 +13,6 @@ class UsersController < ApplicationController
   def show
     @set_body_class = 'br_tab'
     @active_points = true
-    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
 
     verify_current_user
 
@@ -25,8 +24,6 @@ class UsersController < ApplicationController
       end
     end
     @leaderboard = @leaderboard[0..3]
-    @story = Story.new
-    @user_photos = @story.user_photos.build
     @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
     @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
 
@@ -92,6 +89,9 @@ class UsersController < ApplicationController
 
       @favorite_places = @user.favorite_places.where(is_area: false).paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
       @areas = @user.favorite_places.where(is_area: true).paginate(page: params[:areas_page], per_page: 3)
+      @stories = @user.posts
+      @stories += @user.stories
+      @stories = @stories.paginate(page: params[:stories_page], per_page: 4)
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end

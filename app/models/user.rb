@@ -14,12 +14,13 @@ class User < ActiveRecord::Base
   has_many :favorite_places, through: :places_users, source: :place
   has_many :fun_facts_users
   has_many :fun_facts, through: :fun_facts_users
+  has_many :posts_users
+  has_many :posts, through: :posts_users
 
   has_many :customers_places
   has_many :owned_places, through: :customers_places, :source => :place
 
   has_many :places
-  has_many :posts
 
   has_many :identities
 
