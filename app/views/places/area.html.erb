@@ -164,16 +164,10 @@
                   </div>
               </div>
           </div>
-        </div>
-      <div class="desc-place">
-        <p class="text"><%= raw @place.description[0..280]+"..." %></p>
-        <p class="text full" style="display: none;"><%= raw @place.description.gsub("\n", "<br>").gsub("\r", "<br>") %></p>
-        <button class="blueish more" style="background:none;border:none;outline:none;padding-left:0;">More <span class="fa fa-caret-down"></span></button>
-        <button class="blueish" style="background:none;border:none;outline:none;padding-left:0;display:none;">Less <span class="fa fa-caret-up"></span></button>
           <div class="main-play-icon-wrapper">
               <div class="main-play-icon"></div>
           </div>
-      </div>
+        </div>
     <% else %>
       <div id="videos" class="large-video-component-wrapper play-in-modal"
            style="background: url(<%= @last_video.vimeo_thumbnail %>) no-repeat;"
@@ -280,7 +274,7 @@
   </div> <!-- area-content -->
 <% end %>
 
-<%= render 'user_photos/form' %>
+<%#= render 'user_photos/form' %>
 <%= render 'layouts/all_modal' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
