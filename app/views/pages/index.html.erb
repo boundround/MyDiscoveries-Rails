@@ -4,7 +4,7 @@
 <% content_for :description, "Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards." %>
 <div class="banner-wrapper dismiss-mega-menu-search">
     <% cache("home_page_hero", :expires_in => 12.hours) do %>
-    <span class="banner-image" style="background-image: url('https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg')" role="img" aria-label="Destination Sydney">
+    <span class="banner-image" style="background-image: url('<%= @page.hero_image_url %>')" role="img" aria-label="">
                                 </span>
 
     <% end %>
@@ -14,8 +14,25 @@
               <div class="col-md-12">
                   <div class="row">
                       <div class="col-md-12 banner-heading">
-                          <h1>Find Things To Do For Your Family</h1>
-                          <div>Explore <a href="<%= place_path(@sydney) %>">Sydney</a></div>
+                        <% if user_signed_in? && current_user.admin? %>
+                          <h1>
+                            <span class="rest-in-place" data-url="/pages/1" data-object="page" data-attribute="page_header" data-placeholder="Enter A Headline">
+                              <%= raw @page.page_header rescue "Home Page Info Not Yet Created" %>
+                            </span>
+                          </h1>
+                          <span class="rest-in-place" data-url="/pages/1" data-object="page" data-attribute="hero_image_text" data-placeholder="placeholder text">
+                            <div><%= raw @page.hero_image_text rescue "Home Page Info Not Yet Created" %></div>
+                          </span>
+                        <% else %>
+                          <h1>
+                            <span>
+                              <%= raw @page.page_header rescue "Home Page Info Not Yet Created" %>
+                            </span>
+                          </h1>
+                          <span>
+                            <div><%= raw @page.hero_image_text rescue "Home Page Info Not Yet Created" %></div>
+                          </span>
+                        <% end %>
                       </div>
                   </div>
                   <div class="row">
@@ -84,8 +101,7 @@
                   <div class="brief-wrapper">
                       <div class="row">
                           <div class="col-md-12 text-center">
-                              <h3>Find the best family-friendly activities and things to do.
-                                      <br/>Get insider tips from local kids.</h3>
+                              <h3><%= raw @page.promo_headline rescue "add promo headline"%></h3>
                           </div>
                       </div>
                       <br/>

@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   before_action :set_cache_control_headers, only: :index
 
   def index
+    @page = Page.find_by title: "home"
     @set_body_class = "home-page background"
     @areas = Place.home_page_areas.paginate(page: params[:areas_page], per_page: 3)
     @subcategories = Subcategory.subcats
@@ -17,6 +18,52 @@ class PagesController < ApplicationController
     @category2 = @subcategories[1]
     @category3 = @subcategories[2]
     @category4 = @subcategories[3]
+    respond_to do |format|
+      format.html
+      format.json {render :json => @page}
+    end
+  end
+
+  def new
+    @page = Page.new
+  end
+
+  def create
+    @page = Page.new(page_params)
+    if @page.save(page_params)
+      respond_to do |format|
+        format.html { render :action => :edit }
+        format.json { render :json => @page }
+      end
+    else
+      respond_to do |format|
+        format.html { render :action  => :edit } # edit.html.erb
+        format.json { render :nothing =>  true }
+      end
+    end
+  end
+
+  def edit
+    @page = Page.find params[:id]
+  end
+
+  def update
+    @page = Page.find(params[:id])
+    if @page.update(page_params)
+      respond_to do |format|
+        format.html { render :action => :edit }
+        format.json { render :json => @page }
+      end
+    else
+      respond_to do |format|
+        format.html { render :action  => :edit } # edit.html.erb
+        format.json { render :nothing =>  true }
+      end
+    end
+  end
+
+  def all_pages
+    @pages = Page.all
   end
 
   def globe
@@ -50,6 +97,11 @@ class PagesController < ApplicationController
     robots = File.read(Rails.root + "config/robots.#{robot_type}.txt")
     render :text => robots, :layout => false, :content_type => "text/plain"
   end
+
+  private
+    def page_params
+      params.require(:page).permit(:title, :hero_image, :hero_image_text, :promo_headline, :page_header)
+    end
 
 
 

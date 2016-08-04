@@ -60,3 +60,4 @@
 //= require custom
 //= require trip_advisor
 //= require loading
+//= require rest_in_place

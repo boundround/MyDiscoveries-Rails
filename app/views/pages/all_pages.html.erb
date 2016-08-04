@@ -1,0 +1,26 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+  <div class="container">
+  	<div class="row">
+  		<div class="col-md-12" style="padding-top:50px;" id="table-container">
+  			<table class="table table-striped" id="transactions-table">
+  				<thead>
+  	      <tr>
+  	        <th>Hero Image</th>
+  					<th>Title</th>
+  	        <th>Edit</th>
+  	      </tr>
+  	      </thead>
+  	      <tbody>
+  				<% @pages.each do |page| %>
+  					<tr>
+  						<td><%= page.hero_image_url %></td>
+  						<td><%= page.title %></td>
+  						<td><%= link_to "Edit", edit_page_path(page) %></td>
+  					</tr>
+  				<% end %>
+  			</tbody>
+  			</table>
+  		</div>
+  	</div>
+  </div>
+<% end %>

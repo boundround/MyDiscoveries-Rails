@@ -78,6 +78,8 @@ gem 'rails_admin'
 
 gem 'unirest'
 
+gem 'rest_in_place'
+
 gem 'wiselinks'
 
 gem 'will_paginate', '~> 3.0'

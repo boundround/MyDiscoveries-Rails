@@ -142,7 +142,9 @@ Rails.application.routes.draw do
     post '/update_password_user' =>  'users/user_password#update_password'
   end
 
-  resources :pages
+  resources :pages do
+    collection { get 'all_pages' }
+  end
 
   get '/google_map_home' => 'pages#google_map_home'
 
