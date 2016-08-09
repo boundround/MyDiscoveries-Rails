@@ -1,17 +1,37 @@
 <div class="container">
   <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
     <%= render "/places/admin_tabs" %>
-    <h1>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
+    <h2>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h2>
 
     <%= simple_form_for @place, html: { role: 'form'} do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <p><input id="pac-input" class="controls form-control" type="text"
+              placeholder="Search For A Place">Geometry: <span id="latitude"><%= @place.latitude %></span>, <span id="longitude"><%= @place.longitude %></span></p>
+          <div id="map-canvas" style="height:500px;"></div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group lat-lng">
+            <%= f.input :display_address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address", class: 'longer-input' }, label: "Display Address" %>
+            <span class="pull-left"><%= f.input :latitude, :input_html => { "data-geo" => "lat" } %></span>
+            <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
+            <%= f.input :street_number, :input_html => { "data-geo" => "street_number" } %>
+            <%= f.input :route, :input_html => { "data-geo" => "route", class: 'form-control' } %>
+            <span class="pull-left"><%= f.input :sublocality, :input_html => { "data-geo" => "sublocality"} %></span>
+            <%= f.input :locality, :input_html => { "data-geo" => "locality" } %>
+            <span class="pull-left"><%= f.input :state, :input_html => { "data-geo" => "administrative_area_level_1" } %></span>
+            <%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code" } %>
+            <%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control' } %>
+            <%= f.input :place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
+            <%= f.check_box :is_area, label: false %>&nbsp;Is this an area?<br>
+            <%= f.check_box :footer_include, label: false %>&nbsp;Include In Footer?
+          </div>
+        </div>
+      </div>
       <div class="form-group">
         <table class="table">
           <tr>
-            <td><%= f.check_box :is_area, label: false %>Is this an area?</td>
-            <td><%= f.check_box :primary_area, label: false %>Primary area?</td>
-            <td><%= f.check_box :top_100, label: false %>Top 100?</td>
-            <td><%= f.check_box :footer_include, label: false %>Include In Footer?</td>
-            <td><%= f.check_box :show_on_school_safari, label: false %>Show on School Safari</td>
+            <td>
           </tr>
         </table>
       </div>
@@ -31,16 +51,10 @@
         <%= f.input :description, as: :bootsy, label: "Long description", input_html: { class: 'form-control area-description-input', col: 50 } %>
       </div>
       <div class="form-group">
-        <%= f.input :school_safari_description, as: :bootsy, label: 'School Safari Description', input_html: { class: 'form-control area-description-input' } %>
-      </div>
-      <div class="form-group">
         <%= f.input :email, input_html: { class: 'form-control' } %>
       </div>
       <div class="form-group">
         <%= f.input :website, input_html: { class: 'form-control' } %>
-      </div>
-      <div class="form-group">
-        <%= f.input :viator_link, input_html: { class: 'form-control' } %>
       </div>
       <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
         <div class="form-group published-radio">
