@@ -1,10 +1,11 @@
 <div class="container">
 <%= render 'admin_tabs' %>
 <h1>Choose Hero Image For <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
+<%= link_to "Back To Edit #{@place.display_name}", edit_place_path(@place)%>
 	<h3>User Photos</h3>
 	<div class="row">
 	<% @user_photos.each do |photo| %>
-		<div class="col-md-4 col-hero-list"> 
+		<div class="col-md-4 col-hero-list">
 			<div class="outer-image hero-list">
 			<img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
 			</div>
@@ -25,7 +26,7 @@
 	<h3>Place Photos</h3>
 	<div class="row">
 	<% @place_photos.each do |photo| %>
-		<div class="col-md-4 col-hero-list"> 
+		<div class="col-md-4 col-hero-list">
 			<div class="outer-image hero-list">
 				<img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
 			</div>

@@ -5,6 +5,7 @@
     </div>
   </div>
   <h1>Similar Destinations</h1>
+  <%= link_to "Back To Edit #{@place.display_name}", edit_place_path(@place)%>
   <%= render "/places/admin_tabs" %>
   <%= simple_form_for [@place, @similar_places] do |f| %>
     <div id="dual-list-box-employees" class="form-group row">
@@ -14,6 +15,6 @@
         <% end %>
      </select>
    </div>
-    <%= f.submit :submit %>
+    <%= f.submit "Save", class: "btn btn-primary" %>
   <% end %>
 </div>

@@ -154,9 +154,11 @@ class PlacesController < ApplicationController
   def edit
     @set_body_class = "br-body"
     @place = Place.friendly.find(params[:id])
-    @photo = Photo.new
-    @program = Program.new
-    @discount = Discount.new
+    @places = Place.active.order(display_name: :asc)
+    @countries = Country.all
+    @subcategories = Subcategory.order(name: :asc)
+    @primary_categories = PrimaryCategory.all
+    @three_d_video = ThreeDVideo.new
   end
 
   def update
@@ -176,16 +178,11 @@ class PlacesController < ApplicationController
           @place.fun_facts.each do |fun_fact|
             fun_fact.add_or_remove_from_country(@place.country)
           end
-
-          if params[:place][:hero_image].present? || params[:place][:remote_hero_image_url].present?
-            render :crop
-          else
-            redirect_to :back, notice: 'Place succesfully updated'
-          end
+          redirect_to :back, notice: 'Place succesfully updated'
         end
       end
     else
-      redirect_to edit_place_path(@place), notice: 'Error: Place not updated'
+      redirect_to :back
     end
   end
 

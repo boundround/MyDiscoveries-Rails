@@ -1,6 +1,7 @@
 <div class="container">
   <%= render "/places/admin_tabs" %>
   <h2>All 3D Videos</h2>
+  <%= link_to "Back To Edit #{@place.display_name}", edit_place_path(@place)%>
   <% @place.three_d_videos.each do |video| %>
   <p>Link: <%= video.link %> || Caption: <%= video.caption %> ||
     <%= link_to 'Edit', edit_place_three_d_video_path(@place, video.id) %> ||
