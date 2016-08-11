@@ -322,7 +322,9 @@ Rails.application.routes.draw do
     collection { get 'merge'}
     collection { get 'edit_parents'}
     resources :stamps
-    resources :photos
+    resources :photos do
+      collection { get 'all_photos' }
+    end
     resources :videos
     resources :discounts
     resources :fun_facts

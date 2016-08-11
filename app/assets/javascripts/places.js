@@ -271,4 +271,21 @@ $(document).ready(function() {
         }
     }
 
+    if (document.querySelector("#photoEditModal")){
+      $(".edit-photo").on("click", function(e){
+        e.preventDefault();
+        var photoID = $(this).data('photo-id');
+        if (photoID > 0){
+          $.ajax({
+            type: "GET",
+            url: "/photos/" + photoID + ".json",
+            success: function(data){
+              $('#photo').empty().html("<img src='" + data["path"]["medium"]["url"] + "'>'");
+              $('#photoInfo').empty().html("<div id='photoData' data-photo-id='" + photoID + "'></div>")
+            }
+          });
+        }
+      });
+    }
+
 });

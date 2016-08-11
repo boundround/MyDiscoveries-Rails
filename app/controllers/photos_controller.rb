@@ -24,6 +24,11 @@ class PhotosController < ApplicationController
     end
   end
 
+  def all_photos
+    @place = Place.friendly.find(params[:place_id])
+    @photos = @place.photos
+  end
+
   def new
     @photo = Photo.new
   end
