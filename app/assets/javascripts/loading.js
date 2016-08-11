@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  console.log("WORKING???");
   var loadingDiv = document.querySelector('.loading');
   if (loadingDiv){
     setTimeout(function(){
