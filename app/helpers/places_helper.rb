@@ -29,6 +29,16 @@ module PlacesHelper
     end
   end
 
+  def provide_meta_description_for(place)
+    if place.short_description.present?
+      place.short_description
+    elsif place.short_description.blank? && place.description.present?
+      place.description[0..280]
+    else
+      ""
+    end
+  end
+
   def display_boolean_place_category(place, subcategory)
     if place.subcategories.include?(subcategory)
       "1"

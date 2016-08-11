@@ -1,6 +1,6 @@
 <% provide(:title, @place.display_name) %>
 <% category = @place.primary_category.identifier rescue "default"%>
-<% provide(:description, (@place.short_description.present? ? @place.short_description : @place.description[0..280])) %>
+<% provide(:description, provide_meta_description_for(@place)) %>
 <% provide(:og_image, open_graph_image.gsub("https://", "http://")) %>
 <% provide(:og_secure_image, open_graph_image) %>
 
