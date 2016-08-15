@@ -8,7 +8,13 @@
 		<% @user_photos.each do |photo| %>
 			<div class="col-md-4 col-hero-list">
 				<div class="outer-image hero-list">
-				<img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
+					<a href="" data-toggle="modal" data-target="#photoEditModal"
+						data-photo-id="<%= photo.id.to_s %>" data-type="<%= photo.class.to_s %>"
+						data-caption-"<%= photo.caption %>" data-alt="<%= photo.alt_tag %>"
+						data-credit="<%= photo.credit %>"
+						class="edit-photo">
+						<img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
+					</a>
 				</div>
 				<% if photo.hero.eql? true %>
 					<label>
@@ -22,52 +28,61 @@
 			</div>
 			<% end %>
 		</div>
-	</div>
-	<hr>
-	<% end %>
-	<h4>Place Photos (Click to Edit)</h4>
-	<div class="row">
-	<% @place_photos.each do |photo| %>
-		<div class="col-md-4 col-hero-list">
-			<div class="outer-image hero-list">
-				<a href="" data-toggle="modal" data-target="#photoEditModal" data-photo-id="<%= photo.id.to_s %>" class="edit-photo">
-					<img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
-				</a>
+		<hr>
+		<% end %>
+		<h4>Place Photos (Click to Edit)</h4>
+		<div class="row">
+		<% @place_photos.each do |photo| %>
+			<div class="col-md-4 col-hero-list">
+				<div class="outer-image hero-list">
+					<a href="" data-toggle="modal" data-target="#photoEditModal"
+						data-photo-id="<%= photo.id.to_s %>" data-type="<%= photo.class.to_s %>"
+						data-caption-"<%= photo.caption %>" data-alt="<%= photo.alt_tag %>"
+						data-credit="<%= photo.credit %>"
+						class="edit-photo">
+						<img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
+					</a>
+				</div>
+				<% if photo.hero.eql? true %>
+					<label>
+						<input name="hero_image" type="checkbox" checked > Current hero image
+					</label>
+				<% else %>
+					<label>
+						<input name="hero_image" data-place="<%= @place.id %>" data-photo= "<%= photo.id %>" data-type="<%= photo.class.to_s %>" type="checkbox"> Choose as hero image
+					</label>
+				<% end %>
 			</div>
-			<% if photo.hero.eql? true %>
-				<label>
-					<input name="hero_image" type="checkbox" checked > Current hero image
-				</label>
-			<% else %>
-				<label>
-					<input name="hero_image" data-place="<%= @place.id %>" data-photo= "<%= photo.id %>" data-type="<%= photo.class.to_s %>" type="checkbox"> Choose as hero image
-				</label>
-			<% end %>
+		<% end %>
 		</div>
-	<% end %>
 	</div>
 
 	<!-- Modal -->
 <div class="modal fade" id="photoEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">Edit Photo</h4>
-      </div>
-			<div id="photoInfo"></div>
-      <div class="modal-body">
-        <span id="photo"></span>
-				<form action="/photos/update_photo" method="put">
-					<input>
-				</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="savePhotoButton" class="btn btn-primary">Save changes</button>
-      </div>
+			<form>
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	        <h4 class="modal-title" id="myModalLabel">Edit Photo</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div id="photo"></div>
+					<label for="caption">Caption</label>
+					<input type="text" id="caption" class="form-control" name="caption">
+					<label for="credit">Credit</label>
+					<input type="text" id="credit" class="form-control" name="credit">
+					<label for="alt_tag">Alt Tag</label>
+					<input type="text" id="alt-tag" class="form-control" name="alt_tag">
+					<input type="hidden" id="photo-id">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" id="savePhotoButton" class="btn btn-primary">Save changes</button>
+	      </div>
+			</form>
     </div>
   </div>
 </div>

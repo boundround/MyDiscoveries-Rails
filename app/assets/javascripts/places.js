@@ -273,19 +273,57 @@ $(document).ready(function() {
 
     if (document.querySelector("#photoEditModal")){
       $(".edit-photo").on("click", function(e){
-        e.preventDefault();
-        var photoID = $(this).data('photo-id');
-        if (photoID > 0){
-          $.ajax({
-            type: "GET",
-            url: "/photos/" + photoID + ".json",
-            success: function(data){
-              $('#photo').empty().html("<img src='" + data["path"]["medium"]["url"] + "'>'");
-              $('#photoInfo').empty().html("<div id='photoData' data-photo-id='" + photoID + "'></div>")
-            }
-          });
+        var node = $(this);
+        if ($(this).data('type') === "Photo"){
+          var photoID = $(this).data('photo-id');
+          if (photoID > 0){
+            $.ajax({
+              type: "GET",
+              url: "/photos/" + photoID + ".json",
+              success: function(data){
+                $('#photo').empty().html("<img src='" + data["path"]["medium"]["url"] + "'>'");
+                $('#photoInfo').empty().html("<div id='photoData' data-photo-id='" + photoID + "'></div>");
+                fillPhotoEditModal(node);
+              }
+            });
+          }
+        } else {
+          var photoID = $(this).data('photo-id');
+          if (photoID > 0){
+            $.ajax({
+              type: "GET",
+              url: "/user_photos/" + photoID + ".json",
+              success: function(data){
+                $('#photo').empty().html("<img src='" + data["path"]["medium"]["url"] + "'>'");
+                $('#photoInfo').empty().html("<div id='photoData' data-photo-id='" + photoID + "'></div>");
+                fillPhotoEditModal(node);
+              }
+            });
+          }
         }
       });
+
+      $('#photoEditModal').on('hidden.bs.modal', function (e) {
+        emptyPhotoEditModal($(this));
+      })
+    }
+
+    $('#savePhotoButton').on('click', function(e){
+      e.preventDefault();
+      $('#photoEditModal').modal("hide");
+    });
+
+    var fillPhotoEditModal = function(node){
+      $('#caption').val($(node).data("caption"));
+      $('#credit').val($(node).data("credit"));
+      $('#alt-tag').val($(node).data("alt"));
+    }
+
+    var emptyPhotoEditModal = function(node){
+      $(node).find("#caption").val("");
+      $(node).find("#credit").val("");
+      $(node).find("#alt-tag").val("");
+      $(node).find("#photo").empty();
     }
 
 });
