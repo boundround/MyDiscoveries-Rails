@@ -294,7 +294,7 @@ class PlacesController < ApplicationController
 
     @good_to_know = @place.good_to_knows.limit(6)
 
-    @places_to_visit = @place.children
+    @places_to_visit = @place.children.active
 
     @places_to_visit = @places_to_visit.sort do |x, y|
       y.videos.size <=> x.videos.size
@@ -310,9 +310,9 @@ class PlacesController < ApplicationController
       end
     else
       if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(parent_id: @place.parent_id).order("RANDOM()")
+        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id).order("RANDOM()")
       else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(parent_id: @place.parent_id).order("RANDOM()")
+        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id).order("RANDOM()")
       end
     end
 
