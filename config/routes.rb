@@ -126,7 +126,9 @@ Rails.application.routes.draw do
   post 'posts_users/create' => 'posts_users#create'
   post 'posts_users/destroy' => 'posts_users#destroy'
 
-  resources :user_photos
+  resources :user_photos do
+    member { put 'place_update' }
+  end
   post 'user_photos/profile_create' => 'user_photos#profile_create'
 
   get 'stamp_transactions/stamp_here' => 'stamp_transactions#stamp_here'
@@ -174,6 +176,7 @@ Rails.application.routes.draw do
 
   resources :photos do
     collection { post :import }
+    member { put 'place_update' }
   end
 
   resources :videos do

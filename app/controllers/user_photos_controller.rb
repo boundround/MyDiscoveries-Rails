@@ -81,6 +81,15 @@ class UserPhotosController < ApplicationController
     end
   end
 
+  def place_update
+    @user_photo = UserPhoto.find(params[:id])
+    if @user_photo.update(user_photo_params)
+      redirect_to choose_hero_place_path(@user_photo.place), notice: "Photo Succesfully Updated"
+    else
+      redirect_to choose_hero_place_path(@user_photo.place), notice: "Error"
+    end
+  end
+
   def import
     Photo.import(params[:file])
     redirect_to :back, notice: "user_photos imported."
@@ -98,7 +107,7 @@ class UserPhotosController < ApplicationController
 
     def user_photo_params
       params.require(:user_photo).permit(:title, :path, :caption, :hero, :story_id, :user_id,
-                                        :place_id, :area_id, :status, :google_place_id,
+                                        :place_id, :area_id, :status, :google_place_id, :alt_tag, :credit,
                                         :google_place_name, :instagram_id, :remote_path_url, :_destroy)
     end
 
