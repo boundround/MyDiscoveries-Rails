@@ -328,7 +328,9 @@ Rails.application.routes.draw do
     resources :photos do
       collection { get 'all_photos' }
     end
-    resources :videos
+    resources :videos do
+      collection { get 'all' }
+    end
     resources :discounts
     resources :fun_facts
     resources :games

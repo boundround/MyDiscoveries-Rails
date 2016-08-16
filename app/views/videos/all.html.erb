@@ -1,0 +1,45 @@
+<div class="container">
+  <div id="table-container">
+    <h3>Videos</h3>
+    <table class="table table-striped" id="video-table">
+      <thead>
+        <tr>
+          <th>Preview</th>
+          <th>Vimeo ID</th>
+          <th>YouTube ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Transcript</th>
+          <th>Hero</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Include In Country</th>
+          <th>Open Modal Link</th>
+          <th>Updated By</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @videos.each do |video| %>
+          <%= form_for video do |ff| %>
+            <tr>
+              <td></td>
+              <td><%= ff.text_area :vimeo_id %></td>
+              <td><%= ff.text_area :youtube_id %></td>
+              <td><%= ff.text_area :title %></td>
+              <td><%= ff.text_area :description %></td>
+              <td><%= ff.text_area :transcript %></td>
+              <td><%= ff.check_box :hero %></td>
+              <td><%= ff.select :priority, 1..10 %></td>
+              <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+              <td><%= ff.check_box :country_include %></td>
+              <td>https://www.boundround.com/places/<%= @place.slug + '/?video=' + (video.vimeo_id.to_s || video.youtube_id.to_s) %></td>
+              <td><%= !video.versions.blank? && video.versions.last.whodunnit ? User.find(video.versions.last.whodunnit).email : "" %><br><%= video.updated_at.strftime('%F at %T') %></td>
+              <td><%= ff.check_box :_destroy %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

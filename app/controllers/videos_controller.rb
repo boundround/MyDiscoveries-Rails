@@ -17,6 +17,11 @@ class VideosController < ApplicationController
     end
   end
 
+  def all
+    @place = Place.friendly.find(params[:place_id])
+    @videos = @place.videos
+  end
+
   def show
     @video = Video.find(params["id"])
     key = "bearer " + ENV["VIMEO_OAUTH_KEY"]
