@@ -1,45 +1,73 @@
 <div class="container">
-  <div id="table-container">
-    <h3>Videos</h3>
-    <table class="table table-striped" id="video-table">
-      <thead>
-        <tr>
-          <th>Preview</th>
-          <th>Vimeo ID</th>
-          <th>YouTube ID</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Transcript</th>
-          <th>Hero</th>
-          <th>Priority</th>
-          <th>Status</th>
-          <th>Include In Country</th>
-          <th>Open Modal Link</th>
-          <th>Updated By</th>
-          <th>Remove</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @videos.each do |video| %>
-          <%= form_for video do |ff| %>
-            <tr>
-              <td></td>
-              <td><%= ff.text_area :vimeo_id %></td>
-              <td><%= ff.text_area :youtube_id %></td>
-              <td><%= ff.text_area :title %></td>
-              <td><%= ff.text_area :description %></td>
-              <td><%= ff.text_area :transcript %></td>
-              <td><%= ff.check_box :hero %></td>
-              <td><%= ff.select :priority, 1..10 %></td>
-              <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-              <td><%= ff.check_box :country_include %></td>
-              <td>https://www.boundround.com/places/<%= @place.slug + '/?video=' + (video.vimeo_id.to_s || video.youtube_id.to_s) %></td>
-              <td><%= !video.versions.blank? && video.versions.last.whodunnit ? User.find(video.versions.last.whodunnit).email : "" %><br><%= video.updated_at.strftime('%F at %T') %></td>
-              <td><%= ff.check_box :_destroy %></td>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
+  <%= render 'places/admin_tabs' %>
+  <h1>Edit Videos</h1>
+  <%= link_to "Back To Edit #{@place.display_name}", edit_place_path(@place)%>
+  <% if @videos.present? %>
+    <h4>Videos (Click to Edit)</h4>
+    <div class="row">
+      <% @videos.each do |video| %>
+        <div class="col-md-4">
+          <div class="">
+            <a href="" data-toggle="modal" data-target="#videoEditModal"
+              data-video-id="<%= video.id.to_s %>"
+              data-youtube-id="<%= video.youtube_id %>"
+              data-vimeo-id="<%= video.vimeo_id %>"
+              data-priority="<%= video.priority %>"
+              data-status="<%= video.status %>"
+              data-title="<%= video.title %>"
+              data-description="<%= video.description %>"
+              data-transcript="<%= video.transcript %>"
+              data-video-type="<%= video.youtube_id.present? ? "youtube" : "vimeo" %>"
+              class="edit-video" data-path="<%= "/videos/#{video.id}" %>">
+              <img src="<%= showing_image(video.vimeo_thumbnail) %>" alt="" class="width100">
+            </a>
+          </div>
+          <div class="text-center"><%= video.title %></div>
+        </div>
+      <% end %>
+    </div>
+    <hr>
+  <% end %>
+  <div class="edit_photo">
+    <%= render "/videos/form" %>
+  </div>
+</div>
+
+
+<div class="modal fade" id="videoEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+			<%= simple_form_for :video, method: "put", html: { id: "edit-video-form" } do |f| %>
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	        <h4 class="modal-title" id="myModalLabel">Edit Video</h4>
+	      </div>
+	      <div class="modal-body">
+          <div id="video-thumbnail"></div>
+          <div class="form-group" id="vimeo-edit-block">
+            <%= f.input :vimeo_id, label: "Vimeo ID", input_html: { class: 'form-control', id: "vimeo-edit-id"}  %>
+          </div>
+          <div class="form-group" id="youtube-edit-block">
+            <%= f.input :youtube_id, label: "Youtube ID", input_html: { class: 'form-control', id: "youtube-edit-id" }  %>
+          </div>
+          <div class="form-group">
+            <%= f.input :priority, label: "Priority", collection: 1..10, input_html: { class: 'form-control', id: 'video_edit_priority' }  %>
+            <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control', id: 'video_edit_status' }  %>
+            <%= f.input :title, label: "Title (leave blank for autofill from Vimeo)", input_html: { class: 'form-control', id: 'video_edit_title' }  %>
+            <%= f.input :description, label: "Description (leave blank for autofill from Vimeo)", input_html: { class: 'form-control', id: 'video_edit_description' }  %>
+            <%= f.input :transcript, label: "Transcript (leave blank for autofill from Vimeo)", input_html: { class: 'form-control', id: 'video_edit_transcript' }  %>
+            <%= f.input :place_id, as: :hidden, input_html: {value: @place.id } %>
+          </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <div class="form-group">
+            <%= f.button :submit%>
+          </div>
+	      </div>
+			<% end %>
+    </div>
   </div>
 </div>

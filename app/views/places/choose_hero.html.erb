@@ -29,7 +29,8 @@
 			<% end %>
 		</div>
 		<hr>
-		<% end %>
+	<% end %>
+	<% if @place_photos.present? %>
 		<h4>Place Photos (Click to Edit)</h4>
 		<div class="row">
 		<% @place_photos.each do |photo| %>
@@ -56,6 +57,7 @@
 		<% end %>
 		</div>
 	</div>
+	<% end %>
 
 	<!-- Modal -->
 <div class="modal fade" id="photoEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

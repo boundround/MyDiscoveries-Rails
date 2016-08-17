@@ -59,3 +59,4 @@
 //= require blueimp-gallery.min
 //= require custom
 //= require loading
+//= require place_videos
