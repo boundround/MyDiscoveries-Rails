@@ -7,10 +7,17 @@
 <div class="stories-show">
 	<div class="container">
 		<div class="row">
-	        <div class="outer-profile" style="background: url('<%= @story.user.avatar_url rescue '' %>') no-repeat;">
-	        </div>
-	        <p><div style="color:#fd7c56;margin-top:-7px;"><%= @story.user.username rescue "" %></div></p>
-			<div class="col-md-12"><h2><%= @story.title.html_safe %></h2></div>
+	        <p><div style="color:#fd7c56;margin-top:-7px;"></div></p>
+			<div class="col-md-12 text-center"><h2><%= @story.title.html_safe %></h2></div>
+			<div class="text-center">
+				by&nbsp;
+		    <% if @story.user.is_private? %>
+		      <%= @story.user.username rescue "" %>
+		    <% else %>
+		      <%= link_to @story.user.username, public_profile_user_path(@story.user) %>
+		    <% end %>
+		  </div>
+			<div class="story-avatar" style="background: url('<%= @story.user.avatar_url rescue '' %>') no-repeat;"></div>
 			<div class="col-md-12"><%= @story.content.html_safe %></div>
 		</div>
 	</div>

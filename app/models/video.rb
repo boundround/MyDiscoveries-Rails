@@ -78,6 +78,21 @@ class Video < ActiveRecord::Base
   #   end
   # end
 
+  def update_info
+    if self.vimeo_id.present?
+      response = Unirest.get("https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + self.vimeo_id.to_s) rescue nil
+      self.youtube_id = ""
+    elsif self.youtube_id.present?
+      response = Unirest.get("http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=#{self.youtube_id}&format=json") rescue nil
+    end
+
+    if response
+      self.vimeo_thumbnail = response.body["thumbnail_url"]
+      self.title = response.body["title"] if self.title.blank?
+      self.description = response.body["description"] if self.description.blank?
+    end
+  end
+
   def video_service_id
     errors.add(:base, 'Video Service ID can not be empty.') if vimeo_id.blank? and youtube_id.blank?
   end

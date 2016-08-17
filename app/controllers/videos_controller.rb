@@ -69,13 +69,17 @@ class VideosController < ApplicationController
   def update
     @video = Video.find(params[:id])
     if @video.update(video_params)
-      response = Unirest.get "https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s
-      @video.vimeo_thumbnail = response.body["thumbnail_url"]
-      if @video.title.blank?
-      @video.title = response.body["title"]
+      if !params["video"]["vimeo_id"].blank?
+          response = Unirest.get("https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s) rescue nil
+          @video.youtube_id = ""
+      elsif !params["video"]["youtube_id"].blank?
+          response = Unirest.get("http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=#{@video.youtube_id}&format=json") rescue nil
       end
-      if @video.description.blank?
-        @video.description = response.body["description"]
+
+      if response
+        @video.vimeo_thumbnail = response.body["thumbnail_url"]
+        @video.title = response.body["title"] if @video.title.blank?
+        @video.description = response.body["description"] if @video.description.blank?
       end
       @video.save
     end

@@ -109,7 +109,9 @@ class Place < ActiveRecord::Base
     end
 
     attribute :hero_photo do
-      hero_h= photos.where(photos: { hero: true }).first
+      hero_h = photos.where(photos: { hero: true })
+      hero_h += user_photos.where(user_photos: { hero: true })
+      hero_h = hero_h.first
       hero= {}
       if hero_h.present?
         hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }

@@ -274,6 +274,7 @@ $(document).ready(function() {
             placeholder: {
                 text: 'Tell your story',
             },
+            targetBlank: true,
             autoLink: true,
             toolbar: {
               /* These are the default options for the toolbar,
@@ -298,6 +299,7 @@ $(document).ready(function() {
         placeholder: {
             text: ''
         },
+        targetBlank: true,
         toolbar: {
           /* These are the default options for the toolbar,
              if nothing is passed this is what is used */
