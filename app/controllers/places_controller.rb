@@ -6,7 +6,10 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
-    @place.photos.build
+    @places = Place.active.order(display_name: :asc)
+    @countries = Country.all
+    @subcategories = Subcategory.order(name: :asc)
+    @primary_categories = PrimaryCategory.all
   end
 
   def create
@@ -16,14 +19,10 @@ class PlacesController < ApplicationController
       @place.identifier = @place.display_name.gsub(/\W/, '').downcase
     end
 
-    if @place.is_area.blank?
-      @place.is_area = false
-    end
-
     if @place.save
-      redirect_to :back, notice: 'Place succesfully saved'
+      redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
-      redirect_to '/places#new', notice: 'Place not saved!'
+      render action: :new, notice: 'Place not saved!'
     end
   end
 

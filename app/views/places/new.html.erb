@@ -1,50 +1,188 @@
 <div class="container">
-  <h1>Create New Place</h1>
+  <% if @place.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@place.errors.count, "error") %> prohibited this place from being updated:</h2>
 
-  <%= simple_form_for @place, html: { role: 'form'} do |f| %>
-    <div class="form-group">
-      <%= f.input :display_name, label: 'Place Name', required: true %>
+      <ul>
+      <% @place.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
     </div>
-    <div class="form-group">
-      <%= f.input :country_id, label: 'Country', collection: Country.all, as: :select, label_method: :display_name, value_method: :id, required: true %>
-    </div>
-    <div class="form-group">
-      <%= f.input :website, input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
-      <%= f.input :subscription_level, collection: ["Premium", "standard", "basic"], selected: "basic", required: true %>
-    </div>
-    <div class="form-group">
-      <%= f.input :status, collection: ["draft", "edited", "published"], selected: "draft", required: true %>
-    </div>
+  <% end %>
+  <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
+    <h2 class="top20">Create A New Place</h2>
 
-    <p><input id="pac-input" class="controls" type="text"
-        placeholder="Enter a location"></p>
-
-    <div class="map-container">
-      <div class="map-canvas"></div>
-    </div>
-
-    <div class="form-group lat-lng">
-      <%= f.input :display_address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address", class: 'longer-input' }, label: "Display Address" %>
-      <%= f.input :latitude, as: :hidden, :input_html => { "data-geo" => "lat" } %>
-      <%= f.input :longitude, as: :hidden, :input_html => { "data-geo" => "lng" } %>
-      <%= f.input :street_number, :input_html => { "data-geo" => "street_number" } %>
-      <%= f.input :route, :input_html => { "data-geo" => "route", class: 'form-control' } %>
-      <%= f.input :sublocality, :input_html => { "data-geo" => "sublocality", class: 'form-control' } %>
-      <%= f.input :locality, :input_html => { "data-geo" => "locality", class: 'form-control' } %>
-      <%= f.input :state, :input_html => { "data-geo" => "administrative_area_level_1", class: 'form-control' } %>
-      <%= f.input :country, as: :string, :input_html => { "data-geo" => "country" } %>
-      <%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code" } %>
-      <%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control' } %>
-      <%= f.input :place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
-    </div>
-    <div class="form-group">
-      <%= f.input :description, as: :bootsy, placeholder: 'Description', required: true, input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
-      <%= f.submit :submit %>
-    </div>
-  <%end%>
+    <%= simple_form_for @place, html: { role: 'form'} do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <p>
+            <input id="pac-input" class="controls form-control" type="text"
+              placeholder="Search For A Place">
+          </p>
+          <div id="map-canvas" style="height:500px;"></div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group lat-lng">
+            <%= f.input :display_address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address", class: 'longer-input' }, label: "Display Address" %>
+            <span class="pull-left"><%= f.input :latitude, :input_html => { "data-geo" => "lat" } %></span>
+            <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
+            <%= f.input :street_number, :input_html => { "data-geo" => "street_number" } %>
+            <span class="pull-left"><%= f.input :route, :input_html => { "data-geo" => "route", class: '' } %></span>
+            <span class="pull-left"><%= f.input :sublocality, :input_html => { "data-geo" => "sublocality"} %></span>
+            <%= f.input :locality, :input_html => { "data-geo" => "locality" } %>
+            <span class="pull-left"><%= f.input :state, :input_html => { "data-geo" => "administrative_area_level_1" } %></span>
+            <%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code" } %>
+            <%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control' } %>
+            <%= f.input :place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div>
+          <%= f.check_box :is_area, label: false %>&nbsp;Is this an area?<br>
+          <%= f.check_box :footer_include, label: false %>&nbsp;Include In Footer?
+      </div>
+      <hr>
+      <div class="form-group js-primary-category radio-inline">
+        <%= f.input :primary_category_id do %>
+         <%= f.select :primary_category_id, @primary_categories.map { |category| [category.name, category.id] }%>
+       <% end %>
+      </div>
+      <div class="form-group">
+        <table class="table">
+          <tr>
+            <td>
+          </tr>
+        </table>
+      </div>
+      <div class="form-group">
+        <%= f.input :display_name, input_html: { class: 'form-control' } %>
+      </div>
+      <div class="form-group">
+        <%= f.association :country, label: 'Country', collection: @countries, as: :select, label_method: :display_name, required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.input :parent_id, label: 'Parent Place', collection: @places, as: :select, :label_method => lambda { |place| "#{place.display_name}, #{place.country.display_name rescue ""}, ID: #{place.id}"}, value_method: :id, required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.input :short_description, label: "Short Description (leave blank to auto-populate)", input_html: { class: 'form-control area-description-input' } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :description, as: :bootsy, label: "Long description", input_html: { class: 'form-control area-description-input', col: 50 } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :email, input_html: { class: 'form-control' } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :website, input_html: { class: 'form-control' } %>
+      </div>
+      <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
+        <div class="form-group published-radio">
+          <%= f.input :subscription_level, as: :radio_buttons, :item_wrapper_class => 'radio-inline', collection: ["basic", "standard", "Premium"] %>
+        </div>
+        <div class="form-group published-radio">
+          <%= f.input :status, as: :select, collection: ["draft", "edited", "live", "removed"] %>
+        </div>
+      <% end %>
+      <div class="field row">
+        <strong>Secondary categories</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "subcategory" %>
+              <div class="checkbox-inline col-md-2">
+                <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+                <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+                <%= label_tag dom_id(category), category.name %>
+              </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <br>
+        <strong>Age Range</strong>
+        <%= f.input :minimum_age, collection: 0..18, label: "From:", input_html: { class: 'form-control' } %>
+        <%= f.input :maximum_age, collection: 0..18, label: "To:", input_html: { class: 'form-control' } %>
+      </div>
+      <div class="field js-primary-category row">
+        <br>
+        <strong>Price categories</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "price" %>
+              <div class="checkbox-inline col-md-2">
+                <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+                <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+                <%= label_tag dom_id(category), category.name %>
+              </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="field js-primary-category row">
+        <br>
+        <strong>Accessibility</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "accessibility" %>
+            <div class="checkbox-inline col-md-2">
+              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+              <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+              <%= label_tag dom_id(category), category.name %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="field js-primary-category row">
+        <br>
+        <strong>Place visit duration</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "duration" %>
+            <div class="checkbox-inline col-md-2">
+              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+              <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+              <%= label_tag dom_id(category), category.name %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="field js-primary-category row">
+        <br>
+        <strong>Best time of day</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "optimum_time" %>
+            <div class="checkbox-inline col-md-2">
+              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+              <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+              <%= label_tag dom_id(category), category.name %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="field js-primary-category">
+        <br>
+        <strong>Weather Conditions</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "weather" %>
+            <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+            <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+            <%= label_tag dom_id(category), category.name %><br/>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="form-group js-primary-category">
+        <br>
+        <input type="checkbox" id="special-requirements-box">&nbsp;&nbsp;<strong>Special requirements?</strong> (Unchecking will delete text)
+        <div class="js-special-requirements">
+          <%= f.input :special_requirements, label: false, input_html: { class: 'form-control' } %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.button :submit, 'Submit' %>
+      </div>
+    <% end %>
+    <hr>
+  <% else %>
+    <h2>You do not have sufficient privileges to view this page</h2>
+    <%= link_to "Home", root_path %>
+  <% end %>
+  <p></p>
+  <br>
+  <p></p>
 </div>
-<%= javascript_include_tag 'area.js' %>

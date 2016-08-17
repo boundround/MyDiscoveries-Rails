@@ -211,8 +211,8 @@ class Place < ActiveRecord::Base
                                               class_name: 'RatingCache',
                                               dependent: :destroy
 
-  reverse_geocoded_by :latitude, :longitude
-  after_validation :reverse_geocode
+  # reverse_geocoded_by :latitude, :longitude
+  # after_validation :reverse_geocode
 
   after_update :crop_hero_image
   before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_short_description
@@ -222,13 +222,8 @@ class Place < ActiveRecord::Base
 
   resourcify
 
-  acts_as_taggable
-  acts_as_taggable_on :locations, :activities
-
   extend FriendlyId
   friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
-
-  # default_scope { order('display_name ASC') } ## This screwed up programs query by calling it implicitly on a join query
 
   scope :active, -> { where(status: "live") }
   scope :not_removed, -> { where('status != ?', 'removed') }
@@ -243,14 +238,8 @@ class Place < ActiveRecord::Base
   scope :is_not_area, -> {where(is_area: nil)}
   scope :primary_areas_with_photos, -> { includes(:photos).where(primary_area: true)}
 
-  # include PgSearch
-  # pg_search_scope :search, against: [:display_name, :description],
-  #   using: {tsearch: {dictionary: "english"}},
-  #   associated_against: {photos: :caption, area: [:display_name, :description]}
-
   validates_presence_of :display_name, :slug
 
-  # belongs_to :area
 
   belongs_to :country
   belongs_to :user
@@ -299,9 +288,6 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :user_photos, allow_destroy: true
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
   accepts_nested_attributes_for :stamps, allow_destroy: true
-
-  mount_uploader :map_icon, IconUploader
-  mount_uploader :hero_image, PlaceHeroImageUploader
 
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson

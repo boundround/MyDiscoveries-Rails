@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160803052504) do
-=======
-ActiveRecord::Schema.define(version: 20160815013002) do
->>>>>>> cms-edit-workflow
+ActiveRecord::Schema.define(version: 20160817050411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
