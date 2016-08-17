@@ -1,6 +1,7 @@
 <div class="container">
   <%= render "/places/admin_tabs" %>
   <h2>All "Good To Know"</h2>
+  <p><%= link_to "Back To Edit #{@place.display_name}", edit_place_path(@place)%></p>
   <% if !@good_to_knows.blank? %>
     <% @good_to_knows.each do |good_to_know| %>
     <p>Text: <%= good_to_know.description %> || Show On Page: <%= good_to_know.show_on_page %><br>
@@ -14,6 +15,6 @@
   <%= simple_form_for [@place, @good_to_know] do |f|%>
     <%= f.input :description, input_html: { class: 'form-control' } %>
     <%= f.input :show_on_page, as: :boolean %><br>
-    <%= f.submit :submit %>
+    <%= f.submit "Save", class: "btn btn-primary" %>
   <% end %>
 </div>

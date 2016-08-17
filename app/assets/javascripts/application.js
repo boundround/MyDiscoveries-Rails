@@ -61,3 +61,4 @@
 //= require trip_advisor
 //= require loading
 //= require rest_in_place
+//= require place_videos

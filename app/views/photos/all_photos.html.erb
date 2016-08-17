@@ -1,0 +1,11 @@
+<div class="container">
+  <h3>Photos</h3>
+  <%= link_to "Back To Edit #{@place.display_name}", edit_place_path(@place)%>
+  <div class="row">
+    <% @photos.each do |photo| %>
+      <div class="col-md-3">
+        <img src="<%= photo.path_url(:small)%>">
+      </div>
+    <% end %>
+  </div>
+</div>

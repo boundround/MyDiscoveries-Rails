@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160803052504) do
+=======
+ActiveRecord::Schema.define(version: 20160815013002) do
+>>>>>>> cms-edit-workflow
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -821,6 +825,7 @@ ActiveRecord::Schema.define(version: 20160803052504) do
     t.string   "instagram_id"
     t.boolean  "hero"
     t.integer  "country_id"
+    t.text     "alt_tag"
   end
 
   add_index "user_photos", ["area_id"], name: "index_user_photos_on_area_id", using: :btree

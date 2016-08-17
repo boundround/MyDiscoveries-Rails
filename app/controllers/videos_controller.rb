@@ -17,12 +17,22 @@ class VideosController < ApplicationController
     end
   end
 
+  def all
+    @place = Place.friendly.find(params[:place_id])
+    @videos = @place.videos
+  end
+
   def show
     @video = Video.find(params["id"])
     key = "bearer " + ENV["VIMEO_OAUTH_KEY"]
     response = Unirest.get "https://api.vimeo.com/videos/" + @video.vimeo_id.to_s, headers: { "Authorization" => key }
     @video_link = response.body
     @no_nav = true
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @video }
+    end
   end
 
   def new
@@ -52,7 +62,7 @@ class VideosController < ApplicationController
     if @video.save
       redirect_to :back, notice: "Video added."
     else
-      render :new
+      redirect_to :back, notice: "There was an error saving your video."
     end
   end
 

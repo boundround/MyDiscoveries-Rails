@@ -1,7 +1,21 @@
 window.onload = function(){
+  var latLong = [];
+  var latitude = document.querySelector("#latitude");
+  var longitude = document.querySelector("#longitude");
+  if(latitude){
+    latLong.push(latitude.innerHTML);
+  }
+  if(longitude){
+    latLong.push(longitude.innerHTML);
+  }
+
+  if(latLong.length !== 2){
+    latLong = [-33.8688, 151.2093]
+  }
   $("#pac-input").geocomplete({
     types: ['geocode', 'establishment'],
-    map: ".map-canvas",
+    map: "#map-canvas",
+    location: latLong,
     markerOptions: {
       draggable: true
     },

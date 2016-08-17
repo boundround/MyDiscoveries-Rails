@@ -271,4 +271,96 @@ $(document).ready(function() {
         }
     }
 
+    if (document.querySelector("#photoEditModal")){
+      $(".edit-photo").on("click", function(e){
+        var node = $(this);
+        if ($(this).data('type') === "Photo"){
+          var photoID = $(this).data('photo-id');
+          if (photoID > 0){
+            $.ajax({
+              type: "GET",
+              url: "/photos/" + photoID + ".json",
+              success: function(data){
+                $('#photo').empty().html("<img class='newPhoto' src='" + data["path"]["medium"]["url"] + "'>'");
+                $('#photoInfo').empty().html("<div id='photoData' data-photo-id='" + photoID + "'></div>");
+                fillPhotoEditModal(node);
+              }
+            });
+          }
+        } else {
+          var photoID = $(this).data('photo-id');
+          if (photoID > 0){
+            $.ajax({
+              type: "GET",
+              url: "/user_photos/" + photoID + ".json",
+              success: function(data){
+                $('#photo').empty().html("<img class='newPhoto' src='" + data["path"]["medium"]["url"] + "'>'");
+                $('#photoInfo').empty().html("<div id='photoData' data-photo-id='" + photoID + "'></div>");
+                fillPhotoEditModal(node);
+              }
+            });
+          }
+        }
+      });
+
+      $('#photoEditModal').on('hidden.bs.modal', function (e) {
+        emptyPhotoEditModal($(this));
+      });
+
+      $('#photo-file').change( function()
+      {
+        console.log( $(this).val() );
+      });
+    }
+
+    var fillPhotoEditModal = function(node){
+      $('#caption').val($(node).data("caption")).attr("name", $(node).data("instance") + "[caption]");
+      $('#photo-file').attr("name", $(node).data("instance") + "[path]");
+      if ($(node).data("instance") === "user_photo"){
+        $('#credit').hide();
+      } else {
+        $('#credit').val($(node).data("credit")).attr("name", $(node).data("instance") + "[credit]");
+      }
+      $('#alt-tag').val($(node).data("alt")).attr("name", $(node).data("instance") + "[alt_tag]");
+      $('#edit-photo-form').get(0).setAttribute('action', $(node).data("path"));
+      $('.newPhoto').click(function(){
+        $('#photo-file').click()
+      });
+      fileUploader();
+    }
+
+    var emptyPhotoEditModal = function(node){
+      if ($('#credit').attr("display") === "none"){
+        $('#credit').show();
+      }
+      $(node).find("#caption").val("").attr("name", "");
+      $(node).find("#credit").val("").attr("name", "");
+      $(node).find("#alt-tag").val("").attr("name", "");
+      $(node).find("#photo-file").attr("name", "");
+      $(node).find("#photo").empty();
+      $('#edit-photo-form').get(0).setAttribute('action', "");
+      $('#photo-preview').attr("src", "");
+    }
+
+    var fileUploader = function(){
+      console.log("FILEUPLOAD");
+      $('#edit-photo-form').fileupload({
+        add: function(e, data) {
+          $(".newPhoto").hide();
+          $(".avatar-text").text("Click to change photo");
+          $("#submit-upload").click(function(event) {
+              data.submit();
+          });
+          if (data.files && data.files[0]) {
+            console.log("reader");
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                  $('#photo-preview').show().attr('src', e.target.result);
+              }
+              reader.readAsDataURL(data.files[0]);
+          }
+        } //add
+      });
+    }
+
 });
