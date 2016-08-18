@@ -34,6 +34,7 @@
             <%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code" } %>
             <%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control' } %>
             <%= f.input :place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
+            <%= f.input :trip_advisor_url, input_html: { class: 'form-control' } %>
           </div>
         </div>
       </div>
