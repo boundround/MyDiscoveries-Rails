@@ -577,6 +577,7 @@ class PlacesController < ApplicationController
     @place = Place.find_by_slug(params[:id])
     @user_photos = @place.user_photos
     @place_photos = @place.photos
+    @photo = Photo.new
   end
 
   def update_hero
