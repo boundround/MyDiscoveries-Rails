@@ -6,6 +6,7 @@
       <thead>
       <tr>
         <th>Place</th>
+        <th>Parent</th>
         <th>Word Count</th>
         <th>Edit Link</th>
         <th>Subscription Level</th>
@@ -16,6 +17,7 @@
       <tfoot>
         <tr>
           <th>Place</th>
+          <th>Parent</th>
           <th>Word Count</th>
           <th></th>
           <th>Subscription Level</th>
@@ -27,6 +29,7 @@
       <% @places.each do |place| %>
           <tr>
             <td><%= link_to "#{place.display_name} || #{place.id}", edit_place_path(place) %></td>
+            <td><%= place.parent.present? ? place.parent.display_name : "No Parent" %></td>
             <td><%= place.description.blank? ? 0 : (place.description.size / 6) %></td>
             <td><%= link_to "Edit Place", "/places/" + place.slug + "/new_edit" %></td>
             <td><%= place.subscription_level %></td>

@@ -234,9 +234,9 @@ class PlacesController < ApplicationController
 
   def index
     if params[:is_area]
-      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where(is_area: true)
+      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where(is_area: true)
     else
-      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100).where.not(status: "removed").where.not(is_area: true)
+      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where.not(is_area: true)
     end
     set_surrogate_key_header Place.table_key, @places.map(&:record_key)
     respond_to do |format|
