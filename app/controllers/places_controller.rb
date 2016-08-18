@@ -122,7 +122,7 @@ class PlacesController < ApplicationController
       'field[%FAMILY_INTEREST_2%,0]' => params[:subcategories][1],
       'field[%FAMILY_INTEREST_3%,0]' => params[:subcategories][2],
       'field[%DOES_YOUR_FAMILY_HAVE_ACCESSIBILITY_NEEDS_TO_BE_CONSIDERED%,0]' => params[:accessiblity],
-      'p[8]' => 8)
+      'p[4]' => 4)
 
 
     if @country
