@@ -371,6 +371,8 @@ GEM
       railties (>= 3.2, < 4.2)
     rest-client (1.6.9)
       mime-types (~> 1.16)
+    rest_in_place (2.5.0)
+      rails (>= 3.1)
     rolify (5.1.0)
     roo (2.4.0)
       nokogiri (~> 1)
@@ -555,6 +557,7 @@ DEPENDENCIES
   rails_admin
   ratyrate
   redis
+  rest_in_place
   rolify
   roo
   roo-xls

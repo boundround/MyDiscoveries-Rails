@@ -194,16 +194,30 @@
               </div>
               <% end %>
           </div>
-          <div class="thing-side-info-segment">
+          <!-- <div class="thing-side-info-segment">
             <div class="row">
               <div class="col-md-12">Average Rating</div>
             </div> <br/>
             <div class="row">
               <div class="col-md-12 rating-wrapper">
-                <%= raw draw_rating_smiles(@place) %>
+                <%#= raw draw_rating_smiles(@place) %>
               </div>
             </div>
-          </div>
+          </div> -->
+          <% if @trip_advisor_data %>
+            <div class="thing-side-info-segment">
+              <div class="row">
+                <div class="col-xs-12">TripAdvisor Traveler Rating</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <img src="<%= @trip_advisor_data["rating_image_url"] %>">
+                  &nbsp;<a href="<%= @place.trip_advisor_url %>" target="_blank"><%= @trip_advisor_data["num_reviews"] %> reviews</a><br>
+                  <a href="http://www.tripadvisor.com/pages/terms.html">&copy; TripAdvisor 2016</a>
+                </div>
+              </div>
+            </div>
+          <% end %>
           <div class="thing-side-info-segment">
             <div class="row">
               <div class="col-xs-8">Suitable for ages</div>

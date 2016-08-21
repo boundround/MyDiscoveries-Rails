@@ -24,6 +24,20 @@ class PhotosController < ApplicationController
     end
   end
 
+  def place_update
+    @photo = Photo.find(params[:id])
+    if @photo.update(photo_params)
+      redirect_to choose_hero_place_path(@photo.place), notice: "Photo Succesfully Updated"
+    else
+      redirect_to choose_hero_place_path(@photo.place), notice: "Error"
+    end
+  end
+
+  def all_photos
+    @place = Place.friendly.find(params[:place_id])
+    @photos = @place.photos
+  end
+
   def new
     @photo = Photo.new
   end

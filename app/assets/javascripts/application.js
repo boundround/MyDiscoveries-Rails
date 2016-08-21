@@ -58,4 +58,7 @@
 //= require jquery_nested_form
 //= require blueimp-gallery.min
 //= require custom
+//= require trip_advisor
 //= require loading
+//= require rest_in_place
+//= require place_videos

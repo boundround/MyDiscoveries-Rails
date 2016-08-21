@@ -1,6 +1,7 @@
 <% if user_signed_in? && current_user.admin? %>
   <div class="container">
     <h1>All Deals for <%= @dealable.display_name %></h1>
+    <p><%= link_to "Back To Edit #{@dealable.display_name}", edit_polymorphic_path(@dealable)%></p>
     <% if !@deals.blank? %>
       <% @deals.each do |deal| %>
       <p>Title: <%= deal.title %> || Status: <%= deal.status %><br>

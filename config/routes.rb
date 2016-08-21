@@ -126,7 +126,9 @@ Rails.application.routes.draw do
   post 'posts_users/create' => 'posts_users#create'
   post 'posts_users/destroy' => 'posts_users#destroy'
 
-  resources :user_photos
+  resources :user_photos do
+    member { put 'place_update' }
+  end
   post 'user_photos/profile_create' => 'user_photos#profile_create'
 
   get 'stamp_transactions/stamp_here' => 'stamp_transactions#stamp_here'
@@ -142,7 +144,9 @@ Rails.application.routes.draw do
     post '/update_password_user' =>  'users/user_password#update_password'
   end
 
-  resources :pages
+  resources :pages do
+    collection { get 'all_pages' }
+  end
 
   get '/google_map_home' => 'pages#google_map_home'
 
@@ -174,6 +178,7 @@ Rails.application.routes.draw do
 
   resources :photos do
     collection { post :import }
+    member { put 'place_update' }
   end
 
   resources :videos do
@@ -322,8 +327,12 @@ Rails.application.routes.draw do
     collection { get 'merge'}
     collection { get 'edit_parents'}
     resources :stamps
-    resources :photos
-    resources :videos
+    resources :photos do
+      collection { get 'all_photos' }
+    end
+    resources :videos do
+      collection { get 'all' }
+    end
     resources :discounts
     resources :fun_facts
     resources :games

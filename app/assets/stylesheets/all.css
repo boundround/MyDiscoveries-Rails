@@ -686,7 +686,8 @@ h4 {
     text-align: center;
     color: #fff;
     font-size: 28px;
-    margin-top: 160px
+    margin-top: 160px;
+    text-shadow: black 1px 1px;
 }
 .home-page .banner-wrapper .banner-heading h1 {
     font-size: 80px

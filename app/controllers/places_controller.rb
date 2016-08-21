@@ -6,7 +6,10 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
-    @place.photos.build
+    @places = Place.active.order(display_name: :asc)
+    @countries = Country.all
+    @subcategories = Subcategory.order(name: :asc)
+    @primary_categories = PrimaryCategory.all
   end
 
   def create
@@ -16,14 +19,10 @@ class PlacesController < ApplicationController
       @place.identifier = @place.display_name.gsub(/\W/, '').downcase
     end
 
-    if @place.is_area.blank?
-      @place.is_area = false
-    end
-
     if @place.save
-      redirect_to :back, notice: 'Place succesfully saved'
+      redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
-      redirect_to '/places#new', notice: 'Place not saved!'
+      render action: :new, notice: 'Place not saved!'
     end
   end
 
@@ -154,9 +153,11 @@ class PlacesController < ApplicationController
   def edit
     @set_body_class = "br-body"
     @place = Place.friendly.find(params[:id])
-    @photo = Photo.new
-    @program = Program.new
-    @discount = Discount.new
+    @places = Place.active.order(display_name: :asc)
+    @countries = Country.all
+    @subcategories = Subcategory.order(name: :asc)
+    @primary_categories = PrimaryCategory.all
+    @three_d_video = ThreeDVideo.new
   end
 
   def update
@@ -176,16 +177,11 @@ class PlacesController < ApplicationController
           @place.fun_facts.each do |fun_fact|
             fun_fact.add_or_remove_from_country(@place.country)
           end
-
-          if params[:place][:hero_image].present? || params[:place][:remote_hero_image_url].present?
-            render :crop
-          else
-            redirect_to :back, notice: 'Place succesfully updated'
-          end
+          redirect_to :back, notice: 'Place succesfully updated'
         end
       end
     else
-      redirect_to edit_place_path(@place), notice: 'Error: Place not updated'
+      redirect_to :back
     end
   end
 
@@ -341,6 +337,7 @@ class PlacesController < ApplicationController
     @last_video = @place.videos.active.last
     @fun_facts = @place.fun_facts
     @set_body_class = "virgin-body" if @place.display_name == "Virgin Australia"
+    @trip_advisor_data = @place.trip_advisor_info
 
     view = if @place.is_area?
       @set_body_class = "destination-page"
@@ -580,6 +577,7 @@ class PlacesController < ApplicationController
     @place = Place.find_by_slug(params[:id])
     @user_photos = @place.user_photos
     @place_photos = @place.photos
+    @photo = Photo.new
   end
 
   def update_hero
@@ -822,6 +820,7 @@ class PlacesController < ApplicationController
         :special_requirements,
         :top_100,
         :viator_link,
+        :trip_advisor_url,
         photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
         fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],

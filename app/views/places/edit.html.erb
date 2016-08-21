@@ -1,288 +1,199 @@
-<div class="edit-container">
-  <% if user_signed_in? %>
-  <div id="place_address" data-address="<%= @place.display_address %>"></div>
-  <h1>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h1>
-  <p>
-    <a href="<%= preview_place_path(@place) %>" target="blank">Preview</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="<%= place_path(@place) %>" target="blank">View Place Page</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="/places/<%= @place.slug %>/refresh_blog">Refresh Blog Posts</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="/places/<%= @place.slug %>/new_edit">"New" Edit Form</a>
-  </p>
-  <%= simple_form_for @place, html: { role: 'form'} do |f| %>
-    <% if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin? %>
-      <div class="form-group">
-        <a href="<%= hero_image_picker_place_path(@place)%>" class="btn btn-default">Choose Hero Image</a>
-      </div>
-      <div class="form-group">
-        <%= f.input :tag_list, label: 'Tags (Comma Separated Values)', input_html: { class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <%= f.input :location_list, label: 'Location Tags (Comma Separated Values)', input_html: { class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <%= f.input :activity_list, label: 'Activity Tags (Comma Separated Values)', input_html: { class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <%= f.input :booking_url, input_html: { class: 'form-control' } %>
-      </div>
-    <% end %>
-    <% if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin? %>
-    <p><input id="pac-input" class="controls" type="text"
-        placeholder="Enter a location"> Geometry: <%= @place.latitude %>, <%= @place.longitude %></p>
+<div class="container">
+  <% if @place.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@place.errors.count, "error") %> prohibited this place from being updated:</h2>
 
-    <div class="map-container">
-      <div class="map-canvas"></div>
+      <ul>
+      <% @place.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
     </div>
-
-    <div class="form-group lat-lng">
-      <%= f.input :display_address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address", class: 'longer-input' }, label: "Display Address" %>
-      <%= f.input :latitude, :input_html => { "data-geo" => "lat" } %>
-      <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
-      <%= f.input :street_number, :input_html => { "data-geo" => "street_number" } %>
-      <%= f.input :route, :input_html => { "data-geo" => "route", class: 'form-control' } %>
-      <%= f.input :sublocality, :input_html => { "data-geo" => "sublocality", class: 'form-control' } %>
-      <%= f.input :locality, :input_html => { "data-geo" => "locality", class: 'form-control' } %>
-      <%= f.input :state, :input_html => { "data-geo" => "administrative_area_level_1", class: 'form-control' } %>
-      <%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code" } %>
-      <%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control' } %>
-      <%= f.input :place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
-    </div>
-    <p>
-      <div class="btn btn-info" id="approve-all">Check All Approved</div>
-    </p>
-    <div id="table-container">
-      <h3>Videos</h3>
-      <table class="table table-striped" id="video-table">
-        <thead>
-          <tr>
-            <th>Preview</th>
-            <th>Vimeo ID</th>
-            <th>YouTube ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Transcript</th>
-            <th>Hero</th>
-            <th>Priority</th>
-            <th>Status</th>
-            <th>Include In Country</th>
-            <th>Open Modal Link</th>
-            <th>Updated By</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @place.videos.each do |video| %>
-            <%= f.fields_for :videos, video do |ff| %>
-              <tr>
-                <%= ff.input :id, as: :hidden %>
-                <td></td>
-                <td><%= ff.text_area :vimeo_id %></td>
-                <td><%= ff.text_area :youtube_id %></td>
-                <td><%= ff.text_area :title %></td>
-                <td><%= ff.text_area :description %></td>
-                <td><%= ff.text_area :transcript %></td>
-                <td><%= ff.check_box :hero %></td>
-                <td><%= ff.select :priority, 1..10 %></td>
-                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-                <td><%= ff.check_box :country_include %></td>
-                <td>https://www.boundround.com/places/<%= @place.slug + '/?video=' + (video.vimeo_id.to_s || video.youtube_id.to_s) %></td>
-                <td><%= !video.versions.blank? && video.versions.last.whodunnit ? User.find(video.versions.last.whodunnit).email : "" %><br><%= video.updated_at.strftime('%F at %T') %></td>
-                <td><%= ff.check_box :_destroy %></td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-    <div id="table-container">
-      <h3>Photos</h3>
-      <table class="table table-striped" id="photo-table">
-        <thead>
-          <tr>
-            <th>Thumbnail</th>
-            <th>Change Photo</th>
-            <th>Credit</th>
-            <th>Caption</th>
-            <th>Alt Tags</th>
-            <th>Hero</th>
-            <th>Priority</th>
-            <th>Status</th>
-            <th>Include In Country</th>
-            <th>In Customer Review</th>
-            <th>Customer Approved</th>
-            <th>Updated By</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @place.photos.each do |photo| %>
-            <%= f.fields_for :photos, photo do |ff| %>
-              <tr>
-                <%= ff.input :id, as: :hidden %>
-                <td><img src="<%= asset_path(photo.path_url) %>" class="photo-edit-thumb"></td>
-                <td><%= ff.file_field :path, class: "photo-file" %></td>
-                <td><%= ff.text_area :credit %></td>
-                <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
-                <td><%= ff.text_field :alt_tag %></td>
-                <td><%= ff.check_box :hero %></td>
-                <td><%= ff.select :priority, 1..20 %></td>
-                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-                <td><%= ff.check_box :country_include %></td>
-                <td><%= ff.check_box :customer_review, class: 'customer-review' %></td>
-                <td><%= ff.check_box :customer_approved, class: 'customer-approve' %><br><%= photo.approved_at.strftime('%F at %T') if photo.approved_at %></td>
-                <td><%= !photo.versions.blank? && photo.versions.last.whodunnit ? User.find(photo.versions.last.whodunnit).email : "" %><br><%= photo.updated_at.strftime('%F at %T') %></td>
-                <td><%= ff.check_box :_destroy %></td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-    <div id="table-container">
-      <h3>User Uploaded Photos</h3>
-      <table class="table table-striped" id="photo-table">
-        <thead>
-          <tr>
-            <th>Thumbnail</th>
-            <th>Change Photo</th>
-            <th>Caption</th>
-            <th>Hero</th>
-            <th>Priority</th>
-            <th>Status</th>
-            <th>Delete</th>
-            <th>Change Location</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @place.user_photos.each do |photo| %>
-              <% if photo.place %>
-                <% @location = photo.place %>
-              <% else %>
-                <% @location = photo.area %>
-              <% end %>
-            <%= f.fields_for :user_photos, photo do |ff| %>
-              <tr>
-                <%= ff.input :id, as: :hidden %>
-                <td><img src="<%= asset_path(photo.path_url) %>" class="photo-edit-thumb"></td>
-                <td><%= ff.file_field :path, class: "photo-file" %></td>
-                <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
-                <td><%= ff.check_box :hero %></td>
-                <td><%= ff.select :priority, ([nil].push((1..20).to_a)).flatten %></td>
-                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-                <td><%= ff.check_box :_destroy %></td>
-                <td><%= link_to 'Change Location', edit_place_user_photo_path(@location, photo) %></td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-    <div id="table-container">
-      <h3>Reviews</h3>
-      <table class="table table-striped" id="photo-table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Content</th>
-            <th>User</th>
-            <th>Status</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @place.reviews.each do |review| %>
-           <%= f.fields_for :reviews, review do |ff| %>
-              <tr>
-                <td><%= link_to review.title, edit_place_review_path(@place.id, review) %></td>
-                <td><%= review.content %></td>
-                <td><%= review.user.username %></td>
-                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-                <td><%= ff.check_box :_destroy %></td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-
-    <div id="table-container">
-      <h3>Fun Facts</h3>
-      <table class="table table-striped" id="fun-fact-table">
-        <thead>
-          <tr>
-            <th>Content</th>
-            <th>Reference</th>
-            <th>Hero Photo</th>
-            <th>Photo Credit</th>
-            <th>Priority</th>
-            <th>Status</th>
-            <th>Include In Country</th>
-            <th>In Customer Review</th>
-            <th>Customer Approved</th>
-            <th>Updated By</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @place.fun_facts.each do |fun_fact| %>
-            <%= f.fields_for :fun_facts, fun_fact do |ff| %>
-              <tr>
-                <%= ff.input :id, as: :hidden %>
-                <td><%= ff.text_field :content %></td>
-                <td><%= ff.text_field :reference %></td>
-                <td><%= ff.file_field :hero_photo %></td>
-                <td><%= ff.text_field :photo_credit %></td>
-                <td><%= ff.select :priority, 1..10 %></td>
-                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
-                <td><%= ff.check_box :country_include %></td>
-                <td><%= ff.check_box :customer_review, class: 'customer-review' %></td>
-                <td><%= ff.check_box :customer_approved, class: 'customer-approve' %><br><%= fun_fact.approved_at.strftime('%F at %T') if fun_fact.approved_at %></td>
-                <td><%= !fun_fact.versions.blank? && fun_fact.versions.last.whodunnit ? User.find(fun_fact.versions.last.whodunnit).email : "" %><br><%= fun_fact.updated_at.strftime('%F at %T') %></td>
-                <td><%= ff.check_box :_destroy %></td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="form-group">
-      <%= f.button :submit, 'Update All' %>
-    </div>
-    <% end %>
   <% end %>
-  <div class="edit_photo">
-    <%= render "/videos/form" %>
-  </div>
+  <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
+    <%= render "/places/admin_tabs" %>
+    <h2>Edit <%= @place.display_name + ' (ID: ' + @place.id.to_s + ')' %></h2>
 
-  <div class="edit_photo">
-    <%= render "/photos/form" %>
-  </div>
-
-  <div class="edit_photo">
-    <%= render "/fun_facts/form" %>
-  </div>
-
-  <div class="edit_photo">
-    <%= render "/programs/form" %>
-  </div>
-<% else %>
-  <h3>Sorry, you must be logged in to view this page</h3>
-<% end %>
+    <%= simple_form_for @place, html: { role: 'form'} do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <p><input id="pac-input" class="controls form-control" type="text"
+              placeholder="Search For A Place">Geometry: <span id="latitude"><%= @place.latitude %></span>, <span id="longitude"><%= @place.longitude %></span></p>
+          <div id="map-canvas" style="height:500px;"></div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group lat-lng">
+            <%= f.input :display_address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address", class: 'longer-input' }, label: "Display Address" %>
+            <span class="pull-left"><%= f.input :latitude, :input_html => { "data-geo" => "lat" } %></span>
+            <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
+            <%= f.input :street_number, :input_html => { "data-geo" => "street_number" } %>
+            <span class="pull-left"><%= f.input :route, :input_html => { "data-geo" => "route", class: '' } %></span>
+            <span class="pull-left"><%= f.input :sublocality, :input_html => { "data-geo" => "sublocality"} %></span>
+            <%= f.input :locality, :input_html => { "data-geo" => "locality" } %>
+            <span class="pull-left"><%= f.input :state, :input_html => { "data-geo" => "administrative_area_level_1" } %></span>
+            <%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code" } %>
+            <%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control' } %>
+            <%= f.input :place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
+            <%= f.input :trip_advisor_url, input_html: { class: 'form-control' } %>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div>
+          <%= f.check_box :is_area, label: false %>&nbsp;Is this an area?<br>
+          <%= f.check_box :footer_include, label: false %>&nbsp;Include In Footer?
+      </div>
+      <hr>
+      <div class="form-group js-primary-category">
+        <%= f.input :primary_category_id, as: :radio_buttons, :collection => @primary_categories, :item_wrapper_class => 'radio-inline', value_method: :id %>
+      </div>
+      <div class="form-group">
+        <table class="table">
+          <tr>
+            <td>
+          </tr>
+        </table>
+      </div>
+      <div class="form-group">
+        <%= f.input :display_name, input_html: { class: 'form-control' } %>
+      </div>
+      <div class="form-group">
+        <%= f.association :country, label: 'Country', collection: @countries, as: :select, label_method: :display_name, required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.input :parent_id, label: 'Parent Place', collection: @places, as: :select, :label_method => lambda { |place| "#{place.display_name}, #{place.country.display_name rescue ""}, ID: #{place.id}"}, value_method: :id, required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.input :short_description, label: "Short Description (leave blank to auto-populate)", input_html: { class: 'form-control area-description-input' } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :description, as: :bootsy, label: "Long description", input_html: { class: 'form-control area-description-input', col: 50 } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :email, input_html: { class: 'form-control' } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :website, input_html: { class: 'form-control' } %>
+      </div>
+      <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
+        <div class="form-group published-radio">
+          <%= f.input :subscription_level, as: :radio_buttons, :item_wrapper_class => 'radio-inline', collection: ["basic", "standard", "Premium"] %>
+        </div>
+        <div class="form-group published-radio">
+          <%= f.input :status, as: :select, collection: ["draft", "edited", "live", "removed"] %>
+        </div>
+      <% elsif current_user.has_role?("editor") %>
+        <div class="form-group published-radio">
+          <%= f.input :subscription_level, as: :radio_buttons, collection: ["basic", "standard", "Premium"] %>
+        </div>
+        <% if @place.status == "draft" || @place.status == "edited" %>
+          <div class="form-group published-radio">
+            <%= f.input :status, as: :radio_buttons, collection: ["draft", "edited"] %>
+          </div>
+        <% else %>
+        <div class="form-group published-radio">
+          <%= f.input :status, as: :radio_buttons, collection: [@place.status] %>
+        </div>
+        <% end %>
+      <% end %>
+      <div class="field row">
+        <strong>Secondary categories</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "subcategory" %>
+              <div class="checkbox-inline col-md-2">
+                <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+                <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+                <%= label_tag dom_id(category), category.name %>
+              </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <br>
+        <strong>Age Range</strong>
+        <%= f.input :minimum_age, collection: 0..18, label: "From:", input_html: { class: 'form-control' } %>
+        <%= f.input :maximum_age, collection: 0..18, label: "To:", input_html: { class: 'form-control' } %>
+      </div>
+      <div class="field js-primary-category row">
+        <br>
+        <strong>Price categories</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "price" %>
+              <div class="checkbox-inline col-md-2">
+                <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+                <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+                <%= label_tag dom_id(category), category.name %>
+              </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="field js-primary-category row">
+        <br>
+        <strong>Accessibility</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "accessibility" %>
+            <div class="checkbox-inline col-md-2">
+              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+              <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+              <%= label_tag dom_id(category), category.name %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="field js-primary-category row">
+        <br>
+        <strong>Place visit duration</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "duration" %>
+            <div class="checkbox-inline col-md-2">
+              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+              <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+              <%= label_tag dom_id(category), category.name %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="field js-primary-category row">
+        <br>
+        <strong>Best time of day</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "optimum_time" %>
+            <div class="checkbox-inline col-md-2">
+              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+              <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+              <%= label_tag dom_id(category), category.name %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="field js-primary-category">
+        <br>
+        <strong>Weather Conditions</strong><br>
+        <% @subcategories.each do |category| %>
+            <% if category.category_type == "weather" %>
+            <%= hidden_field_tag "place[subcategory_ids][]", nil%>
+            <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
+            <%= label_tag dom_id(category), category.name %><br/>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="form-group js-primary-category">
+        <br>
+        <input type="checkbox" id="special-requirements-box">&nbsp;&nbsp;<strong>Special requirements?</strong> (Unchecking will delete text)
+        <div class="js-special-requirements">
+          <%= f.input :special_requirements, label: false, input_html: { class: 'form-control' } %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.button :submit, 'Submit' %>
+      </div>
+    <% end %>
+    <hr>
+  <% else %>
+    <h2>You do not have sufficient privileges to view this page</h2>
+    <%= link_to "Home", root_path %>
+  <% end %>
+  <p></p>
+  <br>
+  <p></p>
 </div>
-
-
-<script>
-    $('.customer-approve').on('click', function(){
-      if ($(this)[0].checked == true){
-        $(this).parent().siblings().find(".customer-review").attr("checked", false)
-      }
-    });
-
-    $('#approve-all').on('click', function(){
-      $('.customer-approve').attr("checked", true);
-      $('.customer-review').attr("checked", false);
-    });
-</script>
-
-<%= javascript_include_tag 'area.js' %>

@@ -4,9 +4,9 @@
   <div class="row">
     <div class="head-title">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
-      <h4 class="top20">My Account</h4>
-      <h2 class="gray-font">Edit Profile</h2>
-      <div class="img-rounded edit-profile" align="center">
+        <h4 class="top20">My Account</h4>
+        <h2 class="gray-font">Edit Profile</h2>
+        <div class="img-rounded edit-profile" align="center">
           <% if @user.avatar_url %>
             <%= image_tag @user.avatar_url, class: 'img-responsive large-avatar avatar-img' %><br>
             <img id="image-avatar-preview" class="img-responsive" alt="">
@@ -14,14 +14,14 @@
             <%= image_tag 'imgdummy.jpg', class: 'img-responsive large-avatar' %>
             <img id="image-avatar-preview" class="img-responsive" alt="">
           <% end %>
-          </div>
-          <% if @user.avatar_url %>
-            <span class="avatar-text" >Click to change your avatar</span>
-            <% else %>
-            <span class="avatar-text" >Click to upload your avatar</span>
-          <% end %>
-          <%= f.input :avatar, as: :file, label: false, input_html: { class: "form-control #{'hide' if !current_user.admin?}" } %>
-    </div>
+        </div>
+        <% if @user.avatar_url %>
+          <span class="avatar-text" >Click to change your avatar</span>
+        <% else %>
+          <span class="avatar-text" >Click to upload your avatar</span>
+        <% end %>
+        <%= f.input :avatar, as: :file, label: false, input_html: { class: "form-control #{'hide' if !current_user.admin?}" } %>
+      </div>
     </div>
   </div>
   </div> <!-- row -->

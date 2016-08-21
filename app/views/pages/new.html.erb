@@ -1,0 +1,14 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+  <div class="container" style="padding-top:50px;">
+    <%= simple_form_for @page do |f| %>
+      <%= f.input :title, collection: ["home"], selected: "home" %>
+      <%= f.input :page_header, label: "Headline", input_html: { class: "form-control" }%>
+      <%= f.input :hero_image, label: "Hero Image (Mininum 1400px wide | Ratio 16:9", input_html: { class: "form-control" }%>
+      <%= f.input :hero_image_text, input_html: { id: "data", class: "form-control", onkeyup: "countChars('data', 'charCount')", onkeydown: "countChars('data', 'charCount')", onmouseout: "countChars('data', 'charCount')"} %><br>
+      Characters: <span id="charCount"></span> (MAX 255)<br>
+      <p></p>
+      <%= f.input :promo_headline, as: :bootsy, editor_options: { link: true, color: false, blockquote: false, font_styles: false, emphasis: false, image: false, lists: false }, input_html: { class: "form-control" } %>
+      <%= f.submit "Create New Page", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+<% end %>
