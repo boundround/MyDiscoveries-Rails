@@ -79,9 +79,6 @@
       </div>
       <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
         <div class="form-group published-radio">
-          <%= f.input :subscription_level, as: :radio_buttons, :item_wrapper_class => 'radio-inline', collection: ["basic", "standard", "Premium"] %>
-        </div>
-        <div class="form-group published-radio">
           <%= f.input :status, as: :select, collection: ["draft", "edited", "live", "removed"] %>
         </div>
       <% end %>

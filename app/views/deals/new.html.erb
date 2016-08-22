@@ -1,6 +1,8 @@
 <% if user_signed_in? && current_user.admin? %>
   <div class="container">
+    <%= render '/places/admin_tabs' %>
     <h2>Create New Deal</h2>
+    <%= link_to "Back To Edit #{@place.display_name}", edit_place_path(@place)%>
     <%= simple_form_for [@dealable, @deal] do |f| %>
       <%= f.input :url, input_html: { class: "form-control"} %>
       <%= f.input :title, input_html: { class: "form-control"} %>
@@ -14,6 +16,6 @@
     <div class="border-section btm20"></div>
   </div>
   <script type="text/javascript">
-    
+
   </script>
 <% end %>

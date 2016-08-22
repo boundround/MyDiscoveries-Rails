@@ -23,7 +23,7 @@ $(document).ready(function(){
       } );
 
       $( tableTools.fnContainer() ).insertBefore('table#place-table');
-      
+
       $('#place-table thead th').each( function () {
           var title = $(this).text();
           $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
@@ -155,13 +155,29 @@ $(document).ready(function(){
     "ordering": false
   });
 
-});
+  if (document.querySelector('.form_datetime')){
+    $('.form_datetime').datepicker({
+      autoclose: true,
+      todayBtn: true,
+      pickerPosition: "bottom-left",
+      format: 'dd-mm-yyyy'
+    });
+  }
 
-$(document).ready(function(){
-  $('.form_datetime').datepicker({
-    autoclose: true,
-    todayBtn: true,
-    pickerPosition: "bottom-left",
-    format: 'dd-mm-yyyy'
-  });
+  if (document.querySelector('#place_short_description')){
+    countChars('#place_short_description', '#shortDescriptionCharCount');
+    countChars('#place_description', '#descriptionCharCount');
+
+    $('#place_short_description').on('keyup', function(){
+      countChars('#place_short_description', '#shortDescriptionCharCount');
+    });
+
+    setTimeout(function(){
+      var wysiEditor = $('.wysihtml5-sandbox').contents().find('body')[0];
+      $(wysiEditor).on("keyup",function() {
+          var len = wysiEditor.innerHTML.length;
+          document.querySelector('#descriptionCharCount').innerHTML = len;
+      });
+    }, 1000);
+  }
 });

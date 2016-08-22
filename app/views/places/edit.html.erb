@@ -64,10 +64,12 @@
         <%= f.input :parent_id, label: 'Parent Place', collection: @places, as: :select, :label_method => lambda { |place| "#{place.display_name}, #{place.country.display_name rescue ""}, ID: #{place.id}"}, value_method: :id, required: true %>
       </div>
       <div class="form-group">
-        <%= f.input :short_description, label: "Short Description (leave blank to auto-populate)", input_html: { class: 'form-control area-description-input' } %>
+        <%= f.input :short_description, label: "Meta Description (leave blank to auto-populate)", input_html: { class: 'form-control area-description-input' } %><br>
+        <span id="shortDescriptionCharCount">0</span> characters entered. (255 max)<br>
       </div>
       <div class="form-group">
-        <%= f.input :description, as: :bootsy, label: "Long description", input_html: { class: 'form-control area-description-input', col: 50 } %>
+        <%= f.input :description, as: :bootsy, label: "Long description", input_html: { class: 'form-control area-description-input', col: 50 } %><br>
+        <span id="descriptionCharCount">0</span> characters entered.<br>
       </div>
       <div class="form-group">
         <%= f.input :email, input_html: { class: 'form-control' } %>
@@ -76,9 +78,6 @@
         <%= f.input :website, input_html: { class: 'form-control' } %>
       </div>
       <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
-        <div class="form-group published-radio">
-          <%= f.input :subscription_level, as: :radio_buttons, :item_wrapper_class => 'radio-inline', collection: ["basic", "standard", "Premium"] %>
-        </div>
         <div class="form-group published-radio">
           <%= f.input :status, as: :select, collection: ["draft", "edited", "live", "removed"] %>
         </div>
