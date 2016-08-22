@@ -611,6 +611,7 @@ class PlacesController < ApplicationController
         photo.hero = false
         photo.save
       end
+      @place.save # needed to update search index
       redirect_to choose_hero_place_path(@place)
     end
   end
