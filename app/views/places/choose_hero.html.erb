@@ -11,6 +11,7 @@
 					<a href="" data-toggle="modal" data-target="#photoEditModal"
 						data-photo-id="<%= photo.id.to_s %>" data-type="<%= photo.class.to_s %>"
 						data-caption="<%= photo.caption %>" data-alt="<%= photo.alt_tag %>"
+						data-status="<%= photo.status %>" data-priority="<%= photo.priority %>"
 						data-credit="<%= photo.credit %>" data-instance="<%= photo.class.to_s.underscore %>"
 						class="edit-photo" data-path="<%= "/user_photos/#{photo.id}/place_update" %>">
 						<img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
@@ -40,6 +41,7 @@
 						data-photo-id="<%= photo.id.to_s %>" data-type="<%= photo.class.to_s %>"
 						data-caption="<%= photo.caption %>" data-alt="<%= photo.alt_tag %>"
 						data-credit="<%= photo.credit %>" data-instance="<%= photo.class.to_s.underscore %>"
+						data-status="<%= photo.status %>" data-priority="<%= photo.priority %>"
 						class="edit-photo" data-path="<%= "/photos/#{photo.id}/place_update" %>">
 						<img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
 					</a>
@@ -84,6 +86,28 @@
 					<input type="text" id="credit" class="form-control" name="credit">
 					<label for="alt_tag">Alt Tag</label>
 					<input type="text" id="alt-tag" class="form-control" name="alt_tag">
+					<label for="priority">Priority</label>
+					<select type="text" id="priority" class="form-control" name="priority">
+						<option value></option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select>
+					<label for="status">Status</label>
+					<select type="text" id="status" class="form-control" name="status">
+						<option value></option>
+						<option value="draft">draft</option>
+						<option value="edited">edited</option>
+						<option value="live">live</option>
+						<option value="removed">removed</option>
+					</select>
 					<input type="hidden" id="photo-id">
 	      </div>
 	      <div class="modal-footer">

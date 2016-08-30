@@ -322,6 +322,8 @@ $(document).ready(function() {
         $('#credit').val($(node).data("credit")).attr("name", $(node).data("instance") + "[credit]");
       }
       $('#alt-tag').val($(node).data("alt")).attr("name", $(node).data("instance") + "[alt_tag]");
+      $('#priority').val($(node).data("priority")).attr("name", $(node).data("instance") + "[priority]");
+      $('#status').val($(node).data("status")).attr("name", $(node).data("instance") + "[status]");
       $('#edit-photo-form').get(0).setAttribute('action', $(node).data("path"));
       $('.newPhoto').click(function(){
         $('#photo-file').click()
