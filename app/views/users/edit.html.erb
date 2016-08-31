@@ -46,14 +46,12 @@
             <%= f.input :username, label: false, input_html: { class: "form-control" } %>
           </span>
         </div>
-        <% if user_signed_in? && current_user.admin? %>
           <div class="col-xs-12 col-sm-12 top15">
             <span class="btn btn-default btn-block">
               <span class="grey">About Me</span><br>
                 <%= f.input :description, as: :bootsy, label: false, input_html: { class: "form-control" } %>
               </span>
           </div>
-        <% end %>
         <div class="col-xs-12 col-sm-12 top5">
           <p class="pink left15">Your profile</p>
           <span href="#" class="btn btn-default btn-block">
