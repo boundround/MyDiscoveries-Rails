@@ -42,7 +42,15 @@ SitemapGenerator::Sitemap.create do
       add post_path(post), :lastmod => post.updated_at
     end
   end
+
+  Story.find_each do |story|
+    if story.status == 'live'
+      add story_path(story), :lastmod => story.updated_at
+    end
+  end
+
 end
+
 
 #SitemapGenerator::Sitemap.ping_search_engines('https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz')
 #SitemapGenerator::Sitemap.ping_search_engines('https://s3-ap-southeast-2.amazonaws.com/#{ENV['AS3_BUCKET_NAME']}/sitemaps/sitemap.xml.gz')
