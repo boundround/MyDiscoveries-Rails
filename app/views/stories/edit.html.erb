@@ -16,7 +16,7 @@
 							<%= f.label "Publish Date" %><br>
 							<%= f.date_field :publish_date %><br>
 							<%= f.label "Change User" %><br>
-							<%= f.select :user_id, options_for_select(User.all.map {|user| [user.email, user.id]}, [current_user.email, current_user.id]) %><br>
+							<%= f.select :user_id, User.order(email: :asc).map { |user| [user.email, user.id] } %><br>
 							<%= f.label "SEO Friendly URL" %><br>
 							<%= f.text_field :seo_friendly_url, class: "form-control" %><br>
 							<%= f.label "Choose a title for this story" %><br>
