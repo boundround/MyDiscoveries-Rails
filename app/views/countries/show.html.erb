@@ -57,12 +57,12 @@
             <div class="container">
                 <div class="nav-option-outer-wrapper">
                     <div class="nav-option-wrapper">
-                        <div class="nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
-                        <div class="nav-option"><a data-scroll href="#stories">STORIES</a></div>
-                        <div class="nav-option"><a data-scroll href="#thingstodo">PLACES TO GO</a></div>
-                        <div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div>
-                        <div class="nav-option"><a data-scroll href="#famousfaces">FAMOUS FACES</a></div>
-                        <div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div>
+                        <div class="nav-option"><a data-scroll href="#videos"><%= "VIDEOS" if @videos.present? %></a></div>
+                        <div class="nav-option"><a data-scroll href="#stories"><%= "STORIES" if @stories.present? %></a></div>
+                        <div class="nav-option"><a data-scroll href="#thingstodo"><%= "PLACES TO GO" if @areas.present? %></a></div>
+                        <div class="nav-option"><a data-scroll href="#photos"><%= "PHOTOS" if @photos.present? %></a></div>
+                        <div class="nav-option"><a data-scroll href="#famousfaces"><%= "FAMOUS FACES" if @famous_faces.present? %></a></div>
+                        <div class="nav-option"><a data-scroll href="#funfacts"><%= "FUN FACTS" if @fun_facts.present? %></a></div>
                     </div>
                 </div>
             </div>

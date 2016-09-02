@@ -105,20 +105,20 @@
                 <div class="nav-option-outer-wrapper">
                     <div class="nav-option-wrapper">
                         <% unless @videos.blank? %>
-                          <div class="nav-option"><a data-scroll href="#videos">VIDEOS</a></div>
+                          <div class="nav-option"><a data-scroll href="#videos"><%= "VIDEOS" if @videos.present? %></a></div>
                         <% end %>
                         <% unless @stories.blank? %>
-                          <div class="nav-option"><a data-scroll href="#stories">STORIES</a></div>
+                          <div class="nav-option"><a data-scroll href="#stories"><%= "STORIES" if @stories.present? %></a></div>
                         <% end %>
                         <% unless @deals.blank? %>
-                          <div class="nav-option"><a data-scroll href="#deals">DEALS</a></div>
+                          <div class="nav-option"><a data-scroll href="#deals"><%= "DEALS" if @deals.present? %></a></div>
                         <% end %>
-                        <div class="nav-option"><a data-scroll href="#thingstodo">THINGS TO DO</a></div>
+                        <div class="nav-option"><a data-scroll href="#thingstodo"><%= "THINGS TO DO" if @places_to_visit.present? %></a></div>
                         <% unless @photos.blank? %>
-                          <div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div>
+                          <div class="nav-option"><a data-scroll href="#photos"><%= "PHOTOS" if @photos.present? %></a></div>
                         <% end %>
                         <% unless @fun_facts.blank? %>
-                          <div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div>
+                          <div class="nav-option"><a data-scroll href="#funfacts"><%= "FUN FACTS" if @fun_facts.present? %></a></div>
                         <% end %>
                     </div>
                 </div>
