@@ -177,7 +177,7 @@ class PlacesController < ApplicationController
           @place.fun_facts.each do |fun_fact|
             fun_fact.add_or_remove_from_country(@place.country)
           end
-          redirect_to :back, notice: 'Place succesfully updated'
+          redirect_to edit_place_path(@place), notice: 'Place succesfully updated'
         end
       end
     else
