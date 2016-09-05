@@ -296,7 +296,7 @@ class PlacesController < ApplicationController
       y.videos.size <=> x.videos.size
     end
 
-    @places_to_visit = @places_to_visit.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
+    @places_to_visit = @places_to_visit.paginate( page: params[:places_to_visit_page], per_page: 6 )
 
     if @place.parent_id.blank?
       if @place.primary_category.present? && @place.primary_category.id == 2
@@ -395,7 +395,13 @@ class PlacesController < ApplicationController
 
   def paginate_place_to_visit
     @place = Place.find_by_slug(params[:id])
-    @places_to_visit = @place.children.paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit_page].nil?? 6 : 3 )
+    @places_to_visit = @place.children.active
+
+    @places_to_visit = @places_to_visit.sort do |x, y|
+      y.videos.size <=> x.videos.size
+    end
+
+    @places_to_visit = @place.children.paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   def paginate_reviews
