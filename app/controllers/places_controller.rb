@@ -300,15 +300,15 @@ class PlacesController < ApplicationController
 
     if @place.parent_id.blank?
       if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(country_id: @place.country_id).order("RANDOM()")
+        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(country_id: @place.country_id)
       else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id).order("RANDOM()")
+        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id)
       end
     else
       if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id).order("RANDOM()")
+        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
       else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id).order("RANDOM()")
+        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
       end
     end
 
@@ -318,7 +318,7 @@ class PlacesController < ApplicationController
       y.videos.size <=> x.videos.size
     end
 
-    @more_places = @more_places.paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
+    @more_places = @more_places.paginate(page: params[:more_places_page], per_page: 6 )
 
     @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
     @deals = @place.deals.active #.paginate(page: params[:deals_page], per_page: params[:deals_page].nil?? 6 : 3 )
@@ -373,15 +373,24 @@ class PlacesController < ApplicationController
   def paginate_more_places
     @place = Place.find_by_slug(params[:id])
     if @place.parent_id.blank?
-      @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id).order("RANDOM()")
+      if @place.primary_category.present? && @place.primary_category.id == 2
+        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(country_id: @place.country_id)
+      else
+        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id)
+      end
     else
-      @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(parent_id: @place.parent_id).order("RANDOM()")
+      if @place.primary_category.present? && @place.primary_category.id == 2
+        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
+      else
+        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
+      end
     end
+
     @more_places = @more_places.sort do |x, y|
       y.videos.size <=> x.videos.size
     end
 
-    @more_places = @more_places.paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
+    @more_places = @more_places.paginate(page: params[:more_places_page], per_page: 6 )
   end
 
   def paginate_place_to_visit
