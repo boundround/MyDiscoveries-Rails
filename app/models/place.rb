@@ -238,7 +238,7 @@ class Place < ActiveRecord::Base
   scope :is_not_area, -> {where(is_area: nil)}
   scope :primary_areas_with_photos, -> { includes(:photos).where(primary_area: true)}
 
-  validates_presence_of :display_name, :slug
+  validates_presence_of :display_name
 
 
   belongs_to :country

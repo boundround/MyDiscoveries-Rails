@@ -15,10 +15,6 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new(place_params)
 
-    if @place.identifier == ''
-      @place.identifier = @place.display_name.gsub(/\W/, '').downcase
-    end
-
     if @place.save
       redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
