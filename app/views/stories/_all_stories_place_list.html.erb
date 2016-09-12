@@ -1,4 +1,4 @@
-  <div class="col-md-12">
+  <div class="col-md-12" onclick="window.location='<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>'">
       <div class="thing-story-card-wrapper story"
            data-class="story"
            data-content="<%= story.content %>"
@@ -30,7 +30,3 @@
           </div>
       </div>
       </div>
-
-<!--   <script>
-    setupModal();
-  </script> -->
