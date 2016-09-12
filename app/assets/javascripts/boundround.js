@@ -318,6 +318,26 @@ $(document).ready(function() {
           updateOnEmptySelection: false
       }
       });
+
+    }
+    $(function() {
+      console.log("autosaving");
+      if ($("#new_story").length > 0) {
+        setTimeout(autoSaveStory, 30000);
+      }
+    });
+
+    function autoSaveStory() {
+      $.ajax({
+        type: "POST",
+        url: "/stories/autosave",
+        data: $("#new_story").serialize(),
+        dataType: "JSON",
+        success: function(data) {
+          console.log(data);
+        }
+      });
+      //setTimeout(autoSaveStory, 60000);
     }
 
     $(function() {

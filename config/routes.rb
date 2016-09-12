@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     resources :subcategories, controller: :stories_subcategories
   end
 
+  post 'stories/autosave', as: :autosave_story_path
+
   get 'stories_all' => 'stories#index_new'
 
   mount API::Base => '/'

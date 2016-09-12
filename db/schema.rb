@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160831044054) do
+ActiveRecord::Schema.define(version: 20160906022419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -697,8 +697,8 @@ ActiveRecord::Schema.define(version: 20160831044054) do
   add_index "stamps", ["place_id"], name: "index_stamps_on_place_id", using: :btree
 
   create_table "stories", force: true do |t|
-    t.text     "title"
-    t.text     "content"
+    t.text     "title",               default: ""
+    t.text     "content",             default: ""
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
