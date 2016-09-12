@@ -34,7 +34,6 @@
 				<center> <button class="btn btn-primary top20 btm20" id="submit_story">Update</button> </center>
 			</div>
 				<%= f.hidden_field :content %>
-				<%= f.hidden_field :user_id, :value => current_user.id %>
 				<%= f.hidden_field :date, :value => Time.now %>
 				<%= f.submit "", style: :"display:none;", id:"submit-form-story" %>
 			<% end %>
