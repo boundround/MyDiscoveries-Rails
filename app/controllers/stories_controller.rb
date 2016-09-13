@@ -32,10 +32,12 @@ class StoriesController < ApplicationController
   end
 
   def autosave
-    @story = Story.find_or_create_by(seo_friendly_url: params["story"][:seo_friendly_url])
+    @story = Story.find params["story"]["story_id"]
+    @test = {test1: "Stuff", test2: "Stuff 2"}
+    @test = @test.to_json
     #debugger
     respond_to do |format|
-      if @story.save(story_params)
+      if @story.update(story_params)
         format.json { render json: @story }
         flash[:notice] = "Story autosaved."
       else

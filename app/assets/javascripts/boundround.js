@@ -322,8 +322,8 @@ $(document).ready(function() {
     }
     $(function() {
       console.log("autosaving");
-      if ($("#new_story").length > 0) {
-        setTimeout(autoSaveStory, 30000);
+      if ($(".edit_story").length > 0) {
+        setTimeout(autoSaveStory, 10000);
       }
     });
 
@@ -331,8 +331,8 @@ $(document).ready(function() {
       $.ajax({
         type: "POST",
         url: "/stories/autosave",
-        data: $("#new_story").serialize(),
-        dataType: "JSON",
+        data: $(".edit_story").serialize(),
+        dataType: "json",
         success: function(data) {
           console.log(data);
         }

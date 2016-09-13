@@ -24,6 +24,7 @@
 						<% else %>
 							<%= f.hidden_field :status, :value => "draft" %><br>
 							<%= f.hidden_field :date, :value => Time.now %><br>
+							<%= f.hidden_field :story_id, :value => @story.id %><br>
 						<% end %>
 					</p>
 				</div>
