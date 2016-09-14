@@ -47,11 +47,17 @@ class StoriesController < ApplicationController
   end
 
   def update
-    @story = Story.find_by_slug(params[:id])
-    if @story.update(story_params)
-      redirect_to edit_story_path(@story), notice: "Succesfully Updated Story"
-    else
-      redirect_to edit_story_path(@story), notice: "error"
+    @story = Story.friendly.find params[:id]
+    respond_to do |format|
+      if @story.update(story_params)
+        format.json do render json: @story
+          flash.now[:success] = "Story autosaved."
+        end
+        format.html { redirect_to edit_story_path(@story), notice: "Story saved" }
+
+      else
+        redirect_to edit_story_path(@story), notice: "error"
+      end
     end
 
   end

@@ -1,5 +1,5 @@
 <div class="loading">Loading&#8230;</div>
-<div id="edit-story-page" data-title="<%= @story.title %>" data-content="<%= @story.content %>"></div>
+<div id="edit-story-page" data-story-id="<%= @story.id %>" data-title="<%= @story.title %>" data-content="<%= @story.content %>"></div>
 <div class="container">
 	<% if current_user.admin? %>
 		<%= render "/stories/admin_tabs" %>
@@ -9,6 +9,7 @@
 			<div class="col-md-12 top70">
 				<div>
 					<p style="padding-bottom:25px;">
+						<div id="autosave-status"></div>
 						<%#= f.select :public, [['Public', true], ['Private', false]] %><br>
 						<% if current_user.admin? %>
 							<%= f.label "Status" %><br>

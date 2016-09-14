@@ -321,23 +321,34 @@ $(document).ready(function() {
 
     }
     $(function() {
-      console.log("autosaving");
+      var storyData = document.querySelector("#edit-story-page");
+      var id = storyData.dataset.storyId;
       if ($(".edit_story").length > 0) {
-        setTimeout(autoSaveStory, 10000);
+        setTimeout(function(){
+          autoSaveStory(id)
+        }, 60000);
       }
     });
 
-    function autoSaveStory() {
+    function autoSaveStory(storyId) {
+      content = $(".content-editable")
+      $("#story_content").val(content.html());
+      var id = storyId;
+      var d = new Date();
+      var time = "Last Updated At: " + d.getHours() + ":" + d.getMinutes();
       $.ajax({
         type: "POST",
-        url: "/stories/autosave",
+        url: "/stories/" + id,
         data: $(".edit_story").serialize(),
         dataType: "json",
         success: function(data) {
-          console.log(data);
+          var el = document.querySelector("#autosave-status");
+          el.innerHTML = time;
         }
       });
-      //setTimeout(autoSaveStory, 60000);
+      setTimeout(function(){
+        autoSaveStory(id);
+      }, 60000);
     }
 
     $(function() {
