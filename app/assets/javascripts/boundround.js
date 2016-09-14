@@ -335,7 +335,7 @@ $(document).ready(function() {
       $("#story_content").val(content.html());
       var id = storyId;
       var d = new Date();
-      var time = "Last Updated At: " + d.getHours() + ":" + d.getMinutes();
+      var time = "Last Autosaved At: " + d.getHours() + ":" + d.getMinutes();
       $.ajax({
         type: "POST",
         url: "/stories/" + id,
