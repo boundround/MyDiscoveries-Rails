@@ -1,0 +1,14 @@
+<%= simple_form_for(@competition) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :status, as: :select, collection: ["draft", "live", "removed"], selected: "draft", input_html: { class: "form-control" } %>
+    <%= f.input :title, input_html: { class: "form-control" } %>
+    <%= f.input :url, input_html: { class: "form-control" } %>
+    <%= f.file_field :image, input_html: { class: "form-control" } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
