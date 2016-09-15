@@ -322,11 +322,13 @@ $(document).ready(function() {
     }
     $(function() {
       var storyData = document.querySelector("#edit-story-page");
-      var id = storyData.dataset.storyId;
-      if ($(".edit_story").length > 0) {
-        setTimeout(function(){
-          autoSaveStory(id)
-        }, 60000);
+      if (storyData){
+        var id = storyData.dataset.storyId;
+        if ($(".edit_story").length > 0) {
+          setTimeout(function(){
+            autoSaveStory(id)
+          }, 60000);
+        }
       }
     });
 
