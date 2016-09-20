@@ -154,6 +154,12 @@
 <% end %>
 <% cache("home_page_places_to_go", :expires_in => 12.hours) do %>
   <div class="container">
+    <div class="row">
+      <% if @competitions.present? %>
+        <% @competitions.each do |comp| %>
+        <% end %>
+      <% end %>
+    </div>
       <div class="row">
           <% unless @areas.blank? %>
               <div class="col-md-12">
