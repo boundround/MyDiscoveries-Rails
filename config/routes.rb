@@ -15,6 +15,8 @@ require 'routes/constraints/subcategories'
 
 Rails.application.routes.draw do
 
+  resources :competitions
+
   resources :posts do
     collection { get 'all_posts' }
     collection { get 'paginate' }

@@ -18,6 +18,7 @@ class PagesController < ApplicationController
     @category2 = @subcategories[1]
     @category3 = @subcategories[2]
     @category4 = @subcategories[3]
+    @competitions = Competition.active
     respond_to do |format|
       format.html
       format.json {render :json => @page}
