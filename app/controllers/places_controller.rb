@@ -10,6 +10,7 @@ class PlacesController < ApplicationController
     @countries = Country.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
+    # @places_coutry = @countries + @places
   end
 
   def create
@@ -154,6 +155,7 @@ class PlacesController < ApplicationController
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new
+    # @places_coutry = @countries + @places
   end
 
   def update
@@ -773,6 +775,14 @@ class PlacesController < ApplicationController
 
   private
     def place_params
+      parentable_id = params[:place][:parentable_id].split('-')
+      params[:place][:parentable_id] = parentable_id.first.to_i
+      if parentable_id.last.eql? 'country'
+        params[:place][:parentable_type] = "Country"
+      else 
+        params[:place][:parentable_type] = "Place"
+      end
+
       params.require(:place).permit(
         :code,
         :identifier,
@@ -820,6 +830,8 @@ class PlacesController < ApplicationController
         :address,
         :area_id,
         :parent_id,
+        :parentable_id,
+        :parentable_type,
         :email,
         :tag_list,
         :location_list,
