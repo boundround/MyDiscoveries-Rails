@@ -16,7 +16,7 @@
       <div class="date hidden-xs"><%= story.publish_date.strftime("%d %B %Y") %></div>
     </div>
     <div class="story-content">
-      <h4 class="story-title"><%= raw story.title %></h4>
+      <h4 class="story-title"><%= raw story.title.blank? ? story.title : story.title.truncate(65) %></h4>
       <p><%= raw story.teaser %></p>
       <div  class="story-img"
             style="background: url(<%= showing_image( !story.story_images.first.blank? ? story.story_images.first : asset_path('generic-hero-small.jpg') ) %>) no-repeat;"
