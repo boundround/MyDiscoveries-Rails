@@ -163,9 +163,9 @@ class Place < ActiveRecord::Base
       subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
     end
 
-    attribute :parents do
-      self.get_parents(self).map {|place| place.display_name}
-    end
+    # attribute :parents do
+    #   self.get_parents(self).map {|place| place.display_name}
+    # end
 
     attribute :accessible do
       if subcategories.any? { |sub| sub.category_type == "accessibility" }
@@ -526,17 +526,39 @@ class Place < ActiveRecord::Base
   end
 
   def get_parents(place, parents = [])
-    if place.parent.blank? || (place.parent == self)
-      if !place.country.blank?
+    if place.parentable.blank?
+      parents << place.country
+      return parents
+    else
+      if place.parentable.class.to_s == 'Place'
+        curPlace_parent = place.parentable
+        cpp_parent = curPlace_parent.parentable unless curPlace_parent.blank?
+        cppp_parent = cpp_parent.parentable unless cpp_parent.blank?
+        cpppp_parent = cppp_parent.parentable unless cppp_parent.blank?
+        parents << cpppp_parent.parentable unless cpppp_parent.blank?
+        parents << cpppp_parent
+        parents << cppp_parent
+        parents << cpp_parent
+        parents << curPlace_parent
         parents << place.country
         return parents
       else
+        parents << place.country
         return parents
       end
-    else
-      parents << place.parent
-      get_parents(place.parent, parents)
+
     end
+    # if place.parent.blank? || (place.parent == self)
+    #   if !place.country.blank?
+    #     parents << place.country
+    #     return parents
+    #   else
+    #     return parents
+    #   end
+    # else
+    #   parents << place.parent
+    #   get_parents(place.parent, parents)
+    # end
   end
 
   def find_first_primary_area
