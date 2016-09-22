@@ -17,12 +17,7 @@
           <div class="row">
             <div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">
               <div class="thing-heading-breadcrumb">
-                <%# if @place.parentable.blank? %>
-                  <%= raw create_breadcrumb_for(@place) %>
-                <%# else %>
-                  <%#= link_to "#{@place.parentable.display_name}", (@place.parentable.class.to_s.eql? 'Country') ? country_path(@place.parentable) : place_path(@place.parentable) %>
-                <%# end %>
-                
+                <%= raw create_breadcrumb_for(@place) %>
                 <% if user_signed_in? and current_user.admin? %>
                   <p>
                     <%= link_to "Edit Place", edit_place_path(@place) %>
