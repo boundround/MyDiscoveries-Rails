@@ -17,6 +17,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def new
+    unless params[:flag].blank?
+      session[:previous_path] = request.referer
+    end
     @set_body_class = 'passport-page'
     super
   end
@@ -29,7 +32,11 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(resource)
-    edit_user_path(resource)
+    if session[:previous_path].blank?
+      edit_user_path(resource)
+    else
+      session.delete(:previous_path)
+    end
   end
 
   def after_inactive_sign_up_path_for(resource)
