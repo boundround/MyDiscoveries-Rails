@@ -6,6 +6,11 @@ class StoriesController < ApplicationController
 
   def show
     @story = Story.find_by_slug(params[:id])
+    if @story.stories_like_this.blank?
+      @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
+    else
+      @stories_like_this = @story.stories_like_this.sort_by(&:created_at).paginate(page: params[:stories_page], per_page: 6)
+    end
   end
 
   def destroy
@@ -35,7 +40,6 @@ class StoriesController < ApplicationController
     @story = Story.find params["story"]["story_id"]
     @test = {test1: "Stuff", test2: "Stuff 2"}
     @test = @test.to_json
-    #debugger
     respond_to do |format|
       if @story.update(story_params)
         format.json { render json: @story }
