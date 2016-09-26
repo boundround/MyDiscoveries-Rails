@@ -66,10 +66,11 @@ Your terminal will be pretty bare bones. Feel free to pretty it up by installing
 Clone this repo into your working directory.  
 $ vagrant up  
 $ vagrant ssh  
-Navigate to the working directory (sometimes $ cd ../../vagrant)  
-$ rake db:create
-$ rake db:migrate
-$ rails s
+Navigate to the working directory (`$ cd shared` or `$ cd /vagrant`)  
+$ bundle  
+$ copy database.yml and application.yml to config/  
+$ rake db:create db:migrate  
+$ rails s  
 
 If you have a copy of the production database (latest.dump), you can also restore from this file using:  
-$ pg_restore --clean --no-acl --no-owner --verbose -U vagrant -d vagrant <path-to-latest.dump>
+$ pg_restore --clean --no-acl --no-owner --verbose -U vagrant -d vagrant <path-to-latest.dump>  
