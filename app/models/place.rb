@@ -163,9 +163,9 @@ class Place < ActiveRecord::Base
       subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
     end
 
-    # attribute :parents do
-    #   self.get_parents(self).map {|place| place.display_name}
-    # end
+    attribute :parents do
+      self.get_parents(self).map {|place| place.display_name}
+    end
 
     attribute :accessible do
       if subcategories.any? { |sub| sub.category_type == "accessibility" }
@@ -247,7 +247,7 @@ class Place < ActiveRecord::Base
 
   has_many :places, :as => :parentable
   belongs_to :parentable, polymorphic: true
-  belongs_to :parent, :class_name => 'Place'
+  # belongs_to :parent, :class_name => 'Place'
   has_many :children, :class_name => 'Place', :foreign_key => 'parent_id'
 
   has_many :places_subcategories
@@ -514,7 +514,8 @@ class Place < ActiveRecord::Base
 
   def slug_candidates
     country = self.country
-    primary_area = self.parent if !self.parent.blank?
+    # primary_area = self.parent if !self.parent.blank?
+    primary_area = self.parentable if !self.parentable.blank?
     if is_area == true
       "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
     else
@@ -526,28 +527,18 @@ class Place < ActiveRecord::Base
   end
 
   def get_parents(place, parents = [])
-    if place.parentable.blank?
-      parents << place.country
-      return parents
-    else
-      if place.parentable.class.to_s == 'Place'
-        curPlace_parent = place.parentable
-        cpp_parent = curPlace_parent.parentable unless curPlace_parent.blank?
-        cppp_parent = cpp_parent.parentable unless cpp_parent.blank?
-        cpppp_parent = cppp_parent.parentable unless cppp_parent.blank?
-        parents << cpppp_parent.parentable unless cpppp_parent.blank?
-        parents << cpppp_parent
-        parents << cppp_parent
-        parents << cpp_parent
-        parents << curPlace_parent
+    if place.parentable.blank? || (place.parentable == self)
+      if !place.country.blank?
         parents << place.country
         return parents
       else
-        parents << place.country
         return parents
       end
-
+    else
+      parents << place.parentable
+      get_parents(place.parentable, parents)
     end
+
     # if place.parent.blank? || (place.parent == self)
     #   if !place.country.blank?
     #     parents << place.country
