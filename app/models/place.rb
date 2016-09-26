@@ -248,7 +248,8 @@ class Place < ActiveRecord::Base
   has_many :places, :as => :parentable
   belongs_to :parentable, polymorphic: true
   # belongs_to :parent, :class_name => 'Place'
-  has_many :children, :class_name => 'Place', :foreign_key => 'parent_id'
+  # has_many :children, :class_name => 'Place', :foreign_key => 'parent_id'
+  has_many :children, :class_name => 'Place', :foreign_key => 'parentable_id'
 
   has_many :places_subcategories
   has_many :similar_places
