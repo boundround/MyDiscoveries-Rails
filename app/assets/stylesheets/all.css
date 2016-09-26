@@ -1720,7 +1720,8 @@ h4 {
     font-size: 16px
 }
 .story-wrapper .story .story-content {
-    margin-top: 20px
+    margin-top: 20px;
+    height: 480px;
 }
 .story-wrapper .story .story-content .story-title {
     color: #6cb7ca;
