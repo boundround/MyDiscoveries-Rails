@@ -1,7 +1,7 @@
 <div id="stories" class="thing-page-segment <%= "container" if (@place.present? && (@place.class.to_s == "Country" || @place.is_area == true)) %> stories-wrapper">
   <div class="row">
     <div class="col-xs-12">
-      <% if params[:controller].eql? "posts" %>
+      <% if (controller_name.eql? "posts") || (controller_name.eql? "pages") || (action_name.eql? "all_posts") %>
         <h3>More Stories Like This</h3>
       <% else %>
         <% unless @stories.blank? %>
