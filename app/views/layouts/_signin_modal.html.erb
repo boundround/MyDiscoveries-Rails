@@ -94,7 +94,6 @@
           <!-- <div class="col-xs-6 col-sm-6">
             <button class="btn btn-danger btn-block button-style btn-google-plus btn-radius fontbig-signin"><i class="fa fa-google-plus"></i> Google+</button>
           </div> -->
-
       </div>
       <div class="modal-footer">
         <div class="row">
@@ -102,8 +101,12 @@
             <p class="not-member emphasize">Not yet a member?</p>
             <!-- <p><a class="btn btn-default btn-block pink btn-height fontbig-button custom-close-register btn-radius">Create an account</a></p> -->
             <!-- <div class="col-sm-12"> -->
-            	<p><a href="<%= new_user_registration_path %>" class="btn btn-default btn-block border-rgba pink btn-height fontbig-button custom-close-register btn-radius">Create an account</a>
-            	</p>
+              <% initialization_controller = ['posts', 'stories', 'places', 'countries'] %>
+              <% if initialization_controller.include?(controller_name) && action_name == 'show' && !user_signed_in? %>
+                <p><a href="<%= new_user_registration_path(flag: true) %>" class="btn btn-default btn-block border-rgba pink btn-height fontbig-button custom-close-register btn-radius">Create an account</a></p>
+              <% else %>
+                <p><a href="<%= new_user_registration_path %>" class="btn btn-default btn-block border-rgba pink btn-height fontbig-button custom-close-register btn-radius">Create an account</a></p>
+              <% end %>
             <!-- </div> -->
           </div>
         </div>
