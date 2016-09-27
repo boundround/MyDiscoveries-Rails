@@ -259,6 +259,21 @@ class Story < ActiveRecord::Base
     end
   end
 
+  def stories_like_this
+    subcategories = self.subcategories.map(&:id)
+    stories_like_this = []
+    unless subcategories.blank?
+      stories_like_this = Story.includes(:subcategories).where(subcategories: {id: [subcategories]})
+    end
+
+    stories = []
+    self.places.each do |place|
+       stories << place.stories
+    end
+
+    return (stories_like_this + stories.flatten).uniq
+  end
+
   protected
 
     def determine_age_bracket
