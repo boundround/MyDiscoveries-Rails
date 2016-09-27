@@ -37,7 +37,7 @@ $(document).ready(function() {
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
 
-    var INDEX_NAME = 'place_production';
+    var INDEX_NAME = 'place_development_sergey';
     var PARAMS = {
         hitsPerPage: 3,
         maxValuesPerFacet: 8,
@@ -62,7 +62,7 @@ $(document).ready(function() {
     var INSTANT_SEARCH_PARAMS = {
         hitsPerPage: 6,
         maxValuesPerFacet: 8,
-        facets: ['area'],
+        facets: ['is_area'],
         disjunctiveFacets: FACETS_ORDER_OF_DISPLAY
     };
 

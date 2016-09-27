@@ -31,7 +31,7 @@ class PlacesController < ApplicationController
   end
 
   def subcategory_match
-    index = Algolia::Index.new("place_production")
+    index = Algolia::Index.new("place_development_sergey")
     @search_string = ""
     @search = ""
     @ages = params[:ages].join(" ")
