@@ -173,6 +173,7 @@ gem 'sitemap_generator'
 gem 'mixpanel-ruby'
 
 group :development do
+  gem 'letter_opener', group: :development
   gem 'railroady'
   gem 'brakeman', :require => false
   gem "better_errors"

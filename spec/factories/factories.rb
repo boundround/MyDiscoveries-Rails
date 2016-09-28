@@ -9,4 +9,8 @@ FactoryGirl.define do
     f.admin     { User.first.blank? ? true : false }
   end
 
+  factory :role do |f|
+    f.name      { "contributor" }
+  end
+
 end

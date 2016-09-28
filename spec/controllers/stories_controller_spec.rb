@@ -5,6 +5,9 @@ RSpec.describe StoriesController, type: :controller do
   before do
     @user1 = FactoryGirl.create(:user)
     @user2 = FactoryGirl.create(:user)
+    @user1.confirm
+    @user2.confirm
+    sign_in @user1
   end
 
   describe "GET #new" do
@@ -21,9 +24,8 @@ RSpec.describe StoriesController, type: :controller do
   describe "POST #create" do
     context "current user is admin " do
       it "Admin be allowed to create new story" do
-        sign_in @user1
         post :create, story: {content: Faker::Lorem.sentence, title: Faker::Book.title, user_id: @user1.id, publish_date: Time.now, seo_friendly_url: Faker::Internet.url, status: "live"}
-        # Story.last.user_id.should be @user1.id
+        Story.last.user_id.should be @user1.id
       end
     end
   end
