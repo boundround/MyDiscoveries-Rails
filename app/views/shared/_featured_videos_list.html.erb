@@ -13,59 +13,25 @@ end
   %>
 
 <% if !video.youtube_id.blank? %>
-<div class="<%= grid %> col-sm-6">
-    <div class="small-video-component">
-        <div class="video-img-wrapper play-in-modal <%= orange %>"
-                 style="background: url(<%= video.vimeo_thumbnail %>) no-repeat;background-size:cover;background-position:center;"
-                 role="img"
-                 data-thumb="<%= video.vimeo_thumbnail %>"
-                 aria-label="<%= video.title %>"
-                 data-id="<%= video.youtube_id %>"
-                 data-video="youtube"
-                 data-modal="#video-modal"
-                 data-video-url="<%= video.url %>"
-                 >
-            <div class="video-img"
-                 >
-            </div>
-            <div class="main-play-icon-wrapper">
-                <div class="main-play-icon <%= orange %> "></div>
-            </div>
-        </div>
-        <div class="title-wrapper">
-            <img class="svg-inject <%= stroke %>" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
-
-            <div class="video-title"><%= video.title %></div>
-        </div>
+  <div class="<%= grid %> col-sm-6">
+    <div class="<%= grid %> col-sm-6">
+      <div class="small-video-component">
+        <iframe class="player-vimeo" src="<%= video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div class="title-wrapper">
+          <div class="video-title"><%= video.title %></div>
+      </div>
     </div>
-</div>
+  </div>
 <% else %>
-<div class="<%= grid %> col-sm-6">
+  <div class="<%= grid %> col-sm-6">
     <div class="small-video-component">
-        <div class="video-img-wrapper play-in-modal <%= orange %>" id="<%= video.vimeo_id %>"
-                style="background: url(<%= video.vimeo_thumbnail %>) no-repeat;background-size:cover;background-position:center;"
-                role="img"
-                aria-label="lavender"
-                data-id="<%= video.vimeo_id %>"
-                data-thumb="<%= video.vimeo_thumbnail %>"
-                data-video="vimeo"
-                data-modal="#video-modal"
-                data-video-url="<%= video.url %>"
-                >
-            <span class="video-img"
-                >
-            </span>
-            <div class="main-play-icon-wrapper">
-                <div class="main-play-icon <%= orange %>"></div>
-            </div>
-        </div>
-        <div class="title-wrapper">
-            <img class="svg-inject <%= stroke %>" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
-
-            <div class="video-title"><%= video.title %></div>
-        </div>
+      <iframe class="player-vimeo" src="<%= video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
     </div>
-</div>
+    <div class="title-wrapper">
+        <div class="video-title"><%= video.title %></div>
+    </div>
+  </div>
 <% end %>
 
 <% if params[:active_videos].present? %>
