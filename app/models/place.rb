@@ -246,6 +246,8 @@ class Place < ActiveRecord::Base
   belongs_to :primary_category
 
   belongs_to :parentable, polymorphic: true
+  has_many :child_items, as: :itemable
+  has_many :child_items, as: :parentable
   # belongs_to :parent, :class_name => 'Place'
   # has_many :children, :class_name => 'Place', :foreign_key => 'parent_id'
   has_many :children, :class_name => 'Place', :foreign_key => 'parentable_id'
