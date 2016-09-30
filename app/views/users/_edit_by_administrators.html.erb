@@ -1,0 +1,174 @@
+<%= simple_form_for @user , :html => { :id => "avatar-upload" } do |f| %>
+<div class="container btm40">
+  <div class="row">
+    <div class="head-title">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+        <h4 class="top20">My Account</h4>
+        <h2 class="gray-font">Edit Profile</h2>
+        <div class="img-rounded edit-profile" align="center">
+          <% if @user.avatar_url %>
+            <%= image_tag @user.avatar_url, class: 'img-responsive large-avatar avatar-img' %><br>
+            <img id="image-avatar-preview" class="img-responsive" alt="">
+          <% else %>
+            <%= image_tag 'imgdummy.jpg', class: 'img-responsive large-avatar' %>
+            <img id="image-avatar-preview" class="img-responsive" alt="">
+          <% end %>
+        </div>
+        <% if @user.avatar_url %>
+          <span class="avatar-text" >Click to change your avatar</span>
+        <% else %>
+          <span class="avatar-text" >Click to upload your avatar</span>
+        <% end %>
+        <%= f.input :avatar, as: :file, label: false, input_html: { class: "form-control #{'hide' if !current_user.admin?}" } %>
+      </div>
+    </div>
+  </div>
+  </div> <!-- row -->
+
+<section class="explore topmin16">
+  <div class="container container-white">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 top15">
+        </div>
+        <div class="col-xs-12 col-sm-12">
+          <a href="" class="left15" data-toggle="modal" data-target="#change_password">Change Email / Password</a>
+        </div>
+        <div class="col-xs-12 col-sm-12 top15">
+          <p class="pink left15">Personal info</p>
+          <span class="btn btn-default btn-block">
+            <span class="grey">Name</span><br>
+            <%= f.input :name, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">First name</span><br>
+            <%= f.input :first_name, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">Last name</span><br>
+            <%= f.input :last_name, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">User Name to Appear in Reviews, Stories.....</span><br>
+            <%= f.input :username, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">Min age</span><br>
+            <%= f.input :min_age, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">Max age</span><br>
+            <%= f.input :max_age, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">Date Of Birth</span><br>
+            <%= f.input :date_of_birth, label: false, as: :date, start_year: Date.today.year - 90,
+                              end_year: Date.today.year - 12,
+                              order: [:day, :month, :year] %>
+          </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top15">
+          <p class="pink left15">Address info</p>
+          <span class="btn btn-default btn-block">
+            <span class="grey">Address</span><br>
+            <%= f.input :address, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">Address line 2</span><br>
+            <%= f.input :address_line_2, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">Country</span><br>
+            <%= f.input :country, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">City</span><br>
+            <%= f.input :city, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">State</span><br>
+            <%= f.input :state, label: false, input_html: { class: "form-control" } %>
+          </span>
+          <span class="btn btn-default btn-block">
+            <span class="grey">Post code</span><br>
+            <%= f.input :post_code, label: false, input_html: { class: "form-control" } %>
+          </span>
+        </div>
+       
+        <div class="col-xs-12 col-sm-12 top15">
+          <p class="pink left15"><%= (current_user == @user)? "Your" : "User" %> description</p>
+          <span class="btn btn-default btn-block">
+            <span class="grey">About Me</span><br>
+              <%= f.input :description, as: :bootsy, label: false, input_html: { class: "form-control" } %>
+            </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top5">
+          <p class="pink left15"><%= (current_user == @user)? "Your" : "User" %> profile</p>
+          <span href="#" class="btn btn-default btn-block">
+          <span class="grey">Keep <%= (current_user == @user)? "my" : "his/her" %> profile private</span><br>
+            <%= f.input :is_private, as: :boolean, label: false, input_html: { class: "form-control" } %>
+          </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top5">
+          <p class="pink left15"><%= (current_user == @user)? "Your" : "User" %> role</p>
+          <span href="#" class="btn btn-default btn-block">
+            <%= f.collection_check_boxes :role_ids, Role.all, :id, :name, input_html: { class: "form-control" } do |b| %>
+              <div class="collection-check-box">
+                <%= b.check_box %>
+                <%= b.label %>&nbsp;&nbsp;
+              </div>
+            <% end %>
+          </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top5">
+          <p class="pink left15"><%= (current_user == @user)? "Your" : "User" %> level</p>
+          <span href="#" class="btn btn-default btn-block">
+          <span class="grey">Keep <%= (current_user == @user)? "my" : "his/her" %> profile admin</span><br>
+            <%= f.input :admin, as: :boolean, label: false, input_html: { class: "form-control" } %>
+          </span>
+        </div>
+        <div class="col-xs-12 col-sm-12 top15">
+          <%= f.submit "Save", class: "btn btn-alert", id: "submit-upload" %>
+        </div>
+      <% end %>
+    </div><!-- row -->
+  </div><!-- container -->
+</section>
+
+<div class="modal fade" id="change_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Change Email / Password</h4>
+      </div>
+      <div class="modal-body">
+      <div id="messages-devise"></div>
+        <form id="form_change_password">
+
+          <div class="top15">
+              <span class="grey">Change Email</span><br>
+              <input type="email" name="user[email]" class="form-control" value="<%= @user.email %>" required>
+          </div>
+          <div class="top15">
+              <span class="grey">Current Password</span><br>
+              <input type="password" name="user[current_password]" class="form-control" required>
+          </div>
+
+          <div class="top15">
+              <span class="grey">Change Password</span><br>
+              <input type="password" name="user[password]" class="form-control" required>
+          </div>
+          <div class=" top15">
+              <span class="grey">Confirm Password Change</span><br>
+              <input type="password" name="user[password_confirmation]" class="form-control" required>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
