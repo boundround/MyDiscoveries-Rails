@@ -17,6 +17,8 @@ class PlacesController < ApplicationController
     @place = Place.new(place_params)
 
     if @place.save
+      ChildItem.create(itemable_id: @place.id, itemable_type: @place.class.to_s, 
+                       parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
       redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
       render action: :new, notice: 'Place not saved!'
@@ -161,6 +163,7 @@ class PlacesController < ApplicationController
   def update
     @place = Place.friendly.find(params[:id])
     if @place.update(place_params)
+      @place.parent.update(parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
       respond_to do |format|
         format.json { render json: @place }
         format.html do
@@ -228,9 +231,9 @@ class PlacesController < ApplicationController
 
   def index
     if params[:is_area]
-      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id, :parentable_id, :parentable_type).where.not(status: "removed").where(is_area: true)
+      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where(is_area: true)
     else
-      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id, :parentable_id, :parentable_type).where.not(status: "removed").where.not(is_area: true)
+      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where.not(is_area: true)
     end
     set_surrogate_key_header Place.table_key, @places.map(&:record_key)
     respond_to do |format|
@@ -775,12 +778,12 @@ class PlacesController < ApplicationController
 
   private
     def place_params
-      parentable_id = params[:place][:parentable_id].split('-')
-      params[:place][:parentable_id] = parentable_id.first.to_i
+      parentable_id = params[:child_item][:parentable_id].split('-')
+      params[:child_item][:parentable_id] = parentable_id.first.to_i
       if parentable_id.last.eql? 'country'
-        params[:place][:parentable_type] = "Country"
+        params[:child_item][:parentable_type] = "Country"
       else 
-        params[:place][:parentable_type] = "Place"
+        params[:child_item][:parentable_type] = "Place"
       end
 
       params.require(:place).permit(

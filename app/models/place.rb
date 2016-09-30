@@ -245,13 +245,9 @@ class Place < ActiveRecord::Base
   belongs_to :user
   belongs_to :primary_category
 
-  # belongs_to :parentable, polymorphic: true
-  has_one :parent, :class_name => "ChildItem", as: :parentable
-  has_many :childrens, :class_name => "ChildItem", as: :itemable
-  # has_many :child_items, as: :parentable
-  # belongs_to :parent, :class_name => 'Place'
-  # has_many :children, :class_name => 'Place', :foreign_key => 'parent_id'
-  # has_many :children, :class_name => 'Place', :foreign_key => 'parentable_id'
+  has_one :parent, :class_name => "ChildItem", as: :itemable
+  has_many :childrens, :class_name => "ChildItem", as: :parentable
+  has_many :children, :class_name => 'Place', :foreign_key => 'parent_id' # this relation actived for temporary
 
   has_many :places_subcategories
   has_many :similar_places
@@ -518,7 +514,7 @@ class Place < ActiveRecord::Base
   def slug_candidates
     country = self.country
     # primary_area = self.parent if !self.parent.blank?
-    primary_area = self.parentable if !self.parentable.blank?
+    primary_area = self.parent.parentable if !self.parent.blank?
     if is_area == true
       "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
     else
@@ -530,7 +526,7 @@ class Place < ActiveRecord::Base
   end
 
   def get_parents(place, parents = [])
-    if place.parentable.blank? || (place.parentable == self)
+    if place.parent.blank?
       if !place.country.blank?
         parents << place.country
         return parents
@@ -538,8 +534,13 @@ class Place < ActiveRecord::Base
         return parents
       end
     else
-      parents << place.parentable
-      get_parents(place.parentable, parents)
+      parents << place.parent.parentable
+      if place.parent.parentable.class.to_s.eql? "Country"
+        parents << place.country
+        return parents
+      else
+        get_parents(place.parent.parentable, parents)
+      end
     end
 
     # if place.parent.blank? || (place.parent == self)
@@ -581,6 +582,7 @@ class Place < ActiveRecord::Base
   end
 
   def create_bound_round_id
+
     self.bound_round_place_id = SecureRandom.urlsafe_base64
     self.save
   end

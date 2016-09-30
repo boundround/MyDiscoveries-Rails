@@ -64,16 +64,17 @@
         <%#= f.input :parent_id, label: 'Parent Place', collection: @places, as: :select, :label_method => lambda { |place| "#{place.display_name}, #{place.country.display_name rescue ""}, ID: #{place.id}"}, value_method: :id, required: true %>
 
         <%= f.label "Parentable" %><br>
-        <%= radio_button_tag 'parentable_chose', 'country', (@place.parentable_type.eql? 'Country') ? true : false %> Country &nbsp;&nbsp;
-        <%= radio_button_tag 'parentable_chose', 'place', (@place.parentable_type.eql? 'Place') ? true : false %> Place
+        <%= radio_button_tag 'parentable_chose', 'country', (@place.parent.parentable_type.eql? 'Country') ? true : false %> Country &nbsp;&nbsp;
+        <%= radio_button_tag 'parentable_chose', 'place', (@place.parent.parentable_type.eql? 'Place') ? true : false %> Place
         <br>
-        <div id='chosen_country' style="display:none">
-          <%= f.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id.to_s+"#{(p_c.class.to_s.eql? 'Place') ? '-place' : '-country'}" ] }, selected:  @place.parentable_id.to_s+"#{(@place.parentable.class.to_s.eql? 'Country') ? '-country' : '-place'}") %>
-        </div>
-        <div id='chosen_place' style="display:none">
-          <%= f.select(:parentable_id, @places.collect {|p_c| [ p_c.display_name, p_c.id.to_s+"#{(p_c.class.to_s.eql? 'Place') ? '-place' : '-country'}" ] }, selected:  @place.parentable_id.to_s+"#{(@place.parentable.class.to_s.eql? 'Country') ? '-country' : '-place'}") %>
-        </div>
-
+        <%= fields_for :child_item do |fc| %>
+          <div id='chosen_country' style="display:none;">
+            <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id.to_s+"#{(p_c.class.to_s.eql? 'Place') ? '-place' : '-country'}" ] }, selected:  @place.parent.parentable_id.to_s+"#{(@place.parent.parentable.class.to_s.eql? 'Country') ? '-country' : '-place'}") %>
+          </div>
+          <div id='chosen_place' style="display:none;">
+            <%= fc.select(:parentable_id, @places.collect {|p_c| [ p_c.display_name, p_c.id.to_s+"#{(p_c.class.to_s.eql? 'Place') ? '-place' : '-country'}" ] }, selected:  @place.parent.parentable_id.to_s+"#{(@place.parent.parentable.class.to_s.eql? 'Country') ? '-country' : '-place'}") %>
+          </div>
+        <% end %>
       </div>
       <div class="form-group">
         <%= f.input :short_description, label: "Meta Description (leave blank to auto-populate)", input_html: { class: 'form-control area-description-input' } %><br>

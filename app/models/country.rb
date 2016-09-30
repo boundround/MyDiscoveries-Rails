@@ -73,8 +73,8 @@ class Country < ActiveRecord::Base
 
   has_many :places
 
-  has_one :parent, :class_name => "ChildItem", as: :parentable
-  has_many :childrens, :class_name => "ChildItem", as: :itemable
+  has_one :parent, :class_name => "ChildItem", as: :itemable
+  has_many :childrens, :class_name => "ChildItem", as: :parentable
 
   has_many :reviews
   has_many :stories
