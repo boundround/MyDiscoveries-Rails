@@ -1,5 +1,6 @@
 class PageRankingWeightUpdater
   GA_PAGE_VIEWS_WEIGHT = 0.2
+  ALGOLIA_CLICKS_WEIGHT = 0.2
 
   include Sidekiq::Worker
 
@@ -11,7 +12,8 @@ class PageRankingWeightUpdater
     rankable = rankable_class.constantize.find_by(id: rankable_id)
     return if rankable.nil?
 
-    page_ranking_weight = GA_PAGE_VIEWS_WEIGHT * rankable.ga_page_views_count
+    page_ranking_weight = GA_PAGE_VIEWS_WEIGHT * rankable.ga_page_views_count +
+                          ALGOLIA_CLICKS_WEIGHT * rankable.algolia_clicks
     rankable.update_column(:page_ranking_weight, page_ranking_weight)
   end
 end

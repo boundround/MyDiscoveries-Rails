@@ -231,6 +231,10 @@ $(document).ready(function() {
         algoliaHelperInstantSearch.toggleRefine($(this).data('facet'), $(this).data('value')).search();
     });
 
+    $(document).on('click', 'a.search-results-card,.dest-thing.search.cs-dest-thing-search a', function(e) {
+        $.post('/searchables/algolia-click/' + $(this).data('object-id'));
+    });
+
     function renderInstantHits(content) {
         if (content.hits.length > 0) {
             $instantSearchHits.html(instanthitTemplate.render(content));
