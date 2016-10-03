@@ -29,7 +29,7 @@
       <% @places.each do |place| %>
           <tr>
             <td><%= link_to "#{place.display_name} || #{place.id}", edit_place_path(place) %></td>
-            <td><%= place.parent.present? ? place.parent.display_name : "No Parent" %></td>
+            <td><%= place.parent.present? ? place.parent.parentable.display_name : "No Parent" %></td>
             <td><%= place.description.blank? ? 0 : (place.description.size / 6) %></td>
             <td><%= link_to "Edit Place", edit_place_path(place), target: "_blank" %></td>
             <td><%= place.subscription_level %></td>
