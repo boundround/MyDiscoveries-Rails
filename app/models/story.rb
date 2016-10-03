@@ -213,7 +213,7 @@ class Story < ActiveRecord::Base
       string += "<p>" + paragraph + "</p>"
     end
 
-    string = string[0..280] + "..."
+    string = string[0..180] + "..."
   end
 
   def story_text
