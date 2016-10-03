@@ -14,7 +14,8 @@ class Post < ActiveRecord::Base
                :minimum_age,
                :maximum_age,
                :description,
-               :primary_category_priority
+               :primary_category_priority,
+               :page_ranking_weight
 
     synonyms [
         ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping"],
@@ -155,6 +156,7 @@ class Post < ActiveRecord::Base
       'desc(is_country)',
       'desc(is_area)',
       'desc(primary_category_priority)',
+      'desc(page_ranking_weight)',
     ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching

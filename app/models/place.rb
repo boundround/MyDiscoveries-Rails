@@ -20,7 +20,8 @@ class Place < ActiveRecord::Base
                :maximum_age,
                :viator_link,
                :primary_category_priority,
-               :is_area
+               :is_area,
+               :page_ranking_weight
 
     synonyms [
         ["active", "water sports", "sports", "sport", "watersports"],
@@ -44,10 +45,6 @@ class Place < ActiveRecord::Base
 
     attribute :url do
       Rails.application.routes.url_helpers.place_path(self)
-    end
-
-    attribute :content_count do
-      videos.size + photos.size + reviews.size + posts.size
     end
 
     attribute :description do
@@ -214,7 +211,7 @@ class Place < ActiveRecord::Base
       'desc(is_country)',
       'desc(is_area)',
       'desc(primary_category_priority)',
-      'desc(content_count)',
+      'desc(page_ranking_weight)',
     ]
 
     attributesForFaceting [

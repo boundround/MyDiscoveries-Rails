@@ -5,7 +5,7 @@ class Country < ActiveRecord::Base
 
   algoliasearch index_name: "place_development_sergey", id: :algolia_id, if: :published? do
 
-    attributes :display_name, :primary_category_priority
+    attributes :display_name, :primary_category_priority, :page_ranking_weight
 
     attribute :description do
       if description
@@ -77,6 +77,7 @@ class Country < ActiveRecord::Base
       'desc(is_country)',
       'desc(is_area)',
       'desc(primary_category_priority)',
+      'desc(page_ranking_weight)',
     ]
 
     attributesForFaceting [
