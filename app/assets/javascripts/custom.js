@@ -135,6 +135,32 @@ $(document).ready(function(){
     });
   }
 
+  $(function(){
+    $("input[type=radio][name=parentable_chose]").change(function(){
+      id_chosen = $(this).attr('id')
+      if (id_chosen == 'parentable_chose_country'){
+        document.getElementById('chosen_country').style.display = "";
+        document.getElementById('chosen_place').style.display = "none";
+        if ($(this).val() == 'country'){
+          $('#chosen_place').find('select').val('')
+        }
+      } else {
+        document.getElementById('chosen_place').style.display = "";
+        document.getElementById('chosen_country').style.display = "none";
+        if ($(this).val() == 'place'){
+          $('#chosen_country').find('select').val('')
+        }
+      }
+    });
+  });
+
+  if ($('#parentable_chose_country').is(':checked') == true) {
+    document.getElementById('chosen_country').style.display = "";
+  }
+  if ($('#parentable_chose_place').is(':checked') == true) {
+    document.getElementById('chosen_place').style.display = "";
+  }
+
 });
 
 function countChars(countfrom,displayto) {

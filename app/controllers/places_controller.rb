@@ -10,12 +10,15 @@ class PlacesController < ApplicationController
     @countries = Country.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
+    # @places_coutry = @countries + @places
   end
 
   def create
     @place = Place.new(place_params)
 
     if @place.save
+      ChildItem.create(itemable_id: @place.id, itemable_type: @place.class.to_s, 
+                       parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
       redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
       render action: :new, notice: 'Place not saved!'
@@ -154,11 +157,13 @@ class PlacesController < ApplicationController
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new
+    # @places_coutry = @countries + @places
   end
 
   def update
     @place = Place.friendly.find(params[:id])
     if @place.update(place_params)
+      @place.parent.update(parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
       respond_to do |format|
         format.json { render json: @place }
         format.html do
@@ -773,6 +778,14 @@ class PlacesController < ApplicationController
 
   private
     def place_params
+      parentable_id = params[:child_item][:parentable_id].split('-')
+      params[:child_item][:parentable_id] = parentable_id.first.to_i
+      if parentable_id.last.eql? 'country'
+        params[:child_item][:parentable_type] = "Country"
+      else 
+        params[:child_item][:parentable_type] = "Place"
+      end
+
       params.require(:place).permit(
         :code,
         :identifier,
@@ -820,6 +833,8 @@ class PlacesController < ApplicationController
         :address,
         :area_id,
         :parent_id,
+        :parentable_id,
+        :parentable_type,
         :email,
         :tag_list,
         :location_list,
