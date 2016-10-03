@@ -65,7 +65,7 @@ class UsersController < ApplicationController
       flash[:error] = @user.errors.full_messages.join(" and ")
     end
 
-    sign_in(@user)
+    sign_in(@user) if current_user == @user
 
     respond_to do |format|
         format.html { render :edit }
@@ -257,8 +257,12 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
+      role = Role.where(name: "contributor").first.id
+      if params[:user][:role_ids].include?(role.to_s) && params[:user][:is_private].include?("1")
+        params[:user][:is_private] = "0"
+      end
       params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :password, :password_confirmation, :is_private,
-                                    :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username, :description,
+                                    :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username, :description, :min_age, :max_age,
                                     :role_ids => [], :owned_place_ids => [])
     end
 
