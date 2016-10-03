@@ -40,6 +40,10 @@ class Country < ActiveRecord::Base
       hero
     end
 
+    attribute :has_hero_image do
+      photos.exists?(country_hero: true)
+    end
+
     attribute :is_country do
       true
     end
@@ -78,6 +82,7 @@ class Country < ActiveRecord::Base
       'desc(is_area)',
       'desc(primary_category_priority)',
       'desc(page_ranking_weight)',
+      'desc(has_hero_image)',
     ]
 
     attributesForFaceting [

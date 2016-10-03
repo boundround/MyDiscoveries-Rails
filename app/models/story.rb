@@ -94,6 +94,10 @@ class Story < ActiveRecord::Base
       end
     end
 
+    attribute :has_hero_image do
+      hero_image.present?
+    end
+
     attribute :age_range do
       if minimum_age.present? and maximum_age.present?
         if minimum_age > 12
@@ -155,6 +159,7 @@ class Story < ActiveRecord::Base
       'desc(is_area)',
       'desc(primary_category_priority)',
       'desc(page_ranking_weight)',
+      'desc(has_hero_image)',
     ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching

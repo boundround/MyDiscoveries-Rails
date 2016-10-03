@@ -133,6 +133,10 @@ class Place < ActiveRecord::Base
       hero
     end
 
+    attribute :has_hero_image do
+      photos.exists?(hero: true) || user_photos.exists?(hero: true)
+    end
+
     attribute :age_range do
       if minimum_age.present? and maximum_age.present?
         if minimum_age > 12
@@ -212,6 +216,7 @@ class Place < ActiveRecord::Base
       'desc(is_area)',
       'desc(primary_category_priority)',
       'desc(page_ranking_weight)',
+      'desc(has_hero_image)',
     ]
 
     attributesForFaceting [
