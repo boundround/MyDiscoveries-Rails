@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915044527) do
+ActiveRecord::Schema.define(version: 20160930042404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,20 @@ ActiveRecord::Schema.define(version: 20160915044527) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "child_items", force: true do |t|
+    t.string   "itemable_type"
+    t.integer  "itemable_id"
+    t.string   "parentable_type"
+    t.integer  "parentable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "child_items", ["itemable_id"], name: "index_child_items_on_itemable_id", using: :btree
+  add_index "child_items", ["itemable_type"], name: "index_child_items_on_itemable_type", using: :btree
+  add_index "child_items", ["parentable_id"], name: "index_child_items_on_parentable_id", using: :btree
+  add_index "child_items", ["parentable_type"], name: "index_child_items_on_parentable_type", using: :btree
 
   create_table "ckeditor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
