@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   resources :stories do
     collection { get 'paginate' }
+    member { get 'paginate_place'}
     member { get 'paginate_place_to_visit'}
     resources :places, controller: :places_stories
     resources :countries, controller: :countries_stories
