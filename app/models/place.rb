@@ -456,6 +456,16 @@ class Place < ActiveRecord::Base
     end
   end
 
+  def self.import_update(file)
+    spreadsheet = open_spreadsheet(file)
+    header = spreadsheet.row(1)
+    (2..spreadsheet.last_row).each do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      place = Place.find row["id"]
+      place.update!(row.to_h)
+    end
+  end
+
   def self.import_subcategories(file)
     places_subcategory = nil
     spreadsheet = open_spreadsheet(file)
