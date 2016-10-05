@@ -14,6 +14,7 @@ class StoriesController < ApplicationController
   end
 
   def destroy
+    @story = Story.find_by_slug(params[:id])
    if @story.destroy
       redirect_to  :back, notice: "Success"
    end
