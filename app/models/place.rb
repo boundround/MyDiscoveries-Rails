@@ -1,13 +1,27 @@
 class Place < ActiveRecord::Base
   include CustomerApprovable
   include AlgoliaSearch
+  include Searchable
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_development_sergey", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
-    attributes :display_name, :status, :latitude, :longitude, :locality, :post_code, :display_address, :identifier, :slug, :minimum_age, :maximum_age, :viator_link
-    # attributes :is_area
+    attributes :display_name,
+               :status,
+               :latitude,
+               :longitude,
+               :locality,
+               :post_code,
+               :display_address,
+               :identifier,
+               :slug,
+               :minimum_age,
+               :maximum_age,
+               :viator_link,
+               :primary_category_priority,
+               :is_area,
+               :page_ranking_weight
 
     synonyms [
         ["active", "water sports", "sports", "sport", "watersports"],
@@ -28,15 +42,9 @@ class Place < ActiveRecord::Base
         ""
       end
     end
-    attribute :area do
-      self.is_area ? 't' : 'f'
-    end
+
     attribute :url do
       Rails.application.routes.url_helpers.place_path(self)
-    end
-
-    attribute :content_count do
-      videos.size + photos.size + reviews.size + posts.size
     end
 
     attribute :description do
@@ -69,6 +77,10 @@ class Place < ActiveRecord::Base
           self.primary_category.name
         end
       end
+    end
+
+    attribute :is_country do
+      false
     end
 
     attribute :result_icon do
@@ -119,6 +131,10 @@ class Place < ActiveRecord::Base
         hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
       end
       hero
+    end
+
+    attribute :has_hero_image do
+      photos.exists?(hero: true) || user_photos.exists?(hero: true)
     end
 
     attribute :age_range do
@@ -181,14 +197,38 @@ class Place < ActiveRecord::Base
     # you want to search in: here `title`, `subtitle` & `description`.
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
-    attributesToIndex ['display_name', 'age_range', 'accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)', 'publish_date']
+    attributesToIndex [
+      'display_name',
+      'unordered(description)',
+      'age_range',
+      'accessible',
+      'subcategories',
+      'unordered(parents)',
+      'unordered(display_address)',
+      'unordered(primary_category)',
+      'publish_date',
+    ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
-    customRanking ['desc(content_count)']
+    customRanking [
+      'desc(is_country)',
+      'desc(is_area)',
+      'desc(primary_category_priority)',
+      'desc(page_ranking_weight)',
+      'desc(has_hero_image)',
+    ]
 
-    attributesForFaceting ['area', 'main_category', 'age_range', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility']
-
+    attributesForFaceting [
+      'is_area',
+      'main_category',
+      'age_range',
+      'subcategory',
+      'weather',
+      'price',
+      'best_time_to_visit',
+      'accessibility',
+    ]
   end
 
   # ratyrate_rateable "quality"
@@ -328,7 +368,7 @@ class Place < ActiveRecord::Base
   def self.return_first_place_id_from_search_results(search_response, region)
     id = nil
     search_response["hits"].each do |hit|
-      if (hit["objectID"].include?("place")) && (hit["area"] == "f") && (hit["parents"].any? { |x| x.downcase.include? region } )
+      if (hit["objectID"].include?("place")) && (hit["is_area"] == false) && (hit["parents"].any? { |x| x.downcase.include? region } )
         id = hit["objectID"].gsub("place_", "").to_i
         break
       end

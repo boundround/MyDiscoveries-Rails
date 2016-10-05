@@ -137,6 +137,7 @@ gem 'carrierwave_backgrounder'
 
 gem 'sidekiq'
 gem 'sidekiq-history'
+gem 'sidekiq-throttler'
 
 # Bootsy WYSIWYG Editor
 gem 'bootsy', github: "volmer/bootsy"
@@ -171,6 +172,8 @@ gem 'sitemap_generator'
 
 #mixpanel gem
 gem 'mixpanel-ruby'
+
+gem 'google-api-client', '~> 0.9'
 
 group :development do
   gem 'letter_opener', group: :development

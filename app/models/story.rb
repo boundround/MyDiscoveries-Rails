@@ -1,13 +1,21 @@
 class Story < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
+  include Searchable
 
   mount_base64_uploader :hero_image, StoryHeroImageUploader
   friendly_id :slug_candidates, :use => :slugged
   # after_update :send_live_notification
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_development_sergey", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
-    attributes :title, :status, :slug, :minimum_age, :maximum_age, :description
+    attributes :title,
+               :status,
+               :slug,
+               :minimum_age,
+               :maximum_age,
+               :description,
+               :primary_category_priority,
+               :page_ranking_weight
 
     synonyms [
         ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping"],
@@ -32,6 +40,14 @@ class Story < ActiveRecord::Base
 
     attribute :viator_link do
       ""
+    end
+
+    attribute :is_country do
+      false
+    end
+
+    attribute :is_area do
+      false
     end
 
     attribute :primary_category do
@@ -78,6 +94,10 @@ class Story < ActiveRecord::Base
       end
     end
 
+    attribute :has_hero_image do
+      hero_image.present?
+    end
+
     attribute :age_range do
       if minimum_age.present? and maximum_age.present?
         if minimum_age > 12
@@ -121,14 +141,41 @@ class Story < ActiveRecord::Base
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
     # attributesToIndex ['display_name', 'unordered(content)', 'unordered(display_address)', 'primary_category', 'subcategories']
-    attributesToIndex ['display_name', 'age_range', 'unordered(content)','accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)', 'publish_date']
+    attributesToIndex [
+      'display_name',
+      'unordered(description)',
+      'age_range',
+      'unordered(content)',
+      'accessible',
+      'subcategories',
+      'unordered(parents)',
+      'unordered(display_address)',
+      'unordered(primary_category)',
+      'publish_date',
+    ]
 
+    customRanking [
+      'desc(is_country)',
+      'desc(is_area)',
+      'desc(primary_category_priority)',
+      'desc(page_ranking_weight)',
+      'desc(has_hero_image)',
+    ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
     # customRanking ['desc(likes_count)']
 
-    attributesForFaceting ['main_category', 'age_range', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility']
+    attributesForFaceting [
+      'is_area',
+      'main_category',
+      'age_range',
+      'subcategory',
+      'weather',
+      'price',
+      'best_time_to_visit',
+      'accessibility'
+    ]
   end
 
   belongs_to :user
