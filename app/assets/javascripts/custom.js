@@ -156,9 +156,11 @@ $(document).ready(function(){
 
   if ($('#parentable_chose_country').is(':checked') == true) {
     document.getElementById('chosen_country').style.display = "";
+    $('#chosen_place').find('select').val('')
   }
   if ($('#parentable_chose_place').is(':checked') == true) {
     document.getElementById('chosen_place').style.display = "";
+    $('#chosen_country').find('select').val('')
   }
 
 });
