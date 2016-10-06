@@ -34,7 +34,7 @@ Vagrantfile
 /vendor/*
 
 # Ignore Google Analytics
-app/views/layouts/_ga.html.erb
+# app/views/layouts/_ga.html.erb
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
