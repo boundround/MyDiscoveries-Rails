@@ -215,6 +215,7 @@ class Place < ActiveRecord::Base
   # after_validation :reverse_geocode
 
   after_update :crop_hero_image
+  after_update :parent_update_child_will_updated_slug
   before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_short_description
   after_create :create_bound_round_id
 
@@ -528,6 +529,19 @@ class Place < ActiveRecord::Base
       end
       
       self.update!(slug: new_slug.downcase.gsub(' ', '-'))
+    end
+  end
+
+  def parent_update_child_will_updated_slug
+    if display_name_changed? && self.childrens.any?
+      self.childrens[0..3].each do |child|
+        childrennn = child.itemable
+        unless childrennn.is_area
+          new_slug = "things to do with kids and families #{childrennn.country.display_name rescue ""} #{self.display_name rescue ""} #{childrennn.display_name}"
+        
+          childrennn.update!(slug: new_slug.downcase.gsub(' ', '-'))
+        end
+      end
     end
   end
 
