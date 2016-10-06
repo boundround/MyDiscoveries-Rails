@@ -1,5 +1,6 @@
 class CountriesController < ApplicationController
   before_action :set_cache_control_headers, only: [:index, :show]
+  around_filter :catch_not_found, only: [:show]
 
   def index
     @countries = Country.all
@@ -99,5 +100,14 @@ class CountriesController < ApplicationController
                       fun_facts_attributes: [:id, :content, :reference, :priority, :hero_photo, :photo_credit, :status, :country_include, :_destroy],
                       famous_faces_attributes: [:id, :name, :description, :photo, :photo_credit, :status, :_destroy],
                       info_bits_attributes: [:id, :title, :description, :photo, :photo_credit, :status, :_destroy])
+    end
+
+    def catch_not_found
+      yield
+      rescue ActiveRecord::RecordNotFound
+      country_random = Country.all.offset(rand(Country.count)).first
+      flash.now['error'] = "Sorry, Country URL has been permanently redirected to another URL."
+      $flashhh = flash.keep
+      redirect_to country_random, :status => :moved_permanently
     end
 end

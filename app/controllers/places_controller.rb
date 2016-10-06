@@ -3,6 +3,7 @@ require 'will_paginate/array'
 class PlacesController < ApplicationController
   layout false, :only => :wp_blog
   before_action :set_cache_control_headers, only: [:index, :show]
+  before_action :find_place_by_slug, only: [:show] 
 
   def new
     @place = Place.new
@@ -281,7 +282,7 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
+    # @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
     informations = @place.subcategories.get_all_informations
     @optimum_times =  @place.subcategories.select {|cat| cat.category_type == "optimum_time"}
     @durations = @place.subcategories.select {|cat| cat.category_type == "duration"}
@@ -857,5 +858,16 @@ class PlacesController < ApplicationController
         category_ids: [],
         subcategory_ids: [],
         similar_place_ids: [])
+    end
+
+    def find_place_by_slug
+      @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
+      
+      if @place.blank?
+        random_place = Place.all.offset(rand(Place.count)).first
+        flash.now['error'] = "Sorry, Place URL has been permanently redirected to another URL."
+        $flashhh = flash.keep
+        return redirect_to random_place, :status => :moved_permanently
+      end
     end
 end

@@ -168,6 +168,22 @@
       <% end %>
     <% end %>
 
+    <% unless $flashhh.blank? %>
+      <% $flashhh.each do |type, message| %>
+        <% if !bootstrap_class_for(type).eql?("timedout")%>
+          <% if is_flash_key_for_tracking?(type) %>
+            <div class="hidden <%= type %>"></div>
+          <% else %>
+              <div class="alert <%= bootstrap_class_for(type) %> fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <%= message %>
+          </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% $flashhh = nil %>
+
     <% if !@no_nav %>
       <%= render "/layouts/admin_menu" %>
       <%= render "layouts/navbar" %>
