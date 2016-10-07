@@ -534,7 +534,7 @@ class Place < ActiveRecord::Base
 
   def parent_update_child_will_updated_slug
     if display_name_changed? && self.childrens.any?
-      self.childrens[0..3].each do |child|
+      self.childrens.each do |child|
         childrennn = child.itemable
         unless childrennn.is_area
           new_slug = "things to do with kids and families #{childrennn.country.display_name rescue ""} #{self.display_name rescue ""} #{childrennn.display_name}"
