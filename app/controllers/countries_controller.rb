@@ -1,6 +1,6 @@
 class CountriesController < ApplicationController
   before_action :set_cache_control_headers, only: [:index, :show]
-  around_filter :catch_not_found, only: [:show]
+  before_action :find_country_by_slug, only: [:show]
 
   def index
     @countries = Country.all
@@ -8,7 +8,8 @@ class CountriesController < ApplicationController
   end
 
   def show
-    @place = @country = Country.includes(:photos, :places).friendly.find(params[:id])
+    # @place = @country = Country.includes(:photos, :places).friendly.find(params[:id])
+    @place = @country
     @stories = @country.posts.active
     @stories += @country.stories.active
     @stories = @stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse.paginate(page: params[:stories_page], per_page: 4)
@@ -102,12 +103,12 @@ class CountriesController < ApplicationController
                       info_bits_attributes: [:id, :title, :description, :photo, :photo_credit, :status, :_destroy])
     end
 
-    def catch_not_found
-      yield
-      rescue ActiveRecord::RecordNotFound
-      country_random = Country.all.offset(rand(Country.count)).first
-      flash.now['error'] = "Sorry, Country URL has been permanently redirected to another URL."
-      $flashhh = flash.keep
-      redirect_to country_random, :status => :moved_permanently
+    def find_country_by_slug
+      @country = Country.friendly.find(params[:id])
+      if request.path != country_path(@country)
+        flash.now['error'] = "Sorry, Country URL has been permanently redirected to another URL."
+        $flashhh = flash.keep
+        redirect_to @country, :status => :moved_permanently
+      end
     end
 end

@@ -94,13 +94,12 @@ class StoriesController < ApplicationController
     end
 
     def find_story_by_slug
-      @story = Story.find_by_slug(params[:id])
+      @story = Story.friendly.find(params[:id])
       $flashhh = nil
-      if @story.blank?
-        random_story = Story.all.offset(rand(Story.count)).first
+      if request.path != story_path(@story)
         flash.now['error'] = "Sorry, Story URL has been permanently redirected to another URL."
         $flashhh = flash.keep
-        return redirect_to random_story, :status => :moved_permanently
+        return redirect_to @story, :status => :moved_permanently
       end
     end
 end
