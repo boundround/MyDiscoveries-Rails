@@ -8,15 +8,7 @@ class Country < ActiveRecord::Base
     attributes :display_name, :primary_category_priority, :page_ranking_weight
 
     attribute :description do
-      if description
-        if description.length < 50
-          "#{description}"
-        else
-          "#{description[0..50]}..."
-        end
-      else
-        ""
-      end
+      description.blank? ? "" : description
     end
 
     attribute :photos do

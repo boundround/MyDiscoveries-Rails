@@ -48,15 +48,7 @@ class Place < ActiveRecord::Base
     end
 
     attribute :description do
-      if description
-        if description.length < 320
-          "#{description}"
-        else
-          "#{description[0..320]}..."
-        end
-      else
-        ""
-      end
+      description.blank? ? "" : description
     end
 
     attribute :primary_category do
