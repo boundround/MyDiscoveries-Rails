@@ -69,12 +69,14 @@
         <%= radio_button_tag 'parentable_chose', 'country', false %> Country &nbsp;&nbsp;
         <%= radio_button_tag 'parentable_chose', 'place', true %> Place
         <br>
-        <%= fields_for :child_item do |fc| %>
+        <%= f.fields_for :child_item do |fc| %>
           <div id='chosen_country' style="display:none;">
-            <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id.to_s+"#{(p_c.class.to_s.eql? 'Place') ? '-place' : '-country'}" ] }, :required => true) %>
+            <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
+            <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_country', value: "Country") %>
           </div>
           <div id='chosen_place' style="display:none;">
-            <%= fc.select(:parentable_id, @places.collect {|p_c| [ p_c.display_name, p_c.id.to_s+"#{(p_c.class.to_s.eql? 'Place') ? '-place' : '-country'}" ] }, :required => true) %>
+            <%= fc.select(:parentable_id, @places.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
+            <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_place', value: "Place") %>  
           </div>
         <% end %>
       </div>

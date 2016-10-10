@@ -143,12 +143,16 @@ $(document).ready(function(){
         document.getElementById('chosen_place').style.display = "none";
         if ($(this).val() == 'country'){
           $('#chosen_place').find('select').val('')
+          $('.place_parent_attributes_parentable_type_place').val('Country')
+          $('.place_parent_attributes_parentable_type_country').val('Country')
         }
       } else {
         document.getElementById('chosen_place').style.display = "";
         document.getElementById('chosen_country').style.display = "none";
         if ($(this).val() == 'place'){
           $('#chosen_country').find('select').val('')
+          $('.place_parent_attributes_parentable_type_place').val('Place')
+          $('.place_parent_attributes_parentable_type_country').val('Place')
         }
       }
     });

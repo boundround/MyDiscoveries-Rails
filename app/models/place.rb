@@ -215,7 +215,6 @@ class Place < ActiveRecord::Base
   # after_validation :reverse_geocode
 
   after_update :crop_hero_image
-  after_update :parent_update_child_will_updated_slug
   before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_short_description
   after_create :create_bound_round_id
 
@@ -290,6 +289,7 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :user_photos, allow_destroy: true
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
   accepts_nested_attributes_for :stamps, allow_destroy: true
+  accepts_nested_attributes_for :parent, :allow_destroy => true
 
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
@@ -512,39 +512,6 @@ class Place < ActiveRecord::Base
     loader.remove("id" => self.id)
   end
 
-  def check_parent_change(old_parent, new_parent)
-    old_parentable_type = old_parent.split('_').last
-    old_parentable_id   = old_parent.split('_').first.to_i
-    new_parentable_type = new_parent.split('_').last
-    new_parentable_id   = new_parent.split('_').first.to_i
-
-    unless (old_parentable_type == new_parentable_type) && (old_parentable_id == new_parentable_id)
-      country = self.country
-      primary_area = self.parent.parentable if !self.parent.blank?
-      new_slug = ''
-      if is_area == true
-        new_slug = "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
-      else
-        new_slug = "things to do with kids and families #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}"
-      end
-      
-      self.update!(slug: new_slug.downcase.gsub(' ', '-'))
-    end
-  end
-
-  def parent_update_child_will_updated_slug
-    if display_name_changed? && self.childrens.any?
-      self.childrens.each do |child|
-        childrennn = child.itemable
-        unless childrennn.is_area
-          new_slug = "things to do with kids and families #{childrennn.country.display_name rescue ""} #{self.display_name rescue ""} #{childrennn.display_name}"
-        
-          childrennn.update!(slug: new_slug.downcase.gsub(' ', '-'))
-        end
-      end
-    end
-  end
-
   def slug_candidates
     country = self.country
     # primary_area = self.parent if !self.parent.blank?
@@ -645,7 +612,7 @@ class Place < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || display_name_changed? || self.country_id_changed? || self.parent_id_changed?
+    slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
   end
 
   def trip_advisor_info

@@ -18,7 +18,7 @@ class PlacesController < ApplicationController
 
     if @place.save
       ChildItem.create(itemable_id: @place.id, itemable_type: @place.class.to_s, 
-                       parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
+                       parentable_id: params[:place][:child_item][:parentable_id].to_i, parentable_type: params[:place][:child_item][:parentable_type])
       redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
       render action: :new, notice: 'Place not saved!'
@@ -163,10 +163,6 @@ class PlacesController < ApplicationController
   def update
     @place = Place.friendly.find(params[:id])
     if @place.update(place_params)
-      session[:old_parent] = "#{@place.parent.parentable_id}_#{@place.parent.parentable_type}"
-      @place.parent.update(parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
-      @place.check_parent_change("#{session[:old_parent].split('_').first}_#{session[:old_parent].split('_').last}", "#{params[:child_item][:parentable_id]}_#{params[:child_item][:parentable_type]}")
-      session.delete(:old_parent)
       respond_to do |format|
         format.json { render json: @place }
         format.html do
@@ -781,13 +777,6 @@ class PlacesController < ApplicationController
 
   private
     def place_params
-      parentable_id = params[:child_item][:parentable_id].split('-')
-      params[:child_item][:parentable_id] = parentable_id.first.to_i
-      if parentable_id.last.eql? 'country'
-        params[:child_item][:parentable_type] = "Country"
-      else 
-        params[:child_item][:parentable_type] = "Place"
-      end
       params.require(:place).permit(
         :code,
         :identifier,
@@ -850,6 +839,7 @@ class PlacesController < ApplicationController
         :top_100,
         :viator_link,
         :trip_advisor_url,
+        parent_attributes: [:parentable_id, :parentable_type],
         photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
         fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
