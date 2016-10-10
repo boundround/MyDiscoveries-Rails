@@ -106,8 +106,6 @@ class CountriesController < ApplicationController
     def find_country_by_slug
       @country = Country.friendly.find(params[:id])
       if request.path != country_path(@country)
-        flash.now['error'] = "Sorry, Country URL has been permanently redirected to another URL."
-        $flashhh = flash.keep
         redirect_to @country, :status => :moved_permanently
       end
     end

@@ -97,8 +97,6 @@ class StoriesController < ApplicationController
       @story = Story.friendly.find(params[:id])
       $flashhh = nil
       if request.path != story_path(@story)
-        flash.now['error'] = "Sorry, Story URL has been permanently redirected to another URL."
-        $flashhh = flash.keep
         return redirect_to @story, :status => :moved_permanently
       end
     end
