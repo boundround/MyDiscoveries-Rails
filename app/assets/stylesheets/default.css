@@ -61,3 +61,10 @@
 
 .medium-editor-placeholder:after {
   color: #b3b3b1; }
+
+
+.error-fields {
+  color: red;
+  font-style: italic;
+  font-size: 16px;
+}
