@@ -307,18 +307,11 @@ class Story < ActiveRecord::Base
   end
 
   def stories_like_this
-    subcategories = self.subcategories.map(&:id)
-    stories_like_this = []
-    unless subcategories.blank?
-      stories_like_this = Story.includes(:subcategories).where(subcategories: {id: [subcategories]})
-    end
-
-    stories = []
-    self.places.each do |place|
-       stories << place.stories
-    end
-
-    return (stories_like_this + stories.flatten).uniq
+    ids = [
+      Story.joins(:subcategories).where(subcategories: { id: subcategories.pluck(:id) }).pluck(:id),
+      Story.joins(:places).where(places: { id: places.pluck(:id) }).pluck(:id)
+    ].reduce(:+).uniq
+    Story.includes(:user).where(id: ids).order(:created_at)
   end
 
   protected
