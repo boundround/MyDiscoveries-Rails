@@ -3,7 +3,7 @@ class Country < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
 
-  algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
 
     attributes :display_name, :primary_category_priority, :page_ranking_weight
 

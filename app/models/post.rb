@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
 
   mount_uploader :hero_photo, PostHeroPhotoUploader
 
-  algoliasearch index_name: "place_development_sergey", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :title,
                :content,

@@ -6,7 +6,7 @@ class Story < ActiveRecord::Base
   mount_base64_uploader :hero_image, StoryHeroImageUploader
   friendly_id :slug_candidates, :use => :slugged
   # after_update :send_live_notification
-  algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :title,
                :status,
