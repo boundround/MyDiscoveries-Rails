@@ -515,13 +515,20 @@ class Place < ActiveRecord::Base
   def slug_candidates
     country = self.country
     # primary_area = self.parent if !self.parent.blank?
-    primary_area = self.parent.parentable if !self.parent.blank?
+    # primary_area = self.parent.parentable if !self.parent.blank?
+    g_parent = get_parents(self, parents = [])
+    p_display_name = g_parent.collect{ |parent| parent.display_name }
+
+    unless p_display_name.blank?
+      primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
+    end
     if is_area == true
       "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
     else
-      [
-        "things to do with kids and families #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}",
-        ["things to do with kids and families #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}", :post_code]
+      [ 
+        # "things to do with kids and families #{country.display_name rescue ""} #{primary_area_display_name rescue ""} #{self.display_name}",
+        "things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}",
+        ["things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}", :post_code]
       ]
     end
   end
