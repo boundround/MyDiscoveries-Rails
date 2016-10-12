@@ -254,13 +254,9 @@ class Story < ActiveRecord::Base
   end
 
   def teaser
-    string = ""
-    content = Nokogiri::HTML::Document.parse self.content
-    content.css('p').each do |paragraph|
-      string += "<p>" + paragraph + "</p>"
-    end
-
-    string = string[0..280] + "..."
+    content.scan(/<p.*?>.*?<\/p>/).map do |paragraph|
+      '<p>' + Nokogiri::HTML(paragraph) + '</p>'
+    end.reduce(:+)[0..280] + "..."
   end
 
   def story_text
