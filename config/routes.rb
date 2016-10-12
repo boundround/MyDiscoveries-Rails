@@ -352,6 +352,11 @@ Rails.application.routes.draw do
     collection { post :import_subcategories }
   end
 
+  resources :attractions do
+    collection { post :import_update }
+    collection { post :import_subcategories }
+  end
+
   resources :deals
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'

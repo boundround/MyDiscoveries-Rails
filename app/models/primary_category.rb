@@ -7,6 +7,7 @@ class PrimaryCategory < ActiveRecord::Base
 
   before_save :parameterize_identifier
   has_many :places
+  has_many :attractions
 
   mount_uploader :icon, IconUploader
 
