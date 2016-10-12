@@ -248,9 +248,7 @@ class Story < ActiveRecord::Base
   end
 
   def story_images
-    content = Nokogiri::HTML::Document.parse self.content
-
-    images = content.css('img').map{ |image| image['src'] }
+    @story_images ||= (content.scan(/<img.*?src="(.*?)".*?>/).flatten! || [])
   end
 
   def teaser
