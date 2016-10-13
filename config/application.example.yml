@@ -1,0 +1,2 @@
+# https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-php
+GOOGLE_APPLICATION_CREDENTIALS: 'path-to-a-service-account-file.json'

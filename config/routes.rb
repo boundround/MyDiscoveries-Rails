@@ -348,6 +348,7 @@ Rails.application.routes.draw do
     resources :good_to_knows
     resources :deals
     collection { post :import }
+    collection { post :import_update }
     collection { post :import_subcategories }
   end
 
@@ -362,4 +363,5 @@ Rails.application.routes.draw do
   get '/places/:id/new_edit' => 'places#new_edit'
   get '/places/:id/refresh_blog' => 'places#refresh_blog'
 
+  post '/searchables/algolia-click/:object_id' => 'searchables#algolia_click', as: 'algolia_click'
 end

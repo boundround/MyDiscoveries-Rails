@@ -6,7 +6,7 @@
 <script type="text/template" id="hit-template-home">
 {{#hits}}
   <div class="search-results-card-wrapper">
-      <a class="search-results-card" href="{{ url }}">
+      <a class="search-results-card" href="{{ url }}" data-object-id="{{ objectID }}">
           <div class="search-results-img hit-result"
                style="background: url({{ hero_photo.url }}) no-repeat;"
                role="img" aria-label="{{{ display_name }}}"

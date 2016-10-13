@@ -6,14 +6,11 @@ class StoriesController < ApplicationController
 
   def show
     @story = Story.find_by_slug(params[:id])
-    if @story.stories_like_this.blank?
-      @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
-    else
-      @stories_like_this = @story.stories_like_this.sort_by(&:created_at).paginate(page: params[:stories_page], per_page: 6)
-    end
+    @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
   end
 
   def destroy
+    @story = Story.find_by_slug(params[:id])
    if @story.destroy
       redirect_to  :back, notice: "Success"
    end
