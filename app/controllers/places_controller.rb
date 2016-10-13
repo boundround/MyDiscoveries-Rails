@@ -781,7 +781,7 @@ class PlacesController < ApplicationController
 ###############################################################################
 
   private
-    def place_params      
+    def place_params
       params.require(:place).permit(
         :code,
         :identifier,
