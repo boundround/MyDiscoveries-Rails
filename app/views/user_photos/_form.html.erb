@@ -1,3 +1,4 @@
+<% variable = (controller_name.eql? 'attractions') ? @attraction : @place %>
 <% if user_signed_in? %>
 <div id="userPhotoModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-margin-top">
@@ -10,7 +11,7 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="text-center">
-              <%= form_for [(@place ? @place : @area), UserPhoto.new], :html => { :id => "user-photo-upload"  } do |f| %>
+              <%= form_for [(variable ? variable : @area), UserPhoto.new], :html => { :id => "user-photo-upload"  } do |f| %>
                 <div class="btn-user-photo">
                     <h5 id="upload-title">Click or drag below</h5>
                   <%= f.file_field :path, label: false, required: true %>
@@ -18,8 +19,8 @@
                 </div>
               <%= f.hidden_field :user_id, :value => (current_user.id if user_signed_in?) %>
               <%= f.hidden_field :status, :value => "draft" %>
-              <% if @place %>
-                <%= f.hidden_field :place_id, :value => @place.id %>
+              <% if variable %>
+                <%= f.hidden_field :place_id, :value => variable.id %>
               <% else %>
                 <%= f.hidden_field :area_id, :value => @area.id %>
               <% end %>
