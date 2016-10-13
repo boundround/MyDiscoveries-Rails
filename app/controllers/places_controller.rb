@@ -17,7 +17,7 @@ class PlacesController < ApplicationController
     @place = Place.new(place_params)
 
     if @place.save
-      ChildItem.create(itemable_id: @place.id, itemable_type: @place.class.to_s, 
+      ChildItem.create(itemable_id: @place.id, itemable_type: @place.class.to_s,
                        parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
       redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
@@ -753,7 +753,7 @@ class PlacesController < ApplicationController
 
       set_program_filters(@places)
     end
-
+    
     def set_program_constants()
       @locations = Rails.cache.fetch("australian_statesq_filter",expires_in: 4.hours) do
         locs = Place.includes(:country).where("countries.display_name ILIKE '%australia%' AND length(places.state)>=2").pluck('DISTINCT places.state')
@@ -782,7 +782,7 @@ class PlacesController < ApplicationController
       params[:child_item][:parentable_id] = parentable_id.first.to_i
       if parentable_id.last.eql? 'country'
         params[:child_item][:parentable_type] = "Country"
-      else 
+      else
         params[:child_item][:parentable_type] = "Place"
       end
 

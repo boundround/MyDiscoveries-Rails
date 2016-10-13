@@ -542,27 +542,6 @@ class Place < ActiveRecord::Base
         get_parents(place.parent.parentable, parents)
       end
     end
-
-    # if place.parent.blank? || (place.parent == self)
-    #   if !place.country.blank?
-    #     parents << place.country
-    #     return parents
-    #   else
-    #     return parents
-    #   end
-    # else
-    #   parents << place.parent
-    #   get_parents(place.parent, parents)
-    # end
-  end
-
-  def find_first_primary_area
-    self.similar_places.each do |association|
-      if association.similar_place.primary_area == true
-        return association.similar_place
-      end
-    end
-    ""
   end
 
   def publish
