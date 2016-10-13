@@ -1,10 +1,11 @@
 class Country < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
+  include Searchable
 
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do
 
-    attributes :display_name
+    attributes :display_name, :primary_category_priority, :page_ranking_weight
 
     attribute :description do
       if description
@@ -39,6 +40,18 @@ class Country < ActiveRecord::Base
       hero
     end
 
+    attribute :has_hero_image do
+      photos.exists?(country_hero: true)
+    end
+
+    attribute :is_country do
+      true
+    end
+
+    attribute :is_area do
+      true
+    end
+
     attribute :result_type do
       "Country"
     end
@@ -52,9 +65,36 @@ class Country < ActiveRecord::Base
     end
 
     # attributesToIndex ['display_name', 'unordered(description)']
-    attributesToIndex ['display_name', 'age_range', 'accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)', 'publish_date']
+    attributesToIndex [
+      'display_name',
+      'unordered(description)',
+      'age_range',
+      'accessible',
+      'subcategories',
+      'unordered(parents)',
+      'unordered(display_address)',
+      'unordered(primary_category)',
+      'publish_date',
+    ]
 
+    customRanking [
+      'desc(is_country)',
+      'desc(is_area)',
+      'desc(primary_category_priority)',
+      'desc(page_ranking_weight)',
+      'desc(has_hero_image)',
+    ]
 
+    attributesForFaceting [
+      'is_area',
+      'main_category',
+      'age_range',
+      'subcategory',
+      'weather',
+      'price',
+      'best_time_to_visit',
+      'accessibility',
+    ]
   end
 
   require 'open_weather'

@@ -62,7 +62,7 @@ $(document).ready(function() {
     var INSTANT_SEARCH_PARAMS = {
         hitsPerPage: 6,
         maxValuesPerFacet: 8,
-        facets: ['area'],
+        facets: ['is_area'],
         disjunctiveFacets: FACETS_ORDER_OF_DISPLAY
     };
 
@@ -229,6 +229,10 @@ $(document).ready(function() {
 
     $(document).on('click', '.instant-search-toggle-refine', function(e) {
         algoliaHelperInstantSearch.toggleRefine($(this).data('facet'), $(this).data('value')).search();
+    });
+
+    $(document).on('click', 'a.search-results-card,.dest-thing.search.cs-dest-thing-search a', function(e) {
+        $.post('/searchables/algolia-click/' + $(this).data('object-id'));
     });
 
     function renderInstantHits(content) {

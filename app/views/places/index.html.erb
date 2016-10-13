@@ -47,6 +47,12 @@
         <%= submit_tag "Import" %>
       <% end %>
       <br />
+      <h3>Update from Excel File</h3>
+      <%= form_tag import_update_places_path, multipart: true do %>
+        <%= file_field_tag :file %>
+        <%= submit_tag "Import" %>
+      <% end %>
+      <br />
     <% end %>
 <% else %>
 <h3>You are not signed in or do not have the proper permissions to view this page</h3>

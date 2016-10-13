@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :owned_places, through: :customers_places, :source => :place
 
   has_many :places
+  has_many :attractions
 
   has_many :identities
 
@@ -40,9 +41,10 @@ class User < ActiveRecord::Base
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, # :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :authentication_keys => [:email]
-  devise :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :omniauthable, :authentication_keys => [:email],
+         :omniauth_providers => [:facebook, :twitter, :google_oauth2]
+  # devise :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
   # after_create :create_mixpanel_profile
 

@@ -17,7 +17,7 @@ class PlacesController < ApplicationController
     @place = Place.new(place_params)
 
     if @place.save
-      ChildItem.create(itemable_id: @place.id, itemable_type: @place.class.to_s, 
+      ChildItem.create(itemable_id: @place.id, itemable_type: @place.class.to_s,
                        parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
       redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
@@ -34,7 +34,7 @@ class PlacesController < ApplicationController
   end
 
   def subcategory_match
-    index = Algolia::Index.new("place_production")
+    index = Algolia::Index.new("place_development_sergey")
     @search_string = ""
     @search = ""
     @ages = params[:ages].join(" ")
@@ -475,6 +475,11 @@ class PlacesController < ApplicationController
     redirect_to places_path, notice: "Places imported."
   end
 
+  def import_update
+    Place.import_update(params[:file])
+    head 200, content_type: "text/html", notice: "Places updated."
+  end
+
   def import_subcategories
     Place.import_subcategories(params[:file])
     redirect_to places_path, notice: "Places imported."
@@ -782,7 +787,7 @@ class PlacesController < ApplicationController
       params[:child_item][:parentable_id] = parentable_id.first.to_i
       if parentable_id.last.eql? 'country'
         params[:child_item][:parentable_type] = "Country"
-      else 
+      else
         params[:child_item][:parentable_type] = "Place"
       end
 

@@ -11,6 +11,12 @@ class Subcategory < ActiveRecord::Base
 	has_many :places_subcategories, :dependent => :destroy
 	has_many :places, through: :places_subcategories
 
+	has_many :attractions_subcategories, :dependent => :destroy
+	has_many :attractions, through: :attractions_subcategories
+
+	has_many :attractions_subcategories, :dependent => :destroy
+	has_many :attractions, through: :attractions_subcategories
+
 	mount_uploader :icon, IconUploader
 
 

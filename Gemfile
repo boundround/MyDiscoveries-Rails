@@ -34,6 +34,13 @@ gem 'nokogiri'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+
+  gem 'capybara'
+  gem 'selenium-webdriver'
+
+  gem 'factory_girl_rails'
+
+  gem 'faker'
 end
 
 # 12 Factor Gem for Heroku Deploy
@@ -130,6 +137,7 @@ gem 'carrierwave_backgrounder'
 
 gem 'sidekiq'
 gem 'sidekiq-history'
+gem 'sidekiq-throttler'
 
 # Bootsy WYSIWYG Editor
 gem 'bootsy', github: "volmer/bootsy"
@@ -165,7 +173,10 @@ gem 'sitemap_generator'
 #mixpanel gem
 gem 'mixpanel-ruby'
 
+gem 'google-api-client', '~> 0.9'
+
 group :development do
+  gem 'letter_opener', group: :development
   gem 'railroady'
   gem 'brakeman', :require => false
   gem "better_errors"

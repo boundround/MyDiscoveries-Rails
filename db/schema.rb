@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915044527) do
+ActiveRecord::Schema.define(version: 20161003091126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,20 @@ ActiveRecord::Schema.define(version: 20160915044527) do
     t.datetime "updated_at"
   end
 
+  create_table "child_items", force: true do |t|
+    t.string   "itemable_type"
+    t.integer  "itemable_id"
+    t.string   "parentable_type"
+    t.integer  "parentable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "child_items", ["itemable_id"], name: "index_child_items_on_itemable_id", using: :btree
+  add_index "child_items", ["itemable_type"], name: "index_child_items_on_itemable_type", using: :btree
+  add_index "child_items", ["parentable_id"], name: "index_child_items_on_parentable_id", using: :btree
+  add_index "child_items", ["parentable_type"], name: "index_child_items_on_parentable_type", using: :btree
+
   create_table "ckeditor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
     t.string   "data_content_type"
@@ -154,6 +168,8 @@ ActiveRecord::Schema.define(version: 20160915044527) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "address"
+    t.decimal  "page_ranking_weight"
+    t.integer  "algolia_clicks",           default: 0
   end
 
   add_index "countries", ["slug"], name: "index_countries_on_slug", using: :btree
@@ -473,6 +489,8 @@ ActiveRecord::Schema.define(version: 20160915044527) do
     t.string   "email"
     t.integer  "parent_id"
     t.string   "trip_advisor_url"
+    t.decimal  "page_ranking_weight"
+    t.integer  "algolia_clicks",            default: 0
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -548,6 +566,8 @@ ActiveRecord::Schema.define(version: 20160915044527) do
     t.integer  "maximum_age"
     t.integer  "primary_category_id"
     t.string   "hero_photo"
+    t.decimal  "page_ranking_weight"
+    t.integer  "algolia_clicks",      default: 0
   end
 
   add_index "posts", ["primary_category_id"], name: "index_posts_on_primary_category_id", using: :btree
@@ -725,6 +745,8 @@ ActiveRecord::Schema.define(version: 20160915044527) do
     t.datetime "publish_date"
     t.string   "hero_image"
     t.text     "seo_friendly_url"
+    t.decimal  "page_ranking_weight"
+    t.integer  "algolia_clicks",      default: 0
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
