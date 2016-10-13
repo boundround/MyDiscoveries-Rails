@@ -255,7 +255,7 @@ class Place < ActiveRecord::Base
   resourcify
 
   extend FriendlyId
-  friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
+  friendly_id :slug_candidates, :use => [:slugged, :history] #show display_names in place routes
 
   scope :active, -> { where(status: "live") }
   scope :not_removed, -> { where('status != ?', 'removed') }
