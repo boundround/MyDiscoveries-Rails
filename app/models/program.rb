@@ -1,5 +1,6 @@
 class Program < ActiveRecord::Base
   belongs_to :place
+  belongs_to :attraction
   has_many :webresources, -> { order "created_at ASC"}
 
   acts_as_taggable

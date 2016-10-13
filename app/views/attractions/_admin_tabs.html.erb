@@ -1,0 +1,14 @@
+<p class="top20">
+  <a href="<%= attraction_path(@attraction) %>" class="btn btn-primary"
+    target="_blank">View attraction Page</a>
+  <a href="<%= attraction_good_to_knows_path(@attraction) %>"
+    class="btn btn-primary" >Good To Knows</a>
+  <a href="<%= choose_hero_attraction_path(@attraction) %>"
+    class="btn btn-primary">Edit / Add Photos</a>
+  <a href="<%= polymorphic_path([@attraction, Deal]) %>"
+    class="btn btn-primary">Deals</a>
+  <a href="<%= all_attraction_videos_path(@attraction) %>"
+    class="btn btn-primary">Videos</a>
+  <a href="<%= attraction_three_d_videos_path(@attraction) %>"
+    class="btn btn-primary" >3D Videos</a>
+</p>

@@ -80,20 +80,62 @@ class AttractionsController < ApplicationController
 
   end
 
-  def new;end
+  def new
+    @attraction = Attraction.new
+    @places = Place.active.order(display_name: :asc)
+    @countries = Country.all
+    @subcategories = Subcategory.order(name: :asc)
+    @primary_categories = PrimaryCategory.all
+    # @places_coutry = @countries + @places
+
+  end
 
   def edit
+    @set_body_class = "br-body"
+    @attraction = Attraction.friendly.find(params[:id])
+    @places = Place.active.order(display_name: :asc)
+    @countries = Country.all
+    @subcategories = Subcategory.order(name: :asc)
+    @primary_categories = PrimaryCategory.all
+    @three_d_video = ThreeDVideo.new
+    # @places_coutry = @countries + @places
   end
 
   def create
     @attraction = Attraction.new(attraction_params)
-    flash[:notice] = 'Attraction was successfully created.' if @attraction.save
-    respond_with(@attraction)
+
+    if @attraction.save
+      ChildItem.create(itemable_id: @attraction.id, itemable_type: @attraction.class.to_s,
+                       parentable_id: params[:attraction][:child_item][:parentable_id], parentable_type: params[:attraction][:child_item][:parentable_type])
+      redirect_to edit_attraction_path(@attraction), notice: 'Attraction succesfully saved'
+    else
+      render action: :new, notice: 'Attraction not saved!'
+    end
   end
 
   def update
-    flash[:notice] = 'Attraction was successfully updated.' if @attraction.update(attraction_params)
-    respond_with(@attraction)
+    @attraction = Attraction.friendly.find(params[:id])
+    if @attraction.update(attraction_params)
+      respond_to do |format|
+        format.json { render json: @attraction }
+        format.html do
+          @attraction.photos.each do |photo|
+            photo.add_or_remove_from_country(@attraction.country)
+          end
+
+          @attraction.videos.each do |video|
+            video.add_or_remove_from_country(@attraction.country)
+          end
+
+          @attraction.fun_facts.each do |fun_fact|
+            fun_fact.add_or_remove_from_country(@attraction.country)
+          end
+          redirect_to edit_attraction_path(@attraction), notice: 'Place succesfully updated'
+        end
+      end
+    else
+      redirect_to :back
+    end
   end
 
   def destroy
@@ -111,6 +153,13 @@ class AttractionsController < ApplicationController
     head 200, content_type: "text/html", notice: "Attraction updated."
   end
 
+  def choose_hero
+    @attraction = Attraction.find_by_slug(params[:id])
+    @user_photos = @attraction.user_photos
+    @attraction_photos = @attraction.photos
+    @photo = Photo.new
+  end
+
   private
     def set_attraction
       # @attraction = Attraction.friendly.find(params[:id])
@@ -118,6 +167,76 @@ class AttractionsController < ApplicationController
     end
 
     def attraction_params
-      params[:attraction]
+      params.require(:attraction).permit(
+        :code,
+        :identifier,
+        :display_name,
+        :description,
+        :show_on_school_safari,
+        :school_safari_description,
+        :booking_url,
+        :display_address,
+        :subscription_level,
+        :latitude,
+        :longitude,
+        :logo,
+        :phone_number,
+        :website,
+        :booking_url,
+        :icon,
+        :map_icon,
+        :published_at,
+        :unpublished_at,
+        :minimum_age,
+        :maximum_age,
+        :street_number,
+        :route,
+        :sublocality,
+        :locality,
+        :state,
+        :post_code,
+        :created_by,
+        :user_created,
+        :hero_image,
+        :remote_hero_image_url,
+        :crop_x,
+        :crop_y,
+        :crop_h,
+        :crop_w,
+        :customer_approved,
+        :customer_review,
+        :approved_at,
+        :country_id,
+        :bound_round_place_id,
+        :short_description,
+        :primary_category_id,
+        :passport_icon,
+        :address,
+        :area_id,
+        :parent_id,
+        :parentable_id,
+        :parentable_type,
+        :email,
+        :tag_list,
+        :location_list,
+        :activity_list,
+        :place_id,
+        :status,
+        :footer_include,
+        :is_area,
+        :primary_area,
+        :special_requirements,
+        :top_100,
+        :viator_link,
+        :trip_advisor_url,
+        photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
+        fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
+        three_d_videos_attributes: [:link, :caption, :place_id],
+        category_ids: [],
+        subcategory_ids: [],
+        similar_place_ids: [])
     end
 end

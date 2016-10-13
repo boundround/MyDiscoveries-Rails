@@ -353,8 +353,15 @@ Rails.application.routes.draw do
   end
 
   resources :attractions do
+    member { get 'choose_hero', as: :choose_hero }
+    resources :videos do
+      collection { get 'all' }
+    end
     resources :reviews
     resources :user_photos
+    resources :three_d_videos
+    resources :good_to_knows
+    resources :deals
     collection { post :import_update }
     collection { post :import_subcategories }
   end

@@ -59,14 +59,30 @@ class Attraction < ActiveRecord::Base
   has_many :attractions_stories
   has_many :stories, through: :attractions_stories
 
-  has_many :good_to_knows, as: :good_to_knowable
-  has_many :fun_facts, -> { order "created_at ASC"}
   has_many :photos, -> { order "created_at ASC"}
   has_many :videos, -> { order "created_at ASC"}
+  has_many :fun_facts, -> { order "created_at ASC"}
+  has_many :programs, -> { order "created_at ASC"}
+  has_many :user_photos
+  
+  has_many :good_to_knows, as: :good_to_knowable
+
+  has_many :three_d_videos
   has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable
-  has_many :user_photos
+  has_many :stamps
 
+  accepts_nested_attributes_for :photos, allow_destroy: true
+  accepts_nested_attributes_for :videos, allow_destroy: true
+  accepts_nested_attributes_for :fun_facts, allow_destroy: true
+  accepts_nested_attributes_for :programs, allow_destroy: true
+  accepts_nested_attributes_for :reviews, allow_destroy: true
+  accepts_nested_attributes_for :stories, allow_destroy: true
+  accepts_nested_attributes_for :user_photos, allow_destroy: true
+  accepts_nested_attributes_for :three_d_videos, allow_destroy: true
+  accepts_nested_attributes_for :stamps, allow_destroy: true
+  accepts_nested_attributes_for :parent, :allow_destroy => true
+  
   def self.import_subcategories(file)
     attractions_subcategory = nil
     spreadsheet = open_spreadsheet(file)
@@ -141,5 +157,31 @@ class Attraction < ActiveRecord::Base
     end
 
   end
+  
+  def slug_candidates
+    country = self.country
+    # primary_area = self.parent if !self.parent.blank?
+    # primary_area = self.parent.parentable if !self.parent.blank?
+    g_parent = get_parents(self, parents = [])
+    p_display_name = g_parent.collect{ |parent| parent.display_name }
+
+    unless p_display_name.blank?
+      primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
+    end
+    if is_area == true
+      "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
+    else
+      [ 
+        # "things to do with kids and families #{country.display_name rescue ""} #{primary_area_display_name rescue ""} #{self.display_name}",
+        "things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}",
+        ["things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}", :post_code]
+      ]
+    end
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
+  end
+
 
 end

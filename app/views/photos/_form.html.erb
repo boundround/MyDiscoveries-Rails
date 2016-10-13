@@ -27,6 +27,8 @@
         <%= f.input :area_id, as: :hidden, input_html: {value: @area.id } %>
       <% elsif @place %>
         <%= f.input :place_id, as: :hidden, input_html: {value: @place.id } %>
+      <% elsif @attraction %>
+        <%= f.input :attraction_id, as: :hidden, input_html: {value: @attraction.id } %>
       <% end %>
     </div>
     <div class="form-group">

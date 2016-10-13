@@ -1,18 +1,20 @@
+<% variable = @place.blank? ? @attraction : @place %>
+<% path = (variable.eql? @place)? 'place' : 'attraction' %>
 <div class="container">
-  <%= render "/places/admin_tabs" %>
+  <%= render "/#{path}s/admin_tabs" %>
   <h2>All "Good To Know"</h2>
-  <p><%= link_to "Back To Edit #{@place.display_name}", edit_place_path(@place)%></p>
+  <p><%= link_to "Back To Edit #{variable.display_name}", eval("edit_#{path}_path(variable)") %></p>
   <% if !@good_to_knows.blank? %>
     <% @good_to_knows.each do |good_to_know| %>
     <p>Text: <%= good_to_know.description %> || Show On Page: <%= good_to_know.show_on_page %><br>
-      <%= link_to 'Edit', edit_place_good_to_know_path(@place, good_to_know.id) %> ||
-      <%= link_to 'Destroy', place_good_to_know_path(@place, good_to_know), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Edit', eval("edit_#{path}_good_to_know_path(variable, good_to_know.id)") %> ||
+      <%= link_to 'Destroy', eval("#{path}_good_to_know_path(variable, good_to_know.id)"), method: :delete, data: { confirm: 'Are you sure?' } %>
       <hr>
     </p>
     <% end %>
   <% end %>
   <h2>Create New "Good To Know"</h2>
-  <%= simple_form_for [@place, @good_to_know] do |f|%>
+  <%= simple_form_for [variable, @good_to_know] do |f|%>
     <%= f.input :description, input_html: { class: 'form-control' } %>
     <%= f.input :show_on_page, as: :boolean %><br>
     <%= f.submit "Save", class: "btn btn-primary" %>

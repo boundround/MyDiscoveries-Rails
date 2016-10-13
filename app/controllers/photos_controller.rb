@@ -33,8 +33,22 @@ class PhotosController < ApplicationController
     end
   end
 
+  def attraction_update
+    @attraction = attraction.find(params[:id])
+    if @photo.update(photo_params)
+      redirect_to choose_hero_attraction_path(@photo.place), notice: "Photo Succesfully Updated"
+    else
+      redirect_to choose_hero_attraction_path(@photo.place), notice: "Error"
+    end
+  end
+
   def all_photos
-    @place = Place.friendly.find(params[:place_id])
+    if params[:place_id]
+      @place = Place.friendly.find(params[:place_id])
+    elsif params[:attraction_id]
+      @attraction = Attraction.friendly.find(params[:attraction_id])
+    end
+    
     @photos = @place.photos
   end
 
@@ -85,7 +99,7 @@ class PhotosController < ApplicationController
   private
 
     def photo_params
-      params.require(:photo).permit(:title, :path, :alt_tag, :credit, :area_id, :place_id, :caption, :caption_source,
+      params.require(:photo).permit(:title, :path, :alt_tag, :credit, :area_id, :place_id, :attraction_id, :caption, :caption_source,
                                     :customer_approved, :customer_review, :approved_at, :priority, :hero, :status, :country_hero, :country_include, :_destroy)
     end
 
