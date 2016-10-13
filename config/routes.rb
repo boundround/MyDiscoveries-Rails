@@ -353,6 +353,8 @@ Rails.application.routes.draw do
   end
 
   resources :attractions do
+    resources :reviews
+    resources :user_photos
     collection { post :import_update }
     collection { post :import_subcategories }
   end

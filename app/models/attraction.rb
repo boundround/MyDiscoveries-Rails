@@ -41,7 +41,14 @@ class Attraction < ActiveRecord::Base
   has_many :childrens, :class_name => "ChildItem", as: :parentable
   has_many :children, :class_name => 'Attraction', :foreign_key => 'parent_id' # this relation actived for temporary
 
-  has_many :similar_places
+  has_many :attractions_users
+  has_many :users, through: :attractions_users
+  
+  has_many :customers_attractions
+  has_many :owners, through: :customers_attractions, :source => :user
+
+  has_many :similar_attractions
+  has_many :associated_areas, through: :similar_attractions, source: :similar_attraction
 
   has_many :attractions_subcategories
   has_many :subcategories, through: :attractions_subcategories
@@ -53,10 +60,12 @@ class Attraction < ActiveRecord::Base
   has_many :stories, through: :attractions_stories
 
   has_many :good_to_knows, as: :good_to_knowable
+  has_many :fun_facts, -> { order "created_at ASC"}
   has_many :photos, -> { order "created_at ASC"}
   has_many :videos, -> { order "created_at ASC"}
   has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable
+  has_many :user_photos
 
   def self.import_subcategories(file)
     attractions_subcategory = nil
@@ -113,21 +122,21 @@ class Attraction < ActiveRecord::Base
     end
   end
 
-  def get_parents(place, parents = [])
-    if place.parent.blank?
-      if !place.country.blank?
-        parents << place.country
+  def get_parents(attraction, parents = [])
+    if attraction.parent.blank?
+      if !attraction.country.blank?
+        parents << attraction.country
         return parents
       else
         return parents
       end
     else
-      parents << place.parent.parentable
-      if place.parent.parentable.class.to_s.eql? "Country"
-        parents << place.country
+      parents << attraction.parent.parentable
+      if attraction.parent.parentable.class.to_s.eql? "Country"
+        parents << attraction.country
         return parents
       else
-        get_parents(place.parent.parentable, parents)
+        get_parents(attraction.parent.parentable, parents)
       end
     end
 

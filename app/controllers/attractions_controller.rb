@@ -1,6 +1,5 @@
 require 'will_paginate/array'
 class AttractionsController < ApplicationController
-  layout false, :only => :wp_blog
   before_action :set_cache_control_headers, only: [:index, :show]
   before_action :set_attraction, only: [:show, :edit, :update, :destroy]
 
@@ -14,7 +13,6 @@ class AttractionsController < ApplicationController
   end
 
   def show
-    # @place = Place.find(@attraction.id)
     @optimum_times =  @attraction.subcategories.select {|cat| cat.category_type == "optimum_time"}
     @durations = @attraction.subcategories.select {|cat| cat.category_type == "duration"}
     @subcategories = @attraction.subcategories.select {|cat| cat.category_type == "subcategory"}
@@ -82,11 +80,6 @@ class AttractionsController < ApplicationController
 
   end
 
-  def wp_blog
-    @blog = ApiBlog.find_blog_id(params[:id].to_i, params[:attraction])
-    @attraction = Attraction.find_by_slug(params[:attraction])
-  end
-
   def new;end
 
   def edit
@@ -120,7 +113,8 @@ class AttractionsController < ApplicationController
 
   private
     def set_attraction
-      @attraction = Attraction.friendly.find(params[:id])
+      # @attraction = Attraction.friendly.find(params[:id])
+      @attraction = Attraction.includes(:quality_average, :subcategories, :similar_attractions => :similar_attraction).friendly.find(params[:id])
     end
 
     def attraction_params
