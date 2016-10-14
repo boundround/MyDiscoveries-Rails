@@ -858,8 +858,7 @@ class PlacesController < ApplicationController
     end
 
     def find_place_by_slug
-      # @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
-      @place = Place.friendly.find(params[:id])
+      @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
       if request.path != place_path(@place)
         return redirect_to @place, :status => :moved_permanently
       end

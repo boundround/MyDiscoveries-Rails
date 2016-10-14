@@ -6,7 +6,7 @@
   <%= link_to "Back To Edit #{variable.display_name}", eval("edit_#{path}_path(variable)") %>
   <% variable.three_d_videos.each do |video| %>
   <p>Link: <%= video.link %> || Caption: <%= video.caption %> ||
-    <%= link_to 'Edit', eval("edit_#{path}_three_d_video_path(#{variable}, #{video.id})") %> ||
+    <%= link_to 'Edit', eval("edit_#{path}_three_d_video_path(variable, video.id)") %> ||
     <%= link_to 'Destroy', eval("#{path}_three_d_video_path(variable, video)"), method: :delete, data: { confirm: 'Are you sure?' } %>
   </p>
   <% end %>

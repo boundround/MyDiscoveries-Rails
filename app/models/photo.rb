@@ -4,6 +4,7 @@ class Photo < ActiveRecord::Base
   before_save :set_approval_time, :check_customer_approved
 
   belongs_to :place
+  belongs_to :attraction
 
   has_many :countries_photos
   has_many :countries, :through => :countries_photos

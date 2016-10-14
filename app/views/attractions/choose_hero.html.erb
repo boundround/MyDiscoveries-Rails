@@ -52,7 +52,7 @@
 					</label>
 				<% else %>
 					<label>
-						<input name="hero_image" data-place="<%= @attraction.id %>" data-photo= "<%= photo.id %>" data-type="<%= photo.class.to_s %>" type="checkbox"> Choose as hero image
+						<input name="hero_image" data-from="attraction"  data-place="<%= @attraction.id %>" data-photo= "<%= photo.id %>" data-type="<%= photo.class.to_s %>" type="checkbox"> Choose as hero image
 					</label>
 				<% end %>
 			</div>

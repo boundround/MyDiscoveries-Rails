@@ -1,36 +1,27 @@
 class Attraction < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
-
-  # attribute :primary_category do
-  #   if self.primary_category
-  #     { name: "#{primary_category.name}", identifier: primary_category.identifier}
-  #   else
-  #     ""
-  #   end
-  # end
-
-  # attribute :result_type do
-  #   if self.is_area == true
-  #     "Destination"
-  #   else
-  #     if self.primary_category.blank?
-  #       "Something To Do"
-  #     else
-  #       self.primary_category.name
-  #     end
-  #   end
-  # end
-
-  # attribute :main_category do
-  #   primary_category.name if primary_category.present?
-  # end
+  friendly_id :slug_candidates, :use => [:slugged, :history]
 
   scope :active, -> { where(status: "live") }
 
   belongs_to :country
   belongs_to :user
   belongs_to :primary_category
+
+  # ratyrate_rateable "quality"
+
+  has_many :rates_without_dimension, -> { where dimension: nil}, as: :rateable, class_name: 'Rate', dependent: :destroy
+  has_many :raters_without_dimension, through: :rates_without_dimension, source: :rater
+
+  has_one :rate_average_without_dimension, -> { where dimension: nil}, as: :cacheable,
+          class_name: 'RatingCache', dependent: :destroy
+
+  has_many "quality_rates".to_sym, -> {where dimension: "quality"},
+                                              dependent: :destroy,
+                                              class_name: 'Rate',
+                                              as: :rateable
+
+  has_many "quality_raters".to_sym, through: "quality_rates".to_sym, source: :rater
 
   has_one "quality_average".to_sym, -> { where dimension: "quality" },
                                               as: :cacheable,
@@ -160,8 +151,6 @@ class Attraction < ActiveRecord::Base
   
   def slug_candidates
     country = self.country
-    # primary_area = self.parent if !self.parent.blank?
-    # primary_area = self.parent.parentable if !self.parent.blank?
     g_parent = get_parents(self, parents = [])
     p_display_name = g_parent.collect{ |parent| parent.display_name }
 
@@ -172,7 +161,6 @@ class Attraction < ActiveRecord::Base
       "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
     else
       [ 
-        # "things to do with kids and families #{country.display_name rescue ""} #{primary_area_display_name rescue ""} #{self.display_name}",
         "things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}",
         ["things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}", :post_code]
       ]

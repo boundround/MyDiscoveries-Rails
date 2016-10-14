@@ -22,10 +22,19 @@ class ThreeDVideosController < ApplicationController
   end
 
   def destroy
-    @place = Place.friendly.find(params[:place_id])
+    if params[:attraction_id].blank?
+      @place = Place.friendly.find(params[:place_id])
+      idd = @place
+      pathh = 'place'
+    else
+      @attraction = Attraction.friendly.find(params[:attraction_id])
+      idd = @attraction
+      pathh = 'attraction'
+    end
+    
     @three_d_video = ThreeDVideo.find(params[:id])
     @three_d_video.destroy
-    redirect_to place_three_d_videos_path(@place), notice: "3D Video Deleted"
+    redirect_to eval("#{pathh}_three_d_videos_path(idd)"), notice: "3D Video Deleted"
   end
 
   def new
@@ -36,7 +45,11 @@ class ThreeDVideosController < ApplicationController
 
   def edit
     @three_d_video = ThreeDVideo.find(params[:id])
-    @place = Place.friendly.find(params[:place_id])
+    if params[:attraction_id].blank?
+      @place = Place.friendly.find(params[:place_id])
+    else
+      @attraction = Attraction.friendly.find(params[:attraction_id])
+    end
   end
 
   def index
@@ -47,11 +60,9 @@ class ThreeDVideosController < ApplicationController
       @three_d_video = ThreeDVideo.new
       # @place.three_d_videos = ThreeDVideo.all
     elsif params[:attraction_id]
-      # @three_d_videos = Place.three_d_videos.find(params[:place_id]).three_d_videos
       @attraction = Attraction.friendly.find(params[:attraction_id])
       @three_d_videos = @attraction.three_d_videos
       @three_d_video = ThreeDVideo.new
-      # @place.three_d_videos = ThreeDVideo.all
     end
 
   end
@@ -59,6 +70,6 @@ class ThreeDVideosController < ApplicationController
 
   private
     def three_d_video_params
-      params.require(:three_d_video).permit(:link, :caption, :place_id)
+      params.require(:three_d_video).permit(:link, :caption, :place_id, :attraction_id)
     end
 end

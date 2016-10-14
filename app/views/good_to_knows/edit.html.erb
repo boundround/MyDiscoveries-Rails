@@ -1,5 +1,5 @@
 <% variable = @place.blank? ? @attraction : @place %>
-<% path = (variable.eql? '@place')? 'place' : 'attraction' %>
+<% path = (variable.eql? @place)? 'place' : 'attraction' %>
 <div class="container">
   <%= render "/#{path}s/admin_tabs" %>
   <h2>Edit Good To Know</h2>

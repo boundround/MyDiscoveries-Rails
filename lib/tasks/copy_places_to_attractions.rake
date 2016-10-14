@@ -4,5 +4,6 @@ namespace :copy_places do
     Place.where(is_area: false).each do |place|
       Attraction.create(place.attributes).save
     end
+    ActiveRecord::Base.connection.reset_pk_sequence!('attractions')
   end
 end

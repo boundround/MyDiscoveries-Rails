@@ -36,10 +36,10 @@ class GoodToKnowsController < ApplicationController
   end
 
   def edit
-    if params[:place_id]
-      @place = Place.friendly.find(params[:place_id])
-    else
+    if params[:place_id].blank?
       @attraction = Attraction.friendly.find(params[:attraction_id])
+    else
+      @place = Place.friendly.find(params[:place_id])
     end
     
     @good_to_know = GoodToKnow.find(params[:id])

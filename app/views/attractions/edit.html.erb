@@ -1,7 +1,7 @@
 <div class="container">
   <% if @attraction.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@attraction.errors.count, "error") %> prohibited this place from being updated:</h2>
+      <h2><%= pluralize(@attraction.errors.count, "error") %> prohibited this attraction from being updated:</h2>
 
       <ul>
       <% @attraction.errors.full_messages.each do |msg| %>
@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-md-6">
           <p><input id="pac-input" class="controls form-control" type="text"
-              placeholder="Search For A Place">Geometry: <span id="latitude"><%= @attraction.latitude %></span>, <span id="longitude"><%= @attraction.longitude %></span></p>
+              placeholder="Search For A Attraction">Geometry: <span id="latitude"><%= @attraction.latitude %></span>, <span id="longitude"><%= @attraction.longitude %></span></p>
           <div id="map-canvas" style="height:500px;"></div>
         </div>
         <div class="col-md-6">
@@ -60,11 +60,10 @@
         <%= f.association :country, label: 'Country', collection: @countries, as: :select, label_method: :display_name, required: true %>
       </div>
       <div class="form-group">
-        <%#= f.input :parent_id, label: 'Parent Place', collection: @attractions, as: :select, :label_method => lambda { |place| "#{place.display_name}, #{place.country.display_name rescue ""}, ID: #{place.id}"}, value_method: :id, required: true %>
-
         <%= f.label "Parentable" %><br>
         <%= radio_button_tag 'parentable_chose', 'country', (@attraction.parent.parentable_type.eql? 'Country') ? true : false %> Country &nbsp;&nbsp;
-        <%= radio_button_tag 'parentable_chose', 'place', (@attraction.parent.parentable_type.eql? 'Place') ? true : false %> Place
+        <%= radio_button_tag 'parentable_chose', 'place', (@attraction.parent.parentable_type.eql? 'Place') ? true : false %> Place&nbsp;&nbsp;
+        <%= radio_button_tag 'parentable_chose', 'attraction', (@attraction.parent.parentable_type.eql? 'Attraction') ? true : false %> Attraction
         <br>
         <%= f.fields_for :parent do |fc| %>
           <div id='chosen_country' style="display:none;">
@@ -74,6 +73,10 @@
           <div id='chosen_place' style="display:none;">
             <%= fc.select(:parentable_id, @places.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @attraction.parent.parentable_id) %>
             <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_place', value: "Place") %>
+          </div>
+          <div id='chosen_attraction' style="display:none;">
+            <%= fc.select(:parentable_id, @attractions.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @attraction.parent.parentable_id) %>
+            <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_attraction', value: "Attraction") %>
           </div>
         <% end %>
       </div>
@@ -114,8 +117,8 @@
         <% @subcategories.each do |category| %>
             <% if category.category_type == "subcategory" %>
               <div class="checkbox-inline col-md-2">
-                <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-                <%= check_box_tag "place[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
+                <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
+                <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
                 <%= label_tag dom_id(category), category.name %>
               </div>
           <% end %>
@@ -133,8 +136,8 @@
         <% @subcategories.each do |category| %>
             <% if category.category_type == "price" %>
               <div class="checkbox-inline col-md-2">
-                <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-                <%= check_box_tag "place[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
+                <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
+                <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
                 <%= label_tag dom_id(category), category.name %>
               </div>
           <% end %>
@@ -146,8 +149,8 @@
         <% @subcategories.each do |category| %>
             <% if category.category_type == "accessibility" %>
             <div class="checkbox-inline col-md-2">
-              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-              <%= check_box_tag "place[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
+              <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
+              <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
               <%= label_tag dom_id(category), category.name %>
             </div>
           <% end %>
@@ -155,12 +158,12 @@
       </div>
       <div class="field js-primary-category row">
         <br>
-        <strong>Place visit duration</strong><br>
+        <strong>Attraction visit duration</strong><br>
         <% @subcategories.each do |category| %>
             <% if category.category_type == "duration" %>
             <div class="checkbox-inline col-md-2">
-              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-              <%= check_box_tag "place[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
+              <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
+              <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
               <%= label_tag dom_id(category), category.name %>
             </div>
           <% end %>
@@ -172,8 +175,8 @@
         <% @subcategories.each do |category| %>
             <% if category.category_type == "optimum_time" %>
             <div class="checkbox-inline col-md-2">
-              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-              <%= check_box_tag "place[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
+              <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
+              <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
               <%= label_tag dom_id(category), category.name %>
             </div>
           <% end %>
@@ -184,8 +187,8 @@
         <strong>Weather Conditions</strong><br>
         <% @subcategories.each do |category| %>
             <% if category.category_type == "weather" %>
-            <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-            <%= check_box_tag "place[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
+            <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
+            <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
             <%= label_tag dom_id(category), category.name %><br/>
           <% end %>
         <% end %>

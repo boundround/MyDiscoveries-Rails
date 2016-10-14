@@ -19,7 +19,7 @@ class VideosController < ApplicationController
 
   def all
     if params[:place_id]
-      @place = Attraction.friendly.find(params[:place_id])
+      @place = Place.friendly.find(params[:place_id])
       variable = @place
     elsif params[:attraction_id]
       @attraction = Attraction.friendly.find(params[:attraction_id])

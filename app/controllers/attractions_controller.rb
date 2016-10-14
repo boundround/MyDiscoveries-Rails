@@ -1,7 +1,7 @@
 require 'will_paginate/array'
 class AttractionsController < ApplicationController
   before_action :set_cache_control_headers, only: [:index, :show]
-  before_action :set_attraction, only: [:show, :edit, :update, :destroy]
+  before_action :set_attraction, only: [:show]
 
   def index
     @attractions = Attraction.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :slug, :top_100, :parent_id).where.not(status: "removed")
@@ -31,15 +31,15 @@ class AttractionsController < ApplicationController
 
     if @attraction.parent.blank?
       if @attraction.primary_category.present? && @attraction.primary_category.id == 2
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('attractions.id != ?', @attraction.id).where(country_id: @attraction.country_id)
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(country_id: @attraction.country_id)#.where('attractions.id != ?', @attraction.id)
       else
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where('attractions.id != ?', @attraction.id).where(country_id: @attraction.country_id)
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where(country_id: @attraction.country_id)#.where('attractions.id != ?', @attraction.id)
       end
     else
       if @attraction.primary_category.present? && @attraction.primary_category.id == 2
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where("status = ?", "live")#.where(parent_id: @attraction.parent_id).where('places.id != ?', @attraction.id)
       else
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where('attractions.id != ?', @attraction.id).where("status = ?", "live").where(parent_id: @attraction.parent_id)
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where("status = ?", "live")#.where(parent_id: @attraction.parent_id).where('attractions.id != ?', @attraction.id)
       end
     end
 
@@ -49,7 +49,7 @@ class AttractionsController < ApplicationController
       y.videos.size <=> x.videos.size
     end
 
-    @more_attractions = @more_attractions.paginate(page: params[:more_places_page], per_page: 6 )
+    @more_attractions = @more_attractions.paginate(page: params[:more_attractions_page], per_page: 6 )
 
     @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
     @deals = @attraction.deals.active #.paginate(page: params[:deals_page], per_page: params[:deals_page].nil?? 6 : 3 )
@@ -82,23 +82,22 @@ class AttractionsController < ApplicationController
 
   def new
     @attraction = Attraction.new
-    @places = Place.active.order(display_name: :asc)
+    @places = Place.active.where(is_area: true).order(display_name: :asc)
+    @attractions = Attraction.active.order(display_name: :asc)
     @countries = Country.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
-    # @places_coutry = @countries + @places
-
   end
 
   def edit
     @set_body_class = "br-body"
     @attraction = Attraction.friendly.find(params[:id])
-    @places = Place.active.order(display_name: :asc)
+    @places = Place.active.where(is_area: true).order(display_name: :asc)
+    @attractions = Attraction.active.order(display_name: :asc)
     @countries = Country.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new
-    # @places_coutry = @countries + @places
   end
 
   def create
@@ -115,6 +114,7 @@ class AttractionsController < ApplicationController
 
   def update
     @attraction = Attraction.friendly.find(params[:id])
+    
     if @attraction.update(attraction_params)
       respond_to do |format|
         format.json { render json: @attraction }
@@ -138,14 +138,46 @@ class AttractionsController < ApplicationController
     end
   end
 
-  def destroy
-    @attraction.destroy
-    respond_with(@attraction)
-  end
+  def destroy;end
 
   def import_subcategories
     Attraction.import_subcategories(params[:file])
     redirect_to attractions_path, notice: "Attractions imported."
+  end
+
+  def update_hero
+    @attraction = Attraction.friendly.find(params[:id])
+    photo_id = params[:photo_id]
+    if params[:type].eql? "UserPhoto"
+      @attraction.user_photos.each do |photo|
+        if photo.id.to_s.eql? photo_id
+           photo.hero = true
+        else
+          photo.hero = false
+        end
+          photo.save
+      end
+      @attraction.photos.each do |photo|
+        photo.hero = false
+        photo.save
+      end
+      redirect_to choose_hero_attraction_path(@attraction)
+    else
+      @attraction.photos.each do |photo|
+        if photo.id.to_s.eql? photo_id
+           photo.hero = true
+        else
+          photo.hero = false
+        end
+          photo.save
+      end
+      @attraction.user_photos.each do |photo|
+        photo.hero = false
+        photo.save
+      end
+      @attraction.save # needed to update search index
+      redirect_to choose_hero_attraction_path(@attraction)
+    end
   end
 
   def import_update
@@ -160,10 +192,36 @@ class AttractionsController < ApplicationController
     @photo = Photo.new
   end
 
+  def paginate_more_attractions
+    @attraction = Attraction.friendly.find(params[:id])
+    if @attraction.parent.blank?
+      if @attraction.primary_category.present? && @attraction.primary_category.id == 2
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(country_id: @attraction.country_id)#.where('attractions.id != ?', @attraction.id)
+      else
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where(country_id: @attraction.country_id)#.where('attractions.id != ?', @attraction.id)
+      end
+    else
+      if @attraction.primary_category.present? && @attraction.primary_category.id == 2
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where("status = ?", "live")#.where(parent_id: @attraction.parent_id).where('places.id != ?', @attraction.id)
+      else
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where("status = ?", "live")#.where(parent_id: @attraction.parent_id).where('attractions.id != ?', @attraction.id)
+      end
+    end
+
+    @more_attractions = @more_attractions.sort do |x, y|
+      y.videos.size <=> x.videos.size
+    end
+
+    @more_attractions = @more_attractions.paginate(page: params[:more_attractions_page], per_page: 6 )
+  end
+
   private
     def set_attraction
       # @attraction = Attraction.friendly.find(params[:id])
       @attraction = Attraction.includes(:quality_average, :subcategories, :similar_attractions => :similar_attraction).friendly.find(params[:id])
+      if request.path != attraction_path(@attraction)
+        return redirect_to @attraction, :status => :moved_permanently
+      end
     end
 
     def attraction_params
@@ -229,12 +287,13 @@ class AttractionsController < ApplicationController
         :top_100,
         :viator_link,
         :trip_advisor_url,
-        photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-        videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
-        fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-        discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-        user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
-        three_d_videos_attributes: [:link, :caption, :place_id],
+        parent_attributes: [:parentable_id, :parentable_type],
+        photos_attributes: [:id, :place_id, :attraction_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :attraction_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
+        fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :attraction_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        discounts_attributes: [:id, :description, :place_id, :attraction_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :attraction_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
+        three_d_videos_attributes: [:link, :caption, :place_id, :attraction_id],
         category_ids: [],
         subcategory_ids: [],
         similar_place_ids: [])

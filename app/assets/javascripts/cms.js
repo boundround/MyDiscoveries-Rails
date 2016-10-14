@@ -180,4 +180,21 @@ $(document).ready(function(){
       });
     }, 1000);
   }
+
+  if (document.querySelector('#attraction_short_description')){
+    countChars('#attraction_short_description', '#shortDescriptionCharCount');
+    countChars('#attraction_description', '#descriptionCharCount');
+
+    $('#attraction_short_description').on('keyup', function(){
+      countChars('#attraction_short_description', '#shortDescriptionCharCount');
+    });
+
+    setTimeout(function(){
+      var wysiEditor = $('.wysihtml5-sandbox').contents().find('body')[0];
+      $(wysiEditor).on("keyup",function() {
+          var len = wysiEditor.innerHTML.length;
+          document.querySelector('#descriptionCharCount').innerHTML = len;
+      });
+    }, 1000);
+  }
 });

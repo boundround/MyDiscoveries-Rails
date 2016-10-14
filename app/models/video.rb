@@ -4,6 +4,7 @@ class Video < ActiveRecord::Base
   before_save :set_approval_time, :check_customer_approved, :validate_youtube_id
 
   belongs_to :place
+  belongs_to :attraction
 
   has_many :videos_users
   has_many :users, through: :videos_users

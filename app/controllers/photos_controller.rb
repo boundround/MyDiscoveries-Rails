@@ -34,11 +34,11 @@ class PhotosController < ApplicationController
   end
 
   def attraction_update
-    @attraction = attraction.find(params[:id])
+    @photo = Photo.find(params[:id])
     if @photo.update(photo_params)
-      redirect_to choose_hero_attraction_path(@photo.place), notice: "Photo Succesfully Updated"
+      redirect_to choose_hero_attraction_path(@photo.attraction), notice: "Photo Succesfully Updated"
     else
-      redirect_to choose_hero_attraction_path(@photo.place), notice: "Error"
+      redirect_to choose_hero_attraction_path(@photo.attraction), notice: "Error"
     end
   end
 
