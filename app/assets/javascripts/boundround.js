@@ -358,11 +358,9 @@ $(document).ready(function() {
             editor: content_editable,
             addons: {
                 images: {
-                    deleteScript: '/users/resolvejs',
+                    deleteScript: '',
                     fileUploadOptions: {
-
-
-                        url: '/users/resolvejs',
+                        url: '',
                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                     }
                 }
