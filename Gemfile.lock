@@ -103,6 +103,9 @@ GEM
     brakeman (3.3.2)
     browser (2.2.0)
     builder (3.2.2)
+    bullet (5.4.2)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     byebug (9.0.5)
     capybara (2.9.2)
       addressable
@@ -351,6 +354,8 @@ GEM
       arel
     pkg-config (1.1.7)
     puma (3.4.0)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.5.5)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -407,7 +412,7 @@ GEM
     ratyrate (1.2.2.alpha)
     rdoc (4.2.2)
       json (~> 1.4)
-    redis (3.3.0)
+    redis (3.3.1)
     remotipart (1.2.1)
     representable (2.3.0)
       uber (~> 0.0.7)
@@ -524,6 +529,7 @@ GEM
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
     unicode_utils (1.4.0)
+    uniform_notifier (1.10.0)
     unirest (1.1.2)
       addressable (~> 2.3.5)
       json (~> 1.8.1)
@@ -560,6 +566,7 @@ DEPENDENCIES
   bootsy!
   brakeman
   browser
+  bullet
   byebug
   capybara
   carrierwave!
@@ -612,6 +619,7 @@ DEPENDENCIES
   pg
   pg_search
   puma
+  quiet_assets
   rack-cache
   rack-contrib
   railroady

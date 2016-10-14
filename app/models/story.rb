@@ -4,9 +4,9 @@ class Story < ActiveRecord::Base
   include Searchable
 
   mount_base64_uploader :hero_image, StoryHeroImageUploader
-  friendly_id :slug_candidates, :use => :slugged
+  friendly_id :slug_candidates, :use => [:slugged, :history]
   # after_update :send_live_notification
-  algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :title,
                :status,
@@ -251,19 +251,13 @@ class Story < ActiveRecord::Base
   end
 
   def story_images
-    content = Nokogiri::HTML::Document.parse self.content
-
-    images = content.css('img').map{ |image| image['src'] }
+    @story_images ||= (content.scan(/<img.*?src="(.*?)".*?>/).flatten! || [])
   end
 
   def teaser
-    string = ""
-    content = Nokogiri::HTML::Document.parse self.content
-    content.css('p').each do |paragraph|
-      string += "<p>" + paragraph + "</p>"
-    end
-
-    string = string[0..280] + "..."
+    content.scan(/<p.*?>.*?<\/p>/).map do |paragraph|
+      '<p>' + Nokogiri::HTML(paragraph) + '</p>'
+    end.reduce(:+)[0..280] + "..."
   end
 
   def story_text
@@ -310,18 +304,11 @@ class Story < ActiveRecord::Base
   end
 
   def stories_like_this
-    subcategories = self.subcategories.map(&:id)
-    stories_like_this = []
-    unless subcategories.blank?
-      stories_like_this = Story.includes(:subcategories).where(subcategories: {id: [subcategories]})
-    end
-
-    stories = []
-    self.places.each do |place|
-       stories << place.stories
-    end
-
-    return (stories_like_this + stories.flatten).uniq
+    ids = [
+      Story.joins(:subcategories).where(subcategories: { id: subcategories.pluck(:id) }).pluck(:id),
+      Story.joins(:places).where(places: { id: places.pluck(:id) }).pluck(:id)
+    ].reduce(:+).uniq
+    Story.includes(:user).where(id: ids).order(:created_at)
   end
 
   protected

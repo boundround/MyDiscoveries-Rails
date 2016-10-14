@@ -3,6 +3,7 @@ require 'will_paginate/array'
 class PlacesController < ApplicationController
   layout false, :only => :wp_blog
   before_action :set_cache_control_headers, only: [:index, :show]
+  before_action :find_place_by_slug, only: [:show] 
 
   def new
     @place = Place.new
@@ -18,7 +19,7 @@ class PlacesController < ApplicationController
 
     if @place.save
       ChildItem.create(itemable_id: @place.id, itemable_type: @place.class.to_s,
-                       parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
+                       parentable_id: params[:place][:child_item][:parentable_id].to_i, parentable_type: params[:place][:child_item][:parentable_type])
       redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
       render action: :new, notice: 'Place not saved!'
@@ -34,7 +35,7 @@ class PlacesController < ApplicationController
   end
 
   def subcategory_match
-    index = Algolia::Index.new("place_development_sergey")
+    index = Algolia::Index.new("place_#{Rails.env}")
     @search_string = ""
     @search = ""
     @ages = params[:ages].join(" ")
@@ -163,7 +164,6 @@ class PlacesController < ApplicationController
   def update
     @place = Place.friendly.find(params[:id])
     if @place.update(place_params)
-      @place.parent.update(parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
       respond_to do |format|
         format.json { render json: @place }
         format.html do
@@ -281,7 +281,7 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
+    # @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
     informations = @place.subcategories.get_all_informations
     @optimum_times =  @place.subcategories.select {|cat| cat.category_type == "optimum_time"}
     @durations = @place.subcategories.select {|cat| cat.category_type == "duration"}
@@ -783,14 +783,6 @@ class PlacesController < ApplicationController
 
   private
     def place_params
-      parentable_id = params[:child_item][:parentable_id].split('-')
-      params[:child_item][:parentable_id] = parentable_id.first.to_i
-      if parentable_id.last.eql? 'country'
-        params[:child_item][:parentable_type] = "Country"
-      else
-        params[:child_item][:parentable_type] = "Place"
-      end
-
       params.require(:place).permit(
         :code,
         :identifier,
@@ -853,6 +845,7 @@ class PlacesController < ApplicationController
         :top_100,
         :viator_link,
         :trip_advisor_url,
+        parent_attributes: [:parentable_id, :parentable_type],
         photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
         fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
@@ -862,5 +855,13 @@ class PlacesController < ApplicationController
         category_ids: [],
         subcategory_ids: [],
         similar_place_ids: [])
+    end
+
+    def find_place_by_slug
+      # @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
+      @place = Place.friendly.find(params[:id])
+      if request.path != place_path(@place)
+        return redirect_to @place, :status => :moved_permanently
+      end
     end
 end

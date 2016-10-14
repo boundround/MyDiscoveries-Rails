@@ -3,20 +3,12 @@ class Country < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
 
-  algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
 
     attributes :display_name, :primary_category_priority, :page_ranking_weight
 
     attribute :description do
-      if description
-        if description.length < 50
-          "#{description}"
-        else
-          "#{description[0..50]}..."
-        end
-      else
-        ""
-      end
+      description.blank? ? "" : description
     end
 
     attribute :photos do
@@ -101,7 +93,7 @@ class Country < ActiveRecord::Base
 
   default_scope { order('display_name ASC') }
 
-  friendly_id :country_code, :use => :slugged
+  friendly_id :country_code, :use => [:slugged, :history]
 
   after_save :load_into_soulmate
   before_destroy :remove_from_soulmate
@@ -191,6 +183,10 @@ class Country < ActiveRecord::Base
       rescue Exception
       end
     end
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || country_code_changed?
   end
 
   def country_codes_by_name

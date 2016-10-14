@@ -1,16 +1,25 @@
 class StoriesController < ApplicationController
+  before_action :find_story_by_slug, only: [:show]
 
   def index
     @stories = Story.all
   end
 
   def show
+    
     @story = Story.find_by_slug(params[:id])
-    if @story.stories_like_this.blank?
-      @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
-    else
-      @stories_like_this = @story.stories_like_this.sort_by(&:created_at).paginate(page: params[:stories_page], per_page: 6)
-    end
+    @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
+
+    story_places = @story.places
+    story_places_parents = @story.places.each {|place| place.get_parents(place) }
+    @places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name).paginate( page: params[:places_to_visit_page], per_page: 6 )
+  end
+
+  def paginate_place
+    @story = Story.find_by_slug(params[:id])
+    story_places = @story.places
+    story_places_parents = @story.places.each {|place| place.get_parents(place) }
+    @places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name).paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   def destroy
@@ -90,6 +99,14 @@ class StoriesController < ApplicationController
       if params[:story].present?
         params[:commit].to_s.downcase.eql?('publish') ? status= 'live' : status= 'draft'
         params[:story][:status]= status
+      end
+    end
+
+    def find_story_by_slug
+      @story = Story.friendly.find(params[:id])
+      $flashhh = nil
+      if request.path != story_path(@story)
+        return redirect_to @story, :status => :moved_permanently
       end
     end
 end

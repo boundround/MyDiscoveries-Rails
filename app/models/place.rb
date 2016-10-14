@@ -5,7 +5,7 @@ class Place < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
-  algoliasearch index_name: "place_production", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name,
                :status,
@@ -48,15 +48,7 @@ class Place < ActiveRecord::Base
     end
 
     attribute :description do
-      if description
-        if description.length < 320
-          "#{description}"
-        else
-          "#{description[0..320]}..."
-        end
-      else
-        ""
-      end
+      description.blank? ? "" : description
     end
 
     attribute :primary_category do
@@ -180,7 +172,7 @@ class Place < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|place| place.display_name}
+      self.get_parents(self).map {|place| place.display_name rescue ''}
     end
 
     attribute :accessible do
@@ -263,7 +255,7 @@ class Place < ActiveRecord::Base
   resourcify
 
   extend FriendlyId
-  friendly_id :slug_candidates, :use => :slugged #show display_names in place routes
+  friendly_id :slug_candidates, :use => [:slugged, :history] #show display_names in place routes
 
   scope :active, -> { where(status: "live") }
   scope :not_removed, -> { where('status != ?', 'removed') }
@@ -329,6 +321,7 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :user_photos, allow_destroy: true
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
   accepts_nested_attributes_for :stamps, allow_destroy: true
+  accepts_nested_attributes_for :parent, :allow_destroy => true
 
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
@@ -564,13 +557,20 @@ class Place < ActiveRecord::Base
   def slug_candidates
     country = self.country
     # primary_area = self.parent if !self.parent.blank?
-    primary_area = self.parent.parentable if !self.parent.blank?
+    # primary_area = self.parent.parentable if !self.parent.blank?
+    g_parent = get_parents(self, parents = [])
+    p_display_name = g_parent.collect{ |parent| parent.display_name }
+
+    unless p_display_name.blank?
+      primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
+    end
     if is_area == true
       "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
     else
-      [
-        "things to do with kids and families #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}",
-        ["things to do with kids and families #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}", :post_code]
+      [ 
+        # "things to do with kids and families #{country.display_name rescue ""} #{primary_area_display_name rescue ""} #{self.display_name}",
+        "things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}",
+        ["things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}", :post_code]
       ]
     end
   end
@@ -592,27 +592,6 @@ class Place < ActiveRecord::Base
         get_parents(place.parent.parentable, parents)
       end
     end
-
-    # if place.parent.blank? || (place.parent == self)
-    #   if !place.country.blank?
-    #     parents << place.country
-    #     return parents
-    #   else
-    #     return parents
-    #   end
-    # else
-    #   parents << place.parent
-    #   get_parents(place.parent, parents)
-    # end
-  end
-
-  def find_first_primary_area
-    self.similar_places.each do |association|
-      if association.similar_place.primary_area == true
-        return association.similar_place
-      end
-    end
-    ""
   end
 
   def publish
@@ -661,7 +640,7 @@ class Place < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || display_name_changed? || self.country_id_changed? || self.parent_id_changed?
+    slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
   end
 
   def trip_advisor_info

@@ -185,6 +185,8 @@ group :development do
   gem 'spring'
   gem 'thin'
   gem 'byebug'
+  gem 'bullet'
+  gem 'quiet_assets'
 end
 
 
