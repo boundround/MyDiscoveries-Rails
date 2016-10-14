@@ -207,7 +207,8 @@ class Story < ActiveRecord::Base
   validates :content, presence: true
 
   before_update :regenerate_slug
-  before_save :determine_age_bracket, :add_hero_image, :check_null_publish_date, :populate_seo_friendly_url
+  before_save :determine_age_bracket, :check_null_publish_date, :populate_seo_friendly_url
+  before_save :add_hero_image, prepend: true
 
   def send_live_notification
     places = []
@@ -291,7 +292,7 @@ class Story < ActiveRecord::Base
   end
 
   def add_hero_image
-    hero_image = story_images.first
+    self.hero_image = story_images.first
   end
 
   def check_null_publish_date
