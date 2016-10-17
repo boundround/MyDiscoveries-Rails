@@ -154,13 +154,12 @@
       </div>
   </div>
 <% end %>
-<% cache("home_page_places_to_go", :expires_in => 12.hours) do %>
   <div class="container">
     <div class="row">
       <% if @competitions.present? %>
       <div class="row">
           <div class="col-md-12 text-center">
-              <h3>Competitions</h3>
+              <h3>Special Promotions</h3>
           </div>
         <% @competitions.each do |comp| %>
           <div class="col-md-4 col-sm-6 dest-thing-wrapper">
@@ -387,7 +386,6 @@
           </div>
       </div>
   </div>
-<% end %>
 <div class="container">
   <div class="row">
     <div class="head-title">
