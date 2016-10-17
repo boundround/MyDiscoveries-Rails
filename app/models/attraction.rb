@@ -1,4 +1,210 @@
 class Attraction < ActiveRecord::Base
+  include Parameterizable
+  include AlgoliaSearch
+  include Searchable
+
+  algoliasearch index_name: "attraction_#{Rails.env}", id: :algolia_id, if: :published? do
+    # list of attribute used to build an Algolia record
+    attributes :display_name,
+               :status,
+               :latitude,
+               :longitude,
+               :locality,
+               :post_code,
+               :display_address,
+               :identifier,
+               :slug,
+               :minimum_age,
+               :maximum_age,
+               :viator_link,
+               :primary_category_priority,
+               :is_area,
+               :page_ranking_weight
+
+    synonyms [
+        ["active", "water sports", "sports", "sport", "watersports"],
+        ["disabled", "wheelchair access", "accessible"],
+        ["culture", "cultural", "museum", "indigenous", "gallery", "galleries", "museums", "historic", "history"],
+        ["science", "technology"],
+        ["things to do", "something to do", "stuff to do", "activity", "activities"],
+        ["year old", "ages", "year"],
+        ["6", "7", "5-8"],
+        ["10", "11", "9-12"],
+        ["teenager", "teens", "teenagers"]
+      ]
+
+    attribute :country do
+      if self.country
+        "#{country.display_name}"
+      else
+        ""
+      end
+    end
+
+    attribute :url do
+      Rails.application.routes.url_helpers.attraction_path(self)
+    end
+
+    attribute :description do
+      description.blank? ? "" : description
+    end
+
+    attribute :primary_category do
+       if self.primary_category
+        { name: "#{primary_category.name}", identifier: primary_category.identifier}
+      else
+        ""
+      end
+    end
+
+    attribute :result_type do
+      if self.primary_category.blank?
+        "Something To Do"
+      else
+        self.primary_category.name
+      end
+    end
+
+    attribute :is_country do
+      false
+    end
+
+    attribute :result_icon do
+      "map-marker"
+    end
+
+    attribute :main_category do
+      primary_category.name if primary_category.present?
+    end
+
+    attribute :subcategories do
+      subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
+    end
+
+    attribute :subcategory do
+      subcategories.subcats.map{|sub| sub.name}
+    end
+
+    attribute :name do
+      string = "#{display_name}"
+      if !locality.blank?
+        string += ", #{locality}"
+      end
+      if country
+        string += ", #{self.country.display_name}"
+      end
+      string
+    end
+
+    attribute :photos do
+      photo_array = photos.select { |photo| photo.published? }.map do |photo|
+        { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+      end
+      photo_array += user_photos.select { |photo| photo.published? }.map do |photo|
+        { url: photo.path_url(:small), alt_tag: photo.caption }
+      end
+      photo_array
+    end
+
+    attribute :hero_photo do
+      hero_h = photos.where(photos: { hero: true })
+      hero_h += user_photos.where(user_photos: { hero: true })
+      hero_h = hero_h.first
+      hero= {}
+      if hero_h.present?
+        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
+      else
+        hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
+      end
+      hero
+    end
+
+    attribute :has_hero_image do
+      photos.exists?(hero: true) || user_photos.exists?(hero: true)
+    end
+
+    attribute :age_range do
+      if minimum_age.present? and maximum_age.present?
+        if minimum_age > 12
+          ["Teens"]
+        elsif minimum_age > 8 && maximum_age < 13
+          ["For Ages 9-12"]
+        elsif minimum_age > 8
+          ["For Ages 9-12", "Teens"]
+        elsif maximum_age < 13
+          ["For Ages 5-8", "For Ages 9-12"]
+        elsif maximum_age < 9
+          ["For Ages 5-8"]
+        else
+          ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
+        end
+      else
+        ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
+      end
+    end
+
+    attribute :weather do
+      subcategories.where(category_type: 'weather').map{ |sub|  sub.name }
+    end
+
+    attribute :price do
+      subcategories.where(category_type: 'price').map{ |sub|  sub.name }
+    end
+
+    attribute :best_time_to_visit do
+      subcategories.where(category_type: 'optimum_time').map{ |sub|  sub.name }
+    end
+
+    attribute :accessibility do
+      subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
+    end
+
+    attribute :parents do
+      self.get_parents(self).map {|attraction| attraction.display_name rescue ''}
+    end
+
+    attribute :accessible do
+      if subcategories.any? { |sub| sub.category_type == "accessibility" }
+        "accessible"
+      else
+        ""
+      end
+    end
+
+    attributesToIndex [
+      'display_name',
+      'unordered(description)',
+      'age_range',
+      'accessible',
+      'subcategories',
+      'unordered(parents)',
+      'unordered(display_address)',
+      'unordered(primary_category)',
+      'publish_date',
+    ]
+
+    # the `customRanking` setting defines the ranking criteria use to compare two matching
+    # records in case their text-relevance is equal. It should reflect your record popularity.
+    customRanking [
+      'desc(is_country)',
+      'desc(is_area)',
+      'desc(primary_category_priority)',
+      'desc(page_ranking_weight)',
+      'desc(has_hero_image)',
+    ]
+
+    attributesForFaceting [
+      'is_area',
+      'main_category',
+      'age_range',
+      'subcategory',
+      'weather',
+      'price',
+      'best_time_to_visit',
+      'accessibility',
+    ]
+  end
+
   extend FriendlyId
   friendly_id :slug_candidates, :use => [:slugged, :history]
 
@@ -91,6 +297,14 @@ class Attraction < ActiveRecord::Base
     end
   end
 
+  def published?
+    if self.status == "live"
+      true
+    else
+      false
+    end
+  end
+
   def trip_advisor_info
     body = nil
     trip_advisor_id = nil
@@ -171,5 +385,9 @@ class Attraction < ActiveRecord::Base
     slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
   end
 
+  private
+  def algolia_id
+    "attraction_#{id}" # ensure the attraction & country IDs are not conflicting
+  end
 
 end

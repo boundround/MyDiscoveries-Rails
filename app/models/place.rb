@@ -3,7 +3,7 @@ class Place < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake
 
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
@@ -640,7 +640,9 @@ class Place < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
+    unless self.run_rake && self.parent.blank?
+      slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
+    end
   end
 
   def trip_advisor_info

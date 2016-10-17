@@ -370,6 +370,7 @@ Rails.application.routes.draw do
     resources :three_d_videos
     resources :good_to_knows
     resources :deals
+    collection { post :import }
     collection { post :import_update }
     collection { post :import_subcategories }
   end

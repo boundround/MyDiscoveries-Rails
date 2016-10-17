@@ -70,11 +70,10 @@ class AttractionsController < ApplicationController
     @set_body_class = "virgin-body" if @attraction.display_name == "Virgin Australia"
     @trip_advisor_data = @attraction.trip_advisor_info
 
-    view = "attraction"
     @set_body_class = "thing-page dismiss-mega-menu-search"
 
     respond_to do |format|
-      format.html { render view, :layout => !request.xhr? }
+      format.html
       format.json { render json: @attraction }
     end
 
@@ -140,6 +139,16 @@ class AttractionsController < ApplicationController
 
   def destroy;end
 
+  def import
+    Attraction.import(params[:file])
+    redirect_to attractions_path, notice: "Places imported."
+  end
+
+  def import_update
+    Attraction.import_update(params[:file])
+    head 200, content_type: "text/html", notice: "Attraction updated."
+  end
+
   def import_subcategories
     Attraction.import_subcategories(params[:file])
     redirect_to attractions_path, notice: "Attractions imported."
@@ -178,11 +187,6 @@ class AttractionsController < ApplicationController
       @attraction.save # needed to update search index
       redirect_to choose_hero_attraction_path(@attraction)
     end
-  end
-
-  def import_update
-    Attraction.import_update(params[:file])
-    head 200, content_type: "text/html", notice: "Attraction updated."
   end
 
   def choose_hero

@@ -230,11 +230,11 @@ class PlacesController < ApplicationController
   end
 
   def index
-    if params[:is_area]
+    # if params[:is_area]
       @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where(is_area: true)
-    else
-      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where.not(is_area: true)
-    end
+    # else
+    #   @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where.not(is_area: true)
+    # end
     set_surrogate_key_header Place.table_key, @places.map(&:record_key)
     respond_to do |format|
       format.html
@@ -340,16 +340,16 @@ class PlacesController < ApplicationController
     @set_body_class = "virgin-body" if @place.display_name == "Virgin Australia"
     @trip_advisor_data = @place.trip_advisor_info
 
-    view = if @place.is_area?
-      @set_body_class = "destination-page"
-      "area"
-    else
-      @set_body_class = "thing-page dismiss-mega-menu-search"
-      "place"
-    end
+    # view = if @place.is_area?
+    @set_body_class = "destination-page"
+    #   "area"
+    # else
+    #   @set_body_class = "thing-page dismiss-mega-menu-search"
+    #   "place"
+    # end
 
     respond_to do |format|
-      format.html { render view, :layout => !request.xhr? }
+      format.html #{ render view, :layout => !request.xhr? }
       format.json { render json: @place }
     end
 
