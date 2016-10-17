@@ -1,0 +1,41 @@
+<div class="container">
+  <h1>SEO Analysis</h1>
+  <%= form_for @story do |f| %>
+    <div class="col-md-4">
+      <%= f.label "Focus Keyword: " %>
+    </div>
+    <div class="col-md-8">
+      <%= f.text_field :focus_keyword, class: "form-control" %>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="col-md-4">
+      <%= f.label "SEO Title: " %>
+    </div>
+    <div class="col-md-8">
+      <%= f.text_field :seo_title , class: "form-control" %>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="col-md-4">
+      <%= f.label "Meta Description: " %>
+    </div>
+    <div class="col-md-8">
+      <%= f.text_area :meta_description , class: "form-control" %>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="col-md-11">
+    </div>
+    <div class="col-md-1">
+      <%= f.button "Save" , class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  <br>
+  <hr>
+  <br>
+  
+</div>

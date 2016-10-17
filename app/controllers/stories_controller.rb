@@ -22,6 +22,10 @@ class StoriesController < ApplicationController
     @places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name).paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
+  def seo_analysis
+    @story = Story.friendly.find(params[:id])
+  end
+
   def destroy
     @story = Story.find_by_slug(params[:id])
    if @story.destroy
@@ -91,6 +95,9 @@ class StoriesController < ApplicationController
 
     def story_params
       params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id,
+                                    :seo_title,
+                                    :focus_keyword,
+                                    :meta_description,
                                     :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
                                     :seo_friendly_url, :hero_image, :primary_category_id, subcategory_ids: [])
     end
