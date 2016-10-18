@@ -70,6 +70,6 @@ class ThreeDVideosController < ApplicationController
 
   private
     def three_d_video_params
-      params.require(:three_d_video).permit(:link, :caption, :place_id, :attraction_id)
+      params.require(:three_d_video).permit(:link, :caption, :place_id, :attraction_id, :three_d_videoable_id, :three_d_videoable_type)
     end
 end

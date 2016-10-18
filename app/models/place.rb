@@ -285,8 +285,8 @@ class Place < ActiveRecord::Base
   has_many :similar_places
   has_many :associated_areas, through: :similar_places, source: :similar_place
   has_many :subcategories, through: :places_subcategories
-  has_many :photos, -> { order "created_at ASC"}
-  has_many :videos, -> { order "created_at ASC"}
+  has_many :photos, -> { order "created_at ASC"}, as: :photoable
+  has_many :videos, -> { order "created_at ASC"}, as: :videoable
   has_many :fun_facts, -> { order "created_at ASC"}
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
@@ -308,7 +308,7 @@ class Place < ActiveRecord::Base
   has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable
 
-  has_many :three_d_videos
+  has_many :three_d_videos, as: :three_d_videoable
 
   has_many :stamps
 

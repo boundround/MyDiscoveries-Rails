@@ -215,7 +215,6 @@ class Attraction < ActiveRecord::Base
   belongs_to :primary_category
 
   # ratyrate_rateable "quality"
-
   has_many :rates_without_dimension, -> { where dimension: nil}, as: :rateable, class_name: 'Rate', dependent: :destroy
   has_many :raters_without_dimension, through: :rates_without_dimension, source: :rater
 
@@ -256,18 +255,16 @@ class Attraction < ActiveRecord::Base
   has_many :attractions_stories
   has_many :stories, through: :attractions_stories
 
-  has_many :photos, -> { order "created_at ASC"}
-  has_many :videos, -> { order "created_at ASC"}
   has_many :fun_facts, -> { order "created_at ASC"}
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
-  
+  has_many :stamps
+  has_many :photos, -> { order "created_at ASC"}, as: :photoable
+  has_many :videos, -> { order "created_at ASC"}, as: :videoable
+  has_many :three_d_videos, as: :three_d_videoable
   has_many :good_to_knows, as: :good_to_knowable
-
-  has_many :three_d_videos
   has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable
-  has_many :stamps
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true

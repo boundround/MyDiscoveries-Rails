@@ -365,9 +365,12 @@ Rails.application.routes.draw do
       collection { get 'all' }
     end
     member { get 'paginate_more_attractions'}
+    member { get 'paginate_videos', as: :paginate_videos}
+    member { get 'paginate_photos', as: :paginate_photos}
     resources :reviews
     resources :user_photos
     resources :three_d_videos
+    resources :similar_attractions
     resources :good_to_knows
     resources :deals
     collection { post :import }

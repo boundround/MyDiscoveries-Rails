@@ -240,13 +240,13 @@
                     <div class="tags">
                       <div class="tag">
                         <div class="v-center">
-                          <a href="<%= attraction_path(attraction.similar_attraction) %>">
-                            <%= attraction.similar_attraction.display_name %>
+                          <a href="<%= attraction_path(attraction.similar_place_id) %>">
+                            <%= Attraction.find(attraction.similar_place_id).display_name rescue '' %>
                           </a>
                         </div>
                       </div>
                     </div>
-                    <% end %>
+                  <% end %>
                 <% end %>
               </div>
             </div>
@@ -366,7 +366,8 @@
           </div>
           <div id="videos" class="thing-page-segment">
             <div>
-              <h3>Videos</h3> </div>
+              <h3>Videos</h3>
+            </div>
             <%= render partial: "shared/videos_list", locals:{container: "" } %>
           </div>
           <%= render partial: "stories/all_stories"%>
@@ -380,7 +381,8 @@
             <% unless @photos.blank? %>
               <div id="galleries" class="thing-page-segment galleries">
                 <div>
-                  <h3>Photos</h3> </div>
+                  <h3>Photos</h3>
+                </div>
                 <%= render partial: "shared/photos_list", as: :photos, locals:{container: ""} %>
               </div>
               <% end %>

@@ -6,7 +6,9 @@
   <%= simple_form_for [variable, @three_d_video] do |f| %>
     <%= f.input :link, input_html: { class: 'form-control' } %>
     <%= f.input :caption, input_html: { class: 'form-control' } %>
-    <%= f.hidden_field "#{path}_id", value: variable.id %>
+    <%#= f.hidden_field "#{path}_id", value: variable.id %>
+    <%= f.hidden_field :three_d_videoable_id, value: variable.id %>
+    <%= f.hidden_field :three_d_videoable_type, value: variable.class.to_s %>
     <%= f.submit :submit %>
   <% end %>
 </div>

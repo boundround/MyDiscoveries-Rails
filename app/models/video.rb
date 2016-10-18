@@ -3,8 +3,9 @@ class Video < ActiveRecord::Base
 
   before_save :set_approval_time, :check_customer_approved, :validate_youtube_id
 
-  belongs_to :place
-  belongs_to :attraction
+  # belongs_to :place
+  # belongs_to :attraction
+  belongs_to :videoable, polymorphic: true
 
   has_many :videos_users
   has_many :users, through: :videos_users
@@ -18,7 +19,7 @@ class Video < ActiveRecord::Base
 
   validate :video_service_id
 
-  scope :ordered_by_place_name, -> { includes(:area, :place).order('areas.display_name ASC') } #reorder("places.display_name ASC") }
+  scope :ordered_by_place_name, -> { includes(:area, :videoable).order('areas.display_name ASC') } #reorder("places.display_name ASC") }
 
   scope :active, -> { where(status: "live") }
   scope :featured, -> { order("created_at DESC").limit(3) }

@@ -1,28 +1,30 @@
 <% if @videos.present? %>
-<a name="videos"></a>
-<div class="<%= container %> small-videos-component-wrapper">
-        <div class="row">
-            <div class="owl-carousel carousel" id="videos-list">
-                <%= render partial: 'shared/featured_videos_list', 
-                           collection: @videos,
-                           as: :video %>
-            </div>
-        </div>
-        <% unless last_page? @videos %>
-          <div class="row hidden-xs single-pagination-container" id="videos-single-pagination-container" >
-              <div class="col-xs-12">
-                <div class="hidden single-pagination-loader" align="center">
-                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                </div>
-                <div class="load-more">
-                  <% if params[:controller].eql? "places" %>
-                  <%= link_to "LOAD MORE", paginate_videos_place_path(@place, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
-                  <% else %>
-                  <%= link_to "LOAD MORE", paginate_videos_country_path(@country, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
-                  <% end %>
-                </div>
-              </div>
-          </div>
-        <% end %>
+  <a name="videos"></a>
+  <div class="<%= container %> small-videos-component-wrapper">
+    <div class="row">
+      <div class="owl-carousel carousel" id="videos-list">
+        <%= render partial: 'shared/featured_videos_list', 
+                     collection: @videos,
+                     as: :video %>
+      </div>
     </div>
+    <% unless last_page? @videos %>
+      <div class="row hidden-xs single-pagination-container" id="videos-single-pagination-container" >
+          <div class="col-xs-12">
+            <div class="hidden single-pagination-loader" align="center">
+                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+            </div>
+            <div class="load-more">
+              <% if params[:controller].eql? "places" %>
+                <%= link_to "LOAD MORE", paginate_videos_place_path(@place, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
+              <% elsif params[:controller].eql? "attractions" %>
+                <%= link_to "LOAD MORE", paginate_videos_attraction_path(@attraction, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
+              <% else %>
+                <%= link_to "LOAD MORE", paginate_videos_country_path(@country, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
+              <% end %>
+            </div>
+          </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>
