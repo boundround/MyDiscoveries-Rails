@@ -28,7 +28,7 @@ class CompetitionsController < ApplicationController
 
     respond_to do |format|
       if @competition.save
-        format.html { redirect_to @competition, notice: 'Competition was successfully created.' }
+        format.html { redirect_to edit_competition_path(@competition), notice: 'Competition was successfully created.' }
         format.json { render :show, status: :created, location: @competition }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class CompetitionsController < ApplicationController
   def update
     respond_to do |format|
       if @competition.update(competition_params)
-        format.html { redirect_to @competition, notice: 'Competition was successfully updated.' }
+        format.html { redirect_to competitions_url, notice: 'Competition was successfully updated.' }
         format.json { render :show, status: :ok, location: @competition }
       else
         format.html { render :edit }
@@ -69,6 +69,6 @@ class CompetitionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def competition_params
-      params.require(:competition).permit(:title, :url, :status, :image)
+      params.require(:competition).permit(:title, :url, :status, :image, :start_date, :end_date)
     end
 end
