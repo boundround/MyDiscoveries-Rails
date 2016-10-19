@@ -297,7 +297,6 @@ class PlacesController < ApplicationController
       format.html #{ render view, :layout => !request.xhr? }
       format.json { render json: @place }
     end
-
   end
 
   def paginate_photos
