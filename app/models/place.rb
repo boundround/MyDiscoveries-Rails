@@ -594,6 +594,26 @@ class Place < ActiveRecord::Base
     end
   end
 
+  def places_to_visits
+    places_to_visit = self.children.active
+    places_to_visit = places_to_visit.sort do |x, y|
+      y.videos.size <=> x.videos.size
+    end
+  end
+
+  def place_stories
+    stories = self.posts.active
+    stories += self.stories.active
+    stories = stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse
+  end
+
+  def active_user_photos
+    active_user_photos = self.user_photos.active
+    photos = (self.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}
+
+    return photos
+  end
+
   def publish
     self.status = "live"
     self.published_at = nil

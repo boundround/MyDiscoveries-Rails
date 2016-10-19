@@ -340,6 +340,51 @@ class Attraction < ActiveRecord::Base
     end
   end
 
+  def all_subcategories
+    all_subcategories = Hash.new
+    self.subcategories.each do |subcat|
+      if subcat.category_type.eql? 'duration'
+        all_subcategories['duration'] = [subcat]
+      elsif subcat.category_type.eql? 'optimum_time'
+        all_subcategories['optimum_time'] = [subcat]
+      elsif subcat.category_type.eql? 'accessibility'
+        all_subcategories['accessibility'] = [subcat]
+      elsif subcat.category_type.eql? 'price'
+        all_subcategories['price'] = [subcat]
+      end
+    end
+
+    return all_subcategories
+  end
+
+  def more_attractions
+    another_field = (self.parent.blank?) ? "country_id = #{self.country_id}" : "status = 'live'"
+    if self.primary_category.present? && self.primary_category.id == 2
+      more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(another_field)
+    else
+      more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: self.primary_category).where(another_field)
+    end
+    
+    more_attractions = more_attractions.sort do |x, y|
+      y.videos.size <=> x.videos.size
+    end
+
+    return more_attractions
+  end
+
+  def attraction_stories
+    stories = self.posts.active
+    stories += self.stories.active
+    stories = stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse
+  end
+
+  def active_user_photos
+    active_user_photos = self.user_photos.active
+    photos = (self.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}
+
+    return photos
+  end
+
   def get_parents(attraction, parents = [])
     if attraction.parent.blank?
       if !attraction.country.blank?

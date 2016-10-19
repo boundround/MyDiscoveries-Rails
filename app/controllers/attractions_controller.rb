@@ -13,54 +13,20 @@ class AttractionsController < ApplicationController
   end
 
   def show
-    attraction_subcat_all = @attraction.subcategories
-    @optimum_times =  attraction_subcat_all.select {|cat| cat.category_type == "optimum_time"}
-    @durations = attraction_subcat_all.select {|cat| cat.category_type == "duration"}
-    @subcategories = attraction_subcat_all.select {|cat| cat.category_type == "subcategory"}
-    @accessibilities = attraction_subcat_all.select {|cat| cat.category_type == "accessibility"}
-    @prices = attraction_subcat_all.select {|cat| cat.category_type == "price"}
+    subcategories    = @attraction.all_subcategories
+    @optimum_times   = subcategories['duration']
+    @durations       = subcategories['optimum_time']
+    @accessibilities = subcategories['accessibility']
+    @prices          = subcategories['price']
 
     @good_to_know = @attraction.good_to_knows.limit(6)
-
-    @attraction_to_visit = @attraction.children.active
-
-    @attraction_to_visit = @attraction_to_visit.sort do |x, y|
-      y.videos.size <=> x.videos.size
-    end
-
-    @attraction_to_visit = @attraction_to_visit.paginate( page: params[:places_to_visit_page], per_page: 6 )
-
-    another_field = (@attraction.parent.blank?) ? "country_id = #{@attraction.country_id}" : "status = 'live'"
-    if @attraction.primary_category.present? && @attraction.primary_category.id == 2
-      @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(another_field)
-    else
-      @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where(another_field)
-    end
-
-    @famous_faces = @attraction.country.famous_faces.active
-
-    @more_attractions = @more_attractions.sort do |x, y|
-      y.videos.size <=> x.videos.size
-    end
-
-    @more_attractions = @more_attractions.paginate(page: params[:more_attractions_page], per_page: 6 )
-
-    @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
+    @more_attractions = @attraction.more_attractions.paginate(page: params[:more_attractions_page], per_page: 6 )
+    @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: (params[:reviews_page].nil?) ? 6 : 3 )
     @deals = @attraction.deals.active
     @review = Review.new
-
-    @stories = @attraction.posts.active
-    @stories += @attraction.stories.active
-    @stories = @stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse.paginate(page: params[:stories_page], per_page: 4)
-
-    active_user_photos = @attraction.user_photos.active
-    @photos = (@attraction.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: 3)
-    @photos_hero = @photos.first(6)
+    @stories = @attraction.attraction_stories.paginate(page: params[:stories_page], per_page: 4)
+    @photos = @attraction.active_user_photos.paginate(:page => params[:active_photos], per_page: 3)
     @videos = @attraction.videos.active.paginate(:page => params[:active_videos], per_page: 3)
-
-    @related_places = @attraction.children
-    @last_video = @attraction.videos.active.last
-    @fun_facts = @attraction.fun_facts
     @trip_advisor_data = @attraction.trip_advisor_info
     @set_body_class = (@attraction.display_name == "Virgin Australia") ? "virgin-body" : "thing-page dismiss-mega-menu-search"
 
@@ -68,7 +34,11 @@ class AttractionsController < ApplicationController
       format.html
       format.json { render json: @attraction }
     end
+  end
 
+  def paginate_more_attractions
+    @attraction = Attraction.friendly.find(params[:id])
+    @more_attractions = @attraction.more_attractions.paginate(page: params[:more_attractions_page], per_page: 6 )
   end
 
   def paginate_videos
@@ -78,8 +48,7 @@ class AttractionsController < ApplicationController
 
   def paginate_photos
     @attraction = Attraction.find_by_slug(params[:id])
-    active_user_photos = @attraction.user_photos.active
-    @photos = (@attraction.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: 3)
+    @photos = @attraction.active_user_photos.paginate(:page => params[:active_photos], per_page: 3)
   end
 
   def paginate_deals
@@ -94,9 +63,7 @@ class AttractionsController < ApplicationController
 
   def paginate_stories
     @attraction = Attraction.find_by_slug(params[:id])
-    @stories = @attraction.posts.active
-    @stories += @attraction.stories.active
-    @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
+    @stories = @attraction.attraction_stories.paginate(page: params[:stories_page], per_page: 4)  
   end
 
   def new
@@ -214,22 +181,6 @@ class AttractionsController < ApplicationController
     @user_photos = @attraction.user_photos
     @attraction_photos = @attraction.photos
     @photo = Photo.new
-  end
-
-  def paginate_more_attractions
-    @attraction = Attraction.friendly.find(params[:id])
-    another_field = (@attraction.parent.blank?) ? "country_id = #{@attraction.country_id}" : "status = 'live'"
-    if @attraction.primary_category.present? && @attraction.primary_category.id == 2
-      @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(another_field)
-    else
-      @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where(another_field)
-    end
-
-    @more_attractions = @more_attractions.sort do |x, y|
-      y.videos.size <=> x.videos.size
-    end
-
-    @more_attractions = @more_attractions.paginate(page: params[:more_attractions_page], per_page: 6 )
   end
 
   private
