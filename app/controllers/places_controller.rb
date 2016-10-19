@@ -281,13 +281,13 @@ class PlacesController < ApplicationController
   end
 
   def show
-    # @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
-    informations = @place.subcategories.get_all_informations
-    @optimum_times =  @place.subcategories.select {|cat| cat.category_type == "optimum_time"}
-    @durations = @place.subcategories.select {|cat| cat.category_type == "duration"}
-    @subcategories = @place.subcategories.select {|cat| cat.category_type == "subcategory"}
-    @accessibilities = @place.subcategories.select {|cat| cat.category_type == "accessibility"}
-    @prices = @place.subcategories.select {|cat| cat.category_type == "price"}
+    # informations = @place.subcategories.get_all_informations
+    attraction_subcat_all = @place.subcategories
+    @optimum_times =  attraction_subcat_all.select {|cat| cat.category_type == "optimum_time"}
+    @durations = attraction_subcat_all.select {|cat| cat.category_type == "duration"}
+    @subcategories = attraction_subcat_all.select {|cat| cat.category_type == "subcategory"}
+    @accessibilities = attraction_subcat_all.select {|cat| cat.category_type == "accessibility"}
+    @prices = attraction_subcat_all.select {|cat| cat.category_type == "price"}
 
     @good_to_know = @place.good_to_knows.limit(6)
 
@@ -337,11 +337,10 @@ class PlacesController < ApplicationController
     @related_places = @place.children
     @last_video = @place.videos.active.last
     @fun_facts = @place.fun_facts
-    @set_body_class = "virgin-body" if @place.display_name == "Virgin Australia"
     @trip_advisor_data = @place.trip_advisor_info
 
     # view = if @place.is_area?
-    @set_body_class = "destination-page"
+    @set_body_class = (@place.display_name == "Virgin Australia") ? "virgin-body" : "destination-page"
     #   "area"
     # else
     #   @set_body_class = "thing-page dismiss-mega-menu-search"
@@ -858,7 +857,7 @@ class PlacesController < ApplicationController
     end
 
     def find_place_by_slug
-      @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
+      @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).friendly.find(params[:id])
       if request.path != place_path(@place)
         return redirect_to @place, :status => :moved_permanently
       end

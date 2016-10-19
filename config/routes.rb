@@ -367,6 +367,9 @@ Rails.application.routes.draw do
     member { get 'paginate_more_attractions'}
     member { get 'paginate_videos', as: :paginate_videos}
     member { get 'paginate_photos', as: :paginate_photos}
+    member { get 'paginate_reviews'}
+    member { get 'paginate_stories'}
+    member { get 'paginate_deals'}
     resources :reviews
     resources :user_photos
     resources :three_d_videos

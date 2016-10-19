@@ -13,11 +13,12 @@ class AttractionsController < ApplicationController
   end
 
   def show
-    @optimum_times =  @attraction.subcategories.select {|cat| cat.category_type == "optimum_time"}
-    @durations = @attraction.subcategories.select {|cat| cat.category_type == "duration"}
-    @subcategories = @attraction.subcategories.select {|cat| cat.category_type == "subcategory"}
-    @accessibilities = @attraction.subcategories.select {|cat| cat.category_type == "accessibility"}
-    @prices = @attraction.subcategories.select {|cat| cat.category_type == "price"}
+    attraction_subcat_all = @attraction.subcategories
+    @optimum_times =  attraction_subcat_all.select {|cat| cat.category_type == "optimum_time"}
+    @durations = attraction_subcat_all.select {|cat| cat.category_type == "duration"}
+    @subcategories = attraction_subcat_all.select {|cat| cat.category_type == "subcategory"}
+    @accessibilities = attraction_subcat_all.select {|cat| cat.category_type == "accessibility"}
+    @prices = attraction_subcat_all.select {|cat| cat.category_type == "price"}
 
     @good_to_know = @attraction.good_to_knows.limit(6)
 
@@ -62,14 +63,13 @@ class AttractionsController < ApplicationController
     active_user_photos = @attraction.user_photos.active
     @photos = (@attraction.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: 3)
     @photos_hero = @photos.first(6)
-    @videos = @attraction.videos.active.paginate(:page => params[:active_videos], per_page:4)
+    @videos = @attraction.videos.active.paginate(:page => params[:active_videos], per_page: 3)
 
     @related_places = @attraction.children
     @last_video = @attraction.videos.active.last
     @fun_facts = @attraction.fun_facts
-    @set_body_class = "virgin-body" if @attraction.display_name == "Virgin Australia"
     @trip_advisor_data = @attraction.trip_advisor_info
-    @set_body_class = "thing-page dismiss-mega-menu-search"
+    @set_body_class = (@attraction.display_name == "Virgin Australia") ? "virgin-body" : "thing-page dismiss-mega-menu-search"
 
     respond_to do |format|
       format.html
@@ -80,13 +80,30 @@ class AttractionsController < ApplicationController
 
   def paginate_videos
     @attraction = Attraction.find_by_slug(params[:id])
-    @videos = @attraction.videos.active.paginate(:page => params[:active_videos], per_page: 4)
+    @videos = @attraction.videos.active.paginate(:page => params[:active_videos], per_page: 3)
   end
 
   def paginate_photos
     @attraction = Attraction.find_by_slug(params[:id])
     active_user_photos = @attraction.user_photos.active
-    @photos = (@attraction.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @attraction.is_area?? 4 : 3)
+    @photos = (@attraction.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: 3)
+  end
+
+  def paginate_deals
+    @attraction = Attraction.find_by_slug(params[:id])
+    @deals = @attraction.deals.active.paginate(:page => params[:active_photos], per_page: 3)
+  end
+
+  def paginate_reviews
+    @attraction = Attraction.find_by_slug(params[:id])
+    @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
+  end
+
+  def paginate_stories
+    @attraction = Attraction.find_by_slug(params[:id])
+    @stories = @attraction.posts.active
+    @stories += @attraction.stories.active
+    @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
   end
 
   def new
@@ -139,7 +156,7 @@ class AttractionsController < ApplicationController
           @attraction.fun_facts.each do |fun_fact|
             fun_fact.add_or_remove_from_country(@attraction.country)
           end
-          redirect_to edit_attraction_path(@attraction), notice: 'Place succesfully updated'
+          redirect_to edit_attraction_path(@attraction), notice: 'Attraction succesfully updated'
         end
       end
     else
@@ -151,7 +168,7 @@ class AttractionsController < ApplicationController
 
   def import
     Attraction.import(params[:file])
-    redirect_to attractions_path, notice: "Places imported."
+    redirect_to attractions_path, notice: "Attractions imported."
   end
 
   def import_update
@@ -210,15 +227,15 @@ class AttractionsController < ApplicationController
     @attraction = Attraction.friendly.find(params[:id])
     if @attraction.parent.blank?
       if @attraction.primary_category.present? && @attraction.primary_category.id == 2
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(country_id: @attraction.country_id)#.where('attractions.id != ?', @attraction.id)
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(country_id: @attraction.country_id)
       else
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where(country_id: @attraction.country_id)#.where('attractions.id != ?', @attraction.id)
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where(country_id: @attraction.country_id)
       end
     else
       if @attraction.primary_category.present? && @attraction.primary_category.id == 2
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where("status = ?", "live")#.where(parent_id: @attraction.parent_id).where('places.id != ?', @attraction.id)
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where("status = ?", "live")
       else
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where("status = ?", "live")#.where(parent_id: @attraction.parent_id).where('attractions.id != ?', @attraction.id)
+        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where("status = ?", "live")
       end
     end
 
@@ -231,7 +248,6 @@ class AttractionsController < ApplicationController
 
   private
     def set_attraction
-      # @attraction = Attraction.friendly.find(params[:id])
       @attraction = Attraction.includes(:quality_average, :subcategories, :similar_attractions => :similar_attraction).friendly.find(params[:id])
       if request.path != attraction_path(@attraction)
         return redirect_to @attraction, :status => :moved_permanently
