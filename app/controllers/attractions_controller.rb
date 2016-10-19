@@ -30,18 +30,11 @@ class AttractionsController < ApplicationController
 
     @attraction_to_visit = @attraction_to_visit.paginate( page: params[:places_to_visit_page], per_page: 6 )
 
-    if @attraction.parent.blank?
-      if @attraction.primary_category.present? && @attraction.primary_category.id == 2
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(country_id: @attraction.country_id)
-      else
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where(country_id: @attraction.country_id)
-      end
+    another_field = (@attraction.parent.blank?) ? "status = 'live'" : "country_id = #{@attraction.country_id}"
+    if @attraction.primary_category.present? && @attraction.primary_category.id == 2
+      @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(another_field)
     else
-      if @attraction.primary_category.present? && @attraction.primary_category.id == 2
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where("status = ?", "live")
-      else
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where("status = ?", "live")
-      end
+      @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where(another_field)
     end
 
     @famous_faces = @attraction.country.famous_faces.active
@@ -225,18 +218,11 @@ class AttractionsController < ApplicationController
 
   def paginate_more_attractions
     @attraction = Attraction.friendly.find(params[:id])
-    if @attraction.parent.blank?
-      if @attraction.primary_category.present? && @attraction.primary_category.id == 2
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(country_id: @attraction.country_id)
-      else
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where(country_id: @attraction.country_id)
-      end
+    another_field = (@attraction.parent.blank?) ? "country_id = #{@attraction.country_id}" : "status = 'live'"
+    if @attraction.primary_category.present? && @attraction.primary_category.id == 2
+      @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where(another_field)
     else
-      if @attraction.primary_category.present? && @attraction.primary_category.id == 2
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where("status = ?", "live")
-      else
-        @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where("status = ?", "live")
-      end
+      @more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: @attraction.primary_category).where(another_field)
     end
 
     @more_attractions = @more_attractions.sort do |x, y|

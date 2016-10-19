@@ -299,18 +299,11 @@ class PlacesController < ApplicationController
 
     @places_to_visit = @places_to_visit.paginate( page: params[:places_to_visit_page], per_page: 6 )
 
-    if @place.parent_id.blank?
-      if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(country_id: @place.country_id)
-      else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id)
-      end
+    another_field = (@place.parent.blank?) ? "country_id = #{@place.country_id}" : "status = 'live'"
+    if @place.primary_category.present? && @place.primary_category.id == 2
+      @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(another_field)
     else
-      if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
-      else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
-      end
+      @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(another_field)
     end
 
     @famous_faces = @place.country.famous_faces.active
@@ -339,13 +332,7 @@ class PlacesController < ApplicationController
     @fun_facts = @place.fun_facts
     @trip_advisor_data = @place.trip_advisor_info
 
-    # view = if @place.is_area?
     @set_body_class = (@place.display_name == "Virgin Australia") ? "virgin-body" : "destination-page"
-    #   "area"
-    # else
-    #   @set_body_class = "thing-page dismiss-mega-menu-search"
-    #   "place"
-    # end
 
     respond_to do |format|
       format.html #{ render view, :layout => !request.xhr? }
@@ -372,18 +359,12 @@ class PlacesController < ApplicationController
 
   def paginate_more_places
     @place = Place.find_by_slug(params[:id])
-    if @place.parent_id.blank?
-      if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(country_id: @place.country_id)
-      else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id)
-      end
+  
+    another_field = (@place.parent.blank?) ? "country_id = #{@place.country_id}" : "status = 'live'"
+    if @place.primary_category.present? && @place.primary_category.id == 2
+      @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(another_field)
     else
-      if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
-      else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
-      end
+      @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(another_field)
     end
 
     @more_places = @more_places.sort do |x, y|
