@@ -3,6 +3,8 @@ class Attraction < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
 
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake
+
   algoliasearch index_name: "attraction_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name,
@@ -402,7 +404,6 @@ class Attraction < ActiveRecord::Base
         get_parents(attraction.parent.parentable, parents)
       end
     end
-
   end
   
   def slug_candidates
@@ -424,7 +425,9 @@ class Attraction < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
+    unless self.run_rake && self.parent.blank?
+      slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
+    end
   end
 
   private

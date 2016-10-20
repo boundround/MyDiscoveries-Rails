@@ -61,23 +61,44 @@
       </div>
       <div class="form-group">
         <%= f.label "Parentable" %><br>
-        <%= radio_button_tag 'parentable_chose', 'country', (@attraction.parent.parentable_type.eql? 'Country') ? true : false %> Country &nbsp;&nbsp;
-        <%= radio_button_tag 'parentable_chose', 'place', (@attraction.parent.parentable_type.eql? 'Place') ? true : false %> Place&nbsp;&nbsp;
-        <%= radio_button_tag 'parentable_chose', 'attraction', (@attraction.parent.parentable_type.eql? 'Attraction') ? true : false %> Attraction
-        <br>
-        <%= f.fields_for :parent do |fc| %>
-          <div id='chosen_country' style="display:none;">
-            <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @attraction.parent.parentable_id) %>
-            <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_country', value: "Country") %>
-          </div>
-          <div id='chosen_place' style="display:none;">
-            <%= fc.select(:parentable_id, @places.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @attraction.parent.parentable_id) %>
-            <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_place', value: "Place") %>
-          </div>
-          <div id='chosen_attraction' style="display:none;">
-            <%= fc.select(:parentable_id, @attractions.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @attraction.parent.parentable_id) %>
-            <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_attraction', value: "Attraction") %>
-          </div>
+        <% if @attraction.parent.blank? %>
+          <%= radio_button_tag 'parentable_chose', 'country', false %> Country &nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'place', false %> Place &nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'attraction', true %> Attraction
+          <br>
+          <%= f.fields_for :parent, (@attraction.childrens.new()) do |fc| %>
+            <div id='chosen_country' style="display:none;">
+              <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_country', value: "Country") %>
+            </div>
+            <div id='chosen_place' style="display:none;">
+              <%= fc.select(:parentable_id, @places.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_place', value: "Place") %>  
+            </div>
+            <div id='chosen_attraction' style="display:none;">
+              <%= fc.select(:parentable_id, @attractions.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_attraction', value: "Attraction") %>  
+            </div>
+          <% end %>
+        <% else %>
+          <%= radio_button_tag 'parentable_chose', 'country', (@attraction.parent.parentable_type.eql? 'Country') ? true : false %> Country &nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'place', (@attraction.parent.parentable_type.eql? 'Place') ? true : false %> Place&nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'attraction', (@attraction.parent.parentable_type.eql? 'Attraction') ? true : false %> Attraction
+          <br>
+          <%= f.fields_for :parent do |fc| %>
+            <div id='chosen_country' style="display:none;">
+              <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @attraction.parent.parentable_id) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_country', value: "Country") %>
+            </div>
+            <div id='chosen_place' style="display:none;">
+              <%= fc.select(:parentable_id, @places.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @attraction.parent.parentable_id) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_place', value: "Place") %>
+            </div>
+            <div id='chosen_attraction' style="display:none;">
+              <%= fc.select(:parentable_id, @attractions.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @attraction.parent.parentable_id) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_attraction', value: "Attraction") %>
+            </div>
+          <% end %>
         <% end %>
       </div>
       <div class="form-group">

@@ -90,8 +90,6 @@ class AttractionsController < ApplicationController
     @attraction = Attraction.new(attraction_params)
 
     if @attraction.save
-      ChildItem.create(itemable_id: @attraction.id, itemable_type: @attraction.class.to_s,
-                       parentable_id: params[:attraction][:child_item][:parentable_id], parentable_type: params[:attraction][:child_item][:parentable_type])
       redirect_to edit_attraction_path(@attraction), notice: 'Attraction succesfully saved'
     else
       render action: :new, notice: 'Attraction not saved!'

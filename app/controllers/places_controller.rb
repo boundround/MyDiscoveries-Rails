@@ -7,7 +7,7 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
-    @places = Place.active.order(display_name: :asc)
+    @places = Place.active.where(is_area: true).order(display_name: :asc)
     @countries = Country.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
@@ -18,8 +18,6 @@ class PlacesController < ApplicationController
     @place = Place.new(place_params)
 
     if @place.save
-      ChildItem.create(itemable_id: @place.id, itemable_type: @place.class.to_s,
-                       parentable_id: params[:place][:child_item][:parentable_id].to_i, parentable_type: params[:place][:child_item][:parentable_type])
       redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
       render action: :new, notice: 'Place not saved!'
@@ -153,7 +151,7 @@ class PlacesController < ApplicationController
   def edit
     @set_body_class = "br-body"
     @place = Place.friendly.find(params[:id])
-    @places = Place.active.order(display_name: :asc)
+    @places = Place.active.where(is_area: true).order(display_name: :asc)
     @countries = Country.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
@@ -230,11 +228,7 @@ class PlacesController < ApplicationController
   end
 
   def index
-    # if params[:is_area]
-      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where(is_area: true)
-    # else
-    #   @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where.not(is_area: true)
-    # end
+    @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where(is_area: true)
     set_surrogate_key_header Place.table_key, @places.map(&:record_key)
     respond_to do |format|
       format.html
@@ -771,8 +765,14 @@ class PlacesController < ApplicationController
 
     def find_place_by_slug
       @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).friendly.find(params[:id])
-      if request.path != place_path(@place)
-        return redirect_to @place, :status => :moved_permanently
+      
+      if @place.is_area
+        if request.path != place_path(@place)
+          return redirect_to @place, :status => :moved_permanently
+        end
+      else
+        @attraction = Attraction.includes(:quality_average, :subcategories, :similar_attractions => :similar_attraction).friendly.find(params[:id])
+        return redirect_to @attraction, :status => :moved_permanently
       end
     end
 end
