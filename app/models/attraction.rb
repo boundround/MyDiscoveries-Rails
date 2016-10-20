@@ -286,13 +286,13 @@ class Attraction < ActiveRecord::Base
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       row = row.to_h
-      # row.each do |key, value|
-      #   if key != "id"
-      #     if value == 1
-      #       attractions_subcategory = PlacesSubcategory.find_or_create_by(attraction_id: row["id"], subcategory_id: key)
-      #     end
-      #   end
-      # end
+      row.each do |key, value|
+        if key != "id"
+          if value == 1
+            attractions_subcategory = AttractionsSubcategory.find_or_create_by(attraction_id: row["id"], subcategory_id: key)
+          end
+        end
+      end
     end
   end
 
