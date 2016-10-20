@@ -28,7 +28,11 @@ Rails.application.routes.draw do
 
   resources :stories do
     collection { get 'paginate' }
-    member { get 'paginate_place_to_visit'}
+    member do
+      get 'paginate_place_to_visit'
+      post :upload_image
+      post :delete_image
+    end
     resources :places, controller: :places_stories
     resources :countries, controller: :countries_stories
     resources :subcategories, controller: :stories_subcategories

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014155454) do
+ActiveRecord::Schema.define(version: 20161020163531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -726,12 +726,12 @@ ActiveRecord::Schema.define(version: 20161014155454) do
   add_index "stamps", ["place_id"], name: "index_stamps_on_place_id", using: :btree
 
   create_table "stories", force: true do |t|
-    t.text     "title",               default: ""
-    t.text     "content",             default: ""
+    t.text     "title",                            default: ""
+    t.text     "content",                          default: "Tell your story and add images here"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status"
+    t.string   "status",                           default: "draft"
     t.string   "google_place_id"
     t.boolean  "user_notified"
     t.datetime "user_notified_at"
@@ -746,7 +746,8 @@ ActiveRecord::Schema.define(version: 20161014155454) do
     t.string   "hero_image"
     t.text     "seo_friendly_url"
     t.decimal  "page_ranking_weight"
-    t.integer  "algolia_clicks",      default: 0
+    t.integer  "algolia_clicks",                   default: 0
+    t.string   "temp_image_for_base64_convertion"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
@@ -769,6 +770,11 @@ ActiveRecord::Schema.define(version: 20161014155454) do
 
   add_index "stories_users", ["story_id", "user_id"], name: "index_stories_users_on_story_id_and_user_id", using: :btree
   add_index "stories_users", ["user_id", "story_id"], name: "index_stories_users_on_user_id_and_story_id", using: :btree
+
+  create_table "story_images", force: true do |t|
+    t.string  "file"
+    t.integer "story_id"
+  end
 
   create_table "subcategories", force: true do |t|
     t.text     "name"

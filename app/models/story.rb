@@ -4,6 +4,7 @@ class Story < ActiveRecord::Base
   include Searchable
 
   mount_base64_uploader :hero_image, StoryHeroImageUploader
+  mount_base64_uploader :temp_image_for_base64_convertion, TempStoryImageUploader
   friendly_id :slug_candidates, :use => :slugged
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
@@ -208,7 +209,7 @@ class Story < ActiveRecord::Base
 
   before_update :regenerate_slug
   before_save :determine_age_bracket, :check_null_publish_date, :populate_seo_friendly_url
-  before_save :add_hero_image, prepend: true
+  # before_save :add_hero_image, prepend: true
 
   def send_live_notification
     places = []
