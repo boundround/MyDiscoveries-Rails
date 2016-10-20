@@ -14,10 +14,10 @@ class AttractionsController < ApplicationController
 
   def show
     subcategories    = @attraction.all_subcategories
-    @optimum_times   = subcategories.blank? ? [] : subcategories['duration']
-    @durations       = subcategories.blank? ? [] : subcategories['optimum_time']
-    @accessibilities = subcategories.blank? ? [] : subcategories['accessibility']
-    @prices          = subcategories.blank? ? [] : subcategories['price']
+    @optimum_times   = (subcategories.blank? || subcategories['duration'].blank?) ? [] : subcategories['duration']
+    @durations       = (subcategories.blank? || subcategories['optimum_time'].blank?) ? [] : subcategories['optimum_time']
+    @accessibilities = (subcategories.blank? || subcategories['accessibility'].blank?) ? [] : subcategories['accessibility']
+    @prices          = (subcategories.blank? || subcategories['price'].blank?) ? [] : subcategories['price']
 
     @good_to_know = @attraction.good_to_knows.limit(6)
     @more_attractions = @attraction.more_attractions.paginate(page: params[:more_attractions_page], per_page: 6 )
