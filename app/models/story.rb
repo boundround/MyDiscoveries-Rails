@@ -4,7 +4,6 @@ class Story < ActiveRecord::Base
   include Searchable
 
   mount_base64_uploader :hero_image, StoryHeroImageUploader
-  mount_base64_uploader :temp_image_for_base64_convertion, TempStoryImageUploader
   friendly_id :slug_candidates, :use => :slugged
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
