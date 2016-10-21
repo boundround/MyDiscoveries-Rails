@@ -4,8 +4,8 @@
            data-content="<%= story.content %>"
            data-title="<%= story.story_title ? story.story_title : @storiable.display_name %>"
            data-user="<%= story.user.name rescue nil %>"
-            <% story.story_images.each_with_index do |photo, index| %>
-              data-image-<%= index %>="<%= photo %>"
+            <% story.story_images.each_with_index do |story_image, index| %>
+              data-image-<%= index %>="<%= story_image.url %>"
             <% end %> >
           <div class="thing-story ">
               <div class="thing-story-text-content">
@@ -25,7 +25,7 @@
               </div>
               <div class="thing-story-img-header">
           <span class="thing-story-img"
-                style="background-image: url(<%= story.story_images.first.nil?? image_path("generic-hero.jpg") : story.story_images.first %>)" role="img"></span>
+                style="background-image: url(<%= story.hero_image.try(:url) || image_path("generic-hero.jpg") %>)" role="img"></span>
               </div>
           </div>
       </div>
