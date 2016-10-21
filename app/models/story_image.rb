@@ -4,4 +4,6 @@ class StoryImage < ActiveRecord::Base
   validates :story, presence: true
 
   mount_uploader :file, StoryImageUploader
+
+  delegate :url, to: :file
 end

@@ -92,7 +92,7 @@ class StoriesController < ApplicationController
     def story_params
       params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id,
                                     :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
-                                    :seo_friendly_url, :hero_image, :primary_category_id, subcategory_ids: [])
+                                    :seo_friendly_url, :primary_category_id, subcategory_ids: [])
     end
 
     def set_story_as_draft

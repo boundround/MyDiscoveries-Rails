@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161021082234) do
+ActiveRecord::Schema.define(version: 20161021092744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -743,7 +743,6 @@ ActiveRecord::Schema.define(version: 20161021082234) do
     t.string   "slug"
     t.integer  "primary_category_id"
     t.datetime "publish_date"
-    t.string   "hero_image"
     t.text     "seo_friendly_url"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",      default: 0
