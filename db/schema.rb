@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20161021092744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -48,6 +49,96 @@ ActiveRecord::Schema.define(version: 20161021092744) do
   end
 
   add_index "areas_users", ["area_id", "user_id"], name: "index_areas_users_on_area_id_and_user_id", unique: true, using: :btree
+
+  create_table "attractions", force: true do |t|
+    t.text     "description"
+    t.string   "code"
+    t.string   "identifier"
+    t.string   "display_name"
+    t.string   "subscription_level"
+    t.string   "icon"
+    t.string   "map_icon"
+    t.string   "passport_icon"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "address"
+    t.text     "opening_hours"
+    t.string   "phone_number"
+    t.string   "website"
+    t.string   "logo"
+    t.string   "url"
+    t.string   "display_address"
+    t.string   "booking_url"
+    t.string   "post_code"
+    t.string   "street_number"
+    t.string   "route"
+    t.string   "sublocality"
+    t.string   "locality"
+    t.string   "state"
+    t.string   "place_id"
+    t.string   "status"
+    t.datetime "published_at"
+    t.datetime "unpublished_at"
+    t.boolean  "user_created"
+    t.string   "created_by"
+    t.boolean  "customer_review"
+    t.boolean  "customer_approved"
+    t.datetime "approved_at"
+    t.boolean  "show_on_school_safari",     default: false
+    t.text     "school_safari_description"
+    t.string   "hero_image"
+    t.string   "bound_round_place_id"
+    t.boolean  "is_area",                   default: false
+    t.text     "short_description"
+    t.string   "weather_conditions"
+    t.integer  "minimum_age"
+    t.integer  "maximum_age"
+    t.text     "special_requirements"
+    t.boolean  "top_100",                   default: false
+    t.text     "viator_link",               default: ""
+    t.boolean  "footer_include"
+    t.boolean  "primary_area"
+    t.string   "algolia_id"
+    t.string   "email"
+    t.integer  "parent_id"
+    t.string   "trip_advisor_url"
+    t.decimal  "page_ranking_weight"
+    t.integer  "algolia_clicks",            default: 0
+    t.integer  "area_id"
+    t.integer  "country_id"
+    t.integer  "user_id"
+    t.integer  "primary_category_id"
+  end
+
+  add_index "attractions", ["country_id"], name: "index_attractions_on_country_id", using: :btree
+  add_index "attractions", ["primary_category_id"], name: "index_attractions_on_primary_category_id", using: :btree
+  add_index "attractions", ["user_id"], name: "index_attractions_on_user_id", using: :btree
+
+  create_table "attractions_posts", force: true do |t|
+    t.integer "attraction_id"
+    t.integer "post_id"
+  end
+
+  create_table "attractions_stories", force: true do |t|
+    t.integer  "attraction_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "attractions_subcategories", force: true do |t|
+    t.integer "attraction_id"
+    t.integer "subcategory_id"
+    t.text    "desc"
+  end
+
+  create_table "attractions_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "attraction_id"
+  end
 
   create_table "average_caches", force: true do |t|
     t.integer  "rater_id"
@@ -229,6 +320,11 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.datetime "updated_at"
   end
 
+  create_table "customers_attractions", force: true do |t|
+    t.integer "user_id"
+    t.integer "attraction_id"
+  end
+
   create_table "customers_places", force: true do |t|
     t.integer "user_id"
     t.integer "place_id"
@@ -275,6 +371,19 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.string   "status"
   end
 
+  create_table "friendly_id_slugs", force: true do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+
   create_table "fun_facts", force: true do |t|
     t.text     "content"
     t.string   "reference"
@@ -290,6 +399,7 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.boolean  "customer_review"
     t.boolean  "customer_approved"
     t.datetime "approved_at"
+    t.integer  "attraction_id"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -420,6 +530,9 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.datetime "approved_at"
     t.boolean  "hero"
     t.boolean  "country_hero"
+    t.integer  "attraction_id"
+    t.integer  "photoable_id"
+    t.string   "photoable_type"
   end
 
   add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
@@ -613,6 +726,7 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.integer  "place_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "attraction_id"
   end
 
   add_index "programs", ["place_id"], name: "index_programs_on_place_id", using: :btree
@@ -701,6 +815,13 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.datetime "updated_at"
   end
 
+  create_table "similar_attractions", force: true do |t|
+    t.integer  "attraction_id"
+    t.integer  "similar_place_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "similar_places", force: true do |t|
     t.integer  "place_id"
     t.integer  "similar_place_id"
@@ -722,6 +843,7 @@ ActiveRecord::Schema.define(version: 20161021092744) do
   create_table "stamps", force: true do |t|
     t.string  "serial"
     t.integer "place_id"
+    t.integer "attraction_id"
   end
 
   add_index "stamps", ["place_id"], name: "index_stamps_on_place_id", using: :btree
@@ -821,6 +943,9 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.integer  "place_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "attraction_id"
+    t.integer  "three_d_videoable_id"
+    t.string   "three_d_videoable_type"
   end
 
   add_index "three_d_videos", ["place_id"], name: "index_three_d_videos_on_place_id", using: :btree
@@ -858,6 +983,7 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.boolean  "hero"
     t.integer  "country_id"
     t.text     "alt_tag"
+    t.integer  "attraction_id"
   end
 
   add_index "user_photos", ["area_id"], name: "index_user_photos_on_area_id", using: :btree
@@ -964,6 +1090,9 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.boolean  "hero"
     t.string   "youtube_id",        default: ""
     t.text     "transcript"
+    t.integer  "attraction_id"
+    t.integer  "videoable_id"
+    t.string   "videoable_type"
   end
 
   add_index "videos", ["area_id"], name: "index_videos_on_area_id", using: :btree
