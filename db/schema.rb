@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930042404) do
+ActiveRecord::Schema.define(version: 20161021092744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -133,6 +132,8 @@ ActiveRecord::Schema.define(version: 20160930042404) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   create_table "contents", force: true do |t|
@@ -168,6 +169,8 @@ ActiveRecord::Schema.define(version: 20160930042404) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "address"
+    t.decimal  "page_ranking_weight"
+    t.integer  "algolia_clicks",           default: 0
   end
 
   add_index "countries", ["slug"], name: "index_countries_on_slug", using: :btree
@@ -487,6 +490,8 @@ ActiveRecord::Schema.define(version: 20160930042404) do
     t.string   "email"
     t.integer  "parent_id"
     t.string   "trip_advisor_url"
+    t.decimal  "page_ranking_weight"
+    t.integer  "algolia_clicks",            default: 0
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -562,6 +567,8 @@ ActiveRecord::Schema.define(version: 20160930042404) do
     t.integer  "maximum_age"
     t.integer  "primary_category_id"
     t.string   "hero_photo"
+    t.decimal  "page_ranking_weight"
+    t.integer  "algolia_clicks",      default: 0
   end
 
   add_index "posts", ["primary_category_id"], name: "index_posts_on_primary_category_id", using: :btree
@@ -721,11 +728,11 @@ ActiveRecord::Schema.define(version: 20160930042404) do
 
   create_table "stories", force: true do |t|
     t.text     "title",               default: ""
-    t.text     "content",             default: ""
+    t.text     "content",             default: "Tell your story and add images here"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status"
+    t.string   "status",              default: "draft"
     t.string   "google_place_id"
     t.boolean  "user_notified"
     t.datetime "user_notified_at"
@@ -737,8 +744,9 @@ ActiveRecord::Schema.define(version: 20160930042404) do
     t.string   "slug"
     t.integer  "primary_category_id"
     t.datetime "publish_date"
-    t.string   "hero_image"
     t.text     "seo_friendly_url"
+    t.decimal  "page_ranking_weight"
+    t.integer  "algolia_clicks",      default: 0
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
@@ -761,6 +769,11 @@ ActiveRecord::Schema.define(version: 20160930042404) do
 
   add_index "stories_users", ["story_id", "user_id"], name: "index_stories_users_on_story_id_and_user_id", using: :btree
   add_index "stories_users", ["user_id", "story_id"], name: "index_stories_users_on_user_id_and_story_id", using: :btree
+
+  create_table "story_images", force: true do |t|
+    t.string  "file"
+    t.integer "story_id"
+  end
 
   create_table "subcategories", force: true do |t|
     t.text     "name"

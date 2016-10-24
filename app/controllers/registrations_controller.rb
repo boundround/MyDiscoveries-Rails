@@ -22,6 +22,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
     @set_body_class = 'passport-page'
     super
+    flash.delete(:notice)
   end
 
   def create

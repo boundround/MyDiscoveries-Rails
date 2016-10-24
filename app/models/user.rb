@@ -40,14 +40,15 @@ class User < ActiveRecord::Base
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :omniauthable, :authentication_keys => [:email], 
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :omniauthable, :authentication_keys => [:email],
          :omniauth_providers => [:facebook, :twitter, :google_oauth2]
   # devise :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
   # after_create :create_mixpanel_profile
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+  validates :password, confirmation: true
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
     # Get the identity and user if they exist

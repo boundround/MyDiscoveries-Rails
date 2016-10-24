@@ -28,7 +28,11 @@ Rails.application.routes.draw do
 
   resources :stories do
     collection { get 'paginate' }
-    member { get 'paginate_place_to_visit'}
+    member do
+      get 'paginate_place_to_visit'
+      post :upload_image
+      post :delete_image
+    end
     resources :places, controller: :places_stories
     resources :countries, controller: :countries_stories
     resources :subcategories, controller: :stories_subcategories
@@ -165,7 +169,6 @@ Rails.application.routes.draw do
 
   resources :users do
     collection { get 'leaderboard' }
-    collection { post 'resolvejs'}
     member { get 'paginate_stories'}
     member { get 'favourites' }
     member { get 'paginate_reviews' }
@@ -348,6 +351,7 @@ Rails.application.routes.draw do
     resources :good_to_knows
     resources :deals
     collection { post :import }
+    collection { post :import_update }
     collection { post :import_subcategories }
   end
 
@@ -362,4 +366,5 @@ Rails.application.routes.draw do
   get '/places/:id/new_edit' => 'places#new_edit'
   get '/places/:id/refresh_blog' => 'places#refresh_blog'
 
+  post '/searchables/algolia-click/:object_id' => 'searchables#algolia_click', as: 'algolia_click'
 end

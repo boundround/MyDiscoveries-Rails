@@ -1,19 +1,29 @@
 class StoriesController < ApplicationController
+  before_action :find_story_by_slug, only: [:show]
 
   def index
     @stories = Story.all
   end
 
   def show
+
     @story = Story.find_by_slug(params[:id])
-    if @story.stories_like_this.blank?
-      @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
-    else
-      @stories_like_this = @story.stories_like_this.sort_by(&:created_at).paginate(page: params[:stories_page], per_page: 6)
-    end
+
+    @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
+    story_places = @story.places
+    story_places_parents = @story.places.each {|place| place.get_parents(place) }
+    @places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name).paginate( page: params[:places_to_visit_page], per_page: 6 )
+  end
+
+  def paginate_place
+    @story = Story.find_by_slug(params[:id])
+    story_places = @story.places
+    story_places_parents = @story.places.each {|place| place.get_parents(place) }
+    @places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name).paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   def destroy
+    @story = Story.find_by_slug(params[:id])
    if @story.destroy
       redirect_to  :back, notice: "Success"
    end
@@ -30,9 +40,10 @@ class StoriesController < ApplicationController
   def create
     @story = Story.new(story_params)
     if @story.save
-      redirect_to @story, notice: "Your story has been saved."
+      redirect_to edit_story_path(@story), notice: "Your story has been saved."
     else
-      render :new, notice: "Sorry, there was an error saving your story"
+      flash.now[:error] = "Sorry, there was an error saving your story"
+      render :new
     end
   end
 
@@ -70,6 +81,18 @@ class StoriesController < ApplicationController
     @story = Story.find_by_slug(params[:id])
   end
 
+  def upload_image
+    story_image = StoryImage.create(file: params[:files].first, story_id: params[:id])
+    render json: { files: [{ url: story_image.file.url }] }
+  end
+
+  def delete_image
+    story_images = StoryImage.where(story_id: params[:id])
+    story_image = story_images.detect { |si| si.file.url == params[:file] }
+    story_image.destroy
+    head :ok
+  end
+
   private
     def set_story
       @story = Story.find_by_slug(params[:id])
@@ -82,13 +105,21 @@ class StoriesController < ApplicationController
     def story_params
       params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id,
                                     :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
-                                    :seo_friendly_url, :hero_image, :primary_category_id, subcategory_ids: [])
+                                    :seo_friendly_url, :primary_category_id, subcategory_ids: [])
     end
 
     def set_story_as_draft
       if params[:story].present?
         params[:commit].to_s.downcase.eql?('publish') ? status= 'live' : status= 'draft'
         params[:story][:status]= status
+      end
+    end
+
+    def find_story_by_slug
+      @story = Story.friendly.find(params[:id])
+      $flashhh = nil
+      if request.path != story_path(@story)
+        return redirect_to @story, :status => :moved_permanently
       end
     end
 end

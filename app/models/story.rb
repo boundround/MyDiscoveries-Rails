@@ -1,13 +1,20 @@
 class Story < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
+  include Searchable
 
-  mount_base64_uploader :hero_image, StoryHeroImageUploader
-  friendly_id :slug_candidates, :use => :slugged
+  friendly_id :slug_candidates, :use => [:slugged, :history]
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
-    attributes :title, :status, :slug, :minimum_age, :maximum_age, :description
+    attributes :title,
+               :status,
+               :slug,
+               :minimum_age,
+               :maximum_age,
+               :description,
+               :primary_category_priority,
+               :page_ranking_weight
 
     synonyms [
         ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping"],
@@ -32,6 +39,14 @@ class Story < ActiveRecord::Base
 
     attribute :viator_link do
       ""
+    end
+
+    attribute :is_country do
+      false
+    end
+
+    attribute :is_area do
+      false
     end
 
     attribute :primary_category do
@@ -71,11 +86,18 @@ class Story < ActiveRecord::Base
     end
 
     attribute :hero_photo do
-      if hero_image.blank? || hero_image_url.blank?
-        { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage" }
+      if hero_image.present?
+        { url: hero_image.url, alt_tag: title }
       else
-        { url: hero_image_url, alt_tag: hero_image_url }
+        {
+          url: ActionController::Base.helpers.asset_path('generic-hero.jpg'),
+          alt_tag: 'Activity Collage'
+        }
       end
+    end
+
+    attribute :has_hero_image do
+      hero_image.present?
     end
 
     attribute :age_range do
@@ -121,14 +143,41 @@ class Story < ActiveRecord::Base
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
     # attributesToIndex ['display_name', 'unordered(content)', 'unordered(display_address)', 'primary_category', 'subcategories']
-    attributesToIndex ['display_name', 'age_range', 'unordered(content)','accessible', 'subcategories', 'unordered(parents)', 'unordered(description)', 'unordered(display_address)', 'unordered(primary_category)', 'publish_date']
+    attributesToIndex [
+      'display_name',
+      'unordered(description)',
+      'age_range',
+      'unordered(content)',
+      'accessible',
+      'subcategories',
+      'unordered(parents)',
+      'unordered(display_address)',
+      'unordered(primary_category)',
+      'publish_date',
+    ]
 
+    customRanking [
+      'desc(is_country)',
+      'desc(is_area)',
+      'desc(primary_category_priority)',
+      'desc(page_ranking_weight)',
+      'desc(has_hero_image)',
+    ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
     # customRanking ['desc(likes_count)']
 
-    attributesForFaceting ['main_category', 'age_range', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility']
+    attributesForFaceting [
+      'is_area',
+      'main_category',
+      'age_range',
+      'subcategory',
+      'weather',
+      'price',
+      'best_time_to_visit',
+      'accessibility'
+    ]
   end
 
   belongs_to :user
@@ -148,6 +197,8 @@ class Story < ActiveRecord::Base
   has_many :countries_stories
   has_many :countries, through: :countries_stories
 
+  has_many :story_images, dependent: :destroy
+
   scope :active, -> { where(status: "live").where(public: true) }
   scope :draft, -> { where(status: "draft") }
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }
@@ -160,7 +211,7 @@ class Story < ActiveRecord::Base
   validates :content, presence: true
 
   before_update :regenerate_slug
-  before_save :determine_age_bracket, :add_hero_image, :check_null_publish_date, :populate_seo_friendly_url
+  before_save :determine_age_bracket, :check_null_publish_date, :populate_seo_friendly_url
 
   def send_live_notification
     places = []
@@ -200,20 +251,10 @@ class Story < ActiveRecord::Base
     title = html_title.at_css('h2').text rescue ""
   end
 
-  def story_images
-    content = Nokogiri::HTML::Document.parse self.content
-
-    images = content.css('img').map{ |image| image['src'] }
-  end
-
   def teaser
-    string = ""
-    content = Nokogiri::HTML::Document.parse self.content
-    content.css('p').each do |paragraph|
-      string += "<p>" + paragraph + "</p>"
-    end
-
-    string = string[0..180] + "..."
+    content.scan(/<p.*?>.*?<\/p>/).map do |paragraph|
+      '<p>' + Nokogiri::HTML(paragraph) + '</p>'
+    end.reduce(:+)[0..180] + "..."
   end
 
   def story_text
@@ -249,8 +290,8 @@ class Story < ActiveRecord::Base
     end
   end
 
-  def add_hero_image
-    hero_image = story_images.first
+  def hero_image
+    story_images.first
   end
 
   def check_null_publish_date
@@ -260,18 +301,11 @@ class Story < ActiveRecord::Base
   end
 
   def stories_like_this
-    subcategories = self.subcategories.map(&:id)
-    stories_like_this = []
-    unless subcategories.blank?
-      stories_like_this = Story.includes(:subcategories).where(subcategories: {id: [subcategories]})
-    end
-
-    stories = []
-    self.places.each do |place|
-       stories << place.stories
-    end
-
-    return (stories_like_this + stories.flatten).uniq
+    ids = [
+      Story.joins(:subcategories).where(subcategories: { id: subcategories.pluck(:id) }).pluck(:id),
+      Story.joins(:places).where(places: { id: places.pluck(:id) }).pluck(:id)
+    ].reduce(:+).uniq
+    Story.includes(:user).where(id: ids).order(:created_at)
   end
 
   protected

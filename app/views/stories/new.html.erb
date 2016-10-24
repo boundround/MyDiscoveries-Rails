@@ -7,8 +7,6 @@
 					<p style="padding-bottom:25px;">
 						<%#= f.select :public, [['Public', true], ['Private', false]] %>
 						<% if current_user.admin? %>
-							<%= f.label "Status" %><br>
-							<%= f.select :status, ["draft", "live", "removed"] %><br>
 							<%= f.label "Publish Date" %><br>
 							<%= f.date_field :publish_date %><br>
 							<%= f.label "Change User" %><br>
@@ -18,19 +16,15 @@
 							<%= f.label "Choose a title for this story" %><br>
 							<%= f.text_field :title, class: "form-control story-title-edit" %>
 						<% else %>
-							<%= f.hidden_field :status, :value => "draft" %><br>
 							<%= f.hidden_field :publish_date, :value => Time.now %><br>
 							<%= f.hidden_field :user_id, :value => current_user.id %>
 						<% end %>
 					</p>
 				</div>
 			</div>
-			<div class="col-md-12">
-				<div class="content-editable" ></div>
-				<center> <button class="btn btn-primary top20 btm20" id="submit_story">Submit Story</button> </center>
-			</div>
-				<%= f.hidden_field :content %>
-				<%= f.submit "", style: :"display:none;", id:"submit-form-story" %>
+        <center>
+          <%= f.submit 'Submit Story', class: 'btn btn-primary top20 btm20' %>
+        </center>
 			<% end %>
 
 	</div>

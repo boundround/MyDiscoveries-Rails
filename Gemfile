@@ -132,11 +132,11 @@ gem 'country_select'
 
 # Classier solution for file uploads for Rails.
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
-gem 'carrierwave-base64'
 gem 'carrierwave_backgrounder'
 
 gem 'sidekiq'
 gem 'sidekiq-history'
+gem 'sidekiq-throttler'
 
 # Bootsy WYSIWYG Editor
 gem 'bootsy', github: "volmer/bootsy"
@@ -172,6 +172,8 @@ gem 'sitemap_generator'
 #mixpanel gem
 gem 'mixpanel-ruby'
 
+gem 'google-api-client', '~> 0.9'
+
 group :development do
   gem 'letter_opener', group: :development
   gem 'railroady'
@@ -182,6 +184,8 @@ group :development do
   gem 'spring'
   gem 'thin'
   gem 'byebug'
+  gem 'bullet'
+  gem 'quiet_assets'
 end
 
 
