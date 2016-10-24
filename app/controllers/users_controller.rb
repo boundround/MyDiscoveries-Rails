@@ -165,8 +165,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def resolvejs;end
-
   def reviews
     if user_signed_in? || current_user.admin?
       @user = User.includes(:reviews).find(params[:id])

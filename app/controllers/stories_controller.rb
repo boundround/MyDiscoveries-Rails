@@ -40,9 +40,10 @@ class StoriesController < ApplicationController
   def create
     @story = Story.new(story_params)
     if @story.save
-      redirect_to @story, notice: "Your story has been saved."
+      redirect_to edit_story_path(@story), notice: "Your story has been saved."
     else
-      render :new, notice: "Sorry, there was an error saving your story"
+      flash.now[:error] = "Sorry, there was an error saving your story"
+      render :new
     end
   end
 
@@ -80,6 +81,18 @@ class StoriesController < ApplicationController
     @story = Story.find_by_slug(params[:id])
   end
 
+  def upload_image
+    story_image = StoryImage.create(file: params[:files].first, story_id: params[:id])
+    render json: { files: [{ url: story_image.file.url }] }
+  end
+
+  def delete_image
+    story_images = StoryImage.where(story_id: params[:id])
+    story_image = story_images.detect { |si| si.file.url == params[:file] }
+    story_image.destroy
+    head :ok
+  end
+
   private
     def set_story
       @story = Story.find_by_slug(params[:id])
@@ -92,7 +105,7 @@ class StoriesController < ApplicationController
     def story_params
       params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id,
                                     :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
-                                    :seo_friendly_url, :hero_image, :primary_category_id, subcategory_ids: [])
+                                    :seo_friendly_url, :primary_category_id, subcategory_ids: [])
     end
 
     def set_story_as_draft

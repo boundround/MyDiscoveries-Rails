@@ -59,8 +59,35 @@
     </div>
 </div>
 
-<!-- <div class="container promo-container">
+<div class="container">
+  <div class="row">
+    <% if @competitions.present? %>
     <div class="row">
+        <div class="col-md-12 text-center">
+            <h3>Special Deals &amp; Offers</h3>
+        </div>
+      <% @competitions.each do |comp| %>
+        <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+            <div class="dest-thing">
+              <a class="link_card" href="<%= comp.url %>"></a>
+                <div class="dest-thing-overlay-wrapper">
+
+                </div>
+                <div class="things-img" style="background: url(<%= showing_image(comp.image_url) %>) no-repeat;" role="img"
+                     aria-label="Bondi"></div>
+                <div class="dest-thing-content">
+                    <h4><%= comp.title %></h4>
+                    <div class="tags">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+    <!-- <div class="row">
         <a href="http://www.boundround.com/offers/club-med-scoot.html" target="_blank">
             <div class="promo-wrapper">
                 <div class="col-md-12 promo-hero banner-heading">
@@ -76,8 +103,8 @@
                 </div>
             </div>
         </a>
-    </div>
-</div> -->
+    </div> -->
+</div>
 <% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
   <div class="adsense-home">
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -155,32 +182,6 @@
   </div>
 <% end %>
   <div class="container">
-    <div class="row">
-      <% if @competitions.present? %>
-      <div class="row">
-          <div class="col-md-12 text-center">
-              <h3>Special Promotions</h3>
-          </div>
-        <% @competitions.each do |comp| %>
-          <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-              <div class="dest-thing">
-                <a class="link_card" href="<%= comp.url %>"></a>
-                  <div class="dest-thing-overlay-wrapper">
-
-                  </div>
-                  <div class="things-img" style="background: url(<%= showing_image(comp.image_url) %>) no-repeat;" role="img"
-                       aria-label="Bondi"></div>
-                  <div class="dest-thing-content">
-                      <h4><%= comp.title %></h4>
-                      <div class="tags">
-
-                      </div>
-                  </div>
-              </div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
       <div class="row">
           <% unless @areas.blank? %>
               <div class="col-md-12">
