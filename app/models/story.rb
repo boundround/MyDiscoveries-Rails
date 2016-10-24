@@ -3,7 +3,6 @@ class Story < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
 
-  mount_base64_uploader :hero_image, StoryHeroImageUploader
   friendly_id :slug_candidates, :use => [:slugged, :history]
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
@@ -87,10 +86,13 @@ class Story < ActiveRecord::Base
     end
 
     attribute :hero_photo do
-      if hero_image.blank? || hero_image_url.blank?
-        { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage" }
+      if hero_image.present?
+        { url: hero_image.url, alt_tag: title }
       else
-        { url: hero_image_url, alt_tag: hero_image_url }
+        {
+          url: ActionController::Base.helpers.asset_path('generic-hero.jpg'),
+          alt_tag: 'Activity Collage'
+        }
       end
     end
 
@@ -198,6 +200,8 @@ class Story < ActiveRecord::Base
   has_many :countries_stories
   has_many :countries, through: :countries_stories
 
+  has_many :story_images, dependent: :destroy
+
   scope :active, -> { where(status: "live").where(public: true) }
   scope :draft, -> { where(status: "draft") }
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }
@@ -210,7 +214,7 @@ class Story < ActiveRecord::Base
   validates :content, presence: true
 
   before_update :regenerate_slug
-  before_save :determine_age_bracket, :add_hero_image, :check_null_publish_date, :populate_seo_friendly_url
+  before_save :determine_age_bracket, :check_null_publish_date, :populate_seo_friendly_url
 
   def send_live_notification
     places = []
@@ -250,14 +254,10 @@ class Story < ActiveRecord::Base
     title = html_title.at_css('h2').text rescue ""
   end
 
-  def story_images
-    @story_images ||= (content.scan(/<img.*?src="(.*?)".*?>/).flatten! || [])
-  end
-
   def teaser
     content.scan(/<p.*?>.*?<\/p>/).map do |paragraph|
       '<p>' + Nokogiri::HTML(paragraph) + '</p>'
-    end.reduce(:+)[0..280] + "..."
+    end.reduce(:+)[0..180] + "..."
   end
 
   def story_text
@@ -293,8 +293,8 @@ class Story < ActiveRecord::Base
     end
   end
 
-  def add_hero_image
-    hero_image = story_images.first
+  def hero_image
+    story_images.first
   end
 
   def check_null_publish_date

@@ -33,7 +33,7 @@
                 <div class="left">
                 <% if user_signed_in? %>
                   <div class="profile-outer style-bg-transparent">
-                      <img src="<%= showing_image(current_user.avatar_url)%>" alt="">
+                      <img src="<%= showing_image(current_user.avatar_url || asset_path('generic-hero-small.jpg'))%>" alt="">
                   </div>
                   <div class="profile-text style-bg-transparent grey">
                     <%= current_user.name %>
