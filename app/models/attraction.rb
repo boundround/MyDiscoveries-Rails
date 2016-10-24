@@ -162,7 +162,7 @@ class Attraction < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|attraction| attraction.display_name rescue ''}
+      self.get_parents(self).map {|attraction| attraction.display_name rescue ''} unless !self.run_rake.blank?
     end
 
     attribute :accessible do
@@ -308,7 +308,9 @@ class Attraction < ActiveRecord::Base
     body = nil
     trip_advisor_id = nil
     if trip_advisor_url.present?
-      trip_advisor_id = trip_advisor_url.match(/(.*)(d[0-9]+)(.*)/)[2].gsub("d", "")
+      unless trip_advisor_url.match(/(.*)(d[0-9]+)(.*)/).blank?
+        trip_advisor_id = trip_advisor_url.match(/(.*)(d[0-9]+)(.*)/)[2].gsub("d", "")
+      end
     end
     if trip_advisor_id
       response = HTTParty.get("http://api.tripadvisor.com/api/partner/2.0/location/#{trip_advisor_id}?key=6cd1112100c1424a9368e441f50cb642")
@@ -388,20 +390,22 @@ class Attraction < ActiveRecord::Base
   end
 
   def get_parents(attraction, parents = [])
-    if attraction.parent.blank?
-      if !attraction.country.blank?
-        parents << attraction.country
-        return parents
+    unless !self.run_rake.blank?
+      if attraction.parent.blank?
+        if !attraction.country.blank?
+          parents << attraction.country
+          return parents
+        else
+          return parents
+        end
       else
-        return parents
-      end
-    else
-      parents << attraction.parent.parentable
-      if attraction.parent.parentable.class.to_s.eql? "Country"
-        parents << attraction.country
-        return parents
-      else
-        get_parents(attraction.parent.parentable, parents)
+        parents << attraction.parent.parentable
+        if attraction.parent.parentable.class.to_s.eql? "Country"
+          parents << attraction.country
+          return parents
+        else
+          get_parents(attraction.parent.parentable, parents)
+        end
       end
     end
   end
@@ -425,7 +429,7 @@ class Attraction < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    unless self.run_rake && self.parent.blank?
+    unless self.run_rake
       slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
     end
   end
