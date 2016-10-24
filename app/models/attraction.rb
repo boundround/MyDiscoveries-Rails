@@ -5,7 +5,7 @@ class Attraction < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake
 
-  algoliasearch index_name: "attraction_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name,
                :status,
@@ -241,7 +241,7 @@ class Attraction < ActiveRecord::Base
 
   has_many :attractions_users
   has_many :users, through: :attractions_users
-  
+
   has_many :customers_attractions
   has_many :owners, through: :customers_attractions, :source => :user
 
@@ -278,7 +278,7 @@ class Attraction < ActiveRecord::Base
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
   accepts_nested_attributes_for :stamps, allow_destroy: true
   accepts_nested_attributes_for :parent, :allow_destroy => true
-  
+
   def self.import_subcategories(file)
     attractions_subcategory = nil
     spreadsheet = open_spreadsheet(file)
@@ -368,7 +368,7 @@ class Attraction < ActiveRecord::Base
     else
       more_attractions = Attraction.includes(:country, :quality_average, :videos).where(primary_category: self.primary_category).where(another_field)
     end
-    
+
     more_attractions = more_attractions.sort do |x, y|
       y.videos.size <=> x.videos.size
     end
@@ -391,7 +391,7 @@ class Attraction < ActiveRecord::Base
 
   def get_parents(attraction, parents = [])
     unless !self.run_rake.blank?
-      if attraction.parent.blank?
+      if attraction.parent.blank? || attraction.parent.parentable == self
         if !attraction.country.blank?
           parents << attraction.country
           return parents
@@ -409,7 +409,7 @@ class Attraction < ActiveRecord::Base
       end
     end
   end
-  
+
   def slug_candidates
     country = self.country
     g_parent = get_parents(self, parents = [])
@@ -421,7 +421,7 @@ class Attraction < ActiveRecord::Base
     if is_area == true
       "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
     else
-      [ 
+      [
         "things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}",
         ["things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}", :post_code]
       ]

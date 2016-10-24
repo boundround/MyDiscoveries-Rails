@@ -525,10 +525,6 @@ class Place < ActiveRecord::Base
     end
   end
 
-  def nerate_new_friendly_id?
-    display_name_changed? || super
-  end
-
   def check_valid_url
     if self.website
       unless website.match(/^(http:\/\/)/i) || website.match(/^(https:\/\/)/i)
@@ -567,7 +563,7 @@ class Place < ActiveRecord::Base
     if is_area == true
       "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
     else
-      [ 
+      [
         # "things to do with kids and families #{country.display_name rescue ""} #{primary_area_display_name rescue ""} #{self.display_name}",
         "things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}",
         ["things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}", :post_code]
@@ -577,7 +573,7 @@ class Place < ActiveRecord::Base
 
   def get_parents(place, parents = [])
     unless !self.run_rake.blank?
-      if place.parent.blank?
+      if place.parent.blank? || place.parent.parentable == self
         if !place.country.blank?
           parents << place.country
           return parents
@@ -663,7 +659,11 @@ class Place < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     unless !self.run_rake.blank?
-      slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
+      if self.parent.blank?
+        slug.blank? || display_name_changed? || self.country_id_changed?
+      else
+        slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
+      end
     end
   end
 
