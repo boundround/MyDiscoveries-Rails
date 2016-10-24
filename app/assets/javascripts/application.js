@@ -50,7 +50,7 @@
 //= require jquery.ui.widget.js
 //= require handlebars.runtime.js
 //= require medium-editor.min
-//= require medium-editor-insert-plugin.min
+//= require medium-editor-insert-plugin
 //= require jquery-sortable-min.js
 //= require boundround
 //= require jquery.snowshoe
