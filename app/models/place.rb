@@ -568,7 +568,7 @@ class Place < ActiveRecord::Base
   end
 
   def get_parents(place, parents = [])
-    if place.parent.blank?
+    if place.parent.blank? || place.parent.parentable == self
       if !place.country.blank?
         parents << place.country
         return parents
