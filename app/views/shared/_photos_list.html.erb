@@ -1,6 +1,6 @@
 <div class="<%= container %> photo-components-wrapper">
     <div class="row">
-        <div class="owl-carousel carousel" id="photos-list">
+        <div class="owl-carousel carousel" id="photos-list" data-controller="<%= params[:controller] %>">
             <%= render partial: 'shared/featured_photos_list', collection: @photos, as: :photo %>
         </div>
     </div>

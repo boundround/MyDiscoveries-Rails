@@ -1244,7 +1244,11 @@ h4 {
     clear:left
     }
 
-    .place-photo-wrapper:nth-child(4n+1){
+    [data-controller="places"] .place-photo-wrapper:nth-child(4n+1),
+    [data-controller="country"] .place-photo-wrapper:nth-child(4n+1){
+      clear:left;
+    }
+    [data-controller="attractions"] .place-photo-wrapper:nth-child(3n+1) {
       clear:left;
     }
 }

@@ -17,17 +17,16 @@ end
         </div>
         <div class="title-wrapper">
             <img class="svg-inject <%= stroke %>" src="/assets/new-images/icon-camera.svg"/>
+            <% if params[:active_photos].present? %>
+              <%= javascript_tag do -%>
 
+                var injectSvgs = document.querySelectorAll("img.svg-inject");
+                SVGInjector(injectSvgs);
+
+              <% end -%>
+            <% end %>
             <div class="photo-title"><%= photo.caption %></div>
         </div>
     </div>
 </div>
 
-<% if params[:active_photos].present? %>
-  <%= javascript_tag do -%>
-
-    var injectSvgs = document.querySelectorAll("img.svg-inject");
-    SVGInjector(injectSvgs);
-
-  <% end -%>
-<% end %>
