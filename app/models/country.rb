@@ -185,6 +185,16 @@ class Country < ActiveRecord::Base
     end
   end
 
+  def country_photos
+    photos = (self.user_photos.where(status:"live") + self.photos).uniq
+  end
+
+  def country_stories
+    stories = self.posts.active
+    stories += self.stories.active
+    stories = stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse
+  end
+
   def should_generate_new_friendly_id?
     slug.blank? || country_code_changed?
   end
