@@ -1,6 +1,7 @@
 <%
+variable = @place.blank? ? @attraction : @place
 if !params[:controller].eql? "countries"
-    grid, stroke = if !@place.is_area?
+    grid, stroke = if !variable.is_area?
         ["col-md-4", "orange-stroke"]
     else
         ["col-md-3",""]

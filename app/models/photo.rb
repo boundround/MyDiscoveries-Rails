@@ -3,7 +3,9 @@ class Photo < ActiveRecord::Base
 
   before_save :set_approval_time, :check_customer_approved
 
-  belongs_to :place
+  # belongs_to :place
+  # belongs_to :attraction
+  belongs_to :photoable, polymorphic: true
 
   has_many :countries_photos
   has_many :countries, :through => :countries_photos

@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :owned_places, through: :customers_places, :source => :place
 
   has_many :places
+  has_many :attractions
 
   has_many :identities
 
@@ -48,6 +49,7 @@ class User < ActiveRecord::Base
   # after_create :create_mixpanel_profile
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+  validates :password, confirmation: true
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
     # Get the identity and user if they exist

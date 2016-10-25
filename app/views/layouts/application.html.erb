@@ -134,24 +134,24 @@
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<!-- Load Facebook SDK for JavaScript -->
-	<div id="fb-root"></div>
-	<script>
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId      : '1418185688437447',
-			xfbml      : true,
-			version    : 'v2.6'
-		});
-		};
+  	<div id="fb-root"></div>
+  	<script>
+  	window.fbAsyncInit = function() {
+  		FB.init({
+  			appId      : '1418185688437447',
+  			xfbml      : true,
+  			version    : 'v2.6'
+  		});
+  		};
 
-		(function(d, s, id){
-		 var js, fjs = d.getElementsByTagName(s)[0];
-		 if (d.getElementById(id)) {return;}
-		 js = d.createElement(s); js.id = id;
-		 js.src = "//connect.facebook.net/en_US/sdk.js";
-		 fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-	</script>
+  		(function(d, s, id){
+  		 var js, fjs = d.getElementsByTagName(s)[0];
+  		 if (d.getElementById(id)) {return;}
+  		 js = d.createElement(s); js.id = id;
+  		 js.src = "//connect.facebook.net/en_US/sdk.js";
+  		 fjs.parentNode.insertBefore(js, fjs);
+  		}(document, 'script', 'facebook-jssdk'));
+  	</script>
 
 
     <div id="place-holder"></div>
@@ -160,10 +160,10 @@
         <% if is_flash_key_for_tracking?(type) %>
           <div class="hidden <%= type %>"></div>
         <% else %>
-            <div class="alert <%= bootstrap_class_for(type) %> fade in">
-          <button class="close" data-dismiss="alert">×</button>
-          <%= message %>
-        </div>
+          <div class="alert <%= bootstrap_class_for(type) %> fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <%= message %>
+          </div>
         <% end %>
       <% end %>
     <% end %>

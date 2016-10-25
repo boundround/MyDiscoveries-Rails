@@ -1,5 +1,6 @@
 class CountriesController < ApplicationController
   before_action :set_cache_control_headers, only: [:index, :show]
+  before_action :find_country_by_slug, only: [:show]
 
   def index
     @countries = Country.all
@@ -7,7 +8,8 @@ class CountriesController < ApplicationController
   end
 
   def show
-    @place = @country = Country.includes(:photos, :places).friendly.find(params[:id])
+    # @place = @country = Country.includes(:photos, :places).friendly.find(params[:id])
+    @place = @country
     @stories = @country.posts.active
     @stories += @country.stories.active
     @stories = @stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse.paginate(page: params[:stories_page], per_page: 4)
@@ -99,5 +101,12 @@ class CountriesController < ApplicationController
                       fun_facts_attributes: [:id, :content, :reference, :priority, :hero_photo, :photo_credit, :status, :country_include, :_destroy],
                       famous_faces_attributes: [:id, :name, :description, :photo, :photo_credit, :status, :_destroy],
                       info_bits_attributes: [:id, :title, :description, :photo, :photo_credit, :status, :_destroy])
+    end
+
+    def find_country_by_slug
+      @country = Country.friendly.find(params[:id])
+      if request.path != country_path(@country)
+        redirect_to @country, :status => :moved_permanently
+      end
     end
 end

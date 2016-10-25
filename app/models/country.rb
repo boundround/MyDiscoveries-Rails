@@ -93,7 +93,7 @@ class Country < ActiveRecord::Base
 
   default_scope { order('display_name ASC') }
 
-  friendly_id :country_code, :use => :slugged
+  friendly_id :country_code, :use => [:slugged, :history]
 
   after_save :load_into_soulmate
   before_destroy :remove_from_soulmate
@@ -183,6 +183,10 @@ class Country < ActiveRecord::Base
       rescue Exception
       end
     end
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || country_code_changed?
   end
 
   def country_codes_by_name

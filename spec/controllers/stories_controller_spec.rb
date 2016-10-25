@@ -73,4 +73,15 @@ RSpec.describe StoriesController, type: :controller do
     end
   end
 
+  describe "GET #show" do
+    context "current user show story with slug has been changed" do
+      it "current user redirect to another random story" do
+        story = Story.create(content: Faker::Lorem.sentence, title: Faker::Book.title, user_id: @user1.id, publish_date: Time.now, seo_friendly_url: Faker::Internet.url, status: "live")
+        get :show, id: story.id
+        expect(story).not_to be :found
+        expect(response).to have_http_status(:moved_permanently) # should be to another random story path 
+      end
+    end
+  end
+
 end

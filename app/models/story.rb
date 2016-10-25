@@ -3,7 +3,7 @@ class Story < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
 
-  friendly_id :slug_candidates, :use => :slugged
+  friendly_id :slug_candidates, :use => [:slugged, :history]
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
@@ -191,6 +191,9 @@ class Story < ActiveRecord::Base
   has_many :places_stories
   has_many :places, through: :places_stories
 
+  has_many :attractions_stories
+  has_many :attractions, through: :attractions_stories
+  
   has_many :stories_subcategories
   has_many :subcategories, through: :stories_subcategories
 
@@ -254,7 +257,7 @@ class Story < ActiveRecord::Base
   def teaser
     content.scan(/<p.*?>.*?<\/p>/).map do |paragraph|
       '<p>' + Nokogiri::HTML(paragraph) + '</p>'
-    end.reduce(:+)[0..280] + "..."
+    end.reduce(:+)[0..180] + "..."
   end
 
   def story_text

@@ -42,7 +42,11 @@ class DealsController < ApplicationController
     def load_dealable
       resource, id = request.path.split("/")[1, 2]
       @dealable = resource.singularize.classify.constantize.friendly.find(id)
-      @place = @dealable
+      if @dealable.class.to_s.eql? 'Attraction'
+        @attraction = @dealable
+      else
+        @place = @dealable
+      end
     end
 
     def deal_params
