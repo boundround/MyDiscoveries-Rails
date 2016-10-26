@@ -11,7 +11,7 @@
 					<p style="padding-bottom:25px;">
 						<div id="autosave-status"></div>
 						<%#= f.select :public, [['Public', true], ['Private', false]] %><br>
-						<% if current_user.admin? %>
+						<% if current_user.admin? || current_user.roles.map(&:name).include?('contributor') %>
 							<%= f.label "Status" %><br>
 							<%= f.select :status, ["draft", "live", "removed"] %><br>
 							<%= f.label "Publish Date" %><br>
@@ -35,12 +35,10 @@
 				<div class="content-editable" ></div>
 				<center> <button class="btn btn-primary top20 btm20" id="submit_story">Update</button> </center>
 			</div>
-				<%= f.hidden_field :content %>
-				<%= f.hidden_field :date, :value => Time.now %>
-				<%= f.submit "", style: :"display:none;", id:"submit-form-story" %>
-			<% end %>
-
-		<!-- </div> -->
+			<%= f.hidden_field :content %>
+			<%= f.hidden_field :date, :value => Time.now %>
+			<%= f.submit "", style: :"display:none;", id:"submit-form-story" %>
+		<% end %>
 	</div>
 </div>
 

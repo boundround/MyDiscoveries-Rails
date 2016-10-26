@@ -1,12 +1,12 @@
 <div class="loading">Loading&#8230;</div>
 <div class="container">
 	<div class="row">
-			<%=  form_for @story, method: :post do |f| %>
+		<%=  form_for @story, method: :post do |f| %>
 			<div class="col-md-12 top70">
 				<div>
 					<p style="padding-bottom:25px;">
 						<%#= f.select :public, [['Public', true], ['Private', false]] %>
-						<% if current_user.admin? %>
+						<% if current_user.admin? || current_user.roles.map(&:name).include?('contributor') %>
 							<%= f.label "Publish Date" %><br>
 							<%= f.date_field :publish_date %><br>
 							<%= f.label "Change User" %><br>
@@ -22,10 +22,9 @@
 					</p>
 				</div>
 			</div>
-        <center>
-          <%= f.submit 'Submit Story', class: 'btn btn-primary top20 btm20' %>
-        </center>
-			<% end %>
-
+      <center>
+        <%= f.submit 'Submit Story', class: 'btn btn-primary top20 btm20' %>
+      </center>
+		<% end %>
 	</div>
 </div>
