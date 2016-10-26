@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
 
   rescue_from CarrierWave::DownloadError, :with => :carrierwave_download_error
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
 
   helper Bootsy::Engine.helpers
 
@@ -42,7 +43,7 @@ class ApplicationController < ActionController::Base
 
   def get_header
     @featured_nav_destinations = Place.where(id: [1064, 1221, 1071, 1060]).includes(:country)
-    @featured_nav_places = Place.where(id: [233, 117, 921, 1021])
+    @featured_nav_places = Attraction.where(id: [233, 117, 921, 1021])
   end
 
   protected
@@ -65,6 +66,13 @@ class ApplicationController < ActionController::Base
   def redirect_if_not_admin
     if !current_user.try(:admin)
       redirect_to :root, notice: "Not Authorized!"
+    end
+  end
+
+  def render_not_found
+    respond_to do |format|
+      format.html { render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found }
+      format.json { head :not_found }
     end
   end
 

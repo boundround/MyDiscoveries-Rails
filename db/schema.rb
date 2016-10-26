@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017033430) do
+ActiveRecord::Schema.define(version: 20161021092744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,6 +223,8 @@ ActiveRecord::Schema.define(version: 20161017033430) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   create_table "contents", force: true do |t|
@@ -531,6 +533,11 @@ ActiveRecord::Schema.define(version: 20161017033430) do
     t.boolean  "hero"
     t.boolean  "country_hero"
     t.integer  "attraction_id"
+<<<<<<< HEAD
+=======
+    t.integer  "photoable_id"
+    t.string   "photoable_type"
+>>>>>>> test
   end
 
   add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
@@ -850,11 +857,11 @@ ActiveRecord::Schema.define(version: 20161017033430) do
 
   create_table "stories", force: true do |t|
     t.text     "title",               default: ""
-    t.text     "content",             default: ""
+    t.text     "content",             default: "Tell your story and add images here"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status"
+    t.string   "status",              default: "draft"
     t.string   "google_place_id"
     t.boolean  "user_notified"
     t.datetime "user_notified_at"
@@ -866,7 +873,6 @@ ActiveRecord::Schema.define(version: 20161017033430) do
     t.string   "slug"
     t.integer  "primary_category_id"
     t.datetime "publish_date"
-    t.string   "hero_image"
     t.text     "seo_friendly_url"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",      default: 0
@@ -895,6 +901,11 @@ ActiveRecord::Schema.define(version: 20161017033430) do
 
   add_index "stories_users", ["story_id", "user_id"], name: "index_stories_users_on_story_id_and_user_id", using: :btree
   add_index "stories_users", ["user_id", "story_id"], name: "index_stories_users_on_user_id_and_story_id", using: :btree
+
+  create_table "story_images", force: true do |t|
+    t.string  "file"
+    t.integer "story_id"
+  end
 
   create_table "subcategories", force: true do |t|
     t.text     "name"
@@ -943,6 +954,11 @@ ActiveRecord::Schema.define(version: 20161017033430) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "attraction_id"
+<<<<<<< HEAD
+=======
+    t.integer  "three_d_videoable_id"
+    t.string   "three_d_videoable_type"
+>>>>>>> test
   end
 
   add_index "three_d_videos", ["place_id"], name: "index_three_d_videos_on_place_id", using: :btree
@@ -1088,6 +1104,11 @@ ActiveRecord::Schema.define(version: 20161017033430) do
     t.string   "youtube_id",        default: ""
     t.text     "transcript"
     t.integer  "attraction_id"
+<<<<<<< HEAD
+=======
+    t.integer  "videoable_id"
+    t.string   "videoable_type"
+>>>>>>> test
   end
 
   add_index "videos", ["area_id"], name: "index_videos_on_area_id", using: :btree

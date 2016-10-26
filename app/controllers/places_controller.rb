@@ -7,7 +7,7 @@ class PlacesController < ApplicationController
 
   def new
     @place = Place.new
-    @places = Place.active.order(display_name: :asc)
+    @places = Place.active.where(is_area: true).order(display_name: :asc)
     @countries = Country.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
@@ -18,8 +18,6 @@ class PlacesController < ApplicationController
     @place = Place.new(place_params)
 
     if @place.save
-      ChildItem.create(itemable_id: @place.id, itemable_type: @place.class.to_s,
-                       parentable_id: params[:place][:child_item][:parentable_id].to_i, parentable_type: params[:place][:child_item][:parentable_type])
       redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
       render action: :new, notice: 'Place not saved!'
@@ -153,7 +151,7 @@ class PlacesController < ApplicationController
   def edit
     @set_body_class = "br-body"
     @place = Place.friendly.find(params[:id])
-    @places = Place.active.order(display_name: :asc)
+    @places = Place.active.where(is_area: true).order(display_name: :asc)
     @countries = Country.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
@@ -230,11 +228,7 @@ class PlacesController < ApplicationController
   end
 
   def index
-    if params[:is_area]
-      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where(is_area: true)
-    else
-      @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where.not(is_area: true)
-    end
+    @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where(is_area: true)
     set_surrogate_key_header Place.table_key, @places.map(&:record_key)
     respond_to do |format|
       format.html
@@ -281,89 +275,32 @@ class PlacesController < ApplicationController
   end
 
   def show
-    # @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
-    informations = @place.subcategories.get_all_informations
-    @optimum_times =  @place.subcategories.select {|cat| cat.category_type == "optimum_time"}
-    @durations = @place.subcategories.select {|cat| cat.category_type == "duration"}
-    @subcategories = @place.subcategories.select {|cat| cat.category_type == "subcategory"}
-    @accessibilities = @place.subcategories.select {|cat| cat.category_type == "accessibility"}
-    @prices = @place.subcategories.select {|cat| cat.category_type == "price"}
-
-    @good_to_know = @place.good_to_knows.limit(6)
-
-    @places_to_visit = @place.children.active
-
-    @places_to_visit = @places_to_visit.sort do |x, y|
-      y.videos.size <=> x.videos.size
-    end
-
-    @places_to_visit = @places_to_visit.paginate( page: params[:places_to_visit_page], per_page: 6 )
-
-    if @place.parent_id.blank?
-      if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(country_id: @place.country_id)
-      else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id)
-      end
-    else
-      if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
-      else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
-      end
-    end
-
-    @famous_faces = @place.country.famous_faces.active
-
-    @more_places = @more_places.sort do |x, y|
-      y.videos.size <=> x.videos.size
-    end
-
-    @more_places = @more_places.paginate(page: params[:more_places_page], per_page: 6 )
-
-    @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
+    @places_to_visit = @place.places_to_visits.paginate( page: params[:places_to_visit_page], per_page: 6 )
     @deals = @place.deals.active #.paginate(page: params[:deals_page], per_page: params[:deals_page].nil?? 6 : 3 )
-    @review = Review.new
-
-    @stories = @place.posts.active
-    @stories += @place.stories.active
-    @stories = @stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse.paginate(page: params[:stories_page], per_page: 4)
-
-    active_user_photos = @place.user_photos.active
-    @photos = (@place.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
+    @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
+    @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 4)
     @photos_hero = @photos.first(6)
+
     @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page:4)
-
-    @related_places = @place.children
     @last_video = @place.videos.active.last
-    @fun_facts = @place.fun_facts
-    @set_body_class = "virgin-body" if @place.display_name == "Virgin Australia"
-    @trip_advisor_data = @place.trip_advisor_info
 
-    view = if @place.is_area?
-      @set_body_class = "destination-page"
-      "area"
-    else
-      @set_body_class = "thing-page dismiss-mega-menu-search"
-      "place"
-    end
+    @fun_facts = @place.fun_facts
+    @set_body_class = (@place.display_name == "Virgin Australia") ? "virgin-body" : "destination-page"
 
     respond_to do |format|
-      format.html { render view, :layout => !request.xhr? }
+      format.html #{ render view, :layout => !request.xhr? }
       format.json { render json: @place }
     end
-
   end
 
   def paginate_photos
     @place = Place.find_by_slug(params[:id])
-    active_user_photos = @place.user_photos.active
-    @photos = (@place.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
+    @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 4)
   end
 
   def paginate_deals
     @place = Place.find_by_slug(params[:id])
-    @deals = @place.deals.active.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
+    @deals = @place.deals.active.paginate(:page => params[:active_photos], per_page: 4)
   end
 
   def paginate_videos
@@ -371,38 +308,9 @@ class PlacesController < ApplicationController
     @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page: 4)
   end
 
-  def paginate_more_places
-    @place = Place.find_by_slug(params[:id])
-    if @place.parent_id.blank?
-      if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(country_id: @place.country_id)
-      else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id)
-      end
-    else
-      if @place.primary_category.present? && @place.primary_category.id == 2
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
-      else
-        @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
-      end
-    end
-
-    @more_places = @more_places.sort do |x, y|
-      y.videos.size <=> x.videos.size
-    end
-
-    @more_places = @more_places.paginate(page: params[:more_places_page], per_page: 6 )
-  end
-
   def paginate_place_to_visit
     @place = Place.find_by_slug(params[:id])
-    @places_to_visit = @place.children.active
-
-    @places_to_visit = @places_to_visit.sort do |x, y|
-      y.videos.size <=> x.videos.size
-    end
-
-    @places_to_visit = @place.children.paginate( page: params[:places_to_visit_page], per_page: 6 )
+    @places_to_visit = @place.places_to_visits.paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   def paginate_reviews
@@ -412,9 +320,7 @@ class PlacesController < ApplicationController
 
   def paginate_stories
     @place = Place.find_by_slug(params[:id])
-    @stories = @place.posts.active
-    @stories += @place.stories.active
-    @stories = @stories.sort{|x, y| x.created_at <=> y.created_at}.reverse.paginate(page: params[:stories_page], per_page: 4)
+    @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
   end
 
   def transfer_assets
@@ -848,22 +754,27 @@ class PlacesController < ApplicationController
         :seo_title,
         :focus_keyword,
         parent_attributes: [:parentable_id, :parentable_type],
-        photos_attributes: [:id, :place_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-        videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
+        photos_attributes: [:id, :place_id, :photoable_id, :photoable_type, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
         fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
-        three_d_videos_attributes: [:link, :caption, :place_id],
+        three_d_videos_attributes: [:link, :caption, :place_id, :three_d_videoable_id, :three_d_videoable_type],
         category_ids: [],
         subcategory_ids: [],
         similar_place_ids: [])
     end
 
     def find_place_by_slug
-      # @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
-      @place = Place.friendly.find(params[:id])
-      if request.path != place_path(@place)
-        return redirect_to @place, :status => :moved_permanently
+      @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).friendly.find(params[:id])
+      
+      if @place.is_area
+        if request.path != place_path(@place)
+          return redirect_to @place, :status => :moved_permanently
+        end
+      else
+        @attraction = Attraction.includes(:quality_average, :subcategories, :similar_attractions => :similar_attraction).friendly.find(params[:id])
+        return redirect_to @attraction, :status => :moved_permanently
       end
     end
 end

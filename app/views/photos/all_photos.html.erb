@@ -1,6 +1,8 @@
+<% variable = @place.blank? ? @attraction : @place %>
+<% path = (variable.eql? @place)? 'place' : 'attraction' %>
 <div class="container">
   <h3>Photos</h3>
-  <%= link_to "Back To Edit #{@place.display_name}", edit_place_path(@place)%>
+  <%= link_to "Back To Edit #{variable.display_name}", eval("edit_#{path}_path(variable)") %>
   <div class="row">
     <% @photos.each do |photo| %>
       <div class="col-md-3">

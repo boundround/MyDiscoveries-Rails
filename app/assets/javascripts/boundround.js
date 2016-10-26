@@ -353,22 +353,24 @@ $(document).ready(function() {
       }, 60000);
     }
 
-    $(function() {
-        $('.content-editable').mediumInsert({
-            editor: content_editable,
-            addons: {
-                images: {
-                    deleteScript: '/users/resolvejs',
-                    fileUploadOptions: {
-
-
-                        url: '/users/resolvejs',
-                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-                    }
-                }
+  $(function() {
+    var storyData = document.querySelector('#edit-story-page');
+    if (storyData) {
+      var storyId = storyData.dataset.storyId;
+      $('.content-editable').mediumInsert({
+        editor: content_editable,
+        addons: {
+          images: {
+            deleteScript: '/stories/' + storyId + '/delete_image',
+            fileUploadOptions: {
+              url: '/stories/' + storyId + '/upload_image',
+              acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
             }
-        });
-    });
+          }
+        }
+      });
+    }
+  });
 
     $("#submit_story").click(function(event) {
         content = $(".content-editable")

@@ -18,8 +18,15 @@ class VideosController < ApplicationController
   end
 
   def all
-    @place = Place.friendly.find(params[:place_id])
-    @videos = @place.videos
+    if params[:place_id]
+      @place = Place.friendly.find(params[:place_id])
+      variable = @place
+    elsif params[:attraction_id]
+      @attraction = Attraction.friendly.find(params[:attraction_id])
+      variable = @attraction
+    end
+
+    @videos = variable.videos
   end
 
   def show
@@ -108,7 +115,7 @@ class VideosController < ApplicationController
   private
 
     def video_params
-      params.require(:video).permit(:vimeo_id, :area_id, :transcript, :youtube_id, :title, :hero, :description, :place_id, :priority, :vimeo_thumbnail, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy, :youtube_id)
+      params.require(:video).permit(:vimeo_id, :area_id, :transcript, :youtube_id, :title, :hero, :description, :place_id, :attraction_id, :videoable_id, :videoable_type, :priority, :vimeo_thumbnail, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy, :youtube_id)
     end
 
 end

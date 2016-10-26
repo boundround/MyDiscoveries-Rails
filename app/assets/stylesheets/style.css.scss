@@ -1941,3 +1941,35 @@ input.more-result{
       padding-top: 80px;
     }
 }
+.single-pagination-loader img{
+	margin-top: 40px;
+}
+@media(max-width: 500px){
+	#stories .story{
+		margin: 0;
+	}
+	.story-wrapper .story .story-content{
+		height: 300px !important;
+	}
+	
+}
+@media (max-width: 767px){
+	.mega-menu .menu-bar .menu-items {
+		margin-right: 15px;
+	}
+	#stories h3{
+		padding-left: 30px;
+	}
+}
+.navigation-wrapper{
+	position: relative;
+}
+#menu-opened, #menu-closed{
+	margin: 0;
+}
+.load-more{
+	margin: 50px;			
+}
+.story-content{
+	overflow: hidden;
+}

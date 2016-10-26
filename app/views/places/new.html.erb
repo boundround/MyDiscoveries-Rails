@@ -40,7 +40,7 @@
       </div>
       <hr>
       <div>
-          <%= f.check_box :is_area, label: false %>&nbsp;Is this an area?<br>
+          <%= f.hidden_field :is_area, value: true %>
           <%= f.check_box :footer_include, label: false %>&nbsp;Include In Footer?
       </div>
       <hr>
@@ -69,7 +69,7 @@
         <%= radio_button_tag 'parentable_chose', 'country', false %> Country &nbsp;&nbsp;
         <%= radio_button_tag 'parentable_chose', 'place', true %> Place
         <br>
-        <%= f.fields_for :child_item do |fc| %>
+        <%= f.fields_for :parent, (@place.childrens.new()) do |fc| %>
           <div id='chosen_country' style="display:none;">
             <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
             <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_country', value: "Country") %>

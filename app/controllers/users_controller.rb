@@ -12,18 +12,9 @@ class UsersController < ApplicationController
 
   def show
     @set_body_class = 'br_tab'
-    @active_points = true
 
     verify_current_user
 
-    @leaders = PointsBalance.order(balance: :desc).includes(:user).limit(20)
-    @leaderboard = []
-    @leaders.each do |leader|
-      unless leader.user.roles.length > 0 || leader.user.admin
-        @leaderboard.push leader
-      end
-    end
-    @leaderboard = @leaderboard[0..3]
     @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
     @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
 
@@ -164,8 +155,6 @@ class UsersController < ApplicationController
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
   end
-
-  def resolvejs;end
 
   def reviews
     if user_signed_in? || current_user.admin?

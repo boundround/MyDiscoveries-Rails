@@ -28,7 +28,6 @@ module API
 
 				desc "POST new Transaction"
 				post do
-					debugger
 					transaction = context_resource
 
 					if transaction.save

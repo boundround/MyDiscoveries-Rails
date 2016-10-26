@@ -28,9 +28,12 @@ Rails.application.routes.draw do
 
   resources :stories do
     collection { get 'paginate' }
-    member { get 'paginate_place'}
-    member { get 'paginate_place_to_visit'}
-    member { get 'seo_analysis' }
+    member do
+      get 'seo_analysis'
+      get 'paginate_place_to_visit'
+      post :upload_image
+      post :delete_image
+    end
     resources :places, controller: :places_stories
     resources :countries, controller: :countries_stories
     resources :subcategories, controller: :stories_subcategories
@@ -119,6 +122,8 @@ Rails.application.routes.draw do
   post 'photos_users/destroy' => 'photos_users#destroy'
   post 'places_users/create' => 'places_users#create'
   post 'places_users/destroy' => 'places_users#destroy'
+  post 'attractions_users/create' => 'attractions_users#create'
+  post 'attractions_users/destroy' => 'attractions_users#destroy'
   post 'games_users/create' => 'games_users#create'
   post 'games_users/destroy' => 'games_users#destroy'
   post 'videos_users/create' => 'videos_users#create'
@@ -167,7 +172,6 @@ Rails.application.routes.draw do
 
   resources :users do
     collection { get 'leaderboard' }
-    collection { post 'resolvejs'}
     member { get 'paginate_stories'}
     member { get 'favourites' }
     member { get 'paginate_reviews' }
@@ -185,6 +189,7 @@ Rails.application.routes.draw do
   resources :photos do
     collection { post :import }
     member { put 'place_update' }
+    member { put 'attraction_update' }
   end
 
   resources :videos do
@@ -354,9 +359,35 @@ Rails.application.routes.draw do
     collection { post :import_subcategories }
   end
 
+  resources :attractions do
+    member { get 'choose_hero', as: :choose_hero }
+    resources :photos do
+      collection { get 'all_photos' }
+    end
+    resources :videos do
+      collection { get 'all' }
+    end
+    member { get 'paginate_more_attractions'}
+    member { get 'paginate_videos', as: :paginate_videos}
+    member { get 'paginate_photos', as: :paginate_photos}
+    member { get 'paginate_reviews'}
+    member { get 'paginate_stories'}
+    member { get 'paginate_deals'}
+    resources :reviews
+    resources :user_photos
+    resources :three_d_videos
+    resources :similar_attractions
+    resources :good_to_knows
+    resources :deals
+    collection { post :import }
+    collection { post :import_update }
+    collection { post :import_subcategories }
+  end
+
   resources :deals
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
+  get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'
   post 'search_requests/create'
 
   match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]

@@ -29,6 +29,7 @@
         <div class="mega-menu">
             <div class="menu-bar">
                 <div class="container">
+                    <div class="row">
                     <a href="<%= root_path %>">
                         <img class="logo" src="<%= asset_path('navbar-logo.png') %>"/>
                     </a>
@@ -103,9 +104,9 @@
                         <% end %>
 
                     </div>
+                    </div>
                 </div>
             </div>
-            <% cache("nav_bar_places", :expires_in => 12.hours) do %>
             <div class="places-to-go hide">
                 <div class="container">
                     <div class="row">
@@ -188,7 +189,6 @@
                     </div>
                 </div>
             </div>
-            <% end %>
         </div>
     </div>
 </div>

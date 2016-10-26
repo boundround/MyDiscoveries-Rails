@@ -197,6 +197,9 @@ class Post < ActiveRecord::Base
   has_many :places_posts
   has_many :places, through: :places_posts
 
+  has_many :attractions_posts
+  has_many :posts, through: :attractions_posts
+
   has_many :posts_users
   has_many :users, through: :posts_users
 

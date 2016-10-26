@@ -3,7 +3,7 @@ class Place < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake
 
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
@@ -172,7 +172,7 @@ class Place < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|place| place.display_name rescue ''}
+      self.get_parents(self).map {|place| place.display_name rescue ''} unless !self.run_rake.blank?
     end
 
     attribute :accessible do
@@ -285,8 +285,8 @@ class Place < ActiveRecord::Base
   has_many :similar_places
   has_many :associated_areas, through: :similar_places, source: :similar_place
   has_many :subcategories, through: :places_subcategories
-  has_many :photos, -> { order "created_at ASC"}
-  has_many :videos, -> { order "created_at ASC"}
+  has_many :photos, -> { order "created_at ASC"}, as: :photoable
+  has_many :videos, -> { order "created_at ASC"}, as: :videoable
   has_many :fun_facts, -> { order "created_at ASC"}
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
@@ -308,7 +308,7 @@ class Place < ActiveRecord::Base
   has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable
 
-  has_many :three_d_videos
+  has_many :three_d_videos, as: :three_d_videoable
 
   has_many :stamps
 
@@ -525,10 +525,6 @@ class Place < ActiveRecord::Base
     end
   end
 
-  def nerate_new_friendly_id?
-    display_name_changed? || super
-  end
-
   def check_valid_url
     if self.website
       unless website.match(/^(http:\/\/)/i) || website.match(/^(https:\/\/)/i)
@@ -556,42 +552,56 @@ class Place < ActiveRecord::Base
 
   def slug_candidates
     country = self.country
-    # primary_area = self.parent if !self.parent.blank?
-    # primary_area = self.parent.parentable if !self.parent.blank?
     g_parent = get_parents(self, parents = [])
     p_display_name = g_parent.collect{ |parent| parent.display_name }
 
-    unless p_display_name.blank?
-      primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
-    end
-    if is_area == true
-      "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
+    if p_display_name.blank?
+      ["things to do with kids and families #{self.display_name}", :post_code]
     else
-      [ 
-        # "things to do with kids and families #{country.display_name rescue ""} #{primary_area_display_name rescue ""} #{self.display_name}",
-        "things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}",
-        ["things to do with kids and families #{primary_area_display_name rescue ""} #{self.display_name}", :post_code]
-      ]
+      primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
+      ["things to do with kids and families #{primary_area_display_name} #{self.display_name}", :post_code]
     end
   end
 
   def get_parents(place, parents = [])
-    if place.parent.blank?
-      if !place.country.blank?
-        parents << place.country
-        return parents
+    unless !self.run_rake.blank?
+      if place.parent.blank? || place.parent.parentable == self
+        if !place.country.blank?
+          parents << place.country
+          return parents
+        else
+          return parents
+        end
       else
-        return parents
-      end
-    else
-      parents << place.parent.parentable
-      if place.parent.parentable.class.to_s.eql? "Country"
-        parents << place.country
-        return parents
-      else
-        get_parents(place.parent.parentable, parents)
+        parents << place.parent.parentable
+        if place.parent.parentable.class.to_s.eql? "Country"
+          parents << place.country
+          return parents
+        else
+          get_parents(place.parent.parentable, parents)
+        end
       end
     end
+  end
+
+  def places_to_visits
+    places_to_visit = self.children.active
+    places_to_visit = places_to_visit.sort do |x, y|
+      y.videos.size <=> x.videos.size
+    end
+  end
+
+  def place_stories
+    stories = self.posts.active
+    stories += self.stories.active
+    stories = stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse
+  end
+
+  def active_user_photos
+    active_user_photos = self.user_photos.active
+    photos = (self.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}
+
+    return photos
   end
 
   def publish
@@ -640,14 +650,20 @@ class Place < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
+    unless !self.run_rake.blank?
+      if self.parent.blank?
+        slug.blank? || display_name_changed? || self.country_id_changed?
+      else
+        slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
+      end
+    end
   end
 
   def trip_advisor_info
     body = nil
     trip_advisor_id = nil
     if trip_advisor_url.present?
-      trip_advisor_id = trip_advisor_url.match(/(.*)(d[0-9]+)(.*)/)[2].gsub("d", "")
+      trip_advisor_id = trip_advisor_url.match(/(.*)(d[0-9]+)(.*)/)[2].gsub("d", "") if trip_advisor_url.match(/(.*)(d[0-9]+)(.*)/)
     end
     if trip_advisor_id
       response = HTTParty.get("http://api.tripadvisor.com/api/partner/2.0/location/#{trip_advisor_id}?key=6cd1112100c1424a9368e441f50cb642")

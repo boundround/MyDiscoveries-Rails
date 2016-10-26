@@ -15,9 +15,12 @@ function addToFav(assetType) {
           case "post":
             data["posts_user"] = { user_id: userId, post_id: placeId };
             break;
-            case "story":
-              data["stories_user"] = { user_id: userId, story_id: placeId };
-              break;
+          case "story":
+            data["stories_user"] = { user_id: userId, story_id: placeId };
+            break;
+          case "attraction":
+            data["attractions_user"] = { user_id: userId, attraction_id: placeId };
+            break;
         }
 
         if (userId === "no-user") {
@@ -190,10 +193,20 @@ function chooseHero() {
         var type = $(this).data("type");
         place_id = $(this).data("place");
         photo_id = $(this).data("photo");
-        if (type) {
-            window.location = '/places/' + place_id + '/update_hero/' + type + '/' + photo_id
+        data_from = $(this).data("from");
+
+        if (data_from == 'attraction'){
+            if (type) {
+                window.location = '/attractions/' + place_id + '/update_hero/' + type + '/' + photo_id
+            } else {
+                alert("choose another image");
+            }
         } else {
-            alert("choose another image");
+            if (type) {
+                window.location = '/places/' + place_id + '/update_hero/' + type + '/' + photo_id
+            } else {
+                alert("choose another image");
+            }
         }
     });
 

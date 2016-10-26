@@ -1,4 +1,4 @@
-
+<% variable = (controller_name.eql? 'attractions') ? @attraction : @place %>
 <!-- MODAL LEAVE REVIEW -->
 <div id="ReviewModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-margin-top">
@@ -6,18 +6,18 @@
       <div class="modal-header">
         <button type="button" class="close close-modal-orange" data-dismiss="modal">&times;</button>
         <h3 class="modal-title" align="center">Add a review</h3>
-        <h4 class="modal-title font-orange2" align="center"><%= @place.display_name rescue "" %></h4>
+        <h4 class="modal-title font-orange2" align="center"><%= variable.display_name rescue "" %></h4>
       </div>
       <div class="modal-body" align="center">
          <p align="left" class="btm10">Your rating</p>
 
          <div class="row row-border-review top10">
            <div class="col-xs-12 col-sm-12">
-            <div class="star-place" data-classname="<%= @place.class.to_s %>" data-id="<%= @place.id %>" data-dimension="quality" >
+            <div class="star-place" data-classname="<%= variable.class.to_s %>" data-id="<%= variable.id %>" data-dimension="quality" >
             </div>
            </div>
          </div>
-        <%= simple_form_for [@place, @review.blank?? @place.reviews.new : @review ], remote: true do |f| %>
+        <%= simple_form_for [variable, @review.blank?? variable.reviews.new : @review ], remote: true do |f| %>
             <%= f.input :user_id, as: :hidden, :input_html => { :value => (current_user.id if user_signed_in?) } %>
             <%= f.input :status, as: :hidden, :input_html => { :value => "draft" } %>
          <div class="form-group top20">
@@ -33,7 +33,7 @@
                 <div class="left">
                 <% if user_signed_in? %>
                   <div class="profile-outer style-bg-transparent">
-                      <img src="<%= showing_image(current_user.avatar_url)%>" alt="">
+                      <img src="<%= showing_image(current_user.avatar_url || asset_path('generic-hero-small.jpg'))%>" alt="">
                   </div>
                   <div class="profile-text style-bg-transparent grey">
                     <%= current_user.name %>
