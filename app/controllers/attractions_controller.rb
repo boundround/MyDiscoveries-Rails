@@ -2,6 +2,7 @@ require 'will_paginate/array'
 class AttractionsController < ApplicationController
   before_action :set_cache_control_headers, only: [:index, :show]
   before_action :set_attraction, only: [:show]
+  before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
 
   def index
     @attractions = Attraction.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :slug, :top_100, :parent_id).where.not(status: "removed")

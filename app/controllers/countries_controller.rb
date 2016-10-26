@@ -1,6 +1,7 @@
 class CountriesController < ApplicationController
   before_action :set_cache_control_headers, only: [:index, :show]
   before_action :find_country_by_slug, only: [:show]
+  before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
 
   def index
     @countries = Country.all

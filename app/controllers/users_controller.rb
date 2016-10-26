@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index, :draft_content]
   before_action :set_user, only: [:show, :public_profile, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews]
+  before_action :check_user_authorization, only: [:index, :show]
 
   def index
     @set_body_class = 'white-body'

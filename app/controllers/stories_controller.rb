@@ -1,14 +1,13 @@
 class StoriesController < ApplicationController
   before_action :find_story_by_slug, only: [:show]
+  before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
 
   def index
     @stories = Story.all
   end
 
   def show
-
     @story = Story.find_by_slug(params[:id])
-
     @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
     story_places = @story.places
     story_places_parents = @story.places.each {|place| place.get_parents(place) }

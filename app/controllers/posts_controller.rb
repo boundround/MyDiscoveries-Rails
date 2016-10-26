@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
+  
   def create
     @post = Post.new(post_params)
 
