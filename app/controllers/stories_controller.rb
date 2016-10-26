@@ -9,16 +9,12 @@ class StoriesController < ApplicationController
   def show
     @story = Story.find_by_slug(params[:id])
     @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
-    story_places = @story.places
-    story_places_parents = @story.places.each {|place| place.get_parents(place) }
-    @places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name).paginate( page: params[:places_to_visit_page], per_page: 6 )
+    @places_to_visit = @story.story_place_to_visit.paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   def paginate_place
     @story = Story.find_by_slug(params[:id])
-    story_places = @story.places
-    story_places_parents = @story.places.each {|place| place.get_parents(place) }
-    @places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name).paginate( page: params[:places_to_visit_page], per_page: 6 )
+    @places_to_visit = @story.story_place_to_visit.paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   def destroy
@@ -65,7 +61,7 @@ class StoriesController < ApplicationController
   def update
     @story = Story.friendly.find params[:id]
     authorize @story
-    
+
     respond_to do |format|
       if @story.update(story_params)
         format.json do render json: @story

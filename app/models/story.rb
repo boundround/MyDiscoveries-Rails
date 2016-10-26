@@ -311,6 +311,14 @@ class Story < ActiveRecord::Base
     Story.includes(:user).where(id: ids).order(:created_at)
   end
 
+  def story_place_to_visit
+    story_places = self.places
+    story_places_parents = self.places.each {|place| place.get_parents(place) }
+    places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name)
+    
+    return places_to_visit
+  end
+
   protected
 
     def determine_age_bracket

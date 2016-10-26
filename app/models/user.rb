@@ -110,4 +110,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  def user_stories
+    stories = self.posts
+    stories += self.stories
+  end
+
 end
