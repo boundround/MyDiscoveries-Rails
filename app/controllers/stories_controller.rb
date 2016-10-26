@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   before_action :find_story_by_slug, only: [:show]
-  before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
+  before_action :check_user_authorization, only: [:index, :create, :new]
 
   def index
     @stories = Story.all
@@ -23,6 +23,8 @@ class StoriesController < ApplicationController
 
   def destroy
     @story = Story.find_by_slug(params[:id])
+    authorize @story
+
    if @story.destroy
       redirect_to  :back, notice: "Success"
    end
@@ -62,6 +64,8 @@ class StoriesController < ApplicationController
 
   def update
     @story = Story.friendly.find params[:id]
+    authorize @story
+    
     respond_to do |format|
       if @story.update(story_params)
         format.json do render json: @story
@@ -78,6 +82,7 @@ class StoriesController < ApplicationController
 
   def edit
     @story = Story.find_by_slug(params[:id])
+    authorize @story
   end
 
   def upload_image

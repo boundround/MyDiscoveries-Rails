@@ -15,17 +15,17 @@ class StoryPolicy < ApplicationPolicy
   def new?
     index?
   end
-
-  def update?
-    index?
+  
+  def edit?
+    user.id == record.user_id
   end
 
-  def edit?
-    index?
+  def update?
+    edit?
   end
 
   def destroy?
-    index?
+    edit?
   end
 
 end
