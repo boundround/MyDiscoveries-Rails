@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161027181059) do
+ActiveRecord::Schema.define(version: 20161027184305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20161027181059) do
     t.string   "hero_image"
     t.string   "bound_round_place_id"
     t.boolean  "is_area",                   default: false
-    t.text     "short_description"
+    t.text     "meta_description"
     t.string   "weather_conditions"
     t.integer  "minimum_age"
     t.integer  "maximum_age"
@@ -593,7 +593,7 @@ ActiveRecord::Schema.define(version: 20161027181059) do
     t.string   "hero_image"
     t.string   "bound_round_place_id"
     t.boolean  "is_area",                   default: false
-    t.text     "short_description"
+    t.text     "meta_description"
     t.string   "weather_conditions"
     t.integer  "primary_category_id"
     t.integer  "minimum_age"

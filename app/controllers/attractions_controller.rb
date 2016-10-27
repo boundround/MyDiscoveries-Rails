@@ -231,7 +231,7 @@ class AttractionsController < ApplicationController
         :approved_at,
         :country_id,
         :bound_round_place_id,
-        :short_description,
+        :meta_description,
         :primary_category_id,
         :passport_icon,
         :address,

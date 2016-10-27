@@ -8,6 +8,7 @@
         <th>Place</th>
         <th>Parent</th>
         <th>Word Count</th>
+        <th>SEO Rating</th>
         <th>Edit Link</th>
         <th>Subscription Level</th>
         <th>Status</th>
@@ -19,6 +20,7 @@
           <th>Place</th>
           <th>Parent</th>
           <th>Word Count</th>
+          <td>SEO Rating</td>
           <th></th>
           <th>Subscription Level</th>
           <th>Status</th>
@@ -31,6 +33,7 @@
             <td><%= link_to "#{place.display_name} || #{place.id}", edit_place_path(place) %></td>
             <td><%= place.parent.present? ? place.parent.parentable.display_name : "No Parent" %></td>
             <td><%= place.description.blank? ? 0 : (place.description.size / 6) %></td>
+            <td><%= link_to place.seo_complete_percentage, seo_analysis_place_path(place) %></td>
             <td><%= link_to "Edit Place", edit_place_path(place), target: "_blank" %></td>
             <td><%= place.subscription_level %></td>
             <td><%= place.status %></td>

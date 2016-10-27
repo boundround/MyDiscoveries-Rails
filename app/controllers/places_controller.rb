@@ -165,17 +165,6 @@ class PlacesController < ApplicationController
       respond_to do |format|
         format.json { render json: @place }
         format.html do
-          @place.photos.each do |photo|
-            photo.add_or_remove_from_country(@place.country)
-          end
-
-          @place.videos.each do |video|
-            video.add_or_remove_from_country(@place.country)
-          end
-
-          @place.fun_facts.each do |fun_fact|
-            fun_fact.add_or_remove_from_country(@place.country)
-          end
           redirect_to edit_place_path(@place), notice: 'Place succesfully updated'
         end
       end
@@ -734,7 +723,7 @@ class PlacesController < ApplicationController
         :approved_at,
         :country_id,
         :bound_round_place_id,
-        :short_description,
+        :meta_description,
         :primary_category_id,
         :passport_icon,
         :address,
@@ -757,7 +746,6 @@ class PlacesController < ApplicationController
         :trip_advisor_url,
         :seo_title,
         :focus_keyword,
-        :meta_description,
         parent_attributes: [:parentable_id, :parentable_type],
         photos_attributes: [:id, :place_id, :photoable_id, :photoable_type, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],

@@ -164,12 +164,12 @@ $(document).ready(function(){
     });
   }
 
-  if (document.querySelector('#place_short_description')){
-    countChars('#place_short_description', '#shortDescriptionCharCount');
+  if (document.querySelector('#place_meta_description')){
+    countChars('#place_meta_description', '#shortDescriptionCharCount');
     countChars('#place_description', '#descriptionCharCount');
 
-    $('#place_short_description').on('keyup', function(){
-      countChars('#place_short_description', '#shortDescriptionCharCount');
+    $('#place_meta_description').on('keyup', function(){
+      countChars('#place_meta_description', '#shortDescriptionCharCount');
     });
 
     setTimeout(function(){
@@ -181,12 +181,12 @@ $(document).ready(function(){
     }, 1000);
   }
 
-  if (document.querySelector('#attraction_short_description')){
-    countChars('#attraction_short_description', '#shortDescriptionCharCount');
+  if (document.querySelector('#attraction_meta_description')){
+    countChars('#attraction_meta_description', '#shortDescriptionCharCount');
     countChars('#attraction_description', '#descriptionCharCount');
 
-    $('#attraction_short_description').on('keyup', function(){
-      countChars('#attraction_short_description', '#shortDescriptionCharCount');
+    $('#attraction_meta_description').on('keyup', function(){
+      countChars('#attraction_meta_description', '#shortDescriptionCharCount');
     });
 
     setTimeout(function(){

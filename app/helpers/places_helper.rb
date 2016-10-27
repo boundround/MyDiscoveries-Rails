@@ -33,9 +33,9 @@ module PlacesHelper
   end
 
   def provide_meta_description_for(place)
-    if place.short_description.present?
-      place.short_description
-    elsif place.short_description.blank? && place.description.present?
+    if place.meta_description.present?
+      place.meta_description
+    elsif place.meta_description.blank? && place.description.present?
       place.description[0..280]
     else
       ""

@@ -431,7 +431,7 @@ class Attraction < ActiveRecord::Base
   end
 
   def meta_description
-    short_description
+    meta_description
   end
 
   def content

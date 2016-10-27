@@ -248,7 +248,7 @@ class Place < ActiveRecord::Base
   # after_validation :reverse_geocode
 
   after_update :crop_hero_image
-  before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_short_description
+  before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_meta_description
   after_create :create_bound_round_id
 
   has_paper_trail
@@ -679,14 +679,10 @@ class Place < ActiveRecord::Base
     body
   end
 
-  def autofill_short_description
-    if self.description.present? && self.short_description.blank?
-      self.short_description = self.description[0..254]
+  def autofill_meta_description
+    if self.description.present? && self.meta_description.blank?
+      self.meta_description = self.description[0..254]
     end
-  end
-
-  def meta_description
-    short_description
   end
 
   def content

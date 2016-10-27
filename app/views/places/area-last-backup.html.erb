@@ -1,7 +1,7 @@
 <!-- last area view (is area true) before split with attraction -->
 <% provide(:title, @place.display_name) %>
 <% category = @place.categories.first.identifier rescue "default"%>
-<% provide(:description, @place.short_description ? @place.short_description : @place.description) %>
+<% provide(:description, @place.meta_description ? @place.meta_description : @place.description) %>
 <% provide(:og_image, open_graph_image.gsub("https://", "http://")) %>
 <% provide(:og_secure_image, open_graph_image) %>
 
