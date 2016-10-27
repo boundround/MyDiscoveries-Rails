@@ -3,7 +3,6 @@ module SearchOptimizable
 
   def all_text
     text = Nokogiri::HTML.parse(self.content).xpath("//text()").to_s.split(" ").join(" ").downcase
-    text = text.xpath("//text()").to_s
   end
 
   def get_keyword_density
@@ -11,7 +10,7 @@ module SearchOptimizable
     return "No Focus Keyword" if focus_keyword.blank?
     return "No Content" if text.blank?
 
-    if text.include? text
+    if text.include? focus_keyword.downcase
       calculate_keyword_density
     else
       return "0"
@@ -19,15 +18,20 @@ module SearchOptimizable
 
   end
 
-  def calculate_keyword_density
-    text_array = all_text.downcase.split(" ")
+  def keyword_count
+    text_array = all_text.split(" ")
     text = text_array.join(" ")
-    keyword_multiplier = focus_keyword.split("").size
-    numer_of_total_words = text_array.size
+    text.scan(/#{focus_keyword.downcase}/).length
+  end
 
+  def word_count
+    all_text.split(" ").size
+  end
 
+  def calculate_keyword_density
+    (keyword_count.to_f / word_count)
   end
 end
 
 
-text = Nokogiri::HTML.parse(s.content).xpath("//text()").to_s.split(" ").join(" ").downcase
+# text = Nokogiri::HTML.parse(s.content).xpath("//text()").to_s.split(" ").join(" ").downcase

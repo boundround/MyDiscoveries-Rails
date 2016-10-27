@@ -2,6 +2,7 @@ class Story < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
   include Searchable
+  include SearchOptimizable
 
   friendly_id :slug_candidates, :use => [:slugged, :history]
   # after_update :send_live_notification
@@ -193,7 +194,7 @@ class Story < ActiveRecord::Base
 
   has_many :attractions_stories
   has_many :attractions, through: :attractions_stories
-  
+
   has_many :stories_subcategories
   has_many :subcategories, through: :stories_subcategories
 

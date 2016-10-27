@@ -533,11 +533,8 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.boolean  "hero"
     t.boolean  "country_hero"
     t.integer  "attraction_id"
-<<<<<<< HEAD
-=======
     t.integer  "photoable_id"
     t.string   "photoable_type"
->>>>>>> test
   end
 
   add_index "photos", ["caption"], name: "index_photos_on_caption", using: :btree
@@ -954,11 +951,8 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "attraction_id"
-<<<<<<< HEAD
-=======
     t.integer  "three_d_videoable_id"
     t.string   "three_d_videoable_type"
->>>>>>> test
   end
 
   add_index "three_d_videos", ["place_id"], name: "index_three_d_videos_on_place_id", using: :btree
@@ -1104,11 +1098,8 @@ ActiveRecord::Schema.define(version: 20161021092744) do
     t.string   "youtube_id",        default: ""
     t.text     "transcript"
     t.integer  "attraction_id"
-<<<<<<< HEAD
-=======
     t.integer  "videoable_id"
     t.string   "videoable_type"
->>>>>>> test
   end
 
   add_index "videos", ["area_id"], name: "index_videos_on_area_id", using: :btree

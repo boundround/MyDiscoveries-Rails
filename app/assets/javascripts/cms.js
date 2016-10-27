@@ -197,4 +197,20 @@ $(document).ready(function(){
       });
     }, 1000);
   }
+  function countChars(countfrom,displayto) {
+    var len = document.getElementById(countfrom).value.length;
+    document.getElementById(displayto).innerHTML = len;
+  }
+
+  if (document.querySelector('#seo-title')){
+    countChars("seo-title", "seo-title-count");
+    countChars("meta-description", "meta-description-count");
+    $("#seo-title").on("keyup", function(){
+      countChars("seo-title", "seo-title-count");
+    });
+
+    $("#meta-description").on("keyup", function(){
+      countChars("meta-description", "meta-description-count");
+    });
+  }
 });
