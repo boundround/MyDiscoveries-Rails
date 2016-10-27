@@ -2,6 +2,14 @@ body.passport-page, body.homepage{
 	background: #eaeaea ;
 }
 
+.red-text {
+	color: red;
+}
+
+.green-text {
+	color: green;
+}
+
 .rip-active {
 	color: black;
 	width: 100%;
@@ -1951,7 +1959,7 @@ input.more-result{
 	.story-wrapper .story .story-content{
 		height: 300px !important;
 	}
-	
+
 }
 @media (max-width: 767px){
 	.mega-menu .menu-bar .menu-items {
@@ -1968,7 +1976,7 @@ input.more-result{
 	margin: 0;
 }
 .load-more{
-	margin: 50px;			
+	margin: 50px;
 }
 .story-content{
 	overflow: hidden;

@@ -313,30 +313,32 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   resources :places do
-    member { get 'preview' }
-    member { get 'stamp_confirmation' }
-    member { get 'choose_hero', as: :choose_hero }
-    member { get 'paginate_videos', as: :paginate_videos}
-    member { get 'paginate_photos', as: :paginate_photos}
-    member { get 'paginate_reviews'}
-    member { get 'paginate_more_places'}
-    member { get 'paginate_place_to_visit'}
-    member { get 'paginate_stories'}
-    member { get 'paginate_deals'}
-    collection { get 'places_with_subcategories'}
-    collection { get 'areas_with_subcategories'}
-    # member { get 'new_story' }
-    # member { get 'new_story' => 'stories#new_story'}
-    # member { post 'create' => 'stories#create_story', as: :create_story}
-    # member { get 'stories/:story_id/edit_story' => 'stories#edit_story', as: :edit_story }
-    # member { post 'update_story/:story_id' => 'stories#update_story', as: :update_story}
-    # collection { delete 'stories/:story_id' => 'stories#new_destroy', as: :delete_new_story}
-    # member { get 'stamp_error' }
-    member { get 'hero_image_picker'}
-    collection { get 'all_edited'} # all place content in draft
-    collection { get 'user_created'} # all place content in draft
-    collection { get 'merge'}
-    collection { get 'edit_parents'}
+    member do
+      get 'preview'
+      get 'stamp_confirmation'
+      get 'choose_hero', as: :choose_hero
+      get 'paginate_videos', as: :paginate_videos
+      get 'paginate_photos', as: :paginate_photos
+      get 'paginate_reviews'
+      get 'paginate_more_places'
+      get 'paginate_place_to_visit'
+      get 'paginate_stories'
+      get 'paginate_deals'
+      get 'hero_image_picker'
+      get 'seo_analysis'
+    end
+    collection do
+      get 'places_with_subcategories'
+      get 'areas_with_subcategories'
+      get 'all_edited'
+      get 'user_created'
+      get 'merge'
+      get 'edit_parents'
+      post :import
+      post :import_update
+      post :import_subcategories
+    end
+
     resources :stamps
     resources :photos do
       collection { get 'all_photos' }
@@ -354,9 +356,6 @@ Rails.application.routes.draw do
     resources :similar_places
     resources :good_to_knows
     resources :deals
-    collection { post :import }
-    collection { post :import_update }
-    collection { post :import_subcategories }
   end
 
   resources :attractions do

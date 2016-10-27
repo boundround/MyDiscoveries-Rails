@@ -23,7 +23,7 @@ class StoriesController < ApplicationController
   end
 
   def seo_analysis
-    @story = Story.friendly.find(params[:id])
+    @story = @search_optimizable = Story.friendly.find(params[:id])
   end
 
   def destroy

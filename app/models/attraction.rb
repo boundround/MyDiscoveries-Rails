@@ -2,6 +2,7 @@ class Attraction < ActiveRecord::Base
   include Parameterizable
   include AlgoliaSearch
   include Searchable
+  include SearchOptimizable
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake
 
@@ -427,6 +428,14 @@ class Attraction < ActiveRecord::Base
     unless self.run_rake
       slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
     end
+  end
+
+  def meta_description
+    short_description
+  end
+
+  def content
+    description
   end
 
   private

@@ -2,6 +2,7 @@ class Place < ActiveRecord::Base
   include CustomerApprovable
   include AlgoliaSearch
   include Searchable
+  include SearchOptimizable
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake
 
@@ -682,6 +683,14 @@ class Place < ActiveRecord::Base
     if self.description.present? && self.short_description.blank?
       self.short_description = self.description[0..254]
     end
+  end
+
+  def meta_description
+    short_description
+  end
+
+  def content
+    description
   end
 
   private
