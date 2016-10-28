@@ -44,7 +44,6 @@ class SearchSuggestionsController < ApplicationController
     end
 
     def filters
-      debugger
       return @filter if @filter
       @filter= {}
       @filter[:category]= PrimaryCategory.all

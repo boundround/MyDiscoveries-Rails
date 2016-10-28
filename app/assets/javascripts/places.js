@@ -194,7 +194,6 @@ function chooseHero() {
         place_id = $(this).data("place");
         photo_id = $(this).data("photo");
         data_from = $(this).data("from");
-            console.log(data_from)
         
         if (data_from == 'attraction'){
             if (type) {
