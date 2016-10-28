@@ -43,6 +43,10 @@ class Place < ActiveRecord::Base
       end
     end
 
+    attribute :where_destinations do 
+      [self.class.to_s, 'Attraction', 'Story']
+    end
+
     attribute :url do
       Rails.application.routes.url_helpers.place_path(self)
     end
@@ -220,6 +224,7 @@ class Place < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
+      'where_destinations',
     ]
   end
 

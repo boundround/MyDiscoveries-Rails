@@ -37,7 +37,7 @@ $(document).ready(function() {
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
 
-    var INDEX_NAME = 'place_production';
+    var INDEX_NAME = 'place_development';
     var PARAMS = {
         hitsPerPage: 3,
         maxValuesPerFacet: 8,
@@ -48,7 +48,7 @@ $(document).ready(function() {
     var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
     var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
-    var FACETS_ORDER_OF_DISPLAY = ['age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
+    var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
     var FACETS_LABELS = {
         main_category: 'Category',
         age_range: 'Age',
@@ -56,7 +56,8 @@ $(document).ready(function() {
         weather: 'Weather',
         price: 'Price',
         best_time_to_visit: 'Best Time To Visit',
-        accessibility: 'Accessibility'
+        accessibility: 'Accessibility',
+        where_destinations: 'Destinations'
     };
 
     var INSTANT_SEARCH_PARAMS = {
@@ -83,6 +84,8 @@ $(document).ready(function() {
     var hitTemplate = Hogan.compile($('#hit-template').text());
     var hitTemplateHome = Hogan.compile($('#hit-template-home').text());
     var facetTemplate = Hogan.compile($('#facet-template').text());
+    console.log(facetTemplate);
+    console.log('--------');
     var moreResultsTemplateNav = Hogan.compile($('#more-results-template-nav').text());
     var moreResultsTemplateHome = Hogan.compile($('#more-results-template-home').text());
 
@@ -99,6 +102,7 @@ $(document).ready(function() {
         var instantPaginationTemplate = Hogan.compile($('#instant-pagination-template').text());
         var instantfacetTemplate = Hogan.compile($('#instant-facet-template').text());
         var instantNoResultTemplate = Hogan.compile($('#instant-no-result-template').text());
+        console.log(instantfacetTemplate);
     }
 
     function searchCondition(query) {
