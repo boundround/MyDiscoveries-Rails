@@ -268,7 +268,7 @@ class Place < ActiveRecord::Base
   scope :to_be_removed, -> { where('unpublished_at >= ?', Time.now) }
   scope :is_area, -> {where(is_area: true)}
   scope :is_not_area, -> {where(is_area: nil)}
-  scope :primary_areas_with_photos, -> { includes(:photos).where(primary_area: true)}
+  scope :live_places_with_photos, -> { includes(:photos).where(status: "live")}
 
   validates_presence_of :display_name
 
