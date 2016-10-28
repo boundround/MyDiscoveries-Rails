@@ -79,6 +79,7 @@ class StoriesController < ApplicationController
 
   def edit
     @story = Story.find_by_slug(params[:id])
+    @story_photos = @story.photos
   end
 
   def upload_image
@@ -93,6 +94,29 @@ class StoriesController < ApplicationController
     head :ok
   end
 
+   def choose_hero
+    @story = Story.find_by_slug(params[:id])
+    @story_photos = @story.photos
+    @photo = Photo.new
+  end
+
+  def update_hero
+    @story = Story.find(params[:id])
+    photo_id = params[:photo_id]
+
+    @story.photos.each do |photo|
+      if photo.id.to_s.eql? photo_id
+         photo.hero = true
+      else
+        photo.hero = false
+      end
+        photo.save
+    end
+
+    @story.save # needed to update search index
+    redirect_to choose_hero_story_path(@story)
+  end
+
   private
     def set_story
       @story = Story.find_by_slug(params[:id])
@@ -105,7 +129,9 @@ class StoriesController < ApplicationController
     def story_params
       params.require(:story).permit(:content, :title, :user_id, :status, :google_place_id, :storiable_id, :country_id,
                                     :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
-                                    :seo_friendly_url, :primary_category_id, subcategory_ids: [])
+                                    :seo_friendly_url, :primary_category_id, :hero_image, 
+                                    photos_attributes: [:id, :photoable_id, :photoable_type, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+                                    subcategory_ids: [])
     end
 
     def set_story_as_draft

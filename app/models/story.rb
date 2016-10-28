@@ -3,6 +3,7 @@ class Story < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
 
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   friendly_id :slug_candidates, :use => [:slugged, :history]
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
@@ -202,6 +203,8 @@ class Story < ActiveRecord::Base
 
   has_many :story_images, dependent: :destroy
 
+  has_many :photos, -> { order "created_at ASC"}, as: :photoable
+
   scope :active, -> { where(status: "live").where(public: true) }
   scope :draft, -> { where(status: "draft") }
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }
@@ -214,7 +217,10 @@ class Story < ActiveRecord::Base
   validates :content, presence: true
 
   before_update :regenerate_slug
+  after_update :crop_hero_image
   before_save :determine_age_bracket, :check_null_publish_date, :populate_seo_friendly_url
+
+  accepts_nested_attributes_for :photos, allow_destroy: true
 
   def send_live_notification
     places = []
@@ -293,9 +299,9 @@ class Story < ActiveRecord::Base
     end
   end
 
-  def hero_image
-    story_images.first
-  end
+  # def hero_image
+  #   story_images.first
+  # end
 
   def check_null_publish_date
     if publish_date.blank?
@@ -309,6 +315,10 @@ class Story < ActiveRecord::Base
       Story.joins(:places).where(places: { id: places.pluck(:id) }).pluck(:id)
     ].reduce(:+).uniq
     Story.includes(:user).where(id: ids).order(:created_at)
+  end
+
+  def crop_hero_image
+    hero_image.recreate_versions! if crop_x.present?
   end
 
   protected
