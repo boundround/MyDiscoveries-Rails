@@ -20,7 +20,7 @@ class AttractionsController < ApplicationController
     @prices          = (subcategories.blank? || subcategories['price'].blank?) ? [] : subcategories['price']
 
     @good_to_know = @attraction.good_to_knows.limit(6)
-    @more_attractions = @attraction.more_attractions.paginate(page: params[:more_attractions_page], per_page: 6 )
+    @more_attractions = @attraction.siblings.paginate(page: params[:more_attractions_page], per_page: 6 )
     @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: (params[:reviews_page].nil?) ? 6 : 3 )
     @deals = @attraction.deals.active
     @review = Review.new
@@ -38,7 +38,7 @@ class AttractionsController < ApplicationController
 
   def paginate_more_attractions
     @attraction = Attraction.friendly.find(params[:id])
-    @more_attractions = @attraction.more_attractions.paginate(page: params[:more_attractions_page], per_page: 6 )
+    @more_attractions = @attraction.siblings.paginate(page: params[:more_attractions_page], per_page: 6 )
   end
 
   def paginate_videos
@@ -63,7 +63,7 @@ class AttractionsController < ApplicationController
 
   def paginate_stories
     @attraction = Attraction.find_by_slug(params[:id])
-    @stories = @attraction.attraction_stories.paginate(page: params[:stories_page], per_page: 4)  
+    @stories = @attraction.attraction_stories.paginate(page: params[:stories_page], per_page: 4)
   end
 
   def new
@@ -98,7 +98,7 @@ class AttractionsController < ApplicationController
 
   def update
     @attraction = Attraction.friendly.find(params[:id])
-    
+
     if @attraction.update(attraction_params)
       respond_to do |format|
         format.json { render json: @attraction }
