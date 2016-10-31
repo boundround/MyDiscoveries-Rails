@@ -200,6 +200,7 @@ class Attraction < ActiveRecord::Base
     ]
 
     attributesForFaceting [
+      'where_destinations',
       'is_area',
       'main_category',
       'age_range',
@@ -207,7 +208,7 @@ class Attraction < ActiveRecord::Base
       'weather',
       'price',
       'best_time_to_visit',
-      'accessibility',
+      'accessibility'
     ]
   end
 
