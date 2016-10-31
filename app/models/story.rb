@@ -87,18 +87,19 @@ class Story < ActiveRecord::Base
     end
 
     attribute :hero_photo do
-      if hero_image.present?
-        { url: hero_image.url, alt_tag: title }
+      hero_h = photos.where(photos: { hero: true })
+      hero_h = hero_h.first
+      hero= {}
+      if hero_h.present?
+        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
       else
-        {
-          url: ActionController::Base.helpers.asset_path('generic-hero.jpg'),
-          alt_tag: 'Activity Collage'
-        }
+        hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
       end
+      hero
     end
 
     attribute :has_hero_image do
-      hero_image.present?
+      photos.exists?(hero: true)
     end
 
     attribute :age_range do
