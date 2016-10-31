@@ -319,9 +319,10 @@ $(document).ready(function() {
             var facetName = FACETS_ORDER_OF_DISPLAY[facetIndex];
             var facetResult = content.getFacetByName(facetName);
             if (!facetResult) continue;
-            console.log(facetResult.name)
+
             if (facetResult.name == 'where_destinations'){
                 var facetContent2 = {};
+
                 facetContent2 = {
                     facet: facetName,
                     title: FACETS_LABELS[facetName],
@@ -330,12 +331,15 @@ $(document).ready(function() {
                     }),
                     disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
                 };
+                
                 facetContent2.values.sort(function(a, b){
                   return a.name.localeCompare(b.name);
                 })
+
                 facetsHtml2 += instantfacetTemplate.render(facetContent2);
             } else {
                 var facetContent = {};
+
                 facetContent = {
                     facet: facetName,
                     title: FACETS_LABELS[facetName],
@@ -344,15 +348,16 @@ $(document).ready(function() {
                     }),
                     disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
                 };
+
                 facetContent.values.sort(function(a, b){
                   return a.name.localeCompare(b.name);
                 })
+
                 facetsHtml += instantfacetTemplate.render(facetContent);
             }
         }
         $instantSearchFacet.html(facetsHtml);
         $instantSearchFacet2.html(facetsHtml2);
-
     }
 
 
