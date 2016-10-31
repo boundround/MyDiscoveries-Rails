@@ -43,8 +43,8 @@ class Place < ActiveRecord::Base
       end
     end
 
-    attribute :where_destinations do 
-      [self.class.to_s, 'Attraction', 'Story']
+    attribute :where_destinations do
+      'Place' if self.class.to_s == 'Place'
     end
 
     attribute :url do
@@ -216,6 +216,7 @@ class Place < ActiveRecord::Base
     ]
 
     attributesForFaceting [
+      'where_destinations',
       'is_area',
       'main_category',
       'age_range',
@@ -223,8 +224,7 @@ class Place < ActiveRecord::Base
       'weather',
       'price',
       'best_time_to_visit',
-      'accessibility',
-      'where_destinations',
+      'accessibility'
     ]
   end
 

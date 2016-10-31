@@ -50,14 +50,14 @@ $(document).ready(function() {
 
     var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
     var FACETS_LABELS = {
+        where_destinations: 'Select Destination',
         main_category: 'Category',
         age_range: 'Age',
         subcategory: 'Subcategory',
         weather: 'Weather',
         price: 'Price',
         best_time_to_visit: 'Best Time To Visit',
-        accessibility: 'Accessibility',
-        where_destinations: 'Destinations'
+        accessibility: 'Accessibility'
     };
 
     var INSTANT_SEARCH_PARAMS = {
@@ -84,8 +84,6 @@ $(document).ready(function() {
     var hitTemplate = Hogan.compile($('#hit-template').text());
     var hitTemplateHome = Hogan.compile($('#hit-template-home').text());
     var facetTemplate = Hogan.compile($('#facet-template').text());
-    console.log(facetTemplate);
-    console.log('--------');
     var moreResultsTemplateNav = Hogan.compile($('#more-results-template-nav').text());
     var moreResultsTemplateHome = Hogan.compile($('#more-results-template-home').text());
 
@@ -102,7 +100,6 @@ $(document).ready(function() {
         var instantPaginationTemplate = Hogan.compile($('#instant-pagination-template').text());
         var instantfacetTemplate = Hogan.compile($('#instant-facet-template').text());
         var instantNoResultTemplate = Hogan.compile($('#instant-no-result-template').text());
-        console.log(instantfacetTemplate);
     }
 
     function searchCondition(query) {

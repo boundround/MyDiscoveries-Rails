@@ -165,6 +165,10 @@ class Attraction < ActiveRecord::Base
       self.get_parents(self).map {|attraction| attraction.display_name rescue ''} unless !self.run_rake.blank?
     end
 
+    attribute :where_destinations do
+      'Attraction' if self.class.to_s == 'Attraction'
+    end
+
     attribute :accessible do
       if subcategories.any? { |sub| sub.category_type == "accessibility" }
         "accessible"

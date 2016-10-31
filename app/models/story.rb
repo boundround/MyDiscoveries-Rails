@@ -136,6 +136,10 @@ class Story < ActiveRecord::Base
       subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
     end
 
+    attribute :where_destinations do
+      'Story' if self.class.to_s == 'Story'
+    end
+
      #country and url
 
     # the attributesToIndex` setting defines the attributes
@@ -169,6 +173,7 @@ class Story < ActiveRecord::Base
     # customRanking ['desc(likes_count)']
 
     attributesForFaceting [
+      'where_destinations',
       'is_area',
       'main_category',
       'age_range',
