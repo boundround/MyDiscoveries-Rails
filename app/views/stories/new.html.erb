@@ -1,7 +1,7 @@
 <div class="loading">Loading&#8230;</div>
 <div class="container">
 	<div class="row">
-			<%=  form_for @story, method: :post do |f| %>
+		<%=  form_for @story, method: :post do |f| %>
 			<div class="col-md-12 top70">
 				<div>
 					<p style="padding-bottom:25px;">
@@ -11,21 +11,23 @@
 							<%= f.date_field :publish_date %><br>
 							<%= f.label "Change User" %><br>
 							<%= f.select :user_id, options_for_select(User.all.map {|user| [user.email, user.id]}, [current_user.email, current_user.id]) %><br>
+						<% end %>
+						<% if current_user.admin? || current_user.has_role?("contributor") %>
 							<%= f.label "SEO Friendly URL" %><br>
 							<%= f.text_field :seo_friendly_url, class: "form-control" %><br>
 							<%= f.label "Choose a title for this story" %><br>
 							<%= f.text_field :title, class: "form-control story-title-edit" %>
-						<% else %>
+						<% end %>
+						<% if current_user.has_role? "contributor" %>
 							<%= f.hidden_field :publish_date, :value => Time.now %><br>
 							<%= f.hidden_field :user_id, :value => current_user.id %>
 						<% end %>
 					</p>
 				</div>
 			</div>
-        <center>
-          <%= f.submit 'Submit Story', class: 'btn btn-primary top20 btm20' %>
-        </center>
-			<% end %>
-
+      <center>
+        <%= f.submit 'Submit Story', class: 'btn btn-primary top20 btm20' %>
+      </center>
+		<% end %>
 	</div>
 </div>
