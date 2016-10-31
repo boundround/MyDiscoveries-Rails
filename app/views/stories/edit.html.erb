@@ -11,18 +11,21 @@
 					<p style="padding-bottom:25px;">
 						<div id="autosave-status"></div>
 						<%#= f.select :public, [['Public', true], ['Private', false]] %><br>
-						<% if current_user.admin? || current_user.roles.map(&:name).include?('contributor') %>
+						<% if current_user.admin? %>
 							<%= f.label "Status" %><br>
 							<%= f.select :status, ["draft", "live", "removed"] %><br>
 							<%= f.label "Publish Date" %><br>
 							<%= f.date_field :publish_date %><br>
 							<%= f.label "Change User" %><br>
 							<%= f.select :user_id, User.order(email: :asc).map { |user| [user.email, user.id] } %><br>
+						<% end %>
+						<% if current_user.admin? || current_user.has_role?("contributor") %>
 							<%= f.label "SEO Friendly URL" %><br>
 							<%= f.text_field :seo_friendly_url, class: "form-control" %><br>
 							<%= f.label "Choose a title for this story" %><br>
 							<%= f.text_field :title, class: "form-control story-title-edit" %>
-						<% else %>
+						<% end %>
+						<% if current_user.has_role?("contributor") %>
 							<%= f.hidden_field :status, :value => "draft" %><br>
 							<%= f.hidden_field :date, :value => Time.now %><br>
 							<%= f.hidden_field :story_id, :value => @story.id %><br>

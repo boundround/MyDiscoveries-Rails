@@ -97,6 +97,10 @@
                                 <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
                                 <li><a href="<%= edit_user_path(current_user) %>">Edit Profile</a></li>
                                 <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li>
+                                <% if current_user.has_role? "contributor" %>
+                                  <li><a href="<%= new_story_path %>">Add A Story</a></li>
+                                  <li><a href="<%= stories_user_path(current_user) %>">My Stories</a></li>
+                                <% end %>
                                 <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
                               </ul>
                             </li>
