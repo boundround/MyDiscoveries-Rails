@@ -44,7 +44,7 @@ class Place < ActiveRecord::Base
     end
 
     attribute :where_destinations do
-      'Place' if self.class.to_s == 'Place'
+      'Places' if self.class.to_s == 'Place'
     end
 
     attribute :url do

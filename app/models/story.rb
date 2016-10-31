@@ -137,7 +137,7 @@ class Story < ActiveRecord::Base
     end
 
     attribute :where_destinations do
-      'Story' if self.class.to_s == 'Story'
+      'Stories' if self.class.to_s == 'Story'
     end
 
      #country and url

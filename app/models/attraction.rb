@@ -166,7 +166,7 @@ class Attraction < ActiveRecord::Base
     end
 
     attribute :where_destinations do
-      'Attraction' if self.class.to_s == 'Attraction'
+      'Attractions' if self.class.to_s == 'Attraction'
     end
 
     attribute :accessible do
