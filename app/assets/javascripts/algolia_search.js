@@ -37,7 +37,7 @@ $(document).ready(function() {
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
 
-    var INDEX_NAME = 'place_production';
+    var INDEX_NAME = 'place_development';
     var PARAMS = {
         hitsPerPage: 3,
         maxValuesPerFacet: 8,
@@ -93,6 +93,7 @@ $(document).ready(function() {
         searchInstant($instantSearchInput)
 
         $instantSearchFacet = $('#facets-instant-search')
+        $instantSearchFacet2 = $('#facets-instant-search2')
         $instantSearchHits = $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.instant-hits-result');
         $instantSearchPagination = $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.pagination');
 
@@ -313,25 +314,44 @@ $(document).ready(function() {
 
     function renderFacets(content, state) {
         var facetsHtml = '';
+        var facetsHtml2 = '';
         for (var facetIndex = 0; facetIndex < FACETS_ORDER_OF_DISPLAY.length; ++facetIndex) {
             var facetName = FACETS_ORDER_OF_DISPLAY[facetIndex];
             var facetResult = content.getFacetByName(facetName);
             if (!facetResult) continue;
-            var facetContent = {};
-            facetContent = {
-                facet: facetName,
-                title: FACETS_LABELS[facetName],
-                values: content.getFacetValues(facetName, {
-                    sortBy: ['isRefined:desc', 'count:desc']
-                }),
-                disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
-            };
-            facetContent.values.sort(function(a, b){
-              return a.name.localeCompare(b.name);
-            })
-            facetsHtml += instantfacetTemplate.render(facetContent);
+            console.log(facetResult.name)
+            if (facetResult.name == 'where_destinations'){
+                var facetContent2 = {};
+                facetContent2 = {
+                    facet: facetName,
+                    title: FACETS_LABELS[facetName],
+                    values: content.getFacetValues(facetName, {
+                        sortBy: ['isRefined:desc', 'count:desc']
+                    }),
+                    disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+                };
+                facetContent2.values.sort(function(a, b){
+                  return a.name.localeCompare(b.name);
+                })
+                facetsHtml2 += instantfacetTemplate.render(facetContent2);
+            } else {
+                var facetContent = {};
+                facetContent = {
+                    facet: facetName,
+                    title: FACETS_LABELS[facetName],
+                    values: content.getFacetValues(facetName, {
+                        sortBy: ['isRefined:desc', 'count:desc']
+                    }),
+                    disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+                };
+                facetContent.values.sort(function(a, b){
+                  return a.name.localeCompare(b.name);
+                })
+                facetsHtml += instantfacetTemplate.render(facetContent);
+            }
         }
         $instantSearchFacet.html(facetsHtml);
+        $instantSearchFacet2.html(facetsHtml2);
 
     }
 
