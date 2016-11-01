@@ -135,36 +135,45 @@ $(document).ready(function(){
     });
   }
 
+  var controller = $("[data-action='onload']").data('controller');
   $(function(){
     $("input[type=radio][name=parentable_chose]").change(function(){
       id_chosen = $(this).attr('id')
       if (id_chosen == 'parentable_chose_country'){
         document.getElementById('chosen_country').style.display = "";
         document.getElementById('chosen_place').style.display = "none";
-        document.getElementById('chosen_attraction').style.display = "none";
+        if (controller == 'attractions'){
+          document.getElementById('chosen_attraction').style.display = "none";
+        }
 
         if ($(this).val() == 'country'){
           $('#chosen_place').find('select').val('')
           $('#chosen_attraction').find('select').val('')
           $('.place_parent_attributes_parentable_type_place').val('Country')
           $('.place_parent_attributes_parentable_type_country').val('Country')
-          $('.place_parent_attributes_parentable_type_attraction').val('Country')
+          if (controller == 'attractions'){
+            $('.place_parent_attributes_parentable_type_attraction').val('Country')
+          }
         }
 
       } else if (id_chosen == 'parentable_chose_place') {
         document.getElementById('chosen_place').style.display = "";
         document.getElementById('chosen_country').style.display = "none";
-        document.getElementById('chosen_attraction').style.display = "none";
+        if (controller == 'attractions'){
+          document.getElementById('chosen_attraction').style.display = "none";
+        }
 
         if ($(this).val() == 'place'){
           $('#chosen_country').find('select').val('')
           $('#chosen_attraction').find('select').val('')
           $('.place_parent_attributes_parentable_type_place').val('Place')
           $('.place_parent_attributes_parentable_type_country').val('Place')
-          $('.place_parent_attributes_parentable_type_attraction').val('Place')
+          if (controller == 'attractions'){
+            $('.place_parent_attributes_parentable_type_attraction').val('Place')
+          }
         }
 
-      } else {
+      } else if (id_chosen == 'parentable_chose_attraction') {
         document.getElementById('chosen_attraction').style.display = "";
         document.getElementById('chosen_place').style.display = "none";
         document.getElementById('chosen_country').style.display = "none";
@@ -184,17 +193,30 @@ $(document).ready(function(){
   if ($('#parentable_chose_country').is(':checked') == true) {
     document.getElementById('chosen_country').style.display = "";
     $('#chosen_place').find('select').val('')
-    $('#chosen_attraction').find('select').val('')
+    if (controller == 'attractions'){
+      $('#chosen_attraction').find('select').val('')
+    }
+    $('.place_parent_attributes_parentable_type_place').val('Country')
+    $('.place_parent_attributes_parentable_type_country').val('Country')
+    $('.place_parent_attributes_parentable_type_attraction').val('Country')
   }
   if ($('#parentable_chose_place').is(':checked') == true) {
     document.getElementById('chosen_place').style.display = "";
     $('#chosen_country').find('select').val('')
-    $('#chosen_attraction').find('select').val('')
+    if (controller == 'attractions'){
+      $('#chosen_attraction').find('select').val('')
+    }
+    $('.place_parent_attributes_parentable_type_place').val('Place')
+    $('.place_parent_attributes_parentable_type_country').val('Place')
+    $('.place_parent_attributes_parentable_type_attraction').val('Place')
   }
   if ($('#parentable_chose_attraction').is(':checked') == true) {
     document.getElementById('chosen_attraction').style.display = "";
     $('#chosen_country').find('select').val('')
     $('#chosen_place').find('select').val('')
+    $('.place_parent_attributes_parentable_type_place').val('Attraction')
+    $('.place_parent_attributes_parentable_type_country').val('Attraction')
+    $('.place_parent_attributes_parentable_type_attraction').val('Attraction')
   }
 
 });
