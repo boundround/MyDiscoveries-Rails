@@ -10,12 +10,15 @@ class CountriesController < ApplicationController
   def show
     @reviews = @country.reviews.where(status:"live")
     @fun_facts = @country.fun_facts.where(status: "live")
-    @similar_places = @country.places.primary_areas_with_photos
+    @similar_places = @country.places.live_places_with_photos
+    photos = @country.user_photos.where(status:"live") + @country.photos
+    @photos = photos.paginate(:page => params[:active_photos], per_page: 4)
+    @photos_hero = @photos.first(6)
+    @areas = @similar_places.paginate(page: params[:areas_page], per_page: 6)
     @famous_faces = @country.famous_faces.active
     @last_video = @country.videos.active.last
     @photos = @country.country_photos.paginate(:page => params[:active_photos], per_page: 4)
     @photos_hero = @photos.first(6)
-    @areas = @similar_places.paginate(page: params[:areas_page], per_page: 6)
     @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
     @stories = @country.country_stories.paginate(page: params[:stories_page], per_page: 4)
     @set_body_class = "destination-page"
@@ -76,8 +79,8 @@ class CountriesController < ApplicationController
 
   def paginate_things_to_do
     @country = Country.friendly.find(params[:id])
-    @similar_places = @country.places.primary_areas_with_photos
-    @areas = @similar_places.paginate(page: params[:areas_page], per_page: 6 )
+    @similar_places = @country.places.live_places_with_photos
+    @areas = @similar_places.paginate(page: params[:areas_page], per_page: 6)
   end
 
   def paginate_deals

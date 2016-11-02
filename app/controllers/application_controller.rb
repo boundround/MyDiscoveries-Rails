@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
 
   def get_header
     @featured_nav_destinations = Place.where(id: [1064, 1221, 1071, 1060]).includes(:country)
-    @featured_nav_places = Place.where(id: [233, 117, 921, 1021])
+    @featured_nav_places = Attraction.where(id: [233, 117, 921, 1021])
   end
 
   protected

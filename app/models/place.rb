@@ -268,7 +268,7 @@ class Place < ActiveRecord::Base
   scope :to_be_removed, -> { where('unpublished_at >= ?', Time.now) }
   scope :is_area, -> {where(is_area: true)}
   scope :is_not_area, -> {where(is_area: nil)}
-  scope :primary_areas_with_photos, -> { includes(:photos).where(primary_area: true)}
+  scope :live_places_with_photos, -> { includes(:photos).where(status: "live")}
 
   validates_presence_of :display_name
 
@@ -279,7 +279,6 @@ class Place < ActiveRecord::Base
 
   has_one :parent, :class_name => "ChildItem", as: :itemable
   has_many :childrens, :class_name => "ChildItem", as: :parentable
-  has_many :children, :class_name => 'Place', :foreign_key => 'parent_id' # this relation actived for temporary
 
   has_many :places_subcategories
   has_many :similar_places
@@ -585,7 +584,7 @@ class Place < ActiveRecord::Base
   end
 
   def places_to_visits
-    places_to_visit = self.children.active
+    places_to_visit = self.children
     places_to_visit = places_to_visit.sort do |x, y|
       y.videos.size <=> x.videos.size
     end
@@ -682,6 +681,18 @@ class Place < ActiveRecord::Base
     if self.description.present? && self.short_description.blank?
       self.short_description = self.description[0..254]
     end
+  end
+
+  def children
+    list_of_children = []
+    childrens.each do |child|
+      unless child.itemable.blank?
+        if child.itemable_type == "Attraction" && child.itemable.status == "live"
+          list_of_children << child.itemable
+        end
+      end
+    end
+    list_of_children
   end
 
   private

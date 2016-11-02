@@ -237,7 +237,6 @@ class Attraction < ActiveRecord::Base
 
   has_one :parent, :class_name => "ChildItem", as: :itemable
   has_many :childrens, :class_name => "ChildItem", as: :parentable
-  has_many :children, :class_name => 'Attraction', :foreign_key => 'parent_id' # this relation actived for temporary
 
   has_many :attractions_users
   has_many :users, through: :attractions_users
@@ -399,15 +398,43 @@ class Attraction < ActiveRecord::Base
           return parents
         end
       else
-        parents << attraction.parent.parentable
+        parents << attraction.parent.parentable unless attraction.parent.parentable.blank?
         if attraction.parent.parentable.class.to_s.eql? "Country"
           parents << attraction.country
           return parents
         else
-          get_parents(attraction.parent.parentable, parents)
+          if attraction.parent.parentable.blank?
+            return parents
+          else
+            get_parents(attraction.parent.parentable, parents)
+          end
         end
       end
     end
+  end
+
+  def siblings
+    if parent.present?
+      if parent.parentable.blank?
+        []
+      else
+        parent.parentable.children.delete_if {|child| child == self }
+      end
+    else
+      []
+    end
+  end
+
+  def children
+    list_of_children = []
+    childrens.each do |child|
+      if child.itemable.present?
+        if child.itemable_type == "Attraction" && child.itemable.status == "live"
+          list_of_children << child.itemable
+        end
+      end
+    end
+    list_of_children
   end
 
   def slug_candidates
