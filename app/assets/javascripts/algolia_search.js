@@ -50,7 +50,7 @@ $(document).ready(function() {
 
     var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
     var FACETS_LABELS = {
-        where_destinations: 'Select Destination',
+        // where_destinations: 'Select Destination',
         main_category: 'Category',
         age_range: 'Age',
         subcategory: 'Subcategory',
