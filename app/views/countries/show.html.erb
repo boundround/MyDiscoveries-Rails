@@ -145,40 +145,39 @@
 
     <%= render partial: "shared/videos_list", locals:{container: "container" } %>
 
-
     <div class="stories-things-wrapper">
       <% if @stories.present? %>
         <%= render partial: "stories/all_stories" %>
       <% end %>
 
-        <% unless @areas.blank? %>
+      <% unless @areas.blank? %>
         <div id="thingstodo" class="container dest-things-wrapper">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3>Places to go in <%= @country.display_name %></h3>
-                </div>
+          <div class="row">
+            <div class="col-xs-12">
+                <h3>Places to go in <%= @country.display_name %></h3>
             </div>
-            <div class="row">
-                <div class="owl-carousel carousel" id="areas-list">
-                  <%= render partial: 'places/places_to_visit_list', collection: @areas, as: :area %>
-                </div>
+          </div>
+          <div class="row">
+            <div class="owl-carousel carousel" id="areas-list">
+              <%= render partial: 'places/places_to_visit_list', collection: @areas, as: :area %>
             </div>
+          </div>
 
-            <% unless last_page? @areas %>
+          <% unless last_page? @areas %>
             <div class="row hidden-xs single-pagination-container" id="areas-single-pagination-container">
-                <div class="col-xs-12 load-more">
-                    <div class="hidden single-pagination-loader" align="center">
-                      <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                    </div>
-                  <%= link_to "LOAD MORE", paginate_things_to_do_country_path(@country, areas_page: @areas.next_page, resources: 'areas', collection_object: 'area', pagination_template: "places/places_to_visit_list"), class: 'single-pagination', remote: true %>
+              <div class="col-xs-12 load-more">
+                <div class="hidden single-pagination-loader" align="center">
+                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                 </div>
+                <%= link_to "LOAD MORE", paginate_things_to_do_country_path(@country, areas_page: @areas.next_page, resources: 'areas', collection_object: 'area', pagination_template: "places/places_to_visit_list"), class: 'single-pagination', remote: true %>
+              </div>
             </div>
-            <% end %>
-
+          <% end %>
         </div>
-        <% end %>
+      <% end %>
 
     </div>
+    
     <% unless @photos_hero.blank? %>
       <div id="photos" class="large-carousel-wrapper">
         <div class="large-owl-carousel owl-carousel">

@@ -15,7 +15,7 @@ class CountriesController < ApplicationController
     @last_video = @country.videos.active.last
     @photos = @country.country_photos.paginate(:page => params[:active_photos], per_page: 4)
     @photos_hero = @photos.first(6)
-    @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
+    @areas = @similar_places.paginate(page: params[:areas_page], per_page: 6)
     @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
     @stories = @country.country_stories.paginate(page: params[:stories_page], per_page: 4)
     @set_body_class = "destination-page"
@@ -71,13 +71,14 @@ class CountriesController < ApplicationController
     @country = Country.friendly.find(params[:id])
     @stories = @country.posts.active
     @stories += @country.stories.active
-    @stories = @stories.sort{|x, y| y.created_at <=> x.created_at}.paginate(page: params[:stories_page], per_page: 1)
+    @stories = @stories.sort{|x, y| y.created_at <=> x.created_at}.paginate(page: params[:stories_page], per_page: 4)
   end
 
   def paginate_things_to_do
     @country = Country.friendly.find(params[:id])
     @similar_places = @country.places.primary_areas_with_photos
-    @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
+    params_area_page = (params[:areas_page].to_i + 1)
+    @areas = @similar_places.paginate(page: params_area_page, per_page: 3 )
   end
 
   def paginate_deals
