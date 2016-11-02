@@ -77,8 +77,7 @@ class CountriesController < ApplicationController
   def paginate_things_to_do
     @country = Country.friendly.find(params[:id])
     @similar_places = @country.places.primary_areas_with_photos
-    params_area_page = (params[:areas_page].to_i + 1)
-    @areas = @similar_places.paginate(page: params_area_page, per_page: 3 )
+    @areas = @similar_places.paginate(page: params[:areas_page], per_page: 6 )
   end
 
   def paginate_deals
