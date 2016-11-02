@@ -300,9 +300,17 @@ class Story < ActiveRecord::Base
     end
   end
 
-  # def hero_image
-  #   story_images.first
-  # end
+  def hero_image
+    hero_h = photos.where(photos: { hero: true })
+    
+    if hero_h.present?
+      hero = hero_h.first
+    else
+      hero = story_images.first
+    end
+    
+    hero
+  end
 
   def check_null_publish_date
     if publish_date.blank?
