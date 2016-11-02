@@ -3,7 +3,6 @@ class Story < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   friendly_id :slug_candidates, :use => [:slugged, :history]
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
@@ -218,7 +217,6 @@ class Story < ActiveRecord::Base
   validates :content, presence: true
 
   before_update :regenerate_slug
-  after_update :crop_hero_image
   before_save :determine_age_bracket, :check_null_publish_date, :populate_seo_friendly_url
 
   accepts_nested_attributes_for :photos, allow_destroy: true
@@ -308,7 +306,7 @@ class Story < ActiveRecord::Base
     else
       hero = story_images.first
     end
-    
+
     hero
   end
 
@@ -324,10 +322,6 @@ class Story < ActiveRecord::Base
       Story.joins(:places).where(places: { id: places.pluck(:id) }).pluck(:id)
     ].reduce(:+).uniq
     Story.includes(:user).where(id: ids).order(:created_at)
-  end
-
-  def crop_hero_image
-    hero_image.recreate_versions! if crop_x.present?
   end
 
   protected
