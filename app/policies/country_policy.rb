@@ -4,7 +4,7 @@ class CountryPolicy < ApplicationPolicy
     if @user.blank?
       false
     else
-      (@user.admin? || @user.roles.map(&:name).include?('contributor'))
+      (@user.admin? || @user.has_role?('contributor'))
     end
   end
 
