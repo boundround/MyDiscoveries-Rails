@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       post :delete_image
     end
     resources :places, controller: :places_stories
+    resources :attractions, controller: :attractions_stories
     resources :countries, controller: :countries_stories
     resources :subcategories, controller: :stories_subcategories
   end

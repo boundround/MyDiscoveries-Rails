@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller='attractions' data-action="onload">
   <% if @attraction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@attraction.errors.count, "error") %> prohibited this attraction from being updated:</h2>

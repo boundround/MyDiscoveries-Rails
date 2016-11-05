@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="hidden">
+
+    <div id="similar-places-js" data-similar="<%= array_attractions_stories_ids(@story.attractions_stories) %>" data-controllers="attractions">
+    </div>
+  </div>
+  <h1>Similar Destinations</h1>
+  <%= render "/stories/admin_tabs" %>
+  <%= simple_form_for [@story, @attractions_stories] do |f| %>
+    <div id="dual-list-box-stories-attractions" class="form-group row">
+      <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="stories-attractions" name="attractions_story[attraction_ids][]">
+        <%= @attractions.each do |attraction| %>
+          <option value="<%= attraction.id %>" name="<%= attraction.display_name %>"><%= attraction.display_name + (attraction.primary_area ? " (Primary Area)" : "") %></option>
+        <% end %>
+      </select>
+    </div>
+    <%= f.submit :submit %>
+  <% end %>
+</div>
