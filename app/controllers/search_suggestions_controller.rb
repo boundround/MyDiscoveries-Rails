@@ -1,4 +1,5 @@
 class SearchSuggestionsController < ApplicationController
+  before_action :check_user_authorization, only: [:nearby]
 
   include Locatable
   helper_method :filters

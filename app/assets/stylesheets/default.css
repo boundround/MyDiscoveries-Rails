@@ -68,3 +68,8 @@
   font-style: italic;
   font-size: 16px;
 }
+
+.highlighting em {
+    background: #FDD7E4;
+    font-style: normal;
+}

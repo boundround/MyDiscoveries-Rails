@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
     member { get 'choose_hero', as: :choose_hero }
     resources :places, controller: :places_stories
+    resources :attractions, controller: :attractions_stories
     resources :countries, controller: :countries_stories
     resources :subcategories, controller: :stories_subcategories
   end

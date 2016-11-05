@@ -28,7 +28,7 @@
         <% @attractions.each do |attraction| %>
           <tr>
             <td><%= link_to "#{attraction.display_name} || #{attraction.id}", edit_attraction_path(attraction) %></td>
-            <td><%= attraction.parent.present? ? (attraction.parent.parentable.class.to_s+ ": " + attraction.parent.parentable.display_name) : "No Parent" %></td>
+            <td><%= attraction.parent.present? ? (attraction.parent.parentable.class.to_s+ ": " + attraction.parent.parentable.display_name rescue '') : "No Parent" %></td>
             <td><%= attraction.description.blank? ? 0 : (attraction.description.size / 6) %></td>
             <td><%= link_to "Edit attraction", edit_attraction_path(attraction), target: "_blank" %></td>
             <td><%= attraction.subscription_level %></td>

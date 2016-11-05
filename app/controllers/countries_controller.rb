@@ -1,6 +1,7 @@
 class CountriesController < ApplicationController
   before_action :set_cache_control_headers, only: [:index, :show]
   before_action :find_country_by_slug, only: [:show]
+  before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
 
   def index
     @countries = Country.all
@@ -19,8 +20,8 @@ class CountriesController < ApplicationController
     photos = @country.user_photos.where(status:"live") + @country.photos
     @photos = photos.paginate(:page => params[:active_photos], per_page: 4)
     @photos_hero = @photos.first(6)
-    @similar_places = @country.places.primary_areas_with_photos
-    @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
+    @similar_places = @country.places.live_places_with_photos
+    @areas = @similar_places.paginate(page: params[:areas_page], per_page: 6)
     @famous_faces = @country.famous_faces.active
     @last_video = @country.videos.active.last
     @set_body_class = "destination-page"
@@ -82,8 +83,8 @@ class CountriesController < ApplicationController
 
   def paginate_things_to_do
     @country = Country.friendly.find(params[:id])
-    @similar_places = @country.places.primary_areas_with_photos
-    @areas = @similar_places.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
+    @similar_places = @country.places.live_places_with_photos
+    @areas = @similar_places.paginate(page: params[:areas_page], per_page: 6)
   end
 
   def paginate_deals

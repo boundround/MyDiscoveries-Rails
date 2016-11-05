@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index, :draft_content]
   before_action :set_user, only: [:show, :public_profile, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews]
+  before_action :check_user_authorization, only: [:index, :show]
 
   def index
     @set_body_class = 'white-body'
@@ -77,12 +78,9 @@ class UsersController < ApplicationController
   def favourites
     if user_signed_in? || current_user.admin?
       @user = User.includes(:favorite_places).find(params[:id])
-
       @favorite_places = @user.favorite_places.where(is_area: false).paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
       @areas = @user.favorite_places.where(is_area: true).paginate(page: params[:areas_page], per_page: 3)
-      @stories = @user.posts
-      @stories += @user.stories
-      @stories = @stories.paginate(page: params[:stories_page], per_page: 4)
+      @stories = @user.user_stories.paginate(page: params[:stories_page], per_page: 4)
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
     end
@@ -247,8 +245,10 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       role = Role.where(name: "contributor").first.id
-      if params[:user][:role_ids].include?(role.to_s) && params[:user][:is_private].include?("1")
-        params[:user][:is_private] = "0"
+      if params[:user][:role_ids]
+        if params[:user][:role_ids].include?(role.to_s) && params[:user][:is_private].include?("1")
+          params[:user][:is_private] = "0"
+        end
       end
       params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :password, :password_confirmation, :is_private,
                                     :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username, :description, :min_age, :max_age,
