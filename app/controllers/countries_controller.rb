@@ -1,6 +1,7 @@
 class CountriesController < ApplicationController
   before_action :set_cache_control_headers, only: [:index, :show]
   before_action :find_country_by_slug, only: [:show]
+  before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
 
   def index
     @countries = Country.all
@@ -8,21 +9,19 @@ class CountriesController < ApplicationController
   end
 
   def show
-    # @place = @country = Country.includes(:photos, :places).friendly.find(params[:id])
-    @place = @country
-    @stories = @country.posts.active
-    @stories += @country.stories.active
-    @stories = @stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse.paginate(page: params[:stories_page], per_page: 4)
     @reviews = @country.reviews.where(status:"live")
-    @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
     @fun_facts = @country.fun_facts.where(status: "live")
+    @similar_places = @country.places.live_places_with_photos
     photos = @country.user_photos.where(status:"live") + @country.photos
     @photos = photos.paginate(:page => params[:active_photos], per_page: 4)
     @photos_hero = @photos.first(6)
-    @similar_places = @country.places.live_places_with_photos
     @areas = @similar_places.paginate(page: params[:areas_page], per_page: 6)
     @famous_faces = @country.famous_faces.active
     @last_video = @country.videos.active.last
+    @photos = @country.country_photos.paginate(:page => params[:active_photos], per_page: 4)
+    @photos_hero = @photos.first(6)
+    @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
+    @stories = @country.country_stories.paginate(page: params[:stories_page], per_page: 4)
     @set_body_class = "destination-page"
   end
 
@@ -69,15 +68,14 @@ class CountriesController < ApplicationController
 
   def paginate_photos
     @country = Country.includes(:photos, :places).friendly.find(params[:id])
-    photos = @country.user_photos.where(status:"live") + @country.photos
-    @photos = photos.paginate(:page => params[:active_photos], per_page: 4)
+    @photos = @country.country_photos.paginate(:page => params[:active_photos], per_page: 4)
   end
 
   def paginate_stories
     @country = Country.friendly.find(params[:id])
     @stories = @country.posts.active
     @stories += @country.stories.active
-    @stories = @stories.sort{|x, y| y.created_at <=> x.created_at}.paginate(page: params[:stories_page], per_page: 1)
+    @stories = @stories.sort{|x, y| y.created_at <=> x.created_at}.paginate(page: params[:stories_page], per_page: 4)
   end
 
   def paginate_things_to_do
@@ -104,7 +102,7 @@ class CountriesController < ApplicationController
     end
 
     def find_country_by_slug
-      @country = Country.friendly.find(params[:id])
+      @country = Country.includes(:photos, :places).friendly.find(params[:id])
       if request.path != country_path(@country)
         redirect_to @country, :status => :moved_permanently
       end

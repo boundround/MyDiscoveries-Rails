@@ -165,6 +165,10 @@ class Attraction < ActiveRecord::Base
       self.get_parents(self).map {|attraction| attraction.display_name rescue ''} unless !self.run_rake.blank?
     end
 
+    attribute :where_destinations do
+      'Attractions' if self.class.to_s == 'Attraction'
+    end
+
     attribute :accessible do
       if subcategories.any? { |sub| sub.category_type == "accessibility" }
         "accessible"
@@ -196,6 +200,7 @@ class Attraction < ActiveRecord::Base
     ]
 
     attributesForFaceting [
+      'where_destinations',
       'is_area',
       'main_category',
       'age_range',
@@ -203,7 +208,7 @@ class Attraction < ActiveRecord::Base
       'weather',
       'price',
       'best_time_to_visit',
-      'accessibility',
+      'accessibility'
     ]
   end
 

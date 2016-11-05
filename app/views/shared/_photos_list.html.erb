@@ -1,6 +1,6 @@
 <div class="<%= container %> photo-components-wrapper">
     <div class="row">
-        <div class="owl-carousel carousel" id="photos-list">
+        <div class="owl-carousel carousel" id="photos-list" data-controller="<%=params[:controller]%>">
             <%= render partial: 'shared/featured_photos_list', collection: @photos, as: :photo %>
         </div>
     </div>
@@ -15,7 +15,7 @@
                         <%= link_to "LOAD MORE", paginate_photos_place_path(@place, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
                     <% elsif params[:controller].eql? "attractions" %>
                         <%= link_to "LOAD MORE", paginate_photos_attraction_path(@attraction, active_videos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
-                    <% else %>
+                    <% elsif params[:controller].eql? "countries"  %>
                         <%= link_to "LOAD MORE", paginate_photos_country_path(@country, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
                     <% end %>
                 </div>

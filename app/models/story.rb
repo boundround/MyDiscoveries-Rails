@@ -86,18 +86,19 @@ class Story < ActiveRecord::Base
     end
 
     attribute :hero_photo do
-      if hero_image.present?
-        { url: hero_image.url, alt_tag: title }
+      hero_h = photos.where(photos: { hero: true })
+      hero_h = hero_h.first
+      hero= {}
+      if hero_h.present?
+        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
       else
-        {
-          url: ActionController::Base.helpers.asset_path('generic-hero.jpg'),
-          alt_tag: 'Activity Collage'
-        }
+        hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
       end
+      hero
     end
 
     attribute :has_hero_image do
-      hero_image.present?
+      photos.exists?(hero: true)
     end
 
     attribute :age_range do
@@ -136,6 +137,10 @@ class Story < ActiveRecord::Base
       subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
     end
 
+    attribute :where_destinations do
+      'Stories' if self.class.to_s == 'Story'
+    end
+
      #country and url
 
     # the attributesToIndex` setting defines the attributes
@@ -169,6 +174,7 @@ class Story < ActiveRecord::Base
     # customRanking ['desc(likes_count)']
 
     attributesForFaceting [
+      'where_destinations',
       'is_area',
       'main_category',
       'age_range',
@@ -202,6 +208,8 @@ class Story < ActiveRecord::Base
 
   has_many :story_images, dependent: :destroy
 
+  has_many :photos, -> { order "created_at ASC"}, as: :photoable
+
   scope :active, -> { where(status: "live").where(public: true) }
   scope :draft, -> { where(status: "draft") }
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }
@@ -215,6 +223,8 @@ class Story < ActiveRecord::Base
 
   before_update :regenerate_slug
   before_save :determine_age_bracket, :check_null_publish_date, :populate_seo_friendly_url
+
+  accepts_nested_attributes_for :photos, allow_destroy: true
 
   def send_live_notification
     places = []
@@ -294,7 +304,15 @@ class Story < ActiveRecord::Base
   end
 
   def hero_image
-    story_images.first
+    hero_h = photos.where(photos: { hero: true })
+    
+    if hero_h.present?
+      hero = hero_h.first
+    else
+      hero = story_images.first
+    end
+
+    hero
   end
 
   def check_null_publish_date
@@ -309,6 +327,14 @@ class Story < ActiveRecord::Base
       Story.joins(:places).where(places: { id: places.pluck(:id) }).pluck(:id)
     ].reduce(:+).uniq
     Story.includes(:user).where(id: ids).order(:created_at)
+  end
+
+  def story_place_to_visit
+    story_places = self.places
+    story_places_parents = self.places.each {|place| place.get_parents(place) }
+    places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name)
+    
+    return places_to_visit
   end
 
   protected

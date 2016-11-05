@@ -194,10 +194,16 @@ function chooseHero() {
         place_id = $(this).data("place");
         photo_id = $(this).data("photo");
         data_from = $(this).data("from");
-
+        
         if (data_from == 'attraction'){
             if (type) {
                 window.location = '/attractions/' + place_id + '/update_hero/' + type + '/' + photo_id
+            } else {
+                alert("choose another image");
+            }
+        } else if (data_from == 'story'){
+            if (type) {
+                window.location = '/stories/' + place_id + '/update_hero/' + type + '/' + photo_id
             } else {
                 alert("choose another image");
             }

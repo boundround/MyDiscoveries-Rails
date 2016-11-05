@@ -366,7 +366,9 @@
             </div>
             <%= render partial: "shared/videos_list", locals:{container: "" } %>
           </div>
-          <%= render partial: "stories/all_stories"%>
+          <div class="row">
+            <%= render partial: "stories/all_stories"%>
+          </div>
           <% if @deals.present? %>
             <div id="deals" class="thing-page-segment">
               <div>
@@ -374,32 +376,31 @@
               <%= render partial: "deals/all_deals", locals:{container: "" } %>
             </div>
           <% end %>
-            <% unless @photos.blank? %>
-              <div id="galleries" class="thing-page-segment galleries">
-                <div>
-                  <h3>Photos</h3>
-                </div>
-                <%= render partial: "shared/photos_list", as: :photos, locals:{container: ""} %>
+          <% unless @photos.blank? %>
+            <div id="galleries" class="thing-page-segment galleries">
+              <div>
+                <h3>Photos</h3>
               </div>
-              <% end %>
-             <% unless @reviews.blank? %>
-              <div id="memberreviews" class="thing-page-segment">
-                <div>
-                  <h3>Member Reviews</h3> </div>
-                <div class="row member-reviews-wrapper">
-                  <div class="owl-carousel auto-height-carousel" id="reviews-list">
-                    <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
-                  </div>
-                  <% unless last_page? @reviews %>
-                    <div class="col-xs-12 hidden-xs single-pagination-container" id="reviews-single-pagination-container">
-                      <div class="hidden single-pagination-loader" align="center"> <img src="<%= asset_path('loading.gif') %>" width="64" height="64"> </div>
-                      <div class="load-more member-reviews-load-more temporary-class-3">
-                        <%= link_to "LOAD MORE", paginate_reviews_attraction_path(@attraction, reviews_page: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list', collection_object: 'review'), class: 'single-pagination', remote: true %>
-                      </div>
+              <%= render partial: "shared/photos_list", as: :photos, locals:{container: ""} %>
+            </div>
+          <% end %>
+          <% unless @reviews.blank? %>
+            <div id="memberreviews" class="thing-page-segment">
+              <div><h3>Member Reviews</h3></div>
+              <div class="row member-reviews-wrapper">
+                <div class="owl-carousel auto-height-carousel" id="reviews-list">
+                  <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
+                </div>
+                <% unless last_page? @reviews %>
+                  <div class="col-xs-12 hidden-xs single-pagination-container" id="reviews-single-pagination-container">
+                    <div class="hidden single-pagination-loader" align="center"> <img src="<%= asset_path('loading.gif') %>" width="64" height="64"> </div>
+                    <div class="load-more member-reviews-load-more temporary-class-3">
+                      <%= link_to "LOAD MORE", paginate_reviews_attraction_path(@attraction, reviews_page: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list', collection_object: 'review'), class: 'single-pagination', remote: true %>
                     </div>
-                    <% end %>
-                </div>
+                  </div>
+                <% end %>
               </div>
+            </div>
           <% end %>
         </div>
       </div>

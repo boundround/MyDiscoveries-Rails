@@ -1,28 +1,34 @@
 class PagesController < ApplicationController
   require 'will_paginate/array'
   before_action :set_cache_control_headers, only: :index
+  before_action :check_user_authorization, only: [:create, :new, :update, :edit, :all_pages]
 
   def index
     @page = Page.find_by title: "home"
     @set_body_class = "home-page background"
-    @areas = Place.home_page_areas.paginate(page: params[:areas_page], per_page: 3)
     @subcategories = Subcategory.subcats
     @subcategories = @subcategories.sort {|x, y| y.places.size <=> x.places.size}
     @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
-    @all_posts = Post.all_active_posts
-    @all_stories = Story.all_active_stories
-    @stories = (@all_posts + @all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
-    @stories = @stories.paginate(page: params[:stories_page], per_page: 2)
-    @sydney = Place.find 1064
+    # @sydney = Place.find 1064
     @category1 = @subcategories[0]
     @category2 = @subcategories[1]
     @category3 = @subcategories[2]
     @category4 = @subcategories[3]
     @competitions = Competition.active
+    @all_posts = Post.all_active_posts
+    @all_stories = Story.all_active_stories
+    @stories = (@all_posts + @all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
+    @stories = @stories.paginate(page: params[:stories_page], per_page: 2)
+    @areas = Place.home_page_areas.paginate(page: params[:areas_page], per_page: 3)
+
     respond_to do |format|
       format.html
       format.json {render :json => @page}
     end
+  end
+
+  def paginate_places
+    @areas = Place.home_page_areas.paginate(page: params[:areas_page], per_page: 3)
   end
 
   def new

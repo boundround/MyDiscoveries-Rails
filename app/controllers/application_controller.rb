@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  include Pundit
 
   before_filter :get_header
 
@@ -18,6 +19,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from CarrierWave::DownloadError, :with => :carrierwave_download_error
   rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   helper Bootsy::Engine.helpers
 
@@ -97,6 +99,16 @@ class ApplicationController < ActionController::Base
     if request.host == 'app.boundround.com' || request.host == 'boundround.com'
       redirect_to subdomain: "www", :status => 301  # or explicitly 'http://www.mysite.com/'
     end
+  end
+
+  def check_user_authorization
+    model_name = params[:controller].classify
+    authorize model_name.camelize.constantize
+  end
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
   end
 
 end

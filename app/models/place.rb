@@ -43,6 +43,10 @@ class Place < ActiveRecord::Base
       end
     end
 
+    attribute :where_destinations do
+      'Places' if self.class.to_s == 'Place'
+    end
+
     attribute :url do
       Rails.application.routes.url_helpers.place_path(self)
     end
@@ -212,6 +216,7 @@ class Place < ActiveRecord::Base
     ]
 
     attributesForFaceting [
+      'where_destinations',
       'is_area',
       'main_category',
       'age_range',
@@ -219,7 +224,7 @@ class Place < ActiveRecord::Base
       'weather',
       'price',
       'best_time_to_visit',
-      'accessibility',
+      'accessibility'
     ]
   end
 
