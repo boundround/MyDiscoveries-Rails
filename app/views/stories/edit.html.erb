@@ -18,11 +18,14 @@
 							<%= f.date_field :publish_date %><br>
 							<%= f.label "Change User" %><br>
 							<%= f.select :user_id, User.order(email: :asc).map { |user| [user.email, user.id] } %><br>
+						<% end %>
+						<% if current_user.admin? || current_user.has_role?("contributor") %>
 							<%= f.label "SEO Friendly URL" %><br>
 							<%= f.text_field :seo_friendly_url, class: "form-control" %><br>
 							<%= f.label "Choose a title for this story" %><br>
 							<%= f.text_field :title, class: "form-control story-title-edit" %>
-						<% else %>
+						<% end %>
+						<% if current_user.has_role?("contributor") %>
 							<%= f.hidden_field :status, :value => "draft" %><br>
 							<%= f.hidden_field :date, :value => Time.now %><br>
 							<%= f.hidden_field :story_id, :value => @story.id %><br>
@@ -35,12 +38,10 @@
 				<div class="content-editable" ></div>
 				<center> <button class="btn btn-primary top20 btm20" id="submit_story">Update</button> </center>
 			</div>
-				<%= f.hidden_field :content %>
-				<%= f.hidden_field :date, :value => Time.now %>
-				<%= f.submit "", style: :"display:none;", id:"submit-form-story" %>
-			<% end %>
-
-		<!-- </div> -->
+			<%= f.hidden_field :content %>
+			<%= f.hidden_field :date, :value => Time.now %>
+			<%= f.submit "", style: :"display:none;", id:"submit-form-story" %>
+		<% end %>
 	</div>
 </div>
 

@@ -368,6 +368,8 @@ GEM
       arel
     pkg-config (1.1.7)
     puma (3.4.0)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.5.5)
@@ -649,6 +651,7 @@ DEPENDENCIES
   pg
   pg_search
   puma
+  pundit
   quiet_assets
   rack-cache
   rack-contrib

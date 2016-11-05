@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   require 'will_paginate/array'
   before_action :set_cache_control_headers, only: :index
+  before_action :check_user_authorization, only: [:create, :new, :update, :edit, :all_pages]
 
   def index
     @page = Page.find_by title: "home"

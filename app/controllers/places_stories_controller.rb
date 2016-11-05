@@ -24,7 +24,7 @@ class PlacesStoriesController < ApplicationController
   def index
     @story = Story.friendly.find(params[:story_id])
     @places_stories = @story.places.build
-    @places = Place.active.order(display_name: :asc)
+    @places = Place.active.where(is_area: true).order(display_name: :asc)
   end
 
   def destroy

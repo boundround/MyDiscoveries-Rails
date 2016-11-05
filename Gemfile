@@ -210,3 +210,7 @@ gem 'grape-entity'
 gem 'grape-pagination'
 gem 'grape-swagger'
 gem 'grape-swagger-rails'
+
+# authorization / controller security
+# handle authorized to perform some of controller action
+gem 'pundit'

@@ -235,18 +235,14 @@
             <div class="row">
               <div class="col-xs-4">Found in</div>
               <div class="col-xs-8">
-                <% if !@attraction.similar_attractions.blank? %>
-                  <% @attraction.similar_attractions.each do |attraction| %>
-                    <div class="tags">
-                      <div class="tag">
-                        <div class="v-center">
-                          <a href="<%= attraction_path(attraction.similar_place_id) %>">
-                            <%= Attraction.find(attraction.similar_place_id).display_name rescue '' %>
-                          </a>
-                        </div>
+                <% unless @attraction.parent.blank? %>
+                  <div class="tags">
+                    <div class="tag">
+                      <div class="v-center">
+                        <%= found_in_parent(@attraction) %>
                       </div>
                     </div>
-                  <% end %>
+                  </div>
                 <% end %>
               </div>
             </div>
@@ -415,7 +411,7 @@
   <div class="container dest-things-wrapper">
     <div class="row">
       <div class="col-xs-12 btm20">
-        <h3>Related things to do</h3> </div>
+        <h3>Things to do nearby</h3> </div>
     </div>
     <div class="row">
       <div class="owl-carousel carousel" id="more_attractions-list">
