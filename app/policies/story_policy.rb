@@ -15,9 +15,9 @@ class StoryPolicy < ApplicationPolicy
   def new?
     index?
   end
-  
+
   def edit?
-    user.id == record.user_id
+    @user.admin? || (@user.id == record.user_id)
   end
 
   def update?
