@@ -9,12 +9,12 @@ class StoriesController < ApplicationController
   def show
     @story = Story.find_by_slug(params[:id])
     @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
-    @places_to_visit = @story.story_place_to_visit.paginate( page: params[:places_to_visit_page], per_page: 6 )
+    @places_to_visit = @story.attractions.active.paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   def paginate_place
     @story = Story.find_by_slug(params[:id])
-    @places_to_visit = @story.story_place_to_visit.paginate( page: params[:places_to_visit_page], per_page: 6 )
+    @places_to_visit = @story.attractions.active.paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   def destroy

@@ -14,7 +14,7 @@
               </div>
           <% end %>
         </div>
-        <div class="things-img" style="background: url(<%= showing_image(area.photos.count > 0 ? area.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>) no-repeat;" role="img"
+        <div class="things-img" style="background: url(<%= showing_image(draw_small_background(area)) %>) no-repeat;" role="img"
              aria-label="Bondi"></div>
         <div class="dest-thing-content">
             <h4><%= area.display_name %></h4>

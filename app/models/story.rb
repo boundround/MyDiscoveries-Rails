@@ -199,7 +199,7 @@ class Story < ActiveRecord::Base
 
   has_many :attractions_stories
   has_many :attractions, through: :attractions_stories
-  
+
   has_many :stories_subcategories
   has_many :subcategories, through: :stories_subcategories
 
@@ -305,7 +305,7 @@ class Story < ActiveRecord::Base
 
   def hero_image
     hero_h = photos.where(photos: { hero: true })
-    
+
     if hero_h.present?
       hero = hero_h.first
     else
@@ -313,6 +313,18 @@ class Story < ActiveRecord::Base
     end
 
     hero
+  end
+
+  def hero_image_url
+    if hero_image.present?
+      if hero_image.is_a?(Photo)
+        hero_image.path_url(:medium)
+      else
+        hero_image.url
+      end
+    else
+      ""
+    end
   end
 
   def check_null_publish_date
@@ -333,7 +345,7 @@ class Story < ActiveRecord::Base
     story_places = self.places
     story_places_parents = self.places.each {|place| place.get_parents(place) }
     places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name)
-    
+
     return places_to_visit
   end
 

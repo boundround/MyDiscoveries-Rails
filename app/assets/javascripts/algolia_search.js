@@ -331,7 +331,7 @@ $(document).ready(function() {
                     }),
                     disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
                 };
-                
+
                 facetContent2.values.sort(function(a, b){
                   return a.name.localeCompare(b.name);
                 })
