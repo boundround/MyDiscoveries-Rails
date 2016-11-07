@@ -78,8 +78,8 @@ class UsersController < ApplicationController
   def favourites
     if user_signed_in? || current_user.admin?
       @user = User.includes(:favorite_places).find(params[:id])
-      @favorite_places = @user.favorite_places.where(is_area: false).paginate( page: params[:places_to_visit_page], per_page: params[:places_to_visit].nil?? 6 : 3 )
-      @areas = @user.favorite_places.where(is_area: true).paginate(page: params[:areas_page], per_page: 3)
+      @places_to_visit = @user.favorite_attractions.paginate( page: params[:places_to_visit_page], per_page: 3)
+      @areas = @user.favorite_places.paginate(page: params[:areas_page], per_page: 3)
       @stories = @user.user_stories.paginate(page: params[:stories_page], per_page: 4)
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
@@ -105,8 +105,23 @@ class UsersController < ApplicationController
     @photos = @user.user_photos.paginate(:page => params[:active_photos], per_page:12)
   end
 
+  def paginate_places
+    @user = User.includes(:favorite_places).find(params[:id])
+    @areas = @user.favorite_places.paginate(page: params[:areas_page], per_page: 3)
+  end
+
+  def paginate_place_to_visit
+    @user = User.includes(:favorite_places).find(params[:id])
+    @places_to_visit = @user.favorite_attractions.paginate( page: params[:places_to_visit_page], per_page: 3)
+  end
+
   def paginate_stories
-    @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
+    if !params[:stories_page].blank?
+      @user = User.includes(:favorite_places).find(params[:id])
+      @stories = @user.user_stories.paginate(page: params[:stories_page], per_page: 4)
+    else
+      @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
+    end
   end
 
   def videos

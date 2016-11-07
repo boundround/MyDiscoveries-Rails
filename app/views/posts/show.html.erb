@@ -20,8 +20,8 @@
 </div>
 <div class="social-container">
 <div class="container">
-  <section>
-    <div class="share-title">Share this:</div>
+  <section class="col-lg-2 col-md-2 col-xs-5">
+    <div class="share-title">Share This</div>
     <ul class="share-buttons">
       <li><div class="share-button" id="shareBtn" title="Share on Facebook"><img class="share-icon" src="<%= asset_path('social_icons/Facebook.png') %>"></div></li>
       <li><a class="twitter-share-button" href="https://twitter.com/intent/tweet?source=&text=<%= "#{@post.title} #{post_url(@post)}%20%23SeeItMyWay"%>" target="_blank" title="Tweet"><img  class="share-icon" src="<%= asset_path('social_icons/Twitter.png') %>"></a></li>
@@ -30,7 +30,7 @@
       <!-- <li><div href="mailto:?subject=&body=:%20" target="_blank" title="Email"><img  class="share-icon" src="<%= asset_path('social_icons/Email.png') %>"></div></li> -->
     </ul>
   </section>
-  <section>
+  <section class="col-lg-3 col-md-3 col-xs-5">
     <div class="favourites-wrapper">
         <% if user_signed_in? && @post.users.include?(current_user) %>
           <div class="favourites-title hidden-xs">Remove from favourites</div>

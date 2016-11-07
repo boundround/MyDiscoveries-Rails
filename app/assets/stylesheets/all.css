@@ -2293,21 +2293,33 @@ h4 {
 
 .like-icon {
     background: url(/assets/new-images/icon-favourite-unfilled.png) no-repeat center;
+    background-size: 30px 32px;
+    margin-top: -12px;
+    margin-left: -10px;
     height: 53px;
     width: 51px;
 }
 .like-icon.selected {
     background: url(/assets/new-images/icon-favourite.png) no-repeat center;
+    background-size: 30px 32px;
+    margin-top: -12px;
+    margin-left: -10px;
     height: 53px;
     width: 51px;
 }
 .like-icon:hover:not(.selected) {
     background: url(/assets/new-images/icon-favourite-hover.png) no-repeat center;
+    background-size: 30px 32px;
+    margin-top: -12px;
+    margin-left: -10px;
     height: 53px;
     width: 51px;
 }
 .like-icon:active:not(.selected) {
     background: url(/assets/new-images/icon-favourite.png) no-repeat center;
+    background-size: 30px 32px;
+    margin-top: -12px;
+    margin-left: -10px;
     height: 53px;
     width: 51px;
 }

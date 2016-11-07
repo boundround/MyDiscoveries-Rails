@@ -1,0 +1,9 @@
+<% if instance_variable_get("@#{params[:resources]}").present? and params[:resources].present? %>
+	$("div#<%= params[:resources] %>-list").append("<%= escape_javascript( render(partial:  params[:pagination_template].present?? params[:pagination_template] : "#{params[:resources]}_list", collection: instance_variable_get("@#{params[:resources]}"), as: :area )) %>");
+	<% if last_page? instance_variable_get("@#{params[:resources]}") %>
+		$("div#<%= params[:resources] %>-single-pagination-container").remove();
+	<% else %>	
+		$("div#<%= params[:resources] %>-single-pagination-container").find("a.single-pagination").attr('href', "<%= paginate_place_to_visit_user_path(@user, "#{params[:resources]}_page" => instance_variable_get("@#{params[:resources]}").next_page, resources: params[:resources], pagination_template: params[:pagination_template] )%>" )
+	<% end %>
+
+<% end %>
