@@ -1,31 +1,30 @@
 class StoryPolicy < ApplicationPolicy
-
-  def index?
-    if @user.blank?
-      false
-    else
-      (@user.admin? || @user.has_role?('contributor'))
+    def index?
+      if @user.blank?
+        false
+      else
+        (@user.admin? || @user.has_role?('contributor'))
+      end
     end
-  end
 
-  def create?
-    index?
-  end
+    def create?
+      index?
+    end
 
-  def new?
-    index?
-  end
+    def new?
+      index?
+    end
 
-  def edit?
-    @user.admin? || (@user.id == @story.user_id)
-  end
+    def edit?
+      @user.admin? || @user.has_role?("contributor")
+    end
 
-  def update?
-    edit?
-  end
+    def update?
+      edit?
+    end
 
-  def destroy?
-    edit?
-  end
+    def destroy?
+      edit?
+    end
 
 end
