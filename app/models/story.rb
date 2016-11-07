@@ -265,9 +265,15 @@ class Story < ActiveRecord::Base
   end
 
   def teaser
-    content.scan(/<p.*?>.*?<\/p>/).map do |paragraph|
+    teaser_text = content.scan(/<p.*?>.*?<\/p>/).map do |paragraph|
       '<p>' + Nokogiri::HTML(paragraph) + '</p>'
-    end.reduce(:+)[0..180] + "..."
+    end
+
+    if teaser_text.present?
+      teaser_text = teaser_text.reduce(:+)[0..180] + "..."
+    else
+      ""
+    end
   end
 
   def story_text
