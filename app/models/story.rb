@@ -4,6 +4,7 @@ class Story < ActiveRecord::Base
   include Searchable
 
   friendly_id :slug_candidates, :use => [:slugged, :history]
+  attr_accessor :display_address
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
@@ -33,8 +34,11 @@ class Story < ActiveRecord::Base
       title
     end
 
-    attribute :display_address do
-      "Bound Round Story"
+    attribute :display_address do 
+      story_usr = self.user
+      unless story_usr.blank?
+        story_usr.username
+      end
     end
 
     attribute :viator_link do
