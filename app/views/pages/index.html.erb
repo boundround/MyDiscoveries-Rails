@@ -208,7 +208,7 @@
                                       <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                                   </div>
                                   <div class="load-more">
-                                      <%= link_to "LOAD MORE", pages_path(areas_page: @areas.next_page, resources: 'areas', pagination_template: 'place_to_go_list', collection_object: 'area'), class: 'single-pagination', remote: true %>
+                                      <%= link_to "LOAD MORE", paginate_places_pages_path(areas_page: @areas.next_page, resources: 'areas', pagination_template: 'place_to_go_list', collection_object: 'area'), class: 'single-pagination', remote: true %>
                                   </div>
                               </div>
                           </div>

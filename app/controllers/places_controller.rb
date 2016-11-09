@@ -4,6 +4,7 @@ class PlacesController < ApplicationController
   layout false, :only => :wp_blog
   before_action :set_cache_control_headers, only: [:index, :show]
   before_action :find_place_by_slug, only: [:show]
+  before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
 
   def new
     @place = Place.new

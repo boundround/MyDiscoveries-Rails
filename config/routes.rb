@@ -34,7 +34,9 @@ Rails.application.routes.draw do
       post :upload_image
       post :delete_image
     end
+    member { get 'choose_hero', as: :choose_hero }
     resources :places, controller: :places_stories
+    resources :attractions, controller: :attractions_stories
     resources :countries, controller: :countries_stories
     resources :subcategories, controller: :stories_subcategories
   end
@@ -157,6 +159,7 @@ Rails.application.routes.draw do
 
   resources :pages do
     collection { get 'all_pages' }
+    collection { get 'paginate_places'}
   end
 
   get '/google_map_home' => 'pages#google_map_home'
@@ -190,6 +193,7 @@ Rails.application.routes.draw do
     collection { post :import }
     member { put 'place_update' }
     member { put 'attraction_update' }
+    member { put 'story_update' }
   end
 
   resources :videos do
@@ -387,6 +391,7 @@ Rails.application.routes.draw do
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'
+  get '/stories/:id/update_hero/:type/:photo_id' => 'stories#update_hero'
   post 'search_requests/create'
 
   match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]

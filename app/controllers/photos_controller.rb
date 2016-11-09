@@ -42,6 +42,15 @@ class PhotosController < ApplicationController
     end
   end
 
+  def story_update
+    @photo = Photo.find(params[:id])
+    if @photo.update(photo_params)
+      redirect_to choose_hero_story_path(@photo.photoable), notice: "Story Succesfully Updated"
+    else
+      redirect_to choose_hero_story_path(@photo.photoable), notice: "Error"
+    end
+  end
+
   def all_photos
     if params[:place_id]
       @place = Place.friendly.find(params[:place_id])

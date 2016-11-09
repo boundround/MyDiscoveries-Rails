@@ -1,4 +1,4 @@
-<div id="stories" class="thing-page-segment <%= "container" if (@place.present? && (@place.class.to_s == "Country" || @place.is_area == true)) %> stories-wrapper">
+<div id="stories" class="thing-page-segment <%= "container" unless @attraction.present? %> stories-wrapper">
   <div class="row">
     <div class="col-xs-12">
       <% @stories = @stories_like_this if (action_name.eql? 'show') && (controller_name.eql? 'stories')%>

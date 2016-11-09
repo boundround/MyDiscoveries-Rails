@@ -436,7 +436,7 @@ module ApplicationHelper
 
   def deal_image(url)
     variable = @place.blank? ? @attraction : @place
-    
+
     return draw_hero_background(variable) if url.blank?
 
     url

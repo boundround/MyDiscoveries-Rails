@@ -10,6 +10,18 @@ module StoriesHelper
     place_ids.to_json
   end
 
+  def array_attractions_stories_ids(attractions_stories)
+    attraction_ids = []
+    attractions_stories.each do |attractions_story|
+      if !attractions_story.attraction_id.blank?
+        attraction = Attraction.find(attractions_story.attraction_id)
+        attraction_ids.push({attraction_id: attraction.id, attraction_name: attraction.display_name})
+      end
+    end
+    
+    attraction_ids.to_json
+  end
+
   def array_countries_stories_ids(countries_stories)
     country_ids = []
     countries_stories.each do |countries_story|

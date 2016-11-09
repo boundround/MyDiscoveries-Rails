@@ -34,29 +34,29 @@
   <div class="container">
     <div class="row">
       <% if !@user.stories.blank? %>
-        <%= @user.stories.each do |story| %>
+        <% @user.stories.each do |story| %>
           <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 btm15">
             <div class="head-stories">
               <div class="left">
-                <a href="<%= place_path(story.place) %>" class="black" style="position: absolute;">
-                  <%= story.place %>
+                <a href="<%= edit_story_path(story) %>" class="black" style="position: absolute;">
+                  <%= story.title %>
                 </a>
               </div>
               <div class="right">
                 <a href="#">
                   <i class="fa fa-image"></i>
-                   <%= story.user_photos.size %>
+                   <%= story.story_images.size %>
                 </a>&nbsp;&nbsp;
               </div>
           </div>
             <div class="body-stories">
               <div class="p-dynamic member-profile">
-              <p class="visited"><%= story.created_at.strfime("%B %Y")%></p>
+              <p class="visited"><%= story.created_at.strftime("%B %Y")%></p>
               <p class="font-orange2"><%= story.title %></p>
-              <p><%= story.content[0..200] %></p>
+              <p><%= story.teaser.html_safe rescue "" %></p>
               </div>
                 <div class="img-story-place">
-                  <img align="right" src="<%= story.user_photos.first rescue "" %>" alt="">
+                  <img align="right" src="<%= story.story_images.first.file_url rescue "" %>" alt="">
                 </div>
             </div>
           </div>

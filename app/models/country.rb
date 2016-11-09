@@ -56,6 +56,10 @@ class Country < ActiveRecord::Base
       Rails.application.routes.url_helpers.country_path(self)
     end
 
+    attribute :where_destinations do
+      'Countries' if self.class.to_s == 'Country'
+    end
+
     # attributesToIndex ['display_name', 'unordered(description)']
     attributesToIndex [
       'display_name',
@@ -78,6 +82,7 @@ class Country < ActiveRecord::Base
     ]
 
     attributesForFaceting [
+      'where_destinations',
       'is_area',
       'main_category',
       'age_range',
@@ -183,6 +188,16 @@ class Country < ActiveRecord::Base
       rescue Exception
       end
     end
+  end
+
+  def country_photos
+    photos = (self.user_photos.where(status:"live") + self.photos).uniq
+  end
+
+  def country_stories
+    stories = self.posts.active
+    stories += self.stories.active
+    stories = stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse
   end
 
   def should_generate_new_friendly_id?

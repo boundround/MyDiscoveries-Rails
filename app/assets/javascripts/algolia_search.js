@@ -48,8 +48,9 @@ $(document).ready(function() {
     var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
     var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
-    var FACETS_ORDER_OF_DISPLAY = ['age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
+    var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
     var FACETS_LABELS = {
+        // where_destinations: 'Select Destination',
         main_category: 'Category',
         age_range: 'Age',
         subcategory: 'Subcategory',
@@ -92,6 +93,7 @@ $(document).ready(function() {
         searchInstant($instantSearchInput)
 
         $instantSearchFacet = $('#facets-instant-search')
+        $instantSearchFacet2 = $('#facets-instant-search2')
         $instantSearchHits = $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.instant-hits-result');
         $instantSearchPagination = $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.pagination');
 
@@ -312,26 +314,50 @@ $(document).ready(function() {
 
     function renderFacets(content, state) {
         var facetsHtml = '';
+        var facetsHtml2 = '';
         for (var facetIndex = 0; facetIndex < FACETS_ORDER_OF_DISPLAY.length; ++facetIndex) {
             var facetName = FACETS_ORDER_OF_DISPLAY[facetIndex];
             var facetResult = content.getFacetByName(facetName);
             if (!facetResult) continue;
-            var facetContent = {};
-            facetContent = {
-                facet: facetName,
-                title: FACETS_LABELS[facetName],
-                values: content.getFacetValues(facetName, {
-                    sortBy: ['isRefined:desc', 'count:desc']
-                }),
-                disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
-            };
-            facetContent.values.sort(function(a, b){
-              return a.name.localeCompare(b.name);
-            })
-            facetsHtml += instantfacetTemplate.render(facetContent);
+
+            if (facetResult.name == 'where_destinations'){
+                var facetContent2 = {};
+
+                facetContent2 = {
+                    facet: facetName,
+                    title: FACETS_LABELS[facetName],
+                    values: content.getFacetValues(facetName, {
+                        sortBy: ['isRefined:desc', 'count:desc']
+                    }),
+                    disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+                };
+
+                facetContent2.values.sort(function(a, b){
+                  return a.name.localeCompare(b.name);
+                })
+
+                facetsHtml2 += instantfacetTemplate.render(facetContent2);
+            } else {
+                var facetContent = {};
+
+                facetContent = {
+                    facet: facetName,
+                    title: FACETS_LABELS[facetName],
+                    values: content.getFacetValues(facetName, {
+                        sortBy: ['isRefined:desc', 'count:desc']
+                    }),
+                    disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+                };
+
+                facetContent.values.sort(function(a, b){
+                  return a.name.localeCompare(b.name);
+                })
+
+                facetsHtml += instantfacetTemplate.render(facetContent);
+            }
         }
         $instantSearchFacet.html(facetsHtml);
-
+        $instantSearchFacet2.html(facetsHtml2);
     }
 
 

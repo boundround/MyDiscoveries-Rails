@@ -19,7 +19,7 @@
           <img src="<%= asset_path('br-logo-new-blue.png')%>" alt="">
         </div>
         <div class="title">
-          <p><%= place_or_country_link(video.place) %></p>
+          <p><%= link_to video.videoable.display_name, polymorphic_path(video.videoable) %></p>
           <h4 class="small-video-title"><%= video.title %></h4>
         </div>
     </div>
@@ -27,11 +27,7 @@
 
   <div class="details-dest btm15">
     <div class="left">
-      <% if video.place.present? %>
-          <% video.place.subcategories.subcats.each do |sub| %>
-            <%= link_to sub.name, subcategory_path(sub.identifier), class: 'badge-link' %>
-          <% end %>
-      <% end %>
+      
     </div>
   </div>
 
