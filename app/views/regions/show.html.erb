@@ -1,0 +1,70 @@
+<% if (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) %>
+  <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="location"></div>
+          <div class="destination"><%= @region.display_name %></div>
+          <div class="destination-details">
+            <div class="favourites-wrapper">
+              <% if user_signed_in? %>
+                <div class="icon-favourite selected"></div>
+                <div class="favourites-title hidden-xs" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from favourites</div>
+              <% else %>
+                <div class="icon-favourite" data-liked="false" id="favouriteType" data-klass="region" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                <div class="favourites-title hidden-xs" >Add to favourites</div>
+              <% end %>
+            </div>
+            <a data-scroll href="#photos" class="white">
+              <div class="photo-wrapper">
+                <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
+                <div class="photo-title"><span class="count"> <%= @region.photos.size %></span> <span class="hidden-xs">Photos</span></div>
+              </div>
+            </a>
+            <a data-scroll href="#videos" class="white">
+              <div class="video-wrapper">
+                <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
+                <div class="video-title"><span class="count"><%= @region.videos.size %></span><span class="hidden-xs"> Videos</span></div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-container">
+    <div class="nav-option-container">
+      <div class="container">
+        <div class="nav-option-outer-wrapper">
+          <div class="nav-option-wrapper">
+            <div class="nav-option"><a data-scroll href="#videos"><%= "VIDEOS" if @videos.present? %></a></div>
+            <div class="nav-option"><a data-scroll href="#stories"><%= "STORIES" if @stories.present? %></a></div>
+            <div class="nav-option"><a data-scroll href="#thingstodo"><%= "PLACES TO GO" if @areas.present? %></a></div>
+            <div class="nav-option"><a data-scroll href="#photos"><%= "PHOTOS" if @photos.present? %></a></div>
+            <div class="nav-option"><a data-scroll href="#famousfaces"><%= "FAMOUS FACES" if @famous_faces.present? %></a></div>
+            <div class="nav-option"><a data-scroll href="#funfacts"><%= "FUN FACTS" if @fun_facts.present? %></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="destination-desc " style="display:none;">
+          <%= raw @region.description %>
+        </div>
+        <div class="destination-desc">
+          <%= raw @region.description[0..280]+"..." %>
+        </div>
+        <div class="read-more-wrapper">
+          <a href="javascript:void()" class="readmore-area">READ MORE</a>
+          <a href="javascript:void()" class="readmore-area " style="display:none;">LESS</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

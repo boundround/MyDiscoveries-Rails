@@ -24,6 +24,9 @@ class VideosController < ApplicationController
     elsif params[:attraction_id]
       @attraction = Attraction.friendly.find(params[:attraction_id])
       variable = @attraction
+    elsif params[:region_id]
+      @region = Region.friendly.find(params[:region_id])
+      variable = @region
     end
 
     @videos = variable.videos
@@ -48,7 +51,7 @@ class VideosController < ApplicationController
 
   def create
     @video = Video.new(video_params)
-
+    
     if !params["video"]["vimeo_id"].blank?
         response = Unirest.get("https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s) rescue nil
         @video.youtube_id = ""

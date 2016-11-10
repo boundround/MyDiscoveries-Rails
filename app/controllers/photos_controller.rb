@@ -42,6 +42,15 @@ class PhotosController < ApplicationController
     end
   end
 
+  def region_update
+    @photo = Photo.find(params[:id])
+    if @photo.update(photo_params)
+      redirect_to choose_hero_region_path(@photo.photoable), notice: "Region Succesfully Updated"
+    else
+      redirect_to choose_hero_region_path(@photo.photoable), notice: "Error"
+    end
+  end
+
   def story_update
     @photo = Photo.find(params[:id])
     if @photo.update(photo_params)

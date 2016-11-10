@@ -1,0 +1,48 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+  <div id="table-container">
+    <h1>All Regions</h1>
+    <table class="table table-striped" id="place-table">
+      <thead>
+        <tr>
+          <th>Region</th>
+          <th>Parent</th>
+          <th>Word Count</th>
+          <th>Edit Link</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Zoom Level</th>
+          <th>Updated At</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>Region</th>
+          <th>Parent</th>
+          <th>Word Count</th>
+          <th></th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Zoom Level</th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @regions.each do |region| %>
+          <tr>
+            <td><%= link_to "#{region.display_name} || #{region.id}", edit_region_path(region) %></td>
+            <td><%= region.parent.present? ? (region.parent.parentable.class.to_s+ ": " + region.parent.parentable.display_name rescue '') : "No Parent" %></td>
+            <td><%= region.description.blank? ? 0 : (region.description.size / 6) %></td>
+            <td><%= link_to "Edit region", edit_region_path(region), target: "_blank" %></td>
+            <td><%= region.latitude %></td>
+            <td><%= region.longitude %></td>
+            <td><%= region.zoom_level %></td>
+            <td><%= region.updated_at.strftime('%F at %T') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <h3>You are not signed in or do not have the proper permissions to view this page</h3>
+<% end %>
+<link href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css" type="text/css">

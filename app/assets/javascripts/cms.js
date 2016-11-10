@@ -184,6 +184,7 @@ $(document).ready(function(){
   if (document.querySelector('#attraction_short_description')){
     countChars('#attraction_short_description', '#shortDescriptionCharCount');
     countChars('#attraction_description', '#descriptionCharCount');
+    countChars('#region_description', '#descriptionCharCount');
 
     $('#attraction_short_description').on('keyup', function(){
       countChars('#attraction_short_description', '#shortDescriptionCharCount');
@@ -197,4 +198,9 @@ $(document).ready(function(){
       });
     }, 1000);
   }
+  
+  $('#region_description').on('keyup', function(){
+    countChars('#region_description', '#shortDescriptionCharCount');
+  });
+  
 });
