@@ -397,6 +397,9 @@ Rails.application.routes.draw do
     resources :videos do
       collection { get 'all' }
     end
+    resources :fun_facts do
+      collection { get 'all' }
+    end
   end
 
   resources :deals
@@ -405,6 +408,7 @@ Rails.application.routes.draw do
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'
   get '/stories/:id/update_hero/:type/:photo_id' => 'stories#update_hero'
   get '/regions/:id/update_hero/:type/:photo_id' => 'regions#update_hero'
+  get '/regions/:id/edit_fun_fact/:fun_fact_id' => 'regions#edit_fun_fact', as: 'region_edit_fun_fact'
   post 'search_requests/create'
 
   match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]

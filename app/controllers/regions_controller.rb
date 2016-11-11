@@ -1,5 +1,5 @@
 class RegionsController < ApplicationController
-  before_action :set_region, only: [:show, :edit, :update, :destroy, :choose_hero, :update_hero]
+  before_action :set_region, only: [:show, :edit, :update, :destroy, :choose_hero, :update_hero, :edit_fun_fact]
 
   def index
     @regions = Region.all
@@ -58,7 +58,10 @@ class RegionsController < ApplicationController
 
   def destroy
     @region.destroy
-    respond_with(@region)
+    respond_to do |format|
+      format.html { redirect_to regions_url, notice: 'Region was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   def update_hero
@@ -80,6 +83,10 @@ class RegionsController < ApplicationController
   def choose_hero
     @region_photos = @region.photos
     @photo = Photo.new
+  end
+
+  def edit_fun_fact
+    @fun_fact = FunFact.find(params[:fun_fact_id])
   end
 
   private

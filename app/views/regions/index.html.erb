@@ -6,19 +6,17 @@
         <tr>
           <th>Region</th>
           <th>Parent</th>
-          <th>Word Count</th>
           <th>Edit Link</th>
           <th>Latitude</th>
           <th>Longitude</th>
           <th>Zoom Level</th>
-          <th>Updated At</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tfoot>
         <tr>
           <th>Region</th>
           <th>Parent</th>
-          <th>Word Count</th>
           <th></th>
           <th>Latitude</th>
           <th>Longitude</th>
@@ -31,12 +29,11 @@
           <tr>
             <td><%= link_to "#{region.display_name} || #{region.id}", edit_region_path(region) %></td>
             <td><%= region.parent.present? ? (region.parent.parentable.class.to_s+ ": " + region.parent.parentable.display_name rescue '') : "No Parent" %></td>
-            <td><%= region.description.blank? ? 0 : (region.description.size / 6) %></td>
             <td><%= link_to "Edit region", edit_region_path(region), target: "_blank" %></td>
             <td><%= region.latitude %></td>
             <td><%= region.longitude %></td>
             <td><%= region.zoom_level %></td>
-            <td><%= region.updated_at.strftime('%F at %T') %></td>
+            <td><%= link_to 'Destroy', region, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>

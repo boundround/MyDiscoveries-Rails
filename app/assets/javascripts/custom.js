@@ -34,6 +34,10 @@ $(document).ready(function(){
               $(selectBox).append("<option value='" + ids[i]['attraction_id'] +
                               "' name=" + ids[i]['attraction_name'] +
                               "' >" + ids[i]['attraction_name'] + "</option>");
+            } else if (dt_controller == 'regions') {
+              $(selectBox).append("<option value='" + ids[i]['region_id'] +
+                              "' name=" + ids[i]['region_name'] +
+                              "' >" + ids[i]['region_name'] + "</option>");
             } else {
               $(selectBox).append("<option value='" + ids[i]['place_id'] +
                               "' name=" + ids[i]['place_name'] +
@@ -62,6 +66,8 @@ $(document).ready(function(){
   dualListBox($('#dual-list-box-Places'), $('#similar-places-js').data("similar"), $("[name*='places_post[place_ids][]']"));
   dualListBox($('#dual-list-box-stories-places'), $('#similar-places-js').data("similar"), $("[name*='places_story[place_ids][]']"));
   dualListBox($('#dual-list-box-stories-attractions'), $('#similar-places-js').data("similar"), $("[name*='attractions_story[attraction_ids][]']"));
+  dualListBox($('#dual-list-box-stories-regions'), $('#similar-places-js').data("similar"), $("[name*='regions_story[region_ids][]']"));
+
 
   if($("#dual-list-box-stories-countries").length > 0){
     var availableCountries = $('#dual-list-box-stories-countries');

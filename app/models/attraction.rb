@@ -261,10 +261,10 @@ class Attraction < ActiveRecord::Base
   has_many :attractions_stories
   has_many :stories, through: :attractions_stories
 
-  has_many :fun_facts, -> { order "created_at ASC"}
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
   has_many :stamps
+  has_many :fun_facts, -> { order "created_at ASC"}, as: :fun_factable
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
   has_many :three_d_videos, as: :three_d_videoable

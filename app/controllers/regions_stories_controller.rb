@@ -1,47 +1,40 @@
 class RegionsStoriesController < ApplicationController
-  before_action :set_regions_story, only: [:show, :edit, :update, :destroy]
-
-  respond_to :html
-
-  def index
-    @regions_stories = RegionsStory.all
-    respond_with(@regions_stories)
-  end
-
-  def show
-    respond_with(@regions_story)
-  end
-
-  def new
-    @regions_story = RegionsStory.new
-    respond_with(@regions_story)
-  end
-
-  def edit
-  end
 
   def create
-    @regions_story = RegionsStory.new(regions_story_params)
-    @regions_story.save
-    respond_with(@regions_story)
+    @story = Story.find_by_slug(params[:story_id])
+    
+    @story.regions = []
+    if params[:regions_story]
+      @regions_ids = params[:regions_story][:region_ids]
+      @regions_ids.each do |id|
+        @story.regions_stories.create(story_id: @story.id, region_id: id)
+      end
+    end
+
+    redirect_to :back
   end
 
+  def edit;end
+
   def update
-    @regions_story.update(regions_story_params)
-    respond_with(@regions_story)
+    @story = Story.find_by_slug(params[:story_id])
+  end
+
+  def index
+    @story = Story.friendly.find(params[:story_id])
+    @regions_stories = @story.regions.build
+    @regions = Region.order(display_name: :asc)
   end
 
   def destroy
+    @regions_story = RegionsStory.find_by(story_id: params["regions_stories"]["story_id"], region_id: params["regions_stories"]["region_id"])
     @regions_story.destroy
-    respond_with(@regions_story)
+    render nothing: true
   end
 
   private
-    def set_regions_story
-      @regions_story = RegionsStory.find(params[:id])
-    end
+  def regions_story_params
+    params.require(:regions_stories).permit(:story_id, :region_ids => [])
+  end
 
-    def regions_story_params
-      params.require(:regions_story).permit(:region_id, :story_id)
-    end
 end

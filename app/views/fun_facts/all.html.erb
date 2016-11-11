@@ -1,0 +1,35 @@
+<% 
+  if !@place.blank?
+    variable = @place
+    path = 'place'
+  elsif !@attraction.blank?
+    variable = @attraction
+    path = 'attraction'
+  elsif !@region.blank?
+    variable = @region
+    path = 'region'
+  end
+%>
+
+<div class="container">
+  <%= render "#{path}s/admin_tabs" %>
+  <h1>Fun Facts</h1>
+  <%= link_to "Back To Edit #{variable.display_name}", eval("edit_#{path}_path(variable)") %>
+  <% if @fun_facts.present? %>
+    <h4>Fun Facts (Click to Edit)</h4>
+    <div class="row">
+      <% @fun_facts.each do |fun_fact| %>
+        <div class="col-md-4 fun-fact">
+          <%= link_to region_edit_fun_fact_path(variable, fun_fact), method: :get do %>
+            <div class="fun-fact-img" style="background: url(<%= draw_fun_fact_photo(fun_fact, variable) rescue nil %>) no-repeat;" role="img" aria-label="Fish Market"></div>
+          <% end %>
+          <div class="fact"><%= raw fun_fact.content %></div>
+        </div>
+      <% end %>
+    </div>
+    <hr>
+  <% end %>
+  <div class="edit_photo">
+    <%= render "/fun_facts/form" %>
+  </div>
+</div>

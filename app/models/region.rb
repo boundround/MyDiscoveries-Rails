@@ -117,7 +117,7 @@ class Region < ActiveRecord::Base
   has_many :regions_stories
   has_many :stories, through: :regions_stories
 
-  has_many :fun_facts, -> { order "created_at ASC"}
+  has_many :fun_facts, -> { order "created_at ASC"}, as: :fun_factable
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
 
