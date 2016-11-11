@@ -10,6 +10,7 @@ class PlacesController < ApplicationController
     @place = Place.new
     @places = Place.active.where(is_area: true).order(display_name: :asc)
     @countries = Country.all
+    @regions = Region.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
     # @places_coutry = @countries + @places
@@ -154,6 +155,7 @@ class PlacesController < ApplicationController
     @place = Place.friendly.find(params[:id])
     @places = Place.active.where(is_area: true).order(display_name: :asc)
     @countries = Country.all
+    @regions = Region.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new
@@ -196,6 +198,7 @@ class PlacesController < ApplicationController
     @place = Place.friendly.find(params[:id])
     @places = Place.active.order(display_name: :asc)
     @countries = Country.all
+    @regions = Region.all
     @subcategories = Subcategory.all
     @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new

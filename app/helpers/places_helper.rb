@@ -15,6 +15,9 @@ module PlacesHelper
         elsif parent.class.to_s == "Attraction"
           breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", attraction_path(parent)
           breadcrumb += " / "
+        elsif parent.class.to_s == "Region"
+          breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", region_path(parent)
+          breadcrumb += " / "
         end
       end
     end

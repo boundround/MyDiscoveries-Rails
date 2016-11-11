@@ -403,15 +403,21 @@ class Attraction < ActiveRecord::Base
           return parents
         end
       else
-        parents << attraction.parent.parentable unless attraction.parent.parentable.blank?
-        if attraction.parent.parentable.class.to_s.eql? "Country"
+        if attraction.parent.parentable.class.to_s.eql? "Region"
+          parents << attraction.parent.parentable
           parents << attraction.country
           return parents
         else
-          if attraction.parent.parentable.blank?
+          parents << attraction.parent.parentable unless attraction.parent.parentable.blank?
+          if attraction.parent.parentable.class.to_s.eql? "Country"
+            parents << attraction.country
             return parents
           else
-            get_parents(attraction.parent.parentable, parents)
+            if attraction.parent.parentable.blank?
+              return parents
+            else
+              get_parents(attraction.parent.parentable, parents)
+            end
           end
         end
       end
@@ -423,7 +429,8 @@ class Attraction < ActiveRecord::Base
       if parent.parentable.blank?
         []
       else
-        parent.parentable.children.delete_if {|child| child == self }
+        []
+        # parent.parentable.children.delete_if {|child| child == self }
       end
     else
       []

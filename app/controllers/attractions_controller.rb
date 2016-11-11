@@ -72,6 +72,7 @@ class AttractionsController < ApplicationController
     @places = Place.active.where(is_area: true).order(display_name: :asc)
     @attractions = Attraction.active.order(display_name: :asc)
     @countries = Country.all
+    @regions = Region.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
   end
@@ -82,6 +83,7 @@ class AttractionsController < ApplicationController
     @places = Place.active.where(is_area: true).order(display_name: :asc)
     @attractions = Attraction.active.order(display_name: :asc)
     @countries = Country.all
+    @regions = Region.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new
