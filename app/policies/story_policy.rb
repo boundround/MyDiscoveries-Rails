@@ -1,5 +1,4 @@
 class StoryPolicy < ApplicationPolicy
-
   def index?
     if @user.blank?
       false
@@ -15,9 +14,10 @@ class StoryPolicy < ApplicationPolicy
   def new?
     index?
   end
-  
+
   def edit?
-    (@user.admin? || (@record.user_id == @user.id))
+    debugger
+    (@user.admin? || (@record.is_a?(ActiveRecord::Base) ? (@record.user_id == @user.id) : false))
   end
 
   def update?

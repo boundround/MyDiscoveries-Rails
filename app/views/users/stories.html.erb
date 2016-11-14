@@ -53,10 +53,10 @@
               <div class="p-dynamic member-profile">
               <p class="visited"><%= story.created_at.strftime("%B %Y")%></p>
               <p class="font-orange2"><%= story.title %></p>
-              <p><%= story.teaser.html_safe %></p>
+              <p><%= story.teaser.html_safe rescue "" %></p>
               </div>
                 <div class="img-story-place">
-                  <img align="right" src="<%= story.story_images.first.file_url %>" alt="">
+                  <img align="right" src="<%= story.story_images.first.file_url rescue "" %>" alt="">
                 </div>
             </div>
           </div>

@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :games, through: :games_users
   has_many :places_users
   has_many :favorite_places, through: :places_users, source: :place
+  has_many :attractions_users
+  has_many :favorite_attractions, through: :attractions_users, source: :attraction
   has_many :fun_facts_users
   has_many :fun_facts, through: :fun_facts_users
   has_many :posts_users
@@ -26,7 +28,8 @@ class User < ActiveRecord::Base
   has_many :identities
 
   has_many :reviews
-  has_many :stories
+  has_many :stories_users
+  has_many :stories, through: :stories_users
   has_many :user_photos
 
   has_one :points_balance
