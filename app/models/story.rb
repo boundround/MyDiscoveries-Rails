@@ -4,6 +4,7 @@ class Story < ActiveRecord::Base
   include Searchable
 
   friendly_id :slug_candidates, :use => [:slugged, :history]
+  attr_accessor :display_address
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
@@ -34,7 +35,10 @@ class Story < ActiveRecord::Base
     end
 
     attribute :display_address do
-      "Bound Round Story"
+      story_usr = self.user
+      unless story_usr.blank?
+        story_usr.username
+      end
     end
 
     attribute :viator_link do
@@ -86,11 +90,9 @@ class Story < ActiveRecord::Base
     end
 
     attribute :hero_photo do
-      hero_h = photos.where(photos: { hero: true })
-      hero_h = hero_h.first
-      hero= {}
-      if hero_h.present?
-        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
+
+      if hero_image.present?
+        hero = { url: hero_image_url, alt_tag: "" }
       else
         hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
       end
