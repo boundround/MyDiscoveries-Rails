@@ -16,7 +16,6 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def edit?
-    debugger
     (@user.admin? || (@record.is_a?(ActiveRecord::Base) ? (@record.user_id == @user.id) : false))
   end
 
