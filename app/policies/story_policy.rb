@@ -17,7 +17,7 @@ class StoryPolicy < ApplicationPolicy
   end
   
   def edit?
-    @user.admin? || @user.has_role?("contributor")
+    (@user.admin? || (@record.user_id == @user.id))
   end
 
   def update?
