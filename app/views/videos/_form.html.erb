@@ -24,9 +24,11 @@
       <%= f.input :videoable_id, as: :hidden, input_html: {value: @place.id } %>
       <%= f.input :videoable_type, as: :hidden, input_html: {value: "Place" } %>
     <% elsif @attraction %>
-      <%#= f.input :attraction_id, as: :hidden, input_html: {value: @attraction.id } %>
       <%= f.input :videoable_id, as: :hidden, input_html: {value: @attraction.id } %>
       <%= f.input :videoable_type, as: :hidden, input_html: {value: "Attraction"} %>
+    <% elsif @region %>
+      <%= f.input :videoable_id, as: :hidden, input_html: {value: @region.id } %>
+      <%= f.input :videoable_type, as: :hidden, input_html: {value: "Region"} %>
     <% end %>
   </div>
   <div class="form-group">

@@ -32,4 +32,15 @@ module StoriesHelper
     end
     country_ids.to_json
   end
+
+  def array_regions_stories_ids(regions_stories)
+    region_ids = []
+    regions_stories.each do |regions_story|
+      if !regions_story.region_id.blank?
+        region = Region.find(regions_story.region_id)
+        region_ids.push({region_id: region.id, region_name: region.display_name})
+      end
+    end
+    region_ids.to_json
+  end
 end

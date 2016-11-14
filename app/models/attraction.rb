@@ -261,10 +261,10 @@ class Attraction < ActiveRecord::Base
   has_many :attractions_stories
   has_many :stories, through: :attractions_stories
 
-  has_many :fun_facts, -> { order "created_at ASC"}
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
   has_many :stamps
+  has_many :fun_facts, -> { order "created_at ASC"}, as: :fun_factable
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
   has_many :three_d_videos, as: :three_d_videoable
@@ -403,15 +403,21 @@ class Attraction < ActiveRecord::Base
           return parents
         end
       else
-        parents << attraction.parent.parentable unless attraction.parent.parentable.blank?
-        if attraction.parent.parentable.class.to_s.eql? "Country"
+        if attraction.parent.parentable.class.to_s.eql? "Region"
+          parents << attraction.parent.parentable
           parents << attraction.country
           return parents
         else
-          if attraction.parent.parentable.blank?
+          parents << attraction.parent.parentable unless attraction.parent.parentable.blank?
+          if attraction.parent.parentable.class.to_s.eql? "Country"
+            parents << attraction.country
             return parents
           else
-            get_parents(attraction.parent.parentable, parents)
+            if attraction.parent.parentable.blank?
+              return parents
+            else
+              get_parents(attraction.parent.parentable, parents)
+            end
           end
         end
       end
@@ -423,7 +429,8 @@ class Attraction < ActiveRecord::Base
       if parent.parentable.blank?
         []
       else
-        parent.parentable.children.delete_if {|child| child == self }
+        []
+        # parent.parentable.children.delete_if {|child| child == self }
       end
     else
       []

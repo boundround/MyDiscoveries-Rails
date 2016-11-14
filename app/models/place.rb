@@ -577,12 +577,19 @@ class Place < ActiveRecord::Base
           return parents
         end
       else
-        parents << place.parent.parentable
-        if place.parent.parentable.class.to_s.eql? "Country"
+        if place.parent.parentable.class.to_s.eql? "Region"
+          parents << place.parent.parentable
           parents << place.country
           return parents
         else
-          get_parents(place.parent.parentable, parents)
+          parents << place.parent.parentable
+
+          if place.parent.parentable.class.to_s.eql? "Country"
+            parents << place.country
+            return parents
+          else
+            get_parents(place.parent.parentable, parents)
+          end
         end
       end
     end

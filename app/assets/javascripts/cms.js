@@ -197,4 +197,9 @@ $(document).ready(function(){
       });
     }, 1000);
   }
+  
+  $('#region_description').on('keyup', function(){
+    countChars('#region_description', '#shortDescriptionCharCount');
+  });
+  
 });

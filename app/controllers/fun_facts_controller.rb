@@ -4,12 +4,28 @@ class FunFactsController < ApplicationController
     @fun_facts = FunFact.where("length(content) > 140").order(:id)
   end
 
+  def all
+    if params[:place_id]
+      @place = Place.friendly.find(params[:place_id])
+      variable = @place
+    elsif params[:attraction_id]
+      @attraction = Attraction.friendly.find(params[:attraction_id])
+      variable = @attraction
+    elsif params[:region_id]
+      @region = Region.friendly.find(params[:region_id])
+      variable = @region
+    end
+
+    @fun_facts = variable.fun_facts
+  end
+
   def new
     @fun_fact = FunFact.new
   end
 
   def create
     @fun_fact = FunFact.new(fun_fact_params)
+
     if params[:country_id]
       @fun_fact.countries << Country.friendly.find(params[:country_id])
     end
@@ -32,7 +48,7 @@ class FunFactsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to :back, notice: "fun fact updated" }
       format.json { render json: @fun_fact }
     end
   end
@@ -40,7 +56,12 @@ class FunFactsController < ApplicationController
   def destroy
     @fun_fact = FunFact.find(params[:id])
     @fun_fact.destroy
-    redirect_to :back, notice: "fun fact deleted"
+    if params[:region_id]
+      @region = Region.friendly.find(params[:region_id])
+      redirect_to all_region_fun_facts_path(@region), notice: "fun fact deleted"
+    else
+      redirect_to :back, notice: "fun fact deleted"
+    end
   end
 
   def import
@@ -52,6 +73,6 @@ class FunFactsController < ApplicationController
 
     def fun_fact_params
       params.require(:fun_fact).permit(:content, :reference, :priority, :area_id, :place_id, :hero_photo, :status, :photo_credit,
-                                        :customer_approved, :customer_review, :approved_at, :country_include, :_destroy)
+                                        :customer_approved, :customer_review, :approved_at, :country_include, :fun_factable_id, :fun_factable_type, :_destroy)
     end
 end
