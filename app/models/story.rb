@@ -34,7 +34,7 @@ class Story < ActiveRecord::Base
       title
     end
 
-    attribute :display_address do 
+    attribute :display_address do
       story_usr = self.user
       unless story_usr.blank?
         story_usr.username
@@ -90,11 +90,9 @@ class Story < ActiveRecord::Base
     end
 
     attribute :hero_photo do
-      hero_h = photos.where(photos: { hero: true })
-      hero_h = hero_h.first
-      hero= {}
-      if hero_h.present?
-        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
+
+      if hero_image.present?
+        hero = { url: hero_image_url, alt_tag: "" }
       else
         hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
       end
