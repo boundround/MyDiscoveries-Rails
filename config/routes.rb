@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :stories do
     collection { get 'paginate' }
     member do
-      get 'paginate_place_to_visit'
+      get 'paginate_place'
       post :upload_image
       post :delete_image
     end
