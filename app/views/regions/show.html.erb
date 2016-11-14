@@ -1,5 +1,6 @@
 <% if (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) %>
-  <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
+  <div data-page="region">
+    <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -51,19 +52,326 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="container"> 
     <div class="row">
       <div class="col-xs-12">
         <div class="destination-desc " style="display:none;">
           <%= raw @region.description %>
         </div>
-        <div class="destination-desc">
-          <%= raw @region.description[0..280]+"..." %>
+
+        <div class="destination-desc promo-text">
+          <p><%= raw @region.description[0..280]+"..." %></p>
+          <div class="read-more-wrapper">
+            <a href="javascript:void()" class="readmore-area link-more">READ MORE</a>
+            <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container place-to-go section">
+    <div class="row">
+      <h3 class="header">Places to go</h3>
+      <div class="content">
+        <div class="row">
+          <div class="col-xs-12 col-md-4 col-lg-4 places-to-go-card">
+            <div class="country-background" style="background: url('/assets/img/dummy-1.png') no-repeat 100%;">
+              <div class="country-name">SOUTH KOREA</div>
+              <div class="city">Jeju Island</div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-4 col-lg-4 places-to-go-card">
+            <div class="country-background" style="background: url('/assets/img/dummy-2.png') no-repeat 100%;">
+              <div class="country-name">japan</div>
+              <div class="city">Kyoto</div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-4 col-lg-4 places-to-go-card">
+            <div class="country-background" style="background: url('/assets/img/dummy-3.png') no-repeat 100%;">
+              <div class="country-name">Hong kong</div>
+              <div class="city">Hong Kong</div>
+            </div>
+          </div>
+        </div>
+    </div>
+        <div class="read-more-wrapper">
+            <a href="javascript:void()" class="readmore-area link-more">LOAD MORE</a>
+            <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
+          </div>
+      </div>                                                          
+  </div>
+
+  <div class="container section">
+    <div class="row">
+      <h3 class="header">Family deals</h3>
+      <div class="content">
+        <div class="row">
+          <div class="col-xs-12 col-md-6 col-lg-3">
+            <div class="family-deals-card">
+              <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
+              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
+              <div class="family-deals-text">
+                <div class="cost">
+                  From <img src="/assets/img/family-deals/deal.png"> $1399 <img src="/assets/img/family-deals/night.png"> 8 nights
+                </div>
+                <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
+                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
+                <a class="family-deals-card__see-deal">See deal</a>
+                <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 col-lg-3">
+            <div class="family-deals-card">
+              <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
+              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
+              <div class="family-deals-text">
+                <div class="cost">
+                  From <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> $1399 <img src="/assets/img/family-deals/night.png" class="family-deals-card__included-icon"> 8 nights
+                </div>
+                <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
+                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
+                <a class="family-deals-card__see-deal">See deal</a>
+                <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 col-lg-3">
+            <div class="family-deals-card">
+              <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
+              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
+              <div class="family-deals-text">
+                <div class="cost">
+                  From <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> $1399 <img src="/assets/img/family-deals/night.png" class="family-deals-card__included-icon"> 8 nights
+                </div>
+                <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
+                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
+                <a class="family-deals-card__see-deal">See deal</a>
+                <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 col-lg-3">
+            <div class="family-deals-card family-deals-card__ad">
+              <img src="/assets/img/family-deals/family-deals-ad.jpg">
+              <p class="family-deals-card-ad__paragraph">Sponsored</p>
+            </div>
+          </div>
+
         </div>
         <div class="read-more-wrapper">
-          <a href="javascript:void()" class="readmore-area">READ MORE</a>
-          <a href="javascript:void()" class="readmore-area " style="display:none;">LESS</a>
+            <a href="javascript:void()" class="readmore-area link-more">LOAD MORE</a>
+            <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container section">
+    <div class="row">
+      <h3 class="header">Things to do in East Asia</h3>
+      <div class="content">
+        <div class="row">
+          <div class="owl-carousel carousel" id="things-to-do">
+            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+              <div class="dest-thing card-shadow">
+                <a class="link_card" href="/attractions/things-to-do-with-kids-and-families-australia-glenelg-beach"></a>
+                  <div class="dest-thing-overlay-wrapper">
+                  </div>
+                  <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
+                    <div class="region-things-to-do-card__headline">
+                      <div class="region-things-to-do-card__cost">$$</div>
+                      <div class="region-things-to-do-card__book">book</div>
+                    </div>
+                  </div>
+                  <div class="dest-thing-content">
+                    <h4>Lotte World</h4>
+                    <span class="region-things-to-do-card__theme-mark">Theme mark</span>
+                  </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+              <div class="dest-thing card-shadow">
+                <a class="link_card" href="/attractions/things-to-do-with-kids-and-families-australia-glenelg-beach"></a>
+                  <div class="dest-thing-overlay-wrapper">
+                  </div>
+                  <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
+                    <div class="region-things-to-do-card__headline">
+                      <div class="region-things-to-do-card__cost">$$</div>
+                      <div class="region-things-to-do-card__book">book</div>
+                    </div>
+                  </div>
+                  <div class="dest-thing-content">
+                    <h4>Lotte World</h4>
+                    <span class="region-things-to-do-card__theme-mark">Theme mark</span>
+                  </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+              <div class="dest-thing region-things-to-do-card--ad">
+                <img src="/assets/img/region-things-to-do/region-things-to-do-ad.jpg" class="region-things-to-do-card-ad__img">
+                <p class="region-things-to-do-card-ad__paragraph">Sponsored</p>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+              <div class="dest-thing card-shadow">
+                <a class="link_card" href="/attractions/things-to-do-with-kids-and-families-australia-glenelg-beach"></a>
+                  <div class="dest-thing-overlay-wrapper">
+                  </div>
+                  <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
+                    <div class="region-things-to-do-card__headline">
+                      <div class="region-things-to-do-card__cost">$$</div>
+                      <div class="region-things-to-do-card__book">book</div>
+                    </div>
+                  </div>
+                  <div class="dest-thing-content">
+                    <h4>Lotte World</h4>
+                    <span class="region-things-to-do-card__theme-mark">Theme mark</span>
+                  </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+              <div class="dest-thing card-shadow">
+                <a class="link_card" href="/attractions/things-to-do-with-kids-and-families-australia-glenelg-beach"></a>
+                  <div class="dest-thing-overlay-wrapper">
+                  </div>
+                  <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
+                    <div class="region-things-to-do-card__headline">
+                      <div class="region-things-to-do-card__cost">$$</div>
+                      <div class="region-things-to-do-card__book">book</div>
+                    </div>
+                  </div>
+                  <div class="dest-thing-content">
+                    <h4>Lotte World</h4>
+                    <span class="region-things-to-do-card__theme-mark">Theme mark</span>
+                  </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+              <div class="dest-thing card-shadow">
+                <a class="link_card" href="/attractions/things-to-do-with-kids-and-families-australia-glenelg-beach"></a>
+                  <div class="dest-thing-overlay-wrapper">
+                  </div>
+                  <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
+                    <div class="region-things-to-do-card__headline">
+                      <div class="region-things-to-do-card__cost">$$</div>
+                      <div class="region-things-to-do-card__book">book</div>
+                    </div>
+                  </div>
+                  <div class="dest-thing-content">
+                    <h4>Lotte World</h4>
+                    <span class="region-things-to-do-card__theme-mark">Theme mark</span>
+                  </div>
+              </div>
+            </div>
+
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <div class="container section">
+    <div class="row">
+      <h3 class="header">Itineraries</h3>
+      <div class="content">
+        <div class="row">
+          <div class="col-xs-12 col-md-6 col-lg-3">
+            <div class="family-deals-card">
+              <img src="/assets/img/family-deals/itineraries-banner.png" class="family-deals-card__deal-icon">
+              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
+              <div class="family-deals-text">
+                <div class="cost">
+                  <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> 3 days <img src="/assets/img/family-deals/empty-pin.png" class="family-deals-card__included-icon"> 2 cities
+                </div>
+                <div class="family-deals-card__header">Beijing to Tokyo</div>
+                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
+                <a class="family-deals-card__see-deal">see full itinerary</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 col-lg-3">
+            <div class="family-deals-card">
+              <img src="/assets/img/family-deals/itineraries-banner.png" class="family-deals-card__deal-icon">
+              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
+              <div class="family-deals-text">
+                <div class="cost">
+                  <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> 3 days <img src="/assets/img/family-deals/empty-pin.png" class="family-deals-card__included-icon"> 2 cities
+                </div>
+                <div class="family-deals-card__header">Beijing to Tokyo</div>
+                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
+                <a class="family-deals-card__see-deal">see full itinerary</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 col-lg-3">
+            <div class="family-deals-card">
+              <img src="/assets/img/family-deals/itineraries-banner.png" class="family-deals-card__deal-icon">
+              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
+              <div class="family-deals-text">
+                <div class="cost">
+                  <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> 3 days <img src="/assets/img/family-deals/empty-pin.png" class="family-deals-card__included-icon"> 2 cities
+                </div>
+                <div class="family-deals-card__header">Beijing to Tokyo</div>
+                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
+                <a class="family-deals-card__see-deal">see full itinerary</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 col-lg-3">
+            <div class="family-deals-card family-deals-card__ad">
+              <img src="/assets/img/family-deals/family-deals-ad.jpg">
+              <p class="family-deals-card-ad__paragraph">Sponsored</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="read-more-wrapper">
+            <a href="javascript:void()" class="readmore-area link-more">LOAD MORE</a>
+            <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="container-fluid wild-ad-banner">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-md-offset-3">
+      <img src="/assets/img/wild-ad-banner/wild-ad-banner-(copy).jpg" class="wild-ad-banner__img">
+      <p class="wild-ad-banner__paragraph">Sponsored</p>
       </div>
     </div>
   </div>

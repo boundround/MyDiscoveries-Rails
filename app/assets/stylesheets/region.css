@@ -1,0 +1,281 @@
+/*Regiioooooonnnnn*/
+[data-page="region"]{
+	background: #fff
+}
+
+[data-page="region"] h3.header{
+	text-align: center;
+	padding-top: 82px;
+    padding-bottom: 45px;
+    margin: 0;
+}
+
+[data-page="region"] .section{
+	text-align: center;
+    padding-bottom: 72px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+[data-page="region"] .nav-option-outer-wrapper{
+	text-align: center;
+}
+
+[data-page="region"] .nav-option{
+	float: none;
+	display: inline-block;
+}
+
+[data-page="region"] .promo-text{
+	margin: 0 auto;
+	max-width: 1170px;
+	padding: 0 14px;
+	font-family: signika-light, sans-serif;
+	font-weight: normal;
+	position: relative;
+	clear: both;
+}
+
+[data-page="region"] .promo-text{
+	text-align: center;
+    padding-bottom: 42px;
+    padding-top: 55px;
+}
+
+[data-page="region"] .promo-text > p{
+	font-size: 22px;
+	line-height: 34px;
+	margin: 0;
+}
+
+[data-page="region"] a.link-more{
+	display: inline-block;
+    margin: 21px auto 0;
+    color: #959595;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 25px;
+}
+
+/*Places to go*/
+[data-page="region"] .places-to-go-card {
+	height: 480px;
+	border-radius: 6px;
+	overflow: hidden;
+    color: #fff;
+}
+
+[data-page="region"] .country-background{
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: relative;
+	height: 100%;
+}
+
+[data-page="region"] .country-name{
+	text-align: left;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 20px 0 13px 49px;
+    background-image: url("img/places-to-go/pin-white.png");
+    background-repeat: no-repeat;
+    background-size: 21px;
+    background-position: 17px 17px;
+}
+
+[data-page="region"] .city{
+	font-family: signika-bold, sans-serif;
+	font-size: 52px;
+	position: absolute;
+    width: 100%;
+    top: 45%;
+}
+
+/*Family Deals*/
+[data-page="region"] .family-deals-card{
+	transition: 0.3s;
+	height: 320px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+	text-align: left;
+	line-height: 1.15;
+}
+
+[data-page="region"] .family-deals-text{
+	padding: 0px 28px;
+	transition: 0.3s all linear;
+}
+
+[data-page="region"] .cost{
+	font-size: 14px;
+	padding: 21px 0 16px;
+}
+
+[data-page="region"] .family-deals-card__header{
+    font-size: 28px;
+    padding-bottom: 10px;
+}
+
+[data-page="region"] .family-deals-card__paragraph{
+	font-size: 17px;
+	padding-bottom: 24px;
+	margin: 0;
+	line-height: 22px;
+	opacity: 0;
+    transition: 0.4s opacity linear;
+}
+
+[data-page="region"] .family-deals-card__see-deal{
+	display: block;
+    text-decoration: none;
+    color: #fff;
+    background-color: #6cb7ca;
+    padding: 7px 10px;
+    text-transform: uppercase;
+    font-size: 18px;
+    text-align: center;
+}
+
+[data-page="region"] .family-deals-card__offer-ends{
+	font-size: 16px;
+	text-align: center;
+	margin: 10px 0;
+}
+
+[data-page="region"] .family-deals-card__point-photo{
+	transition: 0.3s all linear;
+	height: 160px;
+    overflow: hidden;
+}
+
+[data-page="region"] .family-deals-card__deal-icon{
+	position: absolute;
+	transition: 0.4s all linear;
+}
+
+[data-page="region"] .family-deals-card__included-icon{
+	display: inline-block;
+    position: relative;
+    top: 3px;
+    margin: 0 5px 0 7px;
+}
+
+[data-page="region"] .family-deals-card:hover > .family-deals-card__point-photo{
+	margin-top: -185px;
+}
+
+[data-page="region"] .family-deals-card:hover > .family-deals-text{
+	margin-top: -20px;
+}
+
+[data-page="region"] .family-deals-card:hover > .family-deals-card__deal-icon{
+	transform: translate3d(0, -100%, 0);
+}
+
+[data-page="region"] .family-deals-card:hover > .family-deals-text > .family-deals-card__paragraph{
+	opacity: 1;
+}
+
+[data-page="region"] .family-deals-card__ad{
+	background-color: #f0f0f0;
+    border: 1px solid #cccccc;
+    padding: 10px;
+}
+
+[data-page="region"] .family-deals-card-ad__paragraph,
+[data-page="region"] .region-things-to-do-card-ad__paragraph{
+	color: #a2a2a2;
+    font-size: 14px;
+    position: absolute;
+    bottom: 7px;
+    left: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+}
+
+/*Things To Do*/
+[data-page="region"] .card-shadow{
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+	position:relative;
+}
+
+[data-page="region"] .dest-thing-wrapper .dest-thing{
+	border: 0;
+}
+
+[data-page="region"] #things-to-do{
+	text-align: left;
+}
+
+[data-page="region"] .region-things-to-do-card__theme-mark{
+	float: left;
+    background-color: #eaeaea;
+    border-radius: 12px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 20px;
+    left: 25px;
+    text-transform: uppercase;
+    padding: 4px 11px;
+}
+
+[data-page="region"] .region-things-to-do-card__headline{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+
+}
+
+[data-page="region"] .region-things-to-do-card__cost{
+	float: left;
+    color: #fff;
+    padding: 18px;
+    font-size: 20px;
+}
+
+[data-page="region"] .region-things-to-do-card__book{
+	float: right;
+    font-size: 18px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 8px 12px;
+    background-color: #fe7e57;
+    margin: 11px 13px 0 0;
+}
+
+[data-page="region"] .region-things-to-do-card--ad{
+	background-color: #f0f0f0;
+    border: 1px solid #cccccc !important;
+    padding: 34px;
+    position: relative;
+    height: 380px;
+}
+
+[data-page="region"] .dest-thing-wrapper{
+	height: 380px;
+}
+
+/*Will Ad Banner*/
+[data-page="region"] .wild-ad-banner{
+	background-color: #f0f0f0;
+    padding: 19px;
+}
+
+[data-page="region"] .wild-ad-banner img{
+	display: block !important;
+}
+
+[data-page="region"] .wild-ad-banner__paragraph {
+    color: #a2a2a2;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 10px;
+}
