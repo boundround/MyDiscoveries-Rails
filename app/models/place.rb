@@ -188,6 +188,13 @@ class Place < ActiveRecord::Base
       end
     end
 
+    attribute :display_address do 
+      dp_add = self.display_address
+      unless dp_add.blank?
+        dp_add.split(', ').last(2).join(', ')
+      end
+    end
+
      #country and url
 
     # the attributesToIndex` setting defines the attributes

@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     collection { get 'paginate' }
     member do
       get 'seo_analysis'
-      get 'paginate_place_to_visit'
+      get 'paginate_place'
       post :upload_image
       post :delete_image
     end
@@ -176,6 +176,8 @@ Rails.application.routes.draw do
   resources :users do
     collection { get 'leaderboard' }
     member { get 'paginate_stories'}
+    member { get 'paginate_places'}
+    member { get 'paginate_place_to_visit'}
     member { get 'favourites' }
     member { get 'paginate_reviews' }
     member { get 'paginate_photos' }

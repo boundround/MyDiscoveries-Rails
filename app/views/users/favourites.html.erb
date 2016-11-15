@@ -1,89 +1,92 @@
 <% if @user == current_user || current_user.admin %>
-<div class="container">
-  <div class="row">
-    <div class="head-title">
-        <%#= render 'user_status' %>
-      <h4 class="top20">My account</h4>
-      <h2 class="gray-font">Favourites</h2>
-    </div>
-  </div>
-  </div> <!-- row -->
-</div>
-
-    <div class="border-section btm10"></div>
-
-
-<% unless @favorite_places.blank? %>
-        <div id="thingstodo" class="container dest-things-wrapper">
-            <div class="row">
-                <div class="col-xs-12">
-                  <h3>Things To Do</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="owl-carousel carousel" id="places_to_visit-list">
-                  <%= render partial: 'places/places_to_visit_list', collection: @favorite_places, as: :area %>
-                </div>
-            </div>
-
-            <% unless last_page? @favorite_places %>
-            <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
-                <div class="col-xs-12 load-more">
-                    <div class="hidden single-pagination-loader" align="center">
-                      <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                    </div>
-                  <%= link_to "LOAD MORE", paginate_place_to_visit_place_path(@place, places_to_visit_page: @favorite_places.next_page, resources: 'places_to_visit', collection_object: 'area'), class: 'single-pagination', remote: true %>
-                </div>
-            </div>
-            <% end %>
-
-        </div>
-        <% end %>
-
-        <hr class="gradient-divider" />
-
-<div class="container">
+  <div class="container">
     <div class="row">
-      <% unless @areas.blank? %>
-          <div class="col-md-12">
-              <div class="destination-wrapper">
-                  <div class="row">
-                      <div class="col-md-12">
-                          <h3>Places to go</h3>
-                      </div>
-                  </div>
-                  <br/>
+      <div class="head-title">
+          <%#= render 'user_status' %>
+        <h4 class="top20">My account</h4>
+        <h2 class="gray-font">Favourites</h2>
+      </div>
+    </div>
+    </div> <!-- row -->
+  </div>
 
-                  <div class="row">
-                      <div class="owl-carousel carousel" id="place_to_go-list">
-                          <%= render partial: 'pages/place_to_go_list', collection: @areas, as: :area %>
-                      </div>
-                  </div>
-              </div>
+  <div class="border-section btm10"></div>
 
-              <% unless last_page? @areas %>
-                  <div class="row hidden-xs">
-                      <div class="col-xs-12">
-                          <div class="single-pagination-container" id="areas-single-pagination-container">
-                              <div class="hidden single-pagination-loader" align="center">
-                                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                              </div>
-                              <div class="load-more">
-                                  <%= link_to "LOAD MORE", pages_path(areas_page: @areas.next_page, resources: 'areas', pagination_template: 'place_to_go_list', collection_object: 'area'), class: 'single-pagination', remote: true %>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              <% end %>
-          </div>
-          <% end %>
+  <% unless @places_to_visit.blank? %>
+    <div id="thingstodo" class="container dest-things-wrapper">
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>Things To Do</h3>
         </div>
       </div>
-      <hr class="gradient-divider" />
-<div class="container">
-  <%= render partial: "stories/all_stories"%>
-</div>
+      <div class="row">
+        <div class="owl-carousel carousel" id="places_to_visit-list">
+          <%= render partial: 'places/places_to_visit_list', collection: @places_to_visit, as: :area %>
+        </div>
+      </div>
 
+      <% unless last_page? @places_to_visit %>
+        <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
+          <div class="col-xs-12 load-more">
+            <div class="hidden single-pagination-loader" align="center">
+              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+            </div>
+            <%= link_to "LOAD MORE", paginate_place_to_visit_user_path(@user, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'places/places_to_visit_list', collection_object: 'area', attraction: true), class: 'single-pagination', remote: true %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <hr class="gradient-divider" />
+
+  <div class="container">
+    <div class="row">
+      <% unless @areas.blank? %>
+        <div class="col-md-12">
+          <div class="destination-wrapper">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Places to go</h3>
+              </div>
+            </div>
+            <br/>
+
+            <div class="row">
+              <div class="owl-carousel carousel" id="place_to_go-list">
+                <%= render partial: 'pages/place_to_go_list', collection: @areas, as: :area %>
+              </div>
+            </div>
+          </div>
+
+          <% unless last_page? @areas %>
+            <div class="row hidden-xs">
+              <div class="col-xs-12">
+                <div class="single-pagination-container" id="areas-single-pagination-container">
+                  <div class="hidden single-pagination-loader" align="center">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                  </div>
+                  <div class="load-more">
+                    <%= link_to "LOAD MORE", paginate_places_user_path(@user, areas_page: @areas.next_page, resources: 'areas', pagination_template: 'pages/place_to_go_list', collection_object: 'area'), class: 'single-pagination', remote: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  
+  <hr class="gradient-divider" />
+
+  <div class="container">
+    <div class="row">
+      <% unless @stories.blank? %>
+        <%= render partial: "stories/all_stories"%>
+      <% end %>
+    </div>
+  </div>
 
 <% else %>
   <h1>You must be logged into view this page</h1>

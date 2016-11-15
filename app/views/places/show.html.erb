@@ -4,7 +4,7 @@
 <% provide(:og_image, open_graph_image.gsub("https://", "http://")) %>
 <% provide(:og_secure_image, open_graph_image) %>
 
-<div id='country-data' data-country-code=<%= @place.country.country_code %> data-capital-city=<%= @place.country.capital_city %>></div>
+<div id='country-data' data-country-code=<%= @place.country.blank? ? 'no-country' : @place.country.country_code %> data-capital-city=<%= @place.country.blank? ? 'no-country' : @place.country.capital_city %>></div>
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
 

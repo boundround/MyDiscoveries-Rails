@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   before_action :find_story_by_slug, only: [:show]
-  before_action :check_user_authorization, only: [:index, :create, :new, :edit]
+  before_action :check_user_authorization, only: [:index, :create, :new]
 
   def index
     @stories = Story.all
