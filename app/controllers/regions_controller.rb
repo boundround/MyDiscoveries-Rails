@@ -12,6 +12,7 @@ class RegionsController < ApplicationController
     @photos = Photo.first
     @famous_faces = ''
     @fun_facts  = ''
+    @fun_facts = @region.fun_facts
   end
 
   def new
