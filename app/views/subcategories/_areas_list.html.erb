@@ -1,5 +1,8 @@
 <div class="col-md-4 col-sm-6 dest-thing-wrapper">
   <div class="dest-thing">
+  <% if (controller_name == "regions") && (action_name == "show") %>
+    <% area = place.itemable %>
+  <% end %>
     <a class="link_card" href="<%= place_path(area) %>"></a>
       <div class="dest-thing-overlay-wrapper">
           <% unless area.viator_link.blank? %>

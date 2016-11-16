@@ -13,6 +13,7 @@ class RegionsController < ApplicationController
     @famous_faces = ''
     @fun_facts  = ''
     @fun_facts = @region.fun_facts
+    @things_to_do = @region.childrens.paginate(page: params[:more_attractions_page], per_page: 6 )
   end
 
   def new

@@ -1,4 +1,7 @@
-<a href="<%= place_path(area) %>">
+<% if (controller_name == "regions") && (action_name == "show") %>
+    <% area = place.itemable %>
+<% end %>
+<a href="<%#= place_path(area) %>">
 <div class="destination-card-item">
     <div class="col-sm-4">
         <div class="destination-card">

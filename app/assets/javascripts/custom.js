@@ -159,7 +159,7 @@ $(document).ready(function(){
         if (controller == 'regions'){
           document.getElementById('chosen_country').style.display = "";
           document.getElementById('chosen_region').style.display = "none";
-        else {
+        } else {
           document.getElementById('chosen_country').style.display = "";
           document.getElementById('chosen_region').style.display = "none";
           document.getElementById('chosen_place').style.display = "none";
@@ -267,7 +267,7 @@ $(document).ready(function(){
       $('.place_parent_attributes_parentable_type_country').val('Country')
       $('.place_parent_attributes_parentable_type_region').val('Country')
       $('#chosen_region').find('select').val('')
-    else {
+    } else {
       $('#chosen_place').find('select').val('')
       $('#chosen_region').find('select').val('')
       if (controller == 'attractions'){
