@@ -54,6 +54,10 @@ class CountriesController < ApplicationController
     end
   end
 
+  def seo_analysis
+    @country = @search_optimizable = Country.friendly.find(params[:id])
+  end
+
   def import
     Country.import(params[:file])
     redirect_to countries_path, notice: "Countries imported."

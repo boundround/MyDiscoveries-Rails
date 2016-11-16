@@ -7,6 +7,7 @@
     <tr>
       <th>Country</th>
       <th>Description Word Count</th>
+      <th>SEO Rating</th>
       <th>Status</th>
       <th>Updated At</th>
     </tr>
@@ -16,6 +17,7 @@
         <tr>
           <td><%= link_to "#{country.display_name} || #{country.id} ", edit_country_path(country) %></td>
           <td><%= country.description.blank? ? 0 : (country.description.size / 6) %></td>
+          <td><%= link_to country.seo_complete_percentage, seo_analysis_country_path(country) %></td>
           <td><%= country.published_status %></td>
           <td><%= country.updated_at.strftime('%F at %T') %></td>
         </tr>

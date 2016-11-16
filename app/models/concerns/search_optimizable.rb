@@ -36,14 +36,14 @@ module SearchOptimizable
   end
 
   def optimum_keyword_density?
-    (0.01 < calculate_keyword_density)  && (calculate_keyword_density < 0.03)
+    (0.01 < calculate_keyword_density) && (calculate_keyword_density < 0.03)
   end
 
   def seo_complete_percentage
     percent = 0.0
     percent += 100/8 if focus_keyword.present?
     percent += 100/8 if meta_description.present?
-    percent += 100/8 if focus_keyword.present? && meta_description.present? && meta_description.include?(focus_keyword)
+    percent += 100/8 if focus_keyword.present? && (meta_description.present? && meta_description.include?(focus_keyword))
     percent += 100/8 if seo_title.present?
     percent += 100/8 if seo_title.present? && seo_title.include?(focus_keyword)
     percent += 100/8 if word_count > 299
@@ -52,6 +52,3 @@ module SearchOptimizable
     percent
   end
 end
-
-
-# text = Nokogiri::HTML.parse(s.content).xpath("//text()").to_s.split(" ").join(" ").downcase

@@ -7,6 +7,7 @@
           <th>Attraction</th>
           <th>Parent</th>
           <th>Word Count</th>
+          <th>SEO Rating</th>
           <th>Edit Link</th>
           <th>Subscription Level</th>
           <th>Status</th>
@@ -30,6 +31,7 @@
             <td><%= link_to "#{attraction.display_name} || #{attraction.id}", edit_attraction_path(attraction) %></td>
             <td><%= attraction.parent.present? ? (attraction.parent.parentable.class.to_s+ ": " + attraction.parent.parentable.display_name rescue '') : "No Parent" %></td>
             <td><%= attraction.description.blank? ? 0 : (attraction.description.size / 6) %></td>
+            <td><%= link_to attraction.seo_complete_percentage, seo_analysis_attraction_path(attraction) %></td>
             <td><%= link_to "Edit attraction", edit_attraction_path(attraction), target: "_blank" %></td>
             <td><%= attraction.subscription_level %></td>
             <td><%= attraction.status %></td>
@@ -39,7 +41,7 @@
       </tbody>
     </table>
   </div>
-  
+
   <% if current_user.try(:admin) && current_user.email == "donovan.whitworth@gmail.com" %>
     <h3>Import Subcategories From Excel</h3>
     <%= form_tag import_subcategories_attractions_path, multipart: true do %>

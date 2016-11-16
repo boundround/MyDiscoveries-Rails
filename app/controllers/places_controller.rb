@@ -222,7 +222,7 @@ class PlacesController < ApplicationController
   end
 
   def index
-    @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where(is_area: true)
+    @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id, :focus_keyword, :meta_description, :seo_title).where.not(status: "removed").where(is_area: true)
     set_surrogate_key_header Place.table_key, @places.map(&:record_key)
     respond_to do |format|
       format.html

@@ -178,7 +178,7 @@ class Attraction < ActiveRecord::Base
       end
     end
 
-    attribute :display_address do 
+    attribute :display_address do
       dp_add = self.display_address
       unless dp_add.blank?
         dp_add.split(', ').last(2).join(', ')
@@ -467,10 +467,6 @@ class Attraction < ActiveRecord::Base
     unless self.run_rake
       slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
     end
-  end
-
-  def meta_description
-    meta_description
   end
 
   def content

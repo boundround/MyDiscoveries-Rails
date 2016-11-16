@@ -219,11 +219,14 @@ Rails.application.routes.draw do
   end
 
   resources :countries do
-    member { get 'paginate_videos', as: :paginate_videos}
-    member { get 'paginate_photos', as: :paginate_photos}
-    member { get 'paginate_stories'}
-    member { get 'paginate_things_to_do'}
-    member { get 'paginate_deals'}
+    member do
+      get 'paginate_videos', as: :paginate_videos
+      get 'paginate_photos', as: :paginate_photos
+      get 'paginate_stories'
+      get 'paginate_things_to_do'
+      get 'paginate_deals'
+      get 'seo_analysis'
+    end
     resources :videos
     resources :photos
     resources :fun_facts
@@ -365,19 +368,22 @@ Rails.application.routes.draw do
   end
 
   resources :attractions do
-    member { get 'choose_hero', as: :choose_hero }
+    member do
+      get 'choose_hero', as: :choose_hero
+      get 'seo_analysis'
+      get 'paginate_more_attractions'
+      get 'paginate_videos', as: :paginate_videos
+      get 'paginate_photos', as: :paginate_photos
+      get 'paginate_reviews'
+      get 'paginate_stories'
+      get 'paginate_deals'
+    end
     resources :photos do
       collection { get 'all_photos' }
     end
     resources :videos do
       collection { get 'all' }
     end
-    member { get 'paginate_more_attractions'}
-    member { get 'paginate_videos', as: :paginate_videos}
-    member { get 'paginate_photos', as: :paginate_photos}
-    member { get 'paginate_reviews'}
-    member { get 'paginate_stories'}
-    member { get 'paginate_deals'}
     resources :reviews
     resources :user_photos
     resources :three_d_videos

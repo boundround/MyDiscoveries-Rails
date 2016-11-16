@@ -5,7 +5,7 @@ class AttractionsController < ApplicationController
   before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
 
   def index
-    @attractions = Attraction.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :slug, :top_100, :parent_id).where.not(status: "removed")
+    @attractions = Attraction.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :slug, :top_100, :parent_id, :focus_keyword, :seo_title, :meta_description).where.not(status: "removed")
     set_surrogate_key_header Attraction.table_key, @attractions.map(&:record_key)
     respond_to do |format|
       format.html
@@ -22,7 +22,7 @@ class AttractionsController < ApplicationController
 
     @good_to_know = @attraction.good_to_knows.limit(6)
     @more_attractions = @attraction.siblings.paginate(page: params[:more_attractions_page], per_page: 6 )
-    @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: (params[:reviews_page].nil?) ? 6 : 3 )
+    @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @deals = @attraction.deals.active
     @review = Review.new
     @stories = @attraction.attraction_stories.paginate(page: params[:stories_page], per_page: 4)
@@ -35,6 +35,10 @@ class AttractionsController < ApplicationController
       format.html
       format.json { render json: @attraction }
     end
+  end
+
+  def seo_analysis
+    @attraction = @search_optimizable = Attraction.friendly.find(params[:id])
   end
 
   def paginate_more_attractions
@@ -59,7 +63,7 @@ class AttractionsController < ApplicationController
 
   def paginate_reviews
     @attraction = Attraction.find_by_slug(params[:id])
-    @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
+    @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
   end
 
   def paginate_stories
