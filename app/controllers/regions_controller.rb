@@ -18,10 +18,12 @@ class RegionsController < ApplicationController
   def new
     @region = Region.new
     @countries = Country.all
+    @regions = Region.all
   end
 
   def edit
     @countries = Country.all
+    @regions = Region.all
   end
 
   def create

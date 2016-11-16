@@ -36,21 +36,31 @@
       <div class="form-group">
         <%= f.label "Parentable" %><br>
         <% if @region.parent.blank? %>
-          <%= radio_button_tag 'parentable_chose', 'country', true %> Country
+          <%= radio_button_tag 'parentable_chose', 'country', true %> Country &nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'region', false %> Region 
           <br>
           <%= f.fields_for :parent, (@region.childrens.new()) do |fc| %>
             <div id='chosen_country' style="display:none;">
               <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
               <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_country', value: "Country") %>
             </div>
+            <div id='chosen_region' style="display:none;">
+              <%= fc.select(:parentable_id, @regions.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_region', value: "Region") %>
+            </div>
           <% end %>
         <% else %>
-          <%= radio_button_tag 'parentable_chose', 'country', (@region.parent.parentable_type.eql? 'Country') ? true : false %> Country
+          <%= radio_button_tag 'parentable_chose', 'country', (@region.parent.parentable_type.eql? 'Country') ? true : false %> Country &nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'region', (@region.parent.parentable_type.eql? 'Region') ? true : false %> Country
           <br>
           <%= f.fields_for :parent do |fc| %>
             <div id='chosen_country' style="display:none;">
               <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @region.parent.parentable_id) %>
               <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_country', value: "Country") %>
+            </div>
+            <div id='chosen_region' style="display:none;">
+              <%= fc.select(:parentable_id, @regions.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @region.parent.parentable_id) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_region', value: "Region") %>
             </div>
           <% end %>
         <% end %>

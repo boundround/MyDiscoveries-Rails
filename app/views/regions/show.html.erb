@@ -1,7 +1,7 @@
 <% if (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) %>
 <!-- <link rel="script" href="../../assets/javascripts/region_map.js"/> -->
   <div data-page="region">
-    <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
+    <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background_region(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
