@@ -43,12 +43,12 @@ module SearchOptimizable
     percent = 0.0
     percent += 100/8 if focus_keyword.present?
     percent += 100/8 if meta_description.present?
-    percent += 100/8 if focus_keyword.present? && (meta_description.present? && meta_description.include?(focus_keyword))
+    percent += 100/8 if focus_keyword.present? && (meta_description.present? && meta_description.downcase.include?(focus_keyword.downcase))
     percent += 100/8 if seo_title.present?
-    percent += 100/8 if seo_title.present? && seo_title.include?(focus_keyword)
+    percent += 100/8 if seo_title.present? && seo_title.downcase.include?(focus_keyword.downcase)
     percent += 100/8 if word_count > 299
     percent += 100/8 if optimum_keyword_density?
-    percent += 100/8 if focus_keyword.present? && slug.gsub("-", " ").include?(focus_keyword)
+    percent += 100/8 if focus_keyword.present? && slug.gsub("-", " ").include?(focus_keyword.downcase)
     percent
   end
 end

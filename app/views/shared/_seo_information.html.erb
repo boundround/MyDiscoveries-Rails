@@ -46,7 +46,7 @@
   <div class="red-text">SEO Title does not include Focus Keyword</div>
 <% end %>
 <%= @search_optimizable.meta_description.present? ? "<div class='green-text'>Meta Description has been assigned</div>".html_safe : "<div class='red-text'>You need to specify a Meta Description</div>".html_safe %>
-<% if @search_optimizable.meta_description.present? && @search_optimizable.focus_keyword.present? && @search_optimizable.meta_description.include?(@search_optimizable.focus_keyword) %>
+<% if @search_optimizable.meta_description.present? && @search_optimizable.focus_keyword.present? && @search_optimizable.meta_description.downcase.include?(@search_optimizable.focus_keyword.downcase) %>
   <div class="green-text">Meta Description includes Focus Keyword</div>
 <% else %>
   <div class="red-text">Meta Description does not include Focus Keyword</div>
@@ -61,7 +61,7 @@
 <% else %>
   <div class="red-text">Your content has a Focus Keyword density of <%= (@search_optimizable.get_keyword_density * 100).round(2) %>&#37; (1-3&#37; recommended)</div>
 <% end %>
-<% if @search_optimizable.focus_keyword.present? && @search_optimizable.slug.gsub("-", " ").include?(@search_optimizable.focus_keyword) %>
+<% if @search_optimizable.focus_keyword.present? && @search_optimizable.slug.gsub("-", " ").downcase.include?(@search_optimizable.focus_keyword.downcase) %>
   <div class="green-text">URL includes Focus Keyword</div>
 <% else %>
   <div class="red-text">URL does not include Focus Keyword</div>
