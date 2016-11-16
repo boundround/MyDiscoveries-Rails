@@ -450,6 +450,10 @@ class Attraction < ActiveRecord::Base
     list_of_children
   end
 
+  def short_description
+    meta_description
+  end
+
   def slug_candidates
     country = self.country
     g_parent = get_parents(self, parents = [])
