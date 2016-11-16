@@ -163,7 +163,7 @@ class Attraction < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|attraction| attraction.display_name rescue ''} unless !self.run_rake.blank?
+      self.get_parents(self).map {|attraction| attraction.display_name rescue ''}
     end
 
     attribute :where_destinations do
@@ -454,6 +454,17 @@ class Attraction < ActiveRecord::Base
     meta_description
   end
 
+  def self.return_first_place_id_from_search_results(search_response, region)
+    id = nil
+    search_response["hits"].each do |hit|
+      if (hit["objectID"].include?("attraction")) && (hit["parents"].any? { |x| x.downcase.include? region } )
+        id = hit["objectID"].gsub("attraction_", "").to_i
+        break
+      end
+    end
+    id
+  end
+
   def slug_candidates
     country = self.country
     g_parent = get_parents(self, parents = [])
@@ -468,9 +479,7 @@ class Attraction < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    unless self.run_rake
       slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
-    end
   end
 
   def content

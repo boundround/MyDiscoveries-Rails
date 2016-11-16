@@ -177,7 +177,7 @@ class Place < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|place| place.display_name rescue ''} unless !self.run_rake.blank?
+      self.get_parents(self).map {|place| place.display_name rescue ''}
     end
 
     attribute :accessible do
@@ -576,22 +576,20 @@ class Place < ActiveRecord::Base
   end
 
   def get_parents(place, parents = [])
-    unless !self.run_rake.blank?
-      if place.parent.blank? || place.parent.parentable == self
-        if !place.country.blank?
-          parents << place.country
-          return parents
-        else
-          return parents
-        end
+    if place.parent.blank? || place.parent.parentable == self
+      if !place.country.blank?
+        parents << place.country
+        return parents
       else
-        parents << place.parent.parentable
-        if place.parent.parentable.class.to_s.eql? "Country"
-          parents << place.country
-          return parents
-        else
-          get_parents(place.parent.parentable, parents)
-        end
+        return parents
+      end
+    else
+      parents << place.parent.parentable
+      if place.parent.parentable.class.to_s.eql? "Country"
+        parents << place.country
+        return parents
+      else
+        get_parents(place.parent.parentable, parents)
       end
     end
   end
@@ -662,12 +660,10 @@ class Place < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    unless !self.run_rake.blank?
-      if self.parent.blank?
-        slug.blank? || display_name_changed? || self.country_id_changed?
-      else
-        slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
-      end
+    if self.parent.blank?
+      slug.blank? || display_name_changed? || self.country_id_changed?
+    else
+      slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
     end
   end
 
