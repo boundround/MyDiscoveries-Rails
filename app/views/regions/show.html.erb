@@ -1,4 +1,5 @@
 <% if (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) %>
+<!-- <link rel="script" href="../../assets/javascripts/region_map.js"/> -->
   <div data-page="region">
     <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
     <div class="overlay"></div>
@@ -55,8 +56,8 @@
   <div class="container"> 
     <div class="row">
       <div class="col-xs-12">
-        <div class="destination-desc " style="display:none;">
-          <%= raw @region.description %>
+        <div class="destination-desc promo-text-full" style="display:none;">
+          <p><%= raw @region.description %></p>
         </div>
 
         <div class="destination-desc promo-text">
@@ -69,6 +70,31 @@
       </div>
     </div>
   </div>
+  <!-- <input id="pac-input" class="controls form-control" type="text" placeholder="Search For A Region">Geometry: <span id="latitude"><%= @region.latitude %></span>, <span id="longitude"><%= @region.longitude %></span> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="promo-map js-promo-map">
+          <input type="hidden" data-zoom="<%= @region.zoom_level %>" data-lat="<%= @region.latitude %>" data-long="<%= @region.longitude %>" name="region">
+            <!--    <div class="google-promo-map js-google-promo-map">
+              <div id="map-region" style="height:500px;"></div>
+            </div> -->
+          <div class="google-promo-map js-google-promo-map"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
 
   <div class="container place-to-go section">
     <div class="row">
@@ -95,14 +121,15 @@
           </div>
         </div>
     </div>
-        <div class="read-more-wrapper">
-            <a href="javascript:void()" class="readmore-area link-more">LOAD MORE</a>
-            <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
+        <div class="load-more-wrapper">
+            <a href="javascript:void()" class="loadmore-area link-more">LOAD MORE</a>
+            <a href="javascript:void()" class="loadmore-area link-more" style="display:none;">LESS</a>
           </div>
       </div>                                                          
   </div>
 
-  <div class="container section">
+
+ <!--  <div class="container section">
     <div class="row">
       <h3 class="header">Family deals</h3>
       <div class="content">
@@ -169,7 +196,7 @@
           </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
 
@@ -184,25 +211,22 @@
 
   <div class="container section">
     <div class="row">
-      <h3 class="header">Things to do in East Asia</h3>
+      <h3 class="header">Things to do in <%= @region.display_name %></h3>
       <div class="content">
         <div class="row">
           <div class="owl-carousel carousel" id="things-to-do">
             <div class="col-md-4 col-sm-6 dest-thing-wrapper">
               <div class="dest-thing card-shadow">
-                <a class="link_card" href="/attractions/things-to-do-with-kids-and-families-australia-glenelg-beach"></a>
-                  <div class="dest-thing-overlay-wrapper">
+                <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
+                  <div class="region-things-to-do-card__headline">
+                    <div class="region-things-to-do-card__cost">$$</div>
+                    <div class="region-things-to-do-card__book">book</div>
                   </div>
-                  <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
-                    <div class="region-things-to-do-card__headline">
-                      <div class="region-things-to-do-card__cost">$$</div>
-                      <div class="region-things-to-do-card__book">book</div>
-                    </div>
-                  </div>
-                  <div class="dest-thing-content">
-                    <h4>Lotte World</h4>
-                    <span class="region-things-to-do-card__theme-mark">Theme mark</span>
-                  </div>
+                </div>
+                <div class="dest-thing-content">
+                  <h4>Lotte World</h4>
+                  <span class="region-things-to-do-card__theme-mark">Theme mark</span>
+                </div>
               </div>
             </div>
 
@@ -226,7 +250,7 @@
 
             <div class="col-md-4 col-sm-6 dest-thing-wrapper">
               <div class="dest-thing region-things-to-do-card--ad">
-                <img src="/assets/img/region-things-to-do/region-things-to-do-ad.jpg" class="region-things-to-do-card-ad__img">
+                <img src="/assets/img/region-things-to-do/region-things-to-do-ad.jpg" class="region-things-to-do-card-ad__img" width="100%">
                 <p class="region-things-to-do-card-ad__paragraph">Sponsored</p>
               </div>
             </div>
@@ -299,7 +323,7 @@
 
 
 
-  <div class="container section">
+  <!-- <div class="container section">
     <div class="row">
       <h3 class="header">Itineraries</h3>
       <div class="content">
@@ -363,16 +387,35 @@
           </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
-
+<!--  -->
   <div class="container-fluid wild-ad-banner">
     <div class="row">
       <div class="col-sm-12 col-md-6 col-md-offset-3">
-      <img src="/assets/img/wild-ad-banner/wild-ad-banner-(copy).jpg" class="wild-ad-banner__img">
+      <!-- <img src="/assets/img/wild-ad-banner/wild-ad-banner-(copy).jpg" class="wild-ad-banner__img"> -->
       <p class="wild-ad-banner__paragraph">Sponsored</p>
       </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Stories -->
+<%#= render partial: "stories/all_stories" %>
+
+<!-- Fun Fact -->
+<% if @fun_facts.present? %>
+  <div id="funfacts" class="container fun-facts-wrapper">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Did you know?</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="owl-carousel fun-fact-carousel">
+         <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
+        </div>
     </div>
   </div>
 <% end %>

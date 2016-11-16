@@ -130,6 +130,8 @@
         }
     </style>
 <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyDk49bKAZAXex-UBN5AbFnvkjlaptQNtiM&amp;libraries=places"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
 	</head>
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
@@ -183,6 +185,11 @@
     <%= render "/layouts/video_modal" %>
 
     <%= javascript_include_tag 'application' %>
+    <% if (controller_name == "regions") && (action_name == "show") %>
+      <%= javascript_include_tag 'region_map' %>
+    <% else %>
+      <%= javascript_include_tag 'area' %>
+    <% end %>
     <%= render "/layouts/stamp_modal" %>
     <script type="text/javascript">
       setTimeout("$('.alert').fadeOut('slow')",4000);
