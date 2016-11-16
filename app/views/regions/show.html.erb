@@ -1,7 +1,7 @@
 <% if (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) %>
 <!-- <link rel="script" href="../../assets/javascripts/region_map.js"/> -->
   <div data-page="region">
-    <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
+    <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background_region(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -62,10 +62,10 @@
 
         <div class="destination-desc promo-text">
           <p><%= raw @region.description[0..280]+"..." %></p>
-          <div class="read-more-wrapper">
-            <a href="javascript:void()" class="readmore-area link-more">READ MORE</a>
-            <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
-          </div>
+        </div>
+        <div class="read-more-wrapper">
+          <a href="javascript:void()" class="readmore-area link-more">READ MORE</a>
+          <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
         </div>
       </div>
     </div>
@@ -75,58 +75,59 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="promo-map js-promo-map">
-          <input type="hidden" data-zoom="<%= @region.zoom_level %>" data-lat="<%= @region.latitude %>" data-long="<%= @region.longitude %>" name="region">
-            <!--    <div class="google-promo-map js-google-promo-map">
-              <div id="map-region" style="height:500px;"></div>
-            </div> -->
+          <% mark_datas = [] %>
+          <% @things_to_do.each do |place| %>
+            <% place_item = place.itemable %>
+            <% data_objs = {} %>
+            <% if place_item.class.to_s == "Place" %>
+              <% data_objs['place'] = place_item.display_name %>
+              <% data_objs['lat'] = place_item.latitude %>
+              <% data_objs['lng'] = place_item.longitude %>
+              <% data_objs['description'] = place_item.description %>
+              <% data_objs['country'] = @region.parent.parentable.display_name %>
+              <% data_objs['photo'] = place_item.photos.last.path_url(:small) %>
+              <% mark_datas << data_objs %>
+            <% end %>
+          <% end %>          
+          <input type="hidden" data-zoom="<%= @region.zoom_level %>" data-lat="<%= @region.latitude %>" data-long="<%= @region.longitude %>" data-marker="<%= mark_datas %>" name="region">
           <div class="google-promo-map js-google-promo-map"></div>
         </div>
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="container place-to-go section">
-    <div class="row">
-      <h3 class="header">Places to go</h3>
-      <div class="content">
-        <div class="row">
-          <div class="col-xs-12 col-md-4 col-lg-4 places-to-go-card">
-            <div class="country-background" style="background: url('/assets/img/dummy-1.png') no-repeat 100%;">
-              <div class="country-name">SOUTH KOREA</div>
-              <div class="city">Jeju Island</div>
+  <% unless @things_to_do.blank? %>
+    <div class="col-md-12">
+        <div class="destination-wrapper">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>Places to go</h3>
+                </div>
             </div>
-          </div>
-          <div class="col-xs-12 col-md-4 col-lg-4 places-to-go-card">
-            <div class="country-background" style="background: url('/assets/img/dummy-2.png') no-repeat 100%;">
-              <div class="country-name">japan</div>
-              <div class="city">Kyoto</div>
+            <br/>
+
+            <div class="row">
+                <div class="owl-carousel carousel" id="place_to_go-list">
+                    <%= render partial: 'pages/place_to_go_list', collection: @things_to_do, as: :place %>
+                </div>
             </div>
-          </div>
-          <div class="col-xs-12 col-md-4 col-lg-4 places-to-go-card">
-            <div class="country-background" style="background: url('/assets/img/dummy-3.png') no-repeat 100%;">
-              <div class="country-name">Hong kong</div>
-              <div class="city">Hong Kong</div>
-            </div>
-          </div>
         </div>
+
+        <% unless last_page? @things_to_do %>
+            <div class="row hidden-xs">
+                <div class="col-xs-12">
+                    <div class="single-pagination-container" id="areas-single-pagination-container">
+                        <div class="hidden single-pagination-loader" align="center">
+                            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                        </div>
+                        <div class="load-more">
+                            <%= link_to "LOAD MORE", "" %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
     </div>
-        <div class="load-more-wrapper">
-            <a href="javascript:void()" class="loadmore-area link-more">LOAD MORE</a>
-            <a href="javascript:void()" class="loadmore-area link-more" style="display:none;">LESS</a>
-          </div>
-      </div>                                                          
-  </div>
+  <% end %>
 
 
  <!--  <div class="container section">
@@ -199,121 +200,27 @@
   </div> -->
 
 
-
-
-
-
-
-
-
-
-
-
-  <div class="container section">
-    <div class="row">
-      <h3 class="header">Things to do in <%= @region.display_name %></h3>
-      <div class="content">
-        <div class="row">
-          <div class="owl-carousel carousel" id="things-to-do">
-            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-              <div class="dest-thing card-shadow">
-                <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
-                  <div class="region-things-to-do-card__headline">
-                    <div class="region-things-to-do-card__cost">$$</div>
-                    <div class="region-things-to-do-card__book">book</div>
-                  </div>
-                </div>
-                <div class="dest-thing-content">
-                  <h4>Lotte World</h4>
-                  <span class="region-things-to-do-card__theme-mark">Theme mark</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-              <div class="dest-thing card-shadow">
-                <a class="link_card" href="/attractions/things-to-do-with-kids-and-families-australia-glenelg-beach"></a>
-                  <div class="dest-thing-overlay-wrapper">
-                  </div>
-                  <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
-                    <div class="region-things-to-do-card__headline">
-                      <div class="region-things-to-do-card__cost">$$</div>
-                      <div class="region-things-to-do-card__book">book</div>
-                    </div>
-                  </div>
-                  <div class="dest-thing-content">
-                    <h4>Lotte World</h4>
-                    <span class="region-things-to-do-card__theme-mark">Theme mark</span>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-              <div class="dest-thing region-things-to-do-card--ad">
-                <img src="/assets/img/region-things-to-do/region-things-to-do-ad.jpg" class="region-things-to-do-card-ad__img" width="100%">
-                <p class="region-things-to-do-card-ad__paragraph">Sponsored</p>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-              <div class="dest-thing card-shadow">
-                <a class="link_card" href="/attractions/things-to-do-with-kids-and-families-australia-glenelg-beach"></a>
-                  <div class="dest-thing-overlay-wrapper">
-                  </div>
-                  <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
-                    <div class="region-things-to-do-card__headline">
-                      <div class="region-things-to-do-card__cost">$$</div>
-                      <div class="region-things-to-do-card__book">book</div>
-                    </div>
-                  </div>
-                  <div class="dest-thing-content">
-                    <h4>Lotte World</h4>
-                    <span class="region-things-to-do-card__theme-mark">Theme mark</span>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-              <div class="dest-thing card-shadow">
-                <a class="link_card" href="/attractions/things-to-do-with-kids-and-families-australia-glenelg-beach"></a>
-                  <div class="dest-thing-overlay-wrapper">
-                  </div>
-                  <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
-                    <div class="region-things-to-do-card__headline">
-                      <div class="region-things-to-do-card__cost">$$</div>
-                      <div class="region-things-to-do-card__book">book</div>
-                    </div>
-                  </div>
-                  <div class="dest-thing-content">
-                    <h4>Lotte World</h4>
-                    <span class="region-things-to-do-card__theme-mark">Theme mark</span>
-                  </div>
-              </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-              <div class="dest-thing card-shadow">
-                <a class="link_card" href="/attractions/things-to-do-with-kids-and-families-australia-glenelg-beach"></a>
-                  <div class="dest-thing-overlay-wrapper">
-                  </div>
-                  <div class="things-img" style="background: url(/assets/img/region-things-to-do/region-things-to-do-photo.jpg) no-repeat;" role="img" aria-label="Bondi">
-                    <div class="region-things-to-do-card__headline">
-                      <div class="region-things-to-do-card__cost">$$</div>
-                      <div class="region-things-to-do-card__book">book</div>
-                    </div>
-                  </div>
-                  <div class="dest-thing-content">
-                    <h4>Lotte World</h4>
-                    <span class="region-things-to-do-card__theme-mark">Theme mark</span>
-                  </div>
-              </div>
-            </div>
-
-          </div>
+<div class="container dest-things-wrapper">
+  <div class="row">
+    <div class="col-xs-12 btm20">
+      <h3>Things to do in <%= @region.display_name %></h3> </div>
+  </div>
+  <div class="row">
+    <div class="owl-carousel carousel" id="more_attractions-list">
+      <%= render partial: 'subcategories/areas_list', collection: @things_to_do, as: :place %>
+    </div>
+  </div>
+  <% unless last_page? @things_to_do %>
+    <div class="row hidden-xs">
+      <div class="single-pagination-container" id="more_attractions-single-pagination-container">
+        <div class="hidden single-pagination-loader" align="center"> <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64"> </div>
+        <div class="load-more">
+          <%= link_to "LOAD MORE", "" %>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
+</div>
 
 
 
@@ -390,11 +297,12 @@
   </div> -->
 
 
-<!--  -->
+<!-- Banner -->
   <div class="container-fluid wild-ad-banner">
     <div class="row">
       <div class="col-sm-12 col-md-6 col-md-offset-3">
-      <!-- <img src="/assets/img/wild-ad-banner/wild-ad-banner-(copy).jpg" class="wild-ad-banner__img"> -->
+      <img src="/assets/img/wild-ad-banner/test.jpg" class="wild-ad-banner__img" style="display: block;">
+      
       <p class="wild-ad-banner__paragraph">Sponsored</p>
       </div>
     </div>

@@ -209,6 +209,14 @@ module ApplicationHelper
     end
   end
 
+  def draw_hero_background_region(region)
+    if region.photos.find_by(hero: true)
+      region.photos.find_by(hero: true).path_url(:large)
+    else
+      asset_path('generic-hero.jpg')
+    end
+  end
+
   def draw_small_background(place)
     if place.photos.find_by(hero: true)
       place.photos.find_by(hero: true).path_url(:small)
