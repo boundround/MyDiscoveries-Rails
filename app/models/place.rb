@@ -188,7 +188,7 @@ class Place < ActiveRecord::Base
       end
     end
 
-    attribute :display_address do 
+    attribute :display_address do
       dp_add = self.display_address
       unless dp_add.blank?
         dp_add.split(', ').last(2).join(', ')
@@ -698,6 +698,10 @@ class Place < ActiveRecord::Base
 
   def content
     description
+  end
+
+  def short_description
+    meta_description
   end
 
   def children
