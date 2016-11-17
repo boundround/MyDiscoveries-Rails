@@ -165,25 +165,25 @@ $(document).ready(function(){
   }
 
   if (document.querySelector('#place_meta_description')){
-    countChars('#place_meta_description', '#shortDescriptionCharCount');
-    countChars('#place_description', '#descriptionCharCount');
-
-    $('#place_meta_description').on('keyup', function(){
       countChars('#place_meta_description', '#shortDescriptionCharCount');
-    });
-
-    setTimeout(function(){
-      var wysiEditor = $('.wysihtml5-sandbox').contents().find('body')[0];
-      $(wysiEditor).on("keyup",function() {
-          var len = wysiEditor.innerHTML.length;
-          document.querySelector('#descriptionCharCount').innerHTML = len;
+      countChars('#place_description', '#descriptionCharCount');
+      $('#place_meta_description').on('keyup', function(){
+        countChars('#place_meta_description', '#shortDescriptionCharCount');
       });
-    }, 1000);
+
+      setTimeout(function(){
+        var wysiEditor = $('.wysihtml5-sandbox').contents().find('body')[0];
+        $(wysiEditor).on("keyup",function() {
+            var len = wysiEditor.innerHTML.length;
+            document.querySelector('#descriptionCharCount').innerHTML = len;
+        });
+      }, 1000);
   }
 
   if (document.querySelector('#attraction_meta_description')){
     countChars('#attraction_meta_description', '#shortDescriptionCharCount');
     countChars('#attraction_description', '#descriptionCharCount');
+
 
     $('#attraction_meta_description').on('keyup', function(){
       countChars('#attraction_meta_description', '#shortDescriptionCharCount');
@@ -198,8 +198,8 @@ $(document).ready(function(){
     }, 1000);
   }
   function countChars(countfrom,displayto) {
-    var len = document.getElementById(countfrom).value.length;
-    document.getElementById(displayto).innerHTML = len;
+    var len = document.querySelector(countfrom).value.length;
+    document.querySelector(displayto).innerHTML = len;
   }
 
   if (document.querySelector('#seo-title')){
