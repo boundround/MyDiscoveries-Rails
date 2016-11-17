@@ -11,9 +11,11 @@
 }
 
 [data-page="region"] .section{
+  padding-bottom: 72px;
+  border-bottom: 1px solid #eaeaea;
+}
+[data-page="region"] .section h3{
 	text-align: center;
-    padding-bottom: 72px;
-    border-bottom: 1px solid #eaeaea;
 }
 
 [data-page="region"] .nav-option-outer-wrapper{
@@ -63,7 +65,7 @@
 }
 
 /*Places to go*/
-[data-page="region"] .places-to-go-card {
+/*[data-page="region"] .places-to-go-card {
 	height: 480px;
 	border-radius: 6px;
 	overflow: hidden;
@@ -95,7 +97,7 @@
 	position: absolute;
     width: 100%;
     top: 45%;
-}
+}*/
 
 /*Family Deals*/
 [data-page="region"] .family-deals-card{
@@ -202,7 +204,7 @@
 }
 
 /*Things To Do*/
-[data-page="region"] .card-shadow{
+/*[data-page="region"] .card-shadow{
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 	position:relative;
 }
@@ -265,7 +267,7 @@
 
 [data-page="region"] .dest-thing-wrapper{
 	height: 380px;
-}
+}*/
 
 /*Will Ad Banner*/
 [data-page="region"] .wild-ad-banner{
@@ -317,6 +319,11 @@
   -webkit-filter: grayscale(0) !important;
   filter: grayscale(0) !important;
   border-color: #6cb7ca !important;
+  /*width: 100px !important;
+  height: auto !important;
+  bottom: 0px !important;
+  left: 25% !important;
+  top: 60% !important;*/
 }
 [data-page="region"] .promo-map {
   height: 580px;
@@ -396,13 +403,13 @@
   text-transform: uppercase;
   font-size: 17px;
   color: #333333;
-  padding: 21px 0;
+  padding: 10px 0;
   left: 0;
   width: 100%;
   background-repeat: no-repeat;
   background-color: #fff;
   border-top: 1px solid #eaeaea;
-  background-position: 327px 25px;
+  background-position: 90% 50%;
   background-size: 13px;
   background-image: url(img/point-card/next.png);
 }
@@ -454,6 +461,19 @@
 [data-page="region"] .region-preview-item__header,
 [data-page="region"] .region-preview-item__paragraph{
     margin: 0;
+}
+
+[data-page="region"] .nav-option{
+  width: 15.666667%;
+}
+
+/*Stories*/
+[data-page="region"] .destination-page .stories-wrapper{
+  padding-bottom: 60px;
+}
+
+[data-page="region"] .destination-page .stories-wrapper .load-more{
+  padding-bottom: 0;
 }
 
 @media (max-width: 767px){

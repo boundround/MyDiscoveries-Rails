@@ -7,13 +7,15 @@ class RegionsController < ApplicationController
 
   def show
     @videos = Video.first
-    @stories  = Story.first
+    @stories  = @region.stories.paginate(page: params[:stories_page], per_page: 6 )
     @areas  = Place.first
     @photos = Photo.first
     @famous_faces = ''
     @fun_facts  = ''
     @fun_facts = @region.fun_facts
-    @things_to_do = @region.childrens.paginate(page: params[:more_attractions_page], per_page: 6 )
+    @places_to_visit_map = @region.childrens.select{|child| child.itemable_type == 'Place'}
+    @places_to_visit = @region.childrens.paginate(page: params[:places_to_visit_page], per_page: 3 )
+    @place_to_go = @region.childrens.select{|child| child.itemable_type == 'Country'}.paginate(page: params[:places_to_visit_page], per_page: 3 )
   end
 
   def new
@@ -91,6 +93,11 @@ class RegionsController < ApplicationController
 
   def edit_fun_fact
     @fun_fact = FunFact.find(params[:fun_fact_id])
+  end
+
+  def paginate_place_to_visit
+    @region = Region.find_by_slug(params[:id])
+    @places_to_visit = @region.childrens.paginate( page: params[:places_to_visit_page], per_page: 3 )
   end
 
   private

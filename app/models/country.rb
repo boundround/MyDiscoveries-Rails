@@ -144,12 +144,16 @@ class Country < ActiveRecord::Base
   has_many :countries_stories
   has_many :stories, through: :countries_stories
 
+  has_one :parent, :class_name => "ChildItem", as: :itemable
+  has_many :childrens, :class_name => "ChildItem", as: :parentable
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :famous_faces, allow_destroy: true
   accepts_nested_attributes_for :info_bits, allow_destroy: true
   accepts_nested_attributes_for :discounts, allow_destroy: true
+  accepts_nested_attributes_for :parent, :allow_destroy => true
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 

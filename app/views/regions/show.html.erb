@@ -9,7 +9,7 @@
           <div class="location"></div>
           <div class="destination"><%= @region.display_name %></div>
           <div class="destination-details">
-            <div class="favourites-wrapper">
+            <!-- <div class="favourites-wrapper">
               <% if user_signed_in? %>
                 <div class="icon-favourite selected"></div>
                 <div class="favourites-title hidden-xs" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from favourites</div>
@@ -17,7 +17,18 @@
                 <div class="icon-favourite" data-liked="false" id="favouriteType" data-klass="region" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
                 <div class="favourites-title hidden-xs" >Add to favourites</div>
               <% end %>
+            </div> -->
+
+            <div class="favourites-wrapper">
+              <% if user_signed_in? %>
+                <div class="icon-favourite selected" id="favouriteType" data-post-path="places_users" data-klass="place" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                <div class="favourites-title hidden-xs">Remove from favourites</div>
+              <% else %>
+                <div class="icon-favourite" id="favouriteType" data-post-path="places_users" data-klass="place" data-liked="false" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                <div class="favourites-title hidden-xs" >Add to favourites</div>
+              <% end %>
             </div>
+
             <a data-scroll href="#photos" class="white">
               <div class="photo-wrapper">
                 <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
@@ -41,12 +52,12 @@
       <div class="container">
         <div class="nav-option-outer-wrapper">
           <div class="nav-option-wrapper">
-            <div class="nav-option"><a data-scroll href="#videos"><%= "VIDEOS" if @videos.present? %></a></div>
-            <div class="nav-option"><a data-scroll href="#stories"><%= "STORIES" if @stories.present? %></a></div>
-            <div class="nav-option"><a data-scroll href="#thingstodo"><%= "PLACES TO GO" if @areas.present? %></a></div>
-            <div class="nav-option"><a data-scroll href="#photos"><%= "PHOTOS" if @photos.present? %></a></div>
-            <div class="nav-option"><a data-scroll href="#famousfaces"><%= "FAMOUS FACES" if @famous_faces.present? %></a></div>
-            <div class="nav-option"><a data-scroll href="#funfacts"><%= "FUN FACTS" if @fun_facts.present? %></a></div>
+            <% if @videos.present? %><div class="nav-option"><a data-scroll href="#videos">VIDEOS</a></div><% end %>
+            <% if @stories.present? %><div class="nav-option"><a data-scroll href="#stories">STORIES</a></div><% end %>
+            <% if @areas.present? %><div class="nav-option"><a data-scroll href="#thingstodo">PLACES TO GO</a></div><% end %>
+            <% if @photos.present? %><div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div><% end %>
+            <% if @famous_faces.present? %><div class="nav-option"><a data-scroll href="#famousfaces">FAMOUS FACES</a></div><% end %>
+            <% if @fun_facts.present? %><div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div><% end %>
           </div>
         </div>
       </div>
@@ -76,18 +87,36 @@
       <div class="col-xs-12">
         <div class="promo-map js-promo-map">
           <% mark_datas = [] %>
-          <% @things_to_do.each do |place| %>
+          <% @places_to_visit_map.each do |place| %>
             <% place_item = place.itemable %>
             <% data_objs = {} %>
-            <% if place_item.class.to_s == "Place" %>
-              <% data_objs['place'] = place_item.display_name %>
-              <% data_objs['lat'] = place_item.latitude %>
-              <% data_objs['lng'] = place_item.longitude %>
-              <% data_objs['description'] = place_item.description %>
-              <% data_objs['country'] = @region.parent.parentable.display_name %>
-              <% data_objs['photo'] = place_item.photos.last.path_url(:small) %>
+              <% data_objs['#place'] = place_item.display_name %>
+              <% data_objs['#lat'] = place_item.latitude %>
+              <% data_objs['#lng'] = place_item.longitude %>
+              <% data_objs['#description'] = place_item.description %>
+              <% data_objs['#country'] = place_item.country.display_name %>
+              <% if place_item.photos.last.path_url(:small) != nil %>
+              <% data_objs['#photo'] = place_item.photos.last.path_url(:small) %>
+              <% else %>
+              <% data_objs['#photo'] = "/assets/generic-hero-small.jpg" %>
+              <% end %>
+              <% data_objs['#childrens'] = [] %>
+                <% place_item.childrens.last(3).each do |place_child| %>
+                  <% place_item_child = place_child.itemable %>
+                  <% data_child_objs = {} %>
+                  <% data_child_objs['@country_child'] = place_item_child.country.display_name %>
+                  <% data_child_objs['@name_child'] = place_item_child.display_name %>
+                  <% if !place_item_child.photos.blank? %>
+                  <% data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:small) %>
+                  <% else %>
+                  <% data_child_objs['@photo_child'] = "/assets/generic-hero-small.jpg" %>
+                  <% end %>
+                  <% data_objs['#childrens'] << data_child_objs %>
+                  <% data_objs['#childrens'] << ["#"] %>
+                <% end %>
               <% mark_datas << data_objs %>
-            <% end %>
+              <% mark_datas << ["@"] %>
+              <% data_objs['#path'] = place_path(place_item) %>
           <% end %>          
           <input type="hidden" data-zoom="<%= @region.zoom_level %>" data-lat="<%= @region.latitude %>" data-long="<%= @region.longitude %>" data-marker="<%= mark_datas %>" name="region">
           <div class="google-promo-map js-google-promo-map"></div>
@@ -95,38 +124,43 @@
       </div>
     </div>
   </div>
-  <% unless @things_to_do.blank? %>
-    <div class="col-md-12">
-        <div class="destination-wrapper">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h3>Places to go</h3>
-                </div>
-            </div>
-            <br/>
 
-            <div class="row">
-                <div class="owl-carousel carousel" id="place_to_go-list">
-                    <%= render partial: 'pages/place_to_go_list', collection: @things_to_do, as: :place %>
-                </div>
-            </div>
-        </div>
+  <% unless @place_to_go.blank? %>
+  <div class="container section">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="destination-wrapper">
+              <div class="row">
+                  <div class="col-md-12 text-center">
+                      <h3>Places to go</h3>
+                  </div>
+              </div>
+              <br/>
 
-        <% unless last_page? @things_to_do %>
-            <div class="row hidden-xs">
-                <div class="col-xs-12">
-                    <div class="single-pagination-container" id="areas-single-pagination-container">
-                        <div class="hidden single-pagination-loader" align="center">
-                            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                        </div>
-                        <div class="load-more">
-                            <%= link_to "LOAD MORE", "" %>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <% end %>
+              <div class="row">
+                  <div class="owl-carousel carousel" id="place_to_go-list">
+                      <%= render partial: 'place_to_go_list', collection: @place_to_go, as: :place %>
+                  </div>
+              </div>
+          </div>
+
+          <% unless last_page? @place_to_go %>
+              <div class="row hidden-xs">
+                  <div class="col-xs-12">
+                      <div class="single-pagination-container" id="areas-single-pagination-container">
+                          <div class="hidden single-pagination-loader" align="center">
+                              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                          </div>
+                          <div class="load-more">
+                              <%= link_to "LOAD MORE", "" %>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          <% end %>
+      </div>
     </div>
+  </div>
   <% end %>
 
 
@@ -199,31 +233,34 @@
     </div>
   </div> -->
 
-
-<div class="container dest-things-wrapper">
-  <div class="row">
-    <div class="col-xs-12 btm20">
-      <h3>Things to do in <%= @region.display_name %></h3> </div>
-  </div>
-  <div class="row">
-    <div class="owl-carousel carousel" id="more_attractions-list">
-      <%= render partial: 'subcategories/areas_list', collection: @things_to_do, as: :place %>
-    </div>
-  </div>
-  <% unless last_page? @things_to_do %>
-    <div class="row hidden-xs">
-      <div class="single-pagination-container" id="more_attractions-single-pagination-container">
-        <div class="hidden single-pagination-loader" align="center"> <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64"> </div>
-        <div class="load-more">
-          <%= link_to "LOAD MORE", "" %>
-        </div>
+<!-- THINGS TO DO -->
+  
+    <% unless @places_to_visit.blank? %>
+      <div class="destination-page">
+      <div id="thingstodo" class="container dest-things-wrapper">
+          <div class="row">
+            <div class="col-xs-12">
+                <h3>Things to do in <%= @region.display_name %></h3>
+            </div>
+          </div>
+          <div class="row">
+              <div class="owl-carousel carousel" id="places_to_visit-list">
+                <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
+              </div>
+          </div>
+        <% unless last_page? @places_to_visit %>
+          <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
+              <div class="col-xs-12 load-more">
+                <div class="hidden single-pagination-loader" align="center">
+                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                </div>
+              <%= link_to "LOAD MORE", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
+              </div>
+          </div>
+        <% end %>
       </div>
-    </div>
-  <% end %>
-</div>
-
-
-
+      </div>
+    <% end %>
 
 
 
@@ -310,20 +347,28 @@
 <% end %>
 
 <!-- Stories -->
-<%#= render partial: "stories/all_stories" %>
+<% if @stories.present? %>
+  <div class="destination-page">
+    <div class="stories-things-wrapper">
+      <%= render partial: "stories/all_stories" %>
+    </div>
+  </div>
+<% end %>
 
 <!-- Fun Fact -->
 <% if @fun_facts.present? %>
-  <div id="funfacts" class="container fun-facts-wrapper">
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>Did you know?</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="owl-carousel fun-fact-carousel">
-         <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
-        </div>
+  <div class="destination-page">
+    <div id="funfacts" class="container fun-facts-wrapper">
+      <div class="row">
+          <div class="col-xs-12">
+              <h3>Did you know?</h3>
+          </div>
+      </div>
+      <div class="row">
+          <div class="owl-carousel fun-fact-carousel">
+           <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
+          </div>
+      </div>
     </div>
   </div>
 <% end %>

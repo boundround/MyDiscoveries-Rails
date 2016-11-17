@@ -393,6 +393,7 @@ Rails.application.routes.draw do
 
   resources :regions do 
     member { get 'choose_hero', as: :choose_hero }
+    member { get 'paginate_place_to_visit'}
     resources :photos do
       collection { get 'all_photos' }
     end

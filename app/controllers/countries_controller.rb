@@ -29,10 +29,12 @@ class CountriesController < ApplicationController
     @set_body_class = "br-body"
     @country = Country.friendly.find(params[:id])
     @photo = Photo.new
+    @regions = Region.all
   end
 
   def new
     @country = Country.new
+    @regions = Region.all
   end
 
   def create
@@ -94,6 +96,7 @@ class CountriesController < ApplicationController
       params.require(:country).permit(:display_name, :country_code, :description, :capital_city, :short_name, :long_name, :address,
                       :capital_city_description, :currency_code, :official_language, :tallest_mountain, :latitude, :longitude, :google_place_id,
                       :tallest_mountain_height, :longest_river, :longest_river_length, :published_status, :hero_photo, :photo_credit,
+                      parent_attributes: [:parentable_id, :parentable_type],
                       photos_attributes: [:id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_hero, :country_include, :_destroy],
                       videos_attributes: [:id, :vimeo_id, :title, :description, :priority, :status, :country_include, :_destroy],
                       fun_facts_attributes: [:id, :content, :reference, :priority, :hero_photo, :photo_credit, :status, :country_include, :_destroy],
