@@ -187,6 +187,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def seo_analysis
+    @place = @search_optimizable = Place.friendly.find(params[:id])
+  end
+
   def refresh_blog
     @place = Place.find_by_slug(params[:id])
     Rails.cache.delete(@place.slug)
