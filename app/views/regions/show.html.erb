@@ -21,10 +21,10 @@
 
             <div class="favourites-wrapper">
               <% if user_signed_in? %>
-                <div class="icon-favourite selected" id="favouriteType" data-post-path="places_users" data-klass="place" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                <div class="icon-favourite selected" id="favouriteType" data-post-path="regions_users" data-klass="region" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
                 <div class="favourites-title hidden-xs">Remove from favourites</div>
               <% else %>
-                <div class="icon-favourite" id="favouriteType" data-post-path="places_users" data-klass="place" data-liked="false" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                <div class="icon-favourite" id="favouriteType" data-post-path="regions_users" data-klass="region" data-liked="false" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
                 <div class="favourites-title hidden-xs" >Add to favourites</div>
               <% end %>
             </div>
@@ -67,6 +67,7 @@
   <div class="container"> 
     <div class="row">
       <div class="col-xs-12">
+        <% if @region.description.length > 280 %>
         <div class="destination-desc promo-text-full" style="display:none;">
           <p><%= raw @region.description %></p>
         </div>
@@ -78,6 +79,11 @@
           <a href="javascript:void()" class="readmore-area link-more">READ MORE</a>
           <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
         </div>
+        <% else %>
+          <div class="destination-desc promo-text-full">
+            <p><%= raw @region.description %></p>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -96,7 +102,7 @@
                 <% data_objs['#lng'] = place_item.longitude %>
                 <% data_objs['#description'] = place_item.description %>
                 <% data_objs['#country'] = place_item.country.display_name %>
-                <% if place_item.photos.last.path_url(:small) != nil %>
+                <% if !place_item.photos.blank? %>
                 <% data_objs['#photo'] = place_item.photos.last.path_url(:small) %>
                 <% else %>
                 <% data_objs['#photo'] = "/assets/generic-hero-small.jpg" %>
@@ -130,7 +136,7 @@
               <% else %>
                 <% data_objs['#country'] = "" %>
               <% end %>
-              <% if @region.photos.last.path_url(:small) != nil %>
+              <% if !@region.photos.blank? %>
               <% data_objs['#photo'] = @region.photos.last.path_url(:small) %>
               <% else %>
               <% data_objs['#photo'] = "/assets/generic-hero-small.jpg" %>

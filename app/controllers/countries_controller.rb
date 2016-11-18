@@ -35,6 +35,7 @@ class CountriesController < ApplicationController
   def new
     @country = Country.new
     @regions = Region.all
+    @countries = Country.all
   end
 
   def create

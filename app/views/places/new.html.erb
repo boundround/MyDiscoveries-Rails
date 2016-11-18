@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller='places' data-action="onload">
   <% if @place.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@place.errors.count, "error") %> prohibited this place from being updated:</h2>
@@ -68,7 +68,8 @@
         <%= f.label "Parentable" %><br>
         <%= radio_button_tag 'parentable_chose', 'country', false %> Country &nbsp;&nbsp;
         <%= radio_button_tag 'parentable_chose', 'region', false %> Region &nbsp;&nbsp;
-        <%= radio_button_tag 'parentable_chose', 'place', true %> Place
+        <%= radio_button_tag 'parentable_chose', 'place', false %> Place &nbsp; &nbsp;
+        <%= radio_button_tag 'parentable_chose', 'no_parent', true %> No Parent
         <br>
         <%= f.fields_for :parent, (@place.childrens.new()) do |fc| %>
           <div id='chosen_country' style="display:none;">

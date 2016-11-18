@@ -14,7 +14,7 @@ class RegionsController < ApplicationController
     @fun_facts  = ''
     @fun_facts = @region.fun_facts
     @places_to_visit_map = @region.childrens.select{|child| child.itemable_type == 'Place'}
-    @places_to_visit = @region.childrens.paginate(page: params[:places_to_visit_page], per_page: 3 )
+    @places_to_visit = @region.childrens.select{|child| (child.itemable_id != @region.id) && (child.itemable_type != @region.class.to_s) }.paginate(page: params[:places_to_visit_page], per_page: 3 )
     @place_to_go = @region.childrens.select{|child| child.itemable_type == 'Country'}.paginate(page: params[:places_to_go_page], per_page: 3 )
   end
 
@@ -31,7 +31,6 @@ class RegionsController < ApplicationController
 
   def create
     @region = Region.new(region_params)
-    
     if @region.save
       redirect_to edit_region_path(@region), notice: 'Region succesfully saved'
     else

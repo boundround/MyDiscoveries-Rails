@@ -282,6 +282,7 @@ class Attraction < ActiveRecord::Base
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
   accepts_nested_attributes_for :stamps, allow_destroy: true
   accepts_nested_attributes_for :parent, :allow_destroy => true
+  after_create :update_parentable_id
 
   def self.import_subcategories(file)
     attractions_subcategory = nil
@@ -466,6 +467,10 @@ class Attraction < ActiveRecord::Base
     unless self.run_rake
       slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
     end
+  end
+
+  def update_parentable_id
+    self.parent.update(parentable_id: self.id)
   end
 
   private

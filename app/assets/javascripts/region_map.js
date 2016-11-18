@@ -12,7 +12,11 @@
             obj['point'] = data_split[0].split('=>')[1].slice(1, -1);
             obj['lat'] = parseFloat(data_split[1].split('=>')[1]);
             obj['lng'] = parseFloat(data_split[2].split('=>')[1]);
-            obj['description'] = data_split[3].split('=>')[1].slice(1, -1).substr(0,150);
+            if (data_split[3].length > 150){                    
+                obj['description'] = data_split[3].split('=>')[1].slice(1, -1).substr(0,150)+" ...";
+            }else{
+                obj['description'] = data_split[3].split('=>')[1].slice(1, -1);
+            }
             obj['country'] = data_split[4].split('=>')[1].slice(1, -1);
             obj['preview'] = data_split[5].split('=>')[1].slice(1, -1);
             obj["inner-cards"] = [];

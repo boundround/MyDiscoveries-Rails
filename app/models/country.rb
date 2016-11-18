@@ -154,6 +154,7 @@ class Country < ActiveRecord::Base
   accepts_nested_attributes_for :info_bits, allow_destroy: true
   accepts_nested_attributes_for :discounts, allow_destroy: true
   accepts_nested_attributes_for :parent, :allow_destroy => true
+  after_create :update_parentable_id
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 
@@ -224,6 +225,10 @@ class Country < ActiveRecord::Base
       when ".xlsx" then Roo::Excelx.new(file.path, packed: nil, file_warning: :ignore)
       else raise "Unknown file type: #{file.original_filename}"
     end
+  end
+
+  def update_parentable_id
+    self.parent.update(parentable_id: self.id)
   end
 
   private
