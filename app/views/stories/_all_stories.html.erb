@@ -35,6 +35,8 @@
             <%= link_to "LOAD MORE", paginate_stories_user_path(@user, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
           <% elsif params[:controller].eql? "attractions" %>
             <%= link_to "LOAD MORE", paginate_stories_attraction_path(@attraction, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+          <% elsif params[:controller].eql? "regions" %>
+            <%= link_to "LOAD MORE", paginate_stories_region_path(@region, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
           <% else %>
             <%= link_to "LOAD MORE", paginate_posts_path(stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
           <% end %>

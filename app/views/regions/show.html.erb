@@ -87,21 +87,56 @@
       <div class="col-xs-12">
         <div class="promo-map js-promo-map">
           <% mark_datas = [] %>
-          <% @places_to_visit_map.each do |place| %>
-            <% place_item = place.itemable %>
+          <% if !@places_to_visit_map.blank? %>
+            <% @places_to_visit_map.each do |place| %>
+              <% place_item = place.itemable %>
+              <% data_objs = {} %>
+                <% data_objs['#place'] = place_item.display_name %>
+                <% data_objs['#lat'] = place_item.latitude %>
+                <% data_objs['#lng'] = place_item.longitude %>
+                <% data_objs['#description'] = place_item.description %>
+                <% data_objs['#country'] = place_item.country.display_name %>
+                <% if place_item.photos.last.path_url(:small) != nil %>
+                <% data_objs['#photo'] = place_item.photos.last.path_url(:small) %>
+                <% else %>
+                <% data_objs['#photo'] = "/assets/generic-hero-small.jpg" %>
+                <% end %>
+                <% data_objs['#childrens'] = [] %>
+                  <% place_item.childrens.last(3).each do |place_child| %>
+                    <% place_item_child = place_child.itemable %>
+                    <% data_child_objs = {} %>
+                    <% data_child_objs['@country_child'] = place_item_child.country.display_name %>
+                    <% data_child_objs['@name_child'] = place_item_child.display_name %>
+                    <% if !place_item_child.photos.blank? %>
+                    <% data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:small) %>
+                    <% else %>
+                    <% data_child_objs['@photo_child'] = "/assets/generic-hero-small.jpg" %>
+                    <% end %>
+                    <% data_objs['#childrens'] << data_child_objs %>
+                    <% data_objs['#childrens'] << ["#"] %>
+                  <% end %>
+                <% mark_datas << data_objs %>
+                <% mark_datas << ["@"] %>
+                <% data_objs['#path'] = place_path(place_item) %>
+            <% end %>
+          <% else %>
             <% data_objs = {} %>
-              <% data_objs['#place'] = place_item.display_name %>
-              <% data_objs['#lat'] = place_item.latitude %>
-              <% data_objs['#lng'] = place_item.longitude %>
-              <% data_objs['#description'] = place_item.description %>
-              <% data_objs['#country'] = place_item.country.display_name %>
-              <% if place_item.photos.last.path_url(:small) != nil %>
-              <% data_objs['#photo'] = place_item.photos.last.path_url(:small) %>
+              <% data_objs['#place'] = @region.display_name %>
+              <% data_objs['#lat'] = @region.latitude.to_f %>
+              <% data_objs['#lng'] = @region.longitude.to_f %>
+              <% data_objs['#description'] = @region.description %>
+              <% unless @region.parent.blank?  %>
+                <% data_objs['#country'] = @region.parent.parentable.display_name %>
+              <% else %>
+                <% data_objs['#country'] = "" %>
+              <% end %>
+              <% if @region.photos.last.path_url(:small) != nil %>
+              <% data_objs['#photo'] = @region.photos.last.path_url(:small) %>
               <% else %>
               <% data_objs['#photo'] = "/assets/generic-hero-small.jpg" %>
               <% end %>
               <% data_objs['#childrens'] = [] %>
-                <% place_item.childrens.last(3).each do |place_child| %>
+                <% @places_to_visit_map.last(3).each do |place_child| %>
                   <% place_item_child = place_child.itemable %>
                   <% data_child_objs = {} %>
                   <% data_child_objs['@country_child'] = place_item_child.country.display_name %>
@@ -116,8 +151,8 @@
                 <% end %>
               <% mark_datas << data_objs %>
               <% mark_datas << ["@"] %>
-              <% data_objs['#path'] = place_path(place_item) %>
-          <% end %>          
+              <% data_objs['#path'] = region_path(@region) %>
+          <% end %>   
           <input type="hidden" data-zoom="<%= @region.zoom_level %>" data-lat="<%= @region.latitude %>" data-long="<%= @region.longitude %>" data-marker="<%= mark_datas %>" name="region">
           <div class="google-promo-map js-google-promo-map"></div>
         </div>
@@ -145,19 +180,15 @@
           </div>
 
           <% unless last_page? @place_to_go %>
-              <div class="row hidden-xs">
-                  <div class="col-xs-12">
-                      <div class="single-pagination-container" id="areas-single-pagination-container">
-                          <div class="hidden single-pagination-loader" align="center">
-                              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                          </div>
-                          <div class="load-more">
-                              <%= link_to "LOAD MORE", "" %>
-                          </div>
-                      </div>
-                  </div>
+          <div class="row hidden-xs single-pagination-container" id="place_to_go-single-pagination-container">
+              <div class="col-xs-12 load-more">
+                <div class="hidden single-pagination-loader" align="center">
+                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                </div>
+              <%= link_to "LOAD MORE", paginate_place_to_go_region_path(@region, places_to_go_page: @place_to_go.next_page, resources: 'place_to_go', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
               </div>
-          <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

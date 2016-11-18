@@ -7,7 +7,7 @@ class RegionsController < ApplicationController
 
   def show
     @videos = Video.first
-    @stories  = @region.stories.paginate(page: params[:stories_page], per_page: 6 )
+    @stories  = @region.stories.reverse.paginate(page: params[:stories_page], per_page: 4 )
     @areas  = Place.first
     @photos = Photo.first
     @famous_faces = ''
@@ -15,7 +15,7 @@ class RegionsController < ApplicationController
     @fun_facts = @region.fun_facts
     @places_to_visit_map = @region.childrens.select{|child| child.itemable_type == 'Place'}
     @places_to_visit = @region.childrens.paginate(page: params[:places_to_visit_page], per_page: 3 )
-    @place_to_go = @region.childrens.select{|child| child.itemable_type == 'Country'}.paginate(page: params[:places_to_visit_page], per_page: 3 )
+    @place_to_go = @region.childrens.select{|child| child.itemable_type == 'Country'}.paginate(page: params[:places_to_go_page], per_page: 3 )
   end
 
   def new
@@ -98,6 +98,16 @@ class RegionsController < ApplicationController
   def paginate_place_to_visit
     @region = Region.find_by_slug(params[:id])
     @places_to_visit = @region.childrens.paginate( page: params[:places_to_visit_page], per_page: 3 )
+  end
+
+  def paginate_place_to_go
+    @region = Region.find_by_slug(params[:id])
+    @place_to_go = @region.childrens.select{|child| child.itemable_type == 'Country'}.paginate(page: params[:places_to_go_page], per_page: 3 )
+  end
+
+  def paginate_stories
+    @region = Region.find_by_slug(params[:id])
+    @stories = @region.stories.reverse.paginate(page: params[:stories_page], per_page: 4 )
   end
 
   private
