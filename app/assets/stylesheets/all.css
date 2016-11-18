@@ -1804,7 +1804,8 @@ h4 {
 .dest-thing-wrapper .dest-thing .dest-thing-content {
     padding: 20px 25px 20px 25px;
     background: #fff;
-    height: 160px
+    height: 160px;
+    overflow: hidden;
 }
 .dest-thing-wrapper .dest-thing .dest-thing-content .tags {
     position: absolute;
