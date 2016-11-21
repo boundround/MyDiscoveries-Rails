@@ -47,10 +47,6 @@
         <%= radio_button_tag 'parentable_chose', 'no_parent', true %> No Parent
         <br>
         <%= f.fields_for :parent, (@country.childrens.new()) do |fc| %>
-          <div id='chosen_country' style="display:none;">
-            <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true ) %>
-            <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_country', value: "Country") %>
-          </div>
           <div id='chosen_region' style="display:none;">
             <%= fc.select(:parentable_id, @regions.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
             <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_region', value: "Region") %>
