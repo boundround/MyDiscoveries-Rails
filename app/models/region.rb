@@ -126,6 +126,7 @@ class Region < ActiveRecord::Base
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :stories, allow_destroy: true
+  after_create :update_parentable_id
 
 
   def get_parents(region, parents = [])
@@ -133,8 +134,10 @@ class Region < ActiveRecord::Base
       if region.parent.blank?
         return parents
       else
-        parents << region.parent.parentable
-        get_parents(region.parent.parentable, parents)
+        unless region.parent.parentable_id == self.id
+          parents << region.parent.parentable
+          get_parents(region.parent.parentable, parents)
+        end
       end
     end
   end
@@ -155,6 +158,10 @@ class Region < ActiveRecord::Base
     unless self.run_rake
       slug.blank? || display_name_changed? || self.parent.parentable_id_changed?
     end
+  end
+
+  def update_parentable_id
+    self.parent.update(parentable_id: self.id)
   end
 
   private

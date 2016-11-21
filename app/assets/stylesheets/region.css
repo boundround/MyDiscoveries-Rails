@@ -11,9 +11,11 @@
 }
 
 [data-page="region"] .section{
+  padding-bottom: 72px;
+  border-bottom: 1px solid #eaeaea;
+}
+[data-page="region"] .section h3{
 	text-align: center;
-    padding-bottom: 72px;
-    border-bottom: 1px solid #eaeaea;
 }
 
 [data-page="region"] .nav-option-outer-wrapper{
@@ -34,12 +36,9 @@
 	font-weight: normal;
 	position: relative;
 	clear: both;
-}
-
-[data-page="region"] .promo-text,
-[data-page="region"] .promo-text-full{
 	text-align: center;
-    padding-top: 55px;
+  padding-top: 55px;
+  padding-bottom: 42px;
 }
 
 [data-page="region"] .promo-text > p,
@@ -51,50 +50,20 @@
 
 [data-page="region"] a.link-more{
 	display: block;
-    margin: 21px auto 0;
-    color: #959595;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 25px;
-    text-align: center;
-    margin-bottom: 42px;
+  color: #959595;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 25px;
+  text-align: center;
+  padding-top: 0;
+  padding-bottom: 42px;
 }
 
 /*Places to go*/
-[data-page="region"] .places-to-go-card {
-	height: 480px;
-	border-radius: 6px;
-	overflow: hidden;
-    color: #fff;
-}
-
-[data-page="region"] .country-background{
-	background-size: cover;
-	background-repeat: no-repeat;
-	position: relative;
-	height: 100%;
-    border-radius: 5px
-}
-
-[data-page="region"] .country-name{
-	text-align: left;
-    font-size: 18px;
-    text-transform: uppercase;
-    padding: 20px 0 13px 49px;
-    background-image: url("img/places-to-go/pin-white.png");
-    background-repeat: no-repeat;
-    background-size: 21px;
-    background-position: 17px 17px;
-}
-
-[data-page="region"] .city{
-	font-family: signika-bold, sans-serif;
-	font-size: 52px;
-	position: absolute;
-    width: 100%;
-    top: 45%;
+[data-page="region"] #place_to_go-list .destination-card{
+  margin-bottom: 15px;
 }
 
 /*Family Deals*/
@@ -201,72 +170,6 @@
     width: 100%;
 }
 
-/*Things To Do*/
-[data-page="region"] .card-shadow{
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-	position:relative;
-}
-
-[data-page="region"] .dest-thing-wrapper .dest-thing{
-	border: 0;
-}
-
-[data-page="region"] #things-to-do{
-	text-align: left;
-}
-
-[data-page="region"] .region-things-to-do-card__theme-mark{
-	float: left;
-    background-color: #eaeaea;
-    border-radius: 12px;
-    font-size: 14px;
-    position: absolute;
-    bottom: 20px;
-    left: 25px;
-    text-transform: uppercase;
-    padding: 4px 11px;
-}
-
-[data-page="region"] .region-things-to-do-card__headline{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background-color: rgba(0, 0, 0, 0.4);
-    width: 100%;
-
-}
-
-[data-page="region"] .region-things-to-do-card__cost{
-	float: left;
-    color: #fff;
-    padding: 18px;
-    font-size: 20px;
-}
-
-[data-page="region"] .region-things-to-do-card__book{
-	float: right;
-    font-size: 18px;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: bold;
-    padding: 8px 12px;
-    background-color: #fe7e57;
-    margin: 11px 13px 0 0;
-}
-
-[data-page="region"] .region-things-to-do-card--ad{
-	background-color: #f0f0f0;
-    border: 1px solid #cccccc !important;
-    padding: 34px;
-    position: relative;
-    height: 380px;
-}
-
-[data-page="region"] .dest-thing-wrapper{
-	height: 380px;
-}
-
 /*Will Ad Banner*/
 [data-page="region"] .wild-ad-banner{
 	background-color: #f0f0f0;
@@ -317,6 +220,11 @@
   -webkit-filter: grayscale(0) !important;
   filter: grayscale(0) !important;
   border-color: #6cb7ca !important;
+  /*width: 100px !important;
+  height: auto !important;
+  bottom: 0px !important;
+  left: 25% !important;
+  top: 60% !important;*/
 }
 [data-page="region"] .promo-map {
   height: 580px;
@@ -396,13 +304,13 @@
   text-transform: uppercase;
   font-size: 17px;
   color: #333333;
-  padding: 21px 0;
+  padding: 10px 0;
   left: 0;
   width: 100%;
   background-repeat: no-repeat;
   background-color: #fff;
   border-top: 1px solid #eaeaea;
-  background-position: 327px 25px;
+  background-position: 90% 50%;
   background-size: 13px;
   background-image: url(img/point-card/next.png);
 }
@@ -454,6 +362,19 @@
 [data-page="region"] .region-preview-item__header,
 [data-page="region"] .region-preview-item__paragraph{
     margin: 0;
+}
+
+[data-page="region"] .nav-option{
+  width: 15.666667%;
+}
+
+/*Stories*/
+[data-page="region"] .destination-page .stories-wrapper{
+  padding-bottom: 60px;
+}
+
+[data-page="region"] .destination-page .stories-wrapper .load-more{
+  padding-bottom: 0;
 }
 
 @media (max-width: 767px){

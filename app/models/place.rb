@@ -333,6 +333,7 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
   accepts_nested_attributes_for :stamps, allow_destroy: true
   accepts_nested_attributes_for :parent, :allow_destroy => true
+  after_create :update_parentable_id
 
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
@@ -712,6 +713,10 @@ class Place < ActiveRecord::Base
       end
     end
     list_of_children
+  end
+
+  def update_parentable_id
+    self.parent.update(parentable_id: self.id)
   end
 
   private

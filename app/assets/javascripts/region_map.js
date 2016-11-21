@@ -1,113 +1,43 @@
 (function (win, doc) {
 
     "use strict";
-    var data_marker = $('input[name=region]').data('marker').split('}, {');
+    var data_marker = $('input[name=region]').data('marker').split(', ["@"]');
+    data_marker.pop(); //per place
     var datas = function() {
         var results = [];
         $.each(data_marker, function(i, val) {
             var obj = {},
-                data_split = val.split(', "');
-            console.log(data_split);
-            obj['point'] = data_split[0].split('=>')[1].replace(/[^a-z\d\s]+/gi, '');
+                data_split = val.split(', "#'); //per key
+            // console.log(data_split);
+            obj['point'] = data_split[0].split('=>')[1].slice(1, -1);
             obj['lat'] = parseFloat(data_split[1].split('=>')[1]);
             obj['lng'] = parseFloat(data_split[2].split('=>')[1]);
-            obj['description'] = data_split[3].split('=>')[1].replace(/[^a-z\d\s]+/gi, '');
-            obj['country'] = data_split[4].split('=>')[1].replace(/[^a-z\d\s]+/gi, '');
+            if (data_split[3].length > 150){                    
+                obj['description'] = data_split[3].split('=>')[1].slice(1, -1).substr(0,150)+" ...";
+            }else{
+                obj['description'] = data_split[3].split('=>')[1].slice(1, -1);
+            }
+            obj['country'] = data_split[4].split('=>')[1].slice(1, -1);
             obj['preview'] = data_split[5].split('=>')[1].slice(1, -1);
-            // obj['preview'] = "/assets/img/promo-map/jeju-island.jpg";
+            obj["inner-cards"] = [];
+            obj['path'] = data_split[7].split('=>')[1].slice(1, -1);
+            var data_childs = data_split[6].split(', ["#"]');
+            data_childs.pop();
+            $.each(data_childs, function(i, val){
+                var childs_objs = {},
+                    data_childs_split = val.split('"@');
+                    data_childs_split.shift();
+                    childs_objs["img"] = data_childs_split[2].split('=>')[1].slice(1, -2);
+                    childs_objs["header"] = data_childs_split[0].split('=>')[1].slice(1, -3);
+                    childs_objs["description"] = data_childs_split[1].split('=>')[1].slice(1, -3);
+                obj["inner-cards"].push(childs_objs)
+            })
             results.push(obj);
         });
-        console.log(results);
+        console.log(results)
         return results;
     }
     var dataFromSetver = {
-        // "data": [
-          // $.each(data_marker, function(){
-            // var tes = $(this);
-            // var lat = $(this).split(', ')[14].split(': ')[1];
-            // {
-            // console.log(tes)
-            // console.log('aaaa')
-                // "lat": -25.363,
-                // "lng": 131.044,
-            //     "country": "South Korea",
-            //     "point": "Jeju Island",
-            //     "description": "Sun bathe peer out window, chatter at birds, lure them to mouth but purr while eating chew iPad power cord.",
-            //     "page-url": "#link-to-region3",
-            //     "preview": "/assets/img/promo-map/jeju-island.jpg",
-            //     "inner-cards": [
-            //         {
-            //             "img": "/assets/img/promo-map/point-preview.jpg",
-            //             "header": "Seoul",
-            //             "description": "Tropical Fruit World"
-            //         },
-            //         {
-            //             "img": "/assets/img/promo-map/point-preview.jpg",
-            //             "header": "Seoul",
-            //             "description": "Tropical Fruit World"
-            //         },
-            //         {
-            //             "img": "/assets/img/promo-map/point-preview.jpg",
-            //             "header": "Seoul",
-            //             "description": "Tropical Fruit World"
-            //         }
-            //     ]
-            // }
-          // })
-        // ],
-            // {
-            //     "lat": -25.363 + 1,
-            //     "lng": 131.044 + 1,
-            //     "country": "South Korea 2",
-            //     "point": "South Korea 2",
-            //     "description": "Sun!!! bathe peer out window, chatter at birds, lure them to mouth but purr while eating chew iPad power cord.",
-            //     "page-url": "#link-to-region2",
-            //     "preview": "/assets/img/promo-map/kyoto.jpg",
-            //     "inner-cards": [
-            //         {
-            //             "img": "/assets/img/promo-map/point-preview.jpg",
-            //             "header": "Seoulssdf",
-            //             "description": "Tropical Fruit Worldasf"
-            //         },
-            //         {
-            //             "img": "/assets/img/promo-map/point-preview.jpg",
-            //             "header": "Seoulsfsa",
-            //             "description": "Tropical Fruit Worldasf"
-            //         },
-            //         {
-            //             "img": "/assets/img/promo-map/point-preview.jpg",
-            //             "header": "Seoulsfas",
-            //             "description": "Tropical Fruit Worldsaf"
-            //         }
-            //     ]
-            // },
-            // {
-            //     "lat": -25.363 + 0.5,
-            //     "lng": 131.044 + 0.5,
-            //     "country": "South Korea 2",
-            //     "point": "Jeju Island 2",
-            //     "description": "Sun bathe peer out window, chatter at birds, lure them to mouth but purr while eating chew iPad power cord.",
-            //     "page-url": "#link-to-region1",
-            //     "preview": "/assets/img/promo-map/jeju-island.jpg?ee",
-            //     "inner-cards": [
-            //         {
-            //             "img": "/assets/img/promo-map/point-preview.jpg",
-            //             "header": "Seoul",
-            //             "description": "Tropical Fruit World"
-            //         },
-            //         {
-            //             "img": "/assets/img/promo-map/point-preview.jpg",
-            //             "header": "Seoul",
-            //             "description": "Tropical Fruit World"
-            //         },
-            //         {
-            //             "img": "/assets/img/promo-map/point-preview.jpg",
-            //             "header": "Seoul",
-            //             "description": "Tropical Fruit World"
-            //         }
-            //     ]
-            // }
-
         "meta": {
             "name": "Ebash karty, bleat\'!!!"
         },
@@ -146,7 +76,7 @@
 
             '</div>',
 
-            '<a href="{{= it[\'page-url\'] }}" class="card-go-to">',
+            '<a href="{{= it.path }}" class="card-go-to">',
                 '<span class="card-go-to__text card-go-to__text--go-to">go to</span>',
                 '<span class="card-go-to__text">{{= it.point}}</span>',
             '</a>',
@@ -274,8 +204,7 @@
         var map = new google.maps.Map(
             mapNode,
             {
-                // zoom: $('input[name=region]').data("zoom"),
-                zoom: 2,
+                zoom: $('input[name=region]').data("zoom"),
                 center: regionMap._mapData.data[0],
                 draggable: false,
                 scrollwheel: false
@@ -312,7 +241,7 @@
                 .map(function (marker) {
                     return 'img[src="' + marker.preview + '"]';
                 })
-                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; } '; // FUUUUCKKK!!!!!!
+                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; } ';
 
         style.innerText += data
                 .map(function (marker) {

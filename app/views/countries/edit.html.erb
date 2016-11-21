@@ -61,7 +61,7 @@
         <div class="form-group published-radio">
           <%= f.input :published_status, as: :radio_buttons, collection: [@country.published_status] %>
         </div>
-      <% end %>
+      <% end %> 
       <% if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin? %>
         <p><input id="pac-input" class="controls" type="text"
             placeholder="Enter a location"> Geometry: <%= @country.latitude %>, <%= @country.longitude %></p>
@@ -76,6 +76,28 @@
           <%= f.input :google_place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
         </div>
       <% end %>
+      <div class="form-group">
+        <%= f.label "Parentable" %><br>
+        <% if @country.parent.blank? %>
+          <%= radio_button_tag 'parentable_chose', 'region', true %> Region &nbsp;&nbsp;
+          <br>
+          <%= f.fields_for :parent, (@country.childrens.new()) do |fc| %>
+            <div id='chosen_region' style="display:none;">
+              <%= fc.select(:parentable_id, @regions.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_region', value: "Region") %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= radio_button_tag 'parentable_chose', 'region', (@country.parent.parentable_type.eql? 'Region') ? true : false %> Region
+          <br>
+          <%= f.fields_for :parent do |fc| %>
+            <div id='chosen_region' style="display:none;">
+              <%= fc.select(:parentable_id, @regions.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @country.parent.parentable_id) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_region', value: "Region") %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
       <div id="table-container">
         <h3>Videos</h3>
         <table class="table table-striped" id="video-table">
