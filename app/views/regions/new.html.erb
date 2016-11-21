@@ -55,7 +55,7 @@
         <span id="shortDescriptionCharCount">0</span> characters entered. (255 max)<br>
       </div>
       <div class="form-group">
-        <%= f.input :zoom_level, collection: 1..180, label: "Zoom Level:", input_html: { class: 'form-control' } %>
+        <%= f.input :zoom_level, collection: 1..180, selected: 5, label: "Zoom Level:", input_html: { class: 'form-control' } %>
       </div><br>
       <div class="form-group">
         <%= f.button :submit, 'Submit' %>
