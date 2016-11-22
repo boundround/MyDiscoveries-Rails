@@ -23,9 +23,9 @@
           <div id="map-canvas" style="height:500px;"></div>
         </div>
         <div class="col-md-6">
-          <div class="form-group lat-lng">
-            <span class="pull-left"><%= f.input :latitude, :input_html => { "data-geo" => "lat" } %></span>
-            <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
+          <div class="form-group lat-lng row">
+            <div class="col-xs-12 col-sm-6"><%= f.input :latitude, :input_html => { "data-geo" => "lat", class: 'form-control' } %></div>
+            <div class="col-xs-12 col-sm-6"><%= f.input :longitude, :input_html => { "data-geo" => "lng", class: 'form-control' } %></div>
           </div>
         </div>
       </div>
