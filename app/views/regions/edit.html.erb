@@ -23,21 +23,23 @@
           <div id="map-canvas" style="height:500px;"></div>
         </div>
         <div class="col-md-6">
-          <div class="form-group lat-lng">
-            <span class="pull-left"><%= f.input :latitude, :input_html => { "data-geo" => "lat" } %></span>
-            <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
+          <div class="form-group lat-lng row">
+            <div class="col-xs-12 col-sm-6"><%= f.input :latitude, :input_html => { "data-geo" => "lat", class: 'form-control' } %></div>
+            <div class="col-xs-12 col-sm-6"><%= f.input :longitude, :input_html => { "data-geo" => "lng", class: 'form-control' } %></div>
           </div>
         </div>
       </div>
       <hr>
+      <%= f.hidden_field :no_parent_select, value: true, class: 'no_parent_select' %>
       <div class="form-group">
         <%= f.input :display_name, input_html: { class: 'form-control' } %>
       </div>
       <div class="form-group">
         <%= f.label "Parentable" %><br>
         <% if @region.parent.blank? %>
-          <%= radio_button_tag 'parentable_chose', 'country', true %> Country &nbsp;&nbsp;
-          <%= radio_button_tag 'parentable_chose', 'region', false %> Region 
+          <%= radio_button_tag 'parentable_chose', 'country', false %> Country &nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'region', false %> Region  &nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'no_parent', true %> No Parent
           <br>
           <%= f.fields_for :parent, (@region.childrens.new()) do |fc| %>
             <div id='chosen_country' style="display:none;">

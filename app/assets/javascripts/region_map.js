@@ -8,7 +8,6 @@
         $.each(data_marker, function(i, val) {
             var obj = {},
                 data_split = val.split(', "#'); //per key
-            // console.log(data_split);
             obj['point'] = data_split[0].split('=>')[1].slice(1, -1);
             obj['lat'] = parseFloat(data_split[1].split('=>')[1]);
             obj['lng'] = parseFloat(data_split[2].split('=>')[1]);
@@ -34,7 +33,6 @@
             })
             results.push(obj);
         });
-        console.log(results)
         return results;
     }
     var dataFromSetver = {
@@ -207,7 +205,8 @@
                 zoom: $('input[name=region]').data("zoom"),
                 center: regionMap._mapData.data[0],
                 draggable: false,
-                scrollwheel: false
+                scrollwheel: false,
+                zoomControl: false
             }
         );
 
@@ -345,7 +344,6 @@
                     $parent.append('<span class="region-map-point__title">' + pointData.point + '</span>');
                 });
             }).catch(function (e) {
-                console.log(e);
                 console.log('can not load img');
             });
 

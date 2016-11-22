@@ -23,18 +23,21 @@
         </div>
         <div class="col-md-6">
           <div class="form-group lat-lng">
-            <%= f.input :display_address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address", class: 'longer-input' }, label: "Display Address" %>
-            <span class="pull-left"><%= f.input :latitude, :input_html => { "data-geo" => "lat" } %></span>
-            <%= f.input :longitude, :input_html => { "data-geo" => "lng" } %>
-            <%= f.input :street_number, :input_html => { "data-geo" => "street_number" } %>
-            <span class="pull-left"><%= f.input :route, :input_html => { "data-geo" => "route", class: '' } %></span>
-            <span class="pull-left"><%= f.input :sublocality, :input_html => { "data-geo" => "sublocality"} %></span>
-            <%= f.input :locality, :input_html => { "data-geo" => "locality" } %>
-            <span class="pull-left"><%= f.input :state, :input_html => { "data-geo" => "administrative_area_level_1" } %></span>
-            <%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code" } %>
-            <%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control' } %>
-            <%= f.input :place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
-            <%= f.input :trip_advisor_url, input_html: { class: 'form-control' } %>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12"><%= f.input :display_address, placeholder: 'Address', :input_html => { "data-geo" => "formatted_address", class: 'longer-input form-control' }, label: "Display Address" %>
+              </div>
+              <div class="col-xs-12 col-sm-6"><%= f.input :latitude, :input_html => { "data-geo" => "lat", class: 'form-control' } %></div>
+              <div class="col-xs-12 col-sm-6"><%= f.input :longitude, :input_html => { "data-geo" => "lng", class: 'form-control' } %></div>
+              <div class="col-xs-12 col-sm-12"><%= f.input :street_number, :input_html => { "data-geo" => "street_number", class: 'form-control' } %></div>
+              <div class="col-xs-12 col-sm-4"><%= f.input :route, :input_html => { "data-geo" => "route", class: 'form-control' } %></div>
+              <div class="col-xs-12 col-sm-4"><%= f.input :sublocality, :input_html => { "data-geo" => "sublocality", class: 'form-control'} %></div>
+              <div class="col-xs-12 col-sm-4"><%= f.input :locality, :input_html => { "data-geo" => "locality", class: 'form-control' } %></div>
+              <div class="col-xs-12 col-sm-6"><%= f.input :state, :input_html => { "data-geo" => "administrative_area_level_1", class: 'form-control' } %></div>
+              <div class="col-xs-12 col-sm-6"><%= f.input :post_code, as: :string, :input_html => { "data-geo" => "postal_code", class: 'form-control' } %></div>
+              <div class="col-xs-12 col-sm-12"><%= f.input :phone_number, input_html: { "data-geo" => "formatted_phone_number", class: 'form-control', class: 'form-control' } %></div>
+              <div class="col-xs-12 col-sm-12"><%= f.input :place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %></div>
+              <div class="col-xs-12 col-sm-12"><%= f.input :trip_advisor_url, input_html: { class: 'form-control' } %></div>
+            </div>
           </div>
         </div>
       </div>
@@ -60,12 +63,14 @@
         <%= f.association :country, label: 'Country', collection: @countries, as: :select, label_method: :display_name, required: true %>
       </div>
       <div class="form-group">
+        <%= f.hidden_field :no_parent_select, value: true, class: 'no_parent_select' %>
         <%= f.label "Parentable" %><br>
         <% if @attraction.parent.blank? %>
           <%= radio_button_tag 'parentable_chose', 'country', false %> Country &nbsp;&nbsp;
           <%= radio_button_tag 'parentable_chose', 'region', false %> Region &nbsp;&nbsp;
           <%= radio_button_tag 'parentable_chose', 'place', false %> Place &nbsp;&nbsp;
-          <%= radio_button_tag 'parentable_chose', 'attraction', true %> Attraction
+          <%= radio_button_tag 'parentable_chose', 'attraction', false %> Attraction  &nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'no_parent', true %> No Parent
           <br>
           <%= f.fields_for :parent, (@attraction.childrens.new()) do |fc| %>
             <div id='chosen_country' style="display:none;">
@@ -143,17 +148,19 @@
         </div>
         <% end %>
       <% end %>
-      <div class="field row">
+      <div class="field form-group">
         <strong>Secondary categories</strong><br>
+        <div class="row">
         <% @subcategories.each do |category| %>
             <% if category.category_type == "subcategory" %>
-              <div class="checkbox-inline col-md-2">
+              <div class="col-md-3">
                 <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
                 <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
                 <%= label_tag dom_id(category), category.name %>
               </div>
           <% end %>
         <% end %>
+        </div>
       </div>
       <div class="form-group">
         <br>
@@ -161,57 +168,65 @@
         <%= f.input :minimum_age, collection: 0..18, label: "From:", input_html: { class: 'form-control' } %>
         <%= f.input :maximum_age, collection: 0..18, label: "To:", input_html: { class: 'form-control' } %>
       </div>
-      <div class="field js-primary-category row">
+      <div class="field js-primary-category">
         <br>
         <strong>Price categories</strong><br>
+        <div class="row">
         <% @subcategories.each do |category| %>
             <% if category.category_type == "price" %>
-              <div class="checkbox-inline col-md-2">
+              <div class="col-md-2">
                 <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
                 <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
                 <%= label_tag dom_id(category), category.name %>
               </div>
           <% end %>
         <% end %>
+        </div>
       </div>
-      <div class="field js-primary-category row">
+      <div class="field js-primary-category">
         <br>
         <strong>Accessibility</strong><br>
+        <div class="row">
         <% @subcategories.each do |category| %>
             <% if category.category_type == "accessibility" %>
-            <div class="checkbox-inline col-md-2">
+            <div class="col-md-3">
               <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
               <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
               <%= label_tag dom_id(category), category.name %>
             </div>
           <% end %>
         <% end %>
+        </div>
       </div>
-      <div class="field js-primary-category row">
+      <div class="field js-primary-category">
         <br>
         <strong>Attraction visit duration</strong><br>
+        <div class="row">
         <% @subcategories.each do |category| %>
             <% if category.category_type == "duration" %>
-            <div class="checkbox-inline col-md-2">
+            <div class="col-md-2">
               <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
               <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
               <%= label_tag dom_id(category), category.name %>
             </div>
           <% end %>
         <% end %>
+        </div>
       </div>
-      <div class="field js-primary-category row">
+      <div class="field js-primary-category">
         <br>
         <strong>Best time of day</strong><br>
+        <div class="row">
         <% @subcategories.each do |category| %>
             <% if category.category_type == "optimum_time" %>
-            <div class="checkbox-inline col-md-2">
+            <div class="col-md-2">
               <%= hidden_field_tag "attraction[subcategory_ids][]", nil%>
               <%= check_box_tag "attraction[subcategory_ids][]", category.id, @attraction.subcategory_ids.include?(category.id), id: dom_id(category) %>
               <%= label_tag dom_id(category), category.name %>
             </div>
           <% end %>
         <% end %>
+        </div>
       </div>
       <div class="field js-primary-category">
         <br>

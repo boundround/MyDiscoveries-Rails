@@ -3,7 +3,7 @@ class Attraction < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake, :no_parent_select
 
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
@@ -162,7 +162,7 @@ class Attraction < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|attraction| attraction.display_name rescue ''} unless !self.run_rake.blank?
+      self.get_parents(self).map {|attraction| attraction.display_name rescue ''} unless !self.run_rake.blank? || (no_parent_select.eql? "true")
     end
 
     attribute :where_destinations do
@@ -289,7 +289,6 @@ class Attraction < ActiveRecord::Base
   accepts_nested_attributes_for :three_d_videos, allow_destroy: true
   accepts_nested_attributes_for :stamps, allow_destroy: true
   accepts_nested_attributes_for :parent, :allow_destroy => true
-  after_create :update_parentable_id
 
   def self.import_subcategories(file)
     attractions_subcategory = nil
@@ -402,7 +401,7 @@ class Attraction < ActiveRecord::Base
   end
 
   def get_parents(attraction, parents = [])
-    unless !self.run_rake.blank?
+    unless !self.run_rake.blank? || (no_parent_select.eql? "true")
       if attraction.parent.blank? || attraction.parent.parentable == self
         if !attraction.country.blank?
           parents << attraction.country
@@ -458,15 +457,17 @@ class Attraction < ActiveRecord::Base
   end
 
   def slug_candidates
-    country = self.country
-    g_parent = get_parents(self, parents = [])
-    p_display_name = g_parent.collect{ |parent| parent.display_name }
+    unless no_parent_select.eql? "true"
+      country = self.country
+      g_parent = get_parents(self, parents = [])
+      p_display_name = g_parent.collect{ |parent| parent.display_name }
 
-    if p_display_name.blank?
-      ["things to do with kids and families #{self.display_name}", :post_code]
-    else
-      primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
-      ["things to do with kids and families #{primary_area_display_name} #{self.display_name}", :post_code]
+      if p_display_name.blank?
+        ["things to do with kids and families #{self.display_name}", :post_code]
+      else
+        primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
+        ["things to do with kids and families #{primary_area_display_name} #{self.display_name}", :post_code]
+      end
     end
   end
 
@@ -475,11 +476,7 @@ class Attraction < ActiveRecord::Base
       slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
     end
   end
-
-  def update_parentable_id
-    self.parent.update(parentable_id: self.id)
-  end
-
+  
   private
   def algolia_id
     "attraction_#{id}" # ensure the attraction & country IDs are not conflicting
