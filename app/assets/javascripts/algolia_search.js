@@ -94,6 +94,7 @@ $(document).ready(function() {
 
         $instantSearchFacet = $('#facets-instant-search')
         $instantSearchFacet2 = $('#facets-instant-search2')
+        $instantSearchFacet3 = $('#facets-instant-search3')
         $instantSearchHits = $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.instant-hits-result');
         $instantSearchPagination = $instantSearchInput.closest('div#instant-search-container').find('div#instant-search-results div.pagination');
 
@@ -315,6 +316,7 @@ $(document).ready(function() {
     function renderFacets(content, state) {
         var facetsHtml = '';
         var facetsHtml2 = '';
+        var facetsHtml3 = '';
         for (var facetIndex = 0; facetIndex < FACETS_ORDER_OF_DISPLAY.length; ++facetIndex) {
             var facetName = FACETS_ORDER_OF_DISPLAY[facetIndex];
             var facetResult = content.getFacetByName(facetName);
@@ -337,7 +339,24 @@ $(document).ready(function() {
                 })
 
                 facetsHtml2 += instantfacetTemplate.render(facetContent2);
-            } else {
+            }else if (facetResult.name == 'age_range'){
+                var facetContent3 = {};
+
+                facetContent3 = {
+                    facet: facetName,
+                    title: FACETS_LABELS[facetName],
+                    values: content.getFacetValues(facetName, {
+                        sortBy: ['isRefined:desc', 'count:desc']
+                    }),
+                    disjunctive: $.inArray(facetName, PARAMS.disjunctiveFacets) !== -1
+                };
+
+                facetContent3.values.sort(function(a, b){
+                  return a.name.localeCompare(b.name);
+                })
+
+                facetsHtml3 += instantfacetTemplate.render(facetContent3);
+            }else {
                 var facetContent = {};
 
                 facetContent = {
@@ -356,8 +375,10 @@ $(document).ready(function() {
                 facetsHtml += instantfacetTemplate.render(facetContent);
             }
         }
+        
         $instantSearchFacet.html(facetsHtml);
         $instantSearchFacet2.html(facetsHtml2);
+        $instantSearchFacet3.html(facetsHtml3);
     }
 
 

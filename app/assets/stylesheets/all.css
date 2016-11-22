@@ -385,6 +385,73 @@ h4 {
 .mega-menu a:focus {
     text-decoration: none
 }
+
+/*Result Search v2 Style*/
+.sidebar-result-search h3{
+    color: #717171;
+}
+#facets-instant-search2 .checkbox-result,
+#facets-instant-search .checkbox-result{
+    display: inline;
+}
+#facets-instant-search2 .checkbox-result label,
+#facets-instant-search .checkbox-result label{
+    background-color: #fff;
+    width: 25px;
+    height: 25px;
+    right: 0;
+    position: absolute;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: -2px;
+}
+#facets-instant-search2 .checkbox-result label:after,
+#facets-instant-search .checkbox-result label:after{
+    content: '';
+    width: 15px;
+    height: 8px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border: 2px solid #adabab;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    opacity: 0;
+    transform: rotate(-45deg);
+}
+#facets-instant-search2 .checkbox-result label:hover::after,
+#facets-instant-search .checkbox-result label:hover::after{
+    opacity: 0.5;
+}
+#facets-instant-search2 .checkbox-result input[type=checkbox],
+#facets-instant-search .checkbox-result input[type=checkbox] {
+    visibility: hidden;
+}
+#facets-instant-search2 .checkbox-result input[type=checkbox]:checked + label:after,
+#facets-instant-search .checkbox-result input[type=checkbox]:checked + label:after{
+    opacity: 1;
+}
+#facets-instant-search2 .title-cat-search,
+#facets-instant-search .title-cat-search{
+    text-transform: uppercase;
+    color: #959595;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0px;
+}
+#facets-instant-search .checkbox,
+#facets-instant-search2 .checkbox{
+    font-size: 16px;
+    margin-top: 0;
+}
+#facets-instant-search .form-group,
+#facets-instant-search2 .form-group{
+    margin-bottom: 0;
+}
+
+
+
 @media (max-width: 1199px) {
     .mega-menu .menu-bar .menu-items .menu-item {
         padding: 5px
