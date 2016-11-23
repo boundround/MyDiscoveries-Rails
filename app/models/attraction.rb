@@ -402,27 +402,11 @@ class Attraction < ActiveRecord::Base
   end
 
   def get_parents(attraction, parents = [])
-    unless !self.run_rake.blank?
-      if attraction.parent.blank? || attraction.parent.parentable == self
-        if !attraction.country.blank?
-          parents << attraction.country
-          return parents
-        else
-          return parents
-        end
-      else
-        parents << attraction.parent.parentable unless attraction.parent.parentable.blank?
-        if attraction.parent.parentable.class.to_s.eql? "Country"
-          parents << attraction.country
-          return parents
-        else
-          if attraction.parent.parentable.blank?
-            return parents
-          else
-            get_parents(attraction.parent.parentable, parents)
-          end
-        end
-      end
+    if attraction.parent.blank? || attraction.parent.parentable == self || attraction.parent.parentable.blank?
+      return parents
+    else
+      parents << attraction.parent.parentable
+      get_parents(attraction.parent.parentable, parents)
     end
   end
 
