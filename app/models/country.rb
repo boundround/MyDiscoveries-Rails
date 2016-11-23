@@ -54,7 +54,8 @@ class Country < ActiveRecord::Base
     end
 
     attribute :url do
-      Rails.application.routes.url_helpers.country_path(self)
+      @object = self
+      Rails.application.routes.url_helpers.country_path(Country.find(@object.id))
     end
 
     attribute :where_destinations do

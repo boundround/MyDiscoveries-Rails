@@ -49,7 +49,6 @@ class CountriesController < ApplicationController
     @country = Country.friendly.find(params[:id])
 
     if @country.update(country_params)
-      @country = Country.find(@country.id)
       redirect_to edit_country_path(@country), notice: 'Country succesfully updated'
     end
   end

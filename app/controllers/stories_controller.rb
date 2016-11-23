@@ -7,6 +7,7 @@ class StoriesController < ApplicationController
   end
 
   def show
+    @set_body_class = "white-background"
     @story = Story.find_by_slug(params[:id])
     @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
     @places_to_visit = @story.attractions.active.paginate( page: params[:places_to_visit_page], per_page: 6 )
