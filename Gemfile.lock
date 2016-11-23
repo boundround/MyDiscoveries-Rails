@@ -370,6 +370,9 @@ GEM
     puma (3.4.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
+    pundit-matchers (1.1.0)
+      pundit (~> 1.1, >= 1.1.0)
+      rspec-rails (>= 3.0.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.5.5)
@@ -652,6 +655,7 @@ DEPENDENCIES
   pg_search
   puma
   pundit
+  pundit-matchers (~> 1.1.0)
   quiet_assets
   rack-cache
   rack-contrib

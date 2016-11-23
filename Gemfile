@@ -41,6 +41,7 @@ group :development, :test do
   gem 'factory_girl_rails'
 
   gem 'faker'
+  gem 'pundit-matchers', '~> 1.1.0'
 end
 
 # 12 Factor Gem for Heroku Deploy

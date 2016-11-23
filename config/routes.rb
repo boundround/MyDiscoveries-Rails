@@ -415,6 +415,8 @@ Rails.application.routes.draw do
 
   resources :deals
 
+  resources :offers
+
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'
   get '/stories/:id/update_hero/:type/:photo_id' => 'stories#update_hero'

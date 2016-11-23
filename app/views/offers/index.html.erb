@@ -1,0 +1,31 @@
+<div class="container">
+  <div id="table-container">
+    <h1>All Offers</h1>
+
+    <table class="table table-striped" id="offer-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Created At</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @offers.each do |offer| %>
+          <tr>
+            <td><%= offer.id %></td>
+            <td><%= offer.name %></td>
+            <td><%= offer.description %></td>
+            <td><%= offer.created_at.strftime("%F") %></td>
+            <td><%= link_to 'Edit', edit_offer_path(offer) %></td>
+            <td><%= link_to 'Destroy', offer_path(offer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= link_to "Create New Offer", new_offer_path, class: "btn btn-default btn-lg" %>
+  </div>
+</div>
