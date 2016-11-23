@@ -18,7 +18,6 @@
 //= require jquery-fileupload/vendor/tmpl
 //= require jquery.MultiFile
 //= require bootstrap-datepicker
-//= require area
 //= require jquery.raty-fa
 //= require places
 //= require dataTables/jquery.dataTables
@@ -62,3 +61,4 @@
 //= require loading
 //= require rest_in_place
 //= require place_videos
+//= require area
