@@ -57,7 +57,7 @@
         <%= f.input :display_name, input_html: { class: 'form-control' } %>
       </div>
       <div class="form-group">
-        <%= f.association :country, label: 'Country', collection: @countries, as: :select, label_method: :display_name, required: true %>
+        <%#= f.association :country, label: 'Country', collection: @countries, as: :select, label_method: :display_name, required: true %>
       </div>
       <div class="form-group">
         <%= f.label "Parentable" %><br>
@@ -73,11 +73,11 @@
             </div>
             <div id='chosen_place' style="display:none;">
               <%= fc.select(:parentable_id, @places.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
-              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_place', value: "Place") %>  
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_place', value: "Place") %>
             </div>
             <div id='chosen_attraction' style="display:none;">
               <%= fc.select(:parentable_id, @attractions.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
-              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_attraction', value: "Attraction") %>  
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_attraction', value: "Attraction") %>
             </div>
           <% end %>
         <% else %>
