@@ -191,6 +191,11 @@
 
 /*Map*/
 
+[data-page="region"] .map-container{
+  width: 90%;
+  margin: auto;
+}
+
 [data-page="region"] .google-promo-map {
   display: block;
   width: 100%;
@@ -205,7 +210,7 @@
 
 [data-page="region"] .google-promo-map .region-map-point__title {
   font-size: 16px;
-  display: none;
+  display: block;
   color: #fff;
   position: relative;
   z-index: 1;
@@ -228,6 +233,8 @@
 }
 
 [data-page="region"] .google-promo-map .map-point-clicked.img-circle:not(.gmnoprint),
+[data-page="region"] .google-promo-map .hover.img-circle:not(.gmnoprint),
+[data-page="region"] .google-promo-map .hover.img-circle,
 [data-page="region"] .google-promo-map .map-point-clicked.img-circle,
 [data-page="region"] .google-promo-map .map-point-clicked.img-circle:not(.gmnoprint):hover,
 [data-page="region"] .google-promo-map .map-point-clicked.img-circle:hover{

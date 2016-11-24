@@ -240,7 +240,7 @@
                 .map(function (marker) {
                     return 'img[src="' + marker.preview + '"]';
                 })
-                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; display:none!important; opacity: 0!important; width: 100px !important; height: 100px !important; } ';
+                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; display:none!important; opacity: 0!important; width: 100px !important; height: 100px !important; left: 100% !important; top: 50% !important; display: block !important } ';
 
         style.innerText += data
                 .map(function (marker) {
@@ -351,6 +351,7 @@
                'border':'4px solid #fff',
                'width': '100px'
             })
+            $('.google-promo-map .img-circle:not(.gmnoprint)').addClass('hover')
 
         });
 
@@ -363,10 +364,8 @@
             }
 
             marker.set('icon', pathToMapPoint);
-            // $('.google-promo-map .img-circle:not(.gmnoprint)').css({
-            //    'width':'20px !important',
-            //    'height':'20px !important'
-            // })
+
+            $('.google-promo-map .img-circle:not(.gmnoprint)').removeClass('hover')
 
         });
 
@@ -387,14 +386,15 @@
                 'background-size' : 'cover'
             })
 
-            // $('.google-promo-map .map-point-clicked.img-circle:not(.gmnoprint) img').parent().css({
-            //    'width':'100px !important',
-            //    'height':'100px !important'
-            //  })
-
              $('.google-promo-map .map-point-clicked.img-circle:not(.gmnoprint)').css({
                 'border-color':'#6cb7ca'
              })
+             // var position = $('.gmnoprint.img-circle.map-point-clicked img').offset();
+             // $('.google-promo-map .img-circle:not(.gmnoprint)').css({
+             //    'top': position.top+'px !important',
+             //    'left':position.left+'px !important'
+             // })
+             $('.google-promo-map .img-circle:not(.gmnoprint)').removeClass('hover')
 
         });
 
@@ -418,4 +418,5 @@
         new RegionMap();
     };
 
+    $('.google-promo-map .img-circle:not(.gmnoprint)').removeClass('hover')
 }(window, window.document));
