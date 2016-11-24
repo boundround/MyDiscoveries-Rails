@@ -14,6 +14,7 @@ end
         <div class="img-wrapper">
             <%= link_to "" , showing_image(photo.path_url(:large)) , class: 'display-image-on-modal', data: { gallery: '' },
                         style: "background: url( #{image_path showing_image(photo.path_url(:large))} ) no-repeat;"  %>
+            <div class="small-photo-credit">Credit: <%= photo.credit %></div>
         </div>
         <div class="title-wrapper">
             <img class="svg-inject <%= stroke %>" src="/assets/new-images/icon-camera.svg"/>
@@ -29,4 +30,3 @@ end
         </div>
     </div>
 </div>
-

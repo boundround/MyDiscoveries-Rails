@@ -6,6 +6,20 @@ body.passport-page, body.homepage{
 	color: red;
 }
 
+.photo-credit {
+	font-size: .7em;
+	position: absolute;
+  bottom: 0;
+  right: 10px;
+  color: white;
+  text-shadow: 1px 1px black;
+}
+
+.small-photo-credit {
+	font-size: .7em;
+  color: grey;
+}
+
 .green-text {
 	color: green;
 }

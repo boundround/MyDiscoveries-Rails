@@ -209,6 +209,24 @@ module ApplicationHelper
     end
   end
 
+  def get_hero_image_credit(place)
+    if place.class.to_s == "Country"
+      if place.photos.find_by country_hero: true
+        "Credit: #{place.photos.find_by(country_hero: true).credit}"
+      else
+        ""
+      end
+    else
+      if place.photos.find_by(hero: true)
+        "Credit: #{place.photos.find_by(hero: true).credit}"
+      elsif place.user_photos.find_by(hero: true)
+        "Credit: #{place.user_photos.find_by(hero: true).credit}"
+      else
+        ""
+      end
+    end
+  end
+
   def draw_small_background(place)
     if place.photos.find_by(hero: true)
       place.photos.find_by(hero: true).path_url(:small)
