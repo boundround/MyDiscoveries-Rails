@@ -47,11 +47,10 @@
 
 <script type="text/template"  id="instant-facet-template">
   <div class="facet hidden-xs hidden-sm" >
-    <div class="title-cat-search">{{ title }}</div>
-    <% title = "{{ title }}" %>
-    <% if title == 'Age' %>
-      ageeeee
-    <% end %>
+    <div class="header-category">
+      <div class="title-cat-search">{{ title }}</div>
+      <a class="reset-checked" onclick="resetchecked('{{facet}}')"></a>
+    </div>
     {{#values}}
       <div class="form-group">
         <div class="checkbox">
