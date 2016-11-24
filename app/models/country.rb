@@ -200,6 +200,23 @@ class Country < ActiveRecord::Base
     end
   end
 
+  def get_parents(place, parents = [])
+    if place.parent.blank? || place.parent.parentable == self
+      return parents
+    elsif place.parent.parentable.blank?
+      return parents
+    elsif place.parent.parentable == place
+      return parents
+    else
+      parents << place.parent.parentable
+      get_parents(place.parent.parentable, parents)
+    end
+  end
+
+  def status
+    published_status
+  end
+
   def country_photos
     photos = (self.user_photos.where(status:"live") + self.photos).uniq
   end

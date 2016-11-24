@@ -401,12 +401,16 @@ class Attraction < ActiveRecord::Base
     return photos
   end
 
-  def get_parents(attraction, parents = [])
-    if attraction.parent.blank? || attraction.parent.parentable == self || attraction.parent.parentable.blank?
+  def get_parents(place, parents = [])
+    if place.parent.blank? || place.parent.parentable == self
+      return parents
+    elsif place.parent.parentable.blank?
+      return parents
+    elsif place.parent.parentable == place
       return parents
     else
-      parents << attraction.parent.parentable
-      get_parents(attraction.parent.parentable, parents)
+      parents << place.parent.parentable
+      get_parents(place.parent.parentable, parents)
     end
   end
 
