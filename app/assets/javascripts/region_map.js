@@ -240,7 +240,7 @@
                 .map(function (marker) {
                     return 'img[src="' + marker.preview + '"]';
                 })
-                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; } ';
+                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; display:none!important; opacity: 0!important; width: 100px !important; height: 100px !important; } ';
 
         style.innerText += data
                 .map(function (marker) {
@@ -347,6 +347,11 @@
                 console.log('can not load img');
             });
 
+            $('.google-promo-map .img-circle:not(.gmnoprint)').css({
+               'border':'4px solid #fff',
+               'width': '100px'
+            })
+
         });
 
         google.maps.event.addDomListener(marker, 'mouseout', function () {
@@ -358,6 +363,10 @@
             }
 
             marker.set('icon', pathToMapPoint);
+            // $('.google-promo-map .img-circle:not(.gmnoprint)').css({
+            //    'width':'20px !important',
+            //    'height':'20px !important'
+            // })
 
         });
 
@@ -372,6 +381,20 @@
             $('img[src="' + pointData.preview + '"]').parent().each(function () {
                 $(this).addClass('map-point-clicked').css('width','50px');
             });
+
+            $('img[src="' + pointData.preview + '"]').parent().addClass('img-circle').css({
+                'background-image': 'url(' + pointData.preview + ')',
+                'background-size' : 'cover'
+            })
+
+            // $('.google-promo-map .map-point-clicked.img-circle:not(.gmnoprint) img').parent().css({
+            //    'width':'100px !important',
+            //    'height':'100px !important'
+            //  })
+
+             $('.google-promo-map .map-point-clicked.img-circle:not(.gmnoprint)').css({
+                'border-color':'#6cb7ca'
+             })
 
         });
 

@@ -226,6 +226,15 @@
   left: 25% !important;
   top: 60% !important;*/
 }
+
+[data-page="region"] .google-promo-map .map-point-clicked.img-circle:not(.gmnoprint),
+[data-page="region"] .google-promo-map .map-point-clicked.img-circle,
+[data-page="region"] .google-promo-map .map-point-clicked.img-circle:not(.gmnoprint):hover,
+[data-page="region"] .google-promo-map .map-point-clicked.img-circle:hover{
+  width: 100px !important;
+  height: 100px !important;
+}
+
 [data-page="region"] .promo-map {
   height: 580px;
   width: 100%;
