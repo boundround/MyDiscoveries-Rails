@@ -165,6 +165,13 @@ class PlacesController < ApplicationController
   def update
     @place = Place.friendly.find(params[:id])
     if @place.update(place_params)
+<<<<<<< 62cd7b1762788e0d94cd10b9912720749a7f00d6
+=======
+      session[:old_parent] = "#{@place.parent.parentable_id}_#{@place.parent.parentable_type}"
+      @place.parent.update(parentable_id: params[:child_item][:parentable_id], parentable_type: params[:child_item][:parentable_type])
+      @place.check_parent_change("#{session[:old_parent].split('_').first}_#{session[:old_parent].split('_').last}", "#{params[:child_item][:parentable_id]}_#{params[:child_item][:parentable_type]}")
+      session.delete(:old_parent)
+>>>>>>> change_child_slug_when_parent_changes
       respond_to do |format|
         format.json { render json: @place }
         format.html do
@@ -283,6 +290,7 @@ class PlacesController < ApplicationController
   end
 
   def show
+<<<<<<< 62cd7b1762788e0d94cd10b9912720749a7f00d6
     @places_to_visit = @place.places_to_visits.paginate( page: params[:places_to_visit_page], per_page: 6 )
     @deals = @place.deals.active #.paginate(page: params[:deals_page], per_page: params[:deals_page].nil?? 6 : 3 )
     @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
@@ -298,6 +306,84 @@ class PlacesController < ApplicationController
     respond_to do |format|
       format.html #{ render view, :layout => !request.xhr? }
       format.json { render json: @place }
+=======
+    @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).find_by_slug(params[:id])
+    if @place.blank?
+      redirect_to root_path
+      flash[:error] = 'Sorry, Place URL has been permanently redirected to another URL.'
+      flash.keep 
+    else
+      informations = @place.subcategories.get_all_informations
+      @optimum_times =  @place.subcategories.select {|cat| cat.category_type == "optimum_time"}
+      @durations = @place.subcategories.select {|cat| cat.category_type == "duration"}
+      @subcategories = @place.subcategories.select {|cat| cat.category_type == "subcategory"}
+      @accessibilities = @place.subcategories.select {|cat| cat.category_type == "accessibility"}
+      @prices = @place.subcategories.select {|cat| cat.category_type == "price"}
+
+      @good_to_know = @place.good_to_knows.limit(6)
+
+      @places_to_visit = @place.children.active
+
+      @places_to_visit = @places_to_visit.sort do |x, y|
+        y.videos.size <=> x.videos.size
+      end
+
+      @places_to_visit = @places_to_visit.paginate( page: params[:places_to_visit_page], per_page: 6 )
+
+      if @place.parent_id.blank?
+        if @place.primary_category.present? && @place.primary_category.id == 2
+          @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where(country_id: @place.country_id)
+        else
+          @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where(country_id: @place.country_id)
+        end
+      else
+        if @place.primary_category.present? && @place.primary_category.id == 2
+          @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category_id: 1).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
+        else
+          @more_places = Place.includes(:country, :quality_average, :videos).where(primary_category: @place.primary_category).where('places.id != ?', @place.id).where("status = ?", "live").where(parent_id: @place.parent_id)
+        end
+      end
+
+      @famous_faces = @place.country.famous_faces.active
+
+      @more_places = @more_places.sort do |x, y|
+        y.videos.size <=> x.videos.size
+      end
+
+      @more_places = @more_places.paginate(page: params[:more_places_page], per_page: 6 )
+
+      @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
+      @deals = @place.deals.active #.paginate(page: params[:deals_page], per_page: params[:deals_page].nil?? 6 : 3 )
+      @review = Review.new
+
+      @stories = @place.posts.active
+      @stories += @place.stories.active
+      @stories = @stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse.paginate(page: params[:stories_page], per_page: 4)
+
+      active_user_photos = @place.user_photos.active
+      @photos = (@place.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}.paginate(:page => params[:active_photos], per_page: @place.is_area?? 4 : 3)
+      @photos_hero = @photos.first(6)
+      @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page:4)
+
+      @related_places = @place.children
+      @last_video = @place.videos.active.last
+      @fun_facts = @place.fun_facts
+      @set_body_class = "virgin-body" if @place.display_name == "Virgin Australia"
+      @trip_advisor_data = @place.trip_advisor_info
+
+      view = if @place.is_area?
+        @set_body_class = "destination-page"
+        "area"
+      else
+        @set_body_class = "thing-page dismiss-mega-menu-search"
+        "place"
+      end
+
+      respond_to do |format|
+        format.html { render view, :layout => !request.xhr? }
+        format.json { render json: @place }
+      end
+>>>>>>> change_child_slug_when_parent_changes
     end
   end
 
@@ -697,6 +783,16 @@ class PlacesController < ApplicationController
 
   private
     def place_params
+<<<<<<< 62cd7b1762788e0d94cd10b9912720749a7f00d6
+=======
+      parentable_id = params[:child_item][:parentable_id].split('-')
+      params[:child_item][:parentable_id] = parentable_id.first.to_i
+      if parentable_id.last.eql? 'country'
+        params[:child_item][:parentable_type] = "Country"
+      else 
+        params[:child_item][:parentable_type] = "Place"
+      end
+>>>>>>> change_child_slug_when_parent_changes
       params.require(:place).permit(
         :code,
         :identifier,

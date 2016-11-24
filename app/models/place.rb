@@ -562,6 +562,26 @@ class Place < ActiveRecord::Base
     loader.remove("id" => self.id)
   end
 
+  def check_parent_change(old_parent, new_parent)
+    old_parentable_type = old_parent.split('_').last
+    old_parentable_id   = old_parent.split('_').first.to_i
+    new_parentable_type = new_parent.split('_').last
+    new_parentable_id   = new_parent.split('_').first.to_i
+
+    unless (old_parentable_type == new_parentable_type) && (old_parentable_id == new_parentable_id)
+      country = self.country
+      primary_area = self.parent.parentable if !self.parent.blank?
+      new_slug = ''
+      if is_area == true
+        new_slug = "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
+      else
+        new_slug = "things to do with kids and families #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}"
+      end
+      
+      self.update!(slug: new_slug.downcase.gsub(' ', '-'))
+    end
+  end
+
   def slug_candidates
     country = self.country
     g_parent = get_parents(self, parents = [])
