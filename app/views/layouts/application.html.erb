@@ -187,8 +187,6 @@
     <%= javascript_include_tag 'application' %>
     <% if (controller_name == "regions") && (action_name == "show") %>
       <%= javascript_include_tag 'region_map' %>
-    <% else %>
-      <%= javascript_include_tag 'area' %>
     <% end %>
     <%= render "/layouts/stamp_modal" %>
     <script type="text/javascript">
