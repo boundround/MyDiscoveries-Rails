@@ -2,6 +2,7 @@ class Story < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
   include Searchable
+  include SearchOptimizable
 
   friendly_id :slug_candidates, :use => [:slugged, :history]
   attr_accessor :display_address

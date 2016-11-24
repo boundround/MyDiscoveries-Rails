@@ -7,6 +7,7 @@
 	      <tr>
 	        <th>Title</th>
 					<th>Status</th>
+					<th>SEO Rating</th>
 					<th>Publish Date</th>
 					<th>View Story</th>
 	        <th>Edit</th>
@@ -18,6 +19,7 @@
 					<tr>
 						<td><%= story.title %></td>
 						<td><%= story.status %></td>
+						<td><%= link_to story.seo_complete_percentage, seo_analysis_story_path(story) %></td>
 						<td><%= story.publish_date.strftime("%d.%m.%Y") %></td>
 						<td><%= link_to "Show", story_path(story) %></td>
 						<td><%= link_to "Edit", edit_story_path(story) %></td>

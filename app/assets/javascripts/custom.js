@@ -151,6 +151,7 @@ $(document).ready(function(){
   }
 
   var controller = $("[data-action='onload']").data('controller');
+  console.log(controller);
   $(function(){
     $("input[type=radio][name=parentable_chose]").change(function(){
       id_chosen = $(this).attr('id')
@@ -193,7 +194,7 @@ $(document).ready(function(){
         if (controller == 'regions'){
           document.getElementById('chosen_region').style.display = "";
           document.getElementById('chosen_country').style.display = "none";
-        }else if (controller == 'countries'){ 
+        }else if (controller == 'countries'){
           document.getElementById('chosen_region').style.display = "";
         }else {
           document.getElementById('chosen_region').style.display = "";
@@ -211,7 +212,7 @@ $(document).ready(function(){
             $('.place_parent_attributes_parentable_type_country').prop('disabled', false).val('Region')
             $('#chosen_country').find('select').val('').prop('disabled', false)
             $('#chosen_region').find('select').prop('disabled', false)
-          }else if (controller == 'countries'){ 
+          }else if (controller == 'countries'){
             $('#chosen_region').find('select').prop('disabled', false).val('')
             $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Region')
           }else {
@@ -296,7 +297,7 @@ $(document).ready(function(){
           $('.place_parent_attributes_parentable_type_place').val('').prop('disabled', true)
         }
 
-        else if(controller == 'places'){ 
+        else if(controller == 'places'){
           console.log("asdfghj")
           document.getElementById('chosen_country').style.display = "none";
           document.getElementById('chosen_place').style.display = "none";
@@ -305,8 +306,8 @@ $(document).ready(function(){
           $('#chosen_place').find('select').prop('disabled', true).val('')
           $('#chosen_region').find('select').prop('disabled', true).val('')
           $('.place_parent_attributes_parentable_type_country').prop('disabled', true).val('')
-          $('.place_parent_attributes_parentable_type_region').prop('disabled', true).val('')  
-          $('.place_parent_attributes_parentable_type_place').prop('disabled', true).val('Place') 
+          $('.place_parent_attributes_parentable_type_region').prop('disabled', true).val('')
+          $('.place_parent_attributes_parentable_type_place').prop('disabled', true).val('Place')
         }
 
         else if(controller == 'countries'){
@@ -377,7 +378,7 @@ $(document).ready(function(){
   if ($('#parentable_chose_attraction').is(':checked') == true) {
     document.getElementById('chosen_attraction').style.display = "";
     $('.no_parent_select').prop('disabled', true);
-    
+
     $('#chosen_country').find('select').val('')
     $('#chosen_place').find('select').val('')
     $('#chosen_region').find('select').val('')
@@ -414,7 +415,7 @@ $(document).ready(function(){
       $('.place_parent_attributes_parentable_type_place').val('').prop('disabled', true)
     }
 
-    else if(controller == 'places'){  
+    else if(controller == 'places'){
       document.getElementById('chosen_country').style.display = "none";
       document.getElementById('chosen_place').style.display = "none";
       document.getElementById('chosen_region').style.display = "none";
@@ -422,8 +423,8 @@ $(document).ready(function(){
       $('#chosen_place').find('select').prop('disabled', true).val('')
       $('#chosen_region').find('select').prop('disabled', true).val('')
       $('.place_parent_attributes_parentable_type_country').prop('disabled', true).val('')
-      $('.place_parent_attributes_parentable_type_region').prop('disabled', true).val('')  
-      $('.place_parent_attributes_parentable_type_place').prop('disabled', true).val('Place') 
+      $('.place_parent_attributes_parentable_type_region').prop('disabled', true).val('')
+      $('.place_parent_attributes_parentable_type_place').prop('disabled', true).val('Place')
     }
 
     else if(controller == 'countries'){

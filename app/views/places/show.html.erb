@@ -1,6 +1,6 @@
 <% provide(:title, @place.display_name) %>
 <% category = @place.categories.first.identifier rescue "default"%>
-<% provide(:description, @place.short_description ? @place.short_description : @place.description) %>
+<% provide(:description, @place.meta_description ? @place.meta_description : @place.description) %>
 <% provide(:og_image, open_graph_image.gsub("https://", "http://")) %>
 <% provide(:og_secure_image, open_graph_image) %>
 
@@ -10,6 +10,7 @@
 
 <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background(@place)) %>) no-repeat;"
     role="img" aria-label="Destination Sydney">
+    <div class="photo-credit"><%= get_hero_image_credit(@place) %></div>
       <div class="overlay"></div>
       <div class="container">
           <div class="row">
@@ -238,6 +239,7 @@
             <div class="carousel-slide">
                 <div class="carousel-img"
                  style="background: url( <%= image_path(showing_image(photo.path_url(:large))) %>) no-repeat;">
+                 <div class="photo-credit">Credit: <%= photo.credit %></div>
                  </div>
                 <div class="large-carousel-overlay">
                     <div class="container">

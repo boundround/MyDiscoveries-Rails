@@ -42,7 +42,7 @@ class CreateAttractions < ActiveRecord::Migration
       t.string   :hero_image
       t.string   :bound_round_place_id
       t.boolean  :is_area,                   default: false
-      t.text     :short_description
+      t.text     :meta_description
       t.string   :weather_conditions
       t.integer  :minimum_age
       t.integer  :maximum_age

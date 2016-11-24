@@ -1,35 +1,37 @@
 window.onload = function(){
-  var latLong = [];
-  var latitude = document.querySelector("#latitude");
-  var longitude = document.querySelector("#longitude");
-  if(latitude){
-    latLong.push(latitude.innerHTML);
-  }
-  if(longitude){
-    latLong.push(longitude.innerHTML);
-  }
+  if (document.querySelector("#pac-input")){
+    var latLong = [];
+    var latitude = document.querySelector("#latitude");
+    var longitude = document.querySelector("#longitude");
+    if(latitude){
+      latLong.push(latitude.innerHTML);
+    }
+    if(longitude){
+      latLong.push(longitude.innerHTML);
+    }
 
-  if(latLong.length !== 2){
-    latLong = [-33.8688, 151.2093]
-  }
-  $("#pac-input").geocomplete({
-    types: ['geocode', 'establishment'],
-    map: "#map-canvas",
-    location: latLong,
-    markerOptions: {
-      draggable: true
-    },
-    details: "body",
-    detailsAttribute: "data-geo",
-  });
-
-
-  $("#pac-input")
-    .geocomplete()
-    .bind("geocode:dragged", function(event, result){
-      // repopulate lat long and address fields on marker drag
-      $("#pac-input").geocomplete("find", result.lat() + "," + result.lng());
+    if(latLong.length !== 2){
+      latLong = [-33.8688, 151.2093]
+    }
+    $("#pac-input").geocomplete({
+      types: ['geocode', 'establishment'],
+      map: "#map-canvas",
+      location: latLong,
+      markerOptions: {
+        draggable: true
+      },
+      details: "body",
+      detailsAttribute: "data-geo",
     });
+
+
+    $("#pac-input")
+      .geocomplete()
+      .bind("geocode:dragged", function(event, result){
+        // repopulate lat long and address fields on marker drag
+        $("#pac-input").geocomplete("find", result.lat() + "," + result.lng());
+      });
+    }
 }
 
 function detailsArea(){
@@ -59,7 +61,6 @@ var LANGUAGES = {"af":"Afrikaans","agq":"Aghem","ak":"Akan","sq":"Albanian","am"
         });
     }
 }
-
 $(document).ready(function() {
-    detailsArea();
+  detailsArea();
 });

@@ -1,4 +1,4 @@
-Rails.application.config.assets.precompile += %w( area.js )
+#Rails.application.config.assets.precompile += %w( area.js )
 #Rails.application.config.assets.precompile += %w( jquery.min.js )
 #Rails.application.config.assets.precompile += %w( jquery.ui.js )
 #Rails.application.config.assets.precompile += %w( d3.v3.min.js )

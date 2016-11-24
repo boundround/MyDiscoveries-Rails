@@ -2,6 +2,7 @@ class Place < ActiveRecord::Base
   include CustomerApprovable
   include AlgoliaSearch
   include Searchable
+  include SearchOptimizable
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake, :no_parent_select
 
@@ -176,7 +177,7 @@ class Place < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|place| place.display_name rescue ''} unless !self.run_rake.blank? || (no_parent_select.eql? "true")
+      self.get_parents(self).map {|place| place.display_name rescue ''}
     end
 
     attribute :accessible do
@@ -187,7 +188,7 @@ class Place < ActiveRecord::Base
       end
     end
 
-    attribute :display_address do 
+    attribute :display_address do
       dp_add = self.display_address
       unless dp_add.blank?
         dp_add.split(', ').last(2).join(', ')
@@ -259,7 +260,7 @@ class Place < ActiveRecord::Base
   # after_validation :reverse_geocode
 
   after_update :crop_hero_image
-  before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_short_description
+  before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_meta_description
   after_create :create_bound_round_id
 
   has_paper_trail
@@ -561,6 +562,26 @@ class Place < ActiveRecord::Base
     loader.remove("id" => self.id)
   end
 
+  def check_parent_change(old_parent, new_parent)
+    old_parentable_type = old_parent.split('_').last
+    old_parentable_id   = old_parent.split('_').first.to_i
+    new_parentable_type = new_parent.split('_').last
+    new_parentable_id   = new_parent.split('_').first.to_i
+
+    unless (old_parentable_type == new_parentable_type) && (old_parentable_id == new_parentable_id)
+      country = self.country
+      primary_area = self.parent.parentable if !self.parent.blank?
+      new_slug = ''
+      if is_area == true
+        new_slug = "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
+      else
+        new_slug = "things to do with kids and families #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}"
+      end
+
+      self.update!(slug: new_slug.downcase.gsub(' ', '-'))
+    end
+  end
+
   def slug_candidates
     unless no_parent_select.eql? "true"
       country = self.country
@@ -577,30 +598,11 @@ class Place < ActiveRecord::Base
   end
 
   def get_parents(place, parents = [])
-    unless !self.run_rake.blank? || (no_parent_select.eql? "true")
-      if place.parent.blank? || place.parent.parentable == self
-        if !place.country.blank?
-          parents << place.country
-          return parents
-        else
-          return parents
-        end
-      else
-        if place.parent.parentable.class.to_s.eql? "Region"
-          parents << place.parent.parentable
-          parents << place.country
-          return parents
-        else
-          parents << place.parent.parentable
-
-          if place.parent.parentable.class.to_s.eql? "Country"
-            parents << place.country
-            return parents
-          else
-            get_parents(place.parent.parentable, parents)
-          end
-        end
-      end
+    if place.parent.blank? || place.parent.parentable == self || place.parent.parentable.blank?
+      return parents
+    else
+      parents << place.parent.parentable
+      get_parents(place.parent.parentable, parents)
     end
   end
 
@@ -670,12 +672,10 @@ class Place < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    unless !self.run_rake.blank? || (no_parent_select.eql? "true")
-      if self.parent.blank?
-        slug.blank? || display_name_changed? || self.country_id_changed?
-      else
-        slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
-      end
+    if self.parent.blank?
+      slug.blank? || display_name_changed? || self.country_id_changed?
+    else
+      slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
     end
   end
 
@@ -698,10 +698,18 @@ class Place < ActiveRecord::Base
     body
   end
 
-  def autofill_short_description
-    if self.description.present? && self.short_description.blank?
-      self.short_description = self.description[0..254]
+  def autofill_meta_description
+    if self.description.present? && self.meta_description.blank?
+      self.meta_description = self.description[0..254]
     end
+  end
+
+  def content
+    description
+  end
+
+  def short_description
+    meta_description
   end
 
   def children

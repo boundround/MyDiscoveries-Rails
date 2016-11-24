@@ -2,6 +2,28 @@ body.passport-page, body.homepage{
 	background: #eaeaea ;
 }
 
+.red-text {
+	color: red;
+}
+
+.photo-credit {
+	font-size: .7em;
+	position: absolute;
+  bottom: 0;
+  right: 10px;
+  color: white;
+  text-shadow: 1px 1px black;
+}
+
+.small-photo-credit {
+	font-size: .7em;
+  color: grey;
+}
+
+.green-text {
+	color: green;
+}
+
 .rip-active {
 	color: black;
 	width: 100%;
@@ -1951,7 +1973,7 @@ input.more-result{
 	.story-wrapper .story .story-content{
 		height: 300px !important;
 	}
-	
+
 }
 @media (max-width: 767px){
 	.mega-menu .menu-bar .menu-items {
@@ -1963,12 +1985,13 @@ input.more-result{
 }
 .navigation-wrapper{
 	position: relative;
+	border-bottom: 1px solid lightgrey;
 }
 #menu-opened, #menu-closed{
 	margin: 0;
 }
 .load-more{
-	margin: 50px;			
+	margin: 50px;
 }
 .story-content{
 	overflow: hidden;

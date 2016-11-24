@@ -2,6 +2,7 @@ class Country < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
   include Searchable
+  include SearchOptimizable
 
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
 
@@ -53,7 +54,8 @@ class Country < ActiveRecord::Base
     end
 
     attribute :url do
-      Rails.application.routes.url_helpers.country_path(self)
+      @object = self
+      Rails.application.routes.url_helpers.country_path(Country.find(@object.id))
     end
 
     attribute :where_destinations do
@@ -167,6 +169,10 @@ class Country < ActiveRecord::Base
 
   def publish_date
     update_at
+  end
+
+  def content
+    description
   end
 
   def load_into_soulmate

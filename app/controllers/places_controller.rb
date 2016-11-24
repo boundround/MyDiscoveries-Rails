@@ -55,19 +55,19 @@ class PlacesController < ApplicationController
 
     case @region
     when "asia"
-      @id = 1168
+      @id = Place.find 1168
     when "na"
-      @id = 1535
+      @id = Place.find 1535
     when "sa"
       @country = Country.find 133
     when "eu"
-      @id = 1177
+      @id = Place.find 1177
     when "me"
-      @id = 1152
+      @id = Place.find 1152
     when "af"
       @country = Country.find 87
     when "tasmania"
-      @id = 545
+      @id = Attraction.find 545
     else
       @search_string << " #{@region}"
       @search_string << " accessible" if params[:accessibility] == "yes"
@@ -84,7 +84,7 @@ class PlacesController < ApplicationController
         @possible_subcategories.reverse_each do |cats|
           @new_search = @search_string + " " + cats.join(" ")
           @search_response = index.search(@new_search, restrictSearchableAttributes: "age_range,parents,accessible,subcategories")
-          @id = Place.return_first_place_id_from_search_results(@search_response, @region)
+          @id = Attraction.return_first_place_id_from_search_results(@search_response, @region)
           if @id
             break
           end
@@ -92,7 +92,7 @@ class PlacesController < ApplicationController
         @search_count += 1
       end
     else
-      @id = Place.return_first_place_id_from_search_results(@search_response, @region)
+      @id = Attraction.return_first_place_id_from_search_results(@search_response, @region)
     end
 
     if params[:email].present?
@@ -187,6 +187,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def seo_analysis
+    @place = @search_optimizable = Place.friendly.find(params[:id])
+  end
+
   def refresh_blog
     @place = Place.find_by_slug(params[:id])
     Rails.cache.delete(@place.slug)
@@ -232,7 +236,7 @@ class PlacesController < ApplicationController
   end
 
   def index
-    @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id).where.not(status: "removed").where(is_area: true)
+    @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id, :focus_keyword, :seo_title, :meta_description).where.not(status: "removed").where(is_area: true)
     set_surrogate_key_header Place.table_key, @places.map(&:record_key)
     respond_to do |format|
       format.html
@@ -769,7 +773,7 @@ class PlacesController < ApplicationController
 
     def find_place_by_slug
       @place = Place.includes(:quality_average, :subcategories, :similar_places => :similar_place).friendly.find(params[:id])
-      
+
       if @place.is_area
         if request.path != place_path(@place)
           return redirect_to @place, :status => :moved_permanently
