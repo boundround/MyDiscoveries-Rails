@@ -24,3 +24,8 @@ jQuery ->
     json: false,
     title: 'Subcategories'
   });
+
+  $('#offer_region_ids').DualListBox({
+    json: false,
+    title: 'Regions'
+  });

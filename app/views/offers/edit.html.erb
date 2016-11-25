@@ -153,6 +153,15 @@
           input_html: { class: 'width100' }
       %>
     </div>
+    <div class="form-group">
+      <%= f.association :regions,
+          label_method: :display_name,
+          value_method: :id,
+          label: false,
+          include_blank: true,
+          input_html: { class: 'width100' }
+      %>
+    </div>
     <div class="form-group margin-left-20">
       <%= f.input_field :pickupRequired, as: :boolean, inline_label: 'Pickup Required', label: false %>
     </div>

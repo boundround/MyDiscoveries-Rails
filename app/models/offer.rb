@@ -16,8 +16,8 @@ class Offer < ActiveRecord::Base
   has_many :offers_countries, dependent: :destroy
   has_many :countries, through: :offers_countries
 
-  # has_many :offers_regions
-  # has_many :regions, through: :offers_regions
+  has_many :offers_regions
+  has_many :regions, through: :offers_regions
 
   has_many :offers_subcategories, dependent: :destroy
   has_many :subcategories, through: :offers_subcategories
