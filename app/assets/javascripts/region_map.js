@@ -240,8 +240,7 @@
                 .map(function (marker) {
                     return 'img[src="' + marker.preview + '"]';
                 })
-                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; display:none!important; opacity: 0!important; width: 100px !important; height: 100px !important; left: 100% !important; top: 50% !important; display: block !important } ';
-
+                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; opacity: 0!important; width: 100px !important; height: 100px !important; display: block !important; } ';
         style.innerText += data
                 .map(function (marker) {
                     return 'img[src="' + marker.preview + '"] + .region-map-point__title';
@@ -328,11 +327,9 @@
                 optimized: false,
                 title: pointData.point
             });
-
-        google.maps.event.addDomListener(marker, 'mouseover', function () {
-
+        google.maps.event.addDomListener(marker, 'mouseover', function (event) {
             marker.set('icon', pointData.preview);
-
+            resetStyle(true)
             win.util.waitFor(function () {
                 return $('img[src="' + pointData.preview + '"]', mapNode).length;
             }).then(function () {
@@ -347,15 +344,40 @@
                 console.log('can not load img');
             });
 
-            $('.google-promo-map .img-circle:not(.gmnoprint)').css({
-               'border':'4px solid #fff',
-               'width': '100px'
-            })
-            $('.google-promo-map .img-circle:not(.gmnoprint)').addClass('hover')
+            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').addClass('hover')
 
+            $('img[src="' + pointData.preview + '"]').parent().addClass('img-circle').css({
+                'background-image': 'url(' + pointData.preview + ')',
+                'background-size' : 'cover'
+            })
+
+
+            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').css({
+               'border':'4px solid #fff !important',
+               'width': '100px',
+               'height': '100px'
+
+            })
+
+            if(event != undefined){
+                var style = doc.createElement('style'),
+                    mapheight = $('.google-promo-map').height(),
+                    mapwidth = $('.google-promo-map').width(),
+                    left = event.pixel.x,
+                    top = event.pixel.y;
+                    style.display = "block"
+                    style.innerText = '.img-circle:not(.gmnoprint), .img-circle{ \
+                    left: '+left+'px !important;'+
+                    'top: '+top+'px !important;'+
+                    '}';
+                
+                style = doc.head.appendChild(style);
+                $(style).addClass('map-click');
+            }
         });
 
         google.maps.event.addDomListener(marker, 'mouseout', function () {
+            // $('style.map-click').remove();
 
             var $imgs = $('img[src="' + pointData.preview + '"]');
 
@@ -363,14 +385,23 @@
                 return;
             }
 
+            $('img[src="' + pointData.preview + '"]').parent().addClass('img-circle').css({
+                'background-image': 'url(' + pointData.preview + ')',
+                'background-size' : 'cover'
+            })
+
             marker.set('icon', pathToMapPoint);
-
-            $('.google-promo-map .img-circle:not(.gmnoprint)').removeClass('hover')
-
+            $('img[src="' + pointData.preview + '"]').parent().css({
+                'width': '100px !important',
+                'height': '100px !important'
+            })
+           
+            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover')
+            // $('.google-promo-map .gmnoprint').css('display','none')
         });
 
-        google.maps.event.addDomListener(marker, 'click', function () {
-
+        google.maps.event.addDomListener(marker, 'click', function (event) {
+            resetStyle(true);
             regionMap.hideAll();
 
             marker.set('icon', pointData.preview);
@@ -385,17 +416,25 @@
                 'background-image': 'url(' + pointData.preview + ')',
                 'background-size' : 'cover'
             })
-
+            // }
              $('.google-promo-map .map-point-clicked.img-circle:not(.gmnoprint)').css({
                 'border-color':'#6cb7ca'
              })
-             // var position = $('.gmnoprint.img-circle.map-point-clicked img').offset();
-             // $('.google-promo-map .img-circle:not(.gmnoprint)').css({
-             //    'top': position.top+'px !important',
-             //    'left':position.left+'px !important'
-             // })
-             $('.google-promo-map .img-circle:not(.gmnoprint)').removeClass('hover')
 
+            if(event != undefined){
+                var style = doc.createElement('style'),
+                    mapheight = $('.google-promo-map').height(),
+                    mapwidth = $('.google-promo-map').width(),
+                    left = event.pixel.x,
+                    top = event.pixel.y;
+                    style.innerText = '.map-point-clicked.img-circle:not(.gmnoprint), .map-point-clicked.img-circle{ \
+                    left: '+left+'px !important;'+
+                    'top: '+top+'px !important;'+
+                    '}';
+                
+                style = doc.head.appendChild(style);
+                $(style).addClass('map-click');
+            }          
         });
 
         marker.setMap(map);
@@ -418,5 +457,13 @@
         new RegionMap();
     };
 
-    $('.google-promo-map .img-circle:not(.gmnoprint)').removeClass('hover')
+    $('.js-google-promo-map').click(function(){
+        $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
+    })
+
+    function resetStyle(reset){
+        if(reset){
+           $('style.map-click').remove();
+        }
+    }
 }(window, window.document));
