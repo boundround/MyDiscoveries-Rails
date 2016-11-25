@@ -91,7 +91,20 @@ class OffersController < ApplicationController
       :customStr3,
       :customStr4,
       :pickupRequired,
-      { tags: [] }
+      { tags: [] },
+      photos_attributes: [
+        :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
+        :priority, :status, :country_hero, :country_include, :_destroy
+      ],
+      videos_attributes: [
+        :id, :vimeo_id, :title, :description, :priority, :status,
+        :country_include, :_destroy
+      ],
+      attraction_ids: [],
+      place_ids: [],
+      country_ids: [],
+      region_ids: [],
+      subcategory_ids: []
     )
   end
 end

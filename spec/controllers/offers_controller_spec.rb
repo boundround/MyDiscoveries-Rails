@@ -18,7 +18,16 @@ RSpec.describe OffersController, type: :controller do
 
   it_behaves_like "a controller for admins", :put, :update do
     let(:params) do
-      { id: create(:offer).id, offer: { name: Faker::Lorem.sentence } }
+      {
+        id: create(:offer).id,
+        offer: {
+          name: Faker::Lorem.sentence,
+          country_ids:     [ create(:country).id ],
+          attraction_ids:  [ create(:attraction).id ],
+          place_ids:       [ create(:place).id ],
+          subcategory_ids: [ create(:subcategory).id ]
+        }
+      }
     end
   end
 

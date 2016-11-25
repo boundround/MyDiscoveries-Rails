@@ -13,6 +13,9 @@ class Video < ActiveRecord::Base
   has_many :countries_videos
   has_many :countries, :through => :countries_videos
 
+  has_many :offers_videos, dependent: :destroy
+  has_many :offers, through: :offers_videos
+
   has_paper_trail
 
   # validates :vimeo_id, presence: true

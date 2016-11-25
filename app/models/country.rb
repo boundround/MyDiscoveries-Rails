@@ -149,6 +149,9 @@ class Country < ActiveRecord::Base
   has_one :parent, :class_name => "ChildItem", as: :itemable
   has_many :childrens, :class_name => "ChildItem", as: :parentable
 
+  has_many :offers_countries, dependent: :destroy
+  has_many :offers, through: :offers_countries
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true

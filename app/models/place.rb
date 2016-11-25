@@ -256,6 +256,9 @@ class Place < ActiveRecord::Base
                                               class_name: 'RatingCache',
                                               dependent: :destroy
 
+  has_many :offers_places, dependent: :destroy
+  has_many :offers, through: :offers_places
+
   # reverse_geocoded_by :latitude, :longitude
   # after_validation :reverse_geocode
 

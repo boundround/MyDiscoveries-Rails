@@ -60,6 +60,10 @@ class VideosController < ApplicationController
       @video.countries << Country.friendly.find(params[:country_id])
     end
 
+    if params[:offer_id]
+      @video.offers << Offer.find(params[:offer_id])
+    end
+
     if @video.save
       redirect_to :back, notice: "Video added."
     else

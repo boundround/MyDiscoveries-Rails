@@ -66,7 +66,7 @@ class PhotosController < ApplicationController
     elsif params[:attraction_id]
       @attraction = Attraction.friendly.find(params[:attraction_id])
     end
-    
+
     @photos = @place.photos
   end
 
@@ -79,6 +79,11 @@ class PhotosController < ApplicationController
     if params[:country_id]
       @photo.countries << Country.friendly.find(params[:country_id])
     end
+
+    if params[:offer_id]
+      @photo.offers << Offer.find(params[:offer_id])
+    end
+
     if @photo.save
       redirect_to :back, notice: "Photo added."
     else
@@ -116,8 +121,12 @@ class PhotosController < ApplicationController
 
   private
     def photo_params
-      params.require(:photo).permit(:title, :path, :alt_tag, :credit, :area_id, :place_id, :attraction_id, :photoable_id, :photoable_type, :caption, :caption_source,
-                                    :customer_approved, :customer_review, :approved_at, :priority, :hero, :status, :country_hero, :country_include, :_destroy)
+      params.require(:photo).permit(
+        :title, :path, :alt_tag, :credit, :area_id, :place_id, :attraction_id, 
+        :photoable_id, :photoable_type, :caption, :caption_source,
+        :customer_approved, :customer_review, :approved_at, :priority, :hero,
+        :status, :country_hero, :country_include, :_destroy
+      )
     end
 
 end

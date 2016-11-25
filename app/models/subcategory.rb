@@ -17,6 +17,9 @@ class Subcategory < ActiveRecord::Base
 	has_many :attractions_subcategories, :dependent => :destroy
 	has_many :attractions, through: :attractions_subcategories
 
+	has_many :offers_subcategories, dependent: :destroy
+	has_many :offers, through: :offers_subcategories
+
 	mount_uploader :icon, IconUploader
 
 
