@@ -2,6 +2,7 @@ class Country < ActiveRecord::Base
   extend FriendlyId
   include AlgoliaSearch
   include Searchable
+  include SearchOptimizable
 
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
 
@@ -53,7 +54,8 @@ class Country < ActiveRecord::Base
     end
 
     attribute :url do
-      Rails.application.routes.url_helpers.country_path(self)
+      @object = self
+      Rails.application.routes.url_helpers.country_path(Country.find(@object.id))
     end
 
     attribute :where_destinations do
@@ -169,6 +171,10 @@ class Country < ActiveRecord::Base
     update_at
   end
 
+  def content
+    description
+  end
+
   def load_into_soulmate
     if self.published_status == "live"
       loader = Soulmate::Loader.new("country")
@@ -192,6 +198,23 @@ class Country < ActiveRecord::Base
       rescue Exception
       end
     end
+  end
+
+  def get_parents(place, parents = [])
+    if place.parent.blank? || place.parent.parentable == self
+      return parents
+    elsif place.parent.parentable.blank?
+      return parents
+    elsif place.parent.parentable == place
+      return parents
+    else
+      parents << place.parent.parentable
+      get_parents(place.parent.parentable, parents)
+    end
+  end
+
+  def status
+    published_status
   end
 
   def country_photos

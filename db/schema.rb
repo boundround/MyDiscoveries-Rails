@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161028090113) do
+ActiveRecord::Schema.define(version: 20161124232207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20161028090113) do
     t.string   "hero_image"
     t.string   "bound_round_place_id"
     t.boolean  "is_area",                   default: false
-    t.text     "short_description"
+    t.text     "meta_description"
     t.string   "weather_conditions"
     t.integer  "minimum_age"
     t.integer  "maximum_age"
@@ -111,6 +111,8 @@ ActiveRecord::Schema.define(version: 20161028090113) do
     t.integer  "country_id"
     t.integer  "user_id"
     t.integer  "primary_category_id"
+    t.text     "focus_keyword"
+    t.text     "seo_title"
   end
 
   add_index "attractions", ["country_id"], name: "index_attractions_on_country_id", using: :btree
@@ -262,6 +264,9 @@ ActiveRecord::Schema.define(version: 20161028090113) do
     t.string   "address"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",           default: 0
+    t.text     "focus_keyword"
+    t.text     "seo_title"
+    t.text     "meta_description"
   end
 
   add_index "countries", ["slug"], name: "index_countries_on_slug", using: :btree
@@ -400,6 +405,8 @@ ActiveRecord::Schema.define(version: 20161028090113) do
     t.boolean  "customer_approved"
     t.datetime "approved_at"
     t.integer  "attraction_id"
+    t.integer  "fun_factable_id"
+    t.string   "fun_factable_type"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -589,7 +596,7 @@ ActiveRecord::Schema.define(version: 20161028090113) do
     t.string   "hero_image"
     t.string   "bound_round_place_id"
     t.boolean  "is_area",                   default: false
-    t.text     "short_description"
+    t.text     "meta_description"
     t.string   "weather_conditions"
     t.integer  "primary_category_id"
     t.integer  "minimum_age"
@@ -605,6 +612,8 @@ ActiveRecord::Schema.define(version: 20161028090113) do
     t.string   "trip_advisor_url"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",            default: 0
+    t.text     "focus_keyword"
+    t.text     "seo_title"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -756,6 +765,25 @@ ActiveRecord::Schema.define(version: 20161028090113) do
 
   add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type", using: :btree
 
+  create_table "regions", force: true do |t|
+    t.string   "display_name"
+    t.string   "slug"
+    t.text     "description"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.integer  "zoom_level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "status",       default: ""
+  end
+
+  create_table "regions_stories", force: true do |t|
+    t.integer  "region_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "reviews", force: true do |t|
     t.text     "content"
     t.integer  "reviewable_id"
@@ -870,6 +898,9 @@ ActiveRecord::Schema.define(version: 20161028090113) do
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",      default: 0
     t.string   "hero_image"
+    t.text     "focus_keyword"
+    t.text     "seo_title"
+    t.text     "meta_description"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree

@@ -52,9 +52,12 @@ class CountriesController < ApplicationController
     @country = Country.friendly.find(params[:id])
 
     if @country.update(country_params)
-      @country = Country.find(@country.id)
       redirect_to edit_country_path(@country), notice: 'Country succesfully updated'
     end
+  end
+
+  def seo_analysis
+    @country = @search_optimizable = Country.friendly.find(params[:id])
   end
 
   def import
@@ -97,6 +100,8 @@ class CountriesController < ApplicationController
       params.require(:country).permit(:display_name, :country_code, :description, :capital_city, :short_name, :long_name, :address,
                       :capital_city_description, :currency_code, :official_language, :tallest_mountain, :latitude, :longitude, :google_place_id,
                       :tallest_mountain_height, :longest_river, :longest_river_length, :published_status, :hero_photo, :photo_credit,
+                      :seo_title,
+                      :focus_keyword,
                       parent_attributes: [:parentable_id, :parentable_type],
                       photos_attributes: [:id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_hero, :country_include, :_destroy],
                       videos_attributes: [:id, :vimeo_id, :title, :description, :priority, :status, :country_include, :_destroy],

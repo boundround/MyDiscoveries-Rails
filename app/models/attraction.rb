@@ -2,6 +2,7 @@ class Attraction < ActiveRecord::Base
   include Parameterizable
   include AlgoliaSearch
   include Searchable
+  include SearchOptimizable
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake, :no_parent_select
 
@@ -162,7 +163,7 @@ class Attraction < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|attraction| attraction.display_name rescue ''} unless !self.run_rake.blank? || (no_parent_select.eql? "true")
+      self.get_parents(self).map {|attraction| attraction.display_name rescue ''}
     end
 
     attribute :where_destinations do
@@ -174,6 +175,13 @@ class Attraction < ActiveRecord::Base
         "accessible"
       else
         ""
+      end
+    end
+
+    attribute :display_address do
+      dp_add = self.display_address
+      unless dp_add.blank?
+        dp_add.split(', ').last(2).join(', ')
       end
     end
 
@@ -393,34 +401,16 @@ class Attraction < ActiveRecord::Base
     return photos
   end
 
-  def get_parents(attraction, parents = [])
-    unless !self.run_rake.blank? || (no_parent_select.eql? "true")
-      if attraction.parent.blank? || attraction.parent.parentable == self
-        if !attraction.country.blank?
-          parents << attraction.country
-          return parents
-        else
-          return parents
-        end
-      else
-        if attraction.parent.parentable.class.to_s.eql? "Region"
-          parents << attraction.parent.parentable
-          parents << attraction.country
-          return parents
-        else
-          parents << attraction.parent.parentable unless attraction.parent.parentable.blank?
-          if attraction.parent.parentable.class.to_s.eql? "Country"
-            parents << attraction.country
-            return parents
-          else
-            if attraction.parent.parentable.blank?
-              return parents
-            else
-              get_parents(attraction.parent.parentable, parents)
-            end
-          end
-        end
-      end
+  def get_parents(place, parents = [])
+    if place.parent.blank? || place.parent.parentable == self
+      return parents
+    elsif place.parent.parentable.blank?
+      return parents
+    elsif place.parent.parentable == place
+      return parents
+    else
+      parents << place.parent.parentable
+      get_parents(place.parent.parentable, parents)
     end
   end
 
@@ -449,6 +439,21 @@ class Attraction < ActiveRecord::Base
     list_of_children
   end
 
+  def short_description
+    meta_description
+  end
+
+  def self.return_first_place_id_from_search_results(search_response, region)
+    id = nil
+    search_response["hits"].each do |hit|
+      if (hit["objectID"].include?("attraction")) && (hit["parents"].any? { |x| x.downcase.include? region } )
+        id = hit["objectID"].gsub("attraction_", "").to_i
+        break
+      end
+    end
+    id
+  end
+
   def slug_candidates
     unless no_parent_select.eql? "true"
       country = self.country
@@ -465,11 +470,13 @@ class Attraction < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    unless self.run_rake
       slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
-    end
   end
-  
+
+  def content
+    description
+  end
+
   private
   def algolia_id
     "attraction_#{id}" # ensure the attraction & country IDs are not conflicting

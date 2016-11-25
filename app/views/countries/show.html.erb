@@ -11,7 +11,8 @@
 
 <div class="hero-image-wrapper dismiss-mega-menu-search"
          style="background: url( <%= showing_image(draw_hero_background(@country)) %>) no-repeat;" role="img"
-         aria-label="Destination Sydney">
+         aria-label="">
+         <div class="photo-credit"><%= get_hero_image_credit(@country) %></div>
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
@@ -177,7 +178,7 @@
       <% end %>
 
     </div>
-    
+
     <% unless @photos_hero.blank? %>
       <div id="photos" class="large-carousel-wrapper">
         <div class="large-owl-carousel owl-carousel">

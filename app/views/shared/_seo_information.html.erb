@@ -1,0 +1,71 @@
+<h1>SEO Analysis</h1>
+<%= form_for @search_optimizable do |f| %>
+  <div class="col-md-4">
+    <%= f.label "Focus Keyword: " %>
+  </div>
+  <div class="col-md-8">
+    <%= f.text_field :focus_keyword, class: "form-control" %>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="col-md-4">
+    <%= f.label "SEO Title: " %>
+  </div>
+  <div class="col-md-8">
+    <%= f.text_field :seo_title , class: "form-control", id: "seo-title" %>
+    <span id="seo-title-count">0</span> characters entered. (72 max)<br>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="col-md-4">
+    <%= f.label "Meta Description: " %>
+  </div>
+  <div class="col-md-8">
+    <%= f.text_area :meta_description , class: "form-control", id: "meta-description" %>
+    <span id="meta-description-count">0</span> characters entered. (156 max)<br>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="col-md-11">
+  </div>
+  <div class="col-md-1">
+    <%= f.button "Save" , class: "btn btn-primary" %>
+  </div>
+<% end %>
+<br>
+<hr>
+<br>
+<%= @search_optimizable.focus_keyword.present? ? "<div class='green-text'>Focus Keyword has been assigned</div>".html_safe : "<div class='red-text'>You need to specify a Focus Keyword</div>".html_safe %>
+<%= @search_optimizable.seo_title.present? ? "<div class='green-text'>SEO Title has been assigned</div>".html_safe : "<div class='red-text'>You need to specify an SEO Title</div>".html_safe %>
+<% if @search_optimizable.seo_title.present? && @search_optimizable.focus_keyword.present? && @search_optimizable.seo_title.include?(@search_optimizable.focus_keyword) %>
+  <div class="green-text">SEO Title includes Focus Keyword</div>
+<% else %>
+  <div class="red-text">SEO Title does not include Focus Keyword</div>
+<% end %>
+<%= @search_optimizable.meta_description.present? ? "<div class='green-text'>Meta Description has been assigned</div>".html_safe : "<div class='red-text'>You need to specify a Meta Description</div>".html_safe %>
+<% if @search_optimizable.meta_description.present? && @search_optimizable.focus_keyword.present? && @search_optimizable.meta_description.downcase.include?(@search_optimizable.focus_keyword.downcase) %>
+  <div class="green-text">Meta Description includes Focus Keyword</div>
+<% else %>
+  <div class="red-text">Meta Description does not include Focus Keyword</div>
+<% end %>
+<% if @search_optimizable.word_count > 299 %>
+  <div class="green-text">The total word count is <%= @search_optimizable.word_count %> Words (>300 recommended)</div>
+<% else %>
+  <div class="red-text">The total word count is <%= @search_optimizable.word_count %> Words (>300 recommended)</div>
+<% end %>
+<% if @search_optimizable.optimum_keyword_density? %>
+  <div class="green-text">Your Focus Keyword has a keyword density of <%= (@search_optimizable.get_keyword_density * 100).round(2) %>&#37; (1-3&#37; recommended)</div>
+<% else %>
+  <div class="red-text">Your content has a Focus Keyword density of <%= (@search_optimizable.get_keyword_density * 100).round(2) %>&#37; (1-3&#37; recommended)</div>
+<% end %>
+<% if @search_optimizable.focus_keyword.present? && @search_optimizable.slug.gsub("-", " ").downcase.include?(@search_optimizable.focus_keyword.downcase) %>
+  <div class="green-text">URL includes Focus Keyword</div>
+<% else %>
+  <div class="red-text">URL does not include Focus Keyword</div>
+<% end %>
+<br>
+<hr>
+<br>
