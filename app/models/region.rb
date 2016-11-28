@@ -163,6 +163,76 @@ class Region < ActiveRecord::Base
     end
   end
 
+  def all_place_children
+    childrens_collect = []
+    data_marker = []
+    childrens =  self.childrens
+    if !childrens.blank?
+      childrens.each do |child_place|
+        if child_place.itemable_type == 'Country'
+          child_place_item = child_place.itemable.childrens.select{|childplace| childplace.itemable_type == 'Place'}
+          unless child_place_item.blank? 
+            child_place_item.each do |each_child_place_item|
+              childrens_collect << each_child_place_item.itemable
+            end
+          end
+        elsif child_place.itemable_type == 'Place'
+          childrens_collect << child_place.itemable
+        end
+      end
+
+      childrens_collect.each do |place|
+        data_objs = {}
+        data_objs['#place'] = place.display_name
+        data_objs['#lat'] = place.latitude
+        data_objs['#lng'] = place.longitude
+        data_objs['#description'] = place.description
+        data_objs['#country'] = place.country.display_name
+        data_objs['#path'] = place_path(place)
+        if !place.photos.blank?
+          data_objs['#photo'] = place.photos.last.path_url(:thumb)
+        else
+          data_objs['#photo'] = "/assets/generic-hero-thumb.jpg"
+        end
+
+        data_objs['#childrens'] = []
+        place.childrens.last(3).each do |place_child|
+          place_item_child = place_child.itemable
+          data_child_objs = {}
+          data_child_objs['@country_child'] = place_item_child.country.display_name
+          data_child_objs['@name_child'] = place_item_child.display_name
+          if !place_item_child.photos.blank?
+            data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:thumb)
+          else
+            data_child_objs['@photo_child'] = "/assets/generic-hero-thumb.jpg"
+          end
+          data_objs['#childrens'] << data_child_objs
+          data_objs['#childrens'] << ["#"]
+        end
+        data_marker << data_objs
+        data_marker << ["@"]
+      end
+      return data_marker  
+    else
+      data_objs = {}
+      data_objs['#place'] = self.display_name
+      data_objs['#lat'] = self.latitude.to_f
+      data_objs['#lng'] = self.longitude.to_f
+      data_objs['#description'] = self.description
+      data_objs['#country'] = ''
+      data_objs['#path'] = place_path(self)
+      if !self.photos.blank?
+        data_objs['#photo'] = self.photos.last.path_url(:thumb)
+      else
+        data_objs['#photo'] = "/assets/generic-hero-thumb.jpg"
+      end
+      data_objs['#childrens'] = []
+    end 
+    data_marker << data_objs
+    data_marker << ["@"]
+    return data_marker  
+  end
+
   private
   def algolia_id
     "region_#{id}" # ensure the attraction & country IDs are not conflicting

@@ -17,10 +17,10 @@
                 obj['description'] = data_split[3].split('=>')[1].slice(1, -1);
             }
             obj['country'] = data_split[4].split('=>')[1].slice(1, -1);
-            obj['preview'] = data_split[5].split('=>')[1].slice(1, -1);
+            obj['preview'] = data_split[6].split('=>')[1].slice(1, -1);
             obj["inner-cards"] = [];
-            obj['path'] = data_split[7].split('=>')[1].slice(1, -1);
-            var data_childs = data_split[6].split(', ["#"]');
+            obj['path'] = data_split[5].split('=>')[1].slice(1, -1);
+            var data_childs = data_split[7].split(', ["#"]');
             data_childs.pop();
             $.each(data_childs, function(i, val){
                 var childs_objs = {},
