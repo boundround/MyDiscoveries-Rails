@@ -121,6 +121,8 @@ class Region < ActiveRecord::Base
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
 
+  mount_uploader :hero_photo, RegionPhotoUploader
+
   accepts_nested_attributes_for :parent, :allow_destroy => true
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true

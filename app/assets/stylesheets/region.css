@@ -241,9 +241,14 @@
 [data-page="region"] .google-promo-map .hover.img-circle:not(.gmnoprint),
 [data-page="region"] .google-promo-map .map-point-clicked.img-circle,
 [data-page="region"] .google-promo-map .map-point-clicked.img-circle:not(.gmnoprint){
-  width: 100px !important;
-  height: 100px !important;
+  width: 102px !important;
+  height: 102px !important;
+  background-position: 50% 50%; 
   border: 4px solid #6cb7ca !important;
+}
+
+[data-page="region"] .img-circle:not(.hover):not(.map-point-clicked){
+  /*display: none !important;*/
 }
 
 [data-page="region"] .google-promo-map .img-circle:not(.gmnoprint).hover,
@@ -333,7 +338,8 @@
   font-size: 17px;
   line-height: 22px;
 }
-[data-page="region"] .map-point-clicked .region-map-point__title{
+[data-page="region"] .img-circle.map-point-clicked .region-map-point__title,
+[data-page="region"] .img-circle.hover .region-map-point__title{
   display: block !important;
 }
 [data-page="region"] .img-circle{

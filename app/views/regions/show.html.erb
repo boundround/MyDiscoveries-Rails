@@ -103,9 +103,9 @@
                 <% data_objs['#description'] = place_item.description %>
                 <% data_objs['#country'] = place_item.country.display_name %>
                 <% if !place_item.photos.blank? %>
-                <% data_objs['#photo'] = place_item.photos.last.path_url(:small) %>
+                <% data_objs['#photo'] = place_item.photos.last.path_url(:thumb) %>
                 <% else %>
-                <% data_objs['#photo'] = "/assets/generic-hero-small.jpg" %>
+                <% data_objs['#photo'] = "/assets/generic-hero-thumb.jpg" %>
                 <% end %>
                 <% data_objs['#childrens'] = [] %>
                   <% place_item.childrens.last(3).each do |place_child| %>
@@ -114,9 +114,9 @@
                     <% data_child_objs['@country_child'] = place_item_child.country.display_name %>
                     <% data_child_objs['@name_child'] = place_item_child.display_name %>
                     <% if !place_item_child.photos.blank? %>
-                    <% data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:small) %>
+                    <% data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:thumb) %>
                     <% else %>
-                    <% data_child_objs['@photo_child'] = "/assets/generic-hero-small.jpg" %>
+                    <% data_child_objs['@photo_child'] = "/assets/generic-hero-thumb.jpg" %>
                     <% end %>
                     <% data_objs['#childrens'] << data_child_objs %>
                     <% data_objs['#childrens'] << ["#"] %>
@@ -137,9 +137,9 @@
                 <% data_objs['#country'] = "" %>
               <% end %>
               <% if !@region.photos.blank? %>
-              <% data_objs['#photo'] = @region.photos.last.path_url(:small) %>
+              <% data_objs['#photo'] = @region.photos.last.path_url(:thumb) %>
               <% else %>
-              <% data_objs['#photo'] = "/assets/generic-hero-small.jpg" %>
+              <% data_objs['#photo'] = "/assets/generic-hero-thumb.jpg" %>
               <% end %>
               <% data_objs['#childrens'] = [] %>
                 <% @places_to_visit_map.last(3).each do |place_child| %>
@@ -148,9 +148,9 @@
                   <% data_child_objs['@country_child'] = place_item_child.country.display_name %>
                   <% data_child_objs['@name_child'] = place_item_child.display_name %>
                   <% if !place_item_child.photos.blank? %>
-                  <% data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:small) %>
+                  <% data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:thumb) %>
                   <% else %>
-                  <% data_child_objs['@photo_child'] = "/assets/generic-hero-small.jpg" %>
+                  <% data_child_objs['@photo_child'] = "/assets/generic-hero-thumb.jpg" %>
                   <% end %>
                   <% data_objs['#childrens'] << data_child_objs %>
                   <% data_objs['#childrens'] << ["#"] %>

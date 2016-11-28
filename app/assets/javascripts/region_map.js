@@ -240,7 +240,7 @@
                 .map(function (marker) {
                     return 'img[src="' + marker.preview + '"]';
                 })
-                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; opacity: 0!important; width: 100px !important; height: 100px !important; display: block !important; } ';
+                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; opacity: 0!important; display: block !important; } ';
         style.innerText += data
                 .map(function (marker) {
                     return 'img[src="' + marker.preview + '"] + .region-map-point__title';
@@ -353,50 +353,34 @@
 
 
             $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').css({
-               'border':'4px solid #fff !important',
-               'width': '100px',
-               'height': '100px'
+               'border':'4px solid #fff !important'
 
             })
-
-            if(event != undefined){
-                var style = doc.createElement('style'),
-                    mapheight = $('.google-promo-map').height(),
-                    mapwidth = $('.google-promo-map').width(),
-                    left = event.pixel.x,
-                    top = event.pixel.y;
-                    style.display = "block"
-                    style.innerText = '.img-circle:not(.gmnoprint), .img-circle{ \
-                    left: '+left+'px !important;'+
-                    'top: '+top+'px !important;'+
-                    '}';
-                
-                style = doc.head.appendChild(style);
-                $(style).addClass('map-click');
-            }
         });
 
         google.maps.event.addDomListener(marker, 'mouseout', function () {
             // $('style.map-click').remove();
 
             var $imgs = $('img[src="' + pointData.preview + '"]');
+            if ($imgs.parent().hasClass('map-point-clicked')) {
+                return;
+            }
+            marker.set('icon', pathToMapPoint);
+            
+            resetStyle(true);
+
+            var $imgs = $('img[src="' + pointData.preview + '"]');
 
             if ($imgs.parent().hasClass('map-point-clicked')) {
                 return;
             }
+            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
 
             $('img[src="' + pointData.preview + '"]').parent().addClass('img-circle').css({
                 'background-image': 'url(' + pointData.preview + ')',
                 'background-size' : 'cover'
             })
 
-            marker.set('icon', pathToMapPoint);
-            $('img[src="' + pointData.preview + '"]').parent().css({
-                'width': '100px !important',
-                'height': '100px !important'
-            })
-           
-            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover')
             // $('.google-promo-map .gmnoprint').css('display','none')
         });
 
@@ -420,21 +404,7 @@
              $('.google-promo-map .map-point-clicked.img-circle:not(.gmnoprint)').css({
                 'border-color':'#6cb7ca'
              })
-
-            if(event != undefined){
-                var style = doc.createElement('style'),
-                    mapheight = $('.google-promo-map').height(),
-                    mapwidth = $('.google-promo-map').width(),
-                    left = event.pixel.x,
-                    top = event.pixel.y;
-                    style.innerText = '.map-point-clicked.img-circle:not(.gmnoprint), .map-point-clicked.img-circle{ \
-                    left: '+left+'px !important;'+
-                    'top: '+top+'px !important;'+
-                    '}';
-                
-                style = doc.head.appendChild(style);
-                $(style).addClass('map-click');
-            }          
+         
         });
 
         marker.setMap(map);
