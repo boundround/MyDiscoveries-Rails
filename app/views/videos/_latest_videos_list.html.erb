@@ -29,7 +29,7 @@
     <% if user_signed_in? && current_user.admin? %>
       <div style="font-size:14px">
         EMBED CODE<br>
-        &lt;iframe frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen width="420" height="240" src="https:/www.boundround.com/<%= @place.class.to_s.pluralize.downcase %>/<%= @place.id rescue "" %>/videos/<%= video.id%>"&gt;&lt;/iframe&gt;
+        <%= video_embed_code(video) %>
       </div>
     <% end %>
   </div>

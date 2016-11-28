@@ -24,7 +24,7 @@
 
 <div class="container">
   <div class="text-left">
-    <h4 class="section-title top5">Latest</h4>
+    <h4 class="section-title top5">Latest Videos</h4>
   </div>
 </div>
 
@@ -56,3 +56,4 @@
     <%= link_to "Load More", videos_path(place_id: params[:place_id], latest_videos_page: @latest_videos.next_page, resources: 'latest_videos', pagination_template: 'latest_videos_list', collection_object: 'video'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
   </div>
 <% end %>
+<%= render partial: "/shared/video_modal" %>
