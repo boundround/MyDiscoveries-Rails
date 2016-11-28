@@ -1,16 +1,7 @@
 class VideosController < ApplicationController
   def index
-    # if params[:place_id].present?
-    #   @videos = Place.friendly.find(params[:place_id]).videos.paginate(:page => params[:latest_videos_page], per_page: 6)
-    #   @place = Place.friendly.find(params[:place_id])
-    # elsif params[:country_id].present?
-    #   @videos = Country.friendly.find(params[:country_id]).videos.paginate(:page => params[:latest_videos_page], per_page: 6)
-    #   @place = Country.friendly.find(params[:country_id])
-    # else
-      @featured_videos= Video.active.featured.where('vimeo_id is not null')
-      @latest_videos = Video.active.where('vimeo_id is not null').paginate(:page => params[:latest_videos_page], per_page: 6)
-    # end
-    # @latest_videos ||= @videos
+      #@featured_videos= Video.active.featured.where('vimeo_id is not null')
+      @latest_videos = Video.active.order(:created_at => :desc).where('vimeo_id is not null').paginate(:page => params[:latest_videos_page], per_page: 6)
     respond_to do |f|
       f.html
       f.js
@@ -51,7 +42,7 @@ class VideosController < ApplicationController
 
   def create
     @video = Video.new(video_params)
-    
+
     if !params["video"]["vimeo_id"].blank?
         response = Unirest.get("https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s) rescue nil
         @video.youtube_id = ""
