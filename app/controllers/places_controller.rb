@@ -289,8 +289,8 @@ class PlacesController < ApplicationController
     @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 4)
     @photos_hero = @photos.first(6)
 
-    @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page:4)
-    @last_video = @place.videos.active.last
+    @videos = @place.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:4)
+    @last_video = @place.videos.active.order(:priority).first
 
     @fun_facts = @place.fun_facts
     @set_body_class = (@place.display_name == "Virgin Australia") ? "virgin-body" : "destination-page"

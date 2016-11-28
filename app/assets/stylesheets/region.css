@@ -191,6 +191,11 @@
 
 /*Map*/
 
+[data-page="region"] .map-container{
+  width: 90%;
+  margin: auto;
+}
+
 [data-page="region"] .google-promo-map {
   display: block;
   width: 100%;
@@ -226,6 +231,36 @@
   left: 25% !important;
   top: 60% !important;*/
 }
+
+/*[data-page="region"] .gmnoprint img{
+  display: none !important;
+}*/
+
+
+[data-page="region"] .google-promo-map .hover.img-circle,
+[data-page="region"] .google-promo-map .hover.img-circle:not(.gmnoprint),
+[data-page="region"] .google-promo-map .map-point-clicked.img-circle,
+[data-page="region"] .google-promo-map .map-point-clicked.img-circle:not(.gmnoprint){
+  width: 102px !important;
+  height: 102px !important;
+  background-position: 50% 50%; 
+  border: 4px solid #6cb7ca !important;
+}
+
+[data-page="region"] .img-circle:not(.hover):not(.map-point-clicked){
+  /*display: none !important;*/
+}
+
+[data-page="region"] .google-promo-map .img-circle:not(.gmnoprint).hover,
+[data-page="region"] .google-promo-map .img-circle.hover{
+  border: 4px solid #fff !important;
+}
+
+[data-page="region"] .google-promo-map .map-point-clicked.img-circle{
+  top: 50%;
+  left: 50%;
+}
+
 [data-page="region"] .promo-map {
   height: 580px;
   width: 100%;
@@ -236,11 +271,18 @@
 [data-page="region"] .point-card {
   position: absolute;
   padding: 18px 16px;
-  top: 20px;
+  top: 40px;
   left: 0;
   height: 520px;
   width: 350px;
   background-color: #fff;
+  transition: 0.5s;
+  opacity: 0;
+}
+
+[data-page="region"] .point-card.js-point-card{
+  top: 20px;
+  opacity: 1;
 }
 
 [data-page="region"] .point-card .scroll-area {
@@ -295,6 +337,13 @@
   display: block;
   font-size: 17px;
   line-height: 22px;
+}
+[data-page="region"] .img-circle.map-point-clicked .region-map-point__title,
+[data-page="region"] .img-circle.hover .region-map-point__title{
+  display: block !important;
+}
+[data-page="region"] .img-circle{
+  border: 0;
 }
 
 [data-page="region"] .card-go-to {
@@ -354,7 +403,7 @@
 }
 
 [data-page="region"] .region-preview-item__paragraph {
-  font-size: 22px;
+  font-size: 16px;
 }
 
 [data-page="region"] .point-card__local-header,
