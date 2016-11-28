@@ -171,7 +171,7 @@ class Region < ActiveRecord::Base
       childrens.each do |child_place|
         if child_place.itemable_type == 'Country'
           child_place_item = child_place.itemable.childrens.select{|childplace| childplace.itemable_type == 'Place'}
-          unless child_place_item.blank? 
+          unless child_place_item.blank?
             child_place_item.each do |each_child_place_item|
               childrens_collect << each_child_place_item.itemable
             end
@@ -197,22 +197,24 @@ class Region < ActiveRecord::Base
 
         data_objs['#childrens'] = []
         place.childrens.last(3).each do |place_child|
-          place_item_child = place_child.itemable
-          data_child_objs = {}
-          data_child_objs['@country_child'] = place_item_child.country.display_name
-          data_child_objs['@name_child'] = place_item_child.display_name
-          if !place_item_child.photos.blank?
-            data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:thumb)
-          else
-            data_child_objs['@photo_child'] = "/assets/generic-hero-thumb.jpg"
+          if place_child.itemable.present?
+            place_item_child = place_child.itemable
+            data_child_objs = {}
+            data_child_objs['@country_child'] = place_item_child.country.display_name
+            data_child_objs['@name_child'] = place_item_child.display_name
+            if !place_item_child.photos.blank?
+              data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:thumb)
+            else
+              data_child_objs['@photo_child'] = "/assets/generic-hero-thumb.jpg"
+            end
+            data_objs['#childrens'] << data_child_objs
+            data_objs['#childrens'] << ["#"]
           end
-          data_objs['#childrens'] << data_child_objs
-          data_objs['#childrens'] << ["#"]
         end
         data_marker << data_objs
         data_marker << ["@"]
       end
-      return data_marker  
+      return data_marker
     else
       data_objs = {}
       data_objs['#place'] = self.display_name
@@ -227,10 +229,10 @@ class Region < ActiveRecord::Base
         data_objs['#photo'] = "/assets/generic-hero-thumb.jpg"
       end
       data_objs['#childrens'] = []
-    end 
+    end
     data_marker << data_objs
     data_marker << ["@"]
-    return data_marker  
+    return data_marker
   end
 
   private
