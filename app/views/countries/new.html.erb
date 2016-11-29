@@ -2,6 +2,21 @@
   <h1>Create New Country</h1>
 
   <%= simple_form_for @country, html: { role: 'form'} do |f| %>
+    <div class="row">
+        <div class="col-md-6">
+          <p>
+            <input id="pac-input" class="controls form-control" type="text"
+              placeholder="Search For An Regions">
+          </p>
+          <div id="map-canvas" style="height:500px;"></div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group lat-lng row">
+            <div class="col-xs-12 col-sm-6"><%= f.input :latitude, :input_html => { "data-geo" => "lat", class: 'form-control' } %></div>
+            <div class="col-xs-12 col-sm-6"><%= f.input :longitude, :input_html => { "data-geo" => "lng", class: 'form-control' } %></div>
+          </div>
+        </div>
+      </div>
     <div class="form-group">
       <%= f.input :display_name, label: 'Country Name', input_html: { class: 'wide-form' }, required: true %>
     </div>

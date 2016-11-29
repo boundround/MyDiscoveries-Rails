@@ -228,15 +228,22 @@ Rails.application.routes.draw do
       get 'paginate_things_to_do'
       get 'paginate_deals'
       get 'seo_analysis'
+      get 'choose_hero', as: :choose_hero
     end
-    resources :videos
-    resources :photos
-    resources :fun_facts
     resources :famous_faces
     resources :info_bits
     resources :good_to_knows
     resources :stories
     resources :deals
+    resources :videos do
+      collection { get 'all' }
+    end
+    resources :photos do
+      collection { get 'all_photos' }
+    end
+    resources :fun_facts do
+      collection { get 'all' }
+    end
     collection { post :import }
   end
 
