@@ -21,6 +21,8 @@
               placeholder="Search For An Regions">
           </p>
           <div id="map-canvas" style="height:500px;"></div>
+          <small>* Set zoom level in the map</small><br>
+          Zoom level : <span id="zoom_text"></span> 
         </div>
         <div class="col-md-6">
           <div class="form-group lat-lng row">
@@ -55,8 +57,9 @@
         <span id="shortDescriptionCharCount">0</span> characters entered. (255 max)<br>
       </div>
       <div class="form-group">
-        <%= f.input :zoom_level, collection: 1..180, selected: 5, label: "Zoom Level:", input_html: { class: 'form-control' } %>
-      </div><br>
+        <%= f.hidden_field :zoom_level, input_html: { class: 'form-control zoom_field' } %>
+      </div>
+      <br>
       <div class="form-group">
         <%= f.button :submit, 'Submit' %>
       </div>
