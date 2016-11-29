@@ -329,6 +329,7 @@
             });
         google.maps.event.addDomListener(marker, 'mouseover', function (event) {
             marker.set('icon', pointData.preview);
+            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
             resetStyle(true)
             win.util.waitFor(function () {
                 return $('img[src="' + pointData.preview + '"]', mapNode).length;
@@ -372,6 +373,8 @@
                 return;
             }
 
+            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
+
             $('img[src="' + pointData.preview + '"]').parent().each(function () {
                 $(this).addClass('img-circle').removeClass('hover').css({
                     'background-image': 'url(' + pointData.preview + ')',
@@ -399,6 +402,10 @@
              $('.google-promo-map .map-point-clicked.img-circle:not(.gmnoprint)').css({
                 'border-color':'#6cb7ca'
              })
+
+            $('a.point-card__close.js-point-card__close').click(function(){
+                $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
+            })
          
         });
 

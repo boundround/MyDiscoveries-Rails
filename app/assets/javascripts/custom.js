@@ -151,7 +151,6 @@ $(document).ready(function(){
   }
 
   var controller = $("[data-action='onload']").data('controller');
-  console.log(controller);
   $(function(){
     $("input[type=radio][name=parentable_chose]").change(function(){
       id_chosen = $(this).attr('id')
@@ -205,7 +204,6 @@ $(document).ready(function(){
           }
         }
 
-          console.log($(this).val())
         if ($(this).val() == 'region'){
           if (controller == 'regions'){
             $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Region')
@@ -298,7 +296,6 @@ $(document).ready(function(){
         }
 
         else if(controller == 'places'){
-          console.log("asdfghj")
           document.getElementById('chosen_country').style.display = "none";
           document.getElementById('chosen_place').style.display = "none";
           document.getElementById('chosen_region').style.display = "none";
