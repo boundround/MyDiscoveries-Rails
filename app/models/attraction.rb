@@ -415,15 +415,15 @@ class Attraction < ActiveRecord::Base
   end
 
   def siblings
-    if parent.present?
-      if parent.parentable.blank?
-        []
-      else
-        parent.parentable.children.delete_if {|child| child == self }
+    solution = []
+    if parent.present? && parent.parentable.present?
+      parent.parentable.childrens.each do |child|
+        if child.itemable.present? && (child.itemable.status == "live") && child.itemable != self
+          solution << child.itemable
+        end
       end
-    else
-      []
     end
+    solution
   end
 
   def children
