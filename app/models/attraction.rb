@@ -419,8 +419,7 @@ class Attraction < ActiveRecord::Base
       if parent.parentable.blank?
         []
       else
-        []
-        # parent.parentable.children.delete_if {|child| child == self }
+        parent.parentable.children.delete_if {|child| child == self }
       end
     else
       []
