@@ -18,40 +18,40 @@
         </div>
       </div>
     <div class="form-group">
-      <%= f.input :display_name, label: 'Country Name', input_html: { class: 'wide-form' }, required: true %>
+      <%= f.input :display_name, label: 'Country Name', input_html: { class: 'wide-form form-control' }, required: true %>
     </div>
     <div class="form-group">
-      <%= f.input :description, label: 'Description', input_html: { class: 'wide-form' }, required: true %>
+      <%= f.input :description, label: 'Description', input_html: { class: 'wide-form form-control' }, required: true %>
     </div>
     <div class="form-group">
       <%= f.input :hero_photo, as: :file, label: 'Hero Photo' %>
     </div>
     <div class="form-group">
-      <%= f.input :country_code, as: :string, label: '2-Letter Country Code', required: true %>
+      <%= f.input :country_code, as: :string, label: '2-Letter Country Code', input_html: { class: 'form-control' }, required: true %>
     </div>
     <div class="form-group">
-      <%= f.input :capital_city, label: 'Capital City' %>
+      <%= f.input :capital_city, label: 'Capital City', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :capital_city_description, label: 'Capital City Description', input_html: { class: 'wide-form' } %>
+      <%= f.input :capital_city_description, label: 'Capital City Description', input_html: { class: 'wide-form form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :currency_code, label: '3-Letter Currency Code' %>
+      <%= f.input :currency_code, label: '3-Letter Currency Code', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :official_language, label: 'Official Language' %>
+      <%= f.input :official_language, label: 'Official Language', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :tallest_mountain, label: 'Tallest Mountain' %>
+      <%= f.input :tallest_mountain, label: 'Tallest Mountain', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :tallest_mountain_height, label: 'Height (numbers only in metres)' %>
+      <%= f.input :tallest_mountain_height, label: 'Height (numbers only in metres)', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :longest_river, label: 'Longest River' %>
+      <%= f.input :longest_river, label: 'Longest River', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :longest_river_length, label: 'Length (numbers only in kilometres)' %>
+      <%= f.input :longest_river_length, label: 'Length (numbers only in kilometres)', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group published-radio">
       <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "edited", "live", "removed"], checked: ['draft'] %>
