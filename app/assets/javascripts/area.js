@@ -13,6 +13,7 @@ window.onload = function(){
     if(latLong.length !== 2){
       latLong = [-33.8688, 151.2093]
     }
+    
     $("#pac-input").geocomplete({
       types: ['geocode', 'establishment'],
       map: "#map-canvas",
@@ -24,13 +25,25 @@ window.onload = function(){
       detailsAttribute: "data-geo",
     });
 
+    var zoom_value = $('#region_zoom_level').val()
+    if(zoom_value == ''){
+      $("#pac-input").geocomplete("map").setZoom(14)
+    }else{
+      parseZoom = parseInt(zoom_value)
+      $("#pac-input").geocomplete("map").setZoom(parseZoom)
+    }
 
     $("#pac-input")
       .geocomplete()
       .bind("geocode:dragged", function(event, result){
         // repopulate lat long and address fields on marker drag
         $("#pac-input").geocomplete("find", result.lat() + "," + result.lng());
+      })
+      .bind("geocode:idle", function(event, result){
+        $('#region_zoom_level').val($("#pac-input").geocomplete("map").zoom)
+        $('#zoom_text').text($('#region_zoom_level').val())
       });
+
     }
 }
 

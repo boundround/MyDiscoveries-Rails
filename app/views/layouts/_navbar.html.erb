@@ -156,7 +156,7 @@
                                     <% @featured_nav_places.each do |place| %>
                                         <div class="col-md-12 dest-thing-wrapper">
                                             <div class="dest-thing featured">
-                                            <a class="link_card" href="<%= place_path(place)%>"></a>
+                                            <a class="link_card" href="<%= attraction_path(place)%>"></a>
                                                 <div class="things-img"
                                                      style="background: url('<%= draw_small_background(place) %>') no-repeat;"
                                                      role="img" aria-label="<%= place.display_name %>">
