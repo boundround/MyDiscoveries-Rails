@@ -14,6 +14,9 @@ class FunFactsController < ApplicationController
     elsif params[:region_id]
       @region = Region.friendly.find(params[:region_id])
       variable = @region
+    elsif params[:country_id]
+      @country = Country.friendly.find(params[:country_id])
+      variable = @country
     end
 
     @fun_facts = variable.fun_facts
@@ -59,6 +62,9 @@ class FunFactsController < ApplicationController
     if params[:region_id]
       @region = Region.friendly.find(params[:region_id])
       redirect_to all_region_fun_facts_path(@region), notice: "fun fact deleted"
+    elsif params[:country_id]
+      @country = Country.friendly.find(params[:country_id])
+      redirect_to all_country_fun_facts_path(@country), notice: "fun fact deleted"
     else
       redirect_to :back, notice: "fun fact deleted"
     end

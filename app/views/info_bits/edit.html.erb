@@ -1,14 +1,5 @@
 <% 
-  if !@place.blank?
-    variable = @place
-    path = 'place'
-  elsif !@attraction.blank?
-    variable = @attraction
-    path = 'attraction'
-  elsif !@region.blank?
-    variable = @region
-    path = 'region'
-  elsif !@country.blank?
+  if !@country.blank?
     variable = @country
     path = 'country'
   end
@@ -21,19 +12,19 @@
     <%= render "#{path}s/admin_tabs" %>
   <% end %>
   <h1>Famous Face Edit</h1><br>
-  <%= link_to "Back To All Famous Face", eval("all_#{path}_famous_faces_path(variable)") %> &nbsp;&nbsp; OR &nbsp;&nbsp;
+  <%= link_to "Back To All Info Bits", eval("all_#{path}_info_bits_path(variable)") %> &nbsp;&nbsp; OR &nbsp;&nbsp;
   <%= link_to "Back To Edit #{variable.display_name}", eval("edit_#{path}_path(variable)") %><br>
   <br>
   <div class="fun-fact">
-    <div class="fun-fact-img" style="background: url(<%= draw_country_partial_photo(@famous_face, variable) rescue nil %>) no-repeat;" role="img" aria-label="Fish Market"></div>
-    <div class="fact"><%= raw @famous_face.name %></div>
+    <div class="fun-fact-img" style="background: url(<%= draw_country_partial_photo(@info_bit, variable) rescue nil %>) no-repeat;" role="img" aria-label="Fish Market"></div>
+    <div class="fact"><%= raw @info_bit.title %></div>
   </div>
   <br>
   <div class="edit_photo">
     <div class="photo-container">
-      <%= simple_form_for [@country, @famous_face] do |f| %>
+      <%= simple_form_for [@country, @info_bit] do |f| %>
 	    <div class="form-group">
-			<%= f.input :name, input_html: { class: 'form-control'}  %>
+			<%= f.input :title, input_html: { class: 'form-control'}  %>
 		</div>
 		<div class="form-group">
 			<%= f.input :description, input_html: { class: 'form-control'}  %>
@@ -46,11 +37,11 @@
 		</div>
 		<div class="form-group">
 			<%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
-	    </div>
+		</div>
         <div class="form-group">
           <%= f.button :submit%> 
           &nbsp;&nbsp; OR &nbsp;&nbsp; 
-          <%= link_to 'Destroy', country_famous_face_path(variable, @famous_face), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn', style: 'background-color: #d9534f; color: #333;' %>
+          <%= link_to 'Destroy', country_info_bit_path(variable, @info_bit), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn', style: 'background-color: #d9534f; color: #333;' %>
         </div>
       <% end %>
     </div>

@@ -3,6 +3,15 @@ class InfoBitsController < ApplicationController
     @info_bits = InfoBit.all
   end
 
+  def all
+    if params[:country_id]
+      @country = Country.friendly.find(params[:country_id])
+      variable = @country
+    end
+
+    @info_bits = variable.info_bits
+  end
+
   def show
     @info_bit = InfoBit.friendly.find(params[:id])
   end
@@ -24,6 +33,11 @@ class InfoBitsController < ApplicationController
   end
 
   def edit
+    if params[:country_id]
+      @country = Country.friendly.find(params[:country_id])
+      variable = @country
+    end
+
     @info_bit = InfoBit.find(params[:id])
   end
 
@@ -37,7 +51,12 @@ class InfoBitsController < ApplicationController
   def destroy
     @info_bit = InfoBit.find(params[:id])
     @info_bit.destroy
-    redirect_to :back, notice: "famous face deleted"
+    if params[:country_id]
+      @country = Country.friendly.find(params[:country_id])
+      redirect_to all_country_info_bits_path(@country), notice: "info bit deleted"
+    else
+      redirect_to :back, notice: "info bit deleted"
+    end
   end
 
 

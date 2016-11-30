@@ -1,0 +1,32 @@
+<% 
+  if !@country.blank?
+    variable = @country
+    path = 'country'
+  end
+%>
+
+<div class="container">
+  <% if path == 'country' %>
+    <%= render "countries/admin_tabs" %>
+  <% else %>
+    <%= render "#{path}s/admin_tabs" %>
+  <% end %>
+  <h2>Info Bits</h2>
+  <%= link_to "Back To Edit #{variable.display_name}", eval("edit_#{path}_path(variable)") %>
+  <% if @info_bits.present? %>
+    <h4>Info Bits (Click to Edit)</h4>
+    <div class="row">
+      <% @info_bits.each do |info_bit| %>
+        <div class="col-md-4 fun-fact">
+          <%= link_to edit_country_info_bit_path(variable, info_bit), method: :get do %>
+            <div class="fun-fact-img" style="background: url(<%= draw_country_partial_photo(info_bit, variable) rescue nil %>) no-repeat;" role="img" aria-label="Fish Market"></div>
+          <% end %>
+          <div class="fact"><%= raw info_bit.title %></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="edit_photo">
+    <%= render "/info_bits/form" %>
+  </div>
+</div>

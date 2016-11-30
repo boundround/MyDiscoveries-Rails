@@ -6,7 +6,7 @@
       LENGTH: <span class="char-count"></span> CHARACTERS
       <%= f.input :reference, input_html: { class: 'form-control'}  %>
       <%= f.input :hero_photo, as: :file, input_html: { class: 'form-control'}  %>
-      <%= f.input :reference, input_html: { class: 'form-control'}  %>
+      <%= f.input :photo_credit, input_html: { class: 'form-control'} %>
     </div>
     <div class="form-group">
       <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
@@ -21,6 +21,9 @@
     <% elsif @region %>
       <%= f.input :fun_factable_id, as: :hidden, input_html: {value: @region.id } %>
       <%= f.input :fun_factable_type, as: :hidden, input_html: {value: "Region"} %>
+    <% elsif @country %>
+      <%= f.input :fun_factable_id, as: :hidden, input_html: {value: @country.id } %>
+      <%= f.input :fun_factable_type, as: :hidden, input_html: {value: "Country"} %>
     <% end %>
     <div class="form-group">
       <%= f.button :submit%>

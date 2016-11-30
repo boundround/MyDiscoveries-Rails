@@ -213,6 +213,12 @@ function chooseHero() {
             } else {
                 alert("choose another image");
             }
+        } else if (data_from == 'country'){
+            if (type) {
+                window.location = '/countries/' + place_id + '/update_hero/' + type + '/' + photo_id
+            } else {
+                alert("choose another image");
+            }
         } else {
             if (type) {
                 window.location = '/places/' + place_id + '/update_hero/' + type + '/' + photo_id
