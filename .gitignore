@@ -28,6 +28,7 @@ doc/
 .secret
 .ssl
 .vagrant/
+.byebug_history
 Vagrantfile
 # ignore videos for android apk
 /public/videos

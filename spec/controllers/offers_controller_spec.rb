@@ -31,6 +31,10 @@ RSpec.describe OffersController, type: :controller do
     end
   end
 
+  it_behaves_like "a controller for admins", :post, :create_livn_offer, vcr: { cassette_name: "offers/success_fetch_product_id" } do
+    let(:params) { { livn_product_id: 1 } }
+  end
+
   describe 'POST #create' do
 
     before do
@@ -122,4 +126,33 @@ RSpec.describe OffersController, type: :controller do
     end
   end
 
+  describe 'POST #create_livn_offer' do
+    before do
+      @admin = create(:user, :admin)
+      sign_in @admin
+    end
+
+    context 'current user do not create offer from LIVN', vcr: { cassette_name: "offers/success_fetch_product_id" } do
+      let (:params) { { livn_product_id: 997 } }
+
+      it 'creates offer' do
+        expect{post(:create_livn_offer, params)}.to change{Offer.count}.from(0).to(1)
+      end
+
+      it 'shows right flash message' do
+        post(:create_livn_offer, params)
+        expected_message = "Offer '#{Offer.last.name}' successfully created"
+        expect(flash[:notice]).to eql(expected_message)
+      end
+    end
+
+    context 'current user do not create offer from LIVN' do
+      let (:params) { { livn_product_id: '' } }
+
+      it 'shows right flash message' do
+        post(:create_livn_offer, params)
+        expect(flash[:alert]).to eql('Wrong LIVN Product ID')
+      end
+    end
+  end
 end

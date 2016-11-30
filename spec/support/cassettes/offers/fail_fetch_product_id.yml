@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev1.livngds.com/livngds/api/products/1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Authorization:
+      - Basic Qm91bmRSb3VuZEFVOnU1XF1ne3olK1BwKVJ3Yg==
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Server:
+      - Apache-Coyote/1.1
+      Cache-Control:
+      - private
+      Expires:
+      - Thu, 01 Jan 1970 10:00:00 AEST
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '113'
+      Date:
+      - Wed, 30 Nov 2016 12:16:17 GMT
+    body:
+      encoding: UTF-8
+      string: '{"webApplicationException":{"status":403,"message":"This operator is
+        not part of your distributor''s inventory."}}'
+    http_version: 
+  recorded_at: Wed, 30 Nov 2016 12:16:17 GMT
+recorded_with: VCR 3.0.3

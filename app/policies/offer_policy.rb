@@ -28,6 +28,14 @@ class OfferPolicy < ApplicationPolicy
     index?
   end
 
+  def new_livn_offer?
+    index?
+  end
+
+  def create_livn_offer?
+    index?
+  end
+
   def show?
     true
   end

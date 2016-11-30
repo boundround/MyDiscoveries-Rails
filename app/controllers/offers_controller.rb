@@ -8,6 +8,20 @@ class OffersController < ApplicationController
     @offer = Offer.new(tags: [""])
   end
 
+  def new_livn_offer
+  end
+
+  def create_livn_offer
+    response = LivnOffersCreationService.call(params[:livn_product_id])
+
+    if response.success?
+      redirect_to offers_path, notice: "Offer '#{response.offer.name}' successfully created"
+    else
+      flash.now[:alert] = response.errors.join(', ')
+      render :new_livn_offer
+    end
+  end
+
   def index
     @offers = Offer.all
   end
@@ -91,6 +105,7 @@ class OffersController < ApplicationController
       :customStr3,
       :customStr4,
       :pickupRequired,
+      :livn_product_id,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,

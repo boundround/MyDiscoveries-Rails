@@ -6,6 +6,6 @@ class CreateOffersPhotos < ActiveRecord::Migration
     end
 
     add_index :offers_photos, :offer_id
-    add_index :offers_photos, [:offer_id, :photo_id], unique: true    
+    add_index :offers_photos, [:offer_id, :photo_id], unique: true
   end
 end

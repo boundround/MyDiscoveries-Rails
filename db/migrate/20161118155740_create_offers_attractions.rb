@@ -4,8 +4,7 @@ class CreateOffersAttractions < ActiveRecord::Migration
       t.integer :offer_id
       t.integer :attraction_id
     end
-
     add_index :offers_attractions, :offer_id
-    add_index :offers_attractions, [:offer_id, :attraction_id], unique: true        
+    add_index :offers_attractions, [:offer_id, :attraction_id], unique: true
   end
 end

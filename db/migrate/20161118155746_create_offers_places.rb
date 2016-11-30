@@ -6,6 +6,6 @@ class CreateOffersPlaces < ActiveRecord::Migration
     end
 
     add_index :offers_places, :offer_id
-    add_index :offers_places, [:offer_id, :place_id], unique: true            
+    add_index :offers_places, [:offer_id, :place_id], unique: true
   end
 end

@@ -6,6 +6,6 @@ class CreateOffersCountries < ActiveRecord::Migration
     end
 
     add_index :offers_countries, :offer_id
-    add_index :offers_countries, [:offer_id, :country_id], unique: true                
+    add_index :offers_countries, [:offer_id, :country_id], unique: true
   end
 end

@@ -416,6 +416,10 @@ Rails.application.routes.draw do
   resources :deals
 
   resources :offers do
+    collection do
+      get 'new_livn_offer'
+      post 'create_livn_offer'
+    end
     resources :videos
     resources :photos
   end
