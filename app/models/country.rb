@@ -23,7 +23,7 @@ class Country < ActiveRecord::Base
     end
 
     attribute :hero_photo do
-      hero_h= photos.where(photos: { country_hero: true }).first
+      hero_h= photos.where(photos: { hero: true }).first
       hero= {}
       if hero_h.present?
         hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
