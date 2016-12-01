@@ -376,7 +376,6 @@ $(document).ready(function() {
     }
 
     var fileUploader = function(){
-      console.log("FILEUPLOAD");
       $('#edit-photo-form').fileupload({
         add: function(e, data) {
           $(".newPhoto").hide();
@@ -385,7 +384,6 @@ $(document).ready(function() {
               data.submit();
           });
           if (data.files && data.files[0]) {
-            console.log("reader");
               var reader = new FileReader();
               reader.onload = function(e) {
                   $('#photo-preview').show().attr('src', e.target.result);
