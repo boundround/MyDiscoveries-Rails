@@ -1539,6 +1539,12 @@ h4 {
         margin-left: 5px
     }
 }
+@media (max-width: 375px) {
+    .outer-image.hero-list{
+        width: 100%;
+        height: auto;
+    }
+}
 @media (max-width: 350px) {
     .hero-image-wrapper .destination-details .ages-wrapper .ages {
         font-size: 22px
