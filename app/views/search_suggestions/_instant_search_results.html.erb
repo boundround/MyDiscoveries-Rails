@@ -45,16 +45,21 @@
   </ul>
 </script>
 
-<script type="text/template" id="instant-facet-template">
+<script type="text/template"  id="instant-facet-template">
   <div class="facet hidden-xs hidden-sm" >
-    <h5>{{ title }}</h5>
+    <div class="header-category">
+      <div class="title-cat-search">{{ title }}</div>
+      <a class="reset-checked" onclick="resetchecked('{{facet}}')"></a>
+    </div>
     {{#values}}
       <div class="form-group">
         <div class="checkbox">
-          <label>
-            <input type="checkbox" data-checked="<%= params[:sub_cat_id] %>" class="ischecked facet-link instant-search-toggle-refine {{#disjunctive}}facet-disjunctive{{/disjunctive}} {{#isRefined}}facet-refined{{/isRefined}}" data-facet="{{ facet }}" data-value="{{ name }}" {{#isRefined}}checked="true"{{/isRefined}}>
-            {{ name }} <span class="facet-count pull-right">&nbsp;{{ count }}</span>
-          </label>
+            {{ name }}
+          <div class="checkbox-result">
+              <!-- <span class="facet-count pull-right">&nbsp;{{ count }}</span> -->
+              <input type="checkbox" data-checked="<%= params[:sub_cat_id] %>" class="ischecked facet-link instant-search-toggle-refine {{#disjunctive}}facet-disjunctive{{/disjunctive}} {{#isRefined}}facet-refined{{/isRefined}}" data-facet="{{ facet }}" id="checked-result-{{ name }}" data-value="{{ name }}" {{#isRefined}}checked="true"{{/isRefined}}>
+            <label for="checked-result-{{ name }}"></label>
+          </div>
         </div>
       </div>
     {{/values}}

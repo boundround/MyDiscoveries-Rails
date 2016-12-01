@@ -437,3 +437,16 @@ function countChars(countfrom,displayto) {
   var len = document.querySelector(countfrom).value.length;
   document.querySelector(displayto).innerHTML = len;
 }
+
+function resetchecked(facet){
+    if(facet != undefined){
+      var checkboxes = $('input[data-facet='+ facet +']');
+    }else{
+      var checkboxes = $('input[type=checkbox].facet-link');
+    }
+    $.each(checkboxes, function(){
+      if($(this).hasClass('facet-refined')){
+        $(this).click()
+      }
+    })
+}
