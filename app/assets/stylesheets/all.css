@@ -2667,6 +2667,11 @@ h4 {
     border-color: #fd7e56;
     padding: 11px 12px
 }
+
+#photoEditModal img.newPhoto{
+    width: 100%;
+}
+
 @media (max-width: 991px) {
     .booking-wrapper {
         height: 105px;
