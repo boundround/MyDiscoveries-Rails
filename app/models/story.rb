@@ -203,6 +203,9 @@ class Story < ActiveRecord::Base
   has_many :attractions_stories
   has_many :attractions, through: :attractions_stories
 
+  has_many :regions_stories
+  has_many :regions, through: :regions_stories
+
   has_many :stories_subcategories
   has_many :subcategories, through: :stories_subcategories
 

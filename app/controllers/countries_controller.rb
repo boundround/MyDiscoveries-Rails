@@ -29,10 +29,13 @@ class CountriesController < ApplicationController
     @set_body_class = "br-body"
     @country = Country.friendly.find(params[:id])
     @photo = Photo.new
+    @regions = Region.all
   end
 
   def new
     @country = Country.new
+    @regions = Region.all
+    @countries = Country.all
   end
 
   def create
@@ -49,7 +52,6 @@ class CountriesController < ApplicationController
     @country = Country.friendly.find(params[:id])
 
     if @country.update(country_params)
-      @country = Country.find(@country.id)
       redirect_to edit_country_path(@country), notice: 'Country succesfully updated'
     end
   end
@@ -100,6 +102,7 @@ class CountriesController < ApplicationController
                       :tallest_mountain_height, :longest_river, :longest_river_length, :published_status, :hero_photo, :photo_credit,
                       :seo_title,
                       :focus_keyword,
+                      parent_attributes: [:parentable_id, :parentable_type],
                       photos_attributes: [:id, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :country_hero, :country_include, :_destroy],
                       videos_attributes: [:id, :vimeo_id, :title, :description, :priority, :status, :country_include, :_destroy],
                       fun_facts_attributes: [:id, :content, :reference, :priority, :hero_photo, :photo_credit, :status, :country_include, :_destroy],

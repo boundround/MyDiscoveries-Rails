@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
   include Searchable
   include SearchOptimizable
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake, :no_parent_select
 
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
@@ -177,7 +177,7 @@ class Place < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|place| place.display_name rescue ''} unless !self.run_rake.blank?
+      self.get_parents(self).map {|place| place.display_name rescue ''}
     end
 
     attribute :accessible do
@@ -188,7 +188,7 @@ class Place < ActiveRecord::Base
       end
     end
 
-    attribute :display_address do 
+    attribute :display_address do
       dp_add = self.display_address
       unless dp_add.blank?
         dp_add.split(', ').last(2).join(', ')
@@ -562,37 +562,51 @@ class Place < ActiveRecord::Base
     loader.remove("id" => self.id)
   end
 
-  def slug_candidates
-    country = self.country
-    g_parent = get_parents(self, parents = [])
-    p_display_name = g_parent.collect{ |parent| parent.display_name }
+  def check_parent_change(old_parent, new_parent)
+    old_parentable_type = old_parent.split('_').last
+    old_parentable_id   = old_parent.split('_').first.to_i
+    new_parentable_type = new_parent.split('_').last
+    new_parentable_id   = new_parent.split('_').first.to_i
 
-    if p_display_name.blank?
-      ["things to do with kids and families #{self.display_name}", :post_code]
-    else
-      primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
-      ["things to do with kids and families #{primary_area_display_name} #{self.display_name}", :post_code]
+    unless (old_parentable_type == new_parentable_type) && (old_parentable_id == new_parentable_id)
+      country = self.country
+      primary_area = self.parent.parentable if !self.parent.blank?
+      new_slug = ''
+      if is_area == true
+        new_slug = "things to do with kids and families #{country.display_name rescue ""} #{self.display_name}"
+      else
+        new_slug = "things to do with kids and families #{country.display_name rescue ""} #{primary_area.display_name rescue ""} #{self.display_name}"
+      end
+
+      self.update!(slug: new_slug.downcase.gsub(' ', '-'))
+    end
+  end
+
+  def slug_candidates
+    unless no_parent_select.eql? "true"
+      country = self.country
+      g_parent = get_parents(self, parents = [])
+      p_display_name = g_parent.collect{ |parent| parent.display_name }
+
+      if p_display_name.blank?
+        ["things to do with kids and families #{self.display_name}", :post_code]
+      else
+        primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
+        ["things to do with kids and families #{primary_area_display_name} #{self.display_name}", :post_code]
+      end
     end
   end
 
   def get_parents(place, parents = [])
-    unless !self.run_rake.blank?
-      if place.parent.blank? || place.parent.parentable == self
-        if !place.country.blank?
-          parents << place.country
-          return parents
-        else
-          return parents
-        end
-      else
-        parents << place.parent.parentable
-        if place.parent.parentable.class.to_s.eql? "Country"
-          parents << place.country
-          return parents
-        else
-          get_parents(place.parent.parentable, parents)
-        end
-      end
+    if place.parent.blank? || place.parent.parentable == self
+      return parents
+    elsif place.parent.parentable.blank?
+      return parents
+    elsif place.parent.parentable == place
+      return parents
+    else
+      parents << place.parent.parentable
+      get_parents(place.parent.parentable, parents)
     end
   end
 
@@ -662,12 +676,10 @@ class Place < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    unless !self.run_rake.blank?
-      if self.parent.blank?
-        slug.blank? || display_name_changed? || self.country_id_changed?
-      else
-        slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?#self.parent_id_changed?
-      end
+    if self.parent.blank?
+      slug.blank? || display_name_changed? || self.country_id_changed?
+    else
+      slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
     end
   end
 
@@ -698,6 +710,10 @@ class Place < ActiveRecord::Base
 
   def content
     description
+  end
+
+  def short_description
+    meta_description
   end
 
   def children

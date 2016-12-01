@@ -899,7 +899,7 @@ h4 {
         background-position: 60% 50%
     }
     .home-page .banner-wrapper .input-group {
-        margin-top: 100px
+        margin-top: 1px
     }
     .home-page .how-to-block {
         margin-top: 20px;
@@ -1926,7 +1926,8 @@ h4 {
 .dest-thing-wrapper .dest-thing .dest-thing-content {
     padding: 20px 25px 20px 25px;
     background: #fff;
-    height: 160px
+    height: 160px;
+    overflow: hidden;
 }
 .dest-thing-wrapper .dest-thing .dest-thing-content .tags {
     position: absolute;

@@ -14,7 +14,9 @@
           <img src="<%= asset_path('br-logo-new-blue.png')%>" alt="">
         </div>
         <div class="title">
-          <p><%= link_to video.videoable.display_name, polymorphic_path(video.videoable) %></p>
+          <% if video.videoable.present? %>
+            <p><%= link_to video.videoable.display_name, polymorphic_path(video.videoable) %></p>
+          <% end %>
           <h4 class="small-video-title"><%= video.title %></h4>
         </div>
     </div>
@@ -22,12 +24,12 @@
 
   <div class="details-dest">
     <div class="left">
-      
+
     </div>
     <% if user_signed_in? && current_user.admin? %>
       <div style="font-size:14px">
         EMBED CODE<br>
-        &lt;iframe frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen width="420" height="240" src="https:/www.boundround.com/<%= @place.class.to_s.pluralize.downcase %>/<%= @place.id rescue "" %>/videos/<%= video.id%>"&gt;&lt;/iframe&gt;
+        <%= video_embed_code(video) %>
       </div>
     <% end %>
   </div>

@@ -10,6 +10,7 @@ class PlacesController < ApplicationController
     @place = Place.new
     @places = Place.active.where(is_area: true).order(display_name: :asc)
     @countries = Country.all
+    @regions = Region.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
     # @places_coutry = @countries + @places
@@ -54,19 +55,19 @@ class PlacesController < ApplicationController
 
     case @region
     when "asia"
-      @id = 1168
+      @id = Place.find 1168
     when "na"
-      @id = 1535
+      @id = Place.find 1535
     when "sa"
       @country = Country.find 133
     when "eu"
-      @id = 1177
+      @id = Place.find 1177
     when "me"
-      @id = 1152
+      @id = Place.find 1152
     when "af"
       @country = Country.find 87
     when "tasmania"
-      @id = 545
+      @id = Attraction.find 545
     else
       @search_string << " #{@region}"
       @search_string << " accessible" if params[:accessibility] == "yes"
@@ -83,7 +84,7 @@ class PlacesController < ApplicationController
         @possible_subcategories.reverse_each do |cats|
           @new_search = @search_string + " " + cats.join(" ")
           @search_response = index.search(@new_search, restrictSearchableAttributes: "age_range,parents,accessible,subcategories")
-          @id = Place.return_first_place_id_from_search_results(@search_response, @region)
+          @id = Attraction.return_first_place_id_from_search_results(@search_response, @region)
           if @id
             break
           end
@@ -91,7 +92,7 @@ class PlacesController < ApplicationController
         @search_count += 1
       end
     else
-      @id = Place.return_first_place_id_from_search_results(@search_response, @region)
+      @id = Attraction.return_first_place_id_from_search_results(@search_response, @region)
     end
 
     if params[:email].present?
@@ -154,6 +155,7 @@ class PlacesController < ApplicationController
     @place = Place.friendly.find(params[:id])
     @places = Place.active.where(is_area: true).order(display_name: :asc)
     @countries = Country.all
+    @regions = Region.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new
@@ -166,12 +168,27 @@ class PlacesController < ApplicationController
       respond_to do |format|
         format.json { render json: @place }
         format.html do
+          @place.photos.each do |photo|
+            photo.add_or_remove_from_country(@place.country)
+          end
+
+          @place.videos.each do |video|
+            video.add_or_remove_from_country(@place.country)
+          end
+
+          @place.fun_facts.each do |fun_fact|
+            fun_fact.add_or_remove_from_country(@place.country)
+          end
           redirect_to edit_place_path(@place), notice: 'Place succesfully updated'
         end
       end
     else
       redirect_to :back
     end
+  end
+
+  def seo_analysis
+    @place = @search_optimizable = Place.friendly.find(params[:id])
   end
 
   def refresh_blog
@@ -185,16 +202,13 @@ class PlacesController < ApplicationController
     @place = Place.friendly.find(params[:id])
     @places = Place.active.order(display_name: :asc)
     @countries = Country.all
+    @regions = Region.all
     @subcategories = Subcategory.all
     @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new
   end
 
   def destroy;end
-
-  def seo_analysis
-    @place = @search_optimizable = Place.friendly.find(params[:id])
-  end
 
   def content_rejected
     place_id = params["place-id"].to_i
@@ -222,7 +236,7 @@ class PlacesController < ApplicationController
   end
 
   def index
-    @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id, :focus_keyword, :meta_description, :seo_title).where.not(status: "removed").where(is_area: true)
+    @places = Place.select(:display_name, :description, :id, :place_id, :subscription_level, :status, :updated_at, :is_area, :slug, :top_100, :parent_id, :focus_keyword, :seo_title, :meta_description).where.not(status: "removed").where(is_area: true)
     set_surrogate_key_header Place.table_key, @places.map(&:record_key)
     respond_to do |format|
       format.html
@@ -275,8 +289,8 @@ class PlacesController < ApplicationController
     @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 4)
     @photos_hero = @photos.first(6)
 
-    @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page:4)
-    @last_video = @place.videos.active.last
+    @videos = @place.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:4)
+    @last_video = @place.videos.active.order(:priority).first
 
     @fun_facts = @place.fun_facts
     @set_body_class = (@place.display_name == "Virgin Australia") ? "virgin-body" : "destination-page"
@@ -724,7 +738,7 @@ class PlacesController < ApplicationController
         :approved_at,
         :country_id,
         :bound_round_place_id,
-        :meta_description,
+        :short_description,
         :primary_category_id,
         :passport_icon,
         :address,
@@ -745,8 +759,6 @@ class PlacesController < ApplicationController
         :top_100,
         :viator_link,
         :trip_advisor_url,
-        :seo_title,
-        :focus_keyword,
         parent_attributes: [:parentable_id, :parentable_type],
         photos_attributes: [:id, :place_id, :photoable_id, :photoable_type, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],

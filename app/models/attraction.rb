@@ -4,7 +4,7 @@ class Attraction < ActiveRecord::Base
   include Searchable
   include SearchOptimizable
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake, :no_parent_select
 
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
@@ -163,7 +163,7 @@ class Attraction < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|attraction| attraction.display_name rescue ''} unless !self.run_rake.blank?
+      self.get_parents(self).map {|attraction| attraction.display_name rescue ''}
     end
 
     attribute :where_destinations do
@@ -269,10 +269,10 @@ class Attraction < ActiveRecord::Base
   has_many :attractions_stories
   has_many :stories, through: :attractions_stories
 
-  has_many :fun_facts, -> { order "created_at ASC"}
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
   has_many :stamps
+  has_many :fun_facts, -> { order "created_at ASC"}, as: :fun_factable
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
   has_many :three_d_videos, as: :three_d_videoable
@@ -401,41 +401,29 @@ class Attraction < ActiveRecord::Base
     return photos
   end
 
-  def get_parents(attraction, parents = [])
-    unless !self.run_rake.blank?
-      if attraction.parent.blank? || attraction.parent.parentable == self
-        if !attraction.country.blank?
-          parents << attraction.country
-          return parents
-        else
-          return parents
-        end
-      else
-        parents << attraction.parent.parentable unless attraction.parent.parentable.blank?
-        if attraction.parent.parentable.class.to_s.eql? "Country"
-          parents << attraction.country
-          return parents
-        else
-          if attraction.parent.parentable.blank?
-            return parents
-          else
-            get_parents(attraction.parent.parentable, parents)
-          end
-        end
-      end
+  def get_parents(place, parents = [])
+    if place.parent.blank? || place.parent.parentable == self
+      return parents
+    elsif place.parent.parentable.blank?
+      return parents
+    elsif place.parent.parentable == place
+      return parents
+    else
+      parents << place.parent.parentable
+      get_parents(place.parent.parentable, parents)
     end
   end
 
   def siblings
-    if parent.present?
-      if parent.parentable.blank?
-        []
-      else
-        parent.parentable.children.delete_if {|child| child == self }
+    solution = []
+    if parent.present? && parent.parentable.present?
+      parent.parentable.childrens.each do |child|
+        if child.itemable.present? && (child.itemable.status == "live") && child.itemable != self
+          solution << child.itemable
+        end
       end
-    else
-      []
     end
+    solution
   end
 
   def children
@@ -450,23 +438,38 @@ class Attraction < ActiveRecord::Base
     list_of_children
   end
 
-  def slug_candidates
-    country = self.country
-    g_parent = get_parents(self, parents = [])
-    p_display_name = g_parent.collect{ |parent| parent.display_name }
+  def short_description
+    meta_description
+  end
 
-    if p_display_name.blank?
-      ["things to do with kids and families #{self.display_name}", :post_code]
-    else
-      primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
-      ["things to do with kids and families #{primary_area_display_name} #{self.display_name}", :post_code]
+  def self.return_first_place_id_from_search_results(search_response, region)
+    id = nil
+    search_response["hits"].each do |hit|
+      if (hit["objectID"].include?("attraction")) && (hit["parents"].any? { |x| x.downcase.include? region } )
+        id = hit["objectID"].gsub("attraction_", "").to_i
+        break
+      end
+    end
+    id
+  end
+
+  def slug_candidates
+    unless no_parent_select.eql? "true"
+      country = self.country
+      g_parent = get_parents(self, parents = [])
+      p_display_name = g_parent.collect{ |parent| parent.display_name }
+
+      if p_display_name.blank?
+        ["things to do with kids and families #{self.display_name}", :post_code]
+      else
+        primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
+        ["things to do with kids and families #{primary_area_display_name} #{self.display_name}", :post_code]
+      end
     end
   end
 
   def should_generate_new_friendly_id?
-    unless self.run_rake
       slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
-    end
   end
 
   def content

@@ -1,0 +1,75 @@
+<div class="container" data-controller='regions' data-action="onload">
+  <% if @region.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@region.errors.count, "error") %> prohibited this region from being updated:</h2>
+
+      <ul>
+      <% @region.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
+    <h2 class="top20">Create A New Region</h2>
+
+    <%= simple_form_for @region, html: { role: 'form'} do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <p>
+            <input id="pac-input" class="controls form-control" type="text"
+              placeholder="Search For An Regions">
+          </p>
+          <div id="map-canvas" style="height:500px;"></div>
+          <small>* Set zoom level in the map</small><br>
+          Zoom level : <span id="zoom_text"></span> 
+        </div>
+        <div class="col-md-6">
+          <div class="form-group lat-lng row">
+            <div class="col-xs-12 col-sm-6"><%= f.input :latitude, :input_html => { "data-geo" => "lat", class: 'form-control' } %></div>
+            <div class="col-xs-12 col-sm-6"><%= f.input :longitude, :input_html => { "data-geo" => "lng", class: 'form-control' } %></div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="form-group">
+        <%= f.input :display_name, input_html: { class: 'form-control' } %>
+      </div>
+      <div class="form-group">
+        <%= f.label "Parentable" %><br>
+        <%= radio_button_tag 'parentable_chose', 'country', false %> Country &nbsp;&nbsp;
+        <%= radio_button_tag 'parentable_chose', 'region', false %> Region &nbsp; &nbsp;
+        <%= radio_button_tag 'parentable_chose', 'no_parent', true %> No Parent
+        <br>
+        <%= f.fields_for :parent, (@region.childrens.new()) do |fc| %>
+          <div id='chosen_country' style="display:none;">
+            <%= fc.select(:parentable_id, @countries.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true ) %>
+            <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_country', value: "Country") %>
+          </div>
+          <div id='chosen_region' style="display:none;">
+            <%= fc.select(:parentable_id, @regions.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
+            <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_region', value: "Region") %>
+          </div>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <%= f.input :description, label: "Description", input_html: { class: 'form-control area-description-input' } %><br>
+        <span id="shortDescriptionCharCount">0</span> characters entered. (255 max)<br>
+      </div>
+      <div class="form-group">
+        <%= f.hidden_field :zoom_level, input_html: { class: 'form-control zoom_field' } %>
+      </div>
+      <br>
+      <div class="form-group">
+        <%= f.button :submit, 'Submit' %>
+      </div>
+    <% end %>
+    <hr>
+  <% else %>
+    <h2>You do not have sufficient privileges to view this page</h2>
+    <%= link_to "Home", root_path %>
+  <% end %>
+  <p></p>
+  <br>
+  <p></p>
+</div>

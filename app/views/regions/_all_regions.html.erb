@@ -1,0 +1,26 @@
+<div class="thing-page">
+<div class="background">
+  <div id="thingstodo" class="container dest-things-wrapper">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Regions</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="owl-carousel carousel" id="places_to_visit-list">
+        <%= render partial: "regions/region_list", collection: @region_stories, as: :region %>
+      </div>
+    </div>
+    <%# unless last_page? @places_to_visit %>
+      <!-- <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
+        <div class="col-xs-12 load-more">
+          <div class="hidden single-pagination-loader" align="center">
+            <img src="<%#= asset_path('loading.gif') %>" width="64" height="64">
+          </div>
+          <%#= link_to "LOAD MORE", paginate_place_story_path(@story, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', collection_object: 'area'), class: 'single-pagination', remote: true %>
+        </div>
+      </div> -->
+    <%# end %>
+  </div>
+</div>
+</div>

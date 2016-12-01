@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     member { get 'choose_hero', as: :choose_hero }
     resources :places, controller: :places_stories
     resources :attractions, controller: :attractions_stories
+    resources :regions, controller: :regions_stories
     resources :countries, controller: :countries_stories
     resources :subcategories, controller: :stories_subcategories
   end
@@ -195,6 +196,7 @@ Rails.application.routes.draw do
     collection { post :import }
     member { put 'place_update' }
     member { put 'attraction_update' }
+    member { put 'region_update' }
     member { put 'story_update' }
   end
 
@@ -395,11 +397,29 @@ Rails.application.routes.draw do
     collection { post :import_subcategories }
   end
 
+  resources :regions do 
+    member { get 'choose_hero', as: :choose_hero }
+    member { get 'paginate_place_to_visit'}
+    member { get 'paginate_place_to_go'}
+    member { get 'paginate_stories'}
+    resources :photos do
+      collection { get 'all_photos' }
+    end
+    resources :videos do
+      collection { get 'all' }
+    end
+    resources :fun_facts do
+      collection { get 'all' }
+    end
+  end
+
   resources :deals
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'
   get '/stories/:id/update_hero/:type/:photo_id' => 'stories#update_hero'
+  get '/regions/:id/update_hero/:type/:photo_id' => 'regions#update_hero'
+  get '/regions/:id/edit_fun_fact/:fun_fact_id' => 'regions#edit_fun_fact', as: 'region_edit_fun_fact'
   post 'search_requests/create'
 
   match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]

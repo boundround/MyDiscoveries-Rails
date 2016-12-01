@@ -90,6 +90,18 @@
   </div>
 <% end %>
 
+<% if @region_stories.present? %>
+  <section class="your-stories video-show">
+    <div class="container">
+      <div class="text-left">
+      </div>
+      <div class="row">
+        <%= render partial: "regions/all_regions", :locals => {flag: true} %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
 <%# if @stories.present? %>
   <!-- <section class="your-stories video-show">
     <div class="container">
@@ -101,12 +113,6 @@
   </section> -->
 <%# end %>
 
-<style>
-  img {
-    margin-right: 20px;
-  }
-
-</style>
 <script>
 (function(){
 	setTimeout(function(){

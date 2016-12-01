@@ -130,6 +130,8 @@
         }
     </style>
 <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyDk49bKAZAXex-UBN5AbFnvkjlaptQNtiM&amp;libraries=places"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
 	</head>
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
@@ -183,22 +185,15 @@
     <%= render "/layouts/video_modal" %>
 
     <%= javascript_include_tag 'application' %>
+    <% if (controller_name == "regions") && (action_name == "show") %>
+      <%= javascript_include_tag 'region_map' %>
+    <% end %>
     <%= render "/layouts/stamp_modal" %>
     <script type="text/javascript">
       setTimeout("$('.alert').fadeOut('slow')",4000);
     </script>
-		<% if ENV['BOUNDROUND_ENV'] == 'boundround_production' %>
-			<!-- This site is converting visitors into subscribers and customers with OptinMonster - http://optinmonster.com --><script>var om57849e4d511bd,om57849e4d511bd_poll=function(){var r=0;return function(n,l){clearInterval(r),r=setInterval(n,l)}}();!function(e,t,n){if(e.getElementById(n)){om57849e4d511bd_poll(function(){if(window['om_loaded']){if(!om57849e4d511bd){om57849e4d511bd=new OptinMonsterApp();return om57849e4d511bd.init({"s":"20785.57849e4d511bd","staging":0,"dev":0,"beta":0});}}},25);return;}var d=false,o=e.createElement(t);o.id=n,o.src="//a.optnmnstr.com/app/js/api.min.js",o.onload=o.onreadystatechange=function(){if(!d){if(!this.readyState||this.readyState==="loaded"||this.readyState==="complete"){try{d=om_loaded=true;om57849e4d511bd=new OptinMonsterApp();om57849e4d511bd.init({"s":"20785.57849e4d511bd","staging":0,"dev":0,"beta":0});o.onload=o.onreadystatechange=null;}catch(t){}}}};(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}(document,"script","omapi-script");</script><!-- / OptinMonster -->
-			<!-- Start of Async HubSpot Analytics Code -->
-		  <script type="text/javascript">
-		    (function(d,s,i,r) {
-		      if (d.getElementById(i)){return;}
-		      var n=d.createElement(s),e=d.getElementsByTagName(s)[0];
-		      n.id=i;n.src='//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/1773162.js';
-		      e.parentNode.insertBefore(n, e);
-		    })(document,"script","hs-analytics",300000);
-		  </script>
-		<!-- End of Async HubSpot Analytics Code -->
+		<% if %>
+			<%= render '/layouts/hubspot_tracking' %>
 		<% end %>
 
 	</body>

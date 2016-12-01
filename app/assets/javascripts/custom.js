@@ -34,6 +34,10 @@ $(document).ready(function(){
               $(selectBox).append("<option value='" + ids[i]['attraction_id'] +
                               "' name=" + ids[i]['attraction_name'] +
                               "' >" + ids[i]['attraction_name'] + "</option>");
+            } else if (dt_controller == 'regions') {
+              $(selectBox).append("<option value='" + ids[i]['region_id'] +
+                              "' name=" + ids[i]['region_name'] +
+                              "' >" + ids[i]['region_name'] + "</option>");
             } else {
               $(selectBox).append("<option value='" + ids[i]['place_id'] +
                               "' name=" + ids[i]['place_name'] +
@@ -62,6 +66,8 @@ $(document).ready(function(){
   dualListBox($('#dual-list-box-Places'), $('#similar-places-js').data("similar"), $("[name*='places_post[place_ids][]']"));
   dualListBox($('#dual-list-box-stories-places'), $('#similar-places-js').data("similar"), $("[name*='places_story[place_ids][]']"));
   dualListBox($('#dual-list-box-stories-attractions'), $('#similar-places-js').data("similar"), $("[name*='attractions_story[attraction_ids][]']"));
+  dualListBox($('#dual-list-box-stories-regions'), $('#similar-places-js').data("similar"), $("[name*='regions_story[region_ids][]']"));
+
 
   if($("#dual-list-box-stories-countries").length > 0){
     var availableCountries = $('#dual-list-box-stories-countries');
@@ -149,83 +155,280 @@ $(document).ready(function(){
     $("input[type=radio][name=parentable_chose]").change(function(){
       id_chosen = $(this).attr('id')
       if (id_chosen == 'parentable_chose_country'){
-        document.getElementById('chosen_country').style.display = "";
-        document.getElementById('chosen_place').style.display = "none";
-        if (controller == 'attractions'){
-          document.getElementById('chosen_attraction').style.display = "none";
-        }
-
-        if ($(this).val() == 'country'){
-          $('#chosen_place').find('select').val('')
-          $('#chosen_attraction').find('select').val('')
-          $('.place_parent_attributes_parentable_type_place').val('Country')
-          $('.place_parent_attributes_parentable_type_country').val('Country')
+        if (controller == 'regions'){
+          document.getElementById('chosen_country').style.display = "";
+          document.getElementById('chosen_region').style.display = "none";
+        } else {
+          document.getElementById('chosen_country').style.display = "";
+          document.getElementById('chosen_region').style.display = "none";
+          document.getElementById('chosen_place').style.display = "none";
           if (controller == 'attractions'){
-            $('.place_parent_attributes_parentable_type_attraction').val('Country')
+            document.getElementById('chosen_attraction').style.display = "none";
           }
         }
 
-      } else if (id_chosen == 'parentable_chose_place') {
+        if ($(this).val() == 'country'){
+          $('.no_parent_select').prop('disabled', true);
+          if (controller == 'regions'){
+            $('.place_parent_attributes_parentable_type_country').prop('disabled', false).val('Country')
+            $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Country')
+            $('#chosen_region').find('select').val('')
+          } else {
+            $('#chosen_place').find('select').prop('disabled', false).val('')
+            $('#chosen_region').find('select').prop('disabled', false).val('')
+            $('#chosen_attraction').find('select').prop('disabled', false).val('')
+            $('#chosen_country').find('select').prop('disabled', false).val('')
+            $('.place_parent_attributes_parentable_type_place').prop('disabled', false).val('Country')
+            $('.place_parent_attributes_parentable_type_country').prop('disabled', false).val('Country')
+            $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Country')
+            if (controller == 'attractions'){
+              $('.place_parent_attributes_parentable_type_attraction').prop('disabled', false).val('Country')
+            }
+          }
+        }
+      }
+
+      else if (id_chosen == 'parentable_chose_region') {
+        $('.no_parent_select').prop('disabled', true);
+        if (controller == 'regions'){
+          document.getElementById('chosen_region').style.display = "";
+          document.getElementById('chosen_country').style.display = "none";
+        }else if (controller == 'countries'){
+          document.getElementById('chosen_region').style.display = "";
+        }else {
+          document.getElementById('chosen_region').style.display = "";
+          document.getElementById('chosen_place').style.display = "none";
+          document.getElementById('chosen_country').style.display = "none";
+          if (controller == 'attractions'){
+            document.getElementById('chosen_attraction').style.display = "none";
+          }
+        }
+
+        if ($(this).val() == 'region'){
+          if (controller == 'regions'){
+            $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Region')
+            $('.place_parent_attributes_parentable_type_country').prop('disabled', false).val('Region')
+            $('#chosen_country').find('select').val('').prop('disabled', false)
+            $('#chosen_region').find('select').prop('disabled', false)
+          }else if (controller == 'countries'){
+            $('#chosen_region').find('select').prop('disabled', false).val('')
+            $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Region')
+          }else {
+            $('#chosen_place').find('select').prop('disabled', false).val('')
+            $('#chosen_country').find('select').prop('disabled', false).val('')
+            $('#chosen_attraction').find('select').prop('disabled', false).val('')
+            $('#chosen_region').find('select').prop('disabled', false).val('')
+            $('.place_parent_attributes_parentable_type_place').prop('disabled', false).val('Region')
+            $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Region')
+            $('.place_parent_attributes_parentable_type_country').prop('disabled', false).val('Region')
+            if (controller == 'attractions'){
+              $('.place_parent_attributes_parentable_type_attraction').prop('disabled', false).val('Region')
+            }
+          }
+        }
+      }
+
+      else if (id_chosen == 'parentable_chose_place') {
         document.getElementById('chosen_place').style.display = "";
+        document.getElementById('chosen_region').style.display = "none";
         document.getElementById('chosen_country').style.display = "none";
+        $('.no_parent_select').prop('disabled', true);
         if (controller == 'attractions'){
           document.getElementById('chosen_attraction').style.display = "none";
         }
 
         if ($(this).val() == 'place'){
-          $('#chosen_country').find('select').val('')
-          $('#chosen_attraction').find('select').val('')
-          $('.place_parent_attributes_parentable_type_place').val('Place')
-          $('.place_parent_attributes_parentable_type_country').val('Place')
+          $('#chosen_country').find('select').prop('disabled', false).val('')
+          $('#chosen_region').find('select').prop('disabled', false).val('')
+          $('#chosen_attraction').find('select').prop('disabled', false).val('')
+          $('#chosen_place').find('select').prop('disabled', false).val('')
+          $('.place_parent_attributes_parentable_type_place').prop('disabled', false).val('Place')
+          $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Place')
+          $('.place_parent_attributes_parentable_type_country').prop('disabled', false).val('Place')
           if (controller == 'attractions'){
-            $('.place_parent_attributes_parentable_type_attraction').val('Place')
+            $('.place_parent_attributes_parentable_type_attraction').prop('disabled', false).val('Place')
           }
         }
+      }
 
-      } else if (id_chosen == 'parentable_chose_attraction') {
+      else if (id_chosen == 'parentable_chose_attraction') {
         document.getElementById('chosen_attraction').style.display = "";
         document.getElementById('chosen_place').style.display = "none";
+        document.getElementById('chosen_region').style.display = "none";
         document.getElementById('chosen_country').style.display = "none";
-
+        $('.no_parent_select').prop('disabled', true);
         if ($(this).val() == 'attraction'){
-          $('#chosen_country').find('select').val('')
-          $('#chosen_place').find('select').val('')
-          $('.place_parent_attributes_parentable_type_place').val('Attraction')
-          $('.place_parent_attributes_parentable_type_country').val('Attraction')
-          $('.place_parent_attributes_parentable_type_attraction').val('Attraction')
+          $('#chosen_country').find('select').prop('disabled', false).val('')
+          $('#chosen_region').find('select').prop('disabled', false).val('')
+          $('#chosen_place').find('select').prop('disabled', false).val('')
+          $('#chosen_attraction').find('select').prop('disabled', false).val('')
+          $('.place_parent_attributes_parentable_type_place').prop('disabled', false).val('Attraction')
+          $('.place_parent_attributes_parentable_type_country').prop('disabled', false).val('Attraction')
+          $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Attraction')
+          $('.place_parent_attributes_parentable_type_attraction').prop('disabled', false).val('Attraction')
+        }
+      }
+
+      else if (id_chosen == 'parentable_chose_no_parent') {
+        $('.no_parent_select').prop('disabled', false);
+        if (controller == 'regions'){
+          document.getElementById('chosen_country').style.display = "none";
+          document.getElementById('chosen_region').style.display = "none";
+          $('#chosen_country').find('select').val('').prop('disabled', true)
+          $('#chosen_region').find('select').prop('disabled', true);
+          $('.place_parent_attributes_parentable_type_country').prop('disabled', true).val('')
+          $('.place_parent_attributes_parentable_type_region').prop('disabled', true).val('Region')
         }
 
+        else if(controller == 'attractions'){
+          document.getElementById('chosen_country').style.display = "none";
+          document.getElementById('chosen_place').style.display = "none";
+          document.getElementById('chosen_attraction').style.display = "none";
+          document.getElementById('chosen_region').style.display = "none";
+          $('#chosen_country').find('select').val('').prop('disabled', true)
+          $('#chosen_attraction').find('select').val('').prop('disabled', true)
+          $('#chosen_place').find('select').val('').prop('disabled', true)
+          $('#chosen_region').find('select').val('').prop('disabled', true)
+          $('.place_parent_attributes_parentable_type_country').val('').prop('disabled', true)
+          $('.place_parent_attributes_parentable_type_region').val('').prop('disabled', true)
+          $('.place_parent_attributes_parentable_type_attraction').val('Attraction').prop('disabled', true)
+          $('.place_parent_attributes_parentable_type_place').val('').prop('disabled', true)
+        }
+
+        else if(controller == 'places'){
+          document.getElementById('chosen_country').style.display = "none";
+          document.getElementById('chosen_place').style.display = "none";
+          document.getElementById('chosen_region').style.display = "none";
+          $('#chosen_country').find('select').prop('disabled', true).val('')
+          $('#chosen_place').find('select').prop('disabled', true).val('')
+          $('#chosen_region').find('select').prop('disabled', true).val('')
+          $('.place_parent_attributes_parentable_type_country').prop('disabled', true).val('')
+          $('.place_parent_attributes_parentable_type_region').prop('disabled', true).val('')
+          $('.place_parent_attributes_parentable_type_place').prop('disabled', true).val('Place')
+        }
+
+        else if(controller == 'countries'){
+          document.getElementById('chosen_region').style.display = "none";
+          $('#chosen_region').find('select').val('').prop('disabled', true)
+          $('.place_parent_attributes_parentable_type_region').val('').prop('disabled', true)
+        }
       }
+
     });
   });
 
   if ($('#parentable_chose_country').is(':checked') == true) {
     document.getElementById('chosen_country').style.display = "";
-    $('#chosen_place').find('select').val('')
-    if (controller == 'attractions'){
-      $('#chosen_attraction').find('select').val('')
+    $('.no_parent_select').prop('disabled', true);
+    if (controller == 'regions'){
+      $('.place_parent_attributes_parentable_type_country').prop('disabled', false).val('Country')
+      $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Country')
+      $('#chosen_region').find('select').val('')
+    } else {
+      $('#chosen_place').find('select').val('')
+      $('#chosen_region').find('select').val('')
+      if (controller == 'attractions'){
+        $('#chosen_attraction').find('select').val('')
+      }
+      $('.place_parent_attributes_parentable_type_place').val('Country')
+      $('.place_parent_attributes_parentable_type_country').val('Country')
+      $('.place_parent_attributes_parentable_type_attraction').val('Country')
+      $('.place_parent_attributes_parentable_type_region').val('Country')
     }
-    $('.place_parent_attributes_parentable_type_place').val('Country')
-    $('.place_parent_attributes_parentable_type_country').val('Country')
-    $('.place_parent_attributes_parentable_type_attraction').val('Country')
   }
+
+  if ($('#parentable_chose_region').is(':checked') == true) {
+    document.getElementById('chosen_region').style.display = "";
+    $('.no_parent_select').prop('disabled', true);
+    if (controller == 'regions'){
+      $('.place_parent_attributes_parentable_type_region').prop('disabled', false).val('Region')
+      $('.place_parent_attributes_parentable_type_country').prop('disabled', false).val('Region')
+      $('#chosen_country').find('select').val('')
+    } else {
+      $('#chosen_country').find('select').val('')
+      $('#chosen_place').find('select').val('')
+      if (controller == 'attractions'){
+        $('#chosen_attraction').find('select').val('')
+      }
+      $('.place_parent_attributes_parentable_type_place').val('Region')
+      $('.place_parent_attributes_parentable_type_country').val('Region')
+      $('.place_parent_attributes_parentable_type_attraction').val('Region')
+      $('.place_parent_attributes_parentable_type_region').val('Region')
+    }
+  }
+
   if ($('#parentable_chose_place').is(':checked') == true) {
     document.getElementById('chosen_place').style.display = "";
+    $('.no_parent_select').prop('disabled', true);
+
     $('#chosen_country').find('select').val('')
+    $('#chosen_region').find('select').val('')
     if (controller == 'attractions'){
       $('#chosen_attraction').find('select').val('')
     }
     $('.place_parent_attributes_parentable_type_place').val('Place')
     $('.place_parent_attributes_parentable_type_country').val('Place')
     $('.place_parent_attributes_parentable_type_attraction').val('Place')
+    $('.place_parent_attributes_parentable_type_region').val('Place')
   }
+
   if ($('#parentable_chose_attraction').is(':checked') == true) {
     document.getElementById('chosen_attraction').style.display = "";
+    $('.no_parent_select').prop('disabled', true);
+
     $('#chosen_country').find('select').val('')
     $('#chosen_place').find('select').val('')
+    $('#chosen_region').find('select').val('')
     $('.place_parent_attributes_parentable_type_place').val('Attraction')
     $('.place_parent_attributes_parentable_type_country').val('Attraction')
     $('.place_parent_attributes_parentable_type_attraction').val('Attraction')
+    $('.place_parent_attributes_parentable_type_region').val('Attraction')
+  }
+
+  if ($('#parentable_chose_no_parent').is(':checked') == true) {
+    $('.no_parent_select').prop('disabled', false);
+    if (controller == 'regions'){
+      document.getElementById('chosen_country').style.display = "none";
+      document.getElementById('chosen_region').style.display = "none";
+      // $('#chosen_region').find('select').val($($('#chosen_region select#region_parent_attributes_parentable_id option')[1]).val())
+      $('#chosen_country').find('select').val('')
+      $('#chosen_region').find('select').prop('disabled', true);
+      $('.place_parent_attributes_parentable_type_country').prop('disabled', true).val('')
+      $('.place_parent_attributes_parentable_type_region').prop('disabled', true).val('Region')
+    }
+
+    else if(controller == 'attractions'){
+      document.getElementById('chosen_country').style.display = "none";
+      document.getElementById('chosen_place').style.display = "none";
+      document.getElementById('chosen_attraction').style.display = "none";
+      document.getElementById('chosen_region').style.display = "none";
+      $('#chosen_country').find('select').val('').prop('disabled', true)
+      $('#chosen_attraction').find('select').val('').prop('disabled', true)
+      $('#chosen_place').find('select').val('').prop('disabled', true)
+      $('#chosen_region').find('select').val('').prop('disabled', true)
+      $('.place_parent_attributes_parentable_type_country').val('').prop('disabled', true)
+      $('.place_parent_attributes_parentable_type_region').val('').prop('disabled', true)
+      $('.place_parent_attributes_parentable_type_attraction').val('Attraction').prop('disabled', true)
+      $('.place_parent_attributes_parentable_type_place').val('').prop('disabled', true)
+    }
+
+    else if(controller == 'places'){
+      document.getElementById('chosen_country').style.display = "none";
+      document.getElementById('chosen_place').style.display = "none";
+      document.getElementById('chosen_region').style.display = "none";
+      $('#chosen_country').find('select').prop('disabled', true).val('')
+      $('#chosen_place').find('select').prop('disabled', true).val('')
+      $('#chosen_region').find('select').prop('disabled', true).val('')
+      $('.place_parent_attributes_parentable_type_country').prop('disabled', true).val('')
+      $('.place_parent_attributes_parentable_type_region').prop('disabled', true).val('')
+      $('.place_parent_attributes_parentable_type_place').prop('disabled', true).val('Place')
+    }
+
+    else if(controller == 'countries'){
+      document.getElementById('chosen_region').style.display = "none";
+      $('#chosen_region').find('select').val('').prop('disabled', true)
+      $('.place_parent_attributes_parentable_type_region').val('').prop('disabled', true)
+    }
   }
 
 });

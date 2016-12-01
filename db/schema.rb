@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116004605) do
+ActiveRecord::Schema.define(version: 20161124232207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -405,6 +405,8 @@ ActiveRecord::Schema.define(version: 20161116004605) do
     t.boolean  "customer_approved"
     t.datetime "approved_at"
     t.integer  "attraction_id"
+    t.integer  "fun_factable_id"
+    t.string   "fun_factable_type"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -762,6 +764,25 @@ ActiveRecord::Schema.define(version: 20161116004605) do
   end
 
   add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type", using: :btree
+
+  create_table "regions", force: true do |t|
+    t.string   "display_name"
+    t.string   "slug"
+    t.text     "description"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.integer  "zoom_level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "status",       default: ""
+  end
+
+  create_table "regions_stories", force: true do |t|
+    t.integer  "region_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "reviews", force: true do |t|
     t.text     "content"

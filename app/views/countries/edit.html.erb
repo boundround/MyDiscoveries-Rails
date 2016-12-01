@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller='countries' data-action="onload">
   <% if user_signed_in? %>
     <h1>Edit <%= @country.display_name %></h1>
     <p>
@@ -61,13 +61,13 @@
         <div class="form-group published-radio">
           <%= f.input :published_status, as: :radio_buttons, collection: [@country.published_status] %>
         </div>
-      <% end %>
+      <% end %> 
       <% if current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin? %>
         <p><input id="pac-input" class="controls" type="text"
             placeholder="Enter a location"> Geometry: <%= @country.latitude %>, <%= @country.longitude %></p>
 
         <div class="map-container">
-          <div class="map-canvas"></div>
+          <div class="map-canvas" id="map-canvas"></div>
         </div>
 
         <div class="form-group lat-lng">
@@ -76,6 +76,29 @@
           <%= f.input :google_place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %>
         </div>
       <% end %>
+      <div class="form-group">
+        <%= f.label "Parentable" %><br>
+        <% if @country.parent.blank? %>
+          <%= radio_button_tag 'parentable_chose', 'region', false %> Region  &nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'no_parent', true %> No Parent
+          <br>
+          <%= f.fields_for :parent, (@country.childrens.new()) do |fc| %>
+            <div id='chosen_region' style="display:none;">
+              <%= fc.select(:parentable_id, @regions.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_region', value: "Region") %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= radio_button_tag 'parentable_chose', 'region', (@country.parent.parentable_type.eql? 'Region') ? true : false %> Region
+          <br>
+          <%= f.fields_for :parent do |fc| %>
+            <div id='chosen_region' style="display:none;">
+              <%= fc.select(:parentable_id, @regions.collect {|p_c| [ p_c.display_name, p_c.id ] }, selected:  @country.parent.parentable_id) %>
+              <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_region', value: "Region") %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
       <div id="table-container">
         <h3>Videos</h3>
         <table class="table table-striped" id="video-table">
@@ -354,4 +377,3 @@
     <h3>Sorry, you must be logged in to view this page</h3>
   <% end %>
 </div>
-<%= javascript_include_tag 'area.js' %>

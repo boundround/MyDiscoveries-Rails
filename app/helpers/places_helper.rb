@@ -4,6 +4,8 @@ module PlacesHelper
     breadcrumb = ""
     parents = place.get_parents(place)
 
+    parents.delete_if {|parent| parent.status != "live"}
+
     if !parents.blank?
       parents.reverse_each do |parent|
         if parent.class.to_s == "Place"
@@ -14,6 +16,9 @@ module PlacesHelper
           breadcrumb += " / "
         elsif parent.class.to_s == "Attraction"
           breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", attraction_path(parent)
+          breadcrumb += " / "
+        elsif parent.class.to_s == "Region"
+          breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", region_path(parent)
           breadcrumb += " / "
         end
       end

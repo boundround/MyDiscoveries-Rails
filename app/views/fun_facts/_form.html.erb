@@ -18,6 +18,9 @@
       <%= f.input :area_id, as: :hidden, input_html: {value: @area.id } %>
     <% elsif @place %>
       <%= f.input :place_id, as: :hidden, input_html: {value: @place.id } %>
+    <% elsif @region %>
+      <%= f.input :fun_factable_id, as: :hidden, input_html: {value: @region.id } %>
+      <%= f.input :fun_factable_type, as: :hidden, input_html: {value: "Region"} %>
     <% end %>
     <div class="form-group">
       <%= f.button :submit%>

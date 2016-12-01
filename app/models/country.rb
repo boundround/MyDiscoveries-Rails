@@ -54,7 +54,8 @@ class Country < ActiveRecord::Base
     end
 
     attribute :url do
-      Rails.application.routes.url_helpers.country_path(self)
+      @object = self
+      Rails.application.routes.url_helpers.country_path(Country.find(@object.id))
     end
 
     attribute :where_destinations do
@@ -145,12 +146,16 @@ class Country < ActiveRecord::Base
   has_many :countries_stories
   has_many :stories, through: :countries_stories
 
+  has_one :parent, :class_name => "ChildItem", as: :itemable
+  has_many :childrens, :class_name => "ChildItem", as: :parentable
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :famous_faces, allow_destroy: true
   accepts_nested_attributes_for :info_bits, allow_destroy: true
   accepts_nested_attributes_for :discounts, allow_destroy: true
+  accepts_nested_attributes_for :parent, :allow_destroy => true
 
   validates :display_name, uniqueness: { case_sensitive: false }, presence: true
 
@@ -193,6 +198,23 @@ class Country < ActiveRecord::Base
       rescue Exception
       end
     end
+  end
+
+  def get_parents(place, parents = [])
+    if place.parent.blank? || place.parent.parentable == self
+      return parents
+    elsif place.parent.parentable.blank?
+      return parents
+    elsif place.parent.parentable == place
+      return parents
+    else
+      parents << place.parent.parentable
+      get_parents(place.parent.parentable, parents)
+    end
+  end
+
+  def status
+    published_status
   end
 
   def country_photos

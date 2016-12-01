@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller='countries' data-action="onload">
   <h1>Create New Country</h1>
 
   <%= simple_form_for @country, html: { role: 'form'} do |f| %>
@@ -41,6 +41,18 @@
     <div class="form-group published-radio">
       <%= f.input :published_status, as: :radio_buttons, collection: ["draft", "edited", "live", "removed"], checked: ['draft'] %>
     </div>
+    <div class="form-group">
+        <%= f.label "Parentable" %><br>
+        <%= radio_button_tag 'parentable_chose', 'region', true %> Region &nbsp; &nbsp;
+        <%= radio_button_tag 'parentable_chose', 'no_parent', true %> No Parent
+        <br>
+        <%= f.fields_for :parent, (@country.childrens.new()) do |fc| %>
+          <div id='chosen_region' style="display:none;">
+            <%= fc.select(:parentable_id, @regions.collect {|p_c| [ p_c.display_name, p_c.id ] }, :required => true) %>
+            <%= fc.hidden_field(:parentable_type, class: 'place_parent_attributes_parentable_type_region', value: "Region") %>
+          </div>
+        <% end %>
+      </div>
     <div class="form-group">
       <%= f.submit :submit %>
     </div>
