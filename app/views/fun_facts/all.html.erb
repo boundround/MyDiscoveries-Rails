@@ -27,7 +27,7 @@
     <div class="row">
       <% @fun_facts.each do |fun_fact| %>
         <div class="col-md-4 fun-fact">
-          <%= link_to eval("#{path}_edit_fun_fact_path(variable, fun_fact)"), method: :get do %>
+          <%= link_to eval("edit_#{path}_fun_fact_path(variable, fun_fact)"), method: :get do %>
             <div class="fun-fact-img" style="background: url(<%= draw_fun_fact_photo(fun_fact, variable) rescue nil %>) no-repeat;" role="img" aria-label="Fish Market"></div>
           <% end %>
           <div class="fact"><%= raw fun_fact.content %></div>

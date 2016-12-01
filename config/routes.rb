@@ -369,8 +369,10 @@ Rails.application.routes.draw do
     resources :videos do
       collection { get 'all' }
     end
+    resources :fun_facts do
+      collection { get 'all' }
+    end
     resources :discounts
-    resources :fun_facts
     resources :games
     resources :reviews
     resources :stories
@@ -396,6 +398,9 @@ Rails.application.routes.draw do
       collection { get 'all_photos' }
     end
     resources :videos do
+      collection { get 'all' }
+    end
+    resources :fun_facts do
       collection { get 'all' }
     end
     resources :reviews
@@ -432,8 +437,6 @@ Rails.application.routes.draw do
   get '/stories/:id/update_hero/:type/:photo_id' => 'stories#update_hero'
   get '/regions/:id/update_hero/:type/:photo_id' => 'regions#update_hero'
   get '/countries/:id/update_hero/:type/:photo_id' => 'countries#update_hero'
-  get '/regions/:id/edit_fun_fact/:fun_fact_id' => 'regions#edit_fun_fact', as: 'region_edit_fun_fact'
-  get '/countries/:id/edit_fun_fact/:fun_fact_id' => 'countries#edit_fun_fact', as: 'country_edit_fun_fact'
   post 'search_requests/create'
 
   match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]
