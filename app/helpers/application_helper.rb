@@ -51,6 +51,14 @@ module ApplicationHelper
     end
   end
 
+  def draw_country_partial_photo(partial_part, place)
+    if partial_part.photo.blank?
+      showing_image(get_random_place_photo(place))
+    else
+      partial_part.photo.url
+    end
+  end
+
   def draw_rating_smiles(place)
     count = "0"
     rates_total = "<span class='rate-count grey-font'>( " + count + " )</span>"

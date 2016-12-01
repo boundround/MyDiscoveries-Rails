@@ -198,6 +198,7 @@ Rails.application.routes.draw do
     member { put 'attraction_update' }
     member { put 'region_update' }
     member { put 'story_update' }
+    member { put 'country_update' }
   end
 
   resources :videos do
@@ -228,15 +229,26 @@ Rails.application.routes.draw do
       get 'paginate_things_to_do'
       get 'paginate_deals'
       get 'seo_analysis'
+      get 'choose_hero', as: :choose_hero
     end
-    resources :videos
-    resources :photos
-    resources :fun_facts
-    resources :famous_faces
-    resources :info_bits
     resources :good_to_knows
     resources :stories
     resources :deals
+    resources :info_bits do
+      collection { get 'all' }
+    end
+    resources :videos do
+      collection { get 'all' }
+    end
+    resources :famous_faces do
+      collection { get 'all' }
+    end
+    resources :photos do
+      collection { get 'all_photos' }
+    end
+    resources :fun_facts do
+      collection { get 'all' }
+    end
     collection { post :import }
   end
 
@@ -419,7 +431,9 @@ Rails.application.routes.draw do
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'
   get '/stories/:id/update_hero/:type/:photo_id' => 'stories#update_hero'
   get '/regions/:id/update_hero/:type/:photo_id' => 'regions#update_hero'
+  get '/countries/:id/update_hero/:type/:photo_id' => 'countries#update_hero'
   get '/regions/:id/edit_fun_fact/:fun_fact_id' => 'regions#edit_fun_fact', as: 'region_edit_fun_fact'
+  get '/countries/:id/edit_fun_fact/:fun_fact_id' => 'countries#edit_fun_fact', as: 'country_edit_fun_fact'
   post 'search_requests/create'
 
   match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]
