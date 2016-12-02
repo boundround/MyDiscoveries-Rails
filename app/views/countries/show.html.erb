@@ -4,6 +4,7 @@
 <% provide(:og_secure_image, open_graph_image) %>
 
 <% if @country.published_status == "live" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@country) && @country.published_status!= "removed")) %>
+<div data-page="country">
 <div class="area-content" data-lat="<%= @country.latitude %>" data-long="<%= @country.longitude %>">
   <div id='country-data' data-country-code=<%= @country.country_code %> data-capital-city=<%= @country.capital_city %>>
 </div>
@@ -58,12 +59,12 @@
             <div class="container">
                 <div class="nav-option-outer-wrapper">
                     <div class="nav-option-wrapper">
-                        <div class="nav-option"><a data-scroll href="#videos"><%= "VIDEOS" if @videos.present? %></a></div>
-                        <div class="nav-option"><a data-scroll href="#stories"><%= "STORIES" if @stories.present? %></a></div>
-                        <div class="nav-option"><a data-scroll href="#thingstodo"><%= "PLACES TO GO" if @areas.present? %></a></div>
-                        <div class="nav-option"><a data-scroll href="#photos"><%= "PHOTOS" if @photos.present? %></a></div>
-                        <div class="nav-option"><a data-scroll href="#famousfaces"><%= "FAMOUS FACES" if @famous_faces.present? %></a></div>
-                        <div class="nav-option"><a data-scroll href="#funfacts"><%= "FUN FACTS" if @fun_facts.present? %></a></div>
+                        <% if @videos.present? %><div class="nav-option"><a data-scroll href="#videos">VIDEOS</a></div><% end %>
+                        <% if @stories.present? %><div class="nav-option"><a data-scroll href="#stories">STORIES</a></div><% end %>
+                        <% if @areas.present? %><div class="nav-option"><a data-scroll href="#thingstodo">PLACES TO GO</a></div><% end %>
+                        <% if @photos.present? %><div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div><% end %>
+                        <% if @famous_faces.present? %><div class="nav-option"><a data-scroll href="#famousfaces">FAMOUS FACES</a></div><% end %>
+                        <% if @fun_facts.present? %><div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div><% end %>
                     </div>
                 </div>
             </div>
@@ -94,6 +95,7 @@
 
     </div>
 
+    <!-- VIDEO SECTION -->
     <% unless @last_video.blank? %>
     <% if !@last_video.youtube_id.blank? %>
       <div id="videos" class="large-video-component-wrapper play-in-modal"
@@ -152,8 +154,8 @@
 
     <%= render partial: "shared/videos_list", locals:{container: "container" } %>
 
-    <div class="stories-things-wrapper">
-      <% if @stories.present? %>
+    <% if @stories.present? %>
+      <div class="stories-things-wrapper">
         <%= render partial: "stories/all_stories" %>
       <% end %>
 
@@ -181,9 +183,8 @@
             </div>
           <% end %>
         </div>
-      <% end %>
-
-    </div>
+      </div>
+    <% end %>
 
 <!--     <% unless @photos_hero.blank? %>
       <div id="photos" class="large-carousel-wrapper">
@@ -207,8 +208,11 @@
       </div>
     <% end %> -->
 
-    <%= render partial: "shared/photos_list", as: :photos, locals:{container: "container"} %>
+    <div id="photos">
+      <%= render partial: "shared/photos_list", as: :photos, locals:{container: "container"} %>
+    </div>
 
+  <% if @famous_faces.present? %>
     <div id="famousfaces" class="famous-faces-wrapper">
       <div class="container">
         <div class="row">
@@ -233,6 +237,7 @@
         </div>
       </div>
     </div>
+  <% end %>
 
   <% if @fun_facts.present? %>
     <div id="funfacts" class="container fun-facts-wrapper">
@@ -249,7 +254,7 @@
       </div>
     </div>
   <% end %>
-
+  </div>
 <% end %>
 <%= render 'layouts/all_modal' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
