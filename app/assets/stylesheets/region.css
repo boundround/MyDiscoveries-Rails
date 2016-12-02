@@ -440,5 +440,16 @@
   [data-page="region"] .place-to-go .content > .row{
     margin-left: 0;
     margin-right: 0;
-  }   
+  }
+
+  [data-page="region"] .nav-option,
+  [data-page="country"] .nav-option{
+    width: auto;
+    float: left;
+  }
+
+  [data-page="region"] .nav-option-wrapper,
+  [data-page="country"] .nav-option-wrapper{
+    width: 100%;
+  }
 }
