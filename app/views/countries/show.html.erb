@@ -179,7 +179,7 @@
 
     </div>
 
-    <% unless @photos_hero.blank? %>
+<!--     <% unless @photos_hero.blank? %>
       <div id="photos" class="large-carousel-wrapper">
         <div class="large-owl-carousel owl-carousel">
           <% @photos_hero.each do |photo| %>
@@ -199,7 +199,7 @@
           <% end %>
         </div>
       </div>
-    <% end %>
+    <% end %> -->
 
     <%= render partial: "shared/photos_list", as: :photos, locals:{container: "container"} %>
 
@@ -246,6 +246,7 @@
 
 <% end %>
 <%= render 'layouts/all_modal' %>
+<%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
 
 <%#= render 'layouts/video_modal' %>
