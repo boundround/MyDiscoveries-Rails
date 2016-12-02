@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125164440) do
+ActiveRecord::Schema.define(version: 20161202092700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -483,7 +483,7 @@ ActiveRecord::Schema.define(version: 20161125164440) do
   create_table "offers", force: true do |t|
     t.integer  "attraction_id"
     t.string   "status",                                                 default: ""
-    t.string   "name",                                                   default: ""
+    t.text     "name",                                                   default: ""
     t.text     "description",                                            default: ""
     t.integer  "minRateAdult",                                           default: 0
     t.integer  "minRateChild",                                           default: 0
@@ -492,15 +492,15 @@ ActiveRecord::Schema.define(version: 20161125164440) do
     t.integer  "maxRateChild",                                           default: 0
     t.integer  "maxRateInfant",                                          default: 0
     t.integer  "duration",            limit: 8,                          default: 0
-    t.string   "specialNotes",                                           default: ""
+    t.text     "specialNotes",                                           default: ""
     t.integer  "operatingDays",                                          default: 0
-    t.string   "operatingDaysStr",                                       default: ""
+    t.text     "operatingDaysStr",                                       default: ""
     t.text     "operatingSchedule",                                      default: ""
-    t.string   "locationStart",                                          default: ""
+    t.text     "locationStart",                                          default: ""
     t.decimal  "latitudeStart",                 precision: 10, scale: 6
     t.decimal  "longitudeStart",                precision: 10, scale: 6
     t.integer  "distanceStartToRef",                                     default: 0
-    t.string   "locationEnd",                                            default: ""
+    t.text     "locationEnd",                                            default: ""
     t.decimal  "latitudeEnd",                   precision: 10, scale: 6
     t.decimal  "longitudeEnd",                  precision: 10, scale: 6
     t.string   "tags",                                                   default: [],    array: true
@@ -509,22 +509,28 @@ ActiveRecord::Schema.define(version: 20161125164440) do
     t.integer  "requiredMultiple",                                       default: 0
     t.integer  "minUnits",                                               default: 0
     t.integer  "maxUnits",                                               default: 0
-    t.string   "pickupNotes",                                            default: ""
-    t.string   "dropoffNotes",                                           default: ""
+    t.text     "pickupNotes",                                            default: ""
+    t.text     "dropoffNotes",                                           default: ""
     t.text     "highlightsStr",                                          default: ""
     t.text     "itineraryStr",                                           default: ""
     t.text     "includes",                                               default: ""
-    t.string   "sellVouchers",                                           default: ""
-    t.string   "onlyVouchers",                                           default: ""
+    t.text     "sellVouchers",                                           default: ""
+    t.text     "onlyVouchers",                                           default: ""
     t.text     "voucherInstructions",                                    default: ""
     t.integer  "voucherValidity",                                        default: 0
-    t.string   "customStr1",                                             default: ""
-    t.string   "customStr2",                                             default: ""
-    t.string   "customStr3",                                             default: ""
-    t.string   "customStr4",                                             default: ""
+    t.text     "customStr1",                                             default: ""
+    t.text     "customStr2",                                             default: ""
+    t.text     "customStr3",                                             default: ""
+    t.text     "customStr4",                                             default: ""
     t.boolean  "pickupRequired",                                         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "livn_product_id"
+    t.date     "startDate"
+    t.date     "endDate"
+    t.decimal  "page_ranking_weight"
+    t.text     "focus_keyword"
+    t.text     "seo_title"
   end
 
   add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree
