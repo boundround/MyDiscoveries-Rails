@@ -213,6 +213,12 @@ function chooseHero() {
             } else {
                 alert("choose another image");
             }
+        } else if (data_from == 'country'){
+            if (type) {
+                window.location = '/countries/' + place_id + '/update_hero/' + type + '/' + photo_id
+            } else {
+                alert("choose another image");
+            }
         } else {
             if (type) {
                 window.location = '/places/' + place_id + '/update_hero/' + type + '/' + photo_id
@@ -370,7 +376,6 @@ $(document).ready(function() {
     }
 
     var fileUploader = function(){
-      console.log("FILEUPLOAD");
       $('#edit-photo-form').fileupload({
         add: function(e, data) {
           $(".newPhoto").hide();
@@ -379,7 +384,6 @@ $(document).ready(function() {
               data.submit();
           });
           if (data.files && data.files[0]) {
-            console.log("reader");
               var reader = new FileReader();
               reader.onload = function(e) {
                   $('#photo-preview').show().attr('src', e.target.result);

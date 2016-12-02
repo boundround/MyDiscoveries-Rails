@@ -8,11 +8,18 @@
   elsif !@region.blank?
     variable = @region
     path = 'region'
+  elsif !@country.blank?
+    variable = @country
+    path = 'country'
   end
 %>
 
 <div class="container">
+  <% if path == 'country' %>
+  <%= render "countries/admin_tabs" %>
+  <% else %>
   <%= render "#{path}s/admin_tabs" %>
+  <% end %>
   <h1>Edit Videos</h1>
   <%= link_to "Back To Edit #{variable.display_name}", eval("edit_#{path}_path(variable)") %>
   <% if @videos.present? %>
@@ -80,6 +87,9 @@
             <% elsif @region %>
               <%= f.input :videoable_id, as: :hidden, input_html: {value: @region.id } %>
               <%= f.input :videoable_type, as: :hidden, input_html: {value: "Region"} %>
+            <% elsif @country %>
+              <%= f.input :videoable_id, as: :hidden, input_html: {value: @country.id } %>
+              <%= f.input :videoable_type, as: :hidden, input_html: {value: "Country"} %>
             <% end %>
           </div>
 	      </div>
