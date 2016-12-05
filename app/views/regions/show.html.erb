@@ -1,5 +1,4 @@
 <% if (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) %>
-<!-- <link rel="script" href="../../assets/javascripts/region_map.js"/> -->
   <div data-page="region">
     <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background_region(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
     <div class="overlay"></div>
@@ -9,16 +8,6 @@
           <div class="location"></div>
           <div class="destination"><%= @region.display_name %></div>
           <div class="destination-details">
-            <!-- <div class="favourites-wrapper">
-              <% if user_signed_in? %>
-                <div class="icon-favourite selected"></div>
-                <div class="favourites-title hidden-xs" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from favourites</div>
-              <% else %>
-                <div class="icon-favourite" data-liked="false" id="favouriteType" data-klass="region" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                <div class="favourites-title hidden-xs" >Add to favourites</div>
-              <% end %>
-            </div> -->
-
             <div class="favourites-wrapper">
               <% if user_signed_in? && @region.users.include?(current_user) %>
                 <div class="icon-favourite selected" id="favouriteType" data-post-path="regions_users" data-klass="region" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
@@ -131,177 +120,33 @@
     </div>
   </div>
   <% end %>
-
-
- <!--  <div class="container section">
-    <div class="row">
-      <h3 class="header">Family deals</h3>
-      <div class="content">
-        <div class="row">
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card">
-              <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
-              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
-              <div class="family-deals-text">
-                <div class="cost">
-                  From <img src="/assets/img/family-deals/deal.png"> $1399 <img src="/assets/img/family-deals/night.png"> 8 nights
-                </div>
-                <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
-                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
-                <a class="family-deals-card__see-deal">See deal</a>
-                <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card">
-              <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
-              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
-              <div class="family-deals-text">
-                <div class="cost">
-                  From <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> $1399 <img src="/assets/img/family-deals/night.png" class="family-deals-card__included-icon"> 8 nights
-                </div>
-                <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
-                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
-                <a class="family-deals-card__see-deal">See deal</a>
-                <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card">
-              <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
-              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
-              <div class="family-deals-text">
-                <div class="cost">
-                  From <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> $1399 <img src="/assets/img/family-deals/night.png" class="family-deals-card__included-icon"> 8 nights
-                </div>
-                <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
-                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
-                <a class="family-deals-card__see-deal">See deal</a>
-                <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card family-deals-card__ad">
-              <img src="/assets/img/family-deals/family-deals-ad.jpg">
-              <p class="family-deals-card-ad__paragraph">Sponsored</p>
-            </div>
-          </div>
-
-        </div>
-        <div class="read-more-wrapper">
-            <a href="javascript:void()" class="readmore-area link-more">LOAD MORE</a>
-            <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
-          </div>
-      </div>
-    </div>
-  </div> -->
-
 <!-- THINGS TO DO -->
-  
-    <% unless @places_to_visit.blank? %>
-      <div class="destination-page">
-      <div id="thingstodo" class="container dest-things-wrapper">
-          <div class="row">
-            <div class="col-xs-12">
-                <h3>Things to do in <%= @region.display_name %></h3>
-            </div>
-          </div>
-          <div class="row">
-              <div class="owl-carousel carousel" id="places_to_visit-list">
-                <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
-              </div>
-          </div>
-        <% unless last_page? @places_to_visit %>
-          <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
-              <div class="col-xs-12 load-more">
-                <div class="hidden single-pagination-loader" align="center">
-                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                </div>
-              <%= link_to "LOAD MORE", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
-              </div>
-          </div>
-        <% end %>
+<% unless @places_to_visit.blank? %>
+  <div class="destination-page">
+  <div id="thingstodo" class="container dest-things-wrapper">
+      <div class="row">
+        <div class="col-xs-12">
+            <h3>Things to do in <%= @region.display_name %></h3>
+        </div>
       </div>
+      <div class="row">
+          <div class="owl-carousel carousel" id="places_to_visit-list">
+            <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
+          </div>
+      </div>
+    <% unless last_page? @places_to_visit %>
+      <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
+          <div class="col-xs-12 load-more">
+            <div class="hidden single-pagination-loader" align="center">
+              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+            </div>
+          <%= link_to "LOAD MORE", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
+          </div>
       </div>
     <% end %>
-
-
-
-
-
-
-  <!-- <div class="container section">
-    <div class="row">
-      <h3 class="header">Itineraries</h3>
-      <div class="content">
-        <div class="row">
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card">
-              <img src="/assets/img/family-deals/itineraries-banner.png" class="family-deals-card__deal-icon">
-              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
-              <div class="family-deals-text">
-                <div class="cost">
-                  <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> 3 days <img src="/assets/img/family-deals/empty-pin.png" class="family-deals-card__included-icon"> 2 cities
-                </div>
-                <div class="family-deals-card__header">Beijing to Tokyo</div>
-                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
-                <a class="family-deals-card__see-deal">see full itinerary</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card">
-              <img src="/assets/img/family-deals/itineraries-banner.png" class="family-deals-card__deal-icon">
-              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
-              <div class="family-deals-text">
-                <div class="cost">
-                  <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> 3 days <img src="/assets/img/family-deals/empty-pin.png" class="family-deals-card__included-icon"> 2 cities
-                </div>
-                <div class="family-deals-card__header">Beijing to Tokyo</div>
-                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
-                <a class="family-deals-card__see-deal">see full itinerary</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card">
-              <img src="/assets/img/family-deals/itineraries-banner.png" class="family-deals-card__deal-icon">
-              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
-              <div class="family-deals-text">
-                <div class="cost">
-                  <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> 3 days <img src="/assets/img/family-deals/empty-pin.png" class="family-deals-card__included-icon"> 2 cities
-                </div>
-                <div class="family-deals-card__header">Beijing to Tokyo</div>
-                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
-                <a class="family-deals-card__see-deal">see full itinerary</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card family-deals-card__ad">
-              <img src="/assets/img/family-deals/family-deals-ad.jpg">
-              <p class="family-deals-card-ad__paragraph">Sponsored</p>
-            </div>
-          </div>
-
-        </div>
-        <div class="read-more-wrapper">
-            <a href="javascript:void()" class="readmore-area link-more">LOAD MORE</a>
-            <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
-          </div>
-      </div>
-    </div>
-  </div> -->
-
+  </div>
+  </div>
+<% end %>
 
 <!-- Banner -->
   <div class="container-fluid wild-ad-banner">

@@ -20,7 +20,6 @@
     <%= f.input :description, label: "Description (leave blank for autofill from Vimeo)", input_html: { class: 'form-control'}  %>
     <%= f.input :transcript, label: "Transcript (leave blank for autofill from Vimeo)", input_html: { class: 'form-control'}  %>
     <% if @place %>
-      <%#= f.input :place_id, as: :hidden, input_html: {value: @place.id } %>
       <%= f.input :videoable_id, as: :hidden, input_html: {value: @place.id } %>
       <%= f.input :videoable_type, as: :hidden, input_html: {value: "Place" } %>
     <% elsif @attraction %>
