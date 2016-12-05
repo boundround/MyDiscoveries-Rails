@@ -23,7 +23,6 @@ class SearchSuggestionsController < ApplicationController
 
   def nearby
     @places= Place.includes(:photos, :primary_category, :subcategories, :country).near(current_user_location, 100000).paginate(page: params[:page], per_page: 6)
-    #@places= Place.includes(:photos, :primary_category, :subcategories, :country).all.paginate(page: params[:places_page], per_page: 6)
     respond_to do |f|
       f.html
       f.js
@@ -51,7 +50,4 @@ class SearchSuggestionsController < ApplicationController
       @filter[:subcategory]= Subcategory.all
       @filter[:price]= [ Openstruct.new(name: "free", value: "0"), Openstruct.new(name: '$10 - $99', value: '10-99'), Openstruct.new(name: '$100 - $999', value: '100-999'), Openstruct.new(name: '$1000') ]
     end
-
-
-
 end

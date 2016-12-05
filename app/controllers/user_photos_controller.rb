@@ -1,5 +1,4 @@
 class UserPhotosController < ApplicationController
-  # before_filter :load_place_or_area, except: [:profile_create, :destroy]
   before_action :set_user_photo, only:[:show, :edit, :update, :destroy]
 
   def index
@@ -71,13 +70,10 @@ class UserPhotosController < ApplicationController
       @user_photo.country_id = nil
     end
     if @user_photo.update(user_photo_params)
-       # redirect_to place_user_photo_path(@user_photo.place, @user_photo)
-       # redirect_to root_path
     end
 
     respond_to do |format|
       format.html { redirect_to :back }
-    #   format.json { render json: @user_photo }
     end
   end
 

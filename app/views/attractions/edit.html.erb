@@ -60,9 +60,6 @@
         <%= f.input :display_name, input_html: { class: 'form-control' } %>
       </div>
       <div class="form-group">
-        <%#= f.association :country, label: 'Country', collection: @countries, as: :select, label_method: :display_name, required: true %>
-      </div>
-      <div class="form-group">
         <%= f.hidden_field :no_parent_select, value: true, class: 'no_parent_select' %>
         <%= f.label "Parentable" %><br>
         <% if @attraction.parent.blank? %>

@@ -8,7 +8,6 @@ class Review < ActiveRecord::Base
   belongs_to :reviewable, polymorphic: true
   belongs_to :user
   belongs_to :country
-  # belongs_to :place
 
   has_many :reviews_users
   has_many :users, through: :reviews_users

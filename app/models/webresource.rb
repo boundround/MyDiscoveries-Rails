@@ -1,4 +1,3 @@
 class Webresource < ActiveRecord::Base
-  belongs_to :program  
-  
+  belongs_to :program    
 end

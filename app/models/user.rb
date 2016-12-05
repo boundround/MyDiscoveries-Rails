@@ -43,13 +43,9 @@ class User < ActiveRecord::Base
 
   rolify
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :omniauthable, :authentication_keys => [:email],
          :omniauth_providers => [:facebook, :twitter, :google_oauth2]
-  # devise :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
-
-  # after_create :create_mixpanel_profile
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
   validates :password, confirmation: true
@@ -84,7 +80,6 @@ class User < ActiveRecord::Base
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
         )
-        # user.skip_confirmation!
         user.save!
       end
     end

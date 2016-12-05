@@ -3,8 +3,6 @@ class Video < ActiveRecord::Base
 
   before_save :set_approval_time, :check_customer_approved, :validate_youtube_id
 
-  # belongs_to :place
-  # belongs_to :attraction
   belongs_to :videoable, polymorphic: true
 
   has_many :videos_users
@@ -15,8 +13,6 @@ class Video < ActiveRecord::Base
 
   has_paper_trail
 
-  # validates :vimeo_id, presence: true
-
   validate :video_service_id
 
   scope :ordered_by_place_name, -> { includes(:area, :videoable).order('areas.display_name ASC') } #reorder("places.display_name ASC") }
@@ -25,8 +21,6 @@ class Video < ActiveRecord::Base
   scope :featured, -> { order("created_at DESC").limit(3) }
   scope :edited, -> { where(status: "edited") }
   scope :preview, -> { where('status=? OR customer_review=?', 'live', 'true') }
-
-  # before_save :validate_vimeo_id
 
   self.per_page = 200
 
@@ -68,17 +62,6 @@ class Video < ActiveRecord::Base
       else raise "Unknown file type: #{file.original_filename}"
     end
   end
-
-  # def validate_vimeo_id
-  #   key = "bearer " + ENV["VIMEO_OAUTH_KEY"]
-  #   response = Unirest.get "https://api.vimeo.com/videos/" + vimeo_id.to_s,
-  #                           headers: { "Authorization" => key }
-  #   if response.body['user']['name'] == 'Bound Round'
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
 
   def update_info
     if self.vimeo_id.present?

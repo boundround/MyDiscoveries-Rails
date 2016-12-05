@@ -1,5 +1,4 @@
 class AreasController < ApplicationController
-  # before_action :redirect_if_not_admin, :except => [:show, :mapdata, :default_serializer_options, :search]
 
   def index
     @areas = Area.all

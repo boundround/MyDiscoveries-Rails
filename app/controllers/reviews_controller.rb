@@ -38,11 +38,6 @@ class ReviewsController < ApplicationController
     if @review.update(review_params)
       redirect_to place_review_path(@review.reviewable, @review)
     end
-
-    # respond_to do |format|
-    #   # format.html { redirect_to :back }
-    #   format.json { render json: @review }
-    # end
   end
 
   def destroy

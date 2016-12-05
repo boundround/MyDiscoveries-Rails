@@ -13,7 +13,6 @@ class PlacesController < ApplicationController
     @regions = Region.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
-    # @places_coutry = @countries + @places
   end
 
   def create
@@ -470,13 +469,11 @@ class PlacesController < ApplicationController
   def programsearch #xyrin index.html
     @placeprograms = "yes"
     @max_feature_places = 6
-#    @places = Place.wherelimit(6).order('id asc')
     @places = Place.where(id: 1533)
     @places += Place.joins(:programs).order('id asc').distinct.limit(@max_feature_places)
     place_ids = @places.map{|x| x[:id]}
     @programs = Program.where("place_id IN (?)", place_ids)
     set_program_filters(@places)
-#     render plain: @locations.inspect
   end
 
   def programsearchresultslist #xyrin search.html
@@ -652,7 +649,6 @@ class PlacesController < ApplicationController
             puts qp.name
           end
         else
-#          @places = Place.joins(:area, :programs, :photos, :categories).includes(:programs, :area, :photos, :categories).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
           if filtering_programs then
             @places = Place.joins(:photos,:programs).includes(:photos).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).limit(@MAX_TO_RETURN)
           else

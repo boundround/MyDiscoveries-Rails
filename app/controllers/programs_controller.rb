@@ -37,7 +37,6 @@ class ProgramsController < ApplicationController
   end
     
   def create
-#    render plain: params[:program].inspect
     @program = Program.new(program_params)
     @program.save
     redirect_to @program  

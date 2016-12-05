@@ -1,6 +1,5 @@
 class VideosController < ApplicationController
   def index
-      #@featured_videos= Video.active.featured.where('vimeo_id is not null')
       @latest_videos = Video.active.order(:created_at => :desc).where('vimeo_id is not null').paginate(:page => params[:latest_videos_page], per_page: 6)
     respond_to do |f|
       f.html

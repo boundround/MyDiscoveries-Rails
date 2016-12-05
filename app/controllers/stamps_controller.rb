@@ -23,7 +23,6 @@ class StampsController < ApplicationController
 	def show
 		@stamp = Stamp.find(params[:id])
 			render action: "show"
-		# end
 	end
 
 	def edit
@@ -44,7 +43,6 @@ class StampsController < ApplicationController
 		@place = Place.friendly.find(params[:place_id])
 		@stamps = @place.stamps
 		@stamp = Stamp.new
-		# @stamp_transactions = StampTransaction.all
 	end
 
 	def new_transaction
