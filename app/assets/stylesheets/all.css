@@ -385,6 +385,128 @@ h4 {
 .mega-menu a:focus {
     text-decoration: none
 }
+
+/*Result Search v2 Style*/
+.main-header{
+    position: relative;
+    width: 100%;
+    display: inline-flex;
+}
+.main-header .reset-all{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    color: #959595;
+    line-height: 44px;
+}
+.main-header .reset-all:hover{
+    text-decoration: none;
+}
+.main-header h3{
+    margin: 0;
+}
+.sidebar-result-search h3{
+    color: #959595;
+}
+#facets-instant-search2 .checkbox-result,
+#facets-instant-search .checkbox-result,
+#facets-instant-search3 .checkbox-result{
+    display: inline;
+}
+#facets-instant-search2 .checkbox-result label,
+#facets-instant-search .checkbox-result label,
+#facets-instant-search3 .checkbox-result label{
+    background-color: #fff;
+    width: 25px;
+    height: 25px;
+    right: 0;
+    position: absolute;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: -2px;
+}
+#facets-instant-search2 .checkbox-result label:after,
+#facets-instant-search .checkbox-result label:after,
+#facets-instant-search3 .checkbox-result label:after{
+    content: '';
+    width: 12px;
+    height: 6px;
+    position: absolute;
+    top: 6px;
+    left: 4px;
+    border: 2px solid #333333;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    opacity: 0;
+    transform: rotate(-45deg);
+}
+#facets-instant-search2 .checkbox-result input[type=checkbox],
+#facets-instant-search .checkbox-result input[type=checkbox],
+#facets-instant-search3 .checkbox-result input[type=checkbox] {
+    visibility: hidden;
+}
+#facets-instant-search2 .checkbox-result input[type=checkbox]:checked + label:after,
+#facets-instant-search3 .checkbox-result input[type=checkbox]:checked + label:after,
+#facets-instant-search .checkbox-result input[type=checkbox]:checked + label:after{
+    opacity: 1;
+}
+#facets-instant-search .checkbox-result input[type=checkbox]:checked  + label,
+#facets-instant-search2 .checkbox-result input[type=checkbox]:checked  + label,
+#facets-instant-search3 .checkbox-result input[type=checkbox]:checked  + label{
+    border: 2px solid #333;
+}
+
+#facets-instant-search2 .title-cat-search,
+#facets-instant-search .title-cat-search,
+#facets-instant-search3 .title-cat-search{
+    text-transform: uppercase;
+    color: #959595;
+    font-size: 18px;
+}
+#facets-instant-search .checkbox,
+#facets-instant-search3 .checkbox,
+#facets-instant-search2 .checkbox{
+    font-size: 16px;
+    margin-top: 0;
+}
+#facets-instant-search .form-group,
+#facets-instant-search3 .form-group,
+#facets-instant-search2 .form-group{
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.header-category{
+    margin: 20px 0px;
+    display: inline-flex;
+    width: 100%;
+    position: relative;
+}
+
+#facets-instant-search2 .header-category{
+    margin-bottom: 40px;
+}
+
+.reset-checked{
+    cursor: pointer;
+    background-image: url(/assets/new-images/cross.svg);
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    opacity: 0.5;
+    background-position: center center;
+    background-size: 25px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+
 @media (max-width: 1199px) {
     .mega-menu .menu-bar .menu-items .menu-item {
         padding: 5px
@@ -777,7 +899,7 @@ h4 {
         background-position: 60% 50%
     }
     .home-page .banner-wrapper .input-group {
-        margin-top: 100px
+        margin-top: 1px
     }
     .home-page .how-to-block {
         margin-top: 20px;

@@ -23,7 +23,7 @@ class Country < ActiveRecord::Base
     end
 
     attribute :hero_photo do
-      hero_h= photos.where(photos: { country_hero: true }).first
+      hero_h= photos.where(photos: { hero: true }).first
       hero= {}
       if hero_h.present?
         hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
@@ -125,8 +125,8 @@ class Country < ActiveRecord::Base
   has_many :countries_discounts
   has_many :discounts, through: :countries_discounts
 
-  # has_many :countries_photos
-  # has_many :photos, through: :countries_photos
+  has_many :countries_photos
+  has_many :old_photos, through: :countries_photos, source: :photo
 
   # has_many :countries_videos
   # has_many :videos, through: :countries_videos
@@ -137,7 +137,7 @@ class Country < ActiveRecord::Base
   has_many :fun_facts, -> { order "created_at ASC"}, as: :fun_factable
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
-  
+
   has_many :countries_famous_faces
   has_many :famous_faces, through: :countries_famous_faces
 
