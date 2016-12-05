@@ -150,6 +150,9 @@ class Country < ActiveRecord::Base
   has_many :countries_stories
   has_many :stories, through: :countries_stories
 
+  has_many :countries_users
+  has_many :users, through: :countries_users
+
   has_one :parent, :class_name => "ChildItem", as: :itemable
   has_many :childrens, :class_name => "ChildItem", as: :parentable
 

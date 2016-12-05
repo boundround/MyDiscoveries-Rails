@@ -129,6 +129,8 @@ Rails.application.routes.draw do
   post 'attractions_users/destroy' => 'attractions_users#destroy'
   post 'regions_users/create' => 'regions_users#create'
   post 'regions_users/destroy' => 'regions_users#destroy'
+  post 'countries_users/create' => 'countries_users#create'
+  post 'countries_users/destroy' => 'countries_users#destroy'
   post 'games_users/create' => 'games_users#create'
   post 'games_users/destroy' => 'games_users#destroy'
   post 'videos_users/create' => 'videos_users#create'

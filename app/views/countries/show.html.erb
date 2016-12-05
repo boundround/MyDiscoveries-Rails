@@ -24,11 +24,11 @@
                     <div class="destination-details">
 
                         <div class="favourites-wrapper">
-                            <% if user_signed_in? %>
-                              <div class="icon-favourite selected"></div>
-                              <div class="favourites-title hidden-xs" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from favourites</div>
+                            <% if user_signed_in? && @country.users.include?(current_user) %>
+                              <div class="icon-favourite selected" id="favouriteType" data-post-path="countries_users" data-klass="country" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                              <div class="favourites-title hidden-xs">Remove from favourites</div>
                             <% else %>
-                              <div class="icon-favourite" data-liked="false" id="favouriteType" data-klass="country" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                              <div class="icon-favourite" id="favouriteType" data-post-path="countries_users" data-klass="country" data-liked="false" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
                               <div class="favourites-title hidden-xs" >Add to favourites</div>
                             <% end %>
 
