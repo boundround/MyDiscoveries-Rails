@@ -20,7 +20,7 @@
             </div> -->
 
             <div class="favourites-wrapper">
-              <% if user_signed_in? %>
+              <% if user_signed_in? && @region.users.include?(current_user) %>
                 <div class="icon-favourite selected" id="favouriteType" data-post-path="regions_users" data-klass="region" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
                 <div class="favourites-title hidden-xs">Remove from favourites</div>
               <% else %>

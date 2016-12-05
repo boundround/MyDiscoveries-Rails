@@ -114,6 +114,9 @@ class Region < ActiveRecord::Base
   has_one :parent, :class_name => "ChildItem", as: :itemable
   has_many :childrens, :class_name => "ChildItem", as: :parentable
 
+  has_many :regions_users
+  has_many :users, through: :regions_users
+
   has_many :regions_stories
   has_many :stories, through: :regions_stories
 
