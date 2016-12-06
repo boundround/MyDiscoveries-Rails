@@ -103,7 +103,7 @@ class UserPhotosController < ApplicationController
 
     def user_photo_params
       params.require(:user_photo).permit(:title, :path, :caption, :hero, :story_id, :user_id,
-                                        :place_id, :area_id, :status, :google_place_id, :alt_tag, :credit,
+                                        :place_id, :status, :google_place_id, :alt_tag, :credit,
                                         :google_place_name, :instagram_id, :remote_path_url, :_destroy)
     end
 

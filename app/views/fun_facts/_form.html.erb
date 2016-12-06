@@ -14,9 +14,7 @@
     <div class="form-group">
       <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
     </div>
-    <% if @area %>
-      <%= f.input :area_id, as: :hidden, input_html: {value: @area.id } %>
-    <% elsif @place %>
+    <% if @place %>
       <%= f.input :fun_factable_id, as: :hidden, input_html: {value: @place.id } %>
       <%= f.input :fun_factable_type, as: :hidden, input_html: {value: "Place"} %>
     <% elsif @attraction %>

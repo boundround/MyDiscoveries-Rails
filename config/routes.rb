@@ -131,8 +131,6 @@ Rails.application.routes.draw do
   post 'regions_users/destroy' => 'regions_users#destroy'
   post 'countries_users/create' => 'countries_users#create'
   post 'countries_users/destroy' => 'countries_users#destroy'
-  post 'games_users/create' => 'games_users#create'
-  post 'games_users/destroy' => 'games_users#destroy'
   post 'videos_users/create' => 'videos_users#create'
   post 'videos_users/destroy' => 'videos_users#destroy'
   post 'user_photos_users/create' => 'user_photos_users#create'
@@ -171,7 +169,6 @@ Rails.application.routes.draw do
 
   get '/puzzles/:action' => 'puzzles#:action'
 
-  get '/users/games' => 'users#games'
   get '/users/videos' => 'users#videos'
   get '/users/places' => 'users#places'
   get '/users/fun_facts' => 'users#fun_facts'
@@ -206,10 +203,6 @@ Rails.application.routes.draw do
   end
 
   resources :videos do
-    collection { post :import }
-  end
-
-  resources :games do
     collection { post :import }
   end
 
@@ -377,7 +370,6 @@ Rails.application.routes.draw do
       collection { get 'all' }
     end
     resources :discounts
-    resources :games
     resources :reviews
     resources :stories
     resources :user_photos

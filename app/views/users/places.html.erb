@@ -13,7 +13,7 @@
       </div>
     </div>
     <a href="<%= root_path %>"><input type="image" src="<%= asset_path("home-button-blue.png") %>" class="globe-home"></a>
-    <% if !@user.favorite_places.blank? || !@user.favorite_areas.blank? %>
+    <% if !@user.favorite_places.blank?%>
         <% if !@user.favorite_places.blank? %>
           <% @user.favorite_places.each do |place| %>
             <div class="wishlist-place">
@@ -31,48 +31,18 @@
                         <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
                       </li>
                       <li>
-                        <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
+                        <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%#= place.games ? place.games.length : "00" %></a>
                       </li>
                       <li>
                         <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
                       </li>
                     </ul>
                   </div>
-                  <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
+                  <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%#= place.categories[0].name if !place.categories.blank? %></a>
                   <%= raw like_icon(place) %>
                 </div>
               </a>
             </div>
-          <% end %>
-          <% if !@user.favorite_areas.blank? %>
-            <% @user.favorite_areas.each do |area| %>
-              <div style="float: left;">
-                <a href="<%= area_path(area) %>" class="no-anchor-decoration">
-                  <div class="br_top_place">
-                    <div class="br_place_top">
-                      <img src="<%= area.photos.length > 0 ? area.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg') %>">
-                    </div>
-                    <div class="br_place_mid">
-                      <h4><%= area.display_name %></h4>
-                    </div>
-                    <div class="br_place_footer">
-                      <ul class="list-unstyled">
-                        <li>
-                          <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= area.videos ? area.videos.length : "00" %></a>
-                        </li>
-                        <li>
-                          <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= area.games ? area.games.length : "00" %></a>
-                        </li>
-                        <li>
-                          <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= area.photos ? area.photos.length : "00" %></a>
-                        </li>
-                      </ul>
-                    </div>
-                    <%= raw like_icon(area) %>
-                  </div>
-                </a>
-              </div>
-            <% end %>
           <% end %>
         <% end %>
     <% else %>

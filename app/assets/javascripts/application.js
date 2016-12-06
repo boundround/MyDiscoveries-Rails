@@ -29,7 +29,6 @@
 //= require cms
 //= require geocomplete
 //= require cookie
-//= require like
 //= require ratyrate
 //= require user-photo-upload
 //= require algoliasearch
