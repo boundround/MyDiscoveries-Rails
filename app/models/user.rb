@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
   has_many :favorite_places, through: :places_users, source: :place
   has_many :attractions_users
   has_many :favorite_attractions, through: :attractions_users, source: :attraction
+  has_many :regions_users
+  has_many :favorite_regions, through: :regions_users, source: :region
+  has_many :countries_users
+  has_many :favorite_countries, through: :countries_users, source: :country
   has_many :fun_facts_users
   has_many :fun_facts, through: :fun_facts_users
   has_many :posts_users
@@ -43,13 +47,9 @@ class User < ActiveRecord::Base
 
   rolify
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :omniauthable, :authentication_keys => [:email],
          :omniauth_providers => [:facebook, :twitter, :google_oauth2]
-  # devise :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
-
-  # after_create :create_mixpanel_profile
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
   validates :password, confirmation: true
@@ -84,7 +84,6 @@ class User < ActiveRecord::Base
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
         )
-        # user.skip_confirmation!
         user.save!
       end
     end
