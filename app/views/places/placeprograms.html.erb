@@ -29,41 +29,6 @@ var id = 'loader', fill = '#FFF',
 					<a class="fff" href="javascript:history.back()">Back to results</a>
 				</div>
 			</div>
-	<!--div class="col-md-3 col-sm-3 col-xs-5 left_login profile pull-right text-right">
-            <div class="dropdown z_index l_dropdown">
-                <button class="login btn-log dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                  Your Profile
-    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu l_dropdown_ul dropdown-menu-right pd15" role="menu" aria-labelledby="dropdownMenu1">
-                    <li>
-                    	<a href="#">Excursions</a>
-                    </li>
-
-                    <li>
-                    	<a href="#">Saved places</a>
-                    </li>
-                   	<li>
-                   		<a href="#">Activities</a>
-                   	</li>
-                    <li>
-                    	<a href="#">Students</a>
-                    </li>
-                    <li>
-                    	<a href="#">Reviews</a>
-                    </li>
-                    <li>
-                    	<a></a>
-                    </li>
-                    <li>
-                    	<a href="#">log out</a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-        <div class="clearfix">
-   </div-->
         </div>
 
 
@@ -79,20 +44,6 @@ var id = 'loader', fill = '#FFF',
 		<div class="container result-middle">
 			<div class="row result-box-top">
 				<div class="col-md-12 fff">
-
-						<!--IMPLEMENT WITH REVIEWS--div class="col-sm-6 col-xs-9  text-left">
-							<p>Jump to:&nbsp; <a href="#">Programs</a>&nbsp; <a href="#">Reviews</a>
-							</p>
-						</div>
-						<!--IMPLEMENT WITH FAVORITES--div class="col-sm-6 col-xs-3 text-right">
-							<p class="hidden-xs"><span>Save</span> <%=@place.display_name%>
-								<i class="fa fa-star rate"></i>
-							</p>
-							<p class="visible-xs">
-								<i class="fa fa-star rate"></i>
-							</p>
-						</div-->
-
 				</div>
 			</div>
 			<div class="row result-box-middle">
@@ -104,13 +55,6 @@ var id = 'loader', fill = '#FFF',
 								<span><a class="btn btn-default ss_website_button" href="<%=@place.website%>">Website</a></span>
 							</div>
 						</h2>
-						<!--div class="visible-xs">
-							<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart-o"></i>
-								<i class="fa fa-heart-o"></i>
-						</div-->
 						<p class="col-md-11 row">
 							<%=@place.school_safari_description.blank? ? (raw @place.description) : (raw @place.school_safari_description) %><br>
 							<!--a href="#" class="hidden-xs">Read More</a-->
@@ -142,17 +86,7 @@ var id = 'loader', fill = '#FFF',
 						</div>
 					</div>
 					<div class="col-md-3 col-sm-4 result-box-side hidden-xs">
-						<!--img src="../ss/img/logo3.png" class="center-block"/-->
 						<ul>
-							<!--IMPLEMENT WITH RATINGS--li>
-								Rating:&nbsp; <span>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart-o"></i>
-								<i class="fa fa-heart-o"></i>
-								</span>
-							</li-->
 							<li>
 								Year:&nbsp; <span><%=place_yearlevels(@place)%></span>
 							</li>
@@ -182,103 +116,6 @@ var id = 'loader', fill = '#FFF',
 			<%= render partial: "/programs/program_ss_full_for_modal", locals: {program: program} %>
 		</div>
 		<% end %>
-
-    <!--div id="myModal2" class="modal fade">
-        <div class="modal-dialog golu-p">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                </div>
-                <div class="col-md-11 modal-middle center-block">
-
-                	<div class="golu center-block">
-                	</div>
-                	<div class="golu2 center-block">
-                	</div>
-                	<div class="text-center">
-                	<img src="../ss/img/logo.png" class="golu-logo">
-                	</div>
-
-                	<div class="col-md-12">
-                		<h1 class="text-center ">Booking</h1>
-                		<p class="text-center done-modal-p">
-                			<span class="bold"><%=@place.display_name%></span><br>
-							<%=@place.display_name%><br>
-							<%=@place.display_address%><br>
-                		</p>
-                	</div>
-                	<div class="clearfix"></div>
-                	<div class="model-end-middle width-no">
-                		<div class="col-md-12">
-                			<div class="col-md-12">
-                				<div class="col-sm-3 border-right pad20">
-                					<p>Date</p>
-                					<div>
-                						<input type="text" value="22/05/2015" id="datepicker"><span class="new-cart caret"></span>
-                					</div>
-                				</div>
-                				<div class="col-sm-3 border-right pad20">
-                					<div class="divin">
-                				  		<p>Time</p>
-                					<select class="selectpicker">
-                						<option>13:00</option>
-                						<option>14:00</option>
-                						<option>15:00</option>
-                					</select>
-                				  </div>
-
-                				</div>
-                				<div class="col-sm-3 border-right pad20">
-                				  <div class="divin">
-                				  	<p>Year</p>
-                					<select class="selectpicker">
-                						<option>22/05/2015</option>
-                						<option>22/05/2015</option>
-                						<option>22/05/2015</option>
-                					</select>
-                				  </div>
-                				</div>
-                				<div class="col-sm-3 pad20">
-                					<div class="divin">
-                					<p>Program</p>
-                					<select class="selectpicker">
-                						<option>22/05/2015</option>
-                						<option>22/05/2015</option>
-                						<option>22/05/2015</option>
-                					</select>
-                				</div>
-                				</div>
-                			</div>
-                		</div>
-                		<div class="clearfix"></div>
-                	</div>
-                	<div class="col-md-12">
-                		<h1 class="text-center model-end  f36">Cost: $1550</h1>
-                	</div>
-
-                	<div class="col-sm-12 ">
-                		<a href="#" class="order book-now  form-control btn btn-default">Book</a>
-
-                	</div>
-                	<div class="col-md-12 ">
-                		<p class="text-center last-marg">
-                			On clicking book, we will email the venue with their details.
-                			<br> <span class="bold">
-                				They will contact you shortly with a confirmation
-                				</span>
-                		</p>
-                	</div>
-
-
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div-->
-
-
-
 		</div>
 		<div class="container max-1024">
 			<div class="row">
@@ -295,82 +132,7 @@ var id = 'loader', fill = '#FFF',
 				<%= render partial: "/programs/programs_ss_card"%>
 			</div>
 		</div>
-
-		<!--div class="result-footer">
-			<div class="container max-1024">
-				<div class="row">
-				 <div class="row width-no">
-				 	<div class="col-md-12">
-				 		<h2>Reviews</h2>
-				 		<p class="sub-hed hidden-xs">Looks like your have been here before, why don’t you
-				 			<span><a href="#">write a review?</a></span>
-				 		</p>
-				 	</div>
-				 </div>
-
-				 <div class="row width-no">
-				 	<div class="col-sm-3">
-				 		<h4>Meet with a keeper</h4>
-				 		<p>
-				 			“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-				 		</p>
-				 		<p class="anchor">
-				 			<a href="#">See entire review</a>
-				 		</p>
-				 		<img src="../ss/img/review.png" class="pull-left">
-				 		<p class="pull-left cl-name">Chris Jones,<br/>Mosman Public</p>
-				 		<div class="clearfix"></div>
-				 	</div>
-				 	<div class="col-sm-3">
-				 		<h4>Meet with a keeper</h4>
-				 		<p>
-				 			“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-				 		</p>
-				 		<p class="anchor">
-				 			<a href="#">See entire review</a>
-				 		</p>
-				 		<img src="../ss/img/review.png" class="pull-left">
-				 		<p class="pull-left cl-name">Chris Jones,<br/>Mosman Public</p>
-				 		<div class="clearfix"></div>
-				 	</div>
-				 	<div class="col-sm-3">
-				 		<h4>Meet with a keeper</h4>
-				 		<p>
-				 			“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-				 		</p>
-				 		<p class="anchor">
-				 			<a href="#">See entire review</a>
-				 		</p>
-				 		<img src="../ss/img/review.png" class="pull-left">
-				 		<p class="pull-left cl-name">Chris Jones,<br/>Mosman Public</p>
-				 		<div class="clearfix"></div>
-				 	</div>
-				 	<div class="col-sm-3">
-				 		<h4>Meet with a keeper</h4>
-				 		<p>
-				 			“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-				 		</p>
-				 		<p class="anchor">
-				 			<a href="#">See entire review</a>
-				 		</p>
-				 		<img src="../ss/img/review.png" class="pull-left">
-				 		<p class="pull-left cl-name">Chris Jones,<br/>Mosman Public</p>
-				 		<div class="clearfix"></div>
-				 	</div>
-				 </div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 see-more">
-						<a href="#" class="btn btn-default center-block">See more reviews</a>
-					</div>
-				</div>
-			</div>
-		</div-->
-
-
-
     <footer class="f_otter" >
-     <!--   <img src="../ss/img/Bound_logo.png" alt="bound_logo" />-->
         <nav class="navbar navbar-default nav_button">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -396,9 +158,6 @@ var id = 'loader', fill = '#FFF',
   </div><!-- /.container-fluid -->
 </nav>
     </footer>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../ss/js/bootstrap.min.js"></script>
@@ -459,30 +218,10 @@ var id = 'loader', fill = '#FFF',
 
 							<% @place.programs.each do |program| %>
 
-								/*
-			          $('#program_<%=program.id%>').click(function(e){
-			          		e.preventDefault();
-			          		$('#myModal_<%=program.id%>').modal('show');
-			          		setTimeout(function(){
-			          			slider_n.reloadSlider();
-			          		}, 400);
-
-			          });
-								*/
-/*			          $('.enquire-modal').click(function(e){
-			          		e.preventDefault();
-			          		$('#myModal').modal('show');
-			          		setTimeout(function(){
-			          			slider_n.reloadSlider();
-			          		}, 400);
-			          });
-*/
 				  		<% end %>
 
               $('.modal-header .close').click(function(e){
               	e.preventDefault();
-
-//              			$('#myModal,#myModal2').modal('hide');
               			$('.modal').modal('hide');
 
 

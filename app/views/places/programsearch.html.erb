@@ -45,40 +45,6 @@ var id = 'loader', fill = '#FFF',
         <div class="col-xs-offset-4 col-xs-4 visible-xs">
             <a href="/places/programsearch"><img src="../ss/img/small_logo.png" class="small_logo center-block" alt="LOGO" /></a>
         </div>
-        <!--div class="col-md-2 col-sm-2 col-xs-6 left_login pull-right text-right">
-            <div class="dropdown z_index l_dropdown">
-                <button class="login btn-log dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                    Login
-    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu l_dropdown_ul dropdown-menu-right pd15" role="menu" aria-labelledby="dropdownMenu1">
-                    <li>
-                        <input type="email" class="form-control login_form" placeholder="email address" />
-                    
-                        <input type="password" class="form-control login_form" placeholder="password" />
-                   
-                        <button type="submit" class="btn btn-default login_form_submit form-control">Sign in</button>
-                    </li>
-
-                    <li class="bg_none">
-                        <a href="#">create an account</a>
-                        <span class="speacer20"></span>
-                    </li>
-                   
-                    <li class="l_create_a text-center visible-xs">
-                     
-                         <span class="speacer20"></span>
-                        <span style="color:#fff;" >or</span>
-                        <div class="clearfix"></div>
-                          <span class="speacer10"></span>
-                         <button type="submit" class="btn btn-default l_create_btn">Create an account</button>
-                           <span class="speacer20"></span>
-                        
-                    </li>
-
-                </ul>
-            </div>
-        </div-->
     </div>
 
     <div class="container">
@@ -132,7 +98,6 @@ var id = 'loader', fill = '#FFF',
 
 
     <footer class="f_otter" >
-     <!--   <img src="img/Bound_logo.png" alt="bound_logo" />-->
         <nav class="navbar navbar-default nav_button">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -160,7 +125,6 @@ var id = 'loader', fill = '#FFF',
     </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
     
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../ss/js/bootstrap.min.js"></script>
@@ -174,41 +138,6 @@ var id = 'loader', fill = '#FFF',
 		        $("#search_button").click();
 		    }
 		});
-/*		
-		function get_search_params()
-		{
-			params="term="+$("#search_input").val();
-	
-			var v = $("#yearlevel_selector").val();
-			params += v != "All" ? "&yearlevel="+v : "";
-
-			var v = $("#subject_selector").val();
-			params += v != "All" ? "&subject="+v : "";
-
-			var v = $("#activity_selector").val();
-			params += v != "All" ? "&activity="+v : "";
-
-			var v = $("#location_selector").val();
-			params += v != "All" ? "&location="+v : ""; 
-
-			return params;
-		}
-
-		function ss_goto_search()
-		{
-			window.location.href = encodeURI("/places/programsearch?"+get_search_params());
-		}
-
-		function ss_goto_list_results()
-		{
-			setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params())},200);
-		}
-
-		function ss_goto_map_results()
-		{
-			setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params())},200);
-		}
-*/
 		</script>
 
     <script>
@@ -297,11 +226,5 @@ var id = 'loader', fill = '#FFF',
          },1000);
        
     })
-
-
-    
     </script>
-
-
-
 </body>

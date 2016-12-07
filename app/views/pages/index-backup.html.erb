@@ -1,11 +1,4 @@
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <!-- <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol> -->
-
   <!-- Wrapper for slides -->
   <div class="carousel-inner home-carousel top-outer-js" role="listbox">
     <div class="item active fix-img">
@@ -19,28 +12,7 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="item fix-img">
-      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-2.jpg" class="crop-image"  alt="kids-and-families-explore-2">
-      <div class="carousel-caption text-center text-light text-shadow">
-        <div class="text-caption">
-        <h3>"Kids are going to grow up and inherit the world. It's up to their parents and anybody who has a child in their life, to reach out a little bit and put them on that road"</h3>
-        <h6>Keith Bellows</h6>
-        </div>
-      </div>
-    </div>
-
-    <div class="item fix-img">
-      <img src="https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-3.jpg" class="crop-image"  alt="kids-and-families-explore-3">
-      <div class="carousel-caption text-center text-light text-shadow">
-        <div class="text-caption">
-        <h3>Find the best family-friendly activities and things to do around Australia. And get insider tips from local kids.</h3>
-        </div>
-      </div>
-    </div> -->
-
   </div>
-
 </div>
 <!-- #hardcode -->
 <div class="container-fluid top10 hidden-xs searchbackground">
@@ -53,46 +25,11 @@
           </div>
           <input type="text" name="search[common]" id="search-desktop" class="desktop-search search-box-bottom" placeholder="Search for things to do">
             <button class="btn btn-default hero-search" type="submit">Search</button>
-          <!--
-          <input id="" type="text" name="search[common]" id="search-common" class="form-control search-nav" placeholder="Search for destinations">-->
-          <!--<span class="input-group-btn">-->
-            <!--<button class="btn btn-default hero-search" type="submit"><i class="fa fa-search"></i></button>-->
-          <!--</span>-->
         </form>
         <%= render :partial=> "search_suggestions/search_results", :locals => { :data_class=>"search-results-bottom-container"}%>
 
       </div><!-- /input-group -->
-
-
-
-
-
-    </div><!--
-    <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
-      <a href="#" class="btn btn-brw-orange2 btn-search"><i class="fa fa-map-marker"></i><br>Nearby</a>
     </div>
-    <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
-      <a href="#" class="btn btn-brw-orange2 btn-search btn-responsive-search"><i class="fa fa-map-marker top10"></i> Nearby</a>
-    </div> -->
-    <!-- <form action="">
-      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-        <div class="input-group search-responsive">
-          <input type="text" class="form-control input-text-nearby" placeholder="Search for destinations">
-          <div class="cs-input-group-btn">
-            <input class="btn btn-default input-btn-nearby0 " type="submit" value="" >
-            <i class="fa fa-search cs-fa-nearby"></i>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-2 col-sm-2 hidden-lg hidden-md">
-        <input type="submit" value="" class="btn btn-brw-orange2 btn-search input-btn-nearby0"><i class="fa fa-map-marker cs-marker-nearby"></i><br>Nearby
-      </div>
-      <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
-        <input value="" type="submit"  class="btn btn-brw-orange2 btn-search btn-responsive-search input-btn-nearby1 ">
-        <span class="nearby-text"><i class="fa fa-map-marker top10"></i>
-        <span>Nearby</span></span>
-      </div>
-    </form> -->
   </div>
 </div>
 <div class="positionrelative">
@@ -161,17 +98,10 @@
                 Teenagers<i class="fa fa-caret-right"></i>
               <% end %>
             </div>
-            <!-- <div class="col-xs-12 col-sm-12 col-md-6 paddingleftright0">
-              <a href="#" class="btn btn-default btn-border btn-block">People with special needs<i class="fa fa-caret-right"></i></a>
-            </div> -->
           </div>
         </div>
     </div> <!-- row -->
   </div>
-
-  <!-- <div class="text-center clearfix visible-xs">
-  <a href="#" class="btn button-orange top5 btmminus52">View more travellers</a>
-</div> -->
 </section>
 
 
@@ -206,7 +136,6 @@
 <div class="container hidden-sm hidden-xs topmin140 padding-style">
   <div class="row">
     <div class="col-md-4 col-lg-4">
-      <%#= link_to specific_subcategories_path(age_ranges: '5-8') do %>
       <%= link_to searching_sub_cat_path('for-ages-5-8') do %>
         <div class="thumbnail padd0">
           <div class="image-cat">
@@ -290,7 +219,6 @@
     <% @subcategories.each do |category| %>
       <% if category.eql? @subcategories.first %>
         <div class="col-lg-12 col-md-12 btm15">
-          <%#= link_to subcategory_path(category.identifier) do %>
           <%= link_to searching_sub_cat_path(category.identifier) do %>
             <div class="img-bg-wide outer-js">
               <%= image_tag category.icon.url.to_s , class: 'img-explore-wide inner-js' %>

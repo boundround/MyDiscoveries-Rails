@@ -15,10 +15,8 @@
       <% end %>
     </div>
   </div>
-  <!-- <div class="row"> -->
     <div class="owl-carousel carousel" id ="stories-list">
       <%= render partial: "stories/all_stories_list", collection: @stories, as: :story %>
-    <!-- </div> -->
   </div> <!-- row -->
   <% unless last_page? @stories %>
     <div class="row hidden-xs single-pagination-container" id="stories-single-pagination-container">

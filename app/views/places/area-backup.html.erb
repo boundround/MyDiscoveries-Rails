@@ -88,7 +88,6 @@
                 </p>
                 <% end %>
               </div>
-              <!--<div class="population"><p class="gray-font">Population</p><p id="country-population" ></p></div>-->
               <div class="weather"><p class="gray-font">Weather</p><img id="icon" src=""/> <span id="temperature"></span></div>
               <div class="capital"><p class="gray-font">Found In</p><p><%= link_to_parent(@place) %></p></div>
             </div>
@@ -133,8 +132,6 @@
                 <% end %>
             </div>
           </div>
-      <!-- </div> -->
-    <!-- </section> -->
     </div> <!-- /col-left -->
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 
@@ -221,7 +218,6 @@
         </div>
         <div class="famous-text">
           <p class="title"><%= famous.name %></p>
-          <!-- <p class="gray-font">Actor</p> -->
           <p class="desc"><%= famous.description %></p>
         </div>
       </div>
@@ -240,5 +236,3 @@
 <%= render 'new_story' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
-<%#= render 'layouts/video_modal' %>
-<%#= render 'stories/modal_story' %>

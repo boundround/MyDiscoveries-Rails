@@ -186,29 +186,6 @@
         </div>
       </div>
     <% end %>
-
-<!--     <% unless @photos_hero.blank? %>
-      <div id="photos" class="large-carousel-wrapper">
-        <div class="large-owl-carousel owl-carousel">
-          <% @photos_hero.each do |photo| %>
-            <div class="carousel-slide">
-              <div class="carousel-img" style="background: url( <%= image_path(showing_image(photo.path_url(:large))) %>) no-repeat;"></div>
-              <div class="large-carousel-overlay">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <div class="camera"></div>
-                      <div id="cs-large-carousel-title" class="large-carousel-title"><h3><%= photo.caption %></h3></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    <% end %> -->
-
     <div id="photos">
       <%= render partial: "shared/photos_list", as: :photos, locals:{container: "container"} %>
     </div>
@@ -260,6 +237,3 @@
 <%= render 'layouts/all_modal' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
-
-<%#= render 'layouts/video_modal' %>
-<%#= render 'stories/modal_story' %>

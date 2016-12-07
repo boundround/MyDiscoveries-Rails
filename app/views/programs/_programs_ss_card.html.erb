@@ -5,7 +5,6 @@ Controller Variables Required
 	@programs - Vector of Programs
 -->
 <div class="row margin">
-	<!--% @place.programs.each do |program| %-->
 	<% @programs.each do |program| %>
 		<a href="#" onclick="my_program_touch(<%=program.id%>);">
 			<div id="program_<%=program.id%>" class="col-sm-4 col-xs-6">
@@ -31,13 +30,8 @@ Controller Variables Required
 			                 </div>                             
 			            </div>  
 			            <div class="box-left_top" style='border-radius:5px; color: black; background-color: #ddd; padding 20px; opacity:.5'>
-			                <!--img src="../ss/img/paw.png">&nbsp; <span>Animals</span-->
-												<span >&nbsp;<%=program_subjects_max(program,2)%>&nbsp;<span>
-			            </div>      
-									 
-			             <!--div class="box-right_top">
-			                <i class="fa fa-star map-gray"></i>
-			            </div-->                                      
+							<span >&nbsp;<%=program_subjects_max(program,2)%>&nbsp;<span>
+			            </div>                 
 			        </div>                   
 			   </div>               
 			</div>
