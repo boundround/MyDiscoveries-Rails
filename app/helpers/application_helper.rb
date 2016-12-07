@@ -403,21 +403,6 @@ module ApplicationHelper
     end
   end
 
-  def show_place_rating(place)
-    rating = place.quality_average.avg.round
-    remainder = 5-rating
-    text = ""
-    rating.times do
-      text += '<i class="fa fa-heart"></i>'
-    end
-    remainder.times do
-      text += '<i class="fa fa-heart-o"></i>'
-    end
-
-    text
-
-  end
-
   def strip_domain_from_username(user)
     begin
       if user.username.match(/@/)
@@ -434,15 +419,6 @@ module ApplicationHelper
     if Rate.where(rateable_id: review.reviewable_id).where(rateable_type: review.reviewable_type).where(rater_id: review.user.id).length > 0
       Rate.where(rateable_id: review.reviewable_id).where(rateable_type: review.reviewable_type).where(rater_id: review.user.id)[0].stars.round
     else
-      0
-    end
-  end
-
-  def calculate_user_points_for_asset(asset_collection)
-    begin
-      value = PointsValue.find_by(asset_type: asset_collection.first.class.to_s).value
-      value * asset_collection.length
-    rescue
       0
     end
   end
@@ -464,11 +440,6 @@ module ApplicationHelper
     return draw_hero_background(variable) if url.blank?
 
     url
-  end
-
-  def remote_file_exists?(url)
-    response = HTTParty.get(url)
-    response.code == 200 && response.headers['Content-Type'].start_with?('image')
   end
 
   def last_page? collection
