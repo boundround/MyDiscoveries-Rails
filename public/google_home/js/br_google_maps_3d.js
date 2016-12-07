@@ -72,14 +72,12 @@ var createMarkerInfoBoxContent = function(marker, markerType) {
 		var category = marker.icon.category;
 		var categoryIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/" + category + "_icon.png' alt='" + category + " icon'>";
 		var imageCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' height='14px' alt='photo count'>";
-		var gameCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png' height='14px' alt='games count'>";
 		var videoCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png' height='14px' alt='videos count'>";
 		var categoryText = category;
 		var url = "https://app.boundround.com" + marker.icon.target_url;
 		var heroImage = marker.icon.heroImage;
 		var imageCount = marker.icon.imageCount;
 		var videoCount = marker.icon.videoCount;
-		var gameCount = marker.icon.gameCount;
 		var placeTitle = marker.icon.title;
 		var placeId = marker.icon.placeId;
 
@@ -89,8 +87,7 @@ var createMarkerInfoBoxContent = function(marker, markerType) {
 
 		var text = '<div class="place-card" id="' + placeId + '">' + content + '<div class="card-footer"><div class="image-count">' +
 			imageCountIcon + '&nbsp;&nbsp;' + imageCount + '</div><div class="video-count">' +
-			videoCountIcon + '&nbsp;&nbsp;' + videoCount + '</div><div class="game-count">' +
-			gameCountIcon + '&nbsp;&nbsp;' + gameCount + '</div></div></div>';
+			videoCountIcon + '&nbsp;&nbsp;' + videoCount + '</div></div></div>';
 
 		return text;
 	}
@@ -139,7 +136,6 @@ var createMarkerArray = function(geoJSON, markerType, showme) {
 					target_url: location.properties.url,
 					imageCount: location.properties.imageCount,
 					videoCount: location.properties.videoCount,
-					gameCount: location.properties.gameCount,
 					heroImage: location.properties.heroImage,
 					placeId: location.properties.placeId,
 					area: location.properties.area,

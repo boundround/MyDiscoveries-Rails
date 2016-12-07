@@ -156,11 +156,6 @@
                     <li>
                       <a href="#stories">Stories</a>
                     </li>
-                    <% if !@place.games.blank? %>
-                      <li>
-                        <a href="#games">Games</a>
-                      </li>
-                    <% end %>
                     <% if !@place.fun_facts.blank? %>
                     <li>
                       <a href="#fun-facts">Fun Facts</a>
@@ -319,79 +314,6 @@
                   </div>
                 </div>
               </div>
-              <% if !@place.games.blank? %>
-                <a name="games"></a>
-                <div class="row br_games">
-                  <div class="col-md-12 text-center">
-                        <h2 class="">Fun activities <span class="hidden-xs">for you</span></h2>
-                        <ul class="list-unstyled hidden-xs text-center">
-                          <% @place.games.each do |game| %>
-                            <% if game.game_type == "jigsaw puzzle" %>
-                              <li>
-                                <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                                  <i class="fa  fa-puzzle-piece"></i><br><span class="hidden-sm">Jigsaw Puzzle</span>
-                                  <span class="arrow"></span>
-                                </a>
-                              </li>
-                            <% elsif game.game_type == "word search" %>
-                              <li class="">
-                                <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                                 <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word Search</span>
-                                 <span class="arrow"></span>
-                               </a>
-                             </li>
-                             <% elsif game.game_type == "slider" %>
-                              <li class="">
-                                <a href="#" class="game-icon" data-toggle="modal" data-target="#game-modal" data-game-url="<%= game.url %>">
-                                 <i class="fa fa-table"></i><br><span class=" hidden-sm hidden-xs">Slider Puzzle</span>
-                                 <span class="arrow"></span>
-                               </a>
-                             </li>
-                           <% end %>
-                         <% end %>
-                         <!-- <li class="">
-                          <a href="#">
-                           <i class="fa fa-question"></i><br><span class=" hidden-sm hidden-xs">Quiz</span>
-                           <span class="arrow"></span>
-                         </a>
-                       </li>
-                       <li class="">
-                        <a href="#">
-                          <i class="fa fa-ticket"></i><br><span class="hidden-sm hidden-xs">Postcard</span>
-                          <span class="arrow"></span>
-                        </a>
-                      </li> -->
-                   </ul>
-
-                   <select id="place_select_game" class="selectpicker visible-xs center-block">
-  									 <option value='ignore' selected="selected">
-                     <i class="fa  fa-puzzle-piece"></i><br>
-  									<span class="hidden-sm">Choose an activity</span>
-                     <span class="arrow"></span>
-  									 </option>
-                    <% @place.games.each do |game| %>
-                      <% if game.game_type == "jigsaw puzzle" %>
-                        <option value="<%= game.url%>">
-                            <i class="fa  fa-puzzle-piece"></i><br>
-  													<span class="hidden-sm">Jigsaw puzzle</span>
-                            <span class="arrow"></span>
-                        </option>
-                      <% elsif game.game_type == "word search" %>
-                        <option value="<%= game.url%>">
-                           <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Word search</span>
-                           <span class="arrow"></span>
-                       </option>
-                       <% elsif game.game_type == "slider" %>
-                        <option value="<%= game.url%>">
-                           <i class="fa fa-search"></i><br><span class=" hidden-sm hidden-xs">Slider</span>
-                           <span class="arrow"></span>
-                        </option>
-                      <% end %>
-                    <% end %>
-                   </select>
-                  </div>
-                </div>
-              <% end %>
               <!-- DISCOUNTS GO HERE -->
               <!-- <div class="row br_featured_place ">
                 <div class="col-md-12 br_place_bg">
@@ -471,9 +393,6 @@
                                     <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
                                   </li>
                                   <li>
-                                    <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
-                                  </li>
-                                  <li>
                                     <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
                                   </li>
                                 </ul>
@@ -522,9 +441,6 @@
                                       <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
                                     </li>
                                     <li>
-                                      <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
-                                    </li>
-                                    <li>
                                       <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
                                     </li>
                                   </ul>
@@ -564,22 +480,6 @@
     <p><%= link_to 'Edit Place', edit_place_path %></p>
   <% end %>
   <div id="place-id" data-place="<%= @place.place_id %>"></div>
-
-  <div id="game-modal" class="modal fade" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-      <div class="modal-content text-center">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
-        <div class="col-md-12 modal-middle center-block">
-          <h2 class="text-center editable editable-click"><%= @place.display_name %></h2>
-          <div id="game-body"></div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-    </div>
-  </div>
-
 
   <%= render 'reviews/form' %>
 <% else %>
@@ -647,9 +547,6 @@
                               <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
                             </li>
                             <li>
-                              <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
-                            </li>
-                            <li>
                               <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>
                             </li>
                           </ul>
@@ -697,9 +594,6 @@
                           <ul class="list-unstyled">
                             <li>
                               <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.length : "00" %></a>
-                            </li>
-                            <li>
-                              <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.length : "00" %></a>
                             </li>
                             <li>
                               <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.length : "00" %></a>

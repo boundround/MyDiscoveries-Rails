@@ -174,34 +174,6 @@
                 </div>
               <% end %>
             <% end %>
-
-            <% unless @place.games.empty? %>
-              <% @place.games.preview.each do |game| %>
-                <div class="item game game-card photo-card">
-                    <%= raw approve_icon(game) %>
-                  <div class="priority"><%= game.priority ? game.priority : 2 %></div>
-                  <%= content_tag "div", class: "game-data", data: {url: game.url} do %>
-                  <% end %>
-                  <div class="game-divider"></div>
-                  <% if game.game_type == 'jigsaw puzzle' %>
-                    <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('jigsaw_ds.png') %>"></div>
-                    <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
-                  <% elsif game.game_type == 'slider' %>
-                    <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('slider_ds.png') %>"></div>
-                    <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
-                  <% else %>
-                    <div class="video-play game-ds"><img class="video-play-background" src="<%= asset_path('wordsearch_ds.png') %>"></div>
-                    <img class="game-thumbnail" src="<%= game_thumbnail(game) %>" />
-                  <% end %>
-                  <div class="game-caption" style="background-color:<%= category_color_for(@place) %>">
-                    <p>Click to expand and play game!</p>
-                  </div>
-                  <div class="fun-fact">
-                    <p><%= raw game.instructions %></p>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
             <% if @place.display_name == "Virgin Australia"%>
               <div class="item fun_fact photo-card">
                 <div class="discount-card">

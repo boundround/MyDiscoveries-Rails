@@ -133,15 +133,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def games
-    if user_signed_in?
-      @set_body_class = 'br_tab blue_page'
-      @user = current_user
-    else
-      redirect_to new_user_registration_path, notice: "You must be logged in to view that"
-    end
-  end
-
   def places
     if user_signed_in?
       @set_body_class = 'br_tab blue_page'

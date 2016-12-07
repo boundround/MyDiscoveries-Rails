@@ -187,7 +187,6 @@ $(document).ready(function() {
 						url: location.properties.url,
 						imageCount: location.properties.imageCount,
 						videoCount: location.properties.videoCount,
-						gameCount: location.properties.gameCount,
 						heroImage: location.properties.heroImage,
 						placeId: location.properties.placeId,
 						area: location.properties.area,
@@ -196,16 +195,6 @@ $(document).ready(function() {
 				}
 			}
 
-			// Only create marker if it has lat and long
-			/* Google Way		    
-					    function addMarker(feature) {
-						  var marker = new google.maps.Marker({
-						    position: feature.position,
-						    icon: icons[feature.type].icon,
-						    map: map
-						  });
-						};
-			*/
 			if (location.geometry.coordinates[1] && location.geometry.coordinates[0]) {
 				var marker = L.marker(new L.LatLng(location.geometry.coordinates[1], location.geometry.coordinates[0]), {
 					icon: areaIcon,
@@ -329,40 +318,21 @@ $(document).ready(function() {
 				var category = marker.options.category;
 				var categoryIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/" + marker.options.category + "_icon.png' alt='" + marker.options.category + " icon'>";
 				var imageCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png' height='14px' alt='photo count'>";
-				var gameCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png' height='14px' alt='games count'>";
 				var videoCountIcon = "<img src='https://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png' height='14px' alt='videos count'>";
 				var categoryText = formatCategory(category);
 				var url = marker.options.icon.options.url;
 				var heroImage = marker.options.icon.options.heroImage;
 				var imageCount = marker.options.icon.options.imageCount;
 				var videoCount = marker.options.icon.options.videoCount;
-				var gameCount = marker.options.icon.options.gameCount;
 				var placeTitle = marker.options.icon.options.title;
 				var placeId = marker.options.icon.options.placeId;
 
 				var content = '<div class="upper-card" style="background-image: url(' + heroImage + ')"><div class="card-category">' +
 					categoryIcon + categoryText + '</div></div><a class="no-anchor-decoration" href="' + url +
 					'"><p class="place-title ' + category + '">' + placeTitle + '</p><br></a>' + "</div></div>";
-
-				/*		
-						      text += '<div class="place-card" id="' + placeId + '">' + content + '<div class="card-footer"><div class="image-count">' +
-						      imageCountIcon + '&nbsp;&nbsp;' + imageCount + '</div><div class="video-count">' +
-						      videoCountIcon + '&nbsp;&nbsp;' + videoCount + '</div><div class="game-count">' +
-						      gameCountIcon + '&nbsp;&nbsp;' + gameCount + '</div></div></div>';
-				*/
 				//Google way?
 				marker.bindPopup(content);
 
-				//Google way?
-				/*
-				google.maps.event.addListener(marker, 'mouseover', function() {
-				  this.setAnimation(google.maps.Animation.BOUNCE);
-				});
-				
-				google.maps.event.addListener(marker, 'mouseout', function() {
-				  this.setAnimation(null);
-				});
-*/
 				$('.leaflet-marker-icon')
 					.mouseenter(function() {
 						$(this).css('height', '45px').css('width', '30px');
