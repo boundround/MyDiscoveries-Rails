@@ -66,3 +66,4 @@
 //= require place_videos
 //= require area
 //= require cms_offers
+//= require offers
