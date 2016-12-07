@@ -1,5 +1,4 @@
-﻿// (function(){
-$(document).ready(function() {
+﻿$(document).ready(function() {
     var injectSvgs = document.querySelectorAll("img.svg-inject");
     SVGInjector(injectSvgs);
 
@@ -106,4 +105,3 @@ $(document).ready(function() {
         createOwlCarousel();
     }
 });
-// })();

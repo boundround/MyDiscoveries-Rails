@@ -321,7 +321,6 @@
             map = regionMap._map,
             marker = new google.maps.Marker({
                 position: {lat: pointData.lat, lng: pointData.lng},
-                // map: map,
                 draggable: false,
                 icon: pathToMapPoint,
                 optimized: false,
