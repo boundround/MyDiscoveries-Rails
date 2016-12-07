@@ -30,9 +30,6 @@
       <ul class="share-buttons">
         <li><div class="share-button" id="shareBtn" title="Share on Facebook"><img class="share-icon" src="<%= asset_path('social_icons/Facebook.png') %>"></div></li>
         <li><a class="twitter-share-button" href="https://twitter.com/intent/tweet?source=&text=<%= "#{@story.title} #{post_url(@story)}%20%23SeeItMyWay"%>" target="_blank" title="Tweet"><img  class="share-icon" src="<%= asset_path('social_icons/Twitter.png') %>"></a></li>
-        <!-- <li><div href="https://plus.google.com/share?url=" target="_blank" title="Share on Google+"><img src="<%= asset_path('social_icons/Google+.png') %>"></div></li>
-        <li><div href="http://pinterest.com/pin/create/button/?url=&description=" target="_blank" title="Pin it"><img src="<%= asset_path('social_icons/Pinterest.png') %>"></div></li> -->
-        <!-- <li><div href="mailto:?subject=&body=:%20" target="_blank" title="Email"><img  class="share-icon" src="<%= asset_path('social_icons/Email.png') %>"></div></li> -->
       </ul>
     </section>
     <section class="col-lg-3 col-md-3 col-xs-5">
@@ -101,17 +98,6 @@
     </div>
   </section>
 <% end %>
-
-<%# if @stories.present? %>
-  <!-- <section class="your-stories video-show">
-    <div class="container">
-      <div class="text-left"></div>
-      <div class="row">
-        <%#= render partial: "stories/all_stories"%>
-      </div>
-    </div>
-  </section> -->
-<%# end %>
 
 <script>
 (function(){

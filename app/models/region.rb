@@ -77,7 +77,6 @@ class Region < ActiveRecord::Base
       'Region' if self.class.to_s == 'Region'
     end
 
-    # attributesToIndex ['display_name', 'unordered(description)']
     attributesToIndex [
       'display_name',
       'unordered(description)',
@@ -131,7 +130,6 @@ class Region < ActiveRecord::Base
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :stories, allow_destroy: true
-  # after_create :update_parentable_id
 
   def get_parents(region, parents = [])
     unless !self.run_rake.blank? || (no_parent_select.eql? "true")
@@ -184,6 +182,8 @@ class Region < ActiveRecord::Base
         end
       end
 
+
+      #Build map object
       childrens_collect.each do |place|
         data_objs = {}
         data_objs['#place'] = place.display_name

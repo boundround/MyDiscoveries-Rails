@@ -12,7 +12,6 @@ class UserPhoto < ActiveRecord::Base
   has_many :users, through: :user_photos_users
 
   mount_uploader :path, UserPhotoUploader
-  # process_in_background :path ###This is not working for versions
 
   scope :active, -> { where(status: "live") }
   scope :recent, -> { order('created_at DESC') }

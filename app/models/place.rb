@@ -152,12 +152,6 @@ class Place < ActiveRecord::Base
       else
         ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
       end
-
-        # if ((5..8).include?(minimum_age) and (5..8).include?(maximum_age)) or ((9..12).include?(minimum_age) and (9..12).include?(maximum_age) )
-        #   "For Ages #{minimum_age}-#{maximum_age}"
-        # else
-        #   'Teens'
-        # end
     end
 
     attribute :weather do
@@ -255,9 +249,6 @@ class Place < ActiveRecord::Base
                                               as: :cacheable,
                                               class_name: 'RatingCache',
                                               dependent: :destroy
-
-  # reverse_geocoded_by :latitude, :longitude
-  # after_validation :reverse_geocode
 
   after_update :crop_hero_image
   before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_meta_description
@@ -362,14 +353,6 @@ class Place < ActiveRecord::Base
     end
   end
 
-  # def self.text_search(query)
-  #   if query.present?
-  #     search(query)
-  #   else
-  #   # rescue ""
-  #     scoped
-  #   end
-  # end
   def self.return_first_place_id_from_search_results(search_response, region)
     id = nil
     search_response["hits"].each do |hit|
@@ -395,7 +378,6 @@ class Place < ActiveRecord::Base
 
   def Place.all_placeareas_geojson
     # Fetch place GeoJSON from cache or store it in the cache.
-#    Rails.cache.fetch('placeareas_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
       places = self.active.includes(:country)
       places.each do |place|
@@ -409,7 +391,7 @@ class Place < ActiveRecord::Base
             "title"=> place.display_name,
             "url" => '/places/' + place.slug + '.html',
             "id" => place.id,
-            "places" => false,#area.places.all? { |place| place.status = "live" },
+            "places" => false,
             "icon" => {
               "iconUrl" => 'https://s3-ap-southeast-2.amazonaws.com/brwebproduction/vector_icons/orange_plane.png',
               # size of the icon
@@ -417,14 +399,13 @@ class Place < ActiveRecord::Base
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
             },
-            "placeCount" => 0,#area.places.length,
+            "placeCount" => 0,
             "country" => (place.country ? place.country.display_name : "")
           }
         }
       end
 
       geojson
-#    end
   end
 
   def Place.all_geojson
@@ -436,12 +417,6 @@ class Place < ActiveRecord::Base
         if place.area != nil
           area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.length, "country" => (place.country ? place.country.display_name : "") }
         end
-        # Assign icon based on 'premium' level and category
-        # if place.categories[0].nil?
-        #   place_type = 'sights'
-        # else
-        #   place_type = place.categories[0].identifier
-        # end
 
         icon_file_name = place_type + "_pin.png"
 
@@ -736,9 +711,8 @@ class Place < ActiveRecord::Base
 
   class << self
     def filter params= {}
-      res= self.all#where(id: nil)
+      res= self.all
       if params.present?
-        #res= res.joins(:primary_category)
         if params[:min_age]
           res= res.where(" places.minimum_age >= ?", params[:min_age])
         end

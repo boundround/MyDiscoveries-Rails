@@ -75,20 +75,6 @@
     <div class="action">
     <div class="left">
       <ul>
-        <!-- Add To Favourites -->
-<!--           <%# if user_signed_in? && @place.users.include?(current_user) %>
-          <li>
-            <i class="fa fa-bookmark-o"></i><a href="#" class="place-favorite white" data-liked="true" data-place-id="<%#= @place.id.to_s %>" data-user-id="<%#= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Remove From Favourites</a>
-          </li>
-        <%# else %>
-          <li>
-            <i class="fa fa-bookmark-o"> </i><a href="#" class="place-favorite white" data-liked="false" data-place-id="<%#= @place.id.to_s %>" data-user-id="<%#= user_signed_in? ? current_user.id.to_s : 'no-user' %>"> Add To Favourites</a>
-          </li>
-        <%# end %> -->
-
-       <!--  <%# if user_signed_in? && current_user.admin? %>
-          <li><a href="<%#= new_polymorphic_path([@place, Story.new]) %>" class="white" ><i class="fa fa-file-text-o"></i> Tell your story</a></li>
-        <%# end %> -->
       </ul>
     </div>
       <div class="pull-right hidden-xs">
@@ -273,7 +259,6 @@
 <% end %>
 </div> <!-- area-content -->
 
-<%#= render 'user_photos/form' %>
 <%= render 'layouts/all_modal' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>

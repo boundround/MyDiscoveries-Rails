@@ -23,7 +23,6 @@
                 </div>
             </div>
             <div class="br15_search_result cs-br15_search_result">
-              <%#= render "search_suggestions/search_results" %>
             </div>
 
             <div class="col-xs-12 col-sm-6 text-right pull-right"> <%= render 'layouts/profile_dropdown' %> </div>
@@ -95,7 +94,6 @@
                               </a>
                             <% end %>
                           <% end %>
-                        <!-- </li> -->
                     </h3>
                 </div>
                 <div class="col-sm-4 col-xs-12 text-center br15_light_font">
@@ -108,7 +106,6 @@
                                     <a href="#"  data-toggle="modal" data-target="#signInModal"  class="btn btn-primary">Leave Review</a>
                                 <% end %>
 
-                                <!-- <a href="#" class="btn btn-primary">Add To Wishlist</a> -->
                                  <% if user_signed_in? && @place.users.include?(current_user) %>
                                     <a class="btn btn-primary" href="#" id="place-favorite" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from wishlist</a>
                                   <% else %>
@@ -155,7 +152,6 @@
                             </div>
                         </div>
                       </div>
-                    <%# end %>
                   <% end %>
                 </div><!--/.owl-carousel -->
             </div>
@@ -221,43 +217,6 @@
         <div class="br15_videos br15_nearby    container-fluid">
             <a href="#" class="btn btn-default new-btn-orange br15_pad_bot_5  br15_features_btn  br15_Title_See_All">Nearby</a>
             <div class="row">
-                <!-- <div id="br15_owl_nearby" class="owl-carousel">
-                    <% @nearby_places.each do |place| %>
-                        <div>
-                            <a href="<%= place_path(place) %>" class="no-anchor-decoration">
-                                <div class="embed-responsive embed-responsive-16by9 ">
-                                    <img class="embed-responsive-item" src="<%= draw_small_background(place) %>">
-                                </div>
-                                <div class="text-center br15_text_nearby">
-                                    <h2><%= place.display_name %></h2>
-                                    <h1>
-                                        <% if place.quality_average %>
-                                            <%= rating_for place, "quality", :read_only => true %> (<%= place.quality_average.qty %>)
-                                        <% else %>
-                                            <span class="">
-                                                <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>(0)
-                                            </span>
-                                        <% end %>
-                                    </h1>
-                                    <div class="br_place_footer">
-                                        <ul class="list-unstyled">
-                                          <li>
-                                            <a href="#"><i class="fa fa-video-camera"></i> &nbsp; <%= place.videos ? place.videos.size : "00" %></a>
-                                          </li>
-                                          <li>
-                                            <a href="#"><i class="fa fa-puzzle-piece"></i> &nbsp; <%= place.games ? place.games.size : "00" %></a>
-                                          </li>
-                                          <li>
-                                            <a href="#"><i class="fa fa-picture-o"></i> &nbsp; <%= place.photos ? place.photos.size : "00" %></a>
-                                          </li>
-                                        </ul>
-                                    </div>
-                                  <a href=" " class="br_top_left"><i class="fa fa-paper-plane"></i> <%= place.categories[0].name if !place.categories.blank? %></a>
-                                </div>
-                            </a>
-                        </div>
-                    <% end %>
-                </div> -->
             </div>
         </div><!--/.br15_nearby -->
     <% end %>

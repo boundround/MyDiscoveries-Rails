@@ -63,13 +63,7 @@
                         </div>
                       </a>
                     <% end %>
-
-                      <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                        <a class="btn btn-default btn-margin-top-bottom btn-radius2 btn-shadow2 btn-brw-orange2">View all places to go</a>
-                      </div> -->
-
                     </div> <!-- col -->
-
                     <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6">
                       <div class="border-section visible-xs visible-sm"></div>
                             <section class="places-to-go">
@@ -114,7 +108,6 @@
           </ul>
         </li>
         <li class=""><%= link_to "Things To Do", subcategories_path %></li>
-        <!-- <li class=""><a href="#">Trips for Everyone</a></li> -->
       </ul>
       <ul class="nav navbar-nav first-ul">
         <p class="find visible-xs">Browse</p>
@@ -133,11 +126,6 @@
         <li>
           <div class="input-group input-search-nav">
           <!-- #check -->
-<!--             <%#= form_tag('/serach', method: :get, id: "top-search") do %>
-              <%#= submit_tag '', class: "btn btn-default", id: "btn-search-top" %>
-              <i class="fa fa-search"></i>
-              <%#= text_field_tag 'term', nil , placeholder: 'Search for destinations', class: "search-nav", id: "search-box"%>
-            <%# end %> -->
             <div class="input-group input-search-nav">
 
               <%= form_tag searching_path, id: '', method: :get  do %>

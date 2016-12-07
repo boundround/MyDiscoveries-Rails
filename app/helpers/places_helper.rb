@@ -56,18 +56,14 @@ module PlacesHelper
   end
 
   def pick_a_place_hero_url(place)
-    #counts kill performance!
-#    place.photos[rand(place.photos.size-1)].path
     place.photos[0].path
   end
   def pick_a_place_photo_url(place)
-#    asset_path(place.photos[rand(place.photos.size-1)].path_url(:small))
     asset_path(place.photos[0].path_url(:small))
   end
 
   def pick_a_program_hero_url(place)
     if place.programs then
-#      p1 = place.programs[rand(place.programs.size-1)].heroimagepath
       p1 = place.programs[0].heroimagepath
     end
 
@@ -116,13 +112,6 @@ module PlacesHelper
     end
   end
 
-  # def place_categories(place)
-  #   res = String.new
-  #   place.categories.each do |p|
-  #     res += p.programyearlevel_list.to_s
-  #   end
-  # end
-  #
   def yl_as_csv_string(a_programyearlevels)
     yls = ""
     a_programyearlevels.each do |yl|
@@ -162,7 +151,6 @@ module PlacesHelper
 
     @ylvec.each do |yl|
       als.each do |al|
-#        puts "al = " + al + " : yl = " + yl
         if al == yl then
           first = yl
           break
@@ -175,7 +163,6 @@ module PlacesHelper
 
     @ylvec.reverse_each do |yl|
       als.each do |al|
-#        puts "al = " + al + " : yl = " + yl
         if al == yl then
           last = yl
           break
@@ -202,7 +189,6 @@ module PlacesHelper
       yls += yl.name
     end
     yls
-    #program.programyearlevel_list
   end
 
   def program_subjects_max(program,max_num)
@@ -216,7 +202,6 @@ module PlacesHelper
       break if idx > max_num
     end
     yls
-    #program.programyearlevel_list
   end
 
   def program_activities(program)
@@ -227,6 +212,5 @@ module PlacesHelper
       pas += pa.name
     end
     pas
-    #program.programyearlevel_list
   end
 end

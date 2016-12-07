@@ -43,16 +43,6 @@ class RegionsController < ApplicationController
       respond_to do |format|
         format.json { render json: @region }
         format.html do
-          # @region.photos.each do |photo|
-          #   photo.add_or_remove_from_country(@region.country)
-          # end
-
-          # @region.videos.each do |video|
-          #   video.add_or_remove_from_country(@region.country)
-          # end
-          # @region.fun_facts.each do |fun_fact|
-          #   fun_fact.add_or_remove_from_country(@region.country)
-          # end
           redirect_to edit_region_path(@region), notice: 'Region succesfully updated'
         end
       end
