@@ -51,6 +51,15 @@ class PhotosController < ApplicationController
     end
   end
 
+  def country_update
+    @photo = Photo.find(params[:id])
+    if @photo.update(photo_params)
+      redirect_to choose_hero_country_path(@photo.photoable), notice: "Region Succesfully Updated"
+    else
+      redirect_to choose_hero_country_path(@photo.photoable), notice: "Error"
+    end
+  end
+
   def story_update
     @photo = Photo.find(params[:id])
     if @photo.update(photo_params)
@@ -65,6 +74,8 @@ class PhotosController < ApplicationController
       @place = Place.friendly.find(params[:place_id])
     elsif params[:attraction_id]
       @attraction = Attraction.friendly.find(params[:attraction_id])
+    elsif params[:country_id]
+      @country = Country.friendly.find(params[:country_id])
     end
 
     @photos = @place.photos
@@ -76,6 +87,7 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(photo_params)
+
     if params[:country_id]
       @photo.countries << Country.friendly.find(params[:country_id])
     end
@@ -103,7 +115,6 @@ class PhotosController < ApplicationController
 
   def update
     @photo = Photo.find(params[:id])
-
     if @photo.update(photo_params)
       @photo.save
     end
@@ -122,7 +133,7 @@ class PhotosController < ApplicationController
   private
     def photo_params
       params.require(:photo).permit(
-        :title, :path, :alt_tag, :credit, :area_id, :place_id, :attraction_id, 
+        :title, :path, :alt_tag, :credit, :area_id, :place_id, :attraction_id,
         :photoable_id, :photoable_type, :caption, :caption_source,
         :customer_approved, :customer_review, :approved_at, :priority, :hero,
         :status, :country_hero, :country_include, :_destroy

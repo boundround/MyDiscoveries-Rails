@@ -40,6 +40,9 @@
       <% elsif @region %>
         <%= f.input :photoable_id, as: :hidden, input_html: {value: @region.id } %>
         <%= f.input :photoable_type, as: :hidden, input_html: {value: "Region" } %>
+      <% elsif @country %>
+        <%= f.input :photoable_id, as: :hidden, input_html: {value: @country.id } %>
+        <%= f.input :photoable_type, as: :hidden, input_html: {value: "Country" } %>
       <% end %>
     </div>
     <div class="form-group">

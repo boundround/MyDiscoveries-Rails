@@ -29,6 +29,9 @@
     <% elsif @region %>
       <%= f.input :videoable_id, as: :hidden, input_html: {value: @region.id } %>
       <%= f.input :videoable_type, as: :hidden, input_html: {value: "Region"} %>
+    <% elsif @country %>
+      <%= f.input :videoable_id, as: :hidden, input_html: {value: @country.id } %>
+      <%= f.input :videoable_type, as: :hidden, input_html: {value: "Country"} %>
     <% end %>
   </div>
   <div class="form-group">

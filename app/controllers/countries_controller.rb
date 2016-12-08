@@ -38,6 +38,11 @@ class CountriesController < ApplicationController
     @countries = Country.all
   end
 
+  def edit_fun_fact
+    @country = Country.friendly.find(params[:id])
+    @fun_fact = FunFact.find(params[:fun_fact_id])
+  end
+
   def create
     @country = Country.new(country_params)
 
@@ -93,6 +98,30 @@ class CountriesController < ApplicationController
   def paginate_deals
     @country = Country.friendly.find(params[:id])
     @deals = @country.deals.active.paginate(:page => params[:active_photos], per_page: 4)
+  end
+
+  def choose_hero
+    @country = Country.find_by_slug(params[:id])
+    @user_photos = @country.user_photos
+    @country_photos = @country.photos
+    @photo = Photo.new
+  end
+
+  def update_hero
+    @country = Country.friendly.find(params[:id])
+    photo_id = params[:photo_id]
+    @country.photos.each do |photo|
+      if photo.id.to_s.eql? photo_id
+         photo.hero = true
+      else
+        photo.hero = false
+      end
+        photo.save
+    end
+    @country.save
+
+    redirect_to choose_hero_country_path(@country)
+
   end
 
   private
