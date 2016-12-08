@@ -24,7 +24,7 @@ class Country < ActiveRecord::Base
 
     attribute :hero_photo do
       hero_h= photos.where(photos: { country_hero: true }).first
-      hero= {}
+      hero  = {}
       if hero_h.present?
         hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
       else
@@ -75,13 +75,7 @@ class Country < ActiveRecord::Base
       'publish_date',
     ]
 
-    customRanking [
-      'desc(is_country)',
-      'desc(is_area)',
-      'desc(primary_category_priority)',
-      'desc(page_ranking_weight)',
-      'desc(has_hero_image)',
-    ]
+    customRanking Searchable.custom_ranking
 
     attributesForFaceting [
       'where_destinations',

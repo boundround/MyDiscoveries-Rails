@@ -22,7 +22,17 @@ class Place < ActiveRecord::Base
                :viator_link,
                :primary_category_priority,
                :is_area,
-               :page_ranking_weight
+               :page_ranking_weight,
+               :age_range,
+               :weather,
+               :price,
+               :best_time_to_visit,
+               :subcategories,
+               :accessibility,
+               :hero_photo,
+               :accessible,
+               :main_category,
+               :subcategory
 
     synonyms [
         ["active", "water sports", "sports", "sport", "watersports"],
@@ -84,18 +94,6 @@ class Place < ActiveRecord::Base
       "map-marker"
     end
 
-    attribute :main_category do
-      primary_category.name if primary_category.present?
-    end
-
-    attribute :subcategories do
-      subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
-    end
-
-    attribute :subcategory do
-      subcategories.subcats.map{|sub| sub.name}
-    end
-
     attribute :name do
       string = "#{display_name}"
       if !locality.blank?
@@ -117,75 +115,16 @@ class Place < ActiveRecord::Base
       photo_array
     end
 
-    attribute :hero_photo do
-      hero_h = photos.where(photos: { hero: true })
-      hero_h += user_photos.where(user_photos: { hero: true })
-      hero_h = hero_h.first
-      hero= {}
-      if hero_h.present?
-        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
-      else
-        hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
-      end
-      hero
-    end
-
     attribute :has_hero_image do
       photos.exists?(hero: true) || user_photos.exists?(hero: true)
     end
 
-    attribute :age_range do
-      if minimum_age.present? and maximum_age.present?
-        if minimum_age > 12
-          ["Teens"]
-        elsif minimum_age > 8 && maximum_age < 13
-          ["For Ages 9-12"]
-        elsif minimum_age > 8
-          ["For Ages 9-12", "Teens"]
-        elsif maximum_age < 13
-          ["For Ages 5-8", "For Ages 9-12"]
-        elsif maximum_age < 9
-          ["For Ages 5-8"]
-        else
-          ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
-        end
-      else
-        ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
-      end
-
-        # if ((5..8).include?(minimum_age) and (5..8).include?(maximum_age)) or ((9..12).include?(minimum_age) and (9..12).include?(maximum_age) )
-        #   "For Ages #{minimum_age}-#{maximum_age}"
-        # else
-        #   'Teens'
-        # end
-    end
-
-    attribute :weather do
-      subcategories.where(category_type: 'weather').map{ |sub|  sub.name }
-    end
-
-    attribute :price do
-      subcategories.where(category_type: 'price').map{ |sub|  sub.name }
-    end
-
-    attribute :best_time_to_visit do
-      subcategories.where(category_type: 'optimum_time').map{ |sub|  sub.name }
-    end
-
-    attribute :accessibility do
-      subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
+    attribute :subcategories do
+      subcategories.map { |sub| { name: sub.name, identifier: sub.identifier } }
     end
 
     attribute :parents do
       self.get_parents(self).map {|place| place.display_name rescue ''}
-    end
-
-    attribute :accessible do
-      if subcategories.any? { |sub| sub.category_type == "accessibility" }
-        "accessible"
-      else
-        ""
-      end
     end
 
     attribute :display_address do
@@ -215,13 +154,7 @@ class Place < ActiveRecord::Base
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
-    customRanking [
-      'desc(is_country)',
-      'desc(is_area)',
-      'desc(primary_category_priority)',
-      'desc(page_ranking_weight)',
-      'desc(has_hero_image)',
-    ]
+    customRanking Searchable.custom_ranking
 
     attributesForFaceting [
       'where_destinations',
@@ -732,9 +665,23 @@ class Place < ActiveRecord::Base
   end
 
   private
-    def algolia_id
-      "place_#{id}" # ensure the place & country IDs are not conflicting
+
+  def hero_photo
+    hero_h = photos.where(photos: { hero: true })
+    hero_h += user_photos.where(user_photos: { hero: true })
+    hero_h = hero_h.first
+    hero = {}
+    if hero_h.present?
+      hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
+    else
+      hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
     end
+    hero
+  end
+
+  def algolia_id
+    "place_#{id}" # ensure the place & country IDs are not conflicting
+  end
 
 
   class << self

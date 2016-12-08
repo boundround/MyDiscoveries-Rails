@@ -67,6 +67,8 @@ class LivnOffersCreationService
       response.offer.send "#{attribute}=", product.try(:[], attribute)
     end
 
+    response.offer.livn_product_id = product_id
+
     if response.offer.save
       response.status = :success
     else
