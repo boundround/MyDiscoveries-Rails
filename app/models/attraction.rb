@@ -254,9 +254,6 @@ class Attraction < ActiveRecord::Base
   has_many :attractions_users
   has_many :users, through: :attractions_users
 
-  has_many :customers_attractions
-  has_many :owners, through: :customers_attractions, :source => :user
-
   has_many :similar_attractions
   has_many :associated_areas, through: :similar_attractions, source: :similar_attraction
 

@@ -285,6 +285,7 @@ class Place < ActiveRecord::Base
   has_many :childrens, :class_name => "ChildItem", as: :parentable
 
   has_many :places_subcategories
+  has_many :discounts
   has_many :similar_places
   has_many :associated_areas, through: :similar_places, source: :similar_place
   has_many :subcategories, through: :places_subcategories
@@ -304,9 +305,6 @@ class Place < ActiveRecord::Base
 
   has_many :places_stories
   has_many :stories, through: :places_stories
-
-  has_many :customers_places
-  has_many :owners, through: :customers_places, :source => :user
 
   has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable

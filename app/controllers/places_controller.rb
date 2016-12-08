@@ -30,9 +30,6 @@ class PlacesController < ApplicationController
     @photo = @place.photos.where(hero: true).first
   end
 
-  def subcategory_match_test
-  end
-
   def subcategory_match
     index = Algolia::Index.new("place_#{Rails.env}")
     @search_string = ""
