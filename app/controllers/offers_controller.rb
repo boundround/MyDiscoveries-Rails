@@ -1,5 +1,6 @@
 class OffersController < ApplicationController
   before_action :check_user_authorization, except: :show
+  before_action :set_offer, only: [ :show, :update, :edit, :destroy ]
 
   def show
   end
@@ -38,7 +39,6 @@ class OffersController < ApplicationController
   end
 
   def update
-    @offer = Offer.find(params[:id])
     @offer.assign_attributes(offer_params)
     @offer.tags.select!(&:present?)
     if @offer.save
@@ -50,16 +50,19 @@ class OffersController < ApplicationController
   end
 
   def destroy
-    @offer = Offer.find(params[:id])
     @offer.destroy
     redirect_to offers_path, notice: "Offer Deleted"
   end
 
   def edit
-    @offer = Offer.find(params[:id])
+
   end
 
   private
+
+  def set_offer
+    @offer = Offer.find(params[:id])
+  end
 
   def offer_params
     params.require(:offer).permit(
