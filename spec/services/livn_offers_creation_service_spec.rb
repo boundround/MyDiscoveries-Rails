@@ -36,6 +36,11 @@ RSpec.describe LivnOffersCreationService do
         expect(Offer.count).to_not eql(0)
       end
 
+      it 'adds livn_product_id to offer' do
+        expect(service.response.offer.livn_product_id).to_not eql(nil)
+        expect(service.response.offer.livn_product_id).to eql(Offer.last.livn_product_id)
+      end
+
       it 'has not errors' do
         expect(service.response.errors.count).to eql(0)
       end

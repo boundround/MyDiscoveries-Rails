@@ -106,10 +106,12 @@ class OffersController < ApplicationController
       :customStr4,
       :pickupRequired,
       :livn_product_id,
+      :startDate,
+      :endDate,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
-        :priority, :status, :country_hero, :country_include, :_destroy
+        :priority, :status, :country_hero, :country_include, :_destroy, :hero
       ],
       videos_attributes: [
         :id, :vimeo_id, :title, :description, :priority, :status,

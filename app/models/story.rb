@@ -8,6 +8,7 @@ class Story < ActiveRecord::Base
   attr_accessor :display_address
   # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+
     # list of attribute used to build an Algolia record
     attributes :title,
                :status,
@@ -16,7 +17,16 @@ class Story < ActiveRecord::Base
                :maximum_age,
                :description,
                :primary_category_priority,
-               :page_ranking_weight
+               :page_ranking_weight,
+               :age_range,
+               :weather,
+               :price,
+               :best_time_to_visit,
+               :subcategories,
+               :accessibility,
+               :hero_photo,
+               :main_category,
+               :subcategory
 
     synonyms [
         ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping"],
@@ -70,16 +80,8 @@ class Story < ActiveRecord::Base
       "book"
     end
 
-    attribute :main_category do
-      primary_category.name if primary_category.present?
-    end
-
     attribute :subcategories do
-      subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
-    end
-
-    attribute :subcategory do
-      subcategories.subcats.map{|sub| sub.name}
+      subcategories.map { |sub| { name: sub.name, identifier: sub.identifier } }
     end
 
     attribute :name do
@@ -90,54 +92,8 @@ class Story < ActiveRecord::Base
       ""
     end
 
-    attribute :hero_photo do
-
-      if hero_image.present?
-        hero = { url: hero_image_url, alt_tag: "" }
-      else
-        hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
-      end
-      hero
-    end
-
     attribute :has_hero_image do
       photos.exists?(hero: true)
-    end
-
-    attribute :age_range do
-      if minimum_age.present? and maximum_age.present?
-        if minimum_age > 12
-          ["Teens"]
-        elsif minimum_age > 8 && maximum_age < 13
-          ["For Ages 9-12"]
-        elsif minimum_age > 8
-          ["For Ages 9-12", "Teens"]
-        elsif maximum_age < 13
-          ["For Ages 5-8", "For Ages 9-12"]
-        elsif maximum_age < 9
-          ["For Ages 5-8"]
-        else
-          ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
-        end
-      else
-        ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
-      end
-    end
-
-    attribute :weather do
-      subcategories.where(category_type: 'weather').map{ |sub|  sub.name }
-    end
-
-    attribute :price do
-      subcategories.where(category_type: 'price').map{ |sub|  sub.name }
-    end
-
-    attribute :best_time_to_visit do
-      subcategories.where(category_type: 'optimum_time').map{ |sub|  sub.name }
-    end
-
-    attribute :accessibility do
-      subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
     end
 
     attribute :where_destinations do
@@ -164,13 +120,7 @@ class Story < ActiveRecord::Base
       'publish_date',
     ]
 
-    customRanking [
-      'desc(is_country)',
-      'desc(is_area)',
-      'desc(primary_category_priority)',
-      'desc(page_ranking_weight)',
-      'desc(has_hero_image)',
-    ]
+    customRanking Searchable.custom_ranking
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
@@ -373,6 +323,15 @@ class Story < ActiveRecord::Base
   private
     def algolia_id
       "story_#{id}" # ensure the place, post & country IDs are not conflicting
+    end
+
+    def hero_photo
+      if hero_image.present?
+        hero = { url: hero_image_url, alt_tag: "" }
+      else
+        hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
+      end
+      hero
     end
 
     def slug_candidates

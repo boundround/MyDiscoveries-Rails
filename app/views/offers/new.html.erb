@@ -20,10 +20,28 @@
       <%= f.input :description, label: 'Offer Description', as: :text, input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
+      <%= f.input :startDate, label: 'Start Date', as: :date, input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :endDate, label: 'End Date', as: :date, input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
       <%= f.input :minRateAdult, as: :integer, label: 'Min Rate Adult', input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
+      <%= f.input :minRateChild, as: :integer, label: 'Min Rate Child', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
       <%= f.input :minRateInfant, as: :integer, label: 'Min Rate Infant', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxRateAdult, as: :integer, label: 'Max Rate Adult', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxRateChild, as: :integer, label: 'Max Rate Child', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxRateInfant, as: :integer, label: 'Max Rate Infant', input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
       <%= f.input :duration, as: :integer, label: 'Duration', input_html: { class: 'width100' } %>
@@ -67,6 +85,9 @@
     </div>
     <div class="form-group">
       <%= f.input :minAge, as: :integer, label: 'Min Age', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxAge, as: :integer, label: 'Max Age', input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
       <%= f.input :requiredMultiple, as: :integer, label: 'Required Multiple', input_html: { class: 'width100' } %>
