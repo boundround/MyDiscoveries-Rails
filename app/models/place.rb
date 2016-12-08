@@ -299,7 +299,7 @@ class Place < ActiveRecord::Base
   has_many :subcategories, through: :places_subcategories
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
-  has_many :fun_facts, -> { order "created_at ASC"}
+  has_many :fun_facts, -> { order "created_at ASC"}, as: :fun_factable
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
 

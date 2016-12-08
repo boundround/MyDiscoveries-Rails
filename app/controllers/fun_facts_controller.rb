@@ -40,6 +40,16 @@ class FunFactsController < ApplicationController
   end
 
   def edit
+    if params[:place_id]
+      @place = Place.friendly.find(params[:place_id])
+    elsif params[:attraction_id]
+      @attraction = Attraction.friendly.find(params[:attraction_id])
+    elsif params[:region_id]
+      @region = Region.friendly.find(params[:region_id])
+    elsif params[:country_id]
+      @country = Country.friendly.find(params[:country_id])
+    end
+
     @fun_fact = FunFact.find(params[:id])
   end
 
@@ -65,6 +75,12 @@ class FunFactsController < ApplicationController
     elsif params[:country_id]
       @country = Country.friendly.find(params[:country_id])
       redirect_to all_country_fun_facts_path(@country), notice: "fun fact deleted"
+    elsif params[:place_id]
+      @place = Place.friendly.find(params[:place_id])
+      redirect_to all_place_fun_facts_path(@place), notice: "fun fact deleted"
+    elsif params[:attraction_id]
+      @attraction = Attraction.friendly.find(params[:attraction_id])
+      redirect_to all_attraction_fun_facts_path(@attraction), notice: "fun fact deleted"
     else
       redirect_to :back, notice: "fun fact deleted"
     end

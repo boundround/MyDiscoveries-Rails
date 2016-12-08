@@ -6,7 +6,7 @@
   <h4>Region Photos (Click to Edit)</h4>
   <div class="row">
     <% @region_photos.each do |photo| %>
-      <div class="col-md-4 col-hero-list">
+      <div class="col-xs-12 col-sm-4 col-md-4 col-hero-list">
         <div class="outer-image hero-list">
           <a href="" data-toggle="modal" data-target="#photoEditModal"
             data-photo-id="<%= photo.id.to_s %>" data-type="<%= photo.class.to_s %>"
