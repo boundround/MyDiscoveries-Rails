@@ -43,7 +43,16 @@ RSpec.describe OffersController, type: :controller do
     end
 
     context 'current user create offer' do
-      let(:params) { { offer: { name: Faker::Lorem.sentence, tags: ["tag1", "tag2", ""] } } }
+      let(:params) do
+        {
+          offer: {
+            name: Faker::Lorem.sentence,
+            tags: ["tag1", "tag2", ""],
+            startDate: Date.current - 1.day,
+            endDate: Date.current
+          }
+        }
+      end
 
       it 'creates offer' do
         expect{post(:create, params)}.to change{Offer.count}.from(0).to(1)
