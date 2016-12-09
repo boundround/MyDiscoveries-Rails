@@ -53,7 +53,9 @@
         </h3>
         <div class="deal-option-card">
           <!-- <a href='javascript:void()' class='js-buy-offer'> -->
-            <span class="deal-option-card__buy-now">buy now</span>
+            <%= link_to new_offer_order_path(@offer, number_of_adults: 1) do %>
+              <span class="deal-option-card__buy-now">buy now</span>
+            <% end %>
           <!-- </a> -->
           <h4 class="deal-option-card__cost">
             <%= "$#{@offer.minRateAdult}"%>

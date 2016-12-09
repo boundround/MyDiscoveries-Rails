@@ -67,3 +67,4 @@
 //= require area
 //= require cms_offers
 //= require offers
+//= require orders
