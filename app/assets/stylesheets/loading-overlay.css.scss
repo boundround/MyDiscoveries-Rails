@@ -1,8 +1,5 @@
 #loadModal {
   width: 100%;
-
-  // position: absolute;
-  // top: 0px;
 }
 
 .loadModal {
@@ -19,28 +16,20 @@
 
 .plane-orbit {
   width: 40px;
-  /*
-     * Make the initial position to be the center of the circle you want this
-     * object follow.
-     */
-    position: absolute;
-    left: 48%;
-    top: 200px;
-
+  position: absolute;
+  left: 48%;
+  top: 200px;
     /*
      * Sets up the animation duration, timing-function (or easing)
      * and iteration-count. Ensure you use the appropriate vendor-specific
      * prefixes as well as the official syntax for now. Remember, tools like
      * CSS Please are your friends!
      */
-    -webkit-animation: myOrbit 1.5s linear infinite; /* Chrome, Safari 5 */
-       -moz-animation: myOrbit 1.5s linear infinite; /* Firefox 5-15 */
-         -o-animation: myOrbit 1.5s linear infinite; /* Opera 12+ */
-            animation: myOrbit 1.5s linear infinite; /* Chrome, Firefox 16+,
+  -webkit-animation: myOrbit 1.5s linear infinite; /* Chrome, Safari 5 */
+     -moz-animation: myOrbit 1.5s linear infinite; /* Firefox 5-15 */
+       -o-animation: myOrbit 1.5s linear infinite; /* Opera 12+ */
+          animation: myOrbit 1.5s linear infinite; /* Chrome, Firefox 16+,
                                                       IE 10+, Safari 5 */
-
-
-
 }
 
 /*
@@ -49,21 +38,21 @@
  * points.  Again, remember your vendor-specific prefixes for now!
  */
 @-webkit-keyframes myOrbit {
-    from { -webkit-transform: rotate(0deg) translateX(100px); }
-    to   { -webkit-transform: rotate(360deg) translateX(100px); }
+  from { -webkit-transform: rotate(0deg) translateX(100px); }
+  to   { -webkit-transform: rotate(360deg) translateX(100px); }
 }
 
 @-moz-keyframes myOrbit {
-    from { -moz-transform: rotate(0deg) translateX(100px); }
-    to   { -moz-transform: rotate(360deg) translateX(100px); }
+  from { -moz-transform: rotate(0deg) translateX(100px); }
+  to   { -moz-transform: rotate(360deg) translateX(100px); }
 }
 
 @-o-keyframes myOrbit {
-    from { -o-transform: rotate(0deg) translateX(100px); }
-    to   { -o-transform: rotate(360deg) translateX(100px); }
+  from { -o-transform: rotate(0deg) translateX(100px); }
+  to   { -o-transform: rotate(360deg) translateX(100px); }
 }
 
 @keyframes myOrbit {
-    from { transform: rotate(0deg) translateX(100px); }
-    to   { transform: rotate(360deg) translateX(100px); }
+  from { transform: rotate(0deg) translateX(100px); }
+  to   { transform: rotate(360deg) translateX(100px); }
 }

@@ -152,7 +152,7 @@ class AttractionsController < ApplicationController
     if params[:type].eql? "UserPhoto"
       @attraction.user_photos.each do |photo|
         if photo.id.to_s.eql? photo_id
-           photo.hero = true
+          photo.hero = true
         else
           photo.hero = false
         end
@@ -166,7 +166,7 @@ class AttractionsController < ApplicationController
     else
       @attraction.photos.each do |photo|
         if photo.id.to_s.eql? photo_id
-           photo.hero = true
+          photo.hero = true
         else
           photo.hero = false
         end

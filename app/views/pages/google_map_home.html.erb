@@ -1,134 +1,134 @@
 
-    <script src="/assets/markerclusterer.js"></script>
-    <script src="/assets/topojson.v1.min.js"></script>
+  <script src="/assets/markerclusterer.js"></script>
+  <script src="/assets/topojson.v1.min.js"></script>
 
-    <script src='/assets/icon-builder.js'></script>
-    <script src='/assets/br_google_maps.js'></script>
-    <script src='/assets/search_suggestions.js'></script>
-    <script src='/assets/br_home_page.js'></script>
+  <script src='/assets/icon-builder.js'></script>
+  <script src='/assets/br_google_maps.js'></script>
+  <script src='/assets/search_suggestions.js'></script>
+  <script src='/assets/br_home_page.js'></script>
 
-    <div class="/assets/border_top hidden-xs"></div>
+  <div class="/assets/border_top hidden-xs"></div>
 
-		<div id="Carousel" class="carousel slide carousel-fade col-offset-2">
-
-
-	<div class="row">
-	  <div class="col-xs-6 hidden-xs">
-
-	  </div>
-	  <div class="col-xs-12 visible-xs">
-	  </div>
-	  <div class="col-xs-12 col-sm-11 text-right" style="position:absolute">
-	    <%= render 'layouts/profile_dropdown' %>
-	  </div>
-	</div>
-        <div class="carousel-inner">
-            <div class="item active no-bg">
-                <div id='home-map-wrapper' style='height: 100%' class='blur'>
-                    <div id="home-map" style="height: 100%;"></div>
-                    <div class="overlay"></div>
-                </div>
-            </div>
-        </div>
+    <div id="Carousel" class="carousel slide carousel-fade col-offset-2">
 
 
+  <div class="row">
+    <div class="col-xs-6 hidden-xs">
 
-
-        <div class="bg_slide_area">
-            <div class="container-fluid login_bg">
-
-                <div class="col-xs-offset-4 col-xs-4 visible-xs">
-                    <a class="main_logo_link" href="#"><img src="../google_home/img/br_logo.png" class="small_logo center-block" alt="LOGO" /></a>
-                </div>
-            </div>
-
-            <div class="cover">
-                <div class="top-middle">
-                        <img src="../google_home/img/br_logo.png" class="img-responsive center-block hidden-xs main_logo_link" alt="LOGO" />
-                    <h1><%= body_title %></h1>
-                    <div class=" search_bg  max_604 center-block">
-                        <div class="input-group">
-                            <input id="search-box" type="text" class="form-control search-box hidden_input" placeholder="I'm looking for ..." />
-                            <span class="input-group-btn">
-                            <button id="search-button" class="btn search-button" type="button">
-                                <span class="fa fa-search" aria-hidden="true"></span>
-                            </button>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="speacer10"></div>
-                    <div class="owl_main">
-
-
-                        <div id="owl-demo">
-
-                            <div class="item br_rounded_corners">
-                                <a href="https://boundround.com/kids/bound-round-kids-board/bound-round-local-kid-video-registration/" target="blank">
-																<img src="<%= asset_path('landing_page_images/br.jpg')%>" alt="slider1" /></a>
-                            </div>
-                            <div class="item br_rounded_corners">
-															<a href="https://app.boundround.com/areas/toowoomba">
-															<img src="<%= asset_path('landing_page_images/cf.jpg')%>" alt="slider1" />
-															</a>
-                            </div>
-                            <div class="item br_rounded_corners">
-															<a href="https://boundround.com/fun-afloat/" target="blank">
-															<img src="<%= asset_path('landing_page_images/cr.jpg')%>" alt="slider1" />
-															</a>
-                            </div>
-                            <div class="item br_rounded_corners">
-															<a href="http://boundround.com/five-easy-games-to-entertain-the-kids-on-long-car-rides/" target="blank">
-															<img src="<%= asset_path('landing_page_images/ec.jpg')%>" alt="slider1" />
-															</a>
-                            </div>
-                            <div class="item br_rounded_corners">
-															<a href="https://app.boundround.com/countries/fj
-">
-															<img src="<%= asset_path('landing_page_images/fj.jpg')%>" alt="slider1" />
-															</a>
-                            </div>
-                            <div class="item br_rounded_corners">
-															<a href="https://boundround.com/top-5-healthy-holiday-hacks/" target="blank">
-															<img src="<%= asset_path('landing_page_images/hhh.jpg')%>" alt="slider1" />
-															</a>
-                            </div>
-                            <div class="item br_rounded_corners">
-															<a href="https://app.boundround.com/virginaustralia
-">
-															<img src="<%= asset_path('landing_page_images/kv.jpg')%>" alt="slider1" />
-															</a>
-                            </div>
-                            <div class="item br_rounded_corners">
-															<a href="https://app.boundround.com/areas/phillip-island">
-															<img src="<%= asset_path('landing_page_images/pi.jpg')%>" alt="slider1" />
-															</a>
-                            </div>
-                            <div class="item br_rounded_corners">
-															<a href="https://boundround.com/5-fast-rugby-world-cup-facts/
-" target="blank">
-															<img src="<%= asset_path('landing_page_images/rwc.jpg')%>" alt="slider1"/>
-															</a>
-                            </div>
-                            <div class="item br_rounded_corners">
-															<a href="https://app.boundround.com/areas/cairns
-">
-															<img src="<%= asset_path('landing_page_images/tnq.jpg')%>" alt="slider1" />
-															</a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
     </div>
-		<%= render "/layouts/page_footer" %>
+    <div class="col-xs-12 visible-xs">
+    </div>
+    <div class="col-xs-12 col-sm-11 text-right" style="position:absolute">
+    <%= render 'layouts/profile_dropdown' %>
+    </div>
+  </div>
+    <div class="carousel-inner">
+      <div class="item active no-bg">
+        <div id='home-map-wrapper' style='height: 100%' class='blur'>
+          <div id="home-map" style="height: 100%;"></div>
+          <div class="overlay"></div>
+        </div>
+      </div>
+    </div>
 
-		<script>
-			//Trick to get the correct asset path for flags, used in br_google_maps.js
-			window.br_auf = '<%= asset_path('flags/au.png') %>';
-		</script>
+
+
+
+    <div class="bg_slide_area">
+      <div class="container-fluid login_bg">
+
+        <div class="col-xs-offset-4 col-xs-4 visible-xs">
+          <a class="main_logo_link" href="#"><img src="../google_home/img/br_logo.png" class="small_logo center-block" alt="LOGO" /></a>
+        </div>
+      </div>
+
+      <div class="cover">
+        <div class="top-middle">
+            <img src="../google_home/img/br_logo.png" class="img-responsive center-block hidden-xs main_logo_link" alt="LOGO" />
+          <h1><%= body_title %></h1>
+          <div class=" search_bg  max_604 center-block">
+            <div class="input-group">
+              <input id="search-box" type="text" class="form-control search-box hidden_input" placeholder="I'm looking for ..." />
+              <span class="input-group-btn">
+              <button id="search-button" class="btn search-button" type="button">
+                <span class="fa fa-search" aria-hidden="true"></span>
+              </button>
+              </span>
+            </div>
+          </div>
+
+          <div class="speacer10"></div>
+          <div class="owl_main">
+
+
+            <div id="owl-demo">
+
+              <div class="item br_rounded_corners">
+                <a href="https://boundround.com/kids/bound-round-kids-board/bound-round-local-kid-video-registration/" target="blank">
+                                <img src="<%= asset_path('landing_page_images/br.jpg')%>" alt="slider1" /></a>
+              </div>
+              <div class="item br_rounded_corners">
+                              <a href="https://app.boundround.com/areas/toowoomba">
+                              <img src="<%= asset_path('landing_page_images/cf.jpg')%>" alt="slider1" />
+                              </a>
+              </div>
+              <div class="item br_rounded_corners">
+                              <a href="https://boundround.com/fun-afloat/" target="blank">
+                              <img src="<%= asset_path('landing_page_images/cr.jpg')%>" alt="slider1" />
+                              </a>
+              </div>
+              <div class="item br_rounded_corners">
+                              <a href="http://boundround.com/five-easy-games-to-entertain-the-kids-on-long-car-rides/" target="blank">
+                              <img src="<%= asset_path('landing_page_images/ec.jpg')%>" alt="slider1" />
+                              </a>
+              </div>
+              <div class="item br_rounded_corners">
+                              <a href="https://app.boundround.com/countries/fj
+">
+                              <img src="<%= asset_path('landing_page_images/fj.jpg')%>" alt="slider1" />
+                              </a>
+              </div>
+              <div class="item br_rounded_corners">
+                              <a href="https://boundround.com/top-5-healthy-holiday-hacks/" target="blank">
+                              <img src="<%= asset_path('landing_page_images/hhh.jpg')%>" alt="slider1" />
+                              </a>
+              </div>
+              <div class="item br_rounded_corners">
+                              <a href="https://app.boundround.com/virginaustralia
+">
+                              <img src="<%= asset_path('landing_page_images/kv.jpg')%>" alt="slider1" />
+                              </a>
+              </div>
+              <div class="item br_rounded_corners">
+                              <a href="https://app.boundround.com/areas/phillip-island">
+                              <img src="<%= asset_path('landing_page_images/pi.jpg')%>" alt="slider1" />
+                              </a>
+              </div>
+              <div class="item br_rounded_corners">
+                              <a href="https://boundround.com/5-fast-rugby-world-cup-facts/
+" target="blank">
+                              <img src="<%= asset_path('landing_page_images/rwc.jpg')%>" alt="slider1"/>
+                              </a>
+              </div>
+              <div class="item br_rounded_corners">
+                              <a href="https://app.boundround.com/areas/cairns
+">
+                              <img src="<%= asset_path('landing_page_images/tnq.jpg')%>" alt="slider1" />
+                              </a>
+              </div>
+
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <%= render "/layouts/page_footer" %>
+
+    <script>
+      //Trick to get the correct asset path for flags, used in br_google_maps.js
+      window.br_auf = '<%= asset_path('flags/au.png') %>';
+    </script>
 
 

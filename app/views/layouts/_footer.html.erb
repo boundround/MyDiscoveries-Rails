@@ -1,66 +1,66 @@
 <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-6 col-sm-4 col-md-2">
-                    <ul>
-                        <li><a href="http://corporate.boundround.com/travel-tourism-suppliers/" target="blank">The Travel Industry</a></li>
-                        <li><a href="http://www.schoolsafari.com.au" target="blank">Teachers</a></li>
-                        <li><a href="http://boundround.com/media/" target="blank">Media</a></li>
-                        <li><a href="http://corporate.boundround.com/privacy/" target="blank">Privacy Policy</a></li>
-                        <li><a href="http://boundround.com/about-us/" target="blank">About Us</a></li>
-                        <li><a href="http://corporate.boundround.com/contact/" target="blank">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="hidden-xs col-sm-5 col-md-3">
-                    <ul>
-                        <li><h5>Popular Searches</h5></li>
-                         <% @footer_places = Place.find([1064, 233, 1071, 1182, 1060, 1160, 1126, 1203])%>
-                          <% @footer_places.each do |place| %>
-                            <li><%= link_to "Things To Do With Kids In #{place.display_name}", place_path(place) %></li>
-                         <% end %>
-                        <li>
-                    </ul>
-                </div>
-                <div class="hidden-md hidden-lg col-sm-3 col-xs-6">
-                    <p class="text-right"><a href="/"><img src="/assets/new-images/logo-footer.png" class="text-light" alt=""></a>
-                    </p>
-                </div>
-                <div class="hidden-xs col-sm-4 col-md-2">
-                    <ul>
-                        <li><h5>Countries</h5></li>
-                        <% @footer_countries = Country.find([194, 185, 184, 155, 172, 84, 35]) %>
-                        <% @footer_countries.each do |country| %>
-                          <li><%= link_to country.display_name, country_path(country) %></li>
-                        <% end %>
-
-                    </ul>
-                </div>
-                <div class="hidden-xs col-sm-5 col-md-3">
-                    <ul>
-                        <li><h5>Connect with us</h5></li>
-                        <li><a href="https://www.facebook.com/BoundRound">Facebook</a></li>
-                        <li><a href="http://instagram.com/boundround/">Instagram</a></li>
-                        <li><a href="https://twitter.com/BoundRoundAus">Twitter</a></li>
-                        <li><a href="https://www.youtube.com/user/BoundRoundGuides">YouTube</a></li>
-                        <li><a href="https://au.pinterest.com/boundround/">Pinterest</a></li>
-                    </ul>
-                </div>
-                <div class="hidden-xs hidden-sm col-md-2">
-
-                    <p class="text-right"><a href="/"><img src="/assets/new-images/logo-footer.png" class="text-light" alt=""></a>
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-3">
-                    <div class="text-light copyright">&copy; 2016 Bound Round Pty Ltd.</div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-3">
-                    <div class="text-light copyright">
-                      <img src="<%= asset_path('ta_logo.png')%>"><br>
-                      Ratings and Reviews Powered by TripAdvisor
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-sm-4 col-md-2">
+          <ul>
+            <li><a href="http://corporate.boundround.com/travel-tourism-suppliers/" target="blank">The Travel Industry</a></li>
+            <li><a href="http://www.schoolsafari.com.au" target="blank">Teachers</a></li>
+            <li><a href="http://boundround.com/media/" target="blank">Media</a></li>
+            <li><a href="http://corporate.boundround.com/privacy/" target="blank">Privacy Policy</a></li>
+            <li><a href="http://boundround.com/about-us/" target="blank">About Us</a></li>
+            <li><a href="http://corporate.boundround.com/contact/" target="blank">Contact</a></li>
+          </ul>
         </div>
-    </footer>
+        <div class="hidden-xs col-sm-5 col-md-3">
+          <ul>
+            <li><h5>Popular Searches</h5></li>
+             <% @footer_places = Place.find([1064, 233, 1071, 1182, 1060, 1160, 1126, 1203])%>
+              <% @footer_places.each do |place| %>
+              <li><%= link_to "Things To Do With Kids In #{place.display_name}", place_path(place) %></li>
+             <% end %>
+            <li>
+          </ul>
+        </div>
+        <div class="hidden-md hidden-lg col-sm-3 col-xs-6">
+          <p class="text-right"><a href="/"><img src="/assets/new-images/logo-footer.png" class="text-light" alt=""></a>
+          </p>
+        </div>
+        <div class="hidden-xs col-sm-4 col-md-2">
+          <ul>
+            <li><h5>Countries</h5></li>
+            <% @footer_countries = Country.find([194, 185, 184, 155, 172, 84, 35]) %>
+            <% @footer_countries.each do |country| %>
+              <li><%= link_to country.display_name, country_path(country) %></li>
+            <% end %>
+
+          </ul>
+        </div>
+        <div class="hidden-xs col-sm-5 col-md-3">
+          <ul>
+            <li><h5>Connect with us</h5></li>
+            <li><a href="https://www.facebook.com/BoundRound">Facebook</a></li>
+            <li><a href="http://instagram.com/boundround/">Instagram</a></li>
+            <li><a href="https://twitter.com/BoundRoundAus">Twitter</a></li>
+            <li><a href="https://www.youtube.com/user/BoundRoundGuides">YouTube</a></li>
+            <li><a href="https://au.pinterest.com/boundround/">Pinterest</a></li>
+          </ul>
+        </div>
+        <div class="hidden-xs hidden-sm col-md-2">
+
+          <p class="text-right"><a href="/"><img src="/assets/new-images/logo-footer.png" class="text-light" alt=""></a>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-3">
+          <div class="text-light copyright">&copy; 2016 Bound Round Pty Ltd.</div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-3">
+          <div class="text-light copyright">
+            <img src="<%= asset_path('ta_logo.png')%>"><br>
+            Ratings and Reviews Powered by TripAdvisor
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>

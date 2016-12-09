@@ -5,8 +5,7 @@ class GoodToKnowsController < ApplicationController
     @good_to_know = GoodToKnow.new(good_to_know_params)
     @good_to_know.good_to_knowable_id = @variable.id
     @good_to_know.good_to_knowable_type = @variable.class.to_s
-
-
+    
     if @good_to_know.save
       redirect_to :back, notice: "Good To Know Created"
     else
