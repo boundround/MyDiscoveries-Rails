@@ -38,11 +38,6 @@ class CountriesController < ApplicationController
     @countries = Country.all
   end
 
-  def edit_fun_fact
-    @country = Country.friendly.find(params[:id])
-    @fun_fact = FunFact.find(params[:fun_fact_id])
-  end
-
   def create
     @country = Country.new(country_params)
 

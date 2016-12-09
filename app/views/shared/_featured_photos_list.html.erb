@@ -1,12 +1,23 @@
 <%
-variable = @place.blank? ? @attraction : @place
-if !params[:controller].eql? "countries"
-    grid, stroke = if !variable.is_area?
-        ["col-md-4", "orange-stroke"]
-    else
-        ["col-md-3",""]
+    if !@place.blank?
+        variable = @place
+    elsif !@attraction.blank?
+        variable = @attraction
+    elsif !@region.blank?
+        variable = @region
+    elsif !@country.blank?
+        variable = @country
     end
-end
+
+    if !params[:controller].eql? "countries"
+        grid, stroke = if !variable.is_area?
+            ["col-md-4", "orange-stroke"]
+        else
+            ["col-md-3",""]
+        end
+    else
+         grid, stroke = ["col-md-3",""]
+    end
 %>
 
 <div class="<%= grid %> col-sm-6 place-photo-wrapper">

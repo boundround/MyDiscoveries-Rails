@@ -1,5 +1,5 @@
 class RegionsController < ApplicationController
-  before_action :set_region, only: [:show, :edit, :update, :destroy, :choose_hero, :update_hero, :edit_fun_fact]
+  before_action :set_region, only: [:show, :edit, :update, :destroy, :choose_hero, :update_hero]
 
   def index
     @regions = Region.all
@@ -88,10 +88,6 @@ class RegionsController < ApplicationController
   def choose_hero
     @region_photos = @region.photos
     @photo = Photo.new
-  end
-
-  def edit_fun_fact
-    @fun_fact = FunFact.find(params[:fun_fact_id])
   end
 
   def paginate_place_to_visit

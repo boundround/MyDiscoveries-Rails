@@ -18,11 +18,14 @@
 	text-align: center;
 }
 
-[data-page="region"] .nav-option-outer-wrapper{
+[data-page="region"] .nav-option-outer-wrapper,
+[data-page="country"] .nav-option-outer-wrapper
+{
 	text-align: center;
 }
 
-[data-page="region"] .nav-option{
+[data-page="region"] .nav-option,
+[data-page="country"] .nav-option{
 	float: none;
 	display: inline-block;
 }
@@ -413,7 +416,8 @@
     margin: 0;
 }
 
-[data-page="region"] .nav-option{
+[data-page="region"] .nav-option,
+[data-page="country"] .nav-option{
   width: 15.666667%;
 }
 
@@ -436,5 +440,16 @@
   [data-page="region"] .place-to-go .content > .row{
     margin-left: 0;
     margin-right: 0;
-  }   
+  }
+
+  [data-page="region"] .nav-option,
+  [data-page="country"] .nav-option{
+    width: auto;
+    float: left;
+  }
+
+  [data-page="region"] .nav-option-wrapper,
+  [data-page="country"] .nav-option-wrapper{
+    width: 100%;
+  }
 }
