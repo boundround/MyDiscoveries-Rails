@@ -27,16 +27,6 @@ module PlacesHelper
     breadcrumb += place.display_name.upcase
   end
 
-  def link_to_parent(place)
-    if !place.parent.blank?
-      link_to (place.parent.display_name), place_path(place.parent)
-    elsif !place.country.blank?
-      link_to (place.country.display_name), country_path(place.country)
-    else
-      ''
-    end
-  end
-
   def provide_meta_description_for(place)
     if place.meta_description.present?
       place.meta_description
@@ -58,19 +48,10 @@ module PlacesHelper
   def pick_a_place_hero_url(place)
     place.photos[0].path
   end
+
   def pick_a_place_photo_url(place)
-    asset_path(place.photos[0].path_url(:small))
-  end
-
-  def pick_a_program_hero_url(place)
-    if place.programs then
-      p1 = place.programs[0].heroimagepath
-    end
-
-    if !p1 then
-      pick_a_place_hero_url(place)
-    else
-      p1
+    if place.photos.present?
+      asset_path(place.photos[0].path_url(:small))
     end
   end
 
@@ -84,32 +65,6 @@ module PlacesHelper
 
   def first_category_icon(place)
     "https://d1w99recw67lvf.cloudfront.net/category_icons/activity_icon.png"
-  end
-
-  def valid_program_activity_tags_csv()
-    ActsAsTaggableOn::Tagging.includes(:tag).where(context: "programactivities").uniq.pluck(:name).join(", ")
-  end
-
-  def valid_program_activity_tags()
-    ActsAsTaggableOn::Tagging.includes(:tag).where(context: "programactivities").uniq.pluck(:name)
-  end
-
-  def valid_program_yearlevel_tags()
-    ActsAsTaggableOn::Tagging.includes(:tag).where(context: "programyearlevels").uniq.pluck(:name)
-  end
-
-  def valid_program_yearlevel_tags_csv()
-    ActsAsTaggableOn::Tagging.includes(:tag).where(context: "programyearlevels").uniq.pluck(:name).join(", ")
-  end
-
-  def valid_program_subject_tags()
-    ActsAsTaggableOn::Tagging.includes(:tag).where(context: "programsubjects").uniq.pluck(:name)
-  end
-
-  def place_getcategory_icon_img_span(place)
-    if place.categories[0] then
-      '<img src="https://d1w99recw67lvf.cloudfront.net/category_icons/activity_icon.png" alt="sights icon"><span>activity<span>'
-    end
   end
 
   def yl_as_csv_string(a_programyearlevels)
@@ -137,9 +92,6 @@ module PlacesHelper
 
   #Using _list forces goes back to the database!
   #Avoid doing this!
-  def program_yearlevels_using_list(program)
-    get_yearlevel_range(program.programyearlevel_list.to_s)
-  end
 
   def get_yearlevel_range(allyears)
     @ylvec = ['F','K','1','2','3','4','5','6','7','8','9','10','11','12']

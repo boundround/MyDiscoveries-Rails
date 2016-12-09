@@ -280,7 +280,6 @@ Rails.application.routes.draw do
       get 'paginate_place_to_visit'
       get 'paginate_stories'
       get 'paginate_deals'
-      get 'hero_image_picker'
       get 'seo_analysis'
     end
     collection do
