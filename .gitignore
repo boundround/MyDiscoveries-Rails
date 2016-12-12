@@ -43,3 +43,4 @@ Vagrantfile
 
 server.key
 server.pass.key
+server.csr
