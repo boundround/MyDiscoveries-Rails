@@ -2,7 +2,7 @@
   <h2>Add New Fun Fact</h2>
   <%= simple_form_for FunFact.new do |f| %>
     <div class="form-group">
-      <%= f.input :content, input_html: { class: 'form-control content-length'}  %>
+      <%= f.input :content, input_html: { class: 'form-control content-length fun-fact-content'}  %>
       LENGTH: <span class="char-count"></span> CHARACTERS
       <%= f.input :reference, input_html: { class: 'form-control'}  %>
       <%= f.input :hero_photo, as: :file, input_html: { class: 'form-control'}  %>

@@ -1,0 +1,58 @@
+<%
+  if !@place.blank?
+    variable = @place
+    path = 'place'
+  elsif !@attraction.blank?
+    variable = @attraction
+    path = 'attraction'
+  elsif !@region.blank?
+    variable = @region
+    path = 'region'
+  end
+%>
+
+<div class="container">
+  <%= render "#{path}s/admin_tabs" %>
+  <h1>Fun Fact Edit</h1><br>
+  <%= link_to "Back To All Fun Fact", eval("all_region_fun_facts_path(variable)") %> &nbsp;&nbsp; OR &nbsp;&nbsp;
+  <%= link_to "Back To Edit #{variable.display_name}", eval("edit_#{path}_path(variable)") %><br>
+  <br>
+  <div class="fun-fact">
+    <div class="fun-fact-img" style="background: url(<%= draw_fun_fact_photo(@fun_fact, variable) rescue nil %>) no-repeat;" role="img" aria-label="Fish Market"></div>
+    <div class="fact"><%= raw @fun_fact.content %></div>
+  </div>
+  <br>
+  <div class="edit_photo">
+    <div class="photo-container">
+      <%= simple_form_for @fun_fact do |f| %>
+        <div class="form-group">
+          <%= f.input :content, input_html: { class: 'form-control content-length fun-fact-content'}  %>
+          LENGTH: <span class="char-count"></span> CHARACTERS
+          <%= f.input :reference, input_html: { class: 'form-control'}  %>
+          <%= f.input :hero_photo, as: :file, input_html: { class: 'form-control'}  %>
+          <%= f.input :reference, input_html: { class: 'form-control'}  %>
+        </div>
+        <div class="form-group">
+          <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
+        </div>
+        <div class="form-group">
+          <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
+        </div>
+        <% if @area %>
+          <%= f.input :area_id, as: :hidden, input_html: {value: @area.id } %>
+        <% elsif @place %>
+          <%= f.input :place_id, as: :hidden, input_html: {value: @place.id } %>
+        <% elsif @region %>
+          <%= f.input :fun_factable_id, as: :hidden, input_html: {value: @region.id } %>
+          <%= f.input :fun_factable_type, as: :hidden, input_html: {value: "Region"} %>
+        <% end %>
+        <div class="form-group">
+          <%= f.button :submit%>
+          &nbsp;&nbsp; OR &nbsp;&nbsp;
+          <%= link_to 'Destroy', region_fun_fact_path(variable, @fun_fact), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn', style: 'background-color: #d9534f; color: #333;' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

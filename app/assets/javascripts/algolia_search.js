@@ -33,11 +33,11 @@ $(window).resize(function(event) {
 });
 
 $(document).ready(function() {
-
+    var production_environment = document.querySelector('#environment').dataset.environment;
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
 
-    var INDEX_NAME = 'place_production';
+    var INDEX_NAME = 'place_' + production_environment;
     var PARAMS = {
         hitsPerPage: 3,
         maxValuesPerFacet: 8,
@@ -375,7 +375,7 @@ $(document).ready(function() {
                 facetsHtml += instantfacetTemplate.render(facetContent);
             }
         }
-        
+
         $instantSearchFacet.html(facetsHtml);
         $instantSearchFacet2.html(facetsHtml2);
         $instantSearchFacet3.html(facetsHtml3);
