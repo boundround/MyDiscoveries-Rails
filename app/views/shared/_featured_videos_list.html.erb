@@ -1,5 +1,14 @@
 <%
-variable = @place.blank? ? @attraction : @place
+  if !@place.blank?
+      variable = @place
+  elsif !@attraction.blank?
+      variable = @attraction
+  elsif !@region.blank?
+      variable = @region
+  elsif !@country.blank?
+      variable = @country
+  end
+  
 if !params[:controller].eql? "countries"
 
   grid, orange, stroke = if !variable.is_area?
