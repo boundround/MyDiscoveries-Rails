@@ -144,6 +144,9 @@ class Offer < ActiveRecord::Base
 
   has_many :orders
 
+  after_commit :create_shopify_product, on: :create
+  after_commit :update_shopify_product, on: :update
+
   validates_presence_of :name
   validates_presence_of :startDate, :endDate, unless: -> { livn_product_id? }
   validates :startDate, :endDate, absence: true, if: -> { livn_product_id? }
@@ -171,5 +174,13 @@ class Offer < ActiveRecord::Base
 
   def algolia_id
     "offer_#{id}"
+  end
+
+  def create_shopify_product
+    Offer::Shopify::ProductCreator.perform_async(id)
+  end
+
+  def update_shopify_product
+    Offer::Shopify::ProductUpdater.perform_async(id)
   end
 end
