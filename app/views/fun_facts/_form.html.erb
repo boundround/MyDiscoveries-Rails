@@ -2,7 +2,7 @@
   <h2>Add New Fun Fact</h2>
   <%= simple_form_for FunFact.new do |f| %>
     <div class="form-group">
-      <%= f.input :content, input_html: { class: 'form-control content-length'}  %>
+      <%= f.input :content, input_html: { class: 'form-control content-length fun-fact-content'}  %>
       LENGTH: <span class="char-count"></span> CHARACTERS
       <%= f.input :reference, input_html: { class: 'form-control'}  %>
       <%= f.input :hero_photo, as: :file, input_html: { class: 'form-control'}  %>
@@ -17,7 +17,11 @@
     <% if @area %>
       <%= f.input :area_id, as: :hidden, input_html: {value: @area.id } %>
     <% elsif @place %>
-      <%= f.input :place_id, as: :hidden, input_html: {value: @place.id } %>
+      <%= f.input :fun_factable_id, as: :hidden, input_html: {value: @place.id } %>
+      <%= f.input :fun_factable_type, as: :hidden, input_html: {value: "Place"} %>
+    <% elsif @attraction %>
+      <%= f.input :fun_factable_id, as: :hidden, input_html: {value: @attraction.id } %>
+      <%= f.input :fun_factable_type, as: :hidden, input_html: {value: "Attraction"} %>
     <% elsif @region %>
       <%= f.input :fun_factable_id, as: :hidden, input_html: {value: @region.id } %>
       <%= f.input :fun_factable_type, as: :hidden, input_html: {value: "Region"} %>

@@ -20,7 +20,7 @@
             </div> -->
 
             <div class="favourites-wrapper">
-              <% if user_signed_in? %>
+              <% if user_signed_in? && @region.users.include?(current_user) %>
                 <div class="icon-favourite selected" id="favouriteType" data-post-path="regions_users" data-klass="region" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
                 <div class="favourites-title hidden-xs">Remove from favourites</div>
               <% else %>
@@ -64,7 +64,7 @@
     </div>
   </div>
 
-  <div class="container"> 
+  <div class="container">
     <div class="row">
       <div class="col-xs-12">
         <% if @region.description.length > 280 %>
@@ -203,7 +203,7 @@
   </div> -->
 
 <!-- THINGS TO DO -->
-  
+
     <% unless @places_to_visit.blank? %>
       <div class="destination-page">
       <div id="thingstodo" class="container dest-things-wrapper">
@@ -307,8 +307,16 @@
   <div class="container-fluid wild-ad-banner">
     <div class="row">
       <div class="col-sm-12 col-md-6 col-md-offset-3">
-      <img src="/assets/img/wild-ad-banner/test.jpg" class="wild-ad-banner__img" style="display: block;">
-      
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- BR first go -->
+        <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-3125270010093298"
+        data-ad-slot="1632886169"
+        data-ad-format="auto"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
       <p class="wild-ad-banner__paragraph">Sponsored</p>
       </div>
     </div>
