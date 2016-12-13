@@ -33,7 +33,8 @@ class User < ActiveRecord::Base
 
   has_many :reviews
   has_many :stories_users
-  has_many :stories, through: :stories_users
+  has_many :favourite_stories, through: :stories_users, :source => :story
+  has_many :stories
   has_many :user_photos
 
   has_one :points_balance
@@ -114,7 +115,7 @@ class User < ActiveRecord::Base
 
   def user_stories
     stories = self.posts
-    stories += self.stories
+    stories += self.favourite_stories
   end
 
 end
