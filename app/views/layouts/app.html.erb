@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" ng-App="boundRound">
-<% if not @placeprograms %>
-	<head>
-	  <title><%= full_title(yield(:title), yield(:category)) %></title>
-
-	  <%= stylesheet_link_tag( 'application', media: 'all') %>
-	  <%= csrf_meta_tags %>
-
-		<link rel="apple-touch-icon" sizes="57x57" href="<%= asset_path('favicons/apple-touch-icon-57x57.png')%>">
+<html>
+	<% if not @placeprograms %>
+<head>
+	<title>Testing</title>
+	<%= javascript_include_tag 'application' %>
+	<%= csrf_meta_tags %>
+	<link rel="apple-touch-icon" sizes="57x57" href="<%= asset_path('favicons/apple-touch-icon-57x57.png')%>">
 		<link rel="apple-touch-icon" sizes="60x60" href="<%= asset_path('favicons/apple-touch-icon-60x60.png')%>">
 		<link rel="apple-touch-icon" sizes="72x72" href="<%= asset_path('favicons/apple-touch-icon-72x72.png')%>">
 		<link rel="apple-touch-icon" sizes="76x76" href="<%= asset_path('favicons/apple-touch-icon-76x76.png')%>">
@@ -28,7 +26,7 @@
 	                                     initial-scale=1.0,
 	                                     maximum-scale=1.0,
 	                                     user-scalable=no">
-      <% if ENV['BOUNDROUND_ENV'] == 'boundround_production' %>
+	    <% if ENV['BOUNDROUND_ENV'] == 'boundround_production' %>
 
           <!-- Alexa Metrics Tracking -->
           <meta name="alexaVerifyID" content="rCx4wAynuVnH_ioayBEVT5PQS0I">
@@ -71,20 +69,15 @@
 					</script>
       <% else %>
 
-      <% end %>
-
-    <!-- Google Tag Manager -->
-    <!-- End Google Tag Manager -->
-
-		<meta property="og:type"          content="website" />
+      <% end %>  
+      <meta property="og:type"          content="website" />
 		<meta property="og:title"         content="<%= yield(:title) %>" />
 		<meta property="og:description"   content="<%= yield(:description) %>" />
 		<meta property="og:image"         content="<%= yield(:og_image) %>" />
 		<meta property='og:image:secure_url' content="<%= yield(:og_secure_image) %>" />
 		<meta property='og:image:type' content='image/jpeg' />
-	  <%= render "/layouts/ga" %>
-
-    <style>
+	  <%= render "/layouts/ga" %>  
+	  <style>
         html,
         body {
             height: 100%;
@@ -126,16 +119,14 @@
         .no-bg {
             background: transparent !important;
         }
-    </style>
-<script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyDk49bKAZAXex-UBN5AbFnvkjlaptQNtiM&amp;libraries=places"></script>
+    </style>    
+    <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyDk49bKAZAXex-UBN5AbFnvkjlaptQNtiM&amp;libraries=places"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
-	</head>
-
-	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
-		<!-- Load Facebook SDK for JavaScript -->
-  	<div id="fb-root"></div>
-  	<script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>                  
+</head>
+<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
+<div id="fb-root"></div>
+<script>
   	window.fbAsyncInit = function() {
   		FB.init({
   			appId      : '1418185688437447',
@@ -152,10 +143,8 @@
   		 fjs.parentNode.insertBefore(js, fjs);
   		}(document, 'script', 'facebook-jssdk'));
   	</script>
-
-
-    <div id="place-holder"></div>
-    <% flash.each do |type, message| %>
+  	<div id="place-holder"></div>
+  	<% flash.each do |type, message| %>
       <% if !bootstrap_class_for(type).eql?("timedout")%>
         <% if is_flash_key_for_tracking?(type) %>
           <div class="hidden <%= type %>"></div>
@@ -167,11 +156,11 @@
         <% end %>
       <% end %>
     <% end %>
-
     <% if !@no_nav %>
       <%= render "/layouts/admin_menu" %>
       <%= render "layouts/navbar" %>
     <% end %>
+
 
     <div class="app-wrap">
       <%= yield %>
@@ -182,9 +171,9 @@
     <% end %>
     <%= render "/layouts/video_modal" %>
 
-    <%= javascript_include_tag 'application' %>
+    <%#= javascript_include_tag 'application' %>
     <% if (controller_name == "regions") && (action_name == "show") %>
-      <%= javascript_include_tag 'region_map' %>
+      <%#= javascript_include_tag 'region_map' %>
     <% end %>
     <%= render "/layouts/stamp_modal" %>
     <script type="text/javascript">
@@ -194,13 +183,15 @@
 			<%#= render '/layouts/hubspot_tracking' %>
 		<%# end %>
 
-	</body>
 
 
 
-<% elsif @placeprograms %>
 
-	    <%= yield %>
-
-<% end %>
+<script type="text/javascript">
+	$(document).ready(function() {
+		console.log("jquery is loaded");
+	})
+</script>
+</body>
+	<% end %>
 </html>

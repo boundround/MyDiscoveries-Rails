@@ -1,34 +1,35 @@
 (function (win, doc) {
 
   "use strict";
-  var data_marker = $('input[name=region]').data('marker').split(', ["@"]');
+  var data_marker = $('input[name=region]').data('marker').split('#place');
   data_marker.pop(); //per place
+  data_marker.shift(); //per place
   var datas = function() {
     var results = [];
     $.each(data_marker, function(i, val) {
       var obj = {},
-        data_split = val.split(', "#'); //per key
-      obj['point'] = data_split[0].split('=>')[1].slice(1, -1);
-      obj['lat'] = parseFloat(data_split[1].split('=>')[1]);
-      obj['lng'] = parseFloat(data_split[2].split('=>')[1]);
+        data_split  = val.split(', "#'); //per key
+      obj['point']          = data_split[0].split('=>')[1].slice(1, -1);
+      obj['lat']            = parseFloat(data_split[1].split('=>')[1]);
+      obj['lng']            = parseFloat(data_split[2].split('=>')[1]);
       if (data_split[3].length > 150){          
-        obj['description'] = data_split[3].split('=>')[1].slice(1, -1).substr(0,150)+" ...";
+        obj['description']  = data_split[3].split('=>')[1].slice(1, -1).substr(0,150)+" ...";
       }else{
-        obj['description'] = data_split[3].split('=>')[1].slice(1, -1);
+        obj['description']  = data_split[3].split('=>')[1].slice(1, -1);
       }
-      obj['country'] = data_split[4].split('=>')[1].slice(1, -1);
-      obj['preview'] = data_split[6].split('=>')[1].slice(1, -1);
-      obj["inner-cards"] = [];
-      obj['path'] = data_split[5].split('=>')[1].slice(1, -1);
-      var data_childs = data_split[7].split(', ["#"]');
+      obj['country']        = data_split[4].split('=>')[1].slice(1, -1);
+      obj['preview']        = data_split[6].split('=>')[1].slice(1, -1);
+      obj["inner-cards"]    = [];
+      obj['path']           = data_split[5].split('=>')[1].slice(1, -1);
+      var data_childs       = data_split[7].split(', ["#"]');
       data_childs.pop();
       $.each(data_childs, function(i, val){
-        var childs_objs = {},
-          data_childs_split = val.split('"@');
+        var childs_objs             = {},
+          data_childs_split         = val.split('"@');
           data_childs_split.shift();
-          childs_objs["img"] = data_childs_split[2].split('=>')[1].slice(1, -2);
-          childs_objs["header"] = data_childs_split[0].split('=>')[1].slice(1, -3);
-          childs_objs["description"] = data_childs_split[1].split('=>')[1].slice(1, -3);
+          childs_objs["img"]        = data_childs_split[2].split('=>')[1].slice(1, -2);
+          childs_objs["header"]     = data_childs_split[0].split('=>')[1].slice(1, -3);
+          childs_objs["description"]= data_childs_split[1].split('=>')[1].slice(1, -3);
         obj["inner-cards"].push(childs_objs)
       })
       results.push(obj);
