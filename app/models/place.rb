@@ -277,7 +277,7 @@ class Place < ActiveRecord::Base
   validates_presence_of :display_name
 
 
-  #belongs_to :country
+  belongs_to :country
   belongs_to :user
   belongs_to :primary_category
 
