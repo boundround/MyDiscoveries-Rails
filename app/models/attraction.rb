@@ -225,7 +225,7 @@ class Attraction < ActiveRecord::Base
 
   scope :active, -> { where(status: "live") }
 
-  belongs_to :country
+  #belongs_to :country
   belongs_to :user
   belongs_to :primary_category
 
@@ -314,6 +314,10 @@ class Attraction < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def country
+    get_parents(self).find {|parent| parent.class.to_s == "Country"}
   end
 
   def trip_advisor_info

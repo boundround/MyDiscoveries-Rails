@@ -166,14 +166,18 @@ class Region < ActiveRecord::Base
     end
   end
 
+  def children
+    childrens.select {|child| child.itemable.present?}
+  end
+
   def all_place_children
     childrens_collect = []
     data_marker = []
-    childrens =  self.childrens
+    childrens = self.children
     if !childrens.blank?
       childrens.each do |child_place|
         if child_place.itemable_type == 'Country'
-          child_place_item = child_place.itemable.childrens.select{|childplace| childplace.itemable_type == 'Place'}
+          child_place_item = child_place.itemable.children.select{|childplace| childplace.itemable_type == 'Place'}
           unless child_place_item.blank?
             child_place_item.each do |each_child_place_item|
               childrens_collect << each_child_place_item.itemable
@@ -190,7 +194,7 @@ class Region < ActiveRecord::Base
         data_objs['#lat'] = place.latitude
         data_objs['#lng'] = place.longitude
         data_objs['#description'] = place.description
-        data_objs['#country'] = place.country.display_name
+        data_objs['#country'] = place.country.display_name rescue ""
         data_objs['#path'] = place_path(place)
         if !place.photos.blank?
           data_objs['#photo'] = place.photos.last.path_url(:thumb)
@@ -203,7 +207,7 @@ class Region < ActiveRecord::Base
           if place_child.itemable.present?
             place_item_child = place_child.itemable
             data_child_objs = {}
-            data_child_objs['@country_child'] = place_item_child.country.display_name
+            data_child_objs['@country_child'] = place_item_child.country.display_name rescue ""
             data_child_objs['@name_child'] = place_item_child.display_name
             if !place_item_child.photos.blank?
               data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:thumb)
