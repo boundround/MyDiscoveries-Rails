@@ -168,6 +168,10 @@ class Country < ActiveRecord::Base
     end
   end
 
+  def children
+    childrens.select {|child| child.itemable.present?}
+  end
+
   def publish_date
     update_at
   end
