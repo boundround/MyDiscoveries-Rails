@@ -222,9 +222,8 @@ class Region < ActiveRecord::Base
         end
 
         data_objs['#childrens'] = []
-        place.childrens.last(3).each do |place_child|
-          if place_child.itemable.present?
-            place_item_child = place_child.itemable
+        place.attractions.each do |place_child|
+            place_item_child = place_child
             data_child_objs = {}
             data_child_objs['@country_child'] = place_item_child.country.display_name rescue ""
             data_child_objs['@name_child'] = place_item_child.display_name
@@ -235,7 +234,6 @@ class Region < ActiveRecord::Base
             end
             data_objs['#childrens'] << data_child_objs
             data_objs['#childrens'] << ["#"]
-          end
         end
         data_marker << data_objs
         data_marker << ["@"]

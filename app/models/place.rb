@@ -713,15 +713,22 @@ class Place < ActiveRecord::Base
   def children
     list = childrens.select {|child| child.itemable.present?}
     list = list.map { |child| child.itemable }
-    # list_of_children = []
-    # childrens.each do |child|
-    #   unless child.itemable.blank?
-    #     if child.itemable_type == "Attraction" && child.itemable.status == "live"
-    #       list_of_children << child.itemable
-    #     end
-    #   end
-    # end
-    # list_of_children
+  end
+
+  def attractions
+    places_list = []
+    queue = self.children
+
+    while !queue.empty?
+    place = queue.shift
+      if place.class.to_s == "Attraction" && place.status == "live"
+        places_list << place
+      end
+      place.children.each do |child|
+        queue << child
+      end
+    end
+    places_list
   end
 
   private
