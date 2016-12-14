@@ -1,6 +1,6 @@
 class VideosController < ApplicationController
   def index
-      @latest_videos = Video.active.order(:created_at => :desc).where('vimeo_id is not null').paginate(:page => params[:latest_videos_page], per_page: 6)
+    @latest_videos = Video.active.order(:created_at => :desc).where('vimeo_id is not null').paginate(:page => params[:latest_videos_page], per_page: 6)
     respond_to do |f|
       f.html
       f.js
@@ -83,10 +83,10 @@ class VideosController < ApplicationController
     @video = Video.find(params[:id])
     if @video.update(video_params)
       if !params["video"]["vimeo_id"].blank?
-          response = Unirest.get("https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s) rescue nil
-          @video.youtube_id = ""
+        response = Unirest.get("https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s) rescue nil
+        @video.youtube_id = ""
       elsif !params["video"]["youtube_id"].blank?
-          response = Unirest.get("http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=#{@video.youtube_id}&format=json") rescue nil
+        response = Unirest.get("http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=#{@video.youtube_id}&format=json") rescue nil
       end
 
       if response

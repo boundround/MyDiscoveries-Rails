@@ -22,34 +22,32 @@ $(document).ready(function(){
     });
 
     tableTools = new $.fn.dataTable.TableTools( placeTable, {
-        "buttons": [
-          "copy",
-          "csv",
-          "xls",
-          "pdf"
-        ]
+      "buttons": [
+        "copy",
+        "csv",
+        "xls",
+        "pdf"
+      ]
+    });
+
+    $( tableTools.fnContainer() ).insertBefore('table#place-table');
+    $('#place-table thead th').each( function () {
+      var title = $(this).text();
+      $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+    // Apply the search
+    placeTable.columns().every( function () {
+      var that = this;
+      $( 'input', this.header() ).on( 'keyup change', function () {
+        if ( that.search() !== this.value ) {
+          that
+          .search( this.value )
+          .draw();
+        }
       } );
-
-      $( tableTools.fnContainer() ).insertBefore('table#place-table');
-
-      $('#place-table thead th').each( function () {
-          var title = $(this).text();
-          $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-      } );
-
-      // Apply the search
-      placeTable.columns().every( function () {
-          var that = this;
-
-          $( 'input', this.header() ).on( 'keyup change', function () {
-              if ( that.search() !== this.value ) {
-                  that
-                      .search( this.value )
-                      .draw();
-              }
-          } );
-      } );
-    }
+    } );
+  }
 
 
 
@@ -173,19 +171,19 @@ $(document).ready(function(){
   }
 
   if (document.querySelector('#place_meta_description')){
+    countChars('#place_meta_description', '#shortDescriptionCharCount');
+    countChars('#place_description', '#descriptionCharCount');
+    $('#place_meta_description').on('keyup', function(){
       countChars('#place_meta_description', '#shortDescriptionCharCount');
-      countChars('#place_description', '#descriptionCharCount');
-      $('#place_meta_description').on('keyup', function(){
-        countChars('#place_meta_description', '#shortDescriptionCharCount');
-      });
+    });
 
-      setTimeout(function(){
-        var wysiEditor = $('.wysihtml5-sandbox').contents().find('body')[0];
-        $(wysiEditor).on("keyup",function() {
-            var len = wysiEditor.innerHTML.length;
-            document.querySelector('#descriptionCharCount').innerHTML = len;
-        });
-      }, 1000);
+    setTimeout(function(){
+      var wysiEditor = $('.wysihtml5-sandbox').contents().find('body')[0];
+      $(wysiEditor).on("keyup",function() {
+        var len = wysiEditor.innerHTML.length;
+        document.querySelector('#descriptionCharCount').innerHTML = len;
+      });
+    }, 1000);
   }
 
   if (document.querySelector('#attraction_meta_description')){

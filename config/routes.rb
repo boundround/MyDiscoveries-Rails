@@ -50,8 +50,6 @@ Rails.application.routes.draw do
   mount GrapeSwaggerRails::Engine => '/apidoc'
 
   resources :bug_posts
-  get '/bugs' => 'bug_posts#new'
-  get 'all_bugs' => 'bug_posts#index'
 
   mount Ckeditor::Engine => '/ckeditor'
   post '/rate' => 'rater#create', :as => 'rate'
@@ -282,7 +280,6 @@ Rails.application.routes.draw do
       get 'paginate_place_to_visit'
       get 'paginate_stories'
       get 'paginate_deals'
-      get 'hero_image_picker'
       get 'seo_analysis'
     end
     collection do

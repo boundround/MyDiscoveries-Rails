@@ -11,10 +11,10 @@
       </thead>
       <tbody>
       <% @photos.each do |photo| %>
-        <% if photo.place.present? && photo.place.status == "live" %>
+        <% if photo.photoable.present? && photo.photoable.status == "live" %>
           <tr>
             <td><%= photo.place_id.to_s %></td>
-            <td><%= link_to photo.place.display_name, edit_place_path(photo.place) %></td>
+            <td><%= link_to photo.photoable.display_name, edit_place_path(photo.photoable) %></td>
           </tr>
         <% end %>
       <% end %>

@@ -57,8 +57,6 @@ class ProgramsController < ApplicationController
     Program.validate_import(params[:file],params[:import])
     redirect_to places_path, notice: "Programs imported."
   end
-
-  
   
   private
     def program_params

@@ -6,15 +6,15 @@ class SearchSuggestionsController < ApplicationController
 
   def index
     @areas = SearchSuggestion.terms_for_area(search_params[:common],
-                                             page: page_params(:areas_page),
-                                             facets: 'is_area',
-                                             facetFilters: ['is_area:true'],
-                                             hitsPerPage: per_page_params(:per_page_areas))
+                                            page: page_params(:areas_page),
+                                            facets: 'is_area',
+                                            facetFilters: ['is_area:true'],
+                                            hitsPerPage: per_page_params(:per_page_areas))
     @places = SearchSuggestion.terms_for_place(search_params[:common],
-                                               page: page_params(:places_page),
-                                               facets: 'is_area',
-                                               facetFilters: ['is_area:false'],
-                                               hitsPerPage: per_page_params(:per_page_places))
+                                              page: page_params(:places_page),
+                                              facets: 'is_area',
+                                              facetFilters: ['is_area:false'],
+                                              hitsPerPage: per_page_params(:per_page_places))
     respond_to do |f|
       f.html
       f.js

@@ -30,9 +30,6 @@ class PlacesController < ApplicationController
     @photo = @place.photos.where(hero: true).first
   end
 
-  def subcategory_match_test
-  end
-
   def subcategory_match
     index = Algolia::Index.new("place_#{Rails.env}")
     @search_string = ""
@@ -158,7 +155,6 @@ class PlacesController < ApplicationController
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new
-    # @places_coutry = @countries + @places
   end
 
   def update
@@ -227,10 +223,6 @@ class PlacesController < ApplicationController
     end
   end
 
-  def hero_image_picker
-    @place = Place.friendly.find(params[:id])
-  end
-
   def merge
   end
 
@@ -273,7 +265,7 @@ class PlacesController < ApplicationController
 
   def search
     @places = Place.where.not(subscription_level: ['out', 'draft'])
-             .text_search(params[:term])
+              .text_search(params[:term])
     @places = ActiveSupport::JSON.decode(@places.to_json)
 
     respond_to do |format|
@@ -283,7 +275,7 @@ class PlacesController < ApplicationController
 
   def show
     @places_to_visit = @place.places_to_visits.paginate( page: params[:places_to_visit_page], per_page: 6 )
-    @deals = @place.deals.active #.paginate(page: params[:deals_page], per_page: params[:deals_page].nil?? 6 : 3 )
+    @deals = @place.deals.active
     @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
     @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 4)
     @photos_hero = @photos.first(6)
@@ -519,7 +511,7 @@ class PlacesController < ApplicationController
     if params[:type].eql? "UserPhoto"
       @place.user_photos.each do |photo|
         if photo.id.to_s.eql? photo_id
-           photo.hero = true
+          photo.hero = true
         else
           photo.hero = false
         end
@@ -533,7 +525,7 @@ class PlacesController < ApplicationController
     else
       @place.photos.each do |photo|
         if photo.id.to_s.eql? photo_id
-           photo.hero = true
+          photo.hero = true
         else
           photo.hero = false
         end

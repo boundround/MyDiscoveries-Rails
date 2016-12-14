@@ -21,9 +21,6 @@ class User < ActiveRecord::Base
   has_many :posts_users
   has_many :posts, through: :posts_users
 
-  has_many :customers_places
-  has_many :owned_places, through: :customers_places, :source => :place
-
   has_many :places
   has_many :attractions
 

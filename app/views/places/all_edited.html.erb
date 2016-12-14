@@ -5,7 +5,6 @@
       <thead>
         <tr>
           <th>Place</th>
-          <th>Area</th>
           <th>Country</th>
           <th>Thumbnail</th>
           <th>Content Type</th>
@@ -15,9 +14,8 @@
       <tbody>
         <% @all_content.each do |content| %>
             <tr>
-              <td><%= link_to content.place.display_name, edit_place_path(content.place) %></td>
-              <td><%= content.place.area.display_name if content.place.area %></td>
-              <td><%= content.place.country.display_name if content.place && content.place.country %></td>
+              <td><%= link_to content.photoable.display_name, edit_place_path(content.photoable) %></td>
+              <td><%= content.photoable.country.display_name if content.photoable && content.photoable.country %></td>
               <td><img src="<%= thumbnail_for(content) %>" class="photo-edit-thumb"></td>
               <td><%= content.class %></td>
               <td><%= content.id %></td>
