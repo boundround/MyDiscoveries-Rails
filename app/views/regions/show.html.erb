@@ -53,7 +53,7 @@
     </div>
   </div>
 
-  <div class="container"> 
+  <div class="container">
     <div class="row">
       <div class="col-xs-12">
         <% if @region.description.length > 280 %>
@@ -88,72 +88,92 @@
   </div>
 
   <% unless @place_to_go.blank? %>
-  <div class="container section">
-    <div class="row">
-      <div class="col-md-12">
-          <div class="destination-wrapper">
-              <div class="row">
-                  <div class="col-md-12 text-center">
-                      <h3>Places to go</h3>
-                  </div>
-              </div>
-              <br/>
+    <div class="container section">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="destination-wrapper">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3>Places to go</h3>
+                    </div>
+                </div>
+                <br/>
 
-              <div class="row">
-                  <div class="owl-carousel carousel" id="place_to_go-list">
-                      <%= render partial: 'place_to_go_list', collection: @place_to_go, as: :place %>
+                <div class="row">
+                    <div class="owl-carousel carousel" id="place_to_go-list">
+                        <%= render partial: 'place_to_go_list', collection: @place_to_go, as: :place %>
+                    </div>
+                </div>
+            </div>
+
+            <% unless last_page? @place_to_go %>
+            <div class="row hidden-xs single-pagination-container" id="place_to_go-single-pagination-container">
+                <div class="col-xs-12 load-more">
+                  <div class="hidden single-pagination-loader" align="center">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                   </div>
-              </div>
+                <%= link_to "LOAD MORE", paginate_place_to_go_region_path(@region, place_to_go_page: @place_to_go.next_page, resources: 'place_to_go', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
+                </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<!-- THINGS TO DO -->
+
+    <% unless @places_to_visit.blank? %>
+      <div class="destination-page">
+        <div id="thingstodo" class="container dest-things-wrapper">
+          <div class="row">
+            <div class="col-xs-12">
+                <h3>Things to do in <%= @region.display_name %></h3>
+            </div>
           </div>
-
-          <% unless last_page? @place_to_go %>
-          <div class="row hidden-xs single-pagination-container" id="place_to_go-single-pagination-container">
+          <div class="row">
+            <div class="owl-carousel carousel" id="places_to_visit-list">
+              <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
+            </div>
+          </div>
+          <% unless last_page? @places_to_visit %>
+            <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
               <div class="col-xs-12 load-more">
                 <div class="hidden single-pagination-loader" align="center">
                   <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                 </div>
-              <%= link_to "LOAD MORE", paginate_place_to_go_region_path(@region, places_to_go_page: @place_to_go.next_page, resources: 'place_to_go', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
+                <%= link_to "LOAD MORE", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
               </div>
+            </div>
           </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <% end %>
-<!-- THINGS TO DO -->
-<% unless @places_to_visit.blank? %>
-  <div class="destination-page">
-  <div id="thingstodo" class="container dest-things-wrapper">
-      <div class="row">
-        <div class="col-xs-12">
-            <h3>Things to do in <%= @region.display_name %></h3>
+          <% end %>
+          <% unless last_page? @places_to_visit %>
+            <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
+              <div class="col-xs-12 load-more">
+                <div class="hidden single-pagination-loader" align="center">
+                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                </div>
+                <%= link_to "LOAD MORE", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
-      <div class="row">
-          <div class="owl-carousel carousel" id="places_to_visit-list">
-            <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
-          </div>
-      </div>
-    <% unless last_page? @places_to_visit %>
-      <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
-          <div class="col-xs-12 load-more">
-            <div class="hidden single-pagination-loader" align="center">
-              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-            </div>
-          <%= link_to "LOAD MORE", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
-          </div>
-      </div>
     <% end %>
-  </div>
-  </div>
-<% end %>
 
 <!-- Banner -->
   <div class="container-fluid wild-ad-banner">
     <div class="row">
       <div class="col-sm-12 col-md-6 col-md-offset-3">
-      <img src="/assets/img/wild-ad-banner/test.jpg" class="wild-ad-banner__img" style="display: block;">
-      
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- BR first go -->
+        <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-3125270010093298"
+        data-ad-slot="1632886169"
+        data-ad-format="auto"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
       <p class="wild-ad-banner__paragraph">Sponsored</p>
       </div>
     </div>

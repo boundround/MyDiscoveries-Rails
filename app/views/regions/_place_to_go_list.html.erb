@@ -1,22 +1,17 @@
-<% area = place.itemable %>
-<a href="<%= country_path(area) %>">
+<a href="<%= place_path(place) %>">
 <div class="destination-card-item">
     <div class="col-sm-4">
         <div class="destination-card">
             <div class="destination-image"
-                 style="background-image: url('<%= draw_medium_background(area)%>')"
+                 style="background-image: url('<%= draw_medium_background(place)%>')"
                  role="img"
                  aria-label="Destination Sydney">
                 <div class="overlay"></div>
                 <div class="geolocation">
-                    <img src="/assets/new-images/icon-geolocator.png"/><span><%= area.display_name %></span>
+                    <img src="/assets/new-images/icon-geolocator.png"/><span><%= place.country.display_name rescue "" %></span>
                 </div>
                 <div class="destination-city">
-                	<% if area.capital_city == "" %>
-                    	<h2><%= area.display_name %></h2>
-                    <% else %>
-                    	<h2><%= area.capital_city %></h2>
-                    <% end %>
+                    	<h2><%= place.display_name %></h2>
                     <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png"/></div>
                 </div>
             </div>

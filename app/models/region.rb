@@ -164,33 +164,53 @@ class Region < ActiveRecord::Base
     end
   end
 
-  def all_place_children
-    childrens_collect = []
-    data_marker = []
-    childrens =  self.childrens
-    if !childrens.blank?
-      childrens.each do |child_place|
-        if child_place.itemable_type == 'Country'
-          child_place_item = child_place.itemable.childrens.select{|childplace| childplace.itemable_type == 'Place'}
-          unless child_place_item.blank?
-            child_place_item.each do |each_child_place_item|
-              childrens_collect << each_child_place_item.itemable
-            end
-          end
-        elsif child_place.itemable_type == 'Place'
-          childrens_collect << child_place.itemable
-        end
+  def children
+    list = childrens.select {|child| child.itemable.present?}
+    list = list.map { |child| child.itemable }
+  end
+
+  def places
+    places_list = []
+    queue = self.children
+
+    while !queue.empty?
+    place = queue.shift
+      if place.class.to_s == "Place" && place.status == "live"
+        places_list << place
       end
+      place.children.each do |child|
+        queue << child
+      end
+    end
+    places_list
+  end
 
+  def attractions
+    places_list = []
+    queue = self.children
 
-      #Build map object
+    while !queue.empty?
+    place = queue.shift
+      if place.class.to_s == "Attraction" && place.status == "live"
+        places_list << place
+      end
+      place.children.each do |child|
+        queue << child
+      end
+    end
+    places_list
+  end
+  def all_place_children
+    childrens_collect = self.places
+    data_marker = []
+    if !childrens_collect.blank?
       childrens_collect.each do |place|
         data_objs = {}
         data_objs['#place'] = place.display_name
         data_objs['#lat'] = place.latitude
         data_objs['#lng'] = place.longitude
         data_objs['#description'] = place.description
-        data_objs['#country'] = place.country.display_name
+        data_objs['#country'] = place.country.display_name rescue ""
         data_objs['#path'] = place_path(place)
         if !place.photos.blank?
           data_objs['#photo'] = place.photos.last.path_url(:thumb)
@@ -199,11 +219,10 @@ class Region < ActiveRecord::Base
         end
 
         data_objs['#childrens'] = []
-        place.childrens.last(3).each do |place_child|
-          if place_child.itemable.present?
-            place_item_child = place_child.itemable
+        place.attractions.each do |place_child|
+            place_item_child = place_child
             data_child_objs = {}
-            data_child_objs['@country_child'] = place_item_child.country.display_name
+            data_child_objs['@country_child'] = place_item_child.country.display_name rescue ""
             data_child_objs['@name_child'] = place_item_child.display_name
             if !place_item_child.photos.blank?
               data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:thumb)
@@ -212,7 +231,6 @@ class Region < ActiveRecord::Base
             end
             data_objs['#childrens'] << data_child_objs
             data_objs['#childrens'] << ["#"]
-          end
         end
         data_marker << data_objs
         data_marker << ["@"]

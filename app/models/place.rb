@@ -277,7 +277,7 @@ class Place < ActiveRecord::Base
   validates_presence_of :display_name
 
 
-  belongs_to :country
+  #belongs_to :country
   belongs_to :user
   belongs_to :primary_category
 
@@ -348,9 +348,7 @@ class Place < ActiveRecord::Base
   end
 
   def self.home_page_areas
-    Rails.cache.fetch("home_page_areas", expires_in: 24.hours) do
-      Place.active.is_area.where(primary_area: true).includes(:country, :photos).order("countries.display_name asc")
-    end
+    places = Place.active.includes(:photos).order(algolia_clicks: :desc).find_all {|place| place.country.present? }
   end
 
   def self.return_first_place_id_from_search_results(search_response, region)
@@ -379,7 +377,7 @@ class Place < ActiveRecord::Base
   def Place.all_placeareas_geojson
     # Fetch place GeoJSON from cache or store it in the cache.
       geojson = {"type" => "FeatureCollection","features" => []}
-      places = self.active.includes(:country)
+      places = self.active
       places.each do |place|
         geojson['features'] << {
           type: 'Feature',
@@ -584,6 +582,10 @@ class Place < ActiveRecord::Base
     end
   end
 
+  def country
+    get_parents(self).find {|parent| parent.class.to_s == "Country"}
+  end
+
   def places_to_visits
     places_to_visit = self.children
     places_to_visit = places_to_visit.sort do |x, y|
@@ -691,15 +693,24 @@ class Place < ActiveRecord::Base
   end
 
   def children
-    list_of_children = []
-    childrens.each do |child|
-      unless child.itemable.blank?
-        if child.itemable_type == "Attraction" && child.itemable.status == "live"
-          list_of_children << child.itemable
-        end
+    list = childrens.select {|child| child.itemable.present?}
+    list = list.map { |child| child.itemable }
+  end
+
+  def attractions
+    places_list = []
+    queue = self.children
+
+    while !queue.empty?
+    place = queue.shift
+      if place.class.to_s == "Attraction" && place.status == "live"
+        places_list << place
+      end
+      place.children.each do |child|
+        queue << child
       end
     end
-    list_of_children
+    places_list
   end
 
   private
