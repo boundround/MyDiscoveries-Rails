@@ -168,6 +168,20 @@ class Region < ActiveRecord::Base
 
   def children
     childrens.select {|child| child.itemable.present?}
+    childrens.map { |child| child.itemable }
+  end
+
+  def places
+    places_list = []
+    queue = self.children
+
+    while !queue.empty?
+      place = queue.shift
+      if place.class.to_s == "Place"
+        places_list << place
+      end
+      queue << place.children
+    end
   end
 
   def all_place_children

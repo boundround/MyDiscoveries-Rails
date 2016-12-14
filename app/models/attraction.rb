@@ -431,15 +431,17 @@ class Attraction < ActiveRecord::Base
   end
 
   def children
-    list_of_children = []
-    childrens.each do |child|
-      if child.itemable.present?
-        if child.itemable_type == "Attraction" && child.itemable.status == "live"
-          list_of_children << child.itemable
-        end
-      end
-    end
-    list_of_children
+    childrens.select {|child| child.itemable.present?}
+    childrens.map { |child| child.itemable }
+    # list_of_children = []
+    # childrens.each do |child|
+    #   if child.itemable.present?
+    #     if child.itemable_type == "Attraction" && child.itemable.status == "live"
+    #       list_of_children << child.itemable
+    #     end
+    #   end
+    # end
+    # list_of_children
   end
 
   def short_description
