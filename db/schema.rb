@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124232207) do
+ActiveRecord::Schema.define(version: 20161205035448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -315,6 +315,11 @@ ActiveRecord::Schema.define(version: 20161124232207) do
 
   add_index "countries_stories", ["country_id", "story_id"], name: "index_countries_stories_on_country_id_and_story_id", unique: true, using: :btree
 
+  create_table "countries_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "country_id"
+  end
+
   create_table "countries_videos", force: true do |t|
     t.integer "country_id"
     t.integer "video_id"
@@ -480,12 +485,138 @@ ActiveRecord::Schema.define(version: 20161124232207) do
     t.integer  "place_id"
   end
 
+  create_table "offers", force: true do |t|
+    t.integer  "attraction_id"
+    t.string   "status",                                                 default: ""
+    t.text     "name",                                                   default: ""
+    t.text     "description",                                            default: ""
+    t.integer  "minRateAdult",                                           default: 0
+    t.integer  "minRateChild",                                           default: 0
+    t.integer  "minRateInfant",                                          default: 0
+    t.integer  "maxRateAdult",                                           default: 0
+    t.integer  "maxRateChild",                                           default: 0
+    t.integer  "maxRateInfant",                                          default: 0
+    t.integer  "duration",            limit: 8,                          default: 0
+    t.text     "specialNotes",                                           default: ""
+    t.integer  "operatingDays",                                          default: 0
+    t.text     "operatingDaysStr",                                       default: ""
+    t.text     "operatingSchedule",                                      default: ""
+    t.text     "locationStart",                                          default: ""
+    t.decimal  "latitudeStart",                 precision: 10, scale: 6
+    t.decimal  "longitudeStart",                precision: 10, scale: 6
+    t.integer  "distanceStartToRef",                                     default: 0
+    t.text     "locationEnd",                                            default: ""
+    t.decimal  "latitudeEnd",                   precision: 10, scale: 6
+    t.decimal  "longitudeEnd",                  precision: 10, scale: 6
+    t.string   "tags",                                                   default: [],    array: true
+    t.integer  "minAge",                                                 default: 0
+    t.integer  "maxAge",                                                 default: 0
+    t.integer  "requiredMultiple",                                       default: 0
+    t.integer  "minUnits",                                               default: 0
+    t.integer  "maxUnits",                                               default: 0
+    t.text     "pickupNotes",                                            default: ""
+    t.text     "dropoffNotes",                                           default: ""
+    t.text     "highlightsStr",                                          default: ""
+    t.text     "itineraryStr",                                           default: ""
+    t.text     "includes",                                               default: ""
+    t.text     "sellVouchers",                                           default: ""
+    t.text     "onlyVouchers",                                           default: ""
+    t.text     "voucherInstructions",                                    default: ""
+    t.integer  "voucherValidity",                                        default: 0
+    t.text     "customStr1",                                             default: ""
+    t.text     "customStr2",                                             default: ""
+    t.text     "customStr3",                                             default: ""
+    t.text     "customStr4",                                             default: ""
+    t.boolean  "pickupRequired",                                         default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "livn_product_id"
+    t.date     "startDate"
+    t.date     "endDate"
+    t.decimal  "page_ranking_weight"
+    t.text     "focus_keyword"
+    t.text     "seo_title"
+  end
+
+  add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree
+
+  create_table "offers_attractions", force: true do |t|
+    t.integer "offer_id"
+    t.integer "attraction_id"
+  end
+
+  add_index "offers_attractions", ["offer_id", "attraction_id"], name: "index_offers_attractions_on_offer_id_and_attraction_id", unique: true, using: :btree
+  add_index "offers_attractions", ["offer_id"], name: "index_offers_attractions_on_offer_id", using: :btree
+
+  create_table "offers_countries", force: true do |t|
+    t.integer "offer_id"
+    t.integer "country_id"
+  end
+
+  add_index "offers_countries", ["offer_id", "country_id"], name: "index_offers_countries_on_offer_id_and_country_id", unique: true, using: :btree
+  add_index "offers_countries", ["offer_id"], name: "index_offers_countries_on_offer_id", using: :btree
+
+  create_table "offers_photos", force: true do |t|
+    t.integer "photo_id"
+    t.integer "offer_id"
+  end
+
+  add_index "offers_photos", ["offer_id", "photo_id"], name: "index_offers_photos_on_offer_id_and_photo_id", unique: true, using: :btree
+  add_index "offers_photos", ["offer_id"], name: "index_offers_photos_on_offer_id", using: :btree
+
+  create_table "offers_places", force: true do |t|
+    t.integer "offer_id"
+    t.integer "place_id"
+  end
+
+  add_index "offers_places", ["offer_id", "place_id"], name: "index_offers_places_on_offer_id_and_place_id", unique: true, using: :btree
+  add_index "offers_places", ["offer_id"], name: "index_offers_places_on_offer_id", using: :btree
+
+  create_table "offers_regions", force: true do |t|
+    t.integer "offer_id"
+    t.integer "region_id"
+  end
+
+  add_index "offers_regions", ["offer_id", "region_id"], name: "index_offers_regions_on_offer_id_and_region_id", unique: true, using: :btree
+  add_index "offers_regions", ["offer_id"], name: "index_offers_regions_on_offer_id", using: :btree
+
+  create_table "offers_subcategories", force: true do |t|
+    t.integer "offer_id"
+    t.integer "subcategory_id"
+  end
+
+  add_index "offers_subcategories", ["offer_id", "subcategory_id"], name: "index_offers_subcategories_on_offer_id_and_subcategory_id", unique: true, using: :btree
+  add_index "offers_subcategories", ["offer_id"], name: "index_offers_subcategories_on_offer_id", using: :btree
+
+  create_table "offers_videos", force: true do |t|
+    t.integer "offer_id"
+    t.integer "video_id"
+  end
+
+  add_index "offers_videos", ["offer_id", "video_id"], name: "index_offers_videos_on_offer_id_and_video_id", unique: true, using: :btree
+  add_index "offers_videos", ["offer_id"], name: "index_offers_videos_on_offer_id", using: :btree
+
   create_table "one_minute_forms", force: true do |t|
     t.string   "results"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "orders", force: true do |t|
+    t.integer  "offer_id"
+    t.integer  "user_id"
+    t.string   "title"
+    t.integer  "number_of_children", default: 0
+    t.integer  "number_of_adults",   default: 0
+    t.integer  "number_of_infants",  default: 0
+    t.integer  "total_price",        default: 0
+    t.date     "start_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "orders", ["offer_id", "user_id"], name: "index_orders_on_offer_id_and_user_id", using: :btree
 
   create_table "overall_averages", force: true do |t|
     t.integer  "rateable_id"
@@ -782,6 +913,11 @@ ActiveRecord::Schema.define(version: 20161124232207) do
     t.integer  "story_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "regions_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "region_id"
   end
 
   create_table "reviews", force: true do |t|

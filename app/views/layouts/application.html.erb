@@ -133,6 +133,7 @@
 	</head>
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
+		<div id="environment" data-environment="<%= Rails.env %>">
 		<!-- Load Facebook SDK for JavaScript -->
   	<div id="fb-root"></div>
   	<script>

@@ -14,8 +14,8 @@ class RegionsController < ApplicationController
     @fun_facts  = ''
     @fun_facts = @region.fun_facts
     @places_to_visit_map = @region.all_place_children
-    @places_to_visit = @region.childrens.select{|child| (child.itemable_id != @region.id) && (child.itemable_id != nil) && (child.itemable_type != @region.class.to_s) }.paginate(page: params[:places_to_visit_page], per_page: 3 )
-    @place_to_go = @region.childrens.select{|child| child.itemable_type == 'Country' && child.itemable_id != nil}.paginate(page: params[:places_to_go_page], per_page: 3 )
+    @places_to_visit = @region.children.select{|child| (child.itemable_id != @region.id) && (child.itemable_type != @region.class.to_s) }.paginate(page: params[:places_to_visit_page], per_page: 3 )
+    @place_to_go = @region.children.select{|child| child.itemable_type == 'Country'}.paginate(page: params[:places_to_go_page], per_page: 3 )
   end
 
   def new

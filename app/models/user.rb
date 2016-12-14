@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   has_many :favorite_places, through: :places_users, source: :place
   has_many :attractions_users
   has_many :favorite_attractions, through: :attractions_users, source: :attraction
+  has_many :regions_users
+  has_many :favorite_regions, through: :regions_users, source: :region
+  has_many :countries_users
+  has_many :favorite_countries, through: :countries_users, source: :country
   has_many :fun_facts_users
   has_many :fun_facts, through: :fun_facts_users
   has_many :posts_users
@@ -24,7 +28,8 @@ class User < ActiveRecord::Base
 
   has_many :reviews
   has_many :stories_users
-  has_many :stories, through: :stories_users
+  has_many :favourite_stories, through: :stories_users, :source => :story
+  has_many :stories
   has_many :user_photos
 
   has_one :points_balance
@@ -104,7 +109,7 @@ class User < ActiveRecord::Base
 
   def user_stories
     stories = self.posts
-    stories += self.stories
+    stories += self.favourite_stories
   end
 
 end
