@@ -431,8 +431,8 @@ class Attraction < ActiveRecord::Base
   end
 
   def children
-    childrens.select {|child| child.itemable.present?}
-    childrens.map { |child| child.itemable }
+    list = childrens.select {|child| child.itemable.present?}
+    list = list.map { |child| child.itemable }
     # list_of_children = []
     # childrens.each do |child|
     #   if child.itemable.present?

@@ -123,7 +123,7 @@
                 <div class="hidden single-pagination-loader" align="center">
                   <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                 </div>
-              <%= link_to "LOAD MORE", paginate_place_to_go_region_path(@region, places_to_go_page: @place_to_go.next_page, resources: 'place_to_go', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
+              <%= link_to "LOAD MORE", paginate_place_to_go_region_path(@region, place_to_go_page: @place_to_go.next_page, resources: 'place_to_go', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
               </div>
           </div>
         <% end %>
