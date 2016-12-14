@@ -200,20 +200,12 @@ module ApplicationHelper
   end
 
   def draw_hero_background(place)
-    if place.class.to_s == "Country"
-      if place.photos.find_by country_hero: true
-        place.photos.find_by(country_hero: true).path_url(:large)
-      else
-        asset_path('generic-hero.jpg')
-      end
+    if place.photos.find_by(hero: true)
+      place.photos.find_by(hero: true).path_url(:large)
+    elsif place.user_photos.find_by(hero: true)
+      place.user_photos.find_by(hero: true).path_url(:large)
     else
-      if place.photos.find_by(hero: true)
-        place.photos.find_by(hero: true).path_url(:large)
-      elsif place.user_photos.find_by(hero: true)
-        place.user_photos.find_by(hero: true).path_url(:large)
-      else
-        asset_path('generic-hero.jpg')
-      end
+      asset_path('generic-hero.jpg')
     end
   end
 

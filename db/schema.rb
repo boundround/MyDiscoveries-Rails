@@ -314,6 +314,11 @@ ActiveRecord::Schema.define(version: 20161212140011) do
 
   add_index "countries_stories", ["country_id", "story_id"], name: "index_countries_stories_on_country_id_and_story_id", unique: true, using: :btree
 
+  create_table "countries_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "country_id"
+  end
+
   create_table "countries_videos", force: true do |t|
     t.integer "country_id"
     t.integer "video_id"
@@ -909,6 +914,11 @@ ActiveRecord::Schema.define(version: 20161212140011) do
     t.integer  "story_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "regions_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "region_id"
   end
 
   create_table "reviews", force: true do |t|

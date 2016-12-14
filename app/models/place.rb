@@ -222,7 +222,7 @@ class Place < ActiveRecord::Base
   validates_presence_of :display_name
 
 
-  belongs_to :country
+  #belongs_to :country
   belongs_to :user
   belongs_to :primary_category
 
@@ -235,7 +235,7 @@ class Place < ActiveRecord::Base
   has_many :subcategories, through: :places_subcategories
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
-  has_many :fun_facts, -> { order "created_at ASC"}
+  has_many :fun_facts, -> { order "created_at ASC"}, as: :fun_factable
   has_many :programs, -> { order "created_at ASC"}
   has_many :user_photos
 
@@ -333,7 +333,7 @@ class Place < ActiveRecord::Base
     # Fetch place GeoJSON from cache or store it in the cache.
 #    Rails.cache.fetch('placeareas_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
-      places = self.active.includes(:country)
+      places = self.active
       places.each do |place|
         geojson['features'] << {
           type: 'Feature',
@@ -544,6 +544,10 @@ class Place < ActiveRecord::Base
       parents << place.parent.parentable
       get_parents(place.parent.parentable, parents)
     end
+  end
+
+  def country
+    get_parents(self).find {|parent| parent.class.to_s == "Country"}
   end
 
   def places_to_visits

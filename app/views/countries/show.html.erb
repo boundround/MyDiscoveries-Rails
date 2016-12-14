@@ -4,6 +4,7 @@
 <% provide(:og_secure_image, open_graph_image) %>
 
 <% if @country.published_status == "live" || (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) || (user_signed_in? && (current_user.places.include?(@country) && @country.published_status!= "removed")) %>
+<div data-page="country">
 <div class="area-content" data-lat="<%= @country.latitude %>" data-long="<%= @country.longitude %>">
   <div id='country-data' data-country-code=<%= @country.country_code %> data-capital-city=<%= @country.capital_city %>>
 </div>
@@ -23,11 +24,11 @@
                     <div class="destination-details">
 
                         <div class="favourites-wrapper">
-                            <% if user_signed_in? %>
-                              <div class="icon-favourite selected"></div>
-                              <div class="favourites-title hidden-xs" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from favourites</div>
+                            <% if user_signed_in? && @country.users.include?(current_user) %>
+                              <div class="icon-favourite selected" id="favouriteType" data-post-path="countries_users" data-klass="country" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                              <div class="favourites-title hidden-xs">Remove from favourites</div>
                             <% else %>
-                              <div class="icon-favourite" data-liked="false" id="favouriteType" data-klass="country" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                              <div class="icon-favourite" id="favouriteType" data-post-path="countries_users" data-klass="country" data-liked="false" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
                               <div class="favourites-title hidden-xs" >Add to favourites</div>
                             <% end %>
 
@@ -58,12 +59,12 @@
             <div class="container">
                 <div class="nav-option-outer-wrapper">
                     <div class="nav-option-wrapper">
-                        <div class="nav-option"><a data-scroll href="#videos"><%= "VIDEOS" if @videos.present? %></a></div>
-                        <div class="nav-option"><a data-scroll href="#stories"><%= "STORIES" if @stories.present? %></a></div>
-                        <div class="nav-option"><a data-scroll href="#thingstodo"><%= "PLACES TO GO" if @areas.present? %></a></div>
-                        <div class="nav-option"><a data-scroll href="#photos"><%= "PHOTOS" if @photos.present? %></a></div>
-                        <div class="nav-option"><a data-scroll href="#famousfaces"><%= "FAMOUS FACES" if @famous_faces.present? %></a></div>
-                        <div class="nav-option"><a data-scroll href="#funfacts"><%= "FUN FACTS" if @fun_facts.present? %></a></div>
+                        <% if @videos.present? %><div class="nav-option"><a data-scroll href="#videos">VIDEOS</a></div><% end %>
+                        <% if @stories.present? %><div class="nav-option"><a data-scroll href="#stories">STORIES</a></div><% end %>
+                        <% if @areas.present? %><div class="nav-option"><a data-scroll href="#thingstodo">PLACES TO GO</a></div><% end %>
+                        <% if @photos.present? %><div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div><% end %>
+                        <% if @famous_faces.present? %><div class="nav-option"><a data-scroll href="#famousfaces">FAMOUS FACES</a></div><% end %>
+                        <% if @fun_facts.present? %><div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div><% end %>
                     </div>
                 </div>
             </div>
@@ -72,6 +73,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
+            <% if @country.description.length > 280 %>
                 <div class="destination-desc " style="display:none;">
                     <%= raw @country.description %>
                 </div>
@@ -82,12 +84,18 @@
                     <a href="javascript:void()" class="readmore-area">READ MORE</a>
                     <a href="javascript:void()" class="readmore-area " style="display:none;">LESS</a>
                 </div>
+            <% else %>
+                <div class="destination-desc ">
+                    <%= raw @country.description %>
+                </div>
+            <% end %> 
             </div>
         </div>
       </div>
 
     </div>
 
+    <!-- VIDEO SECTION -->
     <% unless @last_video.blank? %>
     <% if !@last_video.youtube_id.blank? %>
       <div id="videos" class="large-video-component-wrapper play-in-modal"
@@ -146,10 +154,11 @@
 
     <%= render partial: "shared/videos_list", locals:{container: "container" } %>
 
-    <div class="stories-things-wrapper">
-      <% if @stories.present? %>
+    <% if @stories.present? %>
+      <div class="stories-things-wrapper">
         <%= render partial: "stories/all_stories" %>
-      <% end %>
+      </div>
+    <% end %>
 
       <% unless @areas.blank? %>
         <div id="thingstodo" class="container dest-things-wrapper">
@@ -175,11 +184,10 @@
             </div>
           <% end %>
         </div>
-      <% end %>
+      </div>
+    <% end %>
 
-    </div>
-
-    <% unless @photos_hero.blank? %>
+<!--     <% unless @photos_hero.blank? %>
       <div id="photos" class="large-carousel-wrapper">
         <div class="large-owl-carousel owl-carousel">
           <% @photos_hero.each do |photo| %>
@@ -199,10 +207,13 @@
           <% end %>
         </div>
       </div>
-    <% end %>
+    <% end %> -->
 
-    <%= render partial: "shared/photos_list", as: :photos, locals:{container: "container"} %>
+    <div id="photos">
+      <%= render partial: "shared/photos_list", as: :photos, locals:{container: "container"} %>
+    </div>
 
+  <% if @famous_faces.present? %>
     <div id="famousfaces" class="famous-faces-wrapper">
       <div class="container">
         <div class="row">
@@ -227,6 +238,7 @@
         </div>
       </div>
     </div>
+  <% end %>
 
   <% if @fun_facts.present? %>
     <div id="funfacts" class="container fun-facts-wrapper">
@@ -243,9 +255,10 @@
       </div>
     </div>
   <% end %>
-
+  </div>
 <% end %>
 <%= render 'layouts/all_modal' %>
+<%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
 
 <%#= render 'layouts/video_modal' %>

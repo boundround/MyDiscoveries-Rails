@@ -1,4 +1,4 @@
-<% 
+<%
   if !@place.blank?
     variable = @place
     path = 'place'
@@ -26,7 +26,7 @@
     <div class="photo-container">
       <%= simple_form_for @fun_fact do |f| %>
         <div class="form-group">
-          <%= f.input :content, input_html: { class: 'form-control content-length'}  %>
+          <%= f.input :content, input_html: { class: 'form-control content-length fun-fact-content'}  %>
           LENGTH: <span class="char-count"></span> CHARACTERS
           <%= f.input :reference, input_html: { class: 'form-control'}  %>
           <%= f.input :hero_photo, as: :file, input_html: { class: 'form-control'}  %>
@@ -47,8 +47,8 @@
           <%= f.input :fun_factable_type, as: :hidden, input_html: {value: "Region"} %>
         <% end %>
         <div class="form-group">
-          <%= f.button :submit%> 
-          &nbsp;&nbsp; OR &nbsp;&nbsp; 
+          <%= f.button :submit%>
+          &nbsp;&nbsp; OR &nbsp;&nbsp;
           <%= link_to 'Destroy', region_fun_fact_path(variable, @fun_fact), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn', style: 'background-color: #d9534f; color: #333;' %>
         </div>
       <% end %>

@@ -144,11 +144,11 @@ class Country < ActiveRecord::Base
   has_many :countries_stories
   has_many :stories, through: :countries_stories
 
-  has_one :parent, :class_name => "ChildItem", as: :itemable
-  has_many :childrens, :class_name => "ChildItem", as: :parentable
-
   has_many :offers_countries, dependent: :destroy
   has_many :offers, through: :offers_countries
+
+  has_many :countries_users
+  has_many :users, through: :countries_users
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
@@ -166,6 +166,10 @@ class Country < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def children
+    childrens.select {|child| child.itemable.present?}
   end
 
   def publish_date
