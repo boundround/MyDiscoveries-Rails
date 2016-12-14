@@ -357,17 +357,9 @@ class Place < ActiveRecord::Base
   end
 
   def self.home_page_areas
-    Place.active.is_area.where(primary_area: true).includes(:photos)
+    places = Place.active.includes(:photos).order(algolia_clicks: :desc).find_all {|place| place.country.present? }
   end
 
-  # def self.text_search(query)
-  #   if query.present?
-  #     search(query)
-  #   else
-  #   # rescue ""
-  #     scoped
-  #   end
-  # end
   def self.return_first_place_id_from_search_results(search_response, region)
     id = nil
     search_response["hits"].each do |hit|
