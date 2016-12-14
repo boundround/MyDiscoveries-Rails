@@ -2,17 +2,15 @@
 <% content_for :og_image, "http://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
 <% content_for :og_secure_image, "https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
 <% content_for :description, "Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards." %>
-<div class="banner-wrapper dismiss-mega-menu-search">
-    <span class="banner-image" style="background-image: url('<%= @page.hero_image_url rescue "https://placehold.it/1920x1080" %>')" role="img" aria-label="">
-                                </span>
-    <div class="overlay"></div>
+<div class="home-promo">
+    <img class="home-promo__image" src="<%= @page.hero_image_url rescue "https://placehold.it/1920x1080" %>">
       <div class="container">
           <div class="row">
               <div class="col-md-12">
                   <div class="row">
                       <div class="col-md-12 banner-heading">
                         <% if user_signed_in? && current_user.admin? %>
-                          <h1>
+                          <h1 class="home-promo__header">
                             <span class="rest-in-place" data-url="/pages/1" data-object="page" data-attribute="page_header" data-placeholder="Enter A Headline">
                               <%= raw @page.page_header rescue "Home Page Info Not Yet Created" %>
                             </span>
@@ -21,14 +19,14 @@
                             <div><%= raw @page.hero_image_text rescue "Home Page Info Not Yet Created" %></div>
                           </span>
                         <% else %>
-                          <h1>
+                          <h1 class="home-promo__header">
                             <span>
                               <%= raw @page.page_header rescue "Home Page Info Not Yet Created" %>
                             </span>
                           </h1>
-                          <span>
+                          <!-- <span>
                             <div><%= raw @page.hero_image_text rescue "Home Page Info Not Yet Created" %></div>
-                          </span>
+                          </span> -->
                         <% end %>
                       </div>
                   </div>
@@ -39,12 +37,10 @@
                                   <div style="display:none">
                                       <input name="utf8" value="✓" type="hidden">
                                   </div>
-                                  <input type="text" name="search[common]" class="search-box-bottom form-control search" placeholder="Search for family friendly things to do" autocomplete="off">
-                                  <div class=" input-group-addon ">
-                                      <img src="/assets/new-images/icon-magnifier.png" />Search
-                                      <button class="hero-search" type="submit">
-                                      </button>
-                                  </div>
+                                  <div class="home-promo__search-wrapper">
+                                    <input placeholder="Search" class="home-promo__search" name="search[common]" type="text" autocomplete="off" />
+                                    <span class="home-promo__search-icon"></span>
+                                </div>
                               </div>
                           </form>
                           <div class="search-results-container" id="search-results-bottom-container" style="display: none">
@@ -87,23 +83,6 @@
     <% end %>
   </div>
 </div>
-    <!-- <div class="row">
-        <a href="http://www.boundround.com/offers/club-med-scoot.html" target="_blank">
-            <div class="promo-wrapper">
-                <div class="col-md-12 promo-hero banner-heading">
-                    <h2>WIN</h2>
-                    <h3>
-                        1 of 3<br>
-                        Adult + Child 1 day passes
-                        for Thredbo
-                    </h3>
-                    <h4>
-                        PLUS 40 instant win prizes up for grabs
-                    </h4>
-                </div>
-            </div>
-        </a>
-    </div> -->
 </div>
 <% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
   <div class="adsense-home">
@@ -119,185 +98,29 @@
     </script>
   </div>
 <% end %>
-<% cache("home_page_brief", :expires_in => 12.hours) do %>
-  <div class="brief-background">
-      <div class="container">
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="brief-wrapper">
-                      <div class="row">
-                          <div class="col-md-12 text-center">
-                              <h3><%= raw @page.promo_headline rescue "add promo headline"%></h3>
-                          </div>
-                      </div>
-                      <br/>
-                      <div class="row">
-                          <div class="owl-carousel activity-carousel">
-                              <div class="brief-item">
-                                  <div class="col-md-3">
-                                      <div class="brief-image-container">
-                                          <span class="brief-image" style="background-image: url('/assets/new-images/brief-thumb.jpg')" role="img" aria-label="">
-                                  </span>
-                                      </div>
-                                      <div class="brief-text">
-                                          Planning a vacation that will please everyone in your family may seem a little overwhelming. The destinations and things to do on Bound Round have been hand picked by our family travel experts.
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="brief-item">
-                                  <div class="col-md-3">
-                                      <div class="brief-image-container">
-                                          <span class="brief-image" style="background-image: url('/assets/new-images/brief-video.jpg')" role="img" aria-label="">
-                                  </span>
-                                      </div>
-                                      <div class="brief-text">Watch video reviews,share the load with your youngsters and find something you'll all enjoy.
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="brief-item">
-                                  <div class="col-md-3">
-                                      <div class="brief-image-container">
-                                          <span class="brief-image" style="background-image: url('/assets/new-images/brief-idea.jpg')" role="img" aria-label="">
-                                  </span>
-                                      </div>
-                                      <div class="brief-text">Just looking for inspiration and ideas? Bound Round contributors know all about traveling with kids, because they either have kids or are kids - use their stories to help decide things to do that your whole family will enjoy.
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="brief-item">
-                                  <div class="col-md-3">
-                                      <div class="brief-image-container">
-                                          <span class="brief-image" style="background-image: url('/assets/new-images/brief-face.jpg')" role="img" aria-label="">
-                                  </span>
-                                      </div>
-                                      <div class="brief-text">Happy family holiday planning!</div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-<% end %>
   <div class="container">
       <div class="row">
-          <% unless @areas.blank? %>
-              <div class="col-md-12">
-                  <div class="destination-wrapper">
                       <div class="row">
                           <div class="col-md-12 text-center">
-                              <h3>Places to go</h3>
+                              <h3 class="proposal__header">Holiday styles to suit you</h3>
+                              <p class="proposal__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                           </div>
                       </div>
                       <br/>
-
-                      <div class="row">
-                          <div class="owl-carousel carousel" id="place_to_go-list">
-                              <%= render partial: 'place_to_go_list', collection: @areas, as: :area %>
-                          </div>
-                      </div>
-                  </div>
-
-                  <% unless last_page? @areas %>
-                      <div class="row hidden-xs">
-                          <div class="col-xs-12">
-                              <div class="single-pagination-container" id="areas-single-pagination-container">
-                                  <div class="hidden single-pagination-loader" align="center">
-                                      <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                                  </div>
-                                  <div class="load-more">
-                                      <%= link_to "LOAD MORE", paginate_places_pages_path(areas_page: @areas.next_page, resources: 'areas', pagination_template: 'place_to_go_list', collection_object: 'area'), class: 'single-pagination', remote: true %>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  <% end %>
-              </div>
-              <% end %>
-
-                  <div class="travellers-wrapper">
-                      <div class="row">
-                          <div class="col-md-offset-2 col-md-8 text-center">
-                              <h3>Experiences for everyone</h3>
-                              <br/>
-
-                              <div>Every family is different. To help find the right things to do and places to go for your family, you can search or filter Bound Round by the ages of the kids you travel with. Say goodbye to family feuds by letting the kids watch videos about what their peers think is fun. Then you can all make a decision on what to do together.
-                              </div>
-                          </div>
-                      </div>
-                      <br/><br/>
-
-                      <div class="row">
-                          <div class="owl-carousel carousel">
-                              <div class="traveller-item">
-                                  <div class="col-md-offset-0 col-md-4 col-sm-4 col-xs-12">
-                                      <%= link_to searching_sub_cat_path('for-ages-5-8') do %>
-                                          <div class="travellers-component-wrapper">
-                                              <img src="/assets/new-images/travellers-5-8_square.jpg" class="img-circle img-responsive" />
-
-                                              <div class="overlay img-circle"></div>
-                                              <div class="travellers-component-text">
-                                                  <h4>5 to 8 year olds</h4>
-                                                  <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                              </div>
-                                          </div>
-                                      <% end %>
-                                  </div>
-                              </div>
-                              <div class="traveller-item">
-                                  <div class="col-md-offset-0 col-md-4 col-sm-4 col-xs-12">
-                                      <%= link_to searching_sub_cat_path('for-ages-9-12') do %>
-                                          <div class="travellers-component-wrapper">
-                                              <img src="/assets/new-images/travellers-9-12_square.jpg" class="img-circle img-responsive" />
-
-                                              <div class="overlay img-circle"></div>
-                                              <div class="travellers-component-text">
-                                                  <h4>9 to 12 year olds</h4>
-                                                  <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                              </div>
-                                          </div>
-                                      <% end %>
-                                  </div>
-                              </div>
-                              <div class="traveller-item">
-                                  <div class="col-md-offset-0 col-md-4 col-sm-4 col-xs-12">
-                                      <%= link_to searching_sub_cat_path('teens') do %>
-                                          <div class="travellers-component-wrapper">
-                                              <img src="/assets/new-images/rowing_square.jpg" class="img-circle img-responsive" />
-
-                                              <div class="overlay img-circle"></div>
-                                              <div class="travellers-component-text">
-                                                  <h4>Teenagers</h4>
-                                                  <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                              </div>
-                                          </div>
-                                      <% end %>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
                   <div class="thing-wrapper">
-                      <div class="row">
-                          <div class="col-md-12 text-center">
-                              <h3>Things to do</h3>
-                          </div>
-                      </div>
-                      <br/>
-                      <div class="row hidden-sm hidden-xs">
+                      <div class="row hidden-sm hidden-xs proposals-wrapper clear-self">
                       <% if @category1.present?  %>
                           <div class="col-md-4">
                               <%= link_to searching_sub_cat_path(@category1.identifier) do %>
-                                  <div class="thing-tall-card-wrapper">
-                                      <div class="thing-image" style="background-image: url('<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name %>">
-                                          <div class="overlay"></div>
-                                          <div class="thing-text">
-                                              <h4><%= @category1.name %></h4>
-                                              <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                  <div class="thing-tall-card-wrapper proposal-item">
+                                    <div class="thing-image" style="background-image: url('<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name rescue nil %>">
+                                        <div class="overlay"></div>
+                                          <div class="proposal-item__description">
+                                              <h4 class="proposal-item__header"><%= @category1.name %></h4>
                                           </div>
+                                          <p class="proposal-item__link-wrapper">
+                                            <a class="proposal-item__link" href="#">see all</a>
+                                          </p>
                                       </div>
                                   </div>
                               <% end %>
@@ -308,14 +131,16 @@
                               <% if @category2.present?  %>
                                   <div class="col-md-6">
                                       <%= link_to searching_sub_cat_path(@category2.identifier) do %>
-                                          <div class="thing-medium-card-wrapper">
-                                              <div class="thing-image" style="background-image: url('<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name %>">
+                                          <div class="thing-medium-card-wrapper proposal-item">
+                                            <div class="thing-image" style="background-image: url('<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name rescue nil %>">
                                                   <div class="overlay"></div>
-                                                  <div class="thing-text">
-                                                      <h4><%= @category2.name %></h4>
-                                                      <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                                  <div class="proposal-item__description">
+                                                      <h4 class="proposal-item__header"><%= @category2.name %></h4>
                                                   </div>
-                                              </div>
+                                                  <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
+                                                  <a class="proposal-item__link" href="#">see all</a>
+                                                  </p>
+                                                </div>
                                           </div>
                                       <% end %>
                                   </div>
@@ -323,14 +148,16 @@
                                   <% if @category3.present?  %>
                                   <div class="col-md-6">
                                       <%= link_to searching_sub_cat_path(@category3.identifier) do %>
-                                          <div class="thing-medium-card-wrapper">
-                                              <div class="thing-image" style="background-image: url('<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name %>">
+                                          <div class="thing-medium-card-wrapper proposal-item">
+                                            <div class="thing-image" style="background-image: url('<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name rescue nil %>">
                                                   <div class="overlay"></div>
-                                                  <div class="thing-text">
-                                                      <h4><%= @category3.name %></h4>
-                                                      <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                                  <div class="proposal-item__description">
+                                                      <h4 class="proposal-item__header"><%= @category3.name %></h4>
                                                   </div>
-                                              </div>
+                                                  <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
+                                                  <a class="proposal-item__link" href="#">see all</a>
+                                                  </p>
+                                                </div>
                                           </div>
                                       <% end %>
                                   </div>
@@ -340,15 +167,19 @@
                               <% if @category4.present?  %>
                               <div class="row">
                                   <div class="col-md-12">
-                                      <div class="thing-wide-card-wrapper">
-                                          <div class="thing-image" style="background-image: url('<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
-                                              <div class="overlay"></div>
-                                              <div class="thing-text">
-                                                  <h4><%= @category4.name rescue nil %></h4>
-                                                  <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                              </div>
+                                      <%= link_to searching_sub_cat_path(@category4.identifier) do %>
+                                          <div class="thing-wide-card-wrapper proposal-item">
+                                            <div class="thing-image" style="background-image: url('<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
+                                                  <div class="overlay"></div>
+                                                  <div class="proposal-item__description">
+                                                      <h4 class="proposal-item__header"><%= @category4.name %></h4>
+                                                  </div>
+                                                  <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
+                                                  <a class="proposal-item__link" href="#">see all</a>
+                                                  </p>
+                                                </div>
                                           </div>
-                                      </div>
+                                      <% end %>
                                   </div>
                               </div>
                               <% end %>
@@ -376,6 +207,7 @@
                               <% end %>
                           </div>
                       </div>
+                  </div>
                       <div class="row hidden-sm hidden-xs">
                           <div class="col-md-12">
                               <div class="load-more">
@@ -383,25 +215,20 @@
                               </div>
                           </div>
                       </div>
-                  </div>
           </div>
       </div>
   </div>
 <div class="container">
   <div class="row">
     <div class="head-title">
-      <h2 class="gray-font">Stories</h2>
+      <h3 class="proposal__header">Find your inspiration</h3>
     </div>
   </div>
 </div>
 
-<div class="border-section btm20"></div>
-
 <% if @stories.present? %>
   <section class="your-stories video-show">
     <div class="container">
-      <div class="text-left">
-      </div>
       <div class="row">
         <%= render partial: "stories/all_stories"%>
       </div>
