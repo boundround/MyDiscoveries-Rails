@@ -66,3 +66,8 @@
 //= require place_videos
 //= require area
 //= require navigation-drop-down
+//= require device-detector
+//= require device
+//= require search-page-card
+//= require modal-filter
+//= require mediator
