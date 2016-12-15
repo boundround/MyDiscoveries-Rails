@@ -8236,18 +8236,23 @@ label.modal-content__title {
 .modal-content__btn {
   padding: 15px 0 0; }
 
-.modal-content__btn-access {
+.modal-content__btn-access,
+input[type="submit"].modal-content__btn-access  {
   display: block;
   width: 100%;
-  padding: 11px 0 7px;
+  padding: 11px 0 7px !important;
   font-family: Larsseit-Bold, sans-serif;
   font-size: 14px;
   text-transform: uppercase;
   text-decoration: none;
   border: 2px solid transparent;
   color: #fff;
-  background-color: #ff4d1a; }
-  .modal-content__btn-access:hover, .modal-content__btn-access:focus {
+  background-color: #ff4d1a;
+  border-radius: 0; }
+  .modal-content__btn-access:hover,
+  .modal-content__btn-access:focus,
+  input[type="submit"].modal-content__btn-access:hover,
+  input[type="submit"].modal-content__btn-access:focus {
     text-decoration: none;
     color: #ff4d1a;
     background-color: #fff;
