@@ -2,13 +2,15 @@
 <% content_for :og_image, "http://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
 <% content_for :og_secure_image, "https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
 <% content_for :description, "Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards." %>
-<div class="home-promo">
-    <img class="home-promo__image" src="<%= @page.hero_image_url rescue "https://placehold.it/1920x1080" %>">
+<div class="banner-wrapper dismiss-mega-menu-search">
+    <span class="banner-image" style="background-image: url('<%= @page.hero_image_url rescue "https://placehold.it/1920x1080" %>')" role="img" aria-label="">
+                                </span>
+    <div class="overlay"></div>
       <div class="container">
           <div class="row">
               <div class="col-md-12">
                   <div class="row">
-                      <div class="col-md-12 banner-heading">
+                      <div class="col-md-12">
                         <% if user_signed_in? && current_user.admin? %>
                           <h1 class="home-promo__header">
                             <span class="rest-in-place" data-url="/pages/1" data-object="page" data-attribute="page_header" data-placeholder="Enter A Headline">
@@ -27,7 +29,7 @@
                   <div class="row">
                       <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12">
                           <form accept-charset="UTF-8" action="/results" method="get">
-                              <div class="input-group">
+                              <div>
                                   <div style="display:none">
                                       <input name="utf8" value="✓" type="hidden">
                                   </div>
