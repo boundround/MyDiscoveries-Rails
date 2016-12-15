@@ -8354,7 +8354,6 @@ label.modal-content__title {
 .home-promo {
   clear: both;
   height: 617px;
-  overflow: hidden;
   position: relative; }
 
 .home-promo__image {
