@@ -7502,6 +7502,10 @@ input[type="text"]::-ms-clear {
   bottom: -62px;
   background-size: auto 100%; }
 
+.wrapper-footer{
+  padding-bottom: 65px;
+}
+
 .footer__header {
   text-transform: uppercase;
   color: #ffffff;
