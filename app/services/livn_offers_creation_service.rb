@@ -1,3 +1,4 @@
+# TODO: move to services/offer/livn/
 require 'httparty'
 
 class LivnOffersCreationService

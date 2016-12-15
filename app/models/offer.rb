@@ -157,7 +157,7 @@ class Offer < ActiveRecord::Base
   end
 
   def shopify_product
-    ShopifyAPI::Product.find(shopify_product_id)
+    ShopifyAPI::Product.find(shopify_product_id) if shopify_product_id?
   end
 
   private

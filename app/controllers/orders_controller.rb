@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
     @order.offer = @offer
 
     if @order.save
-      redirect_to checkout_url
+      redirect_to Order::Shopify::GetCheckoutUrl.call(@order)
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
       render :new
@@ -49,21 +49,5 @@ class OrdersController < ApplicationController
       :start_date,
       :total_price
     )
-  end
-
-  # TODO: refactor
-  def checkout_url
-    parameters = [
-      ['Adult', :number_of_adults],
-      ['Child', :number_of_children],
-      ['Infant', :number_of_infants]
-    ].map do |age_type, quantity_column|
-      variant = @order.offer.shopify_product.variants.detect do |variant|
-        variant.option1 == age_type
-      end
-      quantity = @order.send(quantity_column)
-      "#{variant.id}:#{quantity}" if quantity != 0
-    end.compact.join(',')
-    "https://#{ENV['SHOPIFY_STORE_DOMAIN']}/cart/#{parameters}"
   end
 end

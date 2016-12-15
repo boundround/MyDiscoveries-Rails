@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe LivnOffersCreationService do
-
   describe '#retrieve_product' do
 
     context 'retrieves product', vcr: { cassette_name: "offers/success_fetch_product_id" } do
