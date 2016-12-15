@@ -1,235 +1,232 @@
-<% if (user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?)) %>
-<!-- <link rel="script" href="../../assets/javascripts/region_map.js"/> -->
-  <div data-page="region">
-    <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background_region(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="location"></div>
-          <div class="destination"><%= @region.display_name %></div>
-          <div class="destination-details">
-            <!-- <div class="favourites-wrapper">
-              <% if user_signed_in? %>
-                <div class="icon-favourite selected"></div>
-                <div class="favourites-title hidden-xs" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from favourites</div>
-              <% else %>
-                <div class="icon-favourite" data-liked="false" id="favouriteType" data-klass="region" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                <div class="favourites-title hidden-xs" >Add to favourites</div>
-              <% end %>
-            </div> -->
-
-            <div class="favourites-wrapper">
-              <% if user_signed_in? && @region.users.include?(current_user) %>
-                <div class="icon-favourite selected" id="favouriteType" data-post-path="regions_users" data-klass="region" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                <div class="favourites-title hidden-xs">Remove from favourites</div>
-              <% else %>
-                <div class="icon-favourite" id="favouriteType" data-post-path="regions_users" data-klass="region" data-liked="false" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                <div class="favourites-title hidden-xs" >Add to favourites</div>
-              <% end %>
-            </div>
-
-            <a data-scroll href="#photos" class="white">
-              <div class="photo-wrapper">
-                <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
-                <div class="photo-title"><span class="count"> <%= @region.photos.size %></span> <span class="hidden-xs">Photos</span></div>
-              </div>
-            </a>
-            <a data-scroll href="#videos" class="white">
-              <div class="video-wrapper">
-                <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
-                <div class="video-title"><span class="count"><%= @region.videos.size %></span><span class="hidden-xs"> Videos</span></div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sticky-container">
-    <div class="nav-option-container">
-      <div class="container">
-        <div class="nav-option-outer-wrapper">
-          <div class="nav-option-wrapper">
-            <% if @videos.present? %><div class="nav-option"><a data-scroll href="#videos">VIDEOS</a></div><% end %>
-            <% if @stories.present? %><div class="nav-option"><a data-scroll href="#stories">STORIES</a></div><% end %>
-            <% if @areas.present? %><div class="nav-option"><a data-scroll href="#thingstodo">PLACES TO GO</a></div><% end %>
-            <% if @photos.present? %><div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div><% end %>
-            <% if @famous_faces.present? %><div class="nav-option"><a data-scroll href="#famousfaces">FAMOUS FACES</a></div><% end %>
-            <% if @fun_facts.present? %><div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div><% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<div data-page="region">
+  <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background_region(@region)) %>) no-repeat;" role="img" aria-label="Destination Sydney">
+  <div class="overlay"></div>
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <% if @region.description.length > 280 %>
-        <div class="destination-desc promo-text-full" style="display:none;">
+        <div class="location"></div>
+        <div class="destination"><%= @region.display_name %></div>
+        <div class="destination-details">
+          <!-- <div class="favourites-wrapper">
+            <% if user_signed_in? %>
+              <div class="icon-favourite selected"></div>
+              <div class="favourites-title hidden-xs" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Remove from favourites</div>
+            <% else %>
+              <div class="icon-favourite" data-liked="false" id="favouriteType" data-klass="region" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+              <div class="favourites-title hidden-xs" >Add to favourites</div>
+            <% end %>
+          </div> -->
+
+          <div class="favourites-wrapper">
+            <% if user_signed_in? && @region.users.include?(current_user) %>
+              <div class="icon-favourite selected" id="favouriteType" data-post-path="regions_users" data-klass="region" data-liked="true" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+              <div class="favourites-title hidden-xs">Remove from favourites</div>
+            <% else %>
+              <div class="icon-favourite" id="favouriteType" data-post-path="regions_users" data-klass="region" data-liked="false" data-place-id="<%= @region.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+              <div class="favourites-title hidden-xs" >Add to favourites</div>
+            <% end %>
+          </div>
+
+          <a data-scroll href="#photos" class="white">
+            <div class="photo-wrapper">
+              <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
+              <div class="photo-title"><span class="count"> <%= @region.photos.size %></span> <span class="hidden-xs">Photos</span></div>
+            </div>
+          </a>
+          <a data-scroll href="#videos" class="white">
+            <div class="video-wrapper">
+              <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
+              <div class="video-title"><span class="count"><%= @region.videos.size %></span><span class="hidden-xs"> Videos</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sticky-container">
+  <div class="nav-option-container">
+    <div class="container">
+      <div class="nav-option-outer-wrapper">
+        <div class="nav-option-wrapper">
+          <% if @videos.present? %><div class="nav-option"><a data-scroll href="#videos">VIDEOS</a></div><% end %>
+          <% if @stories.present? %><div class="nav-option"><a data-scroll href="#stories">STORIES</a></div><% end %>
+          <% if @areas.present? %><div class="nav-option"><a data-scroll href="#thingstodo">PLACES TO GO</a></div><% end %>
+          <% if @photos.present? %><div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div><% end %>
+          <% if @famous_faces.present? %><div class="nav-option"><a data-scroll href="#famousfaces">FAMOUS FACES</a></div><% end %>
+          <% if @fun_facts.present? %><div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div><% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <% if @region.description.length > 280 %>
+      <div class="destination-desc promo-text-full" style="display:none;">
+        <p><%= raw @region.description %></p>
+      </div>
+
+      <div class="destination-desc promo-text">
+        <p><%= raw @region.description[0..280]+"..." %></p>
+      </div>
+      <div class="read-more-wrapper">
+        <a href="javascript:void()" class="readmore-area link-more">READ MORE</a>
+        <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
+      </div>
+      <% else %>
+        <div class="destination-desc promo-text-full">
           <p><%= raw @region.description %></p>
         </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="map-container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="promo-map js-promo-map">
+        <input type="hidden" data-zoom="<%= @region.zoom_level %>" data-marker="<%= @places_to_visit_map %>" name="region">
+        <div class="google-promo-map js-google-promo-map"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div class="destination-desc promo-text">
-          <p><%= raw @region.description[0..280]+"..." %></p>
+<% unless @place_to_go.blank? %>
+<div class="container section">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="destination-wrapper">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>Places to go</h3>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row">
+                <div class="owl-carousel carousel" id="place_to_go-list">
+                    <%= render partial: 'place_to_go_list', collection: @place_to_go, as: :place %>
+                </div>
+            </div>
         </div>
-        <div class="read-more-wrapper">
-          <a href="javascript:void()" class="readmore-area link-more">READ MORE</a>
+
+        <% unless last_page? @place_to_go %>
+        <div class="row hidden-xs single-pagination-container" id="place_to_go-single-pagination-container">
+            <div class="col-xs-12 load-more">
+              <div class="hidden single-pagination-loader" align="center">
+                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+              </div>
+            <%= link_to "LOAD MORE", paginate_place_to_go_region_path(@region, place_to_go_page: @place_to_go.next_page, resources: 'place_to_go', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
+            </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>
+
+
+<!--  <div class="container section">
+  <div class="row">
+    <h3 class="header">Family deals</h3>
+    <div class="content">
+      <div class="row">
+        <div class="col-xs-12 col-md-6 col-lg-3">
+          <div class="family-deals-card">
+            <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
+            <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
+            <div class="family-deals-text">
+              <div class="cost">
+                From <img src="/assets/img/family-deals/deal.png"> $1399 <img src="/assets/img/family-deals/night.png"> 8 nights
+              </div>
+              <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
+              <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
+              <a class="family-deals-card__see-deal">See deal</a>
+              <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-lg-3">
+          <div class="family-deals-card">
+            <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
+            <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
+            <div class="family-deals-text">
+              <div class="cost">
+                From <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> $1399 <img src="/assets/img/family-deals/night.png" class="family-deals-card__included-icon"> 8 nights
+              </div>
+              <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
+              <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
+              <a class="family-deals-card__see-deal">See deal</a>
+              <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-lg-3">
+          <div class="family-deals-card">
+            <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
+            <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
+            <div class="family-deals-text">
+              <div class="cost">
+                From <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> $1399 <img src="/assets/img/family-deals/night.png" class="family-deals-card__included-icon"> 8 nights
+              </div>
+              <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
+              <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
+              <a class="family-deals-card__see-deal">See deal</a>
+              <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-lg-3">
+          <div class="family-deals-card family-deals-card__ad">
+            <img src="/assets/img/family-deals/family-deals-ad.jpg">
+            <p class="family-deals-card-ad__paragraph">Sponsored</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="read-more-wrapper">
+          <a href="javascript:void()" class="readmore-area link-more">LOAD MORE</a>
           <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
         </div>
-        <% else %>
-          <div class="destination-desc promo-text-full">
-            <p><%= raw @region.description %></p>
-          </div>
-        <% end %>
-      </div>
     </div>
   </div>
-  <div class="map-container">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="promo-map js-promo-map">
-          <input type="hidden" data-zoom="<%= @region.zoom_level %>" data-marker="<%= @places_to_visit_map %>" name="region">
-          <div class="google-promo-map js-google-promo-map"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <% unless @place_to_go.blank? %>
-  <div class="container section">
-    <div class="row">
-      <div class="col-md-12">
-          <div class="destination-wrapper">
-              <div class="row">
-                  <div class="col-md-12 text-center">
-                      <h3>Places to go</h3>
-                  </div>
-              </div>
-              <br/>
-
-              <div class="row">
-                  <div class="owl-carousel carousel" id="place_to_go-list">
-                      <%= render partial: 'place_to_go_list', collection: @place_to_go, as: :place %>
-                  </div>
-              </div>
-          </div>
-
-          <% unless last_page? @place_to_go %>
-          <div class="row hidden-xs single-pagination-container" id="place_to_go-single-pagination-container">
-              <div class="col-xs-12 load-more">
-                <div class="hidden single-pagination-loader" align="center">
-                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                </div>
-              <%= link_to "LOAD MORE", paginate_place_to_go_region_path(@region, place_to_go_page: @place_to_go.next_page, resources: 'place_to_go', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
-              </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <% end %>
-
-
- <!--  <div class="container section">
-    <div class="row">
-      <h3 class="header">Family deals</h3>
-      <div class="content">
-        <div class="row">
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card">
-              <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
-              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
-              <div class="family-deals-text">
-                <div class="cost">
-                  From <img src="/assets/img/family-deals/deal.png"> $1399 <img src="/assets/img/family-deals/night.png"> 8 nights
-                </div>
-                <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
-                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
-                <a class="family-deals-card__see-deal">See deal</a>
-                <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card">
-              <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
-              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
-              <div class="family-deals-text">
-                <div class="cost">
-                  From <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> $1399 <img src="/assets/img/family-deals/night.png" class="family-deals-card__included-icon"> 8 nights
-                </div>
-                <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
-                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
-                <a class="family-deals-card__see-deal">See deal</a>
-                <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card">
-              <img src="/assets/img/family-deals/deal-banner.png" class="family-deals-card__deal-icon">
-              <img src="/assets/img/family-deals/family-deals-point-photo.jpg" class="family-deals-card__point-photo">
-              <div class="family-deals-text">
-                <div class="cost">
-                  From <img src="/assets/img/family-deals/deal.png" class="family-deals-card__included-icon"> $1399 <img src="/assets/img/family-deals/night.png" class="family-deals-card__included-icon"> 8 nights
-                </div>
-                <div class="family-deals-card__header">Seminyak's Sky High Sensation</div>
-                <p class="family-deals-card__paragraph">Sun bathe leave fur on owners clothes or pelt around the house and up and down stairs chasing...</p>
-                <a class="family-deals-card__see-deal">See deal</a>
-                <p class="family-deals-card__offer-ends">Offer ends 09/12/2016</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 col-md-6 col-lg-3">
-            <div class="family-deals-card family-deals-card__ad">
-              <img src="/assets/img/family-deals/family-deals-ad.jpg">
-              <p class="family-deals-card-ad__paragraph">Sponsored</p>
-            </div>
-          </div>
-
-        </div>
-        <div class="read-more-wrapper">
-            <a href="javascript:void()" class="readmore-area link-more">LOAD MORE</a>
-            <a href="javascript:void()" class="readmore-area link-more" style="display:none;">LESS</a>
-          </div>
-      </div>
-    </div>
-  </div> -->
+</div> -->
 
 <!-- THINGS TO DO -->
 
-    <% unless @places_to_visit.blank? %>
-      <div class="destination-page">
-      <div id="thingstodo" class="container dest-things-wrapper">
-          <div class="row">
-            <div class="col-xs-12">
-                <h3>Things to do in <%= @region.display_name %></h3>
+  <% unless @places_to_visit.blank? %>
+    <div class="destination-page">
+    <div id="thingstodo" class="container dest-things-wrapper">
+        <div class="row">
+          <div class="col-xs-12">
+              <h3>Things to do in <%= @region.display_name %></h3>
+          </div>
+        </div>
+        <div class="row">
+            <div class="owl-carousel carousel" id="places_to_visit-list">
+              <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
             </div>
-          </div>
-          <div class="row">
-              <div class="owl-carousel carousel" id="places_to_visit-list">
-                <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
+        </div>
+      <% unless last_page? @places_to_visit %>
+        <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
+            <div class="col-xs-12 load-more">
+              <div class="hidden single-pagination-loader" align="center">
+                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
               </div>
-          </div>
-        <% unless last_page? @places_to_visit %>
-          <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
-              <div class="col-xs-12 load-more">
-                <div class="hidden single-pagination-loader" align="center">
-                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                </div>
-              <%= link_to "LOAD MORE", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
-              </div>
-          </div>
-        <% end %>
-      </div>
-      </div>
-    <% end %>
+            <%= link_to "LOAD MORE", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'single-pagination', remote: true %>
+            </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
 
 
