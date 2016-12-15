@@ -1,37 +1,36 @@
-<% area = place.itemable %>
 <div class="col-md-4 col-sm-6 dest-thing-wrapper">
   <div class="dest-thing">
-    <% if place.itemable.class.to_s == "Place" %>
-    	<a class="link_card" href="<%= place_path(area) %>"></a>
-    <% elsif place.itemable.class.to_s == "Attraction" %>
-    	<a class="link_card" href="<%= attraction_path(area) %>"></a>
+    <% if place.class.to_s == "Place" %>
+    	<a class="link_card" href="<%= place_path(place) %>"></a>
+    <% elsif place.class.to_s == "Attraction" %>
+    	<a class="link_card" href="<%= attraction_path(place) %>"></a>
     <% else %>
-    	<a class="link_card" href="<%= country_path(area) %>"></a>
+    	<a class="link_card" href="<%= country_path(place) %>"></a>
     <% end %>
-	<% if place.itemable.class.to_s != "Country" %>
+	<% if place.class.to_s != "Country" %>
       <div class="dest-thing-overlay-wrapper">
-          <% unless area.viator_link.blank? %>
+          <% unless place.viator_link.blank? %>
               <div class="dest-thing-overlay">
                   <div class="dollar-rating">
-                  <% price = area.subcategories.find_by_category_type("price")%>
+                  <% price = place.subcategories.find_by_category_type("price")%>
                   <%= !price.blank?? price.name : "" %>
                   </div>
                   <div class="book-wrapper">
-                      <a class="btn book-btn" onclick="bookNowClicks()" href="<%= area.viator_link%>" target="_blank">BOOK</a>
+                      <a class="btn book-btn" onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank">BOOK</a>
                   </div>
               </div>
           <% end %>
       </div>
 	<% end %>
-      <div class="things-img" style="background: url(<%= showing_image(area.photos.count > 0 ? area.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>) no-repeat;"
+      <div class="things-img" style="background: url(<%= showing_image(place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>) no-repeat;"
            role="img"
            aria-label="Catmosphere"></div>
       <div class="dest-thing-content">
-          <h4><%= area.display_name %></h4>
+          <h4><%= place.display_name %></h4>
 
         <div class="tags">
-		<% if place.itemable.class.to_s != "Country" %>
-          <% area.subcategories.subcats.each do |c| %>
+		<% if place.class.to_s != "Country" %>
+          <% place.subcategories.subcats.each do |c| %>
             <div class="tag">
                 <div class="v-center">
                   <a href="<%= subcategory_path(c) %>"><%= c.name %></a>

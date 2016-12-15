@@ -357,19 +357,9 @@ class Place < ActiveRecord::Base
   end
 
   def self.home_page_areas
-    Rails.cache.fetch("home_page_areas", expires_in: 24.hours) do
-      Place.active.is_area.where(primary_area: true).includes(:country, :photos).order("countries.display_name asc")
-    end
+    places = Place.active.includes(:photos).order(algolia_clicks: :desc).find_all {|place| place.country.present? }
   end
 
-  # def self.text_search(query)
-  #   if query.present?
-  #     search(query)
-  #   else
-  #   # rescue ""
-  #     scoped
-  #   end
-  # end
   def self.return_first_place_id_from_search_results(search_response, region)
     id = nil
     search_response["hits"].each do |hit|
@@ -721,15 +711,24 @@ class Place < ActiveRecord::Base
   end
 
   def children
-    list_of_children = []
-    childrens.each do |child|
-      unless child.itemable.blank?
-        if child.itemable_type == "Attraction" && child.itemable.status == "live"
-          list_of_children << child.itemable
-        end
+    list = childrens.select {|child| child.itemable.present?}
+    list = list.map { |child| child.itemable }
+  end
+
+  def attractions
+    places_list = []
+    queue = self.children
+
+    while !queue.empty?
+    place = queue.shift
+      if place.class.to_s == "Attraction" && place.status == "live"
+        places_list << place
+      end
+      place.children.each do |child|
+        queue << child
       end
     end
-    list_of_children
+    places_list
   end
 
   private
