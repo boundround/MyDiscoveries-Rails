@@ -4,7 +4,8 @@ RSpec.describe Order::Shopify::GetCheckoutUrl do
   subject { described_class.call(order) }
   let(:order) { create(:order, number_of_adults: 2, number_of_children: 3) }
   let(:checkout_url) do
-    'https://bound-round.myshopify.com/cart/28592062217:2,28592062281:3'
+    'https://bound-round.myshopify.com/cart/28592062217:2,28592062281:3' \
+    "?email=#{order.user.email}"
   end
   before do
     VCR.use_cassette('offers/success_create_shopify_product') do

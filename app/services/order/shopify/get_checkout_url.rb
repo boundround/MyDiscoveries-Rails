@@ -17,6 +17,17 @@ class Order::Shopify::GetCheckoutUrl
   private
 
   def query
+    "#{items_query}#{email_query}"
+  end
+
+  # NOTE: an email parameter is not documented anywhere -
+  # it's just my random find by hacking url params :)
+  # I did not find any other documented and simple solutions
+  def email_query
+    "?email=#{order.user.email}"
+  end
+
+  def items_query
     variant_ids_with_not_zero_quantities.map do |variant_id, quantity|
       "#{variant_id}:#{quantity}"
     end.join(',')
