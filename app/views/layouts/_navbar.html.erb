@@ -34,25 +34,6 @@
           <a href="<%= root_path %>" class="header__logo"></a>
 
           <div class="menu-items">
-            <!-- <div class="menu-item hidden-xs">
-
-              <a id="places-to-go-link">PLACES TO GO <img class="active hide"
-                                    src="/assets/new-images/icon-caret-active.png"><img
-                  class="inactive" src="/assets/new-images/icon-caret.png"></a>
-            </div>
-            <%= link_to "THINGS TO DO", subcategories_path, class: "menu-item hidden-xs" %>
-            <a class="menu-item hidden-xs" href="/posts/all_posts">
-              <i class="fa fa-book navi-button"></i> <span>STORIES</span>
-            </a>
-
-            <a class="menu-item hidden-xs" href="/videos">
-              <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/> <span>VIDEOS</span>
-            </a>
-            <% if !user_signed_in? %>
-              <a class="menu-item hidden-sm hidden-md hidden-lg" href="#" data-toggle="modal" data-target="#myModal">
-                SIGN IN / LOGIN
-              </a>
-            <% end %> -->
             <nav class="header-navigation">
                 <a class="header-navigation__link header-navigation__link--home" href="#">&nbsp;</a>
                 <a class="header-navigation__link js-change-navigation-drop-down" href="#">destinations</a>
@@ -74,7 +55,6 @@
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
                     <div class="outer-profile" style="background: url('<%= current_user.avatar_url rescue '' %>') no-repeat;" >
-                      <!-- <img src="<%#= current_user.avatar_url rescue "" %>" /> -->
                     </div>
                     </a>
                     <ul class="dropdown-menu">
@@ -96,17 +76,7 @@
                     <div style="display:none">
                     <input name="utf8" value="✓" type="hidden">
                     </div>
-                    <!-- <input class="header__search" name="search[common]" placeholder="Search" type="text"> -->
                     <input type="text" name="search[common]" class="search-box header__search" placeholder="Search" autocomplete="off">
-                      <!-- <input class="search" placeholder="SEARCH" autocomplete: "off" /> -->
-                      <!-- <button class="hidden-xs hidden-sm search-icon-nav" type="submit" >
-                        <img class="" src="/assets/new-images/icon-search.png"/>
-                      </button>
-                      <button class="hidden-md hidden-lg">
-                        <img src="/assets/new-images/icon-search-white.png"/>
-                        <span>SEARCH</span>
-                      </button> -->
-
                 </form>
                 <div class="search-results" id="search-results-container" style="display:none;">
                   <%= render :partial=> "search_suggestions/search_results" %>
