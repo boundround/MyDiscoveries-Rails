@@ -7841,7 +7841,8 @@ input[type="text"]::-ms-clear {
   min-width: 35px;
   margin: 0 5px; }
   .pagination__link:hover,
-  .pagination__link .pagination__link--current {
+  .pagination__link .pagination__link--current,
+  .pagination__link.go-to-page-instant-search.active{
     color: #000060; }
 
 .pagination__link-left,
@@ -9035,6 +9036,12 @@ input[type="submit"].modal-content__btn-access  {
   width: 342px;
   padding: 104px 0 0 28px;
   position: relative; }
+
+.pagination__link-right.go-to-page-instant-search.disabled,
+.pagination__link-left.go-to-page-instant-search.disabled{
+  pointer-events: none;
+  opacity: 0.6;
+}
 
 .search-page-card__category-item {
   float: left;

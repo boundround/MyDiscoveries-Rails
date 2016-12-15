@@ -97,13 +97,11 @@
 </script>
 
 <script type="text/template" id="instant-pagination-template">
-  <ul class="pagination">
-    <li {{^prev_page}}class="disabled"{{/prev_page}}><a href="#" {{#prev_page}}class="go-to-page-instant-search" data-page="{{ prev_page }}"{{/prev_page}}>&#60;</a></li>
-    {{#pages}}
-    <li class="{{#current}}active{{/current}} {{#disabled}}disabled{{/disabled}}"><a href="#" {{^disabled}} class="go-to-page-instant-search" data-page="{{ number }}" {{/disabled}}>{{ number }}</a></li>
-    {{/pages}}
-    <li {{^next_page}}class="disabled"{{/next_page}}><a href="#" {{#next_page}}class="go-to-page-instant-search" data-page="{{ next_page }}"{{/next_page}}>&#62;</a></li>
-  </ul>
+  <a class="pagination__link-left go-to-page-instant-search {{^prev_page}}disabled{{/prev_page}}" href="#" data-page="{{ prev_page }}"></a>
+  {{#pages}}
+  <a class="pagination__link go-to-page-instant-search {{#current}}active{{/current}} {{#disabled}}disabled{{/disabled}}" href="#" {{^disabled}} data-page="{{ number }}" {{/disabled}}>{{ number }}</a>
+  {{/pages}}
+  <a class="pagination__link-right go-to-page-instant-search {{^next_page}}disabled{{/next_page}}" href="#" data-page="{{ next_page }}"></a>
 </script>
 
 <script type="text/template"  id="instant-facet-template">
