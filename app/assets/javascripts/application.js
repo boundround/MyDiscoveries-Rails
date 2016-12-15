@@ -65,3 +65,4 @@
 //= require rest_in_place
 //= require place_videos
 //= require area
+//= require navigation-drop-down

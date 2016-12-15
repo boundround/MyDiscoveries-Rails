@@ -7389,7 +7389,7 @@ input[type="text"]::-ms-clear {
   float: right;
   text-transform: uppercase;
   position: relative;
-  top: -45px;
+  top: 10px;
   padding: 9px 20px 7px;
   border: 2px solid #000060;
   font-family: Larsseit-Bold, sans-serif;
@@ -7412,8 +7412,6 @@ input[type="text"]::-ms-clear {
   border-bottom-color: #000060; }
 
 .header__search {
-  float: right;
-  clear: right;
   border: none;
   margin: 0;
   padding: 4px 44px 0 13px;
@@ -7422,13 +7420,11 @@ input[type="text"]::-ms-clear {
   background-size: 21px 21px;
   background-position: 298px 6px;
   position: relative;
-  top: -33px;
   font-size: 18px;
   line-height: 18px;
   width: 332px;
   height: 36px;
   background-color: #f4efed;
-  margin-bottom: -33px;
   font-family: Larsseit-Medium, sans-serif; }
 
 .header-drop-down-background {
@@ -8403,6 +8399,11 @@ label.modal-content__title {
   top: 0;
   width: 57px;
   height: 57px; }
+
+.search-container.pull-right{
+  position: relative;
+  top: 20px;
+}
 
 @media only screen and (max-width: 1200px) {
   .home-promo {
