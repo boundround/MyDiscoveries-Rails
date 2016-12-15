@@ -15,18 +15,12 @@
                               <%= raw @page.page_header rescue "Home Page Info Not Yet Created" %>
                             </span>
                           </h1>
-                          <span class="rest-in-place" data-url="/pages/1" data-object="page" data-attribute="hero_image_text" data-placeholder="placeholder text">
-                            <div><%= raw @page.hero_image_text rescue "Home Page Info Not Yet Created" %></div>
-                          </span>
                         <% else %>
                           <h1 class="home-promo__header">
                             <span>
                               <%= raw @page.page_header rescue "Home Page Info Not Yet Created" %>
                             </span>
                           </h1>
-                          <!-- <span>
-                            <div><%= raw @page.hero_image_text rescue "Home Page Info Not Yet Created" %></div>
-                          </span> -->
                         <% end %>
                       </div>
                   </div>
@@ -55,31 +49,33 @@
     </div>
 </div>
 
-<div class="offer">
-<div class="container">
-  <div class="row">
-    <% if @competitions.present? %>
+<div class="section-grey padding-medium">
+  <div class="container">
     <div class="row">
-      <% @competitions.each do |comp| %>
-        <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-            <div class="new-offer-promo-item">
-              <!-- <a class="link_card" href="<%= comp.url %>"></a> -->
-                <div class="dest-thing-overlay-wrapper">
+      <% if @competitions.present? %>
+      <div class="row">
+        <% @competitions.each do |comp| %>
+          <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+              <div class="new-offer-promo-item">
+                <!-- <a class="link_card" href="<%= comp.url %>"></a> -->
+                  <div class="dest-thing-overlay-wrapper">
 
-                </div>
-                <div class="things-img" style="background: url(<%= showing_image(comp.image_url) %>) no-repeat;" role="img"
-                     aria-label="Bondi"></div>
-                <div class="dest-thing-content">
-                    <p class="new-offer-promo-item__description"><%= comp.title %></p>
-                    <a href="#" class="new-offer-promo-item__link">new offers</a>
-                </div>
-            </div>
-        </div>
+                  </div>
+                  <div class="things-img" style="background: url(<%= showing_image(comp.image_url) %>) no-repeat;" role="img"
+                       aria-label="Bondi">
+                    <h3 class="new-offer-promo-item__header">This is Title</h3>      
+                  </div>
+                  <div class="dest-thing-content">
+                      <p class="new-offer-promo-item__description"><%= comp.title %></p>
+                      <a href="#" class="new-offer-promo-item__link">new offers</a>
+                  </div>
+              </div>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
-</div>
-</div>
+  </div>
 </div>
 <% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
   <div class="adsense-home">
@@ -95,136 +91,137 @@
     </script>
   </div>
 <% end %>
+<div class="section-white padding-big">
   <div class="container">
+    <div class="row">
       <div class="row">
-                      <div class="row">
-                          <div class="col-md-12 text-center">
-                              <h3 class="proposal__header">Holiday styles to suit you</h3>
-                              <p class="proposal__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <div class="col-md-12 text-center">
+              <h3 class="proposal__header">Holiday styles to suit you</h3>
+              <p class="proposal__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
+      </div>
+      <br/>
+      <div class="thing-wrapper">
+          <div class="row hidden-sm hidden-xs proposals-wrapper clear-self">
+          <% if @category1.present?  %>
+              <div class="col-md-4">
+                  <%= link_to searching_sub_cat_path(@category1.identifier) do %>
+                      <div class="thing-tall-card-wrapper proposal-item">
+                        <div class="thing-image" style="background-image: url('<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name rescue nil %>">
+                            <div class="overlay"></div>
+                              <div class="proposal-item__description">
+                                  <h4 class="proposal-item__header"><%= @category1.name %></h4>
+                              </div>
+                              <p class="proposal-item__link-wrapper">
+                                <a class="proposal-item__link" href="#">see all</a>
+                              </p>
                           </div>
                       </div>
-                      <br/>
-                  <div class="thing-wrapper">
-                      <div class="row hidden-sm hidden-xs proposals-wrapper clear-self">
-                      <% if @category1.present?  %>
-                          <div class="col-md-4">
-                              <%= link_to searching_sub_cat_path(@category1.identifier) do %>
-                                  <div class="thing-tall-card-wrapper proposal-item">
-                                    <div class="thing-image" style="background-image: url('<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name rescue nil %>">
-                                        <div class="overlay"></div>
-                                          <div class="proposal-item__description">
-                                              <h4 class="proposal-item__header"><%= @category1.name %></h4>
-                                          </div>
-                                          <p class="proposal-item__link-wrapper">
-                                            <a class="proposal-item__link" href="#">see all</a>
-                                          </p>
+                  <% end %>
+              </div>
+              <% end %>
+              <div class="col-md-8">
+                  <div class="row">
+                  <% if @category2.present?  %>
+                      <div class="col-md-6">
+                          <%= link_to searching_sub_cat_path(@category2.identifier) do %>
+                              <div class="thing-medium-card-wrapper proposal-item">
+                                <div class="thing-image" style="background-image: url('<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name rescue nil %>">
+                                      <div class="overlay"></div>
+                                      <div class="proposal-item__description">
+                                          <h4 class="proposal-item__header"><%= @category2.name %></h4>
                                       </div>
-                                  </div>
-                              <% end %>
-                          </div>
+                                      <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
+                                      <a class="proposal-item__link" href="#">see all</a>
+                                      </p>
+                                    </div>
+                              </div>
                           <% end %>
-                          <div class="col-md-8">
-                              <div class="row">
-                              <% if @category2.present?  %>
-                                  <div class="col-md-6">
-                                      <%= link_to searching_sub_cat_path(@category2.identifier) do %>
-                                          <div class="thing-medium-card-wrapper proposal-item">
-                                            <div class="thing-image" style="background-image: url('<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name rescue nil %>">
-                                                  <div class="overlay"></div>
-                                                  <div class="proposal-item__description">
-                                                      <h4 class="proposal-item__header"><%= @category2.name %></h4>
-                                                  </div>
-                                                  <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
-                                                  <a class="proposal-item__link" href="#">see all</a>
-                                                  </p>
-                                                </div>
-                                          </div>
-                                      <% end %>
-                                  </div>
-                                  <% end %>
-                                  <% if @category3.present?  %>
-                                  <div class="col-md-6">
-                                      <%= link_to searching_sub_cat_path(@category3.identifier) do %>
-                                          <div class="thing-medium-card-wrapper proposal-item">
-                                            <div class="thing-image" style="background-image: url('<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name rescue nil %>">
-                                                  <div class="overlay"></div>
-                                                  <div class="proposal-item__description">
-                                                      <h4 class="proposal-item__header"><%= @category3.name %></h4>
-                                                  </div>
-                                                  <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
-                                                  <a class="proposal-item__link" href="#">see all</a>
-                                                  </p>
-                                                </div>
-                                          </div>
-                                      <% end %>
-                                  </div>
-                                  <% end %>
-                              </div>
-                              <!-- row -->
-                              <% if @category4.present?  %>
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <%= link_to searching_sub_cat_path(@category4.identifier) do %>
-                                          <div class="thing-wide-card-wrapper proposal-item">
-                                            <div class="thing-image" style="background-image: url('<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
-                                                  <div class="overlay"></div>
-                                                  <div class="proposal-item__description">
-                                                      <h4 class="proposal-item__header"><%= @category4.name %></h4>
-                                                  </div>
-                                                  <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
-                                                  <a class="proposal-item__link" href="#">see all</a>
-                                                  </p>
-                                                </div>
-                                          </div>
-                                      <% end %>
-                                  </div>
-                              </div>
-                              <% end %>
-                              <!-- row -->
-                          </div>
                       </div>
-                      <div class="row hidden-md hidden-lg">
-                          <div class="owl-carousel carousel">
-                              <% @subcategories.each do |category| %>
-                                <%= link_to searching_sub_cat_path(category.identifier) do %>
-                                  <div class="thing-item">
-                                      <div class="col-sm-3">
-                                          <div class="thing-medium-card-wrapper">
-                                              <div class="thing-image" style="background-image: url('<%= category.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= category.name %>">
-                                                  <div class="overlay"></div>
-                                                  <div class="thing-text">
-                                                      <h4><%= category.name %></h4>
-                                                      <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                                  </div>
-                                              </div>
-                                          </div>
+                      <% end %>
+                      <% if @category3.present?  %>
+                      <div class="col-md-6">
+                          <%= link_to searching_sub_cat_path(@category3.identifier) do %>
+                              <div class="thing-medium-card-wrapper proposal-item">
+                                <div class="thing-image" style="background-image: url('<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name rescue nil %>">
+                                      <div class="overlay"></div>
+                                      <div class="proposal-item__description">
+                                          <h4 class="proposal-item__header"><%= @category3.name %></h4>
                                       </div>
-                                  </div>
-                                <% end %>
-                              <% end %>
-                          </div>
+                                      <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
+                                      <a class="proposal-item__link" href="#">see all</a>
+                                      </p>
+                                    </div>
+                              </div>
+                          <% end %>
+                      </div>
+                      <% end %>
+                  </div>
+                  <!-- row -->
+                  <% if @category4.present?  %>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <%= link_to searching_sub_cat_path(@category4.identifier) do %>
+                              <div class="thing-wide-card-wrapper proposal-item">
+                                <div class="thing-image" style="background-image: url('<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
+                                      <div class="overlay"></div>
+                                      <div class="proposal-item__description">
+                                          <h4 class="proposal-item__header"><%= @category4.name %></h4>
+                                      </div>
+                                      <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
+                                      <a class="proposal-item__link" href="#">see all</a>
+                                      </p>
+                                    </div>
+                              </div>
+                          <% end %>
                       </div>
                   </div>
-                      <div class="row hidden-sm hidden-xs">
-                          <div class="col-md-12">
-                              <div class="load-more">
-                                  <%= link_to 'VIEW ALL', subcategories_path, :class => '' %>
+                  <% end %>
+                  <!-- row -->
+              </div>
+          </div>
+          <div class="row hidden-md hidden-lg">
+              <div class="owl-carousel carousel">
+                  <% @subcategories.each do |category| %>
+                    <%= link_to searching_sub_cat_path(category.identifier) do %>
+                      <div class="thing-item">
+                          <div class="col-sm-3">
+                              <div class="thing-medium-card-wrapper">
+                                  <div class="thing-image" style="background-image: url('<%= category.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= category.name %>">
+                                      <div class="overlay"></div>
+                                      <div class="thing-text">
+                                          <h4><%= category.name %></h4>
+                                          <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                      </div>
+                                  </div>
                               </div>
                           </div>
                       </div>
+                    <% end %>
+                  <% end %>
+              </div>
+          </div>
+      </div>
+      <div class="row hidden-sm hidden-xs">
+          <div class="col-md-12">
+              <div class="see-more">
+                  <%= link_to 'SEE MORE', subcategories_path, :class => 'see-more__link' %>
+              </div>
           </div>
       </div>
   </div>
-<div class="container">
-  <div class="row">
-    <div class="head-title">
-      <h3 class="proposal__header">Find your inspiration</h3>
-    </div>
-  </div>
 </div>
+</div>
+<div class="padding-big section-grey">
+  <div class="container">
+    <div class="row">
+      <div class="head-title">
+        <h3 class="proposal__header">Find your inspiration</h3>
+      </div>
+    </div>
 
 <% if @stories.present? %>
-  <section class="your-stories video-show">
+  <section class="video-show">
     <div class="container">
       <div class="row">
         <%= render partial: "stories/all_stories"%>
@@ -232,6 +229,51 @@
     </div>
   </section>
 <% end %>
+  </div>
+</div>
+
+<!-- BEGIN - promo-text-block -->
+  <div class="section-white">
+    <div class="promo-text-block">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi, aspernatur corporis esse est eveniet ex fugit illo impedit laboriosam magni minima nihil numquam praesentium quasi quisquam rem sapiente voluptatem! Lorem ipsum dolor sit amet, consectetur
+        adipisicing elit. Aliquam dolores ipsam nihil sed vero. Alias exercitationem illo incidunt necessitatibus nisi non perspiciatis placeat praesentium.
+    </div>
+  </div>
+    <!-- END - promo-text-block -->
+
+<!-- BEGIN - follow-the-journey -->
+<div class="section-white">
+<div class="follow-the-journey width-limiter width-limiter--wide clear-self">
+
+    <h3 class="follow-the-journey__header">Follow the journey</h3>
+
+    <div class="follow-the-journey__image-list clear-self">
+
+        <a href="#" class="follow-the-journey-item">
+            <img class="follow-the-journey-item__image" src="http://lorempixel.com/170/170/people?1" alt="">
+        </a>
+        <a href="#" class="follow-the-journey-item follow-the-journey-item--type-1">
+            <img class="follow-the-journey-item__image follow-the-journey-item__image--type-1" src="http://lorempixel.com/146/114/people" alt="">
+            <p class="follow-the-journey-item__paragraph follow-the-journey-item__paragraph--type-1">See Kolkata</p>
+        </a>
+        <a href="#" class="follow-the-journey-item">
+            <img class="follow-the-journey-item__image" src="http://lorempixel.com/170/170/people?2" alt="">
+        </a>
+        <a href="#" class="follow-the-journey-item">
+            <img class="follow-the-journey-item__image" src="http://lorempixel.com/170/170/people?3" alt="">
+        </a>
+        <a href="#" class="follow-the-journey-item">
+            <img class="follow-the-journey-item__image" src="http://lorempixel.com/170/170/people?4" alt="">
+        </a>
+        <a href="#" class="follow-the-journey-item">
+            <img class="follow-the-journey-item__image" src="http://lorempixel.com/170/170/people?5" alt="">
+        </a>
+
+    </div>
+
+</div>
+</div>
+<!-- END - follow-the-journey -->
 
 
 <%= render 'layouts/all_modal' %>

@@ -8439,9 +8439,28 @@ label.modal-content__title {
   height: 160px;
 }
 
-.offer{
+.section-grey{
   background-color: #f4efed;
+}
+
+.section-white{
+  background-color: #fff;
+}
+
+.padding-big{
+  padding: 92px 0 58px;
+}
+
+.padding-medium{
   padding: 80px 0 86px;
+}
+
+.section-white .thing-wrapper{
+  margin: 57px 0 48px;
+}
+
+.load-more{
+  margin: 0 0 10px;
 }
 
 .new-offer-promo-item__header {
