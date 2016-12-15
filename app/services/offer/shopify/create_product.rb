@@ -37,9 +37,10 @@ class Offer::Shopify::CreateProduct
   end
 
   def variants
+    adult_price = offer.maxRateAdult
     AGE_TYPES.map do |type|
       {
-        price:             offer.send("maxRate#{type}".to_sym),
+        price:             offer.send("maxRate#{type}") || adult_price,
         requires_shipping: false,
         title:             "#{offer.name} - #{type}",
         option1:           type
