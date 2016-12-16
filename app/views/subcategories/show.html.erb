@@ -1,82 +1,110 @@
 <!-- #hardcode -->
-
-<div class="container">
-  <div class="row">
-    <div class="head-title">
-      <h2 class="gray-font"><%= @subcategory.try(:name) %></h2>
-    </div>
-  </div>
-</div>
-    <% unless @areas.blank? %>
-<!-- Looping places params category -->
-<div class="container padding-style">
-  <p></p><br>
-  <p class="body-text">
-    <%= @subcategory.try(:primary_description) %>
-  </p><br><br>
-  <div class="text-left">
-    <h4 class="section-title">Amazing Destinations</h4>
-  </div>
-  <div class="row">
-        <section class="places-to-go visit-place cards">
-
-          <div class="row">
-           <div class="col-xs-12" id="areas-list">
-              <%= render partial: 'primary_categories/areas_list', collection: @areas, as: :area %>
-              <!-- #hardcode activate paginate (6 cards per page) -->
-              <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
-            </div>
-          </div> <!-- row -->
-        </section>
-        <% unless last_page? @areas %>
-          <div class="text-center clearfix btm20 single-pagination-container" id="areas-single-pagination-container" style="clear:both">
-            <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
-              <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
-            </div>
-            <%= link_to "Load More", subcategory_path(@subcategory, areas_page: @areas.next_page, resources: 'areas', pagination_template: 'primary_categories/areas_list', collection_object: 'area'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
-          </div>
-        <% end %>
-      <% end %>
-
-  </div> <!-- row -->
-</div>
-
-<div class="border-section"></div>
-
-<div class="container padding-style">
-<div class="row">
-  <p></p><br>
-  <p class="body-text">
-    <%= @subcategory.try(:secondary_description) %>
-  </p><br><br>
-
-<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-<section class="places-to-go">
-    <div class="text-left">
-      <h4 class="section-title">Featured places</h4>
-    </div>
+<section class="adventure-header">
+  <div class="banner-image" style="background-image: url('<%= @subcategory.icon.url.to_s rescue "https://placehold.it/1920x1080" %>')" role="img" aria-label=""></div>
+  <div class="overlay"></div>
+  <div class="container">
     <div class="row">
-     <div class="col-xs-12" id="places-list">
-      <% unless @places.blank? %>
-        <%= render partial: 'primary_categories/places_list', collection: @places, as: :place %>
-              <!-- #hardcode activate paginate (6 cards per page) -->
-              <!-- sebelumnya di limit 6. pake js tampil lg 3  -->
-            </div>
-          </div> <!-- row -->
-        </section>
-        <% unless last_page? @places %>
-          <div class="text-center clearfix btm20 single-pagination-container" id="places-single-pagination-container" style="clear:both">
-            <div class="col-lg-12 col-md-12 btm15 hidden single-pagination-loader" align="center">
-              <img src="http://lingualinx.com/wp-content/themes/lingualinx/assets/images/loading.gif" width="64" height="64">
-            </div>
-            <%= link_to "Load More", subcategory_path(@subcategory, places_page: @places.next_page, resources: 'places', pagination_template: 'primary_categories/places_list', collection_object: 'place'), class: 'btn btn-default single-pagination btn btn-default top5 load-more', remote: true %>
-          </div>
-        <% end %>
-      <% end %>
-    </div> <!-- row -->
-
+      <div class="col-md-12">
+        <h1 class="adventure-header__title text-center"><%= @subcategory.try(:name) %></h1>
+        <p class="adventure-header__content text-center"><%= @subcategory.try(:primary_description) %></p>
+      </div>
+    </div>
+  </div>
 </section>
+<section class="section-grey call-to-action-top text-center">
+  <div class="container call-to-action-top__container">
+    <div class="row">
+      <div class="col-sm-12 col-xs-12">
+        <p class="call-to-action-top__text">Lorem ipsum dolor sit amet, et nec solum everti comprehensam.</p>
+        <a href="<%= new_story_path %>" class="call-to-action-top__btn">share a story</a>
+      </div>
+    </div>
+  </div>
+</section>
+ <% if @stories.present? %>
+<section class="best-of-adventure section-white">
+  <div class="container width-limiter">
+    <div class="row best-of-adventure__header">
+      <div class="col-sm-12 col-md-12 col-xs-12">
+          <h2 class="adventure-block__title">Best of adventure travel</h2>
+          <p class="adventure-see__link-wrapper">
+              <a href="#" class="adventure-see__link hidden-xs">see all</a>
+          </p>
+      </div>
+    </div>
+    <div class="row best-of-adventure__content">
+    <% @stories.each do |story| %>
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+        <div class="best-of-adventure-card adventure-thumbnail">
+          <img src="<%= story.user.avatar_url rescue '' %>" class="best-of-adventure-card__road-photo" alt>
+          <h3 class="best-of-adventure-card__title"><a href="#" class="best-of-adventure-card__link"><%= story.title.size > 30? story.title[0..30]+"..." : story.title %></a></h3>
+          <p class="best-of-adventure-card__content"><%= story.seo_friendly_url %></p>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div> 
+</section>
+<% end %>
 
-</div> <!-- end col -->
-</div><!-- row -->
-</div><!-- container -->
+ <% if @stories.present? %>
+<section class="related-product-adventure">
+  <div class="container width-limiter">
+    <div class="row related-product-adventure__header">
+      <div class="col-sm-12 col-md-12 col-xs-12">
+          <h2 class="adventure-block__title">Related products for adventure travel</h2>
+          <p class="adventure-see__link-wrapper">
+              <a href="#" class="adventure-see__link hidden-xs">see all</a>
+          </p>
+      </div>
+    </div>
+    <div class="row related-product-adventure__content">
+    <% @stories.each do |story| %>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="related-product-adventure-card adventure-thumbnail">
+          <img src="<%= story.user.avatar_url rescue '' %>" class="related-product-adventure-card__city-photo" alt>
+          <h3 class="related-product-adventure-card__title"><a href="#" class="related-product-adventure-card__link"><%= story.title.size > 30? story.title[0..30]+"..." : story.title %></a></h3>
+          <p class="related-product-adventure-card__content"><%= story.seo_friendly_url.size > 50? story.seo_friendly_url[0..30]+"..." : story.seo_friendly_url %></p>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div> 
+</section>
+<% end %>
+
+<% if @subcategories.present? %>
+  <section class="interest-related-adventure section-white">
+    <div class="container width-limiter">
+      <div class="row interest-related-adventure__header">
+        <div class="col-sm-12 col-md-12">
+            <h2 class="adventure-block__title">Interests related to adventure travel</h2>
+        </div>
+      </div>
+      <div class="row interest-related-adventure__content">
+        <% @subcategories.each do |subcategory| %>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div class="interest-related-adventure-card adventure-thumbnail">
+            <div class="background" style="background-image: url('<%= subcategory.icon.url.to_s %>')" class="interest-related-adventure-card__people-photo" alt>
+            </div>
+            <div class="overlay"></div>
+            <h3 class="interest-related-adventure-card__title text-center"><%= subcategory.name %></h3>
+          </div>
+        </div>
+        <% end %>
+      </div>
+  </section>
+<% end %>
+
+<section class="call-to-action-bottom text-center">
+  <div class="background" style="background-image: url('/assets/call-to-action-bottom-banner.png')">
+  <div class="container call-to-action-top__container">
+    <div class="row">
+      <div class="col-sm-12 col-xs-12">
+        <p class="call-to-action-bottom__text">Lorem ipsum dolor sit amet, et nec solum everti comprehensam.</p>
+        <a href="<%= new_story_path %>" class="call-to-action-bottom__btn">share a story</a>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
