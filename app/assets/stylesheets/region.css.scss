@@ -439,3 +439,25 @@
     width: 100%;
   }
 }
+// scss
+[data-page="region"]{
+
+  .home-promo__header.blue {
+    color: #000060;
+    padding: 65px 17px 0; 
+  }
+
+  .promo-map {
+    position: relative;
+    height: 660px;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    background: url("../images/promo-map/map-border.png") 0 0 repeat-x;
+    padding-top: 40px; }
+    @media screen and (max-width: 1200px) {
+      .promo-map {
+        height: 954px; } 
+      }
+  
+}
