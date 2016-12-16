@@ -274,13 +274,13 @@ h4 {
     overflow-x: scroll;
     padding: 0
   }
-  
+
   .nav-option-wrapper,
   .thing-page .thing-nav-option-wrapper {
     width: 582px;
     margin: auto
   }
-  
+
   .nav-option,
   .nav-option-boxed,
   .thing-page .thing-nav-option-boxed,
@@ -2548,7 +2548,7 @@ h4 {
   }
 }
 .fun-fact {
-    height: 180px
+    height: 180px;
 }
 .fun-fact .fact {
   display: block;

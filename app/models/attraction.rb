@@ -220,12 +220,13 @@ class Attraction < ActiveRecord::Base
     ]
   end
 
+  before_save :set_country
   extend FriendlyId
   friendly_id :slug_candidates, :use => [:slugged, :history]
 
   scope :active, -> { where(status: "live") }
 
-  #belongs_to :country
+  belongs_to :country
   belongs_to :user
   belongs_to :primary_category
 
@@ -313,8 +314,9 @@ class Attraction < ActiveRecord::Base
     end
   end
 
-  def country
-    get_parents(self).find {|parent| parent.class.to_s == "Country"}
+  def set_country
+    country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
+    self.country_id = country.id
   end
 
   def trip_advisor_info
@@ -428,15 +430,8 @@ class Attraction < ActiveRecord::Base
   end
 
   def children
-    list_of_children = []
-    childrens.each do |child|
-      if child.itemable.present?
-        if child.itemable_type == "Attraction" && child.itemable.status == "live"
-          list_of_children << child.itemable
-        end
-      end
-    end
-    list_of_children
+    list = childrens.select {|child| child.itemable.present?}
+    list = list.map { |child| child.itemable }
   end
 
   def short_description

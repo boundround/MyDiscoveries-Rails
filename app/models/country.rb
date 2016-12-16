@@ -166,7 +166,8 @@ class Country < ActiveRecord::Base
   end
 
   def children
-    childrens.select {|child| child.itemable.present?}
+    list = childrens.select {|child| child.itemable.present?}
+    list = list.map { |child| child.itemable }
   end
 
   def publish_date

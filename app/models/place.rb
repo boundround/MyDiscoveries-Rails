@@ -231,6 +231,7 @@ class Place < ActiveRecord::Base
   end
 
   # ratyrate_rateable "quality"
+  before_save :set_country
 
   has_many :rates_without_dimension, -> { where dimension: nil}, as: :rateable, class_name: 'Rate', dependent: :destroy
   has_many :raters_without_dimension, through: :rates_without_dimension, source: :rater
@@ -277,7 +278,7 @@ class Place < ActiveRecord::Base
   validates_presence_of :display_name
 
 
-  #belongs_to :country
+  belongs_to :country
   belongs_to :user
   belongs_to :primary_category
 
@@ -346,9 +347,7 @@ class Place < ActiveRecord::Base
   end
 
   def self.home_page_areas
-    Rails.cache.fetch("home_page_areas", expires_in: 24.hours) do
-      Place.active.is_area.where(primary_area: true).includes(:country, :photos).order("countries.display_name asc")
-    end
+    places = Place.active.includes(:photos).order(algolia_clicks: :desc).find_all {|place| place.country.present? }
   end
 
   def self.return_first_place_id_from_search_results(search_response, region)
@@ -582,8 +581,11 @@ class Place < ActiveRecord::Base
     end
   end
 
-  def country
-    get_parents(self).find {|parent| parent.class.to_s == "Country"}
+  def set_country
+    country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
+    if country
+      self.country_id = country.id
+    end
   end
 
   def places_to_visits
@@ -693,15 +695,24 @@ class Place < ActiveRecord::Base
   end
 
   def children
-    list_of_children = []
-    childrens.each do |child|
-      unless child.itemable.blank?
-        if child.itemable_type == "Attraction" && child.itemable.status == "live"
-          list_of_children << child.itemable
-        end
+    list = childrens.select {|child| child.itemable.present?}
+    list = list.map { |child| child.itemable }
+  end
+
+  def attractions
+    places_list = []
+    queue = self.children
+
+    while !queue.empty?
+    place = queue.shift
+      if place.class.to_s == "Attraction" && place.status == "live"
+        places_list << place
+      end
+      place.children.each do |child|
+        queue << child
       end
     end
-    list_of_children
+    places_list
   end
 
   private
