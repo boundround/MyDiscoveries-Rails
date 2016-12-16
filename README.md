@@ -73,4 +73,4 @@ $ rake db:create db:migrate
 $ rails s  
 
 If you have a copy of the production database (latest.dump), you can also restore from this file using:  
-$ pg_restore --clean --no-acl --no-owner --verbose -U vagrant -d vagrant <path-to-latest.dump>  
+$ `pg_restore --clean --no-acl --no-owner --verbose -U vagrant -d vagrant <path-to-latest.dump>`  

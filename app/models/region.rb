@@ -165,95 +165,103 @@ class Region < ActiveRecord::Base
   end
 
   def children
-    list = childrens.select {|child| child.itemable.present?}
-    list = list.map { |child| child.itemable }
+    Rails.cache.fetch([self, "children"]) do
+      list = childrens.select {|child| child.itemable.present?}
+      list = list.map { |child| child.itemable }
+    end
   end
 
   def places
-    places_list = []
-    queue = self.children
+    Rails.cache.fetch([self, "places"]) do
+      places_list = []
+      queue = self.children
 
-    while !queue.empty?
-    place = queue.shift
-      if place.class.to_s == "Place" && place.status == "live"
-        places_list << place
+      while !queue.empty?
+      place = queue.shift
+        if place.class.to_s == "Place" && place.status == "live"
+          places_list << place
+        end
+        place.children.each do |child|
+          queue << child
+        end
       end
-      place.children.each do |child|
-        queue << child
-      end
+      places_list
     end
-    places_list
   end
 
   def attractions
-    places_list = []
-    queue = self.children
+    Rails.cache.fetch([self, "attractions"]) do
+      places_list = []
+      queue = self.children
 
-    while !queue.empty?
-    place = queue.shift
-      if place.class.to_s == "Attraction" && place.status == "live"
-        places_list << place
+      while !queue.empty?
+      place = queue.shift
+        if place.class.to_s == "Attraction" && place.status == "live"
+          places_list << place
+        end
+        place.children.each do |child|
+          queue << child
+        end
       end
-      place.children.each do |child|
-        queue << child
-      end
+      places_list
     end
-    places_list
   end
   def all_place_children
-    childrens_collect = self.places
-    data_marker = []
-    if !childrens_collect.blank?
-      childrens_collect.each do |place|
+    Rails.cache.fetch([self, "all_place_children"]) do
+      childrens_collect = self.places
+      data_marker = []
+      if !childrens_collect.blank?
+        childrens_collect.each do |place|
+          data_objs = {}
+          data_objs['#place'] = place.display_name
+          data_objs['#lat'] = place.latitude
+          data_objs['#lng'] = place.longitude
+          data_objs['#description'] = place.description
+          data_objs['#country'] = place.country.display_name rescue ""
+          data_objs['#path'] = place_path(place)
+          if !place.photos.blank?
+            data_objs['#photo'] = place.photos.last.path_url(:thumb)
+          else
+            data_objs['#photo'] = "/assets/generic-hero-thumb.jpg"
+          end
+
+          data_objs['#childrens'] = []
+          place.attractions.each do |place_child|
+              place_item_child = place_child
+              data_child_objs = {}
+              data_child_objs['@country_child'] = place_item_child.country.display_name rescue ""
+              data_child_objs['@name_child'] = place_item_child.display_name
+              if !place_item_child.photos.blank?
+                data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:thumb)
+              else
+                data_child_objs['@photo_child'] = "/assets/generic-hero-thumb.jpg"
+              end
+              data_objs['#childrens'] << data_child_objs
+              data_objs['#childrens'] << ["#"]
+          end
+          data_marker << data_objs
+          data_marker << ["@"]
+        end
+        return data_marker
+      else
         data_objs = {}
-        data_objs['#place'] = place.display_name
-        data_objs['#lat'] = place.latitude
-        data_objs['#lng'] = place.longitude
-        data_objs['#description'] = place.description
-        data_objs['#country'] = place.country.display_name rescue ""
-        data_objs['#path'] = place_path(place)
-        if !place.photos.blank?
-          data_objs['#photo'] = place.photos.last.path_url(:thumb)
+        data_objs['#place'] = self.display_name
+        data_objs['#lat'] = self.latitude.to_f
+        data_objs['#lng'] = self.longitude.to_f
+        data_objs['#description'] = self.description
+        data_objs['#country'] = ''
+        data_objs['#path'] = place_path(self)
+        if !self.photos.blank?
+          data_objs['#photo'] = self.photos.last.path_url(:thumb)
         else
           data_objs['#photo'] = "/assets/generic-hero-thumb.jpg"
         end
-
         data_objs['#childrens'] = []
-        place.attractions.each do |place_child|
-            place_item_child = place_child
-            data_child_objs = {}
-            data_child_objs['@country_child'] = place_item_child.country.display_name rescue ""
-            data_child_objs['@name_child'] = place_item_child.display_name
-            if !place_item_child.photos.blank?
-              data_child_objs['@photo_child'] = place_item_child.photos.last.path_url(:thumb)
-            else
-              data_child_objs['@photo_child'] = "/assets/generic-hero-thumb.jpg"
-            end
-            data_objs['#childrens'] << data_child_objs
-            data_objs['#childrens'] << ["#"]
-        end
-        data_marker << data_objs
-        data_marker << ["@"]
       end
+      data_marker << data_objs
+      data_marker << ["@"]
       return data_marker
-    else
-      data_objs = {}
-      data_objs['#place'] = self.display_name
-      data_objs['#lat'] = self.latitude.to_f
-      data_objs['#lng'] = self.longitude.to_f
-      data_objs['#description'] = self.description
-      data_objs['#country'] = ''
-      data_objs['#path'] = place_path(self)
-      if !self.photos.blank?
-        data_objs['#photo'] = self.photos.last.path_url(:thumb)
-      else
-        data_objs['#photo'] = "/assets/generic-hero-thumb.jpg"
-      end
-      data_objs['#childrens'] = []
     end
-    data_marker << data_objs
-    data_marker << ["@"]
-    return data_marker
   end
 
   private
