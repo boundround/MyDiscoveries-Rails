@@ -370,11 +370,7 @@ Rails.application.routes.draw do
     end
     resources :videos
     resources :photos
-    resources :orders, only: [ :new, :edit, :create, :update ] do
-      member do
-        get 'checkout'
-      end
-    end
+    resources :orders, only: [ :new, :edit, :create, :update ]
   end
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
