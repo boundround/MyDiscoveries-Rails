@@ -1,4 +1,5 @@
 (function (win, doc) {
+
     "use strict";
     var data_marker = $('input[name=region]').data('marker').split(', ["@"]');
     data_marker.pop(); //per place
@@ -70,312 +71,296 @@
                 '</div>',
 
                 '<div class="swiper-scrollbar"></div>',
+
             '</div>',
-            '{{~}}',
-            '</div>',
-          '</div>',
 
-        '</div>',
+            '<a href="{{= it.path }}" class="card-go-to">',
+                '<span class="card-go-to__text card-go-to__text--go-to">go to</span>',
+                '<span class="card-go-to__text">{{= it.point}}</span>',
+            '</a>',
 
-        '<div class="swiper-scrollbar"></div>',
+        '</div>'
 
-      '</div>',
+    ].join('');
 
-      '<a href="{{= it.path }}" class="card-go-to">',
-        '<span class="card-go-to__text card-go-to__text--go-to">go to</span>',
-        '<span class="card-go-to__text">{{= it.point}}</span>',
-      '</a>',
+    var cardTemplateFn = doT.compile(cardTemplate);
 
-    '</div>'
+    // var map;
 
-  ].join('');
+    var pathToMapPoint = '/assets/img/map/map-point.svg';
 
-  var cardTemplateFn = doT.compile(cardTemplate);
+    function RegionMap() {
 
-  // var map;
-
-  var pathToMapPoint = '/assets/img/map/map-point.svg';
-
-  function RegionMap() {
-
-    var regionMap = this,
-      mapNode = doc.querySelector('.js-google-promo-map');
-    if (!mapNode) {
-      return;
-    }
-
-    regionMap._mapNode = mapNode;
-
-    regionMap._mapData = dataFromSetver;
-
-    regionMap._createMap();
-
-    /*
-     regionMap._map = new google.maps.Map(mapNode, {
-     center: regionMap._mapData.data[0],
-     zoom: 8
-     });
-     */
-
-    regionMap._markers = [];
-
-    regionMap._addStyle();
-    regionMap._addMarkers();
-
-    google.maps.event.addDomListenerOnce(win, 'load', function onLoad() {
-      $('img[src="' + pathToMapPoint + '"]').parent().addClass('region-map-point').css('width','50px');
-    });
-
-    regionMap._map.addListener('click', function () {
-      regionMap.hideAll();
-    });
-
-    if (!mapNode.classList.contains('js-do-not-click')) {
-      google.maps.event.addListenerOnce(regionMap._map, 'tilesloaded', function () {
-        new google.maps.event.trigger(regionMap._markers[0], 'mouseover');
-        setTimeout(function () {
-          new google.maps.event.trigger(regionMap._markers[0], 'click');
-        }, 1000);
-      });
-    }
-
-  }
-
-  RegionMap.prototype._createMap = function () {
-
-    var regionMap = this;
-
-    var mapNode = doc.querySelector('.js-google-promo-map');
-
-    var styles = [
-      {
-        featureType: "all",
-        elementType: "geometry",
-        stylers: [
-          {color: "#95CC72"}
-        ]
-      },
-      {
-        featureType: "all",
-        elementType: "labels.text.fill",
-        stylers: [
-          {color: "#f5f5f5"}
-        ]
-      },
-      {
-        featureType: "water",
-        elementType: "geometry",
-        stylers: [
-          {color: "#C5F4FE"}
-        ]
-      },
-      {
-        featureType: "administrative.country",
-        elementType: "geometry.stroke",
-        stylers: [
-          {color: "#f5f5f5"},
-          {weight: 0.5}
-        ]
-      },
-      {
-        featureType: "administrative_area_level_1",
-        elementType: "labels.text",
-        stylers: [
-          {visibility: "off"}
-        ]
-      },
-      {
-        featureType: "administrative.country",
-        elementType: "labels.text",
-        stylers: [
-          {visibility: "on"}
-        ]
-      },
-      {
-        featureType: "all",
-        elementType: "labels.text.stroke",
-        stylers: [
-          {visibility: "off"}
-        ]
-      }
-
-    ];
-
-    var styledMap = new google.maps.StyledMapType(
-      styles,
-      {name: "Styled Map"}
-    );
-
-    var map = new google.maps.Map(
-      mapNode,
-      {
-        zoom: $('input[name=region]').data("zoom"),
-        center: regionMap._mapData.data[0],
-        draggable: false,
-        scrollwheel: false,
-        zoomControl: false
-      }
-    );
-
-    map.mapTypes.set('map_style', styledMap);
-    map.setMapTypeId('map_style');
-
-    regionMap._map = map;
-
-  };
-
-  RegionMap.prototype.hideAll = function () {
-
-    var regionMap = this;
-
-    regionMap._markers.forEach(function (marker) {
-      marker.set('icon', pathToMapPoint);
-    });
-
-    $('.map-point-clicked').removeClass('map-point-clicked');
-
-    regionMap.hideCard();
-
-  };
-
-  RegionMap.prototype._addStyle = function () {
-
-    var style = doc.createElement('style'),
-      data = this._mapData.data;
-
-    style.innerText = data
-        .map(function (marker) {
-          return 'img[src="' + marker.preview + '"]';
-        })
-        .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; opacity: 0!important; display: block !important; } ';
-    style.innerText += data
-        .map(function (marker) {
-          return 'img[src="' + marker.preview + '"] + .region-map-point__title';
-        })
-        .join(', ') + ' { display: block; } ';
-
-    doc.head.appendChild(style);
-
-  };
-
-  RegionMap.prototype.showCard = function (point) {
-
-    var regionMap = this,
-      data = regionMap._mapData.data,
-      cardData = {},
-      html;
-
-    regionMap.hideCard();
-
-    data.every(function (item) {
-      if (item.point === point) {
-        cardData = item;
-        return false;
-      }
-      return true;
-    });
-
-    html = cardTemplateFn(cardData);
-
-    $('.js-promo-map').append(html).find('.js-point-card__close').on('click', function (e) {
-      e.preventDefault();
-      regionMap.hideAll();
-    });
-
-    var elem = $('.js-point-card').get(0);
-    if (elem) {
-      var tl = new TimelineLite();
-      tl.from(elem, 1, {top: -100, opacity: 0, force3D: true});
-    }
-
-    // add swiper
-    var innerPoints = $('.js-point-card .region-preview-item');
-
-    $('.js-point-card .swiper-slide').height(
-      innerPoints.length * (innerPoints.height() + 10) // 10 it is vertical margins of blocks
-    );
-
-    var swiper = new Swiper('.js-point-card .swiper-container', {
-      scrollbar: '.swiper-scrollbar',
-      direction: 'vertical',
-      slidesPerView: 'auto',
-      mousewheelControl: true,
-      freeMode: true
-    });
-
-  };
-
-  RegionMap.prototype.hideCard = function () {
-
-    var elem = $('.js-point-card').get(0);
-
-    if (elem) {
-      elem.classList.remove('js-point-card');
-      var tl = new TimelineLite({
-        onComplete: function () {
-          elem.parentNode.removeChild(elem);
-        }
-      });
-      tl.to(elem, 1, {top: 100, opacity: 0, force3D: true});
-    }
-
-  };
-
-  RegionMap.prototype._addMarker = function (pointData) {
-
-    var regionMap = this,
-      mapNode = regionMap._mapNode,
-      map = regionMap._map,
-      marker = new google.maps.Marker({
-        position: {lat: pointData.lat, lng: pointData.lng},
-        draggable: false,
-        icon: pathToMapPoint,
-        optimized: false,
-        title: pointData.point
-      });
-    google.maps.event.addDomListener(marker, 'mouseover', function (event) {
-      marker.set('icon', pointData.preview);
-      $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
-      resetStyle(true)
-      win.util.waitFor(function () {
-        return $('img[src="' + pointData.preview + '"]', mapNode).length;
-      }).then(function () {
-        $('img[src="' + pointData.preview + '"]', mapNode).each(function () {
-          var $parent = $(this).parent();
-          $parent.addClass('hover');
-          if ($parent.find('.region-map-point__title').length) {
+        var regionMap = this,
+            mapNode = doc.querySelector('.js-google-promo-map');
+        if (!mapNode) {
             return;
-          }
-          $parent.append('<span class="region-map-point__title">' + pointData.point + '</span>');
+        }
+
+        regionMap._mapNode = mapNode;
+
+        regionMap._mapData = dataFromSetver;
+
+        regionMap._createMap();
+
+        /*
+         regionMap._map = new google.maps.Map(mapNode, {
+         center: regionMap._mapData.data[0],
+         zoom: 8
+         });
+         */
+
+        regionMap._markers = [];
+
+        regionMap._addStyle();
+        regionMap._addMarkers();
+
+        google.maps.event.addDomListenerOnce(win, 'load', function onLoad() {
+            $('img[src="' + pathToMapPoint + '"]').parent().addClass('region-map-point').css('width','50px');
         });
-      }).catch(function (e) {
-        console.log('can not load img');
-      });
 
-      $('img[src="' + pointData.preview + '"]').parent().each(function () {
-        $(this).css({
-          'background-image': 'url(' + pointData.preview + ')',
-          'background-size' : 'cover'
-        })
-      });
+        regionMap._map.addListener('click', function () {
+            regionMap.hideAll();
+        });
 
-      $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').css({
-         'border':'4px solid #fff !important'
+        if (!mapNode.classList.contains('js-do-not-click')) {
+            google.maps.event.addListenerOnce(regionMap._map, 'tilesloaded', function () {
+                new google.maps.event.trigger(regionMap._markers[0], 'mouseover');
+                setTimeout(function () {
+                    new google.maps.event.trigger(regionMap._markers[0], 'click');
+                }, 1000);
+            });
+        }
 
-      })
-    });
+    }
 
-    google.maps.event.addDomListener(marker, 'mouseout', function () {
+    RegionMap.prototype._createMap = function () {
 
-<<<<<<< HEAD
-      var $imgs = $('img[src="' + pointData.preview + '"]');
-      if ($imgs.parent().hasClass('map-point-clicked')) {
-        return;
-      }
-      marker.set('icon', pathToMapPoint);
+        var regionMap = this;
 
-      resetStyle(true);
-=======
+        var mapNode = doc.querySelector('.js-google-promo-map');
+
+        var styles = [
+            {
+                featureType: "all",
+                elementType: "geometry",
+                stylers: [
+                    {color: "#95CC72"}
+                ]
+            },
+            {
+                featureType: "all",
+                elementType: "labels.text.fill",
+                stylers: [
+                    {color: "#f5f5f5"}
+                ]
+            },
+            {
+                featureType: "water",
+                elementType: "geometry",
+                stylers: [
+                    {color: "#C5F4FE"}
+                ]
+            },
+            {
+                featureType: "administrative.country",
+                elementType: "geometry.stroke",
+                stylers: [
+                    {color: "#f5f5f5"},
+                    {weight: 0.5}
+                ]
+            },
+            {
+                featureType: "administrative_area_level_1",
+                elementType: "labels.text",
+                stylers: [
+                    {visibility: "off"}
+                ]
+            },
+            {
+                featureType: "administrative.country",
+                elementType: "labels.text",
+                stylers: [
+                    {visibility: "on"}
+                ]
+            },
+            {
+                featureType: "all",
+                elementType: "labels.text.stroke",
+                stylers: [
+                    {visibility: "off"}
+                ]
+            }
+
+        ];
+
+        var styledMap = new google.maps.StyledMapType(
+            styles,
+            {name: "Styled Map"}
+        );
+
+        var map = new google.maps.Map(
+            mapNode,
+            {
+                zoom: $('input[name=region]').data("zoom"),
+                center: regionMap._mapData.data[0],
+                draggable: false,
+                scrollwheel: false,
+                zoomControl: false
+            }
+        );
+
+        map.mapTypes.set('map_style', styledMap);
+        map.setMapTypeId('map_style');
+
+        regionMap._map = map;
+
+    };
+
+    RegionMap.prototype.hideAll = function () {
+
+        var regionMap = this;
+
+        regionMap._markers.forEach(function (marker) {
+            marker.set('icon', pathToMapPoint);
+        });
+
+        $('.map-point-clicked').removeClass('map-point-clicked');
+
+        regionMap.hideCard();
+
+    };
+
+    RegionMap.prototype._addStyle = function () {
+
+        var style = doc.createElement('style'),
+            data = this._mapData.data;
+
+        style.innerText = data
+                .map(function (marker) {
+                    return 'img[src="' + marker.preview + '"]';
+                })
+                .join(', ') + ' { border-radius: 50%; filter: grayscale(100%); border: 4px solid #fff !important; opacity: 0!important; display: block !important; } ';
+        style.innerText += data
+                .map(function (marker) {
+                    return 'img[src="' + marker.preview + '"] + .region-map-point__title';
+                })
+                .join(', ') + ' { display: block; } ';
+
+        doc.head.appendChild(style);
+
+    };
+
+    RegionMap.prototype.showCard = function (point) {
+
+        var regionMap = this,
+            data = regionMap._mapData.data,
+            cardData = {},
+            html;
+
+        regionMap.hideCard();
+
+        data.every(function (item) {
+            if (item.point === point) {
+                cardData = item;
+                return false;
+            }
+            return true;
+        });
+
+        html = cardTemplateFn(cardData);
+
+        $('.js-promo-map').append(html).find('.js-point-card__close').on('click', function (e) {
+            e.preventDefault();
+            regionMap.hideAll();
+        });
+
+        var elem = $('.js-point-card').get(0);
+        if (elem) {
+            var tl = new TimelineLite();
+            tl.from(elem, 1, {top: -100, opacity: 0, force3D: true});
+        }
+
+        // add swiper
+        var innerPoints = $('.js-point-card .region-preview-item');
+
+        $('.js-point-card .swiper-slide').height(
+            innerPoints.length * (innerPoints.height() + 10) // 10 it is vertical margins of blocks
+        );
+
+        var swiper = new Swiper('.js-point-card .swiper-container', {
+            scrollbar: '.swiper-scrollbar',
+            direction: 'vertical',
+            slidesPerView: 'auto',
+            mousewheelControl: true,
+            freeMode: true
+        });
+
+    };
+
+    RegionMap.prototype.hideCard = function () {
+
+        var elem = $('.js-point-card').get(0);
+
+        if (elem) {
+            elem.classList.remove('js-point-card');
+            var tl = new TimelineLite({
+                onComplete: function () {
+                    elem.parentNode.removeChild(elem);
+                }
+            });
+            tl.to(elem, 1, {top: 100, opacity: 0, force3D: true});
+        }
+
+    };
+
+    RegionMap.prototype._addMarker = function (pointData) {
+
+        var regionMap = this,
+            mapNode = regionMap._mapNode,
+            map = regionMap._map,
+            marker = new google.maps.Marker({
+                position: {lat: pointData.lat, lng: pointData.lng},
+                // map: map,
+                draggable: false,
+                icon: pathToMapPoint,
+                optimized: false,
+                title: pointData.point
+            });
+        google.maps.event.addDomListener(marker, 'mouseover', function (event) {
+            marker.set('icon', pointData.preview);
+            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
+            resetStyle(true)
+            win.util.waitFor(function () {
+                return $('img[src="' + pointData.preview + '"]', mapNode).length;
+            }).then(function () {
+                $('img[src="' + pointData.preview + '"]', mapNode).each(function () {
+                    var $parent = $(this).parent();
+                    $parent.addClass('hover');
+                    if ($parent.find('.region-map-point__title').length) {
+                        return;
+                    }
+                    $parent.append('<span class="region-map-point__title">' + pointData.point + '</span>');
+                });
+            }).catch(function (e) {
+                console.log('can not load img');
+            });
+
+            $('img[src="' + pointData.preview + '"]').parent().each(function () {
+                $(this).css({
+                    'background-image': 'url(' + pointData.preview + ')',
+                    'background-size' : 'cover'
+                })
+            });
+
+            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').css({
+               'border':'4px solid #fff !important'
+
+            })
+        });
+
+        google.maps.event.addDomListener(marker, 'mouseout', function () {
+
             var $imgs = $('img[src="' + pointData.preview + '"]');
             if ($imgs.parent().hasClass('map-point-clicked')) {
                 return;
@@ -383,83 +368,74 @@
             marker.set('icon', pathToMapPoint);
 
             resetStyle(true);
->>>>>>> ecommerce
 
-      if ($imgs.parent().hasClass('map-point-clicked')) {
-        return;
-      }
+            if ($imgs.parent().hasClass('map-point-clicked')) {
+                return;
+            }
 
-      $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
+            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
 
-      $('img[src="' + pointData.preview + '"]').parent().each(function () {
-        $(this).addClass('img-circle').removeClass('hover').css({
-          'background-image': 'url(' + pointData.preview + ')',
-          'background-size' : 'cover'
-        })
-      });
+            $('img[src="' + pointData.preview + '"]').parent().each(function () {
+                $(this).addClass('img-circle').removeClass('hover').css({
+                    'background-image': 'url(' + pointData.preview + ')',
+                    'background-size' : 'cover'
+                })
+            });
 
-    });
+        });
 
-    google.maps.event.addDomListener(marker, 'click', function (event) {
-      resetStyle(true);
-      regionMap.hideAll();
+        google.maps.event.addDomListener(marker, 'click', function (event) {
+            resetStyle(true);
+            regionMap.hideAll();
 
-      marker.set('icon', pointData.preview);
+            marker.set('icon', pointData.preview);
 
-      regionMap.showCard(marker.title);
+            regionMap.showCard(marker.title);
 
-      $('img[src="' + pointData.preview + '"]').parent().each(function () {
-        $(this).addClass('map-point-clicked img-circle').css({
-          'background-image': 'url(' + pointData.preview + ')',
-          'background-size' : 'cover'
-        })
-      });
+            $('img[src="' + pointData.preview + '"]').parent().each(function () {
+                $(this).addClass('map-point-clicked img-circle').css({
+                    'background-image': 'url(' + pointData.preview + ')',
+                    'background-size' : 'cover'
+                })
+            });
 
-       $('.google-promo-map .map-point-clicked.img-circle:not(.gmnoprint)').css({
-        'border-color':'#6cb7ca'
-       })
+             $('.google-promo-map .map-point-clicked.img-circle:not(.gmnoprint)').css({
+                'border-color':'#6cb7ca'
+             })
 
-<<<<<<< HEAD
-      $('a.point-card__close.js-point-card__close').click(function(){
-        $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
-      })
-
-    });
-=======
             $('a.point-card__close.js-point-card__close').click(function(){
                 $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
             })
 
         });
->>>>>>> ecommerce
 
-    marker.setMap(map);
+        marker.setMap(map);
 
-    return marker;
+        return marker;
 
-  };
+    };
 
-  RegionMap.prototype._addMarkers = function () {
+    RegionMap.prototype._addMarkers = function () {
 
-    var regionMap = this,
-      mapData = regionMap._mapData;
+        var regionMap = this,
+            mapData = regionMap._mapData;
 
-    this._markers = mapData.data.map(regionMap._addMarker, this);
+        this._markers = mapData.data.map(regionMap._addMarker, this);
 
-  };
+    };
 
 
-  win.onload = function () {
-    new RegionMap();
-  };
+    win.onload = function () {
+        new RegionMap();
+    };
 
-  $('.js-google-promo-map').click(function(){
-    $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
-  })
+    $('.js-google-promo-map').click(function(){
+        $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
+    })
 
-  function resetStyle(reset){
-    if(reset){
-       $('style.map-click').remove();
+    function resetStyle(reset){
+        if(reset){
+           $('style.map-click').remove();
+        }
     }
-  }
 }(window, window.document));
