@@ -7,7 +7,7 @@ class Story < ActiveRecord::Base
   friendly_id :slug_candidates, :use => [:slugged, :history]
   attr_accessor :display_address
   # after_update :send_live_notification
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :title,
                :status,

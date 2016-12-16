@@ -6,7 +6,7 @@ class Place < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake, :no_parent_select
 
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name,
                :status,

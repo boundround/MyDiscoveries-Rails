@@ -7,7 +7,7 @@ class Region < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, :use => [:slugged, :history]
 
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id do
+  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id do
     # list of attribute used to build an Algolia record
     attributes :display_name,
                :slug,
