@@ -1,69 +1,75 @@
 (function (win, doc) {
+    "use strict";
+    var data_marker = $('input[name=region]').data('marker').split(', ["@"]');
+    data_marker.pop(); //per place
+    var datas = function() {
+        var results = [];
+        $.each(data_marker, function(i, val) {
+            var obj = {},
+                data_split = val.split(', "#'); //per key
+            obj['point'] = data_split[0].split('=>')[1].slice(1, -1);
+            obj['lat'] = parseFloat(data_split[1].split('=>')[1]);
+            obj['lng'] = parseFloat(data_split[2].split('=>')[1]);
+            if (data_split[3].length > 150){
+                obj['description'] = data_split[3].split('=>')[1].slice(1, -1).substr(0,150)+" ...";
+            }else{
+                obj['description'] = data_split[3].split('=>')[1].slice(1, -1);
+            }
+            obj['country'] = data_split[4].split('=>')[1].slice(1, -1);
+            obj['preview'] = data_split[6].split('=>')[1].slice(1, -1);
+            obj["inner-cards"] = [];
+            obj['path'] = data_split[5].split('=>')[1].slice(1, -1);
+            var data_childs = data_split[7].split(', ["#"]');
+            data_childs.pop();
+            $.each(data_childs, function(i, val){
+                var childs_objs = {},
+                    data_childs_split = val.split('"@');
+                    data_childs_split.shift();
+                    childs_objs["img"] = data_childs_split[2].split('=>')[1].slice(1, -2);
+                    childs_objs["header"] = data_childs_split[0].split('=>')[1].slice(1, -3);
+                    childs_objs["description"] = data_childs_split[1].split('=>')[1].slice(1, -3);
+                obj["inner-cards"].push(childs_objs)
+            })
+            results.push(obj);
+        });
+        return results;
+    }
+    var dataFromSetver = {
+        "meta": {
+            "name": "Ebash karty, bleat\'!!!"
+        },
+        "data": datas()
+    };
 
-  "use strict";
-  var data_marker = $('input[name=region]').data('marker').split('#place');
-  data_marker.pop(); //per place
-  data_marker.shift(); //per place
-  var datas = function() {
-    var results = [];
-    $.each(data_marker, function(i, val) {
-      var obj = {},
-        data_split  = val.split(', "#'); //per key
-      obj['point']          = data_split[0].split('=>')[1].slice(1, -1);
-      obj['lat']            = parseFloat(data_split[1].split('=>')[1]);
-      obj['lng']            = parseFloat(data_split[2].split('=>')[1]);
-      if (data_split[3].length > 150){          
-        obj['description']  = data_split[3].split('=>')[1].slice(1, -1).substr(0,150)+" ...";
-      }else{
-        obj['description']  = data_split[3].split('=>')[1].slice(1, -1);
-      }
-      obj['country']        = data_split[4].split('=>')[1].slice(1, -1);
-      obj['preview']        = data_split[6].split('=>')[1].slice(1, -1);
-      obj["inner-cards"]    = [];
-      obj['path']           = data_split[5].split('=>')[1].slice(1, -1);
-      var data_childs       = data_split[7].split(', ["#"]');
-      data_childs.pop();
-      $.each(data_childs, function(i, val){
-        var childs_objs             = {},
-          data_childs_split         = val.split('"@');
-          data_childs_split.shift();
-          childs_objs["img"]        = data_childs_split[2].split('=>')[1].slice(1, -2);
-          childs_objs["header"]     = data_childs_split[0].split('=>')[1].slice(1, -3);
-          childs_objs["description"]= data_childs_split[1].split('=>')[1].slice(1, -3);
-        obj["inner-cards"].push(childs_objs)
-      })
-      results.push(obj);
-    });
-    return results;
-  }
-  var dataFromSetver = {
-    "meta": {
-      "name": "Ebash karty, bleat\'!!!"
-    },
-    "data": datas()
-  };
+    var cardTemplate = [
 
-  var cardTemplate = [
+        '<div class="point-card js-point-card">',
 
-    '<div class="point-card js-point-card">',
+            '<a class="point-card__close js-point-card__close" href="#"></a>',
+            '<h3 class="point-card__header">{{= it.country }}</h3>',
+            '<h4 class="point-card__local-header">{{= it.point }}</h4>',
+            '<p class="point-card__local-description">{{= it.description }}</p>',
 
-      '<a class="point-card__close js-point-card__close" href="#"></a>',
-      '<h3 class="point-card__header">{{= it.country }}</h3>',
-      '<h4 class="point-card__local-header">{{= it.point }}</h4>',
-      '<p class="point-card__local-description">{{= it.description }}</p>',
+            '<div class="scroll-area">',
 
-      '<div class="scroll-area">',
+                '<div class="scroll-area__swiper-container swiper-container">',
 
-        '<div class="scroll-area__swiper-container swiper-container">',
+                    '<div class="scroll-area__content swiper-wrapper">',
+                        '<div class="swiper-slide">',
+                        '{{~ it[\'inner-cards\'] :item }}',
+                        '<div class="region-preview-item">',
+                        '<img src="{{= item.img }}" alt="" class="region-preview-item__image">',
+                        '<h3 class="region-preview-item__header">{{= item.header }}</h3>',
+                        '<p class="region-preview-item__paragraph">{{= item.description }}</p>',
+                        '<div style="clear:both"></div>',
+                        '</div>',
+                        '{{~}}',
+                        '</div>',
+                    '</div>',
 
-          '<div class="scroll-area__content swiper-wrapper">',
-            '<div class="swiper-slide">',
-            '{{~ it[\'inner-cards\'] :item }}',
-            '<div class="region-preview-item">',
-            '<img src="{{= item.img }}" alt="" class="region-preview-item__image">',
-            '<h3 class="region-preview-item__header">{{= item.header }}</h3>',
-            '<p class="region-preview-item__paragraph">{{= item.description }}</p>',
-            '<div style="clear:both"></div>',
+                '</div>',
+
+                '<div class="swiper-scrollbar"></div>',
             '</div>',
             '{{~}}',
             '</div>',
@@ -361,13 +367,23 @@
 
     google.maps.event.addDomListener(marker, 'mouseout', function () {
 
+<<<<<<< HEAD
       var $imgs = $('img[src="' + pointData.preview + '"]');
       if ($imgs.parent().hasClass('map-point-clicked')) {
         return;
       }
       marker.set('icon', pathToMapPoint);
-      
+
       resetStyle(true);
+=======
+            var $imgs = $('img[src="' + pointData.preview + '"]');
+            if ($imgs.parent().hasClass('map-point-clicked')) {
+                return;
+            }
+            marker.set('icon', pathToMapPoint);
+
+            resetStyle(true);
+>>>>>>> ecommerce
 
       if ($imgs.parent().hasClass('map-point-clicked')) {
         return;
@@ -403,11 +419,19 @@
         'border-color':'#6cb7ca'
        })
 
+<<<<<<< HEAD
       $('a.point-card__close.js-point-card__close').click(function(){
         $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
       })
-     
+
     });
+=======
+            $('a.point-card__close.js-point-card__close').click(function(){
+                $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
+            })
+
+        });
+>>>>>>> ecommerce
 
     marker.setMap(map);
 

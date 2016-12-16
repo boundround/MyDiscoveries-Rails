@@ -6,6 +6,7 @@ class Post < ActiveRecord::Base
   mount_uploader :hero_photo, PostHeroPhotoUploader
 
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+
     # list of attribute used to build an Algolia record
     attributes :title,
                :content,
@@ -15,7 +16,15 @@ class Post < ActiveRecord::Base
                :maximum_age,
                :description,
                :primary_category_priority,
-               :page_ranking_weight
+               :page_ranking_weight,
+               :age_range,
+               :weather,
+               :price,
+               :best_time_to_visit,
+               :subcategories,
+               :accessibility,
+               :main_category,
+               :subcategory
 
     synonyms [
         ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping"],
@@ -46,8 +55,12 @@ class Post < ActiveRecord::Base
       false
     end
 
+    attribute :subcategories do
+      subcategories.map { |sub| { name: sub.name, identifier: sub.identifier } }
+    end
+
     attribute :primary_category do
-       if self.primary_category
+      if self.primary_category
         { name: "#{primary_category.name}", identifier: primary_category.identifier}
       else
         ""
@@ -60,18 +73,6 @@ class Post < ActiveRecord::Base
 
     attribute :result_icon do
       "book"
-    end
-
-    attribute :main_category do
-      primary_category.name if primary_category.present?
-    end
-
-    attribute :subcategories do
-      subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
-    end
-
-    attribute :subcategory do
-      subcategories.subcats.map{|sub| sub.name}
     end
 
     attribute :name do
@@ -100,42 +101,6 @@ class Post < ActiveRecord::Base
       hero_photo.present?
     end
 
-    attribute :age_range do
-      if minimum_age.present? and maximum_age.present?
-        if minimum_age > 12
-          ["Teens"]
-        elsif minimum_age > 8 && maximum_age < 13
-          ["For Ages 9-12"]
-        elsif minimum_age > 8
-          ["For Ages 9-12", "Teens"]
-        elsif maximum_age < 13
-          ["For Ages 5-8", "For Ages 9-12"]
-        elsif maximum_age < 9
-          ["For Ages 5-8"]
-        else
-          ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
-        end
-      else
-        ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
-      end
-    end
-
-    attribute :weather do
-      subcategories.where(category_type: 'weather').map{ |sub|  sub.name }
-    end
-
-    attribute :price do
-      subcategories.where(category_type: 'price').map{ |sub|  sub.name }
-    end
-
-    attribute :best_time_to_visit do
-      subcategories.where(category_type: 'optimum_time').map{ |sub|  sub.name }
-    end
-
-    attribute :accessibility do
-      subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
-    end
-
      #country and url
 
     # the attributesToIndex` setting defines the attributes
@@ -156,13 +121,7 @@ class Post < ActiveRecord::Base
       'publish_date',
     ]
 
-    customRanking [
-      'desc(is_country)',
-      'desc(is_area)',
-      'desc(primary_category_priority)',
-      'desc(page_ranking_weight)',
-      'desc(has_hero_image)',
-    ]
+    customRanking Searchable.custom_ranking
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
@@ -271,17 +230,18 @@ class Post < ActiveRecord::Base
   end
 
   private
-    def algolia_id
-      "post_#{id}" # ensure the place, post & country IDs are not conflicting
-    end
 
-    def slug_candidates
-      :seo_friendly_url
-    end
+  def algolia_id
+    "post_#{id}" # ensure the place, post & country IDs are not conflicting
+  end
 
-    def regenerate_slug
-      if self.seo_friendly_url_changed?
-        self.slug = seo_friendly_url.parameterize
-      end
+  def slug_candidates
+    :seo_friendly_url
+  end
+
+  def regenerate_slug
+    if self.seo_friendly_url_changed?
+      self.slug = seo_friendly_url.parameterize
     end
+  end
 end

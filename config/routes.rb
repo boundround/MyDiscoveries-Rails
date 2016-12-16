@@ -345,7 +345,7 @@ Rails.application.routes.draw do
     collection { post :import_subcategories }
   end
 
-  resources :regions do 
+  resources :regions do
     member { get 'choose_hero', as: :choose_hero }
     member { get 'paginate_place_to_visit'}
     member { get 'paginate_place_to_go'}
@@ -362,6 +362,20 @@ Rails.application.routes.draw do
   end
 
   resources :deals
+
+  resources :offers do
+    collection do
+      get 'new_livn_offer'
+      post 'create_livn_offer'
+    end
+    resources :videos
+    resources :photos
+    resources :orders, only: [ :new, :edit, :create, :update ] do
+      member do
+        get 'checkout'
+      end
+    end
+  end
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'

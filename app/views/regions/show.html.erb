@@ -62,14 +62,13 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <% if @region.description.length > 280 %>
-      <div class="destination-desc promo-text-full" style="display:none;">
-        <p><%= raw @region.description %></p>
-      </div>
-
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <% if @region.description.length > 280 %>
+        <div class="destination-desc promo-text-full" style="display:none;">
+          <p><%= raw @region.description %></p>
+        </div>
       <div class="destination-desc promo-text">
         <p><%= raw @region.description[0..280]+"..." %></p>
       </div>
@@ -198,12 +197,18 @@
 
 <!-- THINGS TO DO -->
 
-  <% unless @places_to_visit.blank? %>
-    <div class="destination-page">
-    <div id="thingstodo" class="container dest-things-wrapper">
-        <div class="row">
-          <div class="col-xs-12">
-              <h3>Things to do in <%= @region.display_name %></h3>
+    <% unless @places_to_visit.blank? %>
+      <div class="destination-page">
+      <div id="thingstodo" class="container dest-things-wrapper">
+          <div class="row">
+            <div class="col-xs-12">
+                <h3>Things to do in <%= @region.display_name %></h3>
+            </div>
+          </div>
+          <div class="row">
+              <div class="owl-carousel carousel" id="places_to_visit-list">
+                <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
+              </div>
           </div>
         </div>
         <div class="row">
@@ -306,6 +311,8 @@
         <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
+      <img src="/assets/img/wild-ad-banner/test.jpg" class="wild-ad-banner__img" style="display: block;">
+
       <p class="wild-ad-banner__paragraph">Sponsored</p>
       </div>
     </div>

@@ -1,0 +1,208 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://dev1.livngds.com/livngds/api/products/997
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Authorization:
+      - Basic Qm91bmRSb3VuZEFVOnU1XF1ne3olK1BwKVJ3Yg==
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache-Coyote/1.1
+      Cache-Control:
+      - private
+      Expires:
+      - Thu, 01 Jan 1970 10:00:00 AEST
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Wed, 30 Nov 2016 12:15:26 GMT
+    body:
+      encoding: UTF-8
+      string: '{"product":{"bookable":true,"id":997,"cid":8806,"operatorId":50,"operatorCid":349,"operatorName":"Adventure
+        Tours Australia","disabled":false,"name":"Bali & Lombok Adventure","code":"TISGC","description":"Bali
+        & Lombok Adventure\n\nGet ready for a magical getaway on the picturesque Islands
+        of Indonesia on this tropical adventure. Travel through Bali and Lombok blending
+        gorgeous beaches, great food and rich cultures with Indonesia''s warm weather
+        and sapphire seas. This trip is guaranteed to leave you enthralled as you
+        walk, cycle, snorkel, hike and swim through pristine environs and discover
+        the allure of these two unique islands. Both Bali and Lombok are famous for
+        their beauty and welcoming spirit, which you will experience at every turn
+        of this trip.","parentId":996,"parentCid":8805,"parentName":"Bali & Lombok
+        Adventure","parentCode":"TISGC","parentDescription":"Get ready for a magical
+        getaway on the picturesque Islands of Indonesia on this tropical adventure.
+        Travel through Bali and Lombok blending gorgeous beaches, great food and rich
+        cultures with Indonesia''s warm weather and sapphire seas. This trip is guaranteed
+        to leave you enthralled as you walk, cycle, snorkel, hike and swim through
+        pristine environs and discover the allure of these two unique islands. Both
+        Bali and Lombok are famous for their beauty and welcoming spirit, which you
+        will experience at every turn of this trip.","paxDetails":{"dob":"ALL","address":"NOT_REQ","country":"ALL","name":"ALL","language":"NOT_REQ","email":"ALL","phone":"ONCE","mobile":"ALL","nationality":"NOT_REQ","passport":"NOT_REQ"},"minRateAdult":2250.00,"maxRateAdult":2360.00,"wholesaleCommissionPerc":15.00,"ratesCached":"2016-11-25T19:40:09.595+11:00","pickupsChanged":"2015-08-20T09:32:17.310+10:00","duration":1296000000,"operatingDays":32,"operatingDaysStr":"Sat","operatingSchedule":"Departs
+        from Ubud: Sat 02 Jul 2016, Sat 09 Jul 2016, Sat 16 Jul 2016, Sat 23 Jul 2016,
+        Sat 30 Jul 2016, Sat 06 Aug 2016, Sat 13 Aug 2016, Sat 20 Aug 2016, Sat 27
+        Aug 2016, Sat 03 Sep 2016, Sat 10 Sep 2016, Sat 17 Sep 2016, Sat 24 Sep 2016,
+        Sat 01 Oct 2...","locationStart":"Ubud","latitudeStart":-8.497724999999999,"longitudeStart":115.263014,"locationEnd":"Senggigi","latitudeEnd":-8.485465999999999,"longitudeEnd":116.047299,"tags":["bedugul","gili
+        islands","indonesia","lovina","mt batur","sanur","senaru","senggigi","sidemen","tetebatu","ubud"],"requiredMultiple":1,"minPaxCount":1,"maxPaxCount":1,"pickupNotes":"Tour
+        start in Ubud","dropoffNotes":"Tour finishes in Senggigi","highlightsStr":"Adventure
+        to the summit of Mt Batur, where, on a clear morning, dazzling sunrise vistas
+        stretch across the Lombok Strait, all the way over to the peaks of Mt Rinjani.\nSnorkelling
+        the crystal waters around Menjangan Island reef and also the Gili Islands.
+        Hopefully spot some tropical fish and sea turtles.\nGet an insight into the
+        real Indonesia, with cultural activities and visiting local villages.\nSee
+        the contrasts in religion and culture between Bali and Lombok.","itineraryStr":"Day
+        1: Ubud - Om Swastiastu! Welcome to Ubud, the arts and cultural centre of
+        Bali. Your adventure begins with a welcome meeting at 6 pm on Day 1. Please
+        look for a note in the hotel lobby or ask reception where it will take place.
+        Afterwards, perhaps head out to Gianyar night market to try some of the local
+        cuisine. It''s an informal setup, but a great way to get a taste of the local
+        culture and cuisine.\n\nNotes: Your room in Ubud is not air-conditioned but
+        has a ceiling fan. Air conditioning is available for an additional cost -
+        just ask the hotel reception.\n\nDay 2: Ubud - Led by your local guide, you
+        will tour Ubud on foot today (approximately 3 hours). Along the way you''ll
+        see the goings-on of daily village life, rice fields, an alang alang valley
+        (wild grass that is used for making the roof on traditional buildings), and
+        visit a local painting and handicraft area. The tour ends in central Ubud
+        where you''ll have time to explore the many cafes, galleries and shops on
+        your own. Today you''ll also visit Bumi Sehat, a local community-based health
+        clinic whose mission is to reduce maternal and child morbidity and mortality.
+        In the evening you will sit down to a traditional Kecak dance performance.
+        Driven not by musical instruments but by human chanting, this fascinating
+        theatrical performance is considered a highlight by many travellers.\n\nDay
+        3: Sidemen - Set off by bicycle (approximately 3 hours) through backstreets,
+        quaint villages and rice fields - a great way to meet the local people and
+        take in the lovely views. Along the way, you''ll make stops for photo opportunities
+        and to rest if you need to. There are plenty of opportunities to visit some
+        of the small and intricately carved temples. Your ride concludes in Ubud.
+        Next, head for the hills and the village of Sidemen, travelling by minivan
+        (approximately 2 hours). Set against a backdrop of Bali''s highest peak, Mt
+        Agung, the peaceful and friendly village of Sidemen is proof that Bali has
+        pockets tucked away from the tourism the island is famous for. It''s a little
+        cooler up here, thanks to the elevation.\n\nNotes: Bicycle helmets are included
+        on your ride, and there is a support vehicle if the going gets too tough.\n\nDay
+        4: Mt Batur - Take a morning walk (approximately 3-4 hours) around Sidemen,
+        visiting the craftspeople of the local songket weaving industry. A traditional
+        ''bungkus'' lunch is included. The walk is a great chance to take in the beautiful
+        scenery. You can also cool off in the river nearby. Continuing your journey
+        higher into the mountains, drive along the crater rim road to a fishing village
+        on the edge of Lake Batur (approximately 2 hours). Volcanic Mt Batur (1,717
+        m) sits inside a stark and spectacular caldera, and with Lake Batur below
+        it''s a stunning sight. The lake supports the local fishing industry, while
+        many of the villagers work as guides for the volcano climb. Your accommodation
+        at the base of Mt Batur is a basic hotel with a restaurant. This is a great
+        location at which to start tomorrow''s early morning trek without extra travelling
+        time.\n\nNotes: There are often mosquitos and bugs around Lake Batur, so be
+        sure to pack your insect repellent.\n\nDay 5: Lovina - Get up at 3 am this
+        morning to walk to the summit of Mt Batur (approximately 1.5-2 hours). You''ll
+        be glad you made the effort to rise early when you see the gorgeous sunrise
+        over the valleys of Bali. On a clear morning, it''s possible to see all the
+        way across the Lombok Strait to the peaks of Lombok''s Mt Rinjani. This may
+        well be one of the most memorable parts of your trip. Do keep in mind, however,
+        that the weather can be unpredictable and sometimes the view is obscured by
+        clouds. After descending the volcano, there''s an option to soak in hot springs
+        with fantastic views over the lake and caldera. Make the journey from the
+        mountains to the small coastal town of Lovina (approximately 3 hours). Lovina
+        is famous for the dolphins that patrol its coast. It''s also a great spot
+        for fine food, traditional massage and yoga.\n\nNotes: The summit trail follows
+        switchbacks over volcanic rocks and gravel, and in places the trail can be
+        quite steep. A good level of fitness is required. You will also need appropriate
+        walking shoes, a head torch, a waterproof jacket and sufficiently warm clothing
+        for Mt Batur and Bedugul. These items are available for purchase in Bali,
+        but you may prefer to bring them from home to ensure correct fit and quality.\n\nDay
+        6: Lovina - Enjoy a day of snorkelling on Menjangan Island reef, a short boat
+        ride from the coast (there will approximately 2 hours of travel in total).
+        This island and its coral reefs are part of the Bali Barat National Park.  Enjoy
+        some free time in Lovina this afternoon, exploring the sun-drenched coastline.
+        Just be careful of rubbish in the water if you go swimming, as this can be
+        a problem after bouts of stormy weather in the waters aroundMenjangan, as
+        in other coastal areas in Bali.\n\nNotes: Intrepid no longer supports dolphin-watching
+        trips as an optional activity, as there is little regulation of them, and
+        many previous travellers have raised concerns over sightings of motorised
+        boats pursuing dolphins.\n\nDay 7: Bedugul - Bring your swimming gear to visit
+        today as our first stop is a visit to the small but more local Banjar Hot
+        Springs. Continue to the tiny hilltop village of Munduk (approximately 1 hour).
+        Walk through clove and coffee plantations to a hidden waterfall. \nVisit Lake
+        Bratan nearby for delightful views of Pura Ulun Danu Bratan, a Hindu-Buddhist
+        temple set on a small island in the lake. You''ll need to wear a traditional
+        sarong while you visit the temple. \nContinue to Bedugul (approximately 1
+        hour). This mountain town is nestled in the cool and misty highlands, in a
+        volcanic lake region covered in lush vegetation. Your warm clothes may come
+        in handy for early mornings and evenings here.\n\nNotes: Our accommodation
+        here has no air conditioning, as it is not generally required in the cooler
+        climate of Bedugul.\n\nDay 8: Sanur - Visit the Bali Botanical Gardens in
+        Bedugal, where over 2000 species of plants from all over Indonesia are on
+        display in a tranquil highland setting.\nContinue by minivan to Sanur (approx.
+        2 hours), and enjoy some free time this afternoon.\nSanur''s white sand beach
+        stretches along the coast for five kilometres, sheltered along its length
+        by reef making it safe for swimming. You can enjoy a stroll along Bali''s
+        first beachfront walk, chat with the locals as they too enjoy the sea and
+        sun, watch the fishermen in the shallows or kick back and relax at one of
+        the beachside restaurants. Sanur maintains its traditions and local customs
+        and ancient temples are only a hop, skip and a jump from the beach.\nAs this
+        is a combination trip, your group leader and the composition of your group
+        may change at this location. There will be a group meeting to discuss the
+        next stage of your itinerary and you''re welcome to attend, as this is a great
+        chance to meet your new fellow travellers\n\nDay 9: Tetebatu - Travel by minivan
+        from Sanur to the port of Padang Bai (approximately 1.5 hours). Then you''ll
+        board a ferry that takes you from Bali to Lombok (4-7 hours). The ferry is
+        a huge multi-level boat brimming with food hawkers offering interesting snacks,
+        plus plenty of local passengers to meet. Although this journey is long, the
+        ferry ride and the arrival into Lembar port can be quite an eye-opener, as
+        both the scenery and culture of Lombok are very different to that of Bali.
+        Take a bus to Tetebatu (3-4 hours). The hill retreat of Tetebatu is situated
+        in the centre of Lombok, at the southern base of Mt Rinjani, and boasts spectacular
+        views.\n\nDay 10: Tetebatu - Enjoy a guided walk through verdant rice fields
+        and see how the farmers of this region have tended the land for centuries,
+        still using traditional water buffalo ploughs. Climb a little higher and pass
+        through clove and coffee plantations (walking time is approximately 2 hours).
+        Visit the local village of Pringgasela to learn traditional weaving and enjoy
+        a delicious Sasak feast. After returning to the hotel, you will travel to
+        Masbagik village, which is noted for its pottery. Explore the village and
+        see the process of pottery making, with the possibility to get down and dirty
+        and try it for yourself. Then continue through the village and see the other
+        products Masbagik is renowned for, such as tofu and soya bean.\n\nDay 11:
+        Senaru - Travel by minibus around the spiritual centre and sleeping giant
+        of the island, Mt Rinjani. Visit a market and local villages famous for their
+        crafts, including bamboo weaving. (Total driving time is about 5 hours, but
+        it will take most of the day to reach our destination at Senaru, as we stop
+        a couple of times.) Senaru is a small, rustic village nestled between the
+        base of Mt Rinjani and the edge of the jungle.\n\nNotes: We do not include
+        a Mt Rinjani trek on this itinerary, but we do stay in the vicinity with great
+        views of the mountain.\n\nDay 12: Gili Islands - Continue to the west coast
+        today (approximately 2 hours). You will visit the spectacular Singang Gila
+        waterfall. The Gili Islands (Tiga Gili) are an archipelago of three small
+        islands - Gili Trawangan, Gili Meno and Gili Air. Transfer by small boat to
+        the Gili Air where you can take in the breezy atmosphere and stroll down stunning
+        white beaches that rival those of the neighbouring islands. Your hotel is
+        about a 15-minute walk from the port. Your bags can be transported by Cidemo
+        from the port to the hotel.\n\nNotes: Our accommodation on the island has
+        private outdoor bathrooms, with a lockable external doors.\n\nDay 13: Gili
+        Islands - Today you''ll get amongst the marine life, with a snorkelling trip
+        around the crystal waters of Gili Air. After being fitted for snorkelling
+        equipment, head out on a motorised wooden around the Gili Islands. Swim out
+        straight off the boat and catch colourful scenes of fish and sea turtles in
+        the water. You will make a few stops at different spots around the islands.
+        When it''s over, you''ll feast on a delicious dinner of local seafood.\n\nNotes:
+        This activity is subject to local weather conditions and may be cancelled
+        due to rough seas.\n\nDay 14: Senggigi - Take a short boat trip back to Lombok
+        (approximately 40 minutes) and transfer to your guesthouse in Senggigi (approximately
+        1.5 hours). Ideally positioned to take in the glorious sunsets over nearby
+        Bali, this renowned beach resort is the ideal place to relax and unwind. A
+        great optional activity is to visit the Pura Batu Bolong, which is around
+        2.5 km south down the coast from the resort. This is an important local Hindu
+        temple and also a lovely spot to watch the sun go down.\n\nDay 15: Senggigi
+        - Your trip comes to and end today. Perhaps extend your stay in Senggigi,
+        or pre-book a departure transfer to Lombok Airport.","includes":"Included
+        breakfasts: 13\n\nIncluded lunches: 2\n\nIncluded dinners: 1","sellVouchers":true,"onlyVouchers":false,"voucherValidity":12,"images":[{"width":1600,"height":1200,"fileSize":463779,"format":"JPEG","url":"http://res.cloudinary.com/livngds/image/upload/v1479208294/CENTRAL/products/8805/nvuix1qtnjupwunp63v8.jpg","urlSecure":"https://res.cloudinary.com/livngds/image/upload/v1479208294/CENTRAL/products/8805/nvuix1qtnjupwunp63v8.jpg","urlPreview":"http://res.cloudinary.com/livngds/image/upload/c_scale,h_600,w_800/v1/CENTRAL/products/8805/nvuix1qtnjupwunp63v8.jpg","urlPreviewSecure":"https://res.cloudinary.com/livngds/image/upload/c_scale,h_600,w_800/v1/CENTRAL/products/8805/nvuix1qtnjupwunp63v8.jpg","urlThumbnail":"http://res.cloudinary.com/livngds/image/upload/c_scale,h_120,w_160/v1/CENTRAL/products/8805/nvuix1qtnjupwunp63v8.jpg","urlThumbnailSecure":"https://res.cloudinary.com/livngds/image/upload/c_scale,h_120,w_160/v1/CENTRAL/products/8805/nvuix1qtnjupwunp63v8.jpg"},{"width":1600,"height":1200,"fileSize":469004,"format":"JPEG","url":"http://res.cloudinary.com/livngds/image/upload/v1479208305/CENTRAL/products/8805/xnrin3ghppgrcmdf7vun.jpg","urlSecure":"https://res.cloudinary.com/livngds/image/upload/v1479208305/CENTRAL/products/8805/xnrin3ghppgrcmdf7vun.jpg","urlPreview":"http://res.cloudinary.com/livngds/image/upload/c_scale,h_600,w_800/v1/CENTRAL/products/8805/xnrin3ghppgrcmdf7vun.jpg","urlPreviewSecure":"https://res.cloudinary.com/livngds/image/upload/c_scale,h_600,w_800/v1/CENTRAL/products/8805/xnrin3ghppgrcmdf7vun.jpg","urlThumbnail":"http://res.cloudinary.com/livngds/image/upload/c_scale,h_120,w_160/v1/CENTRAL/products/8805/xnrin3ghppgrcmdf7vun.jpg","urlThumbnailSecure":"https://res.cloudinary.com/livngds/image/upload/c_scale,h_120,w_160/v1/CENTRAL/products/8805/xnrin3ghppgrcmdf7vun.jpg"},{"width":1600,"height":1200,"fileSize":198421,"format":"JPEG","url":"http://res.cloudinary.com/livngds/image/upload/v1479208315/CENTRAL/products/8805/vjsru6yxlq2cvqoezqvm.jpg","urlSecure":"https://res.cloudinary.com/livngds/image/upload/v1479208315/CENTRAL/products/8805/vjsru6yxlq2cvqoezqvm.jpg","urlPreview":"http://res.cloudinary.com/livngds/image/upload/c_scale,h_600,w_800/v1/CENTRAL/products/8805/vjsru6yxlq2cvqoezqvm.jpg","urlPreviewSecure":"https://res.cloudinary.com/livngds/image/upload/c_scale,h_600,w_800/v1/CENTRAL/products/8805/vjsru6yxlq2cvqoezqvm.jpg","urlThumbnail":"http://res.cloudinary.com/livngds/image/upload/c_scale,h_120,w_160/v1/CENTRAL/products/8805/vjsru6yxlq2cvqoezqvm.jpg","urlThumbnailSecure":"https://res.cloudinary.com/livngds/image/upload/c_scale,h_120,w_160/v1/CENTRAL/products/8805/vjsru6yxlq2cvqoezqvm.jpg"}],"pickupRequired":false,"created":"2015-08-20T09:32:17.310+10:00","modified":"2016-11-25T19:45:18.003+11:00"}}'
+    http_version: 
+  recorded_at: Wed, 30 Nov 2016 12:15:27 GMT
+recorded_with: VCR 3.0.3

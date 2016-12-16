@@ -22,7 +22,17 @@ class Place < ActiveRecord::Base
                :viator_link,
                :primary_category_priority,
                :is_area,
-               :page_ranking_weight
+               :page_ranking_weight,
+               :age_range,
+               :weather,
+               :price,
+               :best_time_to_visit,
+               :subcategories,
+               :accessibility,
+               :hero_photo,
+               :accessible,
+               :main_category,
+               :subcategory
 
     synonyms [
         ["active", "water sports", "sports", "sport", "watersports"],
@@ -84,18 +94,6 @@ class Place < ActiveRecord::Base
       "map-marker"
     end
 
-    attribute :main_category do
-      primary_category.name if primary_category.present?
-    end
-
-    attribute :subcategories do
-      subcategories.map{ |sub| { name: sub.name, identifier: sub.identifier } }
-    end
-
-    attribute :subcategory do
-      subcategories.subcats.map{|sub| sub.name}
-    end
-
     attribute :name do
       string = "#{display_name}"
       if !locality.blank?
@@ -115,19 +113,6 @@ class Place < ActiveRecord::Base
         { url: photo.path_url(:small), alt_tag: photo.caption }
       end
       photo_array
-    end
-
-    attribute :hero_photo do
-      hero_h = photos.where(photos: { hero: true })
-      hero_h += user_photos.where(user_photos: { hero: true })
-      hero_h = hero_h.first
-      hero= {}
-      if hero_h.present?
-        hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
-      else
-        hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
-      end
-      hero
     end
 
     attribute :has_hero_image do
@@ -170,16 +155,12 @@ class Place < ActiveRecord::Base
       subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
     end
 
-    attribute :parents do
-      self.get_parents(self).map {|place| place.display_name rescue ''}
+    attribute :subcategories do
+      subcategories.map { |sub| { name: sub.name, identifier: sub.identifier } }
     end
 
-    attribute :accessible do
-      if subcategories.any? { |sub| sub.category_type == "accessibility" }
-        "accessible"
-      else
-        ""
-      end
+    attribute :parents do
+      self.get_parents(self).map {|place| place.display_name rescue ''}
     end
 
     attribute :display_address do
@@ -209,13 +190,7 @@ class Place < ActiveRecord::Base
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
     # records in case their text-relevance is equal. It should reflect your record popularity.
-    customRanking [
-      'desc(is_country)',
-      'desc(is_area)',
-      'desc(primary_category_priority)',
-      'desc(page_ranking_weight)',
-      'desc(has_hero_image)',
-    ]
+    customRanking Searchable.custom_ranking
 
     attributesForFaceting [
       'where_destinations',
@@ -250,6 +225,12 @@ class Place < ActiveRecord::Base
                                               as: :cacheable,
                                               class_name: 'RatingCache',
                                               dependent: :destroy
+
+  has_many :offers_places, dependent: :destroy
+  has_many :offers, through: :offers_places
+
+  # reverse_geocoded_by :latitude, :longitude
+  # after_validation :reverse_geocode
 
   after_update :crop_hero_image
   before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_meta_description
@@ -716,9 +697,23 @@ class Place < ActiveRecord::Base
   end
 
   private
-    def algolia_id
-      "place_#{id}" # ensure the place & country IDs are not conflicting
+
+  def hero_photo
+    hero_h = photos.where(photos: { hero: true })
+    hero_h += user_photos.where(user_photos: { hero: true })
+    hero_h = hero_h.first
+    hero = {}
+    if hero_h.present?
+      hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
+    else
+      hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
     end
+    hero
+  end
+
+  def algolia_id
+    "place_#{id}" # ensure the place & country IDs are not conflicting
+  end
 
 
   class << self

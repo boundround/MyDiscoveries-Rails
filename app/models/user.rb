@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
   has_one :points_balance
   has_many :transactions
 
+  has_many :orders
+
   mount_uploader :avatar, UserAvatarUploader
   process_in_background :avatar
 

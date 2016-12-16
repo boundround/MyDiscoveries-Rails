@@ -93,13 +93,7 @@ class Region < ActiveRecord::Base
       'publish_date',
     ]
 
-    customRanking [
-      'desc(is_country)',
-      'desc(is_area)',
-      'desc(primary_category_priority)',
-      'desc(page_ranking_weight)',
-      'desc(has_hero_image)',
-    ]
+    customRanking Searchable.custom_ranking
 
     attributesForFaceting [
       'where_destinations',
@@ -270,6 +264,7 @@ class Region < ActiveRecord::Base
   end
 
   private
+
   def algolia_id
     "region_#{id}" # ensure the attraction & country IDs are not conflicting
   end

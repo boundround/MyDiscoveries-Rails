@@ -23,8 +23,8 @@ class Country < ActiveRecord::Base
     end
 
     attribute :hero_photo do
-      hero_h= photos.where(photos: { hero: true }).first
-      hero= {}
+      hero_h = photos.where(photos: { hero: true }).first
+      hero = {}
       if hero_h.present?
         hero= { url: hero_h.path_url(:small), alt_tag: hero_h.caption }
       else
@@ -75,13 +75,7 @@ class Country < ActiveRecord::Base
       'publish_date',
     ]
 
-    customRanking [
-      'desc(is_country)',
-      'desc(is_area)',
-      'desc(primary_category_priority)',
-      'desc(page_ranking_weight)',
-      'desc(has_hero_image)',
-    ]
+    customRanking Searchable.custom_ranking
 
     attributesForFaceting [
       'where_destinations',
@@ -146,6 +140,12 @@ class Country < ActiveRecord::Base
 
   has_many :countries_users
   has_many :users, through: :countries_users
+
+  has_one :parent, :class_name => "ChildItem", as: :itemable
+  has_many :childrens, :class_name => "ChildItem", as: :parentable
+
+  has_many :offers_countries, dependent: :destroy
+  has_many :offers, through: :offers_countries
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
