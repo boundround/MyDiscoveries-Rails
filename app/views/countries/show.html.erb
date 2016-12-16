@@ -10,229 +10,100 @@
 </div>
 
 
-<div class="hero-image-wrapper dismiss-mega-menu-search"
+<div class="hero-image-wrapper hero dismiss-mega-menu-search"
          style="background: url( <%= showing_image(draw_hero_background(@country)) %>) no-repeat;" role="img"
          aria-label="">
-         <div class="photo-credit"><%= get_hero_image_credit(@country) %></div>
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="location">
-                    </div>
-                    <div class="destination"><%= @country.display_name %></div>
-                    <div class="destination-details">
+   <div class="photo-credit"><%= get_hero_image_credit(@country) %></div>
+  <div class="overlay"></div>
+  <div class="container">
+      <div class="row">
+          <div class="col-xs-12">
+              <div class="location">
+              </div>
+              <h1><%= @country.display_name %></h1>
+              <div class="destination-details">
 
-                        <div class="favourites-wrapper">
-                            <% if user_signed_in? && @country.users.include?(current_user) %>
-                              <div class="icon-favourite selected" id="favouriteType" data-post-path="countries_users" data-klass="country" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                              <div class="favourites-title hidden-xs">Remove from favourites</div>
-                            <% else %>
-                              <div class="icon-favourite" id="favouriteType" data-post-path="countries_users" data-klass="country" data-liked="false" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                              <div class="favourites-title hidden-xs" >Add to favourites</div>
-                            <% end %>
+                  <div class="favourites-wrapper">
+                      <% if user_signed_in? && @country.users.include?(current_user) %>
+                        <div class="icon-favourite selected" id="favouriteType" data-post-path="countries_users" data-klass="country" data-liked="true" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                        <div class="favourites-title hidden-xs">Remove from favourites</div>
+                      <% else %>
+                        <div class="icon-favourite" id="favouriteType" data-post-path="countries_users" data-klass="country" data-liked="false" data-place-id="<%= @country.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                        <div class="favourites-title hidden-xs" >Add to favourites</div>
+                      <% end %>
 
+                  </div>
+                  <a data-scroll href="#photos" class="white">
+                    <div class="photo-wrapper">
+                        <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
+
+                        <div class="photo-title"><span class="count"> <%= @country.photos.size %></span> <span class="hidden-xs">Photos</span>
                         </div>
-                        <a data-scroll href="#photos" class="white">
-                          <div class="photo-wrapper">
-                              <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
-
-                              <div class="photo-title"><span class="count"> <%= @country.photos.size %></span> <span class="hidden-xs">Photos</span>
-                              </div>
-                          </div>
-                        </a>
-                        <a data-scroll href="#videos" class="white">
-                          <div class="video-wrapper">
-                              <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
-
-                              <div class="video-title"><span class="count"><%= @country.videos.size %></span><span class="hidden-xs"> Videos</span>
-                              </div>
-                          </div>
-                        </a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="sticky-container">
-        <div class="nav-option-container">
-            <div class="container">
-                <div class="nav-option-outer-wrapper">
-                    <div class="nav-option-wrapper">
-                        <% if @videos.present? %><div class="nav-option"><a data-scroll href="#videos">VIDEOS</a></div><% end %>
-                        <% if @stories.present? %><div class="nav-option"><a data-scroll href="#stories">STORIES</a></div><% end %>
-                        <% if @areas.present? %><div class="nav-option"><a data-scroll href="#thingstodo">PLACES TO GO</a></div><% end %>
-                        <% if @photos.present? %><div class="nav-option"><a data-scroll href="#photos">PHOTOS</a></div><% end %>
-                        <% if @famous_faces.present? %><div class="nav-option"><a data-scroll href="#famousfaces">FAMOUS FACES</a></div><% end %>
-                        <% if @fun_facts.present? %><div class="nav-option"><a data-scroll href="#funfacts">FUN FACTS</a></div><% end %>
+                  </a>
+                  <a data-scroll href="#videos" class="white">
+                    <div class="video-wrapper">
+                        <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
+
+                        <div class="video-title"><span class="count"><%= @country.videos.size %></span><span class="hidden-xs"> Videos</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-            <% if @country.description.length > 280 %>
-                <div class="destination-desc " style="display:none;">
-                    <%= raw @country.description %>
-                </div>
-                <div class="destination-desc">
-                    <%= raw @country.description[0..280]+"..." %>
-                </div>
-                <div class="read-more-wrapper">
-                    <a href="javascript:void()" class="readmore-area">READ MORE</a>
-                    <a href="javascript:void()" class="readmore-area " style="display:none;">LESS</a>
-                </div>
-            <% else %>
-                <div class="destination-desc ">
-                    <%= raw @country.description %>
-                </div>
-            <% end %> 
-            </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- VIDEO SECTION -->
-    <% unless @last_video.blank? %>
-    <% if !@last_video.youtube_id.blank? %>
-      <div id="videos" class="large-video-component-wrapper play-in-modal"
-           style="background: url(<%= @last_video.vimeo_thumbnail %>) no-repeat;"
-           role="img"
-           data-thumb="<%= @last_video.vimeo_thumbnail %>"
-           data-id="<%= @last_video.youtube_id %>"
-           data-video="youtube"
-           data-modal="#video-modal"
-           data-video-url="<%= @last_video.url %>"
-           aria-label="Kids View: Things to do in Sydney">
-          <div class="overlay"></div>
-          <div class="container">
-              <div class="row">
-                  <div class="col-xs-12">
-                      <div class="kids-view-wrapper">
-                          <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
-
-                          <div class="kids-view"><%= @last_video.title %></div>
-                      </div>
-                  </div>
+                  </a>
               </div>
           </div>
-          <div class="main-play-icon-wrapper">
-              <div class="main-play-icon"></div>
-          </div>
       </div>
-    <% else %>
-      <div id="videos" class="large-video-component-wrapper play-in-modal"
-           style="background: url(<%= @last_video.vimeo_thumbnail %>) no-repeat;"
-           role="img"
-           data-thumb="<%= @last_video.vimeo_thumbnail %>"
-           data-id="<%= @last_video.vimeo_id %>"
-           data-video="vimeo"
-           data-modal="#video-modal"
-           data-video-url="<%= @last_video.url %>"
-           aria-label="Kids View: Things to do in Sydney">
-          <div class="overlay"></div>
-          <div class="container">
-              <div class="row">
-                  <div class="col-xs-12">
-                      <div class="kids-view-wrapper">
-                          <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
-
-                          <div class="kids-view"><%= @last_video.title %></div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="main-play-icon-wrapper">
-              <div class="main-play-icon"></div>
-          </div>
-      </div>
-      <% end %>
-    <% end %>
-
-    <%= render partial: "shared/videos_list", locals:{container: "container" } %>
-
-    <% if @stories.present? %>
-      <div class="stories-things-wrapper">
-        <%= render partial: "stories/all_stories" %>
-      </div>
-    <% end %>
-
-      <% unless @areas.blank? %>
-        <div id="thingstodo" class="container dest-things-wrapper">
-          <div class="row">
-            <div class="col-xs-12">
-                <h3>Places to go in <%= @country.display_name %></h3>
-            </div>
-          </div>
-          <div class="row">
-            <div class="owl-carousel carousel" id="areas-list">
-              <%= render partial: 'places/places_to_visit_list', collection: @areas, as: :area %>
-            </div>
-          </div>
-
-          <% unless last_page? @areas %>
-            <div class="row hidden-xs single-pagination-container" id="areas-single-pagination-container">
-              <div class="col-xs-12 load-more">
-                <div class="hidden single-pagination-loader" align="center">
-                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                </div>
-                <%= link_to "LOAD MORE", paginate_things_to_do_country_path(@country, areas_page: @areas.next_page, resources: 'areas', collection_object: 'area', pagination_template: "places/places_to_visit_list"), class: 'single-pagination', remote: true %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-    <div id="photos">
-      <%= render partial: "shared/photos_list", as: :photos, locals:{container: "container"} %>
-    </div>
-
-  <% if @famous_faces.present? %>
-    <div id="famousfaces" class="famous-faces-wrapper">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12">
-            <h3>Famous faces from <%= @country.display_name %></h3>
-          </div>
-        </div>
-        <div class="row">
-          <div class="owl-carousel carousel">
-            <% unless @famous_faces.blank? %>
-              <% @famous_faces.each do |famous| %>
-                <div class="col-md-3 col-sm-6">
-                  <div class="famous-face">
-                    <div class="famous-face-img" style="background: url(<%= image_path showing_image(famous.photo_url) %>) no-repeat;" role="img" aria-label="Bindi Irwin"></div>
-                    <h4><%= famous.name %></h4>
-                    <p><%= famous.description %></p>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
-  <% if @fun_facts.present? %>
-    <div id="funfacts" class="container fun-facts-wrapper">
-      <div class="row">
-          <div class="col-xs-12">
-              <h3>Fun Facts</h3>
-          </div>
-      </div>
-      <div class="row">
-
-          <div class="owl-carousel fun-fact-carousel">
-           <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
-          </div>
-      </div>
-    </div>
-  <% end %>
   </div>
+</div>
+<div class="destinations">
+  <div class="destinations-content-block width-limiter">
+    <aside>
+      <h3 class="point-card__header"><%= @country.display_name %></h3>
+      <ul class="featured-articles">
+        <% @stories.each do |story| %>
+        <li>
+          <div class="fa-img-block">
+            <div class="user-dp"
+                 style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"
+                 role="img"
+                 aria-label="User: <%= story.user.username %>">
+            </div>
+          </div>
+          <p class="xs-heading"><%= raw story.title.blank? ? story.title : story.title.truncate(65) %></p>
+          <a href="<%= story_path(story) %>" class="btn-bordered red small">READ MORE</a>
+          <span class="label-article">Featured Article</span>
+        </li>
+        <% end %>
+      </ul>
+    </aside>
+    <section>
+      <div class="main-article">
+        <h2 class="lg-heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
+        <p class="destination-desc " style="display:none;">
+            <%= raw @country.description %>
+        </p>
+        <p class="destination-desc">
+            <%= raw @country.description[0..280]+"..." %>
+        </p>
+        <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
+        <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+      </div>
+      <div class="top-holidays">
+        <h3>Top Australian Holidays</h3>
+        <ul>
+            <li>
+            </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+
+
+
+<!-- ADD CODE HERE -->
+
+</div>
+</div>
 <% end %>
 <%= render 'layouts/all_modal' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
