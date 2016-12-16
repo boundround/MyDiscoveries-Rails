@@ -8975,6 +8975,10 @@ input[type="submit"].modal-content__btn-access  {
     padding: 0 15px 24px; } }
 
 /* chunks search */
+.nav.navbar-nav.navbar-right .dropdown-toggle{
+  padding: 12px;
+  margin: 0 14px;
+}
 .search-page-main-search {
   clear: both;
   padding-top: 37px;
