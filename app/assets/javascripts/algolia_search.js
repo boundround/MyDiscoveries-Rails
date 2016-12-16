@@ -37,7 +37,7 @@ $(document).ready(function() {
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
 
-    var INDEX_NAME = 'place_' + production_environment;
+    var INDEX_NAME = 'mydiscoveries_' + production_environment;
     var PARAMS = {
         hitsPerPage: 3,
         maxValuesPerFacet: 8,
@@ -68,7 +68,6 @@ $(document).ready(function() {
     };
 
     var algoliaHelperInstantSearch = algoliasearchHelper(algolia, INDEX_NAME, INSTANT_SEARCH_PARAMS);
-
 
     $searchInput = $('.search-box');
     $searchInputBottom = $('.search-box-bottom');

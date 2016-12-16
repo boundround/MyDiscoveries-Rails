@@ -4,7 +4,7 @@ class Country < ActiveRecord::Base
   include Searchable
   include SearchOptimizable
 
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id, if: :published? do
 
     attributes :display_name, :primary_category_priority, :page_ranking_weight
 
