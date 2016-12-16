@@ -44,42 +44,27 @@
 
     var cardTemplate = [
 
-        '<div class="point-card js-point-card">',
-
-            '<a class="point-card__close js-point-card__close" href="#"></a>',
-            '<h3 class="point-card__header">{{= it.country }}</h3>',
-            '<h4 class="point-card__local-header">{{= it.point }}</h4>',
-            '<p class="point-card__local-description">{{= it.description }}</p>',
-
-            '<div class="scroll-area">',
-
-                '<div class="scroll-area__swiper-container swiper-container">',
-
-                    '<div class="scroll-area__content swiper-wrapper">',
-                        '<div class="swiper-slide">',
-                        '{{~ it[\'inner-cards\'] :item }}',
-                        '<div class="region-preview-item">',
-                        '<img src="{{= item.img }}" alt="" class="region-preview-item__image">',
-                        '<h3 class="region-preview-item__header">{{= item.header }}</h3>',
-                        '<p class="region-preview-item__paragraph">{{= item.description }}</p>',
-                        '<div style="clear:both"></div>',
-                        '</div>',
-                        '{{~}}',
-                        '</div>',
-                    '</div>',
-
-                '</div>',
-
-                '<div class="swiper-scrollbar"></div>',
-
-            '</div>',
-
-            '<a href="{{= it.path }}" class="card-go-to">',
-                '<span class="card-go-to__text card-go-to__text--go-to">go to</span>',
-                '<span class="card-go-to__text">{{= it.point}}</span>',
-            '</a>',
-
-        '</div>'
+    '<div class="point-card js-point-card" style="opacity: 1; transform: translate3d(0px, 0px, 0px);">',
+      '<h3 class="point-card__header">{{= it.country }}</h3>',
+      '<h4 class="point-card__local-header">{{= it.point }}</h4>',
+      '<p class="point-card__local-description">{{= it.description }}</p>',
+      '<div class="scroll-area">',
+          '<div class="scroll-area__swiper-container swiper-container swiper-container-vertical swiper-container-free-mode">',
+              '<div class="scroll-area__content swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">',
+                  '<div class="swiper-slide swiper-slide-active" style="height: 330px;">',
+                      '{{~ it[\'inner-cards\'] :item }}',
+                      '<div class="region-preview-item">',
+                          '<img src="{{= item.img }}" alt="" class="region-preview-item__image">',
+                          '<h3 class="region-preview-item__header">{{= item.header }}</h3>',
+                          '<p class="region-preview-item__paragraph">{{= item.description }}</p></div>',
+                      '{{~}}',
+                  '</div>',
+              '</div>',
+          '</div>',
+          '<div class="swiper-scrollbar" style="transition-duration: 400ms;"></div>',
+      '</div>',
+      '<a href="{{= it.path }}" class="card-go-to"><span class="card-go-to__text card-go-to__text--go-to">go to</span>',
+      '<span class="card-go-to__text">{{= it.point}}</span></a></div>'
 
     ].join('');
 
