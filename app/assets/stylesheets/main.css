@@ -7927,6 +7927,14 @@ input[type="text"]::-ms-clear {
   position: relative;
   overflow: hidden; }
 
+.adventure-header .banner-image{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
 .adventure-header__background {
   position: absolute;
   margin-left: 50%;
@@ -8115,7 +8123,8 @@ input[type="text"]::-ms-clear {
   margin-bottom: 32px; }
 
 .interest-related-adventure-card {
-  height: 270px; }
+  height: 270px;
+  position: relative; }
 
 .interest-related-adventure-card__people-photo {
   position: relative;
@@ -8463,6 +8472,14 @@ input[type="submit"].modal-content__btn-access  {
 
 .padding-medium{
   padding: 80px 0 86px;
+}
+
+.background{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: 50% 50%;
 }
 
 .section-white .thing-wrapper{

@@ -11,10 +11,12 @@ class SubcategoriesController < ApplicationController
     @cat = params[:id]
   	@subcategory = Subcategory.find_by_identifier(params[:id]) || Subcategory.find(params[:id])
     if !@subcategory.nil?
-      @places = @subcategory.places.where.not(is_area: true).paginate(page: params[:places_page], per_page: params[:places_page].nil?? 6 : 3 )
-      @areas = @subcategory.places.where(is_area: true).paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
+      @places = @subcategory.places.paginate(page: params[:places_page], per_page: params[:places_page].nil?? 6 : 3 )
+      @areas = @subcategory.attractions.paginate(page: params[:areas_page], per_page: params[:areas_page].nil?? 6 : 3 )
     end
-    @stories = ApiBlog.get_cached_blogs(@cat,"subcategory")
+    # @stories = ApiBlog.get_cached_blogs(@cat,"subcategory")
+    @stories = @subcategory.stories.last(3)
+    @subcategories = @subcategory.subcategory_related
 	end
 
   def new
@@ -38,11 +40,12 @@ class SubcategoriesController < ApplicationController
 
   def edit
     @subcategory = Subcategory.find(params[:id])
+    @subcategories = Subcategory.where.not(id: @subcategory).order(name: :asc)
   end
 
   def update
     @subcategory = Subcategory.find(params[:id])
-
+    params[:subcategory][:related_to].delete("")
     if @subcategory.update(subcategory_params)
       redirect_to :back, notice: "#{@subcategory.name} updated"
     else
@@ -62,7 +65,7 @@ class SubcategoriesController < ApplicationController
 
   private
     def subcategory_params
-      params.require(:subcategory).permit(:name, :icon, :primary_description, :secondary_description, :category_type)
+      params.require(:subcategory).permit(:name, :icon, :primary_description, :secondary_description, :category_type, related_to: [],)
     end
 
     def age_ranges_params
