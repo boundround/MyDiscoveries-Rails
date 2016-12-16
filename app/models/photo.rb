@@ -11,6 +11,9 @@ class Photo < ActiveRecord::Base
   has_many :photos_users
   has_many :users, through: :photos_users
 
+  has_many :offers_photos, dependent: :destroy
+  has_many :offers, through: :offers_photos
+
   mount_uploader :path, PhotoUploader
   
   skip_callback :commit, :after, :remove_path!

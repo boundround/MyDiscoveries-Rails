@@ -8,7 +8,19 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'byebug'
 require 'faker'
+require 'pundit/rspec'
+require 'pundit/matchers'
+
+require 'webmock/rspec'
+require 'vcr'
+
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/support/cassettes'
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
+end
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -35,8 +47,8 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  config.include Devise::TestHelpers, type: :controller
-  config.include Devise::TestHelpers, type: :view
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

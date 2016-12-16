@@ -12,7 +12,7 @@
       obj['point']          = data_split[0].split('=>')[1].slice(1, -1);
       obj['lat']            = parseFloat(data_split[1].split('=>')[1]);
       obj['lng']            = parseFloat(data_split[2].split('=>')[1]);
-      if (data_split[3].length > 150){          
+      if (data_split[3].length > 150){
         obj['description']  = data_split[3].split('=>')[1].slice(1, -1).substr(0,150)+" ...";
       }else{
         obj['description']  = data_split[3].split('=>')[1].slice(1, -1);
@@ -366,7 +366,7 @@
         return;
       }
       marker.set('icon', pathToMapPoint);
-      
+
       resetStyle(true);
 
       if ($imgs.parent().hasClass('map-point-clicked')) {
@@ -406,7 +406,7 @@
       $('a.point-card__close.js-point-card__close').click(function(){
         $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
       })
-     
+
     });
 
     marker.setMap(map);

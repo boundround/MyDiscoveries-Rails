@@ -64,3 +64,6 @@
 //= require rest_in_place
 //= require place_videos
 //= require area
+//= require cms_offers
+//= require offers
+//= require orders

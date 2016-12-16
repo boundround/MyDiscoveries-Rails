@@ -1,2 +1,3 @@
 # https://developers.google.com/analytics/devguides/reporting/core/v4/quickstart/service-php
 GOOGLE_APPLICATION_CREDENTIALS: 'path-to-a-service-account-file.json'
+LIVN_RETRIEVE_PRODUCT_URL: 'https://dev1.livngds.com/livngds/api/products/'

@@ -1,0 +1,334 @@
+<div class="container">
+  <h1>Edit Offer</h1>
+  <%= simple_form_for @offer, html: { role: 'form'} do |f| %>
+    <div class="form-group">
+      <%= f.association :attraction,
+        label_method: :display_name,
+        value_method: :id,
+        label: 'Attraction',
+        include_blank: true,
+        input_html: { class: 'width100' }
+      %>
+    </div>
+    <div class="form-group">
+      <%= f.input :status, label: 'Offer Status', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :name, label: 'Offer Name', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :description, label: 'Offer Description', as: :text, input_html: { class: 'width100' } %>
+    </div>
+    <%- if @offer.livn_product_id.blank? %>
+      <div class="form-group">
+        <%= f.input :startDate, label: 'Start Date', as: :date, input_html: { class: 'width100' } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :endDate, label: 'End Date', as: :date, input_html: { class: 'width100' } %>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= f.input :minRateAdult, as: :integer, label: 'Min Rate Adult', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :minRateChild, as: :integer, label: 'Min Rate Child', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :minRateInfant, as: :integer, label: 'Min Rate Infant', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxRateAdult, as: :integer, label: 'Max Rate Adult', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxRateChild, as: :integer, label: 'Max Rate Child', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxRateInfant, as: :integer, label: 'Max Rate Infant', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :duration, as: :integer, label: 'Duration', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :specialNotes, as: :string, label: 'Special Notes', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :operatingDays, as: :integer, label: 'Operating Days', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :operatingDaysStr, as: :string, label: 'Operating Days String', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :operatingSchedule, as: :string, label: 'Operating Schedule', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :locationStart, as: :string, label: 'Location Start', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :latitudeStart, as: :decimal, label: 'Latittude Start', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :longitudeStart, as: :decimal, label: 'Longitude Start', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :distanceStartToRef, as: :integer, label: 'Distance Start To Ref', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :locationEnd, as: :string, label: 'Location End', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :latitudeEnd, as: :decimal, label: 'Latittude End', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :longitudeEnd, as: :decimal, label: 'Longitude End', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :tags, as: :array, label: 'Tags' %>
+      <%= link_to '+ Add', '#', class: 'js-add-offers-tag' %>
+    </div>
+    <div class="form-group">
+      <%= f.input :minAge, as: :integer, label: 'Min Age', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxAge, as: :integer, label: 'Max Age', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :requiredMultiple, as: :integer, label: 'Required Multiple', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :minUnits, as: :integer, label: 'Min Units', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxUnits, as: :integer, label: 'Max Units', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :pickupNotes, as: :string, label: 'Pickup Notes', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :dropoffNotes, as: :string, label: 'Dropoff Notes', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :highlightsStr, as: :string, label: 'Hightlights Str', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :itineraryStr, as: :string, label: 'Itinerary Str', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :includes, as: :string, label: 'Includes', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :sellVouchers, as: :string, label: 'Sell Vouchers', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :onlyVouchers, as: :string, label: 'Only Vouchers', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :voucherInstructions, as: :string, label: 'Voucher Instructions', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :voucherValidity, as: :integer, label: 'Voucher Validity', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :customStr1, as: :string, label: 'Custom Str1', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :customStr2, as: :string, label: 'Custom Str2', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :customStr3, as: :string, label: 'Custom Str3', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :customStr4, as: :string, label: 'Custom Str4', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.association :attractions,
+          label_method: :display_name,
+          value_method: :id,
+          label: false,
+          include_blank: true,
+          input_html: { class: 'width100' }
+      %>
+    </div>
+    <div class="form-group">
+      <%= f.association :places,
+          label_method: :display_name,
+          value_method: :id,
+          label: false,
+          include_blank: true,
+          input_html: { class: 'width100' }
+      %>
+    </div>
+    <div class="form-group">
+      <%= f.association :countries,
+          label_method: :display_name,
+          value_method: :id,
+          label: false,
+          include_blank: true,
+          input_html: { class: 'width100' }
+      %>
+    </div>
+
+    <div class="form-group">
+      <%= f.association :subcategories,
+          label_method: :name,
+          value_method: :id,
+          label: false,
+          include_blank: true,
+          input_html: { class: 'width100' }
+      %>
+    </div>
+    <div class="form-group">
+      <%= f.association :regions,
+          label_method: :display_name,
+          value_method: :id,
+          label: false,
+          include_blank: true,
+          input_html: { class: 'width100' }
+      %>
+    </div>
+    <div class="form-group margin-left-20">
+      <%= f.input_field :pickupRequired, as: :boolean, inline_label: 'Pickup Required', label: false %>
+    </div>
+    </br>
+
+    <div id="table-container">
+      <h3>Videos</h3>
+      <table class="table table-striped" id="video-table">
+        <thead>
+          <tr>
+            <th>Vimeo ID</th>
+            <th>Youtube ID</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= f.fields_for :videos do |ff| %>
+            <tr>
+              <%= ff.input :id, as: :hidden %>
+              <td><%= ff.text_area :vimeo_id %></td>
+              <td><%= ff.text_area :youtube_id %></td>
+              <td><%= ff.select :priority, 1..10 %></td>
+              <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+              <td><%= ff.text_area :title %></td>
+              <td><%= ff.text_area :description %></td>
+              <td><%= ff.check_box :_destroy %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div id="table-container">
+      <h3>Photos</h3>
+      <table class="table table-striped" id="photo-table">
+        <thead>
+          <tr>
+            <th>Thumbnail</th>
+            <th>Change Photo</th>
+            <th>Credit</th>
+            <th>Title</th>
+            <th>Caption</th>
+            <th>Alt Tags</th>
+            <th>Priority</th>
+            <th>Hero</th>
+            <th>Status</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @offer.photos.each do |photo| %>
+            <%= f.fields_for :photos, photo do |ff| %>
+              <tr>
+                <%= ff.input :id, as: :hidden %>
+                <td><img src="<%= asset_path(photo.path_url(:small)) %>" class="photo-edit-thumb"></td>
+                <td><%= ff.file_field :path, class: "photo-file" %></td>
+                <td><%= ff.text_area :credit %></td>
+                <td><%= ff.input :title %></td>
+                <td class="photo-caption-edit"><%= ff.text_area :caption, :cols => "30", :rows => "5" %></td>
+                <td><%= ff.text_field :alt_tag %></td>
+                <td><%= ff.select :priority, 1..10 %></td>
+                <td><%= ff.check_box :hero %></td>
+                <td><%= ff.select :status, ["draft", "edited", "live", "removed"] %></td>
+                <td><%= ff.check_box :_destroy %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  <div class="form-group">
+    <%= f.submit 'Update All', class: 'btn' %>
+  </div>
+<% end %>
+
+
+  <div class="photo-container">
+    <hr>
+    <h2>Add New Video</h2>
+    <%= simple_form_for [@offer, Video.new] do |f| %>
+      <div class="form-group">
+      <label>Choose Video Type</label><br>
+        <select class="select_video_id">
+          <option>Youtube</option>
+          <option>Vimeo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <%= f.input :vimeo_id, label: "Enter Vimeo ID", input_html: { class: 'form-control'}  %>
+      </div>
+      <div class="form-group">
+        <%= f.input :youtube_id, label: "Enter Youtube ID", input_html: { class: 'form-control'}  %>
+      </div>
+      <div class="form-group">
+        <%= f.input :priority, label: "Priority", collection: 1..10, input_html: { class: 'form-control'}  %>
+      </div>
+      <div class="form-group">
+        <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
+        <%= f.input :title, label: "Title (leave blank for autofill from Vimeo)", input_html: { class: 'form-control'}  %>
+        <%= f.input :description, label: "Description (leave blank for autofill from Vimeo)", input_html: { class: 'form-control'}  %>
+      </div>
+      <div class="form-group">
+        <%= f.button :submit%>
+      </div>
+    </div>
+  <% end %>
+  <hr>
+  <div class="photo-container">
+    <h2>Add New Photo</h2>
+    <%= simple_form_for [@offer, Photo.new] do |f| %>
+      <div class="form-group">
+        <%= f.input :title, label: "Photo Title", input_html: { class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= f.input :caption, input_html: { class: 'form-control content-length'} %><br />
+      </div>
+      <div class="form-group">
+        <%= f.input :credit, input_html: { class: 'form-control'} %><br />
+      </div>
+      <div class="form-group">
+        <%= f.input :alt_tag, input_html: { class: 'form-control'} %><br />
+      </div>
+      <div class="form-group">
+        <%= f.input :caption_source, input_html: { class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= f.input :priority, collection: 1..10, input_html: { class: 'form-control'} %><br />
+      </div>
+      <div class="form-group">
+        <p><%= f.input :path, as: :file, label: false%></p>
+      </div>
+      <div class="form-group margin-left-20">
+        <%= f.input_field :hero, as: :boolean, inline_label: 'Hero', label: false %>
+      </div>
+      <div class="form-group">
+        <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %>
+      </div>
+      <div class="form-group">
+        <%= f.button :submit %>
+      </div>
+    <% end %>
+  </div>
+</div>
