@@ -231,6 +231,7 @@ class Place < ActiveRecord::Base
   end
 
   # ratyrate_rateable "quality"
+  before_save :set_country
 
   has_many :rates_without_dimension, -> { where dimension: nil}, as: :rateable, class_name: 'Rate', dependent: :destroy
   has_many :raters_without_dimension, through: :rates_without_dimension, source: :rater
@@ -580,8 +581,11 @@ class Place < ActiveRecord::Base
     end
   end
 
-  def country
-    get_parents(self).find {|parent| parent.class.to_s == "Country"}
+  def set_country
+    country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
+    if country
+      self.country_id = country.id
+    end
   end
 
   def places_to_visits
