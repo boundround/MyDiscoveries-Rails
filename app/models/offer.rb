@@ -2,6 +2,7 @@ class Offer < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
   include SearchOptimizable
+  include Observers::Offer
 
   alias_attribute :minimum_age, :minAge
   alias_attribute :maximum_age, :maxAge
@@ -153,6 +154,10 @@ class Offer < ActiveRecord::Base
 
   def publish_date
     update_at
+  end
+
+  def shopify_product
+    ShopifyAPI::Product.find(shopify_product_id) if shopify_product_id?
   end
 
   private

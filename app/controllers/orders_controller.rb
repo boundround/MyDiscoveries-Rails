@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
   before_action :check_user_authorization
   before_action :set_order, only: [ :edit, :update, :checkout ]
   before_action :set_offer
@@ -16,7 +17,7 @@ class OrdersController < ApplicationController
     @order.offer = @offer
 
     if @order.save
-      redirect_to checkout_offer_order_path(@offer, @order), notice: 'Order successfully created'
+      redirect_to Order::Shopify::GetCheckoutUrl.call(@order)
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
       render :new
@@ -27,9 +28,6 @@ class OrdersController < ApplicationController
   end
 
   def update
-  end
-
-  def checkout
   end
 
   private

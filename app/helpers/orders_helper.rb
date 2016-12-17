@@ -1,6 +1,6 @@
 module OrdersHelper
   def unit_price(price, adult_price)
-    price.to_i.zero? ? adult_price : price
+    price.nil? ? adult_price : price
   end
 
   def people_count_label(offer)
