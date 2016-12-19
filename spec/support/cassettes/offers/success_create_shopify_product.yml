@@ -1,0 +1,81 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://bound-round.myshopify.com/admin/products.json
+    body:
+      encoding: UTF-8
+      string: '{"product":{"title":"Bali \u0026 Lombok Adventure","body_html":"Dolore
+        illum animi et neque accusantium.","vendor":"Bound Round","product_type":"Tour","images":[],"tags":"a,
+        b, c","variants":[{"price":50,"requires_shipping":false,"title":"Bali \u0026
+        Lombok Adventure - Adult","option1":"Adult"},{"price":50,"requires_shipping":false,"title":"Bali
+        \u0026 Lombok Adventure - Child","option1":"Child"},{"price":0,"requires_shipping":false,"title":"Bali
+        \u0026 Lombok Adventure - Infant","option1":"Infant"}]}}'
+    headers:
+      Authorization:
+      - Basic YTIyMmFjN2Q1NDJhZmRlNWFjYjE0OGI2OWVjNWFlYjM6YmFkNWYxN2VmMWJmYzViZDc0YzhkYmJmNjQyNWZlMDU=
+      Content-Type:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/4.3.3 ActiveResource/4.1.0 Ruby/2.1.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 15 Dec 2016 13:03:01 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '16484635'
+      X-Shardid:
+      - '8'
+      X-Shopify-Shop-Api-Call-Limit:
+      - 1/40
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 1/40
+      X-Stats-Userid:
+      - '0'
+      X-Stats-Apiclientid:
+      - '1506941'
+      X-Stats-Apipermissionid:
+      - '37125599'
+      Location:
+      - https://bound-round.myshopify.com/admin/products/8579917257
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report/e35faf7e-b0af-4fe1-8cee-9877d97ae072?source%5Baction%5D=create&source%5Bcontroller%5D=admin%2Fproducts&source%5Bsection%5D=admin
+      P3p:
+      - CP="NOI DSP COR NID ADMa OPTa OUR NOR"
+      X-Dc:
+      - ash,chi2
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Content-Type-Options:
+      - nosniff
+      - nosniff
+      - nosniff
+      X-Request-Id:
+      - e35faf7e-b0af-4fe1-8cee-9877d97ae072
+    body:
+      encoding: UTF-8
+      string: '{"product":{"id":8579917257,"title":"Bali \u0026 Lombok Adventure","body_html":"Dolore
+        illum animi et neque accusantium.","vendor":"Bound Round","product_type":"Tour","created_at":"2016-12-16T00:03:01+11:00","handle":"bali-lombok-adventure-5","updated_at":"2016-12-16T00:03:01+11:00","published_at":"2016-12-16T00:03:01+11:00","template_suffix":null,"published_scope":"global","tags":"a,
+        b, c","variants":[{"id":28592062217,"product_id":8579917257,"title":"Adult","price":"50.00","sku":"","position":1,"grams":0,"inventory_policy":"deny","compare_at_price":null,"fulfillment_service":"manual","inventory_management":null,"option1":"Adult","option2":null,"option3":null,"created_at":"2016-12-16T00:03:01+11:00","updated_at":"2016-12-16T00:03:01+11:00","taxable":true,"barcode":null,"image_id":null,"inventory_quantity":1,"weight":0.0,"weight_unit":"kg","old_inventory_quantity":1,"requires_shipping":false},{"id":28592062281,"product_id":8579917257,"title":"Child","price":"50.00","sku":"","position":2,"grams":0,"inventory_policy":"deny","compare_at_price":null,"fulfillment_service":"manual","inventory_management":null,"option1":"Child","option2":null,"option3":null,"created_at":"2016-12-16T00:03:01+11:00","updated_at":"2016-12-16T00:03:01+11:00","taxable":true,"barcode":null,"image_id":null,"inventory_quantity":1,"weight":0.0,"weight_unit":"kg","old_inventory_quantity":1,"requires_shipping":false},{"id":28592062345,"product_id":8579917257,"title":"Infant","price":"0.00","sku":"","position":3,"grams":0,"inventory_policy":"deny","compare_at_price":null,"fulfillment_service":"manual","inventory_management":null,"option1":"Infant","option2":null,"option3":null,"created_at":"2016-12-16T00:03:01+11:00","updated_at":"2016-12-16T00:03:01+11:00","taxable":true,"barcode":null,"image_id":null,"inventory_quantity":1,"weight":0.0,"weight_unit":"kg","old_inventory_quantity":1,"requires_shipping":false}],"options":[{"id":10318786057,"product_id":8579917257,"name":"Title","position":1,"values":["Adult","Child","Infant"]}],"images":[],"image":null}}'
+    http_version: 
+  recorded_at: Thu, 15 Dec 2016 13:03:01 GMT
+recorded_with: VCR 3.0.3
