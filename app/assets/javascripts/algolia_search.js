@@ -42,7 +42,6 @@ $(document).ready(function() {
     }else{
         var INDEX_NAME = 'mydiscoveries_' + production_environment;
     }
-    console.log(INDEX_NAME)
     var PARAMS = {
         hitsPerPage: 3,
         maxValuesPerFacet: 8,

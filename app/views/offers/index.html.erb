@@ -1,82 +1,15 @@
 <div data-page="offer" data-controller="index">
-<!-- BEGIN - header -->
-<div class="mobile-header js-mobile-header mobile-only">
-    <a href="#" class="header__logo"></a>
-    <a href="#" class="mobile-header__menu-button js-mobile-header__menu-button">
-        <span class="mobile-header__menu-button-line mobile-header__menu-button-line--first"></span>
-        <span class="mobile-header__menu-button-line mobile-header__menu-button-line--second"></span>
-        <span class="mobile-header__menu-button-line mobile-header__menu-button-line--third"></span>
-    </a>
-
-    <!-- begin - search -->
-    <a href="#" class="mobile-header__open-search-button js-mobile-show-hide-search"></a>
-    <div class="mobile-header__search-wrapper hidden js-mobile-header__search-wrapper">
-        <input class="header__search" placeholder="Search" type="text">
-        <span class="mobile-header__search-icon"></span>
-    </div>
-    <!-- end - search -->
-</div>
-<!-- END - header -->
-
-<div class="mobile-header-drop-down clear-self mobile-only hidden js-mobile-header-drop-down">
-
-    <div class="mobile-header-drop-down_container js-mobile-header-drop-down_container">
-
-        <div class="mobile-header-drop-down__expanded-block">
-
-            <a class="mobile-header-drop-down__link" href="#">home</a>
-            <a class="mobile-header-drop-down__link mobile-header-drop-down__link--expand js-mobile-header-drop-down--to-right" href="#">destinations</a>
-            <a class="mobile-header-drop-down__link" href="#">deals</a>
-            <a class="mobile-header-drop-down__link" href="#">travel stories</a>
-            <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" href="#">join</a>
-            <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" data-toggle="modal" data-target="#singIn" href="#">sign in</a>
-
-        </div>
-
-        <div class="mobile-header-drop-down__expanded-block">
-
-            <a class="mobile-header-drop-down__link mobile-header-drop-down__link--back js-mobile-header-drop-down--to-left" href="#">back</a>
-            <a class="mobile-header-drop-down__link" href="#">destinations</a>
-
-            <div class="navigation-drop-down__small-column-wrapper clear-self">
-                <div class="navigation-drop-down__small-column">
-                    <a href="#" class="navigation-drop-down__region-header">Australia</a>
-                    <a href="#" class="navigation-drop-down__region-list-item">Melbourne</a>
-                    <a href="#" class="navigation-drop-down__region-list-item">Brisbane</a>
-                    <a href="#" class="navigation-drop-down__region-list-item">Sydney</a>
-                    <a href="#" class="navigation-drop-down__region-list-item">Townsville</a>
-                </div>
-                <div class="navigation-drop-down__small-column">
-                    <a href="#" class="navigation-drop-down__region-header">Asia</a>
-                    <a href="#" class="navigation-drop-down__region-list-item">Bangkok</a>
-                    <a href="#" class="navigation-drop-down__region-list-item">Hanoi</a>
-                    <a href="#" class="navigation-drop-down__region-list-item">Singapore</a>
-                    <a href="#" class="navigation-drop-down__region-list-item">Tokyo</a>
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-<div class="mobile-header-drop-down-background js-mobile-header-drop-down-background hidden mobile-only"></div>
-<div class="header-drop-down-background js-header-drop-down-background hidden desktop-only"></div>
 
 <!-- BEGIN - breadcrumbs -->
 <div class="breadcrumbs width-limiter">
     <a href="#" class="breadcrumbs__link">home</a>
-    <a href="#" class="breadcrumbs__link">destinations</a>
-    <a href="#" class="breadcrumbs__link">east Asia</a>
     <a href="#" class="breadcrumbs__link">Package offers</a>
 </div>
 <!-- END - breadcrumbs -->
 
 <div class="package-offers">
 
-    <div class="hero" style="background: url('/assets/br_15_main.jpg')center center no-repeat;">
+    <div class="hero" style="background: url('/assets/default-hero.jpg')center center no-repeat;">
         <h1>Package offers</h1>
     </div>
 
@@ -84,7 +17,7 @@
         <ul>
         <% @featured_offers.each do |offer| %>
             <li>
-                <a href="#">
+                <a href="<%= offer_path(offer) %>">
                     <div class="po-content-wrapper">
                         <img style="background: url('/assets/br_15_main.jpg')center center no-repeat;" class="cover-bg">
                         <div class="po-content-block">
@@ -100,7 +33,7 @@
                             </div>
                             <div class="po-stay-info">
                                 <span class="posi-nights">8 nights</span>
-                                <span class="posi-date">Book by <%= offer.created_at.strftime("%F") %></span>
+                                <span class="posi-date">Book by <%= offer.startDate.strftime("%d %B %Y") %></span>
                             </div>
                             <div class="label-crown"></div>
                         </div>
