@@ -7,10 +7,11 @@
 <div id='country-data' data-country-code=<%= @place.country.blank? ? 'no-country' : @place.country.country_code %> data-capital-city=<%= @place.country.blank? ? 'no-country' : @place.country.capital_city %>></div>
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
+<div class="breadcrumbs container">
 <%= raw create_breadcrumb_for(@place) %> |
-<% if user_signed_in? and current_user.admin? %>
-  <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
+<% if user_signed_in? and current_user.admin? %><%= link_to "Edit Place", edit_place_path(@place) %>
 <% end %>
+</div>
 <div class="hero-image-wrapper hero dismiss-mega-menu-search"
          style="background: url( <%= showing_image(draw_hero_background(@place)) %>) no-repeat;" role="img"
          aria-label="">
@@ -189,6 +190,9 @@
     </div>
     <% end %>
     <%= render partial: "shared/videos_list", locals:{container: "" } %>
+    <div id="photos">
+      <%= render partial: "shared/photos_list", as: :photos, locals:{container: ""} %>
+    </div>
     </div>
   <% end %>
     </section>
