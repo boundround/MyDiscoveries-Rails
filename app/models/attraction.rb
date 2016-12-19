@@ -259,8 +259,16 @@ class Attraction < ActiveRecord::Base
   end
 
   def set_country
-    country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
-    self.country_id = country.id
+    if get_parents(self).present?
+      get_parents(self).each do |parent|
+        if parent.class.to_s == "Country"
+          self.country_id = country.id
+        elsif parent.class.to_s == "Region"
+          return parent
+        end
+      end
+    end
+    # country = get_parents(self).find {|parent| parent.class.to_s == "Country"
   end
 
   def trip_advisor_info
