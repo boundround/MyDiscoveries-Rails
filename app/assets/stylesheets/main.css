@@ -9676,8 +9676,7 @@ a:hover, a:focus, a:active {
   width: 100%;
   position: relative;
   background: url("../images/hero.jpg") center center no-repeat;
-  background-size: cover;
-  margin-top: 10px; }
+  background-size: cover;}
   .hero h1 {
     font-family: Bagnard, serif;
     font-size: 80px;
@@ -10878,7 +10877,8 @@ a:hover, a:focus, a:active {
         height: 340px;
         padding: 20px;
         background-color: white;
-        margin-bottom: 46px; }
+        margin-bottom: 46px;
+        list-style-type: none; }
         .destinations .destinations-content-block aside .featured-articles li .fa-img-block {
           height: 180px;
           overflow: hidden; }

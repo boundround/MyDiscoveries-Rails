@@ -1,5 +1,7 @@
 class Subcategory < ActiveRecord::Base
 	include Parameterizable
+	extend FriendlyId
+  friendly_id :slug_candidates, :use => [:slugged, :history] #show display_names in place routes
 
 	scope :get_all_informations, -> { where(category_type: ["Optimum Time", "Duration", "Subcategory", "Accessibility", "Price"] ) }
 
@@ -39,6 +41,10 @@ class Subcategory < ActiveRecord::Base
 		end
 		return subcategories
 	end
+
+	def slug_candidates
+    :name
+  end
 
 	private
 
