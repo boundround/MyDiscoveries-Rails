@@ -1,32 +1,114 @@
-<div class="container">
-  <div id="table-container">
-    <h1>All Offers</h1>
+<div data-page="offer">
+<!-- BEGIN - header -->
+<div class="mobile-header js-mobile-header mobile-only">
+    <a href="#" class="header__logo"></a>
+    <a href="#" class="mobile-header__menu-button js-mobile-header__menu-button">
+        <span class="mobile-header__menu-button-line mobile-header__menu-button-line--first"></span>
+        <span class="mobile-header__menu-button-line mobile-header__menu-button-line--second"></span>
+        <span class="mobile-header__menu-button-line mobile-header__menu-button-line--third"></span>
+    </a>
 
-    <table class="table table-striped" id="offer-table">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Created At</th>
-        <th>Edit</th>
-        <th>Delete</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @offers.each do |offer| %>
-          <tr>
-            <td><%= offer.id %></td>
-            <td><%= offer.name %></td>
-            <td><%= offer.description %></td>
-            <td><%= offer.created_at.strftime("%F") %></td>
-            <td><%= link_to 'Edit', edit_offer_path(offer) %></td>
-            <td><%= link_to 'Destroy', offer_path(offer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <%= link_to "Create New Offer", new_offer_path, class: "btn btn-default btn-lg" %>
-    <%= link_to "Create New Offer From LIVN", new_livn_offer_offers_path, class: "btn btn-default btn-lg" %>
-  </div>
+    <!-- begin - search -->
+    <a href="#" class="mobile-header__open-search-button js-mobile-show-hide-search"></a>
+    <div class="mobile-header__search-wrapper hidden js-mobile-header__search-wrapper">
+        <input class="header__search" placeholder="Search" type="text">
+        <span class="mobile-header__search-icon"></span>
+    </div>
+    <!-- end - search -->
+</div>
+<!-- END - header -->
+
+<div class="mobile-header-drop-down clear-self mobile-only hidden js-mobile-header-drop-down">
+
+    <div class="mobile-header-drop-down_container js-mobile-header-drop-down_container">
+
+        <div class="mobile-header-drop-down__expanded-block">
+
+            <a class="mobile-header-drop-down__link" href="#">home</a>
+            <a class="mobile-header-drop-down__link mobile-header-drop-down__link--expand js-mobile-header-drop-down--to-right" href="#">destinations</a>
+            <a class="mobile-header-drop-down__link" href="#">deals</a>
+            <a class="mobile-header-drop-down__link" href="#">travel stories</a>
+            <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" href="#">join</a>
+            <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" data-toggle="modal" data-target="#singIn" href="#">sign in</a>
+
+        </div>
+
+        <div class="mobile-header-drop-down__expanded-block">
+
+            <a class="mobile-header-drop-down__link mobile-header-drop-down__link--back js-mobile-header-drop-down--to-left" href="#">back</a>
+            <a class="mobile-header-drop-down__link" href="#">destinations</a>
+
+            <div class="navigation-drop-down__small-column-wrapper clear-self">
+                <div class="navigation-drop-down__small-column">
+                    <a href="#" class="navigation-drop-down__region-header">Australia</a>
+                    <a href="#" class="navigation-drop-down__region-list-item">Melbourne</a>
+                    <a href="#" class="navigation-drop-down__region-list-item">Brisbane</a>
+                    <a href="#" class="navigation-drop-down__region-list-item">Sydney</a>
+                    <a href="#" class="navigation-drop-down__region-list-item">Townsville</a>
+                </div>
+                <div class="navigation-drop-down__small-column">
+                    <a href="#" class="navigation-drop-down__region-header">Asia</a>
+                    <a href="#" class="navigation-drop-down__region-list-item">Bangkok</a>
+                    <a href="#" class="navigation-drop-down__region-list-item">Hanoi</a>
+                    <a href="#" class="navigation-drop-down__region-list-item">Singapore</a>
+                    <a href="#" class="navigation-drop-down__region-list-item">Tokyo</a>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="mobile-header-drop-down-background js-mobile-header-drop-down-background hidden mobile-only"></div>
+<div class="header-drop-down-background js-header-drop-down-background hidden desktop-only"></div>
+
+<!-- BEGIN - breadcrumbs -->
+<div class="breadcrumbs width-limiter">
+    <a href="#" class="breadcrumbs__link">home</a>
+    <a href="#" class="breadcrumbs__link">destinations</a>
+    <a href="#" class="breadcrumbs__link">east Asia</a>
+    <a href="#" class="breadcrumbs__link">Package offers</a>
+</div>
+<!-- END - breadcrumbs -->
+
+<div class="package-offers">
+
+    <div class="hero" style="background: url('/assets/br_15_main.jpg')center center no-repeat;">
+        <h1>Package offers</h1>
+    </div>
+
+    <div class="package-offers-block width-limiter">
+        <ul>
+        <% @featured_offers.each do |offer| %>
+            <li>
+                <a href="#">
+                    <div class="po-content-wrapper">
+                        <img style="background: url('/assets/br_15_main.jpg')center center no-repeat;" class="cover-bg">
+                        <div class="po-content-block">
+                            <p class="xs-heading">
+                                <%= offer.name %>
+                            </p>
+                            <div class="po-price">
+                                <span class="lg">
+                                    <span>$</span>
+                                    <span class="po-price-self">1399</span>
+                                </span>
+                                <span class="sm">per person</span>
+                            </div>
+                            <div class="po-stay-info">
+                                <span class="posi-nights">8 nights</span>
+                                <span class="posi-date">Book by <%= offer.created_at.strftime("%F") %></span>
+                            </div>
+                            <div class="label-crown"></div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <% end %>
+        </ul>
+        <a class="more-link" href="#">more featured offers</a>
+    </div>
 </div>
