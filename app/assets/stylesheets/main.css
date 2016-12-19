@@ -9676,7 +9676,7 @@ a:hover, a:focus, a:active {
   width: 100%;
   position: relative;
   background: url("../images/hero.jpg") center center no-repeat;
-  background-size: cover;}
+  background-size: cover !important;}
   .hero h1 {
     font-family: Bagnard, serif;
     font-size: 80px;
@@ -9689,6 +9689,11 @@ a:hover, a:focus, a:active {
     -ms-transform: translateX(-50%) translateY(-50%);
     -o-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%); }
+      .hero h2 {
+    color: white;
+    font-family: Baghdad, serif;
+    font-weight: bold;
+    font-size: 50px; }
 
 .label-crown {
   width: 46px;
@@ -10911,3 +10916,327 @@ a:hover, a:focus, a:active {
         font-size: 20px;
         text-align: left;
         margin-bottom: 30px; }
+
+/*NEW PRODUCT*/
+
+.product .hero {
+  background-image: url("../images/hero.jpg"); }
+  @media screen and (max-width: 1200px) {
+    .product .hero {
+      height: 430px; } }
+  .product .hero .hero-content {
+    padding-top: 5px; }
+    @media screen and (min-width: 1201px) {
+      .product .hero .hero-content {
+        padding-top: 100px; } }
+    .product .hero .hero-content .lg-heading {
+      margin-bottom: 0; }
+    .product .hero .hero-content span.info-text {
+      color: white;
+      font-size: 16px;
+      font-family: Larsseit-Bold, sans-serif; }
+    .product .hero .hero-content .hc-info {
+      margin-top: 30px;
+      color: white; }
+      .product .hero .hero-content .hc-info .hci-price {
+        font-family: Baghdad, serif;
+        font-size: 52px; }
+        .product .hero .hero-content .hc-info .hci-price span {
+          font-weight: bold;
+          color: white; }
+          .product .hero .hero-content .hc-info .hci-price span.hci-price-self {
+            position: relative;
+            top: 10px;
+            left: -10px; }
+      .product .hero .hero-content .hc-info .hci-info {
+        display: block; }
+      .product .hero .hero-content .hc-info .hci-nights, .product .hero .hero-content .hc-info .hci-people {
+        font-family: Larsseit-Bold, sans-serif;
+        font-size: 20px;
+        padding-top: 20px;
+        padding-left: 40px;
+        background-position: 0 5px;
+        background-repeat: no-repeat;
+        background-size: auto 32px;
+        position: relative;
+        top: 7px; }
+      .product .hero .hero-content .hc-info .hci-people {
+        background-image: url("/assets/mydiscoveries_icon/i/inclusions/kids-club-white.svg"); }
+      .product .hero .hero-content .hc-info .hci-nights {
+        background-image: url("/assets/mydiscoveries_icon/i/inclusions/nights-white.svg");
+        margin-right: 20px; }
+    .product .hero .hero-content .btn-bordered {
+      width: 200px;
+      margin-top: 40px; }
+      @media screen and (max-width: 1200px) {
+        .product .hero .hero-content .btn-bordered {
+          margin-top: 10px; } }
+
+.product .product-content {
+  display: block; }
+  .product .product-content::after {
+    clear: both;
+    content: "";
+    display: block; }
+  @media screen and (max-width: 1200px) {
+    .product .product-content aside {
+      border-bottom: 1px solid #f4efed;
+      padding-bottom: 20px; } }
+  @media screen and (min-width: 1201px) {
+    .product .product-content aside {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 31.76157%;
+      padding-top: 110px; }
+      .product .product-content aside:last-child {
+        margin-right: 0; } }
+  .product .product-content aside .hotel-name {
+    font-family: Baghdad, serif;
+    color: #ff4b1a;
+    font-size: 21px; }
+  .product .product-content aside .point-card__header {
+    margin-bottom: 0;
+    text-align: left; }
+    @media screen and (max-width: 1200px) {
+      .product .product-content aside .point-card__header {
+        margin-top: 20px; } }
+  .product .product-content aside .xs-heading, .product .product-content aside .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .product .product-content aside .xs-heading {
+    margin: 40px 0 10px;
+    color: #000060;
+    text-align: left; }
+  .product .product-content aside .package-options {
+    margin-top: 40px;
+    text-align: center; }
+    .product .product-content aside .package-options ul {
+      text-align: left; }
+      .product .product-content aside .package-options ul li {
+        display: block;
+        margin-bottom: 30px;
+        position: relative; }
+        .product .product-content aside .package-options ul li .poi-content-top {
+          background-color: #bbe0e6;
+          color: #000060;
+          font-size: 16px;
+          font-family: Larsseit-Medium, sans-serif;
+          padding: 20px 30px 30px 30px;
+          height: 223px; }
+          .product .product-content aside .package-options ul li .poi-content-top .poict-price span {
+            font-size: 36px;
+            font-family: Baghdad, serif;
+            font-weight: bold; }
+            .product .product-content aside .package-options ul li .poi-content-top .poict-price span.poict-price-self {
+              position: relative;
+              top: 7px;
+              left: -3px; }
+          .product .product-content aside .package-options ul li .poi-content-top .poict-valued {
+            margin-bottom: 30px; }
+          .product .product-content aside .package-options ul li .poi-content-top .poict-people, .product .product-content aside .package-options ul li .poi-content-top .poict-nights, .product .product-content aside .package-options ul li .poi-content-top .poict-room {
+            padding-left: 30px;
+            background-position: 0 0px;
+            background-repeat: no-repeat;
+            background-size: auto 20px;
+            position: relative;
+            top: 0px;
+            padding-top: 2px;
+            margin-bottom: 5px; }
+          .product .product-content aside .package-options ul li .poi-content-top .poict-people {
+            background-image: url("../i/inclusions/kids-club.svg"); }
+          .product .product-content aside .package-options ul li .poi-content-top .poict-nights {
+            background-image: url("../i/inclusions/nights.svg"); }
+          .product .product-content aside .package-options ul li .poi-content-top .poict-room {
+            background-image: url("../i/inclusions/beds.svg"); }
+        .product .product-content aside .package-options ul li .poi-content-bottom {
+          background-color: #f4efed;
+          padding: 30px;
+          color: #000060;
+          font-size: 16px; }
+          .product .product-content aside .package-options ul li .poi-content-bottom span {
+            font-family: Larsseit-Bold, sans-serif; }
+        .product .product-content aside .package-options ul li a.btn-bordered {
+          position: absolute;
+          top: 30px;
+          right: 20px; }
+  @media screen and (min-width: 1201px) {
+    .product .product-content section {
+      padding-left: 30px;
+      padding-right: 0;
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 65.88078%;
+      margin-right: 0;
+      padding-top: 80px; }
+      .product .product-content section:last-child {
+        margin-right: 0; } }
+  .product .product-content section .country-info p {
+    font-family: Larsseit-Light, sans-serif;
+    font-size: 21px; }
+    @media screen and (max-width: 1200px) {
+      .product .product-content section .country-info p {
+        font-size: 16px; } }
+  .product .product-content section .country-info .ci-map-block {
+    margin-bottom: 40px; }
+  .product .product-content section .country-info #ci-map {
+    height: 400px;
+    width: 100%; }
+    @media screen and (min-width: 1201px) {
+      .product .product-content section .country-info #ci-map {
+        margin-top: 40px; } }
+  .product .product-content section .country-info .accordion-block.ui-accordion .heading {
+    color: #000060;
+    font-family: Larsseit-Bold, sans-serif;
+    font-size: 16px; }
+  .product .product-content section .country-info .accordion-block.ui-accordion p {
+    font-size: 16px; }
+  .product .product-content section .country-info .accordion-block.ui-accordion ul {
+    list-style: none; }
+    .product .product-content section .country-info .accordion-block.ui-accordion ul.d-list li {
+      padding-left: 30px;
+      background-size: auto 15px;
+      background-repeat: no-repeat;
+      background-image: url("../i/inclusions/hairdryer.svg"); }
+    .product .product-content section .country-info .accordion-block.ui-accordion ul li {
+      display: block;
+      font-family: Larsseit-Light, sans-serif;
+      font-size: 16px; }
+  .product .product-content section .country-info .accordion-block.ui-accordion .itinerary h4 {
+    font-size: 16px;
+    font-family: Larsseit-Bold, sans-serif;
+    color: #000060;
+    margin: 40px 0 20px; }
+  .product .product-content section .country-info .accordion-block.ui-accordion .itinerary .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    padding: 0; }
+  .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #ci-itinerary-map {
+    height: 350px;
+    width: 100%; }
+  @media screen and (max-width: 1200px) {
+    .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .tabs-wrapper {
+      overflow-x: scroll; }
+    .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul {
+      width: 490px; }
+      .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul li {
+        width: 140px;
+        margin-right: 10px; } }
+  .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs.ui-tabs {
+    padding: 0; }
+  .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .itinerary-tabs {
+    background-color: white;
+    margin-top: 20px;
+    display: block; }
+    .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .itinerary-tabs::after {
+      clear: both;
+      content: "";
+      display: block; }
+    @media screen and (min-width: 1201px) {
+      .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .itinerary-tabs .it-info {
+        float: left;
+        display: block;
+        margin-right: 2.35765%;
+        width: 57.35098%; }
+        .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .itinerary-tabs .it-info:last-child {
+          margin-right: 0; } }
+    .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .itinerary-tabs .it-img {
+      overflow: hidden; }
+      .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .itinerary-tabs .it-img img {
+        width: 100%; }
+      @media screen and (min-width: 1201px) {
+        .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .itinerary-tabs .it-img {
+          float: left;
+          display: block;
+          margin-right: 2.35765%;
+          width: 40.29137%; }
+          .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .itinerary-tabs .it-img:last-child {
+            margin-right: 0; } }
+    .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .itinerary-tabs .heading {
+      color: #000060;
+      font-family: Larsseit-Bold, sans-serif; }
+    .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs .itinerary-tabs p {
+      font-family: Larsseit-Light, sans-serif;
+      font-size: 16px; }
+  .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul {
+    display: block;
+    padding: 0; }
+    .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul::after {
+      clear: both;
+      content: "";
+      display: block; }
+    .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul.ui-widget-header {
+      border: none;
+      background: #f4efed; }
+    @media screen and (min-width: 1201px) {
+      .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul li {
+        float: left;
+        display: block;
+        margin-right: 1.40138%;
+        width: 18.8789%; }
+        .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul li:last-child {
+          margin-right: 0; }
+        .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul li:nth-child(5n) {
+          margin-right: 0; }
+        .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul li:nth-child(5n+1) {
+          clear: left; } }
+    .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul li.ui-tab.ui-tabs-active.ui-state-active {
+      background-color: #ff4b1a; }
+      .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul li.ui-tab.ui-tabs-active.ui-state-active a p {
+        color: white; }
+    .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul li a {
+      display: block; }
+      .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul li a img {
+        height: 87px;
+        width: 100%; }
+      .product .product-content section .country-info .accordion-block.ui-accordion .itinerary #itinerary-tabs ul li a p {
+        margin-bottom: 0;
+        padding: 6px;
+        text-align: center;
+        color: #ff4b1a; }
+  .product .product-content section .country-info .accordion-block.ui-accordion .reviews .pagination {
+    padding: 0; }
+  .product .product-content section .country-info .accordion-block.ui-accordion h5 {
+    font-family: Larsseit-Bold, sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #000060;
+    margin: 30px 0 20px; }
+  .product .product-content section .country-info .accordion-block.ui-accordion .ui-widget-content {
+    border: none; }
+  .product .product-content section .country-info .accordion-block.ui-accordion h3.ui-accordion-header {
+    font-family: Larsseit-Bold, sans-serif;
+    text-transform: uppercase;
+    color: #ff4b1a;
+    padding: 15px; }
+  .product .product-content section .country-info .accordion-block.ui-accordion h3.ui-accordion-header.ui-accordion-header-active.ui-state-active {
+    background-color: #f4efed; }
+  .product .product-content section .country-info .accordion-block.ui-accordion .ui-state-default, .product .product-content section .country-info .accordion-block.ui-accordion .ui-widget-content .ui-state-default, .product .product-content section .country-info .accordion-block.ui-accordion .ui-widget-header .ui-state-default, .product .product-content section .country-info .accordion-block.ui-accordion .ui-button, .product .product-content section .country-info .accordion-block.ui-accordion html .ui-button.ui-state-disabled:hover, .product .product-content section .country-info .accordion-block.ui-accordion html .ui-button.ui-state-disabled:active {
+    border: none;
+    border-bottom: 1px solid #f4efed;
+    background: white;
+    font-weight: normal; }
+  .product .product-content section .country-info .gallery {
+    padding-bottom: 55px; }
+    @media screen and (min-width: 1201px) {
+      .product .product-content section .country-info .gallery {
+        padding-bottom: 120px; } }
+    .product .product-content section .country-info .gallery .xs-heading, .product .product-content section .country-info .gallery .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .product .product-content section .country-info .gallery .xs-heading {
+      color: #000060;
+      margin-bottom: 10px; }
+    .product .product-content section .country-info .gallery .slick-slide img {
+      display: block;
+      width: 100%; }
+    @media screen and (max-width: 1200px) {
+      .product .product-content section .country-info .gallery .slider-mobile-wrapper {
+        height: 180px;
+        width: 100%;
+        overflow-x: scroll; }
+        .product .product-content section .country-info .gallery .slider-mobile-wrapper .slider-for {
+          width: 3000px; }
+          .product .product-content section .country-info .gallery .slider-mobile-wrapper .slider-for::after {
+            clear: both;
+            content: "";
+            display: block; }
+          .product .product-content section .country-info .gallery .slider-mobile-wrapper .slider-for div {
+            float: left; }
+            .product .product-content section .country-info .gallery .slider-mobile-wrapper .slider-for div img {
+              height: 180px; } }
+
+/*PRODUCT*/
