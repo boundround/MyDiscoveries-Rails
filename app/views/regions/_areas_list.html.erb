@@ -1,44 +1,71 @@
-<div class="col-md-4 col-sm-6 dest-thing-wrapper">
-  <div class="dest-thing">
+<li>
+  <a 
     <% if place.class.to_s == "Place" %>
-    	<a class="link_card" href="<%= place_path(place) %>"></a>
+      href="<%= place_path(place) %>"
     <% elsif place.class.to_s == "Attraction" %>
-    	<a class="link_card" href="<%= attraction_path(place) %>"></a>
+      href="<%= attraction_path(place) %>"
     <% else %>
-    	<a class="link_card" href="<%= country_path(place) %>"></a>
-    <% end %>
-	<% if place.class.to_s != "Country" %>
+      href="<%= country_path(place) %>"
+    <% end %> 
+  >
+    <img style="background: url('<%= showing_image(place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>') center no-repeat;" class="cover-bg">
+    <div class="ttd-item-content">
+      <p class="sm-heading"><%= place.display_name %></p>
+      <% if place.class.to_s != "Country" %>
+         <div class="ttd-item-tags">
+          <% place.subcategories.subcats.each do |c| %>
+            <span><%= c.name %></span>        
+            <!-- <a href="<%#= subcategory_path(c) %>"></a> -->
+            <% end %>
+        </div>
+      <% end %>
+      <span class="arrow"></span>
+    </div>
+  </a>
+</li>
+
+<!-- OLD CODE STRUCTURE -->
+<!-- <div class="col-md-4 col-sm-6 dest-thing-wrapper">
+  <div class="dest-thing">
+    <%# if place.class.to_s == "Place" %>
+    	<a class="link_card" href="<%#= place_path(place) %>"></a>
+    <%# elsif place.class.to_s == "Attraction" %>
+    	<a class="link_card" href="<%#= attraction_path(place) %>"></a>
+    <%# else %>
+    	<a class="link_card" href="<%#= country_path(place) %>"></a>
+    <%# end %>
+	<%# if place.class.to_s != "Country" %>
       <div class="dest-thing-overlay-wrapper">
-          <% unless place.viator_link.blank? %>
+          <%# unless place.viator_link.blank? %>
               <div class="dest-thing-overlay">
                   <div class="dollar-rating">
-                  <% price = place.subcategories.find_by_category_type("price")%>
-                  <%= !price.blank?? price.name : "" %>
+                  <%# price = place.subcategories.find_by_category_type("price")%>
+                  <%#= !price.blank?? price.name : "" %>
                   </div>
                   <div class="book-wrapper">
-                      <a class="btn book-btn" onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank">BOOK</a>
+                      <a class="btn book-btn" onclick="bookNowClicks()" href="<%#= place.viator_link%>" target="_blank">BOOK</a>
                   </div>
               </div>
-          <% end %>
+          <%# end %>
       </div>
-	<% end %>
-      <div class="things-img" style="background: url(<%= showing_image(place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>) no-repeat;"
+	<%# end %>
+      <div class="things-img" style="background: url(<%#= showing_image(place.photos.count > 0 ? place.photos.first.path_url(:small) : asset_path('generic-hero-small.jpg')) %>) no-repeat;"
            role="img"
            aria-label="Catmosphere"></div>
       <div class="dest-thing-content">
-          <h4><%= place.display_name %></h4>
+          <h4><%#= place.display_name %></h4>
 
         <div class="tags">
-		<% if place.class.to_s != "Country" %>
-          <% place.subcategories.subcats.each do |c| %>
+		<%# if place.class.to_s != "Country" %>
+          <%# place.subcategories.subcats.each do |c| %>
             <div class="tag">
                 <div class="v-center">
-                  <a href="<%= subcategory_path(c) %>"><%= c.name %></a>
+                  <a href="<%#= subcategory_path(c) %>"><%#= c.name %></a>
                 </div>
             </div>
-          <% end %>
-		<% end %>
+          <%# end %>
+		<%# end %>
         </div>
       </div>
   </div>
-</div>
+</div> -->

@@ -254,7 +254,7 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-[data-page="offer"] .regular-wrapper, .local-navigation, .promo-text, .did-you-know, .deal-header, .deal-promo-media__card-holder {
+[data-page="offer"] .regular-wrapper, .local-navigation, .promo-text, .deal-header, .deal-promo-media__card-holder {
   margin: 0 auto;
   max-width: 1170px;
   padding: 0 14px;
