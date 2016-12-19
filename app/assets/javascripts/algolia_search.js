@@ -37,7 +37,12 @@ $(document).ready(function() {
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
 
-    var INDEX_NAME = 'mydiscoveries_' + production_environment;
+    if($('.app-wrap > div').data('page') == "offer" && $('.app-wrap > div').data('controller') == "index" ){
+        var INDEX_NAME = 'offers_' + production_environment;
+    }else{
+        var INDEX_NAME = 'mydiscoveries_' + production_environment;
+    }
+    console.log(INDEX_NAME)
     var PARAMS = {
         hitsPerPage: 3,
         maxValuesPerFacet: 8,
