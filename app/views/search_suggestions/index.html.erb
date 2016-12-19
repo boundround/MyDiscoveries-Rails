@@ -1,22 +1,21 @@
+<div class="section-grey">
 <div class="container sidebar-result-search">
 <div class="row">
-  <div class="top50">
-    <div class="col-md-3 well">
+    <div class="col-md-3 filter-box">
       <div id="facets-instant-search2" style="padding-bottom: 5px;"></div>
         <div class="main-header">
-          <h3>Filter</h3>
-          <a class="reset-all" onclick="resetchecked()">Clear</a>
+          <h3 class="search-page-filter__header">Filter</h3>
         </div>
       <div id="facets-instant-search3"></div>
       <div id="facets-instant-search"></div>
     </div>
-    <div class="col-md-9 well" id="instant-search-container">
+    <div class="col-md-9" id="instant-search-container">
       <div class="row">
         <div class="col-md-12">
             <div class="input-group input-search-nav refine">
               <%= form_tag searching_path, id: '', method: :get  do %>
-                <%= submit_tag "", id: 'btn-search-top'  %><i class="fa fa-search"></i>
-                <%= text_field_tag "search[common]", params.traverse('search', 'common'), id: "squery" ,class: 'search-nav instant-search', autocomplete: "off" %>
+                <%= text_field_tag "search[common]", params.traverse('search', 'common'), id: "squery" ,class: 'search-page-main-search__search instant-search', autocomplete: "off" %>
+                <%= submit_tag "", class: "search-page-main-search__search-icon" %>
               <% end %>
             </div><!-- /input-group -->
         </div>
@@ -25,11 +24,10 @@
       <div class="clearfix"></div>
       <div class="row">
         <div class="col-md-12" id="instant-search-results">
-          <hr/>
           <%= render partial: 'search_suggestions/instant_search_results' %>
         </div>
       </div>
     </div>
-  </div>
+</div>
 </div>
 </div>

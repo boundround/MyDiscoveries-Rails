@@ -42,20 +42,23 @@ class ApiBlog
     respon = get_request(url)
     results = []
     has_image = nil
-    respon.each_with_index do |json, index|
-      has_image = json["_links"]["https://api.w.org/featuredmedia"]
-      if has_image
-        image = json["_links"]["https://api.w.org/featuredmedia"][0]["href"]
-      else
-        image = ""
+    unless respon["data"]["status"].eql?(404)
+      respon.each_with_index do |json, index|
+        has_image = json["_links"]["https://api.w.org/featuredmedia"]
+        if has_image
+          image = json["_links"]["https://api.w.org/featuredmedia"][0]["href"]
+        else
+          image = ""
+        end
+        blog = ApiBlog.new(:title => json["title"]["rendered"], :content => json["content"]["rendered"],
+        :image => image, :id=>json["id"], :created_at=>json["date"])
+        if has_image
+          image_url = get_request(blog.image)
+          blog.image = parse_image(image_url, json)
+        end
+
+        results << blog
       end
-      blog = ApiBlog.new(:title => json["title"]["rendered"], :content => json["content"]["rendered"],
-      :image => image, :id=>json["id"], :created_at=>json["date"])
-      if has_image
-        image_url = get_request(blog.image)
-        blog.image = parse_image(image_url, json)
-      end
-      results << blog
     end
     return results
   end

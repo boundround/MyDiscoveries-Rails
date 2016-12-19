@@ -1,84 +1,60 @@
 <!-- ## MODAL LOGIN ACCOUNT -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-margin-top">
+<div id="singIn" class="modal fade in" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog--margin-top" role="document">
 
     <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close close-modal modal-blue" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" align="center">Login to Bound Round</h4>
+    <div class="modal-content modal-content--container">
+      <div class="modal-content__header text-center">
+        <img src="/assets/mydiscoveries_icon/i/logo-short.svg" class="modal-content__logo-short" alt="logo-short">
+        <p class="modal-content__sing">sign in</p>
       </div>
-      <div class="modal-body">
-
+      <div class="modal-content__body">
 	        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="row">
 		        <div class="col-sm-12">
 		        	<div class="form-group">
-  			         <%= f.input_field :email, required: false, autofocus: true, placeholder: "Email", class: "form-control" %>
+                <%= f.label :email, "Email address", class: "modal-content__title control-label" %>
+  			        <%= f.input_field :email, required: false, autofocus: true, placeholder: "Email", class: "modal-content__input form-control" %>
   			       </div>
 		        </div>
           </div>
 
           <div class="row">
-		        <div class="col-sm-12">
-		        	<div class="form-group">
-			           <%= f.password_field :password, required: false, placeholder: "Password", class: "form-control" %>
-			        </div>
-			     </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <%= f.label :password, "Password", class: "modal-content__title control-label" %>
+                <%= f.password_field :password, required: false, placeholder: "Password", class: "modal-content__input form-control" %>
+              </div>
+           </div>
          </div>
          <div class="row">
-           <div class="col-sm-6 text-center div-forgot">
-	           <%= link_to "Forgot password", new_user_password_path, class: "forgot-password brw-blue" %>
-	         </div>
-         </div>
-	        <div class="row">
             <div class="col-sm-12">
-	   				  <div class="form-group">
-	             	<%= f.button :submit, "Sign in", :class=>'btn btn-default border-rgba btn-block btn-radius btn-height fontbig-button brw-blue' %>
-	           </div>
-	         </div>
-        </div>
+              <div class="modal-content__btn text-center">
+                <%= f.button :submit, "access my account", :class=>'modal-content__btn-access' %>
+                <p class="modal-content__text-divider">or</p>
+                <%- if devise_mapping.omniauthable? %>
+                  <%- resource_class.omniauth_providers.each do |provider| %>
+                    <% if provider.to_s == "facebook" %>
+                      <a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="modal-content__btn-facebook">facebook</a>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+         </div>
 	        <% end %>
-          <p align="center" class="btm15 top15 height-sign-in grey">or sign in with...</p>
-          <%- if devise_mapping.omniauthable? %>
-            <%- resource_class.omniauth_providers.each do |provider| %>
-              <% if provider.to_s == "facebook" %>
-                <div class="half-left">
-                  <a href="<%= omniauth_authorize_path(resource_name, provider) %>" role="button" class="btn btn-primary btn-block button btn-radius fontbig-signin btn-facebook mrg0"><i class="fa fa-<%= provider.to_s %>"></i> Facebook</button>
-                  </a>
-                </div>
-              <% elsif provider.to_s == "google_oauth2" %>
-                <div class="half-right">
-                  <a href="<%= omniauth_authorize_path(resource_name, provider) %>" type="button" class="btn button btn-danger btn-block btn-google-plus btn-radius fontbig-signin" role="button"><i class="fa fa-google"></i> Google+
-                  </a>
-                </div>
-              <% end %>
-            <% end %>
-          <% end %>
       </div>
-      <div class="modal-footer">
+      <div class="modal-content__footer text-center">
         <div class="row">
           <div class="col-xs-12 col-sm-12" align="center">
-            <p class="not-member emphasize">Not yet a member?</p>
-              <% initialization_controller = ['posts', 'stories', 'places', 'countries'] %>
-              <% if initialization_controller.include?(controller_name) && action_name == 'show' && !user_signed_in? %>
-                <p><a href="<%= new_user_registration_path(flag: true) %>" class="btn btn-default btn-block border-rgba pink btn-height fontbig-button custom-close-register btn-radius">Create an account</a></p>
-              <% else %>
-                <p><a href="<%= new_user_registration_path %>" class="btn btn-default btn-block border-rgba pink btn-height fontbig-button custom-close-register btn-radius">Create an account</a></p>
-              <% end %>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <div class-"row">
-          <div class="col-xs-12 col-sm-12" align="center">
-            <p>We're committed to protecting your privacy.</p>
-            <p>By proceeding, you agree to our <a href="#" class="black underline">Privacy Policy</a> and <a href="#" class="black underline">Terms and Conditions</a></p>
-          </div>
+          <p class="modal-content__footer-text modal-content__footer-text--up"><a href="<%= new_user_registration_path(flag: true) %>" class="modal-content__footer-link">Sign up</a> to reveal exclusive deals and book faster!</p>
+            <p class="modal-content__footer-text">By creating an account, you're agreeing with our
+                <br><a href="#" class="modal-content__footer-terms">Terms and Conditions</a> and <a href="#" class="modal-content__footer-terms">Privacy Statement</a>
+            </p>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 <!-- ## END MODAL LOGIN ACCOUNT -->
