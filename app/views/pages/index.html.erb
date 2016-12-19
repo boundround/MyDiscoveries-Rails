@@ -64,7 +64,7 @@
                   </div>
                   <div class="things-img" style="background: url(<%= showing_image(comp.image_url) %>) no-repeat;" role="img"
                        aria-label="Bondi">
-                    <h3 class="new-offer-promo-item__header">This is Title</h3>      
+                    <h3 class="new-offer-promo-item__header">This is Title</h3>
                   </div>
                   <div class="dest-thing-content">
                       <p class="new-offer-promo-item__description"><%= comp.title %></p>
@@ -106,7 +106,7 @@
           <div class="row hidden-sm hidden-xs proposals-wrapper clear-self">
           <% if @category1.present?  %>
               <div class="col-md-4">
-                  <%= link_to searching_sub_cat_path(@category1.identifier) do %>
+                  <%= link_to subcategory_path(@category1) do %>
                       <div class="thing-tall-card-wrapper proposal-item">
                         <div class="thing-image" style="background-image: url('<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name rescue nil %>">
                             <div class="overlay"></div>
@@ -125,7 +125,7 @@
                   <div class="row">
                   <% if @category2.present?  %>
                       <div class="col-md-6">
-                          <%= link_to searching_sub_cat_path(@category2.identifier) do %>
+                          <%= link_to subcategory_path(@category2) do %>
                               <div class="thing-medium-card-wrapper proposal-item">
                                 <div class="thing-image" style="background-image: url('<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name rescue nil %>">
                                       <div class="overlay"></div>
@@ -142,7 +142,7 @@
                       <% end %>
                       <% if @category3.present?  %>
                       <div class="col-md-6">
-                          <%= link_to searching_sub_cat_path(@category3.identifier) do %>
+                          <%= link_to subcategory_path(@category3) do %>
                               <div class="thing-medium-card-wrapper proposal-item">
                                 <div class="thing-image" style="background-image: url('<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name rescue nil %>">
                                       <div class="overlay"></div>
@@ -162,7 +162,7 @@
                   <% if @category4.present?  %>
                   <div class="row">
                       <div class="col-md-12">
-                          <%= link_to searching_sub_cat_path(@category4.identifier) do %>
+                          <%= link_to subcategory_path(@category4) do %>
                               <div class="thing-wide-card-wrapper proposal-item">
                                 <div class="thing-image" style="background-image: url('<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
                                       <div class="overlay"></div>
@@ -184,7 +184,7 @@
           <div class="row hidden-md hidden-lg">
               <div class="owl-carousel carousel">
                   <% @subcategories.each do |category| %>
-                    <%= link_to searching_sub_cat_path(category.identifier) do %>
+                    <%= link_to subcategory_path(category) do %>
                       <div class="thing-item">
                           <div class="col-sm-3">
                               <div class="thing-medium-card-wrapper">

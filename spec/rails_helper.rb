@@ -20,6 +20,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/support/cassettes'
   c.hook_into :webmock
   c.configure_rspec_metadata!
+  c.allow_http_connections_when_no_cassette = false
 end
 
 # Add additional requires below this line. Rails is not loaded until this point!

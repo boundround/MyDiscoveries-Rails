@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe OrdersController, type: :controller do
-
   describe 'POST #create' do
 
     before do
@@ -10,7 +9,7 @@ RSpec.describe OrdersController, type: :controller do
       sign_in @user
     end
 
-    context 'current user create order' do
+    context 'with valid params' do
       let(:params) do
         {
           order: {
@@ -19,20 +18,24 @@ RSpec.describe OrdersController, type: :controller do
           offer_id: @offer.id
         }
       end
+      let(:checkout_url) { 'https://www.shopify.com/' }
+      before do
+        allow(Order::Shopify::GetCheckoutUrl).to receive(:call) { checkout_url }
+      end
 
-      it 'creates order' do
+      it 'creates an order' do
         expect{post(:create, params)}.to change{Order.count}.from(0).to(1)
         created_order = Order.last
         expect(created_order.title).to eql(params[:order][:title])
       end
 
-      it 'shows right flash message' do
+      it 'redirects to the order checkout url' do
         post(:create, params)
-        expect(flash[:notice].present?).to eql(true)
+        expect(response).to redirect_to(checkout_url)
       end
     end
 
-    context 'current user do not create order' do
+    context 'with invalid params' do
       let(:params) do
          {
            order: { title: '' },
@@ -40,11 +43,11 @@ RSpec.describe OrdersController, type: :controller do
          }
        end
 
-      it 'does not create order' do
+      it 'does not create an order' do
         expect{post(:create, params)}.to_not change(Order, :count)
       end
 
-      it 'shows right flash message' do
+      it 'shows a flash message' do
         post(:create, params)
         expect(flash[:alert].present?).to eql(true)
       end

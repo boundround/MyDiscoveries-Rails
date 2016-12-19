@@ -1,7 +1,7 @@
   CarrierWave.configure do |config|
 
     config.fog_provider = 'fog/aws'                        # required
-    config.asset_host = "https://d1w99recw67lvf.cloudfront.net"
+    config.asset_host = "https://dqgr5tph2zdxx.cloudfront.net"
     config.fog_credentials = {
       provider:              'AWS',                        # required
       aws_access_key_id:     ENV['AS3_ACCESS_KEY'],                        # required
