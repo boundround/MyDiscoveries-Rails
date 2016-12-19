@@ -91,7 +91,7 @@
       </div>
       <% if @offers.present? %>
         <div id="offers" class="top-holidays">
-          <h3 class="sm-heading lars">Top Australian Holidays</h3>
+          <h3 class="sm-heading lars">Top <%= @place.display_name %> Holidays</h3>
           <ul> 
             <%= render partial: 'offers/all_offers', collection: @offers, as: :offer %>
           </ul>
@@ -99,7 +99,7 @@
       <% end %>
 
       <div class="map-block">
-                <h3 class="sm-heading lars">Map of Australia</h3>
+                <h3 class="sm-heading lars">Map of <%= @place.display_name %></h3>
 
                 <div id='dest-map'></div>
 
