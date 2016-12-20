@@ -9569,6 +9569,19 @@ a:hover, a:focus, a:active {
   font-weight: bold;
   font-family: Baghdad, serif; }
 
+  .sm-heading.lars, .region.package-offers ul li .po-content-block p.lars.sm-heading, .region.things-to-do ul li a .ttd-item-content p.lars, .region.itinerary-offers ul li .io-item-content p.lars.sm-heading, .region.stories ul li .s-item-content a.lars.sm-heading {
+    font-family: Larsseit-Bold, sans-serif;
+    font-weight: normal;
+    margin: 55px auto 35px; }
+
+.large-video-component-wrapper .kids-view-wrapper .kids-view{
+  font-size: 25px;
+}
+.large-video-component-wrapper .kids-view-wrapper{
+  margin: 25px;
+  position: absolute;
+}
+
 .xs-heading, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading {
   font-size: 26px;
   color: white;
@@ -9675,8 +9688,9 @@ a:hover, a:focus, a:active {
   height: 60vh;
   width: 100%;
   position: relative;
-  background: url("../images/hero.jpg") center center no-repeat;
-  background-size: cover !important;}
+  background: url("/assets/mydiscoveries_icon/images/hero.jpg") center center no-repeat;
+  background-size: cover;
+  margin-top: 10px;}
   .hero h1 {
     font-family: Bagnard, serif;
     font-size: 80px;
@@ -9694,6 +9708,14 @@ a:hover, a:focus, a:active {
     font-family: Baghdad, serif;
     font-weight: bold;
     font-size: 50px; }
+
+.small-video-component .player-vimeo{
+  width: 100%;
+}
+
+.destination-page .small-videos-component-wrapper{
+  padding-bottom: 0;
+}
 
 .label-crown {
   width: 46px;
@@ -9796,6 +9818,28 @@ a:hover, a:focus, a:active {
 .ui-icon-triangle-1-e {
   background-position: 0 0; }
 
+span.arrow {
+  background: url("/assets/mydiscoveries_icon/i/icon-arrow-orange-right.png");
+  display: block;
+  width: 38px;
+  height: 15px;
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  opacity: 0;
+  -webkit-transform: translateX(-100px);
+  -moz-transform: translateX(-100px);
+  -ms-transform: translateX(-100px);
+  -o-transform: translateX(-100px);
+  transform: translateX(-100px);
+  -webkit-transition: all 0.3s ease 0.2s;
+  -moz-transition: all 0.3s ease 0.2s;
+  transition: all 0.3s ease 0.2s; }
+
+.bordered-block, .destinations .destinations-content-block section .main-article, .destinations .destinations-content-block section .top-holidays, .destinations .destinations-content-block section .map-block, .destinations .destinations-content-block section .key-info {
+  padding-bottom: 50px;
+  border-bottom: 1px solid #f4efed; }
+
 .box {
   height: 100px;
   width: 100px;
@@ -9813,7 +9857,7 @@ a:hover, a:focus, a:active {
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-  background: url("/assets/mydiscoveries_icon/i/map-border.png") 0 0 repeat-x;
+  background: url("/assets/mydiscoveries_icon/images/promo-map/map-border.png") 0 0 repeat-x;
   padding-top: 40px; }
   @media screen and (max-width: 1200px) {
     .promo-map {
@@ -10917,11 +10961,221 @@ a:hover, a:focus, a:active {
         font-size: 20px;
         text-align: left;
         margin-bottom: 30px; }
-
-/*NEW PRODUCT*/
+      .destinations .destinations-content-block section .top-holidays {
+        text-align: center; }
+        .destinations .destinations-content-block section .top-holidays ul {
+          display: block;
+          padding-bottom: 30px;
+          text-align: left; }
+          .destinations .destinations-content-block section .top-holidays ul::after {
+            clear: both;
+            content: "";
+            display: block; }
+          .destinations .destinations-content-block section .top-holidays ul li {
+            height: 285px;
+            overflow: hidden;
+            margin-bottom: 20px; }
+            @media screen and (min-width: 1201px) {
+              .destinations .destinations-content-block section .top-holidays ul li {
+                float: left;
+                display: block;
+                margin-right: 2.35765%;
+                width: 31.76157%;
+                margin-bottom: 0; }
+                .destinations .destinations-content-block section .top-holidays ul li:last-child {
+                  margin-right: 0; }
+                .destinations .destinations-content-block section .top-holidays ul li:nth-child(3n) {
+                  margin-right: 0; }
+                .destinations .destinations-content-block section .top-holidays ul li:nth-child(3n+1) {
+                  clear: left; } }
+            .destinations .destinations-content-block section .top-holidays ul li a {
+              display: block; }
+              .destinations .destinations-content-block section .top-holidays ul li a:hover .th-content {
+                -webkit-transform: translateY(-30px);
+                -moz-transform: translateY(-30px);
+                -ms-transform: translateY(-30px);
+                -o-transform: translateY(-30px);
+                transform: translateY(-30px); }
+                .destinations .destinations-content-block section .top-holidays ul li a:hover .th-content span.arrow {
+                  transform: translateX(0);
+                  opacity: 1; }
+              .destinations .destinations-content-block section .top-holidays ul li a .th-img-block {
+                height: 145px;
+                width: 100%;
+                overflow: hidden; }
+                .destinations .destinations-content-block section .top-holidays ul li a .th-img-block img {
+                  height: auto;
+                  width: 100%; }
+              .destinations .destinations-content-block section .top-holidays ul li a .th-content {
+                position: relative;
+                height: 170px;
+                padding: 20px;
+                background-color: #bbe0e6;
+                -webkit-transition: all 0.3s ease;
+                -moz-transition: all 0.3s ease;
+                transition: all 0.3s ease; }
+                .destinations .destinations-content-block section .top-holidays ul li a .th-content span {
+                  font-size: 13px;
+                  color: #000060;
+                  font-family: Larsseit-Bold, sans-serif; }
+                  .destinations .destinations-content-block section .top-holidays ul li a .th-content span.posi-nights {
+                    padding-left: 25px;
+                    padding-top: 5px;
+                    background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat; }
+                .destinations .destinations-content-block section .top-holidays ul li a .th-content .xs-heading {
+                  color: #000060;
+                  margin-top: 20px;
+                  margin-bottom: 0;
+                  line-height: 30px; }
+      .destinations .destinations-content-block section .map-block #dest-map {
+        height: 450px;
+        width: 100%; }
+      .destinations .destinations-content-block section .map-block .gm-style-iw * {
+        display: block;
+        width: 100%; }
+      .destinations .destinations-content-block section .map-block .gm-style-iw h4, .destinations .destinations-content-block section .map-block .gm-style-iw p {
+        margin: 0;
+        padding: 0; }
+      .destinations .destinations-content-block section .map-block .gm-style-iw a {
+        color: #4272db; }
+      .destinations .destinations-content-block section .key-info .ki-content {
+        display: block;
+        font-size: 16px; }
+        .destinations .destinations-content-block section .key-info .ki-content::after {
+          clear: both;
+          content: "";
+          display: block; }
+        .destinations .destinations-content-block section .key-info .ki-content .kic-item {
+          height: 310px;
+          padding: 20px;
+          position: relative; }
+          @media screen and (min-width: 1201px) {
+            .destinations .destinations-content-block section .key-info .ki-content .kic-item {
+              float: left;
+              display: block;
+              margin-right: 2.35765%;
+              width: 31.76157%; }
+              .destinations .destinations-content-block section .key-info .ki-content .kic-item:last-child {
+                margin-right: 0; }
+              .destinations .destinations-content-block section .key-info .ki-content .kic-item:nth-child(3n) {
+                margin-right: 0; }
+              .destinations .destinations-content-block section .key-info .ki-content .kic-item:nth-child(3n+1) {
+                clear: left; } }
+          @media screen and (max-width: 1200px) {
+            .destinations .destinations-content-block section .key-info .ki-content .kic-item {
+              margin-bottom: 20px; } }
+          .destinations .destinations-content-block section .key-info .ki-content .kic-item.short {
+            height: 155px; }
+          .destinations .destinations-content-block section .key-info .ki-content .kic-item.long {
+            height: 155px; }
+            @media screen and (min-width: 1201px) {
+              .destinations .destinations-content-block section .key-info .ki-content .kic-item.long {
+                float: left;
+                display: block;
+                margin-right: 2.35765%;
+                width: 65.88078%;
+                margin-right: 0;
+                margin-top: -155px;
+                float: right; }
+                .destinations .destinations-content-block section .key-info .ki-content .kic-item.long:last-child {
+                  margin-right: 0; } }
+        .destinations .destinations-content-block section .key-info .ki-content .health {
+          background-color: #ffa600;
+          color: #000060; }
+          .destinations .destinations-content-block section .key-info .ki-content .health .kici-heading {
+            background: url("/assets/mydiscoveries_icon/i/health.png") 0 0 no-repeat; }
+        .destinations .destinations-content-block section .key-info .ki-content .currency {
+          background-color: #000060;
+          color: white; }
+          .destinations .destinations-content-block section .key-info .ki-content .currency .kici-heading {
+            background: url("/assets/mydiscoveries_icon/i/currency.png") 0 0 no-repeat; }
+        .destinations .destinations-content-block section .key-info .ki-content .language {
+          background-color: #ff4b1a;
+          color: white; }
+          .destinations .destinations-content-block section .key-info .ki-content .language .kici-heading {
+            background: url("/assets/mydiscoveries_icon/i/language.png") 0 0 no-repeat; }
+        .destinations .destinations-content-block section .key-info .ki-content .weather {
+          color: #000060; }
+          .destinations .destinations-content-block section .key-info .ki-content .weather .kici-heading {
+            background: url("/assets/mydiscoveries_icon/i/weather.png") 0 0 no-repeat; }
+          .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block {
+            display: block; }
+            .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block::after {
+              clear: both;
+              content: "";
+              display: block; }
+            .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block li {
+              float: left;
+              display: block;
+              margin-right: 2.35765%;
+              width: 31.76157%; }
+              .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block li:last-child {
+                margin-right: 0; }
+              .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block li:nth-child(3n) {
+                margin-right: 0; }
+              .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block li:nth-child(3n+1) {
+                clear: left; }
+              .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block li span {
+                font-family: Baghdad, serif;
+                font-weight: bold;
+                font-size: 42px; }
+                .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block li span.t-high {
+                  color: #000060; }
+                .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block li span.t-low {
+                  color: #bbe0e6; }
+                .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block li span.month {
+                  font-size: 16px;
+                  font-family: Larsseit-Light, sans-serif;
+                  color: #000060;
+                  display: block;
+                  font-weight: normal; }
+        .destinations .destinations-content-block section .key-info .ki-content .kici-heading {
+          padding-top: 4px;
+          margin-bottom: 23px;
+          text-transform: uppercase;
+          font-size: 18px;
+          font-family: Larsseit-Bold, sans-serif;
+          padding-left: 40px; }
+      @media screen and (min-width: 1201px) {
+        .destinations .destinations-content-block section .videos-block {
+          margin-bottom: 100px; } }
+      @media screen and (max-width: 1200px) {
+        .destinations .destinations-content-block section .videos-block .video-embed-wrapper {
+          margin-bottom: 20px; } }
+      @media screen and (min-width: 1201px) {
+        .destinations .destinations-content-block section .videos-block .video-embed-wrapper.sm {
+          float: left;
+          display: block;
+          width: 31.76157%; }
+          .destinations .destinations-content-block section .videos-block .video-embed-wrapper.sm:last-child {
+            margin-right: 0; }
+          .destinations .destinations-content-block section .videos-block .video-embed-wrapper.sm:last-of-type {
+            margin-right: 0; } }
+      .destinations .destinations-content-block section .videos-block .video-embed-wrapper.sm .video-embed {
+        height: 180px; }
+        .destinations .destinations-content-block section .videos-block .video-embed-wrapper.sm .video-embed iframe {
+          width: 100%;
+          height: 180px; }
+      .destinations .destinations-content-block section .videos-block .video-embed-wrapper.lg .video-embed {
+        height: 180px; }
+        @media screen and (min-width: 1201px) {
+          .destinations .destinations-content-block section .videos-block .video-embed-wrapper.lg .video-embed {
+            height: 395px;
+            margin-bottom: 30px; } }
+        .destinations .destinations-content-block section .videos-block .video-embed-wrapper.lg .video-embed iframe {
+          width: 100%;
+          height: 180px; }
+          @media screen and (min-width: 1201px) {
+            .destinations .destinations-content-block section .videos-block .video-embed-wrapper.lg .video-embed iframe {
+              height: 395px; } }
+      .destinations .destinations-content-block section .videos-block .video-embed-wrapper p {
+        padding-top: 20px;
+        font-family: Larsseit, sans-serif;
+        font-size: 16px;
+        color: #000060; }
 
 .product .hero {
-  background-image: url("../images/hero.jpg"); }
+  background-image: url("/assets/mydiscoveries_icon/images/hero.jpg"); }
   @media screen and (max-width: 1200px) {
     .product .hero {
       height: 430px; } }
@@ -11042,11 +11296,11 @@ a:hover, a:focus, a:active {
             padding-top: 2px;
             margin-bottom: 5px; }
           .product .product-content aside .package-options ul li .poi-content-top .poict-people {
-            background-image: url("../i/inclusions/kids-club.svg"); }
+            background-image: url("/assets/mydiscoveries_icon/i/inclusions/kids-club.svg"); }
           .product .product-content aside .package-options ul li .poi-content-top .poict-nights {
-            background-image: url("../i/inclusions/nights.svg"); }
+            background-image: url("/assets/mydiscoveries_icon/i/inclusions/nights.svg"); }
           .product .product-content aside .package-options ul li .poi-content-top .poict-room {
-            background-image: url("../i/inclusions/beds.svg"); }
+            background-image: url("/assets/mydiscoveries_icon/i/inclusions/beds.svg"); }
         .product .product-content aside .package-options ul li .poi-content-bottom {
           background-color: #f4efed;
           padding: 30px;
@@ -11096,7 +11350,7 @@ a:hover, a:focus, a:active {
       padding-left: 30px;
       background-size: auto 15px;
       background-repeat: no-repeat;
-      background-image: url("../i/inclusions/hairdryer.svg"); }
+      background-image: url("/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg"); }
     .product .product-content section .country-info .accordion-block.ui-accordion ul li {
       display: block;
       font-family: Larsseit-Light, sans-serif;
@@ -11239,5 +11493,3 @@ a:hover, a:focus, a:active {
             float: left; }
             .product .product-content section .country-info .gallery .slider-mobile-wrapper .slider-for div img {
               height: 180px; } }
-
-/*PRODUCT*/
