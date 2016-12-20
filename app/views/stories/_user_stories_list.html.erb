@@ -1,0 +1,20 @@
+<li>
+    <img src="<%= showing_image(story.user.avatar_url)%>" alt="">
+    <div class="s-item-content">
+
+        <div class="sic-info">
+            <div class="sici-date">
+                <%= story.publish_date.strftime("%d %B %Y") %>
+            </div>
+        </div>
+
+        <a href="#" class="sm-heading">
+            <%= raw story.title.blank? ? story.title : story.title.truncate(40) %>
+        </a>
+        <div class="sic-text">
+            <p><%= story.content.html_safe %></p>
+        </div>
+
+        <a href="<%= edit_story_path(story) %>" class="edit">Edit</a>
+    </div>
+</li>

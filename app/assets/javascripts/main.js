@@ -104,4 +104,37 @@
   if ($(window).width() < 992) {
     createOwlCarousel();
   }
+        //Product page accordion
+        $( "#product-accordion" ).accordion({
+            collapsible: true,
+            heightStyle: "content"
+        });
+
+        //Product page itinerary tabs
+
+        if($('#itinerary-tabs').length){
+            $( "#itinerary-tabs" ).tabs({
+                active: 0
+            });
+        }
+
+        //Selection page datepicker
+        if($('#departure-date').length) {
+            $( "#departure-date" ).datepicker();
+        }
+
+
+        //User pages page datepicker
+        if($('#up-settings-dob').length) {
+            $( "#up-settings-dob" ).datepicker();
+        }
+
+        //User pages tabs
+        if($('#up-tabs').length) {
+            $( "#up-tabs" ).tabs();
+        }
+
+        if($('#up-mc-tabs').length) {
+            $( "#up-mc-tabs" ).tabs();
+        }
 });

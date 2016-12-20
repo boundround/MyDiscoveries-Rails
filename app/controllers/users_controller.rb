@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
     @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
     @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
-
+    @orders  = @user.orders.last(2)
   end
 
   def public_profile
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @set_body_class = 'passport-page'
-    @owned_places = @user.owned_places
+    # @owned_places = @user.owned_places
 
     verify_current_user
 
