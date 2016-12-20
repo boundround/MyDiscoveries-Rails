@@ -7,12 +7,12 @@
         </span>
       <% end %>
     </div>
-    <!-- <h1 class="deal-header__point-name">
+    <h1 class="deal-header__point-name">
       <%= @offer.name %>
-    </h1> -->
-    <!-- <p class="deal-header__point-short-description">Unwrap toilet paper ignore the squirrels, you'll never catch them anyway run outside as soon as door open but climb leg meow loudly just to annoy ownerscat is love, cat is life present belly, scratch hand when stroked. Sleep in the bathroom sink
-      meowwww.
-    </p> -->
+    </h1>
+    <p class="deal-header__point-short-description">
+      <%= simple_format @offer.description %>
+    </p>
     <!-- <span data-js-scroll-to="js-deal-options" class="deal-header__view-options js-scroll-to-node">view deal options</span> -->
   </div>
 
@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="location"></div>
-          <div class="destination"><%= @offer.name %></div>
+          <!-- <div class="destination"><%= @offer.name %></div> -->
           <div class="destination-details">
             <a data-scroll href="#photos" class="white">
               <div class="photo-wrapper">
@@ -80,7 +80,7 @@
               <div class="deal-option-card__details-interactive-block">
                 <p class="deal-option-card__descriptions">
                   <span class="deal-option-card__descriptions deal-option-card__descriptions--bold">Inclusions:</span>
-                  <%= @offer.includes %>
+                  <%= simple_format @offer.includes %>
                 </p>
               </div>
               <!-- <span class="deal-option-card__show-hide-details deal-option-card__show-hide-details--hide js-show-hide-details--hide">hide details</span> -->
@@ -119,7 +119,7 @@
         <div class="deal-data-card__info-block">
           <!-- <h3 class="deal-data-card__subheading">Subheading</h3> -->
           <p class="deal-data-card__paragraph">
-            <%= @offer.highlightsStr %>
+            <%= simple_format @offer.highlightsStr %>
           </p>
           <!-- <div class="deal-data-review__holder swiper-container horizontal-scroll js-horizontal-scroll--centered-slides">
             <div class="swiper-wrapper">
@@ -144,7 +144,7 @@
           <h2 class="deal-data-card__header open js-show-hide-info-block">Itinerary</h2>
           <div class="deal-data-card__info-block">
             <p class="deal-data-card__paragraph">
-              <%= @offer.itineraryStr %>
+              <%= simple_format @offer.itineraryStr %>
             </p>
           </div>
         </div>
@@ -155,7 +155,7 @@
         <div class="deal-data-card__info-block">
           <!-- <h3 class="deal-data-card__subheading">Subheading</h3> -->
           <p class="deal-data-card__paragraph">
-            <%= @offer.description %>
+            <%= simple_format @offer.description %>
           </p>
           <!-- <img src="img/deal/deal-big-video.jpg" alt="" class="deal-data__big-video"> -->
         </div>
