@@ -7,7 +7,7 @@ class Offer < ActiveRecord::Base
   alias_attribute :minimum_age, :minAge
   alias_attribute :maximum_age, :maxAge
 
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id do
+  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id do
 
     attributes :minAge,
                :maxAge,
