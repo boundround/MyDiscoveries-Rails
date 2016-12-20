@@ -1,17 +1,26 @@
-<a href="<%= place_path(place) %>">
+<div class="places-to-go-card ">
+    <a href="<%= place_path(place) %>" class="ptgc-content" >
+        <h3 class="places-to-go-card__header"><%= place.country.display_name rescue "" %></h3>
+        <h4 class="places-to-go-card__card-name"><%= place.display_name %></h4>
+    </a>
+    <div class="places-to-go-card__background cover-bg" style="background: url('<%= draw_medium_background(place)%>') center no-repeat;" > </div>
+</div>
+
+<!-- OLD CODE -->
+<!-- <a href="<%#= place_path(place) %>">
 <div class="destination-card-item">
     <div class="col-sm-4">
         <div class="destination-card">
             <div class="destination-image"
-                 style="background-image: url('<%= draw_medium_background(place)%>')"
+                 style="background-image: url('<%#= draw_medium_background(place)%>')"
                  role="img"
                  aria-label="Destination Sydney">
                 <div class="overlay"></div>
                 <div class="geolocation">
-                    <img src="/assets/new-images/icon-geolocator.png"/><span><%= place.country.display_name rescue "" %></span>
+                    <img src="/assets/new-images/icon-geolocator.png"/><span><%#= place.country.display_name rescue "" %></span>
                 </div>
                 <div class="destination-city">
-                      <h2><%= place.display_name %></h2>
+                      <h2><%#= place.display_name %></h2>
                     <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png"/></div>
                 </div>
             </div>
@@ -19,4 +28,13 @@
         </div>
     </div>
 </div>
-</a>
+</a> -->
+
+<!-- PLACE TO GO REGION STRUCTURE -->
+<!-- <div class="places-to-go-card ">
+    <a href="#" class="ptgc-content">
+        <h3 class="places-to-go-card__header">Japan</h3>
+        <h4 class="places-to-go-card__card-name">Osaka</h4>
+    </a>
+    <img src="../images/places-to-go/places-to-go-1.png" alt="" class="places-to-go-card__background">
+</div> -->

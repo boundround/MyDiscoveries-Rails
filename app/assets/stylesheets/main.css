@@ -10085,7 +10085,7 @@ span.arrow {
 
 .region .load-more {
   display: inline-block;
-  margin: 50px auto 0;
+  margin: 20px auto 0;
   color: #000060;
   text-transform: uppercase;
   text-decoration: none;
@@ -10246,6 +10246,7 @@ span.arrow {
     .region.places-to-go {
       padding-bottom: 20px; } }
   .region.places-to-go .places-to-go-card {
+    margin-bottom: 25px;
     position: relative;
     background-color: #000; }
     .region.places-to-go .places-to-go-card:hover .places-to-go-card__background {

@@ -166,6 +166,7 @@ class Region < ActiveRecord::Base
     Rails.cache.fetch([self, "children"]) do
       list = childrens.select {|child| child.itemable.present?}
       list = list.map { |child| child.itemable }
+      return list
     end
   end
 
