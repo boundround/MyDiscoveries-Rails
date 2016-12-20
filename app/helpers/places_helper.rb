@@ -161,4 +161,18 @@ module PlacesHelper
     end
     pas
   end
+  
+  def create_marker(map_marker)
+    marker = []
+    map_marker.each do |map|
+      if map.present?
+        # ['Sydney', 'description', 'telephone', 'email', 'web', -33.865079, 151.212088, '/assets/mydiscoveries_icon/i/map/map-point.png']
+        marker.push([map.display_name||"", map.description||"",
+                     map.phone_number||"", map.email||"", map.website||"", map.latitude||"", map.longitude||"",
+                     map.map_icon||'/assets/mydiscoveries_icon/i/map/map-point.png'])
+      end
+    end
+    marker
+  end
+
 end

@@ -99,14 +99,10 @@
       <% end %>
 
       <div class="map-block">
-                <h3 class="sm-heading lars">Map of <%= @place.display_name %></h3>
-
-                <div id='dest-map'></div>
-
-                <script async defer  src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAqfBj1CzMc-sshEJHETwDKtGTAlQA2pcM&callback=initMap'></script>
-
-            </div>
-
+        <h3 class="sm-heading lars">Map of <%= @place.display_name %></h3>
+        <div id='dest-map' data-map="<%= create_marker @map_marker %>" ></div>
+        <script async defer  src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAqfBj1CzMc-sshEJHETwDKtGTAlQA2pcM&callback=initMap'></script>
+      </div>
       <div class="key-info">
                 <h3 class="sm-heading lars">Key Travel Information</h3>
 
