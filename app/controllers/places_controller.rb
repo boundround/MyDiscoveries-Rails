@@ -280,6 +280,7 @@ class PlacesController < ApplicationController
     @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
     @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 3)
     @photos_hero = @photos.first(6)
+    @map_marker = @place.markers
 
     @videos = @place.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
     @last_video = @place.videos.active.order(:priority).first
