@@ -28,6 +28,7 @@ function init() {
     var title, description, telephone, email, web, lat, lng, markericon, marker, link;
     var mapElement = document.getElementById('dest-map');
     var map = new google.maps.Map(mapElement, mapOptions);
+    console.log(mapElement.getAttribute("data-map"))
     var locations = JSON.parse(mapElement.getAttribute("data-map"));
 
     for (var i = 0; i < locations.length; i++) {

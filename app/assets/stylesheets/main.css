@@ -11027,7 +11027,7 @@ span.arrow {
                   margin-top: 20px;
                   margin-bottom: 0;
                   line-height: 30px; }
-      .destinations .destinations-content-block section .map-block #dest-map {
+      #dest-map {
         height: 450px;
         width: 100%; }
       .destinations .destinations-content-block section .map-block .gm-style-iw * {
