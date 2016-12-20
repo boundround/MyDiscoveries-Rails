@@ -23,23 +23,21 @@ end
   %>
 
 <% if !video.youtube_id.blank? %>
-  <div class="<%= grid %> col-sm-6">
-    <div class="<%= grid %> col-sm-6">
+  <div class="<%= grid %> col-sm-6 video-embed-wrapper sm">
       <div class="small-video-component">
         <iframe class="player-vimeo" src="<%= video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
       <div class="title-wrapper">
-          <div class="video-title"><%= video.title %></div>
+          <p><%= video.title %></p>
       </div>
-    </div>
   </div>
 <% else %>
-  <div class="<%= grid %> col-sm-6">
+  <div class="<%= grid %> col-sm-6 video-embed-wrapper sm">
     <div class="small-video-component">
       <iframe class="player-vimeo" src="<%= video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
     </div>
     <div class="title-wrapper">
-        <div class="video-title"><%= video.title %></div>
+        <p><%= video.title %></p>
     </div>
   </div>
 <% end %>
