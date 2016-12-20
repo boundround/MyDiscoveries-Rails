@@ -7,128 +7,149 @@
 <div id='country-data' data-country-code=<%= @place.country.blank? ? 'no-country' : @place.country.country_code %> data-capital-city=<%= @place.country.blank? ? 'no-country' : @place.country.capital_city %>></div>
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
-
-<div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background(@place)) %>) no-repeat;"
-    role="img" aria-label="Destination Sydney">
-    <div class="photo-credit"><%= get_hero_image_credit(@place) %></div>
-      <div class="overlay"></div>
-      <div class="container">
-          <div class="row">
-              <div class="col-xs-12">
-                  <div class="location">
-                      <%= raw create_breadcrumb_for(@place) %>
-                      <% if user_signed_in? and current_user.admin? %>
-                        <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
-                      <% end %>
-                  </div>
-                  <div class="destination"><%= @place.display_name %></div>
-                  <div class="destination-details">
-                      <div class="ages-wrapper">
-                          <div class="ages-title">For ages</div>
-                        <% unless @place.minimum_age && @place.maximum_age %>
-                          <p class="age-ranges">
-                            All Ages
-                          </p>
-                        <% else %>
-                        <p id="age-ranges" class="ages">
-                          <%= @place.minimum_age %> - <%= @place.maximum_age %>
-                        </p>
-                        <% end %>
-                      </div>
-                      <div class="weather-wrapper">
-                          <div class="weather-title">Weather</div>
-                          <div class="temperature">
-                               <div class="weather">
-                                 <img id="icon" src=""/>
-                                 <span id="temperature"></span>
-                               </div>
-                          </div>
-                      </div>
-                      <div class="favourites-wrapper">
-                          <% if user_signed_in? && @place.users.include?(current_user) %>
-                            <div class="icon-favourite selected" id="favouriteType" data-post-path="places_users" data-klass="place" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                            <div class="favourites-title hidden-xs">Remove from favourites</div>
-                          <% else %>
-                            <div class="icon-favourite" id="favouriteType" data-post-path="places_users" data-klass="place" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                            <div class="favourites-title hidden-xs" >Add to favourites</div>
-                          <% end %>
-                      </div>
-                      <a data-scroll href="#photos" class="white">
-                        <div class="photo-wrapper">
-                            <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
-                            <div class="photo-title"><span class="count"> <%= @place.photos.size %></span> <span class="hidden-xs">Photos</span>
-                            </div>
-                        </div>
-                      </a>
-                      <a data-scroll href="#videos" class="white">
-                        <div class="video-wrapper">
-                            <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
-                            <div class="video-title"><span class="count"><%= @place.videos.size %></span><span class="hidden-xs"> Videos</span>
-                            </div>
-                        </div>
-                      </a>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </div>
-    <div class="action">
-    <div class="left">
-      <ul>
-      </ul>
-    </div>
-      <div class="pull-right hidden-xs">
-        <div class="component-desk">
-          <ul>
-            <li><a href="#photos"><i class="fa fa-image"></i> <%= @place.photos.size %> Photos</a></li>
-            <li><a href="#videos"><i class="fa fa-youtube-play"></i> <%= @place.videos.size %> Videos</a></li>
-          </ul>
-        </div>
-  </div>
-  <div class="sticky-container">
-      <div class="nav-option-container">
-          <div class="container">
-              <div class="nav-option-outer-wrapper">
-                  <div class="nav-option-wrapper">
-                      <% unless @videos.blank? %>
-                        <div class="nav-option"><a data-scroll href="#videos"><%= "VIDEOS" if @videos.present? %></a></div>
-                      <% end %>
-                      <% unless @stories.blank? %>
-                        <div class="nav-option"><a data-scroll href="#stories"><%= "STORIES" if @stories.present? %></a></div>
-                      <% end %>
-                      <% unless @deals.blank? %>
-                        <div class="nav-option"><a data-scroll href="#deals"><%= "DEALS" if @deals.present? %></a></div>
-                      <% end %>
-                      <div class="nav-option"><a data-scroll href="#thingstodo"><%= "THINGS TO DO" if @places_to_visit.present? %></a></div>
-                      <% unless @photos.blank? %>
-                        <div class="nav-option"><a data-scroll href="#photos"><%= "PHOTOS" if @photos.present? %></a></div>
-                      <% end %>
-                      <% unless @fun_facts.blank? %>
-                        <div class="nav-option"><a data-scroll href="#funfacts"><%= "FUN FACTS" if @fun_facts.present? %></a></div>
-                      <% end %>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+<div class="breadcrumbs container">
+<%= raw create_breadcrumb_for(@place) %> |
+<% if user_signed_in? and current_user.admin? %><%= link_to "Edit Place", edit_place_path(@place) %>
+<% end %>
+</div>
+<div class="hero-image-wrapper hero dismiss-mega-menu-search"
+         style="background: url( <%= showing_image(draw_hero_background(@place)) %>) no-repeat;" role="img"
+         aria-label="">
+   <div class="photo-credit"><%= get_hero_image_credit(@place) %></div>
+  <div class="overlay"></div>
   <div class="container">
       <div class="row">
           <div class="col-xs-12">
-              <div class="destination-desc " style="display:none;">
-                  <%= raw @place.description %>
+              <div class="location">
               </div>
-              <div class="destination-desc">
-                  <%= raw @place.description[0..280]+"..." %>
-              </div>
-              <div class="read-more-wrapper">
-                  <a href="javascript:void()" class="readmore-area">READ MORE</a>
-                  <a href="javascript:void()" class="readmore-area " style="display:none;">LESS</a>
+              <h1><%= @place.display_name %></h1>
+              <div class="destination-details">
+
+                  <div class="favourites-wrapper">
+                      <% if user_signed_in? && @place.users.include?(current_user) %>
+                        <div class="icon-favourite selected" id="favouriteType" data-post-path="countries_users" data-klass="place" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                        <div class="favourites-title hidden-xs">Remove from favourites</div>
+                      <% else %>
+                        <div class="icon-favourite" id="favouriteType" data-post-path="countries_users" data-klass="place" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
+                        <div class="favourites-title hidden-xs" >Add to favourites</div>
+                      <% end %>
+
+                  </div>
+                  <a data-scroll href="#photos" class="white">
+                    <div class="photo-wrapper">
+                        <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
+
+                        <div class="photo-title"><span class="count"> <%= @place.photos.size %></span> <span class="hidden-xs">Photos</span>
+                        </div>
+                    </div>
+                  </a>
+                  <a data-scroll href="#videos" class="white">
+                    <div class="video-wrapper">
+                        <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
+
+                        <div class="video-title"><span class="count"><%= @place.videos.size %></span><span class="hidden-xs"> Videos</span>
+                        </div>
+                    </div>
+                  </a>
               </div>
           </div>
       </div>
   </div>
-  <% unless @last_video.blank? %>
-  <% if !@last_video.youtube_id.blank? %>
+</div>
+<div class="destinations">
+  <div class="destinations-content-block width-limiter">
+    <aside>
+      <h3 class="point-card__header"><%= @place.display_name %></h3>
+      <ul class="featured-articles">
+        <% @stories.each do |story| %>
+        <li>
+          <div class="fa-img-block">
+            <div class="user-dp"
+                 style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"
+                 role="img"
+                 aria-label="User: <%= story.user.username %>">
+            </div>
+          </div>
+          <p class="xs-heading"><%= raw story.title.blank? ? story.title : story.title.truncate(65) %></p>
+          <a href="<%= story_path(story) %>" class="btn-bordered red small">READ MORE</a>
+          <span class="label-article">Featured Article</span>
+        </li>
+        <% end %>
+      </ul>
+    </aside>
+    <section>
+      <div class="main-article">
+        <h2 class="lg-heading"><%= @place.display_name %></h2>
+        <p class="destination-desc " style="display:none;">
+            <%= raw @place.description %>
+        </p>
+        <p class="destination-desc">
+            <%= raw @place.description[0..280]+"..." %>
+        </p>
+        <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
+        <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+      </div>
+      <% if @offers.present? %>
+        <div id="offers" class="top-holidays">
+          <h3 class="sm-heading lars">Top <%= @place.display_name %> Holidays</h3>
+          <ul> 
+            <%= render partial: 'offers/all_offers', collection: @offers, as: :offer %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="map-block">
+                <h3 class="sm-heading lars">Map of <%= @place.display_name %></h3>
+
+                <div id='dest-map'></div>
+
+                <script async defer  src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAqfBj1CzMc-sshEJHETwDKtGTAlQA2pcM&callback=initMap'></script>
+
+            </div>
+
+      <div class="key-info">
+                <h3 class="sm-heading lars">Key Travel Information</h3>
+
+                <div class="ki-content">
+                    <div class="kic-item health">
+                        <h4 class="kici-heading ">Health</h4>
+                        <p>Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Sociis natoque penatibus magnis dis parturient montes nascetur.</p>
+                    </div>
+                    <div class="kic-item short currency">
+                        <h4 class="kici-heading ">currency</h4>
+                        <p>Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan.</p>
+                    </div>
+                    <div class="kic-item short language">
+                        <h4 class="kici-heading ">language</h4>
+                        <p>Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan.</p>
+                    </div>
+                    <div class="kic-item long weather">
+                            <h4 class="kici-heading ">weather</h4>
+                            <ul class="t-block">
+                                <li>
+                                    <span class="t-high">20</span>
+                                    <span class="t-low">10</span>
+                                    <span class="month">September</span>
+                                </li>
+                                <li>
+                                    <span class="t-high">20</span>
+                                    <span class="t-low">10</span>
+                                    <span class="month">September</span>
+                                </li>
+                                <li>
+                                    <span class="t-high">20</span>
+                                    <span class="t-low">10</span>
+                                    <span class="month">September</span>
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+            </div>
+
+          <% unless @last_video.blank? %>
+          <div class="videos-block">
+                <h3 class="sm-heading lars">Videos & Photos</h3>
+      <% if !@last_video.youtube_id.blank? %>
     <div id="videos" class="large-video-component-wrapper play-in-modal"
          style="background: url(<%= @last_video.vimeo_thumbnail %>) no-repeat;"
          role="img"
@@ -139,17 +160,11 @@
          aria-label="Kids View: Things to do in Sydney"
          data-thumb="<%= @last_video.vimeo_thumbnail %>" >
         <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="kids-view-wrapper">
-                        <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
+          <div class="kids-view-wrapper">
+              <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
 
-                        <div class="kids-view"><%= @last_video.title %></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+              <div class="kids-view"><%= @last_video.title %></div>
+          </div>
         <div class="main-play-icon-wrapper">
             <div class="main-play-icon"></div>
         </div>
@@ -165,100 +180,32 @@
          aria-label="Kids View: Things to do in Sydney"
          data-thumb="<%= @last_video.vimeo_thumbnail %>">
           <div class="overlay"></div>
-          <div class="container">
-              <div class="row">
-                  <div class="col-xs-12">
-                      <div class="kids-view-wrapper">
-                          <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
-                          <div class="kids-view"><%= @last_video.title %></div>
-                      </div>
-                  </div>
+            <div class="kids-view-wrapper">
+                <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
+                <div class="kids-view"><%= @last_video.title %></div>
             </div>
-        </div>
         <div class="main-play-icon-wrapper">
             <div class="main-play-icon"></div>
         </div>
     </div>
     <% end %>
+    <%= render partial: "shared/videos_list", locals:{container: "" } %>
+    <div id="photos">
+      <%= render partial: "shared/photos_list", as: :photos, locals:{container: ""} %>
+    </div>
+    </div>
   <% end %>
-  <%= render partial: "shared/videos_list", locals:{container: "container" } %>
-    <% unless @places_to_visit.blank? %>
-      <div id="thingstodo" class="container dest-things-wrapper">
-          <div class="row">
-            <div class="col-xs-12">
-                <h3>Things to do in <%= @place.display_name %></h3>
-            </div>
-          </div>
-          <div class="row">
-              <div class="owl-carousel carousel" id="places_to_visit-list">
-                <%= render partial: 'places_to_visit_list', collection: @places_to_visit, as: :area %>
-              </div>
-          </div>
-        <% unless last_page? @places_to_visit %>
-          <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
-              <div class="col-xs-12 load-more">
-                <div class="hidden single-pagination-loader" align="center">
-                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                </div>
-              <%= link_to "LOAD MORE", paginate_place_to_visit_place_path(@place, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', collection_object: 'area'), class: 'single-pagination', remote: true %>
-              </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    </section>
   </div>
-  <div class="stories-things-wrapper">
-      <%= render partial: "stories/all_stories" %>
-  <% if @deals.present? %>
-    <div class="container stories-things-wrapper">
-      <div id="deals" class="thing-page-segment">
-        <div>
-          <h3>Deals</h3> </div>
-        <%= render partial: "deals/all_deals", locals:{container: "" } %>
-      </div>
-    </div>
-  <% end %>
-  <% unless @photos_hero.blank? %>
-    <div id="photos" class="large-carousel-wrapper">
-        <div class="large-owl-carousel owl-carousel">
-            <% @photos_hero.each do |photo| %>
-            <div class="carousel-slide">
-                <div class="carousel-img"
-                 style="background: url( <%= image_path(showing_image(photo.path_url(:large))) %>) no-repeat;">
-                 <div class="photo-credit">Credit: <%= photo.credit %></div>
-                 </div>
-                <div class="large-carousel-overlay">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="camera"></div>
-                                <div id="cs-large-carousel-title" class="large-carousel-title"><h3><%= photo.caption %></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          <% end %>
-        </div>
-    </div>
-  <% end %>
-<%= render partial: "shared/photos_list", as: :photos, locals:{container: "container"} %>
-<% if @fun_facts.present? %>
-  <div id="funfacts" class="container fun-facts-wrapper">
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>Fun Facts</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="owl-carousel fun-fact-carousel">
-         <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
-        </div>
-    </div>
+</div>
+
+
+
+
+
+
+
   </div>
-<% end %>
-</div> <!-- area-content -->
 
 <%= render 'layouts/all_modal' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
