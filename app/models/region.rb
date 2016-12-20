@@ -65,12 +65,12 @@ class Region < ActiveRecord::Base
       "map-marker"
     end
 
-    attribute :url do
-      Rails.application.routes.url_helpers.region_path(self)
+    attribute :viator_link do
+      ""
     end
 
-    attribute :display_address do
-      description.blank? ? "Bound Round Story" : description
+    attribute :url do
+      Rails.application.routes.url_helpers.region_path(self)
     end
 
     attribute :where_destinations do
