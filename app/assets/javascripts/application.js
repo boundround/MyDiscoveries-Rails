@@ -73,3 +73,4 @@
 //= require search-page-card
 //= require modal-filter
 //= require mediator
+//= require dest-map
