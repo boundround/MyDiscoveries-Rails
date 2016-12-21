@@ -202,7 +202,7 @@ module ApplicationHelper
   def draw_hero_background(place)
     if place.photos.find_by(hero: true)
       place.photos.find_by(hero: true).path_url(:large)
-    elsif place.user_photos.find_by(hero: true)
+    elsif place.class.to_s == "Place" && place.user_photos.find_by(hero: true)
       place.user_photos.find_by(hero: true).path_url(:large)
     else
       asset_path('generic-hero.jpg')
@@ -238,7 +238,7 @@ module ApplicationHelper
   def draw_small_background(place)
     if place.photos.find_by(hero: true)
       place.photos.find_by(hero: true).path_url(:small)
-    elsif place.user_photos.find_by(hero: true)
+    elsif place.class.to_s == "Place" && place.user_photos.find_by(hero: true)
       place.user_photos.find_by(hero: true).path_url(:small)
     else
       asset_path('generic-hero-small.jpg')
@@ -248,7 +248,7 @@ module ApplicationHelper
   def draw_medium_background(place)
     if place.photos.find_by(hero: true)
       place.photos.find_by(hero: true).path_url(:medium)
-    elsif place.user_photos.find_by(hero: true)
+    elsif place.class.to_s == "Place" && place.user_photos.find_by(hero: true)
       place.user_photos.find_by(hero: true).path_url(:medium)
     else
       asset_path('generic-hero-small.jpg')
