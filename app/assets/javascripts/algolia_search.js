@@ -38,7 +38,7 @@ $(document).ready(function() {
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
 
     if($('.app-wrap > div').data('page') == "offer" && $('.app-wrap > div').data('controller') == "index" ){
-        var INDEX_NAME = 'offers_' + production_environment;
+        var INDEX_NAME = 'mydiscoveries_offers_' + production_environment;
     }else{
         var INDEX_NAME = 'mydiscoveries_' + production_environment;
     }
