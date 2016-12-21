@@ -154,7 +154,8 @@ Rails.application.routes.draw do
 
   resources :pages do
     collection { get 'all_pages' }
-    collection { get 'paginate_places'}
+    member { get 'paginate_places'}
+    member { get 'paginate_stories'}
   end
 
   get '/google_map_home' => 'pages#google_map_home'
