@@ -447,6 +447,7 @@ Rails.application.routes.draw do
   end
 
   post 'orders/add_shopify_order_id'
+  get 'pdfs/:shopify_order_id' => 'orders#download_pdf'
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'

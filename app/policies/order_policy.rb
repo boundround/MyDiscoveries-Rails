@@ -18,4 +18,8 @@ class OrderPolicy < ApplicationPolicy
   def checkout?
     new?
   end
+
+  def download_pdf?
+    new?
+  end
 end
