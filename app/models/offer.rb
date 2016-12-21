@@ -35,6 +35,10 @@ class Offer < ActiveRecord::Base
       'Offers'
     end
 
+    attribute :url do
+      Rails.application.routes.url_helpers.place_path(self)
+    end
+
     attribute :countries do
       countries.map { |country| country.display_name }
     end
