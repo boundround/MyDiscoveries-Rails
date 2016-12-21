@@ -9,6 +9,7 @@ class SubcategoriesController < ApplicationController
   	@subcategory = Subcategory.friendly.find(params[:id])
     @stories = @subcategory.stories.last(3)
     @subcategories = @subcategory.subcategory_related
+    @offers = @subcategory.offers
 	end
 
   def new

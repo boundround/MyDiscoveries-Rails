@@ -43,11 +43,11 @@
       </div>
     <% end %>
     </div>
-  </div> 
+  </div>
 </section>
 <% end %>
 
- <% if @stories.present? %>
+ <% if @offers.present? %>
 <section class="related-product-adventure">
   <div class="container width-limiter">
     <div class="row related-product-adventure__header">
@@ -59,17 +59,17 @@
       </div>
     </div>
     <div class="row related-product-adventure__content">
-    <% @stories.each do |story| %>
+    <% @offers.each do |offer| %>
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div class="related-product-adventure-card adventure-thumbnail">
-          <img src="<%= story.user.avatar_url rescue '' %>" class="related-product-adventure-card__city-photo" alt>
-          <h3 class="related-product-adventure-card__title"><a href="#" class="related-product-adventure-card__link"><%= story.title.size > 30? story.title[0..30]+"..." : story.title %></a></h3>
-          <p class="related-product-adventure-card__content"><%= story.seo_friendly_url.size > 50? story.seo_friendly_url[0..30]+"..." : story.seo_friendly_url %></p>
+          <img src="<%= draw_small_background(offer) %>" class="related-product-adventure-card__city-photo" alt>
+          <h3 class="related-product-adventure-card__title"><a href="#" class="related-product-adventure-card__link"><%= offer.name %></a></h3>
+          <p class="related-product-adventure-card__content"><%= offer.description[0..75] %>...</p>
         </div>
       </div>
     <% end %>
     </div>
-  </div> 
+  </div>
 </section>
 <% end %>
 
