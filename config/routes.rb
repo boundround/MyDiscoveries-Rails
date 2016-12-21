@@ -367,6 +367,7 @@ Rails.application.routes.draw do
   resources :offers do
     collection do
       get 'new_livn_offer'
+      get 'all_offers'
       post 'create_livn_offer'
     end
     resources :videos
