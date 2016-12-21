@@ -108,6 +108,25 @@
             $('select').select2();
         }
 
+        //Mobile customization
+        var isMobile = window.matchMedia("only screen and (max-width: 1200px)");
+
+        if (isMobile.matches) {
+
+            //Region page slider
+            if($('.slick-slider').length) {
+                $('.slick-slider').slick();
+            }
+
+            //Filter accordion
+            if($('#accordion').length){
+                $( "#accordion" ).accordion({
+                    collapsible: true,
+                    heightStyle: "content"
+                });
+            }
+        }
+
          //Desktop screen customization
         var isScreen = window.matchMedia("only screen and (min-width: 1201px)");
 
@@ -134,7 +153,6 @@
             }
 
         }
-        console.log($('.slider-for'));
         
         //Product page accordion
         $( "#product-accordion" ).accordion({
