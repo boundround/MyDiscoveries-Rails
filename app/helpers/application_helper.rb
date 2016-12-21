@@ -238,8 +238,8 @@ module ApplicationHelper
   def draw_small_background(place)
     if place.photos.find_by(hero: true)
       place.photos.find_by(hero: true).path_url(:small)
-    elsif place.user_photos.find_by(hero: true)
-      place.user_photos.find_by(hero: true).path_url(:small)
+    # elsif place.user_photos.find_by(hero: true)
+    #   place.user_photos.find_by(hero: true).path_url(:small)
     else
       asset_path('generic-hero-small.jpg')
     end
