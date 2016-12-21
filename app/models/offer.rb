@@ -122,7 +122,7 @@ class Offer < ActiveRecord::Base
       'maxUnits'
     ]
 
-    add_index "my_discoveries_offers_#{Rails.env}" do
+    add_index "mydiscoveries_offers_#{Rails.env}" do
       attributes :minAge,
                  :maxAge,
                  :minRateAdult,
