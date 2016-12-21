@@ -36,7 +36,7 @@ class Offer < ActiveRecord::Base
     end
 
     attribute :url do
-      Rails.application.routes.url_helpers.place_path(self)
+      Rails.application.routes.url_helpers.offer_path(self)
     end
 
     attribute :countries do
