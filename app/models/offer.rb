@@ -35,6 +35,10 @@ class Offer < ActiveRecord::Base
       'Offers'
     end
 
+    attribute :url do
+      Rails.application.routes.url_helpers.offer_path(self)
+    end
+
     attribute :countries do
       countries.map { |country| country.display_name }
     end
@@ -160,19 +164,20 @@ class Offer < ActiveRecord::Base
     ShopifyAPI::Product.find(shopify_product_id) if shopify_product_id?
   end
 
-  private
 
   def hero_photo
     hero_h = photos.where(photos: { hero: true })
     hero_h = hero_h.first
     hero = {}
     if hero_h.present?
-      hero= { url: hero_h.path_url(:medium), alt_tag: hero_h.caption }
+      hero = { url: hero_h.path_url(:medium), alt_tag: hero_h.caption }
     else
       hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
     end
     hero
   end
+
+  private
 
   def algolia_id
     "offer_#{id}"

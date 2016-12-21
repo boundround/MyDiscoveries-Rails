@@ -10,25 +10,16 @@
 <div class="region destinations">
     <div class="width-limiter">
         <ul>
+          <% if @countries.present? %>
+            <% @countries.each do |country| %>
             <li>
-                <a href="#">
-                    <img src="../images/dest_list_item.png" alt="">
-                    <span>China</span>
+                <a href="<%= country_path(country) %>">
+                    <img src="<%= draw_hero_background(country) %>" alt="">
+                    <span><%= country.display_name %></span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <img src="../images/dest_list_item.png" alt="">
-                    <span>China</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="../images/dest_list_item.png" alt="">
-                    <span>China</span>
-                </a>
-            </li>
-
+          <% end %>
+        <% end %>
         </ul>
     </div>
 </div>
@@ -92,12 +83,12 @@
         <a href="#" class="btn-bordered">all offers</a>
     </div>
 </div>
-<% unless @places_to_visit.blank? %> 
+<% unless @places_to_visit.blank? %>
 <div class="region things-to-do">
     <div class="width-limiter">
         <h3 class="proposal__header">Things to do in <%= @region.display_name %></h3>
         <ul class="slick-slider" id="places_to_visit-list">
-            <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
+            <%= render partial: 'areas_list', collection: @place_to_go, as: :place %>
             <li class="recl-block">
                 <a  href="#x">
                     <img src="/assets/mydiscoveries_icon/reclama.jpg" alt="">
@@ -120,7 +111,7 @@
                 <div class="hidden single-pagination-loader" align="center">
                   <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                 </div>
-              <%= link_to "load more", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
+              <%= link_to "load more", paginate_place_to_visit_region_path(@region, places_to_visit_page: @place_to_go.next_page, resources: 'place_to_go', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
           </div>
         <% end %>
     </div>
@@ -136,7 +127,7 @@
   </div>
 <% end %>
 
-<div class="region itinerary-offers">
+<!-- <div class="region itinerary-offers">
     <div class="width-limiter">
         <h3 class="proposal__header">Itinerary offers</h3>
         <ul class="slick-slider">
@@ -159,7 +150,7 @@
 </div>
 <div class="region advertise">
     <img src="/assets/mydiscoveries_icon/emirates.jpg" alt="">
-</div>
+</div> -->
 
 <% if @stories.present? %>
   <%= render partial: "stories/all_stories_regional" %>

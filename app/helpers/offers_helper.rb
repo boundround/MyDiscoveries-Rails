@@ -1,7 +1,7 @@
 module OffersHelper
   def main_offer_photo_url(offer)
     photo = offer.photos.where(hero: true).first.presence || offer.photos.first.presence
-    url   = photo.try(:path_url, :medium) || ActionController::Base.helpers.asset_url('generic-hero.jpg')
+    url   = photo.try(:path_url, :large) || ActionController::Base.helpers.asset_path('generic-hero.jpg')
     title = photo.try(:title)
 
     { url: url, title: title }

@@ -8,7 +8,6 @@
                     <ul>
                          <li><h5 class="footer__header">&nbsp;</h5></li>
                         <li><a href="http://corporate.boundround.com/travel-tourism-suppliers/" class="footer__link" target="blank">The Travel Industry</a></li>
-                        <li><a href="http://www.schoolsafari.com.au" class="footer__link" target="blank">Teachers</a></li>
                         <li><a href="http://boundround.com/media/" class="footer__link" target="blank">Media</a></li>
                         <li><a href="http://corporate.boundround.com/privacy/" class="footer__link" target="blank">Privacy Policy</a></li>
                         <li><a href="http://boundround.com/about-us/" class="footer__link" target="blank">About Us</a></li>
@@ -20,7 +19,7 @@
                         <li><h5 class="footer__header">Popular Searches</h5></li>
                          <% @footer_places = Place.find([1064, 233, 1071, 1182, 1060, 1160, 1126, 1203])%>
                           <% @footer_places.each do |place| %>
-                            <li><%= link_to "Things To Do With Kids In #{place.display_name}", place_path(place), class: "footer__link" %></li>
+                            <li><%= link_to "Things To Do In #{place.display_name}", place_path(place), class: "footer__link" %></li>
                          <% end %>
                         <li>
                     </ul>
