@@ -17,7 +17,7 @@ class Order::Shopify::GetCheckoutUrl
   private
 
   def query
-    "#{items_query}#{email_query}"
+    "#{items_query}#{email_query}#{order_query}"
   end
 
   # NOTE: an email parameter is not documented anywhere -
@@ -25,6 +25,10 @@ class Order::Shopify::GetCheckoutUrl
   # I did not find any other documented and simple solutions
   def email_query
     "?email=#{order.user.email}"
+  end
+
+  def order_query
+    "&boundround_order_id=#{order.id}"
   end
 
   def items_query

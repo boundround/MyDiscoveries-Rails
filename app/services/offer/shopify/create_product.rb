@@ -33,7 +33,7 @@ class Offer::Shopify::CreateProduct
   end
 
   def tags
-    offer.tags.join(', ')
+    offer.tags.join(', ') if offer.tags.present?
   end
 
   def variants

@@ -443,8 +443,10 @@ Rails.application.routes.draw do
     end
     resources :videos
     resources :photos
-    resources :orders, only: [ :new, :edit, :create, :update ]
+    resources :orders, only: [:new, :edit, :create, :update]
   end
+
+  post 'orders/add_shopify_order_id'
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'
