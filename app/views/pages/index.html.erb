@@ -53,22 +53,21 @@
 <div class="section-grey padding-medium">
   <div class="container">
     <div class="row">
-      <% if @competitions.present? %>
+      <% if @offers.present? %>
       <div class="row">
-        <% @competitions.each do |comp| %>
+        <% @offers.each do |offer| %>
           <div class="col-md-4 col-sm-6 dest-thing-wrapper">
               <div class="new-offer-promo-item">
-                <!-- <a class="link_card" href="<%= comp.url %>"></a> -->
                   <div class="dest-thing-overlay-wrapper">
 
                   </div>
-                  <div class="things-img" style="background: url(<%= showing_image(comp.image_url) %>) no-repeat;" role="img"
+                  <div class="things-img" style="background: url(<%= draw_small_background(offer) %>) no-repeat;" role="img"
                        aria-label="Bondi">
-                    <h3 class="new-offer-promo-item__header">This is Title</h3>
+                    <h3 class="new-offer-promo-item__header"><%= offer.name %></h3>
                   </div>
                   <div class="dest-thing-content">
-                      <p class="new-offer-promo-item__description"><%= comp.title %></p>
-                      <a href="#" class="new-offer-promo-item__link">new offers</a>
+                      <p class="new-offer-promo-item__description"><%= offer.description[0..75] %>...</p>
+                      <a href="<%= offer_path(offer) %>" class="new-offer-promo-item__link">go to offer</a>
                   </div>
               </div>
           </div>

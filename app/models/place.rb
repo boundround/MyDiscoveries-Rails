@@ -601,6 +601,14 @@ class Place < ActiveRecord::Base
     self.save
   end
 
+  def markers
+    marker = []
+    self.offers.each do |offer|
+      marker << offer.attraction
+    end
+    return marker
+  end
+
   def crop_hero_image
     hero_image.recreate_versions! if crop_x.present?
   end

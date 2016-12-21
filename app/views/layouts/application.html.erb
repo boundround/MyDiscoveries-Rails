@@ -28,53 +28,6 @@
 	                                     initial-scale=1.0,
 	                                     maximum-scale=1.0,
 	                                     user-scalable=no">
-      <% if ENV['BOUNDROUND_ENV'] == 'boundround_production' %>
-
-          <!-- Alexa Metrics Tracking -->
-          <meta name="alexaVerifyID" content="rCx4wAynuVnH_ioayBEVT5PQS0I">
-
-          <!-- Sumo Me Metrics Trackings -->
-
-          <!-- HEAP Analytics Trackings -->
-
-          <!-- Facebook Pixel Code -->
-          <script>
-            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-            document,'script','//connect.facebook.net/en_US/fbevents.js');
-
-            fbq('init', '746879908782524');
-            fbq('track', "PageView");
-          </script>
-          <noscript><img height="1" width="1" style="display:none"
-          src="https://www.facebook.com/tr?id=746879908782524&ev=PageView&noscript=1"
-          /></noscript>
-          <!-- End Facebook Pixel Code -->
-
-          <meta name="google-site-verification" content="XprSXLyuxufKywFzcpPs5KmuKpR56aKSbQnKqHRu0Rk">
-
-					<script type="text/javascript">
-						var trackcmp_email = '';
-						var trackcmp = document.createElement("script");
-						trackcmp.async = true;
-						trackcmp.type = 'text/javascript';
-						trackcmp.src = '//trackcmp.net/visit?actid=25096090&e='+encodeURIComponent(trackcmp_email)+'&r='+encodeURIComponent(document.referrer)+'&u='+encodeURIComponent(window.location.href);
-						var trackcmp_s = document.getElementsByTagName("script");
-						if (trackcmp_s.length) {
-							trackcmp_s[0].parentNode.appendChild(trackcmp);
-						} else {
-							var trackcmp_h = document.getElementsByTagName("head");
-							trackcmp_h.length && trackcmp_h[0].appendChild(trackcmp);
-						}
-					</script>
-      <% else %>
-
-      <% end %>
-
-    <!-- Google Tag Manager -->
-    <!-- End Google Tag Manager -->
 
 		<meta property="og:type"          content="website" />
 		<meta property="og:title"         content="<%= yield(:title) %>" />
@@ -134,27 +87,6 @@
 
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<div id="environment" data-environment="<%= Rails.env %>">
-		<!-- Load Facebook SDK for JavaScript -->
-  	<div id="fb-root"></div>
-  	<script>
-  	window.fbAsyncInit = function() {
-  		FB.init({
-  			appId      : '1418185688437447',
-  			xfbml      : true,
-  			version    : 'v2.6'
-  		});
-  		};
-
-  		(function(d, s, id){
-  		 var js, fjs = d.getElementsByTagName(s)[0];
-  		 if (d.getElementById(id)) {return;}
-  		 js = d.createElement(s); js.id = id;
-  		 js.src = "//connect.facebook.net/en_US/sdk.js";
-  		 fjs.parentNode.insertBefore(js, fjs);
-  		}(document, 'script', 'facebook-jssdk'));
-  	</script>
-
-
     <div id="place-holder"></div>
     <% flash.each do |type, message| %>
       <% if !bootstrap_class_for(type).eql?("timedout")%>
@@ -194,6 +126,8 @@
     <script type="text/javascript">
       setTimeout("$('.alert').fadeOut('slow')",4000);
     </script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 		<%# if %>
 			<%#= render '/layouts/hubspot_tracking' %>
 		<%# end %>

@@ -9573,6 +9573,16 @@ a:hover, a:focus, a:active {
     font-weight: normal;
     margin: 55px auto 35px; }
 
+.sm-heading, .region.package-offers ul li .po-content-block p.sm-heading, .region.things-to-do ul li a .ttd-item-content p, .region.itinerary-offers ul li .io-item-content p.sm-heading, .region.stories ul li .s-item-content a.sm-heading, .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-item ul.up-mc-stories-content li .s-item-content a.sm-heading {
+  font-size: 28px;
+  color: #000060;
+  font-weight: bold;
+  font-family: Baghdad, serif; }
+  .sm-heading.lars, .region.package-offers ul li .po-content-block p.lars.sm-heading, .region.things-to-do ul li a .ttd-item-content p.lars, .region.itinerary-offers ul li .io-item-content p.lars.sm-heading, .region.stories ul li .s-item-content a.lars.sm-heading, .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-item ul.up-mc-stories-content li .s-item-content a.lars.sm-heading {
+    font-family: Larsseit-Bold, sans-serif;
+    font-weight: normal;
+    margin: 55px auto 35px; }
+
 .xs-heading, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading, .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading {
   font-size: 26px;
   color: white;
@@ -9584,6 +9594,15 @@ a:hover, a:focus, a:active {
     margin: 55px auto 35px; }
   .xs-heading.blue, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .blue.xs-heading, .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.blue.xs-heading {
     color: #000060; }
+
+.lg-heading {
+  font-size: 50px;
+  color: #ff4b1a;
+  font-weight: bold;
+  font-family: Baghdad, serif; }
+  @media screen and (max-width: 1200px) {
+    .lg-heading {
+      font-size: 30px; } }
 
 .lg-heading {
   font-size: 50px;
@@ -9702,8 +9721,9 @@ a:hover, a:focus, a:active {
   height: 60vh;
   width: 100%;
   position: relative;
-  background: url("../images/hero.jpg") center center no-repeat;
-  background-size: cover;}
+  background: url("/assets/mydiscoveries_icon/images/hero.jpg") center center no-repeat;
+  background-size: cover;
+  margin-top: 10px;}
   .hero h1 {
     font-family: Bagnard, serif;
     font-size: 80px;
@@ -9716,6 +9736,19 @@ a:hover, a:focus, a:active {
     -ms-transform: translateX(-50%) translateY(-50%);
     -o-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%); }
+      .hero h2 {
+    color: white;
+    font-family: Baghdad, serif;
+    font-weight: bold;
+    font-size: 50px; }
+
+.small-video-component .player-vimeo{
+  width: 100%;
+}
+
+.destination-page .small-videos-component-wrapper{
+  padding-bottom: 0;
+}
 
 .label-crown {
   width: 46px;
@@ -9818,6 +9851,28 @@ a:hover, a:focus, a:active {
 .ui-icon-triangle-1-e {
   background-position: 0 0; }
 
+span.arrow {
+  background: url("/assets/mydiscoveries_icon/i/icon-arrow-orange-right.png");
+  display: block;
+  width: 38px;
+  height: 15px;
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  opacity: 0;
+  -webkit-transform: translateX(-100px);
+  -moz-transform: translateX(-100px);
+  -ms-transform: translateX(-100px);
+  -o-transform: translateX(-100px);
+  transform: translateX(-100px);
+  -webkit-transition: all 0.3s ease 0.2s;
+  -moz-transition: all 0.3s ease 0.2s;
+  transition: all 0.3s ease 0.2s; }
+
+.bordered-block, .destinations .destinations-content-block section .main-article, .destinations .destinations-content-block section .top-holidays, .destinations .destinations-content-block section .map-block, .destinations .destinations-content-block section .key-info {
+  padding-bottom: 50px;
+  border-bottom: 1px solid #f4efed; }
+
 .box {
   height: 100px;
   width: 100px;
@@ -9835,7 +9890,7 @@ a:hover, a:focus, a:active {
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-  background: url("/assets/mydiscoveries_icon/i/map-border.png") 0 0 repeat-x;
+  background: url("/assets/mydiscoveries_icon/images/promo-map/map-border.png") 0 0 repeat-x;
   padding-top: 40px; }
   @media screen and (max-width: 1200px) {
     .promo-map {
@@ -10939,7 +10994,7 @@ a:hover, a:focus, a:active {
         font-size: 20px;
         text-align: left;
         margin-bottom: 30px; }
-        .destinations .destinations-content-block section .top-holidays {
+      .destinations .destinations-content-block section .top-holidays {
         text-align: center; }
         .destinations .destinations-content-block section .top-holidays ul {
           display: block;
@@ -11060,22 +11115,24 @@ a:hover, a:focus, a:active {
         .destinations .destinations-content-block section .key-info .ki-content .health {
           background-color: #ffa600;
           color: #000060; }
+
           .destinations .destinations-content-block section .key-info .ki-content .health .kici-heading {
-            background: url("../i/health.png") 0 0 no-repeat; }
+            background: url("/assets/mydiscoveries_icon/i/health.png") 0 0 no-repeat; }
         .destinations .destinations-content-block section .key-info .ki-content .currency {
           background-color: #000060;
           color: white; }
           .destinations .destinations-content-block section .key-info .ki-content .currency .kici-heading {
-            background: url("../i/currency.png") 0 0 no-repeat; }
+            background: url("/assets/mydiscoveries_icon/i/currency.png") 0 0 no-repeat; }
         .destinations .destinations-content-block section .key-info .ki-content .language {
           background-color: #ff4b1a;
           color: white; }
           .destinations .destinations-content-block section .key-info .ki-content .language .kici-heading {
-            background: url("../i/language.png") 0 0 no-repeat; }
+            background: url("/assets/mydiscoveries_icon/i/language.png") 0 0 no-repeat; }
         .destinations .destinations-content-block section .key-info .ki-content .weather {
           color: #000060; }
           .destinations .destinations-content-block section .key-info .ki-content .weather .kici-heading {
-            background: url("../i/weather.png") 0 0 no-repeat; }
+            background: url("/assets/mydiscoveries_icon/i/weather.png") 0 0 no-repeat; }
+
           .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block {
             display: block; }
             .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block::after {
@@ -11114,6 +11171,7 @@ a:hover, a:focus, a:active {
           font-size: 18px;
           font-family: Larsseit-Bold, sans-serif;
           padding-left: 40px; }
+
       @media screen and (min-width: 1201px) {
         .destinations .destinations-content-block section .videos-block {
           margin-bottom: 100px;
@@ -11127,6 +11185,7 @@ a:hover, a:focus, a:active {
           display: block;
           margin-right: 2.35765%;
           width: 31.76157%; }
+
           .destinations .destinations-content-block section .videos-block .video-embed-wrapper.sm:last-child {
             margin-right: 0; }
           .destinations .destinations-content-block section .videos-block .video-embed-wrapper.sm:last-of-type {
@@ -11155,7 +11214,7 @@ a:hover, a:focus, a:active {
         color: #000060; }
 
 .product .hero {
-  background-image: url("../images/hero.jpg"); }
+  background-image: url("/assets/mydiscoveries_icon/images/hero.jpg"); }
   @media screen and (max-width: 1200px) {
     .product .hero {
       height: 430px; } }
@@ -11196,9 +11255,9 @@ a:hover, a:focus, a:active {
         position: relative;
         top: 7px; }
       .product .hero .hero-content .hc-info .hci-people {
-        background-image: url("../i/inclusions/kids-club-white.svg"); }
+        background-image: url("/assets/mydiscoveries_icon/i/inclusions/kids-club-white.svg"); }
       .product .hero .hero-content .hc-info .hci-nights {
-        background-image: url("../i/inclusions/nights-white.svg");
+        background-image: url("/assets/mydiscoveries_icon/i/inclusions/nights-white.svg");
         margin-right: 20px; }
     .product .hero .hero-content .btn-bordered {
       width: 200px;
@@ -11276,11 +11335,11 @@ a:hover, a:focus, a:active {
             padding-top: 2px;
             margin-bottom: 5px; }
           .product .product-content aside .package-options ul li .poi-content-top .poict-people {
-            background-image: url("../i/inclusions/kids-club.svg"); }
+            background-image: url("/assets/mydiscoveries_icon/i/inclusions/kids-club.svg"); }
           .product .product-content aside .package-options ul li .poi-content-top .poict-nights {
-            background-image: url("../i/inclusions/nights.svg"); }
+            background-image: url("/assets/mydiscoveries_icon/i/inclusions/nights.svg"); }
           .product .product-content aside .package-options ul li .poi-content-top .poict-room {
-            background-image: url("../i/inclusions/beds.svg"); }
+            background-image: url("/assets/mydiscoveries_icon/i/inclusions/beds.svg"); }
         .product .product-content aside .package-options ul li .poi-content-bottom {
           background-color: #f4efed;
           padding: 30px;
@@ -11330,7 +11389,7 @@ a:hover, a:focus, a:active {
       padding-left: 30px;
       background-size: auto 15px;
       background-repeat: no-repeat;
-      background-image: url("../i/inclusions/hairdryer.svg"); }
+      background-image: url("/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg"); }
     .product .product-content section .country-info .accordion-block.ui-accordion ul li {
       display: block;
       font-family: Larsseit-Light, sans-serif;
@@ -11452,9 +11511,11 @@ a:hover, a:focus, a:active {
     @media screen and (min-width: 1201px) {
       .product .product-content section .country-info .gallery {
         padding-bottom: 120px; } }
+
     .product .product-content section .country-info .gallery .xs-heading, .product .product-content section .country-info .gallery .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .product .product-content section .country-info .gallery .xs-heading, .product .product-content .user-pages section .country-info .gallery .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading, .user-pages .product .product-content section .country-info .gallery .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading, .product .product-content .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content .country-info .gallery p.xs-heading, .user-pages .product .product-content section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content .country-info .gallery p.xs-heading {
       color: #000060;
       margin-bottom: 10px; }
+
     .product .product-content section .country-info .gallery .slick-slide img {
       display: block;
       width: 100%; }
@@ -11473,7 +11534,6 @@ a:hover, a:focus, a:active {
             float: left; }
             .product .product-content section .country-info .gallery .slider-mobile-wrapper .slider-for div img {
               height: 180px; } }
-
 .booking-block {
   background-color: #f4efed;
   font-size: 16px;

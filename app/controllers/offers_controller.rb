@@ -3,10 +3,16 @@ class OffersController < ApplicationController
   before_action :set_offer, only: [ :show, :update, :edit, :destroy ]
 
   def show
+    @map_marker = Attraction.first
+    @photos = @offer.photos.last(3)
   end
 
   def new
     @offer = Offer.new(tags: [""])
+  end
+
+  def all_offers
+    @featured_offers = Offer.all
   end
 
   def new_livn_offer
