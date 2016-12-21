@@ -275,67 +275,35 @@
 
                         <div class="form-group sm">
                             <label for="up-settings-title">Title</label>
-                           <!--  <select style="width: 100%" type="text" id="up-settings-title">
-                                <option value="mrs">Mrs</option>
-                                <option value="mr">Mr</option>
-                            </select> -->
                             <%= f.select(:gender, [[ 'Mrs', 'mrs' ],[ 'Mr', 'mr' ]], selected: 'mrs', input_html:{ style: "width: 100%" }) %>
                         </div>
 
-                        <!-- <div class="form-group sm">
-                            <label for="up-settings-name">Name</label>
-                            <input id="up-settings-name" type="email" placeholder="Jane">
-                        </div> -->
                         <div class="form-group sm">
                           <%= f.input :name, placeholder: 'Name', label: "Name" %>
                         </div>
 
-                        <!-- <div class="form-group sm">
-                            <label for="up-settings-email">Email</label>
-                            <input id="up-settings-email" type="email" placeholder="your@mail.com">
-                        </div> -->
                         <div class="form-group sm">
                           <%= f.input :email, type: 'email', placeholder: 'your@mail.com', label: "Email" %>
                         </div>
 
-                       <!--  <div class="form-group sm">
-                            <label for="up-settings-mobile">Mobile</label>
-                            <input id="up-settings-mobile" type="tel" placeholder="+61">
-                        </div> -->
                         <div class="form-group sm">
                           <%= f.input :mobile, placeholder: '+61', label: "Mobile" %>
                         </div>
 
-                      <!--   <div class="form-group sm">
-                            <label for="up-settings-dob">D.O.B.</label>
-                            <input id="up-settings-dob" type="text" placeholder="dd/mm/yyyy">
-                        </div> -->
                         <div class="form-group sm">
-                          <%= f.input :date_of_birth, type: 'text', placeholder: 'dd/mm/yyyy', label: "D.O.B.", id: 'up-settings-dob' %>
+                          <%= f.input :date_of_birth, type: :date, type: 'text', placeholder: 'dd/mm/yyyy', label: "D.O.B.", id: 'up-settings-dob' %>
                         </div>
 
-                        <!-- <div class="form-group sm">
-                            <label for="up-settings-country">Country</label>
-                            <select style="width: 100%" type="text" id="up-settings-country">
-                                <option value="mrs">Australia</option>
-                <option value="mrs">United States</option>
-                            </select>
-                        </div> -->
                         <div class="form-group sm">
                           <label for="select2-user_country_id-container">Country</label>
                           <%= f.select(:country, @countries.collect {|c| [ c.display_name, c.country_code ] }) %>
                         </div>
 
-                       <!--  <div class="form-group">
-                            <label for="up-settings-about">About me</label>
-                            <textarea name="up-settings-about" id="up-settings-about" placeholder="e.g. Your interests, places travelled, etc."></textarea>
-                        </div> -->
                         <div class="form-group">
                           <%= f.text_area :description, placeholder: 'e.g. Your interests, places travelled, etc.', label: "About me" %>
                         </div>
                         
                         <div class="form-group user-ava">
-                            <!-- <img src="/assets/mydiscoveries_icon/i/booking/user-ava.png" alt="user"> -->
                             <div class="img-rounded edit-profile" align="center">
                               <% if @user.avatar_url %>
                                 <%= image_tag @user.avatar_url, class: 'img-responsive avatar-img' %>
@@ -345,9 +313,7 @@
                                 <img id="image-avatar-preview" class="img-responsive" alt="">
                               <% end %>
                             </div>
-                            <!-- <input id="up-settings-ava" type="file"> -->
                             <%= f.input :avatar, as: :file, label: 'upload photo', input_html: { class: "#{'hide' if !current_user.admin?}" } %>
-                            <!-- <label for="user_avatar">upload photo</label> -->
                             <div class="avatar-remove-wrap">
                               <span>or</span>
                               <a href="#" class="edit">Remove</a>
@@ -357,7 +323,6 @@
                         <div class="form-group">
                             <input id="up-plan-private" type="checkbox" name="user[is_private]" checked="<%= @user.is_private==true ? true : false %>">
                             <label for="up-plan-private">Keep my profile private</label>
-                            <%#= f.input :is_private, type: 'checkbox', value: 'work', as: :boolean, label: 'Keep my profile private' %>
                         </div>
 
                         <button class="btn-bordered red invert small">save</button>
@@ -378,19 +343,16 @@
 
                         <div class="form-group">
                             <label for="up-settings-pass-cur">Current password</label>
-                            <!-- <input id="up-settings-pass-cur" class="sm" type="password"> -->
                             <input type="password" name="user[current_password]" id="up-settings-pass-cur" required>
                         </div>
 
                         <div class="form-group ">
                             <label for="up-settings-pass-new">New password</label>
-                            <!-- <input id="up-settings-pass-new" class="sm" type="password"> -->
                             <input id="up-settings-pass-new" type="password" name="user[password]" required>
                         </div>
 
                         <div class="form-group ">
                             <label for="up-settings-pass-confirm">Confirm password</label>
-                            <!-- <input id="up-settings-pass-confirm" class="sm" type="password"> -->
                             <input id="up-settings-pass-confirm" type="password" name="user[password_confirmation]" required>
                         </div>
 
