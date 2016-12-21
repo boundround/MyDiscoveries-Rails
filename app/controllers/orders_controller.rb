@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :check_user_authorization
-  before_action :set_order, only: [ :edit, :update, :checkout ]
-  before_action :set_offer
+  before_action :authenticate_user!, except: [:add_shopify_order_id]
+  before_action :check_user_authorization, except: [:add_shopify_order_id]
+  before_action :set_order, only: [:edit, :update, :checkout]
+  before_action :set_offer, except: [:add_shopify_order_id]
 
   def new
     @order = current_user.orders.build(
@@ -28,6 +28,21 @@ class OrdersController < ApplicationController
   end
 
   def update
+  end
+
+  def add_shopify_order_id
+    request.body.rewind
+    request_body = request.body.read
+    request_hmac = env["HTTP_X_SHOPIFY_HMAC_SHA256"]
+
+    verified     = VerifyShopifyWebhook.call(request_body, request_hmac)
+
+    if verified
+      response = Order::Shopify::AddOrderId.call(params)
+      render json: response
+    else
+      render nothing: true, status: :unauthorized
+    end
   end
 
   private

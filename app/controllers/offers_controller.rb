@@ -13,7 +13,7 @@ class OffersController < ApplicationController
   end
 
   def create_livn_offer
-    response = LivnOffersCreationService.call(params[:livn_product_id])
+    response = Offer::Livn::Create.call(params[:livn_product_id])
 
     if response.success?
       redirect_to offers_path, notice: "Offer '#{response.offer.name}' successfully created"
