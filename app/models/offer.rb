@@ -7,7 +7,7 @@ class Offer < ActiveRecord::Base
   alias_attribute :minimum_age, :minAge
   alias_attribute :maximum_age, :maxAge
 
-  algoliasearch index_name: "offers_#{Rails.env}", id: :algolia_id do
+  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id do
 
     attributes :minAge,
                :maxAge,
@@ -121,6 +121,123 @@ class Offer < ActiveRecord::Base
       'minUnits',
       'maxUnits'
     ]
+
+    end
+
+    add_index "my_discoveries_offers_#{Rails.env}" do
+      attributes :minAge,
+                 :maxAge,
+                 :minRateAdult,
+                 :minRateChild,
+                 :minRateInfant,
+                 :minUnits,
+                 :maxUnits,
+                 :duration,
+                 :page_ranking_weight,
+                 :age_range,
+                 :weather,
+                 :price,
+                 :best_time_to_visit,
+                 :subcategories,
+                 :accessibility,
+                 :hero_photo,
+                 :accessible
+
+      attribute :display_name do
+        name
+      end
+
+      attribute :where_destinations do
+        'Offers'
+      end
+
+      attribute :url do
+        Rails.application.routes.url_helpers.offer_path(self)
+      end
+
+      attribute :countries do
+        countries.map { |country| country.display_name }
+      end
+
+      attribute :places do
+        places.map { |place| { name: place.display_name, identifier: place.identifier } }
+      end
+
+      attribute :regions do
+        regions.map { |region| region.display_name }
+      end
+
+      attribute :attractions do
+        attractions.map { |attraction| { name: attraction.display_name, identifier: attraction.identifier } }
+      end
+
+      attribute :photos do
+        photo_array = photos.select { |photo| photo.published? }.map do |photo|
+          { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+        end
+        photo_array
+      end
+
+      attribute :has_hero_image do
+        photos.exists?(hero: true)
+      end
+
+      attribute :subcategories do
+        subcategories.map { |sub| { name: sub.name, identifier: sub.identifier } }
+      end
+
+      attribute :description do
+        description.blank? ? "" : description
+      end
+
+      attribute :is_country do
+        false
+      end
+
+      attribute :is_area do
+        false
+      end
+
+      attribute :is_offer do
+        true
+      end
+
+      attributesToIndex [
+        'display_name',
+        'unordered(description)',
+        'age_range',
+        'accessible',
+        'subcategories',
+        'places',
+        'attractions',
+        'countries',
+        'regions',
+        'publish_date'
+      ]
+
+      # the `customRanking` setting defines the ranking criteria use to compare two matching
+      # records in case their text-relevance is equal. It should reflect your record popularity.
+      customRanking Searchable.custom_ranking
+
+      attributesForFaceting [
+        'where_destinations',
+        'is_offer',
+        'age_range',
+        'subcategory',
+        'weather',
+        'price',
+        'best_time_to_visit',
+        'accessibility',
+        'minAge',
+        'maxAge',
+        'minRateAdult',
+        'minRateChild',
+        'minRateInfant',
+        'duration',
+        'minUnits',
+        'maxUnits'
+      ]
+    end
 
   end
 
