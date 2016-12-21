@@ -291,7 +291,8 @@
                         </div>
 
                         <div class="form-group sm">
-                          <%= f.input :date_of_birth, type: :date, type: 'text', placeholder: 'dd/mm/yyyy', label: "D.O.B.", id: 'up-settings-dob' %>
+                          <label for="up-settings-dob">D.O.B</label>
+                          <input type="text" id="up-settings-dob" name="user[date_of_birth]" value="<%= @user.date_of_birth.blank?? '' : @user.date_of_birth %>">
                         </div>
 
                         <div class="form-group sm">

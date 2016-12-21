@@ -11689,6 +11689,31 @@ span.arrow {
         display: block; } }
   .user-pages .ui-widget.ui-widget-content{
     border: 0; }
+  .ui-widget.ui-widget-content{
+    color: #ff4b1a;
+    background: white;
+    border: none;
+  }
+  .ui-datepicker .ui-datepicker-header{
+    border: none;
+  }
+  .ui-datepicker .ui-datepicker-prev{
+    left: 30px;
+    top: 4px;
+  }
+  .ui-datepicker .ui-datepicker-prev{
+    background: url("/assets/mydiscoveries_icon/i/slick-arrow-prev.png") 0 0 no-repeat;
+    border: none;
+  }
+  .ui-datepicker .ui-datepicker-next{
+    right: 20px;
+    top: 4px;
+  }
+  .ui-datepicker .ui-datepicker-next{
+    background: url("/assets/mydiscoveries_icon/i/slick-arrow-next.png") 0 0 no-repeat;
+    border: none;
+
+  }
   .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-links li.ui-tabs-active .ui-tabs-anchor{
     background-color: white;
     color: #000060;}
