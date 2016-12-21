@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
     @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
     @orders  = @user.orders.last(2)
+    @countries = Country.all
   end
 
   def public_profile
@@ -60,7 +61,7 @@ class UsersController < ApplicationController
     sign_in(@user) if current_user == @user
 
     respond_to do |format|
-        format.html { render :edit }
+        format.html { redirect_to @user }
         format.json { render json: @user }
     end
   end
@@ -222,7 +223,14 @@ class UsersController < ApplicationController
           params[:user][:is_private] = "0"
         end
       end
-      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :password, :password_confirmation, :is_private,
+
+      if params[:user][:is_private]=='on' && !params[:user][:is_private].blank?
+        params[:user][:is_private]=true
+      else
+        params[:user][:is_private]=false
+      end
+
+      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :password, :password_confirmation, :is_private, :gender, :mobile,
                                     :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username, :description, :min_age, :max_age,
                                     :role_ids => [], :owned_place_ids => [])
     end

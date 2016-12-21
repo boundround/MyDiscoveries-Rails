@@ -104,6 +104,13 @@
   if ($(window).width() < 992) {
     createOwlCarousel();
   }
+        //Select style
+        if($('.app-wrap > div').data("page") == "user-page"){
+          if($('select').length){
+              $('select').select2();
+          }
+        }
+
         //Product page accordion
         $( "#product-accordion" ).accordion({
             collapsible: true,

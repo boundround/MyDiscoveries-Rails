@@ -1,5 +1,5 @@
 <% if @user == current_user || current_user.admin %>
-<div class="user-pages width-limiter">
+<div class="user-pages width-limiter" data-page="user-page">
   <section>
     <div id="up-tabs" class="up-tabs">
       <ul class="up-tabs-main">
@@ -271,67 +271,100 @@
 
                 <div class="form-block">
 
-                    <form action="">
+                    <%= simple_form_for @user, url: user_path(@user), method: :PUT, html: { role: 'form'} do |f| %>
 
                         <div class="form-group sm">
                             <label for="up-settings-title">Title</label>
-                            <select style="width: 100%" type="text" id="up-settings-title">
+                           <!--  <select style="width: 100%" type="text" id="up-settings-title">
                                 <option value="mrs">Mrs</option>
                                 <option value="mr">Mr</option>
-                            </select>
+                            </select> -->
+                            <%= f.select(:gender, [[ 'Mrs', 'mrs' ],[ 'Mr', 'mr' ]], selected: 'mrs', input_html:{ style: "width: 100%" }) %>
                         </div>
 
-                        <div class="form-group sm">
+                        <!-- <div class="form-group sm">
                             <label for="up-settings-name">Name</label>
                             <input id="up-settings-name" type="email" placeholder="Jane">
+                        </div> -->
+                        <div class="form-group sm">
+                          <%= f.input :name, placeholder: 'Name', label: "Name" %>
                         </div>
 
-                        <div class="form-group sm">
+                        <!-- <div class="form-group sm">
                             <label for="up-settings-email">Email</label>
                             <input id="up-settings-email" type="email" placeholder="your@mail.com">
+                        </div> -->
+                        <div class="form-group sm">
+                          <%= f.input :email, type: 'email', placeholder: 'your@mail.com', label: "Email" %>
                         </div>
 
-                        <div class="form-group sm">
+                       <!--  <div class="form-group sm">
                             <label for="up-settings-mobile">Mobile</label>
                             <input id="up-settings-mobile" type="tel" placeholder="+61">
+                        </div> -->
+                        <div class="form-group sm">
+                          <%= f.input :mobile, placeholder: '+61', label: "Mobile" %>
                         </div>
 
-                        <div class="form-group sm">
+                      <!--   <div class="form-group sm">
                             <label for="up-settings-dob">D.O.B.</label>
                             <input id="up-settings-dob" type="text" placeholder="dd/mm/yyyy">
+                        </div> -->
+                        <div class="form-group sm">
+                          <%= f.input :date_of_birth, type: 'text', placeholder: 'dd/mm/yyyy', label: "D.O.B.", id: 'up-settings-dob' %>
                         </div>
 
-                        <div class="form-group sm">
+                        <!-- <div class="form-group sm">
                             <label for="up-settings-country">Country</label>
                             <select style="width: 100%" type="text" id="up-settings-country">
                                 <option value="mrs">Australia</option>
                 <option value="mrs">United States</option>
                             </select>
+                        </div> -->
+                        <div class="form-group sm">
+                          <label for="select2-user_country_id-container">Country</label>
+                          <%= f.select(:country, @countries.collect {|c| [ c.display_name, c.country_code ] }) %>
                         </div>
 
-                        <div class="form-group">
+                       <!--  <div class="form-group">
                             <label for="up-settings-about">About me</label>
                             <textarea name="up-settings-about" id="up-settings-about" placeholder="e.g. Your interests, places travelled, etc."></textarea>
+                        </div> -->
+                        <div class="form-group">
+                          <%= f.text_area :description, placeholder: 'e.g. Your interests, places travelled, etc.', label: "About me" %>
                         </div>
                         
                         <div class="form-group user-ava">
-                            <img src="../i/booking/user-ava.png" alt="user">
-                            <input id="up-settings-ava" type="file">
-                            <label for="up-settings-ava">upload photo</label>
-                            <span>or</span>
-                            <a href="#" class="edit">Remove</a>
+                            <!-- <img src="/assets/mydiscoveries_icon/i/booking/user-ava.png" alt="user"> -->
+                            <div class="img-rounded edit-profile" align="center">
+                              <% if @user.avatar_url %>
+                                <%= image_tag @user.avatar_url, class: 'img-responsive avatar-img' %>
+                                <img id="image-avatar-preview" class="img-responsive" alt="">
+                              <% else %>
+                                <%= image_tag 'imgdummy.jpg', class: 'img-responsive' %>
+                                <img id="image-avatar-preview" class="img-responsive" alt="">
+                              <% end %>
+                            </div>
+                            <!-- <input id="up-settings-ava" type="file"> -->
+                            <%= f.input :avatar, as: :file, label: 'upload photo', input_html: { class: "#{'hide' if !current_user.admin?}" } %>
+                            <!-- <label for="user_avatar">upload photo</label> -->
+                            <div class="avatar-remove-wrap">
+                              <span>or</span>
+                              <a href="#" class="edit">Remove</a>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <input id="up-plan-private" type="checkbox" value="work">
+                            <input id="up-plan-private" type="checkbox" name="user[is_private]" checked="<%= @user.is_private==true ? true : false %>">
                             <label for="up-plan-private">Keep my profile private</label>
+                            <%#= f.input :is_private, type: 'checkbox', value: 'work', as: :boolean, label: 'Keep my profile private' %>
                         </div>
 
                         <button class="btn-bordered red invert small">save</button>
 
-                        <a href="#" class="edit">Change password</a>
+                        <!-- <a href="#" class="edit">Change password</a> -->
 
-                    </form>
+                    <% end %>
 
                 </div>
 
@@ -345,21 +378,24 @@
 
                         <div class="form-group">
                             <label for="up-settings-pass-cur">Current password</label>
-                            <input id="up-settings-pass-cur" class="sm" type="password">
+                            <!-- <input id="up-settings-pass-cur" class="sm" type="password"> -->
+                            <input type="password" name="user[current_password]" id="up-settings-pass-cur" required>
                         </div>
 
                         <div class="form-group ">
                             <label for="up-settings-pass-new">New password</label>
-                            <input id="up-settings-pass-new" class="sm" type="password">
+                            <!-- <input id="up-settings-pass-new" class="sm" type="password"> -->
+                            <input id="up-settings-pass-new" type="password" name="user[password]" required>
                         </div>
 
                         <div class="form-group ">
                             <label for="up-settings-pass-confirm">Confirm password</label>
-                            <input id="up-settings-pass-confirm" class="sm" type="password">
+                            <!-- <input id="up-settings-pass-confirm" class="sm" type="password"> -->
+                            <input id="up-settings-pass-confirm" type="password" name="user[password_confirmation]" required>
                         </div>
 
                         <div class="form-group-btns">
-                            <button class="btn-bordered red invert small">save</button>
+                            <button type="submit" class="btn-bordered red invert small">save</button>
                             <span>or</span>
                             <a href="#" class="edit">Cancel</a>
                         </div>
@@ -370,65 +406,6 @@
     </div>
   </section>
 </div>
-
-
-
-
-
-
-
-
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-4 col-lg-4 hidden-xs top20" align="center">
-      <div class="img-rounded-big"  style="background: url('<%= showing_image(@user.avatar_url) %>')" >
-      </div>
-    </div>
-    <div class="col-md-8 col-sm-12 col-xs-12 leftmin16">
-     <div class="head-title">
-      <div class="row leftmin16" align="center">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm25">
-          <h4 class="hitam top20 align-left left40">Member profile</h4>
-          <h2 class="abu-abu align-left left40"><%= @user.name %></h2>
-          <% if user_signed_in? && current_user.admin? %>
-            <p class="abu-abu align-left left40"><%= @user.description %></p>
-          <% end %>
-          <div class="img-rounded-profile visible-xs" style="background: url('<%= showing_image(@user.avatar_url) %>')">
-          </div>
-        </div>
-      </div>
-
-      </div>
-    </div>
-
-    </div><!-- row -->
-    <% unless @stories.blank? %>
-      <div class="row">
-        <%= render partial: "stories/all_stories_list", collection: @stories, as: :story %>
-      </div>
-    <% end %>
-    <% unless @reviews.blank? %>
-      <div id="memberreviews" class="thing-page-segment user-thing-page-segment">
-        <div>
-          <h3>My Reviews</h3> </div>
-        <div class="row member-reviews-wrapper">
-          <div class="owl-carousel auto-height-carousel" id="reviews-list">
-            <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
-          </div>
-          <% unless last_page? @reviews %>
-            <div class="col-xs-12 hidden-xs single-pagination-container" id="reviews-single-pagination-container">
-              <div class="hidden single-pagination-loader" align="center"> <img src="<%= asset_path('loading.gif') %>" width="64" height="64"> </div>
-              <div class="load-more member-reviews-load-more temporary-class-3">
-                <%= link_to "LOAD MORE", paginate_reviews_user_path(@user, active_reviews_user: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list', collection_object: 'review'), class: 'single-pagination', remote: true %>
-              </div>
-            </div>
-            <% end %>
-        </div>
-      </div>
-    <% end %>
-
-  </div>
 
 <% else %>
   <h1>You must be logged into view this page</h1>

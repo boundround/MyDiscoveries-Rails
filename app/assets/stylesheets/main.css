@@ -9596,17 +9596,25 @@ a:hover, a:focus, a:active {
 
 .btn-bordered {
   display: inline-block;
+  min-width: 155px;
   font-size: 16px;
   text-align: center;
   color: #000060;
   text-transform: uppercase;
-  padding: 10px 20px;
+  padding: 10px 20px !important;
   border: 2px solid #000060;
-  font-family: Larsseit-Bold, sans-serif;
+  font-family: Larsseit-Bold, sans-serif !important;
   cursor: pointer;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease; }
+.btn-bordered.red.invert{
+  border: 2px solid #ff4b1a;
+  color: white;
+  background-color: #ff4b1a;}
+.btn-bordered.red.invert:hover{
+  color: #ff4b1a;
+  background-color: white;}
   @media screen and (max-width: 1200px) {
     .btn-bordered {
       width: 90% !important; } }
@@ -9729,10 +9737,17 @@ a:hover, a:focus, a:active {
   padding: 10px 20px;
   font-family: Larsseit-Bold, sans-serif; }
 
-.select2-container--default .select2-selection--single {
+[data-page="user-page"] .select2-container--default .select2-selection--single {
   background-color: #fff;
   border: 1px solid transparent;
   border-radius: 0; }
+  .select2-container{
+    font-size: 16px;
+    width: 100% !important;
+  }
+  .select2-container .select2-selection--single{
+    height: 42px !important;
+  }
   .select2-container--default .select2-selection--single .select2-selection__arrow b {
     border-color: transparent;
     border-style: solid;
@@ -9745,11 +9760,12 @@ a:hover, a:focus, a:active {
     position: absolute;
     top: 46%;
     background: url("/assets/mydiscoveries_icon/i/select-arrow.png") 0 0 no-repeat; }
-  .select2-container--default .select2-selection--single .select2-selection__rendered {
-    font-size: 16px; }
+  [data-page="user-page"] .select2-container--default .select2-selection--single .select2-selection__rendered {
+    font-size: 16px;
+    padding: 7px 10px; }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #ff4b1a; }
+  background-color: #ff4b1a !important; }
 
 .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
   border-color: transparent transparent transparent transparent;
@@ -9759,16 +9775,8 @@ a:hover, a:focus, a:active {
   display: none; }
 
 .select2-dropdown {
-  background-color: white;
-  border: 1px solid #aaa;
-  border-color: transparent;
-  border-radius: 0;
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  left: -100000px;
-  width: 100%;
-  z-index: 1051; }
+  border-radius: 0 !important;
+  border: 0 !important; }
 
 .ui-widget-content {
   background: #f4efed; }
@@ -11729,7 +11737,8 @@ span.arrow {
     font-family: Larsseit-Bold, sans-serif;
     font-weight: normal;
     display: block; }
-  .user-pages .form-block form .form-group input[type="file"] {
+  .user-pages .form-block form .form-group input[type="file"],
+  .user-pages .form-block form .form-group.user-ava input[type="file"] {
     width: 0.1px;
     height: 0.1px;
     opacity: 0;
@@ -11737,7 +11746,8 @@ span.arrow {
     position: absolute;
     z-index: -1;
     padding: 0; }
-    .user-pages .form-block form .form-group input[type="file"] + label {
+    .user-pages .form-block form .form-group input[type="file"] + label,
+    .user-pages .form-block form .form-group.user-ava label {
       color: white;
       background-color: #ff4b1a;
       display: inline-block;
@@ -11747,7 +11757,8 @@ span.arrow {
       border: 2px solid #ff4b1a;
       cursor: pointer; }
     .user-pages .form-block form .form-group input[type="file"]:focus + label,
-    .user-pages .form-block form .form-group input[type="file"] + label:hover {
+    .user-pages .form-block form .form-group input[type="file"] + label:hover,
+    .user-pages .form-block form .form-group.user-ava label:hover {
       background-color: white;
       color: #ff4b1a; }
   .user-pages .form-block form .form-group input[type="text"]:focus,
@@ -12357,20 +12368,22 @@ span.arrow {
         .user-pages section .up-tabs-item.up-my-settings .form-block form .form-group.sm {
           float: left;
           display: block;
-          margin-right: 2.35765%;
+          margin-right: 0;
           width: 48.82117%; }
           .user-pages section .up-tabs-item.up-my-settings .form-block form .form-group.sm:last-child {
             margin-right: 0; }
           .user-pages section .up-tabs-item.up-my-settings .form-block form .form-group.sm:nth-child(2n) {
-            margin-right: 0; }
-          .user-pages section .up-tabs-item.up-my-settings .form-block form .form-group.sm:nth-child(2n+1) {
-            clear: left; } }
+            margin-right: 2.35765%; }}
       @media screen and (max-width: 1200px) {
         .user-pages section .up-tabs-item.up-my-settings .form-block form .form-group.user-ava {
           text-align: center; } }
       .user-pages section .up-tabs-item.up-my-settings .form-block form .form-group.user-ava label {
         margin-left: 20px;
         margin-right: 15px; }
+      .control-group.file.optional.user_avatar,
+      .avatar-remove-wrap{
+        display: inline-flex;
+      }
         @media screen and (max-width: 1200px) {
           .user-pages section .up-tabs-item.up-my-settings .form-block form .form-group.user-ava label {
             display: block;
