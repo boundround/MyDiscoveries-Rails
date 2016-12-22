@@ -283,6 +283,7 @@ Rails.application.routes.draw do
       get 'paginate_place_to_visit'
       get 'paginate_stories'
       get 'paginate_deals'
+      get 'paginate_offers'
       get 'seo_analysis'
     end
     collection do
