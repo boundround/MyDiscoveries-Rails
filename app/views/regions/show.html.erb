@@ -40,7 +40,7 @@
             <%= render partial: 'place_to_go_list', collection: @place_to_go, as: :place %>
         </div>
       <% unless last_page? @place_to_go %>
-        <div class="hidden-xs single-pagination-container" id="place_to_go-single-pagination-container">
+        <div class="single-pagination-container" id="place_to_go-single-pagination-container">
             <div class="load-more">
               <div class="hidden single-pagination-loader" align="center">
                 <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
@@ -115,7 +115,7 @@
             </li>
         </ul>
         <% unless last_page? @places_to_visit %>
-          <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
+          <div class="row single-pagination-container" id="places_to_visit-single-pagination-container">
                 <div class="hidden single-pagination-loader" align="center">
                   <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                 </div>
