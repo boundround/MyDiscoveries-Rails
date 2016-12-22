@@ -18,7 +18,6 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require jquery.MultiFile
-//= require bootstrap-datepicker
 //= require dot
 //= require swiper.jquery
 //= require util
