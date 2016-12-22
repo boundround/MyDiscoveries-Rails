@@ -250,83 +250,83 @@
   left: 50%;
 }
 
-[data-page="region"] .promo-map {
-  height: 580px;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-}
+// [data-page="region"] .promo-map {
+//   height: 580px;
+//   width: 100%;
+//   margin: 0 auto;
+//   position: relative;
+// }
 
-[data-page="region"] .point-card {
-  position: absolute;
-  padding: 18px 16px;
-  top: 40px;
-  left: 5%;
-  height: 520px;
-  width: 350px;
-  background-color: #fff;
-  transition: 0.5s;
-  opacity: 0;
-}
+// [data-page="region"] .point-card {
+//   position: absolute;
+//   padding: 18px 16px;
+//   top: 40px;
+//   left: 5%;
+//   height: 520px;
+//   width: 350px;
+//   background-color: #fff;
+//   transition: 0.5s;
+//   opacity: 0;
+// }
 
-[data-page="region"] .point-card.js-point-card{
-  top: 20px;
-  opacity: 1;
-}
+// [data-page="region"] .point-card.js-point-card{
+//   top: 20px;
+//   opacity: 1;
+// }
 
-[data-page="region"] .point-card .scroll-area {
-    margin-top: 19px;
-    height: 248px;
-    position: relative;
-}
+// [data-page="region"] .point-card .scroll-area {
+//     margin-top: 19px;
+//     height: 248px;
+//     position: relative;
+// }
 
-[data-page="region"] .point-card .scroll-area__swiper-container {
-    width: 100%;
-    height: 100%;
-    overflow-y: hidden;
-    position: relative;
-    z-index: 1;
-}
+// [data-page="region"] .point-card .scroll-area__swiper-container {
+//     width: 100%;
+//     height: 100%;
+//     overflow-y: hidden;
+//     position: relative;
+//     z-index: 1;
+// }
 
-[data-page="region"] .point-card .scroll-area__content {
-    display: block; 
-}
+// [data-page="region"] .point-card .scroll-area__content {
+//     display: block; 
+// }
 
-[data-page="region"] .point-card__header {
-  font-size: 18px;
-  background-image: url(img/point-card/pin.png);
-  background-repeat: no-repeat;
-  text-transform: uppercase;
-  padding: 4px 0 13px 34px;
-  margin: 0 32px 0 0;
-  background-size: 21px;
-  background-position: 2px 1px;
-}
+// [data-page="region"] .point-card__header {
+//   font-size: 18px;
+//   background-image: url(img/point-card/pin.png);
+//   background-repeat: no-repeat;
+//   text-transform: uppercase;
+//   padding: 4px 0 13px 34px;
+//   margin: 0 32px 0 0;
+//   background-size: 21px;
+//   background-position: 2px 1px;
+// }
 
-[data-page="region"] .point-card__close {
-  background-image: url(img/point-card/cross.svg);
-  background-repeat: no-repeat;
-  position: absolute;
-  right: 6px;
-  top: 6px;
-  width: 42px;
-  height: 42px;
-  background-size: cover;
-  opacity: 0.5; 
-}
+// [data-page="region"] .point-card__close {
+//   background-image: url(img/point-card/cross.svg);
+//   background-repeat: no-repeat;
+//   position: absolute;
+//   right: 6px;
+//   top: 6px;
+//   width: 42px;
+//   height: 42px;
+//   background-size: cover;
+//   opacity: 0.5; 
+// }
 
-[data-page="region"] .point-card__local-header {
-  font-size: 50px;
-  font-weight: bold;
-  font-family: signika-semibold, sans-serif;
-  padding-bottom: 13px;
-}
+// [data-page="region"] .point-card__local-header {
+//   font-size: 50px;
+//   font-weight: bold;
+//   font-family: signika-semibold, sans-serif;
+//   padding-bottom: 13px;
+// }
 
-[data-page="region"] .point-card__local-description {
-  display: block;
-  font-size: 17px;
-  line-height: 22px;
-}
+// [data-page="region"] .point-card__local-description {
+//   display: block;
+//   font-size: 17px;
+//   line-height: 22px;
+// }
 [data-page="region"] .img-circle.map-point-clicked .region-map-point__title,
 [data-page="region"] .img-circle.hover .region-map-point__title{
   display: block !important;
@@ -335,38 +335,38 @@
   border: 0;
 }
 
-[data-page="region"] .card-go-to {
-  position: absolute;
-  bottom: 0;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 17px;
-  color: #333333;
-  padding: 10px 0;
-  left: 0;
-  width: 100%;
-  background-repeat: no-repeat;
-  background-color: #fff;
-  border-top: 1px solid #eaeaea;
-  background-position: 90% 50%;
-  background-size: 13px;
-  background-image: url(img/point-card/next.png);
-}
+// [data-page="region"] .card-go-to {
+//   position: absolute;
+//   bottom: 0;
+//   text-decoration: none;
+//   text-transform: uppercase;
+//   font-size: 17px;
+//   color: #333333;
+//   padding: 10px 0;
+//   left: 0;
+//   width: 100%;
+//   background-repeat: no-repeat;
+//   background-color: #fff;
+//   border-top: 1px solid #eaeaea;
+//   background-position: 90% 50%;
+//   background-size: 13px;
+//   background-image: url(img/point-card/next.png);
+// }
 
-[data-page="region"] .card-go-to__text {
-  letter-spacing: -0.5px;
-}
+// [data-page="region"] .card-go-to__text {
+//   letter-spacing: -0.5px;
+// }
 
-[data-page="region"] .card-go-to__text--go-to {
-  padding-left: 29px;
-  color: #a3a3a3;
-  padding-right: 5px;
-}
+// [data-page="region"] .card-go-to__text--go-to {
+//   padding-left: 29px;
+//   color: #a3a3a3;
+//   padding-right: 5px;
+// }
 
-[data-page="region"] .card-go-to:hover{
-    color: inherit;
-    text-decoration: none;
-}
+// [data-page="region"] .card-go-to:hover{
+//     color: inherit;
+//     text-decoration: none;
+// }
 
 [data-page="region"] .region-preview-item {
   display: block;
@@ -439,3 +439,13 @@
     width: 100%;
   }
 }
+// scss
+[data-page="region"]{
+
+    .home-promo__header.blue {
+      color: #000060;
+      padding: 65px 17px 0; 
+    }
+  }
+  
+// }

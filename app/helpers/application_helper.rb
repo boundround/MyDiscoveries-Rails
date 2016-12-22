@@ -202,7 +202,7 @@ module ApplicationHelper
   def draw_hero_background(place)
     if place.photos.find_by(hero: true)
       place.photos.find_by(hero: true).path_url(:large)
-    elsif place.user_photos.find_by(hero: true)
+    elsif place.class.to_s == "Place" && place.user_photos.find_by(hero: true)
       place.user_photos.find_by(hero: true).path_url(:large)
     else
       asset_path('generic-hero.jpg')
@@ -238,7 +238,7 @@ module ApplicationHelper
   def draw_small_background(place)
     if place.photos.find_by(hero: true)
       place.photos.find_by(hero: true).path_url(:small)
-    elsif place.user_photos.find_by(hero: true)
+    elsif place.class.to_s == "Place" && place.user_photos.find_by(hero: true)
       place.user_photos.find_by(hero: true).path_url(:small)
     else
       asset_path('generic-hero-small.jpg')
@@ -248,7 +248,7 @@ module ApplicationHelper
   def draw_medium_background(place)
     if place.photos.find_by(hero: true)
       place.photos.find_by(hero: true).path_url(:medium)
-    elsif place.user_photos.find_by(hero: true)
+    elsif place.class.to_s == "Place" && place.user_photos.find_by(hero: true)
       place.user_photos.find_by(hero: true).path_url(:medium)
     else
       asset_path('generic-hero-small.jpg')
@@ -281,6 +281,26 @@ module ApplicationHelper
       asset_path('generic-hero-small.jpg')
     end
   end
+
+  def create_marker(map_marker)
+    marker = []
+    if map_marker.class.to_s == "Array"
+      map_marker.each do |map|
+        if map.present?
+          # ['Sydney', 'description', 'telephone', 'email', 'web', -33.865079, 151.212088, '/assets/mydiscoveries_icon/i/map/map-point.png']
+          marker.push([map.display_name||"", map.description||"",
+                       map.phone_number||"", map.email||"", map.website||"", map.latitude||"", map.longitude||"",
+                       map.map_icon||'/assets/mydiscoveries_icon/i/map/map-point.png'])
+        end
+      end
+    else
+      marker.push([map_marker.display_name||"", map_marker.description||"",
+                       map_marker.phone_number||"", map_marker.email||"", map_marker.website||"", map_marker.latitude||"", map_marker.longitude||"",
+                       map_marker.map_icon||'/assets/mydiscoveries_icon/i/map/map-point.png'])
+    end
+    marker
+  end
+
 
   def extract_domain(url)
     domain = ""

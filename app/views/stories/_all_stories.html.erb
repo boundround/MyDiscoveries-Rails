@@ -1,18 +1,7 @@
-<div id="stories" class="thing-page-segment <%= "container" unless @attraction.present? %> stories-wrapper">
+<div id="stories">
   <div class="row">
     <div class="col-xs-12">
       <% @stories = @stories_like_this if (action_name.eql? 'show') && (controller_name.eql? 'stories')%>
-      <% if (controller_name.eql? "posts") || (controller_name.eql? "pages") || (action_name.eql? "all_posts") %>
-        <h3>More Stories Like This</h3>
-      <% else %>
-        <% unless @stories.blank? %>
-          <% if :flag %>
-            <h3>More Stories Like This</h3>
-          <% else %>
-            <h3>Stories</h3>
-          <% end %>
-        <% end %>
-      <% end %>
     </div>
   </div>
     <div class="owl-carousel carousel" id ="stories-list">
@@ -24,19 +13,21 @@
         <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
       </div>
       <div class="col-xs-12">
-        <div class="load-more">
+        <div class="see-more">
           <%if params[:controller].eql? "countries" %>
-            <%= link_to "LOAD MORE", paginate_stories_country_path(@country, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+            <%= link_to "SEE MORE", paginate_stories_country_path(@country, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'see-more__link', remote: true %>
           <% elsif params[:controller].eql? "places" %>
-            <%= link_to "LOAD MORE", paginate_stories_place_path(@place, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+            <%= link_to "SEE MORE", paginate_stories_place_path(@place, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'see-more__link', remote: true %>
           <% elsif params[:controller].eql? "users" %>
-            <%= link_to "LOAD MORE", paginate_stories_user_path(@user, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+            <%= link_to "SEE MORE", paginate_stories_user_path(@user, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'see-more__link', remote: true %>
           <% elsif params[:controller].eql? "attractions" %>
-            <%= link_to "LOAD MORE", paginate_stories_attraction_path(@attraction, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+            <%= link_to "SEE MORE", paginate_stories_attraction_path(@attraction, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'see-more__link', remote: true %>
           <% elsif params[:controller].eql? "regions" %>
-            <%= link_to "LOAD MORE", paginate_stories_region_path(@region, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+            <%= link_to "SEE MORE", paginate_stories_region_path(@region, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'see-more__link', remote: true %>
+          <% elsif params[:controller].eql? "pages" %>
+            <%= link_to "SEE MORE", paginate_stories_page_path(@page, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'see-more__link', remote: true %>
           <% else %>
-            <%= link_to "LOAD MORE", paginate_posts_path(stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'single-pagination', remote: true %>
+            <%= link_to "SEE MORE", paginate_posts_path(stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'see-more__link', remote: true %>
           <% end %>
         </div>
       </div>

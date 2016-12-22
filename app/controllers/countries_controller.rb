@@ -21,7 +21,7 @@ class CountriesController < ApplicationController
     @photos = @country.country_photos.paginate(:page => params[:active_photos], per_page: 4)
     @photos_hero = @photos.first(6)
     @videos = @country.videos.paginate(:page => params[:active_videos], per_page: 4)
-    @stories = @country.country_stories.paginate(page: params[:stories_page], per_page: 4)
+    @stories = @country.country_stories.paginate(page: params[:stories_page], per_page: 3)
     @set_body_class = "destination-page"
   end
 

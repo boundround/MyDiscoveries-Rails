@@ -1,21 +1,23 @@
-<div class="col-md-6 col-lg-6 col-lg-offset-0 story-wrapper thing-page-segment" onclick="window.location='<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>'">
-  <div class="story">
-    <div class="story-header-details-wrapper">
+<div class="col-md-4 col-lg-4">
+  <div class="inspiration-item">
       <div class="user-dp"
            style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"
            role="img"
            aria-label="User: <%= story.user.username %>">
       </div>
-      <div class="username">
+      <!-- <img class="inspiration-item__image" src="<%= showing_image(story.user.avatar_url)%>" alt="" aria-label="User: <%= story.user.username %>"> -->
+      <h4 class="inspiration-item__header"><%= raw story.title.blank? ? story.title : story.title.truncate(50) %></h4>
+      <a class="inspiration-item__link" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>">read more</a>
+      <span class="inspiration-item__mark">Featured Article</span>
+      <!-- <div class="username">
         <% if story.user.is_private? %>
           <%= story.user.username %>
         <% else %>
           <%= link_to story.user.username, public_profile_user_path(story.user) %>
         <% end %>
-      </div>
-      <div class="date hidden-xs"><%= story.publish_date.strftime("%d %B %Y") %></div>
-    </div>
-    <div class="story-content">
+      </div> -->
+      <!-- <div class="date hidden-xs"><%= story.publish_date.strftime("%d %B %Y") %></div> -->
+    <!-- <div class="story-content">
       <h4 class="story-title"><%= raw story.title.blank? ? story.title : story.title.truncate(65) %></h4>
       <p><%= raw story.teaser %></p>
       <% image = story.is_a?(Story) ? story.hero_image_url : story.story_images.first %>
@@ -24,6 +26,6 @@
             role="img"
             aria-label="Story Image">
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

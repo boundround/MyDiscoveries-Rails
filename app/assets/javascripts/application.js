@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require bootstrap-sprockets
 //= require bootsy
 //= require jquery-fileupload/basic
@@ -67,3 +68,10 @@
 //= require cms_offers
 //= require offers
 //= require orders
+//= require navigation-drop-down
+//= require device-detector
+//= require device
+//= require search-page-card
+//= require modal-filter
+//= require mediator
+//= require dest-map

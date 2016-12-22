@@ -7,7 +7,7 @@ class Region < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, :use => [:slugged, :history]
 
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id do
+  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id do
     # list of attribute used to build an Algolia record
     attributes :display_name,
                :slug,
@@ -166,6 +166,7 @@ class Region < ActiveRecord::Base
     Rails.cache.fetch([self, "children"]) do
       list = childrens.select {|child| child.itemable.present?}
       list = list.map { |child| child.itemable }
+      return list
     end
   end
 

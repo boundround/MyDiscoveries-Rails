@@ -2163,3 +2163,14 @@
     margin: 5px;
     padding: 20px 22px;
     width: 230px; } }
+
+[data-page="offer"]{
+  .hero{
+    background-size: cover !important;
+  }
+  .cover-bg{
+    background-size:cover !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}

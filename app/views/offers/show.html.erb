@@ -1,255 +1,263 @@
-<div data-page='offer'>
-  <div class="deal-header">
-    <div class="deal-header__tags-holder">
-      <%- @offer.tags.to_a.each do |tag| %>
-        <span class="deal-header__tag">
-          <%= tag %>
-        </span>
-      <% end %>
-    </div>
-    <h1 class="deal-header__point-name">
-      <%= @offer.name %>
-    </h1>
-    <p class="deal-header__point-short-description">
-      <%= simple_format @offer.description %>
-    </p>
-    <!-- <span data-js-scroll-to="js-deal-options" class="deal-header__view-options js-scroll-to-node">view deal options</span> -->
-  </div>
+<div data-page="offer">
 
-  <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url(<%= main_offer_photo_url(@offer)[:url] %>) no-repeat;" role="img">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="location"></div>
-          <!-- <div class="destination"><%= @offer.name %></div> -->
-          <div class="destination-details">
-            <a data-scroll href="#photos" class="white">
-              <div class="photo-wrapper">
-                <%= image_tag 'new-images/icon-camera.svg', class: "svg-inject" %>
-                <div class="photo-title"><span class="count"> <%= @offer.photos.size %></span> <span class="hidden-xs">Photos</span></div>
-              </div>
-            </a>
-            <a data-scroll href="#videos" class="white">
-              <div class="video-wrapper">
-                <%= image_tag 'new-images/icon-play-rect-unfilled.svg', class: "svg-inject" %>
-                <div class="video-title"><span class="count"><%= @offer.videos.size %></span><span class="hidden-xs"> Videos</span></div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="deal-wrapper">
-    <div class="deal-options js-deal-options">
-      <h2 class="deal-options__main-header">
-        <%= image_tag 'offer/i/deal/gray-deal.svg', class: "deal-options__main-header-text-icon" %>deal options
-      </h2>
-      <div class="deal-option">
-        <h3 class="deal-option__head-line">
-          <%= "#{pluralize(duration_in_days(@offer.duration), 'day')}" %>
-        </h3>
-        <div class="deal-option-card">
-          <!-- <a href='javascript:void()' class='js-buy-offer'> -->
-            <%= link_to new_offer_order_path(@offer, number_of_adults: 1) do %>
-              <span class="deal-option-card__buy-now">buy now</span>
-            <% end %>
-          <!-- </a> -->
-          <h4 class="deal-option-card__cost">
-            <%= "$#{@offer.minRateAdult}"%>
-          </h4>
-          <span class="deal-option-card__valued-up">
-            <%= "Valued up to $#{@offer.maxRateAdult}"%>
-          </span>
-          <p class="deal-option-card__short-info">
-            <%= image_tag 'offer/i/deal/person.svg', class: "deal-option-card-short-info__icon" %>
-            <%= "#{pluralize(1, 'Adult')}" %>
-          </p>
-          <p class="deal-option-card__short-info">
-            <%= image_tag 'offer/i/deal/night.svg', class: "deal-option-card-short-info__icon" %>
-            <%= "#{pluralize(duration_in_days(@offer.duration), 'day')}" %>
-          </p>
-          <!-- <p class="deal-option-card__short-info">
-            <img src="/assets/offer/i/deal/bed.svg" class="deal-option-card-short-info__icon" alt="">TSHELL room, TS Suites Seminyak
-          </p> -->
-          <%- if @offer.includes.present? %>
-            <div class="deal-option-card__details js-show-hide-details__parent">
-              <!-- <span class="deal-option-card__show-hide-details deal-option-card__show-hide-details--show js-show-hide-details--show">show details</span> -->
-              <div class="deal-option-card__details-interactive-block">
-                <p class="deal-option-card__descriptions">
-                  <span class="deal-option-card__descriptions deal-option-card__descriptions--bold">Inclusions:</span>
-                  <%= simple_format @offer.includes %>
-                </p>
-              </div>
-              <!-- <span class="deal-option-card__show-hide-details deal-option-card__show-hide-details--hide js-show-hide-details--hide">hide details</span> -->
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <div class="deal-data">
-      <div class="map-container">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="promo-map js-promo-map">
-              <input
-                type="hidden"
-                data-zoom="5"
-                name="offer"
-                data-start-lat="<%= @offer.latitudeStart %>"
-                data-start-lng="<%= @offer.longitudeStart %>"
-                data-start-name="<%= @offer.locationStart %>"
-                data-end-lat="<%= @offer.latitudeEnd %>"
-                data-end-lng="<%= @offer.longitudeEnd %>"
-                data-end-name="<%= @offer.locationEnd %>"
-                data-img-template="<%= asset_path('generic-hero-thumb.jpg') %>"
-                data-img-pointer="<%= asset_path('img/map/map-point.svg') %>"
-              >
-              <div class="google-promo-map js-google-promo-map"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="deal-data-card deal-data-card--open-card">
-        <span class="deal-data-card__switcher"></span>
-        <h2 class="deal-data-card__header open js-show-hide-info-block">Highlights</h2>
-        <div class="deal-data-card__info-block">
-          <!-- <h3 class="deal-data-card__subheading">Subheading</h3> -->
-          <p class="deal-data-card__paragraph">
-            <%= simple_format @offer.highlightsStr %>
-          </p>
-          <!-- <div class="deal-data-review__holder swiper-container horizontal-scroll js-horizontal-scroll--centered-slides">
-            <div class="swiper-wrapper">
-              <div class="deal-data-review swiper-slide">
-                <img src="img/stories/stories-author.jpg" alt="" class="deal-data-review__author-avatar">
-                <p class="deal-data-review__author-name">Alex</p>
-                <p class="deal-data-review__review">Damn that dog under the bed. Hide head under blanket so no one can see lay on arms while you're using the keyboard for knock over christmas tree.</p>
-                <div class="deal-data-review__rating"><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                  <span
-                    class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                </div>
-                <span class="deal-data-review__date">July 2015</span>
-              </div>
-            </div>
-            <div class="swiper-scrollbar"></div>
-          </div> -->
-        </div>
-      </div>
-      <%- if @offer.itineraryStr.present? %>
-        <div class="deal-data-card ">
-          <span class="deal-data-card__switcher"></span>
-          <h2 class="deal-data-card__header open js-show-hide-info-block">Itinerary</h2>
-          <div class="deal-data-card__info-block">
-            <p class="deal-data-card__paragraph">
-              <%= simple_format @offer.itineraryStr %>
-            </p>
-          </div>
-        </div>
-      <% end %>
-      <div class="deal-data-card ">
-        <span class="deal-data-card__switcher"></span>
-        <h2 class="deal-data-card__header open js-show-hide-info-block">Details</h2>
-        <div class="deal-data-card__info-block">
-          <!-- <h3 class="deal-data-card__subheading">Subheading</h3> -->
-          <p class="deal-data-card__paragraph">
-            <%= simple_format @offer.description %>
-          </p>
-          <!-- <img src="img/deal/deal-big-video.jpg" alt="" class="deal-data__big-video"> -->
-        </div>
-      </div>
-      <!-- <div class="deal-data-card ">
-        <span class="deal-data-card__switcher"></span>
-        <h2 class="deal-data-card__header open js-show-hide-info-block">Booking Guarantee</h2>
-        <div class="deal-data-card__info-block">
-          <h3 class="deal-data-card__subheading">Subheading</h3>
-          <p class="deal-data-card__paragraph">Dream about hunting birds scratch the furniture so sit by the fire or play time wake up human for food at 4am for pooping rainbow while flying in a toasted bread costume in space. Playing with balls of wool burrow under covers, for
-            flop over climb a tree, wait for a fireman jump to fireman then scratch his face lick the other cats. Hide when guests come over lie on your belly and purr when you are asleep. Has closed eyes but still sees you gnaw the corn cob
-            and damn that dog. Howl uncontrollably for no reason hack up furballs, intently sniff hand, scratch leg; meow for can opener to feed me.
-          </p>
-        </div>
-      </div> -->
-      <!-- <div class="deal-data-card deal-data-card--open-card">
-        <span class="deal-data-card__switcher"></span>
-        <h2 class="deal-data-card__header open js-show-hide-info-block">Facilities</h2>
-        <div class="deal-data-card__info-block">
-          <h3 class="deal-data-card__subheading">Subheading</h3>
-          <p class="deal-data-card__paragraph">Dream about hunting birds scratch the furniture so sit by the fire or play time wake up human for food at 4am for pooping rainbow while flying in a toasted bread costume in space. Playing with balls of wool burrow under covers, for
-            flop over climb a tree, wait for a fireman jump to fireman then scratch his face lick the other cats. Hide when guests come over lie on your belly and purr when you are asleep. Has closed eyes but still sees you gnaw the corn cob
-            and damn that dog. Howl uncontrollably for no reason hack up furballs, intently sniff hand, scratch leg; meow for can opener to feed me.
-          </p>
-          <img src="img/deal/deal-big-video.jpg" alt="" class="deal-data__big-video">
-          <h3 class="deal-data-card__subheading">Subheading</h3>
-        </div>
-      </div> -->
-      <!-- <div class="deal-data-card ">
-        <span class="deal-data-card__switcher"></span>
-        <h2 class="deal-data-card__header open js-show-hide-info-block">Reviews</h2>
-        <div class="deal-data-card__info-block">
-          <h3 class="deal-data-card__subheading">Subheading</h3>
-          <p class="deal-data-card__paragraph">Dream about hunting birds scratch the furniture so sit by the fire or play time wake up human for food at 4am for pooping rainbow while flying in a toasted bread costume in space. Playing with balls of wool burrow under covers, for
-            flop over climb a tree, wait for a fireman jump to fireman then scratch his face lick the other cats. Hide when guests come over lie on your belly and purr when you are asleep. Has closed eyes but still sees you gnaw the corn cob
-            and damn that dog. Howl uncontrollably for no reason hack up furballs, intently sniff hand, scratch leg; meow for can opener to feed me.
-          </p>
-          <img src="img/deal/deal-big-video.jpg" alt="" class="deal-data__big-video">
-          <h3 class="deal-data-card__subheading">Subheading</h3>
-          <ul class="deal-data-card__list">
-            <li class="deal-data-card__list-item">Pooping rainbow while flying in a toasted bread costume in space shove bum in owner's face.</li>
-            <li class="deal-data-card__list-item">Lens cat slap dog in face yet throwup on your pillow attack the dog pretend like nothing happened.</li>
-            <li class="deal-data-card__list-item">Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniffwhen in doubt, wash.</li>
-            <li class="deal-data-card__list-item">Find something else more interesting stares at human while pushing stuff off a table yet rub face on owner leave fur on owners clothes purr while eating walk on car leaving trail of paw prints on hood and windshield, where is my
-              slave? I'm getting hungry.
-            </li>
-          </ul>
-          <div class="deal-data-review__holder swiper-container horizontal-scroll js-horizontal-scroll--centered-slides">
-            <div class="swiper-wrapper">
-              <div class="deal-data-review swiper-slide">
-                <img src="img/stories/stories-author.jpg" alt="" class="deal-data-review__author-avatar">
-                <p class="deal-data-review__author-name">Alex</p>
-                <p class="deal-data-review__review">Damn that dog under the bed. Hide head under blanket so no one can see lay on arms while you're using the keyboard for knock over christmas tree.</p>
-                <div class="deal-data-review__rating"><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                  <span
-                    class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                </div>
-                <span class="deal-data-review__date">July 2015</span>
-              </div>
-              <div class="deal-data-review swiper-slide">
-                <img src="img/stories/stories-author.jpg" alt="" class="deal-data-review__author-avatar">
-                <p class="deal-data-review__author-name">Alex</p>
-                <p class="deal-data-review__review">Damn that dog under the bed. Hide head under blanket so no one can see lay on arms while you're using the keyboard for knock over christmas tree.</p>
-                <div class="deal-data-review__rating"><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                  <span
-                    class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                </div>
-                <span class="deal-data-review__date">July 2015</span>
-              </div>
-              <div class="deal-data-review swiper-slide">
-                <img src="img/stories/stories-author.jpg" alt="" class="deal-data-review__author-avatar">
-                <p class="deal-data-review__author-name">Alex</p>
-                <p class="deal-data-review__review">Damn that dog under the bed. Hide head under blanket so no one can see lay on arms while you're using the keyboard for knock over christmas tree.</p>
-                <div class="deal-data-review__rating"><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                  <span
-                    class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                </div>
-                <span class="deal-data-review__date">July 2015</span>
-              </div>
-            </div>
-            <div class="swiper-scrollbar"></div>
-          </div>
-        </div>
-      </div> -->
-        <!-- <div class="deal-data-card ">
-          <span class="deal-data-card__switcher"></span>
-          <h2 class="deal-data-card__header open js-show-hide-info-block">Fine Print</h2>
-        </div> -->
-      </div>
-    </div>
-  </div>
+<!-- BEGIN - breadcrumbs -->
+<div class="breadcrumbs width-limiter">
+    <a href="#" class="breadcrumbs__link">home</a>
+    <a href="#" class="breadcrumbs__link">destinations</a>
+    <a href="#" class="breadcrumbs__link">pacific</a>
+    <a href="#" class="breadcrumbs__link">australia</a>
 </div>
+<!-- END - breadcrumbs -->
 
 
-<%= render 'layouts/all_modal' %>
-<%= render partial: 'shared/blueimp_gallery_modal' %>
-<%= render 'shared/video_modal' %>
+<div class="product">
+
+    <div class="hero" style="background: url(<%= main_offer_photo_url(@offer)[:url] %>) center no-repeat;" >
+        <div class="hero-content width-limiter">
+            <h2 class="lg-heading"><%= @offer.name %></h2>
+            <span class="info-text">LOCATION</span>
+            <div class="hc-info">
+                <span class="hci-price">
+                    <span>$</span>
+                    <span class="hci-price-self"><%= @offer.minRateAdult %></span>
+                </span>
+                <span class="hci-nights">
+                    <span><%= @offer.duration / 1000 / 60 / 60 / 24 %></span>
+                    <span class="xs-invisible"><%= pluralize((@offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></span>
+                </span>
+                <!-- <span class="hci-people">
+                    <span>2</span>
+                    <span class="xs-invisible">people</span>
+                </span> -->
+                <span class="hci-info"><%= simple_format @offer.specialNotes %></span>
+            </div>
+            <a class="btn-bordered red invert" href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>">buy now</a>
+        </div>
+    </div>
+
+    <div class="product-content width-limiter">
+
+        <aside>
+            <h3 class="point-card__header">LOCATION</h3>
+            <p class="hotel-name">PROVIDER / OPERATOR NAME</p>
+
+            <div class="package-options">
+                <h4 class="xs-heading lars">Package Options</h4>
+
+                <ul>
+                    <li class="po-item">
+
+                        <div class="poi-content-top">
+                            <div class="poict-price">
+                                <span>$</span>
+                                <span class="poict-price-self">1399</span>
+                            </div>
+                            <div class="poict-valued">Valued up to $3,441</div>
+                            <div class="poict-people">2 Adults</div>
+                            <div class="poict-nights">7 nights</div>
+                            <div class="poict-room">TSHELL room, TS Suites Seminyak</div>
+
+                            <a href="" class="btn-bordered red small">buy now</a>
+                        </div>
+
+                        <div class="poi-content-bottom">
+                            <p>
+                                <span>Inclusions:</span>
+                                Daily all-day breakfasts, a global smorgasbord buffet dinner, daily poolside cocktails,
+                                daily mini-bar treats, four Balinese massages, daily shuttle to Double-Six Beach and
+                                Seminyak Square, nightly tacos at Famous Motel Mexicola, plus more!
+                            </p>
+                        </div>
+
+                    </li>
+                    <li class="po-item">
+
+                        <div class="poi-content-top">
+                            <div class="poict-price">
+                                <span>$</span>
+                                <span class="poict-price-self">1399</span>
+                            </div>
+                            <div class="poict-valued">Valued up to $3,441</div>
+                            <div class="poict-people">2 Adults</div>
+                            <div class="poict-nights">7 nights</div>
+                            <div class="poict-room">TSHELL room, TS Suites Seminyak</div>
+
+                            <a href="" class="btn-bordered red small">buy now</a>
+                        </div>
+
+                        <div class="poi-content-bottom">
+                            <p>
+                                <span>Inclusions:</span>
+                                Daily all-day breakfasts, a global smorgasbord buffet dinner, daily poolside cocktails,
+                                daily mini-bar treats, four Balinese massages, daily shuttle to Double-Six Beach and
+                                Seminyak Square, nightly tacos at Famous Motel Mexicola, plus more!
+                            </p>
+                        </div>
+
+                    </li>
+                </ul>
+
+                <a href="#" class="more-link">see more</a>
+
+            </div>
+
+        </aside>
+
+        <section>
+
+            <div class="country-info main-article">
+                <h2 class="lg-heading"><%= @offer.name %></h2>
+                <p class="destination-desc " style="display:none;">
+                    <%= raw @offer.description %>
+                </p>
+                <p class="destination-desc">
+                    <%= raw @offer.description[0..280]+"..." %>
+                </p>
+                <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
+                <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+
+                <div class="ci-map-block">
+                    <div id='dest-map' data-map="<%= create_marker @map_marker %>"></div>
+                </div>
+                <div id="product-accordion" class="accordion-block">
+
+                    <h3>highlights</h3>
+                    <div class="highlights">
+                        <p><%= simple_format @offer.highlightsStr %></p>
+                    </div>
+
+                    <h3>details</h3>
+                    <div class="details">
+                        <h5>Introduction</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <h5>Accommodation</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <ul class="d-list">
+                            <li>Hair-dryer</li>
+                            <li>Hair-dryer</li>
+                            <li>Hair-dryer</li>
+                        </ul>
+                        <h5>Introduction</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <h5>Accommodation</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <h3 id="ci-itinarary-map-loader">Itinerary</h3>
+                    <div class="itinerary">
+
+                        <div id="ci-itinerary-map"></div>
+
+                        <h4>RENDEVOUS GRAND HOTEL PERTH SCARBOROUGH</h4>
+
+                        <div id="itinerary-tabs">
+                            <div class="tabs-wrapper">
+                                <ul>
+                                    <li>
+                                        <a href="#itinerary-tabs-1">
+                                            <img src="http://lorempixel.com/140/90/city" alt="">
+                                            <p>21 September</p>
+                                        </a>
+                                    </li>
+                                    <li><a href="#itinerary-tabs-2"><img src="http://lorempixel.com/140/90/city" alt="">
+                                        <p>21 September</p></a></li>
+                                    <li><a href="#itinerary-tabs-3"><img src="http://lorempixel.com/140/90/city" alt="">
+                                        <p>21 September</p></a></li>
+                                </ul>
+
+                            </div>
+                            <div id="itinerary-tabs-1" class="itinerary-tabs">
+                                <div class="it-info">
+                                    <p class="heading">22 September 2016 - Day 2</p>
+                                    <p>Arriving in the afternoon you'll be met from the airport and taken to the Rendezvous
+                                        Grand Hotel Perth Scarborough (3Q) for a three-night stay. Enjoy a welcome dinner
+                                        tonight.</p>
+                                </div>
+                                <div class="it-img">
+                                    <img src="http://lorempixel.com/290/180/city" alt="">
+                                </div>
+                            </div>
+                            <div id="itinerary-tabs-2" class="itinerary-tabs">
+                                <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+                            </div>
+                            <div id="itinerary-tabs-3" class="itinerary-tabs">
+                                <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+                                <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>FACILITIES</h3>
+                    <div class="FACILITIES">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+                        <ul class="d-list">
+                            <li>Restaurant</li>
+                            <li>Restaurant</li>
+                            <li>Restaurant</li>
+                        </ul>
+                    </div>
+
+                    <h3>Reviews &nbsp; (2)</h3>
+                    <div class="reviews">
+                        <div class="heading">Hotel Port Denia Signature Scores 8.2 out of 10 based on 2 reviews</div>
+                        <div class="review-block">
+                            <h5>JANE SNOW 10 / 10</h5>
+                            <p>Not a particularly fancy hotel but with staff ALL trained to a very high standard and happy to help which more than makes up for minor weeknesses elsewhere. That is why I spend two x four weeks there per year.</p>
+                        </div>
+                        <div class="review-block">
+                            <h5>KATE BLACK     10 / 10</h5>
+                            <p>This is a good hotel a decent walk, or a bus ride, from Denia centre. Nearby is the marina and also some bars and a supermarket. Remember you are in Spain, so there will be a lot of Spanish guests in the hotel. Outside school times they are mainly elderly and good fun, but exuberant as the Spanish are. At weekends and definitely in school holidays there are a lot of children in the hotel and they keep late hours and can be very noisy.</p>
+                        </div>
+                        <div class=" pagination">
+                            <a class="pagination__link-left" href="#"></a>
+                            <a class="pagination__link" href="#">1</a>
+                            <a class="pagination__link" href="#">2</a>
+                            <a class="pagination__link" href="#">3</a>
+                            <a class="pagination__link-right" href="#"></a>
+                        </div>
+                    </div>
+
+                    <h3>Fine print</h3>
+                    <div class="fint-print">
+                        <p class="heading">Terms and Conditions</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+                        <ul class="d-list">
+                            <li>Restaurant</li>
+                            <li>Restaurant</li>
+                            <li>Restaurant</li>
+                        </ul>
+                    </div>
+
+                    <h3>booking guarantee</h3>
+                    <div class="guarantee">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+
+                    </div>
+
+
+                </div>
+
+                <div class="gallery">
+
+                    <h4 class="xs-heading lars">Gallery</h4>
+
+                    <div class="slider-mobile-wrapper">
+                        <div class="slider-for">
+                        <% @photos.each do |photo| %>
+                            <div><img src="<%= photo.path %>" alt="" width="100%"></div>
+                        <% end %>
+                        </div>
+                    </div>
+                    <div class="slider-nav xs-invisible">
+                        <% @photos.each do |photo| %>
+                            <div><img src="<%= photo.path %>" alt="" width="100%"   ></div>
+                        <% end %>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>

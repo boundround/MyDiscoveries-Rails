@@ -6,7 +6,7 @@ class Place < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake, :no_parent_select
 
-  algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
+  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name,
                :status,
@@ -599,6 +599,14 @@ class Place < ActiveRecord::Base
     self.status = "removed"
     self.unpublished_at = nil
     self.save
+  end
+
+  def markers
+    marker = []
+    self.offers.each do |offer|
+      marker << offer.attraction
+    end
+    return marker
   end
 
   def crop_hero_image

@@ -13,11 +13,11 @@ class PagesController < ApplicationController
     @category2 = @subcategories[1]
     @category3 = @subcategories[2]
     @category4 = @subcategories[3]
-    @competitions = Competition.active
+    @offers = Offer.all
     @all_posts = Post.all_active_posts
     @all_stories = Story.all_active_stories
     @stories = (@all_posts + @all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
-    @stories = @stories.paginate(page: params[:stories_page], per_page: 2)
+    @stories = @stories.paginate(page: params[:stories_page], per_page: 3)
     @areas = Place.home_page_areas.paginate(page: params[:areas_page], per_page: 3)
 
     respond_to do |format|
@@ -28,6 +28,13 @@ class PagesController < ApplicationController
 
   def paginate_places
     @areas = Place.home_page_areas.paginate(page: params[:areas_page], per_page: 3)
+  end
+
+  def paginate_stories
+    @all_posts = Post.all_active_posts
+    @all_stories = Story.all_active_stories
+    @stories = (@all_posts + @all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
+    @stories = @stories.paginate(page: params[:stories_page], per_page: 3)
   end
 
   def new

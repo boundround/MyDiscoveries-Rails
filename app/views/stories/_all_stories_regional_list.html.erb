@@ -1,0 +1,24 @@
+<li >
+    <% image = story.is_a?(Story) ? story.hero_image_url : story.story_images.first %>
+    <img  style="background: url(<%= showing_image( image || asset_path('generic-hero-small.jpg') ) %>) center no-repeat;" class="cover-bg" >
+    <div class="s-item-content">
+        <div class="sic-info">
+            <div class="sici-author">
+                <img style="background: url(<%= showing_image(story.user.avatar_url)%>) center no-repeat;" class="cover-bg" >
+                <% if story.user.is_private? %>
+                    <span><%= story.user.username %></span>
+                <% else %>
+                  <span><%= link_to story.user.username, public_profile_user_path(story.user) %></span>
+                <% end %>
+            </div>
+            <div class="sici-date">
+                <%= story.publish_date.strftime("%d %B %Y") %>
+            </div>
+        </div>
+        <a class="sm-heading" href="javascript:void(0)" onclick="window.location='<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>'">
+            <%= raw story.title.blank? ? story.title : story.title.truncate(65) %>
+        </a>
+        <p><%= raw story.teaser %></p>
+        <span class="arrow"></span>
+    </div>
+</li>

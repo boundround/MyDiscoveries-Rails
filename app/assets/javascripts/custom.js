@@ -49,6 +49,15 @@ $(document).ready(function(){
     }
   }
 
+  $('.simple_form.edit_subcategory #subcategory_category_type').on('change', function() {
+    if($(this).val()=="subcategory"){
+      $('.subcategory').show()
+    }else{
+      $('.subcategory').hide()
+    }
+  })
+
+  $('.app-wrap > div[data-page="offer"] .filter-box>div').hide()
 
   if (QueryString.video){
     var video = $('#' + QueryString.video)[0];

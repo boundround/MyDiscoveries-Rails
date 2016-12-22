@@ -13,22 +13,20 @@
     grid, stroke = if !variable.is_area?
       ["col-md-4", "orange-stroke"]
     else
-      ["col-md-3",""]
+      ["col-md-4",""]
     end
   else
-     grid, stroke = ["col-md-3",""]
+     grid, stroke = ["col-md-4",""]
   end
 %>
 
-<div class="<%= grid %> col-sm-6 place-photo-wrapper">
+<div class="<%= grid %> col-sm-6 video-embed-wrapper sm">
   <div class="photo-component">
     <div class="img-wrapper">
       <%= link_to "" , showing_image(photo.path_url(:large)) , class: 'display-image-on-modal', data: { gallery: '' },
             style: "background: url( #{image_path showing_image(photo.path_url(:large))} ) no-repeat;"  %>
-      <div class="small-photo-credit">Credit: <%= photo.credit %></div>
+      <!-- <div class="small-photo-credit">Credit: <%= photo.credit %></div> -->
     </div>
-    <div class="title-wrapper">
-      <img class="svg-inject <%= stroke %>" src="/assets/new-images/icon-camera.svg"/>
       <% if params[:active_photos].present? %>
         <%= javascript_tag do -%>
 
@@ -37,7 +35,6 @@
 
         <% end -%>
       <% end %>
-      <div class="photo-title"><%= photo.caption %></div>
-    </div>
+      <p><%= photo.caption.size > 50? photo.caption[0..50] : photo.caption %></p>
   </div>
 </div>

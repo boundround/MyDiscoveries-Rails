@@ -9,22 +9,18 @@ module PlacesHelper
     if !parents.blank?
       parents.reverse_each do |parent|
         if parent.class.to_s == "Place"
-          breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", place_path(parent)
-          breadcrumb += " / "
+          breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", place_path(parent), class: "breadcrumbs__link"
         elsif parent.class.to_s == "Country"
-          breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", country_path(parent)
-          breadcrumb += " / "
+          breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", country_path(parent), class: "breadcrumbs__link"
         elsif parent.class.to_s == "Attraction"
-          breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", attraction_path(parent)
-          breadcrumb += " / "
+          breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", attraction_path(parent), class: "breadcrumbs__link"
         elsif parent.class.to_s == "Region"
-          breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", region_path(parent)
-          breadcrumb += " / "
+          breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", region_path(parent), class: "breadcrumbs__link"
         end
       end
     end
 
-    breadcrumb += place.display_name.upcase
+    breadcrumb += "<span class='breadcrumbs__link'>" + place.display_name.upcase + "</span>"
   end
 
   def provide_meta_description_for(place)
@@ -165,4 +161,5 @@ module PlacesHelper
     end
     pas
   end
+
 end
