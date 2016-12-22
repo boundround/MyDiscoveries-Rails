@@ -17,7 +17,7 @@
       <%= f.input :name, label: 'Offer Name', input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
-      <%= f.input :description, label: 'Offer Description', as: :text, input_html: { class: 'width100' } %>
+      <%= f.input :description, label: 'Offer Description', as: :bootsy, input_html: { class: 'width100' } %>
     </div>
     <%- if @offer.livn_product_id.blank? %>
       <div class="form-group">
@@ -58,7 +58,7 @@
       <%= f.input :operatingDaysStr, as: :string, label: 'Operating Days String', input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
-      <%= f.input :operatingSchedule, as: :string, label: 'Operating Schedule', input_html: { class: 'width100' } %>
+      <%= f.input :operatingSchedule, as: :bootsy, label: 'Operating Schedule', input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
       <%= f.input :locationStart, as: :string, label: 'Location Start', input_html: { class: 'width100' } %>
