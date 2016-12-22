@@ -1,7 +1,7 @@
 // Add to Wishlist
 function addToFav(assetType) {
     var klass = assetType;
-    $(".icon-favourite").on('click', function(e) {
+    $(".icon-favourite, .bucket-list").on('click', function(e) {
       console.log("CLICK");
         var icon = $(this);
         var userId = $(this).data("user-id");

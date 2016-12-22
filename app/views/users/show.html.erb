@@ -70,11 +70,11 @@
                   <div class="search-page-card clear-self">
 
                       <div class="search-page-card__info-side search-page-card__info-side--left">
-                          <h3 class="search-page-card__header">Australia Zoo</h3>
+                          <h3 class="search-page-card__header"><%= order.title %></h3>
                           <p class="search-page-card__country">Australia</p>
                           <img src="http://lorempixel.com/243/162/animals?1" class="search-page-card__image" alt="">
                           <span class="search-page-card__more-info mobile-only js-show-more-card-info">more info</span>
-                          <p class="search-page-card__image-description">Lorem ipsum dolor sit amet</p>
+                          <p class="search-page-card__image-description">Lorem Ipsum</p>
                           <h4 class="search-page-card-places-visited__header">Places Visited</h4>
                           <span class="search-page-card-places-visited__place search-page-card-places-visited__place--first">Australia</span>
                           <span class="search-page-card-places-visited__place">Sydney</span>
@@ -84,10 +84,10 @@
                           <span class="search-page-card__category-item"></span>
                           <span class="search-page-card__category-item"></span>
 
-                          <p class="search-page-card__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus enim error illum ipsa, natus quas quia quis. Aliquid animi, dolorem ea eius esse expedita facere ipsa officia repellat sunt unde...</p>
+                          <p class="search-page-card__description"><%= order.offer.description %></p>
 
                           <p class="search-page-card__short-details-key">Date</p>
-                          <p class="search-page-card__short-details-value">February 21, 2017</p>
+                          <p class="search-page-card__short-details-value"><%= order.start_date %></p>
                           <p class="search-page-card__short-details-key">Inclusions</p>
                           <p class="search-page-card__short-details-value">
                               <img src="../i/inclusions/beds.svg" class="search-page-card__short-details-icon" alt="">
@@ -114,7 +114,14 @@
 
                           <a class="search-page-card__cost-details" href="#">details</a>
 
-                          <span class="search-page-card__to-bucket-list js-search-page-card__to-bucket-list">Bucket List</span>
+                          <div class="favourites-wrapper">
+                          <% if user_signed_in? && order.offer.users.include?(current_user) %>
+                            <span class="bucket-list search-page-card__to-bucket-list js-search-page-card__to-bucket-list" data-post-path="offers_users" data-klass="offer" data-liked="true" data-place-id="<%= order.offer.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
+                          <% else %>
+                            <span class="bucket-list search-page-card__to-bucket-list js-search-page-card__to-bucket-list" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="<%= order.offer.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
+                          <% end %>
+
+                  </div>
 
                       </div>
 
