@@ -21,6 +21,7 @@
 //  *= require font-awesome
 //  *= require blueimp-gallery
 //  *= require bootsy
+//  *= require jquery-ui.min
 
 //  */
 
@@ -29,8 +30,8 @@
 @import 'bootstrap';
 @import "bootstrap/theme";
 @import "owl.carousel.min";
-@import "all";
+// @import "all";
 @import "region";
 @import "custom_main";
 @import "offer";
-@import "main";
+// @import "main";

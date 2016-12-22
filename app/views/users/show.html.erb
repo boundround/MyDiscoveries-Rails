@@ -1,54 +1,374 @@
 <% if @user == current_user || current_user.admin %>
-<div class="container">
-  <div class="row">
-    <div class="col-md-4 col-lg-4 hidden-xs top20" align="center">
-      <div class="img-rounded-big"  style="background: url('<%= showing_image(@user.avatar_url) %>')" >
-      </div>
-    </div>
-    <div class="col-md-8 col-sm-12 col-xs-12 leftmin16">
-     <div class="head-title">
-      <div class="row leftmin16" align="center">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm25">
-          <h4 class="hitam top20 align-left left40">Member profile</h4>
-          <h2 class="abu-abu align-left left40"><%= @user.name %></h2>
-          <% if user_signed_in? && current_user.admin? %>
-            <p class="abu-abu align-left left40"><%= @user.description %></p>
-          <% end %>
-          <div class="img-rounded-profile visible-xs" style="background: url('<%= showing_image(@user.avatar_url) %>')">
-          </div>
+<div class="user-pages width-limiter" data-page="user-page">
+  <section>
+    <div id="up-tabs" class="up-tabs">
+      <ul class="up-tabs-main">
+          <li class="up-my-dashboard-link"><a href="#up-my-dashboard">My Dashboard</a></li>
+          <li class="up-my-bookings-link"><a href="#up-my-bookings">my bookings</a></li>
+          <li class="up-bucket-list-link"><a href="#up-bucket-list">bucket list</a></li>
+          <li class="up-my-content-link"><a href="#up-my-content">my content</a></li>
+          <li class="up-my-settings-link"><a href="#up-my-settings">my settings</a></li>
+      </ul>
+
+      <!-- BEGIN - My Dashboard -->
+      <div class="up-tabs-item up-my-dashboard" id="up-my-dashboard">
+        <div class="upmd-header">
+            <h1><%= @user.name %></h1>
+            <h4 class="heading">Hi <%= @user.name.split(" ").first %>, it's nice to see you!</h4>
+            <a class="change-selection xs-invisible" href="#">Change your settings</a>
         </div>
-      </div>
 
-      </div>
-    </div>
-
-    </div><!-- row -->
-    <% unless @stories.blank? %>
-      <div class="row">
-        <%= render partial: "stories/all_stories_list", collection: @stories, as: :story %>
-      </div>
-    <% end %>
-    <% unless @reviews.blank? %>
-      <div id="memberreviews" class="thing-page-segment user-thing-page-segment">
-        <div>
-          <h3>My Reviews</h3> </div>
-        <div class="row member-reviews-wrapper">
-          <div class="owl-carousel auto-height-carousel" id="reviews-list">
-            <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
-          </div>
-          <% unless last_page? @reviews %>
-            <div class="col-xs-12 hidden-xs single-pagination-container" id="reviews-single-pagination-container">
-              <div class="hidden single-pagination-loader" align="center"> <img src="<%= asset_path('loading.gif') %>" width="64" height="64"> </div>
-              <div class="load-more member-reviews-load-more temporary-class-3">
-                <%= link_to "LOAD MORE", paginate_reviews_user_path(@user, active_reviews_user: @reviews.next_page, resources: 'reviews', pagination_template: 'reviews/reviews_list', collection_object: 'review'), class: 'single-pagination', remote: true %>
-              </div>
+        <div class="upmd-img-block">
+          <a href="<%= searching_path %>" class="upmd-img-block-item find-deals">
+            <div class="img-block">
+              <img src="/assets/mydiscoveries_icon/up-dash-img1.jpg" alt="">
             </div>
-            <% end %>
+            <div class="upmd-ibi-content">
+              <p class="xs-heading">Find the Best Deals</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet</p>
+            </div>
+          </a>
+          <a href="#" class="upmd-img-block-item add-details">
+            <div class="img-block">
+              <img src="/assets/mydiscoveries_icon/up-dash-img2.jpg" alt="">
+            </div>
+            <div class="upmd-ibi-content">
+              <p class="xs-heading">Add your details</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet</p>
+            </div>
+          </a>
         </div>
-      </div>
-    <% end %>
 
-  </div>
+          <!-- <div class="upmd-get-app-block">
+              <h4 class="heading">Get the App for iPhone, iPad or Android</h4>
+              <p>Paperless confirmations offline maps and more!</p>
+
+              <div class="form-block">
+                  <form action="">
+                      <div class="form-group">
+                          <input type="tel" placeholder="Send link to my mobile number">
+                      </div>
+                      <span>or</span>
+                      <div class="form-group">
+                          <input type="email" placeholder="Send link to my email address">
+                      </div>
+                      <div class="form-group last">
+                          <button type="button" class="btn-bordered red invert small">GET THE APP</button>
+                      </div>
+                  </form>
+              </div>
+          </div> -->
+
+      </div>
+      <!-- END - My Dashboard -->
+      <div class="up-tabs-item up-my-bookings" id="up-my-bookings">
+
+                <h1 class="lars">Bookings</h1>
+
+                <% if @orders.present? %>
+                  <% @orders.each do |order| %>
+                  <div class="search-page-card clear-self">
+
+                      <div class="search-page-card__info-side search-page-card__info-side--left">
+                          <h3 class="search-page-card__header">Australia Zoo</h3>
+                          <p class="search-page-card__country">Australia</p>
+                          <img src="http://lorempixel.com/243/162/animals?1" class="search-page-card__image" alt="">
+                          <span class="search-page-card__more-info mobile-only js-show-more-card-info">more info</span>
+                          <p class="search-page-card__image-description">Lorem ipsum dolor sit amet</p>
+                          <h4 class="search-page-card-places-visited__header">Places Visited</h4>
+                          <span class="search-page-card-places-visited__place search-page-card-places-visited__place--first">Australia</span>
+                          <span class="search-page-card-places-visited__place">Sydney</span>
+                      </div>
+
+                      <div class="search-page-card__info-side search-page-card__info-side--right">
+                          <span class="search-page-card__category-item"></span>
+                          <span class="search-page-card__category-item"></span>
+
+                          <p class="search-page-card__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus enim error illum ipsa, natus quas quia quis. Aliquid animi, dolorem ea eius esse expedita facere ipsa officia repellat sunt unde...</p>
+
+                          <p class="search-page-card__short-details-key">Date</p>
+                          <p class="search-page-card__short-details-value">February 21, 2017</p>
+                          <p class="search-page-card__short-details-key">Inclusions</p>
+                          <p class="search-page-card__short-details-value">
+                              <img src="../i/inclusions/beds.svg" class="search-page-card__short-details-icon" alt="">
+                              <img src="../i/inclusions/flights.svg" class="search-page-card__short-details-icon" alt="">
+                              <img src="../i/inclusions/wifi.svg" class="search-page-card__short-details-icon" alt="">
+                              <img src="../i/inclusions/kids-club.svg" class="search-page-card__short-details-icon" alt="">
+                          </p>
+
+                      </div>
+
+                      <div class="search-page-card__cost-side">
+
+                          <p class="search-page-card__short-details-for-cost mobile-only">
+                              <img class="search-page-card__short-details-for-cost-icon" src="../i/inclusions/kids-club.svg" alt="">
+                              <span class="search-page-card__short-details-for-cost-text">2</span>
+                              <img class="search-page-card__short-details-for-cost-icon search-page-card__short-details-for-cost-icon--nights" src="../i/inclusions/nights.svg" alt="">
+                              <span class="search-page-card__short-details-for-cost-text">7</span>
+                          </p>
+
+                          <p class="search-page-card__cost-value"><span class="search-page-card__cost-currency">$</span>200</p>
+                          <p class="search-page-card__per-person">$349 per person</p>
+                          <p class="search-page-card__person-quantity  desktop-only"> 2 people </p>
+                          <p class="search-page-card__nights-quantity  desktop-only">7 nights</p>
+
+                          <a class="search-page-card__cost-details" href="#">details</a>
+
+                          <span class="search-page-card__to-bucket-list js-search-page-card__to-bucket-list">Bucket List</span>
+
+                      </div>
+
+
+                  </div>
+                  <% end %>
+                <% end %>
+            </div>
+            <!-- END - My Bookings -->
+
+
+            <!-- BEGIN - Bucket List -->
+            <div class="up-tabs-item up-bucket-list" id="up-bucket-list">
+
+                <h1 class="lars">Bucket list</h1>
+
+                <ul>
+                    <li class="bl-item bl-hotel">
+                        <a href="#">
+                            <div class="th-img-block">
+                                <img src="../images/all-deals-photo-result.jpg" alt="">
+                            </div>
+                            <div class="th-content">
+                                <span class="posi-nights"> 8 nights </span>
+                                <span>From $1399 </span>
+                                <p class="xs-heading blue">Seminyak Sky High Sensation</p>
+                                <span class="arrow"></span>
+                                <div class="bucket-list-icon"></div>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="bl-item bl-video">
+                        <a href="#">
+                            <div class="video-embed-wrapper">
+                                <div class="video-embed">
+                                    <iframe src="https://www.youtube.com/embed/k4tkrJ563b0" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div class="th-content">
+                                <p>Lorem ipsum dolor sit amet dolor euismod bibendum</p>
+                                <span class="arrow"></span>
+                                <div class="bucket-list-icon"></div>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="bl-item bl-story">
+                        <a href="#">
+                            <div class="th-img-block">
+                                <img src="http://lorempixel.com/500/300/food" alt="">
+                            </div>
+                            <div class="th-content">
+                                <p class="xs-heading blue">Eat and drink your way around Venice</p>
+                                <span class="arrow"></span>
+                                <div class="bucket-list-icon"></div>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="bl-item bl-hotel">
+                        <a href="#">
+                            <div class="th-img-block">
+                                <img src="../images/all-deals-photo-result.jpg" alt="">
+                            </div>
+                            <div class="th-content">
+                                <span class="posi-nights"> 8 nights </span>
+                                <span>From $1399 </span>
+                                <p class="xs-heading blue">Seminyak Sky High Sensation</p>
+                                <span class="arrow"></span>
+                                <div class="bucket-list-icon"></div>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="bl-item bl-video">
+                        <a href="#">
+                            <div class="video-embed-wrapper">
+                                <div class="video-embed">
+                                    <iframe src="https://www.youtube.com/embed/k4tkrJ563b0" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div class="th-content">
+                                <p>Lorem ipsum dolor sit amet dolor euismod bibendum</p>
+                                <span class="arrow"></span>
+                                <div class="bucket-list-icon"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- END - Bucket List -->
+
+
+            <!-- BEGIN - My Content -->
+            <div class="up-tabs-item up-my-content" id="up-my-content">
+
+                <h1 class="lars">My content</h1>
+
+                <div id="up-mc-tabs">
+
+                    <ul class="up-mc-tabs-links" >
+                        <li><a href="#up-mc-stories">Stories</a></li>
+                        <!-- <li><a href="#up-mc-comments">Comments</a></li>
+                        <li><a href="#up-mc-reviews">Reviews</a></li> -->
+                    </ul>
+
+
+                    <!-- BEGIN - Stories -->
+                    <div class="up-mc-tabs-item up-mc-stories" id="up-mc-stories">
+
+                        <div class="up-mc-tabs-header">
+                            <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodMauris</p>
+                            <a href="<%= new_story_path %>" class="btn-bordered red small invert">share a story</a>
+                        </div>
+                        <ul class="up-mc-stories-content">
+                          <%= render partial: "stories/user_stories_list", collection: @stories, as: :story %>
+                        </ul>
+
+                    </div>
+                    <!-- END - Stories -->
+
+
+                    <!-- BEGIN - Comments -->
+                    <!-- <div class="up-mc-tabs-item" id="up-mc-comments">
+                        <div class="up-mc-tabs-header">
+                            <p>Proin elit arcu, rutrum commodo, Proin elit arcu, rutrum commodo, vehicula tempus, commodMauris</p>
+                            <a href="#" class="btn-bordered red small invert">post a comment</a>
+                        </div>
+                    </div> -->
+                    <!-- END - Comments -->
+
+
+                    <!-- BEGIN - Reviews -->
+                    <!-- <div class="up-mc-tabs-item" id="up-mc-reviews">
+                        <div class="up-mc-tabs-header">
+                            <p>Proin elit arcu, rutrum commodProin elit arcu, rutru Proin elit arcu, rutruo, Proin elit arcu, rutrum commodo, vehicula tempus, commodMauris</p>
+                            <a href="#" class="btn-bordered red small invert">share a story</a>
+                        </div>
+                    </div> -->
+                    <!-- END - Reviews -->
+
+                </div>
+
+            </div>
+            <!-- END - My Content -->
+
+
+            <!-- BEGIN - My Settings -->
+            <div class="up-tabs-item up-my-settings" id="up-my-settings">
+
+                <h1 class="lars">Settings</h1>
+
+                <div class="form-block">
+
+                    <%= simple_form_for @user, url: user_path(@user), method: :PUT, html: { role: 'form'} do |f| %>
+
+                        <div class="form-group sm">
+                            <label for="up-settings-title">Title</label>
+                            <%= f.select(:gender, [[ 'Mrs', 'mrs' ],[ 'Mr', 'mr' ]], selected: 'mrs', input_html:{ style: "width: 100%" }) %>
+                        </div>
+
+                        <div class="form-group sm">
+                          <%= f.input :name, placeholder: 'Name', label: "Name" %>
+                        </div>
+
+                        <div class="form-group sm">
+                          <%= f.input :email, type: 'email', placeholder: 'your@mail.com', label: "Email" %>
+                        </div>
+
+                        <div class="form-group sm">
+                          <%= f.input :mobile, placeholder: '+61', label: "Mobile" %>
+                        </div>
+
+                        <div class="form-group sm">
+                          <label for="up-settings-dob">D.O.B</label>
+                          <input type="text" id="up-settings-dob" name="user[date_of_birth]" value="<%= @user.date_of_birth.blank?? '' : @user.date_of_birth %>">
+                        </div>
+
+                        <div class="form-group sm">
+                          <label for="select2-user_country_id-container">Country</label>
+                          <%= f.select(:country, @countries.collect {|c| [ c.display_name, c.country_code ] }) %>
+                        </div>
+
+                        <div class="form-group">
+                          <%= f.text_area :description, placeholder: 'e.g. Your interests, places travelled, etc.', label: "About me" %>
+                        </div>
+                        
+                        <div class="form-group user-ava">
+                            <div class="img-rounded edit-profile" align="center">
+                              <% if @user.avatar_url %>
+                                <%= image_tag @user.avatar_url, class: 'img-responsive avatar-img' %>
+                                <img id="image-avatar-preview" class="img-responsive" alt="">
+                              <% else %>
+                                <%= image_tag 'imgdummy.jpg', class: 'img-responsive' %>
+                                <img id="image-avatar-preview" class="img-responsive" alt="">
+                              <% end %>
+                            </div>
+                            <%= f.input :avatar, as: :file, label: 'upload photo', input_html: { class: "#{'hide' if !current_user.admin?}" } %>
+                            <div class="avatar-remove-wrap">
+                              <span>or</span>
+                              <a href="#" class="edit">Remove</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input id="up-plan-private" type="checkbox" name="user[is_private]" checked="<%= @user.is_private==true ? true : false %>">
+                            <label for="up-plan-private">Keep my profile private</label>
+                        </div>
+
+                        <button class="btn-bordered red invert small">save</button>
+
+                        <!-- <a href="#" class="edit">Change password</a> -->
+
+                    <% end %>
+
+                </div>
+
+
+                <!-- BEGIN - Change password -->
+                <div class="form-block">
+
+                    <h5>change password</h5>
+
+                    <form class="horizontal" action="">
+
+                        <div class="form-group">
+                            <label for="up-settings-pass-cur">Current password</label>
+                            <input type="password" name="user[current_password]" id="up-settings-pass-cur" required>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="up-settings-pass-new">New password</label>
+                            <input id="up-settings-pass-new" type="password" name="user[password]" required>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="up-settings-pass-confirm">Confirm password</label>
+                            <input id="up-settings-pass-confirm" type="password" name="user[password_confirmation]" required>
+                        </div>
+
+                        <div class="form-group-btns">
+                            <button type="submit" class="btn-bordered red invert small">save</button>
+                            <span>or</span>
+                            <a href="#" class="edit">Cancel</a>
+                        </div>
+
+                    </form>
+                </div>
+                <!-- END - Change password -->
+    </div>
+  </section>
+</div>
 
 <% else %>
   <h1>You must be logged into view this page</h1>

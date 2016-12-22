@@ -1,58 +1,20 @@
-<div class="destination-page">
-  <div class="navigation-wrapper">
-    <div class="menu-dark-background hide"></div>
-    <div class="menu-toggle hidden-sm hidden-md hidden-lg">
-      <div>
-        <img id="menu-closed" src="/assets/new-images/icon-hamburger-menu.png"/>
-        <img id="menu-opened" class="hide" src="/assets/new-images/icon-cross.png"/>
-      </div>
-    </div>
-    <!-- mobile -->
-    <div class="mobile-menu hide hidden-sm hidden-md hidden-lg">
-      <div class="mobile-menu-contents">
-        <div>Find</div>
-        <h4><a href="results">Places to go</a></h4>
-        <h4><a href="<%= subcategories_path %>">Things to do</a></h4>
-        <div>Browse</div>
-        <h4><a href="/posts/all_posts"><i class="fa fa-book navi-button"></i> <span>Stories</span></a></h4>
-        <h4><a href="/videos"><img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
-          <span>Videos</span></a>
-        </h4>
+<div class="header desktop-only">
+    <div class="width-limiter">
+        <a href="<%= root_path %>" class="header__logo"></a>
+        <nav class="header-navigation">
+            <a class="header-navigation__link header-navigation__link--home" href="<%= root_path %>">&nbsp;</a>
+            <a class="header-navigation__link js-change-navigation-drop-down" href="#">destinations</a>
+            <a class="header-navigation__link" href="#">deals</a>
+            <a class="header-navigation__link" href="/posts/all_posts">travel stories</a>
+        </nav>
+
         <% if !user_signed_in? %>
-          <div>Become a member</div>
-          <button href="<%= new_user_registration_path %>">Join Bound Round</button>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="mega-menu">
-      <div class="header desktop-only">
-        <div class="container">
-          <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-7">
-          <a href="<%= root_path %>" class="header__logo"></a>
-
-          <div class="menu-items">
-            <nav class="header-navigation">
-                <a class="header-navigation__link header-navigation__link--home" href="#">&nbsp;</a>
-                <a class="header-navigation__link js-change-navigation-drop-down" href="#">destinations</a>
-                <a class="header-navigation__link" href="#">deals</a>
-                <a class="header-navigation__link" href="/posts/all_posts">travel stories</a>
-            </nav>
-            </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-6 col-md-5">
-            <% if !user_signed_in? %>
-                <div class="col-md-12">
-                <a class="header__signing header__signing--join" href="#">join</a>
-                <a class="header__signing header__signing--sign-in" data-toggle="modal" data-target="#singIn" href="#">sign
-                in</a>
-                </div>
-            <% else %>
-                <div class="col-md-12">
-                <ul class="nav navbar-nav navbar-right hidden-xs">
-                  <li class="dropdown">
+            <a class="header__signing header__signing--join" href="<%= new_user_registration_path %>">join</a>
+            <a class="header__signing header__signing--sign-in" data-toggle="modal" data-target="#singIn" href="#">sign
+            in</a>
+        <% else %>
+            <ul class="nav signin_dropdown">
+                <li class="dropdown pull-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
                     <div class="outer-profile" style="background: url('<%= current_user.avatar_url rescue '' %>') no-repeat;" >
                     </div>
@@ -67,12 +29,10 @@
                     <% end %>
                     <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
                     </ul>
-                  </li>
-                </ul>
-                </div>
-            <% end %>
-            <div class="col-md-12">
-            <div class="search-container pull-right">
+                </li>
+            </ul>
+        <% end %>
+        <div class="search-container">
                 <form accept-charset="UTF-8" action="/results" method="get">
                     <div style="display:none">
                     <input name="utf8" value="✓" type="hidden">
@@ -82,19 +42,135 @@
                 <div class="search-results" id="search-results-container" style="display:none;">
                   <%= render :partial=> "search_suggestions/search_results" %>
                 </div>
-                </div>
-            </div>
-            </div>
-          </div>
-          </div>
         </div>
-      </div>  
+        <!-- <input class="header__search" placeholder="Search" type="text"> -->
 
-          <!-- BEGIN - navigation drop down -->
-    <div class="navigation-drop-down js-navigation-drop-down hidden clear-self desktop-only">
-        <div class="navigation-drop-down__column">
+    </div>
+</div>
+<!-- END - header -->
 
-            <h3 class="navigation-drop-down__header">Featured places to go</h3>
+<!-- BEGIN - navigation drop down -->
+<div class="navigation-drop-down js-navigation-drop-down hidden clear-self desktop-only">
+
+    <div class="navigation-drop-down__column">
+
+        <h3 class="navigation-drop-down__header">Featured places to go</h3>
+        <div class="navigation-drop-down__small-column-wrapper clear-self">
+            <% @featured_nav_destinations.each do |place| %>
+                <div class="navigation-drop-down__small-column">
+                    <a href="#" class="navigation-drop-down__region-header"><%= place.country.display_name %></a>
+                    <a href="<%= place_path(place) %>" class="navigation-drop-down__region-list-item"><%= place.display_name %></a>
+                </div>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="navigation-drop-down__column">
+
+        <h3 class="navigation-drop-down__header">Featured things to do</h3>
+
+            <% @featured_nav_places.each do |place| %>
+                <a href="<%= place_path(place) %>" class="featured-thing clear-self">
+                    <div class="featured-thing__image-wrapper">
+                        <img src="<%= draw_small_background(place)%>" class="featured-thing__image" alt="">
+                        <p class="featured-thing__image-paragraph">
+                            <span class="featured-thing__image-currency"><% place.subcategories.price_categories.each do |icon| %>
+                                      <%= icon.name + " " %>
+                                    <% end %></span>
+                            <% if !place.viator_link.blank? %>
+                            <span class="featured-thing__image-book">book</span>
+                            <% end %>
+                        </p>
+                    </div>
+                    <h5 class="featured-thing__header"><%= place.display_name %></h5>
+                    <span class="featured-thing__country"><%= place.country.display_name %></span>
+                </a>
+            <% end %>
+<!--         <a href="#" class="featured-thing clear-self">
+            <div class="featured-thing__image-wrapper">
+                <img src="http://lorempixel.com/144/114/nature?03" class="featured-thing__image" alt="">
+                <p class="featured-thing__image-paragraph">
+                    <span class="featured-thing__image-currency">$</span>
+                    <span class="featured-thing__image-book">book</span>
+                </p>
+            </div>
+            <h5 class="featured-thing__header">Tropical Fruit World</h5>
+            <span class="featured-thing__country">Japan</span>
+        </a> -->
+
+    </div>
+
+</div>
+<!-- END - navigation drop down -->
+
+<!-- BEGIN - header -->
+<div class="mobile-header js-mobile-header mobile-only">
+    <a href="#" class="header__logo"></a>
+    <a href="#" class="mobile-header__menu-button js-mobile-header__menu-button">
+        <span class="mobile-header__menu-button-line mobile-header__menu-button-line--first"></span>
+        <span class="mobile-header__menu-button-line mobile-header__menu-button-line--second"></span>
+        <span class="mobile-header__menu-button-line mobile-header__menu-button-line--third"></span>
+    </a>
+
+    <!-- begin - search -->
+    <a href="#" class="mobile-header__open-search-button js-mobile-show-hide-search"></a>
+    <div class="mobile-header__search-wrapper hidden js-mobile-header__search-wrapper">
+        <!-- <input class="header__search" placeholder="Search" type="text"> -->
+        <div class="search-container">
+                <form accept-charset="UTF-8" action="/results" method="get">
+                    <div style="display:none">
+                    <input name="utf8" value="✓" type="hidden">
+                    </div>
+                    <input type="text" name="search[common]" class="search-box-mobile header__search" placeholder="Search" autocomplete="off">
+                </form>
+                <div class="search-results" id="search-results-mobile-container" style="display:none;">
+                  <%= render :partial=> "search_suggestions/search_results" %>
+                </div>
+        </div>
+        <span class="mobile-header__search-icon"></span>
+    </div>
+    <!-- end - search -->
+</div>
+<!-- END - header -->
+
+<div class="mobile-header-drop-down clear-self mobile-only hidden js-mobile-header-drop-down">
+
+    <div class="mobile-header-drop-down_container js-mobile-header-drop-down_container">
+
+        <div class="mobile-header-drop-down__expanded-block">
+
+            <a class="mobile-header-drop-down__link" href="#">home</a>
+            <a class="mobile-header-drop-down__link mobile-header-drop-down__link--expand js-mobile-header-drop-down--to-right" href="#">destinations</a>
+            <a class="mobile-header-drop-down__link" href="#">deals</a>
+            <a class="mobile-header-drop-down__link" href="#">travel stories</a>
+            <% if !user_signed_in? %>
+                <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" href="<%= new_user_registration_path %>">join</a>
+                <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" data-toggle="modal" data-target="#singIn" href="#">sign in</a>
+            <% else %>
+                <ul class="nav signin_dropdown">
+                    <li class="dropdown pull-right">
+                        <a href="#" class=" js-mobile-account-drop-down--to-right" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
+                        <div class="outer-profile" style="background: url('<%= current_user.avatar_url rescue '' %>') no-repeat;" >
+                        </div>
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
+                        <li><a href="<%= edit_user_path(current_user) %>">Edit Profile</a></li>
+                        <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li>
+                        <% if current_user.admin? || current_user.has_role?("contributor") %>
+                          <li><a href="<%= new_story_path %>">Add A Story</a></li>
+                          <li><a href="<%= stories_user_path(current_user) %>">My Stories</a></li>
+                        <% end %>
+                        <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            <% end %>
+        </div>
+        <div class="mobile-header-drop-down__expanded-block">
+            <a class="mobile-header-drop-down__link mobile-header-drop-down__link--back js-mobile-header-drop-down--to-left" href="#">back</a>
+            <a class="mobile-header-drop-down__link" href="#">destinations</a>
+
             <div class="navigation-drop-down__small-column-wrapper clear-self">
                 <% @featured_nav_destinations.each do |place| %>
                     <div class="navigation-drop-down__small-column">
@@ -103,33 +179,6 @@
                     </div>
                 <% end %>
             </div>
-
         </div>
-
-        <div class="navigation-drop-down__column">
-
-            <h3 class="navigation-drop-down__header">Featured things to do</h3>
-            <% @featured_nav_places.each do |place| %>
-            <a href="<%= place_path(place) %>" class="featured-thing clear-self">
-                <div class="featured-thing__image-wrapper">
-                    <img src="<%= draw_small_background(place)%>" class="featured-thing__image" alt="">
-                    <p class="featured-thing__image-paragraph">
-                        <span class="featured-thing__image-currency"><% place.subcategories.price_categories.each do |icon| %>
-                                  <%= icon.name + " " %>
-                                <% end %></span>
-                        <% if !place.viator_link.blank? %>
-                        <span class="featured-thing__image-book">book</span>
-                        <% end %>
-                    </p>
-                </div>
-                <h5 class="featured-thing__header"><%= place.display_name %></h5>
-                <span class="featured-thing__country"><%= place.country.display_name %></span>
-            </a>
-            <% end %>
-
-        </div>
-
     </div>
-    <!-- END - navigation drop down -->
-    </div>
-  </div>
+</div>

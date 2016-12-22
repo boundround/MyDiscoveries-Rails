@@ -37,7 +37,11 @@ $(document).ready(function() {
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
 
-    var INDEX_NAME = 'mydiscoveries_' + production_environment;
+    if($('.app-wrap > div').data('page') == "offer" && $('.app-wrap > div').data('controller') == "index" ){
+        var INDEX_NAME = 'mydiscoveries_offers_' + production_environment;
+    }else{
+        var INDEX_NAME = 'mydiscoveries_' + production_environment;
+    }
     var PARAMS = {
         hitsPerPage: 3,
         maxValuesPerFacet: 8,
@@ -47,6 +51,7 @@ $(document).ready(function() {
     var algolia = algoliasearch(APPLICATION_ID, SEARCH_ONLY_API_KEY);
     var algoliaHelper = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
     var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
+    var algoliaHelperMobile = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
     var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
     var FACETS_LABELS = {
@@ -71,6 +76,7 @@ $(document).ready(function() {
 
     $searchInput = $('.search-box');
     $searchInputBottom = $('.search-box-bottom');
+    $searchInputMobile = $('.search-box-mobile');
     $searchInputIcon = $('#search-button');
     $main = $('main');
     $sortBySelect = $('#sort-by-select');
@@ -117,6 +123,13 @@ $(document).ready(function() {
         }
     }
 
+    function searchConditionMobile(query) {
+        if (query.length > 0) {
+            algoliaHelperMobile.setQuery(query);
+            algoliaHelperMobile.search();
+        }
+    }
+
     function searchInstant(input) {
         query = input.val();
         algoliaHelperInstantSearch.setQuery(query);
@@ -136,7 +149,19 @@ $(document).ready(function() {
             }, 100);
         })
         .focus();
-
+    $searchInputMobile
+        .on('keyup', function() {
+            var query = $(this).val();
+            searchConditionMobile(query);
+        })
+        .bind("paste", function() {
+            var elem = $(this);
+            setTimeout(function() {
+                query = elem.val();
+                searchConditionMobile(query);
+            }, 100);
+        })
+        .focus();
     $searchInputBottom
         .on('keyup', function() {
             var query = $(this).val();
@@ -180,7 +205,17 @@ $(document).ready(function() {
             renderMoreResultsHome(content);
             rescueImage();
         }
-    })
+    });
+    
+    algoliaHelperMobile.on('result', function(content, state) {
+        if (content.hits.length > 0) {
+            $('#search-results-mobile-container').show();
+            $('#search-results-container').hide();
+            renderHitsHome(content);
+            renderMoreResultsHome(content);
+            rescueImage();
+        }
+    });
 
     algoliaHelperInstantSearch.on('result', function(content, state) {
         viatorLink(content.hits);

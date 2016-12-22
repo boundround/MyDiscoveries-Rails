@@ -104,4 +104,5 @@
   if ($(window).width() < 992) {
     createOwlCarousel();
   }
+       
 });

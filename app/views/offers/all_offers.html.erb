@@ -1,0 +1,81 @@
+<div data-page="offer" data-controller="index">
+
+<!-- BEGIN - breadcrumbs -->
+<div class="breadcrumbs width-limiter">
+    <a href="#" class="breadcrumbs__link">home</a>
+    <a href="#" class="breadcrumbs__link">Package offers</a>
+</div>
+<!-- END - breadcrumbs -->
+
+<div class="package-offers">
+
+    <div class="hero" style="background: url('/assets/default-hero.jpg')center center no-repeat;">
+        <h1>Package offers</h1>
+    </div>
+
+    <div class="package-offers-block width-limiter">
+        <ul>
+        <% @featured_offers.each do |offer| %>
+            <li>
+                <a href="<%= offer_path(offer) %>">
+                    <div class="po-content-wrapper">
+                        <img style="background: url('<%= draw_small_background(offer) %>')center center no-repeat;" class="cover-bg">
+                        <div class="po-content-block">
+                            <p class="xs-heading">
+                                <%= offer.name %>
+                            </p>
+                            <div class="po-price">
+                                <span class="lg">
+                                    <span>$</span>
+                                    <span class="po-price-self"><%= offer.minRateAdult %></span>
+                                </span>
+                                <span class="sm">per person</span>
+                            </div>
+                            <div class="po-stay-info">
+                                <span class="posi-nights"><%= pluralize((offer.duration / 1000 / 60 / 60 / 24), "day") %></span>
+                                <span class="posi-date">Book by <%= offer.startDate.strftime("%d %B %Y") if offer.startDate %></span>
+                            </div>
+                            <div class="label-crown"></div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <% end %>
+        </ul>
+        <a class="more-link" href="#">more featured offers</a>
+    </div>
+     <div class="section-grey">
+        <div class="container sidebar-result-search">
+        <div class="row">
+
+            <div class="col-md-3 filter-box">
+              <div id="facets-instant-search2" style="padding-bottom: 5px;"></div>
+                <div class="main-header">
+                  <h3 class="search-page-filter__header">Filter</h3>
+                </div>
+              <div id="facets-instant-search3"></div>
+              <div id="facets-instant-search"></div>
+            </div>
+            <div class="col-md-9" id="instant-search-container">
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group input-search-nav refine">
+                      <%= form_tag searching_path, id: '', method: :get  do %>
+                        <%= text_field_tag "search[common]", params.traverse('search', 'common'), id: "squery" ,class: 'search-page-main-search__search instant-search', autocomplete: "off" %>
+                        <%= submit_tag "", class: "search-page-main-search__search-icon" %>
+                      <% end %>
+                    </div><!-- /input-group -->
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="row">
+                <div class="col-md-12" id="instant-search-results">
+                  <%= render partial: 'search_suggestions/instant_search_results' %>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+</div>

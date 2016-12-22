@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require bootstrap-sprockets
 //= require bootsy
 //= require jquery-fileupload/basic
@@ -65,11 +66,28 @@
 //= require place_videos
 //= require area
 //= require cms_offers
+
+//= require lib/fastclick
+//= require lib/swiper.jquery
+//= require lib/tweenlite/TweenLite.min
+//= require lib/tweenlite/TimelineLite.min
+//= require lib/tweenlite/EasePack.min
+//= require lib/tweenlite/jquery.gsap.min
+//= require lib/tweenlite/CSSPlugin.min
+
+//= require service/mediator
+//= require service/device
+//= require service/device-detector
+//= require service/swiper
+//= require service/modal-filter
+
+//= require chunks/fast-click-enable
+//= require chunks/navigation-drop-down
+//= require chunks/search-page-card
+//= require chunks/dest-map
+//= require main-my-discovery
+
 //= require offers
 //= require orders
-//= require navigation-drop-down
-//= require device-detector
-//= require device
-//= require search-page-card
-//= require modal-filter
-//= require mediator
+
+
