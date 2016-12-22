@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!, except: [:add_shopify_order_id]
   before_action :check_user_authorization, except: [:add_shopify_order_id]
   before_action :set_order, only: [:edit, :update, :checkout]
-  before_action :set_offer, except: [:add_shopify_order_id]
+  before_action :set_offer, except: [:add_shopify_order_id, :download_pdf]
 
   def new
     @order = current_user.orders.build(
@@ -28,6 +28,15 @@ class OrdersController < ApplicationController
   end
 
   def update
+  end
+
+  def download_pdf
+    @order = Order.find_by(shopify_order_id: params[:shopify_order_id])
+    if @order
+      render json: { status: :success, body: { id: @order.id, title: @order.title } }
+    else
+      render json: { status: :not_found }
+    end
   end
 
   def add_shopify_order_id
