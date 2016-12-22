@@ -1,4 +1,12 @@
 <div data-page="region">
+
+<div class="breadcrumbs width-limiter">
+    <a href="<%= root_path %>" class="breadcrumbs__link">home</a>
+    <%= raw create_breadcrumb_for(@region) %> |
+    <% if user_signed_in? and current_user.admin? %><%= link_to "Edit Region", edit_region_path(@region) %>
+    <% end %>
+</div>
+
   <h1 class="home-promo__header blue"><%= @region.display_name %></h1>
 
   <!-- BEGIN - map -->
@@ -28,7 +36,7 @@
 <div class="region places-to-go">
     <div class="width-limiter">
         <h3 class="proposal__header">Places to go</h3>
-        <div class="block-wrapper slick-slider" id="place_to_go-list">
+        <div class="block-wrapper" id="place_to_go-list">
             <%= render partial: 'place_to_go_list', collection: @place_to_go, as: :place %>
         </div>
       <% unless last_page? @place_to_go %>
@@ -56,7 +64,7 @@
 <div class="region package-offers">
     <div class="width-limiter">
         <h3 class="proposal__header">Package Offers</h3>
-        <ul class="slick-slider">
+        <ul class="cs-package">
             <li>
                 <div class="po-content-wrapper">
                     <img src="/assets/mydiscoveries_icon/i/follow-the-journey-item-bg.png" alt="">
@@ -87,8 +95,8 @@
 <div class="region things-to-do">
     <div class="width-limiter">
         <h3 class="proposal__header">Things to do in <%= @region.display_name %></h3>
-        <ul class="slick-slider" id="places_to_visit-list">
-            <%= render partial: 'areas_list', collection: @place_to_go, as: :place %>
+        <ul class="" id="places_to_visit-list">
+            <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
             <li class="recl-block">
                 <a  href="#x">
                     <img src="/assets/mydiscoveries_icon/reclama.jpg" alt="">
@@ -111,7 +119,7 @@
                 <div class="hidden single-pagination-loader" align="center">
                   <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                 </div>
-              <%= link_to "load more", paginate_place_to_visit_region_path(@region, places_to_visit_page: @place_to_go.next_page, resources: 'place_to_go', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
+              <%= link_to "load more", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
           </div>
         <% end %>
     </div>
