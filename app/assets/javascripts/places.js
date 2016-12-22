@@ -27,6 +27,9 @@ function addToFav(assetType) {
           case "country":
             data["countries_user"] = { user_id: userId, country_id: placeId };
             break;
+          case "offer":
+            data["offers_user"] = { user_id: userId, offer_id: placeId };
+            break;
         }
 
         if (userId === "no-user") {

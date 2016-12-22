@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
     @orders  = @user.orders.last(2)
     @countries = Country.all
+    @offers = @user.offers
   end
 
   def public_profile
