@@ -30,7 +30,7 @@ class OffersController < ApplicationController
   end
 
   def index
-    @offers = Offer.all
+    @offers = Offer.all.paginate(per_page: 2, page: params[:offers_page])
     @featured_offers = Offer.all
   end
 
@@ -58,6 +58,10 @@ class OffersController < ApplicationController
 
   def paginate_on_idx
     @offers = Offer.all.paginate(per_page: 3, page: params[:offers_page])
+  end
+
+  def paginate_offers
+    @offers = Offer.all.paginate(per_page: 2, page: params[:offers_page])
   end
 
   def destroy

@@ -370,6 +370,7 @@ Rails.application.routes.draw do
 
   resources :offers do
     collection { get 'paginate_on_idx' }
+    collection { get 'paginate_offers' }
     collection do
       get 'new_livn_offer'
       post 'create_livn_offer'

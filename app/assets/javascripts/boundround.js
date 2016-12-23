@@ -242,15 +242,15 @@ $(document).ready(function() {
 
     $.each(img, function(index, val) {
       setTimeout(function() {
-        if ($(val).height() < 200) {
-          $(val).css({ "height": "200px", "max-width": "initial" });
+        if ($(val).height() < 100) {
+          $(val).css({ "height": "100px", "max-width": "initial" });
         }
       }, 500);
 
       setTimeout(function() {
-        if ($(val).width() > 200) {
+        if ($(val).width() > 100) {
           width = $(val).width();
-          width_plus = width - 200;
+          width_plus = width - 100;
           margin = width_plus / 2;
           $(val).css({ "left": -margin });
         }

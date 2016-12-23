@@ -15,34 +15,20 @@
 
     <div class="package-offers-block width-limiter">
         <ul>
-        <% @featured_offers.each do |offer| %>
-            <li>
-                <a href="<%= offer_path(offer) %>">
-                    <div class="po-content-wrapper">
-                        <img style="background: url('/assets/br_15_main.jpg')center center no-repeat;" class="cover-bg">
-                        <div class="po-content-block">
-                            <p class="xs-heading">
-                                <%= offer.name %>
-                            </p>
-                            <div class="po-price">
-                                <span class="lg">
-                                    <span>$</span>
-                                    <span class="po-price-self">1399</span>
-                                </span>
-                                <span class="sm">per person</span>
-                            </div>
-                            <div class="po-stay-info">
-                                <span class="posi-nights">8 nights</span>
-                                <span class="posi-date">Book by <%= offer.startDate.strftime("%d %B %Y") %></span>
-                            </div>
-                            <div class="label-crown"></div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <% end %>
+        <div id="offers-list">
+          <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
+        </div>
+          <% unless last_page? @offers %>
+          <div class="row hidden-xs single-pagination-container" id="offers-single-pagination-container">
+            <div class="hidden single-pagination-loader" align="center">
+              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+            </div>
+            <div class="col-xs-12" align="center">
+              <%= link_to "more featured offers", paginate_offers_offers_path(offer_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_index_offers', collection_object: 'offers'), class: 'more-link', remote: true %>
+            </div>
+          </div>
+        <% end %>
         </ul>
-        <a class="more-link" href="#">more featured offers</a>
     </div>
      <div class="section-grey">
         <div class="container sidebar-result-search">

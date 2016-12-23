@@ -301,7 +301,7 @@
 
                 <div class="form-block">
 
-                    <%= simple_form_for @user, url: user_path(@user), method: :PUT, html: { role: 'form'} do |f| %>
+                    <%= simple_form_for @user, url: user_path(@user), method: :PUT, html: { role: 'form', id: "avatar-upload" } do |f| %>
 
                         <div class="form-group sm">
                             <label for="up-settings-title">Title</label>
@@ -335,6 +335,7 @@
                         </div>
                         
                         <div class="form-group user-ava">
+                          <div class="col-xs-12 col-sm-2">
                             <div class="img-rounded edit-profile" align="center">
                               <% if @user.avatar_url %>
                                 <%= image_tag @user.avatar_url, class: 'img-responsive avatar-img' %>
@@ -344,11 +345,14 @@
                                 <img id="image-avatar-preview" class="img-responsive" alt="">
                               <% end %>
                             </div>
+                          </div>
+                          <div class="col-xs-12 col-sm-10 upload-wrap">
                             <%= f.input :avatar, as: :file, label: 'upload photo', input_html: { class: "#{'hide' if !current_user.admin?}" } %>
                             <div class="avatar-remove-wrap">
                               <span>or</span>
                               <a href="#" class="edit">Remove</a>
                             </div>
+                          </div>
                         </div>
 
                         <div class="form-group">

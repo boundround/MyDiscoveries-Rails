@@ -8487,12 +8487,23 @@ input[type="submit"].modal-content__btn-access  {
   background-position: 50% 50%;
 }
 
+.story-image{
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
 .section-white .thing-wrapper{
   margin: 57px 0 48px;
 }
 
 .load-more{
   margin: 0 0 10px;
+}
+
+[data-page="user-page"] .img-rounded.edit-profile{
+  height: 100px;
+  width: 100px;
 }
 
 .new-offer-promo-item__header {
@@ -11841,7 +11852,13 @@ td a.ui-state-default.ui-state-hover {
     padding: 0; }
   @media screen and (min-width: 1201px) {
     .user-pages .form-block form .form-group {
-      padding-bottom: 20px; } }
+      padding-bottom: 20px; }
+    .user-pages .form-block form .form-group.user-ava {
+      height: 150px; }
+    .user-pages .upload-wrap{
+      height: 150px;
+      padding-top: 50px;}
+  }
   .user-pages .form-block form .form-group.short {
     display: inline-block;
     margin-right: 25px; }
