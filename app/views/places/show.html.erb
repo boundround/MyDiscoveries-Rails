@@ -92,9 +92,19 @@
       <% if @offers.present? %>
         <div id="offers" class="top-holidays">
           <h3 class="sm-heading lars">Top <%= @place.display_name %> Holidays</h3>
-          <ul> 
+          <ul id="offers-list"> 
             <%= render partial: 'offers/all_offers', collection: @offers, as: :offer %>
           </ul>
+          <% unless last_page? @offers %>
+            <div class="single-pagination-container" id="offers-single-pagination-container">
+              <div class="load-more region">
+                <div class="hidden single-pagination-loader" align="center">
+                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                </div>
+              <%= link_to "load more", paginate_offers_place_path(@place, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_offers', collection_object: 'offer'), class: 'load-more single-pagination', remote: true %>
+              </div>
+            </div>
+          <% end %>
         </div>
       <% end %>
 

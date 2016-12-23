@@ -276,7 +276,7 @@ class PlacesController < ApplicationController
   def show
     @places_to_visit = @place.places_to_visits.paginate( page: params[:places_to_visit_page], per_page: 6 )
     @deals = @place.deals.active
-    @offers = @place.offers.last(3)
+    @offers = @place.offers.paginate(page: params[:offers_page], per_page: 1)
     @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
     @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 3)
     @photos_hero = @photos.first(6)
@@ -292,6 +292,11 @@ class PlacesController < ApplicationController
       format.html #{ render view, :layout => !request.xhr? }
       format.json { render json: @place }
     end
+  end
+
+  def paginate_offers
+    @place = Place.find_by_slug(params[:id])
+    @offers = @place.offers.paginate(page: params[:offers_page], per_page: 1)
   end
 
   def paginate_photos
