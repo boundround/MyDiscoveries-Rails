@@ -454,6 +454,8 @@ GEM
       nokogiri
       roo (>= 2.0.0beta1, < 3)
       spreadsheet (> 0.9.0)
+    route_downcaser (1.2.0)
+      activesupport (>= 3.2, < 5.1)
     rspec-core (3.5.0)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -668,6 +670,7 @@ DEPENDENCIES
   rolify
   roo
   roo-xls
+  route_downcaser
   rspec-rails (~> 3.0)
   rubycritic
   sass-rails (~> 4.0.3)
