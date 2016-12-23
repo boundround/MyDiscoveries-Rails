@@ -8453,6 +8453,7 @@ input[type="submit"].modal-content__btn-access  {
 
 .new-offer-promo-item {
   height: 310px;
+  width: 100%;
   float: left;
   position: relative;
   background-color: #bbe0e6; }
