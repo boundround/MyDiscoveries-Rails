@@ -47,8 +47,8 @@ module BoundRoundWeb
     config.paths.add "app/services", glob: "**/*.rb"
     config.autoload_paths += Dir["#{Rails.root}/app/services/*"]
 
-    config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do
-      r301 %r{^/(.*)/$}, '/$1'
+    config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
+      r301 %r{^/(.*)/$}, '/$1', :headers => {'Cache-Control' => 'public, max-age='+2.week.to_s}
     end
 
   end
