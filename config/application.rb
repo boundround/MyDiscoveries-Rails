@@ -47,5 +47,9 @@ module BoundRoundWeb
     config.paths.add "app/services", glob: "**/*.rb"
     config.autoload_paths += Dir["#{Rails.root}/app/services/*"]
 
+    config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do
+      r301 %r{^/(.*)/$}, '/$1'
+    end
+
   end
 end
