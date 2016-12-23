@@ -1,5 +1,5 @@
 class OffersController < ApplicationController
-  before_action :check_user_authorization, except: :show
+  # before_action :check_user_authorization, except: [:show, :paginate_on_idx]
   before_action :set_offer, only: [ :show, :update, :edit, :destroy ]
 
   def show
@@ -54,6 +54,10 @@ class OffersController < ApplicationController
       flash.now[:alert] = 'Sorry, there was an error updating this Offer'
       render :edit
     end
+  end
+
+  def paginate_on_idx
+    @offers = Offer.all.paginate(per_page: 3, page: params[:offers_page])
   end
 
   def destroy

@@ -3,7 +3,7 @@
   <% if last_page? instance_variable_get("@#{params[:resources]}") %>
     $("div#<%= params[:resources] %>-single-pagination-container").remove();
   <% else %>  
-    $("div#<%= params[:resources] %>-single-pagination-container").find("a.single-pagination").attr('href', "<%= paginate_photos_place_path(@place, "active_#{params[:resources]}" => instance_variable_get("@#{params[:resources]}").next_page, resources: params[:resources], pagination_template: params[:pagination_template] )%>" )
+    $("div#<%= params[:resources] %>-single-pagination-container").find("a.more-link").attr('href', "<%= paginate_photos_place_path(@place, "active_#{params[:resources]}" => instance_variable_get("@#{params[:resources]}").next_page, resources: params[:resources], pagination_template: params[:pagination_template] )%>" )
   <% end %>
 
 <% end %>

@@ -158,6 +158,7 @@ Rails.application.routes.draw do
     collection { get 'all_pages' }
     member { get 'paginate_places'}
     member { get 'paginate_stories'}
+    member { get 'paginate_offers'}
   end
 
   get '/google_map_home' => 'pages#google_map_home'
@@ -368,9 +369,9 @@ Rails.application.routes.draw do
   resources :deals
 
   resources :offers do
+    collection { get 'paginate_on_idx' }
     collection do
       get 'new_livn_offer'
-      get 'all_offers'
       post 'create_livn_offer'
     end
     resources :videos

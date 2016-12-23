@@ -11212,7 +11212,7 @@ span.arrow {
       @media screen and (min-width: 1201px) {
         .destinations .destinations-content-block section .videos-block {
           margin-bottom: 100px;
-          height: 730px; } }
+          height: auto; } }
       @media screen and (max-width: 1200px) {
         .destinations .destinations-content-block section .videos-block .video-embed-wrapper {
           margin-bottom: 20px; } }
@@ -11222,7 +11222,8 @@ span.arrow {
           display: block;
           margin-right: 2.35765%;
           width: 31.76157%; }
-
+          .destinations .destinations-content-block section .videos-block #photos-list .video-embed-wrapper.sm{
+            margin-right: 0;}
           .destinations .destinations-content-block section .videos-block .video-embed-wrapper.sm:last-child {
             margin-right: 0; }
           .destinations .destinations-content-block section .videos-block .video-embed-wrapper.sm:last-of-type {
