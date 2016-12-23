@@ -54,7 +54,7 @@ class PostsController < ApplicationController
   def paginate
     @stories = Post.all_active_posts
     @stories += Story.all_active_stories
-    @stories = @stories.paginate(page: params[:stories_page], per_page: 2)
+    @stories = @stories.paginate(page: params[:stories_page], per_page: 3)
   end
 
   def paginate_place_to_visit

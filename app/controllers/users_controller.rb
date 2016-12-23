@@ -55,6 +55,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    debugger
     unless @user.update(user_params)
       flash[:error] = @user.errors.full_messages.join(" and ")
     end
