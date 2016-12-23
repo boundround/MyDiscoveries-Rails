@@ -254,14 +254,14 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-[data-page="offer"] .regular-wrapper, .local-navigation, .promo-text, .did-you-know, .deal-header, .deal-promo-media__card-holder {
-  margin: 0 auto;
-  max-width: 1170px;
-  padding: 0 14px;
-  font-family: signika-light, sans-serif;
-  font-weight: normal;
-  position: relative;
-  clear: both; }
+// [data-page="offer"] .regular-wrapper, .local-navigation, .promo-text, .did-you-know, .deal-header, .deal-promo-media__card-holder {
+//   margin: 0 auto;
+//   max-width: 1170px;
+//   padding: 0 14px;
+//   font-family: signika-light, sans-serif;
+//   font-weight: normal;
+//   position: relative;
+//   clear: both; }
 
 [data-page="offer"] .regular-wrapper__ta-c {
   text-align: center; }
@@ -276,10 +276,10 @@
     clear: both;
     float: none; }
 
-[data-page="offer"] .card-shadow, .region-preview-item, .places-to-go-card, .family-deals-card, .region-things-to-do-card, .story-card, .deals-result-card, .deal-option-card, .added-swiper.deal-data-review__holder .deal-data-review:nth-child(even),
-.deal-data-review {
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); }
+// [data-page="offer"] .card-shadow, .region-preview-item, .places-to-go-card, .family-deals-card, .region-things-to-do-card, .story-card, .deals-result-card, .deal-option-card, .added-swiper.deal-data-review__holder .deal-data-review:nth-child(even),
+// .deal-data-review {
+//   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+//   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); }
 
 [data-page="offer"] .for-mobile-only,
 .for-desktop-only {
