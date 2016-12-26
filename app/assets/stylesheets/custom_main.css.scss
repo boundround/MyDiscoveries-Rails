@@ -1,4 +1,4 @@
-/*CUSTOM MAIN*/
+// CUSTOM MAIN
 .cover-bg{
     background-position: center !important;
     background-size: cover !important;
@@ -87,4 +87,22 @@
 a:hover {
 	text-decoration: none;
 }
-/*CUSTOM MAIN END*/
+// Helper
+@media screen and (max-width: 1200px){
+	.region.package-offers{
+		.cs-package {
+			margin: auto;
+	   	 	width: 100%;
+	   	 	li{
+	   	 		width: 100%;
+    			margin: auto;
+	   	 	}
+		}
+		.btn-bordered{
+		    width: 100% !important;
+		    margin-top: 21px !important;
+		    display: inline-block !important;
+		}
+	} 	
+}
+// Helper END
