@@ -35,37 +35,75 @@
         </div>
       </div>
     <% end %>
-    <div class="row">
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :minRateAdult, as: :integer, label: 'Min Rate Adult', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :minRateChild, as: :integer, label: 'Min Rate Child', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :minRateInfant, as: :integer, label: 'Min Rate Infant', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :maxRateAdult, as: :integer, label: 'Max Rate Adult', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :maxRateChild, as: :integer, label: 'Max Rate Child', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :maxRateInfant, as: :integer, label: 'Max Rate Infant', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
+    <div class="form-group">
+      <%= f.input :minRateAdult, as: :integer, label: 'Min Rate Adult', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :minRateChild, as: :integer, label: 'Min Rate Child', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :minRateInfant, as: :integer, label: 'Min Rate Infant', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxRateAdult, as: :integer, label: 'Max Rate Adult', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxRateChild, as: :integer, label: 'Max Rate Child', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxRateInfant, as: :integer, label: 'Max Rate Infant', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :duration, as: :integer, label: 'Duration', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :specialNotes, as: :bootsy, label: 'Special Notes', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :operatingDays, as: :integer, label: 'Operating Days', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :operatingDaysStr, as: :string, label: 'Operating Days String', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :operatingSchedule, as: :bootsy, label: 'Operating Schedule', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :locationStart, as: :string, label: 'Location Start', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :latitudeStart, as: :decimal, label: 'Latittude Start', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :longitudeStart, as: :decimal, label: 'Longitude Start', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :distanceStartToRef, as: :integer, label: 'Distance Start To Ref', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :locationEnd, as: :string, label: 'Location End', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :latitudeEnd, as: :decimal, label: 'Latittude End', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :longitudeEnd, as: :decimal, label: 'Longitude End', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :tags, as: :array, label: 'Tags' %>
+      <%= link_to '+ Add', '#', class: 'js-add-offers-tag' %>
+    </div>
+    <div class="form-group">
+      <%= f.input :minAge, as: :integer, label: 'Min Age', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :maxAge, as: :integer, label: 'Max Age', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :requiredMultiple, as: :integer, label: 'Required Multiple', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :minUnits, as: :integer, label: 'Min Units', input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
       <%= f.input :duration, as: :integer, label: 'Duration', input_html: { class: 'form-control' } %>
@@ -132,6 +170,14 @@
           <%= link_to '+ Add', '#', class: 'js-add-offers-tag' %>
         </div>
       </div>
+    <div class="form-group">
+      <%= f.input :highlightsStr, as: :bootsy, label: 'Hightlights Str', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :itineraryStr, as: :bootsy, label: 'Itinerary Str', input_html: { class: 'width100' } %>
+    </div>
+    <div class="form-group">
+      <%= f.input :includes, as: :bootsy, label: 'Includes', input_html: { class: 'width100' } %>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6">
