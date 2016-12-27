@@ -262,6 +262,9 @@ class Offer < ActiveRecord::Base
   has_many :offers_subcategories, dependent: :destroy
   has_many :subcategories, through: :offers_subcategories
 
+  has_many :offers_users
+  has_many :users, through: :offers_users
+
   has_many :orders
 
   validates_presence_of :name

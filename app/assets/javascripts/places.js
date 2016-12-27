@@ -1,7 +1,7 @@
 // Add to Wishlist
 function addToFav(assetType) {
     var klass = assetType;
-    $(".icon-favourite").on('click', function(e) {
+    $(".icon-favourite, .bucket-list").on('click', function(e) {
       console.log("CLICK");
         var icon = $(this);
         var userId = $(this).data("user-id");
@@ -26,6 +26,9 @@ function addToFav(assetType) {
             break;
           case "country":
             data["countries_user"] = { user_id: userId, country_id: placeId };
+            break;
+          case "offer":
+            data["offers_user"] = { user_id: userId, offer_id: placeId };
             break;
         }
 

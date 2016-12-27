@@ -11074,7 +11074,29 @@ span.arrow {
                   margin-top: 20px;
                   margin-bottom: 0;
                   line-height: 30px; }
-      .destinations .destinations-content-block section .map-block #dest-map {
+      .destination-details .favourites-wrapper .icon-favourite{
+        background: url(/assets/new-images/icon-favourite-unfilled.png) no-repeat center;
+        background-size: contain !important;
+        height: 53px;
+        width: 51px;
+        margin: 0 auto;
+      }
+      .destination-details .favourites-wrapper .icon-favourite:hover:not(.selected){
+        background: url(/assets/new-images/icon-favourite-hover.png) no-repeat center;
+        cursor: pointer;
+      }
+      .destination-details .favourites-wrapper .icon-favourite.selected{
+        background: url(/assets/new-images/icon-favourite.png) no-repeat center;
+      }
+      [data-page="offer"] .destination-details{
+        position: absolute;
+        right: 50px;
+        bottom: 50px;
+      }
+      [data-page="offer"] .hero{
+        position: relative;
+      }
+      #dest-map {
         height: 450px;
         width: 100%; }
       .destinations .destinations-content-block section .map-block .gm-style-iw * {
@@ -11734,33 +11756,55 @@ span.arrow {
         clear: both;
         content: "";
         display: block; } }
-  .user-pages .ui-widget.ui-widget-content{
-    border: 0; }
-  .ui-widget.ui-widget-content{
-    color: #ff4b1a;
-    background: white;
-    border: none;
-  }
-  .ui-datepicker .ui-datepicker-header{
-    border: none;
-  }
-  .ui-datepicker .ui-datepicker-prev{
-    left: 30px;
-    top: 4px;
-  }
-  .ui-datepicker .ui-datepicker-prev{
-    background: url("/assets/mydiscoveries_icon/i/slick-arrow-prev.png") 0 0 no-repeat;
-    border: none;
-  }
-  .ui-datepicker .ui-datepicker-next{
-    right: 20px;
-    top: 4px;
-  }
-  .ui-datepicker .ui-datepicker-next{
-    background: url("/assets/mydiscoveries_icon/i/slick-arrow-next.png") 0 0 no-repeat;
-    border: none;
+  .ui-widget-header {
+  background-color: white; }
 
-  }
+.ui-widget.ui-widget-content {
+  color: #ff4b1a;
+  background: white;
+  border: none; }
+
+.ui-datepicker .ui-datepicker-title {
+  color: #000060;
+  text-transform: uppercase; }
+
+.ui-datepicker .ui-datepicker-header {
+  border: none; }
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
+  border-bottom: none;
+  background: white;
+  color: #ff4b1a; }
+
+.ui-datepicker .ui-datepicker-prev {
+  background: url("/assets/mydiscoveries_icon/i/slick-arrow-prev.png") 0 0 no-repeat;
+  border: none; }
+
+.ui-datepicker .ui-datepicker-next {
+  background: url("/assets/mydiscoveries_icon/i/slick-arrow-next.png") 0 0 no-repeat;
+  border: none; }
+
+.ui-datepicker .ui-datepicker-next-hover, .ui-datepicker .ui-datepicker-next-active,
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-prev-active {
+  border: none;
+  background-color: white;
+  top: 4px; }
+
+.ui-datepicker .ui-datepicker-next {
+  right: 20px;
+  top: 4px; }
+
+.ui-datepicker .ui-datepicker-prev {
+  left: 30px;
+  top: 4px; }
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button {
+  text-align: center; }
+
+td a.ui-state-default.ui-state-active,
+td a.ui-state-default.ui-state-hover {
+  color: white;
+  background-color: #ff4b1a; }
   .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-links li.ui-tabs-active .ui-tabs-anchor{
     background-color: white;
     color: #000060;}

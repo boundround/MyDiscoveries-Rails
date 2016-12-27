@@ -119,9 +119,12 @@
     <% if (controller_name == "regions") && (action_name == "show") %>
       <%= javascript_include_tag 'region_map' %>
     <% end %>
-		<% if (controller_name == "offers") && (action_name == "show") %>
-			<%= javascript_include_tag 'offer_map' %>
-		<% end %>
+    <% if (controller_name != "users") && (action_name != "show") %>
+      <%= javascript_include_tag 'bootstrap-datepicker' %>
+    <% end %>
+	<% if (controller_name == "offers") && (action_name == "show") %>
+		<%= javascript_include_tag 'offer_map' %>
+	<% end %>
     <%= render "/layouts/stamp_modal" %>
     <script type="text/javascript">
       setTimeout("$('.alert').fadeOut('slow')",4000);
