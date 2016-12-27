@@ -25,6 +25,7 @@ $(document).ready(function(){
 
   var dualListBox = function(selector, ids, selectBox){
     dt_controller = $('#similar-places-js').data("controllers")
+    console.log(selector, ids, selectBox)
 
     if (selector.length > 0) {
       if (ids.length > 0){
@@ -38,6 +39,10 @@ $(document).ready(function(){
               $(selectBox).append("<option value='" + ids[i]['region_id'] +
                               "' name=" + ids[i]['region_name'] +
                               "' >" + ids[i]['region_name'] + "</option>");
+            } else if (dt_controller == 'countries') {
+              $(selectBox).append("<option value='" + ids[i]['country_id'] +
+                              "' name=" + ids[i]['country_name'] +
+                              "' >" + ids[i]['country_name'] + "</option>");
             } else {
               $(selectBox).append("<option value='" + ids[i]['place_id'] +
                               "' name=" + ids[i]['place_name'] +
@@ -76,6 +81,11 @@ $(document).ready(function(){
   dualListBox($('#dual-list-box-stories-places'), $('#similar-places-js').data("similar"), $("[name*='places_story[place_ids][]']"));
   dualListBox($('#dual-list-box-stories-attractions'), $('#similar-places-js').data("similar"), $("[name*='attractions_story[attraction_ids][]']"));
   dualListBox($('#dual-list-box-stories-regions'), $('#similar-places-js').data("similar"), $("[name*='regions_story[region_ids][]']"));
+
+  dualListBox($('#dual-list-box-offers-attractions'), $('#similar-places-js').data("similar"), $("[name*='attractions_offers[attraction_ids][]']"));
+  dualListBox($('#dual-list-box-offers-places'), $('#similar-places-js').data("similar"), $("[name*='places_offers[place_ids][]']"));
+  dualListBox($('#dual-list-box-offers-countries'), $('#similar-places-js').data("similar"), $("[name*='countries_offer[country_ids][]']"));
+  dualListBox($('#dual-list-box-offers-regions'), $('#similar-places-js').data("similar"), $("[name*='regions_offers[region_ids][]']"));
 
 
   if($("#dual-list-box-stories-countries").length > 0){

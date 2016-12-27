@@ -378,6 +378,11 @@ Rails.application.routes.draw do
     resources :videos
     resources :photos
     resources :orders, only: [ :new, :edit, :create, :update ]
+    resources :places, controller: :places_offers
+    resources :attractions, controller: :attractions_offers
+    resources :regions, controller: :regions_offers
+    resources :countries, controller: :countries_offers
+    resources :subcategories, controller: :subcategories_offers
   end
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'

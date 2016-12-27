@@ -1,5 +1,7 @@
 <div class="container">
-  <h1>Edit Offer</h1>
+   <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
+    <%= render "/offers/admin_tabs" %>
+    <h2>Edit <%= @offer.name + ' (ID: ' + @offer.id.to_s + ')' %></h2>
   <%= simple_form_for @offer, html: { role: 'form'} do |f| %>
     <div class="form-group">
       <%= f.association :attraction,
@@ -138,52 +140,6 @@
     </div>
     <div class="form-group">
       <%= f.input :customStr4, as: :string, label: 'Custom Str4', input_html: { class: 'width100' } %>
-    </div>
-    <div class="form-group">
-      <%= f.association :attractions,
-          label_method: :display_name,
-          value_method: :id,
-          label: false,
-          include_blank: true,
-          input_html: { class: 'width100' }
-      %>
-    </div>
-    <div class="form-group">
-      <%= f.association :places,
-          label_method: :display_name,
-          value_method: :id,
-          label: false,
-          include_blank: true,
-          input_html: { class: 'width100' }
-      %>
-    </div>
-    <div class="form-group">
-      <%= f.association :countries,
-          label_method: :display_name,
-          value_method: :id,
-          label: false,
-          include_blank: true,
-          input_html: { class: 'width100' }
-      %>
-    </div>
-
-    <div class="form-group">
-      <%= f.association :subcategories,
-          label_method: :name,
-          value_method: :id,
-          label: false,
-          include_blank: true,
-          input_html: { class: 'width100' }
-      %>
-    </div>
-    <div class="form-group">
-      <%= f.association :regions,
-          label_method: :display_name,
-          value_method: :id,
-          label: false,
-          include_blank: true,
-          input_html: { class: 'width100' }
-      %>
     </div>
     <div class="form-group margin-left-20">
       <%= f.input_field :pickupRequired, as: :boolean, inline_label: 'Pickup Required', label: false %>
@@ -330,5 +286,10 @@
         <%= f.button :submit %>
       </div>
     <% end %>
+  <hr>
+  <% else %>
+    <h2>You do not have sufficient privileges to view this page</h2>
+    <%= link_to "Home", root_path %>
+  <% end %>
   </div>
 </div>
