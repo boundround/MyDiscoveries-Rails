@@ -1,7 +1,7 @@
 <% content_for :title, "Activities, Reviews and Things To Do For Kids and Families: Bound Round"%>
 <% content_for :og_image, "http://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
 <% content_for :og_secure_image, "https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
-<% content_for :description, "Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards." %>
+<% content_for :description, "Find things to do, reviews and activities to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards." %>
 <div class="banner-wrapper dismiss-mega-menu-search">
     <div class="banner-image" style="background-image: url('<%= @page.hero_image_url rescue "https://placehold.it/1920x1080" %>')" role="img" aria-label=""></div>
     <div class="overlay"></div>
@@ -91,83 +91,6 @@
     </script>
   </div>
 <% end %>
-<!-- BEGIN - proposal -->
-    <div class="proposal width-limiter clear-self">
-        <h3 class="proposal__header">Holiday styles to suit you</h3>
-        <p class="proposal__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-
-        <div class="proposals-wrapper clear-self">
-            <div class="proposal-item proposal-item_type-1">
-
-                <img src="http://lorempixel.com/340/530/nature?4" class="proposal-item__image" alt="">
-
-                <div class="proposal-item__description">
-                    <h4 class="proposal-item__header">Ocean Cruises</h4>
-                    <p class="proposal-item__paragraph">Aboard Saga Sapphire
-                        <br/>& Saga Pearl II</p>
-                </div>
-
-                <p class="proposal-item__link-wrapper">
-                    <a class="proposal-item__link" href="#">see all</a>
-                </p>
-
-            </div>
-
-            <div class="proposal-item proposal-item_type-2">
-
-                <img src="http://lorempixel.com/370/260/nature?4" class="proposal-item__image" alt="">
-
-                <div class="proposal-item__description">
-                    <h4 class="proposal-item__header">Join a small group for a big adventure</h4>
-                    <p class="proposal-item__paragraph">Travel with 14 people or less</p>
-                </div>
-
-                <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
-                    <a class="proposal-item__link" href="#">see all</a>
-                </p>
-
-
-            </div>
-
-            <div class="proposal-item proposal-item_type-3">
-
-                <img src="http://lorempixel.com/370/260/nature?5" class="proposal-item__image" alt="">
-
-                <div class="proposal-item__description">
-                    <h4 class="proposal-item__header">Join a small group for a big adventure</h4>
-                    <p class="proposal-item__paragraph">Travel with 14 people or less</p>
-                </div>
-
-                <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
-                    <a class="proposal-item__link" href="#">see all</a>
-                </p>
-
-            </div>
-
-            <div class="proposal-item proposal-item_type-4">
-
-                <img src="http://lorempixel.com/770/260/nature?5" class="proposal-item__image" alt="">
-
-                <div class="proposal-item__description">
-                    <h4 class="proposal-item__header">Escorted Tours</h4>
-                    <p class="proposal-item__paragraph">Sightseeing with an expert on hand</p>
-                </div>
-
-                <p class="proposal-item__link-wrapper">
-                    <a class="proposal-item__link" href="#">see all</a>
-                </p>
-
-            </div>
-
-        </div>
-
-        <p class="see-more">
-            <a class="see-more__link" href="#">see more</a>
-        </p>
-
-    </div>
-
-    <!-- END - proposal -->
 <div class="section-white padding-big">
   <div class="container">
     <div class="row">
@@ -289,6 +212,7 @@
   </div>
 </div>
 </div>
+<% if @stories.present? %>
 <div class="padding-big section-grey">
   <div class="container">
     <div class="row">
@@ -297,7 +221,6 @@
       </div>
     </div>
 
-<% if @stories.present? %>
   <section class="video-show">
     <div class="container">
       <div class="row">

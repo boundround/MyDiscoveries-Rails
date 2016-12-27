@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219003641) do
+ActiveRecord::Schema.define(version: 20161221094329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -354,6 +354,11 @@ ActiveRecord::Schema.define(version: 20161219003641) do
   end
 
   add_index "deals", ["dealable_id", "dealable_type"], name: "index_deals_on_dealable_id_and_dealable_type", using: :btree
+
+  create_table "deals_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "deal_id"
+  end
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -1212,6 +1217,8 @@ ActiveRecord::Schema.define(version: 20161219003641) do
     t.integer  "max_age"
     t.boolean  "is_private",             default: true
     t.text     "description"
+    t.string   "gender"
+    t.string   "mobile"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
