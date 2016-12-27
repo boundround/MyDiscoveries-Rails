@@ -54,9 +54,18 @@ class PhotosController < ApplicationController
   def country_update
     @photo = Photo.find(params[:id])
     if @photo.update(photo_params)
-      redirect_to choose_hero_country_path(@photo.photoable), notice: "Region Succesfully Updated"
+      redirect_to choose_hero_country_path(@photo.photoable), notice: "Country Succesfully Updated"
     else
       redirect_to choose_hero_country_path(@photo.photoable), notice: "Error"
+    end
+  end
+
+  def offer_update
+    @photo = Photo.find(params[:id])
+    if @photo.update(photo_params)
+      redirect_to choose_hero_offer_path(@photo.photoable), notice: "Offer Succesfully Updated"
+    else
+      redirect_to choose_hero_offer_path(@photo.photoable), notice: "Error"
     end
   end
 

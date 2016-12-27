@@ -1,6 +1,6 @@
 class OffersController < ApplicationController
   # before_action :check_user_authorization, except: [:show, :paginate_on_idx]
-  before_action :set_offer, only: [ :show, :update, :edit, :destroy ]
+  before_action :set_offer, only: [ :show, :update, :edit, :destroy, :choose_hero, :update_hero ]
 
   def show
     @map_marker = Attraction.first
@@ -70,6 +70,27 @@ class OffersController < ApplicationController
   end
 
   def edit
+
+  end
+
+  def choose_hero
+    @offer_photos = @offer.photos
+    @photo = Photo.new
+  end
+
+  def update_hero
+    photo_id = params[:photo_id]
+    @offer.photos.each do |photo|
+      if photo.id.to_s.eql? photo_id
+         photo.hero = true
+      else
+        photo.hero = false
+      end
+        photo.save
+    end
+    @offer.save
+
+    redirect_to choose_hero_offer_path(@offer)
 
   end
 

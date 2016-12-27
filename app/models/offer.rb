@@ -241,11 +241,14 @@ class Offer < ActiveRecord::Base
 
   belongs_to :attraction
 
-  has_many :offers_photos, dependent: :destroy
-  has_many :photos, through: :offers_photos
+  # has_many :offers_photos, dependent: :destroy
+  # has_many :photos, through: :offers_photos
 
-  has_many :offers_videos, dependent: :destroy
-  has_many :videos, through: :offers_videos
+  # has_many :offers_videos, dependent: :destroy
+  # has_many :videos, through: :offers_videos
+
+  has_many :photos, -> { order "created_at ASC"}, as: :photoable
+  has_many :videos, -> { order "created_at ASC"}, as: :videoable
 
   has_many :offers_attractions, dependent: :destroy
   has_many :attractions, through: :offers_attractions

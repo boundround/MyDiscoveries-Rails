@@ -175,6 +175,12 @@ function chooseHero() {
             } else {
                 alert("choose another image");
             }
+        } else if (data_from == 'offer'){
+            if (type) {
+                window.location = '/offers/' + place_id + '/update_hero/' + type + '/' + photo_id
+            } else {
+                alert("choose another image");
+            }
         } else {
             if (type) {
                 window.location = '/places/' + place_id + '/update_hero/' + type + '/' + photo_id

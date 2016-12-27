@@ -20,6 +20,9 @@ class VideosController < ApplicationController
     elsif params[:country_id]
       @country = Country.friendly.find(params[:country_id])
       variable = @country
+    elsif params[:offer_id]
+      @offer = Offer.find(params[:offer_id])
+      variable = @offer
     end
 
     @videos = variable.videos

@@ -31,6 +31,9 @@
     <% elsif @country %>
       <%= f.input :videoable_id, as: :hidden, input_html: {value: @country.id } %>
       <%= f.input :videoable_type, as: :hidden, input_html: {value: "Country"} %>
+    <% elsif @offer %>
+      <%= f.input :videoable_id, as: :hidden, input_html: {value: @offer.id } %>
+      <%= f.input :videoable_type, as: :hidden, input_html: {value: "Offer"} %>
     <% end %>
   </div>
   <div class="form-group">

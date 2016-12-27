@@ -11,6 +11,9 @@
   elsif !@country.blank?
     variable = @country
     path = 'country'
+  elsif !@offer.blank?
+    variable = @offer
+    path = 'offer'
   end
 %>
 
@@ -21,7 +24,7 @@
   <%= render "#{path}s/admin_tabs" %>
   <% end %>
   <h1>Edit Videos</h1>
-  <%= link_to "Back To Edit #{variable.display_name}", eval("edit_#{path}_path(variable)") %>
+  <%= link_to "Back To Edit #{variable.has_attribute?(:display_name)? variable.display_name : variable.name}", eval("edit_#{path}_path(variable)") %>
   <% if @videos.present? %>
     <h4>Videos (Click to Edit)</h4>
     <div class="row">

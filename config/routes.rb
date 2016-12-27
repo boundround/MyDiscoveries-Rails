@@ -196,6 +196,7 @@ Rails.application.routes.draw do
     member { put 'region_update' }
     member { put 'story_update' }
     member { put 'country_update' }
+    member { put 'offer_update' }
   end
 
   resources :videos do
@@ -369,14 +370,21 @@ Rails.application.routes.draw do
   resources :deals
 
   resources :offers do
+    member do
+      get 'choose_hero', as: :choose_hero
+    end
     collection { get 'paginate_on_idx' }
     collection { get 'paginate_offers' }
     collection do
       get 'new_livn_offer'
       post 'create_livn_offer'
     end
-    resources :videos
-    resources :photos
+    resources :videos do
+      collection { get 'all' }
+    end
+    resources :photos do
+      collection { get 'all_photos' }
+    end
     resources :orders, only: [ :new, :edit, :create, :update ]
     resources :places, controller: :places_offers
     resources :attractions, controller: :attractions_offers
@@ -390,6 +398,7 @@ Rails.application.routes.draw do
   get '/stories/:id/update_hero/:type/:photo_id' => 'stories#update_hero'
   get '/regions/:id/update_hero/:type/:photo_id' => 'regions#update_hero'
   get '/countries/:id/update_hero/:type/:photo_id' => 'countries#update_hero'
+  get '/offers/:id/update_hero/:type/:photo_id' => 'offers#update_hero'
   post 'search_requests/create'
 
   match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]
