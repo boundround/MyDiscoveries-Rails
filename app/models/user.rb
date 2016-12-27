@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   has_many :favorite_regions, through: :regions_users, source: :region
   has_many :countries_users
   has_many :favorite_countries, through: :countries_users, source: :country
+  has_many :offers_users
+  has_many :offers, through: :offers_users, source: :offer
   has_many :fun_facts_users
   has_many :fun_facts, through: :fun_facts_users
   has_many :posts_users

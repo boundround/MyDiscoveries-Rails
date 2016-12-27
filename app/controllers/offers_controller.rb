@@ -31,6 +31,7 @@ class OffersController < ApplicationController
 
   def index
     @offers = Offer.all
+    @featured_offers = Offer.all
   end
 
   def create

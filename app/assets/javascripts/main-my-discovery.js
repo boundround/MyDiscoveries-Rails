@@ -82,4 +82,29 @@ $(document).ready(function() {
     if ($('#up-mc-tabs').length) {
         $("#up-mc-tabs").tabs();
     }
+
+    $('#change-location').click(function(){
+        $('#up-my-settings').attr('aria-hidden', false).css('display','block');
+        $('#up-my-dashboard').attr('aria-hidden', true).css('display','none');
+
+        $('.ui-state-default').removeClass('ui-tabs-active ui-state-active');
+        $('.up-my-settings-link').addClass('ui-tabs-active ui-state-active');
+    })
+
+    $('.up-my-content-link, .up-bucket-list-link, .up-my-bookings-link, .up-my-dashboard-link').click(function(){
+        $('#up-my-settings').attr('aria-hidden', true).css('display','none');
+
+        if($(this).hasClass("up-my-dashboard-link")){
+            $('#up-my-dashboard').attr('aria-hidden', false).css('display','block');
+            $('.ui-state-default').removeClass('ui-tabs-active ui-state-active');
+            $('.up-my-dashboard-link').addClass('ui-tabs-active ui-state-active');
+        }
+
+        if($('#up-my-settings').attr('aria-hidden') == "false"){
+            $('.ui-state-default').removeClass('ui-tabs-active ui-state-active');
+            $('.up-my-settings-link').addClass('ui-tabs-active ui-state-active');
+        }else{
+            $('.up-my-settings-link').removeClass('ui-tabs-active ui-state-active');
+        }
+    })
 });
