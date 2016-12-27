@@ -441,6 +441,10 @@ Rails.application.routes.draw do
       get 'new_livn_offer'
       post 'create_livn_offer'
     end
+    member do
+      get 'paginate_reviews'
+    end
+    resources :reviews
     resources :videos
     resources :photos
     resources :orders, only: [:new, :edit, :create, :update]

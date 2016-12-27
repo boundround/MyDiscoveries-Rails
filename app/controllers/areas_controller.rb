@@ -23,7 +23,7 @@ class AreasController < ApplicationController
 
     @reviewable = @area
     @reviews = @reviewable.reviews
-    @review = Review.new
+    @review = @area.reviews.build
 
     @storiable = @area
     @stories = @storiable.stories.active

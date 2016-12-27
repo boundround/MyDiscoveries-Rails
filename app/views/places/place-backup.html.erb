@@ -51,7 +51,7 @@
           <% end %>
         </ul>
       </div>
-     
+
       <div class="pull-right hidden-xs">
         <div class="component-desk">
           <ul>
@@ -207,7 +207,7 @@
     <div class="col-xs-12"> <!-- right-col -->
 
       <section class="your-stories btm15 cards">
-        
+
             <% unless @reviews.blank? %>
               <div class="text-left">
                 <h4 class="section-title">Member Reviews</h4>
@@ -261,8 +261,7 @@
 
 <%= render 'layouts/all_modal' %>
 <%= render 'new_story' %>
-<%= render 'reviews/form' %>
+<%= render 'reviews/form', variable: @place, review: @review %>
 <%= render 'user_photos/form' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
-
