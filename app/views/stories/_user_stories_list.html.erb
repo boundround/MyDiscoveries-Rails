@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <a href="#" class="sm-heading">
+        <a href="<%= story_path(story) %>" class="sm-heading">
             <%= raw story.title.blank? ? story.title : story.title.truncate(40) %>
         </a>
         <div class="sic-text">

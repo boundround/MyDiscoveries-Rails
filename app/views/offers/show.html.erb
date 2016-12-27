@@ -6,6 +6,7 @@
     <a href="#" class="breadcrumbs__link">destinations</a>
     <a href="#" class="breadcrumbs__link">pacific</a>
     <a href="#" class="breadcrumbs__link">australia</a>
+    <a href="<%= edit_offer_path(@offer) %>" class="breadcrumbs__link">Edit Offer</a>
 </div>
 <!-- END - breadcrumbs -->
 
@@ -13,7 +14,7 @@
 <div class="product">
 
     <!-- <div class="hero" style="background: url(<%= main_offer_photo_url(@offer)[:url] %>) center no-repeat;" > -->
-    <div class="hero" style="background: url('/assets/default-hero.jpg') center no-repeat;" >
+    <div class="hero" style="background: url( <%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat;" >
         <div class="hero-content width-limiter">
             <h2 class="lg-heading"><%= @offer.name %></h2>
             <span class="info-text">LOCATION</span>
