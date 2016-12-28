@@ -295,6 +295,8 @@ class Place < ActiveRecord::Base
 
   has_many :stamps
 
+  has_and_belongs_to_many :attractions
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
@@ -680,7 +682,7 @@ class Place < ActiveRecord::Base
     list = list.map { |child| child.itemable }
   end
 
-  def attractions
+  def get_attractions
     places_list = []
     queue = self.children
 
