@@ -5,9 +5,9 @@ class ChildItem < ActiveRecord::Base
   after_create :split_child_item
 
   def split_child_item
-  	@parent = self.parentable.class.find(self.parentable_id)
-  	@child = self.itemable.class.find(self.itemable_id)
   	if self.parentable_type == "Region"
+  	  @parent = self.parentable
+  	  @child = self.itemable
   	  if @child.regions.present?
   	  	@child.regions.destroy_all
   	  end
