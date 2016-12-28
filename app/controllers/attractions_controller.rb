@@ -197,6 +197,23 @@ class AttractionsController < ApplicationController
     end
 
     def attraction_params
+      if @attraction.present?
+        unless @attraction.parent.blank?
+          if (@attraction.parent.parentable_type == params[:attraction][:parent_attributes][:parentable_type])&&(@attraction.parent.parentable_id == params[:attraction][:parent_attributes][:parentable_id].to_i)
+            params[:attraction].delete :parent_attributes
+
+          elsif (@attraction.parent.parentable_type == params[:attraction][:parent_attributes][:parentable_type])||(@attraction.parent.parentable_id == params[:attraction][:parent_attributes][:parentable_id].to_i)
+            @attraction.parent.delete()
+
+          elsif params[:attraction][:parent_attributes][:parentable_type] == nil
+            @attraction.parent.delete()
+            params[:attraction].delete :parent_attributes
+          else
+            @attraction.parent.delete()
+          end
+       end
+      end
+
       params.require(:attraction).permit(
         :code,
         :identifier,

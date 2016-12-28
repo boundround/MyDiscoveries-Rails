@@ -222,6 +222,8 @@ class Attraction < ActiveRecord::Base
   has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable
 
+  has_and_belongs_to_many :regions
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
@@ -260,7 +262,9 @@ class Attraction < ActiveRecord::Base
 
   def set_country
     country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
-    self.country_id = country.id
+    if country
+      self.country_id = country.id
+    end
   end
 
   def trip_advisor_info
