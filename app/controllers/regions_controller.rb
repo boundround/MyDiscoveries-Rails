@@ -101,6 +101,23 @@ class RegionsController < ApplicationController
   end
 
   def region_params
+    if @region.present?
+        unless @region.parent.blank?
+          if (@region.parent.parentable_type == params[:region][:parent_attributes][:parentable_type])&&(@region.parent.parentable_id == params[:region][:parent_attributes][:parentable_id].to_i)
+            params[:region].delete :parent_attributes
+
+          elsif (@region.parent.parentable_type == params[:region][:parent_attributes][:parentable_type])||(@region.parent.parentable_id == params[:region][:parent_attributes][:parentable_id].to_i)
+            @region.parent.delete()
+
+          elsif params[:region][:parent_attributes][:parentable_type] == nil
+            @region.parent.delete()
+            params[:region].delete :parent_attributes
+          else
+            @region.parent.delete()
+          end
+        end
+      end
+
     params.require(:region).permit(:display_name, :description, :latitude, :longitude, :zoom_level, :no_parent_select, :status,
       parent_attributes: [:parentable_id, :parentable_type],
       photos_attributes: [:id, :place_id, :photoable_id, :photoable_type, :attraction_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],

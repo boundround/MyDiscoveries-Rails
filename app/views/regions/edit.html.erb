@@ -55,7 +55,8 @@
           <% end %>
         <% else %>
           <%= radio_button_tag 'parentable_chose', 'country', (@region.parent.parentable_type.eql? 'Country') ? true : false %> Country &nbsp;&nbsp;
-          <%= radio_button_tag 'parentable_chose', 'region', (@region.parent.parentable_type.eql? 'Region') ? true : false %> Region
+          <%= radio_button_tag 'parentable_chose', 'region', (@region.parent.parentable_type.eql? 'Region') ? true : false %> Region  &nbsp;&nbsp;
+          <%= radio_button_tag 'parentable_chose', 'no_parent', false %> No Parent
           <br>
           <%= f.fields_for :parent do |fc| %>
             <div id='chosen_country' style="display:none;">
