@@ -1,0 +1,39 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+<div id="table-container">
+  <h1>All Offers</h1>
+
+  <table class="table table-striped" id="place-table">
+    <thead>
+    <tr>
+      <th>Offer</th>
+      <th>Description</th>
+      <th>Created At</th>
+      <th>Edit Link</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Offer</th>
+        <th>Description</th>
+        <th>Created At</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </tfoot>
+    <tbody>
+    <% @offers.each do |offer| %>
+        <tr>
+          <td><%= link_to "#{offer.name} || #{offer.id}", edit_offer_path(offer) %></td>
+          <td><%= offer.description %></td>
+          <td><%= offer.created_at.strftime("%F") %></td>
+          <td><%= link_to 'Edit offer', edit_offer_path(offer), target: "_blank" %></td>
+          <td><%= link_to 'Destroy', offer_path(offer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% else %>
+<h3>You are not signed in or do not have the proper permissions to view this page</h3>
+<% end %>

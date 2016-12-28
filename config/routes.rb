@@ -378,6 +378,7 @@ Rails.application.routes.draw do
     collection do
       get 'new_livn_offer'
       post 'create_livn_offer'
+      get 'cms_index'
     end
     resources :videos do
       collection { get 'all' }
