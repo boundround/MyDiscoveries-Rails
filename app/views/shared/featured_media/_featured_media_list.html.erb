@@ -1,0 +1,9 @@
+<%- if media.is_a? Video %>
+  <%- if media.youtube_id.present? %>
+    <%= render 'shared/featured_media/featured_youtube_video', video: media %>
+  <% else %>
+    <%= render 'shared/featured_media/featured_vimeo_video', video: media %>
+  <% end %>
+<% else %>
+ <%= render 'shared/featured_media/featured_image', image: media %>
+<% end %>

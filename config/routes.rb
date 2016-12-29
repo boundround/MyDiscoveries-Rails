@@ -442,6 +442,7 @@ Rails.application.routes.draw do
       post 'create_livn_offer'
     end
     member do
+      get 'paginate_media'
       get 'paginate_reviews'
     end
     resources :reviews

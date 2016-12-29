@@ -1,36 +1,54 @@
 <div data-page='offer'>
   <div class="deal-header">
-    <div class="deal-header__tags-holder">
-      <%- @offer.tags.to_a.each do |tag| %>
-        <span class="deal-header__tag">
-          <%= tag %>
-        </span>
+    <%- if @offer.tags.present? %>
+      <div class="deal-header__tags-holder">
+        <%- @offer.tags.to_a.each do |tag| %>
+          <span class="deal-header__tag">
+            <%= tag %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+    <h1 class="deal-header__point-name">
+      <%= @offer.name %>
+    </h1>
+    <%- if @offer.description.length > 280 %>
+      <p class="deal-header__point-short-description offer-desc" style="display:none;">
+        <%= raw @offer.description %>
+      </p>
+
+      <p class="deal-header__point-short-description offer-desc">
+        <%= raw @offer.description[0..280]+"..." %>
+      </p>
+
+      <div class="read-more-wrapper">
+        <a href="javasctipt:void();" class="readmore-area" style="display:none;">LESS</a>
+        <a href="javasctipt:void();" class="readmore-area">SHOW MORE</a>
+      </div>
+    <% else %>
+      <p class="deal-header__point-short-description offer-desc">
+        <%= raw @offer.description %>
+      </p>
+    <% end %>
+    <span data-js-scroll-to="js-deal-options" class="deal-header__view-options js-scroll-to-node">view deal options</span>
+  </div>
+
+  <div class="deal-promo-photo">
+    <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url(<%= main_offer_photo_url(@offer)[:url] %>) no-repeat;" role="img">
+      <div class="overlay"></div>
+      <%- if main_offer_photo_url(@offer)[:title].present? %>
+        <h2 class="deal-promo-photo__head-line">
+          <span class="deal-promo-photo__head-line-icon"></span>
+          <%= main_offer_photo_url(@offer)[:title] %>
+        </h2>
       <% end %>
     </div>
   </div>
 
-  <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url(<%= main_offer_photo_url(@offer)[:url] %>) no-repeat;" role="img">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="location"></div>
-          <div class="destination"><%= @offer.name %></div>
-          <div class="destination-details">
-            <a data-scroll href="#photos" class="white">
-              <div class="photo-wrapper">
-                <%= image_tag 'new-images/icon-camera.svg', class: "svg-inject" %>
-                <div class="photo-title"><span class="count"> <%= @offer.photos.size %></span> <span class="hidden-xs">Photos</span></div>
-              </div>
-            </a>
-            <a data-scroll href="#videos" class="white">
-              <div class="video-wrapper">
-                <%= image_tag 'new-images/icon-play-rect-unfilled.svg', class: "svg-inject" %>
-                <div class="video-title"><span class="count"><%= @offer.videos.size %></span><span class="hidden-xs"> Videos</span></div>
-              </div>
-            </a>
-          </div>
-        </div>
+  <div class="deal-promo-media">
+    <div class="deal-promo-media__card-holder swiper-container horizontal-scroll js-horizontal-scroll--centered-slides">
+      <div class="swiper-wrapper">
+        <%= render partial: "shared/media_list", as: :media, locals: { container: "container" } %>
       </div>
     </div>
   </div>
@@ -45,7 +63,6 @@
           <%= "#{pluralize(duration_in_days(@offer.duration), 'day')}" %>
         </h3>
         <div class="deal-option-card">
-          <!-- <a href='javascript:void()' class='js-buy-offer'> -->
             <%= link_to new_offer_order_path(@offer, number_of_adults: 1) do %>
               <span class="deal-option-card__buy-now">buy now</span>
             <% end %>
@@ -125,11 +142,9 @@
         <span class="deal-data-card__switcher"></span>
         <h2 class="deal-data-card__header open js-show-hide-info-block">Details</h2>
         <div class="deal-data-card__info-block">
-          <!-- <h3 class="deal-data-card__subheading">Subheading</h3> -->
           <p class="deal-data-card__paragraph">
             <%= @offer.description %>
           </p>
-          <!-- <img src="img/deal/deal-big-video.jpg" alt="" class="deal-data__big-video"> -->
         </div>
       </div>
       <div class="deal-data-card ">

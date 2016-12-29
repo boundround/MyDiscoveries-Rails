@@ -1,0 +1,20 @@
+<% if @media %>
+  <%- rendered_media = escape_javascript(
+      render(partial: 'shared/featured_media/featured_media_list', collection: @media, as: :media )
+    )
+  %>
+	$("#media-list").append("<%= rendered_media %>");
+	<% if last_page? @media %>
+		$(".single-pagination-container").remove();
+	<% else %>
+    <%- load_more_link = paginate_media_offer_path(
+        @offer,
+        { active_media: @media.next_page,
+          resources: 'media',
+          pagination_template: params[:pagination_template]
+        }
+      )
+    %>
+		$("a.single-pagination").attr('href', "<%= load_more_link %>" )
+	<% end %>
+<% end %>

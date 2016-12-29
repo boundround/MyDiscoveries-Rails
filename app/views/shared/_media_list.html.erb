@@ -1,0 +1,15 @@
+<div class="owl-carousel carousel" id="media-list" data-controller="<%=params[:controller]%>">
+  <%= render partial: 'shared/featured_media/featured_media_list', collection: @media, as: :media %>
+</div>
+<% unless last_page? @media %>
+  <div class="row hidden-xs single-pagination-container" id="photos-single-pagination-container">
+    <div class="col-xs-12">
+      <div class="hidden single-pagination-loader" align="center">
+        <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+      </div>
+      <div class="load-more">
+        <%= link_to "LOAD MORE", paginate_media_offer_path(@offer, active_media: @media.next_page, resources: 'media', pagination_template: 'shared/featured_media_list'), class: 'single-pagination', remote: true %>
+      </div>
+    </div>
+  </div>
+<% end %>

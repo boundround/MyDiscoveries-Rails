@@ -64,7 +64,7 @@ class VideosController < ApplicationController
     end
 
     if params[:offer_id]
-      @video.offers << Offer.find(params[:offer_id])
+      @video.offers << Offer.friendly.find(params[:offer_id])
     end
 
     if @video.save

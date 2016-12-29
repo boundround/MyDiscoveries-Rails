@@ -4,12 +4,28 @@
 	background: #fff
 }
 
+[data-page="offer"] .read-more-wrapper {
+  text-align: center
+}
+
+[data-page="offer"] .read-more-wrapper a {
+  color: #6cb7ca;
+  font-size: 16px;
+  font-family: Signika-Bold;
+  text-decoration: none
+}
+
+[data-page="offer"] .video-player {
+	max-width: 265px;
+}
+
 [data-page="offer"] #offer-add-review .message-icon {
   width: 25px;
   height: 24px;
   background-size: contain !important;
   background-repeat: no-repeat !important;
   position: absolute
+
 }
 
 [data-page="offer"] #offer-add-review .message-text {
@@ -1717,7 +1733,7 @@
 /* deal */
 [data-page="offer"] .deal-header {
   text-align: left;
-  padding-top: 144px;
+  padding-top: 60px;
   padding-bottom: 57px; }
 
 [data-page="offer"] .deal-header__tags-holder {
@@ -1790,11 +1806,20 @@
   font-size: 40px;
   background-color: rgba(0, 0, 0, 0.3);
   position: absolute;
+	top: -20px;
   z-index: 1;
   color: #fff;
   text-align: center;
   width: 100%;
   padding: 33px 0 49px; }
+
+[data-page="offer"] .photo-components-wrapper {
+	max-width: 800px;
+}
+
+[data-page="offer"] .small-videos-component-wrapper {
+	max-width: 800px;
+}
 
 [data-page="offer"] .deal-promo-photo__head-line-icon {
   display: inline-block;
@@ -1856,7 +1881,6 @@
 
 [data-page="offer"] .deal-promo-media-card-description__icon {
   position: relative;
-  top: 6px;
   margin-right: 12px; }
 
 [data-page="offer"] .deal-promo-media-card__play-icon {

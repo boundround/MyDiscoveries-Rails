@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216133955) do
+ActiveRecord::Schema.define(version: 20161221144423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -536,6 +536,7 @@ ActiveRecord::Schema.define(version: 20161216133955) do
     t.text     "focus_keyword"
     t.text     "seo_title"
     t.string   "shopify_product_id"
+    t.string   "slug"
   end
 
   add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree
