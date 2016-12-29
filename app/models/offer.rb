@@ -26,6 +26,9 @@ class Offer < ActiveRecord::Base
                :accessibility,
                :hero_photo,
                :accessible
+               :tags
+               :startDate
+               :endDate
 
     attribute :display_name do
       name
@@ -55,9 +58,17 @@ class Offer < ActiveRecord::Base
       attractions.map { |attraction| { name: attraction.display_name, identifier: attraction.identifier } }
     end
 
+    attribute :startDate do
+      startDate
+    end
+
+    attribute :endDate do
+      endDate
+    end
+
     attribute :photos do
       photo_array = photos.select { |photo| photo.published? }.map do |photo|
-        { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+        { url: photo.path_url(:small), alt_tag: photo.alt_tag, caption: photo.caption }
       end
       photo_array
     end
@@ -72,6 +83,10 @@ class Offer < ActiveRecord::Base
 
     attribute :description do
       description.blank? ? "" : description
+    end
+
+    attribute :tags do
+      tags.blank? ? [] : tags[0..1]
     end
 
     attribute :is_country do
@@ -140,6 +155,9 @@ class Offer < ActiveRecord::Base
                  :accessibility,
                  :hero_photo,
                  :accessible
+                 :tags
+                 :startDate
+                 :endDate
 
       attribute :display_name do
         name
@@ -171,7 +189,7 @@ class Offer < ActiveRecord::Base
 
       attribute :photos do
         photo_array = photos.select { |photo| photo.published? }.map do |photo|
-          { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+          { url: photo.path_url(:small), alt_tag: photo.alt_tag, caption: photo.caption }
         end
         photo_array
       end
@@ -186,6 +204,18 @@ class Offer < ActiveRecord::Base
 
       attribute :description do
         description.blank? ? "" : description
+      end
+
+      attribute :tags do
+        tags.blank? ? [] : tags[0..1]
+      end
+
+      attribute :startDate do
+        startDate
+      end
+
+      attribute :endDate do
+        endDate
       end
 
       attribute :is_country do
