@@ -17,6 +17,7 @@ class RegionsController < ApplicationController
     @places_to_visit_map = @region.all_place_children
     @places_to_visit = @region.attractions.paginate(page: params[:places_to_visit_page], per_page: 3 )
     @place_to_go = @region.places.paginate(page: params[:places_to_go_page], per_page: 3 )
+    @offers = @region.offers.paginate(page: params[:offers_page], per_page: 4)
   end
 
   def new
@@ -79,6 +80,11 @@ class RegionsController < ApplicationController
   def choose_hero
     @region_photos = @region.photos
     @photo = Photo.new
+  end
+
+  def paginate_offers
+    @region = Region.find_by_slug(params[:id])
+    @offers = @region.offers.paginate(page: params[:offers_page], per_page: 4)
   end
 
   def paginate_place_to_visit

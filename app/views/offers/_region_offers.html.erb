@@ -1,0 +1,17 @@
+<li>
+                <div class="po-content-wrapper">
+                    <img src="<%= offer.hero_photo[:url] %>" alt="">
+                    <div class="po-content-block">
+                        <div class="po-stay-info">
+                            <span>From $<%= offer.minRateAdult %></span>
+                            <span class="posi-nights">8 nights</span>
+                        </div>
+                        <p class="sm-heading">
+                            <%= offer.name %>
+                        </p>
+                        <p><%= offer.description %></p>
+                        <p class="info-text">Offer ends <%= offer.endDate %></p>
+                        <a href="<%= offer_path(offer) %>">see offer</a>
+                    </div>
+                </div>
+            </li>
