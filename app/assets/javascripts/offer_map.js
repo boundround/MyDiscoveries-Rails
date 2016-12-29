@@ -296,7 +296,7 @@
 
 
     win.onload = function () {
-        new RegionMap();
+      new RegionMap();
     };
 
 }(window, window.document));

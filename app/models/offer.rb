@@ -120,6 +120,9 @@ class Offer < ActiveRecord::Base
 
   end
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :history]
+
   belongs_to :attraction
 
   has_many :offers_photos, dependent: :destroy
@@ -158,6 +161,14 @@ class Offer < ActiveRecord::Base
 
   def shopify_product
     ShopifyAPI::Product.find(shopify_product_id) if shopify_product_id?
+  end
+
+  def slug_candidates
+    :name
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || name_changed?
   end
 
   private
