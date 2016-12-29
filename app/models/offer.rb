@@ -3,6 +3,7 @@ class Offer < ActiveRecord::Base
   include Searchable
   include SearchOptimizable
   include Observers::Offer
+  include Reviewable
 
   alias_attribute :minimum_age, :minAge
   alias_attribute :maximum_age, :maxAge

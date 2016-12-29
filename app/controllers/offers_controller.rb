@@ -1,18 +1,22 @@
 class OffersController < ApplicationController
-  before_action :check_user_authorization, except: [
-    :show, :paginate_photos, :paginate_videos, :paginate_media
-  ]
-  before_action :set_offer, only: [
-    :show, :update, :edit, :destroy, :paginate_photos, :paginate_videos, :paginate_media
-  ]
-
   before_action :set_media, only: [:show, :paginate_media]
+  before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media]
+  before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media]
 
   def show
+    @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
+    @review  = @offer.reviews.build
   end
 
   def new
     @offer = Offer.new(tags: [""])
+  end
+
+  def paginate_reviews
+    @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
+    respond_to do |format|
+      format.js { render 'shared/paginate_reviews' }
+    end
   end
 
   def new_livn_offer

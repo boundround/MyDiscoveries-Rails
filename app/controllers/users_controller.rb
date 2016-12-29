@@ -99,6 +99,9 @@ class UsersController < ApplicationController
 
   def paginate_reviews
     @reviews = @user.reviews.paginate(:page => params[:active_reviews_user], per_page: 3)
+    respond_to do |format|
+      format.js { render 'shared/paginate_reviews' }
+    end
   end
 
   def paginate_photos

@@ -24,7 +24,7 @@ class AttractionsController < ApplicationController
     @more_attractions = @attraction.siblings.paginate(page: params[:more_attractions_page], per_page: 6 )
     @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @deals = @attraction.deals.active
-    @review = Review.new
+    @review = @attraction.reviews.build
     @stories = @attraction.attraction_stories.paginate(page: params[:stories_page], per_page: 4)
     @photos = @attraction.active_user_photos.paginate(:page => params[:active_photos], per_page: 3)
     @videos = @attraction.videos.active.paginate(:page => params[:active_videos], per_page: 3)
@@ -64,6 +64,9 @@ class AttractionsController < ApplicationController
   def paginate_reviews
     @attraction = Attraction.find_by_slug(params[:id])
     @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
+    respond_to do |format|
+      format.js { render 'shared/paginate_reviews' }
+    end
   end
 
   def paginate_stories

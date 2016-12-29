@@ -147,12 +147,58 @@
           </p>
         </div>
       </div>
+      <div class="deal-data-card ">
+        <span class="deal-data-card__switcher"></span>
+        <h2 class="deal-data-card__header open js-show-hide-info-block">
+          Reviews
+        </h2>
+        <div class="deal-data-card__info-block">
+          <div id="memberreviews" class="thing-page-segment">
+            <div class="row member-reviews-wrapper">
+              <div class="owl-carousel auto-height-carousel" id="reviews-list">
+                <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
+              </div>
+              <% unless last_page? @reviews %>
+                <div class="col-xs-12 hidden-xs single-pagination-container" id="reviews-single-pagination-container">
+                  <div class="hidden single-pagination-loader" align="center">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                  </div>
+                  <div class="load-more member-reviews-load-more temporary-class-3">
+                    <%= link_to "LOAD MORE",
+                          paginate_reviews_offer_path(
+                            @offer,
+                            reviews_page: @reviews.next_page,
+                            resources: 'reviews',
+                            pagination_template: 'reviews/reviews_list',
+                            collection_object: 'review'
+                          ),
+                          class: 'single-pagination', remote: true
+                    %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div id="offer-add-review">
+            <% if user_signed_in? %>
+              <a href="#" class="btn" data-toggle="modal" data-target="#ReviewModal">
+                <div class="message-icon" style="background-image: url('/assets/new-images/icon-review.png')" role="img" aria-label=""></div>
+                <span class='message-text'>LEAVE A REVIEW</span>
+              </a>
+            <% else %>
+              <a href="javascript:void();" class="btn" data-toggle="modal" data-target="#myModal">
+                <div class="message-icon" style="background-image: url('/assets/new-images/icon-review.png')" role="img" aria-label=""></div>
+                <span class='message-text'>LEAVE A REVIEW</span>
+              </a>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
+<%= render 'reviews/form', variable: @offer, review: @review %>
 <%= render 'layouts/all_modal' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>

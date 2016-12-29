@@ -443,7 +443,7 @@
 </div>
 
 <%= render 'layouts/all_modal' %>
-<%= render 'reviews/form' %>
+<%= render 'reviews/form', variable: @place, review: @review %>
 <%= render 'user_photos/form' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>
