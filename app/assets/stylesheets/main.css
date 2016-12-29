@@ -9074,6 +9074,43 @@ input[type="submit"].modal-content__btn-access  {
   padding: 104px 0 0 28px;
   position: relative; }
 
+.search-page-card.search-offer{
+  height: auto;
+  position: relative;
+}
+
+.search-offer .result-action{
+  position: absolute;
+  right: 30px;
+  bottom: 45px;
+  width: 30%
+}
+
+.search-offer .result-action .search-page-card__cost-details{
+  line-height: inherit;
+  float: none;
+}
+
+.search-offer .result-action .search-page-card__to-bucket-list{
+  text-align: right;
+  bottom: -8px;
+}
+
+.search-photo{
+  position: relative;
+  overflow: hidden;
+}
+
+.search-offer .search-page-card__info-side--right{
+  padding: 0;
+  width: 598px;
+  left: 15px;
+}
+
+.search-offer .search-page-card__info-side--right .search-page-card__description{
+  padding: 20px 15px 30px 18px;
+}
+
 .pagination__link-right.go-to-page-instant-search.disabled,
 .pagination__link-left.go-to-page-instant-search.disabled{
   pointer-events: none;
@@ -9207,7 +9244,24 @@ input[type="submit"].modal-content__btn-access  {
     background-image: url(/assets/mydiscoveries_icon/i/bucket-list/liked.svg);
     color: #ff4d1a; }
 
-.search-page-card__header {
+.category-card{
+  background-color: #bbe0e6;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  color: #000060;
+  font-family: Larsseit-Bold, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  padding: 10px 10px 10px 40px;
+  line-height: normal;
+  background-repeat: no-repeat;
+  background-position: 15px 50%;
+  background-size: 15px;
+}
+
+h3.search-page-card__header {
   margin: 0;
   font-family: Bagnard, serif;
   font-size: 34px;
@@ -9230,6 +9284,12 @@ input[type="submit"].modal-content__btn-access  {
   width: 261px;
   height: 162px;
   padding: 0 0 0 18px; }
+
+.search-offer .search-page-card__image{
+  height: 200px;
+  padding: 0;
+  margin: 25px 18px 25px 18px;
+}
 
 .search-page-card__image-description {
   display: block;

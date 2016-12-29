@@ -274,6 +274,19 @@ $(document).ready(function() {
 
     function renderInstantHits(content) {
         if (content.hits.length > 0) {
+            $.each(content.hits, function(){
+                if($(this)[0].where_destinations == "Offers"){
+                    $(this)[0]["is_offer"] = true
+                    $(this)[0]["is_story"] = false
+                }else if($(this)[0].where_destinations == "Stories"){
+                    $(this)[0]["is_offer"] = false
+                    $(this)[0]["is_story"] = true
+                }else{
+                    $(this)[0]["is_offer"] = false
+                    $(this)[0]["is_story"] = false
+                }
+                $(this)[0]["ID"] = $(this)[0].objectID.split('_')[1]
+            })
             $instantSearchHits.html(instanthitTemplate.render(content));
             $(".instant-hits-result-pagination").show();
         } else {

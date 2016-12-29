@@ -1,7 +1,7 @@
 // Add to Wishlist
 function addToFav(assetType) {
     var klass = assetType;
-    $(".icon-favourite, .bucket-list").on('click', function(e) {
+    $(".icon-favourite").on('click', function(e) {
       console.log("CLICK");
         var icon = $(this);
         var userId = $(this).data("user-id");
@@ -207,8 +207,10 @@ $(document).ready(function() {
     setUpfileUpload('.file-upload', '.lis-file-upload');
     setUpfileUpload('.file-upload2', '.lis-file-upload2');
     setUpfileUpload();
-    if (document.getElementById('favouriteType')){
-      addToFav($('#favouriteType').data('klass'));
+    if ($('#favouriteType')){
+      setTimeout(function(){
+        addToFav($('#favouriteType').data('klass'));
+      }, 2000)
     }
     setUpLoadMore();
     responsiveModalVideo();
