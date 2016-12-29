@@ -7,13 +7,6 @@
         </span>
       <% end %>
     </div>
-    <!-- <h1 class="deal-header__point-name">
-      <%= @offer.name %>
-    </h1> -->
-    <!-- <p class="deal-header__point-short-description">Unwrap toilet paper ignore the squirrels, you'll never catch them anyway run outside as soon as door open but climb leg meow loudly just to annoy ownerscat is love, cat is life present belly, scratch hand when stroked. Sleep in the bathroom sink
-      meowwww.
-    </p> -->
-    <!-- <span data-js-scroll-to="js-deal-options" class="deal-header__view-options js-scroll-to-node">view deal options</span> -->
   </div>
 
   <div class="hero-image-wrapper dismiss-mega-menu-search" style="background: url(<%= main_offer_photo_url(@offer)[:url] %>) no-repeat;" role="img">
@@ -71,19 +64,14 @@
             <%= image_tag 'offer/i/deal/night.svg', class: "deal-option-card-short-info__icon" %>
             <%= "#{pluralize(duration_in_days(@offer.duration), 'day')}" %>
           </p>
-          <!-- <p class="deal-option-card__short-info">
-            <img src="/assets/offer/i/deal/bed.svg" class="deal-option-card-short-info__icon" alt="">TSHELL room, TS Suites Seminyak
-          </p> -->
           <%- if @offer.includes.present? %>
             <div class="deal-option-card__details js-show-hide-details__parent">
-              <!-- <span class="deal-option-card__show-hide-details deal-option-card__show-hide-details--show js-show-hide-details--show">show details</span> -->
               <div class="deal-option-card__details-interactive-block">
                 <p class="deal-option-card__descriptions">
                   <span class="deal-option-card__descriptions deal-option-card__descriptions--bold">Inclusions:</span>
                   <%= @offer.includes %>
                 </p>
               </div>
-              <!-- <span class="deal-option-card__show-hide-details deal-option-card__show-hide-details--hide js-show-hide-details--hide">hide details</span> -->
             </div>
           <% end %>
         </div>
@@ -117,25 +105,9 @@
         <span class="deal-data-card__switcher"></span>
         <h2 class="deal-data-card__header open js-show-hide-info-block">Highlights</h2>
         <div class="deal-data-card__info-block">
-          <!-- <h3 class="deal-data-card__subheading">Subheading</h3> -->
           <p class="deal-data-card__paragraph">
             <%= @offer.highlightsStr %>
           </p>
-          <!-- <div class="deal-data-review__holder swiper-container horizontal-scroll js-horizontal-scroll--centered-slides">
-            <div class="swiper-wrapper">
-              <div class="deal-data-review swiper-slide">
-                <img src="img/stories/stories-author.jpg" alt="" class="deal-data-review__author-avatar">
-                <p class="deal-data-review__author-name">Alex</p>
-                <p class="deal-data-review__review">Damn that dog under the bed. Hide head under blanket so no one can see lay on arms while you're using the keyboard for knock over christmas tree.</p>
-                <div class="deal-data-review__rating"><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                  <span
-                    class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                </div>
-                <span class="deal-data-review__date">July 2015</span>
-              </div>
-            </div>
-            <div class="swiper-scrollbar"></div>
-          </div> -->
         </div>
       </div>
       <%- if @offer.itineraryStr.present? %>
@@ -160,96 +132,58 @@
           <!-- <img src="img/deal/deal-big-video.jpg" alt="" class="deal-data__big-video"> -->
         </div>
       </div>
-      <!-- <div class="deal-data-card ">
+      <div class="deal-data-card ">
         <span class="deal-data-card__switcher"></span>
-        <h2 class="deal-data-card__header open js-show-hide-info-block">Booking Guarantee</h2>
+        <h2 class="deal-data-card__header open js-show-hide-info-block">
+          Reviews
+        </h2>
         <div class="deal-data-card__info-block">
-          <h3 class="deal-data-card__subheading">Subheading</h3>
-          <p class="deal-data-card__paragraph">Dream about hunting birds scratch the furniture so sit by the fire or play time wake up human for food at 4am for pooping rainbow while flying in a toasted bread costume in space. Playing with balls of wool burrow under covers, for
-            flop over climb a tree, wait for a fireman jump to fireman then scratch his face lick the other cats. Hide when guests come over lie on your belly and purr when you are asleep. Has closed eyes but still sees you gnaw the corn cob
-            and damn that dog. Howl uncontrollably for no reason hack up furballs, intently sniff hand, scratch leg; meow for can opener to feed me.
-          </p>
-        </div>
-      </div> -->
-      <!-- <div class="deal-data-card deal-data-card--open-card">
-        <span class="deal-data-card__switcher"></span>
-        <h2 class="deal-data-card__header open js-show-hide-info-block">Facilities</h2>
-        <div class="deal-data-card__info-block">
-          <h3 class="deal-data-card__subheading">Subheading</h3>
-          <p class="deal-data-card__paragraph">Dream about hunting birds scratch the furniture so sit by the fire or play time wake up human for food at 4am for pooping rainbow while flying in a toasted bread costume in space. Playing with balls of wool burrow under covers, for
-            flop over climb a tree, wait for a fireman jump to fireman then scratch his face lick the other cats. Hide when guests come over lie on your belly and purr when you are asleep. Has closed eyes but still sees you gnaw the corn cob
-            and damn that dog. Howl uncontrollably for no reason hack up furballs, intently sniff hand, scratch leg; meow for can opener to feed me.
-          </p>
-          <img src="img/deal/deal-big-video.jpg" alt="" class="deal-data__big-video">
-          <h3 class="deal-data-card__subheading">Subheading</h3>
-        </div>
-      </div> -->
-      <!-- <div class="deal-data-card ">
-        <span class="deal-data-card__switcher"></span>
-        <h2 class="deal-data-card__header open js-show-hide-info-block">Reviews</h2>
-        <div class="deal-data-card__info-block">
-          <h3 class="deal-data-card__subheading">Subheading</h3>
-          <p class="deal-data-card__paragraph">Dream about hunting birds scratch the furniture so sit by the fire or play time wake up human for food at 4am for pooping rainbow while flying in a toasted bread costume in space. Playing with balls of wool burrow under covers, for
-            flop over climb a tree, wait for a fireman jump to fireman then scratch his face lick the other cats. Hide when guests come over lie on your belly and purr when you are asleep. Has closed eyes but still sees you gnaw the corn cob
-            and damn that dog. Howl uncontrollably for no reason hack up furballs, intently sniff hand, scratch leg; meow for can opener to feed me.
-          </p>
-          <img src="img/deal/deal-big-video.jpg" alt="" class="deal-data__big-video">
-          <h3 class="deal-data-card__subheading">Subheading</h3>
-          <ul class="deal-data-card__list">
-            <li class="deal-data-card__list-item">Pooping rainbow while flying in a toasted bread costume in space shove bum in owner's face.</li>
-            <li class="deal-data-card__list-item">Lens cat slap dog in face yet throwup on your pillow attack the dog pretend like nothing happened.</li>
-            <li class="deal-data-card__list-item">Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniffwhen in doubt, wash.</li>
-            <li class="deal-data-card__list-item">Find something else more interesting stares at human while pushing stuff off a table yet rub face on owner leave fur on owners clothes purr while eating walk on car leaving trail of paw prints on hood and windshield, where is my
-              slave? I'm getting hungry.
-            </li>
-          </ul>
-          <div class="deal-data-review__holder swiper-container horizontal-scroll js-horizontal-scroll--centered-slides">
-            <div class="swiper-wrapper">
-              <div class="deal-data-review swiper-slide">
-                <img src="img/stories/stories-author.jpg" alt="" class="deal-data-review__author-avatar">
-                <p class="deal-data-review__author-name">Alex</p>
-                <p class="deal-data-review__review">Damn that dog under the bed. Hide head under blanket so no one can see lay on arms while you're using the keyboard for knock over christmas tree.</p>
-                <div class="deal-data-review__rating"><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                  <span
-                    class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                </div>
-                <span class="deal-data-review__date">July 2015</span>
+          <div id="memberreviews" class="thing-page-segment">
+            <div class="row member-reviews-wrapper">
+              <div class="owl-carousel auto-height-carousel" id="reviews-list">
+                <%= render partial: "reviews/reviews_list", collection: @reviews, as: :review %>
               </div>
-              <div class="deal-data-review swiper-slide">
-                <img src="img/stories/stories-author.jpg" alt="" class="deal-data-review__author-avatar">
-                <p class="deal-data-review__author-name">Alex</p>
-                <p class="deal-data-review__review">Damn that dog under the bed. Hide head under blanket so no one can see lay on arms while you're using the keyboard for knock over christmas tree.</p>
-                <div class="deal-data-review__rating"><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                  <span
-                    class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
+              <% unless last_page? @reviews %>
+                <div class="col-xs-12 hidden-xs single-pagination-container" id="reviews-single-pagination-container">
+                  <div class="hidden single-pagination-loader" align="center">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                  </div>
+                  <div class="load-more member-reviews-load-more temporary-class-3">
+                    <%= link_to "LOAD MORE",
+                          paginate_reviews_offer_path(
+                            @offer,
+                            reviews_page: @reviews.next_page,
+                            resources: 'reviews',
+                            pagination_template: 'reviews/reviews_list',
+                            collection_object: 'review'
+                          ),
+                          class: 'single-pagination', remote: true
+                    %>
+                  </div>
                 </div>
-                <span class="deal-data-review__date">July 2015</span>
-              </div>
-              <div class="deal-data-review swiper-slide">
-                <img src="img/stories/stories-author.jpg" alt="" class="deal-data-review__author-avatar">
-                <p class="deal-data-review__author-name">Alex</p>
-                <p class="deal-data-review__review">Damn that dog under the bed. Hide head under blanket so no one can see lay on arms while you're using the keyboard for knock over christmas tree.</p>
-                <div class="deal-data-review__rating"><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-positive"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                  <span
-                    class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span><span class="deal-data-review__rating-item deal-data-review__rating-item-negative"></span>
-                </div>
-                <span class="deal-data-review__date">July 2015</span>
-              </div>
+              <% end %>
             </div>
-            <div class="swiper-scrollbar"></div>
+          </div>
+          <div id="offer-add-review">
+            <% if user_signed_in? %>
+              <a href="#" class="btn" data-toggle="modal" data-target="#ReviewModal">
+                <div class="message-icon" style="background-image: url('/assets/new-images/icon-review.png')" role="img" aria-label=""></div>
+                <span class='message-text'>LEAVE A REVIEW</span>
+              </a>
+            <% else %>
+              <a href="javascript:void();" class="btn" data-toggle="modal" data-target="#myModal">
+                <div class="message-icon" style="background-image: url('/assets/new-images/icon-review.png')" role="img" aria-label=""></div>
+                <span class='message-text'>LEAVE A REVIEW</span>
+              </a>
+            <% end %>
           </div>
         </div>
-      </div> -->
-        <!-- <div class="deal-data-card ">
-          <span class="deal-data-card__switcher"></span>
-          <h2 class="deal-data-card__header open js-show-hide-info-block">Fine Print</h2>
-        </div> -->
       </div>
     </div>
   </div>
 </div>
 
-
+<%= render 'reviews/form', variable: @offer, review: @review %>
 <%= render 'layouts/all_modal' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
 <%= render 'shared/video_modal' %>

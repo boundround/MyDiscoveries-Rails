@@ -4,7 +4,21 @@
 	background: #fff
 }
 
+[data-page="offer"] #offer-add-review .message-icon {
+  width: 25px;
+  height: 24px;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  position: absolute
+}
 
+[data-page="offer"] #offer-add-review .message-text {
+  padding-left: 35px
+}
+
+[data-page="offer"] #offer-add-review {
+	text-align: center;
+}
 
 /*Map*/
 
