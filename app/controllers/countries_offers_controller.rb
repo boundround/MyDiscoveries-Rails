@@ -9,7 +9,6 @@ class CountriesOffersController < ApplicationController
         @offer.offers_countries.create(offer_id: @offer.id, country_id: id)
       end
     end
-    debugger
     redirect_to :back
   end
 

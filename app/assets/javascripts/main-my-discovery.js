@@ -83,7 +83,7 @@ $(document).ready(function() {
         $("#up-mc-tabs").tabs();
     }
 
-    $('#change-location').click(function(){
+    $('#change-location, #change-location2').click(function(){
         $('#up-my-settings').attr('aria-hidden', false).css('display','block');
         $('#up-my-dashboard').attr('aria-hidden', true).css('display','none');
 
