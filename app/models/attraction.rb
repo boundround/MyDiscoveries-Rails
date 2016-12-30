@@ -223,6 +223,7 @@ class Attraction < ActiveRecord::Base
   has_many :deals, as: :dealable
 
   has_and_belongs_to_many :places
+  has_and_belongs_to_many :regions
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true

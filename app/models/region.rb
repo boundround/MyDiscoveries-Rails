@@ -121,6 +121,9 @@ class Region < ActiveRecord::Base
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
 
+  has_and_belongs_to_many :places
+  has_and_belongs_to_many :attractions
+
   mount_uploader :hero_photo, RegionPhotoUploader
 
   accepts_nested_attributes_for :parent, :allow_destroy => true
@@ -167,7 +170,8 @@ class Region < ActiveRecord::Base
     end
   end
 
-  def places
+  #rename this method to make HBTM works for region.places
+  def get_places
     Rails.cache.fetch([self, "places"]) do
       places_list = []
       queue = self.children
@@ -185,7 +189,7 @@ class Region < ActiveRecord::Base
     end
   end
 
-  def attractions
+  def get_attractions
     Rails.cache.fetch([self, "attractions"]) do
       places_list = []
       queue = self.children
@@ -205,7 +209,7 @@ class Region < ActiveRecord::Base
 
   def all_place_children
     Rails.cache.fetch([self, "all_place_children"]) do
-      childrens_collect = self.places
+      childrens_collect = self.get_places
       data_marker = []
       if !childrens_collect.blank?
         childrens_collect.each do |place|
@@ -223,7 +227,7 @@ class Region < ActiveRecord::Base
           end
 
           data_objs['#childrens'] = []
-          place.attractions.each do |place_child|
+          place.get_attractions.each do |place_child|
               place_item_child = place_child
               data_child_objs = {}
               data_child_objs['@country_child'] = place_item_child.country.display_name rescue ""
