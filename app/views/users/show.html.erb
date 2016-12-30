@@ -146,7 +146,7 @@
                               <% if offer.photos.blank? %>
                                 <img src="/assets/default-hero.jpg" alt="">
                               <% else %>
-                                <img src="<%= offer.photos.last.path %>" alt="">
+                                <img src="<%= draw_small_background(offer) %>" alt="">
                               <% end %>
                             </div>
                             <div class="th-content">

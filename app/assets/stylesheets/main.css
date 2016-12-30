@@ -9917,7 +9917,7 @@ span.arrow {
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-  background: url("/assets/mydiscoveries_icon/images/promo-map/map-border.png") 0 0 repeat-x;
+  background: url("/assets/mydiscoveries_icon/i/map-border.png") 0 0 repeat-x;
   padding-top: 40px; }
   @media screen and (max-width: 1200px) {
     .promo-map {
@@ -11081,7 +11081,7 @@ span.arrow {
                   .destinations .destinations-content-block section .top-holidays ul li a .th-content span.posi-nights {
                     padding-left: 25px;
                     padding-top: 5px;
-                    background: url(../i/moon.png) 0 -2px no-repeat; }
+                    background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat; }
                 .destinations .destinations-content-block section .top-holidays ul li a .th-content .xs-heading, .destinations .destinations-content-block .user-pages section .top-holidays ul li a .th-content .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading, .user-pages .destinations .destinations-content-block section .top-holidays ul li a .th-content .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading, .destinations .destinations-content-block .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content .top-holidays ul li a .th-content p.xs-heading, .user-pages .destinations .destinations-content-block section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content .top-holidays ul li a .th-content p.xs-heading {
                   color: #000060;
                   margin-top: 20px;
