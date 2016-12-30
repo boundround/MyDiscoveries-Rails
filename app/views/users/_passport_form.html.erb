@@ -18,21 +18,6 @@
       </div>
     </td>
     <%= simple_form_for(@user) do |f| %>
-      <!-- <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <h4>Please correct the following errors:</h4>
-
-          <ul>
-          <% @user.errors.full_messages.each do |message| %>
-            <% if message == "Email is invalid" %>
-              <li>We need a valid email address before you can update your profile</li>
-            <% else %>
-              <li><%= message %></li>
-            <% end %>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>-->
       <td>
         <div class="form-group passport-form">
           <%= f.input :username, label: false, placeholder: 'Username', wrapper_html: { class: "form-group"}, input_html: { class: "form-control" } %>

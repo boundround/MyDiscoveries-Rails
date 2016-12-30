@@ -44,11 +44,6 @@ class ReviewsController < ApplicationController
         redirect_to offer_review_path(@review.reviewable, @review)
       end
     end
-
-    # respond_to do |format|
-    #   # format.html { redirect_to :back }
-    #   format.json { render json: @review }
-    # end
   end
 
   def destroy

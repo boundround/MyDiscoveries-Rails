@@ -40,10 +40,7 @@
                   <img src="https://d1w99recw67lvf.cloudfront.net/category_icons/photos_count.png" height="12px" alt="photo count"><%= place.photos.length %>
                 </div>
                 <div class="video-count"><img src="https://d1w99recw67lvf.cloudfront.net/category_icons/videos_count.png" height="12px" alt="videos count"><%= place.videos.length %>
-                </div>
-                <div class="game-count">
-                  <img src="https://d1w99recw67lvf.cloudfront.net/category_icons/games_count.png" height="12px" alt="games count"><%= place.games.length %>
-                </div>
+                </div
               </div>
             </div>
           <% end %>
@@ -55,10 +52,6 @@
       <button class="video-button button" onclick="window.location.href='/videos'">
         <%= image_tag("all_videos_icon.png", size: "20x15", class: "all-game-video-icon") %>
         See All Videos
-      </button>
-      <button class="game-button button" onclick="window.location.href='/games'">
-        <%= image_tag("all_games_icon.png", size: "20x15", class: "all-game-video-icon") %>
-        Play All Games
       </button>
     </div>
     <div class="clearfix"></div>
@@ -361,9 +354,6 @@
         break;
       case "fun_facts_user":
         data[postType] = {user_id: $(this).data("user"), fun_fact_id: $(this).data("contentId")};
-        break;
-      case "games_user":
-        data[postType] = {user_id: $(this).data("user"), game_id: $(this).data("contentId")};
         break;
       case "videos_user":
         data[postType] = {user_id: $(this).data("user"), video_id: $(this).data("contentId")};

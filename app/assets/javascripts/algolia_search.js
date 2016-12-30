@@ -196,6 +196,8 @@ $(document).ready(function() {
 
     function viatorLink(hits) {
         $.each(hits, function(index, val) {
+          console.log("VIATOR LINK");
+          console.log(val.viator_link);
             if (val.viator_link == "") {
                 val.viator_link = {
                     klass: "hide"

@@ -1,72 +1,59 @@
 <div class="br_sign_style_modal" id="forgot_password" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="text-center img-logo-area">
-                          <img src="/assets/logoNew.png">
-                        </div>
-                        <%= link_to "  ",  root_path, class: "close cs-close close-signup"  %>
-                        <h1 class="text-center">Forgot Your Password</h1>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-                              <%= f.error_notification %>
-                            <div class="col-md-12">
-                                <%= f.input :email, required: true, label:false, autofocus: true, class: "form-control", placeholder: "Email"%>
-                                <div class="form-inputs"></div>
-                            </div>
-                            <div class="col-md-12 form-actions">
-                              <%= f.button :submit, "Send me password reset instructions", class: "btn btn-block btn-warning btn-orange" %>
-                            </div>
-                              <!-- copy on shared link -->
-                              <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-                                <div class="col-md-12 text-center">
-                                    <label>Need a Bound Round account ?</label>
-                                </div>
-                                <div class="col-md-12">
-                                    <%= link_to "Sign up here!", new_registration_path(resource_name), class: "btn btn-block btn-warning btn-orange" %>
-                                </div>
-                                <div class="col-md-12">
-                                  <h4 class="text-center or">OR</h4>
-                                </div>
-                              <% end -%>
-                              <!--  -->
-                            <div class="col-md-12">
-                            <!-- copy on shared link -->
-                            <%- if devise_mapping.omniauthable? %>
-                              <%- resource_class.omniauth_providers.each do |provider| %>
-                                <p><a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn btn-block insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;&nbsp;Sign In With Instagram</a></p><br />
-                              <% end -%>
-                            <% end -%>
-                            <!--  -->
-                            </div>
-                          <% end %> <!--/simple form -->
-                        </div>
-                    </div><!--/modal body -->
-
-                    <div class="modal-footer">
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <div class="left">
-                            <p class="text-center">We're committed to protecting your privacy. By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %></p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                </div><!--modal content -->
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center img-logo-area">
+                  <img src="/assets/logoNew.png">
+                </div>
+                <%= link_to "  ",  root_path, class: "close cs-close close-signup"  %>
+                <h1 class="text-center">Forgot Your Password</h1>
             </div>
-        </div><!--/modal-->
+            <div class="modal-body">
+                <div class="row">
+                    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+                      <%= f.error_notification %>
+                    <div class="col-md-12">
+                        <%= f.input :email, required: true, label:false, autofocus: true, class: "form-control", placeholder: "Email"%>
+                        <div class="form-inputs"></div>
+                    </div>
+                    <div class="col-md-12 form-actions">
+                      <%= f.button :submit, "Send me password reset instructions", class: "btn btn-block btn-warning btn-orange" %>
+                    </div>
+                      <!-- copy on shared link -->
+                      <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+                        <div class="col-md-12 text-center">
+                            <label>Need a Bound Round account ?</label>
+                        </div>
+                        <div class="col-md-12">
+                            <%= link_to "Sign up here!", new_registration_path(resource_name), class: "btn btn-block btn-warning btn-orange" %>
+                        </div>
+                        <div class="col-md-12">
+                          <h4 class="text-center or">OR</h4>
+                        </div>
+                      <% end -%>
+                      <!--  -->
+                    <div class="col-md-12">
+                    <!-- copy on shared link -->
+                    <%- if devise_mapping.omniauthable? %>
+                      <%- resource_class.omniauth_providers.each do |provider| %>
+                        <p><a href="<%= omniauth_authorize_path(resource_name, provider) %>" class="btn btn-block insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;&nbsp;Sign In With Instagram</a></p><br />
+                      <% end -%>
+                    <% end -%>
+                    <!--  -->
+                    </div>
+                  <% end %> <!--/simple form -->
+                </div>
+            </div><!--/modal body -->
 
-<!-- <h2>Forgot your password?</h2>
-<%#= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%#= f.error_notification %>
-  <div class="form-inputs">
-    <%#= f.input :email, required: true, autofocus: true %>
-  </div>
-
-  <div class="form-actions">
-    <%#= f.button :submit, "Send me reset password instructions" %>
-  </div>
-<%# end %>
-<%#= render "devise/shared/links" %> -->
+            <div class="modal-footer">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="left">
+                    <p class="text-center">We're committed to protecting your privacy. By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div><!--modal content -->
+    </div>
+</div><!--/modal-->

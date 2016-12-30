@@ -120,6 +120,42 @@ class Place < ActiveRecord::Base
       photos.exists?(hero: true) || user_photos.exists?(hero: true)
     end
 
+    attribute :age_range do
+      if minimum_age.present? and maximum_age.present?
+        if minimum_age > 12
+          ["Teens"]
+        elsif minimum_age > 8 && maximum_age < 13
+          ["For Ages 9-12"]
+        elsif minimum_age > 8
+          ["For Ages 9-12", "Teens"]
+        elsif maximum_age < 13
+          ["For Ages 5-8", "For Ages 9-12"]
+        elsif maximum_age < 9
+          ["For Ages 5-8"]
+        else
+          ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
+        end
+      else
+        ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
+      end
+    end
+
+    attribute :weather do
+      subcategories.where(category_type: 'weather').map{ |sub|  sub.name }
+    end
+
+    attribute :price do
+      subcategories.where(category_type: 'price').map{ |sub|  sub.name }
+    end
+
+    attribute :best_time_to_visit do
+      subcategories.where(category_type: 'optimum_time').map{ |sub|  sub.name }
+    end
+
+    attribute :accessibility do
+      subcategories.where(category_type: 'accessibility').map{ |sub|  sub.name }
+    end
+
     attribute :subcategories do
       subcategories.map { |sub| { name: sub.name, identifier: sub.identifier } }
     end
@@ -171,6 +207,7 @@ class Place < ActiveRecord::Base
   end
 
   # ratyrate_rateable "quality"
+  before_save :set_country
 
   has_many :rates_without_dimension, -> { where dimension: nil}, as: :rateable, class_name: 'Rate', dependent: :destroy
   has_many :raters_without_dimension, through: :rates_without_dimension, source: :rater
@@ -211,7 +248,7 @@ class Place < ActiveRecord::Base
   validates_presence_of :display_name
 
 
-  #belongs_to :country
+  belongs_to :country
   belongs_to :user
   belongs_to :primary_category
 
@@ -219,6 +256,7 @@ class Place < ActiveRecord::Base
   has_many :childrens, :class_name => "ChildItem", as: :parentable
 
   has_many :places_subcategories
+  has_many :discounts
   has_many :similar_places
   has_many :associated_areas, through: :similar_places, source: :similar_place
   has_many :subcategories, through: :places_subcategories
@@ -242,6 +280,7 @@ class Place < ActiveRecord::Base
   has_many :customers_places
   has_many :owners, through: :customers_places, :source => :user
 
+  has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable
 
   has_many :three_d_videos, as: :three_d_videoable
@@ -309,7 +348,6 @@ class Place < ActiveRecord::Base
 
   def Place.all_placeareas_geojson
     # Fetch place GeoJSON from cache or store it in the cache.
-#    Rails.cache.fetch('placeareas_geojson') do
       geojson = {"type" => "FeatureCollection","features" => []}
       places = self.active
       places.each do |place|
@@ -323,7 +361,7 @@ class Place < ActiveRecord::Base
             "title"=> place.display_name,
             "url" => '/places/' + place.slug + '.html',
             "id" => place.id,
-            "places" => false,#area.places.all? { |place| place.status = "live" },
+            "places" => false,
             "icon" => {
               "iconUrl" => 'https://s3-ap-southeast-2.amazonaws.com/brwebproduction/vector_icons/orange_plane.png',
               # size of the icon
@@ -331,31 +369,24 @@ class Place < ActiveRecord::Base
               # point of the icon which will correspond to marker location
               "iconAnchor" => [20, 0]
             },
-            "placeCount" => 0,#area.places.length,
+            "placeCount" => 0,
             "country" => (place.country ? place.country.display_name : "")
           }
         }
       end
 
       geojson
-#    end
   end
 
   def Place.all_geojson
     # Fetch place GeoJSON from cache or store it in the cache.
     Rails.cache.fetch('places_geojson') do
       geojson = {"type" => "FeatureCollection","features" => [],"countries" => []}
-      places = self.active.includes(:games, :videos, :photos, :country)
+      places = self.active.includes(:videos, :photos, :country)
       places.each do |place|
         if place.area != nil
           area_info = {"title" => place.area.display_name, "url" => '/areas/' + place.area.slug + '.html', 'placeCount' => place.area.places.length, "country" => (place.country ? place.country.display_name : "") }
         end
-        # Assign icon based on 'premium' level and category
-        # if place.categories[0].nil?
-        #   place_type = 'sights'
-        # else
-        #   place_type = place.categories[0].identifier
-        # end
 
         icon_file_name = place_type + "_pin.png"
 
@@ -381,7 +412,6 @@ class Place < ActiveRecord::Base
               "iconAnchor" => [20, 0]
             },
             "videoCount" => place.videos.count,
-            "gameCount" => place.games.count,
             "imageCount" => place.photos.count,
             "heroImage" => !place.photos.blank? ? place.photos.first.path_url(:small) : "https://d1w99recw67lvf.cloudfront.net/category_icons/small_generic_" + place_type + ".jpg",
             "placeId" => place.slug,
@@ -524,8 +554,11 @@ class Place < ActiveRecord::Base
     end
   end
 
-  def country
-    get_parents(self).find {|parent| parent.class.to_s == "Country"}
+  def set_country
+    country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
+    if country
+      self.country_id = country.id
+    end
   end
 
   def places_to_visits
@@ -677,9 +710,8 @@ class Place < ActiveRecord::Base
 
   class << self
     def filter params= {}
-      res= self.all#where(id: nil)
+      res= self.all
       if params.present?
-        #res= res.joins(:primary_category)
         if params[:min_age]
           res= res.where(" places.minimum_age >= ?", params[:min_age])
         end

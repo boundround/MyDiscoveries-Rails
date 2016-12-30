@@ -398,26 +398,9 @@ module ApplicationHelper
       asset_path(content.path_url(:small))
     elsif content.class.to_s == "FunFact"
       asset_path(content.hero_photo_url)
-    elsif content.class.to_s == "Game"
-      game_thumbnail(content)
     else
       ""
     end
-  end
-
-  def show_place_rating(place)
-    rating = place.quality_average.avg.round
-    remainder = 5-rating
-    text = ""
-    rating.times do
-      text += '<i class="fa fa-heart"></i>'
-    end
-    remainder.times do
-      text += '<i class="fa fa-heart-o"></i>'
-    end
-
-    text
-
   end
 
   def strip_domain_from_username(user)
@@ -440,15 +423,6 @@ module ApplicationHelper
     end
   end
 
-  def calculate_user_points_for_asset(asset_collection)
-    begin
-      value = PointsValue.find_by(asset_type: asset_collection.first.class.to_s).value
-      value * asset_collection.length
-    rescue
-      0
-    end
-  end
-
   def is_flash_key_for_tracking?(key)
     [
      "recently_signed_in", "recently_signed_out",
@@ -466,11 +440,6 @@ module ApplicationHelper
     return draw_hero_background(variable) if url.blank?
 
     url
-  end
-
-  def remote_file_exists?(url)
-    response = HTTParty.get(url)
-    response.code == 200 && response.headers['Content-Type'].start_with?('image')
   end
 
   def last_page? collection

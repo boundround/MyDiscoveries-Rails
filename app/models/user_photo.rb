@@ -2,9 +2,6 @@ class UserPhoto < ActiveRecord::Base
   include Transactionable
 
   attr_accessor :user_notified
-  # validates :path, presence: true
-  #after_update :send_live_notification, unless: "user_notified"
-  #after_update :add_transaction
 
   belongs_to :user
   belongs_to :story
@@ -15,7 +12,6 @@ class UserPhoto < ActiveRecord::Base
   has_many :users, through: :user_photos_users
 
   mount_uploader :path, UserPhotoUploader
-  # process_in_background :path ###This is not working for versions
 
   scope :active, -> { where(status: "live") }
   scope :recent, -> { order('created_at DESC') }

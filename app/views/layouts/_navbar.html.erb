@@ -1,198 +1,196 @@
 <div class="destination-page">
-    <div class="navigation-wrapper">
-        <div class="menu-dark-background hide"></div>
-        <div class="menu-toggle hidden-sm hidden-md hidden-lg">
-            <div>
-                <img id="menu-closed" src="/assets/new-images/icon-hamburger-menu.png"/>
-                <img id="menu-opened" class="hide" src="/assets/new-images/icon-cross.png"/>
-            </div>
-        </div>
-        <!-- mobile -->
-        <div class="mobile-menu hide hidden-sm hidden-md hidden-lg">
-            <div class="mobile-menu-contents">
-                <div>Find</div>
-                <h4><a href="results">Places to go</a></h4>
-                <h4><a href="<%= subcategories_path %>">Things to do</a></h4>
-
-                <div>Browse</div>
-                <h4><a href="/posts/all_posts"><i class="fa fa-book navi-button"></i> <span>Stories</span></a></h4>
-                <h4><a href="/videos"><img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
-                    <span>Videos</span></a>
-                </h4>
-                <% if !user_signed_in? %>
-                  <div>Become a member</div>
-                  <button href="<%= new_user_registration_path %>">Join Bound Round</button>
-                <% end %>
-            </div>
-        </div>
-
-        <div class="mega-menu">
-            <div class="menu-bar">
-                <div class="container">
-                    <div class="row">
-                    <a href="<%= root_path %>">
-                        <img class="logo" src="<%= asset_path('navbar-logo.png') %>"/>
-                    </a>
-
-                    <div class="menu-items">
-                        <div class="menu-item hidden-xs">
-                            <a id="places-to-go-link">PLACES TO GO <img class="active hide"
-                                                                        src="/assets/new-images/icon-caret-active.png"><img
-                                    class="inactive" src="/assets/new-images/icon-caret.png"></a>
-                        </div>
-                        <%= link_to "THINGS TO DO", subcategories_path, class: "menu-item hidden-xs" %>
-                        <a class="menu-item hidden-xs" href="/posts/all_posts">
-                            <i class="fa fa-book navi-button"></i> <span>STORIES</span>
-                        </a>
-
-                        <a class="menu-item hidden-xs" href="/videos">
-                            <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/> <span>VIDEOS</span>
-                        </a>
-                        <% if !user_signed_in? %>
-                            <a class="menu-item hidden-sm hidden-md hidden-lg" href="#" data-toggle="modal" data-target="#myModal">
-                                SIGN IN / LOGIN
-                            </a>
-                        <% end %>
-
-                        <div class="search-results" id="search-results-container" style="display:none;">
-                            <%= render :partial=> "search_suggestions/search_results" %>
-                        </div>
-
-                        <div class="menu-item">
-                            <div class="search-container">
-                                <form accept-charset="UTF-8" action="/results" method="get">
-                                      <div style="display:none">
-                                        <input name="utf8" value="✓" type="hidden">
-                                      </div>
-                                      <input type="text" name="search[common]" class="search-box" placeholder="SEARCH" autocomplete="off">
-                                    <!-- <input class="search" placeholder="SEARCH" autocomplete: "off" /> -->
-                                    <button class="hidden-xs hidden-sm search-icon-nav" type="submit" >
-                                        <img class="" src="/assets/new-images/icon-search.png"/>
-                                    </button>
-                                    <button class="hidden-md hidden-lg">
-                                        <img src="/assets/new-images/icon-search-white.png"/>
-                                        <span>SEARCH</span>
-                                    </button>
-
-                                </form>
-                            </div>
-                            <img id="search-toggle" src="/assets/new-images/icon-search.png"/>
-                        </div>
-                        <% if !user_signed_in? %>
-                          <a class="menu-item hidden-xs" href="#" data-toggle="modal" data-target="#myModal">
-                              SIGN IN
-                          </a>
-                          <div class="menu-item hidden-xs">
-                              <a class="join" href="<%= new_user_registration_path %>">JOIN</a>
-                          </div>
-                        <% else %>
-                        <ul class="nav navbar-nav navbar-right hidden-xs">
-                            <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
-                                <div class="outer-profile" style="background: url('<%= current_user.avatar_url rescue '' %>') no-repeat;" >
-                                  <!-- <img src="<%#= current_user.avatar_url rescue "" %>" /> -->
-                                </div>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
-                                <li><a href="<%= edit_user_path(current_user) %>">Edit Profile</a></li>
-                                <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li>
-                                <% if current_user.admin? || current_user.has_role?("contributor") %>
-                                  <li><a href="<%= new_story_path %>">Add A Story</a></li>
-                                  <li><a href="<%= stories_user_path(current_user) %>">My Stories</a></li>
-                                <% end %>
-                                <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
-                              </ul>
-                            </li>
-                        </ul>
-                        <% end %>
-
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="places-to-go hide">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="places-title">Featured places to go</div>
-                            <div class="row">
-                                <div class="carousel-wrapper">
-                                    <div class="owl-carousel">
-                                    <% @featured_nav_destinations.each do |place| %>
-                                        <div class="col-md-6">
-                                            <a href="<%= place_path(place)%>">
-                                                <div class="destination-card">
-                                                    <div class="destination-image"
-                                                         style="background-image: url('<%= draw_small_background(place)%>')"
-                                                         role="img" aria-label="Destination Sydney">
-                                                        <div class="overlay"></div>
-                                                        <div class="geolocation">
-                                                            <img src="/assets/new-images/icon-geolocator.png"><span><%= place.country.display_name %></span>
-                                                        </div>
-                                                        <div class="destination-city">
-                                                            <h2><%= place.display_name %></h2>
-
-                                                            <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <% end %>
-
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="places-title">Featured things to do</div>
-                            <div class="row">
-                                <div class="carousel-wrapper">
-                                    <div class="owl-carousel">
-                                    <% @featured_nav_places.each do |place| %>
-                                        <div class="col-md-12 dest-thing-wrapper">
-                                            <div class="dest-thing featured">
-                                            <a class="link_card" href="<%= attraction_path(place)%>"></a>
-                                                <div class="things-img"
-                                                     style="background: url('<%= draw_small_background(place) %>') no-repeat;"
-                                                     role="img" aria-label="<%= place.display_name %>">
-                                                    <div class="dest-thing-overlay-wrapper">
-                                                        <div class="dest-thing-overlay">
-                                                            <div class="dollar-rating">
-                                                                <% place.subcategories.price_categories.each do |icon| %>
-                                                                    <%= icon.name + " " %>
-                                                                <% end %>
-                                                            </div>
-                                                            <% if !place.viator_link.blank? %>
-                                                                <div class="book-wrapper">
-                                                                    <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" class="btn book-btn book-white" type="button">BOOK</a>
-                                                                </div>
-                                                            <% end %>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="dest-thing-content">
-                                                    <h4><%= place.display_name %></h4>
-                                                    <div class="tags">
-                                                        <% place.subcategories.subcats.each do |category| %>
-                                                            <div class="tag"><a href="#" class="v-center"><%= category.name %></a></div>
-                                                        <% end %>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <% end %>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="navigation-wrapper">
+    <div class="menu-dark-background hide"></div>
+    <div class="menu-toggle hidden-sm hidden-md hidden-lg">
+      <div>
+        <img id="menu-closed" src="/assets/new-images/icon-hamburger-menu.png"/>
+        <img id="menu-opened" class="hide" src="/assets/new-images/icon-cross.png"/>
+      </div>
     </div>
+    <!-- mobile -->
+    <div class="mobile-menu hide hidden-sm hidden-md hidden-lg">
+      <div class="mobile-menu-contents">
+        <div>Find</div>
+        <h4><a href="results">Places to go</a></h4>
+        <h4><a href="<%= subcategories_path %>">Things to do</a></h4>
+
+        <div>Browse</div>
+        <h4><a href="/posts/all_posts"><i class="fa fa-book navi-button"></i> <span>Stories</span></a></h4>
+        <h4><a href="/videos"><img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/>
+          <span>Videos</span></a>
+        </h4>
+        <% if !user_signed_in? %>
+          <div>Become a member</div>
+          <button href="<%= new_user_registration_path %>">Join Bound Round</button>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mega-menu">
+      <div class="menu-bar">
+        <div class="container">
+          <div class="row">
+          <a href="<%= root_path %>">
+            <img class="logo" src="<%= asset_path('navbar-logo.png') %>"/>
+          </a>
+
+          <div class="menu-items">
+            <div class="menu-item hidden-xs">
+              <a id="places-to-go-link">PLACES TO GO <img class="active hide"
+                                    src="/assets/new-images/icon-caret-active.png"><img
+                  class="inactive" src="/assets/new-images/icon-caret.png"></a>
+            </div>
+            <%= link_to "THINGS TO DO", subcategories_path, class: "menu-item hidden-xs" %>
+            <a class="menu-item hidden-xs" href="/posts/all_posts">
+              <i class="fa fa-book navi-button"></i> <span>STORIES</span>
+            </a>
+
+            <a class="menu-item hidden-xs" href="/videos">
+              <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg"/> <span>VIDEOS</span>
+            </a>
+            <% if !user_signed_in? %>
+              <a class="menu-item hidden-sm hidden-md hidden-lg" href="#" data-toggle="modal" data-target="#myModal">
+                SIGN IN / LOGIN
+              </a>
+            <% end %>
+
+            <div class="search-results" id="search-results-container" style="display:none;">
+              <%= render :partial=> "search_suggestions/search_results" %>
+            </div>
+
+            <div class="menu-item">
+              <div class="search-container">
+                <form accept-charset="UTF-8" action="/results" method="get">
+                    <div style="display:none">
+                    <input name="utf8" value="✓" type="hidden">
+                    </div>
+                    <input type="text" name="search[common]" class="search-box" placeholder="SEARCH" autocomplete="off">
+                  <button class="hidden-xs hidden-sm search-icon-nav" type="submit" >
+                    <img class="" src="/assets/new-images/icon-search.png"/>
+                  </button>
+                  <button class="hidden-md hidden-lg">
+                    <img src="/assets/new-images/icon-search-white.png"/>
+                    <span>SEARCH</span>
+                  </button>
+
+                </form>
+              </div>
+              <img id="search-toggle" src="/assets/new-images/icon-search.png"/>
+            </div>
+            <% if !user_signed_in? %>
+              <a class="menu-item hidden-xs" href="#" data-toggle="modal" data-target="#myModal">
+                SIGN IN
+              </a>
+              <div class="menu-item hidden-xs">
+                <a class="join" href="<%= new_user_registration_path %>">JOIN</a>
+              </div>
+            <% else %>
+            <ul class="nav navbar-nav navbar-right hidden-xs">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
+                <div class="outer-profile" style="background: url('<%= current_user.avatar_url rescue '' %>') no-repeat;" >
+                </div>
+                </a>
+                <ul class="dropdown-menu">
+                <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
+                <li><a href="<%= edit_user_path(current_user) %>">Edit Profile</a></li>
+                <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li>
+                <% if current_user.admin? || current_user.has_role?("contributor") %>
+                  <li><a href="<%= new_story_path %>">Add A Story</a></li>
+                  <li><a href="<%= stories_user_path(current_user) %>">My Stories</a></li>
+                <% end %>
+                <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
+                </ul>
+              </li>
+            </ul>
+            <% end %>
+
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="places-to-go hide">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="places-title">Featured places to go</div>
+              <div class="row">
+                <div class="carousel-wrapper">
+                  <div class="owl-carousel">
+                  <% @featured_nav_destinations.each do |place| %>
+                    <div class="col-md-6">
+                      <a href="<%= place_path(place)%>">
+                        <div class="destination-card">
+                          <div class="destination-image"
+                             style="background-image: url('<%= draw_small_background(place)%>')"
+                             role="img" aria-label="Destination Sydney">
+                            <div class="overlay"></div>
+                            <div class="geolocation">
+                              <img src="/assets/new-images/icon-geolocator.png"><span><%= place.country.display_name %></span>
+                            </div>
+                            <div class="destination-city">
+                              <h2><%= place.display_name %></h2>
+
+                              <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <% end %>
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="places-title">Featured things to do</div>
+              <div class="row">
+                <div class="carousel-wrapper">
+                  <div class="owl-carousel">
+                  <% @featured_nav_places.each do |place| %>
+                    <div class="col-md-12 dest-thing-wrapper">
+                      <div class="dest-thing featured">
+                      <a class="link_card" href="<%= attraction_path(place)%>"></a>
+                        <div class="things-img"
+                           style="background: url('<%= draw_small_background(place) %>') no-repeat;"
+                           role="img" aria-label="<%= place.display_name %>">
+                          <div class="dest-thing-overlay-wrapper">
+                            <div class="dest-thing-overlay">
+                              <div class="dollar-rating">
+                                <% place.subcategories.price_categories.each do |icon| %>
+                                  <%= icon.name + " " %>
+                                <% end %>
+                              </div>
+                              <% if !place.viator_link.blank? %>
+                                <div class="book-wrapper">
+                                  <a onclick="bookNowClicks()" href="<%= place.viator_link%>" target="_blank" class="btn book-btn book-white" type="button">BOOK</a>
+                                </div>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="dest-thing-content">
+                          <h4><%= place.display_name %></h4>
+                          <div class="tags">
+                            <% place.subcategories.subcats.each do |category| %>
+                              <div class="tag"><a href="#" class="v-center"><%= category.name %></a></div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

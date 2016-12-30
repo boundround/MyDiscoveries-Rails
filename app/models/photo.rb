@@ -3,8 +3,6 @@ class Photo < ActiveRecord::Base
 
   before_save :set_approval_time, :check_customer_approved
 
-  # belongs_to :place
-  # belongs_to :attraction
   belongs_to :photoable, polymorphic: true
 
   has_many :countries_photos
@@ -17,7 +15,7 @@ class Photo < ActiveRecord::Base
   has_many :offers, through: :offers_photos
 
   mount_uploader :path, PhotoUploader
-  # process_in_background :path
+  
   skip_callback :commit, :after, :remove_path!
 
   has_paper_trail

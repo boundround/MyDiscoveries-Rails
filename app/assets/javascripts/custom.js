@@ -75,7 +75,6 @@ $(document).ready(function(){
     var selectBox = $("[name*='countries_story[country_ids][]']");
     if(similar_ids.length > 0){
       for (var i = 0; i < similar_ids.length; i++){
-        //availableCountries.find($("[name*='" + similar_ids[i]['country_name'] + "'")).remove();
         if (similar_ids[i] !== "nil"){
           $(selectBox).append("<option value='" + similar_ids[i]['country_id'] +
                               "' name=" + similar_ids[i]['country_name'] +
@@ -91,7 +90,6 @@ $(document).ready(function(){
     var selectBox = $("[name*='countries_post[country_ids][]']");
     if(similar_ids.length > 0){
       for (var i = 0; i < similar_ids.length; i++){
-        //availableCountries.find($("[name*='" + similar_ids[i]['country_name'] + "'")).remove();
         if (similar_ids[i] !== "nil"){
           $(selectBox).append("<option value='" + similar_ids[i]['country_id'] +
                               "' name=" + similar_ids[i]['country_name'] +
@@ -108,7 +106,6 @@ $(document).ready(function(){
       var selectBox = $("[name*='similar_place[similar_place_ids][]']");
       if(similar_ids.length > 0){
         for (var i = 0; i < similar_ids.length; i++){
-          //availableDestinations.find($("[name*='" + similar_ids[i]['place_name'] + "'")).remove();
           if (similar_ids[i] !== "nil"){
             $(selectBox).append("<option value='" + similar_ids[i]['place_id'] +
                                 "' name=" + similar_ids[i]['place_name'] +
@@ -390,7 +387,6 @@ $(document).ready(function(){
     if (controller == 'regions'){
       document.getElementById('chosen_country').style.display = "none";
       document.getElementById('chosen_region').style.display = "none";
-      // $('#chosen_region').find('select').val($($('#chosen_region select#region_parent_attributes_parentable_id option')[1]).val())
       $('#chosen_country').find('select').val('')
       $('#chosen_region').find('select').prop('disabled', true);
       $('.place_parent_attributes_parentable_type_country').prop('disabled', true).val('')

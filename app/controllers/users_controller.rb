@@ -136,15 +136,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def games
-    if user_signed_in?
-      @set_body_class = 'br_tab blue_page'
-      @user = current_user
-    else
-      redirect_to new_user_registration_path, notice: "You must be logged in to view that"
-    end
-  end
-
   def places
     if user_signed_in?
       @set_body_class = 'br_tab blue_page'
@@ -213,42 +204,8 @@ class UsersController < ApplicationController
 
       @posts = client.user_recent_media(@instagram_identity.uid, count: 1000)
     end
-
-    # page_1 = client.user_media_feed(777)
-    # page_2_max_id = page_1.pagination.next_max_id
-    # page_2 = client.user_recent_media(777, :max_id => page_2_max_id ) unless page_2_max_id.nil?
-    # @html << "<h2>Page 1</h2><br/>"
-    # for media_item in page_1
-    #   @html << "<img src='#{media_item.images.thumbnail.url}'>"
-    # end
-    # @html << "<h2>Page 2</h2><br/>"
-    # for media_item in page_2
-    #   @html << "<img src='#{media_item.images.thumbnail.url}'>"
-    # end
   end
 
-  # def change_password
-
-  #   user = current_user
-  #   # Devise::Models::DatabaseAuthenticatable#update_with_password
-  #   # Update record attributes when :current_password matches, otherwise returns error on :current_password.
-  #   # It also automatically rejects :password and :password_confirmation if they are blank.
-  #   # debugger
-  #   if user.update_without_password(params[:user])
-
-  #     # Sign in the user bypassing validation in case his password changed
-  #     sign_in user, :bypass => true
-
-  #     # redirect_to root_path, :notice => "Your Password has been updated!"
-  #     render  json: {success:true}
-  #   else
-
-  #     # flash[:alert] = @user.errors.full_messages.join("<br />")
-  #     render json: {success:true, messages: "Please check your input: #{user.errors.full_messages.to_sentence}" }
-
-  # end
-
-  # end
   def leaderboard
     @set_body_class = "white-body"
     @points_balances = PointsBalance.order(balance: :desc).includes(:user)

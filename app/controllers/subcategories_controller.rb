@@ -7,7 +7,6 @@ class SubcategoriesController < ApplicationController
 
 	def show
   	#hardcode #check
-    # @more_places.paginate(page: params[:more_places_page], per_page: params[:more_places_page].nil?? 6 : 3 )
     @cat = params[:id]
   	@subcategory = Subcategory.find_by_identifier(params[:id]) || Subcategory.find(params[:id])
     if !@subcategory.nil?

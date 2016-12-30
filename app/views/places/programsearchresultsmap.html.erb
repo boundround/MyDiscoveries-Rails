@@ -182,41 +182,6 @@
             </div>
     </div>
             </div>
-
-            <!--div class="col-md-1 col-sm-1 col-xs-6 left_login left_login2 pull-right text-right">
-                <div class="dropdown z_index l_dropdown">
-                    <button class="login btn-log dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="false">
-                        Login
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu l_dropdown_ul dropdown-menu-right pd15" role="menu" aria-labelledby="dropdownMenu1">
-                        <li>
-                            <input type="email" class="form-control login_form" placeholder="email address">
-
-                            <input type="password" class="form-control login_form" placeholder="password">
-
-                            <button type="submit" class="btn btn-default login_form_submit form-control">Sign in</button>
-                        </li>
-
-                        <li class="bg_none">
-                            <a href="#">create an account</a>
-                            <span class="speacer20"></span>
-                        </li>
-
-                        <li class="l_create_a text-center visible-xs">
-
-                           <span class="speacer20"></span>
-                           <span style="color:#fff;">or</span>
-                           <div class="clearfix"></div>
-                           <span class="speacer10"></span>
-                           <button type="submit" class="btn btn-default l_create_btn">Create an account</button>
-                           <span class="speacer20"></span>
-
-                       </li>
-
-                   </ul>
-               </div>
-           </div-->
        </div>
 
 
@@ -227,8 +192,6 @@
 </div>
 
 <section class="map_content">
-
-<!--    <div id="map-canvas"></div>-->
 <div class="map-wrapper">
             <div id="map-canvas" ></div>
             <div class="overlay"></div>
@@ -237,13 +200,6 @@
                 <i class="icon-lock-open unlocked fa  fa-lock"></i>
             </div>
 </div>
-<!--    <div class="map-pointer">
-         <img src="../ss/img/map_02.jpg">
-        <a href="#"><span></span></a>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>-->
     <div class="">
         <div class="row nomargin">
 
@@ -257,7 +213,6 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <hr class="row hr_border">
                     <a class="" href="javascript:ss_focus_on_place(<%=place.id%>)">
-                    <!--a class="" href="/places/placeprograms?id=<%=place.id%>"-->
                     <figure class=" col-sm-4 col-md-4">
 												<div style="width:100px; max-height:100px; overflow:hidden;">
                         <img style="max-width:100%; max-height:100%" src="<%=asset_path(place.photos[0].path_url(:small))%>" alt="img">
@@ -279,7 +234,6 @@
 </section>
 
 <footer class="f_otter">
-   <!--   <img src="../ss/img/Bound_logo.png" alt="bound_logo" />-->
    <nav class="navbar navbar-default nav_button">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -307,7 +261,6 @@
 </footer>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../ss/js/bootstrap.min.js"></script>
@@ -320,37 +273,6 @@ $("#search_input").keyup(function(event){
         $("#search_button").click();
     }
 });
-/*
-function get_search_params()
-{
-	params="term="+$("#search_input").val();
-
-	var v = $("#yearlevel_selector").val();
-	params += v != "All" ? "&yearlevel="+v : "";
-
-	var v = $("#subject_selector").val();
-	params += v != "All" ? "&subject="+v : "";
-
-	var v = $("#activity_selector").val();
-	params += v != "All" ? "&activity="+v : "";
-
-	var v = $("#location_selector").val();
-	params += v != "All" ? "&location="+v : "";
-
-	return params;
-}
-
-function ss_goto_list_results()
-{
-	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultslist?"+get_search_params())},20);
-}
-
-function ss_goto_map_results()
-{
-	setTimeout(function(){window.location.href = encodeURI("/places/programsearchresultsmap?"+get_search_params())},100);
-}
-
-*/
 
 var ss_g_pancallbackhandle = null;
 
@@ -378,35 +300,6 @@ function ss_focus_on_place(place_id)
 	ss_open_window = place.infowindow;
 }
 
-</script>
-
-
-
-
-<script>
-/*
-    $(document).ready(function () {
-        $(".navbar-toggle").on("click", function () {
-            $(this).toggleClass("active");
-        });
-
-				$("#search_input").val("<%=@search_term%>");
-				$("#yearlevel_selector").val("<%=@yearlevel_filter%>");
-				$("#subject_selector").val("<%=@subject_filter%>");
-				$("#activity_selector").val("<%=@activity_filter%>");
-				$("#location_selector").val("<%=@location_filter%>");
-//				$("#yearlevel_selector").selectpicker('val','<%=@yearlevel_filter%>');
-			  $('.selectpicker').selectpicker('refresh');
-
-				<% if @yearlevel_filter || @subject_filter || @activity_filter || @location_filter then %>
-	        $('.open-btn').hide(0);
-	        $('.story_area').stop().slideToggle(400);
-	        $('.close-btn').show(0);
-				<%end%>
-
-
-    });
-*/
 </script>
 <script>
     $('.btn-log').click(function () {
@@ -494,11 +387,4 @@ function ss_focus_on_place(place_id)
             $(".btn-bg a:nth-child(1)").removeClass('active-btn');
             });
     </script>
-
-
-
-    <!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script-->
-
-
-
 </body>

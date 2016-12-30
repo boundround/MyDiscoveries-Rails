@@ -86,7 +86,7 @@
               <div class="deal-option-card__details-interactive-block">
                 <p class="deal-option-card__descriptions">
                   <span class="deal-option-card__descriptions deal-option-card__descriptions--bold">Inclusions:</span>
-                  <%= @offer.includes %>
+                  <%= simple_format @offer.includes %>
                 </p>
               </div>
             </div>
@@ -123,7 +123,7 @@
         <h2 class="deal-data-card__header open js-show-hide-info-block">Highlights</h2>
         <div class="deal-data-card__info-block">
           <p class="deal-data-card__paragraph">
-            <%= @offer.highlightsStr %>
+            <%= simple_format @offer.highlightsStr %>
           </p>
         </div>
       </div>
@@ -133,7 +133,7 @@
           <h2 class="deal-data-card__header open js-show-hide-info-block">Itinerary</h2>
           <div class="deal-data-card__info-block">
             <p class="deal-data-card__paragraph">
-              <%= @offer.itineraryStr %>
+              <%= simple_format @offer.itineraryStr %>
             </p>
           </div>
         </div>
@@ -143,7 +143,7 @@
         <h2 class="deal-data-card__header open js-show-hide-info-block">Details</h2>
         <div class="deal-data-card__info-block">
           <p class="deal-data-card__paragraph">
-            <%= @offer.description %>
+            <%= simple_format @offer.description %>
           </p>
         </div>
       </div>

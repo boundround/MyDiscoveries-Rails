@@ -8,6 +8,7 @@
 	  <%= csrf_meta_tags %>
 
 	  <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet"> -->
+		<link href="<%= request.original_url %>" rel="canonical" />
 
 		<link rel="apple-touch-icon" sizes="57x57" href="<%= asset_path('favicons/apple-touch-icon-57x57.png')%>">
 		<link rel="apple-touch-icon" sizes="60x60" href="<%= asset_path('favicons/apple-touch-icon-60x60.png')%>">
@@ -196,9 +197,9 @@
     <script type="text/javascript">
       setTimeout("$('.alert').fadeOut('slow')",4000);
     </script>
-		<% if %>
-			<%= render '/layouts/hubspot_tracking' %>
-		<% end %>
+		<%# if %>
+			<%#= render '/layouts/hubspot_tracking' %>
+		<%# end %>
 
 	</body>
 

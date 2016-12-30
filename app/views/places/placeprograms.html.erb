@@ -23,354 +23,116 @@ var id = 'loader', fill = '#FFF',
 <div class="result" style="background: url(<%= pick_a_place_hero_url(@place) %>) no-repeat center; background-size:cover";
 >
 <div class="result-top">
-			<div class="col-sm-3 fff back" style="margin: auto;">
-				<div class="ss_gray_bg_text" style="margin:auto;">
-					<i class="glyphicon glyphicon-chevron-left"></i> &nbsp;
-					<a class="fff" href="javascript:history.back()">Back to results</a>
-				</div>
-			</div>
-	<!--div class="col-md-3 col-sm-3 col-xs-5 left_login profile pull-right text-right">
-            <div class="dropdown z_index l_dropdown">
-                <button class="login btn-log dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                  Your Profile
-    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu l_dropdown_ul dropdown-menu-right pd15" role="menu" aria-labelledby="dropdownMenu1">
-                    <li>
-                    	<a href="#">Excursions</a>
-                    </li>
-
-                    <li>
-                    	<a href="#">Saved places</a>
-                    </li>
-                   	<li>
-                   		<a href="#">Activities</a>
-                   	</li>
-                    <li>
-                    	<a href="#">Students</a>
-                    </li>
-                    <li>
-                    	<a href="#">Reviews</a>
-                    </li>
-                    <li>
-                    	<a></a>
-                    </li>
-                    <li>
-                    	<a href="#">log out</a>
-                    </li>
-
-                </ul>
-            </div>
+      <div class="col-sm-3 fff back" style="margin: auto;">
+        <div class="ss_gray_bg_text" style="margin:auto;">
+          <i class="glyphicon glyphicon-chevron-left"></i> &nbsp;
+          <a class="fff" href="javascript:history.back()">Back to results</a>
         </div>
-        <div class="clearfix">
-   </div-->
+      </div>
         </div>
 
 
-        	<h1 class="text-center fff"><%=@place.display_name%><br/><span><%=@place.locality%></span>
-        	</h1>
-        	<div class="map-btn text-center">
-        		<a href="/places/programsearchresultsmap?id=<%=@place.id%>&term=<%=@place.display_name%>">View on map</a>
-        	</div>
-        	<div class="clearfix">
-        	</div>
+          <h1 class="text-center fff"><%=@place.display_name%><br/><span><%=@place.locality%></span>
+          </h1>
+          <div class="map-btn text-center">
+            <a href="/places/programsearchresultsmap?id=<%=@place.id%>&term=<%=@place.display_name%>">View on map</a>
+          </div>
+          <div class="clearfix">
+          </div>
 </div>
 
-		<div class="container result-middle">
-			<div class="row result-box-top">
-				<div class="col-md-12 fff">
-
-						<!--IMPLEMENT WITH REVIEWS--div class="col-sm-6 col-xs-9  text-left">
-							<p>Jump to:&nbsp; <a href="#">Programs</a>&nbsp; <a href="#">Reviews</a>
-							</p>
-						</div>
-						<!--IMPLEMENT WITH FAVORITES--div class="col-sm-6 col-xs-3 text-right">
-							<p class="hidden-xs"><span>Save</span> <%=@place.display_name%>
-								<i class="fa fa-star rate"></i>
-							</p>
-							<p class="visible-xs">
-								<i class="fa fa-star rate"></i>
-							</p>
-						</div-->
-
-				</div>
-			</div>
-			<div class="row result-box-middle">
-				<div class="col-sm-12">
-
-					<div class="col-md-9 col-sm-8">
-						<h2><%=@place.display_name%><BR><br/>
-							<div class = "side-btn">
-								<span><a class="btn btn-default ss_website_button" href="<%=@place.website%>">Website</a></span>
-							</div>
-						</h2>
-						<!--div class="visible-xs">
-							<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart-o"></i>
-								<i class="fa fa-heart-o"></i>
-						</div-->
-						<p class="col-md-11 row">
-							<%=@place.school_safari_description.blank? ? (raw @place.description) : (raw @place.school_safari_description) %><br>
-							<!--a href="#" class="hidden-xs">Read More</a-->
-						</p>
-						<p class="visible-xs">
-							<span class="bold">Address:</span> <span><%=@place.display_address%></span>
-						</p>
-						<div class="clearfix"></div>
-
-					<div class="row slider">
-					<div class="col-sm-12">
-					<div class="outside hidden-xs">
-						<span id="slider-prev" class="fa fa-caret-left"></span>
-						<span id="slider-next" class="fa fa-caret-right"></span>
-					</div>
-						<ul class="bxslider1">
-							<% @place.photos.each do |photo| %>
-						<li>
-							<a>
-								<img src=<%= asset_path(photo.path_url(:small)) %> class="img-responsive"/>
-							</a>
-						</li>
-						<% end %>
-					</ul>
-					</div>
-					</div>
-						<div class="side-btn visible-xs">
-							<a href="<%= @place.programs[0] ? @place.programs[0].contact ? 'mailto:'+@place.programs[0].contact : '' : ''%>" class="btn  btn-default">Enquire</a>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-4 result-box-side hidden-xs">
-						<!--img src="../ss/img/logo3.png" class="center-block"/-->
-						<ul>
-							<!--IMPLEMENT WITH RATINGS--li>
-								Rating:&nbsp; <span>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart"></i>
-								<i class="fa fa-heart-o"></i>
-								<i class="fa fa-heart-o"></i>
-								</span>
-							</li-->
-							<li>
-								Year:&nbsp; <span><%=place_yearlevels(@place)%></span>
-							</li>
-							<li>
-								Subject:&nbsp; <span><%=@place.programs[0] ? @place.programs[0].programsubjects[0] ? @place.programs[0].programsubjects[0] : "" : ""%></span>
-							</li>
-							<li>
-								Programs:&nbsp; <%=@place.programs.count%> <!--a href="#"><%=@place.programs.count%></a-->
-							</li>
-							<li>
-								Address:&nbsp; <span><BR><%=@place.display_address%><BR></span>
-							</li>
-						</ul>
-
-						<div class="side-btn">
-							<a href="<%= @place.programs[0] ? @place.programs[0].contact ? 'mailto:'+@place.programs[0].contact : '' : ''%>" class="btn  btn-default">Enquire</a>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-
-
-		<% @place.programs.each do |program| %>
-	  <div id="myModal_<%=program.id%>" class="modal fade">
-			<%= render partial: "/programs/program_ss_full_for_modal", locals: {program: program} %>
-		</div>
-		<% end %>
-
-    <!--div id="myModal2" class="modal fade">
-        <div class="modal-dialog golu-p">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                </div>
-                <div class="col-md-11 modal-middle center-block">
-
-                	<div class="golu center-block">
-                	</div>
-                	<div class="golu2 center-block">
-                	</div>
-                	<div class="text-center">
-                	<img src="../ss/img/logo.png" class="golu-logo">
-                	</div>
-
-                	<div class="col-md-12">
-                		<h1 class="text-center ">Booking</h1>
-                		<p class="text-center done-modal-p">
-                			<span class="bold"><%=@place.display_name%></span><br>
-							<%=@place.display_name%><br>
-							<%=@place.display_address%><br>
-                		</p>
-                	</div>
-                	<div class="clearfix"></div>
-                	<div class="model-end-middle width-no">
-                		<div class="col-md-12">
-                			<div class="col-md-12">
-                				<div class="col-sm-3 border-right pad20">
-                					<p>Date</p>
-                					<div>
-                						<input type="text" value="22/05/2015" id="datepicker"><span class="new-cart caret"></span>
-                					</div>
-                				</div>
-                				<div class="col-sm-3 border-right pad20">
-                					<div class="divin">
-                				  		<p>Time</p>
-                					<select class="selectpicker">
-                						<option>13:00</option>
-                						<option>14:00</option>
-                						<option>15:00</option>
-                					</select>
-                				  </div>
-
-                				</div>
-                				<div class="col-sm-3 border-right pad20">
-                				  <div class="divin">
-                				  	<p>Year</p>
-                					<select class="selectpicker">
-                						<option>22/05/2015</option>
-                						<option>22/05/2015</option>
-                						<option>22/05/2015</option>
-                					</select>
-                				  </div>
-                				</div>
-                				<div class="col-sm-3 pad20">
-                					<div class="divin">
-                					<p>Program</p>
-                					<select class="selectpicker">
-                						<option>22/05/2015</option>
-                						<option>22/05/2015</option>
-                						<option>22/05/2015</option>
-                					</select>
-                				</div>
-                				</div>
-                			</div>
-                		</div>
-                		<div class="clearfix"></div>
-                	</div>
-                	<div class="col-md-12">
-                		<h1 class="text-center model-end  f36">Cost: $1550</h1>
-                	</div>
-
-                	<div class="col-sm-12 ">
-                		<a href="#" class="order book-now  form-control btn btn-default">Book</a>
-
-                	</div>
-                	<div class="col-md-12 ">
-                		<p class="text-center last-marg">
-                			On clicking book, we will email the venue with their details.
-                			<br> <span class="bold">
-                				They will contact you shortly with a confirmation
-                				</span>
-                		</p>
-                	</div>
-
-
-                </div>
-                <div class="clearfix"></div>
-            </div>
+    <div class="container result-middle">
+      <div class="row result-box-top">
+        <div class="col-md-12 fff">
         </div>
-    </div-->
+      </div>
+      <div class="row result-box-middle">
+        <div class="col-sm-12">
+
+          <div class="col-md-9 col-sm-8">
+            <h2><%=@place.display_name%><BR><br/>
+              <div class = "side-btn">
+                <span><a class="btn btn-default ss_website_button" href="<%=@place.website%>">Website</a></span>
+              </div>
+            </h2>
+            <p class="col-md-11 row">
+              <%=@place.school_safari_description.blank? ? (raw @place.description) : (raw @place.school_safari_description) %><br>
+              <!--a href="#" class="hidden-xs">Read More</a-->
+            </p>
+            <p class="visible-xs">
+              <span class="bold">Address:</span> <span><%=@place.display_address%></span>
+            </p>
+            <div class="clearfix"></div>
+
+          <div class="row slider">
+          <div class="col-sm-12">
+          <div class="outside hidden-xs">
+            <span id="slider-prev" class="fa fa-caret-left"></span>
+            <span id="slider-next" class="fa fa-caret-right"></span>
+          </div>
+            <ul class="bxslider1">
+              <% @place.photos.each do |photo| %>
+            <li>
+              <a>
+                <img src=<%= asset_path(photo.path_url(:small)) %> class="img-responsive"/>
+              </a>
+            </li>
+            <% end %>
+          </ul>
+          </div>
+          </div>
+            <div class="side-btn visible-xs">
+              <a href="<%= @place.programs[0] ? @place.programs[0].contact ? 'mailto:'+@place.programs[0].contact : '' : ''%>" class="btn  btn-default">Enquire</a>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-4 result-box-side hidden-xs">
+            <ul>
+              <li>
+                Year:&nbsp; <span><%=place_yearlevels(@place)%></span>
+              </li>
+              <li>
+                Subject:&nbsp; <span><%=@place.programs[0] ? @place.programs[0].programsubjects[0] ? @place.programs[0].programsubjects[0] : "" : ""%></span>
+              </li>
+              <li>
+                Programs:&nbsp; <%=@place.programs.count%> <!--a href="#"><%=@place.programs.count%></a-->
+              </li>
+              <li>
+                Address:&nbsp; <span><BR><%=@place.display_address%><BR></span>
+              </li>
+            </ul>
+
+            <div class="side-btn">
+              <a href="<%= @place.programs[0] ? @place.programs[0].contact ? 'mailto:'+@place.programs[0].contact : '' : ''%>" class="btn  btn-default">Enquire</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
 
 
-
-		</div>
-		<div class="container max-1024">
-			<div class="row">
-				<div class="row width-no">
-					<div class="col-md-12">
-						<h2>Programs</h2>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container max-1024">
-			<div class="row">
-				<% @programs = @place.programs%>
-				<%= render partial: "/programs/programs_ss_card"%>
-			</div>
-		</div>
-
-		<!--div class="result-footer">
-			<div class="container max-1024">
-				<div class="row">
-				 <div class="row width-no">
-				 	<div class="col-md-12">
-				 		<h2>Reviews</h2>
-				 		<p class="sub-hed hidden-xs">Looks like your have been here before, why don’t you
-				 			<span><a href="#">write a review?</a></span>
-				 		</p>
-				 	</div>
-				 </div>
-
-				 <div class="row width-no">
-				 	<div class="col-sm-3">
-				 		<h4>Meet with a keeper</h4>
-				 		<p>
-				 			“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-				 		</p>
-				 		<p class="anchor">
-				 			<a href="#">See entire review</a>
-				 		</p>
-				 		<img src="../ss/img/review.png" class="pull-left">
-				 		<p class="pull-left cl-name">Chris Jones,<br/>Mosman Public</p>
-				 		<div class="clearfix"></div>
-				 	</div>
-				 	<div class="col-sm-3">
-				 		<h4>Meet with a keeper</h4>
-				 		<p>
-				 			“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-				 		</p>
-				 		<p class="anchor">
-				 			<a href="#">See entire review</a>
-				 		</p>
-				 		<img src="../ss/img/review.png" class="pull-left">
-				 		<p class="pull-left cl-name">Chris Jones,<br/>Mosman Public</p>
-				 		<div class="clearfix"></div>
-				 	</div>
-				 	<div class="col-sm-3">
-				 		<h4>Meet with a keeper</h4>
-				 		<p>
-				 			“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-				 		</p>
-				 		<p class="anchor">
-				 			<a href="#">See entire review</a>
-				 		</p>
-				 		<img src="../ss/img/review.png" class="pull-left">
-				 		<p class="pull-left cl-name">Chris Jones,<br/>Mosman Public</p>
-				 		<div class="clearfix"></div>
-				 	</div>
-				 	<div class="col-sm-3">
-				 		<h4>Meet with a keeper</h4>
-				 		<p>
-				 			“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vi vmus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada. Aenean non tortor id. Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Vivamus cursus purus quis tellus adipiscing sit amet susc ipit justo malesuada....”
-				 		</p>
-				 		<p class="anchor">
-				 			<a href="#">See entire review</a>
-				 		</p>
-				 		<img src="../ss/img/review.png" class="pull-left">
-				 		<p class="pull-left cl-name">Chris Jones,<br/>Mosman Public</p>
-				 		<div class="clearfix"></div>
-				 	</div>
-				 </div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 see-more">
-						<a href="#" class="btn btn-default center-block">See more reviews</a>
-					</div>
-				</div>
-			</div>
-		</div-->
-
-
-
+    <% @place.programs.each do |program| %>
+    <div id="myModal_<%=program.id%>" class="modal fade">
+      <%= render partial: "/programs/program_ss_full_for_modal", locals: {program: program} %>
+    </div>
+    <% end %>
+    </div>
+    <div class="container max-1024">
+      <div class="row">
+        <div class="row width-no">
+          <div class="col-md-12">
+            <h2>Programs</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container max-1024">
+      <div class="row">
+        <% @programs = @place.programs%>
+        <%= render partial: "/programs/programs_ss_card"%>
+      </div>
+    </div>
     <footer class="f_otter" >
-     <!--   <img src="../ss/img/Bound_logo.png" alt="bound_logo" />-->
         <nav class="navbar navbar-default nav_button">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -397,9 +159,6 @@ var id = 'loader', fill = '#FFF',
 </nav>
     </footer>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
-
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../ss/js/bootstrap.min.js"></script>
     <script src="../ss/js/owl.carousel.min.js"></script>
@@ -411,86 +170,66 @@ var id = 'loader', fill = '#FFF',
     var slider;
     var slider_n;
 
-		var my_program_touch = function( program_id ) {
-  		$('#myModal_'+program_id).modal('show');
-  		setTimeout(function(){
-  			slider_n.reloadSlider();
-  		}, 400);
-		};
+    var my_program_touch = function( program_id ) {
+      $('#myModal_'+program_id).modal('show');
+      setTimeout(function(){
+        slider_n.reloadSlider();
+      }, 400);
+    };
 
         $(document).ready(function () {
 
               slider= $('.bxslider1').bxSlider({
-			  minSlides: 2,
-			  maxSlides: 3,
-			  slideWidth: 200,
-			  slideMargin: 12,
-			  auto:true,
-			  pager: false,
-			  controls:false
-			});
+        minSlides: 2,
+        maxSlides: 3,
+        slideWidth: 200,
+        slideMargin: 12,
+        auto:true,
+        pager: false,
+        controls:false
+      });
             $('#slider-prev').click(function(e){
-			        e.preventDefault();
-			        slider.goToPrevSlide();
-			    });
-			$('#slider-next').click(function(e){
-			        e.preventDefault();
-			        slider.goToNextSlide();
-			    });
+              e.preventDefault();
+              slider.goToPrevSlide();
+          });
+      $('#slider-next').click(function(e){
+              e.preventDefault();
+              slider.goToNextSlide();
+          });
 
 
 
               slider_n= $('.bxslider', $('.model-slider')).bxSlider({
-			  minSlides: 1,
-			  maxSlides: 4,
-			  slideWidth: 250,
-			  auto:true,
-			  pager: false,
-			  controls:false
-			});
+        minSlides: 1,
+        maxSlides: 4,
+        slideWidth: 250,
+        auto:true,
+        pager: false,
+        controls:false
+      });
               $('#slider-next2').click(function(e){
-			        e.preventDefault();
-			        slider_n.goToNextSlide();
-			    });
+              e.preventDefault();
+              slider_n.goToNextSlide();
+          });
               $('#slider-prev2').click(function(e){
-			        e.preventDefault();
-			        slider_n.goToPrevSlide();
-			    });
+              e.preventDefault();
+              slider_n.goToPrevSlide();
+          });
 
-							<% @place.programs.each do |program| %>
+              <% @place.programs.each do |program| %>
 
-								/*
-			          $('#program_<%=program.id%>').click(function(e){
-			          		e.preventDefault();
-			          		$('#myModal_<%=program.id%>').modal('show');
-			          		setTimeout(function(){
-			          			slider_n.reloadSlider();
-			          		}, 400);
-
-			          });
-								*/
-/*			          $('.enquire-modal').click(function(e){
-			          		e.preventDefault();
-			          		$('#myModal').modal('show');
-			          		setTimeout(function(){
-			          			slider_n.reloadSlider();
-			          		}, 400);
-			          });
-*/
-				  		<% end %>
+              <% end %>
 
               $('.modal-header .close').click(function(e){
-              	e.preventDefault();
-
-//              			$('#myModal,#myModal2').modal('hide');
-              			$('.modal').modal('hide');
+                e.preventDefault();
+                    $('.modal').modal('hide');
 
 
               });
 
 
-             	$('#datepicker').change(function(){
-              		 $('#datepicker').datetimepicker('hide');
+               $('#datepicker').change(function(){
+                   $('#datepicker').datetimepicker('hide');
               });
 
 
@@ -498,10 +237,10 @@ var id = 'loader', fill = '#FFF',
     </script>
 
     <script>
-    	$('#datepicker').datetimepicker({
-				 timepicker:false,
-				 format:'d.m.Y'
-				});
+      $('#datepicker').datetimepicker({
+         timepicker:false,
+         format:'d.m.Y'
+        });
 
         $(document).ready(function () {
             $(".navbar-toggle").on("click", function () {
@@ -514,7 +253,7 @@ var id = 'loader', fill = '#FFF',
             });
 
             $('.rate').click(function(){
-            	$(this).toggleClass('filled-star');
+              $(this).toggleClass('filled-star');
             })
 
         });
@@ -522,7 +261,7 @@ var id = 'loader', fill = '#FFF',
         $('.selectpicker').selectpicker();
 
         $('.rating-box input').change(function(){
-        	$('.rating-box').slideUp(400);
+          $('.rating-box').slideUp(400);
         });
     </script>
     <script>

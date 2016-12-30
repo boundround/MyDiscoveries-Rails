@@ -43,16 +43,6 @@ class RegionsController < ApplicationController
       respond_to do |format|
         format.json { render json: @region }
         format.html do
-          # @region.photos.each do |photo|
-          #   photo.add_or_remove_from_country(@region.country)
-          # end
-
-          # @region.videos.each do |video|
-          #   video.add_or_remove_from_country(@region.country)
-          # end
-          # @region.fun_facts.each do |fun_fact|
-          #   fun_fact.add_or_remove_from_country(@region.country)
-          # end
           redirect_to edit_region_path(@region), notice: 'Region succesfully updated'
         end
       end
@@ -114,8 +104,8 @@ class RegionsController < ApplicationController
     params.require(:region).permit(:display_name, :description, :latitude, :longitude, :zoom_level, :no_parent_select, :status,
       parent_attributes: [:parentable_id, :parentable_type],
       photos_attributes: [:id, :place_id, :photoable_id, :photoable_type, :attraction_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-      videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :attraction_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
-      fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :attraction_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy]
+      videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :attraction_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
+      fun_facts_attributes: [:id, :content, :reference, :priority, :place_id, :attraction_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy]
     )
   end
 end

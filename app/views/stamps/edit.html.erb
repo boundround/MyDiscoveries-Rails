@@ -1,14 +1,14 @@
 <div class="text-center">
 
-	<h1>Edit Stamp</h1>
+  <h1>Edit Stamp</h1>
 
-		<%= simple_form_for [@place, @stamp] do |f| %>
+    <%= simple_form_for [@place, @stamp] do |f| %>
 
-			<div class="form-group">
-				<%= f.input :serial, label: "Stamp Serial", input_html: { class: 'form-control'} %>
-				<%= f.association :place, as: :select, label: "Place", collection: Place.active, value_method: :id, label_method: :display_name, input_html: { class: 'form-control'} %>
-				<%= f.button :submit %>
-			</div>
+      <div class="form-group">
+        <%= f.input :serial, label: "Stamp Serial", input_html: { class: 'form-control'} %>
+        <%= f.association :place, as: :select, label: "Place", collection: Place.active, value_method: :id, label_method: :display_name, input_html: { class: 'form-control'} %>
+        <%= f.button :submit %>
+      </div>
 
-		<% end %>
+    <% end %>
 <div>

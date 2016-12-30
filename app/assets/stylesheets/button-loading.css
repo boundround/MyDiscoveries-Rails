@@ -1,6 +1,7 @@
 .button-loading {
   position: relative;
 }
+
 .button-loading:not(.disabled):before {
   content: '';
   position: absolute;
@@ -14,93 +15,100 @@
   border-radius: 50%;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
   -webkit-transition-duration: 0.5s;
-  transition-duration: 0.5s;
-  -moz-transition-property: opacity;
-  -o-transition-property: opacity;
+     -moz-transition-duration: 0.5s;
+       -o-transition-duration: 0.5s;
+          transition-duration: 0.5s;
   -webkit-transition-property: opacity;
-  transition-property: opacity;
-  -moz-animation-duration: 1s;
+     -moz-transition-property: opacity;
+       -o-transition-property: opacity;
+          transition-property: opacity;
   -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -moz-animation-iteration-count: infinite;
+     -moz-animation-duration: 1s;
+          animation-duration: 1s;
   -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -moz-animation-name: rotate;
+     -moz-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
   -webkit-animation-name: rotate;
-  animation-name: rotate;
-  -moz-animation-timing-function: linear;
+     -moz-animation-name: rotate;
+          animation-name: rotate;
   -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
+     -moz-animation-timing-function: linear;
+          animation-timing-function: linear;
 }
+
 .button-loading:not(.disabled):after {
   content: '';
   display: inline-block;
   height: 100%;
   width: 0px;
-  -moz-transition-delay: 0.5s;
-  -o-transition-delay: 0.5s;
   -webkit-transition-delay: 0.5s;
-  transition-delay: 0.5s;
-  -moz-transition-duration: 0.75s;
-  -o-transition-duration: 0.75s;
+     -moz-transition-delay: 0.5s;
+       -o-transition-delay: 0.5s;
+          transition-delay: 0.5s;
   -webkit-transition-duration: 0.75s;
-  transition-duration: 0.75s;
-  -moz-transition-property: width;
-  -o-transition-property: width;
+     -moz-transition-duration: 0.75s;
+       -o-transition-duration: 0.75s;
+          transition-duration: 0.75s;
   -webkit-transition-property: width;
-  transition-property: width;
+     -moz-transition-property: width;
+       -o-transition-property: width;
+          transition-property: width;
 }
+
 .button-loading:not(.disabled).sending {
   pointer-events: none;
   cursor: not-allowed;
 }
+
 .button-loading:not(.disabled).sending:not(.expand) {
   text-align: center;
 }
+
 .button-loading:not(.disabled).sending:before {
-  -moz-transition-delay: 0.5s;
-  -o-transition-delay: 0.5s;
   -webkit-transition-delay: 0.5s;
-  transition-delay: 0.5s;
-  -moz-transition-duration: 1s;
-  -o-transition-duration: 1s;
+     -moz-transition-delay: 0.5s;
+       -o-transition-delay: 0.5s;
+          transition-delay: 0.5s;
   -webkit-transition-duration: 1s;
-  transition-duration: 1s;
+     -moz-transition-duration: 1s;
+       -o-transition-duration: 1s;
+          transition-duration: 1s;
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
 }
+
 .button-loading:not(.disabled).sending:after {
-  -moz-transition-delay: 0s;
-  -o-transition-delay: 0s;
   -webkit-transition-delay: 0s;
-  transition-delay: 0s;
+     -moz-transition-delay: 0s;
+       -o-transition-delay: 0s;
+          transition-delay: 0s;
   width: 20px;
 }
+
 .button-loading:not(.disabled).btn-dashboard.sending:after {
   width: 25px;
 }
+
 .bounce-animation{
 	-webkit-animation: bounce 800ms ease-out;
-	-moz-animation: bounce 800ms ease-out;
-	-o-animation: bounce 800ms ease-out;
-	animation: bounce 800ms ease-out;
+	   -moz-animation: bounce 800ms ease-out;
+	     -o-animation: bounce 800ms ease-out;
+	        animation: bounce 800ms ease-out;
 }
 
 @keyframes rotate {
   0% {
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+       -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
   100% {
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
     -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+       -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
 /* Webkit, Chrome and Safari */

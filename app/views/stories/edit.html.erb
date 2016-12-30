@@ -1,48 +1,48 @@
 <div class="loading">Loading&#8230;</div>
 <div id="edit-story-page" data-story-id="<%= @story.id %>" data-title="<%= @story.title %>" data-content="<%= @story.content %>"></div>
 <div class="container">
-	<% if current_user.admin? %>
-		<%= render "/stories/admin_tabs" %>
-	<% end %>
-	<div class="row">
-		<%=  form_for @story do |f| %>
-			<div class="col-md-12 top70">
-				<div>
-					<p style="padding-bottom:25px;">
-						<div id="autosave-status"></div>
-						<%#= f.select :public, [['Public', true], ['Private', false]] %><br>
-						<% if current_user.admin? %>
-							<%= f.label "Status" %><br>
-							<%= f.select :status, ["draft", "live", "removed"] %><br>
-							<%= f.label "Publish Date" %><br>
-							<%= f.date_field :publish_date %><br>
-							<%= f.label "Change User" %><br>
-							<%= f.select :user_id, User.order(email: :asc).map { |user| [user.email, user.id] } %><br>
-						<% end %>
-						<% if current_user.admin? || current_user.has_role?("contributor") %>
-							<%= f.label "SEO Friendly URL" %><br>
-							<%= f.text_field :seo_friendly_url, class: "form-control" %><br>
-							<%= f.label "Choose a title for this story" %><br>
-							<%= f.text_field :title, class: "form-control story-title-edit" %>
-						<% end %>
-						<% if current_user.has_role?("contributor") %>
-							<%= f.hidden_field :status, :value => "draft" %><br>
-							<%= f.hidden_field :date, :value => Time.now %><br>
-							<%= f.hidden_field :story_id, :value => @story.id %><br>
-						<% end %>
-					</p>
-				</div>
-			</div>
-			<div class="col-md-12">
-				<div class="title-editable" > </div>
-				<div class="content-editable" ></div>
-				<center> <button class="btn btn-primary top20 btm20" id="submit_story">Update</button> </center>
-			</div>
-			<%= f.hidden_field :content %>
-			<%= f.hidden_field :date, :value => Time.now %>
-			<%= f.submit "", style: :"display:none;", id:"submit-form-story" %>
-		<% end %>
-	</div>
+  <% if current_user.admin? %>
+    <%= render "/stories/admin_tabs" %>
+  <% end %>
+  <div class="row">
+    <%=  form_for @story do |f| %>
+      <div class="col-md-12 top70">
+        <div>
+          <p style="padding-bottom:25px;">
+            <div id="autosave-status"></div>
+            <%#= f.select :public, [['Public', true], ['Private', false]] %><br>
+            <% if current_user.admin? %>
+              <%= f.label "Status" %><br>
+              <%= f.select :status, ["draft", "live", "removed"] %><br>
+              <%= f.label "Publish Date" %><br>
+              <%= f.date_field :publish_date %><br>
+              <%= f.label "Change User" %><br>
+              <%= f.select :user_id, User.order(email: :asc).map { |user| [user.email, user.id] } %><br>
+            <% end %>
+            <% if current_user.admin? || current_user.has_role?("contributor") %>
+              <%= f.label "SEO Friendly URL" %><br>
+              <%= f.text_field :seo_friendly_url, class: "form-control" %><br>
+              <%= f.label "Choose a title for this story" %><br>
+              <%= f.text_field :title, class: "form-control story-title-edit" %>
+            <% end %>
+            <% if current_user.has_role?("contributor") %>
+              <%= f.hidden_field :status, :value => "draft" %><br>
+              <%= f.hidden_field :date, :value => Time.now %><br>
+              <%= f.hidden_field :story_id, :value => @story.id %><br>
+            <% end %>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="title-editable" > </div>
+        <div class="content-editable" ></div>
+        <center> <button class="btn btn-primary top20 btm20" id="submit_story">Update</button> </center>
+      </div>
+      <%= f.hidden_field :content %>
+      <%= f.hidden_field :date, :value => Time.now %>
+      <%= f.submit "", style: :"display:none;", id:"submit-form-story" %>
+    <% end %>
+  </div>
 </div>
 
 <%= javascript_tag do -%>

@@ -1,7 +1,6 @@
 class VideosController < ApplicationController
   def index
-      #@featured_videos= Video.active.featured.where('vimeo_id is not null')
-      @latest_videos = Video.active.order(:created_at => :desc).where('vimeo_id is not null').paginate(:page => params[:latest_videos_page], per_page: 6)
+    @latest_videos = Video.active.order(:created_at => :desc).where('vimeo_id is not null').paginate(:page => params[:latest_videos_page], per_page: 6)
     respond_to do |f|
       f.html
       f.js
@@ -88,10 +87,10 @@ class VideosController < ApplicationController
     @video = Video.find(params[:id])
     if @video.update(video_params)
       if !params["video"]["vimeo_id"].blank?
-          response = Unirest.get("https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s) rescue nil
-          @video.youtube_id = ""
+        response = Unirest.get("https://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/" + @video.vimeo_id.to_s) rescue nil
+        @video.youtube_id = ""
       elsif !params["video"]["youtube_id"].blank?
-          response = Unirest.get("http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=#{@video.youtube_id}&format=json") rescue nil
+        response = Unirest.get("http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=#{@video.youtube_id}&format=json") rescue nil
       end
 
       if response
@@ -116,7 +115,7 @@ class VideosController < ApplicationController
   private
 
     def video_params
-      params.require(:video).permit(:vimeo_id, :area_id, :transcript, :youtube_id, :title, :hero, :description, :country_id, :place_id, :attraction_id, :videoable_id, :videoable_type, :priority, :vimeo_thumbnail, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy, :youtube_id)
+      params.require(:video).permit(:vimeo_id, :transcript, :youtube_id, :title, :hero, :description, :country_id, :place_id, :attraction_id, :videoable_id, :videoable_type, :priority, :vimeo_thumbnail, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy, :youtube_id)
     end
 
 end

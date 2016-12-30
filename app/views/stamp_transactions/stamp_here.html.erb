@@ -8,7 +8,6 @@
 		window.addEventListener('load', function(){ // on page load
 	 
 	    document.body.addEventListener('touchstart', function(e){
-	        // alert(e.changedTouches[0].pageX) // alert pageX coordinate of touch point
 				if (e.touches.length >= 5){
 	        $('#stampModal').show();
 	      }
@@ -181,73 +180,6 @@ See GitHub project page for Documentation and License
 			    console.log("SUCCESS");
 			    console.log(response);
 			    window.location = "/places/" + response["slug"] + "/stamp_confirmation"
-
-			    
-		  	// SUCCESS passes the snowshoe tests 
-
-		  	// on success do our own calls to Ajax
-		  	// Post something to the stamp_transactions 
-
-		  			// touches.length (by id) >= 5, 
-		  			// Passing 26 to 52 of jquery snowshoe touchstart event
-		  
-		  	// creates actions
-		  		// creates API get request 
-		  		// Get Stamp ID
-		  		// Get Place ID
-		  		// Creates new stamp record in boundround stamp_transactions database
-		  		// Redirect to http://www.boundround.com/places/tarongazoo based on place_id
-
-		  		// REQUIRES
-		  			// New model
-		  				// stamp_transactions
-
-		  			// Create routes stamp_tranasactions
-
-		  			// New table stamp_transactions
-		  				// record of use
-		  				// time stamp etc (auto)
-		  				// number
-		  				// serial
-		  				// user_info == user signed in, put user else put guest
-
-
-		  			// New table stamps
-
-		  				// serial
-			  			//	refrences place_id # note foreign key
-
-
-		  				// relationship
-		  				// stamps belong to place
-		  				// places have many stamps
-
-		  			// New stamp views
-		  				// create custom view in the stamp controller
-		  				// * might want to put a button on places_show page // do this for now
-
-		  				// Stamp page - http://www.boundround.com/stamp
-		  				// Stamp fail http://www.boundround.com/stamp-error
-		  				// Stamp success = Redirect to http://www.boundround.com/places/tarongazoo based on place_id
-
-		  			// New controller
-		  				// post to create action / method
-		  				// in create method, find based on place_id
-		  				// then redirect to the place
-
-
-// old
-		  			// stamp the app
-		  			// sends a call to snowshoe and gets json response
-		  			// send / post the json data to stamp transactions create method, in stamp_transactions controller
-		  			// place to store the stamp id and associate it with a place
-
-
-
-		  	//  if (response === "success" ) {
-			  	// http://www.boundround.com/stamp
-			    // handle success
-		    // clear animation
 		  },
 		  error: function(response){
 		  			  	

@@ -13,7 +13,6 @@ class PlacesController < ApplicationController
     @regions = Region.all
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
-    # @places_coutry = @countries + @places
   end
 
   def create
@@ -29,9 +28,6 @@ class PlacesController < ApplicationController
   def stamp_confirmation
     @place = Place.find_by_slug params[:id]
     @photo = @place.photos.where(hero: true).first
-  end
-
-  def subcategory_match_test
   end
 
   def subcategory_match
@@ -159,7 +155,6 @@ class PlacesController < ApplicationController
     @subcategories = Subcategory.order(name: :asc)
     @primary_categories = PrimaryCategory.all
     @three_d_video = ThreeDVideo.new
-    # @places_coutry = @countries + @places
   end
 
   def update
@@ -228,10 +223,6 @@ class PlacesController < ApplicationController
     end
   end
 
-  def hero_image_picker
-    @place = Place.friendly.find(params[:id])
-  end
-
   def merge
   end
 
@@ -274,7 +265,7 @@ class PlacesController < ApplicationController
 
   def search
     @places = Place.where.not(subscription_level: ['out', 'draft'])
-             .text_search(params[:term])
+              .text_search(params[:term])
     @places = ActiveSupport::JSON.decode(@places.to_json)
 
     respond_to do |format|
@@ -284,7 +275,7 @@ class PlacesController < ApplicationController
 
   def show
     @places_to_visit = @place.places_to_visits.paginate( page: params[:places_to_visit_page], per_page: 6 )
-    @deals = @place.deals.active #.paginate(page: params[:deals_page], per_page: params[:deals_page].nil?? 6 : 3 )
+    @deals = @place.deals.active
     @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
     @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 4)
     @photos_hero = @photos.first(6)
@@ -474,13 +465,11 @@ class PlacesController < ApplicationController
   def programsearch #xyrin index.html
     @placeprograms = "yes"
     @max_feature_places = 6
-#    @places = Place.wherelimit(6).order('id asc')
     @places = Place.where(id: 1533)
     @places += Place.joins(:programs).order('id asc').distinct.limit(@max_feature_places)
     place_ids = @places.map{|x| x[:id]}
     @programs = Program.where("place_id IN (?)", place_ids)
     set_program_filters(@places)
-#     render plain: @locations.inspect
   end
 
   def programsearchresultslist #xyrin search.html
@@ -526,7 +515,7 @@ class PlacesController < ApplicationController
     if params[:type].eql? "UserPhoto"
       @place.user_photos.each do |photo|
         if photo.id.to_s.eql? photo_id
-           photo.hero = true
+          photo.hero = true
         else
           photo.hero = false
         end
@@ -540,7 +529,7 @@ class PlacesController < ApplicationController
     else
       @place.photos.each do |photo|
         if photo.id.to_s.eql? photo_id
-           photo.hero = true
+          photo.hero = true
         else
           photo.hero = false
         end
@@ -656,7 +645,6 @@ class PlacesController < ApplicationController
             puts qp.name
           end
         else
-#          @places = Place.joins(:area, :programs, :photos, :categories).includes(:programs, :area, :photos, :categories).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).limit(@MAX_TO_RETURN)
           if filtering_programs then
             @places = Place.joins(:photos,:programs).includes(:photos).where(full_query, pstatus: "live", lf: "%"+@lf+"%", sf: @subject_filter, sa: @activity_filter, syl: yl_array_from_range(@yearlevel_filter)).order(:display_name).limit(@MAX_TO_RETURN)
           else
@@ -746,7 +734,6 @@ class PlacesController < ApplicationController
         :primary_category_id,
         :passport_icon,
         :address,
-        :area_id,
         :parent_id,
         :parentable_id,
         :parentable_type,
@@ -765,10 +752,10 @@ class PlacesController < ApplicationController
         :trip_advisor_url,
         parent_attributes: [:parentable_id, :parentable_type],
         photos_attributes: [:id, :place_id, :photoable_id, :photoable_type, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-        videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
-        fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-        discounts_attributes: [:id, :description, :place_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-        user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
+        videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
+        fun_facts_attributes: [:id, :content, :reference, :priority, :place_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        discounts_attributes: [:id, :description, :place_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
         three_d_videos_attributes: [:link, :caption, :place_id, :three_d_videoable_id, :three_d_videoable_type],
         category_ids: [],
         subcategory_ids: [],

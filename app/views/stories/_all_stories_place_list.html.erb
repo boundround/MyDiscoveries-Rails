@@ -1,32 +1,32 @@
   <div class="col-md-12" onclick="window.location='<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>'">
-      <div class="thing-story-card-wrapper story"
-           data-class="story"
-           data-content="<%= story.content %>"
-           data-title="<%= story.story_title ? story.story_title : @storiable.display_name %>"
-           data-user="<%= story.user.name rescue nil %>"
-            <% story.story_images.each_with_index do |story_image, index| %>
-              data-image-<%= index %>="<%= story_image.url %>"
-            <% end %> >
-          <div class="thing-story ">
-              <div class="thing-story-text-content">
-                  <div class="thing-story-header-details-wrapper">
-                      <div class="user-dp"
-                           style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"></div>
-                      <div class="username"><%= story.user.name rescue nil %></div>
-                      <div class="date hidden-xs"><%= story.created_at.strftime("%B %Y") %></div>
-                  </div>
-                  <div class="thing-story-content">
-                      <h4 class="thing-story-title"><%= raw story.title %></h4>
-
-                      <div class="thing-story-desc">
-                      <%= raw story.content[0..280]+"..." %>
-                      </div>
-                  </div>
-              </div>
-              <div class="thing-story-img-header">
-          <span class="thing-story-img"
-                style="background-image: url(<%= story.hero_image.try(:url) || image_path("generic-hero.jpg") %>)" role="img"></span>
-              </div>
+    <div class="thing-story-card-wrapper story"
+       data-class="story"
+       data-content="<%= story.content %>"
+       data-title="<%= story.story_title ? story.story_title : @storiable.display_name %>"
+       data-user="<%= story.user.name rescue nil %>"
+      <% story.story_images.each_with_index do |story_image, index| %>
+        data-image-<%= index %>="<%= story_image.url %>"
+      <% end %> >
+      <div class="thing-story ">
+        <div class="thing-story-text-content">
+          <div class="thing-story-header-details-wrapper">
+            <div class="user-dp"
+               style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"></div>
+            <div class="username"><%= story.user.name rescue nil %></div>
+            <div class="date hidden-xs"><%= story.created_at.strftime("%B %Y") %></div>
           </div>
+          <div class="thing-story-content">
+            <h4 class="thing-story-title"><%= raw story.title %></h4>
+
+            <div class="thing-story-desc">
+            <%= raw story.content[0..280]+"..." %>
+            </div>
+          </div>
+        </div>
+        <div class="thing-story-img-header">
+      <span class="thing-story-img"
+        style="background-image: url(<%= story.hero_image.try(:url) || image_path("generic-hero.jpg") %>)" role="img"></span>
+        </div>
       </div>
-      </div>
+    </div>
+  </div>

@@ -23,18 +23,13 @@
       <%= f.input :status, label: "Status", collection: ["draft", "edited", "live", "removed"], input_html: { class: 'form-control'}  %><br />
     <div class="form-group">
       <p><%= f.input :path, as: :file, label: false%></p>
-      <% if @area %>
-        <%= f.input :area_id, as: :hidden, input_html: {value: @area.id } %>
-      <% elsif @place %>
-        <%#= f.input :place_id, as: :hidden, input_html: {value: @place.id } %>
+      <% if @place %>
         <%= f.input :photoable_id, as: :hidden, input_html: {value: @place.id } %>
         <%= f.input :photoable_type, as: :hidden, input_html: {value: "Place" } %>
       <% elsif @attraction %>
-        <%#= f.input :attraction_id, as: :hidden, input_html: {value: @attraction.id } %>
         <%= f.input :photoable_id, as: :hidden, input_html: {value: @attraction.id } %>
         <%= f.input :photoable_type, as: :hidden, input_html: {value: "Attraction" } %>
       <% elsif @story %>
-        <%#= f.input :attraction_id, as: :hidden, input_html: {value: @attraction.id } %>
         <%= f.input :photoable_id, as: :hidden, input_html: {value: @story.id } %>
         <%= f.input :photoable_type, as: :hidden, input_html: {value: "Story" } %>
       <% elsif @region %>

@@ -56,59 +56,6 @@ function addToFav(assetType) {
     });
 }
 
-function allMap() {
-    if (document.getElementById('map')) {
-        var getPlaceDetails = function(place) {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: new google.maps.LatLng($('.area-content').data('lat'), $('.area-content').data('long')),
-                zoom: 13
-            });
-
-            var location = {
-                "lat": $('.area-content').data('lat'),
-                "lng": $('.area-content').data('long')
-            };
-
-            var marker = new google.maps.Marker({
-                map: map,
-                position: location
-            });
-
-            var service = new google.maps.places.PlacesService(map);
-            var request = {
-                placeId: place
-            };
-            service.getDetails(request, function(place, status) {
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-                    var i;
-                    var day = new Date();
-                    if (place.opening_hours) {
-                        var openingHours = place.opening_hours.weekday_text;
-                    }
-                    if (openingHours) {
-                        $('#hours').html("Hours:  ")
-                        var placeInfo = "";
-                        for (i = 0; i < openingHours.length; i++) {
-                            if (day.getDay() === i && place.opening_hours.open_now === true) {
-                                placeInfo += openingHours[i] + "<span id='open-now'>&nbsp;&nbsp;Open Now</span><br>"
-                            } else {
-                                placeInfo += openingHours[i] + "<br>";
-                            }
-                        }
-                    }
-                    if (placeInfo) {
-                        $('#operating-hours').html(placeInfo);
-                    }
-
-                }
-            });
-        };
-
-        getPlaceDetails($('#place-id').data("place"));
-    }
-}
-
 function setUpLoadMore() {
     var sec_card = $("section.cards")
     $.each(sec_card, function(index, val) {

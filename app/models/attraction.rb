@@ -159,12 +159,13 @@ class Attraction < ActiveRecord::Base
     ]
   end
 
+  before_save :set_country
   extend FriendlyId
   friendly_id :slug_candidates, :use => [:slugged, :history]
 
   scope :active, -> { where(status: "live") }
 
-  #belongs_to :country
+  belongs_to :country
   belongs_to :user
   belongs_to :primary_category
 
@@ -180,9 +181,6 @@ class Attraction < ActiveRecord::Base
 
   has_many :attractions_users
   has_many :users, through: :attractions_users
-
-  has_many :customers_attractions
-  has_many :owners, through: :customers_attractions, :source => :user
 
   has_many :similar_attractions
   has_many :associated_areas, through: :similar_attractions, source: :similar_attraction
@@ -248,8 +246,9 @@ class Attraction < ActiveRecord::Base
     end
   end
 
-  def country
-    get_parents(self).find {|parent| parent.class.to_s == "Country"}
+  def set_country
+    country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
+    self.country_id = country.id
   end
 
   def trip_advisor_info
