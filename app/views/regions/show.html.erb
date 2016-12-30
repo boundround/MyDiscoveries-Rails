@@ -75,11 +75,11 @@
         </ul>
         <% unless last_page? @offers %>
           <div class="single-pagination-container" id="offers-single-pagination-container">
-            <div class="load-more region">
+            <div class="region" align="center">
               <div class="hidden single-pagination-loader" align="center">
                 <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
               </div>
-            <%= link_to "all offers", paginate_offers_region_path(@region, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/region_offers', collection_object: 'offer'), class: 'btn-bordered single-pagination', remote: true %>
+            <%= link_to "all offers", paginate_offers_region_path(@region, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/region_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
             </div>
           </div>
         <% end %>
