@@ -6,12 +6,9 @@ class ChildItem < ActiveRecord::Base
 
   def split_child_item
   	if self.parentable_type == "Region"
-  	  @parent = self.parentable
-  	  @child = self.itemable
-  	  if @child.regions.present?
-  	  	@child.regions.destroy_all
-  	  end
-  	  @child.regions << @parent
+  	  parent = self.parentable #Region that will be the parent
+  	  child = self.itemable #Child item, it can be Place or Attraction
+      child.regions = [parent] #Storing data to join table, can be attractions_regions or places_regions
   	end
   end
 end
