@@ -9372,6 +9372,11 @@ a.see-more__link {
   font-size: 16px;
   line-height: 16px; }
 
+.search-page-card .tags{
+  list-style-type: none;
+  margin-left: 18px;
+}
+
 .search-page-card__short-details-for-cost-icon {
   display: inline-block;
   height: 19px;
