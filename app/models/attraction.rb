@@ -260,7 +260,9 @@ class Attraction < ActiveRecord::Base
 
   def set_country
     country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
-    self.country_id = country.id
+    if country
+      self.country_id = country.id
+    end
   end
 
   def trip_advisor_info
