@@ -635,11 +635,7 @@ class Place < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    if self.parent.blank?
-      slug.blank? || display_name_changed? || self.country_id_changed?
-    else
-      slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
-    end
+    slug.blank? || display_name_changed?
   end
 
   def trip_advisor_info

@@ -409,7 +409,7 @@ class Attraction < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-      slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
+      slug.blank? || display_name_changed?
   end
 
   def content
