@@ -9108,7 +9108,7 @@ input[type="submit"].modal-content__btn-access  {
 }
 
 .search-offer .search-page-card__info-side--right .search-page-card__description{
-  padding: 20px 15px 30px 18px;
+  padding: 0px 15px 30px 18px;
 }
 
 .pagination__link-right.go-to-page-instant-search.disabled,

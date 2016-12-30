@@ -254,10 +254,26 @@ $(document).ready(function() {
     function bucketlist(){
       setTimeout(function(){
         var user_offers = $('#dataBucketOffer').data('bucketlist'),
-            offer_cards = $('.bucket-list-offer');
+            user_attractions = $('#dataBucketAttraction').data('bucketlist'),
+            user_places = $('#dataBucketPlace').data('bucketlist'),
+            offer_cards = $('.bucket-list-offer'),
+            attraction_cards = $('[data-klass="attraction"]'),
+            place_cards = $('[data-klass="place"]');
           $.each(offer_cards, function(){
             var id_offer = $(this).data('place-id')
             if(jQuery.inArray(id_offer, user_offers)!='-1'){
+              $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+            }
+          })
+          $.each(attraction_cards, function(){
+            var id_offer = $(this).data('place-id')
+            if(jQuery.inArray(id_offer, user_attractions)!='-1'){
+              $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+            }
+          })
+          $.each(place_cards, function(){
+            var id_offer = $(this).data('place-id')
+            if(jQuery.inArray(id_offer, user_places)!='-1'){
               $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
             }
           })
@@ -300,6 +316,7 @@ $(document).ready(function() {
                     $(this)[0]["is_story"] = false
                 }
                 $(this)[0]["ID"] = $(this)[0].objectID.split('_')[1]
+                $(this)[0]["object"] = $(this)[0].objectID.split('_')[0]
             })
             $instantSearchHits.html(instanthitTemplate.render(content));
             $(".instant-hits-result-pagination").show();

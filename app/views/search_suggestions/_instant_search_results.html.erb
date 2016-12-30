@@ -44,8 +44,7 @@
 <div class="search-page-card clear-self">
     <div class="search-page-card__info-side search-page-card__info-side--left">
         <h3 class="search-page-card__header">{{{ _highlightResult.display_name.value }}}</h3>
-        <p class="search-page-card__country">
-        </p>
+        <p class="search-page-card__country">{{countries}}</p>
         <img src="{{ hero_photo.url }}" class="search-page-card__image" alt="">
         <span class="search-page-card__more-info mobile-only js-show-more-card-info">more info</span>
         <p class="search-page-card__image-description">{{hero_photo.alt_tag}}</p>
@@ -111,10 +110,12 @@
 
     <div class="search-page-card__info-side search-page-card__info-side--right">
         <h3 class="search-page-card__header">{{{ _highlightResult.display_name.value }}}</h3>
-        <p class="search-page-card__description">{{description}}</p>
+        <p class="search-page-card__country">{{country}}</p>
+        <p class="search-page-card__description">{{{description}}</p>
     </div>
     <div class="result-action" align="right">
-      <span class="search-page-card__to-bucket-list js-search-page-card__to-bucket-list">Bucket List</span>
+      <!-- <span class="search-page-card__to-bucket-list js-search-page-card__to-bucket-list">Bucket List</span> -->
+      <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="{{object}}s_users" data-klass="{{object}}" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
       <a class="search-page-card__cost-details" href="{{ url }}">read more</a>
     </div>
   </div>
