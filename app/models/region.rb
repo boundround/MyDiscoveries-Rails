@@ -160,7 +160,7 @@ class Region < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    display_name_changed?
+    slug.blank? || display_name_changed?
   end
 
   def children

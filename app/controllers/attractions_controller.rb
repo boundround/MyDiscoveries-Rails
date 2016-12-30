@@ -211,7 +211,7 @@ class AttractionsController < ApplicationController
           else
             @attraction.parent.delete()
           end
-       end
+        end
       end
 
       params.require(:attraction).permit(
