@@ -8076,7 +8076,8 @@ input[type="text"]::-ms-clear {
 .best-of-adventure-card__content {
   margin: 0;
   font-size: 16px;
-  color: #3d3a38; }
+  color: #3d3a38;
+  font-family: Larsseit-Light, sans-serif; }
 
 @media only screen and (max-width: 1200px) {
   .best-of-adventure-card__link {
