@@ -91,12 +91,11 @@
         <p class="search-page-card__cost-per-person">per person</p>
 
         <a class="search-page-card__cost-details" href="{{ url }}">details</a>
-
-        <% if user_signed_in? && current_user.offers.map(&:id).include?(3) %>
-          <span class="search-page-card__to-bucket-list--liked search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="true" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
-        <% else %>
-          <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
-        <% end %>
+        <%# if user_signed_in? && current_user.offers.map(&:id).include?(3) %>
+          <!-- <span class="search-page-card__to-bucket-list--liked search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="true" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span> -->
+        <%# else %>
+          <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
+        <%# end %>
     </div>
 </div>
 {{/is_offer}}

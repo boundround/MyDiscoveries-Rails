@@ -34,7 +34,7 @@ function addToFav(assetType) {
 
         if (userId === "no-user") {
             $("#myModal").modal();
-        } else if ($(this).data("liked") === false) {
+        } else if ($(this).data("liked") === false || $(this).data("liked") === 'false') {
             $.ajax({
                 type: "POST",
                 url: '/' + postPath + '/create',
@@ -44,7 +44,7 @@ function addToFav(assetType) {
             $(".text-favourite-place").text("Remove From Favourites");
             $(this).data("liked", true);
             icon.addClass("selected");
-        } else if ($(this).data("liked") === true) {
+        } else if ($(this).data("liked") === true || $(this).data("liked") === 'true') {
             $.ajax({
                 type: "POST",
                 _method: 'delete',

@@ -226,6 +226,7 @@ $(document).ready(function() {
         setImagesPosition();
         subCats();
         fixMobileOverflowTags();
+        bucketlist();
     })
 
     function viatorLink(hits) {
@@ -248,6 +249,19 @@ $(document).ready(function() {
                 });
             }
         });
+    }
+
+    function bucketlist(){
+      setTimeout(function(){
+        var user_offers = $('#dataBucketOffer').data('bucketlist'),
+            offer_cards = $('.bucket-list-offer');
+          $.each(offer_cards, function(){
+            var id_offer = $(this).data('place-id')
+            if(jQuery.inArray(id_offer, user_offers)!='-1'){
+              $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+            }
+          })
+      }, 1000)
     }
 
     function seText(hits) {
