@@ -152,7 +152,8 @@ function setModalTickets() {
 
 function setModalReview() {
     $('#ReviewModal').on('shown.bs.modal', function() {
-        $('#myInput').focus()
+        $('#review_content').focus();
+        $('#review_content').val('');
     });
 }
 

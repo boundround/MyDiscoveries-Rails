@@ -33,6 +33,7 @@
             <textarea class="form-control"
                       name="review[content]"
                       rows="5"
+                      id="review_content"
                       placeholder="Enter your review (max 1000 characters)."></textarea>
          </div>
          <div class="row">
@@ -44,11 +45,11 @@
               <div class="head-stories style-bg-transparent">
                 <div class="left">
                 <% if user_signed_in? %>
-                  <div class="profile-outer style-bg-transparent">
-                    <img src="<%= showing_image(current_user.avatar_url || asset_path('generic-hero-small.jpg'))%>" alt="">
-                  </div>
-                  <div class="profile-text style-bg-transparent grey">
-                    <%= current_user.name %>
+                  <div class='user-wrapper'>
+                    <div class="user-rounded-avatar" style="background: url(<%=showing_image(current_user.avatar_url || asset_path('generic-hero-small.jpg'))%>) no-repeat;"></div>
+                    <div class="profile-text style-bg-transparent grey">
+                      <%= current_user.name %>
+                    </div>
                   </div>
                   <% end %>
                 </div>

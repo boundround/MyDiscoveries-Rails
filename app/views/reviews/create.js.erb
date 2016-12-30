@@ -1,6 +1,7 @@
-var message = '<div class="alert alert-info fade in">'+
+var message = '<div class="alert alert-info fade in top20">'+
               '<button class="close" data-dismiss="alert">×</button>'+
-              'Thanks for the review. We\'ll let you know when it goes live.</div>'
+              "<%= flash[:notice] %>"+
+              '</div>'
 
 <%- if @reviewable.is_a? Offer %>
   $('#offer-add-review').before(message);

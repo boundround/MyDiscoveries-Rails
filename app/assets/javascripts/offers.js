@@ -43,9 +43,9 @@
 
 $(document).ready(function() {
   $(".readmore-area").click(function(event) {
-    $(".offer-desc").siblings(".offer-desc").toggle();
+    $(".offer-desc").toggle();
     $(this).text(function(i, text){
-     return text === "SHOW MORE" ? "LESS" : "SHOW MORE";
+      text === "SHOW MORE" ? "LESS" : "SHOW MORE";
     })
   });
 });

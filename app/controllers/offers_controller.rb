@@ -1,7 +1,7 @@
 class OffersController < ApplicationController
-  before_action :set_media, only: [:show, :paginate_media]
   before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media]
   before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media]
+  before_action :set_media, only: [:show, :paginate_media]
 
   def show
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
