@@ -34,6 +34,10 @@ class OffersController < ApplicationController
     @featured_offers = Offer.all
   end
 
+  def cms_index
+    @offers = Offer.all
+  end
+
   def create
     @offer = Offer.new(offer_params)
     @offer.tags.select!(&:present?)
