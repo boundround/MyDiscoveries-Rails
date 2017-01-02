@@ -5,6 +5,7 @@ $(function () {
     var app = window.app,
         ModalFilter = app.ModalFilter;
 
+    setTimeout(function(){
     // add to bucket list
     $('.js-search-page-card__to-bucket-list').on('click', function () {
         $(this).toggleClass('search-page-card__to-bucket-list--liked');
@@ -23,5 +24,6 @@ $(function () {
         $('.js-modal-filter-popup-wrapper'),
         $('.js-show-hide-filter-result-button')
     );
+    }, 2000)
 
 });

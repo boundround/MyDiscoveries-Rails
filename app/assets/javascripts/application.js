@@ -22,7 +22,6 @@
 //= require swiper.jquery
 //= require util
 //= require jquery.raty-fa
-//= require places
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/extras/dataTables.tableTools
@@ -65,6 +64,7 @@
 //= require place_videos
 //= require area
 //= require cms_offers
+//= require places
 
 //= require lib/fastclick
 //= require lib/swiper.jquery
