@@ -4,7 +4,7 @@
         <nav class="header-navigation">
             <a class="header-navigation__link header-navigation__link--home" href="<%= root_path %>">&nbsp;</a>
             <a class="header-navigation__link js-change-navigation-drop-down" href="#">destinations</a>
-            <a class="header-navigation__link" href="#">deals</a>
+            <a class="header-navigation__link" href="/offers">deals</a>
             <a class="header-navigation__link" href="/posts/all_posts">travel stories</a>
         </nav>
 
@@ -143,7 +143,7 @@
 
             <a class="mobile-header-drop-down__link" href="#">home</a>
             <a class="mobile-header-drop-down__link mobile-header-drop-down__link--expand js-mobile-header-drop-down--to-right" href="#">destinations</a>
-            <a class="mobile-header-drop-down__link" href="#">deals</a>
+            <a class="mobile-header-drop-down__link" href="/offers">deals</a>
             <a class="mobile-header-drop-down__link" href="#">travel stories</a>
             <% if !user_signed_in? %>
                 <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" href="<%= new_user_registration_path %>">join</a>
