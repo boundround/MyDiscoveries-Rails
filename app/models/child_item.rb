@@ -47,8 +47,8 @@ class ChildItem < ActiveRecord::Base
       end
 
       if self.itemable_type == "Attraction" && self.itemable.places.present?
-          self.itemable.places.destroy_all
-        end
+        self.itemable.places.destroy_all
+      end
     end
   end
 end
