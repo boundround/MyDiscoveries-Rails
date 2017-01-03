@@ -10,6 +10,11 @@ class ChildItem < ActiveRecord::Base
 
       if self.parentable_type == "Region"
         self.itemable.regions = [self.parentable] #Storing data to attractions_regions / places_regions
+
+        if self.itemable_type == "Place"
+          self.itemable.attractions.select{ |a| a.regions = [self.parentable] } #change all self child's region 
+        end
+
         if self.itemable_type == "Attraction" && self.itemable.places.present?
           self.itemable.places.destroy_all
         end
@@ -18,6 +23,11 @@ class ChildItem < ActiveRecord::Base
         parent_country = self.parentable.parent
         if parent_country.present? && parent_country.parentable_type == "Region"
           self.itemable.regions = [parent_country.parentable] #Storing data to attractions_regions / places_regions
+          
+          if self.itemable_type == "Place"
+            self.itemable.attractions.select{ |a| a.regions = [parent_country.parentable] } #change all self child's region 
+          end
+            
           if self.itemable_type == "Attraction" && self.itemable.places.present?
             self.itemable.places.destroy_all
           end
