@@ -8480,6 +8480,15 @@ input[type="submit"].modal-content__btn-access  {
   padding: 80px 0 86px;
 }
 
+.wrap-background-region-country{
+  float: left;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
 .background{
   position: absolute;
   height: 100%;
