@@ -27,12 +27,14 @@ class ChildItem < ActiveRecord::Base
         parent_country = self.parentable.parent
         parent_region = parent_country.parentable.parent
         unless parent_country.blank?
-          if self.itemable_type == "Attraction" && (parent_country.parentable_type == "Country" || parent_region.parentable_type == "Region")
-            self.itemable.places = [self.parentable] #Storing data to attractions_places
-            self.itemable.regions = [parent_region.parentable] #Storing data to attractions_regions
-          elsif self.itemable_type == "Attraction" && parent_country.parentable_type == "Region"
+          if self.itemable_type == "Attraction" && parent_country.parentable_type == "Region"
             self.itemable.places = [self.parentable] #Storing data to attractions_places
             self.itemable.regions = [parent_country.parentable] #Storing data to attractions_regions
+          
+          elsif self.itemable_type == "Attraction" && (parent_country.parentable_type == "Country" || parent_region.parentable_type == "Region")
+            self.itemable.places = [self.parentable] #Storing data to attractions_places
+            self.itemable.regions = [parent_region.parentable] #Storing data to attractions_regions
+          
           else
             self.itemable.places = [self.parentable] #Storing data to attractions_places
             if self.itemable.regions.present?
