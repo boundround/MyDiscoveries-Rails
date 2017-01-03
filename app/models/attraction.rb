@@ -3,6 +3,7 @@ class Attraction < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
   include SearchOptimizable
+  include Reviewable
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake, :no_parent_select
 
@@ -175,18 +176,6 @@ class Attraction < ActiveRecord::Base
   has_one :rate_average_without_dimension, -> { where dimension: nil}, as: :cacheable,
           class_name: 'RatingCache', dependent: :destroy
 
-  has_many "quality_rates".to_sym, -> {where dimension: "quality"},
-                                              dependent: :destroy,
-                                              class_name: 'Rate',
-                                              as: :rateable
-
-  has_many "quality_raters".to_sym, through: "quality_rates".to_sym, source: :rater
-
-  has_one "quality_average".to_sym, -> { where dimension: "quality" },
-                                              as: :cacheable,
-                                              class_name: 'RatingCache',
-                                              dependent: :destroy
-
   has_one :parent, :class_name => "ChildItem", as: :itemable
   has_many :childrens, :class_name => "ChildItem", as: :parentable
 
@@ -219,7 +208,6 @@ class Attraction < ActiveRecord::Base
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
   has_many :three_d_videos, as: :three_d_videoable
   has_many :good_to_knows, as: :good_to_knowable
-  has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable
 
   accepts_nested_attributes_for :photos, allow_destroy: true

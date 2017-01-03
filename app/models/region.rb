@@ -69,12 +69,12 @@ class Region < ActiveRecord::Base
       "map-marker"
     end
 
-    attribute :url do
-      Rails.application.routes.url_helpers.region_path(self)
+    attribute :viator_link do
+      ""
     end
 
-    attribute :display_address do
-      description.blank? ? "Bound Round Story" : description
+    attribute :url do
+      Rails.application.routes.url_helpers.region_path(self)
     end
 
     attribute :where_destinations do
@@ -160,9 +160,7 @@ class Region < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    unless self.run_rake || (no_parent_select.eql? "true")
-      slug.blank? || display_name_changed? || self.parent.parentable_id_changed?
-    end
+    display_name_changed?
   end
 
   def children

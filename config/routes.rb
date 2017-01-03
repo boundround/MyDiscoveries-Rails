@@ -382,6 +382,7 @@ Rails.application.routes.draw do
     collection do
       get 'new_livn_offer'
       post 'create_livn_offer'
+      get 'cms_index'
     end
     resources :videos do
       collection { get 'all' }
@@ -395,7 +396,15 @@ Rails.application.routes.draw do
     resources :regions, controller: :regions_offers
     resources :countries, controller: :countries_offers
     resources :subcategories, controller: :subcategories_offers
+    member do
+      get 'paginate_media'
+      get 'paginate_reviews'
+    end
+    resources :reviews
   end
+
+  post 'orders/add_shopify_order_id'
+  get 'pdfs/:shopify_order_id' => 'orders#download_pdf'
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'

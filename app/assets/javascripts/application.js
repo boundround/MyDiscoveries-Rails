@@ -22,7 +22,6 @@
 //= require swiper.jquery
 //= require util
 //= require jquery.raty-fa
-//= require places
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/extras/dataTables.tableTools
@@ -57,7 +56,10 @@
 //= require jquery.snowshoe
 //= require dual_list_box
 //= require jquery_nested_form
-//= require blueimp-gallery.min
+//= require blueimp-gallery/blueimp-gallery.min
+//= require blueimp-gallery/blueimp-gallery-video.min
+//= require blueimp-gallery/blueimp-gallery-youtube.min
+//= require blueimp-gallery/blueimp-gallery-vimeo.min
 //= require custom
 //= require trip_advisor
 //= require loading
@@ -65,6 +67,7 @@
 //= require place_videos
 //= require area
 //= require cms_offers
+//= require places
 
 //= require lib/fastclick
 //= require lib/swiper.jquery

@@ -12,8 +12,14 @@ class Order < ActiveRecord::Base
 
   validate :check_total_people_count
 
+  enum status: { created_in_boundround: 0, created_in_shopify: 1, paid: 2 }
+
   def total_people_count
     number_of_infants + number_of_children + number_of_adults
+  end
+
+  def shopify_order
+    ShopifyAPI::Order.find(shopify_order_id) if shopify_order_id?
   end
 
   private

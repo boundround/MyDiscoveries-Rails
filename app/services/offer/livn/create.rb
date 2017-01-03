@@ -1,7 +1,6 @@
-# TODO: move to services/offer/livn/
 require 'httparty'
 
-class LivnOffersCreationService
+class Offer::Livn::Create
   include Service
 
   initialize_with_parameter_assignment :product_id

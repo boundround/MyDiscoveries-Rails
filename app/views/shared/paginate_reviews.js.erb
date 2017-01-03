@@ -1,0 +1,28 @@
+<% if params[:resources].present? && collection = instance_variable_get("@#{params[:resources]}").presence %>
+    <%- rendered_reviews = escape_javascript(
+          render(
+            partial: (params[:pagination_template].presence || "#{params[:resources]}_list"),
+            collection: collection,
+            as: (params[:collection_object].presence || params[:resources].singularize).to_sym
+          )
+        )
+    %>
+  	$("div#<%= params[:resources] %>-list").append("<%= rendered_reviews %>");
+	<% if last_page? collection %>
+		$("div#<%= params[:resources] %>-single-pagination-container").remove();
+	<% else %>
+    <%- next_page_path = send("paginate_reviews_#{params[:controller].singularize}_path".to_sym,
+          instance_variable_get("@#{params[:controller].singularize}"),
+          {
+            "#{params[:resources]}_page" => collection.next_page,
+            resources: params[:resources],
+            pagination_template: params[:pagination_template]
+          }
+        )
+    %>
+
+    $("div#<%= params[:resources] %>-single-pagination-container").
+      find("a.single-pagination").
+      attr('href', "<%= next_page_path %>");
+	<% end %>
+<% end %>

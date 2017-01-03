@@ -25,7 +25,6 @@ $(document).ready(function(){
 
   var dualListBox = function(selector, ids, selectBox){
     dt_controller = $('#similar-places-js').data("controllers")
-    console.log(selector, ids, selectBox)
 
     if (selector.length > 0) {
       if (ids.length > 0){

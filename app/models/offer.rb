@@ -3,6 +3,7 @@ class Offer < ActiveRecord::Base
   include Searchable
   include SearchOptimizable
   include Observers::Offer
+  include Reviewable
 
   alias_attribute :minimum_age, :minAge
   alias_attribute :maximum_age, :maxAge
@@ -26,6 +27,9 @@ class Offer < ActiveRecord::Base
                :accessibility,
                :hero_photo,
                :accessible
+               :tags
+               :startDate
+               :endDate
 
     attribute :display_name do
       name
@@ -55,9 +59,17 @@ class Offer < ActiveRecord::Base
       attractions.map { |attraction| { name: attraction.display_name, identifier: attraction.identifier } }
     end
 
+    attribute :startDate do
+      startDate
+    end
+
+    attribute :endDate do
+      endDate
+    end
+
     attribute :photos do
       photo_array = photos.select { |photo| photo.published? }.map do |photo|
-        { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+        { url: photo.path_url(:small), alt_tag: photo.alt_tag, caption: photo.caption }
       end
       photo_array
     end
@@ -72,6 +84,10 @@ class Offer < ActiveRecord::Base
 
     attribute :description do
       description.blank? ? "" : description
+    end
+
+    attribute :tags do
+      tags.blank? ? [] : tags[0..1]
     end
 
     attribute :is_country do
@@ -140,6 +156,9 @@ class Offer < ActiveRecord::Base
                  :accessibility,
                  :hero_photo,
                  :accessible
+                 :tags
+                 :startDate
+                 :endDate
 
       attribute :display_name do
         name
@@ -171,7 +190,7 @@ class Offer < ActiveRecord::Base
 
       attribute :photos do
         photo_array = photos.select { |photo| photo.published? }.map do |photo|
-          { url: photo.path_url(:small), alt_tag: photo.alt_tag }
+          { url: photo.path_url(:small), alt_tag: photo.alt_tag, caption: photo.caption }
         end
         photo_array
       end
@@ -186,6 +205,18 @@ class Offer < ActiveRecord::Base
 
       attribute :description do
         description.blank? ? "" : description
+      end
+
+      attribute :tags do
+        tags.blank? ? [] : tags[0..1]
+      end
+
+      attribute :startDate do
+        startDate
+      end
+
+      attribute :endDate do
+        endDate
       end
 
       attribute :is_country do
@@ -239,6 +270,9 @@ class Offer < ActiveRecord::Base
 
   end
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :history]
+
   belongs_to :attraction
 
   # has_many :offers_photos, dependent: :destroy
@@ -285,6 +319,15 @@ class Offer < ActiveRecord::Base
     ShopifyAPI::Product.find(shopify_product_id) if shopify_product_id?
   end
 
+  def slug_candidates
+    :name
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || name_changed?
+  end
+
+  private
 
   def hero_photo
     hero_h = photos.where(photos: { hero: true })

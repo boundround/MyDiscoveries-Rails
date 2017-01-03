@@ -53,7 +53,7 @@ RSpec.describe Offer::Shopify::CreateProduct do
       it 'updates an offer with shopify_product_id' do
         expect(offer.reload.shopify_product_id).to eq(nil)
         subject
-        expect(offer.reload.shopify_product_id).to eq(product.id.to_s)
+        expect(offer.reload.shopify_product_id).to eq(product.id)
       end
     end
   end

@@ -1,10 +1,16 @@
 class OffersController < ApplicationController
   # before_action :check_user_authorization, except: [:show, :paginate_on_idx]
-  before_action :set_offer, only: [ :show, :update, :edit, :destroy, :choose_hero, :update_hero ]
+  before_action :set_offer, only: [ :show, :update, :edit, :destroy,  ]
+
+  before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media]
+  before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :choose_hero, :update_hero]
+  before_action :set_media, only: [:show, :paginate_media]
 
   def show
     @map_marker = Attraction.first
     @photos = @offer.photos.last(3)
+    @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
+    @review  = @offer.reviews.build
   end
 
   def new
@@ -15,11 +21,18 @@ class OffersController < ApplicationController
     @featured_offers = Offer.all
   end
 
+  def paginate_reviews
+    @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
+    respond_to do |format|
+      format.js { render 'shared/paginate_reviews' }
+    end
+  end
+
   def new_livn_offer
   end
 
   def create_livn_offer
-    response = LivnOffersCreationService.call(params[:livn_product_id])
+    response = Offer::Livn::Create.call(params[:livn_product_id])
 
     if response.success?
       redirect_to offers_path, notice: "Offer '#{response.offer.name}' successfully created"
@@ -32,6 +45,10 @@ class OffersController < ApplicationController
   def index
     @offers = Offer.all.paginate(per_page: 2, page: params[:offers_page])
     @featured_offers = Offer.all
+  end
+
+  def cms_index
+    @offers = Offer.all
   end
 
   def create
@@ -62,6 +79,8 @@ class OffersController < ApplicationController
 
   def paginate_offers
     @offers = Offer.all.paginate(per_page: 2, page: params[:offers_page])
+  end
+  def paginate_media
   end
 
   def destroy
@@ -97,7 +116,14 @@ class OffersController < ApplicationController
   private
 
   def set_offer
-    @offer = Offer.find(params[:id])
+    @offer = Offer.friendly.find(params[:id])
+  end
+
+  def set_media
+    photos = @offer.photos.active
+    videos = @offer.videos.active
+    media  = videos.count >= photos.count ? videos.zip(photos) : photos.zip(videos)
+    @media = media.flatten.compact.paginate(page: params[:active_media], per_page: 4)
   end
 
   def offer_params
