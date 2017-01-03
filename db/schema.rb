@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221144423) do
+ActiveRecord::Schema.define(version: 20161228091314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,10 +119,26 @@ ActiveRecord::Schema.define(version: 20161221144423) do
   add_index "attractions", ["primary_category_id"], name: "index_attractions_on_primary_category_id", using: :btree
   add_index "attractions", ["user_id"], name: "index_attractions_on_user_id", using: :btree
 
+  create_table "attractions_places", id: false, force: true do |t|
+    t.integer "attraction_id"
+    t.integer "place_id"
+  end
+
+  add_index "attractions_places", ["attraction_id"], name: "index_attractions_places_on_attraction_id", using: :btree
+  add_index "attractions_places", ["place_id"], name: "index_attractions_places_on_place_id", using: :btree
+
   create_table "attractions_posts", force: true do |t|
     t.integer "attraction_id"
     t.integer "post_id"
   end
+
+  create_table "attractions_regions", id: false, force: true do |t|
+    t.integer "attraction_id"
+    t.integer "region_id"
+  end
+
+  add_index "attractions_regions", ["attraction_id"], name: "index_attractions_regions_on_attraction_id", using: :btree
+  add_index "attractions_regions", ["region_id"], name: "index_attractions_regions_on_region_id", using: :btree
 
   create_table "attractions_stories", force: true do |t|
     t.integer  "attraction_id"
@@ -189,10 +205,10 @@ ActiveRecord::Schema.define(version: 20161221144423) do
   end
 
   create_table "child_items", force: true do |t|
-    t.string   "itemable_type"
-    t.integer  "itemable_id"
-    t.string   "parentable_type"
-    t.integer  "parentable_id"
+    t.string   "itemable_type",   default: "", null: false
+    t.integer  "itemable_id",     default: 0,  null: false
+    t.string   "parentable_type", default: "", null: false
+    t.integer  "parentable_id",   default: 0,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -779,6 +795,14 @@ ActiveRecord::Schema.define(version: 20161221144423) do
   add_index "places_posts", ["place_id", "post_id"], name: "index_places_posts_on_place_id_and_post_id", using: :btree
   add_index "places_posts", ["post_id", "place_id"], name: "index_places_posts_on_post_id_and_place_id", using: :btree
 
+  create_table "places_regions", id: false, force: true do |t|
+    t.integer "place_id"
+    t.integer "region_id"
+  end
+
+  add_index "places_regions", ["place_id"], name: "index_places_regions_on_place_id", using: :btree
+  add_index "places_regions", ["region_id"], name: "index_places_regions_on_region_id", using: :btree
+
   create_table "places_stories", force: true do |t|
     t.integer  "place_id"
     t.integer  "story_id"
@@ -1048,10 +1072,10 @@ ActiveRecord::Schema.define(version: 20161221144423) do
     t.text     "seo_friendly_url"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",      default: 0
+    t.string   "hero_image"
     t.text     "focus_keyword"
     t.text     "seo_title"
     t.text     "meta_description"
-    t.string   "hero_image"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
