@@ -102,7 +102,7 @@ class PhotosController < ApplicationController
     end
 
     if params[:offer_id]
-      @photo.offers << Offer.find(params[:offer_id])
+      @photo.offers << Offer.friendly.find(params[:offer_id])
     end
 
     if @photo.save

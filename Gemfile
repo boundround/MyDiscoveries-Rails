@@ -16,6 +16,9 @@ gem 'roo'
 gem 'roo-xls'
 gem 'iconv'
 
+gem 'rack-rewrite'
+gem 'route_downcaser'
+
 # User Font Awesome for icons
 # gem "font-awesome-rails"
 

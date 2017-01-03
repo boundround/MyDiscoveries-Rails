@@ -3,6 +3,7 @@ class Offer < ActiveRecord::Base
   include Searchable
   include SearchOptimizable
   include Observers::Offer
+  include Reviewable
 
   alias_attribute :minimum_age, :minAge
   alias_attribute :maximum_age, :maxAge
@@ -269,6 +270,9 @@ class Offer < ActiveRecord::Base
 
   end
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :history]
+
   belongs_to :attraction
 
   # has_many :offers_photos, dependent: :destroy
@@ -315,6 +319,15 @@ class Offer < ActiveRecord::Base
     ShopifyAPI::Product.find(shopify_product_id) if shopify_product_id?
   end
 
+  def slug_candidates
+    :name
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank? || name_changed?
+  end
+
+  private
 
   def hero_photo
     hero_h = photos.where(photos: { hero: true })

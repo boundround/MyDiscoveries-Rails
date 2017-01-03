@@ -1,0 +1,20 @@
+<div class="deal-promo-media-card swiper-slide">
+  <%= link_to video.url,
+        data: { gallery: '', youtube: video.youtube_id },
+        type: 'text/html',
+        title: video.title do
+  %>
+    <%= image_tag video.vimeo_thumbnail, class: 'deal-promo-media-card__photo' %>
+    <%= image_tag 'offer/i/deal/play-move-icon.png',
+          class: "deal-promo-media-card__play-icon"
+    %>
+  <% end %>
+  <div class="deal-promo-media-card-description">
+    <p class="media-title">
+      <%= image_tag 'offer/i/deal/orange-video-icon.png',
+            class: "deal-promo-media-card-description__icon"
+      %>
+      <%= video.title %>
+    </p>
+  </div>
+</div>

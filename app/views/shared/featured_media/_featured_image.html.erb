@@ -1,0 +1,16 @@
+<div class="deal-promo-media-card swiper-slide">
+  <%= link_to showing_image(image.path_url(:large)), data: { gallery: '' } do %>
+    <%= image_tag image.path_url(:large),
+          class: "deal-promo-media-card__photo"
+    %>
+   <% end %>
+
+  <div class="deal-promo-media-card-description">
+    <p class="media-title">
+      <%= image_tag 'offer/i/deal/orange-camera-icon.png',
+            class: "deal-promo-media-card-description__icon"
+      %>
+      <%= image.caption %>
+    </p>
+  </div>
+</div>

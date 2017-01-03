@@ -3,6 +3,7 @@ class Place < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
   include SearchOptimizable
+  include Reviewable
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake, :no_parent_select
 
@@ -214,18 +215,6 @@ class Place < ActiveRecord::Base
   has_one :rate_average_without_dimension, -> { where dimension: nil}, as: :cacheable,
           class_name: 'RatingCache', dependent: :destroy
 
-  has_many "quality_rates".to_sym, -> {where dimension: "quality"},
-                                              dependent: :destroy,
-                                              class_name: 'Rate',
-                                              as: :rateable
-
-  has_many "quality_raters".to_sym, through: "quality_rates".to_sym, source: :rater
-
-  has_one "quality_average".to_sym, -> { where dimension: "quality" },
-                                              as: :cacheable,
-                                              class_name: 'RatingCache',
-                                              dependent: :destroy
-
   has_many :offers_places, dependent: :destroy
   has_many :offers, through: :offers_places
 
@@ -287,6 +276,9 @@ class Place < ActiveRecord::Base
 
   has_many :places_stories
   has_many :stories, through: :places_stories
+
+  has_many :customers_places
+  has_many :owners, through: :customers_places, :source => :user
 
   has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable

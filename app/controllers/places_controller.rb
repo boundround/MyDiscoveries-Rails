@@ -281,6 +281,7 @@ class PlacesController < ApplicationController
     @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 3)
     @photos_hero = @photos.first(6)
     @map_marker = @place.markers
+    @review = @place.reviews.build
 
     @videos = @place.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
     @last_video = @place.videos.active.order(:priority).first
@@ -322,6 +323,9 @@ class PlacesController < ApplicationController
   def paginate_reviews
     @place = Place.find_by_slug(params[:id])
     @reviews = @place.reviews.active.paginate(page: params[:reviews_page], per_page: params[:reviews_page].nil?? 6 : 3 )
+    respond_to do |format|
+      format.js { render 'shared/paginate_reviews' }
+    end
   end
 
   def paginate_stories
