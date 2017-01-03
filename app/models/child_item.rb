@@ -6,16 +6,49 @@ class ChildItem < ActiveRecord::Base
   after_create :split_child_item
 
   def split_child_item
-    if self.parentable_type == "Region"
-      #if the parent of ChildItem is Region 
-      # we create a child related to region(parent) 
-      # to join table attraction_regions or places_regions with the method below 
-      self.itemable.regions = [self.parentable]
-    elsif self.parentable_type == "Place"
-      #if the parent of ChildItem is Place 
-      # we create a child related to place(parent) 
-      # to join table attraction_places with the method below 
-      self.itemable.places = [self.parentable]
+    if (self.parentable_type == "Country" && self.itemable_type != "Country") || (self.parentable_type == "Place" && self.itemable_type != "Place") || (self.parentable_type == "Region" && self.itemable_type != "Region") && (self.parentable_type == "Region" && self.itemable_type != "Country")
+
+      if self.parentable_type == "Region"
+        self.itemable.regions = [self.parentable] #Storing data to attractions_regions / places_regions
+        if self.itemable_type == "Attraction" && self.itemable.places.present?
+          self.itemable.places.destroy_all
+        end
+
+      elsif parentable_type == "Country"
+        parent_country = self.parentable.parent
+        if parent_country.present? && parent_country.parentable_type == "Region"
+          self.itemable.regions = [parent_country.parentable] #Storing data to attractions_regions / places_regions
+          if self.itemable_type == "Attraction" && self.itemable.places.present?
+            self.itemable.places.destroy_all
+          end
+        end
+
+      elsif parentable_type == "Place"
+        parent_country = self.parentable.parent
+        parent_region = parent_country.parentable.parent
+        unless parent_country.blank?
+          if self.itemable_type == "Attraction" && (parent_country.parentable_type == "Country" || parent_region.parentable_type == "Region")
+            self.itemable.places = [self.parentable] #Storing data to attractions_places
+            self.itemable.regions = [parent_region.parentable] #Storing data to attractions_regions
+          elsif self.itemable_type == "Attraction" && parent_country.parentable_type == "Region"
+            self.itemable.places = [self.parentable] #Storing data to attractions_places
+            self.itemable.regions = [parent_country.parentable] #Storing data to attractions_regions
+          else
+            self.itemable.places = [self.parentable] #Storing data to attractions_places
+            if self.itemable.regions.present?
+              self.itemable.regions.destroy_all
+            end
+          end
+        end
+      end
+    else
+      if (self.itemable_type == "Place" || self.itemable_type == "Attraction") && self.itemable.regions.present?
+        self.itemable.regions.destroy_all
+      end
+
+      if self.itemable_type == "Attraction" && self.itemable.places.present?
+          self.itemable.places.destroy_all
+        end
     end
   end
 end
