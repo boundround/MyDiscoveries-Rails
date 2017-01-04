@@ -312,6 +312,8 @@ class Place < ActiveRecord::Base
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
 
+  before_save :fill_attractions
+
   def published?
     if self.status == "live"
       true
@@ -693,6 +695,11 @@ class Place < ActiveRecord::Base
       end
     end
     places_list
+  end
+
+  def fill_attractions
+    self.attractions = []
+    self.attractions = self.get_attractions
   end
 
   private

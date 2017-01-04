@@ -131,6 +131,8 @@ class Region < ActiveRecord::Base
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :stories, allow_destroy: true
+  before_save :fill_places, :fill_attractions
+
 
   def get_parents(region, parents = [])
     unless !self.run_rake.blank? || (no_parent_select.eql? "true")
@@ -170,7 +172,6 @@ class Region < ActiveRecord::Base
     end
   end
 
-  #rename this method to make HBTM works for region.places
   def get_places
     Rails.cache.fetch([self, "places"]) do
       places_list = []
@@ -205,6 +206,16 @@ class Region < ActiveRecord::Base
       end
       places_list
     end
+  end
+
+  def fill_places
+    self.places = []
+    self.places = self.get_places
+  end
+
+  def fill_attractions
+    self.attractions = []
+    self.attractions = self.get_attractions
   end
 
   def all_place_children

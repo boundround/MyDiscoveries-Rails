@@ -3,7 +3,7 @@ class ChildItem < ActiveRecord::Base
   belongs_to :parentable, :polymorphic => true
 
   #we save the relations to hbtm table after created ChildItem record
-  after_create :split_child_item
+  # after_create :split_child_item
 
   def split_child_item
     if (self.parentable_type == "Country" && self.itemable_type != "Country") || (self.parentable_type == "Place" && self.itemable_type != "Place") || (self.parentable_type == "Region" && self.itemable_type != "Region") && (self.parentable_type == "Region" && self.itemable_type != "Country")
