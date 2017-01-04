@@ -15,23 +15,25 @@
         <input type="hidden" data-zoom="<%= @region.zoom_level %>" data-marker="<%= @places_to_visit_map %>" name="region">
   </div>
 <!-- END - map -->
-<div class="region destinations">
-    <div class="width-limiter">
-        <ul>
-          <% if @countries.present? %>
-            <% @countries.each do |country| %>
-            <li>
-                <a href="<%= country_path(country) %>">
-                    <div class="wrap-background-region-country" style="background-image: url('<%= draw_hero_background(country) %>')">
-                    </div>
-                    <span><%= country.display_name %></span>
-                </a>
-            </li>
+<% if @countries.present? %>
+  <div class="region destinations">
+      <div class="width-limiter">
+          <ul id="countries-list">
+            <%= render partial: 'countries_list', collection: @countries, as: :country %>
+          </ul>
+          <% unless last_page? @countries %>
+            <div class="single-pagination-container" id="countries-single-pagination-container">
+                <div align="center">
+                  <div class="hidden single-pagination-loader" align="center">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                  </div>
+                <%= link_to "load more", paginate_countries_region_path(@region, countries_page: @countries.next_page, resources: 'countries', pagination_template: 'countries_list', collection_object: 'country'), class: 'load-more single-pagination', remote: true %>
+                </div>
+            </div>
           <% end %>
-        <% end %>
-        </ul>
-    </div>
-</div>
+      </div>
+  </div>
+<% end %>
 
 <% unless @place_to_go.blank? %>
 <div class="region places-to-go">

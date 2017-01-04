@@ -8503,6 +8503,11 @@ input[type="submit"].modal-content__btn-access  {
   height: 220px;
 }
 
+#countries-single-pagination-container .load-more{
+  margin: 0;
+  margin-bottom: 50px;
+}
+
 .section-white .thing-wrapper{
   margin: 57px 0 48px;
 }

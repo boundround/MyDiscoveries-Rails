@@ -10,7 +10,7 @@ class RegionsController < ApplicationController
     @stories  = @region.stories.reverse.paginate(page: params[:stories_page], per_page: 4 )
     @areas  = Place.first
     @photos = Photo.first
-    @countries = @region.children.select {|child| child.class.to_s == "Country"}
+    @countries = @region.children.select {|child| child.class.to_s == "Country"}.paginate(page: params[:countries_page], per_page: 12 )
     @famous_faces = ''
     @fun_facts  = ''
     @fun_facts = @region.fun_facts
@@ -100,6 +100,11 @@ class RegionsController < ApplicationController
   def paginate_stories
     @region = Region.find_by_slug(params[:id])
     @stories = @region.stories.reverse.paginate(page: params[:stories_page], per_page: 4 )
+  end
+
+  def paginate_countries
+    @region = Region.find_by_slug(params[:id])
+    @countries = @region.children.select {|child| child.class.to_s == "Country"}.paginate(page: params[:countries_page], per_page: 12 )
   end
 
   private
