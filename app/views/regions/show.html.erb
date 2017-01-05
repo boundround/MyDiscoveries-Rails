@@ -2,8 +2,9 @@
 
 <div class="breadcrumbs width-limiter">
     <a href="<%= root_path %>" class="breadcrumbs__link">home</a>
-    <%= raw create_breadcrumb_for(@region) %> |
-    <% if user_signed_in? and current_user.admin? %><%= link_to "Edit Region", edit_region_path(@region) %>
+    <%= raw create_breadcrumb_for(@region) %>
+    <% if user_signed_in? and current_user.admin? %>
+      <%= link_to "Edit Region", edit_region_path(@region), class: "breadcrumbs__link" %>
     <% end %>
 </div>
 

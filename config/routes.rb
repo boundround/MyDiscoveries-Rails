@@ -377,6 +377,8 @@ Rails.application.routes.draw do
   resources :offers do
     member do
       get 'choose_hero', as: :choose_hero
+      get 'paginate_videos', as: :paginate_videos
+      get 'paginate_photos', as: :paginate_photos
     end
     collection { get 'paginate_on_idx' }
     collection { get 'paginate_offers' }

@@ -8,8 +8,9 @@
 
 <div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
 <div class="breadcrumbs container">
-<%= raw create_breadcrumb_for(@place) %> |
-<% if user_signed_in? and current_user.admin? %><%= link_to "Edit Place", edit_place_path(@place) %>
+<%= raw create_breadcrumb_for(@place) %>
+<% if user_signed_in? and current_user.admin? %>
+  <%= link_to "Edit Place", edit_place_path(@place), class: "breadcrumbs__link" %>
 <% end %>
 </div>
 <div class="hero-image-wrapper hero dismiss-mega-menu-search"
@@ -152,7 +153,7 @@
                 </div>
             </div>
 
-          <% unless @last_video.blank? %>
+          <% unless @videos.blank? %>
           <div class="videos-block">
                 <h3 class="sm-heading lars">Videos & Photos</h3>
       <% if !@last_video.youtube_id.blank? %>

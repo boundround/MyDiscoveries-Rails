@@ -15,6 +15,8 @@
             <%= link_to "LOAD MORE", paginate_photos_place_path(@place, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'more-link', remote: true %>
           <% elsif params[:controller].eql? "attractions" %>
             <%= link_to "LOAD MORE", paginate_photos_attraction_path(@attraction, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'more-link', remote: true %>
+          <% elsif params[:controller].eql? "offers" %>
+            <%= link_to "LOAD MORE", paginate_photos_offer_path(@offer, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'more-link', remote: true %>
           <% elsif params[:controller].eql? "countries"  %>
             <%= link_to "LOAD MORE", paginate_photos_country_path(@country, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'more-link', remote: true %>
           <% end %>

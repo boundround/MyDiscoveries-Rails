@@ -7,9 +7,11 @@
       variable = @region
   elsif !@country.blank?
       variable = @country
+  elsif !@offer.blank?
+      variable = @offer
   end
 
-if !params[:controller].eql? "countries"
+if (!params[:controller].eql? "countries") && (!params[:controller].eql? "offers")
 
   grid, orange, stroke = if !variable.is_area?
    ["col-md-4", "orange", "orange-stroke"]
