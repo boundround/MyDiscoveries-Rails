@@ -301,7 +301,7 @@ class Story < ActiveRecord::Base
       Story.joins(:places).where(places: { id: places.pluck(:id) }).pluck(:id)
     ].reduce(:+).uniq
     ids.delete(self.id)
-    Story.includes(:user).where(id: ids).order(:created_at)
+    Story.includes(:user).where(id: ids).order(created_at: :desc)
   end
 
   def story_place_to_visit
