@@ -360,6 +360,7 @@ Rails.application.routes.draw do
     member { get 'paginate_place_to_go'}
     member { get 'paginate_stories'}
     member { get 'paginate_offers'}
+    member { get 'paginate_countries'}
     resources :photos do
       collection { get 'all_photos' }
     end
