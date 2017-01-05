@@ -220,7 +220,7 @@ class Region < ActiveRecord::Base
 
   def all_place_children
     Rails.cache.fetch([self, "all_place_children"]) do
-      childrens_collect = self.get_places
+      childrens_collect = self.places
       data_marker = []
       if !childrens_collect.blank?
         childrens_collect.each do |place|
@@ -238,7 +238,7 @@ class Region < ActiveRecord::Base
           end
 
           data_objs['#childrens'] = []
-          place.get_attractions.each do |place_child|
+          place.attractions.each do |place_child|
               place_item_child = place_child
               data_child_objs = {}
               data_child_objs['@country_child'] = place_item_child.country.display_name rescue ""

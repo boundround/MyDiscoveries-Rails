@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228043906) do
+ActiveRecord::Schema.define(version: 20161228091314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,10 +119,26 @@ ActiveRecord::Schema.define(version: 20161228043906) do
   add_index "attractions", ["primary_category_id"], name: "index_attractions_on_primary_category_id", using: :btree
   add_index "attractions", ["user_id"], name: "index_attractions_on_user_id", using: :btree
 
+  create_table "attractions_places", id: false, force: true do |t|
+    t.integer "attraction_id"
+    t.integer "place_id"
+  end
+
+  add_index "attractions_places", ["attraction_id"], name: "index_attractions_places_on_attraction_id", using: :btree
+  add_index "attractions_places", ["place_id"], name: "index_attractions_places_on_place_id", using: :btree
+
   create_table "attractions_posts", force: true do |t|
     t.integer "attraction_id"
     t.integer "post_id"
   end
+
+  create_table "attractions_regions", id: false, force: true do |t|
+    t.integer "attraction_id"
+    t.integer "region_id"
+  end
+
+  add_index "attractions_regions", ["attraction_id"], name: "index_attractions_regions_on_attraction_id", using: :btree
+  add_index "attractions_regions", ["region_id"], name: "index_attractions_regions_on_region_id", using: :btree
 
   create_table "attractions_stories", force: true do |t|
     t.integer  "attraction_id"
@@ -354,11 +370,6 @@ ActiveRecord::Schema.define(version: 20161228043906) do
   end
 
   add_index "deals", ["dealable_id", "dealable_type"], name: "index_deals_on_dealable_id_and_dealable_type", using: :btree
-
-  create_table "deals_users", force: true do |t|
-    t.integer "user_id"
-    t.integer "deal_id"
-  end
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -595,11 +606,6 @@ ActiveRecord::Schema.define(version: 20161228043906) do
   add_index "offers_subcategories", ["offer_id", "subcategory_id"], name: "index_offers_subcategories_on_offer_id_and_subcategory_id", unique: true, using: :btree
   add_index "offers_subcategories", ["offer_id"], name: "index_offers_subcategories_on_offer_id", using: :btree
 
-  create_table "offers_users", force: true do |t|
-    t.integer "user_id"
-    t.integer "offer_id"
-  end
-
   create_table "offers_videos", force: true do |t|
     t.integer "offer_id"
     t.integer "video_id"
@@ -776,6 +782,14 @@ ActiveRecord::Schema.define(version: 20161228043906) do
 
   add_index "places_posts", ["place_id", "post_id"], name: "index_places_posts_on_place_id_and_post_id", using: :btree
   add_index "places_posts", ["post_id", "place_id"], name: "index_places_posts_on_post_id_and_place_id", using: :btree
+
+  create_table "places_regions", id: false, force: true do |t|
+    t.integer "place_id"
+    t.integer "region_id"
+  end
+
+  add_index "places_regions", ["place_id"], name: "index_places_regions_on_place_id", using: :btree
+  add_index "places_regions", ["region_id"], name: "index_places_regions_on_region_id", using: :btree
 
   create_table "places_stories", force: true do |t|
     t.integer  "place_id"
@@ -1087,11 +1101,7 @@ ActiveRecord::Schema.define(version: 20161228043906) do
     t.string   "icon"
     t.text     "primary_description"
     t.text     "secondary_description"
-    t.string   "related_to"
-    t.string   "slug"
   end
-
-  add_index "subcategories", ["slug"], name: "index_subcategories_on_slug", using: :btree
 
   create_table "suggested_places", force: true do |t|
     t.string   "user_ip"
@@ -1222,8 +1232,6 @@ ActiveRecord::Schema.define(version: 20161228043906) do
     t.integer  "max_age"
     t.boolean  "is_private",             default: true
     t.text     "description"
-    t.string   "gender"
-    t.string   "mobile"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

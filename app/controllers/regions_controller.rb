@@ -16,7 +16,6 @@ class RegionsController < ApplicationController
     @places_to_visit_map = @region.all_place_children
     @places_to_visit = @region.attractions.paginate(page: params[:places_to_visit_page], per_page: 3 )
     @place_to_go = @region.places.paginate(page: params[:places_to_go_page], per_page: 3 )
-    debugger
   end
 
   def new
@@ -83,12 +82,12 @@ class RegionsController < ApplicationController
 
   def paginate_place_to_visit
     @region = Region.find_by_slug(params[:id])
-    @places_to_visit = @region.get_attractions.paginate( page: params[:places_to_visit_page], per_page: 3 )
+    @places_to_visit = @region.attractions.paginate( page: params[:places_to_visit_page], per_page: 3 )
   end
 
   def paginate_place_to_go
     @region = Region.find_by_slug(params[:id])
-    @place_to_go = @region.get_places.paginate(page: params[:place_to_go_page], per_page: 3 )
+    @place_to_go = @region.places.paginate(page: params[:place_to_go_page], per_page: 3 )
   end
 
   def paginate_stories
