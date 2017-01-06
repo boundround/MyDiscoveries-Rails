@@ -3,7 +3,7 @@ module Observers::Offer
 
   included do
     after_commit :create_shopify_product, on: :create
-    # after_commit :update_shopify_product, on: :update
+    after_commit :update_shopify_product, on: :update
   end
 
   private
