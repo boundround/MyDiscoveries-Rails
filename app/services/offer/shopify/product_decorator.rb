@@ -28,10 +28,22 @@ class Offer::Shopify::ProductDecorator < SimpleDelegator
 
   def images
     @images ||= offer.photos.active.map do |photo|
+      offers_photo = photo.offers_photos.find_by(offer: offer)
       if photo.hero?
-        { src: photo.path.url, position: 1 }
+        {
+          src: photo.path.url,
+          position: 1,
+          product_id: product.id,
+          offers_photo_id: offers_photo.id,
+          shopify_image_id: offers_photo.shopify_image_id
+        }
       else
-        { src: photo.path.url }
+        {
+          src: photo.path.url,
+          product_id: product.id,
+          offers_photo_id: offers_photo.id,
+          shopify_image_id: offers_photo.shopify_image_id
+        }
       end
     end
   end
