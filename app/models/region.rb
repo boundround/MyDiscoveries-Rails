@@ -177,39 +177,35 @@ class Region < ActiveRecord::Base
   end
 
   def get_places
-    Rails.cache.fetch([self, "places"]) do
-      places_list = []
-      queue = self.children
+    places_list = []
+    queue = self.children
 
-      while !queue.empty?
-      place = queue.shift
-        if place.class.to_s == "Place" && place.status == "live"
-          places_list << place
-        end
-        place.children.each do |child|
-          queue << child
-        end
+    while !queue.empty?
+    place = queue.shift
+      if place.class.to_s == "Place" && place.status == "live"
+        places_list << place
       end
-      places_list
+      place.children.each do |child|
+        queue << child
+      end
     end
+    places_list
   end
 
   def get_attractions
-    Rails.cache.fetch([self, "attractions"]) do
-      places_list = []
-      queue = self.children
+    places_list = []
+    queue = self.children
 
-      while !queue.empty?
-      place = queue.shift
-        if place.class.to_s == "Attraction" && place.status == "live"
-          places_list << place
-        end
-        place.children.each do |child|
-          queue << child
-        end
+    while !queue.empty?
+    place = queue.shift
+      if place.class.to_s == "Attraction" && place.status == "live"
+        places_list << place
       end
-      places_list
+      place.children.each do |child|
+        queue << child
+      end
     end
+    places_list
   end
 
   def fill_places
