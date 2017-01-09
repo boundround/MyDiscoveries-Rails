@@ -696,6 +696,23 @@ class PlacesController < ApplicationController
 
   private
     def place_params
+      if @place.present?
+        unless @place.parent.blank?
+          if (@place.parent.parentable_type == params[:place][:parent_attributes][:parentable_type])&&(@place.parent.parentable_id == params[:place][:parent_attributes][:parentable_id].to_i)
+            params[:place].delete :parent_attributes
+
+          elsif (@place.parent.parentable_type == params[:place][:parent_attributes][:parentable_type])||(@place.parent.parentable_id == params[:place][:parent_attributes][:parentable_id].to_i)
+            @place.parent.delete()
+
+          elsif params[:place][:parent_attributes][:parentable_type] == nil
+            @place.parent.delete()
+            params[:place].delete :parent_attributes
+          else
+            @place.parent.delete()
+          end
+        end
+      end
+      
       params.require(:place).permit(
         :code,
         :identifier,

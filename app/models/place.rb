@@ -287,6 +287,9 @@ class Place < ActiveRecord::Base
 
   has_many :stamps
 
+  has_and_belongs_to_many :attractions
+  has_and_belongs_to_many :regions
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
@@ -300,6 +303,8 @@ class Place < ActiveRecord::Base
 
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
+
+  before_save :fill_attractions
 
   def published?
     if self.status == "live"
@@ -635,11 +640,7 @@ class Place < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    if self.parent.blank?
-      slug.blank? || display_name_changed? || self.country_id_changed?
-    else
-      slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
-    end
+    slug.blank? || display_name_changed?
   end
 
   def trip_advisor_info
@@ -680,7 +681,7 @@ class Place < ActiveRecord::Base
     list = list.map { |child| child.itemable }
   end
 
-  def attractions
+  def get_attractions
     places_list = []
     queue = self.children
 
@@ -694,6 +695,11 @@ class Place < ActiveRecord::Base
       end
     end
     places_list
+  end
+
+  def fill_attractions
+    self.attractions = []
+    self.attractions = self.get_attractions
   end
 
   private

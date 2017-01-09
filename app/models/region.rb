@@ -121,6 +121,9 @@ class Region < ActiveRecord::Base
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
 
+  has_and_belongs_to_many :places
+  has_and_belongs_to_many :attractions
+
   mount_uploader :hero_photo, RegionPhotoUploader
 
   accepts_nested_attributes_for :parent, :allow_destroy => true
@@ -128,6 +131,8 @@ class Region < ActiveRecord::Base
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :stories, allow_destroy: true
+  before_save :fill_places, :fill_attractions
+
 
   def get_parents(region, parents = [])
     unless !self.run_rake.blank? || (no_parent_select.eql? "true")
@@ -157,7 +162,7 @@ class Region < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    display_name_changed?
+    slug.blank? || display_name_changed?
   end
 
   def children
@@ -168,7 +173,7 @@ class Region < ActiveRecord::Base
     end
   end
 
-  def places
+  def get_places
     Rails.cache.fetch([self, "places"]) do
       places_list = []
       queue = self.children
@@ -186,7 +191,7 @@ class Region < ActiveRecord::Base
     end
   end
 
-  def attractions
+  def get_attractions
     Rails.cache.fetch([self, "attractions"]) do
       places_list = []
       queue = self.children
@@ -202,6 +207,16 @@ class Region < ActiveRecord::Base
       end
       places_list
     end
+  end
+
+  def fill_places
+    self.places = []
+    self.places = self.get_places
+  end
+
+  def fill_attractions
+    self.attractions = []
+    self.attractions = self.get_attractions
   end
 
   def all_place_children

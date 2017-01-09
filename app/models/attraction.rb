@@ -210,6 +210,9 @@ class Attraction < ActiveRecord::Base
   has_many :good_to_knows, as: :good_to_knowable
   has_many :deals, as: :dealable
 
+  has_and_belongs_to_many :places
+  has_and_belongs_to_many :regions
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
@@ -247,16 +250,10 @@ class Attraction < ActiveRecord::Base
   end
 
   def set_country
-    if get_parents(self).present?
-      get_parents(self).each do |parent|
-        if parent.class.to_s == "Country"
-          self.country_id = country.id
-        elsif parent.class.to_s == "Region"
-          return parent
-        end
-      end
+    country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
+    if country
+      self.country_id = country.id
     end
-    # country = get_parents(self).find {|parent| parent.class.to_s == "Country"
   end
 
   def trip_advisor_info
@@ -405,7 +402,7 @@ class Attraction < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-      slug.blank? || display_name_changed? || self.country_id_changed? || self.parent.parentable_id_changed?
+      slug.blank? || display_name_changed?
   end
 
   def content
