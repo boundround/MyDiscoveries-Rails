@@ -1,7 +1,7 @@
 class PlacesOffersController < ApplicationController
 
   def create
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
     @offer.places = []
     if params[:places_offers]
       @places_ids = params[:places_offers][:place_ids]
@@ -16,11 +16,11 @@ class PlacesOffersController < ApplicationController
   def edit;end
 
   def update
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
   end
 
   def index
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
     @places_offers = @offer.places.build
     @places = Place.active.where(is_area: true).order(display_name: :asc)
   end

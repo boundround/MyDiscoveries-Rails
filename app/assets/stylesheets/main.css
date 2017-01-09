@@ -8076,7 +8076,8 @@ input[type="text"]::-ms-clear {
 .best-of-adventure-card__content {
   margin: 0;
   font-size: 16px;
-  color: #3d3a38; }
+  color: #3d3a38;
+  font-family: Larsseit-Light, sans-serif; }
 
 @media only screen and (max-width: 1200px) {
   .best-of-adventure-card__link {
@@ -8479,6 +8480,15 @@ input[type="submit"].modal-content__btn-access  {
   padding: 80px 0 86px;
 }
 
+.wrap-background-region-country{
+  float: left;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
 .background{
   position: absolute;
   height: 100%;
@@ -8491,6 +8501,11 @@ input[type="submit"].modal-content__btn-access  {
   position: relative;
   width: 100%;
   height: 220px;
+}
+
+#countries-single-pagination-container .load-more{
+  margin: 0;
+  margin-bottom: 50px;
 }
 
 .section-white .thing-wrapper{
@@ -8724,7 +8739,7 @@ input[type="submit"].modal-content__btn-access  {
   text-align: center;
   clear: both; }
 
-.see-more__link {
+a.see-more__link {
   color: #000060;
   text-transform: uppercase;
   font-size: 18px;
@@ -9432,6 +9447,11 @@ h3.search-page-card__header {
   font-size: 16px;
   line-height: 16px; }
 
+.search-page-card .tags{
+  list-style-type: none;
+  margin-left: 18px;
+}
+
 .search-page-card__short-details-for-cost-icon {
   display: inline-block;
   height: 19px;
@@ -9977,7 +9997,7 @@ span.arrow {
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-  background: url("/assets/mydiscoveries_icon/images/promo-map/map-border.png") 0 0 repeat-x;
+  background: url("/assets/mydiscoveries_icon/i/map-border.png") 0 0 repeat-x;
   padding-top: 40px; }
   @media screen and (max-width: 1200px) {
     .promo-map {
@@ -11141,7 +11161,7 @@ span.arrow {
                   .destinations .destinations-content-block section .top-holidays ul li a .th-content span.posi-nights {
                     padding-left: 25px;
                     padding-top: 5px;
-                    background: url(../i/moon.png) 0 -2px no-repeat; }
+                    background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat; }
                 .destinations .destinations-content-block section .top-holidays ul li a .th-content .xs-heading, .destinations .destinations-content-block .user-pages section .top-holidays ul li a .th-content .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading, .user-pages .destinations .destinations-content-block section .top-holidays ul li a .th-content .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading, .destinations .destinations-content-block .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content .top-holidays ul li a .th-content p.xs-heading, .user-pages .destinations .destinations-content-block section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content .top-holidays ul li a .th-content p.xs-heading {
                   color: #000060;
                   margin-top: 20px;

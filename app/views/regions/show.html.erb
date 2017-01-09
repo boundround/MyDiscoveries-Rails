@@ -2,8 +2,9 @@
 
 <div class="breadcrumbs width-limiter">
     <a href="<%= root_path %>" class="breadcrumbs__link">home</a>
-    <%= raw create_breadcrumb_for(@region) %> |
-    <% if user_signed_in? and current_user.admin? %><%= link_to "Edit Region", edit_region_path(@region) %>
+    <%= raw create_breadcrumb_for(@region) %>
+    <% if user_signed_in? and current_user.admin? %>
+      <%= link_to "Edit Region", edit_region_path(@region), class: "breadcrumbs__link" %>
     <% end %>
 </div>
 
@@ -15,22 +16,25 @@
         <input type="hidden" data-zoom="<%= @region.zoom_level %>" data-marker="<%= @places_to_visit_map %>" name="region">
   </div>
 <!-- END - map -->
-<div class="region destinations">
-    <div class="width-limiter">
-        <ul>
-          <% if @countries.present? %>
-            <% @countries.each do |country| %>
-            <li>
-                <a href="<%= country_path(country) %>">
-                    <img src="<%= draw_hero_background(country) %>" alt="">
-                    <span><%= country.display_name %></span>
-                </a>
-            </li>
+<% if @countries.present? %>
+  <div class="region destinations">
+      <div class="width-limiter">
+          <ul id="countries-list">
+            <%= render partial: 'countries_list', collection: @countries, as: :country %>
+          </ul>
+          <% unless last_page? @countries %>
+            <div class="single-pagination-container" id="countries-single-pagination-container">
+                <div align="center">
+                  <div class="hidden single-pagination-loader" align="center">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                  </div>
+                <%= link_to "load more", paginate_countries_region_path(@region, countries_page: @countries.next_page, resources: 'countries', pagination_template: 'countries_list', collection_object: 'country'), class: 'load-more single-pagination', remote: true %>
+                </div>
+            </div>
           <% end %>
-        <% end %>
-        </ul>
-    </div>
-</div>
+      </div>
+  </div>
+<% end %>
 
 <% unless @place_to_go.blank? %>
 <div class="region places-to-go">
@@ -61,36 +65,32 @@
   </div>
 <% end %>
 
+<% if @offers.present? %>
 <div class="region package-offers">
     <div class="width-limiter">
         <h3 class="proposal__header">Package Offers</h3>
-        <ul class="cs-package">
-            <li>
-                <div class="po-content-wrapper">
-                    <img src="/assets/mydiscoveries_icon/i/follow-the-journey-item-bg.png" alt="">
-                    <div class="po-content-block">
-                        <div class="po-stay-info">
-                            <span>From $1399</span>
-                            <span class="posi-nights">8 nights</span>
-                        </div>
-                        <p class="sm-heading">
-                            Seminyak's Sky High Sensation
-                        </p>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore!</p>
-                        <p class="info-text">Offer ends 09/12/2016</p>
-                        <a href="#">see offer</a>
-                    </div>
-                </div>
-            </li>
+        <ul class="cs-package" id="offers-list">
+            <%= render partial: 'offers/region_offers', collection: @offers, as: :offer %>
             <li class="recl-block">
                 <a  href="#">
                     <img src="/assets/mydiscoveries_icon/reclama.jpg" alt="">
                 </a>
             </li>
         </ul>
-        <a href="#" class="btn-bordered">all offers</a>
+        <% unless last_page? @offers %>
+          <div class="single-pagination-container" id="offers-single-pagination-container">
+            <div class="region" align="center">
+              <div class="hidden single-pagination-loader" align="center">
+                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+              </div>
+            <%= link_to "all offers", paginate_offers_region_path(@region, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/region_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
+            </div>
+          </div>
+        <% end %>
+        <!-- <a href="#" class="btn-bordered">all offers</a> -->
     </div>
 </div>
+<% end %>
 <% unless @places_to_visit.blank? %>
 <div class="region things-to-do">
     <div class="width-limiter">

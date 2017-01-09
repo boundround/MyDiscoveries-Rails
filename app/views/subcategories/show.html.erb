@@ -28,7 +28,7 @@
       <div class="col-sm-12 col-md-12 col-xs-12">
           <h2 class="adventure-block__title">Best of adventure travel</h2>
           <p class="adventure-see__link-wrapper">
-              <a href="#subcategory_all_story" class="adventure-see__link hidden-xs">see all</a>
+              <a href="<%= all_posts_posts_path %>" class="adventure-see__link hidden-xs">see all</a>
           </p>
       </div>
     </div>
@@ -58,17 +58,19 @@
           </p>
       </div>
     </div>
-    <div class="row related-product-adventure__content">
-    <% @offers.each do |offer| %>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="related-product-adventure-card adventure-thumbnail">
-          <img src="<%= draw_small_background(offer) %>" class="related-product-adventure-card__city-photo" alt>
-          <h3 class="related-product-adventure-card__title"><a href="#" class="related-product-adventure-card__link"><%= offer.name %></a></h3>
-          <p class="related-product-adventure-card__content"><%= offer.description[0..75] %>...</p>
-        </div>
-      </div>
-    <% end %>
+    <div class="row related-product-adventure__content" id="offers-list">
+    <%= render partial: 'offers/subcategory_offers', collection: @offers, as: :offer %>
     </div>
+    <% unless last_page? @offers %>
+          <div class="single-pagination-container" id="offers-single-pagination-container">
+            <div class="load-more region">
+              <div class="hidden single-pagination-loader" align="center">
+                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+              </div>
+            <%= link_to "see more", paginate_offers_subcategory_path(@subcategory, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/subcategory_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
+            </div>
+          </div>
+        <% end %>
   </div>
 </section>
 <% end %>

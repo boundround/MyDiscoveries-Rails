@@ -1,7 +1,7 @@
 class RegionsOffersController < ApplicationController
 
   def create
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
     @offer.regions = []
     if params[:regions_offers]
       @regions_ids = params[:regions_offers][:region_ids]
@@ -16,11 +16,11 @@ class RegionsOffersController < ApplicationController
   def edit;end
 
   def update
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
   end
 
   def index
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
     @regions_offers = @offer.regions.build
     @regions = Region.order(display_name: :asc)
   end
