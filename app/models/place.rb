@@ -576,7 +576,7 @@ class Place < ActiveRecord::Base
   def place_stories
     stories = self.posts.active
     stories += self.stories.active
-    stories = stories.sort{|x, y| x.publish_date <=> y.publish_date}.reverse
+    stories = stories.sort{|x, y| x.publish_date <=> y.publish_date}
   end
 
   def active_user_photos
