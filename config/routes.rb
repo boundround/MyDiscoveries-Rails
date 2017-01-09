@@ -268,6 +268,9 @@ Rails.application.routes.draw do
   resources :primary_categories
 
   resources :subcategories do
+    member do
+      get 'paginate_offers'
+    end
     collection do
       get 'specific/:age_ranges', action: 'specific', as: :specific, constraints: Routes::Constraints::Subcategories.new
     end
@@ -356,6 +359,8 @@ Rails.application.routes.draw do
     member { get 'paginate_place_to_visit'}
     member { get 'paginate_place_to_go'}
     member { get 'paginate_stories'}
+    member { get 'paginate_offers'}
+    member { get 'paginate_countries'}
     resources :photos do
       collection { get 'all_photos' }
     end
@@ -372,6 +377,8 @@ Rails.application.routes.draw do
   resources :offers do
     member do
       get 'choose_hero', as: :choose_hero
+      get 'paginate_videos', as: :paginate_videos
+      get 'paginate_photos', as: :paginate_photos
     end
     collection { get 'paginate_on_idx' }
     collection { get 'paginate_offers' }

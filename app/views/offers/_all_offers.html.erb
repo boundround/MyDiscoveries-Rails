@@ -1,11 +1,11 @@
 <li>
   <a href="<%= offer_path(offer) %>">
     <div class="th-img-block">
-      <img src="http://lorempixel.com/400/300/nature" alt="">
+      <img src="<%= draw_small_background(offer) %>" alt="">
     </div>
     <div class="th-content">
-      <span class="posi-nights"> 8 nights </span>
-      <span>From $1399 </span>
+      <span class="posi-nights"> <%= pluralize((offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></span>
+      <span>From $<%= offer.minRateAdult %> </span>
       <p class="xs-heading"><%= offer.name %></p>
       <span class="arrow"></span>
     </div>

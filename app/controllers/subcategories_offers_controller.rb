@@ -1,6 +1,6 @@
 class SubcategoriesOffersController < ApplicationController
   def create
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
     @offer.subcategories = []
     if params[:subcategories_offer]
       @subcategory_ids = params[:offers_subcategories][:subcategory_ids]
@@ -17,11 +17,11 @@ class SubcategoriesOffersController < ApplicationController
   end
 
   def update
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
   end
 
   def index
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
     @offer_subcategories = @offer.subcategories.build
     @subcategories = Subcategory.all
   end

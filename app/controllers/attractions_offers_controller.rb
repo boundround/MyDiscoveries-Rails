@@ -1,7 +1,7 @@
 class AttractionsOffersController < ApplicationController
 
   def create
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
     @offer.attractions = []
     if params[:attractions_offers]
       @attractions_ids = params[:attractions_offers][:attraction_ids]
@@ -16,11 +16,11 @@ class AttractionsOffersController < ApplicationController
   def edit;end
 
   def update
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
   end
 
   def index
-    @offer = Offer.find(params[:offer_id])
+    @offer = Offer.friendly.find(params[:offer_id])
     @attractions_offers = @offer.attractions.build
     @attractions = Attraction.active.order(display_name: :asc)
   end

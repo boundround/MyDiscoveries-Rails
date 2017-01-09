@@ -19,6 +19,8 @@
                 <%= link_to "LOAD MORE", paginate_videos_place_path(@place, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
               <% elsif params[:controller].eql? "attractions" %>
                 <%= link_to "LOAD MORE", paginate_videos_attraction_path(@attraction, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
+              <% elsif params[:controller].eql? "offers" %>
+                <%= link_to "LOAD MORE", paginate_videos_offer_path(@offer, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
               <% else %>
                 <%= link_to "LOAD MORE", paginate_videos_country_path(@country, active_videos: @videos.next_page, resources: 'videos', pagination_template: 'shared/featured_videos_list'), class: 'single-pagination', remote: true %>
               <% end %>

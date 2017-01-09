@@ -8,7 +8,9 @@ class OffersController < ApplicationController
 
   def show
     @map_marker = Attraction.first
-    @photos = @offer.photos.last(3)
+    @photos = @offer.photos.active
+    @videos = @offer.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
+    @last_video = @offer.videos.active.order(:priority).first
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @review  = @offer.reviews.build
   end
@@ -66,7 +68,7 @@ class OffersController < ApplicationController
     @offer.assign_attributes(offer_params)
     @offer.tags.select!(&:present?)
     if @offer.save
-      redirect_to offers_path, notice: "Offer Updated"
+      redirect_to edit_offer_path(@offer), notice: "Offer Updated"
     else
       flash.now[:alert] = 'Sorry, there was an error updating this Offer'
       render :edit
@@ -81,6 +83,16 @@ class OffersController < ApplicationController
     @offers = Offer.all.paginate(per_page: 2, page: params[:offers_page])
   end
   def paginate_media
+  end
+
+  def paginate_photos
+     @offer = Offer.find_by_slug(params[:id])
+    @photos = @offer.photos.paginate(:page => params[:active_photos], per_page: 3)
+  end
+
+  def paginate_videos
+    @offer = Offer.find_by_slug(params[:id])
+    @videos = @offer.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
   end
 
   def destroy
