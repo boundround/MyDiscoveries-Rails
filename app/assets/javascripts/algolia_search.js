@@ -137,9 +137,12 @@ $(document).ready(function() {
     }
 
     $searchInput
-        .on('keyup', function() {
+        .on('keyup', function(e) {
             var query = $(this).val();
             searchCondition(query);
+            if(query == "" && e.keyCode == 8){
+                $('#search-results-container').hide();
+            }
         })
         .bind("paste", function() {
             var elem = $(this);
@@ -163,10 +166,12 @@ $(document).ready(function() {
         })
         .focus();
     $searchInputBottom
-        .on('keyup', function() {
+        .on('keyup', function(e) {
             var query = $(this).val();
             searchConditionBottom(query);
-
+            if(query == "" && e.keyCode == 8){
+                $('.search-results-container').hide();
+            }
         })
         .bind("paste", function() {
             var elem = $(this);
