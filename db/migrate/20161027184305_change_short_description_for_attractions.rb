@@ -1,5 +1,5 @@
 class ChangeShortDescriptionForAttractions < ActiveRecord::Migration
   def change
-    add_column :attractions, :meta_description, :text
+    #rename_column :attractions, :short_description, :meta_description
   end
 end

@@ -1,5 +1,5 @@
 class ChangeShortDescriptionForPlaces < ActiveRecord::Migration
   def change
-    add_column :places, :meta_description, :text
+    #rename_column :places, :short_description, :meta_description
   end
 end
