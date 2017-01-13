@@ -17,20 +17,20 @@
             <div class="hidden-xs col-sm-5 col-md-4">
                 <ul>
                     <li><h5 class="footer__header">Popular Searches</h5></li>
-                     <% @footer_places = Place.find([1064, 233, 1071, 1182, 1060, 1160, 1126, 1203])%>
-                      <% @footer_places.each do |place| %>
-                        <li><%= link_to "Things To Do In #{place.display_name}", place_path(place), class: "footer__link" %></li>
-                     <% end %>
+                     <% #@footer_places = Place.find([1064, 233, 1071, 1182, 1060, 1160, 1126, 1203])%>
+                      <% #@footer_places.each do |place| %>
+                        <li><%#= link_to "Things To Do In #{place.display_name}", place_path(place), class: "footer__link" %></li>
+                     <% #end %>
                     <li>
                 </ul>
             </div>
             <div class="hidden-xs col-sm-4 col-md-3">
                 <ul>
                     <li><h5 class="footer__header">Countries</h5></li>
-                    <% @footer_countries = Country.find([194, 185, 184, 155, 172, 84, 35]) %>
-                    <% @footer_countries.each do |country| %>
-                      <li><%= link_to country.display_name, country_path(country), class: "footer__link" %></li>
-                    <% end %>
+                    <% #@footer_countries = Country.find([194, 185, 184, 155, 172, 84, 35]) %>
+                    <% #@footer_countries.each do |country| %>
+                      <li><%#= link_to country.display_name, country_path(country), class: "footer__link" %></li>
+                    <% #end %>
 
                 </ul>
             </div>

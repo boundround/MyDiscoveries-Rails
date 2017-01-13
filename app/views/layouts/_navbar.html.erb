@@ -56,6 +56,7 @@
 
         <h3 class="navigation-drop-down__header">Featured places to go</h3>
         <div class="navigation-drop-down__small-column-wrapper clear-self">
+          <% if @featured_nav_destinations.present? %>
             <% @featured_nav_destinations.each do |country| %>
                 <div class="navigation-drop-down__small-column">
                     <a href="<%= country_path(country) %>" class="navigation-drop-down__region-header"><%= country.display_name %></a>
@@ -64,13 +65,14 @@
                     <% end %>
                 </div>
             <% end %>
+          <% end %>
         </div>
     </div>
 
     <div class="navigation-drop-down__column">
 
         <h3 class="navigation-drop-down__header">Featured things to do</h3>
-
+          <% if @featured_nav_places.present? %>
             <% @featured_nav_places.each do |place| %>
                 <a href="<%= place_path(place) %>" class="featured-thing clear-self">
                     <div class="featured-thing__image-wrapper">
@@ -88,6 +90,7 @@
                     <span class="featured-thing__country"><%= place.country.display_name %></span>
                 </a>
             <% end %>
+          <% end %>
 <!--         <a href="#" class="featured-thing clear-self">
             <div class="featured-thing__image-wrapper">
                 <img src="http://lorempixel.com/144/114/nature?03" class="featured-thing__image" alt="">
@@ -174,6 +177,7 @@
             <a class="mobile-header-drop-down__link" href="#">destinations</a>
 
             <div class="navigation-drop-down__small-column-wrapper clear-self">
+              <% if @featured_nav_destinations.present? %>
                 <% @featured_nav_destinations.each do |country| %>
                     <div class="navigation-drop-down__small-column">
                         <a href="<%= country_path(country) %>" class="navigation-drop-down__region-header"><%= country.display_name %></a>
@@ -182,6 +186,7 @@
                         <% end %>
                     </div>
                 <% end %>
+              <% end %>
             </div>
         </div>
     </div>
