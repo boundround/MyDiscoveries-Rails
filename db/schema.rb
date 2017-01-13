@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228091314) do
+ActiveRecord::Schema.define(version: 20170111053529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -112,6 +113,7 @@ ActiveRecord::Schema.define(version: 20161228091314) do
     t.integer  "primary_category_id"
     t.text     "focus_keyword"
     t.text     "seo_title"
+    t.string   "tag_line"
   end
 
   add_index "attractions", ["country_id"], name: "index_attractions_on_country_id", using: :btree
@@ -432,6 +434,7 @@ ActiveRecord::Schema.define(version: 20161228091314) do
     t.integer  "attraction_id"
     t.integer  "fun_factable_id"
     t.string   "fun_factable_type"
+    t.string   "url"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -775,6 +778,7 @@ ActiveRecord::Schema.define(version: 20161228091314) do
     t.integer  "algolia_clicks",            default: 0
     t.text     "focus_keyword"
     t.text     "seo_title"
+    t.string   "tag_line"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -1071,10 +1075,10 @@ ActiveRecord::Schema.define(version: 20161228091314) do
     t.text     "seo_friendly_url"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",      default: 0
+    t.string   "hero_image"
     t.text     "focus_keyword"
     t.text     "seo_title"
     t.text     "meta_description"
-    t.string   "hero_image"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree

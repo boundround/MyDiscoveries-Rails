@@ -13,8 +13,10 @@
       <!-- BEGIN - My Dashboard -->
       <div class="up-tabs-item up-my-dashboard" id="up-my-dashboard">
         <div class="upmd-header">
+          <% if @user.name.present? %>
             <h1><%= @user.name %></h1>
             <h4 class="heading">Hi <%= @user.name.split(" ").first %>, it's nice to see you!</h4>
+          <% end %>
             <a class="change-selection xs-invisible" id="change-location" href="#up-my-settings">Change your settings</a>
         </div>
 
@@ -336,7 +338,7 @@
                         <div class="form-group">
                           <%= f.text_area :description, placeholder: 'e.g. Your interests, places travelled, etc.', label: "About me" %>
                         </div>
-                        
+
                         <div class="form-group user-ava">
                           <div class="col-xs-12 col-sm-2">
                             <div class="img-rounded edit-profile" align="center">
