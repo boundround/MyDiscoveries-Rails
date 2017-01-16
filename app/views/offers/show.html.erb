@@ -23,10 +23,12 @@
                     <span>$</span>
                     <span class="hci-price-self"><%= @offer.minRateAdult %></span>
                 </span>
-                <span class="hci-nights">
-                    <span><%= @offer.duration / 1000 / 60 / 60 / 24 %></span>
-                    <span class="xs-invisible"><%= pluralize((@offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></span>
-                </span>
+                <% if @offer.duration.present? %>
+                  <span class="hci-nights">
+                      <span><%= @offer.duration / 1000 / 60 / 60 / 24 %></span>
+                      <span class="xs-invisible"><%= pluralize((@offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></span>
+                  </span>
+                <% end %>
                 <!-- <span class="hci-people">
                     <span>2</span>
                     <span class="xs-invisible">people</span>
