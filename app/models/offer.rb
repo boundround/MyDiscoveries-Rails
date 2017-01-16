@@ -274,6 +274,7 @@ class Offer < ActiveRecord::Base
   friendly_id :slug_candidates, use: [:slugged, :history]
 
   belongs_to :attraction
+  belongs_to :operator
 
   # has_many :offers_photos, dependent: :destroy
   # has_many :photos, through: :offers_photos

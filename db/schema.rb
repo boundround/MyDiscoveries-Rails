@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111053529) do
+ActiveRecord::Schema.define(version: 20170116043229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -630,6 +630,42 @@ ActiveRecord::Schema.define(version: 20170111053529) do
   create_table "one_minute_forms", force: true do |t|
     t.string   "results"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "operators", force: true do |t|
+    t.string   "status",         default: ""
+    t.string   "name",           default: ""
+    t.string   "companyName",    default: ""
+    t.string   "code",           default: ""
+    t.string   "tradingName",    default: ""
+    t.string   "businessNumber", default: ""
+    t.string   "description",    default: ""
+    t.integer  "tncId",          default: 0
+    t.boolean  "demo",           default: false
+    t.string   "address1",       default: ""
+    t.string   "address2",       default: ""
+    t.string   "city",           default: ""
+    t.string   "state",          default: ""
+    t.string   "postcode",       default: ""
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "country",        default: ""
+    t.string   "language",       default: ""
+    t.string   "contactName",    default: ""
+    t.string   "email",          default: ""
+    t.string   "phone",          default: ""
+    t.string   "fax",            default: ""
+    t.string   "website",        default: ""
+    t.string   "resContactName", default: ""
+    t.string   "resEmail",       default: ""
+    t.string   "resPhone",       default: ""
+    t.string   "accountsEmail",  default: ""
+    t.string   "currency",       default: ""
+    t.string   "logoUrl",        default: ""
+    t.string   "tags",           default: [],    array: true
+    t.string   "tncUrl",         default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
   end

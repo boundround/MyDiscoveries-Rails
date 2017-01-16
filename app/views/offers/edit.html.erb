@@ -4,10 +4,10 @@
     <h2>Edit <%= @offer.name + ' (ID: ' + @offer.id.to_s + ')' %></h2>
   <%= simple_form_for @offer, html: { role: 'form'} do |f| %>
     <div class="form-group">
-      <%= f.association :attraction,
+      <%#= f.association :operator,
         label_method: :display_name,
         value_method: :id,
-        label: 'Attraction',
+        label: 'Operator',
         include_blank: true,
         input_html: { class: 'width100 form-control' }
       %>
@@ -106,70 +106,14 @@
       <%= f.input :minUnits, as: :integer, label: 'Min Units', input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
-      <%= f.input :duration, as: :integer, label: 'Duration', input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
       <%= f.input :specialNotes, as: :string, label: 'Special Notes', input_html: { class: 'form-control' } %>
     </div>
     <div class="row">
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :operatingDays, as: :integer, label: 'Operating Days', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :operatingDaysStr, as: :string, label: 'Operating Days String', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :operatingSchedule, as: :string, label: 'Operating Schedule', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :locationStart, as: :string, label: 'Location Start', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :latitudeStart, as: :decimal, label: 'Latittude Start', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :longitudeStart, as: :decimal, label: 'Longitude Start', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :locationEnd, as: :string, label: 'Location End', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :latitudeEnd, as: :decimal, label: 'Latittude End', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-4">
-        <div class="form-group">
-          <%= f.input :longitudeEnd, as: :decimal, label: 'Longitude End', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
     </div>
     <div class="form-group">
       <%= f.input :distanceStartToRef, as: :integer, label: 'Distance Start To Ref', input_html: { class: 'form-control' } %>
     </div>
     <div class="row">
-      <div class="col-xs-12 col-sm-3">
-        <div class="form-group">
-          <%= f.input :tags, as: :array, label: 'Tags', input_html: { class: ' form-control' } %>
-          <%= link_to '+ Add', '#', class: 'js-add-offers-tag' %>
-        </div>
-      </div>
     <div class="form-group">
       <%= f.input :highlightsStr, as: :bootsy, label: 'Hightlights Str', input_html: { class: 'width100' } %>
     </div>
@@ -213,15 +157,6 @@
       <%= f.input :dropoffNotes, as: :string, label: 'Dropoff Notes', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
-      <%= f.input :highlightsStr, as: :string, label: 'Hightlights Str', input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
-      <%= f.input :itineraryStr, as: :string, label: 'Itinerary Str', input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
-      <%= f.input :includes, as: :string, label: 'Includes', input_html: { class: 'form-control' } %>
-    </div>
-    <div class="form-group">
       <%= f.input :sellVouchers, as: :string, label: 'Sell Vouchers', input_html: { class: 'form-control' } %>
     </div>
     <div class="form-group">
@@ -234,25 +169,17 @@
       <%= f.input :voucherValidity, as: :integer, label: 'Voucher Validity', input_html: { class: 'form-control' } %>
     </div>
     <div class="row">
-      <div class="col-xs-12 col-sm-3">
-        <div class="form-group">
-          <%= f.input :customStr1, as: :string, label: 'Custom Str1', input_html: { class: 'form-control' } %>
-        </div>
+      <div class="form-group">
+        <%= f.input :customStr1, as: :bootsy, label: 'Details', input_html: { class: 'form-control' } %>
       </div>
-      <div class="col-xs-12 col-sm-3">
-        <div class="form-group">
-          <%= f.input :customStr2, as: :string, label: 'Custom Str2', input_html: { class: 'form-control' } %>
-        </div>
+      <div class="form-group">
+        <%= f.input :customStr2, as: :bootsy, label: 'Facilities', input_html: { class: 'form-control' } %>
       </div>
-      <div class="col-xs-12 col-sm-3">
-        <div class="form-group">
-          <%= f.input :customStr3, as: :string, label: 'Custom Str3', input_html: { class: 'form-control' } %>
-        </div>
+      <div class="form-group">
+        <%= f.input :customStr3, as: :bootsy, label: 'Fine Print', input_html: { class: 'form-control' } %>
       </div>
-      <div class="col-xs-12 col-sm-3">
-        <div class="form-group">
-          <%= f.input :customStr4, as: :string, label: 'Custom Str4', input_html: { class: 'form-control' } %>
-        </div>
+      <div class="form-group">
+        <%= f.input :customStr4, as: :bootsy, label: 'Custom Str4', input_html: { class: 'form-control' } %>
       </div>
     </div>
     <div class="form-group margin-left-20">
