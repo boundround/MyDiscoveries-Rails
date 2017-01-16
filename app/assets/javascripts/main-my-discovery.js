@@ -1,6 +1,6 @@
 $(document).ready(function() {
     if ($('select').length) {
-        $('select').select2();
+        // $('select').select2();
     }
 
     //Mobile customization

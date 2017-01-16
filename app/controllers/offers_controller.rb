@@ -1,6 +1,5 @@
 class OffersController < ApplicationController
   # before_action :check_user_authorization, except: [:show, :paginate_on_idx]
-  before_action :set_offer, only: [ :show, :update, :edit, :destroy,  ]
 
   before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media]
   before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :choose_hero, :update_hero]

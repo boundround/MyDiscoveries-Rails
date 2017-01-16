@@ -4,7 +4,7 @@
     <h2>Edit <%= @offer.name + ' (ID: ' + @offer.id.to_s + ')' %></h2>
   <%= simple_form_for @offer, html: { role: 'form'} do |f| %>
     <div class="form-group">
-      <%#= f.association :operator,
+      <%= f.association :operator,
         label_method: :display_name,
         value_method: :id,
         label: 'Operator',
