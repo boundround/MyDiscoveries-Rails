@@ -6,7 +6,7 @@ class OffersController < ApplicationController
   before_action :set_media, only: [:show, :paginate_media]
 
   def show
-    @map_marker = Attraction.first
+    #@map_marker = Attraction.first
     @photos = @offer.photos.active
     @videos = @offer.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
     @last_video = @offer.videos.active.order(:priority).first
