@@ -173,7 +173,10 @@
                         </div>
                     </div>
                     <% if @offer.customStr3.present? %>
-                      <%= simple_format @offer.customStr3 %>
+                      <h3>fine print</h3>
+                      <div class="fint-print">
+                        <%= simple_format @offer.customStr3 %>
+                      </div>
                     <% end %>
 
                     <h3>booking guarantee</h3>
