@@ -32,7 +32,7 @@ class SubcategoriesController < ApplicationController
   end
 
   def edit
-    @subcategory = Subcategory.find(params[:id])
+    @subcategory = Subcategory.friendly.find(params[:id])
     @subcategories = Subcategory.where.not(id: @subcategory).order(name: :asc)
   end
 
