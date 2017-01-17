@@ -15,8 +15,7 @@
   <div class="container call-to-action-top__container">
     <div class="row">
       <div class="col-sm-12 col-xs-12">
-        <p class="call-to-action-top__text">Lorem ipsum dolor sit amet, et nec solum everti comprehensam.</p>
-        <a href="<%= new_story_path %>" class="call-to-action-top__btn">share a story</a>
+        <p class="call-to-action-top__text"><%= @subcategory.try(:secondary_description)%></p>
       </div>
     </div>
   </div>
