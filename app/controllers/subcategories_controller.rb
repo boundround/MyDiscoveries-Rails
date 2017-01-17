@@ -14,6 +14,8 @@ class SubcategoriesController < ApplicationController
 
   def new
     @subcategory = Subcategory.new
+    @subcategory_types = Subcategory.order(:category_type).map { |subcategory| subcategory.category_type }
+    @subcategory_types.uniq!
   end
 
   def create
@@ -29,11 +31,15 @@ class SubcategoriesController < ApplicationController
   def cms_index
     @subcategories = Subcategory.order(category_type: :asc, name: :asc)
     @subcategory = Subcategory.new
+    @subcategory_types = Subcategory.order(:category_type).map { |subcategory| subcategory.category_type }
+    @subcategory_types.uniq!
   end
 
   def edit
     @subcategory = Subcategory.friendly.find(params[:id])
     @subcategories = Subcategory.where.not(id: @subcategory).order(name: :asc)
+    @subcategory_types = Subcategory.order(:category_type).map { |subcategory| subcategory.category_type }
+    @subcategory_types.uniq!
   end
 
   def update

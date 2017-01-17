@@ -26,7 +26,7 @@
   <h2>Create New Subcategory</h2>
   <%= simple_form_for @subcategory do |f| %>
     <%= f.input :name, input_html: {class: "form-control"} %>
-    <%= f.input :category_type, as: :select, collection: Subcategory.order(:name).where('category_type = ?', 'subcategory').map { |subcategory| subcategory.name },input_html: { class: 'form-control', id: 'subcat-select' } %>
+    <%= f.input :category_type, as: :select, collection: @subcategory_types, input_html: { class: 'form-control', id: 'subcat-select' } %>
     <label><input type="checkbox" id="subcategory_checkbox">Create a new subcategory type</label>
     <%= f.input :category_type, disabled: true, input_html: { class: 'form-control', id: "subcat-text" } %>
     <%= f.input :icon, as: :file, label: "Image File", input_html: {class: "form-control"} %>
