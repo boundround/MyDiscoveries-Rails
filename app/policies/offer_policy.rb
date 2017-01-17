@@ -16,6 +16,10 @@ class OfferPolicy < ApplicationPolicy
     index?
   end
 
+  def update_hero?
+    index?
+  end
+
   def create?
     index?
   end
