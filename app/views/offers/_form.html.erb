@@ -9,7 +9,7 @@
     %>
   </div>
   <div class="form-group">
-    <%= f.input :status, label: 'Offer Status', input_html: { class: 'width100' } %>
+    <%= f.input :status, label: 'Offer Status', as: :select, collection: ["live", "draft", "removed"], input_html: { class: 'width100' } %>
   </div>
   <div class="form-group">
     <%= f.input :name, label: 'Offer Name', input_html: { class: 'width100' } %>
