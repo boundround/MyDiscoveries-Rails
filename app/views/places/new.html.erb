@@ -46,11 +46,6 @@
           <%= f.check_box :footer_include, label: false %>&nbsp;Include In Footer?
       </div>
       <hr>
-      <div class="form-group js-primary-category radio-inline" style="margin-left: -20px;">
-        <%= f.input :primary_category_id do %>
-         <%= f.select :primary_category_id, @primary_categories.map { |category| [category.name, category.id] }%>
-       <% end %>
-      </div>
       <div class="form-group">
         <table class="table">
           <tr>
