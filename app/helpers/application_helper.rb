@@ -173,20 +173,7 @@ module ApplicationHelper
   end
 
   def body_title(title= '', category='')
-    if category.empty?
-      if title.empty?
-        "MyDiscoveries: make one day today. Where over 55s can find holidays experiences they've always wanted to do"
-        # "Activities, Reviews and Things To Do For Kids: Bound Round"
-      else
-        title+" : Activities for Kids"
-      end
-    else
-      if category.eql?("beach")
-        title+" : Activities and Reviews"
-      else
-        title
-      end
-    end
+    "MyDiscoveries: make one day today. Where over 55s can find holidays experiences they've always wanted to do"
   end
 
   def meta_description(title='', description='')
