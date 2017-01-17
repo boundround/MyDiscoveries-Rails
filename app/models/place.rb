@@ -532,18 +532,7 @@ class Place < ActiveRecord::Base
   end
 
   def slug_candidates
-    unless no_parent_select.eql? "true"
-      country = self.country
-      g_parent = get_parents(self, parents = [])
-      p_display_name = g_parent.collect{ |parent| parent.display_name }
-
-      if p_display_name.blank?
-        ["things to do with kids and families #{self.display_name}", :post_code]
-      else
-        primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
-        ["things to do with kids and families #{primary_area_display_name} #{self.display_name}", :post_code]
-      end
-    end
+    :display_name
   end
 
   def get_parents(place, parents = [])

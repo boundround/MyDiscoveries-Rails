@@ -151,17 +151,7 @@ class Region < ActiveRecord::Base
   end
 
   def slug_candidates
-    unless no_parent_select.eql? "true"
-      g_parent = get_parents(self, parents = [])
-      p_display_name = g_parent.collect{ |parent| parent.display_name }
-
-      if p_display_name.blank?
-        ["#{self.display_name}"]
-      else
-        primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
-        ["#{primary_area_display_name} #{self.display_name}"]
-      end
-    end
+    :display_name_changed
   end
 
   def should_generate_new_friendly_id?
