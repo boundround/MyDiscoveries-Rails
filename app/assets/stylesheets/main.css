@@ -11075,7 +11075,7 @@ span.arrow {
           overflow: hidden; }
           .destinations .destinations-content-block aside .featured-articles li .fa-img-block img {
             width: 100%;
-            height: auto; }
+            height: 100%; }
         .destinations .destinations-content-block aside .featured-articles li .xs-heading, .destinations .destinations-content-block aside .featured-articles .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading, .package-offers .package-offers-block ul .destinations .destinations-content-block aside .featured-articles li a .po-content-wrapper .po-content-block .xs-heading {
           color: #000060; }
         .destinations .destinations-content-block aside .featured-articles li .label-article {

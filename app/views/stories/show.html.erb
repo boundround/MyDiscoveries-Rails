@@ -17,10 +17,9 @@
             <h5 class="xs-heading lars blue">Latest stories</h5>
             <ul class="featured-articles">
             <% @latest_stories.each do |story| %>
-              <% image = story.is_a?(Story) ? story.hero_image_url : story.story_images.first %>
                 <li>
                     <div class="fa-img-block">
-                        <img  style="background: url(<%= showing_image( image || asset_path('generic-hero-small.jpg') ) %>) center no-repeat;" class="cover-bg" >
+                        <img  style="background: url(<%= showing_image(story.hero_image_url) %>) center no-repeat;" class="cover-bg" >
                         <!-- <img src="http://lorempixel.com/400/200/city" alt=""> -->
                     </div>
                     <p class="xs-heading"><%= raw story.title.blank? ? story.title : story.title.truncate(65) %></p>
@@ -56,7 +55,7 @@
                         <a href="#" class="hb-email"></a>
                     </div>
                 </div>
-                
+
                 <div class="author-block">
                     <img class="cover-bg" style="background: url('<%= @story.user.avatar_url rescue '' %>') center no-repeat;">
                     <span class="ab-author">
