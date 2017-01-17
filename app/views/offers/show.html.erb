@@ -37,18 +37,7 @@
             </div>
             <a class="btn-bordered red invert" href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>">buy now</a>
             <div class="destination-details">
-
-                  <div class="favourites-wrapper">
-                      <% if user_signed_in? && @offer.users.include?(current_user) %>
-                        <div class="icon-favourite selected" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="true" data-place-id="<%= @offer.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                        <div class="favourites-title hidden-xs">Remove from favourites</div>
-                      <% else %>
-                        <div class="icon-favourite" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="<%= @offer.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                        <div class="favourites-title hidden-xs" >Add to favourites</div>
-                      <% end %>
-
-                  </div>
-              </div>
+            </div>
         </div>
     </div>
 

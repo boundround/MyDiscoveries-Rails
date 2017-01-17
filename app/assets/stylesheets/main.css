@@ -9825,6 +9825,7 @@ a:hover, a:focus, a:active {
     border-bottom: 2px solid #ff4d1a; }
 
 .hero {
+  text-shadow: 1px 1px grey;
   height: 60vh;
   width: 100%;
   position: relative;
