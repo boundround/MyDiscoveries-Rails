@@ -283,7 +283,6 @@ class Place < ActiveRecord::Base
 
   has_many :stamps
 
-  has_and_belongs_to_many :attractions
   has_and_belongs_to_many :regions
 
   accepts_nested_attributes_for :photos, allow_destroy: true
