@@ -107,6 +107,9 @@
       <%= yield %>
     </div>
     <%= render 'layouts/signin_modal' %>
+    <% if controller_name != "registrations" %>
+      <%= render 'layouts/signup_modal' %>
+    <% end %>
     <% if !@no_nav %>
       <%= render "layouts/footer" %>
     <% end %>
