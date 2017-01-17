@@ -300,8 +300,6 @@ class Place < ActiveRecord::Base
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
 
-  before_save :fill_attractions
-
   def published?
     if self.status == "live"
       true
@@ -650,27 +648,6 @@ class Place < ActiveRecord::Base
   def children
     list = childrens.select {|child| child.itemable.present?}
     list = list.map { |child| child.itemable }
-  end
-
-  def get_attractions
-    places_list = []
-    queue = self.children
-
-    while !queue.empty?
-    place = queue.shift
-      if place.class.to_s == "Attraction" && place.status == "live"
-        places_list << place
-      end
-      place.children.each do |child|
-        queue << child
-      end
-    end
-    places_list
-  end
-
-  def fill_attractions
-    self.attractions = []
-    self.attractions = self.get_attractions
   end
 
   private
