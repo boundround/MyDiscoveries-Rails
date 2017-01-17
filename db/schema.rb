@@ -586,6 +586,7 @@ ActiveRecord::Schema.define(version: 20170117051303) do
   create_table "offers_photos", force: true do |t|
     t.integer "photo_id"
     t.integer "offer_id"
+    t.string  "shopify_image_id"
   end
 
   add_index "offers_photos", ["offer_id", "photo_id"], name: "index_offers_photos_on_offer_id_and_photo_id", unique: true, using: :btree
