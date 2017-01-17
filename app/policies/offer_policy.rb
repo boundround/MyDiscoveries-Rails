@@ -7,7 +7,12 @@ class OfferPolicy < ApplicationPolicy
       (@user.admin? || @user.has_role?('publisher'))
     end
   end
+
   def cms_index?
+    index?
+  end
+
+  def choose_hero?
     index?
   end
 
