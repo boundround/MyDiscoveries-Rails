@@ -125,4 +125,17 @@ a:hover {
 	}
 }
 // Helper END
+
+/* Custom Input Placeholder */
+.form-control::-moz-placeholder {
+  color: inherit;
+  opacity: 1; }
+.form-control:-ms-input-placeholder {
+  color: inherit;
+  opacity: 1; }
+.form-control::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 1; }
+/* Custom Input Placeholder End*/
+
 /*CUSTOM MAIN END*/
