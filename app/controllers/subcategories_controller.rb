@@ -8,7 +8,7 @@ class SubcategoriesController < ApplicationController
 	def show
   	@subcategory = Subcategory.friendly.find(params[:id])
     @stories = @subcategory.stories.last(3)
-    @subcategories = @subcategory.subcategory_related
+    # @subcategories = @subcategory.subcategory_related
     @offers = @subcategory.offers.paginate(page: params[:offers_page], per_page: 4)
 	end
 
@@ -44,7 +44,7 @@ class SubcategoriesController < ApplicationController
 
   def update
     @subcategory = Subcategory.friendly.find(params[:id])
-    params[:subcategory][:related_to].delete("")
+    # params[:subcategory][:related_to].delete("")
     if @subcategory.update(subcategory_params)
       redirect_to :back, notice: "#{@subcategory.name} updated"
     else
