@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116045114) do
+ActiveRecord::Schema.define(version: 20170117051303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -819,6 +819,7 @@ ActiveRecord::Schema.define(version: 20170116045114) do
     t.text     "focus_keyword"
     t.text     "seo_title"
     t.string   "tag_line"
+    t.string   "description_heading",       default: ""
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree

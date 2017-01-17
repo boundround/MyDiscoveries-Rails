@@ -80,7 +80,7 @@
     </aside>
     <section>
       <div class="main-article">
-        <h2 class="lg-heading"><%= @place.display_name %></h2>
+        <h2 class="lg-heading"><%= @place.try(:description_heading) %></h2>
         <p class="destination-desc " style="display:none;">
             <%= raw @place.description %>
         </p>
@@ -93,7 +93,7 @@
       <% if @offers.present? %>
         <div id="offers" class="top-holidays">
           <h3 class="sm-heading lars">Top <%= @place.display_name %> Holidays</h3>
-          <ul id="offers-list"> 
+          <ul id="offers-list">
             <%= render partial: 'offers/all_offers', collection: @offers, as: :offer %>
           </ul>
           <% unless last_page? @offers %>

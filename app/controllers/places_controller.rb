@@ -712,7 +712,7 @@ class PlacesController < ApplicationController
           end
         end
       end
-      
+
       params.require(:place).permit(
         :code,
         :identifier,
@@ -774,6 +774,7 @@ class PlacesController < ApplicationController
         :top_100,
         :viator_link,
         :trip_advisor_url,
+        :description_heading,
         parent_attributes: [:parentable_id, :parentable_type],
         photos_attributes: [:id, :place_id, :photoable_id, :photoable_type, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
