@@ -136,20 +136,20 @@
                     <% if @offer.customStr1.present? %>
                       <h3>details</h3>
                       <div class="details">
-                        <% @offer.customStr1 %>
+                        <%= simple_format @offer.customStr1 %>
                       </div>
                     <% end %>
                     <% if @offer.itineraryStr.present? %>
                       <h3 id="ci-itinarary-map-loader">Itinerary</h3>
                       <div class="itinerary">
-                        <%= @offer.itineraryStr %>
+                        <%= simple_format @offer.itineraryStr %>
                       </div>
                     <% end %>
 
                     <% if @offer.customStr2.present? %>
                       <h3>FACILITIES</h3>
                       <div class="FACILITIES">
-                          <%= @offer.customStr2 %>
+                          <%= simple_format @offer.customStr2 %>
                       </div>
                     <% end %>
 
@@ -173,7 +173,7 @@
                         </div>
                     </div>
                     <% if @offer.customStr3.present? %>
-                      <%= @offer.customStr3 %>
+                      <%= simple_format @offer.customStr3 %>
                     <% end %>
 
                     <h3>booking guarantee</h3>
