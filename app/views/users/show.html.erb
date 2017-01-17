@@ -331,8 +331,7 @@
                         </div>
 
                         <div class="form-group sm">
-                          <label for="select2-user_country_id-container">Country</label>
-                          <%= f.select(:country, @countries.collect {|c| [ c.display_name, c.country_code ] }) %>
+                          <%= f.input :country, collection: @countries.collect {|c| [ c.display_name, c.country_code ] }.insert(0, ["Australia", "AU"]), selected: @user.country.blank? ? 'AU' : @user.country %>
                         </div>
 
                         <div class="form-group">
