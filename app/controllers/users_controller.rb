@@ -234,7 +234,7 @@ class UsersController < ApplicationController
         params[:user][:is_private]=false
       end
 
-      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :password, :password_confirmation, :is_private, :gender, :mobile,
+      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :password, :password_confirmation, :is_private, :gender, :mobile, :home_phone,
                                     :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username, :description, :min_age, :max_age,
                                     :role_ids => [], :owned_place_ids => [])
     end
