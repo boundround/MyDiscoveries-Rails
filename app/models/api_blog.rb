@@ -1,6 +1,4 @@
 require 'dalli'
-# dc.set('abc', 123)
-# value = dc.get('abc')
 
 class ApiBlog
   OPTS = { :namespace => "api_v1", :compress => true }
@@ -23,7 +21,6 @@ class ApiBlog
   end
 
   def self.parse_image(image_url, json)
-    # json["content"]["rendered"].split("http://corporate.boundround.com/wp-content/uploads/")[5].split("><img")[0]
     if !image_url["data"].blank?
       src_img = json["content"]["rendered"].split("http://corporate.boundround.com/wp-content/uploads/")
       img = ""
@@ -34,7 +31,6 @@ class ApiBlog
           break
         end
        image = "http://corporate.boundround.com/wp-content/uploads/" + img.chop
-       # return img.blank? ? "" : image
        ""
     else
       image_url["source_url"]
@@ -61,7 +57,6 @@ class ApiBlog
       end
       results << blog
     end
-    # set_cached_blogs(results, place_param)
     return results
   end
 
@@ -96,9 +91,4 @@ class ApiBlog
     arys = get_cached_blogs(place_slug, 'subcat')
     arys.find{|obj|obj.id.eql?(id)}
   end
-
-  # def self.find_blog_cat(cat)
-  #   arys = get_cached_blogs(place_slug)
-
-  # end
 end

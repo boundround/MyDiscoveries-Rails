@@ -1,12 +1,22 @@
 class OffersController < ApplicationController
-  before_action :check_user_authorization, except: :show
-  before_action :set_offer, only: [ :show, :update, :edit, :destroy ]
+  before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media]
+  before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media]
+  before_action :set_media, only: [:show, :paginate_media]
 
   def show
+    @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
+    @review  = @offer.reviews.build
   end
 
   def new
     @offer = Offer.new(tags: [""])
+  end
+
+  def paginate_reviews
+    @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
+    respond_to do |format|
+      format.js { render 'shared/paginate_reviews' }
+    end
   end
 
   def new_livn_offer
@@ -49,6 +59,9 @@ class OffersController < ApplicationController
     end
   end
 
+  def paginate_media
+  end
+
   def destroy
     @offer.destroy
     redirect_to offers_path, notice: "Offer Deleted"
@@ -61,7 +74,14 @@ class OffersController < ApplicationController
   private
 
   def set_offer
-    @offer = Offer.find(params[:id])
+    @offer = Offer.friendly.find(params[:id])
+  end
+
+  def set_media
+    photos = @offer.photos.active
+    videos = @offer.videos.active
+    media  = videos.count >= photos.count ? videos.zip(photos) : photos.zip(videos)
+    @media = media.flatten.compact.paginate(page: params[:active_media], per_page: 4)
   end
 
   def offer_params

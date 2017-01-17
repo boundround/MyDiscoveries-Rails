@@ -8,8 +8,6 @@ class User < ActiveRecord::Base
   has_many :photos, through: :photos_users
   has_many :videos_users
   has_many :videos, through: :videos_users
-  has_many :games_users
-  has_many :games, through: :games_users
   has_many :places_users
   has_many :favorite_places, through: :places_users, source: :place
   has_many :attractions_users
@@ -22,9 +20,6 @@ class User < ActiveRecord::Base
   has_many :fun_facts, through: :fun_facts_users
   has_many :posts_users
   has_many :posts, through: :posts_users
-
-  has_many :customers_places
-  has_many :owned_places, through: :customers_places, :source => :place
 
   has_many :places
   has_many :attractions
@@ -73,7 +68,6 @@ class User < ActiveRecord::Base
       # Get the existing user by email if the provider gives us a verified email.
       # If no verified email was provided we assign a temporary email and ask the
       # user to verify it on the next step via UsersController.finish_signup
-      # email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
       email = auth.info.email # if email_is_verified
       user = User.where(:email => email).first if email
 

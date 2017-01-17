@@ -29,7 +29,6 @@
 //= require cms
 //= require geocomplete
 //= require cookie
-//= require like
 //= require ratyrate
 //= require user-photo-upload
 //= require algoliasearch
@@ -58,7 +57,10 @@
 //= require jquery.snowshoe
 //= require dual_list_box
 //= require jquery_nested_form
-//= require blueimp-gallery.min
+//= require blueimp-gallery/blueimp-gallery.min
+//= require blueimp-gallery/blueimp-gallery-video.min
+//= require blueimp-gallery/blueimp-gallery-youtube.min
+//= require blueimp-gallery/blueimp-gallery-vimeo
 //= require custom
 //= require trip_advisor
 //= require loading

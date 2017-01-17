@@ -3,6 +3,7 @@ class Attraction < ActiveRecord::Base
   include AlgoliaSearch
   include Searchable
   include SearchOptimizable
+  include Reviewable
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :run_rake, :no_parent_select
 
@@ -158,12 +159,13 @@ class Attraction < ActiveRecord::Base
     ]
   end
 
+  before_save :set_country
   extend FriendlyId
   friendly_id :slug_candidates, :use => [:slugged, :history]
 
   scope :active, -> { where(status: "live") }
 
-  #belongs_to :country
+  belongs_to :country
   belongs_to :user
   belongs_to :primary_category
 
@@ -174,26 +176,11 @@ class Attraction < ActiveRecord::Base
   has_one :rate_average_without_dimension, -> { where dimension: nil}, as: :cacheable,
           class_name: 'RatingCache', dependent: :destroy
 
-  has_many "quality_rates".to_sym, -> {where dimension: "quality"},
-                                              dependent: :destroy,
-                                              class_name: 'Rate',
-                                              as: :rateable
-
-  has_many "quality_raters".to_sym, through: "quality_rates".to_sym, source: :rater
-
-  has_one "quality_average".to_sym, -> { where dimension: "quality" },
-                                              as: :cacheable,
-                                              class_name: 'RatingCache',
-                                              dependent: :destroy
-
   has_one :parent, :class_name => "ChildItem", as: :itemable
   has_many :childrens, :class_name => "ChildItem", as: :parentable
 
   has_many :attractions_users
   has_many :users, through: :attractions_users
-
-  has_many :customers_attractions
-  has_many :owners, through: :customers_attractions, :source => :user
 
   has_many :similar_attractions
   has_many :associated_areas, through: :similar_attractions, source: :similar_attraction
@@ -221,7 +208,6 @@ class Attraction < ActiveRecord::Base
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
   has_many :three_d_videos, as: :three_d_videoable
   has_many :good_to_knows, as: :good_to_knowable
-  has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable
 
   accepts_nested_attributes_for :photos, allow_destroy: true
@@ -260,8 +246,9 @@ class Attraction < ActiveRecord::Base
     end
   end
 
-  def country
-    get_parents(self).find {|parent| parent.class.to_s == "Country"}
+  def set_country
+    country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
+    self.country_id = country.id
   end
 
   def trip_advisor_info

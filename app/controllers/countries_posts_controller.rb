@@ -37,5 +37,4 @@ class CountriesPostsController < ApplicationController
     def countries_posts_params
       params.require(:countries_posts).permit(:post_id, :country_ids => [])
     end
-
 end

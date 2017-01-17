@@ -50,6 +50,18 @@ class CountriesController < ApplicationController
 
   def update
     @country = Country.friendly.find(params[:id])
+    unless @country.parent.blank?
+      if (@country.parent.parentable_type == params[:country][:parent_attributes][:parentable_type])&&(@country.parent.parentable_id == params[:country][:parent_attributes][:parentable_id].to_i)
+        params[:country].delete :parent_attributes
+
+      elsif (@country.parent.parentable_type == params[:country][:parent_attributes][:parentable_type])||(@country.parent.parentable_id == params[:country][:parent_attributes][:parentable_id].to_i)
+        @country.parent.delete()
+
+      elsif params[:country][:parent_attributes][:parentable_type] == nil
+        @country.parent.delete()
+        params[:country].delete :parent_attributes
+      end
+    end
 
     if @country.update(country_params)
       redirect_to edit_country_path(@country), notice: 'Country succesfully updated'

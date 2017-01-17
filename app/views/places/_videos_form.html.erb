@@ -13,7 +13,6 @@
     <div class="container">
       <div class="banner-wrapper">
         <div class="banner">
-          <!--img src="<%= asset_path('title_banner-01.svg') %>" class="blue-banner"-->
           <div class="title-wrapper">
             <h1 class="title"><%= @place.display_name %></h1>
           </div>
@@ -173,30 +172,6 @@
       <% end %>
     <% end %>
 
-    <% unless @place.games.empty? %>
-      <% @place.games.each_with_index do |game, index| %>
-        <%= simple_form_for [@place, game] do |f| %>
-
-            <div class="form-group">
-              <h3>Edit Game <%= index + 1 %></h3>
-              <%= f.input :url, label: "Game URL", input_html: { class: 'form-control' } %>
-              <%= f.input :priority, collection: 1..10 %>
-              <p>
-                <%= f.input :instructions, input_html: { class: 'form-control' } %>
-              </p>
-              Thumbnail<br>
-              <%= image_tag game.thumbnail %>
-              <div class="form-group published-radio">
-                <%= f.input :game_type, as: :radio_buttons, collection: ["jigsaw puzzle", "slider", "word search"], input_html: { class: 'form-control'} %><br />
-              </div>
-              <%= f.button :submit %>
-              <%= link_to "Delete", game, class: "btn btn-danger", method: :delete,
-                                 data: { confirm: "Are you sure?" } %>
-            </div>
-        <% end %>
-      <% end %>
-    <% end %>
-
     <% unless @place.fun_facts.empty? %>
         <% @place.fun_facts.each do |fun_fact| %>
           <%= simple_form_for [@place, fun_fact] do |f| %>
@@ -234,12 +209,7 @@
     </div>
 
     <div class="edit_photo">
-      <%= render "/games/form" %>
-    </div>
-
-    <div class="edit_photo">
       <%= render "/fun_facts/form" %>
     </div>
-
   </div>
 </div>

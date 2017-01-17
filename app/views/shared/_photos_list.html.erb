@@ -1,25 +1,25 @@
 <div class="<%= container %> photo-components-wrapper">
-    <div class="row">
-        <div class="owl-carousel carousel" id="photos-list" data-controller="<%=params[:controller]%>">
-            <%= render partial: 'shared/featured_photos_list', collection: @photos, as: :photo %>
-        </div>
+  <div class="row">
+    <div class="owl-carousel carousel" id="photos-list" data-controller="<%=params[:controller]%>">
+      <%= render partial: 'shared/featured_photos_list', collection: @photos, as: :photo %>
     </div>
-    <% unless last_page? @photos %>
-        <div class="row hidden-xs single-pagination-container" id="photos-single-pagination-container">
-            <div class="col-xs-12">
-             <div class="hidden single-pagination-loader" align="center">
-                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-             </div>
-                <div class="load-more">
-                    <% if params[:controller].eql? "places" %>
-                        <%= link_to "LOAD MORE", paginate_photos_place_path(@place, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
-                    <% elsif params[:controller].eql? "attractions" %>
-                        <%= link_to "LOAD MORE", paginate_photos_attraction_path(@attraction, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
-                    <% elsif params[:controller].eql? "countries"  %>
-                        <%= link_to "LOAD MORE", paginate_photos_country_path(@country, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
-                    <% end %>
-                </div>
-            </div>
+  </div>
+  <% unless last_page? @photos %>
+    <div class="row hidden-xs single-pagination-container" id="photos-single-pagination-container">
+      <div class="col-xs-12">
+       <div class="hidden single-pagination-loader" align="center">
+        <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+       </div>
+        <div class="load-more">
+          <% if params[:controller].eql? "places" %>
+            <%= link_to "LOAD MORE", paginate_photos_place_path(@place, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
+          <% elsif params[:controller].eql? "attractions" %>
+            <%= link_to "LOAD MORE", paginate_photos_attraction_path(@attraction, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
+          <% elsif params[:controller].eql? "countries"  %>
+            <%= link_to "LOAD MORE", paginate_photos_country_path(@country, active_photos: @photos.next_page, resources: 'photos', pagination_template: 'shared/featured_photos_list'), class: 'single-pagination', remote: true %>
+          <% end %>
         </div>
-    <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>

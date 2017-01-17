@@ -24,7 +24,7 @@ class AttractionsController < ApplicationController
     @more_attractions = @attraction.siblings.paginate(page: params[:more_attractions_page], per_page: 6 )
     @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @deals = @attraction.deals.active
-    @review = Review.new
+    @review = @attraction.reviews.build
     @stories = @attraction.attraction_stories.paginate(page: params[:stories_page], per_page: 4)
     @photos = @attraction.active_user_photos.paginate(:page => params[:active_photos], per_page: 3)
     @videos = @attraction.videos.active.paginate(:page => params[:active_videos], per_page: 3)
@@ -64,6 +64,9 @@ class AttractionsController < ApplicationController
   def paginate_reviews
     @attraction = Attraction.find_by_slug(params[:id])
     @reviews = @attraction.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
+    respond_to do |format|
+      format.js { render 'shared/paginate_reviews' }
+    end
   end
 
   def paginate_stories
@@ -152,7 +155,7 @@ class AttractionsController < ApplicationController
     if params[:type].eql? "UserPhoto"
       @attraction.user_photos.each do |photo|
         if photo.id.to_s.eql? photo_id
-           photo.hero = true
+          photo.hero = true
         else
           photo.hero = false
         end
@@ -166,7 +169,7 @@ class AttractionsController < ApplicationController
     else
       @attraction.photos.each do |photo|
         if photo.id.to_s.eql? photo_id
-           photo.hero = true
+          photo.hero = true
         else
           photo.hero = false
         end
@@ -242,7 +245,6 @@ class AttractionsController < ApplicationController
         :primary_category_id,
         :passport_icon,
         :address,
-        :area_id,
         :parent_id,
         :parentable_id,
         :parentable_type,
@@ -261,10 +263,10 @@ class AttractionsController < ApplicationController
         :trip_advisor_url,
         parent_attributes: [:parentable_id, :parentable_type],
         photos_attributes: [:id, :place_id, :photoable_id, :photoable_type, :attraction_id, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-        videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :attraction_id, :area_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
-        fun_facts_attributes: [:id, :content, :reference, :priority, :area_id, :place_id, :attraction_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-        discounts_attributes: [:id, :description, :place_id, :attraction_id, :area_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
-        user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :attraction_id, :area_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
+        videos_attributes: [:id, :vimeo_id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :attraction_id, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
+        fun_facts_attributes: [:id, :content, :reference, :priority, :place_id, :attraction_id, :status, :hero_photo, :photo_credit, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        discounts_attributes: [:id, :description, :place_id, :attraction_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
+        user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :attraction_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
         three_d_videos_attributes: [:link, :caption, :place_id, :attraction_id, :three_d_videoable_id, :three_d_videoable_type],
         category_ids: [],
         subcategory_ids: [],

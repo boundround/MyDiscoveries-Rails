@@ -6,9 +6,6 @@ class Program < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on :programyearlevels, :programactivities, :programsubjects
 
-#  after_save :load_into_soulmate
-#  before_destroy :remove_from_soulmate
-
   include PgSearch
   pg_search_scope :search, against: [:name, :description],
     using: {tsearch: {dictionary: "english"}},
@@ -63,12 +60,10 @@ class Program < ActiveRecord::Base
   end
 
   def load_into_soulmate
-#    puts id
-#    if self.subscription_level.downcase == 'premium' || self.subscription_level.downcase == 'standard' || self.subscription_level == 'basic'
-      loader = Soulmate::Loader.new("program")
-      loader.add("term" => self.name.downcase + ' ' + self.description.downcase + ' ' + self.place.display_name.downcase,
-                "display_name" => self.name, "id" => self.id, "latitude" => self.place.latitude, "longitude" => self.place.longitude,
-                "url" => '/programs/' + self.id + '.html', "placeType" => "program")
+    loader = Soulmate::Loader.new("program")
+    loader.add("term" => self.name.downcase + ' ' + self.description.downcase + ' ' + self.place.display_name.downcase,
+              "display_name" => self.name, "id" => self.id, "latitude" => self.place.latitude, "longitude" => self.place.longitude,
+              "url" => '/programs/' + self.id + '.html', "placeType" => "program")
   end
 
   def remove_from_soulmate

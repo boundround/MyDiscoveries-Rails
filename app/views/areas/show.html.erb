@@ -419,8 +419,7 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<%= render 'reviews/form' %>
+<%= render 'reviews/form', variable: @area, review: @review %>
 <% if current_user.try(:admin?) %>
   <p><%= link_to 'Edit Place', edit_place_path %></p>
 <% end %>
-

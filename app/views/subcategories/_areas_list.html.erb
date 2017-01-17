@@ -2,6 +2,7 @@
   <div class="dest-thing">
     <a class="link_card" href="<%= polymorphic_path(area) %>"></a>
       <div class="dest-thing-overlay-wrapper">
+        <% if area.class.to_s != "Country" %>
           <% unless area.viator_link.blank? %>
               <div class="dest-thing-overlay">
                   <div class="dollar-rating">
@@ -13,6 +14,7 @@
                   </div>
               </div>
           <% end %>
+        <% end %>
       </div>
       <div class="things-img" style="background: url(<%= showing_image(draw_hero_background(area)) %>) no-repeat;"
            role="img"
@@ -20,6 +22,7 @@
       <div class="dest-thing-content">
           <h4><%= area.display_name %></h4>
 
+        <% if area.class.to_s != "Country" %>
         <div class="tags">
           <% area.subcategories.subcats.each do |c| %>
             <div class="tag">
@@ -29,6 +32,7 @@
             </div>
           <% end %>
         </div>
+        <% end %>
       </div>
   </div>
 </div>

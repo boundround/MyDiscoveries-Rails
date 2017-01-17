@@ -7,16 +7,16 @@
   top: 10%;
 }
 .snowshoe-progress-bar {
-    background: rgba(255,255,255,.9);
-    -webkit-border-radius: 30px;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    left:0;
-    top:0;
-    -webkit-animation: pulsate 1.1s ease-out;
-    -webkit-animation-iteration-count: infinite; 
-    opacity: 0.0
+  background: rgba(255,255,255,.9);
+  -webkit-border-radius: 30px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left:0;
+  top:0;
+  -webkit-animation: pulsate 1.1s ease-out;
+  -webkit-animation-iteration-count: infinite; 
+  opacity: 0.0
 }
 
 .boundround-stamp {
@@ -75,7 +75,7 @@
 
 
 @-webkit-keyframes pulsate {
-    0% {-webkit-transform: scale(0.7, 0.4); opacity: 0.0;}
-    50% {opacity: 1.0;}
-    100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+  0% {-webkit-transform: scale(0.7, 0.4); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
 }

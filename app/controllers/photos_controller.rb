@@ -93,7 +93,7 @@ class PhotosController < ApplicationController
     end
 
     if params[:offer_id]
-      @photo.offers << Offer.find(params[:offer_id])
+      @photo.offers << Offer.friendly.find(params[:offer_id])
     end
 
     if @photo.save
@@ -134,7 +134,7 @@ class PhotosController < ApplicationController
   private
     def photo_params
       params.require(:photo).permit(
-        :title, :path, :alt_tag, :credit, :area_id, :place_id, :attraction_id,
+        :title, :path, :alt_tag, :credit, :place_id, :attraction_id,
         :photoable_id, :photoable_type, :caption, :caption_source,
         :customer_approved, :customer_review, :approved_at, :priority, :hero,
         :status, :country_hero, :country_include, :_destroy

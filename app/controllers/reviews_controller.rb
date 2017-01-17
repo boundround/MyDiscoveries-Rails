@@ -18,11 +18,13 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       if @review.save
         NewReview.delay.notification(@review)
-        format.html { redirect_to :back, notice: "Thanks for the review. We'll let you know when others can see it too!" }
-        format.js { }
+        message = "Thanks for the review. We'll let you know when others can see it too!"
+        format.html { redirect_to :back, notice: message }
+        format.js { flash[:notice] = message }
       else
-        format.html { redirect_to :back, notice: "We're sorry, there was an error. Please try your review again." }
-        format.js { }
+        message = "We're sorry, there was an error. Please try your review again."
+        format.html { redirect_to :back, notice: message }
+        format.js { flash[:notice] = message }
       end
     end
   end
@@ -36,13 +38,12 @@ class ReviewsController < ApplicationController
       @review.country_id = nil
     end
     if @review.update(review_params)
-      redirect_to place_review_path(@review.reviewable, @review)
+      if @review.reviewable.is_a? Place
+        redirect_to place_review_path(@review.reviewable, @review)
+      else
+        redirect_to offer_review_path(@review.reviewable, @review)
+      end
     end
-
-    # respond_to do |format|
-    #   # format.html { redirect_to :back }
-    #   format.json { render json: @review }
-    # end
   end
 
   def destroy

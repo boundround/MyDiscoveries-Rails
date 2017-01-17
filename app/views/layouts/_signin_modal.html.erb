@@ -28,16 +28,9 @@
          </div>
          <div class="row">
            <div class="col-sm-6 text-center div-forgot">
-	           <!--<a href="#" class="forgot-password">FORGOT PASSWORD</a>-->
 	           <%= link_to "Forgot password", new_user_password_path, class: "forgot-password brw-blue" %>
 	         </div>
          </div>
-
-	            <!-- <div class="col-sm-6 text-right div-forgot"> -->
-	                <!--<a href="#" class="forgot-password">FORGOT PASSWORD</a>-->
-	                <%#= link_to "FORGOT USERNAME", users_username_new_path, class: "forgot-password"  %>
-	            <!-- </div> -->
-	             <!-- <p align="center" class="btm15"><a href="#" class="black underline">Forgot password</a></p> -->
 	        <div class="row">
             <div class="col-sm-12">
 	   				  <div class="form-group">
@@ -45,26 +38,7 @@
 	           </div>
 	         </div>
         </div>
-			     <!-- <p><button class="btn btn-default btn-block btn-radius btn-height fontbig-button pink">Sign in</button></p> -->
-		      <!-- </div> -->
 	        <% end %>
-
-<!--
-        <form>
-          <div class="form-group">
-            <input type="email" class="form-control" placeholder="Email Address">
-          </div>
-
-          <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password">
-          </div>
-        </form> -->
-
-<!--         <p align="center" class="btm15"><a href="#" class="black underline">Forgot password</a></p>
-        <p><button class="btn btn-default btn-block btn-radius btn-height fontbig-button pink">Sign in</button></p>
-        <p align="center" class="btm15 top15 grey">or sign in with...</p> -->
-
-
           <p align="center" class="btm15 top15 height-sign-in grey">or sign in with...</p>
           <%- if devise_mapping.omniauthable? %>
             <%- resource_class.omniauth_providers.each do |provider| %>
@@ -81,33 +55,17 @@
               <% end %>
             <% end %>
           <% end %>
-          <%#- if devise_mapping.omniauthable? %>
-            <%#- resource_class.omniauth_providers.each do |provider| %>
-              <%# if provider.to_s == 'instagram' %>
-              <!-- <p><a href="<%#= omniauth_authorize_path(resource_name, provider) %>" class="btn insta-sign-in-button"><i class="fa fa-instagram"></i>&nbsp;&nbsp;Sign In With Instagram</a></p> -->
-              <%# end %>
-            <%# end -%>
-          <%# end -%>
-          <!-- <div class="col-xs-6 col-sm-6">
-            <button class="btn btn-warning btn-block button-style btn-ig btn-radius fontbig-signin mrg0"><i class="fa fa-instagram"></i> Instagram</button>
-          </div> -->
-          <!-- <div class="col-xs-6 col-sm-6">
-            <button class="btn btn-danger btn-block button-style btn-google-plus btn-radius fontbig-signin"><i class="fa fa-google-plus"></i> Google+</button>
-          </div> -->
       </div>
       <div class="modal-footer">
         <div class="row">
           <div class="col-xs-12 col-sm-12" align="center">
             <p class="not-member emphasize">Not yet a member?</p>
-            <!-- <p><a class="btn btn-default btn-block pink btn-height fontbig-button custom-close-register btn-radius">Create an account</a></p> -->
-            <!-- <div class="col-sm-12"> -->
               <% initialization_controller = ['posts', 'stories', 'places', 'countries'] %>
               <% if initialization_controller.include?(controller_name) && action_name == 'show' && !user_signed_in? %>
                 <p><a href="<%= new_user_registration_path(flag: true) %>" class="btn btn-default btn-block border-rgba pink btn-height fontbig-button custom-close-register btn-radius">Create an account</a></p>
               <% else %>
                 <p><a href="<%= new_user_registration_path %>" class="btn btn-default btn-block border-rgba pink btn-height fontbig-button custom-close-register btn-radius">Create an account</a></p>
               <% end %>
-            <!-- </div> -->
           </div>
         </div>
       </div>

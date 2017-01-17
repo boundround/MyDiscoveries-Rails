@@ -29,6 +29,10 @@ class Region < ActiveRecord::Base
       ""
     end
 
+    attribute :viator_link do
+      ""
+    end
+
     attribute :is_country do
       false
     end
@@ -65,19 +69,18 @@ class Region < ActiveRecord::Base
       "map-marker"
     end
 
-    attribute :url do
-      Rails.application.routes.url_helpers.region_path(self)
+    attribute :viator_link do
+      ""
     end
 
-    attribute :display_address do
-      description.blank? ? "Bound Round Story" : description
+    attribute :url do
+      Rails.application.routes.url_helpers.region_path(self)
     end
 
     attribute :where_destinations do
       'Region' if self.class.to_s == 'Region'
     end
 
-    # attributesToIndex ['display_name', 'unordered(description)']
     attributesToIndex [
       'display_name',
       'unordered(description)',
@@ -125,7 +128,6 @@ class Region < ActiveRecord::Base
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true
   accepts_nested_attributes_for :stories, allow_destroy: true
-  # after_create :update_parentable_id
 
   def get_parents(region, parents = [])
     unless !self.run_rake.blank? || (no_parent_select.eql? "true")
@@ -155,9 +157,7 @@ class Region < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    unless self.run_rake || (no_parent_select.eql? "true")
-      slug.blank? || display_name_changed? || self.parent.parentable_id_changed?
-    end
+    display_name_changed?
   end
 
   def children

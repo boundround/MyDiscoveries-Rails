@@ -1,16 +1,16 @@
 <div class="col-md-4">
-    <div class="member-review-wrapper">
-        <div class="user-wrapper">
-            <div class="user-dp"
-                 style="background: url(<%= showing_image(review.user.avatar_url)%>) no-repeat;"></div>
-            <div class="username"> <%= review.user.name %></div>
-        </div>
-        <div class="comment">
-          <%= review.content %>
-        </div>
-        <div class="rating-wrapper">
-            <%= raw draw_smile_review(review) rescue "" %>
-        </div>
-        <div class="date"><%= review.created_at.strftime("%B %Y") %></div>
+  <div class="member-review-wrapper">
+    <div class="user-wrapper">
+      <div class="user-dp"
+         style="background: url(<%= showing_image(review.user.avatar_url)%>) no-repeat;"></div>
+      <div class="username"> <%= review.user.name %></div>
     </div>
+    <div class="comment">
+      <%= review.content %>
+    </div>
+    <div class="rating-wrapper">
+      <%= raw draw_smile_review(review) rescue "" %>
+    </div>
+    <div class="date"><%= review.created_at.strftime("%B %Y") %></div>
+  </div>
 </div>

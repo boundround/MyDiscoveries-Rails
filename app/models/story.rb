@@ -6,7 +6,6 @@ class Story < ActiveRecord::Base
 
   friendly_id :slug_candidates, :use => [:slugged, :history]
   attr_accessor :display_address
-  # after_update :send_live_notification
   algoliasearch index_name: "place_#{Rails.env}", id: :algolia_id, if: :published? do
 
     # list of attribute used to build an Algolia record
@@ -106,7 +105,6 @@ class Story < ActiveRecord::Base
     # you want to search in: here `title`, `subtitle` & `description`.
     # You need to list them by order of importance. `description` is tagged as
     # `unordered` to avoid taking the position of a match into account in that attribute.
-    # attributesToIndex ['display_name', 'unordered(content)', 'unordered(display_address)', 'primary_category', 'subcategories']
     attributesToIndex [
       'display_name',
       'unordered(description)',

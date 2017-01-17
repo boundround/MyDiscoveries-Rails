@@ -8,13 +8,14 @@ class Review < ActiveRecord::Base
   belongs_to :reviewable, polymorphic: true
   belongs_to :user
   belongs_to :country
-  # belongs_to :place
 
   has_many :reviews_users
   has_many :users, through: :reviews_users
 
   scope :active, -> { where(status: "live") }
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }
+
+  validates :content, length: { maximum: 1000 }, allow_blank: false
 
   def send_live_notification
 

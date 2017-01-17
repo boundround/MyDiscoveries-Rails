@@ -9,7 +9,6 @@ class PagesController < ApplicationController
     @subcategories = Subcategory.subcats
     @subcategories = @subcategories.sort {|x, y| y.places.size <=> x.places.size}
     @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
-    # @sydney = Place.find 1064
     @category1 = @subcategories[0]
     @category2 = @subcategories[1]
     @category3 = @subcategories[2]
@@ -109,7 +108,4 @@ class PagesController < ApplicationController
     def page_params
       params.require(:page).permit(:title, :hero_image, :hero_image_text, :promo_headline, :page_header)
     end
-
-
-
 end

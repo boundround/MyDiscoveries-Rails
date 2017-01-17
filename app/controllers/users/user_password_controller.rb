@@ -1,6 +1,4 @@
 class Users::UserPasswordController < Devise::RegistrationsController
-  
-  # before_filter :configure_permitted_parameters, only: [:update_password]
 
   def update_password 
 
@@ -24,7 +22,3 @@ class Users::UserPasswordController < Devise::RegistrationsController
   def permit_resource_params
     params.require(:user).permit(:password, :password_confirmation, :current_password, :email)
   end
-
-  # def configure_permitted_parameters
-  #     params.require(:user).permit(:password, :password_confirmation, :current_password) 
-  # end

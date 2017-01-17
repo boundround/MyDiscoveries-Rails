@@ -6,6 +6,10 @@ module Observers::Offer
     after_commit :update_shopify_product, on: :update
   end
 
+  def display_name
+    name
+  end
+
   private
 
   def create_shopify_product

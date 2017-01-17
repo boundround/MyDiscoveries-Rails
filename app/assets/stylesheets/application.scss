@@ -19,7 +19,8 @@
 //  *= require jquery.fileupload-ui
 //  *= require iconlabel
 //  *= require font-awesome
-//  *= require blueimp-gallery
+//  *= require blueimp-gallery/blueimp-gallery
+//  *= require blueimp-gallery/blueimp-gallery-video
 //  *= require bootsy
 
 //  */
@@ -27,8 +28,8 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
-@import "bootstrap/theme";
-@import "owl.carousel.min";
-@import "all";
-@import "region";
-@import "offer";
+@import 'bootstrap/theme';
+@import 'owl.carousel.min';
+@import 'all';
+@import 'region';
+@import 'offer';

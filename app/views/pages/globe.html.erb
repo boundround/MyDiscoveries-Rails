@@ -140,10 +140,6 @@ left: 1px;
 			Sign up to be a Bound Round reporter</a> and share stories from your travels
 
 	</div>
-	<!-- <div class="search-wrapper">
-		<input id="search-box" class="search-box" placeholder="Where do you want to explore?"><i class="spinner search-spinner fa fa-spinner fa-pulse fa-2x fa-spin"></i></input>
-		<div class="search-sidebar"></div>
-	</div> -->
 	<%= render 'layouts/search_input' %>
 	<div id="card-container">
 		<div id='filters' class='ui-select'>
@@ -239,22 +235,6 @@ left: 1px;
 <%= javascript_include_tag 'd3.v3.min' %>
 <script>
 
-// var svgdiv = "#svgdiv",
-//		 width = 800,
-//     height = 800,
-//     scaleextent = [400,1500], the minimum and maximum zoom supported
-//		 tiltextent = [30,80], tilt maximum at corresponding zoom
-//     textsize = 12,
-//     iconsize = 64,
-//     patternsize = 128,
-//     landjson = "world-110m-36-topo/world-110m-36-land.json",
-//     countriesjson = "world-110m-36-topo/world-110m-36-countries.json",
-//		 placesjson = "places.json",
-//     includecountries = false,
-//     includelabels = true;
-//
-// var tileimage = "green-tile"+patternsize+".png";
-
 //Initial load of page
 $(document).ready(sizeContent);
 
@@ -265,9 +245,6 @@ $(window).resize(sizeContent);
 function sizeContent() {
 	$("#svgdiv").width($(window).width() / 2 );
 	$("#svgdiv").height($(window).height());
-
-//	$("#zoomcontrol").width(30);
-//	$("#zoomcontrol").height(60);
 }
 
 </script>
@@ -276,22 +253,6 @@ function sizeContent() {
 //Module pattern but Singleton NOT implemented
 //Include module only once
 //Parameters required
-
-// var svgdiv = "#svgdiv",
-//		 width = 800,
-//     height = 800,
-//     scaleextent = [400,1500], the minimum and maximum zoom supported
-//		 tiltextent = [30,80], tilt maximum at corresponding zoom
-//     textsize = 12,
-//     iconsize = 64,
-//     patternsize = 128,
-//     landjson = "world-110m-36-topo/world-110m-36-land.json",
-//     countriesjson = "world-110m-36-topo/world-110m-36-countries.json",
-//		 placesjson = "places.json",
-//     includecountries = false,
-//     includelabels = true;
-//
-// var tileimage = "green-tile"+patternsize+".png";
 
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
@@ -348,18 +309,12 @@ function sizeContent() {
 			{
 				if(!self.zooming)
 				{
-//					self.onMarkerTouch(d.properties.nameascii);
 					if(d.clustercount)
 					{
 							self.setLocation(d.geometry.coordinates[1],d.geometry.coordinates[0] );
 			        $('#svgdiv').fadeOut("fast");
 							var loc = self.proj.invert([self.width/2,self.height/2]);
 							map.setView([loc[1], loc[0]], transitionzoomlevel+2);
-							/*
-							zoomlevel = qscale(self.proj.scale());
- 							zoomscale = qscale.invertExtent(zoomlevel+1);
-							self.setLocationZ(d.geometry.coordinates[1],d.geometry.coordinates[0],zoomscale[1] );
-						  */
 					}
 					else {
 						self.setLocation(d.geometry.coordinates[1],d.geometry.coordinates[0] );
@@ -373,7 +328,6 @@ function sizeContent() {
 				if(!self.zooming)
 				{
 					self.onCountryTouch(d['properties'][self.countryfieldname]);
-					// self.onCountryTouch(d[self.countryfieldname]);
 				}
 			}
 
@@ -469,7 +423,6 @@ function sizeContent() {
 				.attr("cx", self.width / 2).attr("cy", self.height / 2)
 				.attr("r", self.proj.scale())
 				.attr("class", "noclicks")
-		//		.style("fill", "#73C7D1");
 		//Gradient fill appears to have no performance implications on Apple devices
 		        .style("fill", "url(#ocean_fill)");
 
@@ -477,8 +430,6 @@ function sizeContent() {
 /****************************************************************/
 			//Marker Clustering Capabilities
 
-			// self.zoomindexes = [0,1,2,3,4,5];
-//			self.zoomindexes = [0,1,2,3];
 			self.zoomindexes = [0];
 			qscale = d3.scale.quantize().domain(self.scaleextent).range(self.zoomindexes);
 
@@ -499,17 +450,12 @@ function sizeContent() {
 
 				var pxdist = Math.sqrt( Math.pow(icloc[0]-itloc[0],2) + Math.pow(icloc[1]-itloc[1],2) );
 
-//				var arc = d3.geo.greatArc();
-//				var d = arc.distance({source: itemcluster.geometry.coordinates, target: item.geometry.coordinates});
-//				var d = d3.geo.distance(itemcluster.geometry.coordinates,item.geometry.coordinates);
-
 				//Kinda arbitrary, weighted average position for all the relevant clusters
 				if( (pxdist < self.iconsize/1.1) /*&& (d<.2)*/ )
 				{
 					var cc = 2;
 					if(itemcluster.clustercount) cc = itemcluster.clustercount+1;
 
-//					itemcluster.properties[self.placefieldname] += "," + item.properties[self.placefieldname];
 					itemcluster.properties[self.placefieldname] = cc;
 					itemcluster.clustercount = cc;
 					itemcluster.geometry.coordinates[0] = ((cc-1)*itemcluster.geometry.coordinates[0] + item.geometry.coordinates[0])/cc;
@@ -582,7 +528,6 @@ function sizeContent() {
 				self.places = places;
         console.log(this);
 
-        // self.zoomindexes = [0,1,2,3,4,5]
 				self.generateAllClusteredPlaces();
 
 				//Generate land
@@ -611,9 +556,8 @@ function sizeContent() {
 
 				self.zoom = d3.behavior.zoom()
 					.scaleExtent(self.scaleextent)
-//					.scale(self.proj.scale())
 					.on('zoomstart', function(){if(self.hidemarkeropt)self.hidemarkers = true;})
-					.on('zoomend', function(){if(self.hidemarkeropt){self.hidemarkers = false; self.currentCluster = null; self.refresh();}/*self.zooming = false; self.moving = false;*/ /*self.refresh();*/})
+					.on('zoomend', function(){if(self.hidemarkeropt){self.hidemarkers = false; self.currentCluster = null; self.refresh();}})
 					.on('zoom', function() {
 
 						var ts = d3.event.scale;
@@ -625,8 +569,6 @@ function sizeContent() {
 					self.svg.call(self.zoom);
 
 				var drag = d3.behavior.drag()
-//					.on('dragstart', function() {self.hidemarkers = true;} )
-//					.on('dragend', function() {self.hidemarkers = false; self.refresh();} )
 					.on('drag', function() {
 						clearInterval(self.initrotateinterval);
 						if(!self.zooming)
@@ -700,8 +642,6 @@ function sizeContent() {
 							})
 							.style("display",function(d) {
 								var d = d3.geo.distance(d.geometry.coordinates,centerPos);
-//								var d = arc.distance({source: d.geometry.coordinates, target: centerPos});
-//								return (d > 1.57) ? 'none' : 'inline';
 								return (d > 1.4) ? 'none' : 'inline';
 							});
 					}
@@ -747,7 +687,7 @@ function sizeContent() {
 
 					self.svg.selectAll(".land").attr("d", self.path);
 					self.svg.selectAll(".countries path").attr("d", self.path);
-//					self.svg.selectAll(".point").attr("transform", function(d) {return "translate(" + self.path.centroid(d)+")";});
+
 					self.svg.selectAll(".country").attr("d", self.path);
 					self.svg.selectAll('#globecircle').attr("r", self.proj.scale());
 
@@ -841,7 +781,6 @@ function sizeContent() {
 					self.zoomidx = qscale(ts);
 
 					self.refresh();
-					// if(ts >= self.scaleextent[1])self.onMaxZoom();
 					self.zooming = false;
 				}
 			}
@@ -900,10 +839,6 @@ function sizeContent() {
 				self.currentCluster = places;
 
 				//Generate markers
-//					var ted= self.svg.selectAll(".rectlabel").data(places.features);
-//					var joe= self.svg.selectAll(".rectlabel").data([]);
-//					joe.exit().remove();
-
 				var tlabel= self.svg.selectAll(".rectlabel").data(places);
  						tlabel.attr("class", "rectlabel")
 						.attr("width", function(d) {
@@ -955,9 +890,6 @@ function sizeContent() {
 
 				if(self.includelabels)
 				{
-//						ted = self.svg.selectAll(".label").data(places.features);
-//						var joe= self.svg.selectAll(".label").data([]);
-//						joe.exit().remove();
 
 					tlabel = self.svg.selectAll(".label").data(places);
 
@@ -996,18 +928,8 @@ function sizeContent() {
 				.await(function(error,places) { self.places = places; self.generateAllClusteredPlaces(); self.showMarkers(true); self.refresh();});
     	};
 
-//		$('#zoomplus').on({ 'touchend' : function(){ self.upZoomIdx(); } });
-//		$('#zoomminus').on({ 'touchend' : function(){ self.downZoomIdx(); } });
 		$('#zoomplus').on({ 'mousedown' : function(){ self.upZoomIdx(); } });
 		$('#zoomminus').on({ 'mousedown' : function(){ self.downZoomIdx(); } });
-
-/*
-
-- onMaxZoom(function(lat, lon, mapzoom){}) //Switch to 2d map
-- getD3ZoomFromMapZoom ()  //
-*/
-
-
   };
 
 	return new brglobe();
@@ -1020,20 +942,15 @@ function sizeContent() {
 			svgdiv: "#svgdiv",
 			width: 800,
 			height: 800,
-//			scaleextent: [400,2400],
 			scaleextent: [400,500],
 			tiltextent: [30,80],
 			textsize: 12,
 			iconsize: 64,
 			patternsize: 128,
 			landjson: "assets/js/world-110m-36-topo/world-110m-36-land.json",
-//			countriesjson: "world-110m-36-topo/world-110m-36-countries.json",
 			countriesjson: "assets/js/world-110m-36-topo/world-110m.json",
-//			countriesjson: "assets/js/world-110m-36-topo/world-110m-36-countries.json",
 			countryfieldname: "name",
-//			countryfieldname: "id",
 			placesjson: "/areas/mapdata.json",
-//			placesjson: "oneplace.json",
 			placefieldid: "url", //id to pass return in onMarkerTouch callback
 			placefieldname: "title", //name to use on markers
 			includecountries: false,
@@ -1065,15 +982,6 @@ function sizeContent() {
 	//	2d		3d
 	//	 3		1000 (but still a lot of curvature)
 	//	 5		2400 (may be a good transition point)
-
-	//lat, lon, zoom
-/*	setTimeout(function(){brglobe.setLocation(-33.865143,151.2099,400);},3000);
-	setTimeout(function(){brglobe.replaceMarkers("oneplace.json");},4000);
-	setTimeout(function(){brglobe.showCountries(true);},6000);
-	setTimeout(function(){brglobe.showMarkers(false);},6000);
-	setTimeout(function(){brglobe.replaceMarkers("places.json");},9000);
-	setTimeout(function(){brglobe.showCountries(false);},9000);
-*/
 </script>
 
 <%= javascript_include_tag 'pages' %>
