@@ -330,12 +330,16 @@
                         </div>
 
                         <div class="form-group sm">
-                          <%= f.input :mobile, placeholder: '+61', label: "Mobile" %>
+                          <label for="up-settings-dob">D.O.B</label>
+                          <input type="text" id="up-settings-dob" name="user[date_of_birth]" value="<%= @user.date_of_birth.blank?? '' : @user.date_of_birth %>">
                         </div>
 
                         <div class="form-group sm">
-                          <label for="up-settings-dob">D.O.B</label>
-                          <input type="text" id="up-settings-dob" name="user[date_of_birth]" value="<%= @user.date_of_birth.blank?? '' : @user.date_of_birth %>">
+                          <%= f.input :home_phone, placeholder: 'Home phone (+61)', label: "Home Phone" %>
+                        </div>
+
+                        <div class="form-group sm">
+                          <%= f.input :mobile, placeholder: 'Mobile phone (+61)', label: "Mobile" %>
                         </div>
 
                         <div class="form-group sm">
