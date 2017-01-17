@@ -2,77 +2,22 @@
 <div class="container">
   <%= render "/offers/admin_tabs" %>
   <%= simple_form_for @offer, html: { role: 'form'} do |f| %>
-  <div class="field">
-        <strong>Secondary categories</strong><br>
-        <% Subcategory.all.each do |category| %>
-            <% if category.category_type == "subcategory" %>
-            <%= hidden_field_tag "offer[subcategory_ids][]", nil%>
-            <%= check_box_tag "offer[subcategory_ids][]", category.id, @offer.subcategory_ids.include?(category.id), id: dom_id(category) %>
-            <%= label_tag dom_id(category), category.name %><br/>
-          <% end %>
+        <% category_types = Subcategory.all.map {|subcat| subcat.category_type } %>
+        <% category_types.uniq! %>
+        <% category_types.each do |type| %>
+          <div class="field">
+            <strong><%= type %></strong><br>
+            <% Subcategory.all.each do |category| %>
+                <% if category.category_type == type %>
+                <%= hidden_field_tag "offer[subcategory_ids][]", nil%>
+                <%= check_box_tag "offer[subcategory_ids][]", category.id, @offer.subcategory_ids.include?(category.id), id: dom_id(category) %>
+                <%= label_tag dom_id(category), category.name %><br/>
+              <% end %>
+            <% end %>
+          </div>
+          <hr>
         <% end %>
-      </div>
-      <div class="form-group">
-        <br>
-        <strong>Age Range</strong>
-        <%= f.input :minimum_age, collection: 5..18, label: "From:", input_html: { class: 'form-control' } %>
-        <%= f.input :maximum_age, collection: 9..18, label: "To:", input_html: { class: 'form-control' } %>
-      </div>
-      <div class="field js-primary-category">
-        <br>
-        <strong>Price categories</strong><br>
-        <% Subcategory.all.each do |category| %>
-            <% if category.category_type == "price" %>
-            <%= hidden_field_tag "offer[subcategory_ids][]", nil%>
-            <%= check_box_tag "offer[subcategory_ids][]", category.id, @offer.subcategory_ids.include?(category.id), id: dom_id(category) %>
-            <%= label_tag dom_id(category), category.name %><br/>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="field js-primary-category">
-        <br>
-        <strong>Accessibility</strong><br>
-        <% Subcategory.all.each do |category| %>
-            <% if category.category_type == "accessibility" %>
-            <%= hidden_field_tag "offer[subcategory_ids][]", nil%>
-            <%= check_box_tag "offer[subcategory_ids][]", category.id, @offer.subcategory_ids.include?(category.id), id: dom_id(category) %>
-            <%= label_tag dom_id(category), category.name %><br/>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="field js-primary-category">
-        <br>
-        <strong>offer visit duration</strong><br>
-        <% Subcategory.all.each do |category| %>
-            <% if category.category_type == "duration" %>
-            <%= hidden_field_tag "offer[subcategory_ids][]", nil%>
-            <%= check_box_tag "offer[subcategory_ids][]", category.id, @offer.subcategory_ids.include?(category.id), id: dom_id(category) %>
-            <%= label_tag dom_id(category), category.name %><br/>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="field js-primary-category">
-        <br>
-        <strong>Best time of day</strong><br>
-        <% Subcategory.all.each do |category| %>
-            <% if category.category_type == "optimum_time" %>
-            <%= hidden_field_tag "offer[subcategory_ids][]", nil%>
-            <%= check_box_tag "offer[subcategory_ids][]", category.id, @offer.subcategory_ids.include?(category.id), id: dom_id(category) %>
-            <%= label_tag dom_id(category), category.name %><br/>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="field js-primary-category">
-        <br>
-        <strong>Weather Conditions</strong><br>
-        <% Subcategory.all.each do |category| %>
-            <% if category.category_type == "weather" %>
-            <%= hidden_field_tag "offer[subcategory_ids][]", nil%>
-            <%= check_box_tag "offer[subcategory_ids][]", category.id, @offer.subcategory_ids.include?(category.id), id: dom_id(category) %>
-            <%= label_tag dom_id(category), category.name %><br/>
-          <% end %>
-        <% end %>
-      </div>
+
       <div class="form-group">
         <%= f.button :submit, 'Submit' %>
       </div>
