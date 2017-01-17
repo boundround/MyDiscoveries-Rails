@@ -221,10 +221,6 @@ class Place < ActiveRecord::Base
   # reverse_geocoded_by :latitude, :longitude
   # after_validation :reverse_geocode
 
-  after_update :crop_hero_image
-  before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_meta_description
-  after_create :create_bound_round_id
-
   has_paper_trail
 
   resourcify
@@ -486,14 +482,6 @@ class Place < ActiveRecord::Base
     end
   end
 
-  def check_valid_url
-    if self.website
-      unless website.match(/^(http:\/\/)/i) || website.match(/^(https:\/\/)/i)
-        website.prepend("http://")
-      end
-    end
-  end
-
   def load_into_soulmate
     if self.status == "live"
       loader = Soulmate::Loader.new("place")
@@ -549,10 +537,10 @@ class Place < ActiveRecord::Base
   end
 
   def set_country
-    country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
-    if country
-      self.country_id = country.id
-    end
+    # country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
+    # if country
+    #   self.country_id = country.id
+    # end
   end
 
   def places_to_visits
@@ -649,12 +637,6 @@ class Place < ActiveRecord::Base
     end
 
     body
-  end
-
-  def autofill_meta_description
-    if self.description.present? && self.meta_description.blank?
-      self.meta_description = self.description[0..254]
-    end
   end
 
   def content
