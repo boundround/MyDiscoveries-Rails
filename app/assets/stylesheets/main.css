@@ -8524,7 +8524,8 @@ input[type="submit"].modal-content__btn-access  {
 .new-offer-promo-item__header {
   position: absolute;
   color: #ffffff;
-  font-size: 36px;
+  font-size: 24px;
+  text-shadow: 1px 1px grey;
   line-height: 44px;
   margin: 0;
   padding: 33px 33px 0;
@@ -8583,7 +8584,7 @@ input[type="submit"].modal-content__btn-access  {
     margin-top: 0;
     margin-bottom: 20px; }
   .new-offer-promo-item__header {
-    font-size: 26px;
+    font-size: 18px;
     padding: 41px 15px 0;
     width: 100%;
     letter-spacing: 2px;
