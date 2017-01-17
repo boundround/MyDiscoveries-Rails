@@ -43,7 +43,7 @@ class SubcategoriesController < ApplicationController
   end
 
   def update
-    @subcategory = Subcategory.find(params[:id])
+    @subcategory = Subcategory.friendly.find(params[:id])
     params[:subcategory][:related_to].delete("")
     if @subcategory.update(subcategory_params)
       redirect_to :back, notice: "#{@subcategory.name} updated"
@@ -53,13 +53,13 @@ class SubcategoriesController < ApplicationController
   end
 
   def destroy
-    @subcategory = Subcategory.find(params[:id])
+    @subcategory = Subcategory.friendly.find(params[:id])
     @subcategory.destroy
     redirect_to :back, notice: "Primary Category Deleted"
   end
 
   def paginate_offers
-    @subcategory = Subcategory.find(params[:id])
+    @subcategory = Subcategory.friendly.find(params[:id])
     @offers = @subcategory.offers.paginate(page: params[:offers_page], per_page: 4)
   end
 
