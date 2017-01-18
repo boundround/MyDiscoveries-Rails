@@ -61,17 +61,6 @@ class PlacesController < ApplicationController
       respond_to do |format|
         format.json { render json: @place }
         format.html do
-          @place.photos.each do |photo|
-            photo.add_or_remove_from_country(@place.country)
-          end
-
-          @place.videos.each do |video|
-            video.add_or_remove_from_country(@place.country)
-          end
-
-          @place.fun_facts.each do |fun_fact|
-            fun_fact.add_or_remove_from_country(@place.country)
-          end
           redirect_to edit_place_path(@place), notice: 'Place succesfully updated'
         end
       end
