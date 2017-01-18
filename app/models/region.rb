@@ -125,7 +125,6 @@ class Region < ActiveRecord::Base
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
 
   has_and_belongs_to_many :places
-  has_and_belongs_to_many :attractions
 
   mount_uploader :hero_photo, RegionPhotoUploader
 
