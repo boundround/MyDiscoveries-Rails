@@ -431,8 +431,6 @@ Rails.application.routes.draw do
   get '/offers/:id/update_hero/:type/:photo_id' => 'offers#update_hero'
   post 'search_requests/create'
 
-  match '/:corppath', to: redirect("http://corporate.boundround.com/%{corppath}"), via: [:get, :post]
-
   post '/places/transfer_assets' => 'places#transfer_assets'
   get '/places/:id/new_edit' => 'places#new_edit'
   get '/places/:id/refresh_blog' => 'places#refresh_blog'

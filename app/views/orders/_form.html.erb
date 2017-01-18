@@ -1,32 +1,16 @@
 <div class="container">
-  <h1 class="top20 text-center"><%= order.title %></h1>
-  <h5 class="text-center"><%= people_count_label(offer) %></h5>
-
   <%= simple_form_for [offer, order], html: { role: 'form', class: 'top20'} do |f| %>
     <%= f.input :title, as: :hidden %>
     <div class="row">
       <div class="form-group">
-        <%= f.input :number_of_infants,
+        <%= f.input :number_of_infants, as: :hidden,
             label: "Number Of Infants (price per unit: #{unit_price(offer.maxRateInfant, offer.maxRateAdult)}$)",
-            input_html: { class: 'form-control js-order-people-count', min: 0 }
-        %>
-      </div>
-      <div class="form-group">
-        <%= f.input :number_of_children,
-            label: "Number Of Children (price per unit: #{unit_price(offer.maxRateChild, offer.maxRateAdult)}$)",
-            input_html: { class: 'form-control js-order-people-count', min: 0 }
-        %>
-      </div>
-      <div class="form-group">
-        <%= f.input :number_of_adults,
-            label: "Number Of Adults (price per unit: #{offer.maxRateAdult}$)",
             input_html: { class: 'form-control js-order-people-count', min: 0 }
         %>
       </div>
       <div class="form-group">
         <%= f.input(
               :total_price,
-              as: :hidden,
               min: 0,
               input_html: {
                 data: {
@@ -38,12 +22,98 @@
             )
         %>
       </div>
-      <div class="form-group">
-        <%= button_tag(type: 'submit', class: 'btn') do %>
-            <span><%= "Checkout (Total Price: " %></span>
-            <span class='js-order-total-price'><%= "#{order.total_price.to_i}$)" %></span>
-        <% end %>
-      </div>
     </div>
-  <% end %>
+  <div class="booking-block">
+
+      <div class="width-limiter">
+          <!-- <div class="booking-steps">
+              <ul class="xs-invisible">
+                  <li class="active">
+                      <a href="#">Prices and availability</a>
+                  </li>
+                  <li>
+                      <a href="#">Passenger details</a>
+                  </li>
+                  <li>
+                      <a href="#">Booking summary</a>
+                  </li>
+                  <li>
+                      <a href="#">Checkout</a>
+                  </li>
+              </ul>
+
+              <p class="lg-invisible">Step 1 of 4  Prices and availability</p>
+
+          </div> -->
+
+          <section class="prices-and-availability-block">
+
+              <div class="paab-header">
+                  <h1><%= @offer.name %></h1>
+                  <h4 class="heading">PRICES AND AVAILABILITY</h4>
+                  <!-- <a class="change-selection xs-invisible" href="#">Change selection</a> -->
+              </div>
+
+              <div class="form-block">
+                  <ul>
+                      <!-- <li>
+                          <h5>Departure date</h5>
+                          <div>
+                              <input type="text" id="departure-date">
+                          </div>
+                      </li> -->
+                      <li>
+                          <h5>Duration</h5>
+                          <div><%= @offer.duration / 1000 / 60 / 60 / 24 %> <%= pluralize((@offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></div>
+
+                      </li>
+                      <li>
+                          <h5>DEPARTING FROM</h5>
+                          <div>Melbourne (Tullamarine), Australia</div>
+                      </li>
+                      <li>
+                          <h5>PRICE PER ADULT</h5>
+                          <div>$<%= offer.maxRateAdult %> AUD</div>
+                      </li>
+                      <li class="quantity">
+                          <h5># of adults</h5>
+                          <div>
+                            <%= f.input :number_of_adults,
+                                label: false,
+                                input_html: { class: 'form-control js-order-people-count', min: 0 }
+                            %>
+                          </div>
+                      </li>
+                      <li>
+                          <h5>PRICE PER CHILD</h5>
+                          <div>$<%= unit_price(offer.maxRateChild, offer.maxRateAdult) %> AUD</div>
+                      </li>
+                      <li class="quantity">
+                          <h5># of children</h5>
+                          <div>
+                            <%= f.input :number_of_children,
+                                label: false,
+                                input_html: { class: 'form-control js-order-people-count', min: 0 }
+                            %>
+                          </div>
+                      </li>
+                      <li class="total-price">
+                          <h5>Total price</h5>
+                          <div class="js-order-total-price"><%= "$#{order.total_price.to_i}" %></div>
+                      </li>
+                  </ul>
+                  <div class="form-group">
+                    <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
+                        <span>CHECKOUT</span>
+                    <% end %>
+                  </div>
+                  <!-- <a href="#" class="btn-bordered red invert">continue &nbsp; ></a> -->
+              </div>
+
+          </section>
+      </div>
+
+  </div>
 </div>
+
+<% end %>

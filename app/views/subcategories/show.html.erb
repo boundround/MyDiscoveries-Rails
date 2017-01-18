@@ -15,8 +15,7 @@
   <div class="container call-to-action-top__container">
     <div class="row">
       <div class="col-sm-12 col-xs-12">
-        <p class="call-to-action-top__text">Lorem ipsum dolor sit amet, et nec solum everti comprehensam.</p>
-        <a href="<%= new_story_path %>" class="call-to-action-top__btn">share a story</a>
+        <p class="call-to-action-top__text"><%= @subcategory.try(:secondary_description)%></p>
       </div>
     </div>
   </div>
@@ -26,7 +25,7 @@
   <div class="container width-limiter">
     <div class="row best-of-adventure__header">
       <div class="col-sm-12 col-md-12 col-xs-12">
-          <h2 class="adventure-block__title">Best of adventure travel</h2>
+          <h2 class="adventure-block__title">Best of <%= @subcategory.name.titleize %></h2>
           <p class="adventure-see__link-wrapper">
               <a href="<%= all_posts_posts_path %>" class="adventure-see__link hidden-xs">see all</a>
           </p>
@@ -36,7 +35,7 @@
     <% @stories.each do |story| %>
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <div class="best-of-adventure-card adventure-thumbnail">
-          <img src="<%= story.user.avatar_url rescue '' %>" class="best-of-adventure-card__road-photo" alt>
+          <img src="<%= showing_image(story.hero_image_url) %>" class="best-of-adventure-card__road-photo" alt>
           <h3 class="best-of-adventure-card__title"><a href="#" class="best-of-adventure-card__link"><%= story.title.size > 30? story.title[0..30]+"..." : story.title %></a></h3>
           <p class="best-of-adventure-card__content"><%= story.seo_friendly_url %></p>
         </div>
@@ -52,7 +51,7 @@
   <div class="container width-limiter">
     <div class="row related-product-adventure__header">
       <div class="col-sm-12 col-md-12 col-xs-12">
-          <h2 class="adventure-block__title">Related products for adventure travel</h2>
+          <h2 class="adventure-block__title">Related products for <%= @subcategory.name.titleize %></h2>
           <p class="adventure-see__link-wrapper">
               <a href="<%= offers_path %>" class="adventure-see__link hidden-xs">see all</a>
           </p>

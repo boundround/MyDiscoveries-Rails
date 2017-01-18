@@ -9,7 +9,12 @@
         </nav>
 
         <% if !user_signed_in? %>
+            <% if controller_name != "registrations" %>
+            <a class="header__signing header__signing--join" data-toggle="modal" data-target="#signup_modal" href="#">Join
+            </a>
+            <% else %>
             <a class="header__signing header__signing--join" href="<%= new_user_registration_path %>">join</a>
+            <% end %>
             <a class="header__signing header__signing--sign-in" data-toggle="modal" data-target="#singIn" href="#">sign
             in</a>
         <% else %>

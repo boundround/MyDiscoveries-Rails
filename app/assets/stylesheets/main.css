@@ -8524,7 +8524,8 @@ input[type="submit"].modal-content__btn-access  {
 .new-offer-promo-item__header {
   position: absolute;
   color: #ffffff;
-  font-size: 36px;
+  font-size: 24px;
+  text-shadow: 1px 1px grey;
   line-height: 44px;
   margin: 0;
   padding: 33px 33px 0;
@@ -8583,7 +8584,7 @@ input[type="submit"].modal-content__btn-access  {
     margin-top: 0;
     margin-bottom: 20px; }
   .new-offer-promo-item__header {
-    font-size: 26px;
+    font-size: 18px;
     padding: 41px 15px 0;
     width: 100%;
     letter-spacing: 2px;
@@ -9825,6 +9826,7 @@ a:hover, a:focus, a:active {
     border-bottom: 2px solid #ff4d1a; }
 
 .hero {
+  text-shadow: 1px 1px grey;
   height: 60vh;
   width: 100%;
   position: relative;
@@ -11073,7 +11075,7 @@ span.arrow {
           overflow: hidden; }
           .destinations .destinations-content-block aside .featured-articles li .fa-img-block img {
             width: 100%;
-            height: auto; }
+            height: 100%; }
         .destinations .destinations-content-block aside .featured-articles li .xs-heading, .destinations .destinations-content-block aside .featured-articles .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading, .package-offers .package-offers-block ul .destinations .destinations-content-block aside .featured-articles li a .po-content-wrapper .po-content-block .xs-heading {
           color: #000060; }
         .destinations .destinations-content-block aside .featured-articles li .label-article {
