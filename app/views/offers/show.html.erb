@@ -70,8 +70,8 @@
 
                         <div class="poi-content-bottom">
                             <p>
-                                <span>Inclusions:</span>
-                                <%= simple_format @offer.includes %>
+                                <span>Highlights:</span>
+                                <%= simple_format @offer.highlightsStr %>
                             </p>
                         </div>
 
@@ -148,6 +148,13 @@
                       <h3>FACILITIES</h3>
                       <div class="FACILITIES">
                           <%= simple_format @offer.customStr2 %>
+                      </div>
+                    <% end %>
+
+                    <% if @offer.includes.present? %>
+                      <h3>INCLUDES</h3>
+                      <div class="includes">
+                          <%= simple_format @offer.includes %>
                       </div>
                     <% end %>
 
