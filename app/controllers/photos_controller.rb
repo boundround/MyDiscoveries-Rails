@@ -97,16 +97,15 @@ class PhotosController < ApplicationController
   def create
     @photo = Photo.new(photo_params)
 
-    if params[:country_id]
-      @photo.countries << Country.friendly.find(params[:country_id])
-    end
-
-    if params[:offer_id]
-      @photo.offers << Offer.friendly.find(params[:offer_id])
+    if @photo.photoable_type == "Offer"
+      #debugger
+      @offer = @photo.photoable
+      @offer.photos << @photo
     end
 
     if @photo.save
       redirect_to :back, notice: "Photo added."
+      Offer::Shopify::ImagesUpdater.perform_async(params[:offer_id])
     else
       render :new
     end

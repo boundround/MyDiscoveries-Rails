@@ -105,7 +105,6 @@ class Offer < ActiveRecord::Base
     attributesToIndex [
       'display_name',
       'unordered(description)',
-      'age_range',
       'accessible',
       'subcategories',
       'places',
@@ -122,7 +121,6 @@ class Offer < ActiveRecord::Base
     attributesForFaceting [
       'where_destinations',
       'is_offer',
-      'age_range',
       'subcategory',
       'weather',
       'price',
@@ -276,13 +274,13 @@ class Offer < ActiveRecord::Base
   belongs_to :attraction
   belongs_to :operator
 
-  # has_many :offers_photos, dependent: :destroy
-  # has_many :photos, through: :offers_photos
+  has_many :offers_photos, dependent: :destroy
+  has_many :photos, through: :offers_photos
 
   # has_many :offers_videos, dependent: :destroy
   # has_many :videos, through: :offers_videos
 
-  has_many :photos, -> { order "created_at ASC"}, as: :photoable
+  # has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
 
   has_many :offers_attractions, dependent: :destroy

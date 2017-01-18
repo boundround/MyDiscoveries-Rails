@@ -58,7 +58,7 @@ class Region < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|region| region.display_name rescue ''} unless !self.run_rake.blank? || (no_parent_select.eql? "true")
+      self.get_parents(self).map {|region| region.ame rescue ''} unless !self.run_rake.blank? || (no_parent_select.eql? "true")
     end
 
     attribute :result_type do
@@ -82,7 +82,7 @@ class Region < ActiveRecord::Base
     end
 
     attributesToIndex [
-      'display_name',
+      'ame',
       'unordered(description)',
       'age_range',
       'accessible',
@@ -151,17 +151,7 @@ class Region < ActiveRecord::Base
   end
 
   def slug_candidates
-    unless no_parent_select.eql? "true"
-      g_parent = get_parents(self, parents = [])
-      p_display_name = g_parent.collect{ |parent| parent.display_name }
-
-      if p_display_name.blank?
-        ["#{self.display_name}"]
-      else
-        primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
-        ["#{primary_area_display_name} #{self.display_name}"]
-      end
-    end
+    :display_name
   end
 
   def should_generate_new_friendly_id?

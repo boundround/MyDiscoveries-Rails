@@ -4,9 +4,9 @@
     <%= f.input :name, input_html: { class: 'form-control' } %>
     <%= f.input :category_type, as: :select, collection: @subcategory_types, input_html: { class: 'form-control' } %>
     <%= f.input :icon, as: :file %>
-    <%= f.input :primary_description, label: "Primary Description", input_html: {class: "form-control", id: "primary_textarea"} %>
+    <%= f.input :primary_description, label: "Short Description", input_html: {class: "form-control", id: "primary_textarea"} %>
     <div>Character Count: <span id="primary_count"></span></div>
-    <%= f.input :secondary_description, label: "Secondary Description", input_html: {class: "form-control", id: "secondary_textarea"} %>
+    <%= f.input :secondary_description, label: "Long Description", input_html: {class: "form-control", id: "secondary_textarea"} %>
     <div>Character Count: <span id="secondary_count"></span></div>
     <div class="field subcategory">
       <strong>Secondary categories</strong><br>
@@ -27,13 +27,18 @@
 </div>
 
 <script>
-  $("#primary_count").text($("#primary_textarea").val().length);
-  $("#secondary_count").text($("#secondary_textarea").val().length);
-  $("#primary_textarea").keyup(function(){
-    $("#primary_count").text($(this).val().length);
+  const primaryCount = document.querySelector("#primary_count");
+  const primaryTextArea = document.querySelector("#primary_textarea");
+  const secondaryCount = document.querySelector("#secondary_count");
+  const secondaryTextArea = document.querySelector("#secondary_textarea");
+  primaryCount.textContent = primaryTextArea.value.length;
+  secondaryCount.textContent = secondaryTextArea.value.length;
+  primaryTextArea.addEventListener('keyup', () => {
+    primaryCount.textContent = primaryTextArea.value.length;
   });
 
-  $("#secondary_textarea").keyup(function(){
-    $("#secondary_count").text($(this).val().length);
+  secondaryTextArea.addEventListener('keyup', () => {
+    secondaryCount.textContent = secondaryTextArea.value.length;
   });
+
 </script>

@@ -77,7 +77,9 @@
             background: transparent !important;
         }
     </style>
+<% unless params[:controller] == "places" %>
 <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyDk49bKAZAXex-UBN5AbFnvkjlaptQNtiM&amp;libraries=places"></script>
+<% end %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
 	</head>
@@ -107,6 +109,9 @@
       <%= yield %>
     </div>
     <%= render 'layouts/signin_modal' %>
+    <% if controller_name != "registrations" %>
+      <%= render 'layouts/signup_modal' %>
+    <% end %>
     <% if !@no_nav %>
       <%= render "layouts/footer" %>
     <% end %>

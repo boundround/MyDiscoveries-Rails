@@ -13,7 +13,7 @@ window.onload = function(){
     if(latLong.length !== 2){
       latLong = [-33.8688, 151.2093]
     }
-    
+
     $("#pac-input").geocomplete({
       types: ['geocode', 'establishment'],
       map: "#map-canvas",
@@ -73,5 +73,5 @@ function detailsArea(){
   }
 }
 $(document).ready(function() {
-  detailsArea();
+  //detailsArea();
 });

@@ -1,3 +1,4 @@
+<% provide(:title, @offer.name) %>
 <div data-page="offer">
 
 <!-- BEGIN - breadcrumbs -->
@@ -17,7 +18,7 @@
     <div class="hero" style="background: url( <%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat;" >
         <div class="hero-content width-limiter">
             <h2 class="lg-heading"><%= @offer.name %></h2>
-            <span class="info-text">LOCATION</span>
+            <span class="info-text"><!--LOCATION--></span>
             <div class="hc-info">
                 <span class="hci-price">
                     <span>$</span>
@@ -29,6 +30,7 @@
                       <span class="xs-invisible"><%= pluralize((@offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></span>
                   </span>
                 <% end %>
+                <div class="info-text">Per Adult</div>
                 <!-- <span class="hci-people">
                     <span>2</span>
                     <span class="xs-invisible">people</span>
@@ -37,18 +39,7 @@
             </div>
             <a class="btn-bordered red invert" href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>">buy now</a>
             <div class="destination-details">
-
-                  <div class="favourites-wrapper">
-                      <% if user_signed_in? && @offer.users.include?(current_user) %>
-                        <div class="icon-favourite selected" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="true" data-place-id="<%= @offer.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                        <div class="favourites-title hidden-xs">Remove from favourites</div>
-                      <% else %>
-                        <div class="icon-favourite" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="<%= @offer.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                        <div class="favourites-title hidden-xs" >Add to favourites</div>
-                      <% end %>
-
-                  </div>
-              </div>
+            </div>
         </div>
     </div>
 
@@ -67,27 +58,25 @@
                         <div class="poi-content-top">
                             <div class="poict-price">
                                 <span>$</span>
-                                <span class="poict-price-self">1399</span>
+                                <span class="poict-price-self"><%= @offer.minRateAdult %></span>
                             </div>
-                            <div class="poict-valued">Valued up to $3,441</div>
-                            <div class="poict-people">2 Adults</div>
-                            <div class="poict-nights">7 nights</div>
-                            <div class="poict-room">TSHELL room, TS Suites Seminyak</div>
+                            <!-- <div class="poict-valued">Valued up to $3,441</div> -->
+                            <div class="poict-people">per Adult</div>
+                            <div class="poict-nights"><%= @offer.duration / 1000 / 60 / 60 / 24 %> <%= pluralize((@offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></div>
+                            <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
-                            <a href="" class="btn-bordered red small">buy now</a>
+                            <a href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
                         </div>
 
                         <div class="poi-content-bottom">
                             <p>
-                                <span>Inclusions:</span>
-                                Daily all-day breakfasts, a global smorgasbord buffet dinner, daily poolside cocktails,
-                                daily mini-bar treats, four Balinese massages, daily shuttle to Double-Six Beach and
-                                Seminyak Square, nightly tacos at Famous Motel Mexicola, plus more!
+                                <span>Highlights:</span>
+                                <%= simple_format @offer.highlightsStr %>
                             </p>
                         </div>
 
                     </li>
-                    <li class="po-item">
+                    <!-- <li class="po-item">
 
                         <div class="poi-content-top">
                             <div class="poict-price">
@@ -111,10 +100,10 @@
                             </p>
                         </div>
 
-                    </li>
+                    </li> -->
                 </ul>
 
-                <a href="#" class="more-link">see more</a>
+                <!-- <a href="#" class="more-link">see more</a> -->
 
             </div>
 
@@ -138,31 +127,38 @@
                 </div>
                 <div id="product-accordion" class="accordion-block">
 
-                    <h3>highlights</h3>
+                    <h3>Highlights</h3>
                     <div class="highlights">
                         <p><%= simple_format @offer.highlightsStr %></p>
                     </div>
                     <% if @offer.customStr1.present? %>
                       <h3>details</h3>
                       <div class="details">
-                        <% @offer.customStr1 %>
+                        <%= simple_format @offer.customStr1 %>
                       </div>
                     <% end %>
                     <% if @offer.itineraryStr.present? %>
                       <h3 id="ci-itinarary-map-loader">Itinerary</h3>
                       <div class="itinerary">
-                        <%= @offer.itineraryStr %>
+                        <%= simple_format @offer.itineraryStr %>
                       </div>
                     <% end %>
 
                     <% if @offer.customStr2.present? %>
                       <h3>FACILITIES</h3>
                       <div class="FACILITIES">
-                          <%= @offer.customStr2 %>
+                          <%= simple_format @offer.customStr2 %>
                       </div>
                     <% end %>
 
-                    <h3>Reviews &nbsp; (2)</h3>
+                    <% if @offer.includes.present? %>
+                      <h3>INCLUDES</h3>
+                      <div class="includes">
+                          <%= simple_format @offer.includes %>
+                      </div>
+                    <% end %>
+
+                    <!-- <h3>Reviews &nbsp; (2)</h3>
                     <div class="reviews">
                         <div class="heading">Hotel Port Denia Signature Scores 8.2 out of 10 based on 2 reviews</div>
                         <div class="review-block">
@@ -180,9 +176,12 @@
                             <a class="pagination__link" href="#">3</a>
                             <a class="pagination__link-right" href="#"></a>
                         </div>
-                    </div>
+                    </div> -->
                     <% if @offer.customStr3.present? %>
-                      <%= @offer.customStr3 %>
+                      <h3>fine print</h3>
+                      <div class="fint-print">
+                        <%= simple_format @offer.customStr3 %>
+                      </div>
                     <% end %>
 
                     <h3>booking guarantee</h3>

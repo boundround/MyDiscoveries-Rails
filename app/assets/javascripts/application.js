@@ -59,7 +59,7 @@
 //= require blueimp-gallery/blueimp-gallery.min
 //= require blueimp-gallery/blueimp-gallery-video.min
 //= require blueimp-gallery/blueimp-gallery-youtube.min
-//= require blueimp-gallery/blueimp-gallery-vimeo.min
+//= require blueimp-gallery/blueimp-gallery-vimeo
 //= require custom
 //= require trip_advisor
 //= require loading

@@ -120,26 +120,6 @@ class Place < ActiveRecord::Base
       photos.exists?(hero: true) || user_photos.exists?(hero: true)
     end
 
-    attribute :age_range do
-      if minimum_age.present? and maximum_age.present?
-        if minimum_age > 12
-          ["Teens"]
-        elsif minimum_age > 8 && maximum_age < 13
-          ["For Ages 9-12"]
-        elsif minimum_age > 8
-          ["For Ages 9-12", "Teens"]
-        elsif maximum_age < 13
-          ["For Ages 5-8", "For Ages 9-12"]
-        elsif maximum_age < 9
-          ["For Ages 5-8"]
-        else
-          ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
-        end
-      else
-        ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
-      end
-    end
-
     attribute :weather do
       subcategories.where(category_type: 'weather').map{ |sub|  sub.name }
     end
@@ -197,7 +177,6 @@ class Place < ActiveRecord::Base
       'where_destinations',
       'is_area',
       'main_category',
-      'age_range',
       'subcategory',
       'weather',
       'price',
@@ -220,10 +199,6 @@ class Place < ActiveRecord::Base
 
   # reverse_geocoded_by :latitude, :longitude
   # after_validation :reverse_geocode
-
-  after_update :crop_hero_image
-  before_save :check_valid_url, :set_approval_time, :fix_australian_states, :autofill_meta_description
-  after_create :create_bound_round_id
 
   has_paper_trail
 
@@ -287,7 +262,6 @@ class Place < ActiveRecord::Base
 
   has_many :stamps
 
-  has_and_belongs_to_many :attractions
   has_and_belongs_to_many :regions
 
   accepts_nested_attributes_for :photos, allow_destroy: true
@@ -303,8 +277,6 @@ class Place < ActiveRecord::Base
 
   after_update :flush_place_cache # May be able to be removed
   after_update :flush_places_geojson
-
-  before_save :fill_attractions
 
   def published?
     if self.status == "live"
@@ -486,14 +458,6 @@ class Place < ActiveRecord::Base
     end
   end
 
-  def check_valid_url
-    if self.website
-      unless website.match(/^(http:\/\/)/i) || website.match(/^(https:\/\/)/i)
-        website.prepend("http://")
-      end
-    end
-  end
-
   def load_into_soulmate
     if self.status == "live"
       loader = Soulmate::Loader.new("place")
@@ -532,18 +496,7 @@ class Place < ActiveRecord::Base
   end
 
   def slug_candidates
-    unless no_parent_select.eql? "true"
-      country = self.country
-      g_parent = get_parents(self, parents = [])
-      p_display_name = g_parent.collect{ |parent| parent.display_name }
-
-      if p_display_name.blank?
-        ["things to do with kids and families #{self.display_name}", :post_code]
-      else
-        primary_area_display_name = p_display_name.reverse.map {|str| str.downcase }.join(' ')
-        ["things to do with kids and families #{primary_area_display_name} #{self.display_name}", :post_code]
-      end
-    end
+    :display_name
   end
 
   def get_parents(place, parents = [])
@@ -560,10 +513,10 @@ class Place < ActiveRecord::Base
   end
 
   def set_country
-    country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
-    if country
-      self.country_id = country.id
-    end
+    # country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
+    # if country
+    #   self.country_id = country.id
+    # end
   end
 
   def places_to_visits
@@ -580,8 +533,7 @@ class Place < ActiveRecord::Base
   end
 
   def active_user_photos
-    active_user_photos = self.user_photos.active
-    photos = (self.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}
+    photos = self.photos.active.sort {|x, y| x.created_at <=> y.created_at}
 
     return photos
   end
@@ -662,12 +614,6 @@ class Place < ActiveRecord::Base
     body
   end
 
-  def autofill_meta_description
-    if self.description.present? && self.meta_description.blank?
-      self.meta_description = self.description[0..254]
-    end
-  end
-
   def content
     description
   end
@@ -679,27 +625,6 @@ class Place < ActiveRecord::Base
   def children
     list = childrens.select {|child| child.itemable.present?}
     list = list.map { |child| child.itemable }
-  end
-
-  def get_attractions
-    places_list = []
-    queue = self.children
-
-    while !queue.empty?
-    place = queue.shift
-      if place.class.to_s == "Attraction" && place.status == "live"
-        places_list << place
-      end
-      place.children.each do |child|
-        queue << child
-      end
-    end
-    places_list
-  end
-
-  def fill_attractions
-    self.attractions = []
-    self.attractions = self.get_attractions
   end
 
   private

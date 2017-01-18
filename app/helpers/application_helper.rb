@@ -149,10 +149,11 @@ module ApplicationHelper
     base_title = "Bound Round"
     if category.empty?
       if page_title.empty?
-        "Activities, Reviews and Things To Do For Kids: " + base_title
+        "MyDiscoveries: make one day today. Where over 55s can find holidays experiences they've always wanted to do"
+        # "Activities, Reviews and Things To Do For Kids: " + base_title
         #base_title + " | Fun Travel and Activities for Kids"
       else
-        "#{page_title} For Kids: Activities and Reviews"
+        "MyDiscoveries - #{page_title}"
       end
     else
       if category.eql?("beach")
@@ -172,19 +173,7 @@ module ApplicationHelper
   end
 
   def body_title(title= '', category='')
-    if category.empty?
-      if title.empty?
-        "Activities, Reviews and Things To Do For Kids: Bound Round"
-      else
-        title+" : Activities for Kids"
-      end
-    else
-      if category.eql?("beach")
-        title+" : Activities and Reviews"
-      else
-        title
-      end
-    end
+    "MyDiscoveries: make one day today. Where over 55s can find holidays experiences they've always wanted to do"
   end
 
   def meta_description(title='', description='')
