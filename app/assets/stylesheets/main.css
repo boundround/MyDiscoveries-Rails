@@ -10847,28 +10847,39 @@ span.arrow {
 
 .slick-slider .slick-prev {
   position: absolute;
-  left: -40px;
-  background: url("/assets/mydiscoveries_icon/i/slick-arrow-prev.png") 0 0 no-repeat; }
+  left: 0;
+  background: url("/assets/mydiscoveries_icon/i/arrow-right.png") 50% 50% no-repeat;
+  background-size: 100%;
+  transform: rotate(180deg); }
 
 .slick-slider .slick-next {
   position: absolute;
-  right: -40px;
-  background: url("/assets/mydiscoveries_icon/i/slick-arrow-next.png") 0 0 no-repeat; }
+  right: 0;
+  background: url("/assets/mydiscoveries_icon/i/arrow-right.png") 50% 50% no-repeat;
+  background-size: 100%; }
 
 .slick-slider .slick-next, .slick-slider .slick-prev {
   font-size: 0;
   line-height: 0;
   position: absolute;
-  top: 50%;
+  top: 0;
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 100%;
   margin-top: -10px;
   padding: 0;
   cursor: pointer;
   color: transparent;
   border: none;
-  outline: none; }
+  outline: none;
+  z-index: 1;
+  transition: 1s;
+  opacity: 0.5; }
+
+.slick-slider .slick-next:hover, .slick-slider .slick-prev:hover{
+  background-color: rgba(0,0,0,0.5);
+  opacity: 1;
+}
 
 .package-offers p {
   font-family: Larsseit, sans-serif; }
