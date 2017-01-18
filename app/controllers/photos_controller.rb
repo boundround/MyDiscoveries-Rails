@@ -105,7 +105,7 @@ class PhotosController < ApplicationController
 
     if @photo.save
       redirect_to :back, notice: "Photo added."
-      Offer::Shopify::ImagesUpdater.perform_async(params[:offer_id])
+      Offer::Shopify::ImagesUpdater.perform_async(@offer.id)
     else
       render :new
     end
