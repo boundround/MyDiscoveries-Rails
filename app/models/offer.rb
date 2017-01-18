@@ -273,7 +273,7 @@ class Offer < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  scope :active, -> { where(status: "live").where("publishStartDate <= ? AND publishEndDate >= ?", Date.today, Date.today) }
+  scope :active, -> { where(status: "live").where("publishstartdate <= ? AND publishenddate >= ?", Date.today, Date.today) }
 
   belongs_to :attraction
   belongs_to :operator
