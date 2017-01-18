@@ -346,9 +346,9 @@
                           <label for="select2-user_country_id-container">Country</label>
                           <%= f.select(:country, @countries.collect {|c| [ c.display_name, c.country_code ] }) %>
                         </div>
-
-                        <div class="form-group">
-                          <%= f.text_area :description, placeholder: 'e.g. Your interests, places travelled, etc.', label: "About me" %>
+                        <div class="form-group clear">
+                          <%= f.label :description, "About Me" %>
+                          <%= f.text_area :description, placeholder: 'e.g. Your interests, places travelled, etc.' %>
                         </div>
 
                         <div class="form-group user-ava">
