@@ -554,8 +554,7 @@ class Place < ActiveRecord::Base
   end
 
   def active_user_photos
-    active_user_photos = self.user_photos.active
-    photos = (self.photos.active + active_user_photos).sort {|x, y| x.created_at <=> y.created_at}
+    photos = self.photos.active.sort {|x, y| x.created_at <=> y.created_at}
 
     return photos
   end
