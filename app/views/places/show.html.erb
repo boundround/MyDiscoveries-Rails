@@ -45,7 +45,7 @@
                  aria-label="User: <%= story.user.username %>">
             </div>
           </div>
-          <p class="xs-heading"><%= raw story.title.blank? ? story.title : story.title.truncate(65) %></p>
+          <p class="xs-heading"><%= simple_format story.title.blank? ? story.title : story.title.truncate(65) %></p>
           <a href="<%= story_path(story) %>" class="btn-bordered red small">READ MORE</a>
           <span class="label-article">Featured Article</span>
         </li>
@@ -58,10 +58,10 @@
         <%if @place.description.size > 280 %>
           <main>
             <div class="destination-desc " style="display:none;">
-                <%= raw @place.description %>
+                <%= simple_format @place.description %>
             </div>
             <div class="destination-desc">
-                <%= raw @place.description[0..280]+"..." %>
+                <%= simple_format @place.description[0..280]+"..." %>
             </div>
           </main>
           <div>
