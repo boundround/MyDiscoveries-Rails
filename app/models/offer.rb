@@ -105,7 +105,6 @@ class Offer < ActiveRecord::Base
     attributesToIndex [
       'display_name',
       'unordered(description)',
-      'age_range',
       'accessible',
       'subcategories',
       'places',
@@ -122,7 +121,6 @@ class Offer < ActiveRecord::Base
     attributesForFaceting [
       'where_destinations',
       'is_offer',
-      'age_range',
       'subcategory',
       'weather',
       'price',

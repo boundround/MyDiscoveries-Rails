@@ -120,26 +120,6 @@ class Place < ActiveRecord::Base
       photos.exists?(hero: true) || user_photos.exists?(hero: true)
     end
 
-    attribute :age_range do
-      if minimum_age.present? and maximum_age.present?
-        if minimum_age > 12
-          ["Teens"]
-        elsif minimum_age > 8 && maximum_age < 13
-          ["For Ages 9-12"]
-        elsif minimum_age > 8
-          ["For Ages 9-12", "Teens"]
-        elsif maximum_age < 13
-          ["For Ages 5-8", "For Ages 9-12"]
-        elsif maximum_age < 9
-          ["For Ages 5-8"]
-        else
-          ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
-        end
-      else
-        ["For Ages 5-8", "For Ages 9-12", "Teens", "All Ages"]
-      end
-    end
-
     attribute :weather do
       subcategories.where(category_type: 'weather').map{ |sub|  sub.name }
     end
@@ -197,7 +177,6 @@ class Place < ActiveRecord::Base
       'where_destinations',
       'is_area',
       'main_category',
-      'age_range',
       'subcategory',
       'weather',
       'price',
