@@ -62,7 +62,7 @@
                       <% if @story.user.is_private? %>
                         <%= @story.user.username rescue "" %>
                       <% else %>
-                        <%= link_to @story.user.username, public_profile_user_path(@story.user) %>
+                        <%= link_to @story.user.name, public_profile_user_path(@story.user) %>
                       <% end %>
                     </span>
                     <span class="ab-date"><%= @story.publish_date.strftime("%d %B %Y") %></span>
