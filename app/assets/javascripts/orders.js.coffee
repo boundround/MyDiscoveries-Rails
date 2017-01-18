@@ -3,7 +3,8 @@ jQuery ->
   children_price = $('#order_total_price').data('childrenPrice')
   adults_price   = $('#order_total_price').data('adultsPrice')
 
-  $('.js-order-people-count').on 'keyup', (e) ->
+  $('.js-order-people-count').on 'keyup click', (e) ->
+    console.log("sadfjkaldjksfaldfjks")
     recalculate_total_price()
 
   recalculate_total_price = () ->
@@ -12,6 +13,6 @@ jQuery ->
             (parseInt($('#order_number_of_adults').val()) || 0) *   adults_price
 
     $('#order_total_price').val(total)
-    $('.js-order-total-price').html("#{total}$)")
+    $('.js-order-total-price').html("$#{total}")
 
   recalculate_total_price()

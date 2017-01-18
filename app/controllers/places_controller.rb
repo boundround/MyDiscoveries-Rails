@@ -30,108 +30,6 @@ class PlacesController < ApplicationController
     @photo = @place.photos.where(hero: true).first
   end
 
-  def subcategory_match
-    index = Algolia::Index.new("mydiscoveries_#{Rails.env}")
-    @search_string = ""
-    @search = ""
-    @ages = params[:ages].join(" ")
-    @possible_subcategories = nil
-    @id = nil
-    @country = nil
-    @user = nil
-    @search_response = nil
-    @region = params[:region]
-
-    if @ages.include? "0-4"
-      @search_string << "5-8"
-    else
-      @search_string << " #{@ages}"
-    end
-
-
-    case @region
-    when "asia"
-      @id = Place.find 1168
-    when "na"
-      @id = Place.find 1535
-    when "sa"
-      @country = Country.find 133
-    when "eu"
-      @id = Place.find 1177
-    when "me"
-      @id = Place.find 1152
-    when "af"
-      @country = Country.find 87
-    when "tasmania"
-      @id = Attraction.find 545
-    else
-      @search_string << " #{@region}"
-      @search_string << " accessible" if params[:accessibility] == "yes"
-      @possible_subcategories = params[:subcategories]
-      @possible_subcategories = (1..@possible_subcategories.length).flat_map{|size| @possible_subcategories.combination(size).to_a }
-      @search = @search_string + " " + @possible_subcategories.pop.join(' ')
-      @search_response = index.search(@search, restrictSearchableAttributes: "age_range,accessible,parents,subcategories")
-    end
-
-    @search_count = 1
-
-    if @search_response["hits"].size == 0
-      while (@search_count < @possible_subcategories.size) || (@id.blank?)
-        @possible_subcategories.reverse_each do |cats|
-          @new_search = @search_string + " " + cats.join(" ")
-          @search_response = index.search(@new_search, restrictSearchableAttributes: "age_range,parents,accessible,subcategories")
-          @id = Attraction.return_first_place_id_from_search_results(@search_response, @region)
-          if @id
-            break
-          end
-        end
-        @search_count += 1
-      end
-    else
-      @id = Attraction.return_first_place_id_from_search_results(@search_response, @region)
-    end
-
-    if params[:email].present?
-      pass = SecureRandom.base64(10)
-      @user = User.create_with(password: pass, password_confirmation: pass).find_or_create_by(email: params[:email])
-      if !user_signed_in?
-        sign_in(:user, @user)
-      end
-    end
-
-    if @user
-      OneMinuteForm.create!(results: params.to_s, user_id: @user.id)
-    else
-      OneMinuteForm.create(results: params.to_s, user_id: nil)
-    end
-
-    active_campaign = ActiveCampaign.new(
-        api_endpoint: ENV['ACTIVE_CAMPAIGN_ENDPOINT'], # e.g. 'https://yourendpoint.api-us1.com'
-        api_key: ENV['ACTIVE_CAMPAIGN_KEY'])
-
-    active_campaign.contact_add(
-      email: params[:email],
-      'field[%MY_KIDS_ARE_CHECK_ALL_THAT_APPLY%,0]' => params[:ages].to_s,
-      'field[%I_LIVE_IN_ONLY_ONE_OPTION_POSSIBLE%,0]' => params[:region],
-      'field[%FAMILY_INTEREST_1%,0]' => params[:subcategories][0],
-      'field[%FAMILY_INTEREST_2%,0]' => params[:subcategories][1],
-      'field[%FAMILY_INTEREST_3%,0]' => params[:subcategories][2],
-      'field[%DOES_YOUR_FAMILY_HAVE_ACCESSIBILITY_NEEDS_TO_BE_CONSIDERED%,0]' => params[:accessiblity],
-      'p[4]' => 4)
-
-
-    if @country
-      redirect_to country_path(@country, modal: "true")
-    else
-      if @id
-        @place = Place.find(@id)
-        redirect_to place_path(@place, modal: "true")
-      else
-        redirect_to @search_response["hits"][0]["url"] + "?modal=true"
-      end
-    end
-  end
-
   def places_with_subcategories
     @places = Place.active.includes(:subcategories)
     @subcategories = Subcategory.all.order(category_type: :asc)
@@ -278,7 +176,7 @@ class PlacesController < ApplicationController
     @deals = @place.deals.active
     @offers = @place.offers.paginate(page: params[:offers_page], per_page: 3)
     @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
-    @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 3)
+    @photos = @place.active_user_photos
     @photos_hero = @photos.first(6)
     @map_marker = @place.markers
     @review = @place.reviews.build
