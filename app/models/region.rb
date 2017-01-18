@@ -9,7 +9,7 @@ class Region < ActiveRecord::Base
 
   algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id do
     # list of attribute used to build an Algolia record
-    attributes :ame,
+    attributes :display_name,
                :slug,
                :description,
                :latitude,
