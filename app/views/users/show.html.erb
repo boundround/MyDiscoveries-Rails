@@ -331,7 +331,8 @@
                         </div>
 
                         <div class="form-group sm">
-                          <%= f.input :country, collection: @countries.collect {|c| [ c.display_name, c.country_code ] }.insert(0, ["Australia", "AU"]), selected: @user.country.blank? ? 'AU' : @user.country %>
+                          <%#= f.input :country, collection: @countries.collect {|c| [ c.display_name, c.country_code ] }.insert(0, ["Australia", "AU"]), selected: @user.country.blank? ? 'AU' : @user.country %>
+                          <%= country_select("user", "country", priority_countries: ["AU"]) %>
                         </div>
 
                         <div class="form-group">
