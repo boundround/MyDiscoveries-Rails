@@ -3,6 +3,21 @@
     <%= render "/offers/admin_tabs" %>
     <h2>Edit <%= @offer.name + ' (ID: ' + @offer.id.to_s + ')' %></h2>
   <%= simple_form_for @offer, html: { role: 'form'} do |f| %>
+    <div class="row">
+      <div class="col-md-6">
+        <p><input id="pac-input" class="controls form-control" type="text"
+            placeholder="Search For A Place">Geometry: <span id="latitude"><%= @offer.latitudeStart %></span>, <span id="longitude"><%= @offer.longitudeStart %></span></p>
+        <div id="map-canvas" style="height:500px;"></div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group lat-lng">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6"><%= f.input :latitudeStart, label: "Latitude Start", :input_html => { "data-geo" => "lat", class: 'form-control' } %></div>
+            <div class="col-xs-12 col-sm-6"><%= f.input :longitudeStart, label: "Longitude Start", :input_html => { "data-geo" => "lng", class: 'form-control' } %></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="form-group">
       <%= f.association :operator,
         label_method: :display_name,
@@ -70,12 +85,6 @@
     </div>
     <div class="form-group">
       <%= f.input :locationStart, as: :string, label: 'Location Start', input_html: { class: 'width100' } %>
-    </div>
-    <div class="form-group">
-      <%= f.input :latitudeStart, as: :decimal, label: 'Latittude Start', input_html: { class: 'width100' } %>
-    </div>
-    <div class="form-group">
-      <%= f.input :longitudeStart, as: :decimal, label: 'Longitude Start', input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
       <%= f.input :distanceStartToRef, as: :integer, label: 'Distance Start To Ref', input_html: { class: 'width100' } %>
