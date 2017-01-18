@@ -9,7 +9,7 @@ class Region < ActiveRecord::Base
 
   algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id do
     # list of attribute used to build an Algolia record
-    attributes :display_name,
+    attributes :ame,
                :slug,
                :description,
                :latitude,
@@ -58,7 +58,7 @@ class Region < ActiveRecord::Base
     end
 
     attribute :parents do
-      self.get_parents(self).map {|region| region.display_name rescue ''} unless !self.run_rake.blank? || (no_parent_select.eql? "true")
+      self.get_parents(self).map {|region| region.ame rescue ''} unless !self.run_rake.blank? || (no_parent_select.eql? "true")
     end
 
     attribute :result_type do
@@ -82,7 +82,7 @@ class Region < ActiveRecord::Base
     end
 
     attributesToIndex [
-      'display_name',
+      'ame',
       'unordered(description)',
       'age_range',
       'accessible',
@@ -151,7 +151,7 @@ class Region < ActiveRecord::Base
   end
 
   def slug_candidates
-    :display_name_changed
+    :display_name
   end
 
   def should_generate_new_friendly_id?
