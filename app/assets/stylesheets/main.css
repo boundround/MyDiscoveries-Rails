@@ -12787,7 +12787,7 @@ td a.ui-state-default.ui-state-hover {
     overflow: hidden; }
     .featured-articles li .fa-img-block img {
       width: 100%;
-      height: auto; }
+      height: 100%; }
   .featured-articles li .xs-heading, .featured-articles .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading, .package-offers .package-offers-block ul .featured-articles li a .po-content-wrapper .po-content-block .xs-heading, .featured-articles li .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading, .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content .featured-articles li p.xs-heading {
     color: #000060; }
   .featured-articles li .label-article {
