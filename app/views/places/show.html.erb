@@ -55,14 +55,24 @@
     <section>
       <div class="main-article">
         <h2 class="lg-heading"><%= @place.try(:description_heading) %></h2>
-        <p class="destination-desc " style="display:none;">
-            <%= raw @place.description %>
-        </p>
-        <p class="destination-desc">
-            <%= raw @place.description[0..280]+"..." %>
-        </p>
-        <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
-        <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+        <%if @place.description.size > 280 %>
+          <main>
+            <div class="destination-desc " style="display:none;">
+                <%= raw @place.description %>
+            </div>
+            <div class="destination-desc">
+                <%= raw @place.description[0..280]+"..." %>
+            </div>
+          </main>
+          <div>
+            <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
+            <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+          </div>
+        <% else %>
+          <div class="destination-desc ">
+              <%= raw @place.description %>
+          </div>
+        <% end %>
       </div>
       <% if @offers.present? %>
         <div id="offers" class="top-holidays">
