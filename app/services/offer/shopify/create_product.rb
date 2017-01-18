@@ -13,7 +13,7 @@ class Offer::Shopify::CreateProduct
     product.variants     = decorated_offer.variants
 
     if product.save
-      offer.update(shopify_product_id: product.id)
+      offer.update_column(:shopify_product_id, product.id)
       save_images
     end
 
