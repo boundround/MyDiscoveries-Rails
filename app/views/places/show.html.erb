@@ -40,7 +40,7 @@
         <li>
           <div class="fa-img-block">
             <div class="user-dp"
-                 style="background: url(<%= showing_image(story.hero_image_url)%>) no-repeat;"
+                 style="background: url(<%= showing_image(story.hero_image_url) rescue ""%>) no-repeat;"
                  role="img"
                  aria-label="User: <%= story.user.username %>">
             </div>
@@ -85,8 +85,8 @@
 
       <div class="map-block hidden-sm">
         <h3 class="sm-heading lars">Map of <%= @place.display_name %></h3>
-        <div id='dest-map' data-map="<%= create_marker @place %>" ></div>
-        <script async defer  src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAqfBj1CzMc-sshEJHETwDKtGTAlQA2pcM'></script>
+        <div id='dest-map' data-zoom="<%= @place.zoom_level %>" data-map="<%= create_marker @place %>" ></div>
+        <!-- <script async defer  src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAqfBj1CzMc-sshEJHETwDKtGTAlQA2pcM'></script> -->
       </div>
       <div class="key-info">
                 <h3 class="sm-heading lars">Key Travel Information</h3>

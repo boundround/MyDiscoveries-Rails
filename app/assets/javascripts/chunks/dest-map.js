@@ -2,9 +2,14 @@ google.maps.event.addDomListener(window, 'load', init);
 var map;
 
 function init() {
+    var mapElement = document.getElementById('dest-map');
+    var locations = JSON.parse(mapElement.getAttribute("data-map"));
+    var lat_first = locations[0][5];
+    var lng_first = locations[0][6];
+    var zoom_level = JSON.parse(mapElement.getAttribute("data-zoom"));
     var mapOptions = {
-        center: new google.maps.LatLng(-23.268748, 133.952527),
-        zoom: 4,
+        center: new google.maps.LatLng(lat_first, lng_first),
+        zoom: zoom_level,
         zoomControl: true,
         zoomControlOptions: {
             style: google.maps.ZoomControlStyle.DEFAULT,
@@ -26,10 +31,7 @@ function init() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var title, description, telephone, email, web, lat, lng, markericon, marker, link;
-    var mapElement = document.getElementById('dest-map');
     var map = new google.maps.Map(mapElement, mapOptions);
-    console.log(mapElement.getAttribute("data-map"))
-    var locations = JSON.parse(mapElement.getAttribute("data-map"));
 
     for (var i = 0; i < locations.length; i++) {
         if (locations[i][0] == '') { title = ''; } else { title = locations[i][0]; }
