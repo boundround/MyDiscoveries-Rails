@@ -6,10 +6,14 @@ function init() {
     var locations = JSON.parse(mapElement.getAttribute("data-map"));
     var lat_first = locations[0][5];
     var lng_first = locations[0][6];
-    var zoom_level = JSON.parse(mapElement.getAttribute("data-zoom"));
+    if(mapElement.getAttribute("data-zoom") == ""){
+        var zoom_level = 4;
+    }else{
+        var zoom_level = JSON.parse(mapElement.getAttribute("data-zoom"));
+    }
     var mapOptions = {
         center: new google.maps.LatLng(lat_first, lng_first),
-        zoom: zoom_level,
+        zoom: 4,
         zoomControl: true,
         zoomControlOptions: {
             style: google.maps.ZoomControlStyle.DEFAULT,
