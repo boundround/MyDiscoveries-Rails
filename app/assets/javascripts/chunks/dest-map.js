@@ -14,7 +14,7 @@ function init() {
     var mapOptions = {
         center: new google.maps.LatLng(lat_first, lng_first),
         zoom: 4,
-        zoomControl: true,
+        zoomControl: false,
         zoomControlOptions: {
             style: google.maps.ZoomControlStyle.DEFAULT,
         },
@@ -24,7 +24,7 @@ function init() {
             style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
         },
         scaleControl: true,
-        scrollwheel: true,
+        scrollwheel: false,
         panControl: true,
         streetViewControl: true,
         draggable: true,
