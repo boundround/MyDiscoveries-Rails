@@ -12695,6 +12695,8 @@ td a.ui-state-default.ui-state-hover {
       padding-left: 20px;
       padding-right: 20px;
       border-top: 1px solid #f4efed; }
+    .story .story-content-block section p span{
+    font-size: inherit !important; }
       @media screen and (min-width: 1201px) {
         .story .story-content-block section {
           padding-left: 30px;
