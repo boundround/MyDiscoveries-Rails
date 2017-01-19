@@ -14,6 +14,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
 
   process :fix_exif_rotation
+  process :quality => 70
 
   # Create different versions of your uploaded files:
   version :thumb do

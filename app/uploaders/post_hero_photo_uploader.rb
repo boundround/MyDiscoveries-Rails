@@ -14,6 +14,7 @@ class PostHeroPhotoUploader < CarrierWave::Uploader::Base
   end
 
   process :auto_orient
+  process :quality => 70
 
   # Process files as they are uploaded:
   process :resize_to_fit => [1400, 1400]
