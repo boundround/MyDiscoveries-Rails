@@ -11529,14 +11529,14 @@ span.arrow {
   .product .product-content section .country-info .accordion-block.ui-accordion p {
     font-size: 16px; }
   .product .product-content section .country-info .accordion-block.ui-accordion ul {
-    list-style: none; }
+    margin-left: 15px; }
     .product .product-content section .country-info .accordion-block.ui-accordion ul.d-list li {
       padding-left: 30px;
       background-size: auto 15px;
       background-repeat: no-repeat;
       background-image: url("/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg"); }
     .product .product-content section .country-info .accordion-block.ui-accordion ul li {
-      display: block;
+      /*display: block;*/
       font-family: Larsseit-Light, sans-serif;
       font-size: 16px; }
   .product .product-content section .country-info .accordion-block.ui-accordion .itinerary h4 {
