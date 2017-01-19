@@ -47,7 +47,7 @@
     '<div class="point-card js-point-card" style="opacity: 1; transform: translate3d(0px, 0px, 0px);">',
       '<h3 class="point-card__header">{{= it.country }}</h3>',
       '<h4 class="point-card__local-header">{{= it.point }}</h4>',
-      '<p class="point-card__local-description">{{= it.description }}</p>',
+      '<div class="point-card__local-description">{{= it.description }}</div>',
       '<div class="scroll-area">',
           '<div class="scroll-area__swiper-container swiper-container swiper-container-vertical swiper-container-free-mode">',
               '<div class="scroll-area__content swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">',
@@ -312,36 +312,19 @@
                 optimized: false,
                 title: pointData.point
             });
+
         google.maps.event.addDomListener(marker, 'mouseover', function (event) {
+       
             marker.set('icon', pointData.preview);
-            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
-            resetStyle(true)
-            win.util.waitFor(function () {
-                return $('img[src="' + pointData.preview + '"]', mapNode).length;
-            }).then(function () {
-                $('img[src="' + pointData.preview + '"]', mapNode).each(function () {
-                    var $parent = $(this).parent();
-                    $parent.addClass('hover');
-                    if ($parent.find('.region-map-point__title').length) {
-                        return;
-                    }
-                    $parent.append('<span class="region-map-point__title">' + pointData.point + '</span>');
-                });
-            }).catch(function (e) {
-                console.log('can not load img');
-            });
 
-            $('img[src="' + pointData.preview + '"]').parent().each(function () {
-                $(this).css({
-                    'background-image': 'url(' + pointData.preview + ')',
-                    'background-size' : 'cover'
-                })
-            });
+            var $parent = $('.image-marker:contains("' + pointData.point + '")').parent();
 
-            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').css({
-               'border':'4px solid #fff !important'
+            if(!$('img[src="' + pointData.preview + '"]').siblings().hasClass('image-marker')){
+                $('img[src="' + pointData.preview + '"]').parent().append('<div class="image-marker" style="background-image: url('+ pointData.preview +')">' + pointData.point + '</div>')
+            }
 
-            })
+            $parent.addClass('hover')
+
         });
 
         google.maps.event.addDomListener(marker, 'mouseout', function () {
@@ -350,6 +333,7 @@
             if ($imgs.parent().hasClass('map-point-clicked')) {
                 return;
             }
+            var $parent = $('img[src="' + pointData.preview + '"]').parent();
             marker.set('icon', pathToMapPoint);
 
             resetStyle(true);
@@ -358,14 +342,8 @@
                 return;
             }
 
-            $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
+            $parent.removeClass('hover')
 
-            $('img[src="' + pointData.preview + '"]').parent().each(function () {
-                $(this).addClass('img-circle').removeClass('hover').css({
-                    'background-image': 'url(' + pointData.preview + ')',
-                    'background-size' : 'cover'
-                })
-            });
 
         });
 
@@ -377,20 +355,18 @@
 
             regionMap.showCard(marker.title);
 
-            $('img[src="' + pointData.preview + '"]').parent().each(function () {
-                $(this).addClass('map-point-clicked img-circle').css({
-                    'background-image': 'url(' + pointData.preview + ')',
-                    'background-size' : 'cover'
-                })
-            });
+            var $parent = $('img[src="' + pointData.preview + '"]').parent();
 
-             $('.google-promo-map .map-point-clicked.img-circle:not(.gmnoprint)').css({
-                'border-color':'#6cb7ca'
-             })
+            if(!$('img[src="' + pointData.preview + '"]').siblings().hasClass('image-marker')){
+                $('img[src="' + pointData.preview + '"]').parent().append('<div class="image-marker" style="background-image: url('+ pointData.preview +')">' + pointData.point + '</div>')
+            }
 
-            $('a.point-card__close.js-point-card__close').click(function(){
-                $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
-            })
+            $('.gm-style div').removeClass('marker-clicked map-point-clicked hover')
+            if($('.marker-clicked').length == 0){
+                setTimeout(function(){
+                    $parent.addClass('marker-clicked map-point-clicked')
+                }, 100)
+            }
 
         });
 
@@ -399,6 +375,13 @@
         return marker;
 
     };
+
+    $('.js-google-promo-map').click(function(){
+        if($('.marker-clicked').length != 0 || $('.hover').length != 0){
+            $('.gm-style div').removeClass('marker-clicked map-point-clicked')
+            $('.gm-style div').removeClass('hover')
+        }
+    })
 
     RegionMap.prototype._addMarkers = function () {
 
@@ -414,9 +397,6 @@
         new RegionMap();
     };
 
-    $('.js-google-promo-map').click(function(){
-        $('.google-promo-map .img-circle:not(.gmnoprint), .google-promo-map .img-circle').removeClass('hover');
-    })
 
     function resetStyle(reset){
         if(reset){
