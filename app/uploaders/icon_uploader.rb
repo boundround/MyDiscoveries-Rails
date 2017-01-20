@@ -21,4 +21,23 @@ class IconUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg gif png svg)
   end
+
+  def filename
+    "#{secure_token}.#{file.extension}" if original_filename.present?
+  end
+
+  # Rotates the image based on the EXIF Orientation
+  def fix_exif_rotation
+    manipulate! do |img|
+      img.auto_orient
+      img = yield(img) if block_given?
+      img
+    end
+  end
+
+  protected
+  def secure_token
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+  end
 end
