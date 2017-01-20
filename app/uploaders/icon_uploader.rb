@@ -23,7 +23,7 @@ class IconUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-    "#{original_filename}-#{secure_token}.#{file.extension}" if original_filename.present?
+    "#{model.name}-#{secure_token}.#{file.extension}" if original_filename.present?
   end
 
   # Rotates the image based on the EXIF Orientation
