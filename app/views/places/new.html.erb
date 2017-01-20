@@ -98,6 +98,7 @@
           <%= f.input :status, as: :select, collection: ["draft", "edited", "live", "removed"] %>
         </div>
       <% end %>
+      <div><%= f.check_box :is_country, label: false %>  <%= f.label :is_country, "Is Country?" %></div>
       <div class="form-group">
         <%= f.button :submit, 'Submit' %>
       </div>
