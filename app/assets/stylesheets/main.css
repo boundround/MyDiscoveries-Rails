@@ -12640,6 +12640,12 @@ td a.ui-state-default.ui-state-hover {
     .story .story-content-block aside {
       background-color: #f4efed;
       padding-top: 30px; }
+    .story .story-content-block .medium-insert-images figure figcaption, 
+    .story .story-content-block .mediumInsert figure figcaption, 
+    .story .story-content-block .medium-insert-embeds figure figcaption, 
+    .story .story-content-block .mediumInsert-embeds figure figcaption{
+      color: #7b7b7b;
+    }
       @media screen and (min-width: 1201px) {
         .story .story-content-block aside {
           float: left;
@@ -12689,10 +12695,12 @@ td a.ui-state-default.ui-state-hover {
       padding-left: 20px;
       padding-right: 20px;
       border-top: 1px solid #f4efed; }
+    .story .story-content-block section p span{
+    font-size: inherit !important; }
       @media screen and (min-width: 1201px) {
         .story .story-content-block section {
           padding-left: 30px;
-          padding-right: 0;
+          padding-right: 30px;
           float: left;
           display: block;
           margin-right: 2.35765%;
