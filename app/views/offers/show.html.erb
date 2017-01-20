@@ -17,6 +17,11 @@
     <!-- <div class="hero" style="background: url(<%= main_offer_photo_url(@offer)[:url] %>) center no-repeat;" > -->
     <div class="hero" style="background: url( <%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat;" >
         <div class="hero-content width-limiter">
+            <div class="location" style="margin-top: -15px;">
+              <% if user_signed_in? and current_user.admin? %>
+                <p align="center"><%= link_to "Edit Offer", edit_offer_path(@offer) %></p>
+              <% end %>
+            </div>
             <h2 class="lg-heading"><%= @offer.name %></h2>
             <span class="info-text"><!--LOCATION--></span>
             <div class="hc-info">
