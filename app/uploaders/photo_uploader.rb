@@ -44,7 +44,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   def filename
     if original_filename.present? && model.photoable.present?
       "#{model.photoable.display_name.parameterize}-#{secure_token}.#{file.extension}"
-    else
+    elsif original_filename.present? && model.photoable.blank?
       "mydiscoveries-#{secure_token}.#{file.extension}"
     end
   end
