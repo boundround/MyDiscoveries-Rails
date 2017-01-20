@@ -35,11 +35,41 @@
     <div class="form-group">
       <%= f.input :description, label: 'Offer Description', as: :text, input_html: { class: 'width100' } %>
     </div>
-    <div class="form-group">
-      <%= f.input :startDate, label: 'Start Date', as: :date, input_html: { class: 'width100' } %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+          <%= f.input :startDate, label: 'Trip Start Date', as: :date, input_html: { class: '' } %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+          <%= f.input :endDate, label: 'Trip End Date', as: :date, input_html: { class: '' } %>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <%= f.input :endDate, label: 'End Date', as: :date, input_html: { class: 'width100' } %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+          <%= f.input :validityStartDate, label: 'Validity Start Date', as: :date, input_html: { class: '' } %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+          <%= f.input :validityEndDate, label: 'Validity End Date', as: :date, input_html: { class: '' } %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+          <%= f.input :publishstartdate, label: 'Publish Start Date', as: :date, input_html: { class: '' } %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+          <%= f.input :publishenddate, label: 'Publish End Date', as: :date, input_html: { class: '' } %>
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <%= f.input :minRateAdult, as: :integer, label: 'Min Rate Adult', input_html: { class: 'width100' } %>

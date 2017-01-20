@@ -184,6 +184,10 @@ class OffersController < ApplicationController
       :livn_product_id,
       :startDate,
       :endDate,
+      :validityStartDate,
+      :validityEndDate,
+      :publishStartDate,
+      :publishEndDate,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
