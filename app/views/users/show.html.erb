@@ -73,7 +73,7 @@
 
                       <div class="search-page-card__info-side search-page-card__info-side--left">
                           <h3 class="search-page-card__header"><%= order.title %></h3>
-                          <p class="search-page-card__country"><%= order.offer.countries.first.display_name %></p>
+                          <p class="search-page-card__country"><%=  %></p>
                           <img src="<%= draw_small_background(order.offer) %>" class="search-page-card__image" alt="">
                           <span class="search-page-card__more-info mobile-only js-show-more-card-info">more info</span>
                           <p class="search-page-card__image-description"></p>
@@ -263,7 +263,7 @@
                     <div class="up-mc-tabs-item up-mc-stories" id="up-mc-stories">
 
                         <div class="up-mc-tabs-header">
-                            <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodMauris</p>
+                            <p>We love traveller’s tales. Share yours to unlock holiday discounts.</p>
                             <a href="<%= new_story_path %>" class="btn-bordered red small invert">share a story</a>
                         </div>
                         <ul class="up-mc-stories-content">
@@ -314,15 +314,19 @@
                         </div>
 
                         <div class="form-group sm">
-                          <%= f.input :name, placeholder: 'Name', label: "Name" %>
+                          <%= f.input :name, placeholder: 'Name', label: "Your Name Displays As" %>
+                        </div>
+
+                        <div class="form-group sm">
+                          <%= f.input :first_name, placeholder: 'First Name', label: "First Name" %>
+                        </div>
+
+                        <div class="form-group sm">
+                          <%= f.input :last_name, placeholder: 'Last Name', label: "Last Name" %>
                         </div>
 
                         <div class="form-group sm">
                           <%= f.input :email, type: 'email', placeholder: 'your@mail.com', label: "Email" %>
-                        </div>
-
-                        <div class="form-group sm">
-                          <%= f.input :mobile, placeholder: '+61', label: "Mobile" %>
                         </div>
 
                         <div class="form-group sm">
@@ -331,12 +335,20 @@
                         </div>
 
                         <div class="form-group sm">
-                          <label for="select2-user_country_id-container">Country</label>
-                          <%= f.select(:country, @countries.collect {|c| [ c.display_name, c.country_code ] }) %>
+                          <%= f.input :home_phone, placeholder: 'Home phone (+61)', label: "Home Phone" %>
                         </div>
 
-                        <div class="form-group">
-                          <%= f.text_area :description, placeholder: 'e.g. Your interests, places travelled, etc.', label: "About me" %>
+                        <div class="form-group sm">
+                          <%= f.input :mobile, placeholder: 'Mobile phone (+61)', label: "Mobile" %>
+                        </div>
+
+                        <div class="form-group sm">
+                          <label for="select2-user_country_id-container">Country</label>
+                          <%= country_select("user", "country", priority_countries: ["AU"]) %>
+                        </div>
+                        <div class="form-group clear">
+                          <%= f.label :description, "About Me" %>
+                          <%= f.text_area :description, placeholder: 'e.g. Your interests, places travelled, etc.' %>
                         </div>
 
                         <div class="form-group user-ava">

@@ -29,32 +29,6 @@
               <h1><%= @place.display_name %></h1>
               <div class="destination-details">
 
-                  <div class="favourites-wrapper">
-                      <% if user_signed_in? && @place.users.include?(current_user) %>
-                        <div class="icon-favourite selected" id="favouriteType" data-post-path="countries_users" data-klass="place" data-liked="true" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                        <div class="favourites-title hidden-xs">Remove from favourites</div>
-                      <% else %>
-                        <div class="icon-favourite" id="favouriteType" data-post-path="countries_users" data-klass="place" data-liked="false" data-place-id="<%= @place.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-                        <div class="favourites-title hidden-xs" >Add to favourites</div>
-                      <% end %>
-
-                  </div>
-                  <a data-scroll href="#photos" class="white">
-                    <div class="photo-wrapper">
-                        <img class="svg-inject" src="/assets/new-images/icon-camera.svg"/>
-
-                        <div class="photo-title"><span class="count"> <%= @place.photos.size %></span> <span class="hidden-xs">Photos</span>
-                        </div>
-                    </div>
-                  </a>
-                  <a data-scroll href="#videos" class="white">
-                    <div class="video-wrapper">
-                        <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
-
-                        <div class="video-title"><span class="count"><%= @place.videos.size %></span><span class="hidden-xs"> Videos</span>
-                        </div>
-                    </div>
-                  </a>
               </div>
           </div>
       </div>
@@ -69,12 +43,12 @@
         <li>
           <div class="fa-img-block">
             <div class="user-dp"
-                 style="background: url(<%= showing_image(story.user.avatar_url)%>) no-repeat;"
+                 style="background: url(<%= showing_image(story.hero_image_url) rescue ""%>) no-repeat;"
                  role="img"
                  aria-label="User: <%= story.user.username %>">
             </div>
           </div>
-          <p class="xs-heading"><%= raw story.title.blank? ? story.title : story.title.truncate(65) %></p>
+          <p class="xs-heading"><%= simple_format story.title.blank? ? story.title : story.title.truncate(65) %></p>
           <a href="<%= story_path(story) %>" class="btn-bordered red small">READ MORE</a>
           <span class="label-article">Featured Article</span>
         </li>
@@ -83,20 +57,30 @@
     </aside>
     <section>
       <div class="main-article">
-        <h2 class="lg-heading"><%= @place.display_name %></h2>
-        <p class="destination-desc " style="display:none;">
-            <%= raw @place.description %>
-        </p>
-        <p class="destination-desc">
-            <%= raw @place.description[0..280]+"..." %>
-        </p>
-        <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
-        <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+        <h2 class="lg-heading"><%= @place.try(:description_heading) %></h2>
+        <%if @place.description.size > 280 %>
+          <main>
+            <div class="destination-desc " style="display:none;">
+                <%= simple_format @place.description %>
+            </div>
+            <div class="destination-desc">
+                <%= simple_format @place.description[0..280]+"..." %>
+            </div>
+          </main>
+          <div>
+            <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
+            <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+          </div>
+        <% else %>
+          <div class="destination-desc ">
+              <%= raw @place.description %>
+          </div>
+        <% end %>
       </div>
       <% if @offers.present? %>
         <div id="offers" class="top-holidays">
           <h3 class="sm-heading lars">Top <%= @place.display_name %> Holidays</h3>
-          <ul id="offers-list"> 
+          <ul id="offers-list">
             <%= render partial: 'offers/all_offers', collection: @offers, as: :offer %>
           </ul>
           <% unless last_page? @offers %>
@@ -112,10 +96,10 @@
         </div>
       <% end %>
 
-      <div class="map-block">
+      <div class="map-block hidden-sm">
         <h3 class="sm-heading lars">Map of <%= @place.display_name %></h3>
-        <div id='dest-map' data-map="<%= create_marker @map_marker %>" ></div>
-        <script async defer  src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAqfBj1CzMc-sshEJHETwDKtGTAlQA2pcM&callback=initMap'></script>
+        <div id='dest-map' data-zoom="<%= @place.zoom_level %>" data-map="<%= create_marker @place %>" ></div>
+        <!-- <script async defer  src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAqfBj1CzMc-sshEJHETwDKtGTAlQA2pcM'></script> -->
       </div>
       <div class="key-info">
                 <h3 class="sm-heading lars">Key Travel Information</h3>
@@ -157,64 +141,71 @@
             </div>
 
           <% unless @videos.blank? %>
-          <div class="videos-block">
-                <h3 class="sm-heading lars">Videos & Photos</h3>
-      <% if !@last_video.youtube_id.blank? %>
-    <div id="videos" class="large-video-component-wrapper play-in-modal"
-         style="background: url(<%= @last_video.vimeo_thumbnail %>) no-repeat;"
-         role="img"
-         data-id="<%= @last_video.youtube_id %>"
-         data-video="youtube"
-         data-modal="#video-modal"
-         data-video-url="<%= @last_video.url %>"
-         aria-label="Kids View: Things to do in Sydney"
-         data-thumb="<%= @last_video.vimeo_thumbnail %>" >
-        <div class="overlay"></div>
-          <div class="kids-view-wrapper">
-              <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
+            <div class="videos-block">
+              <h3 class="sm-heading lars">Videos & Photos</h3>
+              <% if !@last_video.youtube_id.blank? %>
+                <div id="videos" class="large-video-component-wrapper play-in-modal"
+                  style="background: url(<%= @last_video.vimeo_thumbnail %>) no-repeat;"
+                  role="img"
+                  data-id="<%= @last_video.youtube_id %>"
+                  data-video="youtube"
+                  data-modal="#video-modal"
+                  data-video-url="<%= @last_video.url %>"
+                  aria-label="Kids View: Things to do in Sydney"
+                  data-thumb="<%= @last_video.vimeo_thumbnail %>" >
 
-              <div class="kids-view"><%= @last_video.title %></div>
+                  <div class="overlay"></div>
+                  <div class="kids-view-wrapper">
+                    <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
+                    <div class="kids-view"><%= @last_video.title %></div>
+                  </div>
+                  <div class="main-play-icon-wrapper">
+                    <div class="main-play-icon"></div>
+                  </div>
+                </div>
+              <% else %>
+                <div id="videos" class="large-video-component-wrapper play-in-modal"
+                style="background: url(<%= @last_video.vimeo_thumbnail %>) no-repeat;"
+                role="img"
+                data-id="<%= @last_video.vimeo_id %>"
+                data-video="vimeo"
+                data-modal="#video-modal"
+                data-video-url="<%= @last_video.url %>"
+                aria-label="Kids View: Things to do in Sydney"
+                data-thumb="<%= @last_video.vimeo_thumbnail %>">
+
+                <div class="overlay"></div>
+                <div class="kids-view-wrapper">
+                  <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
+                  <div class="kids-view"><%= @last_video.title %></div>
+                </div>
+                <div class="main-play-icon-wrapper">
+                  <div class="main-play-icon"></div>
+                </div>
+              </div>
+            <% end %>
           </div>
-        <div class="main-play-icon-wrapper">
-            <div class="main-play-icon"></div>
-        </div>
+          <% end %>
+          <h3 class="sm-heading lars">Gallery</h3>
+          <% unless @photos.blank? %>
+          <div class="gallery">
+              <div class="slider-mobile-wrapper">
+                  <div class="slider-for">
+                      <% @photos.each do |photo| %>
+                          <div><img src="<%= photo.path_url(:large) %>" alt="" width="100%"></div>
+                      <% end %>
+                  </div>
+              </div>
+              <div class="slider-nav xs-invisible">
+                  <% @photos.each do |photo| %>
+                      <div><img src="<%= photo.path(:large) %>" alt="" width="100%"   ></div>
+                  <% end %>
+              </div>
+          </div>
+          <% end %>
+        </section>
       </div>
-  <% else %>
-    <div id="videos" class="large-video-component-wrapper play-in-modal"
-         style="background: url(<%= @last_video.vimeo_thumbnail %>) no-repeat;"
-         role="img"
-         data-id="<%= @last_video.vimeo_id %>"
-         data-video="vimeo"
-         data-modal="#video-modal"
-         data-video-url="<%= @last_video.url %>"
-         aria-label="Kids View: Things to do in Sydney"
-         data-thumb="<%= @last_video.vimeo_thumbnail %>">
-          <div class="overlay"></div>
-            <div class="kids-view-wrapper">
-                <img class="svg-inject" src="/assets/new-images/icon-play-rect-unfilled.svg">
-                <div class="kids-view"><%= @last_video.title %></div>
-            </div>
-        <div class="main-play-icon-wrapper">
-            <div class="main-play-icon"></div>
-        </div>
     </div>
-    <% end %>
-    <%= render partial: "shared/videos_list", locals:{container: "" } %>
-    <div id="photos">
-      <%= render partial: "shared/photos_list", as: :photos, locals:{container: ""} %>
-    </div>
-    </div>
-  <% end %>
-    </section>
-  </div>
-</div>
-
-
-
-
-
-
-
   </div>
 
 <%= render 'layouts/all_modal' %>

@@ -14,9 +14,8 @@ class PagesController < ApplicationController
     @category3 = @subcategories[2]
     @category4 = @subcategories[3]
     @offers = Offer.all.paginate(per_page: 3, page: params[:offers_page])
-    @all_posts = Post.all_active_posts
     @all_stories = Story.all_active_stories
-    @stories = (@all_posts + @all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
+    @stories = (@all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
     @stories = @stories.paginate(page: params[:stories_page], per_page: 3)
     @areas = Place.home_page_areas.paginate(page: params[:areas_page], per_page: 3)
 

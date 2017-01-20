@@ -1,50 +1,42 @@
 class Offer::Shopify::CreateProduct
   include Service
 
-  AGE_TYPES = ['Adult', 'Child', 'Infant']
-
   initialize_with_parameter_assignment :offer
 
   def call
-    product              = ShopifyAPI::Product.new
-    product.title        = offer.name
-    product.body_html    = offer.highlightsStr
-    product.vendor       = offer.livn_product_id? ? 'LIVN' : 'Bound Round'
-    product.product_type = 'Tour'
-    product.images       = images
-    product.tags         = tags
-    product.variants     = variants
+    product              = decorated_offer.product
+    product.title        = decorated_offer.title
+    product.body_html    = decorated_offer.body_html
+    product.vendor       = decorated_offer.vendor
+    product.product_type = decorated_offer.product_type
+    product.tags         = decorated_offer.tags
+    product.variants     = decorated_offer.variants
 
-    offer.update(shopify_product_id: product.id) if product.save
+    if product.save
+      offer.update_column(:shopify_product_id, product.id)
+      save_images
+    end
 
     product
   end
 
   private
 
-  def images
-    offer.photos.map do |photo|
-      if photo.hero?
-        { src: photo.path.url, position: 1 }
-      else
-        { src: photo.path.url }
+  def save_images
+    if images.any?
+      images.each do |image|
+        offers_photo  = OffersPhoto.find(image[:offers_photo_id])
+        shopify_image = ShopifyAPI::Image.new(image)
+        offers_photo.update(shopify_image_id: shopify_image.id.to_s) if shopify_image.save
       end
     end
   end
 
-  def tags
-    offer.tags.join(', ') if offer.tags.present?
+  def images
+    @images ||= decorated_offer.images
   end
 
-  def variants
-    adult_price = offer.maxRateAdult
-    AGE_TYPES.map do |type|
-      {
-        price:             offer.send("maxRate#{type}") || adult_price,
-        requires_shipping: false,
-        title:             "#{offer.name} - #{type}",
-        option1:           type
-      }
-    end
+  def decorated_offer
+    @decorated_offer ||= Offer::Shopify::ProductDecorator.new(self)
   end
 end

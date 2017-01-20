@@ -110,7 +110,6 @@ class Story < ActiveRecord::Base
     attributesToIndex [
       'display_name',
       'unordered(description)',
-      'age_range',
       'unordered(content)',
       'accessible',
       'subcategories',
@@ -130,7 +129,6 @@ class Story < ActiveRecord::Base
       'where_destinations',
       'is_area',
       'main_category',
-      'age_range',
       'subcategory',
       'weather',
       'price',
@@ -286,6 +284,14 @@ class Story < ActiveRecord::Base
       end
     else
       ""
+    end
+  end
+
+  def display_name
+    if self.attribute_names.include? 'display_name'
+      display_name
+    else
+      title
     end
   end
 

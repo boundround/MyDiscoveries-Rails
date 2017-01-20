@@ -13,7 +13,7 @@
       %>
     </div>
     <div class="form-group">
-      <%= f.input :status, label: 'Offer Status', input_html: { class: 'width100 form-control' } %>
+      <%= f.input :status, label: 'Offer Status', as: :select, collection: ["live", "draft", "removed"], input_html: { class: 'width100 form-control' } %>
     </div>
     <div class="form-group">
       <%= f.input :name, label: 'Offer Name', input_html: { class: 'width100 form-control' } %>
@@ -105,6 +105,9 @@
     <div class="form-group">
       <%= f.input :minUnits, as: :integer, label: 'Min Units', input_html: { class: 'width100' } %>
     </div>
+    <div class="form-group">
+      <%= f.input :maxUnits, as: :integer, label: 'Max Units', input_html: { class: 'width100' } %>
+    </div>
     <div class="row">
     </div>
     <div class="form-group">
@@ -120,32 +123,8 @@
     <div class="form-group">
       <%= f.input :includes, as: :bootsy, label: 'Includes', input_html: { class: 'width100' } %>
     </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6">
-        <div class="form-group">
-          <%= f.input :minAge, as: :integer, label: 'Min Age', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6">
-        <div class="form-group">
-          <%= f.input :maxAge, as: :integer, label: 'Max Age', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-    </div>
     <div class="form-group">
       <%= f.input :requiredMultiple, as: :integer, label: 'Required Multiple', input_html: { class: 'form-control' } %>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6">
-        <div class="form-group">
-          <%= f.input :minUnits, as: :integer, label: 'Min Units', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6">
-        <div class="form-group">
-          <%= f.input :maxUnits, as: :integer, label: 'Max Units', input_html: { class: 'form-control' } %>
-        </div>
-      </div>
     </div>
     <div class="form-group">
       <%= f.input :pickupNotes, as: :string, label: 'Pickup Notes', input_html: { class: 'form-control' } %>

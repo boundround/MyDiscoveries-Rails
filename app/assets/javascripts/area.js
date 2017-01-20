@@ -13,7 +13,7 @@ window.onload = function(){
     if(latLong.length !== 2){
       latLong = [-33.8688, 151.2093]
     }
-    
+
     $("#pac-input").geocomplete({
       types: ['geocode', 'establishment'],
       map: "#map-canvas",
@@ -25,11 +25,16 @@ window.onload = function(){
       detailsAttribute: "data-geo",
     });
 
-    var zoom_value = $('#region_zoom_level').val()
-    if(zoom_value == '' || zoom_value == undefined){
-      $("#pac-input").geocomplete("map").setZoom(14)
+    var zoom_level_region = $('#region_zoom_level').val();
+    var zoom_level_place = $('#place_zoom_level').val();
+    if(zoom_level_region == undefined && zoom_level_region == '' && zoom_level_place == undefined && zoom_level_place == ''){
+        $("#pac-input").geocomplete("map").setZoom(14)
     }else{
-      parseZoom = parseInt(zoom_value)
+      if(zoom_level_region != undefined){
+        parseZoom = parseInt(zoom_level_region)
+      }else if(zoom_level_place != undefined){
+        parseZoom = parseInt(zoom_level_place)
+      }
       $("#pac-input").geocomplete("map").setZoom(parseZoom)
     }
 
@@ -40,8 +45,9 @@ window.onload = function(){
         $("#pac-input").geocomplete("find", result.lat() + "," + result.lng());
       })
       .bind("geocode:idle", function(event, result){
-        $('#region_zoom_level').val($("#pac-input").geocomplete("map").zoom)
-        $('#zoom_text').text($('#region_zoom_level').val())
+        var controller = $('.container').data("controller").slice(0, -1);
+        $('#'+ controller +'_zoom_level').val($("#pac-input").geocomplete("map").zoom)
+        $('#zoom_text').text($('#'+ controller +'_zoom_level').val())
       });
 
     }
@@ -73,5 +79,5 @@ function detailsArea(){
   }
 }
 $(document).ready(function() {
-  detailsArea();
+  //detailsArea();
 });

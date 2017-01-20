@@ -16,6 +16,8 @@ class PageHeroUploader < CarrierWave::Uploader::Base
   # Process files as they are uploaded:
   process :resize_to_fit => [1400, 1400]
 
+  process :quality => 70
+
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list

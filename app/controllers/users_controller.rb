@@ -158,7 +158,7 @@ class UsersController < ApplicationController
   end
 
   def stories
-    if user_signed_in? || current_user.admin?
+    if user_signed_in? || (user_signed_in? && current_user.admin?)
       @user = User.includes(:stories).find(params[:id])
     else
       redirect_to new_user_registration_path, notice: "You must be logged in to view that"
@@ -166,7 +166,7 @@ class UsersController < ApplicationController
   end
 
   def reviews
-    if user_signed_in? || current_user.admin?
+    if user_signed_in? || (user_signed_in? && current_user.admin?)
       @user = User.includes(:reviews).find(params[:id])
       @reviews = @user.reviews.paginate(:page => params[:active_reviews_user], per_page:6)
     else
@@ -234,7 +234,7 @@ class UsersController < ApplicationController
         params[:user][:is_private]=false
       end
 
-      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :password, :password_confirmation, :is_private, :gender, :mobile,
+      params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :password, :password_confirmation, :is_private, :gender, :mobile, :home_phone,
                                     :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username, :description, :min_age, :max_age,
                                     :role_ids => [], :owned_place_ids => [])
     end

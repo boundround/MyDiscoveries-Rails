@@ -14,6 +14,7 @@ class RegionPhotoUploader < CarrierWave::Uploader::Base
   end
 
   process :auto_orient
+  process :quality => 70
 
   # Create different versions of your uploaded files:
   version :thumb do

@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116045114) do
+ActiveRecord::Schema.define(version: 20170118054009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -113,7 +112,6 @@ ActiveRecord::Schema.define(version: 20170116045114) do
     t.integer  "primary_category_id"
     t.text     "focus_keyword"
     t.text     "seo_title"
-    t.string   "tag_line"
   end
 
   add_index "attractions", ["country_id"], name: "index_attractions_on_country_id", using: :btree
@@ -434,7 +432,6 @@ ActiveRecord::Schema.define(version: 20170116045114) do
     t.integer  "attraction_id"
     t.integer  "fun_factable_id"
     t.string   "fun_factable_type"
-    t.string   "url"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -586,6 +583,7 @@ ActiveRecord::Schema.define(version: 20170116045114) do
   create_table "offers_photos", force: true do |t|
     t.integer "photo_id"
     t.integer "offer_id"
+    t.string  "shopify_image_id"
   end
 
   add_index "offers_photos", ["offer_id", "photo_id"], name: "index_offers_photos_on_offer_id_and_photo_id", unique: true, using: :btree
@@ -818,7 +816,8 @@ ActiveRecord::Schema.define(version: 20170116045114) do
     t.integer  "algolia_clicks",            default: 0
     t.text     "focus_keyword"
     t.text     "seo_title"
-    t.string   "tag_line"
+    t.string   "description_heading",       default: ""
+    t.integer  "zoom_level"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -1293,6 +1292,7 @@ ActiveRecord::Schema.define(version: 20170116045114) do
     t.text     "description"
     t.string   "gender"
     t.string   "mobile"
+    t.string   "home_phone"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

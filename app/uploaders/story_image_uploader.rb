@@ -12,6 +12,7 @@ class StoryImageUploader < CarrierWave::Uploader::Base
   end
 
   process :auto_orient
+  process :quality => 70
 
   # Process files as they are uploaded:
   process resize_to_limit: [1200, nil]
@@ -26,9 +27,15 @@ class StoryImageUploader < CarrierWave::Uploader::Base
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
     if original_filename.present?
-      "#{model.story.slug}.#{file.extension}"
+      "#{model.story.slug}-#{secure_token}.#{file.extension}"
     end
   end
+
+  protected
+    def secure_token
+      var = :"@#{mounted_as}_secure_token"
+      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+    end
 
   private
 

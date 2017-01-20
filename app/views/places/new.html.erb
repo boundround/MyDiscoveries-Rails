@@ -46,11 +46,6 @@
           <%= f.check_box :footer_include, label: false %>&nbsp;Include In Footer?
       </div>
       <hr>
-      <div class="form-group js-primary-category radio-inline" style="margin-left: -20px;">
-        <%= f.input :primary_category_id do %>
-         <%= f.select :primary_category_id, @primary_categories.map { |category| [category.name, category.id] }%>
-       <% end %>
-      </div>
       <div class="form-group">
         <table class="table">
           <tr>
@@ -68,7 +63,6 @@
         <%#= f.input :parent_id, label: 'Parent Place', collection: @places, as: :select, :label_method => lambda { |place| "#{place.display_name}, #{place.country.display_name rescue ""}, ID: #{place.id}"}, value_method: :id, required: true %>
 
         <%= f.label "Parentable" %><br>
-        <%= radio_button_tag 'parentable_chose', 'country', false %> Country &nbsp;&nbsp;
         <%= radio_button_tag 'parentable_chose', 'region', false %> Region &nbsp;&nbsp;
         <%= radio_button_tag 'parentable_chose', 'place', false %> Place &nbsp; &nbsp;
         <%= radio_button_tag 'parentable_chose', 'no_parent', true %> No Parent
@@ -89,122 +83,21 @@
         <% end %>
       </div>
       <div class="form-group">
-        <%= f.input :meta_description, label: "Meta Description (leave blank to auto-populate)", input_html: { class: 'form-control area-description-input' } %><br>
+        <%= f.input :meta_description, label: "Meta Description", required: true, input_html: { class: 'form-control area-description-input' } %><br>
         <span id="shortDescriptionCharCount">0</span> characters entered. (255 max)<br>
+      </div>
+      <div class="form-group">
+        <%= f.input :description_heading, label: "Description Heading", input_html: { class: 'form-control area-description-input' } %><br>
       </div>
       <div class="form-group">
         <%= f.input :description, as: :bootsy, label: "Long description", input_html: { class: 'form-control area-description-input', col: 50 } %><br>
         <span id="descriptionCharCount">0</span> characters entered. (700 max)<br>
-      </div>
-      <div class="form-group">
-        <%= f.input :email, input_html: { class: 'form-control' } %>
-      </div>
-      <div class="form-group">
-        <%= f.input :website, input_html: { class: 'form-control' } %>
       </div>
       <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
         <div class="form-group published-radio">
           <%= f.input :status, as: :select, collection: ["draft", "edited", "live", "removed"] %>
         </div>
       <% end %>
-      <div class="field form-group">
-        <strong>Secondary categories</strong><br>
-        <div class="row">
-        <% @subcategories.each do |category| %>
-            <% if category.category_type == "subcategory" %>
-              <div class="col-md-3">
-                <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-                <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
-                <%= label_tag dom_id(category), category.name %>
-              </div>
-          <% end %>
-        <% end %>
-        </div>
-      </div>
-      <div class="form-group">
-        <br>
-        <strong>Age Range</strong>
-        <%= f.input :minimum_age, collection: 0..18, label: "From:", input_html: { class: 'form-control' } %>
-        <%= f.input :maximum_age, collection: 0..18, label: "To:", input_html: { class: 'form-control' } %>
-      </div>
-      <div class="field js-primary-category">
-        <br>
-        <strong>Price categories</strong><br>
-        <div class="row">
-        <% @subcategories.each do |category| %>
-            <% if category.category_type == "price" %>
-              <div class="col-md-2">
-                <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-                <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
-                <%= label_tag dom_id(category), category.name %>
-              </div>
-          <% end %>
-        <% end %>
-        </div>
-      </div>
-      <div class="field js-primary-category">
-        <br>
-        <strong>Accessibility</strong><br>
-        <div class="row">
-        <% @subcategories.each do |category| %>
-            <% if category.category_type == "accessibility" %>
-            <div class="col-md-3">
-              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-              <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
-              <%= label_tag dom_id(category), category.name %>
-            </div>
-          <% end %>
-        <% end %>
-        </div>
-      </div>
-      <div class="field js-primary-category">
-        <br>
-        <strong>Place visit duration</strong><br>
-        <div class="row">
-        <% @subcategories.each do |category| %>
-            <% if category.category_type == "duration" %>
-            <div class="col-md-2">
-              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-              <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
-              <%= label_tag dom_id(category), category.name %>
-            </div>
-          <% end %>
-        <% end %>
-        </div>
-      </div>
-      <div class="field js-primary-category">
-        <br>
-        <strong>Best time of day</strong><br>
-        <div class="row">
-        <% @subcategories.each do |category| %>
-            <% if category.category_type == "optimum_time" %>
-            <div class="col-md-2">
-              <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-              <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
-              <%= label_tag dom_id(category), category.name %>
-            </div>
-          <% end %>
-        <% end %>
-        </div>
-      </div>
-      <div class="field js-primary-category">
-        <br>
-        <strong>Weather Conditions</strong><br>
-        <% @subcategories.each do |category| %>
-            <% if category.category_type == "weather" %>
-            <%= hidden_field_tag "place[subcategory_ids][]", nil%>
-            <%= check_box_tag "place[subcategory_ids][]", category.id, @place.subcategory_ids.include?(category.id), id: dom_id(category) %>
-            <%= label_tag dom_id(category), category.name %><br/>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="form-group js-primary-category">
-        <br>
-        <input type="checkbox" id="special-requirements-box">&nbsp;&nbsp;<strong>Special requirements?</strong> (Unchecking will delete text)
-        <div class="js-special-requirements">
-          <%= f.input :special_requirements, label: false, input_html: { class: 'form-control' } %>
-        </div>
-      </div>
       <div class="form-group">
         <%= f.button :submit, 'Submit' %>
       </div>
