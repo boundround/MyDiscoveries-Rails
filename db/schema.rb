@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118054009) do
+ActiveRecord::Schema.define(version: 20170120023349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -559,6 +559,10 @@ ActiveRecord::Schema.define(version: 20170118054009) do
     t.string   "shopify_product_id"
     t.string   "slug"
     t.integer  "operator_id"
+    t.date     "validityStartDate"
+    t.date     "validityEndDate"
+    t.date     "publishstartdate"
+    t.date     "publishenddate"
   end
 
   add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree
@@ -1114,10 +1118,10 @@ ActiveRecord::Schema.define(version: 20170118054009) do
     t.text     "seo_friendly_url"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",      default: 0
-    t.string   "hero_image"
     t.text     "focus_keyword"
     t.text     "seo_title"
     t.text     "meta_description"
+    t.string   "hero_image"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
@@ -1157,6 +1161,7 @@ ActiveRecord::Schema.define(version: 20170118054009) do
     t.text     "secondary_description"
     t.string   "related_to"
     t.string   "slug"
+    t.string   "status"
   end
 
   add_index "subcategories", ["slug"], name: "index_subcategories_on_slug", using: :btree
