@@ -1,7 +1,7 @@
 class OffersController < ApplicationController
   # before_action :check_user_authorization, except: [:show, :paginate_on_idx]
 
-  before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media]
+  before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media, :paginate_on_idx]
   before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :choose_hero, :update_hero]
   before_action :set_media, only: [:show, :paginate_media]
 
@@ -75,7 +75,7 @@ class OffersController < ApplicationController
   end
 
   def paginate_on_idx
-    @offers = Offer.all.paginate(per_page: 3, page: params[:offers_page])
+    @offers = Offer.all.paginate(per_page: 3, page: params[:offer_page])
   end
 
   def paginate_offers
