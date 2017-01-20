@@ -198,7 +198,7 @@
               </div>
               <div class="slider-nav xs-invisible">
                   <% @photos.each do |photo| %>
-                      <div><img src="<%= photo.path(:large) %>" alt="" width="100%"   ></div>
+                      <div><img src="<%= photo.path_url(:large) %>" alt="" width="100%"   ></div>
                   <% end %>
               </div>
           </div>
