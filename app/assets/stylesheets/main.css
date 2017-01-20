@@ -10101,6 +10101,13 @@ span.arrow {
   height: 80px;
   overflow: scroll; }
 
+.point-card__local-description h3,
+.point-card__local-description h2,
+.point-card__local-description h1,
+.point-card__local-description span{
+  font-size: 17px;
+}
+
 .card-go-to {
   position: absolute;
   bottom: 0;

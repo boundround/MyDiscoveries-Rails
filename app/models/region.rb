@@ -195,7 +195,52 @@ class Region < ActiveRecord::Base
   end
 
   def all_place_children
+    children_collect = self.places
+    data_marker = []
+    if children_collect.present?
+      children_collect.each do |place|
+        hero_photo = place.photos.where(hero: true)
+        data_objs = {
+          "#place" => place.display_name, 
+          "#lat" => place.latitude, 
+          "#lng" => place.longitude, 
+          "#description" => place.description, 
+          "#country" => place.country.present?? place.country.display_name : "",
+          "#path" => place_path(place),
+          "#photo" => hero_photo.present?? hero_photo.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg",
+          "#offer" => []
+        }
 
+        place.offers.each do |place_offer|
+          hero_photo_offer = place_offer.photos.where(hero: true)
+          data_offer_objs = {
+            "@country" => "",
+            "@name" => place_offer.name,
+            "@photo_offer" => hero_photo_offer.present?? hero_photo_offer.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg"
+          }
+          data_objs["#offer"] << data_offer_objs
+          data_objs["#offer"] << ["#"]
+        end
+        data_marker << data_objs
+        data_marker << ["@"]
+      end
+      return data_marker
+    else
+      hero_photo = self.photos.where(hero: true)
+      data_objs = {
+        "#place" => self.display_name, 
+        "#lat" => self.latitude.to_f, 
+        "#lng" => self.longitude.to_f, 
+        "#description" => self.description, 
+        "#country" => "",
+        "#path" => region_path(self),
+        "#photo" => hero_photo.present?? hero_photo.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg",
+        "#offer" => []
+      }
+      data_marker << data_objs
+      data_marker << ["@"]
+      return data_marker
+    end
   end
 
   private
