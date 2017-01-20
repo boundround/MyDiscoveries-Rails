@@ -8,6 +8,9 @@
     <div>Character Count: <span id="primary_count"></span></div>
     <%= f.input :secondary_description, label: "Long Description", input_html: {class: "form-control", id: "secondary_textarea"} %>
     <div>Character Count: <span id="secondary_count"></span></div>
+    <div>
+      <%= f.input :status, label: 'Subcategory Status', as: :select, collection: ["live", "draft", "removed"] %>
+    </div>
     <div class="field subcategory">
       <strong>Secondary categories</strong><br>
         <div class="row">
