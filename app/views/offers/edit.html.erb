@@ -177,7 +177,66 @@
     <div class="form-group">
       <%= f.input :voucherValidity, as: :integer, label: 'Voucher Validity', input_html: { class: 'form-control' } %>
     </div>
-    <div class="row">
+    <div class="form-group">
+      <%= f.label :inclusions %>
+    </div>
+    <div class="col-md-3">
+      <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/beds.svg" %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/beds.svg", checked: true%>
+      <% else %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/beds.svg"%>
+      <% end %>
+      <%= f.label "offer_inclusions_bed", "<img src='/assets/mydiscoveries_icon/i/inclusions/beds.svg' width='30'>".html_safe %>
+    </div>
+    <div class="col-md-3">
+      <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/flights.svg" %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/flights.svg", checked: true %>
+      <% else %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/flights.svg"%>
+      <% end %>
+        <%= f.label "offer_inclusions_flight", "<img src='/assets/mydiscoveries_icon/i/inclusions/flights.svg' width='30'>".html_safe %>
+    </div>
+    <div class="col-md-3">
+      <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg" %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg", checked: true %>
+      <% else %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg"%>
+      <% end %>
+        <%= f.label "offer_inclusions_hairdryer", "<img src='/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg' width='30'>".html_safe %>
+    </div>
+    <div class="col-md-3">
+      <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/kids-club.svg" %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/kids-club.svg", checked: true %>
+      <% else %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/kids-club.svg"%>
+      <% end %>
+        <%= f.label "offer_inclusions_kids-club", "<img src='/assets/mydiscoveries_icon/i/inclusions/kids-club.svg' width='30'>".html_safe %>
+    </div>
+    <div class="col-md-3">
+      <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/meals.svg" %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/meals.svg", checked: true %>
+      <% else %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/meals.svg"%>
+      <% end %>
+        <%= f.label "offer_inclusions_meal", "<img src='/assets/mydiscoveries_icon/i/inclusions/meals.svg' width='30'>".html_safe %>
+    </div>
+    <div class="col-md-3">
+      <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/swimming-pool.svg" %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/swimming-pool.svg", checked: true %>
+      <% else %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/swimming-pool.svg"%>
+      <% end %>
+        <%= f.label "offer_inclusions_swimming-pool", "<img src='/assets/mydiscoveries_icon/i/inclusions/swimming-pool.svg' width='30'>".html_safe %>
+    </div>
+    <div class="col-md-3">
+      <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/wifi.svg" %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/wifi.svg", checked: true %>
+      <% else %>
+        <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/wifi.svg"%>
+      <% end %>
+        <%= f.label "offer_inclusions_wifi", "<img src='/assets/mydiscoveries_icon/i/inclusions/wifi.svg' width='30'>".html_safe %>
+    </div>
+    <div class="row" style="clear:both">
       <div class="form-group">
         <%= f.input :customStr1, as: :bootsy, label: 'Details', input_html: { class: 'form-control' } %>
       </div>

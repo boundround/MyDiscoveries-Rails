@@ -67,6 +67,8 @@ class OffersController < ApplicationController
     @offer.assign_attributes(offer_params)
     @offer.tags.select!(&:present?)
     if @offer.save
+      @offer.inclusion_list = params[:offer][:inclusions].join(', ')
+      @offer.save
       redirect_to edit_offer_path(@offer), notice: "Offer Updated"
     else
       flash.now[:alert] = 'Sorry, there was an error updating this Offer'
@@ -201,7 +203,8 @@ class OffersController < ApplicationController
       place_ids: [],
       country_ids: [],
       region_ids: [],
-      subcategory_ids: []
+      subcategory_ids: [],
+      inclusion_list: []
     )
   end
 end

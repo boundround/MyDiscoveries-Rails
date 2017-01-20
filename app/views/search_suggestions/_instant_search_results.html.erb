@@ -36,10 +36,9 @@
             <p class="search-page-card__short-details-value">{{startDate}}</p>
             <p class="search-page-card__short-details-key">Inclusions</p>
             <p class="search-page-card__short-details-value">
-                <img src="/assets/mydiscoveries_icon/i/inclusions/beds.svg" class="search-page-card__short-details-icon" alt="">
-                <img src="/assets/mydiscoveries_icon/i/inclusions/flights.svg" class="search-page-card__short-details-icon" alt="">
-                <img src="/assets/mydiscoveries_icon/i/inclusions/wifi.svg" class="search-page-card__short-details-icon" alt="">
-                <img src="/assets/mydiscoveries_icon/i/inclusions/kids-club.svg" class="search-page-card__short-details-icon" alt="">
+                {{#inclusions}}
+                <img src="{{.}}" class="search-page-card__short-details-icon" alt="">
+                {{/inclusions}}
             </p>
           </div>
 
