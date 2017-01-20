@@ -2214,6 +2214,9 @@
 
   .slider-nav .slick-slide{
     height: 105px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
     @media(max-width: 768px){
       height: 90px;
     }
@@ -2224,14 +2227,17 @@
       height: 40px;
     }
     img{
-      height: 100%;
+      display: none !important;
     }
   }
 
   .slider-for .slick-slide{
     height: 425px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
     img{
-      height: 100%;
+      display: none !important;
     }
   }
 }
