@@ -56,7 +56,7 @@ class OffersController < ApplicationController
     @offer = Offer.new(offer_params)
     @offer.tags.select!(&:present?)
     if @offer.save
-      redirect_to(offers_path, notice: 'Offer succesfully saved')
+      redirect_to(edit_offer_path(@offer), notice: 'Offer succesfully saved')
     else
       flash.now[:alert] = 'Offer not saved!'
       render :new
@@ -140,7 +140,7 @@ class OffersController < ApplicationController
   def offer_params
     params.require(:offer).permit(
       :id,
-      :attraction_id,
+      :place_id,
       :status,
       :name,
       :description,

@@ -275,6 +275,7 @@ class Offer < ActiveRecord::Base
 
   belongs_to :attraction
   belongs_to :operator
+  belongs_to :place
 
   has_many :offers_photos, dependent: :destroy
   has_many :photos, through: :offers_photos
