@@ -314,6 +314,14 @@ class Offer < ActiveRecord::Base
     update_at
   end
 
+  def display_name
+    if self.attribute_names.include? 'display_name'
+      display_name
+    else
+      name
+    end
+  end
+
   def shopify_product
     ShopifyAPI::Product.find(shopify_product_id) if shopify_product_id?
   end
