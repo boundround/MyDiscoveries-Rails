@@ -13,37 +13,37 @@
 {{#hits}}
 {{#is_offer}}
 <div class="search-page-card clear-self">
-    <div class="search-page-card__info-side search-page-card__info-side--left">
-        <h3 class="search-page-card__header">{{{ _highlightResult.display_name.value }}}</h3>
-        <p class="search-page-card__country">{{countries}}</p>
-        <img src="{{ hero_photo.url }}" class="search-page-card__image" alt="">
-        <span class="search-page-card__more-info mobile-only js-show-more-card-info">more info</span>
-        <p class="search-page-card__image-description">{{hero_photo.alt_tag}}</p>
-        <h4 class="search-page-card-places-visited__header">Places Visited</h4>
-        <ul>
-        {{#tags}}
-        <li class="search-page-card-places-visited__place">{{.}}</li>
-        {{/tags}}
-        </li>
-    </div>
+    <div class="container-left">
+      <h3 class="search-page-card__header">{{{ _highlightResult.display_name.value }}}</h3>
+      <div class="search-page-card__info-side search-page-card__info-side--left">
+          <p class="search-page-card__country">{{countries}}</p>
+          <img src="{{ hero_photo.url }}" class="search-page-card__image" alt="">
+          <span class="search-page-card__more-info mobile-only js-show-more-card-info">more info</span>
+          <p class="search-page-card__image-description">{{hero_photo.alt_tag}}</p>
+          <h4 class="search-page-card-places-visited__header">Places Visited</h4>
+          <ul>
+          {{#tags}}
+          <li class="search-page-card-places-visited__place">{{.}}</li>
+          {{/tags}}
+          </ul>
+      </div>
 
-    <div class="search-page-card__info-side search-page-card__info-side--right">
-        <span class="search-page-card__category-item"></span>
-        <span class="search-page-card__category-item"></span>
+      <div class="search-page-card__info-side search-page-card__info-side--right">
 
-        <p class="search-page-card__description">{{description}}</p>
-        <div class="search-page-card__short-details">
-          <p class="search-page-card__short-details-key">Date</p>
-          <p class="search-page-card__short-details-value">{{startDate}}</p>
-          <p class="search-page-card__short-details-key">Inclusions</p>
-          <p class="search-page-card__short-details-value">
-              <img src="/assets/mydiscoveries_icon/i/inclusions/beds.svg" class="search-page-card__short-details-icon" alt="">
-              <img src="/assets/mydiscoveries_icon/i/inclusions/flights.svg" class="search-page-card__short-details-icon" alt="">
-              <img src="/assets/mydiscoveries_icon/i/inclusions/wifi.svg" class="search-page-card__short-details-icon" alt="">
-              <img src="/assets/mydiscoveries_icon/i/inclusions/kids-club.svg" class="search-page-card__short-details-icon" alt="">
-          </p>
-        </div>
+          <p class="search-page-card__description">{{description}}</p>
+          <div class="search-page-card__short-details">
+            <p class="search-page-card__short-details-key">Date</p>
+            <p class="search-page-card__short-details-value">{{startDate}}</p>
+            <p class="search-page-card__short-details-key">Inclusions</p>
+            <p class="search-page-card__short-details-value">
+                <img src="/assets/mydiscoveries_icon/i/inclusions/beds.svg" class="search-page-card__short-details-icon" alt="">
+                <img src="/assets/mydiscoveries_icon/i/inclusions/flights.svg" class="search-page-card__short-details-icon" alt="">
+                <img src="/assets/mydiscoveries_icon/i/inclusions/wifi.svg" class="search-page-card__short-details-icon" alt="">
+                <img src="/assets/mydiscoveries_icon/i/inclusions/kids-club.svg" class="search-page-card__short-details-icon" alt="">
+            </p>
+          </div>
 
+      </div>
     </div>
 
     <div class="search-page-card__cost-side">
