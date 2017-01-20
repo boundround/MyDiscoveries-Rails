@@ -25,7 +25,6 @@ $(document).ready(function(){
 
   var dualListBox = function(selector, ids, selectBox){
     dt_controller = $('#similar-places-js').data("controllers")
-
     if (selector.length > 0) {
       if (ids.length > 0){
         for(var i = 0; i < ids.length; i++){
@@ -42,6 +41,11 @@ $(document).ready(function(){
               $(selectBox).append("<option value='" + ids[i]['country_id'] +
                               "' name=" + ids[i]['country_name'] +
                               "' >" + ids[i]['country_name'] + "</option>");
+            } else if (dt_controller == 'related_offers') {
+              console.log('aaa')
+              $(selectBox).append("<option value='" + ids[i]['offer_id'] +
+                              "' name=" + ids[i]['offer_name'] +
+                              "' >" + ids[i]['offer_name'] + "</option>");
             } else {
               $(selectBox).append("<option value='" + ids[i]['place_id'] +
                               "' name=" + ids[i]['place_name'] +
@@ -85,6 +89,7 @@ $(document).ready(function(){
   dualListBox($('#dual-list-box-offers-places'), $('#similar-places-js').data("similar"), $("[name*='places_offers[place_ids][]']"));
   dualListBox($('#dual-list-box-offers-countries'), $('#similar-places-js').data("similar"), $("[name*='countries_offer[country_ids][]']"));
   dualListBox($('#dual-list-box-offers-regions'), $('#similar-places-js').data("similar"), $("[name*='regions_offers[region_ids][]']"));
+  dualListBox($('#dual-list-box-related-offer'), $('#similar-places-js').data("similar"), $("[name*='related_place[related_offer_ids][]']"));
 
 
   if($("#dual-list-box-stories-countries").length > 0){

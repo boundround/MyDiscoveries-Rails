@@ -305,6 +305,8 @@ class Offer < ActiveRecord::Base
 
   has_many :orders
 
+  has_many :related_offers
+
   validates_presence_of :name
   validates_presence_of :startDate, :endDate, unless: -> { livn_product_id? }
   validates :startDate, :endDate, absence: true, if: -> { livn_product_id? }
