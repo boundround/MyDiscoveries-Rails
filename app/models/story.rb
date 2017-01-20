@@ -287,6 +287,14 @@ class Story < ActiveRecord::Base
     end
   end
 
+  def display_name
+    if self.attribute_names.include? 'display_name'
+      display_name
+    else
+      title
+    end
+  end
+
   def check_null_publish_date
     if publish_date.blank?
       self.publish_date = Date.today
