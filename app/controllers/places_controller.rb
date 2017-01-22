@@ -656,6 +656,7 @@ class PlacesController < ApplicationController
         :status,
         :footer_include,
         :is_area,
+        :is_country,
         :zoom_level,
         :primary_area,
         :special_requirements,
