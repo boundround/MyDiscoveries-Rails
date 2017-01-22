@@ -19,6 +19,15 @@
       </div>
     </div>
     <div class="form-group">
+      <%= f.association :place,
+        label_method: :display_name,
+        value_method: :id,
+        label: 'Primary Place',
+        include_blank: true,
+        input_html: { class: 'width100 form-control' }
+      %>
+    </div>
+    <div class="form-group">
       <%= f.association :operator,
         label_method: :display_name,
         value_method: :id,
