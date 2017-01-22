@@ -61,6 +61,21 @@ $(document).ready(function(){
     }
   })
 
+  // Gallery Carousel Size
+  setTimeout(function(){
+    $('.slider-for .slick-slide').each(function(){
+      var src_img = $(this).find('img').attr('src');
+      $(this).css('background-image','url('+src_img+')');
+    })
+
+    $('.slider-nav .slick-slide').each(function(){
+      var src_img = $(this).find('img').attr('src');
+      $(this).css('background-image','url('+src_img+')');
+    })
+  }, 100)
+
+
+
   $('.app-wrap > div[data-page="offer"] .filter-box>div').hide()
 
   if (QueryString.video){

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170120023349) do
+ActiveRecord::Schema.define(version: 20170120071510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -507,47 +507,47 @@ ActiveRecord::Schema.define(version: 20170120023349) do
 
   create_table "offers", force: true do |t|
     t.integer  "attraction_id"
-    t.string   "status",                                                 default: ""
-    t.text     "name",                                                   default: ""
-    t.text     "description",                                            default: ""
-    t.integer  "minRateAdult",                                           default: 0
-    t.integer  "minRateChild",                                           default: 0
-    t.integer  "minRateInfant",                                          default: 0
-    t.integer  "maxRateAdult",                                           default: 0
-    t.integer  "maxRateChild",                                           default: 0
-    t.integer  "maxRateInfant",                                          default: 0
-    t.integer  "duration",            limit: 8,                          default: 0
-    t.text     "specialNotes",                                           default: ""
-    t.integer  "operatingDays",                                          default: 0
-    t.text     "operatingDaysStr",                                       default: ""
-    t.text     "operatingSchedule",                                      default: ""
-    t.text     "locationStart",                                          default: ""
-    t.decimal  "latitudeStart",                 precision: 10, scale: 6
-    t.decimal  "longitudeStart",                precision: 10, scale: 6
-    t.integer  "distanceStartToRef",                                     default: 0
-    t.text     "locationEnd",                                            default: ""
-    t.decimal  "latitudeEnd",                   precision: 10, scale: 6
-    t.decimal  "longitudeEnd",                  precision: 10, scale: 6
-    t.string   "tags",                                                   default: [],    array: true
-    t.integer  "minAge",                                                 default: 0
-    t.integer  "maxAge",                                                 default: 0
-    t.integer  "requiredMultiple",                                       default: 0
-    t.integer  "minUnits",                                               default: 0
-    t.integer  "maxUnits",                                               default: 0
-    t.text     "pickupNotes",                                            default: ""
-    t.text     "dropoffNotes",                                           default: ""
-    t.text     "highlightsStr",                                          default: ""
-    t.text     "itineraryStr",                                           default: ""
-    t.text     "includes",                                               default: ""
-    t.text     "sellVouchers",                                           default: ""
-    t.text     "onlyVouchers",                                           default: ""
-    t.text     "voucherInstructions",                                    default: ""
-    t.integer  "voucherValidity",                                        default: 0
-    t.text     "customStr1",                                             default: ""
-    t.text     "customStr2",                                             default: ""
-    t.text     "customStr3",                                             default: ""
-    t.text     "customStr4",                                             default: ""
-    t.boolean  "pickupRequired",                                         default: false
+    t.string   "status",                                                        default: ""
+    t.text     "name",                                                          default: ""
+    t.text     "description",                                                   default: ""
+    t.integer  "minRateAdult",                                                  default: 0
+    t.integer  "minRateChild",                                                  default: 0
+    t.integer  "minRateInfant",                                                 default: 0
+    t.integer  "maxRateAdult",                                                  default: 0
+    t.integer  "maxRateChild",                                                  default: 0
+    t.integer  "maxRateInfant",                                                 default: 0
+    t.integer  "duration",                   limit: 8,                          default: 0
+    t.text     "specialNotes",                                                  default: ""
+    t.integer  "operatingDays",                                                 default: 0
+    t.text     "operatingDaysStr",                                              default: ""
+    t.text     "operatingSchedule",                                             default: ""
+    t.text     "locationStart",                                                 default: ""
+    t.decimal  "latitudeStart",                        precision: 10, scale: 6
+    t.decimal  "longitudeStart",                       precision: 10, scale: 6
+    t.integer  "distanceStartToRef",                                            default: 0
+    t.text     "locationEnd",                                                   default: ""
+    t.decimal  "latitudeEnd",                          precision: 10, scale: 6
+    t.decimal  "longitudeEnd",                         precision: 10, scale: 6
+    t.string   "tags",                                                          default: [],    array: true
+    t.integer  "minAge",                                                        default: 0
+    t.integer  "maxAge",                                                        default: 0
+    t.integer  "requiredMultiple",                                              default: 0
+    t.integer  "minUnits",                                                      default: 0
+    t.integer  "maxUnits",                                                      default: 0
+    t.text     "pickupNotes",                                                   default: ""
+    t.text     "dropoffNotes",                                                  default: ""
+    t.text     "highlightsStr",                                                 default: ""
+    t.text     "itineraryStr",                                                  default: ""
+    t.text     "includes",                                                      default: ""
+    t.text     "sellVouchers",                                                  default: ""
+    t.text     "onlyVouchers",                                                  default: ""
+    t.text     "voucherInstructions",                                           default: ""
+    t.integer  "voucherValidity",                                               default: 0
+    t.text     "customStr1",                                                    default: ""
+    t.text     "customStr2",                                                    default: ""
+    t.text     "customStr3",                                                    default: ""
+    t.text     "customStr4",                                                    default: ""
+    t.boolean  "pickupRequired",                                                default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "livn_product_id"
@@ -563,9 +563,13 @@ ActiveRecord::Schema.define(version: 20170120023349) do
     t.date     "validityEndDate"
     t.date     "publishstartdate"
     t.date     "publishenddate"
+    t.integer  "place_id"
+    t.string   "supplier_product_code"
+    t.string   "innovations_transaction_id"
   end
 
   add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree
+  add_index "offers", ["place_id"], name: "index_offers_on_place_id", using: :btree
   add_index "offers", ["shopify_product_id"], name: "index_offers_on_shopify_product_id", using: :btree
 
   create_table "offers_attractions", force: true do |t|
@@ -822,6 +826,7 @@ ActiveRecord::Schema.define(version: 20170120023349) do
     t.text     "seo_title"
     t.string   "description_heading",       default: ""
     t.integer  "zoom_level"
+    t.boolean  "is_country",                default: false
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
