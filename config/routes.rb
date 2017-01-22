@@ -393,6 +393,7 @@ Rails.application.routes.draw do
       get 'choose_hero', as: :choose_hero
       get 'paginate_videos', as: :paginate_videos
       get 'paginate_photos', as: :paginate_photos
+      get 'clone'
     end
     collection { get 'paginate_on_idx' }
     collection { get 'paginate_offers' }
