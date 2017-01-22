@@ -11693,6 +11693,9 @@ span.arrow {
             float: left; }
             .product .product-content section .country-info .gallery .slider-mobile-wrapper .slider-for div img {
               height: 180px; } }
+.gallery > :first-child {
+  padding-bottom: 10px;
+}
 .booking-block {
   background-color: #f4efed;
   font-size: 16px;
@@ -12654,9 +12657,9 @@ td a.ui-state-default.ui-state-hover {
     .story .story-content-block aside {
       background-color: #f4efed;
       padding-top: 30px; }
-    .story .story-content-block .medium-insert-images figure figcaption, 
-    .story .story-content-block .mediumInsert figure figcaption, 
-    .story .story-content-block .medium-insert-embeds figure figcaption, 
+    .story .story-content-block .medium-insert-images figure figcaption,
+    .story .story-content-block .mediumInsert figure figcaption,
+    .story .story-content-block .medium-insert-embeds figure figcaption,
     .story .story-content-block .mediumInsert-embeds figure figcaption{
       color: #7b7b7b;
     }
