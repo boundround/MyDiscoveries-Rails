@@ -414,6 +414,7 @@ Rails.application.routes.draw do
     resources :regions, controller: :regions_offers
     resources :countries, controller: :countries_offers
     resources :subcategories, controller: :subcategories_offers
+    resources :related_offers
     member do
       get 'paginate_media'
       get 'paginate_reviews'
