@@ -9151,6 +9151,7 @@ a.see-more__link {
   font-size: 16px;
   padding-top: 20px;
   line-height: 21px;
+  color: #000;
   margin: 0;
   min-height: 280px; }
 
@@ -11377,6 +11378,11 @@ span.arrow {
   .product .hero .hero-content {
     padding-top: 5px; }
     @media screen and (min-width: 1201px) {
+      .anchor-offer > a{
+        height: 402px;
+        width: 603px;
+        float: left;
+      }
       .container-left{
         width: 603px;
         float: left; }

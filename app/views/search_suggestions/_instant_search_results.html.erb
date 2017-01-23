@@ -12,83 +12,87 @@
 <script type="text/template" id="instant-hit-template">
 {{#hits}}
 {{#is_offer}}
-<div class="search-page-card clear-self">
-    <div class="container-left">
-      <h3 class="search-page-card__header">{{{ _highlightResult.display_name.value }}}</h3>
+  <a href="{{ url }}">
+    <div class="search-page-card clear-self anchor-offer">
+      <div class="container-left">
+        <h3 class="search-page-card__header">{{{ _highlightResult.display_name.value }}}</h3>
+        <div class="search-page-card__info-side search-page-card__info-side--left">
+            <p class="search-page-card__country">{{countries}}</p>
+            <img src="{{ hero_photo.url }}" class="search-page-card__image" alt="">
+            <span class="search-page-card__more-info mobile-only js-show-more-card-info">more info</span>
+            <p class="search-page-card__image-description">{{hero_photo.alt_tag}}</p>
+            <h4 class="search-page-card-places-visited__header">Places Visited</h4>
+            <ul>
+            {{#tags}}
+            <li class="search-page-card-places-visited__place">{{.}}</li>
+            {{/tags}}
+            </ul>
+        </div>
+
+        <div class="search-page-card__info-side search-page-card__info-side--right">
+
+            <p class="search-page-card__description">{{description}}</p>
+            <div class="search-page-card__short-details">
+              <p class="search-page-card__short-details-key">Date</p>
+              <p class="search-page-card__short-details-value">{{startDate}}</p>
+              <p class="search-page-card__short-details-key">Inclusions</p>
+              <p class="search-page-card__short-details-value">
+                  {{#inclusions}}
+                  <img src="{{.}}" class="search-page-card__short-details-icon" alt="">
+                  {{/inclusions}}
+              </p>
+            </div>
+
+        </div>
+      </div>
+
+      <div class="search-page-card__cost-side">
+
+          <p class="search-page-card__short-details-for-cost mobile-only">
+              <img class="search-page-card__short-details-for-cost-icon" src="/assets/mydiscoveries_icon/i/inclusions/kids-club.svg" alt="">
+              <span class="search-page-card__short-details-for-cost-text">2</span>
+              <img class="search-page-card__short-details-for-cost-icon search-page-card__short-details-for-cost-icon--nights" src="/assets/mydiscoveries_icon/i/inclusions/nights.svg" alt="">
+              <span class="search-page-card__short-details-for-cost-text">7</span>
+          </p>
+
+          <p class="search-page-card__cost-from desktop-only">from</p>
+          <p class="search-page-card__cost-value"><span class="search-page-card__cost-currency">$</span>{{minRateAdult}}</p>
+          <p class="search-page-card__cost-value-per-person mobile-only"><span class="search-page-card__cost-per-person-currency">$</span>{{minRateAdult}}</p>
+          <p class="search-page-card__cost-per-person">per person</p>
+
+          <a class="search-page-card__cost-details" href="{{ url }}">details</a>
+          <%# if user_signed_in? && current_user.offers.map(&:id).include?(3) %>
+            <!-- <span class="search-page-card__to-bucket-list--liked search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="true" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span> -->
+          <%# else %>
+            <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
+          <%# end %>
+      </div>
+    </div>
+  </a>
+{{/is_offer}}
+{{^is_offer}}
+  <a href="{{ url }}">
+    <div class="search-page-card clear-self search-offer">
       <div class="search-page-card__info-side search-page-card__info-side--left">
-          <p class="search-page-card__country">{{countries}}</p>
-          <img src="{{ hero_photo.url }}" class="search-page-card__image" alt="">
+          <div class="search-photo search-page-card__image">
+            <div class="category-card" style="{{#is_story}}background-image: url(/assets/mydiscoveries_icon/i/map/story.svg){{/is_story}}{{^is_story}}background-image: url(/assets/mydiscoveries_icon/i/map/map-point.png){{/is_story}}" >{{where_destinations}}</div>
+            <div class="background" style="background-image: url('{{ hero_photo.url }}');" alt=""></div>
+          </div>
           <span class="search-page-card__more-info mobile-only js-show-more-card-info">more info</span>
-          <p class="search-page-card__image-description">{{hero_photo.alt_tag}}</p>
-          <h4 class="search-page-card-places-visited__header">Places Visited</h4>
-          <ul>
-          {{#tags}}
-          <li class="search-page-card-places-visited__place">{{.}}</li>
-          {{/tags}}
-          </ul>
       </div>
 
       <div class="search-page-card__info-side search-page-card__info-side--right">
-
-          <p class="search-page-card__description">{{description}}</p>
-          <div class="search-page-card__short-details">
-            <p class="search-page-card__short-details-key">Date</p>
-            <p class="search-page-card__short-details-value">{{startDate}}</p>
-            <p class="search-page-card__short-details-key">Inclusions</p>
-            <p class="search-page-card__short-details-value">
-                {{#inclusions}}
-                <img src="{{.}}" class="search-page-card__short-details-icon" alt="">
-                {{/inclusions}}
-            </p>
-          </div>
-
+          <h3 class="search-page-card__header">{{{ _highlightResult.display_name.value }}}</h3>
+          <p class="search-page-card__country">{{country}}</p>
+          <p class="search-page-card__description">{{{ description }}}</p>
+      </div>
+      <div class="result-action" align="right">
+        <!-- <span class="search-page-card__to-bucket-list js-search-page-card__to-bucket-list">Bucket List</span> -->
+        <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="{{object}}s_users" data-klass="{{object}}" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
+        <a class="search-page-card__cost-details" href="{{ url }}">read more</a>
       </div>
     </div>
-
-    <div class="search-page-card__cost-side">
-
-        <p class="search-page-card__short-details-for-cost mobile-only">
-            <img class="search-page-card__short-details-for-cost-icon" src="/assets/mydiscoveries_icon/i/inclusions/kids-club.svg" alt="">
-            <span class="search-page-card__short-details-for-cost-text">2</span>
-            <img class="search-page-card__short-details-for-cost-icon search-page-card__short-details-for-cost-icon--nights" src="/assets/mydiscoveries_icon/i/inclusions/nights.svg" alt="">
-            <span class="search-page-card__short-details-for-cost-text">7</span>
-        </p>
-
-        <p class="search-page-card__cost-from desktop-only">from</p>
-        <p class="search-page-card__cost-value"><span class="search-page-card__cost-currency">$</span>{{minRateAdult}}</p>
-        <p class="search-page-card__cost-value-per-person mobile-only"><span class="search-page-card__cost-per-person-currency">$</span>{{minRateAdult}}</p>
-        <p class="search-page-card__cost-per-person">per person</p>
-
-        <a class="search-page-card__cost-details" href="{{ url }}">details</a>
-        <%# if user_signed_in? && current_user.offers.map(&:id).include?(3) %>
-          <!-- <span class="search-page-card__to-bucket-list--liked search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="true" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span> -->
-        <%# else %>
-          <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
-        <%# end %>
-    </div>
-</div>
-{{/is_offer}}
-{{^is_offer}}
-  <div class="search-page-card clear-self search-offer">
-    <div class="search-page-card__info-side search-page-card__info-side--left">
-        <div class="search-photo search-page-card__image">
-          <div class="category-card" style="{{#is_story}}background-image: url(/assets/mydiscoveries_icon/i/map/story.svg){{/is_story}}{{^is_story}}background-image: url(/assets/mydiscoveries_icon/i/map/map-point.png){{/is_story}}" >{{where_destinations}}</div>
-          <div class="background" style="background-image: url('{{ hero_photo.url }}');" alt=""></div>
-        </div>
-        <span class="search-page-card__more-info mobile-only js-show-more-card-info">more info</span>
-    </div>
-
-    <div class="search-page-card__info-side search-page-card__info-side--right">
-        <h3 class="search-page-card__header">{{{ _highlightResult.display_name.value }}}</h3>
-        <p class="search-page-card__country">{{country}}</p>
-        <p class="search-page-card__description">{{{ description }}}</p>
-    </div>
-    <div class="result-action" align="right">
-      <!-- <span class="search-page-card__to-bucket-list js-search-page-card__to-bucket-list">Bucket List</span> -->
-      <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="{{object}}s_users" data-klass="{{object}}" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
-      <a class="search-page-card__cost-details" href="{{ url }}">read more</a>
-    </div>
-  </div>
+  </a>
 {{/is_offer}}
 
 {{/hits}}
