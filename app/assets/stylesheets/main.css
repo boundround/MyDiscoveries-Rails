@@ -9087,8 +9087,8 @@ a.see-more__link {
 .search-page-card__info-side--right {
   float: left;
   width: 342px;
-  padding: 0 0 0 28px;
-  position: relative; }
+  padding: 0 0 0 28px;}
+  /*position: relative; }*/
 
 .search-page-card.search-offer{
   height: auto;
@@ -9158,6 +9158,7 @@ a.see-more__link {
 .search-page-card__short-details{
   position: absolute;
   bottom: 0;
+  width: 342px;
 }
 
 .search-page-card__short-details-key {
@@ -9190,8 +9191,8 @@ a.see-more__link {
   float: right;
   height: 100%;
   background-color: #bbe0e6;
-  padding: 104px 0 0 18px;
-  position: relative; }
+  padding: 104px 0 0 18px;}
+  /*position: relative; }*/
 
 .search-page-card__cost-from {
   text-transform: uppercase;
@@ -9805,7 +9806,25 @@ a:hover, a:focus, a:active {
 .grey {
   background-color: #f4efed; }
 
-.arrowed-link, .region.package-offers ul li .po-content-block a, .region.itinerary-offers ul li .io-item-content a {
+.wrap_link_card{
+  position: relative;
+}
+
+.wrap_link_card .link_card{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  /*z-index: 1;*/
+}
+
+.region.package-offers ul li .po-content-block.wrap_link_card .link_card:hover{
+  border-bottom: 0;
+}
+
+.arrowed-link, .region.package-offers ul li .po-content-block a.see-more-offer, .region.itinerary-offers ul li .io-item-content a {
   text-transform: uppercase;
   color: #ff4b1a;
   font-size: 16px;
@@ -10290,7 +10309,7 @@ span.arrow {
   background-image: url(/assets/mydiscoveries_icon/i/pin_white.png);
   background-repeat: no-repeat;
   text-transform: uppercase;
-  padding: 20px 0 13px 49px;
+  padding: 20px 0 25px 49px;
   margin-right: 32px;
   background-size: 21px;
   background-position: 17px 17px;
@@ -12336,9 +12355,10 @@ td a.ui-state-default.ui-state-hover {
       display: block;
       float: none;
       text-align: center;
-      width: 100%;
+      width: 125px;
       color: #ff4b1a;
-      margin: 0 auto; }
+      margin: 0 auto;
+      position: absolute; }
       @media screen and (min-width: 1201px) {
         .user-pages section .up-tabs-item.up-my-bookings .search-page-card__cost-details {
           margin: 40px auto 0; } }

@@ -98,7 +98,6 @@ class PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
 
     if @photo.photoable_type == "Offer"
-      #debugger
       @offer = @photo.photoable
       @offer.photos << @photo
     end
