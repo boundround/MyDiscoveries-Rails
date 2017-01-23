@@ -26,10 +26,11 @@ class Offer < ActiveRecord::Base
                :subcategories,
                :accessibility,
                :hero_photo,
-               :accessible
-               :tags
-               :startDate
-               :endDate
+               :accessible,
+               :tags,
+               :startDate,
+               :endDate,
+               :inclusions
 
     attribute :display_name do
       name
@@ -84,6 +85,10 @@ class Offer < ActiveRecord::Base
 
     attribute :description do
       description.blank? ? "" : description
+    end
+
+    attribute :inclusions do
+      inclusions.map(&:name)
     end
 
     attribute :tags do
@@ -153,10 +158,11 @@ class Offer < ActiveRecord::Base
                  :subcategories,
                  :accessibility,
                  :hero_photo,
-                 :accessible
-                 :tags
-                 :startDate
-                 :endDate
+                 :accessible,
+                 :tags,
+                 :startDate,
+                 :endDate,
+                 :inclusions
 
       attribute :display_name do
         name
@@ -208,6 +214,10 @@ class Offer < ActiveRecord::Base
       attribute :tags do
         tags.blank? ? [] : tags[0..1]
       end
+
+    attribute :inclusions do
+      inclusions.map(&:name)
+    end
 
       attribute :startDate do
         startDate
@@ -271,10 +281,13 @@ class Offer < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
+  acts_as_taggable_on :inclusions
+
   scope :active, -> { where(status: "live").where("publishstartdate <= ? AND publishenddate >= ?", Date.today, Date.today) }
 
   belongs_to :attraction
   belongs_to :operator
+  belongs_to :place
 
   has_many :offers_photos, dependent: :destroy
   has_many :photos, through: :offers_photos

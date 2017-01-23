@@ -9087,7 +9087,7 @@ a.see-more__link {
 .search-page-card__info-side--right {
   float: left;
   width: 342px;
-  padding: 104px 0 0 28px;
+  padding: 0 0 0 28px;
   position: relative; }
 
 .search-page-card.search-offer{
@@ -9152,7 +9152,7 @@ a.see-more__link {
   padding-top: 20px;
   line-height: 21px;
   margin: 0;
-  padding-bottom: 50px; }
+  min-height: 280px; }
 
 .search-page-card__short-details{
   position: absolute;
@@ -9283,7 +9283,8 @@ h3.search-page-card__header {
   font-size: 34px;
   line-height: 34px;
   color: #ff4d1a;
-  padding: 27px 15px 7px 18px; }
+  padding: 27px 15px 7px 18px;
+  max-height: 120px; }
 
 .search-page-card__country {
   margin: 0;
@@ -9312,7 +9313,7 @@ h3.search-page-card__header {
   clear: left;
   font-family: Larsseit, sans-serif;
   font-size: 14px;
-  padding: 14px 0 0 20px;
+  padding: 10px 0 0 20px;
   margin: 0; }
 
 .search-page-card-places-visited__header {
@@ -9320,8 +9321,8 @@ h3.search-page-card__header {
   font-family: Larsseit-Bold, sans-serif;
   font-size: 16px;
   line-height: 16px;
-  padding: 15px 0 0 18px;
-  margin-bottom: 14px; }
+  padding: 10px 0 0 18px;
+  margin: 0; }
 
 .search-page-card-places-visited__place {
   background-color: #bbe0e6;
@@ -9331,7 +9332,7 @@ h3.search-page-card__header {
   font-family: Larsseit, sans-serif;
   float: left;
   padding: 5px 7px 5px 8px;
-  margin-right: 7px;
+  margin-right: 3px;
   list-style-type: none; }
 
 .search-page-card-places-visited__place:first-child {
@@ -10908,6 +10909,9 @@ span.arrow {
       overflow: hidden;
       margin-bottom: 30px; }
       @media screen and (min-width: 1201px) {
+        .search-page-card__info-side.search-page-card__info-side--left ul{
+          width: 300px;
+          padding-top: 10px;}
         .package-offers .package-offers-block ul li {
           float: left;
           display: block;
@@ -11373,6 +11377,9 @@ span.arrow {
   .product .hero .hero-content {
     padding-top: 5px; }
     @media screen and (min-width: 1201px) {
+      .container-left{
+        width: 603px;
+        float: left; }
       .product .hero .hero-content {
         padding-top: 100px; } }
     .product .hero .hero-content .lg-heading {
@@ -11669,8 +11676,8 @@ span.arrow {
       margin-bottom: 10px; }
 
     .product .product-content section .country-info .gallery .slick-slide img {
-      display: block;
-      width: 100%; }
+      display: block;}
+      /*width: 100%; }*/
     @media screen and (max-width: 1200px) {
       .product .product-content section .country-info .gallery .slider-mobile-wrapper {
         height: 180px;
@@ -11686,6 +11693,9 @@ span.arrow {
             float: left; }
             .product .product-content section .country-info .gallery .slider-mobile-wrapper .slider-for div img {
               height: 180px; } }
+.gallery > :first-child {
+  padding-bottom: 10px;
+}
 .booking-block {
   background-color: #f4efed;
   font-size: 16px;
@@ -12647,9 +12657,9 @@ td a.ui-state-default.ui-state-hover {
     .story .story-content-block aside {
       background-color: #f4efed;
       padding-top: 30px; }
-    .story .story-content-block .medium-insert-images figure figcaption, 
-    .story .story-content-block .mediumInsert figure figcaption, 
-    .story .story-content-block .medium-insert-embeds figure figcaption, 
+    .story .story-content-block .medium-insert-images figure figcaption,
+    .story .story-content-block .mediumInsert figure figcaption,
+    .story .story-content-block .medium-insert-embeds figure figcaption,
     .story .story-content-block .mediumInsert-embeds figure figcaption{
       color: #7b7b7b;
     }

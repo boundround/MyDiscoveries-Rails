@@ -294,8 +294,8 @@ $(document).ready(function() {
                 var wrap_text = $(this).find(".search-page-card__description"),
                     text_old_h2 = $(this).find("h2")
                     text_old_h3 = $(this).find("h3").not('.search-page-card__header')
-                    text_old_p = $(this).find("p").not('.search-page-card__description')
-                    text_old_span = $(this).find("span")
+                    text_old_p = $(this).find("p").not('.search-page-card__description').not('.search-page-card__short-details-key').not('.search-page-card__short-details-value')
+                    text_old_span = $(this).find("span").not('.search-page-card__category-item')
                     text_new = "";
                 if(text_old_h2.length > 0){
                     text_old_h2.hide();

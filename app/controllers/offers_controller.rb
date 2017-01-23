@@ -1,8 +1,8 @@
 class OffersController < ApplicationController
   # before_action :check_user_authorization, except: [:show, :paginate_on_idx]
 
-  before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media, :paginate_on_idx]
-  before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :choose_hero, :update_hero]
+  before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media, :paginate_on_idx, :clone]
+  before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :choose_hero, :update_hero, :clone]
   before_action :set_media, only: [:show, :paginate_media]
 
   def show
@@ -56,7 +56,7 @@ class OffersController < ApplicationController
     @offer = Offer.new(offer_params)
     @offer.tags.select!(&:present?)
     if @offer.save
-      redirect_to(offers_path, notice: 'Offer succesfully saved')
+      redirect_to(edit_offer_path(@offer), notice: 'Offer succesfully saved')
     else
       flash.now[:alert] = 'Offer not saved!'
       render :new
@@ -67,6 +67,8 @@ class OffersController < ApplicationController
     @offer.assign_attributes(offer_params)
     @offer.tags.select!(&:present?)
     if @offer.save
+      @offer.inclusion_list = params[:offer][:inclusions].join(', ')
+      @offer.save
       redirect_to edit_offer_path(@offer), notice: "Offer Updated"
     else
       flash.now[:alert] = 'Sorry, there was an error updating this Offer'
@@ -78,6 +80,17 @@ class OffersController < ApplicationController
     @offers = Offer.all.paginate(per_page: 3, page: params[:offer_page])
   end
 
+  def clone
+    @offer = Offer.find_by_slug(params[:id])
+    @clone_offer = @offer.dup
+    if @clone_offer.save
+      redirect_to(edit_offer_path(@clone_offer), notice: 'Offer succesfully duplicated')
+    else
+      flash.now[:alert] = 'Offer not duplicated!'
+      render :edit
+    end
+  end
+
   def paginate_offers
     @offers = Offer.all.paginate(per_page: 2, page: params[:offers_page])
   end
@@ -85,7 +98,7 @@ class OffersController < ApplicationController
   end
 
   def paginate_photos
-     @offer = Offer.find_by_slug(params[:id])
+    @offer = Offer.find_by_slug(params[:id])
     @photos = @offer.photos.paginate(:page => params[:active_photos], per_page: 3)
   end
 
@@ -140,7 +153,7 @@ class OffersController < ApplicationController
   def offer_params
     params.require(:offer).permit(
       :id,
-      :attraction_id,
+      :place_id,
       :status,
       :name,
       :description,
@@ -188,6 +201,8 @@ class OffersController < ApplicationController
       :validityEndDate,
       :publishStartDate,
       :publishEndDate,
+      :supplier_product_code,
+      :innovations_transaction_id,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
@@ -201,7 +216,8 @@ class OffersController < ApplicationController
       place_ids: [],
       country_ids: [],
       region_ids: [],
-      subcategory_ids: []
+      subcategory_ids: [],
+      inclusion_list: []
     )
   end
 end
