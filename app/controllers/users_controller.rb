@@ -58,12 +58,15 @@ class UsersController < ApplicationController
     unless @user.update(user_params)
       flash[:error] = @user.errors.full_messages.join(" and ")
     end
+    if params[:user][:avatar].blank?
+      sign_in(@user) if current_user == @user
 
-    sign_in(@user) if current_user == @user
-
-    respond_to do |format|
-        format.html { redirect_to @user }
-        format.json { render json: @user }
+      respond_to do |format|
+          format.html { redirect_to @user }
+          format.json { render json: @user }
+      end
+    else
+      render action: 'crop'
     end
   end
 
@@ -235,7 +238,7 @@ class UsersController < ApplicationController
       end
 
       params.require(:user).permit(:email, :admin, :name, :avatar, :country, :date_of_birth, :address, :first_name, :password, :password_confirmation, :is_private, :gender, :mobile, :home_phone,
-                                    :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username, :description, :min_age, :max_age,
+                                    :last_name, :address_line_2, :city, :state, :post_code, :promo_code, :username, :description, :min_age, :max_age, :crop_x, :crop_y, :crop_w, :crop_h,
                                     :role_ids => [], :owned_place_ids => [])
     end
 

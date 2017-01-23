@@ -78,6 +78,30 @@ $(document).ready(function(){
     })
   }, 100)
 
+  $('#cropbox').Jcrop({
+    onChange: update_crop,
+    onSelect: update_crop,
+    setSelect: [0, 0, 500, 500],
+    aspectRatio: 1
+  });
+
+  function update_crop(coords) {
+    $('#user_crop_x').val(coords.x);
+    $('#user_crop_y').val(coords.y);
+    $('#user_crop_w').val(coords.w);
+    $('#user_crop_h').val(coords.h);  
+    updatePreview(coords);
+  }
+
+  function updatePreview(coords) {
+  $('#preview').css({
+        width: Math.round(100/coords.w * $('#cropbox').width()) + 'px',
+        height: Math.round(100/coords.h * $('#cropbox').height()) + 'px',
+        marginLeft: '-' + Math.round(100/coords.w * coords.x) + 'px',
+        marginTop: '-' + Math.round(100/coords.h * coords.y) + 'px'
+    })
+  }
+
 
 
   $('.app-wrap > div[data-page="offer"] .filter-box>div').hide()

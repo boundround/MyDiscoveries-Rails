@@ -92,4 +92,4 @@
 //= require offers
 //= require orders
 
-
+//= require jquery.Jcrop

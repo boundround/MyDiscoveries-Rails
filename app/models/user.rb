@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
 
   ratyrate_rater
 
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  after_update :crop_avatar
+
   has_many :photos_users
   has_many :photos, through: :photos_users
   has_many :videos_users
@@ -95,6 +98,10 @@ class User < ActiveRecord::Base
       identity.save!
     end
     user
+  end
+
+  def crop_avatar
+    self.remote_avatar_url = avatar.url if crop_x.present?
   end
 
   def email_required?

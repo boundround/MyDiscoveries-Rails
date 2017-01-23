@@ -19,6 +19,15 @@ class UserAvatarUploader < CarrierWave::Uploader::Base
   process :fix_exif_rotation
   process :quality => 70
 
+  version :large do
+    process :resize_to_fit => [1400, 1400]
+  end
+
+  version :thumb_avatar do
+    process :crop
+    resize_to_fill(100, 100)
+  end
+
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
@@ -37,6 +46,20 @@ class UserAvatarUploader < CarrierWave::Uploader::Base
       img.auto_orient
       img = yield(img) if block_given?
       img
+    end
+  end
+
+  def crop
+    if model.crop_x.present?
+      resize_to_limit(600, 600)
+      manipulate! do |img|
+        g_x = model.crop_x
+        g_y = model.crop_y
+        g_w = model.crop_w
+        g_h = model.crop_h
+        geometri = g_w+"x"+g_h+"+"+g_x+"+"+g_y
+        img.crop(geometri)
+      end
     end
   end
 
