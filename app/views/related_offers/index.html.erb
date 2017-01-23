@@ -9,7 +9,7 @@
   <%= render "/offers/admin_tabs" %>
   <%= simple_form_for [@offer, @related_offers] do |f| %>
     <div id="dual-list-box-employees" class="form-group row">
-      <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="related-offer" name="related_place[related_offer_ids][]">
+      <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="related-offer" name="related_offer[related_offer_ids][]">
         <%= @relates.each do |relate| %>
         <option value="<%= relate.id %>" name="<%= relate.name %>"><%= relate.name %></option>
         <% end %>

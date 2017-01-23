@@ -104,7 +104,7 @@ $(document).ready(function(){
   dualListBox($('#dual-list-box-offers-places'), $('#similar-places-js').data("similar"), $("[name*='places_offers[place_ids][]']"));
   dualListBox($('#dual-list-box-offers-countries'), $('#similar-places-js').data("similar"), $("[name*='countries_offer[country_ids][]']"));
   dualListBox($('#dual-list-box-offers-regions'), $('#similar-places-js').data("similar"), $("[name*='regions_offers[region_ids][]']"));
-  dualListBox($('#dual-list-box-related-offer'), $('#similar-places-js').data("similar"), $("[name*='related_place[related_offer_ids][]']"));
+  dualListBox($('#dual-list-box-related-offer'), $('#similar-places-js').data("similar"), $("[name*='related_offer[related_offer_ids][]']"));
 
 
   if($("#dual-list-box-stories-countries").length > 0){
