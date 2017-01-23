@@ -118,15 +118,20 @@
 
             <div class="country-info main-article">
                 <h2 class="lg-heading"><%= @offer.name %></h2>
-                <p class="destination-desc " style="display:none;">
-                    <%= raw @offer.description %>
-                </p>
-                <p class="destination-desc">
-                    <%= raw @offer.description[0..300]+"..." %>
-                </p>
-                <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
-                <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
-
+                <% if @offer.description.size > 301 %>
+                  <div class="destination-desc " style="display:none;">
+                      <%= simple_format @offer.description %>
+                  </div>
+                  <div class="destination-desc">
+                      <%= simple_format @offer.description[0..300]+"..." %>
+                  </div>
+                  <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
+                  <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+                <% else %>
+                  <div class="destination-desc">
+                      <%= simple_format @offer.description %>
+                  </div>
+                <% end %>
                 <div class="ci-map-block">
                     <div id='dest-map' data-map="<%= create_marker @offer %>"></div>
                 </div>
