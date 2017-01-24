@@ -20,11 +20,11 @@ class UserAvatarUploader < CarrierWave::Uploader::Base
   process :quality => 70
 
   version :large do
+    process :cropper
     process :resize_to_fit => [1400, 1400]
   end
 
   version :thumb_avatar do
-    process :crop
     resize_to_fill(100, 100)
   end
 
@@ -49,7 +49,7 @@ class UserAvatarUploader < CarrierWave::Uploader::Base
     end
   end
 
-  def crop
+  def cropper
     if model.crop_x.present?
       resize_to_limit(600, 600)
       manipulate! do |img|

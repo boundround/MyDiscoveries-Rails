@@ -354,7 +354,7 @@
                         <div class="form-group user-ava">
                           <div class="col-xs-12 col-sm-2">
                             <div class="img-rounded edit-profile" align="center">
-                              <% if @user.avatar.url(:thumb_avatar) %>
+                              <% if @user.avatar.url %>
                                 <%= image_tag @user.avatar.url(:thumb_avatar), class: 'img-responsive avatar-img' %>
                                 <img id="image-avatar-preview" class="img-responsive" alt="">
                               <% else %>
@@ -364,7 +364,7 @@
                             </div>
                           </div>
                           <div class="col-xs-12 col-sm-10 upload-wrap">
-                            <%= f.input :avatar, as: :file, label: 'upload photo', input_html: { class: "#{'hide' if !current_user.admin?}" } %>
+                            <%= f.input :avatar, as: :file, label: 'upload photo', input_html: { class: "#{'hide' if !current_user.admin?}", onchange: "this.form.submit()" } %>
                             <div class="avatar-remove-wrap">
                               <span>or</span>
                               <a href="#" class="edit">Remove</a>
@@ -418,6 +418,35 @@
                 </div>
                 <!-- END - Change password -->
     </div>
+
+    <!-- Modal avatar -->
+    <% if @show_modal.present? %>
+    <div class="modal fade in" id="editAvatar" tabindex="-1" role="dialog" style="display: block;">
+      <div class="modal-dialog modal-dialog--margin-top" role="document">
+        <div class="modal-content modal-content--container">
+          <div class="modal-content__header text-center">
+            <span class="proposal__header">Crop Image</span>
+            <div class="close_avatar_modal pull-right">&times;</div>
+          </div>
+          <div class="modal-body text-center">
+            <%= image_tag @user.avatar.url, :id => "cropbox" %>
+            <!-- <h1>Image Preview</h1>
+            <div style="width:100px; height:100px; overflow:hidden">
+              <%= image_tag @user.avatar.url, :id => "preview" %>
+            </div> -->
+            <%= form_for @user do |f| %>
+              <% %w[x y w h].each do |attribute| %>
+                <%= f.hidden_field "crop_#{attribute}" %>
+              <% end %>
+              <div class="actions">
+                <%= f.submit "Save Avatar", class: "btn btn-primary btn-submit" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
   </section>
 </div>
 

@@ -1924,3 +1924,36 @@ input.more-result{
 .margin-left-20 {
 	margin-left: 20px;
 }
+
+#editAvatar{
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0; 
+  background: rgba(0,0,0,0.6);
+  .modal-dialog{
+    .jcrop-holder{
+      margin: auto;
+    }
+    .modal-content__header{
+      background: #f4efed;
+      padding: 20px 0 6px;
+    }
+    .close_avatar_modal{
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      font-size: 23px;
+      cursor: pointer;
+    }
+    .btn-submit{
+      padding: 5px 20px !important;
+      margin-top: 10px !important;
+    }
+  }
+}

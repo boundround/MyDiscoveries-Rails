@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     @orders  = @user.orders.last(2)
     @countries = Country.all
     @offers = @user.offers
+    @show_modal = params[:show_modal]
   end
 
   def public_profile
@@ -66,7 +67,7 @@ class UsersController < ApplicationController
           format.json { render json: @user }
       end
     else
-      render action: 'crop'
+      redirect_to user_path(@user, show_modal: true)
     end
   end
 

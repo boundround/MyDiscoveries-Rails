@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   ratyrate_rater
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  after_update :crop_avatar
+  before_update :crop_avatar
 
   has_many :photos_users
   has_many :photos, through: :photos_users
@@ -101,7 +101,18 @@ class User < ActiveRecord::Base
   end
 
   def crop_avatar
-    self.remote_avatar_url = avatar.url if crop_x.present?
+    if self.crop_x.to_i > 0 or  self.crop_y.to_i > 0 or  self.crop_w.to_i > 0 or  self.crop_h.to_i > 0 
+      self.avatar.recreate_versions!(:large)
+      url_crop = self.avatar.url(:large)
+      self.crop_x = nil
+      self.crop_y = nil
+      self.crop_w = nil
+      self.crop_h = nil
+      self.remote_avatar_url = url_crop
+      self.save!
+    end
+    
+    # self.avatar.recreate_versions!
   end
 
   def email_required?

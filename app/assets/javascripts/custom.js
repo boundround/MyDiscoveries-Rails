@@ -85,6 +85,20 @@ $(document).ready(function(){
     aspectRatio: 1
   });
 
+  $('.close_avatar_modal').click(function(){
+    $('#editAvatar').removeClass('in').addClass('out')
+    setTimeout(function(){
+      $('#editAvatar').hide()
+    }, 200)
+  })
+
+  if(window.location.search.substring(1) == "show_modal=true"){
+    console.log('aaa')
+    setTimeout(function(){
+      $('#change-location, #change-location2').click();
+    },100)
+  }
+
   function update_crop(coords) {
     $('#user_crop_x').val(coords.x);
     $('#user_crop_y').val(coords.y);
