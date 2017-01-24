@@ -12,7 +12,8 @@
 <script type="text/template" id="instant-hit-template">
 {{#hits}}
 {{#is_offer}}
-<div class="search-page-card clear-self">
+  <div class="search-page-card clear-self anchor-offer wrap_link_card">
+    <a class="link_card" href="{{ url }}"></a>
     <div class="container-left">
       <h3 class="search-page-card__header">{{{ _highlightResult.display_name.value }}}</h3>
       <div class="search-page-card__info-side search-page-card__info-side--left">
@@ -66,10 +67,11 @@
           <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
         <%# end %>
     </div>
-</div>
+  </div>
 {{/is_offer}}
 {{^is_offer}}
-  <div class="search-page-card clear-self search-offer">
+  <div class="search-page-card clear-self search-offer wrap_link_card">
+    <a class="link_card" href="{{ url }}"></a>
     <div class="search-page-card__info-side search-page-card__info-side--left">
         <div class="search-photo search-page-card__image">
           <div class="category-card" style="{{#is_story}}background-image: url(/assets/mydiscoveries_icon/i/map/story.svg){{/is_story}}{{^is_story}}background-image: url(/assets/mydiscoveries_icon/i/map/map-point.png){{/is_story}}" >{{where_destinations}}</div>
