@@ -96,7 +96,6 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(photo_params)
-
     if @photo.photoable_type == "Offer"
       @offer = @photo.photoable
       @offer.photos << @photo
@@ -104,7 +103,9 @@ class PhotosController < ApplicationController
 
     if @photo.save
       redirect_to :back, notice: "Photo added."
-      Offer::Shopify::ImagesUpdater.perform_async(@offer.id)
+      if @offer
+        Offer::Shopify::ImagesUpdater.perform_async(@offer.id)
+      end
     else
       render :new
     end
