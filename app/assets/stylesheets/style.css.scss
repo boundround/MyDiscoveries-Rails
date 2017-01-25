@@ -1934,7 +1934,7 @@ input.more-result{
   left: 0;
   z-index: 1050;
   -webkit-overflow-scrolling: touch;
-  outline: 0; 
+  outline: 0;
   background: rgba(0,0,0,0.6);
   .modal-dialog{
     .jcrop-holder{
@@ -1955,5 +1955,22 @@ input.more-result{
       padding: 5px 20px !important;
       margin-top: 10px !important;
     }
+  }
+}
+
+.place-video {
+  .small-video-component{
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 57%;
+  }
+
+  iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }

@@ -34,13 +34,12 @@
             <a href="" data-toggle="modal" data-target="#videoEditModal"
               data-video-id="<%= video.id.to_s %>"
               data-youtube-id="<%= video.youtube_id %>"
-              data-vimeo-id="<%= video.vimeo_id %>"
               data-priority="<%= video.priority %>"
               data-status="<%= video.status %>"
               data-title="<%= video.title %>"
               data-description="<%= video.description %>"
               data-transcript="<%= video.transcript %>"
-              data-video-type="<%= video.youtube_id.present? ? "youtube" : "vimeo" %>"
+              data-video-type="<%= video.youtube_id.present? ? "youtube" : "" %>"
               class="edit-video" data-path="<%= "/videos/#{video.id}" %>">
               <img src="<%= showing_image(video.vimeo_thumbnail) %>" alt="" class="width100">
             </a>
@@ -69,9 +68,6 @@
 	      </div>
 	      <div class="modal-body">
           <div id="video-thumbnail"></div>
-          <div class="form-group" id="vimeo-edit-block">
-            <%= f.input :vimeo_id, label: "Vimeo ID", input_html: { class: 'form-control', id: "vimeo-edit-id"}  %>
-          </div>
           <div class="form-group" id="youtube-edit-block">
             <%= f.input :youtube_id, label: "Youtube ID", input_html: { class: 'form-control', id: "youtube-edit-id" }  %>
           </div>

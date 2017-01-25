@@ -67,8 +67,10 @@ class OffersController < ApplicationController
     @offer.assign_attributes(offer_params)
     @offer.tags.select!(&:present?)
     if @offer.save
-      @offer.inclusion_list = params[:offer][:inclusions].join(', ')
-      @offer.save
+      if params[:offer][:inclusions]
+        @offer.inclusion_list = params[:offer][:inclusions].join(', ')
+        @offer.save
+      end
       redirect_to edit_offer_path(@offer), notice: "Offer Updated"
     else
       flash.now[:alert] = 'Sorry, there was an error updating this Offer'
