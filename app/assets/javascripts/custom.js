@@ -93,11 +93,14 @@ $(document).ready(function(){
   })
 
   if(window.location.search.substring(1) == "show_modal=true"){
-    console.log('aaa')
     setTimeout(function(){
       $('#change-location, #change-location2').click();
     },100)
   }
+
+  $('.video_thumbnail').click(function(){
+    $('.small-video-component iframe').attr('src', $(this).data('src'))
+  })
 
   function update_crop(coords) {
     $('#user_crop_x').val(coords.x);

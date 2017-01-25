@@ -26,9 +26,7 @@ end
 
 <% if !video.youtube_id.blank? %>
   <div class="<%= grid %> col-sm-6 video-embed-wrapper sm">
-      <div class="small-video-component">
-        <iframe class="player-vimeo" src="<%= video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-      </div>
+      <img src="<%= showing_image(video.vimeo_thumbnail) %>" data-src="<%= video.url %>" alt="" class="width100 video_thumbnail">
       <div class="title-wrapper">
           <p><%= video.title %></p>
       </div>
@@ -36,7 +34,7 @@ end
 <% else %>
   <div class="<%= grid %> col-sm-6 video-embed-wrapper sm">
     <div class="small-video-component">
-      <iframe class="player-vimeo" src="<%= video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      <img src="<%= showing_image(video.vimeo_thumbnail) %>" data-src="<%= video.url %>" alt="" class="width100 video_thumbnail">
     </div>
     <div class="title-wrapper">
         <p><%= video.title %></p>

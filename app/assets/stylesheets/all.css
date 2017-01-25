@@ -1285,7 +1285,7 @@ h4 {
     font-family: Signika-Bold;
     text-decoration: none
 }
-.destination-page .small-videos-component-wrapper {
+.destinations .small-videos-component-wrapper {
     padding-top: 40px;
     padding-bottom: 60px
 }
@@ -1375,7 +1375,7 @@ h4 {
     }
 }
 @media (max-width: 991px) {
-    .destination-page .small-videos-component-wrapper {
+    .destinations .small-videos-component-wrapper {
         padding-top: 15px
     }
     .destination-page .famous-faces-wrapper h3 {
@@ -1405,7 +1405,7 @@ h4 {
         margin-top: 40px;
         font-size: 18px
     }
-    .destination-page .small-videos-component-wrapper {
+    .destinations .small-videos-component-wrapper {
         padding-top: 0;
         padding-bottom: 40px
     }
