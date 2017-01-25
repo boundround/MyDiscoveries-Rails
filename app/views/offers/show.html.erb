@@ -3,11 +3,10 @@
 
 <!-- BEGIN - breadcrumbs -->
 <div class="breadcrumbs width-limiter">
-    <a href="#" class="breadcrumbs__link">home</a>
-    <a href="#" class="breadcrumbs__link">destinations</a>
-    <a href="#" class="breadcrumbs__link">pacific</a>
-    <a href="#" class="breadcrumbs__link">australia</a>
-    <a href="<%= edit_offer_path(@offer) %>" class="breadcrumbs__link">Edit Offer</a>
+  <%= raw create_breadcrumb_offer(@offer) %>
+  <% if user_signed_in? and current_user.admin? %>
+    <%= link_to "Edit Offer", edit_offer_path(@offer), class: "breadcrumbs__link" %>
+  <% end %>
 </div>
 <!-- END - breadcrumbs -->
 
