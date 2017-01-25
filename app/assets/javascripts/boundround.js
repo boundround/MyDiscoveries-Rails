@@ -218,21 +218,35 @@ $(document).ready(function() {
   funFact();
   setUpChart();
 
-  if (document.getElementById('icon')) {
+  if ($('#place-data')) {
     var lon = $('.area-content').data('long');
     var lat = $('.area-content').data('lat');
 
     $.ajax({
-      url: "https://api.forecast.io/forecast/c652be9c98a1353375baff9c36ba0787/" + lat + "," + lon,
+      url: "https://api.forecast.io/forecast/5e484ae84d059b196a7b91faaa86cc32/" + lat + "," + lon,
       dataType: 'jsonp',
       success: function(data) {
+        data_weather = data.daily.data.slice(1,4)
+        $.each(data_weather,function(e, val){
+          var month_name = [
+              "January", "February", "March",
+              "April", "May", "June", "July",
+              "August", "September", "October",
+              "November", "December"
+            ],
+              t_h = Math.round((val.temperatureMax - 32) * 5 / 9),
+              t_l = Math.round((val.temperatureMin - 32) * 5 / 9),
+              time = new Date(val.time*1000),
+              time_date = time.getDate(),
+              time_month = time.getMonth(),
+              r_time = month_name[time_month] + " " + time_date;
 
-        var farenheit = data.currently.temperature;
-        var temperature = Math.round((farenheit - 32) * 5 / 9);
-        var iconString = data.currently.icon;
-        icon = "/assets/images/" + iconString + ".png"; // source
-        $('#temperature').append(temperature + "&deg; C"); // append to DOM #ID temperature
-        document.getElementById("icon").src = icon; // JavaScript change img src
+          $('.t-block').append('<li>\
+                                    <span class="t-high">'+ t_h +'</span>\
+                                    <span class="t-low">'+ t_l +'</span>\
+                                    <span class="month">'+ r_time +'</span>\
+                                </li>')
+        })
       }
     });
   }

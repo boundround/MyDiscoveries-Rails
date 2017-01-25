@@ -6,7 +6,7 @@
 
 <div id='country-data' data-country-code=<%= @place.country.blank? ? 'no-country' : @place.country.country_code %> data-capital-city=<%= @place.country.blank? ? 'no-country' : @place.country.capital_city %>></div>
 
-<div class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
+<div id="place-data" class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
 <div class="breadcrumbs container">
 <%= raw create_breadcrumb_for(@place) %>
 <% if user_signed_in? and current_user.admin? %>
@@ -107,21 +107,6 @@
                     <div class="kic-item long weather">
                             <h4 class="kici-heading ">weather</h4>
                             <ul class="t-block">
-                                <li>
-                                    <span class="t-high">20</span>
-                                    <span class="t-low">10</span>
-                                    <span class="month">September</span>
-                                </li>
-                                <li>
-                                    <span class="t-high">20</span>
-                                    <span class="t-low">10</span>
-                                    <span class="month">September</span>
-                                </li>
-                                <li>
-                                    <span class="t-high">20</span>
-                                    <span class="t-low">10</span>
-                                    <span class="month">September</span>
-                                </li>
                             </ul>
                         </div>
                 </div>
