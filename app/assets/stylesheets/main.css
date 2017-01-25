@@ -8522,7 +8522,6 @@ input[type="submit"].modal-content__btn-access  {
 }
 
 .new-offer-promo-item__header {
-  position: absolute;
   color: #ffffff;
   font-size: 24px;
   text-shadow: 1px 1px grey;
@@ -9727,7 +9726,8 @@ a:hover, a:focus, a:active {
   cursor: pointer;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
-  transition: all 0.3s ease; }
+  transition: all 0.3s ease;
+  position: relative; }
 .btn-bordered.red.invert{
   border: 2px solid #ff4b1a;
   color: white;
@@ -10562,7 +10562,6 @@ span.arrow {
         height: 160px; }
       .region.package-offers ul li .po-content-block {
         padding: 25px;
-        position: relative;
         height: 320px;
         z-index: 10;
         -webkit-transition: all 0.3s ease;
