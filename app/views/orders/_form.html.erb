@@ -11,6 +11,7 @@
       <div class="form-group">
         <%= f.input(
               :total_price,
+              as: :hidden,
               min: 0,
               input_html: {
                 data: {
@@ -67,10 +68,10 @@
                           <div><%= @offer.duration / 1000 / 60 / 60 / 24 %> <%= pluralize((@offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></div>
 
                       </li>
-                      <li>
+                      <!-- <li>
                           <h5>DEPARTING FROM</h5>
                           <div>Melbourne (Tullamarine), Australia</div>
-                      </li>
+                      </li> -->
                       <li>
                           <h5>PRICE PER ADULT</h5>
                           <div>$<%= offer.maxRateAdult %> AUD</div>
@@ -79,6 +80,9 @@
                           <h5># of adults</h5>
                           <div>
                             <%= f.input :number_of_adults,
+                                as: :select,
+                                collection: 1..6,
+                                selected: 2,
                                 label: false,
                                 input_html: { class: 'form-control js-order-people-count', min: 0 }
                             %>
@@ -92,6 +96,9 @@
                           <h5># of children</h5>
                           <div>
                             <%= f.input :number_of_children,
+                                as: :select,
+                                collection: 0..6,
+                                selected: 0,
                                 label: false,
                                 input_html: { class: 'form-control js-order-people-count', min: 0 }
                             %>
