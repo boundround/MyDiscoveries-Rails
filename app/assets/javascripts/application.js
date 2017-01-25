@@ -88,8 +88,6 @@
 //= require chunks/search-page-card
 //= require chunks/dest-map
 //= require main-my-discovery
-
 //= require offers
 //= require orders
-
-//= require jquery.Jcrop
+//= require jquery.Jcrop.min
