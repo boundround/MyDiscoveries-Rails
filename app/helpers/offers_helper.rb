@@ -56,4 +56,32 @@ module OffersHelper
     end
     region_ids.to_json
   end
+
+  def create_breadcrumb_offer(offer)
+    breadcrumb = ""
+    if offer.place.present?
+      place = offer.place
+
+      parents = place.get_parents(place)
+
+      parents.delete_if {|parent| parent.status != "live"}
+
+      if !parents.blank?
+        parents.reverse_each do |parent|
+          if parent.class.to_s == "Place"
+            breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", place_path(parent), class: "breadcrumbs__link"
+          elsif parent.class.to_s == "Country"
+            breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", country_path(parent), class: "breadcrumbs__link"
+          elsif parent.class.to_s == "Attraction"
+            breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", attraction_path(parent), class: "breadcrumbs__link"
+          elsif parent.class.to_s == "Region"
+            breadcrumb += link_to "#{parent.display_name.upcase rescue ''}", region_path(parent), class: "breadcrumbs__link"
+          end
+        end
+      end
+      breadcrumb += link_to "#{place.display_name.upcase rescue ''}", place_path(place), class: "breadcrumbs__link"
+    end
+  
+    breadcrumb += "<span class='breadcrumbs__link'>" + offer.name.upcase + "</span>"
+  end
 end
