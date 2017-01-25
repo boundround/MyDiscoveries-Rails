@@ -276,7 +276,7 @@ class Place < ActiveRecord::Base
   accepts_nested_attributes_for :parent, :allow_destroy => true
 
   after_update :flush_place_cache # May be able to be removed
-  after_update :flush_places_geojson
+  # after_update :flush_places_geojson
 
   def published?
     if self.status == "live"

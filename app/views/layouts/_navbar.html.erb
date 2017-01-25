@@ -61,12 +61,9 @@
         <h3 class="navigation-drop-down__header">Featured places to go</h3>
         <div class="navigation-drop-down__small-column-wrapper clear-self">
           <% if @featured_nav_destinations.present? %>
-            <% @featured_nav_destinations.each do |country| %>
+            <% @featured_nav_destinations.each do |offer| %>
                 <div class="navigation-drop-down__small-column">
-                    <a href="<%= country_path(country) %>" class="navigation-drop-down__region-header"><%= country.display_name %></a>
-                    <% country.places.last(4).each do |place| %>
-                        <a href="<%= place_path(place) %>" class="navigation-drop-down__region-list-item"><%= place.display_name %></a>
-                    <% end %>
+                    <a href="<%= offer_path(offer) %>" class="navigation-drop-down__region-header"><%= offer.name %></a>
                 </div>
             <% end %>
           <% end %>

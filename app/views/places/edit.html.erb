@@ -54,6 +54,9 @@
         </table>
       </div>
       <div class="form-group">
+        <%= f.hidden_field :zoom_level, input_html: { class: 'form-control' } %>
+      </div>
+      <div class="form-group">
         <%= f.input :display_name, input_html: { class: 'form-control' } %>
       </div>
       <div class="form-group">
@@ -118,9 +121,7 @@
         <%= f.input :status, as: :select, collection: ["draft", "edited", "live", "removed"] %>
       </div>
       <div><%= f.check_box :is_country, label: false %>  <%= f.label :is_country, "Is Country?" %></div>
-      <div class="form-group">
-        <%= f.hidden_field :zoom_level, input_html: { class: 'form-control zoom_field' } %>
-      </div>
+      <div><%= f.check_box :show_in_mega_menu, label: false %>  <%= f.label :show_in_mega_menu, "Show in mega menu?" %></div>
       <div class="form-group">
         <%= f.button :submit, 'Submit' %>
       </div>

@@ -583,7 +583,7 @@ class PlacesController < ApplicationController
 
   private
     def place_params
-      if @place.present?
+      if @place.present? && params[:place][:parent_attributes].present?
         unless @place.parent.blank?
           if (@place.parent.parentable_type == params[:place][:parent_attributes][:parentable_type])&&(@place.parent.parentable_id == params[:place][:parent_attributes][:parentable_id].to_i)
             params[:place].delete :parent_attributes
@@ -665,6 +665,7 @@ class PlacesController < ApplicationController
         :trip_advisor_url,
         :description_heading,
         :meta_description,
+        :show_in_mega_menu,
         parent_attributes: [:parentable_id, :parentable_type],
         photos_attributes: [:id, :place_id, :photoable_id, :photoable_type, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         videos_attributes: [:id, :youtube_id, :transcript, :hero, :priority, :title, :description, :place_id, :videoable_id, :videoable_type, :status, :country_include, :customer_approved, :customer_review, :approved_at, :_destroy],
