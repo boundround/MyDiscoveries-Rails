@@ -27,7 +27,7 @@ window.onload = function(){
 
     var zoom_level_region = $('#region_zoom_level').val(),
         zoom_level_place = $('#place_zoom_level').val();
-    if(zoom_level_region == undefined && zoom_level_region == '' && zoom_level_place == undefined && zoom_level_place == ''){
+    if((zoom_level_region == undefined || zoom_level_region == '') && (zoom_level_place == undefined || zoom_level_place == '')){
         $("#pac-input").geocomplete("map").setZoom(14)
     }else{
       if(zoom_level_region != undefined){
