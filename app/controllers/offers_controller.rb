@@ -119,7 +119,7 @@ class OffersController < ApplicationController
   end
 
   def choose_hero
-    @offer_photos = @offer.photos
+    @offer_photos = @offer.photos.where.not(status: "removed")
     @photo = Photo.new
   end
 

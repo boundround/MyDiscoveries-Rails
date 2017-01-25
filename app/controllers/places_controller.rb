@@ -398,7 +398,7 @@ class PlacesController < ApplicationController
   def choose_hero
     @place = Place.find_by_slug(params[:id])
     @user_photos = @place.user_photos
-    @place_photos = @place.photos
+    @place_photos = @place.photos.where.not(status: "removed")
     @photo = Photo.new
   end
 

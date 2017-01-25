@@ -78,7 +78,7 @@ class RegionsController < ApplicationController
   end
 
   def choose_hero
-    @region_photos = @region.photos
+    @region_photos = @region.photos.where.not(status: "removed")
     @photo = Photo.new
   end
 
