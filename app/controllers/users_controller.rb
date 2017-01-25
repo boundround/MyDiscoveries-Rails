@@ -125,12 +125,7 @@ class UsersController < ApplicationController
   end
 
   def paginate_stories
-    if !params[:stories_page].blank?
-      @user = User.includes(:favorite_places).find(params[:id])
-      @stories = @user.user_stories.paginate(page: params[:stories_page], per_page: 4)
-    else
-      @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
-    end
+    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
   end
 
   def videos

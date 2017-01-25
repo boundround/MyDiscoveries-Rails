@@ -39,20 +39,7 @@
     <aside>
       <h3 class="point-card__header"><%= @place.display_name %></h3>
       <ul class="featured-articles">
-        <% @stories.each do |story| %>
-        <li>
-          <div class="fa-img-block">
-            <div class="user-dp"
-                 style="background: url(<%= showing_image(story.hero_image_url) rescue ""%>) no-repeat;"
-                 role="img"
-                 aria-label="User: <%= story.user.username %>">
-            </div>
-          </div>
-          <p class="xs-heading"><%= simple_format story.title.blank? ? story.title : story.title.truncate(65) %></p>
-          <a href="<%= story_path(story) %>" class="btn-bordered red small">READ MORE</a>
-          <span class="label-article">Featured Article</span>
-        </li>
-        <% end %>
+        <%= render partial: "stories/all_stories_white", collection: @stories, as: :story %>
       </ul>
     </aside>
     <section>

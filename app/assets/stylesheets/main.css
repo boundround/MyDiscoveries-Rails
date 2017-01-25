@@ -8522,7 +8522,6 @@ input[type="submit"].modal-content__btn-access  {
 }
 
 .new-offer-promo-item__header {
-  position: absolute;
   color: #ffffff;
   font-size: 24px;
   text-shadow: 1px 1px grey;
@@ -9234,7 +9233,9 @@ a.see-more__link {
   border: 2px solid #ff4d1a;
   float: left;
   padding: 11px 17px 8px;
-  letter-spacing: 1px; }
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1 }
   .search-page-card__cost-details:hover {
     color: #ffffff;
     background-color: #ff4d1a; }
@@ -9254,7 +9255,8 @@ a.see-more__link {
   background-image: url(/assets/mydiscoveries_icon/i/bucket-list/inactive.svg);
   background-size: auto 57%;
   position: absolute;
-  bottom: 17px; }
+  bottom: 17px;
+  z-index: 1 }
   .search-page-card__to-bucket-list:hover {
     background-image: url(/assets/mydiscoveries_icon/i/bucket-list/hover.svg);
     color: #ff4d1a; }
@@ -9727,7 +9729,8 @@ a:hover, a:focus, a:active {
   cursor: pointer;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
-  transition: all 0.3s ease; }
+  transition: all 0.3s ease;
+  position: relative; }
 .btn-bordered.red.invert{
   border: 2px solid #ff4b1a;
   color: white;
@@ -10562,7 +10565,6 @@ span.arrow {
         height: 160px; }
       .region.package-offers ul li .po-content-block {
         padding: 25px;
-        position: relative;
         height: 320px;
         z-index: 10;
         -webkit-transition: all 0.3s ease;
