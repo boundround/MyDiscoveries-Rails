@@ -58,7 +58,7 @@
 
     <div class="navigation-drop-down__column">
 
-        <h3 class="navigation-drop-down__header">Featured places to go</h3>
+        <h3 class="navigation-drop-down__header">Featured things to do</h3>
         <div class="navigation-drop-down__small-column-wrapper clear-self">
           <% if @featured_nav_destinations.present? %>
             <% @featured_nav_destinations.each do |offer| %>
@@ -72,7 +72,7 @@
 
     <div class="navigation-drop-down__column">
 
-        <h3 class="navigation-drop-down__header">Featured things to do</h3>
+        <h3 class="navigation-drop-down__header">Featured places to go</h3>
           <% if @featured_nav_places.present? %>
             <% @featured_nav_places.each do |place| %>
                 <a href="<%= place_path(place) %>" class="featured-thing clear-self">
