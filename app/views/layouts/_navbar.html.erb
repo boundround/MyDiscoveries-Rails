@@ -61,12 +61,9 @@
         <h3 class="navigation-drop-down__header">Featured places to go</h3>
         <div class="navigation-drop-down__small-column-wrapper clear-self">
           <% if @featured_nav_destinations.present? %>
-            <% @featured_nav_destinations.each do |country| %>
+            <% @featured_nav_destinations.each do |offer| %>
                 <div class="navigation-drop-down__small-column">
-                    <a href="<%= country_path(country) %>" class="navigation-drop-down__region-header"><%= country.display_name %></a>
-                    <% country.places.last(4).each do |place| %>
-                        <a href="<%= place_path(place) %>" class="navigation-drop-down__region-list-item"><%= place.display_name %></a>
-                    <% end %>
+                    <a href="<%= offer_path(offer) %>" class="navigation-drop-down__region-header"><%= offer.name %></a>
                 </div>
             <% end %>
           <% end %>
@@ -82,16 +79,9 @@
                     <div class="featured-thing__image-wrapper">
                         <img src="<%= draw_small_background(place)%>" class="featured-thing__image" alt="">
                         <p class="featured-thing__image-paragraph">
-                            <span class="featured-thing__image-currency"><% place.subcategories.price_categories.each do |icon| %>
-                                      <%= icon.name + " " %>
-                                    <% end %></span>
-                            <% if !place.viator_link.blank? %>
-                            <span class="featured-thing__image-book">book</span>
-                            <% end %>
                         </p>
                     </div>
                     <h5 class="featured-thing__header"><%= place.display_name %></h5>
-                    <span class="featured-thing__country"><%#= place.country.display_name %></span>
                 </a>
             <% end %>
           <% end %>
