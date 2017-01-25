@@ -81,31 +81,31 @@
                         </div>
 
                     </li>
-                    <!-- <li class="po-item">
+                    <% if @offer.related_offers.present? %>
+                      <% @offer.related_offers.each do |offer| %>
+                        <li class="po-item">
+                            <div class="poi-content-top">
+                                <div class="poict-price">
+                                    <span>$</span>
+                                    <span class="poict-price-self"><%= offer.related_offer.minRateAdult %></span>
+                                </div>
+                                <!-- <div class="poict-valued">Valued up to $3,441</div> -->
+                                <div class="poict-people">per Adult</div>
+                                <div class="poict-nights"><%= offer.related_offer.duration / 1000 / 60 / 60 / 24 %> <%= pluralize((offer.related_offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></div>
+                                <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
-                        <div class="poi-content-top">
-                            <div class="poict-price">
-                                <span>$</span>
-                                <span class="poict-price-self">1399</span>
+                                <a href="<%= new_offer_order_path(offer.related_offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
                             </div>
-                            <div class="poict-valued">Valued up to $3,441</div>
-                            <div class="poict-people">2 Adults</div>
-                            <div class="poict-nights">7 nights</div>
-                            <div class="poict-room">TSHELL room, TS Suites Seminyak</div>
 
-                            <a href="" class="btn-bordered red small">buy now</a>
-                        </div>
-
-                        <div class="poi-content-bottom">
-                            <p>
-                                <span>Inclusions:</span>
-                                Daily all-day breakfasts, a global smorgasbord buffet dinner, daily poolside cocktails,
-                                daily mini-bar treats, four Balinese massages, daily shuttle to Double-Six Beach and
-                                Seminyak Square, nightly tacos at Famous Motel Mexicola, plus more!
-                            </p>
-                        </div>
-
-                    </li> -->
+                            <div class="poi-content-bottom">
+                                <p>
+                                    <span class="head-highlight">Highlights:</span>
+                                    <%= simple_format offer.related_offer.highlightsStr %>
+                                </p>
+                            </div>
+                        </li>
+                      <% end %>
+                    <% end %>
                 </ul>
 
                 <!-- <a href="#" class="more-link">see more</a> -->
