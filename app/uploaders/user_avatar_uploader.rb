@@ -19,14 +19,7 @@ class UserAvatarUploader < CarrierWave::Uploader::Base
   process :fix_exif_rotation
   process :quality => 70
 
-  version :large do
-    process :cropper
-    process :resize_to_fit => [1400, 1400]
-  end
-
-  version :thumb_avatar do
-    resize_to_fill(100, 100)
-  end
+  process :cropper
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
