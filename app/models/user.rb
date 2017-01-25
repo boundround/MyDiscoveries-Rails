@@ -102,8 +102,8 @@ class User < ActiveRecord::Base
 
   def crop_avatar
     if self.crop_x.to_i > 0 or  self.crop_y.to_i > 0 or  self.crop_w.to_i > 0 or  self.crop_h.to_i > 0 
-      self.avatar.recreate_versions!(:large)
-      url_crop = self.avatar.url(:large)
+      self.avatar.recreate_versions!
+      url_crop = self.avatar.url
       self.crop_x = nil
       self.crop_y = nil
       self.crop_w = nil
