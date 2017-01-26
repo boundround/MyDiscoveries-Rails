@@ -1,3 +1,6 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+jQuery ->
+  $('.js-add-operator-tag').on 'click', (e) ->
+    e.preventDefault()
+    container = $('.operator_tags .controls')
+    element   = '<input class="text optional" name="operator[tags][]" type="text" value="">'
+    container.append(element)

@@ -1,11 +1,9 @@
 class OperatorsController < ApplicationController
-  before_action :set_operator, only: [:show, :update, :edit, :destroy]
+  before_action :check_user_authorization
+  before_action :set_operator, only: [:update, :edit, :destroy]
 
   def index
     @operators = Operator.all
-  end
-
-  def show
   end
 
   def create
