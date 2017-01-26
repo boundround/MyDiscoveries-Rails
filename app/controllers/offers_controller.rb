@@ -12,10 +12,12 @@ class OffersController < ApplicationController
     @last_video = @offer.videos.active.order(:priority).first
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @review  = @offer.reviews.build
+    @user = current_user
   end
 
   def new
     @offer = Offer.new(tags: [""])
+    @user = current_user
   end
 
   def all_offers
@@ -50,6 +52,7 @@ class OffersController < ApplicationController
 
   def cms_index
     @offers = Offer.all
+    @user = current_user
   end
 
   def create
@@ -115,7 +118,7 @@ class OffersController < ApplicationController
   end
 
   def edit
-
+    @user = current_user
   end
 
   def choose_hero

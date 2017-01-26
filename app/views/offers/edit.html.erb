@@ -262,7 +262,7 @@
         <%= f.input :customStr3, as: :bootsy, label: 'Fine Print', input_html: { class: 'form-control' } %>
       </div>
       <div class="form-group">
-        <%= f.input :customStr4, as: :bootsy, label: 'Booking Guarantee', input_html: { class: 'form-control' } %>
+        <%= f.input :customStr4, as: :bootsy, label: 'Booking Guarantee', input_html: { class: 'form-control', value: "#{@offer.customStr4.present?? @offer.customStr4 : @user.guarantee_text}" } %>
       </div>
     </div>
     <div class="form-group margin-left-20">
