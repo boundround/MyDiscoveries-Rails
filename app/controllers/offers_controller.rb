@@ -205,6 +205,7 @@ class OffersController < ApplicationController
       :publishEndDate,
       :supplier_product_code,
       :innovations_transaction_id,
+      :operator_id,
       :show_in_mega_menu,
       { tags: [] },
       photos_attributes: [

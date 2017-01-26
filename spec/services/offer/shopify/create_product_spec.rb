@@ -30,7 +30,6 @@ RSpec.describe Offer::Shopify::CreateProduct do
         expect(product.vendor).to eq('Bound Round')
         expect(product.product_type).to eq('Tour')
         expect(product.tags).to eq(tags.join(', '))
-        # expect(product.images)
       end
 
       it 'creates appropriate variants' do
@@ -53,7 +52,7 @@ RSpec.describe Offer::Shopify::CreateProduct do
       it 'updates an offer with shopify_product_id' do
         expect(offer.reload.shopify_product_id).to eq(nil)
         subject
-        expect(offer.reload.shopify_product_id).to eq(product.id)
+        expect(offer.reload.shopify_product_id).to eq(product.id.to_s)
       end
     end
   end
