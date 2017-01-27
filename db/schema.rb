@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170125044106) do
+ActiveRecord::Schema.define(version: 20170126024310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -567,6 +567,7 @@ ActiveRecord::Schema.define(version: 20170125044106) do
     t.string   "supplier_product_code"
     t.string   "innovations_transaction_id"
     t.boolean  "show_in_mega_menu",                                             default: false
+    t.boolean  "featured",                                                      default: false
   end
 
   add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree

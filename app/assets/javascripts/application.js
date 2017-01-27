@@ -90,4 +90,5 @@
 //= require main-my-discovery
 //= require offers
 //= require orders
+//= require operators
 //= require jquery.Jcrop.min

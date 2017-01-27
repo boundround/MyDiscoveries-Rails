@@ -1,2 +1,35 @@
-<h1>Operators#index</h1>
-<p>Find me in app/views/operators/index.html.erb</p>
+<div id="table-container">
+  <h1>All Operators</h1>
+
+  <table class="table table-striped" id="place-table">
+    <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+      <th>Created At</th>
+      <th>Edit Link</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Operator</th>
+        <th>Description</th>
+        <th>Created At</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </tfoot>
+    <tbody>
+    <% @operators.each do |operator| %>
+        <tr>
+          <td><%= link_to "#{operator.name} || #{operator.id}", edit_operator_path(operator) %></td>
+          <td><%= operator.description %></td>
+          <td><%= operator.created_at.strftime("%F") %></td>
+          <td><%= link_to 'Edit operator', edit_operator_path(operator), target: "_blank" %></td>
+          <td><%= link_to 'Destroy', operator_path(operator), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

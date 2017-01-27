@@ -14,21 +14,7 @@ require 'api_constraints'
 require 'routes/constraints/subcategories'
 
 Rails.application.routes.draw do
-
-  get 'operators/index'
-
-  get 'operators/show'
-
-  get 'operators/create'
-
-  get 'operators/new'
-
-  get 'operators/edit'
-
-  get 'operators/update'
-
-  get 'operators/destroy'
-
+  resources :operators
   resources :competitions
 
   resources :posts do

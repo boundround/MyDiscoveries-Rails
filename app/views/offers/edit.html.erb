@@ -29,7 +29,7 @@
     </div>
     <div class="form-group">
       <%= f.association :operator,
-        label_method: :display_name,
+        label_method: :name,
         value_method: :id,
         label: 'Operator',
         include_blank: true,
@@ -268,6 +268,7 @@
     <div class="form-group margin-left-20">
       <%= f.input_field :pickupRequired, as: :boolean, inline_label: 'Pickup Required', label: false %>
     </div>
+    <div class="form-group"><%= f.check_box :featured, label: false %>  <%= f.label :featured, "Featured" %></div>
     <div class="form-group"><%= f.check_box :show_in_mega_menu, label: false %>  <%= f.label :show_in_mega_menu, "Show in mega menu?" %></div>
     </br>
   <div class="form-group">
