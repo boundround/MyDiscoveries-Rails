@@ -248,7 +248,7 @@
       <%= f.input :customStr3, as: :string, label: 'Fine Print', input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
-      <%= f.input :customStr4, as: :string, label: 'Booking Guarantee', input_html: { class: 'width100', value: "#{@user.guarantee_text}" } %>
+      <%= f.input :customStr4, as: :string, label: 'Booking Guarantee', input_html: { class: 'width100', value: "#{@book_guarantee}" } %>
     </div>
     <div class="form-group margin-left-20">
       <%= f.input_field :pickupRequired, as: :boolean, inline_label: 'Pickup Required', label: false %>

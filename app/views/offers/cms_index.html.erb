@@ -34,19 +34,6 @@
     </tbody>
   </table>
 </div>
-<% if current_user.try(:admin) %>
-  <div class="container-fluid">
-    <h1>Add / Edit Global Guarantee Text</h1>
-    <%= simple_form_for @user do |f| %>
-      <div class="form-group">
-        <%= f.input :guarantee_text, label: 'Global Guarantee', input_html: { class: 'form-control width50' } %>
-      </div>
-      <div class="form-group">
-        <%= f.submit :submit, class: 'btn' %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
 <% else %>
 <h3>You are not signed in or do not have the proper permissions to view this page</h3>
 <% end %>

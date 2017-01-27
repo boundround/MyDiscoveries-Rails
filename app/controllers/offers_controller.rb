@@ -12,12 +12,12 @@ class OffersController < ApplicationController
     @last_video = @offer.videos.active.order(:priority).first
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @review  = @offer.reviews.build
-    @user = current_user
+    @book_guarantee = GlobalSetting.find("book_guarantee")
   end
 
   def new
     @offer = Offer.new(tags: [""])
-    @user = current_user
+    @book_guarantee = GlobalSetting.find("book_guarantee")
   end
 
   def all_offers
@@ -52,7 +52,6 @@ class OffersController < ApplicationController
 
   def cms_index
     @offers = Offer.all
-    @user = current_user
   end
 
   def create
@@ -118,7 +117,7 @@ class OffersController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    @book_guarantee = GlobalSetting.find("book_guarantee")
   end
 
   def choose_hero
@@ -204,8 +203,8 @@ class OffersController < ApplicationController
       :endDate,
       :validityStartDate,
       :validityEndDate,
-      :publishStartDate,
-      :publishEndDate,
+      :publishstartdate,
+      :publishenddate,
       :supplier_product_code,
       :innovations_transaction_id,
       :operator_id,
