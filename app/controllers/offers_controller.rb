@@ -45,7 +45,7 @@ class OffersController < ApplicationController
 
   def index
     @offers = Offer.all
-    @featured_offers = Offer.where(featured: true).paginate(per_page: 2, page: params[:featured_offers_page])
+    @featured_offers = Offer.featured_offers.paginate(per_page: 2, page: params[:featured_offers_page])
   end
 
   def cms_index

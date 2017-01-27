@@ -348,6 +348,16 @@ class Offer < ActiveRecord::Base
     :name
   end
 
+  def self.featured_offers
+    offers = self.active.where(featured: true)
+
+    if offers.blank?
+      offers = Offer.active.limit(4)
+    end
+
+    offers
+  end
+
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?
   end
