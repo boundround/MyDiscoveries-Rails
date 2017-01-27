@@ -176,6 +176,11 @@ class PlacesController < ApplicationController
     @fun_facts = @place.fun_facts
     @set_body_class = (@place.display_name == "Virgin Australia") ? "virgin-body" : "destination-page"
 
+    if @place.is_country == true
+      country_languages = ISO3166::Country.find_country_by_name(@place.display_name).languages
+      @languages = country_languages.collect{|l| ISO_639.find(l).english_name }
+    end
+
     respond_to do |format|
       format.html #{ render view, :layout => !request.xhr? }
       format.json { render json: @place }

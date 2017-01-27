@@ -107,8 +107,14 @@
                         </div>
                     </div>
                     <div class="kic-item short language">
-                        <h4 class="kici-heading ">language</h4>
-                        <p>Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan.</p>
+                      <% if @languages.present? %>
+                        <h4 class="kici-heading "><%= @languages.size > 1? "languages" : "language" %></h4>
+                        <ul>
+                          <% @languages.each do |language| %>
+                            <li><%= language %></li>
+                          <% end %>
+                        </ul>
+                      <% end %>
                     </div>
                     <div class="kic-item long weather">
                             <h4 class="kici-heading ">weather</h4>

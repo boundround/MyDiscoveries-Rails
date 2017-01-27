@@ -11312,6 +11312,8 @@ span.arrow {
         .destinations .destinations-content-block section .key-info .ki-content .language {
           background-color: #ff4b1a;
           color: white; }
+          .destinations .destinations-content-block section .key-info .ki-content .language ul {
+          margin-left: 20px; }
           .destinations .destinations-content-block section .key-info .ki-content .language .kici-heading {
             background: url("/assets/mydiscoveries_icon/i/language.png") 0 0 no-repeat; }
         .destinations .destinations-content-block section .key-info .ki-content .weather {

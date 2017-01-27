@@ -135,6 +135,8 @@ gem 'hirb'
 
 # Provides a simple helper to get an HTML select list of countries.
 gem 'country_select'
+gem 'countries'
+gem 'iso-639'
 
 # Classier solution for file uploads for Rails.
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
