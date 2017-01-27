@@ -104,6 +104,14 @@
                             %>
                           </div>
                       </li>
+                      <% if offer.allow_installments? %>
+                        <li class="request_installments">
+                            <h5>request installments</h5>
+                            <div class="form-group">
+                              <%= f.check_box :request_installments, label: false %>
+                            </div>
+                        </li>
+                      <% end %>
                       <li class="total-price">
                           <h5>Total price</h5>
                           <div class="js-order-total-price"><%= "$#{order.total_price.to_i}" %></div>
@@ -119,7 +127,6 @@
 
           </section>
       </div>
-
   </div>
 </div>
 
