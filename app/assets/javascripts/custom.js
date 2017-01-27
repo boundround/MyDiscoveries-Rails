@@ -1,4 +1,7 @@
 $(document).ready(function(){
+  // Call Function
+  video_play()
+
   //FUNCTION TO GET QUERY PARAMETERS FROM URL
   var QueryString = function () {
     // This function is anonymous, is executed immediately and
@@ -98,8 +101,8 @@ $(document).ready(function(){
     },100)
   }
 
-  $('.video_thumbnail').click(function(){
-    $('.small-video-component iframe').attr('src', $(this).data('src'))
+  $('.small-videos-component-wrapper .single-pagination').click(function(){
+    video_play();
   })
 
   function update_crop(coords) {
@@ -525,4 +528,14 @@ function resetchecked(facet){
         $(this).click()
       }
     })
+}
+
+function video_play(){
+  setTimeout(function(){
+    $('.video_thumbnail').click(function(){
+      console.log($(this).parent())
+      $('.small-video-component iframe').attr('src', $(this).data('src'))
+      $('#videos-list.owl-carousel.carousel').prepend($(this).parent())
+    })
+  }, 500)
 }
