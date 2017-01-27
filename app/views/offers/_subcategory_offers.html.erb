@@ -1,8 +1,9 @@
 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
     <div class="related-product-adventure-card adventure-thumbnail wrap_link_card">
       <a class="link_card" href="<%= offer_path(offer) %>"></a>
-      <img src="<%= draw_small_background(offer) %>" class="related-product-adventure-card__city-photo" alt>
-      <h3 class="related-product-adventure-card__title"><a href="#" class="related-product-adventure-card__link"><%= offer.name %></a></h3>
+      <div class="related-product-adventure-card__city-photo" style="background-image: url('<%= draw_small_background(offer) %>')">
+      </div>
+      <h3 class="related-product-adventure-card__title"><a href="#" class="related-product-adventure-card__link"><%= offer.name.size > 26? offer.name[0..25]+" ..." : offer.name %></a></h3>
       <p class="related-product-adventure-card__content"><%= offer.description[0..75] %>...</p>
     </div>
  </div>

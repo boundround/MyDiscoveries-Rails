@@ -27,6 +27,14 @@
       %>
     </div>
     <div class="form-group">
+      <%= f.association :operator,
+        label_method: :name,
+        value_method: :id,
+        label: 'Operator',
+        input_html: { class: 'width100 form-control' }
+      %>
+    </div>
+    <div class="form-group">
       <%= f.input :status, label: 'Offer Status', as: :select, collection: ["live", "draft", "removed"], input_html: { class: 'width100' } %>
     </div>
     <div class="form-group">
@@ -245,6 +253,7 @@
     <div class="form-group margin-left-20">
       <%= f.input_field :pickupRequired, as: :boolean, inline_label: 'Pickup Required', label: false %>
     </div>
+    <div class="form-group"><%= f.check_box :featured, label: false %>  <%= f.label :featured, "Featured" %></div>
     </br>
     <div class="form-group">
       <%= f.submit :submit, class: 'btn' %>

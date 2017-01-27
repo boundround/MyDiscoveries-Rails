@@ -321,6 +321,7 @@ class Offer < ActiveRecord::Base
   has_many :related_offers
 
   validates_presence_of :name
+  validates_presence_of :operator, unless: -> { livn_product_id? }
   validates_presence_of :startDate, :endDate, unless: -> { livn_product_id? }
   validates :startDate, :endDate, absence: true, if: -> { livn_product_id? }
 
@@ -345,6 +346,16 @@ class Offer < ActiveRecord::Base
 
   def slug_candidates
     :name
+  end
+
+  def self.featured_offers
+    offers = self.active.where(featured: true)
+
+    if offers.blank?
+      offers = Offer.active.limit(4)
+    end
+
+    offers
   end
 
   def should_generate_new_friendly_id?

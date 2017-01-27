@@ -1,7 +1,7 @@
 class OffersController < ApplicationController
   # before_action :check_user_authorization, except: [:show, :paginate_on_idx]
 
-  before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media, :paginate_on_idx, :clone]
+  before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media, :paginate_on_idx, :clone, :paginate_offers]
   before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :choose_hero, :update_hero, :clone]
   before_action :set_media, only: [:show, :paginate_media]
 
@@ -46,8 +46,8 @@ class OffersController < ApplicationController
   end
 
   def index
-    @offers = Offer.all.paginate(per_page: 2, page: params[:offers_page])
-    @featured_offers = Offer.all
+    @offers = Offer.all
+    @featured_offers = Offer.featured_offers.paginate(per_page: 2, page: params[:featured_offers_page])
   end
 
   def cms_index
@@ -97,7 +97,7 @@ class OffersController < ApplicationController
   end
 
   def paginate_offers
-    @offers = Offer.all.paginate(per_page: 2, page: params[:offers_page])
+    @featured_offers = Offer.where(featured: true).paginate(per_page: 2, page: params[:featured_offers_page])
   end
   def paginate_media
   end
@@ -208,7 +208,9 @@ class OffersController < ApplicationController
       :publishEndDate,
       :supplier_product_code,
       :innovations_transaction_id,
+      :operator_id,
       :show_in_mega_menu,
+      :featured,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,

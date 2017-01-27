@@ -30,9 +30,8 @@ class PagesController < ApplicationController
   end
 
   def paginate_stories
-    @all_posts = Post.all_active_posts
     @all_stories = Story.all_active_stories
-    @stories = (@all_posts + @all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
+    @stories = (@all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
     @stories = @stories.paginate(page: params[:stories_page], per_page: 3)
   end
 

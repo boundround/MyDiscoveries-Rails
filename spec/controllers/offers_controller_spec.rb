@@ -13,7 +13,13 @@ RSpec.describe OffersController, type: :controller do
   end
 
   it_behaves_like "a controller for admins", :post, :create do
-    let(:params) { { offer: { name: Faker::Lorem.sentence } } }
+    let(:params) {
+      {
+        offer: {
+          name: Faker::Lorem.sentence, operator_id: create(:operator)
+        }
+      }
+    }
   end
 
   it_behaves_like "a controller for admins", :put, :update do
@@ -22,6 +28,7 @@ RSpec.describe OffersController, type: :controller do
         id: create(:offer).id,
         offer: {
           name: Faker::Lorem.sentence,
+          operator_id:     create(:operator),
           country_ids:     [ create(:country).id ],
           attraction_ids:  [ create(:attraction).id ],
           place_ids:       [ create(:place).id ],
@@ -46,6 +53,7 @@ RSpec.describe OffersController, type: :controller do
       let(:params) do
         {
           offer: {
+            operator_id: create(:operator).id,
             name: Faker::Lorem.sentence,
             tags: ["tag1", "tag2", ""],
             startDate: Date.current - 1.day,
@@ -56,6 +64,7 @@ RSpec.describe OffersController, type: :controller do
 
       it 'creates offer' do
         expect{post(:create, params)}.to change{Offer.count}.from(0).to(1)
+
         created_offer = Offer.last
         expect(created_offer.name).to eql(params[:offer][:name])
       end
@@ -91,7 +100,8 @@ RSpec.describe OffersController, type: :controller do
 
     before do
       @admin = create(:user, :admin)
-      @offer = create(:offer)
+      @operator = create(:operator)
+      @offer = create(:offer, operator: @operator)
       sign_in @admin
     end
 

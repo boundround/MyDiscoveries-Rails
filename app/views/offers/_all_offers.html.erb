@@ -1,7 +1,6 @@
 <li>
   <a href="<%= offer_path(offer) %>">
-    <div class="th-img-block">
-      <img src="<%= draw_small_background(offer) %>" alt="">
+    <div class="th-img-block" style="background-image: url('<%= draw_small_background(offer) %>')">
     </div>
     <div class="th-content">
       <span class="posi-nights"> <%= pluralize((offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></span>
