@@ -1,7 +1,8 @@
 <li>
     <div class="po-content-wrapper wrap_link_card">
         <a class="link_card" href="<%= offer_path(offer) %>"></a>
-        <img src="<%= draw_small_background(offer) %>" alt="">
+        <div class="hero-offer-region" style="background-image: url('<%= draw_small_background(offer) %>')">
+        </div>
         <div class="po-content-block">
             <div class="po-stay-info">
                 <span>From $<%= offer.minRateAdult %></span>
