@@ -119,7 +119,8 @@ $(document).ready(function(){
     })
   }
 
-
+  $('.kic-item.short.currency table tr:nth-child(odd)').addClass('col-md-6');
+  $('.kic-item.short.currency table tr:nth-child(7) input').attr('disabled', 'true');
 
   $('.app-wrap > div[data-page="offer"] .filter-box>div').hide()
 
