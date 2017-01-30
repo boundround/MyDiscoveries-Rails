@@ -178,6 +178,7 @@ class PlacesController < ApplicationController
 
     if @place.country
       country_languages = ISO3166::Country.find_country_by_name(@place.country.display_name).languages
+      @country_currency = ISO3166::Country.find_country_by_name(@place.country.display_name).currency.code
       @languages = country_languages.collect{|l| ISO_639.find(l).english_name }
     end
 
