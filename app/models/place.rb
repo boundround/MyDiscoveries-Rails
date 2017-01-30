@@ -496,6 +496,15 @@ class Place < ActiveRecord::Base
     end
   end
 
+  def country_code
+    if country
+      country_name = ISO3166::Country.find_country_by_name(country.display_name)
+      return country_name.alpha2.downcase
+    else
+      ""
+    end
+  end
+
   def should_generate_new_friendly_id?
     slug.blank? || display_name_changed?
   end

@@ -1,4 +1,5 @@
 require 'will_paginate/array'
+require 'iso-639'
 
 class PlacesController < ApplicationController
   layout false, :only => :wp_blog
@@ -174,10 +175,9 @@ class PlacesController < ApplicationController
     @last_video = @place.videos.active.order(:priority).first
 
     @fun_facts = @place.fun_facts
-    @set_body_class = (@place.display_name == "Virgin Australia") ? "virgin-body" : "destination-page"
 
-    if @place.is_country == true
-      country_languages = ISO3166::Country.find_country_by_name(@place.display_name).languages
+    if @place.country
+      country_languages = ISO3166::Country.find_country_by_name(@place.country.display_name).languages
       @languages = country_languages.collect{|l| ISO_639.find(l).english_name }
     end
 
