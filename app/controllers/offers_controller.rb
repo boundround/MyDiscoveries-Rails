@@ -44,7 +44,7 @@ class OffersController < ApplicationController
   end
 
   def index
-    @offers = Offer.all
+    @offers = Offer.active
     @featured_offers = Offer.featured_offers.paginate(per_page: 2, page: params[:featured_offers_page])
   end
 
