@@ -36,11 +36,12 @@ $(document).ready(function() {
     var production_environment = document.querySelector('#environment').dataset.environment;
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
+    var INDEX_NAME = 'mydiscoveries_' + production_environment;
 
     if($('.app-wrap > div').data('page') == "offer" && $('.app-wrap > div').data('controller') == "index" ){
-        var INDEX_NAME = 'mydiscoveries_offers_' + production_environment;
+        var INDEX_NAME_BOTTOM = 'mydiscoveries_offers_' + production_environment;
     }else{
-        var INDEX_NAME = 'mydiscoveries_' + production_environment;
+        var INDEX_NAME_BOTTOM = 'mydiscoveries_' + production_environment;
     }
     var PARAMS = {
         hitsPerPage: 3,
@@ -72,7 +73,7 @@ $(document).ready(function() {
         disjunctiveFacets: FACETS_ORDER_OF_DISPLAY
     };
 
-    var algoliaHelperInstantSearch = algoliasearchHelper(algolia, INDEX_NAME, INSTANT_SEARCH_PARAMS);
+    var algoliaHelperInstantSearch = algoliasearchHelper(algolia, INDEX_NAME_BOTTOM, INSTANT_SEARCH_PARAMS);
 
     $searchInput = $('.search-box');
     $searchInputBottom = $('.search-box-bottom');
