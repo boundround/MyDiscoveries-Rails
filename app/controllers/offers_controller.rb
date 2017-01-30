@@ -208,6 +208,7 @@ class OffersController < ApplicationController
       :operator_id,
       :show_in_mega_menu,
       :featured,
+      :allow_installments,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
