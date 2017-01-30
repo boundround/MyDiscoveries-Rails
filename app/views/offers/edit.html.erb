@@ -262,12 +262,15 @@
         <%= f.input :customStr3, as: :bootsy, label: 'Fine Print', input_html: { class: 'form-control' } %>
       </div>
       <div class="form-group">
-        <%= f.input :customStr4, as: :bootsy, label: 'Booking Guarantee', input_html: { class: 'form-control' } %>
+        <%= f.input :customStr4, as: :bootsy, label: 'Booking Guarantee', input_html: { class: 'form-control', value: "#{@offer.customStr4.present?? @offer.customStr4 : @book_guarantee}" } %>
       </div>
     </div>
     <div class="form-group margin-left-20">
       <%= f.input_field :pickupRequired, as: :boolean, inline_label: 'Pickup Required', label: false %>
     </div>
+    <div class="form-group margin-left-20">
+      <%= f.input_field :allow_installments, as: :boolean, inline_label: 'Allow Installments', label: false %>
+    </div>    
     <div class="form-group"><%= f.check_box :featured, label: false %>  <%= f.label :featured, "Featured" %></div>
     <div class="form-group"><%= f.check_box :show_in_mega_menu, label: false %>  <%= f.label :show_in_mega_menu, "Show in mega menu?" %></div>
     </br>

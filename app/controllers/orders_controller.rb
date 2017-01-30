@@ -71,7 +71,8 @@ class OrdersController < ApplicationController
       :number_of_infants,
       :number_of_adults,
       :start_date,
-      :total_price
+      :total_price,
+      :request_installments
     )
   end
 end

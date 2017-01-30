@@ -4,8 +4,6 @@
 <% provide(:og_image, open_graph_image.gsub("https://", "http://")) %>
 <% provide(:og_secure_image, open_graph_image) %>
 
-<div id='country-data' data-country-code=<%= @place.country.blank? ? 'no-country' : @place.country.country_code %> data-capital-city=<%= @place.country.blank? ? 'no-country' : @place.country.capital_city %>></div>
-
 <div id="place-data" class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
 <div class="breadcrumbs container">
 <%= raw create_breadcrumb_for(@place) %>
@@ -97,18 +95,20 @@
                         <p>Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Sociis natoque penatibus magnis dis parturient montes nascetur.</p>
                     </div>
                     <div class="kic-item short currency">
-                        <h4 class="kici-heading ">currency</h4>
+                        <h4 class="kici-heading " data-currency="<%= @country_currency %>">currency</h4>
                         <div class="row">
-                          <!-- <div class="col-md-12"> -->
-                        <!-- Currency Converter Script - FX-EXCHANGE.COM -->
-                        <script type="text/javascript" src="http://widget.fx-exchange.com/converter.php?fg=en&ff=USD&ft=EUR&fa=1000&cb=F0F0F0&cc=&fy=1"></script>
-                        <!-- End of Currency Converter Script -->
-                          <!-- </div> -->
+                          <script type="text/javascript" src="//www.exchangeratewidget.com/converter.php?l=en&f=USD&t=EUR&a=4&d=F0F0F0&n=FFFFFF&o=000000&v=1"></script>
                         </div>
                     </div>
                     <div class="kic-item short language">
-                        <h4 class="kici-heading ">language</h4>
-                        <p>Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan.</p>
+                      <% if @languages.present? %>
+                        <h4 class="kici-heading "><%= @languages.size > 1? "languages" : "language" %></h4>
+                        <ul>
+                          <% @languages.each do |language| %>
+                            <li><%= language %></li>
+                          <% end %>
+                        </ul>
+                      <% end %>
                     </div>
                     <div class="kic-item long weather">
                             <h4 class="kici-heading ">weather</h4>

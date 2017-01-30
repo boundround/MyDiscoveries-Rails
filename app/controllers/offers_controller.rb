@@ -12,10 +12,12 @@ class OffersController < ApplicationController
     @last_video = @offer.videos.active.order(:priority).first
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @review  = @offer.reviews.build
+    @book_guarantee = GlobalSetting.find("book_guarantee")
   end
 
   def new
     @offer = Offer.new(tags: [""])
+    @book_guarantee = GlobalSetting.find("book_guarantee")
   end
 
   def all_offers
@@ -44,7 +46,7 @@ class OffersController < ApplicationController
   end
 
   def index
-    @offers = Offer.all
+    @offers = Offer.active
     @featured_offers = Offer.featured_offers.paginate(per_page: 2, page: params[:featured_offers_page])
   end
 
@@ -115,7 +117,7 @@ class OffersController < ApplicationController
   end
 
   def edit
-
+    @book_guarantee = GlobalSetting.find("book_guarantee")
   end
 
   def choose_hero
@@ -201,13 +203,14 @@ class OffersController < ApplicationController
       :endDate,
       :validityStartDate,
       :validityEndDate,
-      :publishStartDate,
-      :publishEndDate,
+      :publishstartdate,
+      :publishenddate,
       :supplier_product_code,
       :innovations_transaction_id,
       :operator_id,
       :show_in_mega_menu,
       :featured,
+      :allow_installments,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,

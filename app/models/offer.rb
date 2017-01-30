@@ -8,7 +8,7 @@ class Offer < ActiveRecord::Base
   alias_attribute :minimum_age, :minAge
   alias_attribute :maximum_age, :maxAge
 
-  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id do
+  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id, if: :published? do
 
     attributes :minAge,
                :maxAge,
@@ -19,7 +19,6 @@ class Offer < ActiveRecord::Base
                :maxUnits,
                :duration,
                :page_ranking_weight,
-               :age_range,
                :weather,
                :price,
                :best_time_to_visit,
@@ -131,8 +130,6 @@ class Offer < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
-      'minAge',
-      'maxAge',
       'minRateAdult',
       'minRateChild',
       'minRateInfant',
@@ -141,7 +138,7 @@ class Offer < ActiveRecord::Base
       'maxUnits'
     ]
 
-    add_index "mydiscoveries_offers_#{Rails.env}" do
+    add_index "mydiscoveries_offers_#{Rails.env}", if: :published? do
       attributes :minAge,
                  :maxAge,
                  :minRateAdult,
@@ -242,7 +239,6 @@ class Offer < ActiveRecord::Base
       attributesToIndex [
         'display_name',
         'unordered(description)',
-        'age_range',
         'accessible',
         'subcategories',
         'places',
@@ -265,8 +261,6 @@ class Offer < ActiveRecord::Base
         'price',
         'best_time_to_visit',
         'accessibility',
-        'minAge',
-        'maxAge',
         'minRateAdult',
         'minRateChild',
         'minRateInfant',
@@ -283,7 +277,7 @@ class Offer < ActiveRecord::Base
 
   acts_as_taggable_on :inclusions
 
-  scope :active, -> { where(status: "live").where("publishstartdate <= ? AND publishenddate >= ?", Date.today, Date.today) }
+  scope :active, -> { where("status = ? OR (publishstartdate <= ? AND publishenddate >= ?)", "live", Date.today, Date.today) }
 
   belongs_to :attraction
   belongs_to :operator
@@ -337,6 +331,14 @@ class Offer < ActiveRecord::Base
       display_name
     else
       name
+    end
+  end
+
+  def published?
+    if self.status == "live"
+      true
+    else
+      false
     end
   end
 

@@ -1,4 +1,7 @@
 $(document).ready(function(){
+  // Call Function
+  video_play()
+
   //FUNCTION TO GET QUERY PARAMETERS FROM URL
   var QueryString = function () {
     // This function is anonymous, is executed immediately and
@@ -98,8 +101,8 @@ $(document).ready(function(){
     },100)
   }
 
-  $('.video_thumbnail').click(function(){
-    $('.small-video-component iframe').attr('src', $(this).data('src'))
+  $('.small-videos-component-wrapper .single-pagination').click(function(){
+    video_play();
   })
 
   function update_crop(coords) {
@@ -119,8 +122,17 @@ $(document).ready(function(){
     })
   }
 
-  $('.kic-item.short.currency table tr:nth-child(odd)').addClass('col-md-6');
-  $('.kic-item.short.currency table tr:nth-child(7) input').attr('disabled', 'true');
+  $('.kic-item.short.currency table tr:nth-child(even),\
+      .kic-item.short.currency table tr:nth-child(7)').addClass('col-md-6');
+  if($('.kic-item.currency .kici-heading').data('currency') != ""){
+    var currency_code = $('.kic-item.currency .kici-heading').data('currency');
+    $('.kic-item.short.currency table tr:nth-child(4) option').each(function(){
+      if($(this).val() == currency_code){
+        $(this).attr('selected', true)
+      }
+    })
+  }
+  $('.kic-item.short.currency table').fadeIn()
 
   $('.app-wrap > div[data-page="offer"] .filter-box>div').hide()
 
@@ -525,4 +537,14 @@ function resetchecked(facet){
         $(this).click()
       }
     })
+}
+
+function video_play(){
+  setTimeout(function(){
+    $('.video_thumbnail').click(function(){
+      console.log($(this).parent())
+      $('.small-video-component iframe').attr('src', $(this).data('src'))
+      $('#videos-list.owl-carousel.carousel').prepend($(this).parent())
+    })
+  }, 500)
 }

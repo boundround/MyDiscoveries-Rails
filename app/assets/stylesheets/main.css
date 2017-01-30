@@ -8098,11 +8098,13 @@ input[type="text"]::-ms-clear {
 
 .related-product-adventure-card__city-photo {
   height: 160px;
-  width: 100%; }
+  width: 100%;
+  background-size: cover;
+  background-position: center; }
 
 .related-product-adventure-card__title {
   margin: 0;
-  padding: 23px 28px 10px;
+  padding: 15px 28px 10px;
   line-height: 25px; }
 
 .related-product-adventure-card__link {
@@ -8118,7 +8120,9 @@ input[type="text"]::-ms-clear {
   margin: 0;
   padding: 0 26px;
   font-size: 16px;
-  color: #3d3a38; }
+  color: #3d3a38;
+  font-family: Larsseit-light, serif;
+  color: #000060; }
 
 /* interest-related-adventure */
 .interest-related-adventure {
@@ -10560,7 +10564,7 @@ span.arrow {
           transform: translateY(-160px); }
           .region.package-offers ul li .po-content-wrapper:hover .po-content-block p, .region.package-offers ul li .po-content-wrapper:hover .po-content-block a {
             opacity: 1; }
-      .region.package-offers ul li img {
+      .region.package-offers ul li .hero-offer-region {
         width: 100%;
         height: 160px; }
       .region.package-offers ul li .po-content-block {
@@ -11017,6 +11021,9 @@ span.arrow {
                 .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info span.posi-date {
                   float: right;
                   padding-right: 20px; }
+                #offers-list .xs-heading{
+                  font-size: 16px;
+                  margin-top: 10px;}
             .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .label-crown {
               position: absolute;
               top: 20px;
@@ -11190,7 +11197,9 @@ span.arrow {
               .destinations .destinations-content-block section .top-holidays ul li a .th-img-block {
                 height: 145px;
                 width: 100%;
-                overflow: hidden; }
+                overflow: hidden;
+                background-size: cover;
+                background-position: center }
                 .destinations .destinations-content-block section .top-holidays ul li a .th-img-block img {
                   height: auto;
                   width: 100%; }
@@ -11303,6 +11312,8 @@ span.arrow {
         .destinations .destinations-content-block section .key-info .ki-content .language {
           background-color: #ff4b1a;
           color: white; }
+          .destinations .destinations-content-block section .key-info .ki-content .language ul {
+          margin-left: 20px; }
           .destinations .destinations-content-block section .key-info .ki-content .language .kici-heading {
             background: url("/assets/mydiscoveries_icon/i/language.png") 0 0 no-repeat; }
         .destinations .destinations-content-block section .key-info .ki-content .weather {
@@ -11360,7 +11371,6 @@ span.arrow {
         .destinations .videos-block .video-embed-wrapper.sm {
           float: left;
           display: block;
-          margin-right: 2.35765%;
           width: 31.76157%; }
           .destinations .videos-block #photos-list .video-embed-wrapper.sm{
             margin-right: 0;}
@@ -12405,7 +12415,9 @@ td a.ui-state-default.ui-state-hover {
           .user-pages section .up-tabs-item.up-bucket-list ul li a .th-img-block {
             height: 160px;
             width: 100%;
-            overflow: hidden; }
+            overflow: hidden;
+            background-size: cover;
+            background-position: center; }
             .user-pages section .up-tabs-item.up-bucket-list ul li a .th-img-block img {
               height: auto;
               width: 100%;
