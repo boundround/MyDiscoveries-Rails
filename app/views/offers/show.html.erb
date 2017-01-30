@@ -195,7 +195,7 @@
 
                     <h3>booking guarantee</h3>
                     <div class="guarantee">
-                        <p><%= @offer.customStr4.present?? @offer.customStr4 : @book_guarantee %></p>
+                        <p><%= simple_format(@offer.customStr4.present?? @offer.customStr4 : @book_guarantee) %></p>
 
                     </div>
 
