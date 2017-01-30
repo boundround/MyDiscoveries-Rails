@@ -417,6 +417,8 @@ Rails.application.routes.draw do
   get '/regions/:id/update_hero/:type/:photo_id' => 'regions#update_hero'
   get '/countries/:id/update_hero/:type/:photo_id' => 'countries#update_hero'
   get '/offers/:id/update_hero/:type/:photo_id' => 'offers#update_hero'
+  get '/settings/book_guarantee' => 'global_settings#book_guarantee'
+  post '/settings/update_guarantee' => 'global_settings#update_guarantee'
   post 'search_requests/create'
 
   post '/places/transfer_assets' => 'places#transfer_assets'
