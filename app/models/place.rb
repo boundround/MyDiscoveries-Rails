@@ -87,10 +87,6 @@ class Place < ActiveRecord::Base
       end
     end
 
-    attribute :is_country do
-      false
-    end
-
     attribute :result_icon do
       "map-marker"
     end
@@ -223,7 +219,7 @@ class Place < ActiveRecord::Base
   validates_presence_of :display_name
 
 
-  belongs_to :country
+  belongs_to :country, :class_name => "Place"
   belongs_to :user
   belongs_to :primary_category
 
@@ -419,10 +415,13 @@ class Place < ActiveRecord::Base
   end
 
   def set_country
-    # country = get_parents(self).find {|parent| parent.class.to_s == "Country"}
-    # if country
-    #   self.country_id = country.id
-    # end
+    if self.is_country
+      self.country_id = self.id
+    end
+    country = get_parents(self).find {|parent| parent.class.to_s == "Place" && parent.is_country }
+    if country
+      self.country_id = country.id
+    end
   end
 
   def places_to_visits

@@ -283,7 +283,7 @@ class Offer < ActiveRecord::Base
 
   acts_as_taggable_on :inclusions
 
-  scope :active, -> { where(status: "live").where("publishstartdate <= ? AND publishenddate >= ?", Date.today, Date.today) }
+  scope :active, -> { where("status = ? OR (publishstartdate <= ? AND publishenddate >= ?)", "live", Date.today, Date.today) }
 
   belongs_to :attraction
   belongs_to :operator
