@@ -1,9 +1,4 @@
-require 'dalli'
-
 class GlobalSetting
-  OPTS = { :namespace => "settings_v1", :compress => true }
-  CLIENT = Dalli::Client.new('localhost:11211', OPTS)
-
   attr_accessor :guarantee_text
 
   def initialize(options={})
@@ -11,15 +6,10 @@ class GlobalSetting
   end
 
   def save(key)
-    begin
-	  CLIENT.set(key, @global_guarantee)
-	  true
-	rescue
-	  false
-	end
+    Rails.cache.write(key, @global_guarantee)
   end
 
   def self.find(key)
-    CLIENT.get(key)
+    Rails.cache.read(key)
   end
 end
