@@ -90,6 +90,7 @@ h4 {
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
     transform: translateY(-50%)
 }
 .load-more {
@@ -259,6 +260,10 @@ h4 {
     height: 80px;
     background: white;
     -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15))
+    -moz-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15))
+    -ms-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15))
+    -o-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15))
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15))
 }
 .mega-menu .menu-bar img.logo {
     margin-top: -16px
@@ -594,16 +599,18 @@ h4 {
     .mega-menu .owl-carousel .owl-nav .nav-next {
         top: 50%;
         -webkit-transform: translateY(-50%) rotate(180deg);
-        -ms-transform: translateY(-50%) rotate(180deg);
         -moz-transform: translateY(-50%) rotate(180deg);
+        -ms-transform: translateY(-50%) rotate(180deg);
+        -o-transform: translateY(-50%) rotate(180deg);
         transform: translateY(-50%) rotate(180deg)
     }
     .mega-menu .owl-carousel .owl-nav .nav-prev {
         top: 50%;
-        transform: translateY(-50%);
         -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
         -moz-transform: translateY(-50%)
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
     }
 }
 @media (max-width: 767px) {
@@ -727,7 +734,7 @@ h4 {
     padding-left: 0
 }
 .footer ul li {
-    display: block;
+    display: inline-flex;
     margin-top: 7px
 }
 .footer ul li a {
@@ -872,8 +879,9 @@ h4 {
     border-bottom: 13px solid #fff;
     border-left: 10px solid transparent;
     -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
     -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
     transform: translateX(-50%)
 }
 .home-page .arrow-up-bubble {
@@ -882,6 +890,8 @@ h4 {
     position: relative;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
     border-radius: 5px
 }
 @media (max-width: 767px) {
@@ -1022,6 +1032,9 @@ h4 {
 .destination-card:focus .destination-image .destination-city h2 {
     top: auto !important;
     -webkit-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
     transform: translateY(0%)
 }
 .destination-card:hover .destination-image .destination-city .arrow,
@@ -1090,6 +1103,9 @@ h4 {
 .travellers-component-wrapper:focus .travellers-component-text h4 {
     top: auto !important;
     -webkit-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
     transform: translateY(0%)
 }
 .travellers-component-wrapper:hover .travellers-component-text .arrow,
@@ -1142,6 +1158,8 @@ h4 {
     background-position: 50% 50%;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
     border-radius: 5px
 }
 .thing-wrapper .thing-image .overlay {
@@ -1203,6 +1221,9 @@ h4 {
 .thing-wrapper .thing-wide-card-wrapper:focus .thing-image .thing-text h4 {
     top: auto !important;
     -webkit-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
     transform: translateY(0%)
 }
 .thing-wrapper .thing-tall-card-wrapper:hover .thing-image .thing-text .arrow,
@@ -1716,8 +1737,9 @@ h4 {
         position: relative;
         top: 50% !important;
         -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
         -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
         transform: translateY(-50%)
     }
 }
@@ -2178,8 +2200,9 @@ h4 {
         position: relative;
         top: 50% !important;
         -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
         -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
         transform: translateY(-50%)
     }
 }
