@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170127144834) do
+ActiveRecord::Schema.define(version: 20170131042939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -646,16 +646,16 @@ ActiveRecord::Schema.define(version: 20170127144834) do
 
   create_table "operators", force: true do |t|
     t.string   "status",         default: ""
-    t.string   "name",           default: ""
-    t.string   "companyName",    default: ""
+    t.text     "name",           default: ""
+    t.text     "companyName",    default: ""
     t.string   "code",           default: ""
-    t.string   "tradingName",    default: ""
+    t.text     "tradingName",    default: ""
     t.string   "businessNumber", default: ""
-    t.string   "description",    default: ""
+    t.text     "description",    default: ""
     t.integer  "tncId",          default: 0
     t.boolean  "demo",           default: false
-    t.string   "address1",       default: ""
-    t.string   "address2",       default: ""
+    t.text     "address1",       default: ""
+    t.text     "address2",       default: ""
     t.string   "city",           default: ""
     t.string   "state",          default: ""
     t.string   "postcode",       default: ""
@@ -663,19 +663,19 @@ ActiveRecord::Schema.define(version: 20170127144834) do
     t.float    "longitude"
     t.string   "country",        default: ""
     t.string   "language",       default: ""
-    t.string   "contactName",    default: ""
+    t.text     "contactName",    default: ""
     t.string   "email",          default: ""
     t.string   "phone",          default: ""
     t.string   "fax",            default: ""
     t.string   "website",        default: ""
-    t.string   "resContactName", default: ""
+    t.text     "resContactName", default: ""
     t.string   "resEmail",       default: ""
     t.string   "resPhone",       default: ""
     t.string   "accountsEmail",  default: ""
     t.string   "currency",       default: ""
-    t.string   "logoUrl",        default: ""
+    t.text     "logoUrl",        default: ""
     t.string   "tags",           default: [],    array: true
-    t.string   "tncUrl",         default: ""
+    t.text     "tncUrl",         default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
