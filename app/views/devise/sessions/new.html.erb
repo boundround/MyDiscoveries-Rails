@@ -1,66 +1,71 @@
-<div class="br_sign_style_modal signin" id="signInModal">
-            <div class="modal-dialog cs-modal-dialog" role="document">
-                <div class="modal-content">
-                        <div class="modal-header cs-header">
-                            <div class="text-center img-logo-area">
-                              <img src="/assets/mydiscoveries_icon/i/logo-short.svg" width="100">
-                              <h1 class="text-center sign-in">Sign In and Explore!</h1>
-                            </div>
-                            <%= link_to "  ",  root_path, class: "close cs-close close-signin"  %>
-                        </div>
-                        <div class="modal-body">
-                           <div class="row">
-                           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<!-- ## MODAL LOGIN ACCOUNT -->
+<div id="singIn" class="" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog--margin-top" role="document">
 
-                                <div class="col-sm-12">
-                                    <%= f.input_field :email, required: false, autofocus: true, placeholder: "Email", class: "form-control" %>
-                                </div>
+    <!-- Modal content-->
+    <div class="modal-content modal-content--container">
+      <div class="modal-content__header text-center">
+        <img src="/assets/mydiscoveries_icon/i/logo-short.svg" class="modal-content__logo-short" alt="logo-short">
+        <p class="modal-content__sing">sign in</p>
+      </div>
+      <div class="modal-content__body">
+	        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="row">
+		        <div class="col-sm-12">
+		        	<div class="form-group">
+                <%= f.label :email, "Email address", class: "modal-content__title control-label" %>
+  			        <%= f.input_field :email, required: false, autofocus: true, placeholder: "Email", class: "modal-content__input form-control" %>
+  			       </div>
+		        </div>
+          </div>
 
-                                <div class="col-sm-12">
-                                    <%= f.password_field :password, required: false, placeholder: "Password", class: "form-control" %>
-                                </div>
-
-                                <div class="col-sm-6 text-left div-forgot">
-                                    <%= link_to "FORGOT PASSWORD", new_user_password_path, class: "forgot-password"  %>
-                                </div>
-                                <div class="col-sm-12">
-                                        <%= f.button :submit, "Sign in", :class=>'btn btn-block btn-warning btn-orange' %>
-                                </div>
-                            <% end %>
-                                <div class="col-sm-12">
-                                    <%- if devise_mapping.omniauthable? %>
-                                      <%- resource_class.omniauth_providers.each do |provider| %>
-                                        <% if provider.to_s == "facebook" %>
-                                            <div class="half-left">
-                                              <a href="<%= omniauth_authorize_path(resource_name, provider) %>" role="button" class="btn btn-primary btn-block button btn-radius fontbig-signin btn-facebook mrg0"><i class="fa fa-<%= provider.to_s %>"></i> Facebook</button>
-                                              </a>
-                                            </div>
-                                          <% elsif provider.to_s == "google_oauth2" %>
-                                            <div class="half-right">
-                                              <a href="<%= omniauth_authorize_path(resource_name, provider) %>" type="button" class="btn button btn-danger btn-block btn-google-plus btn-radius fontbig-signin" role="button"><i class="fa fa-google"></i> Google+
-                                              </a>
-                                            </div>
-                                          <% end %>
-                                      <% end -%>
-                                    <% end -%>
-                                </div>
-                                <div class="col-sm-12">
-                                    <h4 class="text-center or">OR</h4>
-                                </div>
-                                <div class="col-sm-12">
-                                    <a type="submit" href="<%= new_user_registration_path %>" class="btn btn-block btn-warning btn-orange">CREATE AN ACCOUNT</a>
-                                </div>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <div class="left">
-                                <p class="text-center">We're committed to protecting your privacy. By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %></p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <%= f.label :password, "Password", class: "modal-content__title control-label" %>
+                <%= f.password_field :password, required: false, placeholder: "Password", class: "modal-content__input form-control" %>
+              </div>
+           </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-12">
+              <div class="modal-content__btn text-center">
+                <%= f.button :submit, "access my account", :class=>'modal-content__btn-access' %>
+                <p class="modal-content__text-divider">or</p>
+                <%- if devise_mapping.omniauthable? %>
+                  <%- resource_class.omniauth_providers.each do |provider| %>
+                    <%# if provider.to_s == "facebook" %>
+                      <!-- <a href="<%#= omniauth_authorize_path(resource_name, provider) %>" class="modal-content__btn-facebook">facebook</a> -->
+                    <%#end %>
+                    <% if provider.to_s == "facebook" %>
+                      <div class="half-left">
+                        <a href="<%= omniauth_authorize_path(resource_name, provider) %>" role="button" class="btn btn-primary btn-block button btn-radius fontbig-signin btn-facebook mrg0"><i class="fa fa-<%= provider.to_s %>"></i> Facebook</button>
+                        </a>
+                      </div>
+                    <% elsif provider.to_s == "google_oauth2" %>
+                      <div class="half-right">
+                        <a href="<%= omniauth_authorize_path(resource_name, provider) %>" type="button" class="btn button btn-danger btn-block btn-google-plus btn-radius fontbig-signin" role="button"><i class="fa fa-google"></i> Google+
+                        </a>
+                      </div>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
             </div>
-        </div><!--/modal-->
+         </div>
+	        <% end %>
+      </div>
+      <div class="modal-content__footer text-center">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12" align="center">
+          <p class="modal-content__footer-text modal-content__footer-text--up"><a href="<%= new_user_registration_path(flag: true) %>" class="modal-content__footer-link">Sign up</a> to reveal exclusive deals and book faster!</p>
+            <p class="modal-content__footer-text">By creating an account, you're agreeing with our
+                <br><a href="#" class="modal-content__footer-terms">Terms and Conditions</a> and <a href="#" class="modal-content__footer-terms">Privacy Statement</a>
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- ## END MODAL LOGIN ACCOUNT -->

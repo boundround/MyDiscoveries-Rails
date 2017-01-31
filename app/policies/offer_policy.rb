@@ -1,6 +1,10 @@
 class OfferPolicy < ApplicationPolicy
 
   def index?
+    true
+  end
+
+  def cms_index?
     if @user.blank?
       false
     else
@@ -8,36 +12,32 @@ class OfferPolicy < ApplicationPolicy
     end
   end
 
-  def cms_index?
-    index?
-  end
-
   def choose_hero?
-    index?
+    cms_index?
   end
 
   def update_hero?
-    index?
+    cms_index?
   end
 
   def create?
-    index?
+    cms_index?
   end
 
   def new?
-    index?
+    cms_index?
   end
 
   def update?
-    index?
+    cms_index?
   end
 
   def edit?
-    index?
+    cms_index?
   end
 
   def destroy?
-    index?
+    cms_index?
   end
 
   def all_offers?
@@ -45,11 +45,11 @@ class OfferPolicy < ApplicationPolicy
   end
 
   def new_livn_offer?
-    index?
+    cms_index?
   end
 
   def create_livn_offer?
-    index?
+    cms_index?
   end
 
   def show?
