@@ -218,7 +218,7 @@ $(document).ready(function() {
   funFact();
   setUpChart();
 
-  if ($('#place-data')) {
+  if ($('#place-data').length > 0) {
     var lon = $('.area-content').data('long');
     var lat = $('.area-content').data('lat');
 

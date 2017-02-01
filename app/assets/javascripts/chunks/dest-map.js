@@ -8,12 +8,13 @@ function init() {
     var lng_first = locations[0][6];
     if(mapElement.getAttribute("data-zoom") == ""){
         var zoom_level = 4;
+        console.log("aaa")
     }else{
         var zoom_level = JSON.parse(mapElement.getAttribute("data-zoom"));
     }
     var mapOptions = {
         center: new google.maps.LatLng(lat_first, lng_first),
-        zoom: 4,
+        zoom: zoom_level,
         zoomControl: false,
         zoomControlOptions: {
             style: google.maps.ZoomControlStyle.DEFAULT,
