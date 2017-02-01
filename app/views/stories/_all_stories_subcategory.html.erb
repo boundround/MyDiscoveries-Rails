@@ -1,0 +1,11 @@
+<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+	<div class="best-of-adventure-card adventure-thumbnail wrap_link_card">
+	  <a class="link_card" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>"></a>
+	  <div class="user-dp"
+           style="background: url(<%= showing_image(story.hero_image_url)%>) no-repeat;"
+           role="img"
+           aria-label="User: <%= story.user.username %>">
+      </div>
+	  <h3 class="best-of-adventure-card__title"><a href="#" class="best-of-adventure-card__link"><%= story.title.size > 51? story.title[0..50]+"..." : story.title %></a></h3>
+	</div>
+</div>

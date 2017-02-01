@@ -31,18 +31,19 @@
           </p>
       </div>
     </div>
-    <div class="row best-of-adventure__content">
-    <% @stories.each do |story| %>
-      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-        <div class="best-of-adventure-card adventure-thumbnail wrap_link_card">
-          <a class="link_card" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>"></a>
-          <img src="<%= showing_image(story.hero_image_url) %>" class="best-of-adventure-card__road-photo" alt>
-          <h3 class="best-of-adventure-card__title"><a href="#" class="best-of-adventure-card__link"><%= story.title.size > 30? story.title[0..30]+"..." : story.title %></a></h3>
-          <p class="best-of-adventure-card__content"><%= story.seo_friendly_url %></p>
+    <div class="row best-of-adventure__content" id="stories-list">
+      <%= render partial: 'stories/all_stories_subcategory', collection: @stories, as: :story %>
+    </div>
+    <% unless last_page? @stories %>
+      <div class="single-pagination-container" id="stories-single-pagination-container">
+        <div class="load-more region">
+          <div class="hidden single-pagination-loader" align="center">
+            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+          </div>
+        <%= link_to "see more", paginate_stories_subcategory_path(@subcategory, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_subcategory', collection_object: 'story'), class: 'see-more__link single-pagination', remote: true %>
         </div>
       </div>
     <% end %>
-    </div>
   </div>
 </section>
 <% end %>
@@ -62,15 +63,15 @@
     <%= render partial: 'offers/subcategory_offers', collection: @offers, as: :offer %>
     </div>
     <% unless last_page? @offers %>
-          <div class="single-pagination-container" id="offers-single-pagination-container">
-            <div class="load-more region">
-              <div class="hidden single-pagination-loader" align="center">
-                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-              </div>
-            <%= link_to "see more", paginate_offers_subcategory_path(@subcategory, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/subcategory_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
-            </div>
+      <div class="single-pagination-container" id="offers-single-pagination-container">
+        <div class="load-more region">
+          <div class="hidden single-pagination-loader" align="center">
+            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
           </div>
-        <% end %>
+        <%= link_to "see more", paginate_offers_subcategory_path(@subcategory, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/subcategory_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </section>
 <% end %>

@@ -270,6 +270,7 @@ Rails.application.routes.draw do
   resources :subcategories do
     member do
       get 'paginate_offers'
+      get 'paginate_stories'
     end
     collection do
       get 'specific/:age_ranges', action: 'specific', as: :specific, constraints: Routes::Constraints::Subcategories.new
