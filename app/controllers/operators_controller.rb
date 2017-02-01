@@ -78,6 +78,13 @@ class OperatorsController < ApplicationController
       :currency,
       :logoUrl,
       :tncUrl,
+      :contact_job_title,
+      :contact_field_office,
+      :contract_pdf_file,
+      :terms_and_conditions,
+      :payment_conditions,
+      :google_place_id,
+      :logo,
       { tags: [] }
     )
   end

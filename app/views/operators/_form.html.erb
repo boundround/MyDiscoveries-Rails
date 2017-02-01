@@ -21,97 +21,127 @@
               input_html: { "data-geo" => "lng", class: 'form-control' }
             %>
           </div>
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.input :address1, label: 'Address1', input_html: { class: 'width100', "data-geo" => "street_number" } %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.input :address2, label: 'Address2', input_html: { class: 'width100', "data-geo" => "route" } %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-6">
+            <%= f.input :city, label: 'City', input_html: { class: 'width100', "data-geo" => "locality" } %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-6">
+            <%= f.input :state, label: 'State', input_html: { class: 'width100', "data-geo" => "administrative_area_level_1" } %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-6">
+            <%= f.input :postcode, label: 'Postcode', input_html: { class: 'width100', "data-geo" => "postal_code" } %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-6">
+            <%= f.input :country, label: 'Country', input_html: { class: 'width100' } %>
+          </div>
+          <div class="col-xs-12 col-sm-12"><%= f.input :google_place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %></div>
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.input :website, label: 'Website', input_html: { class: 'width100' } %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.input :phone, label: 'Phone', as: :tel, input_html: { class: 'width100' } %>
+          </div>
+
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.input :email, label: 'Email', as: :email, input_html: { class: 'width100' } %>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="form-group">
-    <%= f.input :status, label: 'Operator Status', as: :select, collection: Operator::STATUSES, input_html: { class: 'width100' } %>
+    <%= f.input :status, label: 'Operator Status', as: :radio_buttons, collection: Operator::STATUSES, input_html: { class: 'width100' } %>
   </div>
-  <div class="form-group">
-    <%= f.input :name, label: 'Operator Name', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :companyName, label: 'Operator Company Name', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :code, label: 'Code', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :tradingName, label: 'Trading Name', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :businessNumber, label: 'Business Number', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :description, label: 'Description', as: :text, input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :tncId, label: 'tncId', as: :integer, input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group margin-left-20">
-    <%= f.input_field :demo, as: :boolean, inline_label: 'Demo', label: false %>
-  </div>
-  <div class="form-group">
-    <%= f.input :address1, label: 'Address1', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :address2, label: 'Address2', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :city, label: 'City', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :state, label: 'State', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :postcode, label: 'Postcode', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :country, label: 'Country', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :language, label: 'Language', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :contactName, label: 'Contact Name', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :email, label: 'Email', as: :email, input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :phone, label: 'Phone', as: :tel, input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :fax, label: 'Fax', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :website, label: 'Website', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :resContactName, label: 'res Contact Name', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :resEmail, label: 'res Email', as: :email, input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :resPhone, label: 'resPhone', as: :tel, input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :accountsEmail, label: 'Accounts Email', as: :email, input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :currency, label: 'Currency', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :logoUrl, label: 'Logo Url', as: :url, input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :tags, as: :array, label: 'Tags' %>
-    <%= link_to '+ Add', '#', class: 'js-add-operator-tag' %>
-  </div>
-  <div class="form-group">
-    <%= f.input :tncUrl, label: 'tnc Url', as: :url, input_html: { class: 'width100' } %>
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#general-info-collapse">General Info</a>
+        </h4>
+      </div>
+      <div id="general-info-collapse" class="panel-collapse collapse">
+        <div class="form-group">
+          <%= f.input :name, label: 'Operator Name', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :companyName, label: 'Operator Company Name', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :code, label: 'MyDiscoveries Supplier Code', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :tradingName, label: 'Trading Name', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :description, label: 'Description', as: :text, input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :language, label: 'Language', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :currency, label: 'Currency', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :tags, as: :array, label: 'Tags' %>
+          <%= link_to '+ Add', '#', class: 'js-add-operator-tag' %>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#res-info-collapse">
+            Reservations Contact
+          </a>
+        </h4>
+      </div>
+      <div id="res-info-collapse" class="panel-collapse collapse">
+        <div class="form-group">
+          <%= f.input :resContactName, label: 'Reservations Contact Name', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :resEmail, label: 'Reservations Email', as: :email, input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :resPhone, label: 'Reservations Phone', as: :tel, input_html: { class: 'width100' } %>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#contract-info-collapse">Contract Info</a>
+        </h4>
+      </div>
+      <div id="contract-info-collapse" class="panel-collapse collapse">
+        <div class="form-group">
+          <%= f.input :contactName, label: 'Contact Name', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :contact_job_title, label: 'Contact Job Title', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :contact_field_office, label: 'Contact Field Office', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :businessNumber, label: 'Business Number', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :accountsEmail, label: 'Accounts Email', as: :email, input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :payment_conditions, label: 'res Contact Name', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :terms_and_conditions, as: :bootsy, label: 'Terms And Conditions', input_html: { class: 'width100' } %>
+        </div>
+      </div>
+    </div>
   </div>
   </br>
   <div class="form-group">
