@@ -90,6 +90,11 @@
           <%= f.input :tags, as: :array, label: 'Tags' %>
           <%= link_to '+ Add', '#', class: 'js-add-operator-tag' %>
         </div>
+        <div class="img-rounded edit-profile logo" align="center" style="background-image: url(<%= @operator.logo.url.present?? @operator.logo.url : 'imgdummy.jpg' %>)">
+        </div>
+        <div class="form-group">
+          <%= f.input :logo, as: :file, label: 'Upload Logo' %>
+        </div>
       </div>
     </div>
     <div class="panel panel-default">

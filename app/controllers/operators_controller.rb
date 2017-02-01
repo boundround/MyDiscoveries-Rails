@@ -27,7 +27,7 @@ class OperatorsController < ApplicationController
   def update
     @operator.assign_attributes(operator_params)
     @operator.tags.select!(&:present?)
-    if @operator.save
+    if @operator.update(operator_params)
       redirect_to edit_operator_path(@operator), notice: "Operator Updated"
     else
       flash.now[:alert] = 'Sorry, there was an error updating this Operator'
