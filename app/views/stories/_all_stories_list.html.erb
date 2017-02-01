@@ -1,4 +1,4 @@
-<div class=<%= @user.present?? "col-md-6 col-lg-6" : "col-md-4 col-lg-4" %>>
+<div class=<%= @user.present? && action_name.eql?('show')? 'col-md-6 col-lg-6' : 'col-md-4 col-lg-4' %>>
   <div class="inspiration-item wrap_link_card">
   <a class="link_card" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>"></a>
       <div class="user-dp"
