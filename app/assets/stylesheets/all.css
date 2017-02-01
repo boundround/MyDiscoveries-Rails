@@ -259,11 +259,11 @@ h4 {
     z-index: 11;
     height: 80px;
     background: white;
-    -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15))
-    -moz-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15))
-    -ms-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15))
-    -o-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15))
-    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15))
+    -webkit-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15));
+    -moz-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15));
+    -ms-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15));
+    -o-filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15));
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.15));
 }
 .mega-menu .menu-bar img.logo {
     margin-top: -16px
