@@ -87,14 +87,8 @@
           <%= f.input :currency, label: 'Currency', input_html: { class: 'width100' } %>
         </div>
         <div class="form-group">
-          <%= f.input :logoUrl, label: 'Logo Url', as: :url, input_html: { class: 'width100' } %>
-        </div>
-        <div class="form-group">
           <%= f.input :tags, as: :array, label: 'Tags' %>
           <%= link_to '+ Add', '#', class: 'js-add-operator-tag' %>
-        </div>
-        <div class="form-group">
-          <%= f.input :tncUrl, label: 'tnc Url', as: :url, input_html: { class: 'width100' } %>
         </div>
       </div>
     </div>
