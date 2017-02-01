@@ -27,7 +27,7 @@
             </div>
             <div class="upmd-ibi-content">
               <p class="xs-heading">Find the Best Deals</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet</p>
+              <p></p>
             </div>
           </a>
           <a href="#" id="change-location2" class="upmd-img-block-item add-details">
@@ -36,7 +36,7 @@
             </div>
             <div class="upmd-ibi-content">
               <p class="xs-heading">Add your details</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet</p>
+              <p></p>
             </div>
           </a>
         </div>
@@ -373,7 +373,24 @@
                         <button class="btn-bordered red invert small">save</button>
 
                         <!-- <a href="#" class="edit">Change password</a> -->
-
+                        <% if user_signed_in? && current_user.admin? %>
+                          <div class="col-xs-12 col-sm-12 top5">
+                            <p class="pink left15">User Roles</p>
+                            <span href="#" class="btn btn-default btn-block">
+                              <%= f.collection_check_boxes :role_ids, Role.all, :id, :name, input_html: { class: "form-control" } do |b| %>
+                                <div class="collection-check-box">
+                                  <%= b.check_box %>
+                                  <%= b.label %>&nbsp;&nbsp;
+                                </div>
+                              <% end %>
+                            </span>
+                          </div>
+                          <div class="col-xs-12 col-sm-12 top5">
+                            <p class="pink left15">Admin?
+                              <%= f.input :admin, as: :boolean, label: false %>
+                            </p>
+                          </div>
+                        <% end %>
                     <% end %>
 
                 </div>
@@ -441,6 +458,7 @@
     </div>
     <% end %>
   </section>
+
 </div>
 
 <% else %>
