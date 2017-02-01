@@ -7,7 +7,7 @@ class SubcategoriesController < ApplicationController
 
 	def show
   	@subcategory = Subcategory.friendly.find(params[:id])
-    @stories = @subcategory.stories.last(3)
+    @stories = @subcategory.stories.paginate(page: params[:stories_page], per_page: 3)
     # @subcategories = @subcategory.subcategory_related
     @offers = @subcategory.offers.paginate(page: params[:offers_page], per_page: 4)
 	end
@@ -62,6 +62,12 @@ class SubcategoriesController < ApplicationController
     @subcategory = Subcategory.friendly.find(params[:id])
     @offers = @subcategory.offers.paginate(page: params[:offers_page], per_page: 4)
   end
+
+  def paginate_stories
+    @subcategory = Subcategory.friendly.find(params[:id])
+    @stories = @subcategory.stories.paginate(page: params[:stories_page], per_page: 3)
+  end
+
 
   def specific
       @areas= Place.active.includes(:subcategories).order(top_100: :desc).filter(age_ranges_params).paginate page: params[:areas_page], per_page: 3
