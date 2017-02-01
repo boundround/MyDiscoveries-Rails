@@ -84,7 +84,7 @@ class OperatorsController < ApplicationController
       :terms_and_conditions,
       :payment_conditions,
       :google_place_id,
-      logo,
+      :logo,
       { tags: [] }
     )
   end
