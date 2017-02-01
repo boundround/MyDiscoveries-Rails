@@ -43,6 +43,21 @@ module ApplicationHelper
     end
   end
 
+  def price_text(offer)
+    payment = ""
+    if offer.minRateAdult
+      payment = number_to_currency(offer.minRateAdult / 5.0)
+    else
+      ""
+    end
+    if offer.allow_installments
+      "Only #{payment} / month for 5 months or #{offer.minRateAdult} upfront."
+    else
+      "#{offer.minRateAdult}"
+    end
+    # Only $299 / month for 5 months or $1,495 upfront.
+  end
+
   def draw_fun_fact_photo(funfact, place)
     if funfact.hero_photo_url.blank?
       showing_image(get_random_place_photo(place))
@@ -283,8 +298,8 @@ module ApplicationHelper
       end
     else
       if map_marker.class.to_s == "Offer"
-        marker.push([map_marker.name||"", map_marker.description||"", 
-                      "", "", "", map_marker.latitudeStart.to_f||"", map_marker.longitudeStart.to_f||"", '/assets/mydiscoveries_icon/i/map/map-point.png'])  
+        marker.push([map_marker.name||"", map_marker.description||"",
+                      "", "", "", map_marker.latitudeStart.to_f||"", map_marker.longitudeStart.to_f||"", '/assets/mydiscoveries_icon/i/map/map-point.png'])
       else
         marker.push([map_marker.display_name||"", map_marker.description||"",
                        map_marker.phone_number||"", map_marker.email||"", map_marker.website||"", map_marker.latitude||"", map_marker.longitude||"", '/assets/mydiscoveries_icon/i/map/map-point.png'])
