@@ -101,12 +101,6 @@ class StoriesController < ApplicationController
     head :ok
   end
 
-   def choose_hero
-    @story = Story.find_by_slug(params[:id])
-    @story_photos = @story.photos
-    @photo = Photo.new
-  end
-
   def update_hero
     @story = Story.find(params[:id])
     photo_id = params[:photo_id]
@@ -121,7 +115,7 @@ class StoriesController < ApplicationController
     end
 
     @story.save # needed to update search index
-    redirect_to choose_hero_story_path(@story)
+    redirect_to choose_hero_story_photos_path(@story)
   end
 
   private

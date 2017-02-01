@@ -1,40 +1,33 @@
+<% 
+  if @place
+    variable = @place
+    path = "place"
+  elsif @region
+    variable = @region
+    path = "region"
+  elsif @attraction
+    variable = @attraction
+    path = "attraction"
+  elsif @country
+    variable = @country
+    path = "country"
+  elsif @offer
+    variable = @offer
+    path = "offer"
+  elsif @story
+    variable = @story
+    path = "story"
+  end
+    
+%>
 <div class="container">
-<%= render 'admin_tabs' %>
+<%= render path.pluralize+'/admin_tabs' %>
 <h1>Edit Photos</h1>
-<%= link_to "Back To Edit #{@place.display_name}", edit_place_path(@place)%>
-  <% if @user_photos.present? %>
-    <h4>User Photos (Click to Edit)</h4>
-    <div class="row">
-    <% @user_photos.each do |photo| %>
-      <div class="col-md-4 col-hero-list">
-        <div class="outer-image hero-list">
-          <a href="" data-toggle="modal" data-target="#photoEditModal"
-            data-photo-id="<%= photo.id.to_s %>" data-type="<%= photo.class.to_s %>"
-            data-caption="<%= photo.caption %>" data-alt="<%= photo.alt_tag %>"
-            data-status="<%= photo.status %>" data-priority="<%= photo.priority %>"
-            data-credit="<%= photo.credit %>" data-instance="<%= photo.class.to_s.underscore %>"
-            class="edit-photo" data-path="<%= "/user_photos/#{photo.id}/place_update" %>">
-            <img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
-          </a>
-        </div>
-        <% if photo.hero.eql? true %>
-          <label>
-            <input name="hero_image" type="checkbox" checked > Current hero image
-          </label>
-        <% else %>
-        <label>
-          <input name="hero_image" data-place="<%= @place.id %>" data-photo="<%= photo.id %>" data-type="<%= photo.class.to_s %>" type="checkbox"> Choose as hero image
-        </label>
-        <% end %>
-      </div>
-      <% end %>
-    </div>
-    <hr>
-  <% end %>
-  <% if @place_photos.present? %>
-    <h4>Place Photos (Click to Edit)</h4>
-    <div class="row">
-    <% @place_photos.each do |photo| %>
+<%= link_to "Back To Edit #{variable.display_name}", eval("edit_#{path}_path(variable)")%>
+<% if @collect_photos.present? %>
+  <h4><%= path.capitalize %> Photos (Click to Edit)</h4>
+  <div class="row">
+    <% @collect_photos.each do |photo| %>
       <div class="col-xs-12 col-sm-4 col-md-4 col-hero-list">
         <div class="outer-image hero-list">
           <a href="" data-toggle="modal" data-target="#photoEditModal"
@@ -42,28 +35,29 @@
             data-caption="<%= photo.caption %>" data-alt="<%= photo.alt_tag %>"
             data-credit="<%= photo.credit %>" data-instance="<%= photo.class.to_s.underscore %>"
             data-status="<%= photo.status %>" data-priority="<%= photo.priority %>"
-            class="edit-photo" data-path="<%= "/photos/#{photo.id}/place_update" %>">
-            <img src="<%= showing_image(photo.path_url(:large)) %>" alt="">
+            class="edit-photo" data-path="<%= "/photos/#{photo.id}/#{path}_update" %>">
+            <!-- <img src="<%= showing_image(photo.path_url(:large)) %>" alt=""> -->
+            <div class="user-dp" style="background: url(<%= showing_image(photo.path_url(:large)) %>) no-repeat;"> </div>
           </a>
         </div>
+        <br><span><%= photo.path_url(:large) %></span>
         <% if photo.hero.eql? true %>
           <label>
             <input name="hero_image" type="checkbox" checked > Current hero image
           </label>
         <% else %>
           <label>
-            <input name="hero_image" data-place="<%= @place.id %>" data-photo= "<%= photo.id %>" data-type="<%= photo.class.to_s %>" type="checkbox"> Choose as hero image
+            <input name="hero_image" data-from="<%= path %>"  data-place="<%= variable.id %>" data-photo= "<%= photo.id %>" data-type="<%= photo.class.to_s %>" type="checkbox"> Choose as hero image
           </label>
         <% end %>
       </div>
     <% end %>
-    </div>
   </div>
-  <% end %>
-  <div class="container">
-    <%= render 'photos/form' %>
-  </div>
-  <!-- Modal -->
+<% end %>
+<div class="container">
+  <%= render 'photos/form' %>
+</div>
+<!-- Modal -->
 <div class="modal fade" id="photoEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

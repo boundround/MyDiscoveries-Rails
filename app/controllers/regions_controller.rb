@@ -1,5 +1,5 @@
 class RegionsController < ApplicationController
-  before_action :set_region, only: [:show, :edit, :update, :destroy, :choose_hero, :update_hero]
+  before_action :set_region, only: [:show, :edit, :update, :destroy, :update_hero]
 
   def index
     @regions = Region.all
@@ -73,13 +73,8 @@ class RegionsController < ApplicationController
     end
     @region.save
 
-    redirect_to choose_hero_region_path(@region)
+    redirect_to choose_hero_region_photos_path(@region)
 
-  end
-
-  def choose_hero
-    @region_photos = @region.photos.where.not(status: "removed")
-    @photo = Photo.new
   end
 
   def paginate_offers

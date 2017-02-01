@@ -401,13 +401,6 @@ class PlacesController < ApplicationController
     @place = Place.find_by_slug(params[:place])
   end
 
-  def choose_hero
-    @place = Place.find_by_slug(params[:id])
-    @user_photos = @place.user_photos
-    @place_photos = @place.photos.where.not(status: "removed")
-    @photo = Photo.new
-  end
-
   def update_hero
     @place = Place.find(params[:id])
     photo_id = params[:photo_id]
@@ -425,7 +418,7 @@ class PlacesController < ApplicationController
         photo.hero = false
         photo.save
       end
-      redirect_to choose_hero_place_path(@place)
+      redirect_to choose_hero_place_photos_path(@place)
     else
       @place.photos.each do |photo|
         if photo.id.to_s.eql? photo_id
@@ -440,7 +433,7 @@ class PlacesController < ApplicationController
         photo.save
       end
       @place.save # needed to update search index
-      redirect_to choose_hero_place_path(@place)
+      redirect_to choose_hero_place_photos_path(@place)
     end
   end
 

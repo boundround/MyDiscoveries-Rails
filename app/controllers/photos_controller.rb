@@ -28,12 +28,12 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     if photo_params[:path].present?
       if @photo.update(photo_params)
-        redirect_to choose_hero_place_path(@photo.photoable), notice: "Photo Succesfully Updated"
+        redirect_to choose_hero_place_photos_path(@photo.photoable), notice: "Photo Succesfully Updated"
       else
-        redirect_to choose_hero_place_path(@photo.photoable), notice: "Error"
+        redirect_to choose_hero_place_photos_path(@photo.photoable), notice: "Error"
       end
     else
-      redirect_to choose_hero_place_path(@photo.photoable)
+      redirect_to choose_hero_place_photos_path(@photo.photoable)
     end
   end
 
@@ -41,12 +41,12 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     if photo_params[:path].present?
       if @photo.update(photo_params)
-        redirect_to choose_hero_attraction_path(@photo.photoable), notice: "Attraction Succesfully Updated"
+        redirect_to choose_hero_attraction_photos_path(@photo.photoable), notice: "Attraction Succesfully Updated"
       else
-        redirect_to choose_hero_attraction_path(@photo.photoable), notice: "Error"
+        redirect_to choose_hero_attraction_photos_path(@photo.photoable), notice: "Error"
       end
     else
-      redirect_to choose_hero_attraction_path(@photo.photoable)
+      redirect_to choose_hero_attraction_photos_path(@photo.photoable)
     end
   end
 
@@ -54,12 +54,12 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     if photo_params[:path].present?
       if @photo.update(photo_params)
-        redirect_to choose_hero_region_path(@photo.photoable), notice: "Region Succesfully Updated"
+        redirect_to choose_hero_region_photos_path(@photo.photoable), notice: "Region Succesfully Updated"
       else
-        redirect_to choose_hero_region_path(@photo.photoable), notice: "Error"
+        redirect_to choose_hero_region_photos_path(@photo.photoable), notice: "Error"
       end
     else
-      redirect_to choose_hero_region_path(@photo.photoable)
+      redirect_to choose_hero_region_photos_path(@photo.photoable)
     end
   end
 
@@ -67,12 +67,12 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     if photo_params[:path].present?
       if @photo.update(photo_params)
-        redirect_to choose_hero_country_path(@photo.photoable), notice: "Country Succesfully Updated"
+        redirect_to choose_hero_country_photos_path(@photo.photoable), notice: "Country Succesfully Updated"
       else
-        redirect_to choose_hero_country_path(@photo.photoable), notice: "Error"
+        redirect_to choose_hero_country_photos_path(@photo.photoable), notice: "Error"
       end
     else
-      redirect_to choose_hero_country_path(@photo.photoable)
+      redirect_to choose_hero_country_photos_path(@photo.photoable)
     end
   end
 
@@ -80,12 +80,12 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     if photo_params[:path].present?
       if @photo.update(photo_params)
-        redirect_to choose_hero_offer_path(@photo.photoable), notice: "Offer Succesfully Updated"
+        redirect_to choose_hero_offer_photos_path(@photo.photoable), notice: "Offer Succesfully Updated"
       else
-        redirect_to choose_hero_offer_path(@photo.photoable), notice: "Error"
+        redirect_to choose_hero_offer_photos_path(@photo.photoable), notice: "Error"
       end
     else
-      redirect_to choose_hero_offer_path(@photo.photoable)
+      redirect_to choose_hero_offer_photos_path(@photo.photoable)
     end
   end
 
@@ -93,12 +93,12 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     if photo_params[:path].present?
       if @photo.update(photo_params)
-        redirect_to choose_hero_story_path(@photo.photoable), notice: "Story Succesfully Updated"
+        redirect_to choose_hero_story_photos_path(@photo.photoable), notice: "Story Succesfully Updated"
       else
-        redirect_to choose_hero_story_path(@photo.photoable), notice: "Error"
+        redirect_to choose_hero_story_photos_path(@photo.photoable), notice: "Error"
       end
     else
-      redirect_to choose_hero_story_path(@photo.photoable)
+      redirect_to choose_hero_story_photos_path(@photo.photoable)
     end
   end
 
@@ -112,6 +112,30 @@ class PhotosController < ApplicationController
     end
 
     @photos = @place.photos
+  end
+
+  def choose_hero
+    if params[:place_id]
+      @place = Place.find_by_slug(params[:place_id])
+      @collect_photos = @place.photos.where.not(status: "removed")
+    elsif params[:region_id]
+      @region = Region.friendly.find(params[:region_id])
+      @collect_photos = @region.photos.where.not(status: "removed")
+    elsif params[:country_id]
+      @country = Country.friendly.find(params[:country_id])
+      @collect_photos = @country.photos.where.not(status: "removed")
+    elsif params[:attraction_id]
+      @attraction = Region.friendly.find(params[:attraction_id])
+      @collect_photos = @attraction.photos.where.not(status: "removed")
+    elsif params[:offer_id]
+      @offer = Offer.friendly.find(params[:offer_id])
+      @collect_photos = @offer.photos.where.not(status: "removed")
+    elsif params[:story_id]
+      @story = Story.friendly.find(params[:story_id])
+      @collect_photos = @story.photos.where.not(status: "removed")
+    end
+
+      @photo = Photo.new
   end
 
   def new

@@ -34,7 +34,9 @@ Rails.application.routes.draw do
       post :upload_image
       post :delete_image
     end
-    member { get 'choose_hero', as: :choose_hero }
+    resources :photos do
+      collection { get 'choose_hero', as: :choose_hero }
+    end
     resources :places, controller: :places_stories
     resources :attractions, controller: :attractions_stories
     resources :regions, controller: :regions_stories
@@ -223,7 +225,6 @@ Rails.application.routes.draw do
       get 'paginate_things_to_do'
       get 'paginate_deals'
       get 'seo_analysis'
-      get 'choose_hero', as: :choose_hero
     end
     resources :good_to_knows
     resources :stories
@@ -239,6 +240,7 @@ Rails.application.routes.draw do
     end
     resources :photos do
       collection { get 'all_photos' }
+      collection { get 'choose_hero', as: :choose_hero }
     end
     resources :fun_facts do
       collection { get 'all' }
@@ -281,7 +283,6 @@ Rails.application.routes.draw do
     member do
       get 'preview'
       get 'stamp_confirmation'
-      get 'choose_hero', as: :choose_hero
       get 'paginate_videos', as: :paginate_videos
       get 'paginate_photos', as: :paginate_photos
       get 'paginate_reviews'
@@ -307,6 +308,8 @@ Rails.application.routes.draw do
     resources :stamps
     resources :photos do
       collection { get 'all_photos' }
+      collection { get 'choose_hero', as: :choose_hero }
+
     end
     resources :videos do
       collection { get 'all' }
@@ -326,7 +329,6 @@ Rails.application.routes.draw do
 
   resources :attractions do
     member do
-      get 'choose_hero', as: :choose_hero
       get 'seo_analysis'
       get 'paginate_more_attractions'
       get 'paginate_videos', as: :paginate_videos
@@ -336,6 +338,7 @@ Rails.application.routes.draw do
       get 'paginate_deals'
     end
     resources :photos do
+      collection { get 'choose_hero', as: :choose_hero }
       collection { get 'all_photos' }
     end
     resources :videos do
@@ -356,13 +359,13 @@ Rails.application.routes.draw do
   end
 
   resources :regions do
-    member { get 'choose_hero', as: :choose_hero }
     member { get 'paginate_place_to_visit'}
     member { get 'paginate_place_to_go'}
     member { get 'paginate_stories'}
     member { get 'paginate_offers'}
     member { get 'paginate_countries'}
     resources :photos do
+      collection { get 'choose_hero', as: :choose_hero }
       collection { get 'all_photos' }
     end
     resources :videos do
@@ -377,7 +380,6 @@ Rails.application.routes.draw do
 
   resources :offers do
     member do
-      get 'choose_hero', as: :choose_hero
       get 'paginate_videos', as: :paginate_videos
       get 'paginate_photos', as: :paginate_photos
       get 'clone'
@@ -393,6 +395,7 @@ Rails.application.routes.draw do
       collection { get 'all' }
     end
     resources :photos do
+      collection { get 'choose_hero', as: :choose_hero }
       collection { get 'all_photos' }
     end
     resources :orders, only: [ :new, :edit, :create, :update ]

@@ -95,13 +95,6 @@ class CountriesController < ApplicationController
     @deals = @country.deals.active.paginate(:page => params[:active_photos], per_page: 4)
   end
 
-  def choose_hero
-    @country = Country.find_by_slug(params[:id])
-    @user_photos = @country.user_photos
-    @country_photos = @country.photos
-    @photo = Photo.new
-  end
-
   def update_hero
     @country = Country.friendly.find(params[:id])
     photo_id = params[:photo_id]
@@ -115,7 +108,7 @@ class CountriesController < ApplicationController
     end
     @country.save
 
-    redirect_to choose_hero_country_path(@country)
+    redirect_to choose_hero_country_photos_path(@country)
 
   end
 

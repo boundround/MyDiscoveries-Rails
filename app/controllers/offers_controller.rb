@@ -2,7 +2,7 @@ class OffersController < ApplicationController
   # before_action :check_user_authorization, except: [:show, :paginate_on_idx]
 
   before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media, :paginate_on_idx, :clone, :paginate_offers]
-  before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :choose_hero, :update_hero, :clone]
+  before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :update_hero, :clone]
   before_action :set_media, only: [:show, :paginate_media]
 
   def show
@@ -120,11 +120,6 @@ class OffersController < ApplicationController
     @book_guarantee = GlobalSetting.find("book_guarantee")
   end
 
-  def choose_hero
-    @offer_photos = @offer.photos.where.not(status: "removed")
-    @photo = Photo.new
-  end
-
   def update_hero
     photo_id = params[:photo_id]
     @offer.photos.each do |photo|
@@ -137,7 +132,7 @@ class OffersController < ApplicationController
     end
     @offer.save
 
-    redirect_to choose_hero_offer_path(@offer)
+    redirect_to choose_hero_offer_photos_path(@offer)
 
   end
 

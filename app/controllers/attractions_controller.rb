@@ -165,7 +165,7 @@ class AttractionsController < ApplicationController
         photo.hero = false
         photo.save
       end
-      redirect_to choose_hero_attraction_path(@attraction)
+      redirect_to choose_hero_attraction_photos_path(@attraction)
     else
       @attraction.photos.each do |photo|
         if photo.id.to_s.eql? photo_id
@@ -180,17 +180,10 @@ class AttractionsController < ApplicationController
         photo.save
       end
       @attraction.save # needed to update search index
-      redirect_to choose_hero_attraction_path(@attraction)
+      redirect_to choose_hero_attraction_photos_path(@attraction)
     end
   end
-
-  def choose_hero
-    @attraction = Attraction.find_by_slug(params[:id])
-    @user_photos = @attraction.user_photos
-    @attraction_photos = @attraction.photos
-    @photo = Photo.new
-  end
-
+  
   private
     def set_attraction
       @attraction = Attraction.includes(:quality_average, :subcategories, :similar_attractions => :similar_attraction).friendly.find(params[:id])

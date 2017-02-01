@@ -80,9 +80,9 @@ class UserPhotosController < ApplicationController
   def place_update
     @user_photo = UserPhoto.find(params[:id])
     if @user_photo.update(user_photo_params)
-      redirect_to choose_hero_place_path(@user_photo.place), notice: "Photo Succesfully Updated"
+      redirect_to choose_hero_place_photos_path(@user_photo.place), notice: "Photo Succesfully Updated"
     else
-      redirect_to choose_hero_place_path(@user_photo.place), notice: "Error"
+      redirect_to choose_hero_place_photos_path(@user_photo.place), notice: "Error"
     end
   end
 
