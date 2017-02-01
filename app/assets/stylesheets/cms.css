@@ -57,3 +57,7 @@ label.checkbox {
 .admin-navbar {
   z-index: 1001;
 }
+
+.operator_status > .controls > .radio {
+  display: inline;
+}

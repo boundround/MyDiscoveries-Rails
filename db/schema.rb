@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131042939) do
+ActiveRecord::Schema.define(version: 20170201034700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -645,40 +645,47 @@ ActiveRecord::Schema.define(version: 20170131042939) do
   end
 
   create_table "operators", force: true do |t|
-    t.string   "status",         default: ""
-    t.text     "name",           default: ""
-    t.text     "companyName",    default: ""
-    t.string   "code",           default: ""
-    t.text     "tradingName",    default: ""
-    t.string   "businessNumber", default: ""
-    t.text     "description",    default: ""
-    t.integer  "tncId",          default: 0
-    t.boolean  "demo",           default: false
-    t.text     "address1",       default: ""
-    t.text     "address2",       default: ""
-    t.string   "city",           default: ""
-    t.string   "state",          default: ""
-    t.string   "postcode",       default: ""
+    t.string   "status",               default: ""
+    t.text     "name",                 default: ""
+    t.text     "companyName",          default: ""
+    t.string   "code",                 default: ""
+    t.text     "tradingName",          default: ""
+    t.string   "businessNumber",       default: ""
+    t.text     "description",          default: ""
+    t.integer  "tncId",                default: 0
+    t.boolean  "demo",                 default: false
+    t.text     "address1",             default: ""
+    t.text     "address2",             default: ""
+    t.string   "city",                 default: ""
+    t.string   "state",                default: ""
+    t.string   "postcode",             default: ""
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "country",        default: ""
-    t.string   "language",       default: ""
-    t.text     "contactName",    default: ""
-    t.string   "email",          default: ""
-    t.string   "phone",          default: ""
-    t.string   "fax",            default: ""
-    t.string   "website",        default: ""
-    t.text     "resContactName", default: ""
-    t.string   "resEmail",       default: ""
-    t.string   "resPhone",       default: ""
-    t.string   "accountsEmail",  default: ""
-    t.string   "currency",       default: ""
-    t.text     "logoUrl",        default: ""
-    t.string   "tags",           default: [],    array: true
-    t.text     "tncUrl",         default: ""
+    t.string   "country",              default: ""
+    t.string   "language",             default: ""
+    t.text     "contactName",          default: ""
+    t.string   "email",                default: ""
+    t.string   "phone",                default: ""
+    t.string   "fax",                  default: ""
+    t.string   "website",              default: ""
+    t.text     "resContactName",       default: ""
+    t.string   "resEmail",             default: ""
+    t.string   "resPhone",             default: ""
+    t.string   "accountsEmail",        default: ""
+    t.string   "currency",             default: ""
+    t.text     "logoUrl",              default: ""
+    t.string   "tags",                 default: [],    array: true
+    t.text     "tncUrl",               default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
+    t.text     "contact_job_title",    default: ""
+    t.text     "contact_field_office", default: ""
+    t.text     "terms_and_conditions", default: ""
+    t.string   "contract_pdf_file"
+    t.text     "payment_conditions",   default: ""
+    t.string   "google_place_id",      default: ""
+    t.string   "logo"
   end
 
   add_index "operators", ["slug"], name: "index_operators_on_slug", using: :btree
