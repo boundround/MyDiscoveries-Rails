@@ -73,7 +73,7 @@
           </div>
           <img id="photo-preview" class="img-responsive" alt="">
           <span class="avatar-text" >Click to change</span><br>
-          <%= file_field_tag 'photo-file' %>
+          <%= f.file_field :path, id: "photo-file" %>
           <label for="caption">Caption</label>
           <input type="text" id="caption" class="form-control" name="caption">
           <label for="credit">Credit</label>

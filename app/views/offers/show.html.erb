@@ -50,8 +50,8 @@
     <div class="product-content width-limiter">
 
         <aside>
-            <h3 class="point-card__header"><%= @offer.operator.city %></h3>
-            <p class="hotel-name"><%= @offer.operator.name %></p>
+            <h3 class="point-card__header"><%= @offer.operator.city rescue "" %></h3>
+            <p class="hotel-name"><%= @offer.operator.name rescue "" %></p>
 
             <div class="package-options">
                 <h4 class="xs-heading lars">Package Options</h4>
