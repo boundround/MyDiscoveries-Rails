@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170201034700) do
+ActiveRecord::Schema.define(version: 20170202034556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -686,6 +686,8 @@ ActiveRecord::Schema.define(version: 20170201034700) do
     t.text     "payment_conditions",   default: ""
     t.string   "google_place_id",      default: ""
     t.string   "logo"
+    t.string   "xero_id"
+    t.string   "hubspot_id"
   end
 
   add_index "operators", ["slug"], name: "index_operators_on_slug", using: :btree

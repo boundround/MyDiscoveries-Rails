@@ -84,6 +84,8 @@ class OperatorsController < ApplicationController
       :terms_and_conditions,
       :payment_conditions,
       :google_place_id,
+      :hubspot_id,
+      :xero_id,
       :logo,
       { tags: [] }
     )
