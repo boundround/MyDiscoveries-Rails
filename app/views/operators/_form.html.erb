@@ -41,14 +41,14 @@
           </div>
           <div class="col-xs-12 col-sm-12"><%= f.input :google_place_id, input_html: { "data-geo" => "place_id", class: 'form-control' }, label: "Google Place ID" %></div>
           <div class="form-group col-xs-12 col-sm-12">
-            <%= f.input :website, label: 'Website', input_html: { class: 'width100' } %>
+            <%= f.input :website, label: 'Website', input_html: { class: 'width100', "data-geo" => "website" } %>
           </div>
           <div class="form-group col-xs-12 col-sm-12">
-            <%= f.input :phone, label: 'Phone', as: :tel, input_html: { class: 'width100' } %>
+            <%= f.input :phone, label: 'Phone', as: :tel, input_html: { class: 'width100', "data-geo" => "international_phone_number" } %>
           </div>
 
           <div class="form-group col-xs-12 col-sm-12">
-            <%= f.input :email, label: 'Email', as: :email, input_html: { class: 'width100' } %>
+            <%= f.input :email, label: 'Email', as: :email, input_html: { class: 'width100', "data-geo" => "" } %>
           </div>
         </div>
       </div>
@@ -89,6 +89,11 @@
         <div class="form-group">
           <%= f.input :tags, as: :array, label: 'Tags' %>
           <%= link_to '+ Add', '#', class: 'js-add-operator-tag' %>
+        </div>
+        <div class="img-rounded edit-profile logo" align="center" style="background-image: url(<%= @operator.logo.url.present?? @operator.logo.url : 'imgdummy.jpg' %>)">
+        </div>
+        <div class="form-group">
+          <%= f.input :logo, as: :file, label: 'Upload Logo' %>
         </div>
       </div>
     </div>

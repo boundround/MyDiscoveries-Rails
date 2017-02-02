@@ -86,7 +86,7 @@ class OffersController < ApplicationController
 
   def clone
     @offer = Offer.find_by_slug(params[:id])
-    @clone_offer = @offer.dup
+    @clone_offer = @offer.deep_clone include: [:photos, :videos, :regions, :places, :related_offers, :subcategories]
     if @clone_offer.save
       redirect_to(edit_offer_path(@clone_offer), notice: 'Offer succesfully duplicated')
     else

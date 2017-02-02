@@ -7,6 +7,9 @@ class Operator < ActiveRecord::Base
 
   validates :name, presence: true
 
+  mount_uploader :logo, OperatorLogoUploader
+  process_in_background :logo
+
   def slug_candidates
     :name
   end

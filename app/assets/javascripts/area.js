@@ -25,6 +25,7 @@ window.onload = function(){
       detailsAttribute: "data-geo",
     });
 
+    var service = new google.maps.places.PlacesService($("#pac-input").geocomplete("map"));
     var zoom_level_region = $('#region_zoom_level').val(),
         zoom_level_place = $('#place_zoom_level').val();
     if((zoom_level_region == undefined || zoom_level_region == '') && (zoom_level_place == undefined || zoom_level_place == '')){

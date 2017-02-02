@@ -8637,6 +8637,12 @@ input[type="submit"].modal-content__btn-access  {
   height: 100px;
   width: 100px;
 }
+#accordion .img-rounded.logo{
+  height: 100px;
+  width: 100px;
+  background-size: cover;
+  background-position: 50% 50%;
+}
 
 .new-offer-promo-item__header {
   color: #ffffff;
