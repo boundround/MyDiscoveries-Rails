@@ -7,6 +7,10 @@
     <tr>
       <th>Offer</th>
       <th>Description</th>
+      <th>Status</th>
+      <th>Operator</th>
+      <th>Start Date</th>
+      <th>End Date</th>
       <th>Created At</th>
       <th>Edit Link</th>
       <th>Delete</th>
@@ -16,6 +20,7 @@
       <tr>
         <th>Offer</th>
         <th>Description</th>
+        <th>Operator</th>
         <th>Created At</th>
         <th></th>
         <th></th>
@@ -26,6 +31,10 @@
         <tr>
           <td><%= link_to "#{offer.name} || #{offer.id}", edit_offer_path(offer) %></td>
           <td><%= offer.description %></td>
+          <td><%= offer.status %></td>
+          <td><%= offer.operator.name %></td>
+          <td><%= offer.startDate.strftime("%m-%d-%Y") %></td>
+          <td><%= offer.endDate.strftime("%m-%d-%Y") %></td>
           <td><%= offer.created_at.strftime("%F") %></td>
           <td><%= link_to 'Edit offer', edit_offer_path(offer), target: "_blank" %></td>
           <td><%= link_to 'Destroy', offer_path(offer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
