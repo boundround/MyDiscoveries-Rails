@@ -155,6 +155,8 @@ GEM
     daemons (1.2.3)
     dalli (2.7.6)
     debug_inspector (0.0.2)
+    deep_cloneable (2.2.2)
+      activerecord (>= 3.1.0, < 5.2.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (4.2.0)
@@ -633,6 +635,7 @@ DEPENDENCIES
   countries
   country_select
   dalli
+  deep_cloneable (~> 2.2.2)
   devise
   factory_girl_rails
   factual-api
