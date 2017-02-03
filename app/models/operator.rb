@@ -10,6 +10,8 @@ class Operator < ActiveRecord::Base
   mount_uploader :logo, OperatorLogoUploader
   process_in_background :logo
 
+  mount_uploader :contract_pdf_file, OperatorPdfUploader
+  
   def slug_candidates
     :name
   end
