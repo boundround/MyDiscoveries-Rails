@@ -394,7 +394,13 @@ Rails.application.routes.draw do
     resources :photos do
       collection { get 'all_photos' }
     end
-    resources :orders, only: [ :new, :edit, :create, :update ]
+    resources :orders, only: [ :new, :edit, :create, :update ] do
+      member do
+        get :add_passengers
+        get :edit_passengers
+        patch :update_passengers
+      end
+    end
     resources :places, controller: :places_offers
     resources :attractions, controller: :attractions_offers
     resources :regions, controller: :regions_offers

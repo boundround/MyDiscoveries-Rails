@@ -22,4 +22,16 @@ class OrderPolicy < ApplicationPolicy
   def download_pdf?
     new?
   end
+
+  def add_passengers?
+    new?
+  end
+
+  def update_passengers?
+    new?
+  end
+
+  def edit_passengers?
+    new?
+  end
 end

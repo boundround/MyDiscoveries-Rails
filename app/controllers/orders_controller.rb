@@ -1,7 +1,9 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, except: [:add_shopify_order_id]
   before_action :check_user_authorization, except: [:add_shopify_order_id]
-  before_action :set_order, only: [:edit, :update, :checkout]
+  before_action :set_order, only: [
+    :edit, :update, :checkout, :add_passengers, :edit_passengers, :update_passengers
+  ]
   before_action :set_offer, except: [:add_shopify_order_id, :download_pdf]
 
   def new
@@ -17,7 +19,7 @@ class OrdersController < ApplicationController
     @order.offer = @offer
 
     if @order.save
-      redirect_to Order::Shopify::GetCheckoutUrl.call(@order)
+      redirect_to add_passengers_offer_order_path(@offer, @order)
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
       render :new
@@ -27,7 +29,33 @@ class OrdersController < ApplicationController
   def edit
   end
 
+  def add_passengers
+    @order.total_people_count.times { @order.passengers.build }
+  end
+
+  def edit_passengers
+  end
+
+  def update_passengers
+    if @order.update(order_params)
+      redirect_to Order::Shopify::GetCheckoutUrl.call(@order)
+    else
+      flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
+      render :edit_passengers
+    end
+  end
+
   def update
+    @order.assign_attributes(order_params)
+    is_units_count_changed = is_units_count_changed?
+
+    if @order.save
+      @order.passengers.destroy_all if is_units_count_changed
+      redirect_to add_passengers_offer_order_path(@offer, @order)
+    else
+      flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
+      render :edit
+    end
   end
 
   def download_pdf
@@ -64,6 +92,12 @@ class OrdersController < ApplicationController
     @offer = Offer.friendly.find(params[:offer_id])
   end
 
+  def is_units_count_changed?
+    @order.number_of_children_changed? ||
+    @order.number_of_infants_changed?  ||
+    @order.number_of_adults_changed?
+  end
+
   def order_params
     params.require(:order).permit(
       :title,
@@ -72,7 +106,17 @@ class OrdersController < ApplicationController
       :number_of_adults,
       :start_date,
       :total_price,
-      :request_installments
+      :request_installments,
+      passengers_attributes: [
+        :id,
+        :title,
+        :first_name,
+        :last_name,
+        :date_of_birth,
+        :telephone,
+        :mobile,
+        :email
+      ]
     )
   end
 end
