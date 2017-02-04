@@ -1,0 +1,154 @@
+<div class="booking-block">
+  <div class="width-limiter">
+    <div class="passenger-details-block wrapper-block">
+      <aside>
+        <div class="booking-info">
+          <div class="bi-top">
+              <h3 class="point-card__header">
+                <%= offer.locationStart %>
+              </h3>
+              <p class="bit-hotel">
+                <%= offer.name %>
+              </p>
+              <div class="bit-info">
+               <h4 class="heading">your booking:</h4>
+                <ul>
+                  <li>
+                    <%= order.total_units_count %> guests
+                  </li>
+                  <li>
+                    <%= duration_in_days(offer.duration) %> nights
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="bi-bottom">
+              <table>
+                <% if order.number_of_adults > 0 %>
+                  <tr>
+                    <td>Price per person (Adults)</td>
+                    <td>
+                      $<%= offer.maxRateAdult %>
+                    </td>
+                  </tr>
+                <% end %>
+                <% if order.number_of_children > 0 %>
+                  <tr>
+                    <td>Price per person (Children)</td>
+                    <td>
+                      $<%= unit_price(offer.maxRateChild, offer.maxRateAdult) %>
+                    </td>
+                  </tr>
+                <% end %>
+                <% if order.number_of_infants > 0 %>
+                  <tr>
+                    <td>Price per person (Infants)</td>
+                    <td>
+                      $<%= unit_price(offer.maxRateInfant, offer.maxRateAdult) %>
+                    </td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <td>Total price</td>
+                  <td>
+                    $<%= order.total_price %>
+                  </td>
+                </tr>
+              </table>
+              <div class="bib-cards">
+                <%= image_tag('offer/i/booking/cards.png', alt: 'creditcards') %>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <section class="passenger-details">
+          <div class="pdb-header">
+            <h1 class="lars">Passenger details</h1>
+          </div>
+
+          <div class="passenger-info-block">
+            <%= simple_form_for(order, url: update_passengers_offer_order_path(offer, order), method: :patch, html: { class: 'horizontal' }) do |of| %>
+              <% order.passengers.each_with_index do |passenger, n| %>
+                <%= of.simple_fields_for :passengers, passenger do |pf| %>
+                  <div class="passanger-info-item">
+                    <h4 class="heading">
+                      PASSENGER DETAILS
+                      <%= "##{n + 1}"%>
+                    </h4>
+                    <div class="form-block">
+                      <div class="form-group sm">
+                        <%= pf.label :title, 'Title' %>
+                        <%= pf.input :title,
+                          as: :select,
+                          collection: Passenger::TITLES,
+                          include_blank: false,
+                          label: false,
+                          input_html: { class: "select optional form-control select2-hidden-accessible" }
+
+                        %>
+                      </div>
+                      <div class="form-group sm">
+                        <%= pf.label :first_name, 'First Name' %>
+                        <%= pf.input :first_name,
+                          placeholder: 'Jane',
+                          label: false,
+                          required: true
+                        %>
+                      </div>
+                      <div class="form-group sm">
+                        <%= pf.label :last_name, 'Last Name' %>
+                        <%= pf.input :last_name,
+                          placeholder: 'Smith',
+                          label: false
+                        %>
+                      </div>
+                      <div class="form-group sm">
+                        <%= pf.label :date_of_birth, 'Date of birth' %>
+                        <%= pf.input :date_of_birth,
+                          placeholder: 'dd/mm/yyyy',
+                          as: :string,
+                          label: false,
+                          input_html: { value: pf.object.date_of_birth.present? ? localize(pf.object.date_of_birth, format: :date_month_year_concise) : '' }
+                        %>
+                      </div>
+                      <div class="form-group sm">
+                        <%= pf.label :telephone, 'Telephone' %>
+                        <%= pf.input :telephone,
+                          placeholder: '',
+                          as: :tel,
+                          label: false
+                        %>
+                      </div>
+                      <div class="form-group sm">
+                        <%= pf.label :mobile, 'Mobile' %>
+                        <%= pf.input :mobile,
+                          placeholder: '+61',
+                          as: :tel,
+                          label: false
+                        %>
+                      </div>
+                      <div class="form-group sm">
+                        <%= pf.label :email, 'Email' %>
+                        <%= pf.input :email,
+                          placeholder: 'your@mail.com',
+                          as: :email,
+                          label: false
+                        %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+
+            <div class="btns-block">
+              <%= link_to 'back', edit_offer_order_path(offer, order), class: 'btn-bordered red no-border' %>
+              <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
+                <span>CONTINUE</span>
+              <% end %>
+            </div>
+          <% end %>
+        </section>
+    </div>
+  </div>
+</div>

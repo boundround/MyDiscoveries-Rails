@@ -730,6 +730,21 @@ ActiveRecord::Schema.define(version: 20170202034556) do
 
   add_index "pages", ["title"], name: "index_pages_on_title", unique: true, using: :btree
 
+  create_table "passengers", force: true do |t|
+    t.string   "title"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.date     "date_of_birth"
+    t.string   "telephone"
+    t.string   "mobile"
+    t.string   "email"
+    t.integer  "order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "passengers", ["order_id"], name: "index_passengers_on_order_id", using: :btree
+
   create_table "pg_search_documents", force: true do |t|
     t.text     "content"
     t.integer  "searchable_id"
@@ -1144,10 +1159,10 @@ ActiveRecord::Schema.define(version: 20170202034556) do
     t.text     "seo_friendly_url"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",      default: 0
+    t.string   "hero_image"
     t.text     "focus_keyword"
     t.text     "seo_title"
     t.text     "meta_description"
-    t.string   "hero_image"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
