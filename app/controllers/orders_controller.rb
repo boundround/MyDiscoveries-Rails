@@ -1,10 +1,14 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: [:add_shopify_order_id]
-  before_action :check_user_authorization, except: [:add_shopify_order_id]
+  before_action :authenticate_user!
+  before_action :check_user_authorization
   before_action :set_order, only: [
-    :edit, :update, :checkout, :add_passengers, :edit_passengers, :update_passengers
+    :edit, :update, :checkout, :payment, :confirmation,
+    :add_passengers, :edit_passengers, :update_passengers
   ]
-  before_action :set_offer, except: [:add_shopify_order_id, :download_pdf]
+  before_action :set_offer, except: :download_pdf
+  before_action :check_order_authorized, only: [:edit, :checkout, :update, :payment]
+
+  before_action :set_customer, only: [:checkout, :payment]
 
   def new
     @order = current_user.orders.build(
@@ -26,6 +30,33 @@ class OrdersController < ApplicationController
     end
   end
 
+  def checkout
+    @customer.payment = Payment.new()
+  end
+
+  def confirmation
+    redirect_to offers_path unless @order.authorized?
+  end
+
+  def payment
+
+    @customer.payment = Payment.new(payment_params)
+    payment_valid     = @customer.payment.valid?
+
+    if @customer.update(customer_params) && payment_valid
+      response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.payment, @order)
+      if response[:success]
+        flash[:notice] = response[:message]
+        redirect_to confirmation_offer_order_path(@offer, @order)
+      else
+        flash.now[:alert] = response[:message]
+        render :checkout
+      end
+    else
+      render :checkout
+    end
+  end
+
   def edit
   end
 
@@ -38,7 +69,7 @@ class OrdersController < ApplicationController
 
   def update_passengers
     if @order.update(order_params)
-      redirect_to Order::Shopify::GetCheckoutUrl.call(@order)
+      redirect_to checkout_offer_order_path(@offer, @order)
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
       render :edit_passengers
@@ -67,22 +98,11 @@ class OrdersController < ApplicationController
     end
   end
 
-  def add_shopify_order_id
-    request.body.rewind
-    request_body = request.body.read
-    request_hmac = env["HTTP_X_SHOPIFY_HMAC_SHA256"]
-
-    verified     = VerifyShopifyWebhook.call(request_body, request_hmac)
-
-    if verified
-      response = Order::Shopify::AddOrderId.call(params)
-      render json: response
-    else
-      render nothing: true, status: :unauthorized
-    end
-  end
-
   private
+
+  def set_customer
+    @customer = @order.customer || @order.build_customer(user: current_user)
+  end
 
   def set_order
     @order = current_user.orders.find(params[:id])
@@ -96,6 +116,10 @@ class OrdersController < ApplicationController
     @order.number_of_children_changed? ||
     @order.number_of_infants_changed?  ||
     @order.number_of_adults_changed?
+  end
+
+  def check_order_authorized
+    redirect_to confirmation_offer_order_path(@offer, @order) if @order.authorized?
   end
 
   def order_params
@@ -117,6 +141,32 @@ class OrdersController < ApplicationController
         :mobile,
         :email
       ]
+    )
+  end
+
+  def customer_params
+    params.require(:customer).permit(
+      :title,
+      :email,
+      :first_name,
+      :last_name,
+      :phone_number,
+      :address_one,
+      :address_two,
+      :city,
+      :country,
+      :state,
+      :postal_code,
+      :is_primary
+    )
+  end
+
+  def payment_params
+    params.require(:customer).require(:payment).permit(
+      :credit_card_number,
+      :credit_card_holder_name,
+      :credit_card_date,
+      :credit_card_cvv
     )
   end
 end

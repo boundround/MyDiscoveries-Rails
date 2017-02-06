@@ -1,0 +1,115 @@
+@media screen and (min-width: 1201px) {
+  .checkout-page {
+    width: 600px;
+    padding: 0 15px;
+    margin: 0 auto;
+  }
+
+  .checkout-form {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .checkout-form .card-date {
+    width: 16%;
+    float: left;
+    margin-right: 1%;
+  }
+
+  .checkout-form .card-cvv {
+    width: 16%;
+    float: left;
+  }
+
+  .checkout-form .card-holder-name {
+    width: 66%;
+    float: left;
+    margin-right: 1%;
+  }
+
+  .checkout-form .btns-block {
+    margin-top: 160px;
+    text-align: right;
+  }
+
+  .checkout-form .customer-title {
+    width: 19%;
+    float: left;
+    margin-right: 1%;
+  }
+
+  .checkout-form .customer-first-name {
+    width: 39%;
+    float: left;
+    margin-right: 1%;
+  }
+
+  .checkout-form .customer-last-name {
+    width: 40%;
+    float: left;
+  }
+
+  .checkout-form .title {
+    text-align: center;
+    color: #000060;
+    margin-bottom: 30px;
+  }
+
+  .checkout-form .payment-fields {
+    margin-top: 150px;
+  }
+
+  .checkout-form .customer-city {
+    width: 32%;
+    float: left;
+    margin-right: 1%;
+  }
+
+  .checkout-form .customer-state {
+    width: 32%;
+    float: left;
+    margin-right: 1%;
+  }
+
+  .checkout-form .customer-postal-code {
+    width: 33%;
+    float: left;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .checkout-form .btns-block {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .checkout-form .payment-fields {
+    margin-top: 50px;
+  }
+}
+
+.checkout-form .help-inline {
+  color: red;
+  font-size: 14px;
+}
+
+.checkout-form .checkout-select-box {
+  border: 0;
+  outline: 1px solid white;
+  background-color: white;
+  height: 40px;
+}
+
+.checkout-form .control-group select {
+  border: 0;
+  outline: 1px solid white;
+  background-color: white;
+  height: 40px;
+  width: 100%;
+}
+
+.confirmation-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
