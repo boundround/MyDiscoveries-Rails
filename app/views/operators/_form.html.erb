@@ -151,6 +151,12 @@
         <div class="form-group">
           <%= f.input :terms_and_conditions, as: :bootsy, label: 'Terms And Conditions', input_html: { class: 'width100' } %>
         </div>
+        <% if @operator.contract_pdf_file.present? %>
+          <iframe src="<%= @operator.contract_pdf_file.url %>" width="600px" height="400px" style="margin: auto; display: block;" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <% end %>
+        <div class="form-group">
+          <%= f.input :contract_pdf_file, as: :file, label: 'Upload Contract File' %>
+        </div>
       </div>
     </div>
   </div>
