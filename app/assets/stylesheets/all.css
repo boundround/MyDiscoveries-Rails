@@ -894,7 +894,7 @@ h4 {
     -o-border-radius: 5px;
     border-radius: 5px
 }
-@media (max-width: 1290) {
+@media (max-width: 1290px) {
     .home-page .banner-wrapper {
         height: 480px;
     }
