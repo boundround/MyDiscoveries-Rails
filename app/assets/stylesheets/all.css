@@ -894,19 +894,24 @@ h4 {
     -o-border-radius: 5px;
     border-radius: 5px
 }
+@media (max-width: 1290) {
+    .home-page .banner-wrapper {
+        height: 480px;
+    }
+}
 @media (max-width: 767px) {
     .home-page .banner-wrapper {
-        height: 370px
+        height: 370px;
     }
     .home-page .banner-wrapper .banner-heading {
         font-size: 18px;
-        margin-top: 100px
+        margin-top: 100px;
     }
     .home-page .banner-wrapper .banner-heading h1 {
-        font-size: 50px
+        font-size: 50px;
     }
     .home-page .banner-wrapper .banner-image {
-        background-position: 60% 50%
+        background-position: 60% 50%;
     }
     .home-page .banner-wrapper .input-group {
         margin-top: 1px
