@@ -1,83 +1,12 @@
 <% provide(:title, @post.title) %>
 <% provide(:category, @post.teaser) %>
 <% provide(:description, @post.description) %>
-<% provide(:og_image, @post.story_images.first.gsub("https://", "http://")) rescue "" %>
-<% provide(:og_secure_image, @post.story_images.first) rescue "" %>
 
 <div class="container blog-container thing-page">
   <h1 class="post-heading"><%= @post.title %></h1>
-  <p class="text-center">by&nbsp;
-    <% if @post.user.is_private? %>
-      <%= @post.user.username %>
-    <% else %>
-      <%= link_to @post.user.username, public_profile_user_path(@post.user) %>
-    <% end %>
-  </p>
-  <p class="text-center">
-    <img src="<%= asset_path('br-logo-new-blue.png') %>" height="50px">
-  </p>
   <%= raw @post.content %>
 </div>
-<div class="social-container">
-<div class="container">
-  <section class="col-lg-2 col-md-2 col-xs-5">
-    <div class="share-title">Share This</div>
-    <ul class="share-buttons">
-      <li><div class="share-button" id="shareBtn" title="Share on Facebook"><img class="share-icon" src="<%= asset_path('social_icons/Facebook.png') %>"></div></li>
-      <li><a class="twitter-share-button" href="https://twitter.com/intent/tweet?source=&text=<%= "#{@post.title} #{post_url(@post)}%20%23SeeItMyWay"%>" target="_blank" title="Tweet"><img  class="share-icon" src="<%= asset_path('social_icons/Twitter.png') %>"></a></li>
-    </ul>
-  </section>
-  <section class="col-lg-3 col-md-3 col-xs-5">
-    <div class="favourites-wrapper">
-        <% if user_signed_in? && @post.users.include?(current_user) %>
-          <div class="favourites-title hidden-xs">Remove from favourites</div>
-          <div class="icon-favourite selected like-icon" id="favouriteType" data-post-path="posts_users" data-klass="post" data-liked="true" data-place-id="<%= @post.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-        <% else %>
-          <div class="favourites-title hidden-xs" >Add to favourites</div>
-          <div class="icon-favourite like-icon" id="favouriteType" data-post-path="posts_users" data-klass="post" data-liked="false" data-place-id="<%= @post.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>"></div>
-        <% end %>
-    </div>
-  </section>
-</div>
-</div>
-<% unless @places_to_visit.blank? %>
-<div class="thing-page">
-  <div class="background">
-    <div id="thingstodo" class="container dest-things-wrapper">
-        <div class="row">
-          <div class="col-xs-12">
-              <h3>Things to do</h3>
-          </div>
-        </div>
-        <div class="row">
-            <div class="owl-carousel carousel" id="places_to_visit-list">
-              <%= render partial: 'places_to_visit_list', collection: @places_to_visit, as: :area %>
-            </div>
-        </div>
-      <% unless last_page? @places_to_visit %>
-        <div class="row hidden-xs single-pagination-container" id="places_to_visit-single-pagination-container">
-            <div class="col-xs-12 load-more">
-              <div class="hidden single-pagination-loader" align="center">
-                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-              </div>
-            <%= link_to "LOAD MORE", paginate_place_to_visit_post_path(@post, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', collection_object: 'area'), class: 'single-pagination', remote: true %>
-            </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-<% end %>
 
-<% if @stories.present? %>
-  <section class="your-stories video-show">
-    <div class="container">
-      <div class="text-left">
-      </div>
-        <%= render partial: "stories/all_stories"%>
-    </div>
-  </section>
-<% end %>
 
 <style>
   img {
@@ -85,13 +14,3 @@
   }
 
 </style>
-<script>
-document.getElementById('shareBtn').onclick = function() {
-  FB.ui({
-    method: 'share',
-    display: 'popup',
-    href: "<%= post_url(@post) %>"
-  }, function(response){});
-}
-
-</script>

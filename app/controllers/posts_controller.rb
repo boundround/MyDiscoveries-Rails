@@ -46,17 +46,11 @@ class PostsController < ApplicationController
   def show
     @set_body_class = "white-body"
     @post = Post.find_by_slug(params[:id])
-    @places_to_visit = @post.places.order(:display_name, :id).paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   def paginate
     @stories = Story.active.includes(:user).order(publish_date: :desc).order(created_at: :desc)
     @stories = @stories.paginate(page: params[:stories_page], per_page: 6)
-  end
-
-  def paginate_place_to_visit
-    @post = Post.find_by_slug(params[:id])
-    @places_to_visit = @post.places.order(:display_name, :id).paginate( page: params[:places_to_visit_page], per_page: 6 )
   end
 
   private
