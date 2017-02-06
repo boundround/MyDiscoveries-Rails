@@ -39,8 +39,7 @@ class PostsController < ApplicationController
   end
 
   def all_posts
-    @stories = Story.all_active_stories
-    @stories = @stories.sort {|x, y| y.publish_date <=> x.publish_date}
+    @stories = Story.active.includes(:user).order(publish_date: :desc).order(created_at: :desc)
     @stories = @stories.paginate(page: params[:stories_page], per_page: 6)
   end
 
@@ -51,9 +50,8 @@ class PostsController < ApplicationController
   end
 
   def paginate
-    @stories = Post.all_active_posts
-    @stories += Story.all_active_stories
-    @stories = @stories.paginate(page: params[:stories_page], per_page: 3)
+    @stories = Story.active.includes(:user).order(publish_date: :desc).order(created_at: :desc)
+    @stories = @stories.paginate(page: params[:stories_page], per_page: 6)
   end
 
   def paginate_place_to_visit

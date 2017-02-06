@@ -14,8 +14,7 @@ class PagesController < ApplicationController
     @category3 = @subcategories[2]
     @category4 = @subcategories[3]
     @offers = Offer.all.paginate(per_page: 3, page: params[:offers_page])
-    @all_stories = Story.all_active_stories
-    @stories = (@all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
+    @stories = Story.active.includes(:user).order(publish_date: :desc).order(created_at: :desc)
     @stories = @stories.paginate(page: params[:stories_page], per_page: 3)
 
     respond_to do |format|
@@ -29,8 +28,7 @@ class PagesController < ApplicationController
   end
 
   def paginate_stories
-    @all_stories = Story.all_active_stories
-    @stories = (@all_stories).sort {|x, y| y.publish_date <=> x.publish_date}
+    @stories = Story.active.includes(:user).order(publish_date: :desc).order(created_at: :desc)
     @stories = @stories.paginate(page: params[:stories_page], per_page: 3)
   end
 

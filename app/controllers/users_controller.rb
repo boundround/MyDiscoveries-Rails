@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def public_profile
-    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
+    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 3)
   end
 
   # GET /users/new
@@ -68,7 +68,7 @@ class UsersController < ApplicationController
             format.json { render json: @user }
         end
       else
-        redirect_to cms_index_offers_path 
+        redirect_to cms_index_offers_path
       end
     else
       redirect_to user_path(@user, show_modal: true)
@@ -129,7 +129,7 @@ class UsersController < ApplicationController
   end
 
   def paginate_stories
-    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
+    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 3)
   end
 
   def videos

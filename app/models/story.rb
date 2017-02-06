@@ -206,12 +206,6 @@ class Story < ActiveRecord::Base
     (self.status == "live") && (publish_date < (Date.today + 10.hours))
   end
 
-  def self.all_active_stories
-    Rails.cache.fetch("all_stories", expires_in: 12.hours) do
-      Story.active.includes(:user).order(publish_date: :desc).order(created_at: :desc)
-    end
-  end
-
   def story_title
     html_title = Nokogiri::HTML::Document.parse self.title
 
