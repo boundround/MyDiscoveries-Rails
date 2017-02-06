@@ -266,7 +266,8 @@ class Offer < ActiveRecord::Base
         'minRateInfant',
         'duration',
         'minUnits',
-        'maxUnits'
+        'maxUnits',
+        'tags'
       ]
     end
 
