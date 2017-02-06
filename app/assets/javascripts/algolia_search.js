@@ -234,12 +234,11 @@ $(document).ready(function() {
         fixMobileOverflowTags();
         bucketlist();
         clearTagHtml();
+        addToFav();
     })
 
     function viatorLink(hits) {
         $.each(hits, function(index, val) {
-          console.log("VIATOR LINK");
-          console.log(val.viator_link);
             if (val.viator_link == "") {
                 val.viator_link = {
                     klass: "hide"
@@ -263,26 +262,35 @@ $(document).ready(function() {
     function bucketlist(){
       setTimeout(function(){
         var user_offers = $('#dataBucketOffer').data('bucketlist'),
-            user_attractions = $('#dataBucketAttraction').data('bucketlist'),
             user_places = $('#dataBucketPlace').data('bucketlist'),
+            user_regions = $('#dataBucketRegion').data('bucketlist'),
+            user_stories = $('#dataBucketStory').data('bucketlist'),
             offer_cards = $('.bucket-list-offer'),
-            attraction_cards = $('[data-klass="attraction"]'),
             place_cards = $('[data-klass="place"]');
+            region_cards = $('[data-klass="region"]');
+            story_cards = $('[data-klass="story"]');
+
           $.each(offer_cards, function(){
             var id_offer = $(this).data('place-id')
-            if(jQuery.inArray(id_offer, user_offers)!='-1'){
-              $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
-            }
-          })
-          $.each(attraction_cards, function(){
-            var id_offer = $(this).data('place-id')
-            if(jQuery.inArray(id_offer, user_attractions)!='-1'){
+            if(user_offers.includes(id_offer)){
               $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
             }
           })
           $.each(place_cards, function(){
-            var id_offer = $(this).data('place-id')
-            if(jQuery.inArray(id_offer, user_places)!='-1'){
+            var id_place = $(this).data('place-id')
+            if(user_places.includes(id_place)){
+              $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+            }
+          })
+          $.each(region_cards, function(){
+            var id_region = $(this).data('place-id')
+            if(user_regions.includes(id_region)){
+              $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+            }
+          })
+          $.each(story_cards, function(){
+            var id_story = $(this).data('place-id')
+            if(user_stories.includes(id_story)){
               $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
             }
           })

@@ -1,9 +1,9 @@
 class OffersUsersController < ApplicationController
   def create
     @offers_user = OffersUser.new(offers_user_params)
-	if @offers_user.save
-	  render nothing: true
-	end
+    if @offers_user.save
+      render nothing: true
+    end
   end
 
   def destroy

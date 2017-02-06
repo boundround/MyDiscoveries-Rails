@@ -12550,7 +12550,8 @@ td a.ui-state-default.ui-state-hover {
         color: white; }
     .user-pages section .up-tabs-item.up-bucket-list ul {
       display: block;
-      padding-bottom: 30px; }
+      padding-bottom: 30px;
+      height: auto; }
       .user-pages section .up-tabs-item.up-bucket-list ul::after {
         clear: both;
         content: "";
@@ -12561,11 +12562,19 @@ td a.ui-state-default.ui-state-hover {
         margin-bottom: 30px;
         background-color: black; }
         @media screen and (min-width: 1201px) {
-          .user-pages section .up-tabs-item.up-bucket-list ul li {
+          .user-pages section .up-tabs-item.up-bucket-list #stories-list .col-md-4,
+          .user-pages section .up-tabs-item.up-my-content #stories-list .col-md-4{
+            padding: 0;}
+          .user-pages section .up-tabs-item.up-bucket-list h3.search-page-card__header{
+            text-align: left;}
+          .user-pages section .up-tabs-item.up-bucket-list ul li,
+          .user-pages section .up-tabs-item.up-bucket-list .places-to-go-card,
+          .user-pages section .up-tabs-item.up-bucket-list #stories-list .col-md-4,
+          .user-pages section .up-tabs-item.up-my-content #stories-list .col-md-4 {
             float: left;
             display: block;
             margin-right: 3.57866%;
-            width: 48.21067%;
+            width: 46%;
             margin-bottom: 30px; }
             .user-pages section .up-tabs-item.up-bucket-list ul li:last-child {
               margin-right: 0; }
