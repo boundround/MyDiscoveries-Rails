@@ -265,7 +265,7 @@ $(document).ready(function() {
             user_places = $('#dataBucketPlace').data('bucketlist'),
             user_regions = $('#dataBucketRegion').data('bucketlist'),
             user_stories = $('#dataBucketStory').data('bucketlist'),
-            offer_cards = $('.bucket-list-offer'),
+            offer_cards = $('[data-klass="offer"]'),
             place_cards = $('[data-klass="place"]');
             region_cards = $('[data-klass="region"]');
             story_cards = $('[data-klass="story"]');
