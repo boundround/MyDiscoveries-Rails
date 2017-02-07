@@ -1,9 +1,9 @@
 // Add to Wishlist
 function addToFav(assetType) {
-    var klass = assetType;
     $(".icon-favourite").on('click', function(e) {
-      console.log("CLICK");
         var icon = $(this);
+        var klass = $(this).data("klass");
+        var klasscapital = klass.charAt(0).toUpperCase() + klass.slice(1);
         var userId = $(this).data("user-id");
         var placeId = $(this).data("place-id");
         var postPath = $(this).data("post-path")
@@ -42,8 +42,9 @@ function addToFav(assetType) {
             });
             $(".favourites-title").text("Remove From Favourites");
             $(".text-favourite-place").text("Remove From Favourites");
+            icon.addClass("selected search-page-card__to-bucket-list--liked");
+            $('#dataBucket'+klasscapital).data('bucketlist').push(placeId)
             $(this).data("liked", true);
-            icon.addClass("selected");
         } else if ($(this).data("liked") === true || $(this).data("liked") === 'true') {
             $.ajax({
                 type: "POST",
@@ -53,8 +54,10 @@ function addToFav(assetType) {
             });
             $(".favourites-title").text("Add To Favourites");
             $(".text-favourite-place").text("Add To Favourites");
+            icon.removeClass("selected search-page-card__to-bucket-list--liked");
+            var index_remove = $('#dataBucket'+klasscapital).data('bucketlist').indexOf(placeId)
+            $('#dataBucket'+klasscapital).data('bucketlist').splice(index_remove, 1)
             $(this).data("liked", false);
-            icon.removeClass("selected");
         }
     });
 }

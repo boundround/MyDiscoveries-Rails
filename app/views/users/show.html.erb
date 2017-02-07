@@ -118,11 +118,8 @@
                           <a class="search-page-card__cost-details" href="<%= offer_path(order.offer) %>">details</a>
 
                           <div class="favourites-wrapper">
-                          <% if user_signed_in? && current_user.offers.map(&:id).include?(order.offer.id) %>
-                            <span class="icon-favourite search-page-card__to-bucket-list--liked search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="true" data-place-id="<%= order.offer.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
-                          <% else %>
-                            <span class="icon-favourite search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="<%= order.offer.id.to_s %>" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
-                          <% end %>
+                          <a class="search-page-card__cost-details" href="{{ url }}">details</a>
+                            <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
 
                   </div>
 
@@ -140,100 +137,64 @@
             <div class="up-tabs-item up-bucket-list" id="up-bucket-list">
 
                 <h1 class="lars">Bucket list</h1>
-                <% if @offers.present? %>
-                <ul>
-                  <% @offers.each do |offer| %>
-                    <li class="bl-item bl-hotel">
-                        <a href="<%= offer_path(offer) %>">
-                            <div class="th-img-block" style="background-image: url('<%= draw_small_background(offer) %>')">
-                            </div>
-                            <div class="th-content">
-                                <span class="posi-nights"><%= pluralize((offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></span>
-                                <span>From $<%= offer.minRateAdult %> </span>
-                                <p class="xs-heading blue"><%= offer.name.size>40? offer.name[0...40] : offer.name %></p>
-                                <span class="arrow"></span>
-                                <div class="bucket-list-icon"></div>
-                            </div>
-                        </a>
-                    </li>
+                <% if @favorite_offers.present? %>
+                <div class="region package-offers">
+                  <h3 class="search-page-card__header">Offers</h3>
+                  <ul class="cs-package" id="favorite_offers-list">
+                    <%= render partial: 'offers/region_offers', collection: @favorite_offers, as: :offer %>
+                  </ul>
+                  <% unless last_page? @favorite_offers %>
+                    <div class="single-pagination-container" id="favorite_offers-single-pagination-container">
+                      <div class="region" align="center">
+                        <div class="hidden single-pagination-loader" align="center">
+                          <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                        </div>
+                      <%= link_to "all offers", paginate_offers_user_path(@user, favorite_offers_page: @favorite_offers.next_page, resources: 'favorite_offers', pagination_template: 'offers/region_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
+                      </div>
+                    </div>
                   <% end %>
-                </ul>
+                </div>
                 <% end %>
-                <!-- <ul>
-                    <li class="bl-item bl-hotel">
-                        <a href="#">
-                            <div class="th-img-block">
-                                <img src="../images/all-deals-photo-result.jpg" alt="">
+                <% if @favorite_regions.present? %>
+                  <div class="region places-to-go">
+                    <h3 class="search-page-card__header">Regions</h3>
+                    <div class="block-wrapper" id="favorite_regions-list">
+                        <%= render partial: 'regions/place_to_go_list', collection: @favorite_regions, as: :place %>
+                    </div>
+                    <% unless last_page? @favorite_regions %>
+                      <div class="single-pagination-container" id="favorite_regions-single-pagination-container">
+                          <div class="load-more">
+                            <div class="hidden single-pagination-loader" align="center">
+                              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                             </div>
-                            <div class="th-content">
-                                <span class="posi-nights"> 8 nights </span>
-                                <span>From $1399 </span>
-                                <p class="xs-heading blue">Seminyak Sky High Sensation</p>
-                                <span class="arrow"></span>
-                                <div class="bucket-list-icon"></div>
+                          <%= link_to "load more", paginate_regions_user_path(@user, favorite_regions_page: @favorite_regions.next_page, resources: 'favorite_regions', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
+                          </div>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+                <% if @favorite_places.present? %>
+                  <div class="region places-to-go">
+                    <h3 class="search-page-card__header">Places</h3>
+                    <div class="block-wrapper" id="favorite_places-list">
+                        <%= render partial: 'regions/place_to_go_list', collection: @favorite_places, as: :place %>
+                    </div>
+                    <% unless last_page? @favorite_places %>
+                      <div class="single-pagination-container" id="favorite_places-single-pagination-container">
+                          <div class="load-more">
+                            <div class="hidden single-pagination-loader" align="center">
+                              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                             </div>
-                        </a>
-                    </li>
-
-                    <li class="bl-item bl-video">
-                        <a href="#">
-                            <div class="video-embed-wrapper">
-                                <div class="video-embed">
-                                    <iframe src="https://www.youtube.com/embed/k4tkrJ563b0" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <div class="th-content">
-                                <p>Lorem ipsum dolor sit amet dolor euismod bibendum</p>
-                                <span class="arrow"></span>
-                                <div class="bucket-list-icon"></div>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="bl-item bl-story">
-                        <a href="#">
-                            <div class="th-img-block">
-                                <img src="http://lorempixel.com/500/300/food" alt="">
-                            </div>
-                            <div class="th-content">
-                                <p class="xs-heading blue">Eat and drink your way around Venice</p>
-                                <span class="arrow"></span>
-                                <div class="bucket-list-icon"></div>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="bl-item bl-hotel">
-                        <a href="#">
-                            <div class="th-img-block">
-                                <img src="../images/all-deals-photo-result.jpg" alt="">
-                            </div>
-                            <div class="th-content">
-                                <span class="posi-nights"> 8 nights </span>
-                                <span>From $1399 </span>
-                                <p class="xs-heading blue">Seminyak Sky High Sensation</p>
-                                <span class="arrow"></span>
-                                <div class="bucket-list-icon"></div>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="bl-item bl-video">
-                        <a href="#">
-                            <div class="video-embed-wrapper">
-                                <div class="video-embed">
-                                    <iframe src="https://www.youtube.com/embed/k4tkrJ563b0" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <div class="th-content">
-                                <p>Lorem ipsum dolor sit amet dolor euismod bibendum</p>
-                                <span class="arrow"></span>
-                                <div class="bucket-list-icon"></div>
-                            </div>
-                        </a>
-                    </li>
-                </ul> -->
-
+                          <%= link_to "load more", paginate_places_user_path(@user, favorite_places_page: @favorite_places.next_page, resources: 'favorite_places', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
+                          </div>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+                <% if @stories.present? %>
+                  <h3 class="search-page-card__header">Stories</h3>
+                  <%= render partial: "stories/all_stories"%>
+                <% end %>
             </div>
             <!-- END - Bucket List -->
 

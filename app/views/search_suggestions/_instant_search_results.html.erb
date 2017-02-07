@@ -61,11 +61,7 @@
         <p class="search-page-card__cost-per-person">per person</p>
 
         <a class="search-page-card__cost-details" href="{{ url }}">details</a>
-        <%# if user_signed_in? && current_user.offers.map(&:id).include?(3) %>
-          <!-- <span class="search-page-card__to-bucket-list--liked search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="true" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span> -->
-        <%# else %>
-          <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="{{ objectID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
-        <%# end %>
+          <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
     </div>
   </div>
 {{/is_offer}}
@@ -88,7 +84,7 @@
     </div>
     <div class="result-action" align="right">
       <!-- <span class="search-page-card__to-bucket-list js-search-page-card__to-bucket-list">Bucket List</span> -->
-      <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="{{object}}s_users" data-klass="{{object}}" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
+      <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="{{#is_story}}stories{{/is_story}}{{^is_story}}{{object}}s{{/is_story}}_users" data-klass="{{object}}" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
       <a class="search-page-card__cost-details" href="{{ url }}">read more</a>
     </div>
   </div>

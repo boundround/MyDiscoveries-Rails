@@ -3,7 +3,7 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index, :draft_content]
-  before_action :set_user, only: [:show, :public_profile, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews]
+  before_action :set_user, only: [:show, :public_profile, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews, :paginate_offers, :paginate_places, :paginate_regions]
   before_action :check_user_authorization, only: [:index, :show]
 
   def index
@@ -20,7 +20,10 @@ class UsersController < ApplicationController
     @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
     @orders  = @user.orders.last(2)
     @countries = Country.all
-    @offers = @user.offers
+    @favorite_offers = @user.favorite_offers.paginate(page: params[:favorite_offers_page], per_page: 2)
+    @favorite_regions = @user.favorite_regions.paginate(page: params[:favorite_regions_page], per_page: 2)
+    @favorite_places = @user.favorite_places.paginate(page: params[:favorite_places_page], per_page: 2)
+    @stories = @user.favourite_stories.paginate(page: params[:stories_page], per_page: 2)
     @show_modal = params[:show_modal]
   end
 
@@ -119,8 +122,7 @@ class UsersController < ApplicationController
   end
 
   def paginate_places
-    @user = User.includes(:favorite_places).find(params[:id])
-    @areas = @user.favorite_places.paginate(page: params[:areas_page], per_page: 3)
+    @favorite_places = @user.favorite_places.paginate(page: params[:favorite_places_page], per_page: 2)
   end
 
   def paginate_place_to_visit
@@ -129,7 +131,15 @@ class UsersController < ApplicationController
   end
 
   def paginate_stories
-    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 3)
+    @stories = @user.favourite_stories.paginate(page: params[:stories_page], per_page: 2)
+  end
+
+  def paginate_offers
+    @favorite_offers = @user.favorite_offers.paginate(page: params[:favorite_offers_page], per_page: 2)
+  end
+
+  def paginate_regions
+    @favorite_regions = @user.favorite_regions.paginate(page: params[:favorite_regions_page], per_page: 2)
   end
 
   def videos
