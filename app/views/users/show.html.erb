@@ -191,9 +191,23 @@
                     <% end %>
                   </div>
                 <% end %>
-                <% if @stories.present? %>
-                  <h3 class="search-page-card__header">Stories</h3>
-                  <%= render partial: "stories/all_stories"%>
+                <% if @favorite_stories.present? %>
+                  <div class="region places-to-go">
+                    <h3 class="search-page-card__header">Stories</h3>
+                    <div class="block-wrapper" id="favorite_stories-list">
+                        <%= render partial: 'stories/all_stories_list', collection: @favorite_stories, as: :story %>
+                    </div>
+                    <% unless last_page? @favorite_stories %>
+                      <div class="single-pagination-container" id="favorite_stories-single-pagination-container">
+                          <div class="load-more">
+                            <div class="hidden single-pagination-loader" align="center">
+                              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                            </div>
+                          <%= link_to "load more", paginate_favorite_stories_user_path(@user, favorite_stories_page: @favorite_stories.next_page, resources: 'favorite_stories', pagination_template: 'stories/all_stories_list', collection_object: 'story'), class: 'load-more single-pagination', remote: true %>
+                          </div>
+                      </div>
+                    <% end %>
+                  </div>
                 <% end %>
             </div>
             <!-- END - Bucket List -->

@@ -176,6 +176,7 @@ Rails.application.routes.draw do
   resources :users do
     collection { get 'leaderboard' }
     member { get 'paginate_stories'}
+    member { get 'paginate_favorite_stories'}
     member { get 'paginate_places'}
     member { get 'paginate_offers'}
     member { get 'paginate_regions'}

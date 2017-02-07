@@ -3,7 +3,7 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index, :draft_content]
-  before_action :set_user, only: [:show, :public_profile, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews, :paginate_offers, :paginate_places, :paginate_regions]
+  before_action :set_user, only: [:show, :public_profile, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews, :paginate_offers, :paginate_places, :paginate_regions, :paginate_favorite_stories]
   before_action :check_user_authorization, only: [:index, :show]
 
   def index
@@ -16,14 +16,14 @@ class UsersController < ApplicationController
 
     verify_current_user
 
-    @stories = @user.stories.paginate(page: params[:user_stories_page], per_page: 4)
     @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
     @orders  = @user.orders.last(2)
     @countries = Country.all
     @favorite_offers = @user.favorite_offers.paginate(page: params[:favorite_offers_page], per_page: 2)
     @favorite_regions = @user.favorite_regions.paginate(page: params[:favorite_regions_page], per_page: 2)
     @favorite_places = @user.favorite_places.paginate(page: params[:favorite_places_page], per_page: 2)
-    @stories = @user.favourite_stories.paginate(page: params[:stories_page], per_page: 2)
+    @favorite_stories = @user.favourite_stories.paginate(page: params[:favorite_stories_page], per_page: 2)
+    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
     @show_modal = params[:show_modal]
   end
 
@@ -130,8 +130,12 @@ class UsersController < ApplicationController
     @places_to_visit = @user.favorite_attractions.paginate( page: params[:places_to_visit_page], per_page: 3)
   end
 
+  def paginate_favorite_stories
+    @favorite_stories = @user.favourite_stories.paginate(page: params[:favorite_stories_page], per_page: 2)
+  end
+
   def paginate_stories
-    @stories = @user.favourite_stories.paginate(page: params[:stories_page], per_page: 2)
+    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
   end
 
   def paginate_offers
