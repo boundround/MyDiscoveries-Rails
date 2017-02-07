@@ -366,8 +366,12 @@ $(document).ready(function() {
                     $(this)[0]["is_offer"] = false
                     $(this)[0]["is_story"] = false
                 }
-                $(this)[0]["ID"] = $(this)[0].objectID.split('_')[1]
-                $(this)[0]["object"] = $(this)[0].objectID.split('_')[0]
+                if($(this)[0].objectID.includes("_")){
+                    $(this)[0]["ID"] = $(this)[0].objectID.split('_')[1]
+                    $(this)[0]["object"] = $(this)[0].objectID.split('_')[0]
+                }else{
+                    $(this)[0]["ID"] = $(this)[0].objectID
+                }
             })
             $instantSearchHits.html(instanthitTemplate.render(content));
             $(".instant-hits-result-pagination").show();
