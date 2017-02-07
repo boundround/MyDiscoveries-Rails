@@ -405,6 +405,9 @@ Rails.application.routes.draw do
         get :add_passengers
         get :edit_passengers
         patch :update_passengers
+        get :checkout
+        get :confirmation
+        post :payment
       end
     end
     resources :places, controller: :places_offers
@@ -420,7 +423,6 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
-  post 'orders/add_shopify_order_id'
   get 'pdfs/:shopify_order_id' => 'orders#download_pdf'
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'

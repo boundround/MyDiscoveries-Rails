@@ -1,0 +1,59 @@
+<div class="confirmation-container">
+  <table style="background-color: #fff; width: 600px; margin: auto; border-collapse: collapse;" border="0">
+    <tr>
+      <td colspan="2" style="padding: 40px 40px 30px;">
+        <span class="header__logo"></span>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding: 10px 40px;">
+        <span style="font-family: 'Georgia', Arial; font-size: 26px">Important information</span>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="font-family: Arial; font-size: 16px; color: #333; padding-bottom: 15px; padding: 0; padding-bottom: 25px;">
+        <ul style="padding: 0 40px; padding-left: 55px;">
+          <li style="margin: 15px 0; line-height: 20px">
+            The voucher(s) below are your proof of purchase. Treat your prepaid voucher(s) as you would cash and keep it in a safe place
+          </li>
+          <li style="margin: 15px 0; line-height: 20px"">
+            Many tours / activities accept both printed vouchers and e-vouchers (check the 'Voucher Information' details listed below). If your tour accepts e-vouchers, on the day of travel you can choose to present this voucher on your phone. A printed copy is not required
+          </li>
+          <li style="margin: 15px 0; line-height: 20px"">
+            If your tour / activity is listed as "Paper Voucher Required", then you must print the voucher and present it on the day of travel.
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding: 0">
+        <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+      </td>
+    <tr>
+    <tr>
+      <td colspan="2" style="padding: 40px 40px 0px;">
+        <span class="header__logo"></span>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding: 0 40px 40px;">
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Directions</span>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+          <%= @offer.directions %>
+        </p>
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Tour Option Description</span>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+          <%= @offer.description %>
+        </p>
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Inclusions</span>
+        <ul style="margin: 0;padding-left: 0;list-style: none;margin-bottom: 15px;">
+          <%= @offer.includes %>
+        </ul>
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Terms and Conditions</span>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">If you cancel at least 7 day(s) in advance of the scheduled departure, there is no cancellation fee.</p>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">If you cancel between 3 and 6 day(s) in advance of the scheduled departure, there is a 50 percent cancellation fee.</p>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">If you cancel within 2 day(s) of the scheduled departure, there is a 100 percent cancellation fee.</p>
+      </td>
+    </tr>
+  </table>
+</div>

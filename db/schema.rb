@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202034556) do
+ActiveRecord::Schema.define(version: 20170206113647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "areas", force: true do |t|
     t.string   "code"
@@ -344,6 +345,27 @@ ActiveRecord::Schema.define(version: 20170202034556) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "customers", force: true do |t|
+    t.string   "title"
+    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone_number"
+    t.string   "address_one"
+    t.string   "address_two"
+    t.string   "address_three"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal_code"
+    t.boolean  "is_primary"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "country"
+  end
+
+  add_index "customers", ["user_id"], name: "index_customers_on_user_id", using: :btree
 
   create_table "customers_attractions", force: true do |t|
     t.integer "user_id"
@@ -706,8 +728,11 @@ ActiveRecord::Schema.define(version: 20170202034556) do
     t.string   "shopify_order_id"
     t.integer  "status",               default: 0
     t.boolean  "request_installments", default: false
+    t.json     "px_response",          default: {}
+    t.integer  "customer_id"
   end
 
+  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
   add_index "orders", ["offer_id", "user_id"], name: "index_orders_on_offer_id_and_user_id", using: :btree
 
   create_table "overall_averages", force: true do |t|

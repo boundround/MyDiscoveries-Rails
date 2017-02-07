@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
 
   has_many :orders
 
+  has_many :customers
+
   mount_uploader :avatar, UserAvatarUploader
   process_in_background :avatar
 
@@ -101,7 +103,7 @@ class User < ActiveRecord::Base
   end
 
   def crop_avatar
-    if self.crop_x.to_i > 0 or  self.crop_y.to_i > 0 or  self.crop_w.to_i > 0 or  self.crop_h.to_i > 0 
+    if self.crop_x.to_i > 0 or  self.crop_y.to_i > 0 or  self.crop_w.to_i > 0 or  self.crop_h.to_i > 0
       self.avatar.recreate_versions!
       url_crop = self.avatar.url
       self.crop_x = nil
@@ -111,7 +113,7 @@ class User < ActiveRecord::Base
       self.remote_avatar_url = url_crop
       self.save!
     end
-    
+
     # self.avatar.recreate_versions!
   end
 
