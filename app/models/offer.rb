@@ -135,7 +135,8 @@ class Offer < ActiveRecord::Base
       'minRateInfant',
       'duration',
       'minUnits',
-      'maxUnits'
+      'maxUnits',
+      'tags'
     ]
 
     add_index "mydiscoveries_offers_#{Rails.env}", if: :published? do
@@ -212,9 +213,9 @@ class Offer < ActiveRecord::Base
         tags.blank? ? [] : tags[0..1]
       end
 
-    attribute :inclusions do
-      inclusions.map(&:name)
-    end
+      attribute :inclusions do
+        inclusions.map(&:name)
+      end
 
       attribute :startDate do
         startDate
