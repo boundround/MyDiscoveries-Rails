@@ -45,7 +45,6 @@ $(document).ready(function(){
                               "' name=" + ids[i]['country_name'] +
                               "' >" + ids[i]['country_name'] + "</option>");
             } else if (dt_controller == 'related_offers') {
-              console.log('aaa')
               $(selectBox).append("<option value='" + ids[i]['offer_id'] +
                               "' name=" + ids[i]['offer_name'] +
                               "' >" + ids[i]['offer_name'] + "</option>");

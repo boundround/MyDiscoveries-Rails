@@ -11035,8 +11035,7 @@ span.arrow {
 @media screen and (max-width: 1200px) {
   .slick-slider {
     width: 90%;
-    margin: 0 auto;
-    height: 320px; } }
+    margin: 0 auto; } }
 
 .slick-slider .slick-list {
   height: 100%; }
@@ -11677,6 +11676,8 @@ span.arrow {
           font-family: Larsseit-Medium, sans-serif;
           padding: 20px 30px 30px 30px;
           height: 223px; }
+          .product .product-content aside .package-options ul li .poi-content-top a{
+            width: inherit !important;}
           .product .product-content aside .package-options ul li .poi-content-top .poict-price span {
             font-size: 36px;
             font-family: Baghdad, serif;
@@ -11884,8 +11885,7 @@ span.arrow {
     @media screen and (max-width: 1200px) {
       .product .product-content section .country-info .gallery .slider-mobile-wrapper {
         height: 180px;
-        width: 100%;
-        overflow-x: scroll; }
+        width: 100%; }
         .product .product-content section .country-info .gallery .slider-mobile-wrapper .slider-for {
           width: 3000px; }
           .product .product-content section .country-info .gallery .slider-mobile-wrapper .slider-for::after {

@@ -25,7 +25,7 @@ $(document).ready(function() {
     //Desktop screen customization
     var isScreen = window.matchMedia("only screen and (min-width: 1201px)");
 
-    if (isScreen.matches) {
+    // if (isScreen.matches) {
 
         //Product page Gallery slider
         if ($('.slider-for').length && $('.slider-nav').length) {
@@ -47,7 +47,7 @@ $(document).ready(function() {
             });
         }
 
-    }
+    // }
 
     //Product page accordion
     $("#product-accordion").accordion({
