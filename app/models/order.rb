@@ -23,7 +23,17 @@ class Order < ActiveRecord::Base
     number_of_infants + number_of_children + number_of_adults
   end
 
-  private
+  def monthly_price
+    total_price / 5
+  end
+
+  def update_total_price!
+    total_price = number_of_adults * offer.maxRateAdult +
+      number_of_children * (offer.maxRateChild || offer.maxRateAdult) +
+      number_of_infants * (offer.maxRateInfant || offer.maxRateAdult)
+
+    update(total_price: total_price) if self.total_price != total_price
+  end
 
   def check_total_people_count
     if !offer.try(:minUnits).to_i.zero? && total_people_count < offer.try(:minUnits)

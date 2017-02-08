@@ -1,26 +1,20 @@
 <div class="container">
-  <%= simple_form_for [offer, order], html: { role: 'form', class: 'top20'} do |f| %>
+  <%= simple_form_for [offer, order],
+    html: {
+      role: 'form',
+      class: 'top20 js-order-form',
+      data: {
+        'infants-price' => unit_price(offer.maxRateInfant, offer.maxRateAdult),
+        'children-price' => unit_price(offer.maxRateChild, offer.maxRateAdult),
+        'adults-price' => offer.maxRateAdult
+      }
+    } do |f| %>
     <%= f.input :title, as: :hidden %>
     <div class="row">
       <div class="form-group">
         <%= f.input :number_of_infants, as: :hidden,
             label: "Number Of Infants (price per unit: #{unit_price(offer.maxRateInfant, offer.maxRateAdult)}$)",
             input_html: { class: 'form-control js-order-people-count', min: 0 }
-        %>
-      </div>
-      <div class="form-group">
-        <%= f.input(
-              :total_price,
-              as: :hidden,
-              min: 0,
-              input_html: {
-                data: {
-                  'infants-price' => unit_price(offer.maxRateInfant, offer.maxRateAdult),
-                  'children-price' => unit_price(offer.maxRateChild, offer.maxRateAdult),
-                  'adults-price' => offer.maxRateAdult
-                }
-              }
-            )
         %>
       </div>
     </div>
@@ -104,18 +98,19 @@
                             %>
                           </div>
                       </li>
-                      <% if offer.allow_installments? %>
-                        <li class="request_installments">
-                            <h5>request installments</h5>
-                            <div class="form-group">
-                              <%= f.check_box :request_installments, label: false %>
-                            </div>
-                        </li>
-                      <% end %>
                       <li class="total-price">
                           <h5>Total price</h5>
                           <div class="js-order-total-price"><%= "$#{order.total_price.to_i}" %></div>
                       </li>
+                      <% if offer.allow_installments? %>
+                        <li class="request_installments">
+                            <%= f.label :request_installments,
+                              "Or 5 monthly payments of $#{order.monthly_price}",
+                              class: 'js-order-monthly-price monthly-payments-label'
+                            %>
+                            <%= f.check_box :request_installments, label: false, class: 'monthly-payments-checkbox' %>
+                        </li>
+                      <% end %>
                   </ul>
                   <div class="form-group">
                     <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
