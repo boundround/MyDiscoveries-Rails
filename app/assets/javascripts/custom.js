@@ -133,8 +133,6 @@ $(document).ready(function(){
   }
   $('.kic-item.short.currency table').fadeIn()
 
-  $('.app-wrap > div[data-page="offer"] .filter-box>div').hide()
-
   if (QueryString.video){
     var video = $('#' + QueryString.video)[0];
     if (video){
