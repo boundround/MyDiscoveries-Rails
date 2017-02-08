@@ -54,16 +54,10 @@ $(document).ready(function() {
     var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
     var algoliaHelperMobile = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
-    var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'age_range', 'main_category', 'subcategory', 'weather', 'price', 'best_time_to_visit', 'accessibility'];
+    var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'subcategory', 'tags'];
     var FACETS_LABELS = {
-        // where_destinations: 'Select Destination',
-        main_category: 'Category',
-        age_range: 'Age',
         subcategory: 'Subcategory',
-        weather: 'Weather',
-        price: 'Price',
-        best_time_to_visit: 'Best Time To Visit',
-        accessibility: 'Accessibility'
+        tags: 'Places Visited'
     };
 
     var INSTANT_SEARCH_PARAMS = {

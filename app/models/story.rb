@@ -133,7 +133,8 @@ class Story < ActiveRecord::Base
       'weather',
       'price',
       'best_time_to_visit',
-      'accessibility'
+      'accessibility',
+      'tags'
     ]
   end
 
