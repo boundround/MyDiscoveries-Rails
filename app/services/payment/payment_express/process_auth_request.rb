@@ -59,7 +59,11 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def amount
-    @amount ||= sprintf("%.2f", order.total_price)
+    @amount ||= sprintf("%.2f", order_price)
+  end
+
+  def order_price
+    @order_price ||= order.request_installments? ? order.monthly_price : order.total_price
   end
 
   # value that uniquely identifies the transaction

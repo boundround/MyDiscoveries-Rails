@@ -1,18 +1,21 @@
 jQuery ->
-  infants_price  = $('#order_total_price').data('infantsPrice')
-  children_price = $('#order_total_price').data('childrenPrice')
-  adults_price   = $('#order_total_price').data('adultsPrice')
+  infants_price  = $("form.js-order-form").data('infantsPrice')
+  children_price = $("form.js-order-form").data('childrenPrice')
+  adults_price   = $("form.js-order-form").data('adultsPrice')
 
-  $('.js-order-people-count').on 'keyup click', (e) ->
-    console.log("sadfjkaldjksfaldfjks")
-    recalculate_total_price()
+  $('.js-order-people-count').on 'keyup click change', (e) ->
+    recalculate_price()
 
-  recalculate_total_price = () ->
+  recalculate_price = () ->
     total = (parseInt($('#order_number_of_infants').val()) || 0) *  infants_price +
             (parseInt($('#order_number_of_children').val()) || 0) * children_price +
             (parseInt($('#order_number_of_adults').val()) || 0) *   adults_price
 
-    $('#order_total_price').val(total)
     $('.js-order-total-price').html("$#{total}")
 
-  recalculate_total_price()
+    if $('.js-order-monthly-price')
+      monthly_price = total / 5
+      monthly_label = "Or 5 monthly payments of $#{monthly_price}"
+      $('.js-order-monthly-price').html(monthly_label)
+
+  recalculate_price()

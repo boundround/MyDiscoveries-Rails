@@ -23,6 +23,7 @@ class OrdersController < ApplicationController
     @order.offer = @offer
 
     if @order.save
+      @order.update_total_price!
       redirect_to add_passengers_offer_order_path(@offer, @order)
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
@@ -81,6 +82,7 @@ class OrdersController < ApplicationController
     is_units_count_changed = is_units_count_changed?
 
     if @order.save
+      @order.update_total_price!
       @order.passengers.destroy_all if is_units_count_changed
       redirect_to add_passengers_offer_order_path(@offer, @order)
     else
@@ -129,7 +131,6 @@ class OrdersController < ApplicationController
       :number_of_infants,
       :number_of_adults,
       :start_date,
-      :total_price,
       :request_installments,
       passengers_attributes: [
         :id,
