@@ -47,7 +47,11 @@
         </p>
         <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Inclusions</span>
         <ul style="margin: 0;padding-left: 0;list-style: none;margin-bottom: 15px;">
-          <%= @offer.includes %>
+          <% @offer.inclusions.each do |inclusion| %>
+            <span>
+              <img src="<%= inclusion.name %>" width='30' style="margin-right: 5px;">
+            </span>
+          <% end %>
         </ul>
         <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Terms and Conditions</span>
         <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">If you cancel at least 7 day(s) in advance of the scheduled departure, there is no cancellation fee.</p>
