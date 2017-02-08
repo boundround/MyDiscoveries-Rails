@@ -226,9 +226,11 @@ $(document).ready(function() {
         setImagesPosition();
         subCats();
         fixMobileOverflowTags();
-        bucketlist();
         clearTagHtml();
-        addToFav();
+        setTimeout(function(){
+            bucketlist();
+            addToFav();
+        }, 1000)
     })
 
     function viatorLink(hits) {
@@ -254,7 +256,6 @@ $(document).ready(function() {
     }
 
     function bucketlist(){
-      setTimeout(function(){
         var user_offers = $('#dataBucketOffer').data('bucketlist'),
             user_places = $('#dataBucketPlace').data('bucketlist'),
             user_regions = $('#dataBucketRegion').data('bucketlist'),
@@ -264,31 +265,38 @@ $(document).ready(function() {
             region_cards = $('[data-klass="region"]');
             story_cards = $('[data-klass="story"]');
 
-          $.each(offer_cards, function(){
-            var id_offer = $(this).data('place-id')
-            if(user_offers.includes(id_offer)){
-              $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+            if(user_offers != undefined || user_offers != ""){
+              $.each(offer_cards, function(){
+                var id_offer = $(this).data('place-id')
+                if(user_offers.includes(id_offer)){
+                  $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+                }
+              })
             }
-          })
-          $.each(place_cards, function(){
-            var id_place = $(this).data('place-id')
-            if(user_places.includes(id_place)){
-              $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+            if(user_places != undefined){
+              $.each(place_cards, function(){
+                var id_place = $(this).data('place-id')
+                if(user_places.includes(id_place)){
+                  $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+                }
+              })
             }
-          })
-          $.each(region_cards, function(){
-            var id_region = $(this).data('place-id')
-            if(user_regions.includes(id_region)){
-              $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+            if(user_regions != undefined){
+              $.each(region_cards, function(){
+                var id_region = $(this).data('place-id')
+                if(user_regions.includes(id_region)){
+                  $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+                }
+              })
             }
-          })
-          $.each(story_cards, function(){
-            var id_story = $(this).data('place-id')
-            if(user_stories.includes(id_story)){
-              $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+            if(user_stories != undefined){
+              $.each(story_cards, function(){
+                var id_story = $(this).data('place-id')
+                if(user_stories.includes(id_story)){
+                  $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
+                }
+              })
             }
-          })
-      }, 1000)
     }
 
     function clearTagHtml(){
