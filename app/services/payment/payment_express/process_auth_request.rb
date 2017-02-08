@@ -4,6 +4,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
   initialize_with_parameter_assignment :payment, :order
 
   def call
+    process_request
     update_order if transaction_valid?
     response
   end
@@ -18,24 +19,32 @@ class Payment::PaymentExpress::ProcessAuthRequest
     { success: transaction_valid?, message: response_message }
   end
 
+  def errors
+    @errors ||= []
+  end
+
   def response_message
     if transaction_valid?
       'Payment processed'
     else
-      px_response_json['Txn']['HelpText']
+      errors.any? ? errors.join(', ') : px_response_json['Txn']['HelpText']
     end
   end
 
   def transaction_valid?
-    px_response_json['Txn']['Transaction']['success'].to_i == 1
+    errors.empty? && (px_response_json['Txn']['Transaction']['success'].to_i == 1)
+  end
+
+  def process_request
+    begin
+      @px_response ||= RestClient.post(ENV['PX_POST_URL'], build_xml)
+    rescue => e
+      errors << "Sorry, there was a gateway problems, try one more time"
+    end
   end
 
   def px_response
-    @px_response ||= RestClient.post(ENV['PX_POST_URL'], build_xml)
-  end
-
-  def px_response_text
-    @px_response_text ||= Nokogiri::XML(px_response)
+    @px_response
   end
 
   def px_response_json
