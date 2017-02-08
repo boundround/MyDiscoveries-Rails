@@ -19,7 +19,7 @@
           <% elsif params[:controller].eql? "places" %>
             <%= link_to "SEE MORE", paginate_stories_place_path(@place, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'see-more__link', remote: true %>
           <% elsif params[:controller].eql? "users" %>
-            <%= link_to "SEE MORE", paginate_stories_user_path(@user, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'see-more__link', remote: true %>
+            <%= link_to "SEE MORE", paginate_stories_user_path(@user, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'story'), class: 'see-more__link single-pagination', remote: true %>
           <% elsif params[:controller].eql? "attractions" %>
             <%= link_to "SEE MORE", paginate_stories_attraction_path(@attraction, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_list', collection_object: 'stories'), class: 'see-more__link', remote: true %>
           <% elsif params[:controller].eql? "regions" %>
