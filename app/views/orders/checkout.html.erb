@@ -59,12 +59,12 @@
           </div>
         </div>
 
-        <%= cf.simple_fields_for :payment, @customer.payment do |pf| %>
+        <%= cf.simple_fields_for :credit_card, @customer.credit_card do |pf| %>
           <div class="payment-fields">
             <h2 class="title"> Credit card details </h2>
             <div class="form-group sm">
               <div class="control-group string optional">
-                <%= pf.input :credit_card_number,
+                <%= pf.input :number,
                   as: :string,
                   label: false,
                   placeholder: 'Card Number',
@@ -74,7 +74,7 @@
               </div>
             </div>
             <div class="form-group card-holder-name">
-              <%= pf.input :credit_card_holder_name,
+              <%= pf.input :holder_name,
                 as: :string,
                 label: false,
                 placeholder: 'Name on card',
@@ -83,7 +83,7 @@
               %>
             </div>
             <div class="form-group card-date">
-              <%= pf.input :credit_card_date,
+              <%= pf.input :date,
                 as: :string,
                 label: false,
                 placeholder: 'MM/YY',
@@ -92,7 +92,7 @@
               %>
             </div>
             <div class="form-group card-cvv">
-              <%= pf.input :credit_card_cvv,
+              <%= pf.input :cvv,
                 as: :string,
                 label: false,
                 placeholder: 'CVV',

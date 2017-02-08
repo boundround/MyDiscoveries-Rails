@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    @customer.payment = Payment.new()
+    @customer.credit_card = CreditCard.new()
   end
 
   def confirmation
@@ -41,11 +41,11 @@ class OrdersController < ApplicationController
 
   def payment
 
-    @customer.payment = Payment.new(payment_params)
-    payment_valid     = @customer.payment.valid?
+    @customer.credit_card = CreditCard.new(credit_card_params)
+    credit_card_valid     = @customer.credit_card.valid?
 
-    if @customer.update(customer_params) && payment_valid
-      response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.payment, @order)
+    if @customer.update(customer_params) && credit_card_valid
+      response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.credit_card, @order)
       if response[:success]
         flash[:notice] = response[:message]
         redirect_to confirmation_offer_order_path(@offer, @order)
@@ -162,12 +162,12 @@ class OrdersController < ApplicationController
     )
   end
 
-  def payment_params
-    params.require(:customer).require(:payment).permit(
-      :credit_card_number,
-      :credit_card_holder_name,
-      :credit_card_date,
-      :credit_card_cvv
+  def credit_card_params
+    params.require(:customer).require(:credit_card).permit(
+      :number,
+      :holder_name,
+      :date,
+      :cvv
     )
   end
 end

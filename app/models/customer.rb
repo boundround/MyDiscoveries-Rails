@@ -7,7 +7,7 @@ class Customer < ActiveRecord::Base
   validates :user, :country, :email, :first_name, :last_name,
     :phone_number, :city, :state, :postal_code, :address_one, presence: true
 
-  attr_accessor :payment
+  attr_accessor :credit_card
 
   def full_name
     "#{title} #{first_name} #{last_name}"
