@@ -165,7 +165,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  -o-text-size-adjust: 100%; 
+  -o-text-size-adjust: 100%;
   text-size-adjust: 100%;}
 
 body {
@@ -1233,9 +1233,9 @@ th {
 html {
   font-size: 10px;
   -webkit-tap-highlight-color: transparent;
-  -moz-tap-highlight-color: transparent; 
-  -ms-tap-highlight-color: transparent; 
-  -o-tap-highlight-color: transparent; 
+  -moz-tap-highlight-color: transparent;
+  -ms-tap-highlight-color: transparent;
+  -o-tap-highlight-color: transparent;
   tap-highlight-color: transparent; }
 
 body {
@@ -11729,7 +11729,7 @@ span.arrow {
             background-repeat: no-repeat;
             background-size: auto 20px;
             position: relative;
-            top: 0px;wrap_link_card
+            top: 0px;
             padding-top: 2px;
             margin-bottom: 5px; }
           .product .product-content aside .package-options ul li .poi-content-top .poict-people {
