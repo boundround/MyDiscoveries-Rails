@@ -7587,7 +7587,9 @@ input[type="text"]::-ms-clear {
 
 @media only screen and (max-width: 1200px) {
   .breadcrumbs {
-    padding-top: 11px; } }
+    padding-top: 11px; }
+  .breadcrumbs__link {
+    font-size: 13px; } }
 
 .footer {
   padding: 74px 0 30px;
@@ -10003,6 +10005,14 @@ a:hover, a:focus, a:active {
     font-family: Baghdad, serif;
     font-weight: bold;
     font-size: 50px; }
+    @media(max-width: 1200px){
+      .hero h2{
+        font-size: 30px;}
+      .product .hero .hero-content .hc-info .hci-price{
+        font-size: 32px;}
+    }
+    .product .po-item .poict-price{
+      margin-bottom: 30px;}
 
 .small-video-component .player-vimeo{
   width: 100%;
@@ -11621,7 +11631,7 @@ span.arrow {
         background-image: url("/assets/mydiscoveries_icon/i/inclusions/nights-white.svg");
         margin-right: 20px; }
     .product .hero .hero-content .btn-bordered {
-      width: 200px;
+      width: 200px !important;
       margin-top: 40px; }
       @media screen and (max-width: 1200px) {
         .product .hero .hero-content .btn-bordered {
@@ -11666,9 +11676,11 @@ span.arrow {
     .product .product-content aside .package-options ul {
       text-align: left; }
       .product .product-content aside .package-options ul li {
-        display: block;
         margin-bottom: 30px;
+        list-style: disc;
         position: relative; }
+        .product .product-content aside .package-options ul li.po-item{
+          list-style: none;}
         .product .product-content aside .package-options ul li .poi-content-top {
           background-color: #bbe0e6;
           color: #000060;
@@ -11710,6 +11722,15 @@ span.arrow {
           font-size: 16px; }
           .product .product-content aside .package-options ul li .poi-content-bottom .head-highlight {
             font-family: Larsseit-Bold, sans-serif; }
+          .product .product-content aside .package-options ul li .poi-content-bottom{
+            font-family: Larsseit-Light, sans-serif; }
+          .product .product-content aside .package-options ul li .poi-content-bottom span,
+          .product .product-content aside .package-options ul li .poi-content-bottom p{
+            font-size: 16px}
+          .product .product-content aside .package-options ul li .poi-content-bottom ul{
+            padding-left: 15px;}
+          .product .product-content aside .package-options ul li .poi-content-bottom ul li{
+            margin-bottom: 0}
         .product .product-content aside .package-options ul li a.btn-bordered {
           position: absolute;
           top: 30px;
