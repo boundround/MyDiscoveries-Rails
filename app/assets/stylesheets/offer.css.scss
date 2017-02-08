@@ -2269,6 +2269,18 @@
   }
 }
 
+.slider-mobile-wrapper{
+  @media(max-width: 1024px){
+    height: 400px !important;
+  }
+  @media(max-width: 425px){
+    height: 300px !important;
+  }
+  @media(max-width: 375px){
+    height: 200px !important;
+  }
+}
+
 .slider-nav .slick-slide{
   height: 105px;
   background-size: cover;
@@ -2288,12 +2300,24 @@
   }
 }
 
-.slider-for .slick-slide{
-  height: 425px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  img{
-    display: none !important;
+.slider-for{
+  @media(max-width: 1024px){
+      width: 100% !important;
+      height: 100%;
+      .slick-list.draggable,
+      .slick-track,
+      .slick-slide{
+        width: 100%;
+        height: 100% !important;
+      }
+    }
+  .slick-slide{
+    height: 425px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    img{
+      display: none !important;
+    }
   }
 }
