@@ -12583,14 +12583,15 @@ td a.ui-state-default.ui-state-hover {
         margin-bottom: 30px;
         background-color: black; }
         @media screen and (min-width: 1201px) {
-          .user-pages section .up-tabs-item.up-bucket-list #stories-list .col-md-4,
+          .user-pages section .up-tabs-item.up-bucket-list #favorite_stories-list .col-md-4,
           .user-pages section .up-tabs-item.up-my-content #stories-list .col-md-4{
             padding: 0;}
-          .user-pages section .up-tabs-item.up-bucket-list h3.search-page-card__header{
+          .user-pages section .up-tabs-item.up-bucket-list h3.search-page-card__header,
+          .user-pages section .up-tabs-item.up-bucket-list .inspiration-item__header{
             text-align: left;}
           .user-pages section .up-tabs-item.up-bucket-list ul li,
           .user-pages section .up-tabs-item.up-bucket-list .places-to-go-card,
-          .user-pages section .up-tabs-item.up-bucket-list #stories-list .col-md-4,
+          .user-pages section .up-tabs-item.up-bucket-list #favorite_stories-list .col-md-4,
           .user-pages section .up-tabs-item.up-my-content #stories-list .col-md-4 {
             float: left;
             display: block;

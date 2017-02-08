@@ -342,10 +342,6 @@ class Offer < ActiveRecord::Base
     end
   end
 
-  def shopify_product
-    ShopifyAPI::Product.find(shopify_product_id) if shopify_product_id?
-  end
-
   def slug_candidates
     :name
   end
@@ -364,6 +360,10 @@ class Offer < ActiveRecord::Base
     slug.blank? || name_changed?
   end
 
+  def directions
+    (locationEnd.present? && locationStart != locationEnd) ? "#{locationStart} - #{locationEnd}" : locationStart
+  end
+
   private
 
   def hero_photo
@@ -377,8 +377,6 @@ class Offer < ActiveRecord::Base
     end
     hero
   end
-
-  private
 
   def algolia_id
     "offer_#{id}"

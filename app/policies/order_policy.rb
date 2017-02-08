@@ -19,6 +19,14 @@ class OrderPolicy < ApplicationPolicy
     new?
   end
 
+  def payment?
+    new?
+  end
+
+  def confirmation?
+    new?
+  end
+
   def download_pdf?
     new?
   end
