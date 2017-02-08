@@ -10008,6 +10008,8 @@ a:hover, a:focus, a:active {
     @media(max-width: 1200px){
       .hero h2{
         font-size: 30px;}
+      .hero h1 {
+        font-size: 60px;}
       .product .hero .hero-content .hc-info .hci-price{
         font-size: 32px;}
     }
@@ -11315,14 +11317,15 @@ span.arrow {
     width: 65.88078%;
     margin-right: 0;
     background-color: white;
-    padding-left: 30px;
+    padding: 0 30px;
     padding-top: 80px; }
     .destinations .destinations-content-block section:last-child {
       margin-right: 0; }
     .destinations .destinations-content-block section .main-article {
       text-align: center;
       padding-bottom: 50px;
-      border-bottom: 1px solid #f4efed; }
+      border-bottom: 1px solid #f4efed;
+      font-family: Larsseit-Light, sans-serif }
       .destinations .destinations-content-block section .main-article h2 {
         text-align: left; }
       .destinations .destinations-content-block section .main-article p {
@@ -11534,6 +11537,26 @@ span.arrow {
           font-size: 18px;
           font-family: Larsseit-Bold, sans-serif;
           padding-left: 40px; }
+        @media(max-width: 1200px){
+          #place-data .destinations .destinations-content-block aside{
+            width: 100%;
+            padding-top: 30px;}
+          #place-data .destinations .destinations-content-block section{
+            width: 100%;
+            padding: 0 15px;}
+          .hidden-sm{
+            display: none;}
+          #place-data ul.featured-articles{
+            padding-top: 0}
+          #place-data .destinations .destinations-content-block aside .featured-articles li{
+            margin-bottom: 20px}
+        }
+        @media(max-width: 425px){
+          .xs-heading{
+            font-size: 20px;}
+          .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block li span{
+            font-size: 35px;}
+        }
 
       @media screen and (min-width: 1201px) {
         .destinations .videos-block {
@@ -11706,7 +11729,7 @@ span.arrow {
             background-repeat: no-repeat;
             background-size: auto 20px;
             position: relative;
-            top: 0px;
+            top: 0px;wrap_link_card
             padding-top: 2px;
             margin-bottom: 5px; }
           .product .product-content aside .package-options ul li .poi-content-top .poict-people {
@@ -11722,7 +11745,8 @@ span.arrow {
           font-size: 16px; }
           .product .product-content aside .package-options ul li .poi-content-bottom .head-highlight {
             font-family: Larsseit-Bold, sans-serif; }
-          .product .product-content aside .package-options ul li .poi-content-bottom{
+          .product .product-content aside .package-options ul li .poi-content-bottom,
+          #place-data .destinations .destinations-content-block section .key-info{
             font-family: Larsseit-Light, sans-serif; }
           .product .product-content aside .package-options ul li .poi-content-bottom span,
           .product .product-content aside .package-options ul li .poi-content-bottom p{

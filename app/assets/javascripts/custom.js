@@ -122,12 +122,12 @@ $(document).ready(function(){
   }
 
   $('.kic-item.short.currency table tr:nth-child(even),\
-      .kic-item.short.currency table tr:nth-child(7)').addClass('col-md-6');
+      .kic-item.short.currency table tr:nth-child(7)').addClass('col-xs-6');
   if($('.kic-item.currency .kici-heading').data('currency') != ""){
     var currency_code = $('.kic-item.currency .kici-heading').data('currency');
     $('.kic-item.short.currency table tr:nth-child(4) option').each(function(){
       if($(this).val() == currency_code){
-        $(this).attr('selected', true)
+        $(this).attr('selected', true).change();
       }
     })
   }

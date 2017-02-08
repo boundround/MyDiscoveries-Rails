@@ -1990,6 +1990,9 @@ input.more-result{
   table{
     display: none;
     background-color: transparent !important;
+    tr td{
+      display: block;
+    }
     tr:nth-child(odd), tr:last-child{
       display: none;
     }
@@ -2012,14 +2015,14 @@ input.more-result{
     tr:nth-child(6){
       float: right;
     }
-    .col-md-6{
+    .col-xs-6{
       padding-left: 5px;
       padding-right: 5px;
     }
     input, select{
       height: 25px;
       margin: 5px 0px;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: Larsseit-Light, sans-serif;
       border: none;
       outline: none;
       font-size: 13px;
