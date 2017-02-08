@@ -265,7 +265,7 @@ $(document).ready(function() {
             region_cards = $('[data-klass="region"]');
             story_cards = $('[data-klass="story"]');
 
-            if(user_offers != undefined || user_offers != ""){
+            if(user_offers != undefined && user_offers != ""){
               $.each(offer_cards, function(){
                 var id_offer = $(this).data('place-id')
                 if(user_offers.includes(id_offer)){
