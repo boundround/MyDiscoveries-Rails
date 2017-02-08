@@ -57,7 +57,7 @@
               <div class="clearfix"></div>
               <div class="row">
                 <div class="col-md-12" id="instant-search-results">
-                  <div id="dataBucketOffer" data-bucketlist="<%= current_user.favorite_offers.map(&:id) %>"></div>
+                  <div id="dataBucketOffer" data-bucketlist="<%= current_user.favorite_offers.map(&:id) if user_signed_in? %>"></div>
                   <%= render partial: 'search_suggestions/instant_search_results' %>
                 </div>
               </div>
