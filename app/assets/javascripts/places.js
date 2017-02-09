@@ -1,6 +1,6 @@
 // Add to Wishlist
-function addToFav(assetType) {
-    $(".icon-favourite").on('click', function(e) {
+function addToFav() {
+    $(".icon-favourite").click(function(e) {
         var icon = $(this);
         var klass = $(this).data("klass");
         var klasscapital = klass.charAt(0).toUpperCase() + klass.slice(1);
@@ -32,8 +32,8 @@ function addToFav(assetType) {
             break;
         }
 
-        if (userId === "no-user") {
-            $("#myModal").modal();
+        if (userId == "no-user") {
+            $("#singIn").modal();
         } else if ($(this).data("liked") === false || $(this).data("liked") === 'false') {
             $.ajax({
                 type: "POST",
@@ -42,7 +42,7 @@ function addToFav(assetType) {
             });
             $(".favourites-title").text("Remove From Favourites");
             $(".text-favourite-place").text("Remove From Favourites");
-            icon.addClass("selected search-page-card__to-bucket-list--liked");
+            $(this).toggleClass('search-page-card__to-bucket-list--liked');
             $('#dataBucket'+klasscapital).data('bucketlist').push(placeId)
             $(this).data("liked", true);
         } else if ($(this).data("liked") === true || $(this).data("liked") === 'true') {
@@ -54,7 +54,7 @@ function addToFav(assetType) {
             });
             $(".favourites-title").text("Add To Favourites");
             $(".text-favourite-place").text("Add To Favourites");
-            icon.removeClass("selected search-page-card__to-bucket-list--liked");
+            $(this).toggleClass('search-page-card__to-bucket-list--liked');
             var index_remove = $('#dataBucket'+klasscapital).data('bucketlist').indexOf(placeId)
             $('#dataBucket'+klasscapital).data('bucketlist').splice(index_remove, 1)
             $(this).data("liked", false);
@@ -210,11 +210,6 @@ $(document).ready(function() {
     setUpfileUpload('.file-upload', '.lis-file-upload');
     setUpfileUpload('.file-upload2', '.lis-file-upload2');
     setUpfileUpload();
-    if ($('#favouriteType')){
-      setTimeout(function(){
-        addToFav($('#favouriteType').data('klass'));
-      }, 2000)
-    }
     setUpLoadMore();
     responsiveModalVideo();
 
