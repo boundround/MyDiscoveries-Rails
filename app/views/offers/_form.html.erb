@@ -1,122 +1,249 @@
-<%= simple_form_for offer, html: { role: 'form'} do |f| %>
-  <div class="form-group">
-    <%= f.association :attraction,
-      label_method: :display_name,
-      value_method: :id,
-      label: 'Attraction',
-      include_blank: true,
-      input_html: { class: 'width100' }
-    %>
+
+<%= simple_form_for @offer, html: { role: 'form'} do |f| %>
+
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#core-information-collapse">Core Information</a>
+        </h4>
+      </div>
+      <div id="core-information-collapse" class="panel-collapse collapse">
+        <!-- STUFF GOES HERE -->
+
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              <input id="pac-input" class="controls form-control" type="text"
+                  placeholder="Search For A Place">
+            <div id="map-canvas" style="height:500px;"></div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group lat-lng">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6"><%= f.input :latitudeStart, as: :hidden, label: "Latitude Start", :input_html => { "data-geo" => "lat", class: 'form-control' } %></div>
+                <div class="col-xs-12 col-sm-6"><%= f.input :longitudeStart, as: :hidden, label: "Longitude Start", :input_html => { "data-geo" => "lng", class: 'form-control' } %></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group"><%= f.check_box :featured, label: false %>  <%= f.label :featured, "Featured" %></div>
+        <div class="form-group"><%= f.check_box :show_in_mega_menu, label: false %>  <%= f.label :show_in_mega_menu, "Show in mega menu?" %></div>
+
+        <div class="form-group">
+          <%= f.association :operator,
+            label_method: :name,
+            value_method: :id,
+            label: 'Operator',
+            input_html: { class: 'width100 form-control' }
+          %>
+        </div>
+        <div class="form-group">
+          <%= f.input :status, label: 'Offer Status', as: :select, collection: ["live", "draft", "removed"], input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :name, label: 'Offer Name', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :description, label: 'Offer Description', as: :text, input_html: { class: 'width100' } %>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <%= f.input :startDate, label: 'Trip Start Date', as: :date, input_html: { class: '' } %>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <%= f.input :endDate, label: 'Trip End Date', as: :date, input_html: { class: '' } %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.input :supplier_product_code, as: :string, label: 'Supplier Product Code', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :innovations_transaction_id, as: :string, label: 'Innovations Transaction ID', input_html: { class: 'width100' } %>
+        </div>
+
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#commercials-collapse">
+            Commercials
+          </a>
+        </h4>
+      </div>
+      <div id="commercials-collapse" class="panel-collapse collapse">
+        <!--  STUFF GOES HERE -->
+        <div class="form-group margin-left-20">
+          <%= f.input_field :allow_installments, as: :boolean, inline_label: 'Allow Installments', label: false %>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <%= f.input :validityStartDate, label: 'Voucher Validity Start Date', as: :date, input_html: { class: '' } %>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <%= f.input :validityEndDate, label: 'Voucher Validity End Date', as: :date, input_html: { class: '' } %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <%= f.input :publishstartdate, label: 'Publish Start Date', as: :date, input_html: { class: '' } %>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <%= f.input :publishenddate, label: 'Publish End Date', as: :date, input_html: { class: '' } %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.input :minRateAdult, as: :integer, label: 'Adult Rate', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :minRateChild, as: :integer, label: 'Child Rate', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :minUnits, as: :integer, label: 'Min Units', input_html: { class: 'width100' } %>
+        </div>
+
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#logistics-collapse">
+            Logistics
+          </a>
+        </h4>
+      </div>
+      <div id="logistics-collapse" class="panel-collapse collapse">
+        <!--  STUFF GOES HERE -->
+        <div class="form-group">
+          <%= f.input :operatingSchedule, as: :bootsy, label: 'Operating Schedule', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :locationStart, as: :string, label: 'Location Start', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :locationEnd, as: :string, label: 'Location End', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.label :inclusion_icons %>
+        </div>
+        <div class="col-md-3">
+          <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/beds.svg" %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/beds.svg", checked: true%>
+          <% else %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/beds.svg"%>
+          <% end %>
+          <%= f.label "offer_inclusions_bed", "<img src='/assets/mydiscoveries_icon/i/inclusions/beds.svg' width='30'>".html_safe %>
+        </div>
+        <div class="col-md-3">
+          <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/flights.svg" %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/flights.svg", checked: true %>
+          <% else %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/flights.svg"%>
+          <% end %>
+            <%= f.label "offer_inclusions_flight", "<img src='/assets/mydiscoveries_icon/i/inclusions/flights.svg' width='30'>".html_safe %>
+        </div>
+        <div class="col-md-3">
+          <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg" %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg", checked: true %>
+          <% else %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg"%>
+          <% end %>
+            <%= f.label "offer_inclusions_hairdryer", "<img src='/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg' width='30'>".html_safe %>
+        </div>
+        <div class="col-md-3">
+          <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/kids-club.svg" %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/kids-club.svg", checked: true %>
+          <% else %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/kids-club.svg"%>
+          <% end %>
+            <%= f.label "offer_inclusions_kids-club", "<img src='/assets/mydiscoveries_icon/i/inclusions/kids-club.svg' width='30'>".html_safe %>
+        </div>
+        <div class="col-md-3">
+          <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/meals.svg" %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/meals.svg", checked: true %>
+          <% else %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/meals.svg"%>
+          <% end %>
+            <%= f.label "offer_inclusions_meal", "<img src='/assets/mydiscoveries_icon/i/inclusions/meals.svg' width='30'>".html_safe %>
+        </div>
+        <div class="col-md-3">
+          <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/swimming-pool.svg" %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/swimming-pool.svg", checked: true %>
+          <% else %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/swimming-pool.svg"%>
+          <% end %>
+            <%= f.label "offer_inclusions_swimming-pool", "<img src='/assets/mydiscoveries_icon/i/inclusions/swimming-pool.svg' width='30'>".html_safe %>
+        </div>
+        <div class="col-md-3">
+          <% if @offer.inclusions.map(&:name).include? "/assets/mydiscoveries_icon/i/inclusions/wifi.svg" %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/wifi.svg", checked: true %>
+          <% else %>
+            <%= check_box_tag "offer[inclusions][]", "/assets/mydiscoveries_icon/i/inclusions/wifi.svg"%>
+          <% end %>
+            <%= f.label "offer_inclusions_wifi", "<img src='/assets/mydiscoveries_icon/i/inclusions/wifi.svg' width='30'>".html_safe %>
+        </div>
+        <div style="clear:both">
+        </div>
+        <div class="form-group">
+          <%= f.input :customStr1, as: :string, label: 'Booking Essentials', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :customStr4, as: :string, label: 'Booking Guarantee', input_html: { class: 'width100', value: "#{@book_guarantee}" } %>
+        </div>
+
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="accordion" href="#content-collapse">
+            Content
+          </a>
+        </h4>
+      </div>
+      <div id="content-collapse" class="panel-collapse collapse">
+        <!--  STUFF GOES HERE -->
+        <div class="form-group">
+          <%= f.input :specialNotes, as: :bootsy, label: 'Hero Image Copy', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :tags, as: :array, label: 'Places Visited' %>
+          <%= link_to '+ Add', '#', class: 'js-add-offers-tag' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :highlightsStr, as: :bootsy, label: 'Hightlights', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :itineraryStr, as: :bootsy, label: 'Itinerary', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :includes, as: :bootsy, label: 'Includes/Excludes', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :customStr2, as: :string, label: 'Facilities', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :customStr3, as: :string, label: 'Fine Print', input_html: { class: 'width100' } %>
+        </div>
+
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <%= f.input :status, label: 'Offer Status', as: :select, collection: ["live", "draft", "removed"], input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :name, label: 'Offer Name', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :description, label: 'Offer Description', as: :text, input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :minRateAdult, as: :integer, label: 'Min Rate Adult', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :minRateInfant, as: :integer, label: 'Min Rate Infant', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :duration, as: :integer, label: 'Duration', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :specialNotes, as: :string, label: 'Special Notes', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :operatingDays, as: :integer, label: 'Operating Days', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :operatingDaysStr, as: :string, label: 'Operating Days String', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :operatingSchedule, as: :string, label: 'Operating Schedule', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :locationStart, as: :string, label: 'Location Start', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :latitudeStart, as: :decimal, label: 'Latittude Start', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :longitudeStart, as: :decimal, label: 'Longitude Start', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :distanceStartToRef, as: :integer, label: 'Distance Start To Ref', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :locationEnd, as: :string, label: 'Location End', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :latitudeEnd, as: :decimal, label: 'Latittude End', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :longitudeEnd, as: :decimal, label: 'Longitude End', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :tags, as: :array, label: 'Tags' %>
-    <%= link_to '+ Add', '#', class: 'js-add-offers-tag' %>
-  </div>
-  <div class="form-group">
-    <%= f.input :minAge, as: :integer, label: 'Min Age', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :requiredMultiple, as: :integer, label: 'Required Multiple', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :minUnits, as: :integer, label: 'Min Units', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :maxUnits, as: :integer, label: 'Max Units', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :pickupNotes, as: :string, label: 'Pickup Notes', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :dropoffNotes, as: :string, label: 'Dropoff Notes', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :highlightsStr, as: :string, label: 'Hightlights Str', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :itineraryStr, as: :string, label: 'Itinerary Str', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :includes, as: :string, label: 'Includes', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :sellVouchers, as: :string, label: 'Sell Vouchers', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :onlyVouchers, as: :string, label: 'Only Vouchers', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :voucherInstructions, as: :string, label: 'Voucher Instructions', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :voucherValidity, as: :integer, label: 'Voucher Validity', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :customStr1, as: :string, label: 'Custom Str1', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :customStr2, as: :string, label: 'Custom Str2', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :customStr3, as: :string, label: 'Custom Str3', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group">
-    <%= f.input :customStr4, as: :string, label: 'Custom Str4', input_html: { class: 'width100' } %>
-  </div>
-  <div class="form-group margin-left-20">
-    <%= f.input_field :pickupRequired, as: :boolean, inline_label: 'Pickup Required', label: false %>
-  </div>
+
   </br>
   <div class="form-group">
     <%= f.submit :submit, class: 'btn' %>
