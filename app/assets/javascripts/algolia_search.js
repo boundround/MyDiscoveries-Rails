@@ -33,7 +33,7 @@ $(window).resize(function(event) {
 });
 
 $(document).ready(function() {
-    var production_environment = document.querySelector('#environment').dataset.environment;
+    var production_environment = $('#environment').data('environment');
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
     var INDEX_NAME = 'mydiscoveries_' + production_environment;

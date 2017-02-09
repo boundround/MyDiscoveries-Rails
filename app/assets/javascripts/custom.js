@@ -67,6 +67,10 @@ $(document).ready(function(){
     }
   })
 
+  $('.header__signing--sign-in').click(function(){
+    console.log("aaaa")
+  })
+
   // Gallery Carousel Size
   setTimeout(function(){
     $('.slider-for .slick-slide').each(function(){
