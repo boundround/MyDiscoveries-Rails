@@ -2,7 +2,7 @@
 /* begin - font-face css */
 @font-face {
   font-family: 'Bagnard';
-  src: url("/assets/font_mydiscoveries/bagnard.otf"); }
+  src: url("/assets/font_mydiscoveries/larsseit/bagnard.otf"), url("/assets/font_mydiscoveries/larsseit/bagnard.ttf"), url(/home/elvin-al/Downloads/bagnard.eot) format("embedded-opentype"); }
 
 @font-face {
   font-family: 'Larsseit-Light';
