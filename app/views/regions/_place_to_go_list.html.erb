@@ -1,5 +1,5 @@
 <div class="places-to-go-card ">
-    <a href="<%= @favorite_regions.present?? region_path(place) : place_path(place) %>" class="ptgc-content" >
+    <a href="<%= @favorite_regions.present?? region_path(place) : place_path(place) %>" class="ptgc-content" align="center">
         <h3 class="places-to-go-card__header"><%= place.country.display_name rescue "" %></h3>
         <h4 class="places-to-go-card__card-name"><%= place.display_name %></h4>
     </a>

@@ -8954,11 +8954,12 @@ a.see-more__link {
   margin: 15px 0px;
   height: 380px;
   position: relative;
+  background-image: url(/assets/gradient_background.svg);
   background-image: -webkit-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
   background-image: -moz-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
   background-image: -ms-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
   background-image: -o-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
-  background-image: linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px); }
+  background-image: linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);}
 
 .inspiration-item__image {
   top: 15px;
@@ -11077,7 +11078,7 @@ span.arrow {
   color: transparent;
   border: none;
   outline: none;
-  z-index: 1;
+  z-index: 1000;
   transition: 1s;
   opacity: 0.5; }
 
@@ -13091,5 +13092,5 @@ ul.featured-articles{
     top: 30px;
     left: 0; }
 .story .medium-insert-buttons{
-  display: none;
+  display: none !important;
 }
