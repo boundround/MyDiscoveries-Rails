@@ -29,7 +29,8 @@ class Offer < ActiveRecord::Base
                :tags,
                :startDate,
                :endDate,
-               :inclusions
+               :inclusions,
+               :places_visited
 
     attribute :display_name do
       name
@@ -90,6 +91,10 @@ class Offer < ActiveRecord::Base
       inclusions.map(&:name)
     end
 
+    attribute :places_visited do
+      places_visited
+    end
+
     attribute :tags do
       tags.blank? ? [] : tags[0..1]
     end
@@ -136,7 +141,8 @@ class Offer < ActiveRecord::Base
       'duration',
       'minUnits',
       'maxUnits',
-      'tags'
+      'tags',
+      'places_visited'
     ]
 
     add_index "mydiscoveries_offers_#{Rails.env}", if: :published? do
@@ -160,7 +166,8 @@ class Offer < ActiveRecord::Base
                  :tags,
                  :startDate,
                  :endDate,
-                 :inclusions
+                 :inclusions,
+                 :places_visited
 
       attribute :display_name do
         name
@@ -207,6 +214,10 @@ class Offer < ActiveRecord::Base
 
       attribute :description do
         description.blank? ? "" : description
+      end
+
+      attribute :places_visited do
+        places_visited
       end
 
       attribute :tags do
@@ -268,7 +279,8 @@ class Offer < ActiveRecord::Base
         'duration',
         'minUnits',
         'maxUnits',
-        'tags'
+        'tags',
+        'places_visited'
       ]
     end
 
