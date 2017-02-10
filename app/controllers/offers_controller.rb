@@ -208,6 +208,8 @@ class OffersController < ApplicationController
       :allow_installments,
       :item_id,
       :child_item_id,
+      :number_of_days,
+      :number_of_nights,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,

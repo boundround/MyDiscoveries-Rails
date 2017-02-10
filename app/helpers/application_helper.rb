@@ -481,5 +481,11 @@ module ApplicationHelper
     collection.traverse('page').to_i + 1
   end
 
+  def create_duration(offer)
+    text = ""
+    text += offer.number_of_days.present?? pluralize(offer.number_of_days, "day") : "" 
+    text += offer.number_of_days.present? && offer.number_of_nights.present?? "/" : ""
+    text += offer.number_of_nights.present?? pluralize(offer.number_of_nights, "night") : ""
+  end
 
 end
