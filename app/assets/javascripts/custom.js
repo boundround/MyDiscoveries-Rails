@@ -80,6 +80,13 @@ $(document).ready(function(){
     })
   }, 100)
 
+  $('.js-add-places-tag').on('click', function(e){
+    e.preventDefault()
+    container = $('.place_tags .controls');
+    element   = '<input class="text optional" name="place[tags][]" type="text" value="">';
+    container.append(element)
+  })
+
   $('#cropbox').Jcrop({
     onChange: update_crop,
     onSelect: update_crop,
