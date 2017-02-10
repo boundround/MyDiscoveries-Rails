@@ -173,13 +173,16 @@
     function countElements(parentElement) {
         var countUnselected = 0, countSelected = 0;
 
-        $(parentElement + ' .unselected').find('option').each(function() { if ($(this).isVisible()) { countUnselected++; } });
-        $(parentElement + ' .selected').find('option').each(function() { if ($(this).isVisible()) { countSelected++ } });
+        setTimeout(function(){
+            $(parentElement + ' .unselected').find('option').each(function() { if ($(this).isVisible()) { countUnselected++; } });
+            $(parentElement + ' .selected').find('option').each(function() { if ($(this).isVisible()) { countSelected++ } });
 
-        $(parentElement + ' .unselected-count').text(countUnselected);
-        $(parentElement + ' .selected-count').text(countSelected);
+            $(parentElement + ' .unselected-count').text(countUnselected);
+            $(parentElement + ' .selected-count').text(countSelected);
 
-        toggleButtons(parentElement);
+            toggleButtons(parentElement);
+        }, 100)
+            
     }
 
     /** Creates a new dual list box with the right buttons and filter. */

@@ -481,5 +481,21 @@ module ApplicationHelper
     collection.traverse('page').to_i + 1
   end
 
+  def destination_available(all_collection, collection)
+    available = []
+    if self.class.name == "RelatedOffersController"
+      collections = []
+      collection.each do |offer|
+        id = offer.related_offer_id
+        collections << Offer.find(id) if id.present?
+      end
+      collection = collections
+    end
+
+    all_collection.each do |col|
+      available << col unless collection.include? col
+    end
+    available
+  end
 
 end

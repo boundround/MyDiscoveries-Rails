@@ -1,4 +1,5 @@
 class PlacesPostsController < ApplicationController
+  include ApplicationHelper
 
   def create
     @post = Post.find_by_slug(params[:post_id])
@@ -24,7 +25,8 @@ class PlacesPostsController < ApplicationController
   def index
     @post = Post.friendly.find(params[:post_id])
     @places_posts = @post.places.build
-    @places = Place.active.order(display_name: :asc)
+    all_places_posts = @post.places
+    @places = destination_available(Place.active, all_places_posts)
   end
 
   def destroy
