@@ -324,6 +324,8 @@ class Offer < ActiveRecord::Base
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
 
+  mount_uploader :itinerary, OfferItineraryUploader
+
   def publish_date
     update_at
   end

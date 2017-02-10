@@ -208,6 +208,7 @@ class OffersController < ApplicationController
       :allow_installments,
       :item_id,
       :child_item_id,
+      :itinerary,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
