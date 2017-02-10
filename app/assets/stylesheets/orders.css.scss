@@ -118,3 +118,10 @@
   font-size: 14px;
   color: #000060;
 }
+
+@media print {
+  .add-page-break {
+    display: block;
+    page-break-after: always;
+  }
+}

@@ -1,0 +1,169 @@
+<table style="background-color: #fff; width: 600px; margin: auto; border-collapse: collapse;" border="0">
+  <% if email_page %>
+    <tr>
+      <td colspan="2" style="font-family:'Rubik'; font-size: 16px; color: #fff; background-color: #000060; padding: 30px 0">
+        Having trouble viewing this email? View it in your
+        <%= link_to 'browser',
+          confirmation_offer_order_url(offer, order),
+          style: "text-decoration: underline; color: #fff"
+        %>
+      </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="2" style="padding: 40px 40px 30px;">
+      <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.svg') %>" style="width: 230px;">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding: 10px 40px;">
+      <span style="font-family: 'Georgia', Arial; font-size: 26px">Important information</span>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="font-family: Arial; font-size: 16px; color: #333; padding-bottom: 15px; padding: 0; padding-bottom: 25px;">
+      <ul style="padding: 0 40px; padding-left: 55px;">
+        <li style="margin: 15px 0; line-height: 20px">
+          The voucher(s) below are your proof of purchase.
+          Treat your prepaid voucher(s) as you would cash and keep it in a safe place
+        </li>
+        <li style="margin: 15px 0; line-height: 20px"">
+          Many tours / activities accept both printed vouchers and
+          e-vouchers (check the 'Voucher Information' details listed below).
+          If your tour accepts e-vouchers,
+          on the day of travel you can choose to present this voucher on your phone.
+          A printed copy is not required
+        </li>
+        <li style="margin: 15px 0; line-height: 20px"">
+          If your tour / activity is listed as "Paper Voucher Required",
+          then you must print the voucher and present it on the day of travel.
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <%= render 'vouchers/table_items',
+    pdf_page:   pdf_page,
+    email_page: email_page,
+    order:      order,
+    offer:      offer,
+    customer:   customer,
+    passengers: passengers
+  %>
+  <tbody>
+  <% if !email_page %>
+    <tr>
+      <td colspan="2" style="padding: 25px 40px 40px;">
+        <a href="#" class='js-print-vouchers-button' style="background-color: #ff4a1a;width: 100%;display: block;padding: 20px 0;text-align: center;font-size: 18px;font-family: Arial;color: #fff;text-decoration: none;">
+          PRINT VOUCHERS
+        </a>
+      </td>
+    </tr>
+  <% end %>
+    <tr>
+      <td colspan="2" style="padding: 0">
+        <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+      </td>
+    <tr>
+  <tr>
+    <tr>
+      <td colspan="2" style="padding: 40px;">
+        <div style="background-color: #ccc; width: 300px; height: 300px; margin: auto;">
+          <% if hero_photo.present? %>
+            <img src="<%= hero_photo.path_url(:medium) %>" style="width: 300px; height: 300px;">
+          <% else %>
+            <img src="<%= asset_url('generic-hero.jpg') %>" style="width: 300px; height: 300px;">
+          <% end %>
+        </div>
+      </td>
+    </tr>
+      <tr>
+        <td colspan="2" style="padding: 0">
+          <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+        </td>
+      <tr>
+    <tr>
+      <td colspan="2" style="padding: 40px 40px 30px; padding-bottom: 15px;">
+        <span style="font-family: 'Georgia'; font-size: 26px">
+          Tour information
+        </span>
+        <br>
+        <span style="font-family: Arial; font-weight: bold; font-size: 20px;">
+          <%= order.title %>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding: 0 40px 40px;">
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+          Directions
+        </span>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+          <%= offer.directions %>
+        </p>
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+          Supplier name
+        </span>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+          <%= operator.name %>
+        </p>
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+          Contact number
+        </span>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+          <%= operator.phone %>
+        </p>
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+          Inclusions
+        </span>
+        <ul style="margin: 0;padding-left: 0;list-style: none;margin-bottom: 15px; margin-top: 10px;">
+          <% offer.inclusions.each do |inclusion| %>
+            <span>
+              <img src="<%= asset_url(inclusion.name.gsub('/assets/', '')) %>" style="width: 35px; margin-right: 5px;">
+            </span>
+          <% end %>
+        </ul>
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+          Terms and Conditions
+        </span>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
+          If you cancel at least 7 day(s) in advance of the scheduled departure,
+          there is no cancellation fee.
+        </p>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
+          If you cancel between 3 and 6 day(s) in advance of the scheduled departure,
+          there is a 50 percent cancellation fee.
+        </p>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
+          If you cancel within 2 day(s) of the scheduled departure,
+          there is a 100 percent cancellation fee.
+        </p>
+      </td>
+    </tr>
+  </tr>
+  <% if email_page %>
+    <tr style="background-color: #000060;">
+      <td style="font-family:'Rubik'; font-size: 16px; color: #fff; background-color: #000060; padding: 40px 0;">
+        <a href="<%= ENV['HOME_URL'] %>" style="text-decoration: underline; color: #fff; display: block;">mydiscoveries.com.au</a>
+        <span style="font-family:Arial; display: block;margin-top: 10px;">20/94 Oxford Street, Darlinghurst NSW 2010<br>
+          (02) 9000 000</span>
+      </td>
+      <td style="background-color: #000060;  padding: 40px 0;" valign="top" align="right">
+        <%= link_to 'https://www.facebook.com/BoundRound', style: "text-decoration: none;" do %>
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/fb.svg') %>" style="height: 20px;margin: 0 5px;">
+        <% end %>
+        <%= link_to 'http://instagram.com/boundround', style: "text-decoration: none;" do %>
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/insta.svg') %>" style="height: 20px;margin: 0 5px;">
+        <% end %>
+        <%= link_to 'https://twitter.com/BoundRoundAus', style: "text-decoration: none;" do %>
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/twitter.svg') %>" style="height: 20px;margin: 0 5px;">
+        <% end %>
+        <%= link_to 'https://www.youtube.com/user/BoundRoundGuides', style: "text-decoration: none;" do %>
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/youtube.svg') %>" style="height: 20px;margin: 0 5px;">
+        <% end %>
+        <%= link_to 'https://au.pinterest.com/boundround', style: "text-decoration: none;" do %>
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/pinterest.svg') %>" style="height: 20px;margin: 0 5px;">
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

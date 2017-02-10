@@ -43,4 +43,9 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # salesId for Innovations
+  def uniq_number
+    "WM#{1000000 + id}"
+  end
+
 end

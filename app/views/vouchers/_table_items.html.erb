@@ -1,0 +1,76 @@
+<tbody class="js-print-vouchers" style="<%= (pdf_page) ? 'page-break-inside: avoid; display: block;' : '' %>">
+  <% if !pdf_page %>
+    <td colspan="2" style="padding: 0">
+      <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+    </td>
+  <% end %>
+
+  <% passengers.each_with_index do |passenger, index| %>
+    <tr class="<%= index == 0 ? '' : 'add-page-break' %> " style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>">
+      <tr>
+        <td colspan="2" style="padding: 40px 40px 0px;">
+          <% if pdf_page %>
+            <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.png') %>" style="width: 230px;">
+          <% else %>
+            <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.svg') %>" style="width: 230px;">
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px">Booking reference</span><br>
+          <span style="font-family: 'Georgia'; font-size: 26px"">
+            <%= "##{passenger.id}" %>
+          </span>
+        </td>
+        <td style="padding: 20px 40px; text-align: right; vertical-align: top;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px">
+            <%= "Voucher #{index + 1} of #{passengers.count}" %>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 40px; padding-bottom: 15px;">
+          <span style="font-family: 'Georgia'; font-size: 26px">
+            <%= order.title %>
+          </span>
+          <br>
+          <span style="font-family: Arial; font-weight: bold; font-size: 20px;">
+            <%= "Qty: #{order.total_people_count} / $#{order.total_price}" %>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 0 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Lead customer</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= customer.full_name %>
+          </p>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Address</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= customer.address_one %>
+          </p>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">MyDiscoveries customer no.</span><br>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= customer.uniq_number %>
+          </p>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Offer name</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= offer.name %>
+          </p>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Description</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= offer.description %>
+          </p>
+        </td>
+      </tr>
+    </tr>
+    <% if !pdf_page %>
+      <tr>
+        <td colspan="2" style="padding: 0">
+          <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+        </td>
+      <tr>
+    <% end %>
+  <% end %>
+</tbody>

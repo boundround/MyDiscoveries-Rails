@@ -1,0 +1,17 @@
+<html>
+  <%= render 'vouchers/head' %>
+  <body>
+    <table style="margin: auto; border-collapse: collapse;" border="0">
+      <%= render 'vouchers/table_items',
+        pdf_page:   true,
+        email_page: false,
+        order:      order,
+        offer:      offer,
+        operator:   operator,
+        hero_photo: hero_photo,
+        passengers: passengers,
+        customer:   customer
+      %>
+    </table>
+  </body>
+</html>

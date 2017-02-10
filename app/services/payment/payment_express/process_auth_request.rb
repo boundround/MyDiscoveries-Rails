@@ -5,11 +5,20 @@ class Payment::PaymentExpress::ProcessAuthRequest
 
   def call
     process_request
-    update_order if transaction_valid?
+
+    if transaction_valid?
+      update_order
+      send_notification
+    end
+
     response
   end
 
   private
+
+  def send_notification
+    OrderAuthorized.delay.notification(order.id)
+  end
 
   def update_order
     order.update(status: :authorized, px_response: px_response_json)

@@ -12,4 +12,9 @@ class Customer < ActiveRecord::Base
   def full_name
     "#{title} #{first_name} #{last_name}"
   end
+
+  # CustAccount for Innovations
+  def uniq_number
+    "M#{1000000 + id}"
+  end
 end
