@@ -93,6 +93,10 @@
         <%= f.input :description, as: :bootsy, label: "Long description", input_html: { class: 'form-control area-description-input', col: 50 } %><br>
         <span id="descriptionCharCount">0</span> characters entered. (700 max)<br>
       </div>
+      <div class="form-group">
+        <%= f.input :tags, as: :array, label: 'Tags' %>
+        <%= link_to '+ Add', '#', class: 'js-add-places-tag' %>
+      </div>
       <% if current_user.has_role?("publisher") || current_user.try(:admin) %>
         <div class="form-group published-radio">
           <%= f.input :status, as: :select, collection: ["draft", "edited", "live", "removed"] %>
