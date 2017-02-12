@@ -61,6 +61,12 @@
           </div>
         </div>
         <div class="form-group">
+          <%= f.input :number_of_days, as: :integer, label: 'Number of Days', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
+          <%= f.input :number_of_nights, as: :integer, label: 'Number of Nights', input_html: { class: 'width100' } %>
+        </div>
+        <div class="form-group">
           <%= f.input :supplier_product_code, as: :string, label: 'Supplier Product Code', input_html: { class: 'width100' } %>
         </div>
 
@@ -102,12 +108,6 @@
               <%= f.input :publishenddate, label: 'Publish End Date', as: :date, input_html: { class: '' } %>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.input :number_of_days, as: :integer, label: 'Number of Days', input_html: { class: 'width100' } %>
-        </div>
-        <div class="form-group">
-          <%= f.input :number_of_nights, as: :integer, label: 'Number of Nights', input_html: { class: 'width100' } %>
         </div>
         <div class="form-group">
           <%= f.input :minRateAdult, as: :integer, label: 'Adult Rate', input_html: { class: 'width100' } %>
