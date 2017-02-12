@@ -68,11 +68,9 @@ class OffersController < ApplicationController
   def update
     @offer.assign_attributes(offer_params)
     @offer.tags.select!(&:present?)
+    @offer.places_visited.select!(&:present?)
+    @offer.inclusion_list = params[:offer][:inclusions] if params[:offer][:inclusions].present?
     if @offer.save
-      if params[:offer][:inclusions]
-        @offer.inclusion_list = params[:offer][:inclusions].join(', ')
-        @offer.save
-      end
       redirect_to edit_offer_path(@offer), notice: "Offer Updated"
     else
       flash.now[:alert] = 'Sorry, there was an error updating this Offer'
@@ -210,6 +208,7 @@ class OffersController < ApplicationController
       :child_item_id,
       :number_of_days,
       :number_of_nights,
+      :itinerary,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
@@ -224,7 +223,8 @@ class OffersController < ApplicationController
       country_ids: [],
       region_ids: [],
       subcategory_ids: [],
-      inclusion_list: []
+      inclusion_list: [],
+      places_visited: []
     )
   end
 end

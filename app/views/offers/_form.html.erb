@@ -230,14 +230,25 @@
           <%= f.input :specialNotes, as: :bootsy, label: 'Hero Image Copy', input_html: { class: 'width100' } %>
         </div>
         <div class="form-group">
-          <%= f.input :tags, as: :array, label: 'Places Visited' %>
+          <%= f.input :tags, as: :array, label: 'Tags' %>
           <%= link_to '+ Add', '#', class: 'js-add-offers-tag' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :places_visited, as: :array, label: 'Places Visited' %>
+          <%= link_to '+ Add', '#', class: 'js-add-places_visited-tag' %>
         </div>
         <div class="form-group">
           <%= f.input :highlightsStr, as: :bootsy, label: 'Hightlights', input_html: { class: 'width100' } %>
         </div>
         <div class="form-group">
           <%= f.input :itineraryStr, as: :bootsy, label: 'Itinerary', input_html: { class: 'width100' } %>
+        </div>
+        <% if @offer.itinerary.present? %>
+          <label>Current Itinerary File</label>
+          <iframe src="<%= @offer.itinerary.url %>" width="600px" height="400px" style="margin: auto; display: block;" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <% end %>
+        <div class="form-group">
+          <%= f.input :itinerary, as: :file, label: 'Upload Itinerary File' %>
         </div>
         <div class="form-group">
           <%= f.input :includes, as: :bootsy, label: 'Includes/Excludes', input_html: { class: 'width100' } %>
