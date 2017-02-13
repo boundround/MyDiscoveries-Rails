@@ -105,7 +105,8 @@ class Region < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
-      'tags'
+      'tags',
+      'places_visited'
     ]
   end
 

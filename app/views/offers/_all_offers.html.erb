@@ -3,7 +3,7 @@
     <div class="th-img-block" style="background-image: url('<%= draw_small_background(offer) %>')">
     </div>
     <div class="th-content">
-      <span class="posi-nights"> <%= pluralize((offer.duration / 1000 / 60 / 60 / 24), "night").gsub(/\d/, "") %></span>
+      <span class="posi-nights"> <%= create_duration(offer) %></span>
       <span>From $<%= offer.minRateAdult %> </span>
       <p class="xs-heading"><%= offer.name %></p>
       <span class="arrow"></span>

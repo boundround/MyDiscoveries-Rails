@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170206113647) do
+ActiveRecord::Schema.define(version: 20170210094625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -590,6 +590,12 @@ ActiveRecord::Schema.define(version: 20170206113647) do
     t.boolean  "show_in_mega_menu",                                             default: false
     t.boolean  "featured",                                                      default: false
     t.boolean  "allow_installments",                                            default: false
+    t.string   "child_item_id",                                                 default: ""
+    t.string   "item_id",                                                       default: ""
+    t.string   "places_visited",                                                default: [],    array: true
+    t.string   "itinerary"
+    t.integer  "number_of_days"
+    t.integer  "number_of_nights"
   end
 
   add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree
@@ -729,6 +735,7 @@ ActiveRecord::Schema.define(version: 20170206113647) do
     t.boolean  "request_installments", default: false
     t.json     "px_response",          default: {}
     t.integer  "customer_id"
+    t.boolean  "voucher_sent",         default: false
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
@@ -880,6 +887,7 @@ ActiveRecord::Schema.define(version: 20170206113647) do
     t.integer  "zoom_level"
     t.boolean  "is_country",                default: false
     t.boolean  "show_in_mega_menu",         default: false
+    t.string   "tags",                      default: [],    array: true
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
