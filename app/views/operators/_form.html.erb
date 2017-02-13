@@ -149,7 +149,7 @@
           <%= f.input :payment_conditions, label: 'res Contact Name', input_html: { class: 'width100' } %>
         </div>
         <div class="form-group">
-          <%= f.input :terms_and_conditions, as: :bootsy, label: 'Terms And Conditions', input_html: { class: 'width100' } %>
+          <%= f.input :terms_and_conditions, as: :bootsy, label: 'Terms And Conditions', input_html: { class: 'width100', value: @operator.terms_and_conditions.present?? @operator.terms_and_conditions : @terms_and_conditions } %>
         </div>
         <% if @operator.contract_pdf_file.present? %>
           <label>Current Contract File</label>

@@ -2033,3 +2033,10 @@ input.more-result{
     }
   }
 }
+
+.edit_configurable,
+.new_configurable{
+  iframe{
+    width: 100% !important;
+  }
+}

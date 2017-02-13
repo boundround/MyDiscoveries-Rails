@@ -12,12 +12,12 @@ class OffersController < ApplicationController
     @last_video = @offer.videos.active.order(:priority).first
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @review  = @offer.reviews.build
-    @book_guarantee = GlobalSetting.find("book_guarantee")
+    @book_guarantee = Configurable.book_guarantee
   end
 
   def new
     @offer = Offer.new(tags: [""])
-    @book_guarantee = GlobalSetting.find("book_guarantee")
+    @book_guarantee = Configurable.book_guarantee
   end
 
   def all_offers
@@ -115,7 +115,7 @@ class OffersController < ApplicationController
   end
 
   def edit
-    @book_guarantee = GlobalSetting.find("book_guarantee")
+    @book_guarantee = Configurable.book_guarantee
   end
 
   def update_hero

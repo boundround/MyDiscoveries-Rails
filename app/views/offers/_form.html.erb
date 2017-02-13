@@ -211,7 +211,7 @@
           <%= f.input :customStr1, as: :string, label: 'Booking Essentials', input_html: { class: 'width100' } %>
         </div>
         <div class="form-group">
-          <%= f.input :customStr4, as: :string, label: 'Booking Guarantee', input_html: { class: 'width100', value: "#{@book_guarantee}" } %>
+          <%= f.input :customStr4, as: :string, label: 'Booking Guarantee', input_html: { class: 'width100', value: @offer.customStr4.present?? @offer.customStr4 : @book_guarantee } %>
         </div>
 
       </div>
