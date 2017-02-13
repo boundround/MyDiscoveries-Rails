@@ -1,4 +1,5 @@
 class PlacesStoriesController < ApplicationController
+  include ApplicationHelper
 
   def create
     @story = Story.find_by_slug(params[:story_id])
@@ -24,7 +25,8 @@ class PlacesStoriesController < ApplicationController
   def index
     @story = Story.friendly.find(params[:story_id])
     @places_stories = @story.places.build
-    @places = Place.active.where(is_area: true).order(display_name: :asc)
+    all_places_stories = @story.places
+    @places = destination_available(Place.active.where(is_area: true), all_places_stories)
   end
 
   def destroy

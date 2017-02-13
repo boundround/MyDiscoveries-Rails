@@ -1,7 +1,7 @@
 class Payment::PaymentExpress::ProcessAuthRequest
   include Service
 
-  initialize_with_parameter_assignment :payment, :order
+  initialize_with_parameter_assignment :credit_card, :order
 
   def call
     process_request
@@ -39,7 +39,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
     begin
       @px_response ||= RestClient.post(ENV['PX_POST_URL'], build_xml)
     rescue => e
-      errors << "Sorry, there was a gateway problems, try one more time"
+      errors << 'Sorry, there was a gateway problem, try one more time.'
     end
   end
 
@@ -52,19 +52,19 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def card_number
-    @card_number ||= payment.credit_card_number
+    @card_number ||= credit_card.number
   end
 
   def card_date
-    @card_date ||= payment.credit_card_date.split('/').join('')
+    @card_date ||= credit_card.date.split('/').join('')
   end
 
   def card_holder_name
-    @card_holder_name ||= payment.credit_card_holder_name
+    @card_holder_name ||= credit_card.holder_name
   end
 
   def card_cvv
-    @card_cvv ||= payment.credit_card_cvv
+    @card_cvv ||= credit_card.cvv
   end
 
   def amount

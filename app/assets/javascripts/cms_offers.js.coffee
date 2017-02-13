@@ -5,6 +5,12 @@ jQuery ->
     element   = '<input class="text optional" name="offer[tags][]" type="text" value="">'
     container.append(element)
 
+  $('.js-add-places_visited-tag').on 'click', (e) ->
+    e.preventDefault()
+    container = $('.offer_places_visited .controls')
+    element   = '<input class="text optional" name="offer[places_visited][]" type="text" value="">'
+    container.append(element)
+
   $('#offer_attraction_ids').DualListBox({
     json: false,
     title: 'Attractions'

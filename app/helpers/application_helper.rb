@@ -481,5 +481,28 @@ module ApplicationHelper
     collection.traverse('page').to_i + 1
   end
 
+  def destination_available(all_collection, collection)
+    available = []
+    if self.class.name == "RelatedOffersController"
+      collections = []
+      collection.each do |offer|
+        id = offer.related_offer_id
+        collections << Offer.find(id) if id.present?
+      end
+      collection = collections
+    end
+
+    all_collection.each do |col|
+      available << col unless collection.include? col
+    end
+    available
+  end
+
+  def create_duration(offer)
+    text = ""
+    text += offer.number_of_days.present?? pluralize(offer.number_of_days, "day") : ""
+    text += offer.number_of_days.present? && offer.number_of_nights.present?? "/" : ""
+    text += offer.number_of_nights.present?? pluralize(offer.number_of_nights, "night") : ""
+  end
 
 end

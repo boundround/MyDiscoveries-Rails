@@ -1,4 +1,5 @@
 class RegionsStoriesController < ApplicationController
+  include ApplicationHelper
 
   def create
     @story = Story.find_by_slug(params[:story_id])
@@ -23,7 +24,8 @@ class RegionsStoriesController < ApplicationController
   def index
     @story = Story.friendly.find(params[:story_id])
     @regions_stories = @story.regions.build
-    @regions = Region.order(display_name: :asc)
+    all_regions_stories = @story.regions
+    @regions = destination_available(Region.all, all_regions_stories)
   end
 
   def destroy

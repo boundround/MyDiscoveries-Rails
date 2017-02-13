@@ -9801,17 +9801,7 @@ a:hover, a:focus, a:active {
   .sm-heading.lars, .region.package-offers ul li .po-content-block p.lars.sm-heading, .region.things-to-do ul li a .ttd-item-content p.lars, .region.itinerary-offers ul li .io-item-content p.lars.sm-heading, .region.stories ul li .s-item-content a.lars.sm-heading, .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-item ul.up-mc-stories-content li .s-item-content a.lars.sm-heading {
     font-family: Larsseit-Bold, sans-serif;
     font-weight: normal;
-    margin: 55px auto 35px; }
-
-.sm-heading, .region.package-offers ul li .po-content-block p.sm-heading, .region.things-to-do ul li a .ttd-item-content p, .region.itinerary-offers ul li .io-item-content p.sm-heading, .region.stories ul li .s-item-content a.sm-heading, .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-item ul.up-mc-stories-content li .s-item-content a.sm-heading {
-  font-size: 28px;
-  color: #000060;
-  font-weight: bold;
-  font-family: Baghdad, serif; }
-  .sm-heading.lars, .region.package-offers ul li .po-content-block p.lars.sm-heading, .region.things-to-do ul li a .ttd-item-content p.lars, .region.itinerary-offers ul li .io-item-content p.lars.sm-heading, .region.stories ul li .s-item-content a.lars.sm-heading, .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-item ul.up-mc-stories-content li .s-item-content a.lars.sm-heading {
-    font-family: Larsseit-Bold, sans-serif;
-    font-weight: normal;
-    margin: 55px auto 35px; }
+    margin: 35px auto 35px; }
 
 .xs-heading, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading, .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading {
   font-size: 26px;
@@ -11322,7 +11312,7 @@ span.arrow {
       margin-right: 0; }
     .destinations .destinations-content-block section .main-article {
       text-align: center;
-      padding-bottom: 50px;
+      padding-bottom: 20px;
       border-bottom: 1px solid #f4efed;
       font-family: Larsseit-Light, sans-serif }
       .destinations .destinations-content-block section .main-article h2 {
