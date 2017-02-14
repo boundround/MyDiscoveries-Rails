@@ -56,7 +56,15 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def card_date
-    @card_date ||= credit_card.date.split('/').join('')
+    @card_date ||= "#{card_date_month}#{card_date_year}"
+  end
+
+  def card_date_month
+    @credit_card_month ||= credit_card.date.delete(' ').split('/').first
+  end
+
+  def card_date_year
+    @credit_card_year ||= credit_card.date.delete(' ').split('/').second.last(2)
   end
 
   def card_holder_name
