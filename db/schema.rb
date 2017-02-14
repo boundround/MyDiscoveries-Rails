@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210094625) do
+ActiveRecord::Schema.define(version: 20170213023827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,6 +243,15 @@ ActiveRecord::Schema.define(version: 20170210094625) do
     t.date     "start_date"
     t.date     "end_date"
   end
+
+  create_table "configurables", force: true do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "configurables", ["name"], name: "index_configurables_on_name", using: :btree
 
   create_table "contents", force: true do |t|
     t.text     "description"
@@ -593,9 +602,9 @@ ActiveRecord::Schema.define(version: 20170210094625) do
     t.string   "child_item_id",                                                 default: ""
     t.string   "item_id",                                                       default: ""
     t.string   "places_visited",                                                default: [],    array: true
-    t.string   "itinerary"
     t.integer  "number_of_days"
     t.integer  "number_of_nights"
+    t.string   "itinerary"
   end
 
   add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree
@@ -735,7 +744,6 @@ ActiveRecord::Schema.define(version: 20170210094625) do
     t.boolean  "request_installments", default: false
     t.json     "px_response",          default: {}
     t.integer  "customer_id"
-    t.boolean  "voucher_sent",         default: false
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree

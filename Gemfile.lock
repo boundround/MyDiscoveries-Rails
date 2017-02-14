@@ -138,6 +138,8 @@ GEM
     coffee-script-source (1.10.0)
     colorize (0.8.1)
     concurrent-ruby (1.0.2)
+    configurable_engine (0.4.8)
+      rails (> 3.1.0)
     connection_pool (2.2.0)
     countries (1.2.5)
       currencies (~> 0.4.2)
@@ -623,6 +625,7 @@ DEPENDENCIES
   carrierwave_backgrounder
   ckeditor!
   coffee-rails (~> 4.0.0)
+  configurable_engine
   countries
   country_select
   dalli
