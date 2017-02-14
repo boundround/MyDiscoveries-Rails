@@ -44,7 +44,6 @@ class OrdersController < ApplicationController
   end
 
   def payment
-
     @customer.credit_card = CreditCard.new(credit_card_params)
     credit_card_valid     = @customer.credit_card.valid?
 

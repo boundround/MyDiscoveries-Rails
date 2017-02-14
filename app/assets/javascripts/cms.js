@@ -1,12 +1,12 @@
 $(document).ready(function(){
-  const funFactContent = document.querySelector('.fun-fact-content');
-  if (funFactContent){
-    $(funFactContent).closest('.form-group').find('.char-count').text(funFactContent.value.length);
-      $('.fun-fact-content').keyup(function(){
-        var len = $(this).val().length;
-        $(this).closest(".form-group").find(".char-count").text(len);
-      });
-  }
+  // const funFactContent = document.querySelector('.fun-fact-content');
+  // if (funFactContent){
+  //   $(funFactContent).closest('.form-group').find('.char-count').text(funFactContent.value.length);
+  //     $('.fun-fact-content').keyup(function(){
+  //       var len = $(this).val().length;
+  //       $(this).closest(".form-group").find(".char-count").text(len);
+  //     });
+  // }
   if (document.getElementById('place-table')){
     var placeTable = $('#place-table').DataTable({
       // ajax: ...,

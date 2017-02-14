@@ -67,6 +67,10 @@ $(document).ready(function(){
     }
   })
 
+  $('.header__signing--sign-in').click(function(){
+    console.log("aaaa")
+  })
+
   // Gallery Carousel Size
   setTimeout(function(){
     $('.slider-for .slick-slide').each(function(){
@@ -79,6 +83,13 @@ $(document).ready(function(){
       $(this).css('background-image','url('+src_img+')');
     })
   }, 100)
+
+  $('.js-add-places-tag').on('click', function(e){
+    e.preventDefault()
+    container = $('.place_tags .controls');
+    element   = '<input class="text optional" name="place[tags][]" type="text" value="">';
+    container.append(element)
+  })
 
   $('#cropbox').Jcrop({
     onChange: update_crop,
@@ -125,7 +136,7 @@ $(document).ready(function(){
       .kic-item.short.currency table tr:nth-child(7)').addClass('col-xs-6');
   if($('.kic-item.currency .kici-heading').data('currency') != ""){
     var currency_code = $('.kic-item.currency .kici-heading').data('currency');
-    $('.kic-item.short.currency table tr:nth-child(4) option').each(function(){
+    $('.kic-item.short.currency table tr:nth-child(6) option').each(function(){
       if($(this).val() == currency_code){
         $(this).attr('selected', true).change();
       }

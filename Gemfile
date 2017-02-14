@@ -229,3 +229,4 @@ gem 'pundit'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'wkhtmltopdf-heroku', group: :production
+gem 'configurable_engine'

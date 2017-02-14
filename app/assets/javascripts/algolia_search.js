@@ -33,7 +33,7 @@ $(window).resize(function(event) {
 });
 
 $(document).ready(function() {
-    var production_environment = document.querySelector('#environment').dataset.environment;
+    var production_environment = $('#environment').data('environment');
     var APPLICATION_ID = 'KXOYK344AM';
     var SEARCH_ONLY_API_KEY = 'b2a5d8937365f59e1b2301b45fb1ae35';
     var INDEX_NAME = 'mydiscoveries_' + production_environment;
@@ -54,10 +54,11 @@ $(document).ready(function() {
     var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
     var algoliaHelperMobile = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
-    var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'subcategory', 'tags'];
+    var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'subcategory', 'tags', 'places_visited'];
     var FACETS_LABELS = {
         subcategory: 'Subcategory',
-        tags: 'Places Visited'
+        tags: 'Tags',
+        places_visited: 'Place Visited'
     };
 
     var INSTANT_SEARCH_PARAMS = {
@@ -255,6 +256,15 @@ $(document).ready(function() {
         });
     }
 
+    function include(container, value) {
+        var returnValue = false;
+        var pos = container.indexOf(value);
+        if (pos >= 0) {
+            returnValue = true;
+        }
+        return returnValue;
+    }
+
     function bucketlist(){
         var user_offers = $('#dataBucketOffer').data('bucketlist'),
             user_places = $('#dataBucketPlace').data('bucketlist'),
@@ -268,7 +278,7 @@ $(document).ready(function() {
             if(user_offers != undefined && user_offers != ""){
               $.each(offer_cards, function(){
                 var id_offer = $(this).data('place-id')
-                if(user_offers.includes(id_offer)){
+                if(include(user_offers, id_offer)){
                   $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
                 }
               })
@@ -276,7 +286,7 @@ $(document).ready(function() {
             if(user_places != undefined){
               $.each(place_cards, function(){
                 var id_place = $(this).data('place-id')
-                if(user_places.includes(id_place)){
+                if(include(user_places, id_place)){
                   $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
                 }
               })
@@ -284,7 +294,7 @@ $(document).ready(function() {
             if(user_regions != undefined){
               $.each(region_cards, function(){
                 var id_region = $(this).data('place-id')
-                if(user_regions.includes(id_region)){
+                if(include(user_regions, id_region)){
                   $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
                 }
               })
@@ -292,7 +302,7 @@ $(document).ready(function() {
             if(user_stories != undefined){
               $.each(story_cards, function(){
                 var id_story = $(this).data('place-id')
-                if(user_stories.includes(id_story)){
+                if(include(user_stories, id_story)){
                   $(this).addClass('search-page-card__to-bucket-list--liked').data('liked', 'true')
                 }
               })
@@ -368,7 +378,7 @@ $(document).ready(function() {
                     $(this)[0]["is_offer"] = false
                     $(this)[0]["is_story"] = false
                 }
-                if($(this)[0].objectID.includes("_")){
+                if(include($(this)[0].objectID, "_")){
                     $(this)[0]["ID"] = $(this)[0].objectID.split('_')[1]
                     $(this)[0]["object"] = $(this)[0].objectID.split('_')[0]
                 }else{

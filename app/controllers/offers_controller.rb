@@ -12,12 +12,12 @@ class OffersController < ApplicationController
     @last_video = @offer.videos.active.order(:priority).first
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @review  = @offer.reviews.build
-    @book_guarantee = GlobalSetting.find("book_guarantee")
+    @book_guarantee = Configurable.book_guarantee
   end
 
   def new
     @offer = Offer.new(tags: [""])
-    @book_guarantee = GlobalSetting.find("book_guarantee")
+    @book_guarantee = Configurable.book_guarantee
   end
 
   def all_offers
@@ -68,11 +68,9 @@ class OffersController < ApplicationController
   def update
     @offer.assign_attributes(offer_params)
     @offer.tags.select!(&:present?)
+    @offer.places_visited.select!(&:present?)
+    @offer.inclusion_list = params[:offer][:inclusions] if params[:offer][:inclusions].present?
     if @offer.save
-      if params[:offer][:inclusions]
-        @offer.inclusion_list = params[:offer][:inclusions].join(', ')
-        @offer.save
-      end
       redirect_to edit_offer_path(@offer), notice: "Offer Updated"
     else
       flash.now[:alert] = 'Sorry, there was an error updating this Offer'
@@ -117,7 +115,7 @@ class OffersController < ApplicationController
   end
 
   def edit
-    @book_guarantee = GlobalSetting.find("book_guarantee")
+    @book_guarantee = Configurable.book_guarantee
   end
 
   def update_hero
@@ -208,6 +206,9 @@ class OffersController < ApplicationController
       :allow_installments,
       :item_id,
       :child_item_id,
+      :number_of_days,
+      :number_of_nights,
+      :itinerary,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
@@ -222,7 +223,8 @@ class OffersController < ApplicationController
       country_ids: [],
       region_ids: [],
       subcategory_ids: [],
-      inclusion_list: []
+      inclusion_list: [],
+      places_visited: []
     )
   end
 end

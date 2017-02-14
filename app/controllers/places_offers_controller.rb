@@ -1,4 +1,5 @@
 class PlacesOffersController < ApplicationController
+  include ApplicationHelper
 
   def create
     @offer = Offer.friendly.find(params[:offer_id])
@@ -22,7 +23,8 @@ class PlacesOffersController < ApplicationController
   def index
     @offer = Offer.friendly.find(params[:offer_id])
     @places_offers = @offer.places.build
-    @places = Place.active.where(is_area: true).order(display_name: :asc)
+    all_places_offers = @offer.places
+    @places = destination_available(Place.active.where(is_area: true), all_places_offers)
   end
 
   def destroy

@@ -2,7 +2,7 @@
 /* begin - font-face css */
 @font-face {
   font-family: 'Bagnard';
-  src: url("/assets/font_mydiscoveries/bagnard.otf"); }
+  src: url("/assets/font_mydiscoveries/larsseit/bagnard.otf"), url("/assets/font_mydiscoveries/larsseit/bagnard.ttf"), url(/home/elvin-al/Downloads/bagnard.eot) format("embedded-opentype"); }
 
 @font-face {
   font-family: 'Larsseit-Light';
@@ -7598,6 +7598,8 @@ input[type="text"]::-ms-clear {
   border-bottom: 12px solid #ffa600;
   position: relative;
   margin-bottom: 50px; }
+  .footer ul{
+    list-style-type: none }
 
 .footer:after {
   position: absolute;
@@ -7657,8 +7659,7 @@ input[type="text"]::-ms-clear {
   padding-left: 33px;
   background-size: auto 70%;
   height: 25px;
-  width: 25px;
-  background-position: right !important; }
+  width: 25px;}
 
 .footer__link--fb {
   background-position: 4px 3px;
@@ -8953,11 +8954,12 @@ a.see-more__link {
   margin: 15px 0px;
   height: 380px;
   position: relative;
+  background-image: url(/assets/gradient_background.svg);
   background-image: -webkit-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
   background-image: -moz-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
   background-image: -ms-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
   background-image: -o-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
-  background-image: linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px); }
+  background-image: linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);}
 
 .inspiration-item__image {
   top: 15px;
@@ -9799,17 +9801,7 @@ a:hover, a:focus, a:active {
   .sm-heading.lars, .region.package-offers ul li .po-content-block p.lars.sm-heading, .region.things-to-do ul li a .ttd-item-content p.lars, .region.itinerary-offers ul li .io-item-content p.lars.sm-heading, .region.stories ul li .s-item-content a.lars.sm-heading, .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-item ul.up-mc-stories-content li .s-item-content a.lars.sm-heading {
     font-family: Larsseit-Bold, sans-serif;
     font-weight: normal;
-    margin: 55px auto 35px; }
-
-.sm-heading, .region.package-offers ul li .po-content-block p.sm-heading, .region.things-to-do ul li a .ttd-item-content p, .region.itinerary-offers ul li .io-item-content p.sm-heading, .region.stories ul li .s-item-content a.sm-heading, .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-item ul.up-mc-stories-content li .s-item-content a.sm-heading {
-  font-size: 28px;
-  color: #000060;
-  font-weight: bold;
-  font-family: Baghdad, serif; }
-  .sm-heading.lars, .region.package-offers ul li .po-content-block p.lars.sm-heading, .region.things-to-do ul li a .ttd-item-content p.lars, .region.itinerary-offers ul li .io-item-content p.lars.sm-heading, .region.stories ul li .s-item-content a.lars.sm-heading, .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-item ul.up-mc-stories-content li .s-item-content a.lars.sm-heading {
-    font-family: Larsseit-Bold, sans-serif;
-    font-weight: normal;
-    margin: 55px auto 35px; }
+    margin: 35px auto 35px; }
 
 .xs-heading, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading, .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading {
   font-size: 26px;
@@ -10383,17 +10375,14 @@ span.arrow {
   font-family: Larsseit-Bold, sans-serif; }
 
 .places-to-go-card__card-name {
-  position: absolute;
-  left: 50%;
-  top: 49%;
-  -webkit-transform: translate3d(-50%, -50%, 0);
+  margin-top: 38%;
+/*  -webkit-transform: translate3d(-50%, -50%, 0);
   -moz-transform: translate3d(-50%, -50%, 0);
   -ms-transform: translate3d(-50%, -50%, 0);
   -o-transform: translate3d(-50%, -50%, 0);
-  transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);*/
   color: #fff;
   font-size: 50px;
-  width: 80%;
   text-align: center;
   font-family: Bagnard, serif; }
 
@@ -11079,7 +11068,7 @@ span.arrow {
   color: transparent;
   border: none;
   outline: none;
-  z-index: 1;
+  z-index: 1000;
   transition: 1s;
   opacity: 0.5; }
 
@@ -11323,7 +11312,7 @@ span.arrow {
       margin-right: 0; }
     .destinations .destinations-content-block section .main-article {
       text-align: center;
-      padding-bottom: 50px;
+      padding-bottom: 20px;
       border-bottom: 1px solid #f4efed;
       font-family: Larsseit-Light, sans-serif }
       .destinations .destinations-content-block section .main-article h2 {
@@ -13093,5 +13082,5 @@ ul.featured-articles{
     top: 30px;
     left: 0; }
 .story .medium-insert-buttons{
-  display: none;
+  display: none !important;
 }

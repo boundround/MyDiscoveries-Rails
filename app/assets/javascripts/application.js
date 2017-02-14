@@ -25,6 +25,8 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/extras/dataTables.tableTools
+//= require matchMedia
+//= require matchMedia.addListener
 //= require cms
 //= require geocomplete
 //= require cookie
@@ -92,3 +94,6 @@
 //= require orders
 //= require operators
 //= require jquery.Jcrop.min
+
+//= require card/jquery.card
+//= require checkout

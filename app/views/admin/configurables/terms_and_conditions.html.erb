@@ -1,0 +1,16 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) ) %>
+  <div class="container-fluid">
+    <h1>Add / Edit Terms and Conditions</h1>
+    <%= simple_form_for @global do |f| %>
+      <div class="form-group">
+        <%= f.input_field :value, as: :bootsy, input_html: { class: 'form-control' } %>
+        <%= f.hidden_field :name, value: "terms_and_conditions" %>
+      </div>
+      <div class="form-group">
+        <%= submit_tag :submit, class: 'btn' %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <h3>You are not signed in or do not have the proper permissions to view this page</h3>
+<% end %>
