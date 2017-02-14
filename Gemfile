@@ -224,3 +224,4 @@ gem 'grape-swagger-rails'
 # authorization / controller security
 # handle authorized to perform some of controller action
 gem 'pundit'
+gem 'configurable_engine'
