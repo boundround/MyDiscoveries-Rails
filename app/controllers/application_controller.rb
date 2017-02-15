@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_header
 
-  if ENV["BOUNDROUND_ENV"] == "boundround_production"
+  if ENV["MYDISCOVERIES_ENV"] == "mydiscoveries_production"
     before_filter :correct_domain!
   end
 
@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
 
   private
   def correct_domain!
-    if request.host == 'app.boundround.com' || request.host == 'boundround.com'
+    if request.host == 'mydiscoveries.com.au'
       redirect_to subdomain: "www", :status => 301  # or explicitly 'http://www.mysite.com/'
     end
   end
