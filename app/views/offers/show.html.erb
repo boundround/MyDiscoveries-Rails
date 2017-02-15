@@ -27,6 +27,9 @@
                 <span class="hci-price">
                     <span>$</span>
                     <span class="hci-price-self"><%= @offer.minRateAdult %></span>
+                    <% if @offer.allow_installments? %>
+                      <br><span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5) %></span><br>
+                    <% end %>
                 </span>
                 <% if @offer.duration.present? %>
                   <span class="hci-nights">
@@ -60,9 +63,14 @@
                     <li class="po-item">
 
                         <div class="poi-content-top">
+                          <%= @offer.name %>
                             <div class="poict-price">
                                 <span>$</span>
                                 <span class="poict-price-self"><%= @offer.minRateAdult %></span>
+                                <br>
+                                <% if @offer.allow_installments? %>
+                                  or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5) %>
+                                <% end %>
                             </div>
                             <!-- <div class="poict-valued">Valued up to $3,441</div> -->
                             <div class="poict-people">per Adult</div>
@@ -72,21 +80,26 @@
                             <a href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
                         </div>
 
-                        <div class="poi-content-bottom">
+                        <!-- <div class="poi-content-bottom">
                             <p>
                                 <span class="head-highlight">Highlights:</span>
-                                <%= simple_format @offer.highlightsStr %>
+                                <%#= simple_format @offer.highlightsStr %>
                             </p>
-                        </div>
+                        </div> -->
 
                     </li>
                     <% if @offer.related_offers.present? %>
                       <% @offer.related_offers.each do |offer| %>
                         <li class="po-item">
                             <div class="poi-content-top">
+                              <%= @offer.name %>
                                 <div class="poict-price">
                                     <span>$</span>
                                     <span class="poict-price-self"><%= offer.related_offer.minRateAdult %></span>
+                                    <br>
+                                    <% if offer.related_offer.allow_installments? %>
+                                      or 5 monthly payments of <%= number_to_currency(offer.related_offer.minRateAdult / 5) %>
+                                    <% end %>
                                 </div>
                                 <!-- <div class="poict-valued">Valued up to $3,441</div> -->
                                 <div class="poict-people">per Adult</div>
@@ -96,12 +109,12 @@
                                 <a href="<%= new_offer_order_path(offer.related_offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
                             </div>
 
-                            <div class="poi-content-bottom">
+                            <!-- <div class="poi-content-bottom">
                                 <p>
                                     <span class="head-highlight">Highlights:</span>
-                                    <%= simple_format offer.related_offer.highlightsStr %>
+                                    <%#= simple_format offer.related_offer.highlightsStr %>
                                 </p>
-                            </div>
+                            </div> -->
                         </li>
                       <% end %>
                     <% end %>

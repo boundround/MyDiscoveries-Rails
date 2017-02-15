@@ -26,7 +26,7 @@ class RelatedOffersController < ApplicationController
     @offer = Offer.friendly.find(params[:offer_id])
     @related_offers = @offer.related_offers.build
     all_related_offers = @offer.related_offers
-    @relates = destination_available(Offer.where(status: "live").where("offers.name != ?", @offer.name), all_related_offers)
+    @relates = destination_available(Offer.where("offers.name != ?", @offer.name), all_related_offers)
   end
 
   def destroy
