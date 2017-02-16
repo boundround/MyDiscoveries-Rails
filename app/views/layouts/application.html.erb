@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-App="boundRound">
-<% if not @placeprograms %>
+<html lang="en">
 	<head>
 	  <title><%= full_title(yield(:title), yield(:category)) %></title>
 
@@ -83,7 +82,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
 	</head>
-
+<% if ENV["MAINTENANCE"] == "maintenance" %>
+	<div class="container">
+		<h3 class="center">
+			Sorry, we are currently under maintenance.
+		</h3>
+	</div>
+<% else %>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<div id="environment" data-environment="<%= Rails.env %>">
     <div id="place-holder"></div>
@@ -139,14 +144,6 @@
 		<%# if %>
 			<%#= render '/layouts/hubspot_tracking' %>
 		<%# end %>
-
+		<% end %>
 	</body>
-
-
-
-<% elsif @placeprograms %>
-
-	    <%= yield %>
-
-<% end %>
 </html>

@@ -92,7 +92,7 @@
                       <% @offer.related_offers.each do |offer| %>
                         <li class="po-item">
                             <div class="poi-content-top">
-                              <%= @offer.name %>
+                              <%= offer.related_offer.name %>
                                 <div class="poict-price">
                                     <span>$</span>
                                     <span class="poict-price-self"><%= offer.related_offer.minRateAdult %></span>
@@ -153,12 +153,6 @@
                     <div class="highlights">
                         <p><%= simple_format @offer.highlightsStr %></p>
                     </div>
-                    <% if @offer.customStr1.present? %>
-                      <h3>details</h3>
-                      <div class="details">
-                        <%= simple_format @offer.customStr1 %>
-                      </div>
-                    <% end %>
                     <% if @offer.itineraryStr.present? %>
                       <h3 id="ci-itinarary-map-loader">Itinerary</h3>
                       <div class="itinerary">
@@ -205,7 +199,12 @@
                         <%= simple_format @offer.customStr3 %>
                       </div>
                     <% end %>
-
+                    <% if @offer.customStr1.present? %>
+                      <h3>booking essentials</h3>
+                      <div class="details">
+                        <%= simple_format @offer.customStr1 %>
+                      </div>
+                    <% end %>
                     <h3>booking guarantee</h3>
                     <div class="guarantee">
                         <p><%= simple_format(@offer.customStr4.present?? @offer.customStr4 : @book_guarantee) %></p>
