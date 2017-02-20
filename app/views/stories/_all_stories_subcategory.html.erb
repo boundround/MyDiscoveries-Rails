@@ -2,7 +2,7 @@
 	<div class="best-of-adventure-card adventure-thumbnail wrap_link_card">
 	  <a class="link_card" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>"></a>
 	  <div class="user-dp"
-           style="background: url(<%= showing_image(story.hero_image_url)%>) no-repeat;"
+           style="background: url(<%= showing_image(story.respond_to?('hero_image_url') ? story.hero_image_url : "" ) %>) no-repeat;"
            role="img"
            aria-label="User: <%= story.user.username %>">
       </div>

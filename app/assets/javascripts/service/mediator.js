@@ -39,7 +39,6 @@
         var list = channels[channel],
             i, len, item;
 
-        console.log(channel, arg0, arg1, arg2, arg3, arg4);
 
         if (!list) {
             return this;
