@@ -39,7 +39,7 @@ class Post < ActiveRecord::Base
     end
 
     attribute :display_address do
-      "Bound Round Story"
+      "MyDiscoveries"
     end
 
     attribute :viator_link do

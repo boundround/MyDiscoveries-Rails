@@ -161,7 +161,7 @@ module ApplicationHelper
   end
 
   def full_title(page_title = '', category='')
-    base_title = "Bound Round"
+    base_title = "MyDiscoveries"
     if category.empty?
       if page_title.empty?
         "MyDiscoveries: make one day today. Where over 55s can find holidays experiences they've always wanted to do"
@@ -174,15 +174,15 @@ module ApplicationHelper
       if category.eql?("beach")
         page_title+" : Things To Do for Kids"
       elsif  category.eql?("sports")
-        page_title+" : Institute of Sport things To Do : Bound Round"
+        page_title+" : Institute of Sport things To Do : MyDiscoveries"
       elsif  ["place_to_eat", "place_to_stay"].include?(category)
-        page_title+" : For Kids : Bound Round"
+        page_title+" : For Kids : MyDiscoveries"
       elsif  category.eql?("transport")
-        page_title+" : Cableway Things To Do : Bound Round"
+        page_title+" : Cableway Things To Do : MyDiscoveries"
       elsif  category.eql?("area")
-        page_title+" : Things To Do By Kids For Kids : Bound Round"
+        page_title+" : Things To Do By Kids For Kids : MyDiscoveries"
       else
-        page_title + " Things To Do : Bound Round"
+        page_title + " Things To Do : MyDiscoveries"
       end
     end
   end
