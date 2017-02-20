@@ -79,7 +79,7 @@ class OffersController < ApplicationController
   end
 
   def paginate_on_idx
-    @offers = Offer.all.paginate(per_page: 3, page: params[:offer_page])
+    @offers = Offer.active.paginate(per_page: 3, page: params[:offer_page])
   end
 
   def clone
