@@ -86,6 +86,10 @@ Rails.application.routes.draw do
 
   mount ConfigurableEngine::Engine => '/admin/configurable', as: 'configurable'
 
+  get 'terms-conditions' => 'posts#show', :defaults => { :id => 'terms-conditions' }
+  get 'booking-guarantee' => 'posts#show', :defaults => { :id => 'booking-guarantee' }
+  get 'about-us' => 'posts#show', :defaults => { :id => 'about-us' }
+
   get 'factual_places/search' => 'factual_places#search'
 
   get 'results' => 'search_suggestions#index', as: 'searching'
