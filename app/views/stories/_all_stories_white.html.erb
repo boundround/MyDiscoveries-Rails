@@ -1,7 +1,7 @@
 <li class="wrap_link_card">
     <a class="link_card" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>"></a>
     <div class="fa-img-block">
-        <img  style="background: url(<%= showing_image(story.hero_image_url) %>) center no-repeat;" class="cover-bg" >
+        <img  style="background: url(<%#= showing_image(story.hero_image_url) %>) center no-repeat;" class="cover-bg" >
         <!-- <img src="http://lorempixel.com/400/200/city" alt=""> -->
     </div>
     <p class="xs-heading"><%= raw story.title.blank? ? story.title : story.title.truncate(50) %></p>

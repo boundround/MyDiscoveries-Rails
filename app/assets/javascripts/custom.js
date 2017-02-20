@@ -554,5 +554,13 @@ function video_play(){
       $('.small-video-component iframe').attr('src', $(this).data('src'))
       $('#videos-list.owl-carousel.carousel').prepend($(this).parent())
     })
+
+    $.each($('.title-wrapper'),function(i, val){
+      if($(val).data('content').length > 50){
+        // $(this).hover(function(){
+          $(this).popover()
+        // })
+      }
+    })
   }, 500)
 }

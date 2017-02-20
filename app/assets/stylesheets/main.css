@@ -11588,6 +11588,12 @@ span.arrow {
         font-size: 16px;
         color: #000060; }
 
+.popover-content{
+  font-family: Larsseit, sans-serif;
+  font-size: 16px;
+  color: #000060;
+}
+
 .product .hero {
   background-image: url("/assets/mydiscoveries_icon/images/hero.jpg"); }
   @media screen and (max-width: 1200px) {
