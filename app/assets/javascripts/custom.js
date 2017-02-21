@@ -222,7 +222,7 @@ $(document).ready(function(){
       $('.js-special-requirements').hide();
     }
 
-    if($('#place_special_requirements').val().length > 0){
+    if($('#place_special_requirements').length > 0){
       $('#special-requirements-box').prop('checked', true);
       $('.js-special-requirements').show();
     } else {

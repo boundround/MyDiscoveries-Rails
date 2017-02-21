@@ -539,6 +539,18 @@ class Place < ActiveRecord::Base
     list = list.map { |child| child.itemable }
   end
 
+  def country_extra_data
+    if self.country
+      iso_country = ISO3166::Country.find_country_by_name(self.country.display_name)
+      if iso_country.present?
+        country_languages = iso_country.languages
+        country_currency = iso_country.currency.code
+        languages = country_languages.collect{|l| ISO_639.find(l).english_name }
+        return country_currency, languages
+      end
+    end
+  end
+
   private
 
   def hero_photo
