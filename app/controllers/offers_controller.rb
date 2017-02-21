@@ -94,7 +94,7 @@ class OffersController < ApplicationController
   end
 
   def paginate_offers
-    @featured_offers = Offer.where(featured: true).paginate(per_page: 2, page: params[:featured_offers_page])
+    @featured_offers = Offer.featured_offers.paginate(per_page: 2, page: params[:featured_offers_page])
   end
   def paginate_media
   end
