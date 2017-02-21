@@ -18,33 +18,32 @@ class CreditCard
 
   def number_format
     card_number_length = number.delete(' ').to_i.to_s.length
-    if card_number_length >= 19 || card_number_length <= 13
-      errors.add(:number, 'is not valid')
-    end
+    errors.add(:number, 'is not valid') unless card_number_length.in?(14..18)
   end
 
   def cvv_format
-    if cvv.to_i.to_s.length < 3 || cvv.to_i.to_s.length > 4
-      errors.add(:cvv, 'is not valid')
-    end
+    cvv_length = cvv.to_i.to_s.length
+    errors.add(:cvv, 'is not valid') unless cvv_length.in?(3..4)
   end
 
   def date_format
     month, year = date.delete(' ').split('/')
-    year_valid  = year.blank? || month.blank?
+    errors.add(:date, 'is not valid') unless valid_year?(year) && valid_month?(month)
+  end
 
-    if year.present? && month.present?
-      year_valid = if year.length == 2
-        year.to_i >= Time.now.strftime('%y').to_i
-      elsif year.length == 4
-        year.to_i >= Time.now.strftime('%Y').to_i
-      else
-        false
-      end
+  def valid_year?(year)
+    return false if year.blank?
+
+    if year.length == 2
+      year.to_i >= Time.now.strftime('%y').to_i
+    elsif year.length == 4
+      year.to_i >= Time.now.strftime('%Y').to_i
+    else
+      false
     end
+  end
 
-     if !month.to_i.in?(1..12) || !year_valid
-       errors.add(:date, 'is not valid')
-     end
+  def valid_month?(month)
+    month.present? && month.to_i.in?(1..12)
   end
 end
