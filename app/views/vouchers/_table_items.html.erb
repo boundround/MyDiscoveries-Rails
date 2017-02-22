@@ -9,7 +9,7 @@
     <tr class="<%= index == 0 ? '' : 'add-page-break' %> " style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>">
       <tr>
         <td colspan="2" style="padding: 40px 40px 0px;">
-          <% if pdf_page %>
+          <% if pdf_page || email_page %>
             <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.png') %>" style="width: 230px;">
           <% else %>
             <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.svg') %>" style="width: 230px;">
@@ -20,7 +20,7 @@
         <td style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px">Booking Reference</span><br>
           <span style="font-family: 'Georgia'; font-size: 26px"">
-            <%= "##{passenger.id}" %>
+            <%= "#{offer.item_id}#{1000 + order.user_id}MD#{1000 + order.id}" %>
           </span>
         </td>
         <td style="padding: 20px 40px; text-align: right; vertical-align: top;">
@@ -48,19 +48,28 @@
           </p>
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Address</span>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= customer.address_one %>
+            <%=
+              "#{customer.address_one}, \
+              #{customer.city} #{customer.state}, \
+              #{ISO3166::Country[customer.country].name}, \
+              #{customer.postal_code}"
+            %>
           </p>
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">MyDiscoveries Customer No.</span><br>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
             <%= customer.uniq_number %>
           </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Holiday Name</span>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Purchase Date</span>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= offer.name %>
+            <%= order.purchase_date.strftime("%d/%m/%Y") %>
           </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Description</span>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Offer Description</span>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
             <%= offer.description %>
+          </p>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Valid Until</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= offer.validityEndDate.try(:strftime, "%d/%m/%Y") %>
           </p>
         </td>
       </tr>
