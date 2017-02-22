@@ -412,11 +412,6 @@ th {
   .table-bordered td {
     border: 1px solid #ddd !important; } }
 
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url("../fonts/glyphicons-halflings-regular.eot");
-  src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
-
 .glyphicon {
   position: relative;
   top: 1px;
@@ -12206,6 +12201,20 @@ td a.ui-state-default.ui-state-hover {
     border: none;
     background: #f4efed;
     padding: 0; }
+  @media screen and (max-width: 1201px){
+    .user-pages .form-block form .form-group.private-profile{
+      padding-top: 20px;}
+  }
+  @media screen and (min-width: 1205px) {
+    .control-group.file.optional.user_avatar,
+    .avatar-remove-wrap{
+      display: inline-flex;}
+  }
+  @media screen and (max-width: 425px){
+    [data-page="user-page"] .img-rounded.edit-profile{
+      margin: auto;}
+  }
+
   @media screen and (min-width: 1201px) {
     .user-pages .form-block form .form-group {
       padding-bottom: 20px; }
@@ -12894,10 +12903,6 @@ td a.ui-state-default.ui-state-hover {
       .user-pages section .up-tabs-item.up-my-settings .form-block form .form-group.user-ava label {
         margin-left: 20px;
         margin-right: 15px; }
-      .control-group.file.optional.user_avatar,
-      .avatar-remove-wrap{
-        display: inline-flex;
-      }
         @media screen and (max-width: 1200px) {
           .user-pages section .up-tabs-item.up-my-settings .form-block form .form-group.user-ava label {
             display: block;

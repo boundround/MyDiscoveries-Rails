@@ -172,17 +172,10 @@ class PlacesController < ApplicationController
     @photos_hero = @photos.first(6)
     @map_marker = @place.markers
     @review = @place.reviews.build
-
     @videos = @place.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
     @last_video = @place.videos.active.order(:priority).first
-
     @fun_facts = @place.fun_facts
-
-    if @place.country
-      country_languages = ISO3166::Country.find_country_by_name(@place.country.display_name).languages
-      @country_currency = ISO3166::Country.find_country_by_name(@place.country.display_name).currency.code
-      @languages = country_languages.collect{|l| ISO_639.find(l).english_name }
-    end
+    @country_currency, @languages = @place.country_extra_data
 
     respond_to do |format|
       format.html #{ render view, :layout => !request.xhr? }
