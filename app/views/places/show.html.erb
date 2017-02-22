@@ -145,15 +145,9 @@
               </div>
               <div class="slider-nav xs-invisible">
                   <% @photos.each do |photo| %>
-                      <div style="position: relative;">
-                      <div data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<%= photo.credit %>" class="image-nav">
+                      <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="Credit: <%= photo.credit %>">
                         <img src="<%= photo.path_url(:large) %>" alt="" width="100%">
                       </div>
-                      <!-- <div class="popover fade bottom in" role="tooltip">
-                        <div class="arrow" style="left: 50%"></div>
-                        <div class="popover-content">aaaaa</div>
-                      </div> -->
-                    </div>
                   <% end %>
               </div>
           </div>

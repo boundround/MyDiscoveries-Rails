@@ -7585,6 +7585,12 @@ input[type="text"]::-ms-clear {
   content: none;
   display: none; }
 
+.popover-content{
+  font-family: Larsseit-light, sans-serif;
+  font-size: 16px;
+  color: #000060;
+}
+
 @media only screen and (max-width: 1200px) {
   .breadcrumbs {
     padding-top: 11px; }
@@ -7597,8 +7603,7 @@ input[type="text"]::-ms-clear {
   background-color: #000060;
   border-bottom: 12px solid #ffa600;
   position: relative;
-  margin-bottom: 50px;
-  margin-top: 50px; }
+  margin-bottom: 50px; }
   .footer ul{
     list-style-type: none }
 
