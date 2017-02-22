@@ -145,7 +145,7 @@ class Offer < ActiveRecord::Base
       'places_visited'
     ]
 
-    add_index "mydiscoveries_offers_#{Rails.env}", if: :published? do
+    add_index "mydiscoveries_offers_#{Rails.env}", id: :algolia_id, if: :published? do
       attributes :minAge,
                  :maxAge,
                  :minRateAdult,

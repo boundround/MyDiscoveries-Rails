@@ -111,7 +111,7 @@ class OffersController < ApplicationController
 
   def destroy
     @offer.destroy
-    redirect_to offers_path, notice: "Offer Deleted"
+    redirect_to cms_index_offers_path, notice: "Offer Deleted"
   end
 
   def edit
