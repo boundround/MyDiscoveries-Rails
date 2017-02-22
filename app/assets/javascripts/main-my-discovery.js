@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     if ($('select').length) {
         // $('select').select2();
     }
@@ -107,4 +108,16 @@ $(document).ready(function() {
             $('.up-my-settings-link').removeClass('ui-tabs-active ui-state-active');
         }
     })
+    // setTimeout(function(){
+        // $('.gallery .slider-nav .slick-track .slick-active').hover(function(){
+    // $('.gallery .slider-nav .slick-track > div').popover({
+    //     html: true,
+    //     placement: 'bottom',
+    //     content: function(){
+
+    //     }
+    // })
+        // })
+        $('.image-nav').popover()
+    // }, 100)
 });

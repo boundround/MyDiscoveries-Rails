@@ -7597,7 +7597,8 @@ input[type="text"]::-ms-clear {
   background-color: #000060;
   border-bottom: 12px solid #ffa600;
   position: relative;
-  margin-bottom: 50px; }
+  margin-bottom: 50px;
+  margin-top: 50px; }
   .footer ul{
     list-style-type: none }
 
@@ -11068,7 +11069,7 @@ span.arrow {
   color: transparent;
   border: none;
   outline: none;
-  z-index: 1000;
+  z-index: 1;
   transition: 1s;
   opacity: 0.5; }
 

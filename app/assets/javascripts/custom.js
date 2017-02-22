@@ -78,7 +78,7 @@ $(document).ready(function(){
       $(this).css('background-image','url('+src_img+')');
     })
 
-    $('.slider-nav .slick-slide').each(function(){
+    $('.slider-nav .slick-slide .image-nav').each(function(){
       var src_img = $(this).find('img').attr('src');
       $(this).css('background-image','url('+src_img+')');
     })
