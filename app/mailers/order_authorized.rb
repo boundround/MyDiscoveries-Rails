@@ -1,6 +1,4 @@
 class OrderAuthorized < ActionMailer::Base
-  default from: "website@mydiscoveries.herokuapp.com"
-
   def notification(order_id)
     @order  = Order.find(order_id)
     @hero_photo = @order.offer.photos.where(hero: true).last

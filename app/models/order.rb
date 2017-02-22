@@ -37,7 +37,7 @@ class Order < ActiveRecord::Base
 
   def check_total_people_count
     if !offer.try(:minUnits).to_i.zero? && total_people_count < offer.try(:minUnits)
-      errors.add(:total_people_count, "should be great than #{offer.minUnits}")
+      errors.add(:total_people_count, "should be greater than #{offer.minUnits}")
     elsif !offer.try(:maxUnits).to_i.zero? && total_people_count > offer.try(:maxUnits)
       errors.add(:total_people_count, "should be less than #{offer.maxUnits}")
     end

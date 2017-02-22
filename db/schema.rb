@@ -741,7 +741,7 @@ ActiveRecord::Schema.define(version: 20170213023827) do
     t.datetime "updated_at"
     t.string   "shopify_order_id"
     t.integer  "status",               default: 0
-    t.boolean  "is_voucher_sent",      default: false
+    t.boolean  "voucher_sent",         default: false
     t.boolean  "request_installments", default: false
     t.json     "px_response",          default: {}
     t.integer  "customer_id"
