@@ -46,6 +46,8 @@ $(document).ready(function() {
                 centerPadding: 0,
                 arrows: false
             });
+
+            $('.slider-nav .slick-slide').popover()
         }
 
     // }
@@ -108,16 +110,5 @@ $(document).ready(function() {
             $('.up-my-settings-link').removeClass('ui-tabs-active ui-state-active');
         }
     })
-    // setTimeout(function(){
-        // $('.gallery .slider-nav .slick-track .slick-active').hover(function(){
-    // $('.gallery .slider-nav .slick-track > div').popover({
-    //     html: true,
-    //     placement: 'bottom',
-    //     content: function(){
 
-    //     }
-    // })
-        // })
-        $('.image-nav').popover()
-    // }, 100)
 });

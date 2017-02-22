@@ -2287,8 +2287,6 @@
 }
 
 .slider-nav .slick-slide{
-  min-height: 150px !important;
-  .image-nav{
     height: 105px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -2305,13 +2303,6 @@
     img{
       display: none !important;
     }
-  }
-  .popover{
-    display: block;
-    top: inherit!important;
-    bottom: -6px;
-    width: 100%;
-  }
 }
 
 .slider-for{
