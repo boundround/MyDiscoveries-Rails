@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
   private
   def correct_domain!
     if request.host == 'mydiscoveries.com.au'
-      redirect_to subdomain: "www", :status => 301  # or explicitly 'http://www.mysite.com/'
+      redirect_to subdomain: "www.mydiscoveries", :status => 301  # or explicitly 'http://www.mysite.com/'
     end
   end
 
