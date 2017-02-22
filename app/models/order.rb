@@ -43,6 +43,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def purchase_date
+    Date.parse px_response['Txn']['Transaction']['RxDate']
+  end
+
   # salesId for Innovations
   def uniq_number
     "WM#{1000000 + id}"
