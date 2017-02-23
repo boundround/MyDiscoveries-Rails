@@ -83,6 +83,7 @@
                         <h5>PRICE PER ADULT</h5>
                         <div>$<%= offer.minRateAdult %> AUD</div>
                       </li>
+                      <% if offer.minRateChild.present? %>
                       <li class="quantity">
                           <h5># of children</h5>
                           <div>
@@ -95,14 +96,15 @@
                             %>
                           </div>
                       </li>
-                      <li>
-                        <h5>PRICE PER CHILD</h5>
-                        <div>$<%= unit_price(offer.minRateChild, offer.minRateAdult) %> AUD</div>
-                      </li>
-                      <li class="total-price">
-                          <h5>Total price</h5>
-                          <div class="js-order-total-price"><%= "$#{order.total_price.to_i}" %></div>
-                      </li>
+                        <li>
+                          <h5>PRICE PER CHILD</h5>
+                          <div>$<%= unit_price(offer.minRateChild, offer.minRateAdult) %> AUD</div>
+                        </li>
+                      <% end %>
+                        <li class="total-price">
+                            <h5>Total price</h5>
+                            <div class="js-order-total-price"><%= "$#{order.total_price.to_i}" %></div>
+                        </li>
                       <% if offer.allow_installments? %>
                         <li class="request_installments">
                             <%= f.label :request_installments,
