@@ -4,16 +4,16 @@
       role: 'form',
       class: 'top20 js-order-form',
       data: {
-        'infants-price' => unit_price(offer.maxRateInfant, offer.maxRateAdult),
-        'children-price' => unit_price(offer.maxRateChild, offer.maxRateAdult),
-        'adults-price' => offer.maxRateAdult
+        'infants-price' => unit_price(offer.minRateInfant, offer.minRateAdult),
+        'children-price' => unit_price(offer.minRateChild, offer.minRateAdult),
+        'adults-price' => offer.minRateAdult
       }
     } do |f| %>
     <%= f.input :title, as: :hidden %>
     <div class="row">
       <div class="form-group">
         <%= f.input :number_of_infants, as: :hidden,
-            label: "Number Of Infants (price per unit: #{unit_price(offer.maxRateInfant, offer.maxRateAdult)}$)",
+            label: "Number Of Infants (price per unit: #{unit_price(offer.minRateInfant, offer.minRateAdult)}$)",
             input_html: { class: 'form-control js-order-people-count', min: 0 }
         %>
       </div>
@@ -81,7 +81,7 @@
                       </li>
                       <li>
                         <h5>PRICE PER ADULT</h5>
-                        <div>$<%= offer.maxRateAdult %> AUD</div>
+                        <div>$<%= offer.minRateAdult %> AUD</div>
                       </li>
                       <li class="quantity">
                           <h5># of children</h5>
@@ -97,7 +97,7 @@
                       </li>
                       <li>
                         <h5>PRICE PER CHILD</h5>
-                        <div>$<%= unit_price(offer.maxRateChild, offer.maxRateAdult) %> AUD</div>
+                        <div>$<%= unit_price(offer.minRateChild, offer.minRateAdult) %> AUD</div>
                       </li>
                       <li class="total-price">
                           <h5>Total price</h5>

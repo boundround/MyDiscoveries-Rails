@@ -28,9 +28,9 @@ class Order < ActiveRecord::Base
   end
 
   def update_total_price!
-    total_price = number_of_adults * offer.maxRateAdult +
-      number_of_children * (offer.maxRateChild || offer.maxRateAdult) +
-      number_of_infants * (offer.maxRateInfant || offer.maxRateAdult)
+    total_price = number_of_adults * offer.minRateAdult +
+      number_of_children * (offer.minRateChild || offer.minRateAdult) +
+      number_of_infants * (offer.minRateInfant || offer.minRateAdult)
 
     update(total_price: total_price) if self.total_price != total_price
   end
