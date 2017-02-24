@@ -90,7 +90,7 @@
 	</div>
 <% else %>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
-		<% if !user_signed_in? || (user_signed_in? && !user.admin?) %>
+		<% if !user_signed_in? || (user_signed_in? && !current_user.admin?) %>
 			<div class="no-admin-page">
 				<h2>COMING SOON!</h2>
 			</div>
