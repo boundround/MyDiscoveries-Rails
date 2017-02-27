@@ -9973,7 +9973,7 @@ a:hover, a:focus, a:active {
 
 .hero {
   text-shadow: 1px 1px grey;
-  height: 500px;
+  min-height: 500px;
   width: 100%;
   position: relative;
   background: url("/assets/mydiscoveries_icon/images/hero.jpg") center center no-repeat;
@@ -11599,7 +11599,7 @@ span.arrow {
   background-image: url("/assets/mydiscoveries_icon/images/hero.jpg"); }
   @media screen and (max-width: 1200px) {
     .product .hero {
-      height: 400px; } }
+      min-height: 400px; } }
   .product .hero .hero-content {
     padding-top: 5px; }
     @media screen and (min-width: 1201px) {
