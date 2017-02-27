@@ -163,6 +163,9 @@ class Place < ActiveRecord::Base
       'unordered(display_address)',
       'unordered(primary_category)',
       'publish_date',
+      'item_id',
+      'child_item_id',
+      'related_item_id'
     ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
