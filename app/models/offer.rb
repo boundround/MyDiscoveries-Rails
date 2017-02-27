@@ -108,7 +108,7 @@ class Offer < ActiveRecord::Base
     end
 
     attribute :related_item_id do
-      related_offers.map{|r| {id: r.related_offer_id, item_id: r.related_offer.item_id, child_item_id: r.related_offer.child_item_id} }
+      related_offers.map{|r| {id: (r.related_offer_id if r.related_offer_id), item_id: (r.related_offer.item_id if r.related_offer), child_item_id: (r.related_offer.child_item_id if r.related_offer)} }
     end
 
     attribute :is_country do
@@ -248,7 +248,7 @@ class Offer < ActiveRecord::Base
       end
 
       attribute :related_item_id do
-        related_offers.map{|r| {id: r.related_offer_id, item_id: r.related_offer.item_id, child_item_id: r.related_offer.child_item_id} }
+        related_offers.map{|r| {id: (r.related_offer_id if r.related_offer_id), item_id: (r.related_offer.item_id if r.related_offer), child_item_id: (r.related_offer.child_item_id if r.related_offer)} }
       end
 
       attribute :inclusions do
