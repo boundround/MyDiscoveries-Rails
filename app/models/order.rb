@@ -30,16 +30,16 @@ class Order < ActiveRecord::Base
   end
 
   def update_total_price!
-    total_price = number_of_adults * offer.maxRateAdult +
-      number_of_children * (offer.maxRateChild || offer.maxRateAdult) +
-      number_of_infants * (offer.maxRateInfant || offer.maxRateAdult)
+    total_price = number_of_adults * offer.minRateAdult +
+      number_of_children * (offer.minRateChild || offer.minRateAdult) +
+      number_of_infants * (offer.minRateInfant || offer.minRateAdult)
 
     update(total_price: total_price) if self.total_price != total_price
   end
 
   def check_total_people_count
     if !offer.try(:minUnits).to_i.zero? && total_people_count < offer.try(:minUnits)
-      errors.add(:total_people_count, "should be great than #{offer.minUnits}")
+      errors.add(:total_people_count, "should be greater than #{offer.minUnits}")
     elsif !offer.try(:maxUnits).to_i.zero? && total_people_count > offer.try(:maxUnits)
       errors.add(:total_people_count, "should be less than #{offer.maxUnits}")
     end
@@ -49,4 +49,7 @@ class Order < ActiveRecord::Base
     update_column(:ax_sales_id, "WM#{1000000 + id}") unless created_from_ax
   end
 
+  def purchase_date
+    Date.parse px_response['Txn']['Transaction']['RxDate']
+  end
 end

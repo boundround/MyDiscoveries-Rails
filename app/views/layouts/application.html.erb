@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-App="boundRound">
-<% if not @placeprograms %>
+<html lang="en">
 	<head>
 	  <title><%= full_title(yield(:title), yield(:category)) %></title>
 
@@ -32,6 +31,9 @@
 		<meta property="og:image"         content="<%= yield(:og_image) %>" />
 		<meta property='og:image:secure_url' content="<%= yield(:og_secure_image) %>" />
 		<meta property='og:image:type' content='image/jpeg' />
+		<% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
+			<meta name="p:domain_verify" content="686be2abe0a940c9850d1d44857ce726">
+		<% end %>
 	  <%= render "/layouts/ga" %>
 
     <style>
@@ -83,8 +85,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
 	</head>
-
+<% if ENV["MAINTENANCE"] == "maintenance" %>
+	<div class="container">
+		<h3 class="center">
+			Sorry, we are currently under maintenance.
+		</h3>
+	</div>
+<% else %>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
+		<% if !user_signed_in? || (user_signed_in? && !current_user.admin?) %>
+			<div class="no-admin-page">
+				<h2>COMING SOON!</h2>
+				<a data-toggle="modal" data-target="#singIn" href="#">sign
+				in</a>
+			</div>
+
+		<% end %>
 		<div id="environment" data-environment="<%= Rails.env %>">
     <div id="place-holder"></div>
     <% flash.each do |type, message| %>
@@ -139,14 +155,20 @@
 		<%# if %>
 			<%#= render '/layouts/hubspot_tracking' %>
 		<%# end %>
-
+		<% end %>
 	</body>
+	<script>
+			const pressed = [];
+			const secretCode = 'goaway';
 
-
-
-<% elsif @placeprograms %>
-
-	    <%= yield %>
-
-<% end %>
+			window.addEventListener('keyup', (e) => {
+			  console.log(e.key);
+			  pressed.push(e.key);
+			  pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+			  if (pressed.join('').includes(secretCode)) {
+			    document.querySelector('.no-admin-page').style = "display:none"
+			  }
+			  console.log(pressed);
+			});
+</script>
 </html>

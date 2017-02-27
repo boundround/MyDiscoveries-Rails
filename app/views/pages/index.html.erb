@@ -1,7 +1,7 @@
-<% content_for :title, "Activities, Reviews and Things To Do For Kids and Families: Bound Round"%>
+<% content_for :title, "MyDiscoveries: make one day today. Where over 55s can find holidays experiences they've always wanted to do"%>
 <% content_for :og_image, "http://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
 <% content_for :og_secure_image, "https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
-<% content_for :description, "Find things to do, reviews and activities to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards." %>
+<% content_for :description, "Find things to do, reviews and activities to do in destinations around the world, see videos and share stories." %>
 <div class="banner-wrapper dismiss-mega-menu-search">
     <div class="banner-image" style="background-image: url('<%= @page.hero_image_url rescue "https://placehold.it/1920x1080" %>')" role="img" aria-label=""></div>
     <div class="overlay"></div>
@@ -57,34 +57,21 @@
         <div id="offers-list">
           <%= render partial: "offers/all_homepage_offers", collection: @offers, as: :offer %>
         </div>
-          <% unless last_page? @offers %>
+          <%# unless last_page? @offers %>
           <div class="row hidden-xs single-pagination-container" id="offers-single-pagination-container">
             <div class="hidden single-pagination-loader" align="center">
               <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
             </div>
             <div class="col-xs-12" align="center">
-              <%= link_to "SEE MORE", paginate_on_idx_offers_path(offer_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_homepage_offers', collection_object: 'offers'), class: 'see-more__link', remote: true %>
+              <%= link_to "SEE MORE", offers_path, class: 'see-more__link' %>
+              <%#= link_to "SEE MORE", paginate_on_idx_offers_path(offer_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_homepage_offers', collection_object: 'offers'), class: 'see-more__link', remote: true %>
             </div>
           </div>
-        <% end %>
+        <%# end %>
       <% end %>
   </div>
   </div>
 </div>
-<% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
-  <div class="adsense-home">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <!-- BR first go -->
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-3125270010093298"
-           data-ad-slot="1632886169"
-           data-ad-format="auto"></ins>
-      <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </div>
-<% end %>
 
 <div class="section-white padding-big">
   <div class="container">

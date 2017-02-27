@@ -244,6 +244,15 @@ ActiveRecord::Schema.define(version: 20170215125454) do
     t.date     "end_date"
   end
 
+  create_table "configurables", force: true do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "configurables", ["name"], name: "index_configurables_on_name", using: :btree
+
   create_table "contents", force: true do |t|
     t.text     "description"
     t.integer  "place_id"
@@ -593,6 +602,10 @@ ActiveRecord::Schema.define(version: 20170215125454) do
     t.boolean  "allow_installments",                                            default: false
     t.string   "child_item_id",                                                 default: ""
     t.string   "item_id",                                                       default: ""
+    t.string   "places_visited",                                                default: [],    array: true
+    t.integer  "number_of_days"
+    t.integer  "number_of_nights"
+    t.string   "itinerary"
   end
 
   add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree
@@ -886,6 +899,7 @@ ActiveRecord::Schema.define(version: 20170215125454) do
     t.integer  "zoom_level"
     t.boolean  "is_country",                default: false
     t.boolean  "show_in_mega_menu",         default: false
+    t.string   "tags",                      default: [],    array: true
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree

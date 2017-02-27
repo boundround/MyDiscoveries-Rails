@@ -8,7 +8,7 @@ class PlacesController < ApplicationController
   before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
 
   def new
-    @place = Place.new
+    @place = Place.new(tags: [""])
     @places = Place.active.where(is_area: true).order(display_name: :asc)
     @countries = Country.all
     @regions = Region.all
@@ -58,7 +58,9 @@ class PlacesController < ApplicationController
 
   def update
     @place = Place.friendly.find(params[:id])
-    if @place.update(place_params)
+    @place.assign_attributes(place_params)
+    @place.tags.select!(&:present?)
+    if @place.save
       respond_to do |format|
         format.json { render json: @place }
         format.html do
@@ -170,17 +172,10 @@ class PlacesController < ApplicationController
     @photos_hero = @photos.first(6)
     @map_marker = @place.markers
     @review = @place.reviews.build
-
     @videos = @place.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
     @last_video = @place.videos.active.order(:priority).first
-
     @fun_facts = @place.fun_facts
-
-    if @place.country
-      country_languages = ISO3166::Country.find_country_by_name(@place.country.display_name).languages
-      @country_currency = ISO3166::Country.find_country_by_name(@place.country.display_name).currency.code
-      @languages = country_languages.collect{|l| ISO_639.find(l).english_name }
-    end
+    @country_currency, @languages = @place.country_extra_data
 
     respond_to do |format|
       format.html #{ render view, :layout => !request.xhr? }
@@ -672,6 +667,7 @@ class PlacesController < ApplicationController
         discounts_attributes: [:id, :description, :place_id, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
         user_photos_attributes: [:id, :title, :path, :caption, :hero, :story_id, :priority, :user_id, :place_id, :status, :google_place_id, :google_place_name, :instagram_id, :remote_path_url, :_destroy],
         three_d_videos_attributes: [:link, :caption, :place_id, :three_d_videoable_id, :three_d_videoable_type],
+        tags: [],
         category_ids: [],
         subcategory_ids: [],
         similar_place_ids: [])

@@ -45,3 +45,4 @@ Vagrantfile
 server.key
 server.pass.key
 server.csr
+www_mydiscoveries_com_au-bundle.pem

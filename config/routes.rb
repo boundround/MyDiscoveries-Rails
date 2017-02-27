@@ -78,11 +78,17 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq'
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount RailsAdmin::Engine => '/admin/info', as: 'rails_admin'
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
 
   mount Soulmate::Server, :at => "/sm"
+
+  mount ConfigurableEngine::Engine => '/admin/configurable', as: 'configurable'
+
+  get 'terms-conditions' => 'posts#show', :defaults => { :id => 'terms-conditions' }
+  get 'booking-guarantee' => 'posts#show', :defaults => { :id => 'booking-guarantee' }
+  get 'about-us' => 'posts#show', :defaults => { :id => 'about-us' }
 
   get 'factual_places/search' => 'factual_places#search'
 
@@ -425,6 +431,7 @@ Rails.application.routes.draw do
   end
 
   get 'pdfs/:shopify_order_id' => 'orders#download_pdf'
+  get 'orders' => 'orders#index'
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'
@@ -432,8 +439,6 @@ Rails.application.routes.draw do
   get '/regions/:id/update_hero/:type/:photo_id' => 'regions#update_hero'
   get '/countries/:id/update_hero/:type/:photo_id' => 'countries#update_hero'
   get '/offers/:id/update_hero/:type/:photo_id' => 'offers#update_hero'
-  get '/settings/book_guarantee' => 'global_settings#book_guarantee'
-  post '/settings/update_guarantee' => 'global_settings#update_guarantee'
   post 'search_requests/create'
 
   post '/places/transfer_assets' => 'places#transfer_assets'
@@ -441,4 +446,8 @@ Rails.application.routes.draw do
   get '/places/:id/refresh_blog' => 'places#refresh_blog'
 
   post '/searchables/algolia-click/:object_id' => 'searchables#algolia_click', as: 'algolia_click'
+
+  get '/admin/configurable/booking_guarantee' => 'admin/configurables#book_guarantee'
+  get '/admin/configurable/terms_and_conditions' => 'admin/configurables#terms_and_conditions'
+  post '/admin/configurable' => 'admin/configurables#create', as: :configurables
 end

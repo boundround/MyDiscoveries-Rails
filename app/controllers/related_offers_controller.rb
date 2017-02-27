@@ -1,4 +1,5 @@
 class RelatedOffersController < ApplicationController
+  include ApplicationHelper
 
   def create
     @offer = Offer.friendly.find(params[:offer_id])
@@ -24,7 +25,8 @@ class RelatedOffersController < ApplicationController
   def index
     @offer = Offer.friendly.find(params[:offer_id])
     @related_offers = @offer.related_offers.build
-    @relates = Offer.where(status: "live").order(name: :asc).where("offers.name != ?", @offer.name)
+    all_related_offers = @offer.related_offers
+    @relates = destination_available(Offer.where("offers.name != ?", @offer.name), all_related_offers)
   end
 
   def destroy

@@ -66,6 +66,7 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   config.action_controller.asset_host = ENV['FASTLY_CDN_URL']
+  config.action_mailer.asset_host = ENV['FASTLY_CDN_URL']
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -74,7 +75,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => ENV['HOME_URL'], :protocol => 'https' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    from: "Bound Round <info@boundround.com>",
+    from: "My Discoveries <info@mydiscoveries.herokuapp.com>",
     via: :smtp,
     via_options: {
       address: 'smtp.sendgrid.net',
@@ -82,7 +83,7 @@ Rails.application.configure do
       enable_starttls_auto: true,
       user_name: ENV['SENDGRID_USERNAME'],
       password: ENV['SENDGRID_PASSWORD'],
-      domain: 'www.boundround.com',
+      domain: 'mydiscoveries.herokuapp.com',
       authentication: :plain
     }
   }

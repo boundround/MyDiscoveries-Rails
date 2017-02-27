@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     if ($('select').length) {
         // $('select').select2();
     }
@@ -45,6 +46,8 @@ $(document).ready(function() {
                 centerPadding: 0,
                 arrows: false
             });
+
+            $('.slider-nav .slick-slide').popover()
         }
 
     // }
@@ -107,4 +110,5 @@ $(document).ready(function() {
             $('.up-my-settings-link').removeClass('ui-tabs-active ui-state-active');
         }
     })
+
 });

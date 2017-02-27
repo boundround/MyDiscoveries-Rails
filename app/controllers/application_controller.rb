@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_header
 
-  if ENV["BOUNDROUND_ENV"] == "boundround_production"
+  if ENV["MYDISCOVERIES_ENV"] == "mydiscoveries_production"
     before_filter :correct_domain!
   end
 
@@ -31,12 +31,7 @@ class ApplicationController < ActionController::Base
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
     return unless request.get?
-    if (request.path != "/users/sign_in" &&
-        request.path != "/users/sign_up" &&
-        request.path != "/users/password/new" &&
-        request.path != "/users/password/edit" &&
-        request.path != "/users/confirmation" &&
-        request.path != "/users/sign_out" &&
+    if (last_url_is_not_auth &&
         # request.path != "/areas/mapdata.json" &&
         !request.xhr?) # don't store ajax calls
       session[:previous_url] = request.fullpath
@@ -51,7 +46,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
-    URI(request.referer || '').path
+    if last_url_is_not_auth
+      URI(request.referer || '').path
+    else
+      root_path
+    end
   end
 
   def configure_permitted_parameters
@@ -96,9 +95,18 @@ class ApplicationController < ActionController::Base
 
   private
   def correct_domain!
-    if request.host == 'app.boundround.com' || request.host == 'boundround.com'
-      redirect_to subdomain: "www", :status => 301  # or explicitly 'http://www.mysite.com/'
+    if request.host == 'mydiscoveries.com.au'
+      redirect_to subdomain: "www.mydiscoveries", :status => 301  # or explicitly 'http://www.mysite.com/'
     end
+  end
+
+  def last_url_is_not_auth
+    request.path != "/users/sign_in" &&
+    request.path != "/users/sign_up" &&
+    request.path != "/users/password/new" &&
+    request.path != "/users/password/edit" &&
+    request.path != "/users/confirmation" &&
+    request.path != "/users/sign_out"
   end
 
   def check_user_authorization

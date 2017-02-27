@@ -1,0 +1,39 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+  <div id="table-container">
+    <h1>All Places</h1>
+
+    <table class="table table-striped" id="place-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>User Email</th>
+        <th>Offer</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>User Email</th>
+          <th>Offer</th>
+          <th></th>
+        </tr>
+      </tfoot>
+      <tbody>
+      <% @orders.each do |order| %>
+          <tr>
+            <td><%#= link_to "#{order.id}", edit_offer_order_path(order.offer ,order) %></td>
+            <td><%= order.user.name rescue "Error finding name" %></td>
+            <td><%= order.user.email rescue "Error finding email" %></td>
+            <td><%= order.offer.name rescue "Error finding offer "%></td>
+            <td><%= link_to "View Confirmation", "/offers/#{order.offer.slug rescue ''}/orders/#{order.id}/confirmation", target: "_blank" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+<h3>You are not signed in or do not have the proper permissions to view this page</h3>
+<% end %>

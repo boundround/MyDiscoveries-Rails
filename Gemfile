@@ -19,6 +19,8 @@ gem 'iconv'
 gem 'rack-rewrite'
 gem 'route_downcaser'
 
+gem 'turnout'
+
 gem 'deep_cloneable', '~> 2.2.2'
 
 # User Font Awesome for icons
@@ -226,3 +228,9 @@ gem 'grape-swagger-rails'
 gem 'pundit'
 
 gem 'net-sftp'
+
+# PDF generation
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-heroku', group: :production
+gem 'configurable_engine'

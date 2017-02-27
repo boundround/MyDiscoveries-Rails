@@ -7,58 +7,37 @@
             <div class="col-xs-6 col-sm-4 col-md-3 nav-footer">
                 <ul>
                      <li><h5 class="footer__header">&nbsp;</h5></li>
-                    <li><a href="http://corporate.boundround.com/travel-tourism-suppliers/" class="footer__link" target="blank">The Travel Industry</a></li>
-                    <li><a href="http://boundround.com/media/" class="footer__link" target="blank">Media</a></li>
-                    <li><a href="http://corporate.boundround.com/privacy/" class="footer__link" target="blank">Privacy Policy</a></li>
-                    <li><a href="https://mydiscoveries.herokuapp.com/posts/about-us" class="footer__link" target="blank">About Us</a></li>
-                    <li><a href="https://mydiscoveries.herokuapp.com/posts/booking-guarantee" class="footer__link" target="blank">Booking Guarantee</a></li>
-                    <li><a href="http://corporate.boundround.com/contact/" class="footer__link" target="blank">Contact</a></li>
+                    <li><a href="/about-us" class="footer__link">About Us</a></li>
+                    <li><a href="/booking-guarantee" class="footer__link">Booking Guarantee</a></li>
+                    <li><a href="/terms-conditions" class="footer__link">Terms And Conditions</a></li>
                 </ul>
             </div>
-            <div class="hidden-xs col-sm-5 col-md-4">
+            <div class="hidden-xs col-sm-5 col-md-4 nav-footer">
                 <ul>
-                    <li><h5 class="footer__header">Popular Searches</h5></li>
-                     <% #@footer_places = Place.find([1064, 233, 1071, 1182, 1060, 1160, 1126, 1203])%>
-                      <% #@footer_places.each do |place| %>
-                        <li><%#= link_to "Things To Do In #{place.display_name}", place_path(place), class: "footer__link" %></li>
-                     <% #end %>
-                    <li>
+                  <li><h5 class="footer__header">Popular Searches</h5></li>
+                  <li><a href="/regions/asia" class="footer__link">Travel in Asia for the over 50s</a></li>
+                  <li><a href="/places/northern-territory" class="footer__link">Northern Territory for the over 50s</a></li>
+                  <li><a href="/places/new-zealand" class="footer__link">Holidays to New Zealand</a></li>
+                  <li><a href="/subcategories/adventure-travel" class="footer__link">Adventure travel for the over 50s</a></li>
                 </ul>
             </div>
-            <div class="hidden-xs col-sm-4 col-md-3">
+            <div class="hidden-xs col-sm-4 col-md-3 nav-footer">
                 <ul>
                     <li><h5 class="footer__header">Countries</h5></li>
-                    <% #@footer_countries = Country.find([194, 185, 184, 155, 172, 84, 35]) %>
-                    <% #@footer_countries.each do |country| %>
-                      <li><%#= link_to country.display_name, country_path(country), class: "footer__link" %></li>
-                    <% #end %>
+                    <% @footer_countries = Place.find([6, 4, 18, 17, 3, 5]).sort {|x, y| x.display_name <=> y.display_name } %>
+                    <% @footer_countries.each do |country| %>
+                      <li><%= link_to country.display_name, place_path(country), class: "footer__link" %></li>
+                    <% end %>
 
                 </ul>
             </div>
             <div class="hidden-xs col-sm-5 col-md-2">
-                <ul>
-                    <li><h5 class="footer__header">Connect with us</h5></li>
-                    <li>
-                        <div class="footer__link--fb footer__link--social"></div>
-                        <a href="https://www.facebook.com/BoundRound" class="footer__link">Facebook</a>
-                    </li>
-                    <li>
-                        <div class="footer__link--social footer__link--insta"></div>
-                        <a href="http://instagram.com/boundround/" class="footer__link">Instagram</a>
-                    </li>
-                    <li>
-                        <div class="footer__link--social footer__link--twitter"></div>
-                        <a href="https://twitter.com/BoundRoundAus" class="footer__link">Twitter</a>
-                    </li>
-                    <li>
-                        <div class="footer__link--social footer__link--yt"></div>
-                        <a href="https://www.youtube.com/user/BoundRoundGuides" class="footer__link" href="#">YouTube</a>
-                    </li>
-                    <li>
-                        <div class="footer__link--social footer__link--pint"></div>
-                        <a href="https://au.pinterest.com/boundround/" class="footer__link" href="#">Pinterest</a>
-                    </li>
-                </ul>
+                <h5 class="footer__header">Connect with us</h5>
+                <a class="footer__link footer__link--social footer__link--fb" href="https://www.facebook.com/BoundRound">Facebook</a>
+                <a class="footer__link footer__link--social footer__link--insta" href="http://instagram.com/boundround/">Instagram</a>
+                <a class="footer__link footer__link--social footer__link--twitter" href="https://twitter.com/BoundRoundAus">Twitter</a>
+                <a class="footer__link footer__link--social footer__link--yt" href="https://www.youtube.com/user/BoundRoundGuides">YouTube</a>
+                <a class="footer__link footer__link--social footer__link--pint" href="https://au.pinterest.com/boundround/">Pinterest</a>
             </div>
             </div>
             <div class="row">

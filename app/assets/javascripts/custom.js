@@ -67,6 +67,10 @@ $(document).ready(function(){
     }
   })
 
+  $('.header__signing--sign-in').click(function(){
+    console.log("aaaa")
+  })
+
   // Gallery Carousel Size
   setTimeout(function(){
     $('.slider-for .slick-slide').each(function(){
@@ -79,6 +83,13 @@ $(document).ready(function(){
       $(this).css('background-image','url('+src_img+')');
     })
   }, 100)
+
+  $('.js-add-places-tag').on('click', function(e){
+    e.preventDefault()
+    container = $('.place_tags .controls');
+    element   = '<input class="text optional" name="place[tags][]" type="text" value="">';
+    container.append(element)
+  })
 
   $('#cropbox').Jcrop({
     onChange: update_crop,
@@ -125,7 +136,7 @@ $(document).ready(function(){
       .kic-item.short.currency table tr:nth-child(7)').addClass('col-xs-6');
   if($('.kic-item.currency .kici-heading').data('currency') != ""){
     var currency_code = $('.kic-item.currency .kici-heading').data('currency');
-    $('.kic-item.short.currency table tr:nth-child(4) option').each(function(){
+    $('.kic-item.short.currency table tr:nth-child(6) option').each(function(){
       if($(this).val() == currency_code){
         $(this).attr('selected', true).change();
       }
@@ -211,7 +222,7 @@ $(document).ready(function(){
       $('.js-special-requirements').hide();
     }
 
-    if($('#place_special_requirements').val().length > 0){
+    if($('#place_special_requirements').length > 0){
       $('#special-requirements-box').prop('checked', true);
       $('.js-special-requirements').show();
     } else {
@@ -241,16 +252,11 @@ $(document).ready(function(){
     $("input[type=radio][name=parentable_chose]").change(function(){
       id_chosen = $(this).attr('id')
       if (id_chosen == 'parentable_chose_country'){
-        if (controller == 'regions'){
-          document.getElementById('chosen_country').style.display = "";
-          document.getElementById('chosen_region').style.display = "none";
-        } else {
-          document.getElementById('chosen_country').style.display = "";
-          document.getElementById('chosen_region').style.display = "none";
-          document.getElementById('chosen_place').style.display = "none";
-          if (controller == 'attractions'){
-            document.getElementById('chosen_attraction').style.display = "none";
-          }
+        document.getElementById('chosen_country').style.display = "";
+        document.getElementById('chosen_region').style.display = "none";
+        document.getElementById('chosen_place').style.display = "none";
+        if (controller == 'attractions'){
+          document.getElementById('chosen_attraction').style.display = "none";
         }
 
         if ($(this).val() == 'country'){
@@ -278,7 +284,6 @@ $(document).ready(function(){
         $('.no_parent_select').prop('disabled', true);
         if (controller == 'regions'){
           document.getElementById('chosen_region').style.display = "";
-          document.getElementById('chosen_country').style.display = "none";
         }else if (controller == 'countries'){
           document.getElementById('chosen_region').style.display = "";
         }else {
@@ -358,11 +363,8 @@ $(document).ready(function(){
       else if (id_chosen == 'parentable_chose_no_parent') {
         $('.no_parent_select').prop('disabled', false);
         if (controller == 'regions'){
-          document.getElementById('chosen_country').style.display = "none";
           document.getElementById('chosen_region').style.display = "none";
-          $('#chosen_country').find('select').val('').prop('disabled', true)
           $('#chosen_region').find('select').prop('disabled', true);
-          $('.place_parent_attributes_parentable_type_country').prop('disabled', true).val('')
           $('.place_parent_attributes_parentable_type_region').prop('disabled', true).val('Region')
         }
 
@@ -474,11 +476,8 @@ $(document).ready(function(){
   if ($('#parentable_chose_no_parent').is(':checked') == true) {
     $('.no_parent_select').prop('disabled', false);
     if (controller == 'regions'){
-      document.getElementById('chosen_country').style.display = "none";
       document.getElementById('chosen_region').style.display = "none";
-      $('#chosen_country').find('select').val('')
       $('#chosen_region').find('select').prop('disabled', true);
-      $('.place_parent_attributes_parentable_type_country').prop('disabled', true).val('')
       $('.place_parent_attributes_parentable_type_region').prop('disabled', true).val('Region')
     }
 
@@ -542,6 +541,14 @@ function video_play(){
       console.log($(this).parent())
       $('.small-video-component iframe').attr('src', $(this).data('src'))
       $('#videos-list.owl-carousel.carousel').prepend($(this).parent())
+    })
+
+    $.each($('.title-wrapper'),function(i, val){
+      if($(val).data('content').length > 50){
+        // $(this).hover(function(){
+          $(this).popover()
+        // })
+      }
     })
   }, 500)
 }

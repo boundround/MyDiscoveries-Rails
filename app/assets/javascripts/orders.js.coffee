@@ -19,3 +19,14 @@ jQuery ->
       $('.js-order-monthly-price').html(monthly_label)
 
   recalculate_price()
+
+  $('.js-print-vouchers-button').on 'click', (e) ->
+    console.log('hey')
+    e.preventDefault()
+    printContents    = $('.js-print-vouchers').html()
+    originalContents = $(document.body).html()
+    $(document.body).html(printContents)
+
+    window.print()
+
+    $(document.body).html(originalContents)

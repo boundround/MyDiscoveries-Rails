@@ -29,7 +29,8 @@ class Offer < ActiveRecord::Base
                :tags,
                :startDate,
                :endDate,
-               :inclusions
+               :inclusions,
+               :places_visited
 
     attribute :display_name do
       name
@@ -90,6 +91,10 @@ class Offer < ActiveRecord::Base
       inclusions.map(&:name)
     end
 
+    attribute :places_visited do
+      places_visited
+    end
+
     attribute :tags do
       tags.blank? ? [] : tags[0..1]
     end
@@ -136,10 +141,11 @@ class Offer < ActiveRecord::Base
       'duration',
       'minUnits',
       'maxUnits',
-      'tags'
+      'tags',
+      'places_visited'
     ]
 
-    add_index "mydiscoveries_offers_#{Rails.env}", if: :published? do
+    add_index "mydiscoveries_offers_#{Rails.env}", id: :algolia_id, if: :published? do
       attributes :minAge,
                  :maxAge,
                  :minRateAdult,
@@ -160,7 +166,8 @@ class Offer < ActiveRecord::Base
                  :tags,
                  :startDate,
                  :endDate,
-                 :inclusions
+                 :inclusions,
+                 :places_visited
 
       attribute :display_name do
         name
@@ -207,6 +214,10 @@ class Offer < ActiveRecord::Base
 
       attribute :description do
         description.blank? ? "" : description
+      end
+
+      attribute :places_visited do
+        places_visited
       end
 
       attribute :tags do
@@ -268,7 +279,8 @@ class Offer < ActiveRecord::Base
         'duration',
         'minUnits',
         'maxUnits',
-        'tags'
+        'tags',
+        'places_visited'
       ]
     end
 
@@ -323,6 +335,8 @@ class Offer < ActiveRecord::Base
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
+
+  mount_uploader :itinerary, OfferItineraryUploader
 
   def publish_date
     update_at

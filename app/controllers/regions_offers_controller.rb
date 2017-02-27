@@ -1,4 +1,5 @@
 class RegionsOffersController < ApplicationController
+  include ApplicationHelper
 
   def create
     @offer = Offer.friendly.find(params[:offer_id])
@@ -22,7 +23,8 @@ class RegionsOffersController < ApplicationController
   def index
     @offer = Offer.friendly.find(params[:offer_id])
     @regions_offers = @offer.regions.build
-    @regions = Region.order(display_name: :asc)
+    all_regions_offers = @offer.regions
+    @regions = destination_available(Region.all, all_regions_offers)
   end
 
   def destroy

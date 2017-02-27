@@ -2026,9 +2026,17 @@ input.more-result{
       border: none;
       outline: none;
       font-size: 13px;
+      padding: 5px;
     }
     select{
       background-image: -webkit-linear-gradient(top,whiteSmoke,#f1f1f1);
     }
+  }
+}
+
+.edit_configurable,
+.new_configurable{
+  iframe{
+    width: 100% !important;
   }
 }

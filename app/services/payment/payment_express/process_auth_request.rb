@@ -6,15 +6,20 @@ class Payment::PaymentExpress::ProcessAuthRequest
   def call
     process_request
 
-     if transaction_valid?
-       update_order
-       Ax::Upload.call(order) if Rails.env.production?
-     end
+    if transaction_valid?
+      update_order
+      Ax::Upload.call(order) if Rails.env.production?
+      send_notification
+    end
 
     response
   end
 
   private
+
+  def send_notification
+    OrderAuthorized.delay.notification(order.id)
+  end
 
   def update_order
     order.update(status: :authorized, px_response: px_response_json)
@@ -61,7 +66,15 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def card_date
-    @card_date ||= credit_card.date.split('/').join('')
+    @card_date ||= "#{card_date_month}#{card_date_year}"
+  end
+
+  def card_date_month
+    @credit_card_month ||= credit_card.date.delete(' ').split('/').first
+  end
+
+  def card_date_year
+    @credit_card_year ||= credit_card.date.delete(' ').split('/').second.last(2)
   end
 
   def card_holder_name

@@ -3,7 +3,7 @@ class StoryPolicy < ApplicationPolicy
     if @user.blank?
       false
     else
-      (@user.admin? || @user.has_role?('contributor'))
+      @user.admin?
     end
   end
 
@@ -16,7 +16,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def edit?
-    (@user.admin? || (@record.is_a?(ActiveRecord::Base) ? (@record.user_id == @user.id) : false))
+    index?
   end
 
   def update?

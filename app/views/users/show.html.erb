@@ -6,7 +6,7 @@
           <li class="up-my-dashboard-link"><a href="#up-my-dashboard">My Dashboard</a></li>
           <li class="up-my-bookings-link"><a href="#up-my-bookings">my bookings</a></li>
           <li class="up-bucket-list-link"><a href="#up-bucket-list">bucket list</a></li>
-          <li class="up-my-content-link"><a href="#up-my-content">my content</a></li>
+          <!-- <li class="up-my-content-link"><a href="#up-my-content">my content</a></li> -->
           <li class="up-my-settings-link"><a href="#up-my-settings">my settings</a></li>
       </ul>
 
@@ -214,31 +214,31 @@
 
 
             <!-- BEGIN - My Content -->
-            <div class="up-tabs-item up-my-content" id="up-my-content">
+            <!-- <div class="up-tabs-item up-my-content" id="up-my-content"> -->
 
-                <h1 class="lars">My content</h1>
+                <!-- <h1 class="lars">My content</h1> -->
 
-                <div id="up-mc-tabs">
+                <!-- <div id="up-mc-tabs"> -->
 
-                    <ul class="up-mc-tabs-links" >
-                        <li><a href="#up-mc-stories">Stories</a></li>
+                    <!-- <ul class="up-mc-tabs-links" > -->
+                        <!-- <li><a href="#up-mc-stories">Stories</a></li> -->
                         <!-- <li><a href="#up-mc-comments">Comments</a></li>
                         <li><a href="#up-mc-reviews">Reviews</a></li> -->
-                    </ul>
+                    <!-- </ul> -->
 
 
                     <!-- BEGIN - Stories -->
-                    <div class="up-mc-tabs-item up-mc-stories" id="up-mc-stories">
+                    <!-- <div class="up-mc-tabs-item up-mc-stories" id="up-mc-stories"> -->
 
-                        <div class="up-mc-tabs-header">
-                            <p>We love traveller’s tales. Share yours to unlock holiday discounts.</p>
-                            <a href="<%= new_story_path %>" class="btn-bordered red small invert">share a story</a>
-                        </div>
-                        <ul class="up-mc-stories-content">
-                          <%= render partial: "stories/all_stories"%>
-                        </ul>
+                        <!-- <div class="up-mc-tabs-header"> -->
+                            <!-- <p>We love traveller’s tales. Share yours to unlock holiday discounts.</p> -->
+                            <!-- <a href="<%= new_story_path %>" class="btn-bordered red small invert">share a story</a> -->
+                        <!-- </div> -->
+                        <!-- <ul class="up-mc-stories-content"> -->
+                          <%#= render partial: "stories/all_stories"%>
+                        <!-- </ul> -->
 
-                    </div>
+                    <!-- </div> -->
                     <!-- END - Stories -->
 
 
@@ -261,9 +261,9 @@
                     </div> -->
                     <!-- END - Reviews -->
 
-                </div>
+                <!-- </div> -->
 
-            </div>
+            <!-- </div> -->
             <!-- END - My Content -->
 
 
@@ -319,7 +319,7 @@
                           <%= f.text_area :description, placeholder: 'e.g. Your interests, places travelled, etc.' %>
                         </div>
 
-                        <div class="form-group user-ava">
+                        <div class="form-group user-ava col-sm-12">
                           <div class="col-xs-12 col-sm-2">
                             <div class="img-rounded edit-profile" align="center">
                               <% if @user.avatar.url %>
@@ -340,7 +340,7 @@
                           </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group clear private-profile">
                             <input id="up-plan-private" type="checkbox" name="user[is_private]" checked="<%= @user.is_private==true ? true : false %>">
                             <label for="up-plan-private">Keep my profile private</label>
                         </div>

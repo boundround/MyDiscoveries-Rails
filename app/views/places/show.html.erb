@@ -97,7 +97,7 @@
                     <div class="kic-item short currency">
                         <h4 class="kici-heading " data-currency="<%= @country_currency %>">currency</h4>
                         <div class="row">
-                          <script type="text/javascript" src="//www.exchangeratewidget.com/converter.php?l=en&f=USD&t=EUR&a=4&d=F0F0F0&n=FFFFFF&o=000000&v=1"></script>
+                          <script type="text/javascript" src="//www.exchangeratewidget.com/converter.php?l=en&f=AUD&t=AUD&a=1&d=F0F0F0&n=FFFFFF&o=000000&v=1"></script>
                         </div>
                     </div>
                     <div class="kic-item short language">
@@ -136,13 +136,18 @@
               <div class="slider-mobile-wrapper">
                   <div class="slider-for">
                       <% @photos.each do |photo| %>
-                          <div><img src="<%= photo.path_url(:large) %>" alt="" width="100%"></div>
+                          <div>
+                            <img src="<%= photo.path_url(:large) %>" alt="" width="100%">
+                            <div class="photo-credit">Credit: <%= photo.credit %></div>
+                          </div>
                       <% end %>
                   </div>
               </div>
               <div class="slider-nav xs-invisible">
                   <% @photos.each do |photo| %>
-                      <div><img src="<%= photo.path_url(:large) %>" alt="" width="100%"   ></div>
+                      <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="Credit: <%= photo.credit %>">
+                        <img src="<%= photo.path_url(:large) %>" alt="" width="100%">
+                      </div>
                   <% end %>
               </div>
           </div>

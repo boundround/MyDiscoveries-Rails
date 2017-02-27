@@ -1,14 +1,18 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_user_authorization
+  before_action :check_user_authorization, except: :index
   before_action :set_order, only: [
     :edit, :update, :checkout, :payment, :confirmation,
     :add_passengers, :edit_passengers, :update_passengers
   ]
-  before_action :set_offer, except: :download_pdf
+  before_action :set_offer, except: [:download_pdf, :index]
   before_action :check_order_authorized, only: [:edit, :checkout, :update, :payment]
 
   before_action :set_customer, only: [:checkout, :payment]
+
+  def index
+    @orders = Order.all
+  end
 
   def new
     @order = current_user.orders.build(
@@ -37,10 +41,13 @@ class OrdersController < ApplicationController
 
   def confirmation
     redirect_to offers_path unless @order.authorized?
+    @operator   = @offer.operator
+    @hero_photo = @order.offer.photos.where(hero: true).last
+    @passengers = @order.passengers
+    @customer   = @order.customer
   end
 
   def payment
-
     @customer.credit_card = CreditCard.new(credit_card_params)
     credit_card_valid     = @customer.credit_card.valid?
 

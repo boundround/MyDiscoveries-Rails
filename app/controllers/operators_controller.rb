@@ -19,9 +19,11 @@ class OperatorsController < ApplicationController
 
   def new
     @operator = Operator.new(tags: [""])
+    @terms_and_conditions = Configurable.terms_and_conditions
   end
 
   def edit
+    @terms_and_conditions = Configurable.terms_and_conditions
   end
 
   def update

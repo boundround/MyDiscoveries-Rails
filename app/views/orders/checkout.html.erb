@@ -1,6 +1,6 @@
 <div class="checkout-page">
   <div class="form-block">
-    <%= simple_form_for(@customer, url: payment_offer_order_path(@offer, @order), method: :post) do |cf| %>
+    <%= simple_form_for(@customer, url: payment_offer_order_path(@offer, @order), method: :post, html: { class: 'customer_form' }) do |cf| %>
       <div class="checkout-form">
         <h2 class="title"> Customer information </h2>
         <div class="customer-fields">
@@ -62,6 +62,7 @@
         <%= cf.simple_fields_for :credit_card, @customer.credit_card do |pf| %>
           <div class="payment-fields">
             <h2 class="title"> Credit card details </h2>
+            <div class="card-container"></div>
             <div class="form-group sm">
               <div class="control-group string optional">
                 <%= pf.input :number,

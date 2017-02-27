@@ -13,7 +13,7 @@ class PagesController < ApplicationController
     @category2 = @subcategories[1]
     @category3 = @subcategories[2]
     @category4 = @subcategories[3]
-    @offers = Offer.all.paginate(per_page: 3, page: params[:offers_page])
+    @offers = Offer.active.paginate(per_page: 3, page: params[:offers_page])
     @stories = Story.active.includes(:user).order(publish_date: :desc).order(created_at: :desc)
     @stories = @stories.paginate(page: params[:stories_page], per_page: 3)
 
