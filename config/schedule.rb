@@ -9,3 +9,7 @@ end
 every :monday, :at => '12pm' do
   rake 'weekly_ucg:send_ucg_update', environment: environment
 end
+
+every 15.minutes do
+  rake 'ax:fetch', environment: environment
+end

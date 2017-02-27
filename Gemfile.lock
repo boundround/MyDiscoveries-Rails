@@ -332,6 +332,9 @@ GEM
     mustermann19 (0.4.4)
       enumerable-lazy
     nested_form (0.3.2)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (4.1.0)
     newrelic_rpm (3.16.0.318)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -661,6 +664,7 @@ DEPENDENCIES
   mini_magick
   mixpanel-ruby
   nested_form
+  net-sftp
   newrelic_rpm
   nokogiri
   omniauth-facebook

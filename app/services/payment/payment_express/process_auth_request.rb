@@ -5,7 +5,12 @@ class Payment::PaymentExpress::ProcessAuthRequest
 
   def call
     process_request
-    update_order if transaction_valid?
+
+     if transaction_valid?
+       update_order
+       Ax::Upload.call(order) if Rails.env.production?
+     end
+
     response
   end
 
@@ -122,6 +127,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
       xml.MerchantReference merchant_reference
       xml.TxnId             transaction_id
       xml.AvsAction         address_verification_system
+      xml.EnableAddBillCard '1'
     end
   end
 

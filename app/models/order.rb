@@ -15,6 +15,8 @@ class Order < ActiveRecord::Base
 
   validate :check_total_people_count
 
+  after_commit :set_ax_sales_id!, on: :create
+
   enum status: { created_in_boundround: 0, authorized: 1 }
 
   accepts_nested_attributes_for :passengers
@@ -41,6 +43,10 @@ class Order < ActiveRecord::Base
     elsif !offer.try(:maxUnits).to_i.zero? && total_people_count > offer.try(:maxUnits)
       errors.add(:total_people_count, "should be less than #{offer.maxUnits}")
     end
+  end
+
+  def set_ax_sales_id!
+    update_column(:ax_sales_id, "WM#{1000000 + id}") unless created_from_ax
   end
 
 end
