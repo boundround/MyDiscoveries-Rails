@@ -24,11 +24,11 @@
       <tbody>
       <% @orders.each do |order| %>
           <tr>
-            <td><%= link_to "#{order.id}", edit_offer_order_path(order.offer ,order) %></td>
-            <td><%= order.user.name %></td>
-            <td><%= order.user.email %></td>
-            <td><%= order.offer.name %></td>
-            <td><%= link_to "Edit Order", edit_offer_order_path(order.offer ,order), target: "_blank" %></td>
+            <td><%#= link_to "#{order.id}", edit_offer_order_path(order.offer ,order) %></td>
+            <td><%= order.user.name rescue "Error finding name" %></td>
+            <td><%= order.user.email rescue "Error finding email" %></td>
+            <td><%= order.offer.name rescue "Error finding offer "%></td>
+            <td><%= link_to "View Confirmation", "/offers/#{order.offer.slug rescue ''}/orders/#{order.id}/confirmation", target: "_blank" %></td>
           </tr>
         <% end %>
       </tbody>
