@@ -110,6 +110,7 @@ class Story < ActiveRecord::Base
     attributesToIndex [
       'display_name',
       'unordered(description)',
+      'tags',
       'unordered(content)',
       'accessible',
       'subcategories',
@@ -134,7 +135,6 @@ class Story < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
-      'tags',
       'places_visited'
     ]
   end

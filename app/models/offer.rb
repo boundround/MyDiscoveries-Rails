@@ -120,7 +120,8 @@ class Offer < ActiveRecord::Base
       'attractions',
       'countries',
       'regions',
-      'publish_date'
+      'publish_date',
+      'tags',
     ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
@@ -141,7 +142,6 @@ class Offer < ActiveRecord::Base
       'duration',
       'minUnits',
       'maxUnits',
-      'tags',
       'places_visited'
     ]
 
@@ -251,6 +251,7 @@ class Offer < ActiveRecord::Base
       attributesToIndex [
         'display_name',
         'unordered(description)',
+        'tags',
         'accessible',
         'subcategories',
         'places',
@@ -279,7 +280,6 @@ class Offer < ActiveRecord::Base
         'duration',
         'minUnits',
         'maxUnits',
-        'tags',
         'places_visited'
       ]
     end

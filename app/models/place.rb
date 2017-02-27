@@ -156,6 +156,7 @@ class Place < ActiveRecord::Base
     attributesToIndex [
       'display_name',
       'unordered(description)',
+      'tags',
       'age_range',
       'accessible',
       'subcategories',
@@ -178,7 +179,6 @@ class Place < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
-      'tags',
       'places_visited'
     ]
   end

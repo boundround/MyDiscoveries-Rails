@@ -84,6 +84,7 @@ class Region < ActiveRecord::Base
     attributesToIndex [
       'ame',
       'unordered(description)',
+      'tags',
       'age_range',
       'accessible',
       'subcategories',
@@ -105,7 +106,6 @@ class Region < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
-      'tags',
       'places_visited'
     ]
   end
