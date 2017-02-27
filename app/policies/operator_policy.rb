@@ -4,7 +4,7 @@ class OperatorPolicy < ApplicationPolicy
     if @user.blank?
       false
     else
-      @user.admin? || @user.has_role?("publisher")
+      @user.admin?
     end
   end
 

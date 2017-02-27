@@ -4,7 +4,7 @@ class SearchSuggestionPolicy < ApplicationPolicy
     if @user.blank?
       false
     else
-      (@user.admin? || @user.has_role?('contributor'))
+      @user.admin?
     end
   end
 
