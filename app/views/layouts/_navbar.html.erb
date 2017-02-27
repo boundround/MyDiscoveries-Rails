@@ -56,32 +56,32 @@
 <!-- BEGIN - navigation drop down -->
 <div class="navigation-drop-down js-navigation-drop-down hidden clear-self desktop-only">
 
-    <div class="navigation-drop-down__column">
+    <!-- <div class="navigation-drop-down__column">
 
         <h3 class="navigation-drop-down__header">Featured things to do</h3>
         <div class="navigation-drop-down__small-column-wrapper clear-self">
-          <% if @featured_nav_destinations.present? %>
-            <% @featured_nav_destinations.each do |offer| %>
+          <%# if @featured_nav_destinations.present? %>
+            <%# @featured_nav_destinations.each do |place| %>
                 <div class="navigation-drop-down__small-column">
-                    <a href="<%= offer_path(offer) %>" class="navigation-drop-down__region-header"><%= offer.name %></a>
+                    <a href="<%#= place_path(place) %>" class="navigation-drop-down__region-header"><%#= place.display_name %></a>
                 </div>
-            <% end %>
-          <% end %>
+            <%# end %>
+          <%# end %>
         </div>
-    </div>
+    </div> -->
 
     <div class="navigation-drop-down__column">
 
         <h3 class="navigation-drop-down__header">Featured places to go</h3>
-          <% if @featured_nav_places.present? %>
-            <% @featured_nav_places.each do |place| %>
-                <a href="<%= place_path(place) %>" class="featured-thing clear-self">
+          <% if @featured_nav_offers.present? %>
+            <% @featured_nav_offers.each do |offer| %>
+                <a href="<%= offer_path(offer) %>" class="featured-thing clear-self">
                     <div class="featured-thing__image-wrapper">
-                        <img src="<%= draw_small_background(place)%>" class="featured-thing__image" alt="">
+                        <img src="<%= draw_small_background(offer)%>" class="featured-thing__image" alt="">
                         <p class="featured-thing__image-paragraph">
                         </p>
                     </div>
-                    <h5 class="featured-thing__header"><%= place.display_name %></h5>
+                    <h5 class="featured-thing__header"><%= offer.name %></h5>
                 </a>
             <% end %>
           <% end %>
