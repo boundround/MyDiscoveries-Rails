@@ -93,7 +93,9 @@ class Region < ActiveRecord::Base
       'publish_date',
       'item_id',
       'child_item_id',
-      'related_item_id'
+      'related_item_id',
+      'tags',
+      'places_visited'
     ]
 
     customRanking Searchable.custom_ranking
@@ -108,7 +110,6 @@ class Region < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
-      'tags',
       'places_visited'
     ]
   end
@@ -206,10 +207,10 @@ class Region < ActiveRecord::Base
       children_collect.each do |place|
         hero_photo = place.photos.where(hero: true)
         data_objs = {
-          "#place" => place.display_name, 
-          "#lat" => place.latitude, 
-          "#lng" => place.longitude, 
-          "#description" => place.description, 
+          "#place" => place.display_name,
+          "#lat" => place.latitude,
+          "#lng" => place.longitude,
+          "#description" => place.description,
           "#country" => place.country.present?? place.country.display_name : "",
           "#path" => place_path(place),
           "#photo" => hero_photo.present?? hero_photo.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg",
@@ -233,10 +234,10 @@ class Region < ActiveRecord::Base
     else
       hero_photo = self.photos.where(hero: true)
       data_objs = {
-        "#place" => self.display_name, 
-        "#lat" => self.latitude.to_f, 
-        "#lng" => self.longitude.to_f, 
-        "#description" => self.description, 
+        "#place" => self.display_name,
+        "#lat" => self.latitude.to_f,
+        "#lng" => self.longitude.to_f,
+        "#description" => self.description,
         "#country" => "",
         "#path" => region_path(self),
         "#photo" => hero_photo.present?? hero_photo.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg",

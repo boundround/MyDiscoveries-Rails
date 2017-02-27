@@ -165,7 +165,9 @@ class Place < ActiveRecord::Base
       'publish_date',
       'item_id',
       'child_item_id',
-      'related_item_id'
+      'related_item_id',
+      'tags',
+      'places_visited'
     ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
@@ -181,7 +183,6 @@ class Place < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
-      'tags',
       'places_visited'
     ]
   end

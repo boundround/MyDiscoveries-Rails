@@ -119,7 +119,9 @@ class Story < ActiveRecord::Base
       'publish_date',
       'item_id',
       'child_item_id',
-      'related_item_id'
+      'related_item_id',
+      'tags',
+      'places_visited'
     ]
 
     customRanking Searchable.custom_ranking
@@ -137,7 +139,6 @@ class Story < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
-      'tags',
       'places_visited'
     ]
   end

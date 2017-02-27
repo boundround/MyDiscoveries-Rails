@@ -135,7 +135,9 @@ class Offer < ActiveRecord::Base
       'publish_date',
       'item_id',
       'child_item_id',
-      'related_item_id'
+      'related_item_id',
+      'tags',
+      'places_visited'
     ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
@@ -156,7 +158,6 @@ class Offer < ActiveRecord::Base
       'duration',
       'minUnits',
       'maxUnits',
-      'tags',
       'places_visited'
     ]
 

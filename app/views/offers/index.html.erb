@@ -3,7 +3,7 @@
 <!-- BEGIN - breadcrumbs -->
 <div class="breadcrumbs width-limiter">
     <a href="#" class="breadcrumbs__link">home</a>
-    <a href="#" class="breadcrumbs__link">Package offers</a>
+    <a href="#" class="breadcrumbs__link">Holidays</a>
 </div>
 <!-- END - breadcrumbs -->
 
@@ -24,7 +24,7 @@
               <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
             </div>
             <div class="col-xs-12" align="center">
-              <%= link_to "more featured offers", paginate_offers_offers_path(featured_offers_page: @featured_offers.next_page, resources: 'featured_offers', pagination_template: 'offers/all_index_offers', collection_object: 'offers'), class: 'more-link', remote: true %>
+              <%= link_to "more featured holidays", paginate_offers_offers_path(featured_offers_page: @featured_offers.next_page, resources: 'featured_offers', pagination_template: 'offers/all_index_offers', collection_object: 'offers'), class: 'more-link', remote: true %>
             </div>
           </div>
         <% end %>
