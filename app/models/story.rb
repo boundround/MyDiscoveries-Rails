@@ -117,6 +117,9 @@ class Story < ActiveRecord::Base
       'unordered(display_address)',
       'unordered(primary_category)',
       'publish_date',
+      'item_id',
+      'child_item_id',
+      'related_item_id'
     ]
 
     customRanking Searchable.custom_ranking
