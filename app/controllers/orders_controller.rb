@@ -1,14 +1,18 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_user_authorization
+  before_action :check_user_authorization, except: :index
   before_action :set_order, only: [
     :edit, :update, :checkout, :payment, :confirmation,
     :add_passengers, :edit_passengers, :update_passengers
   ]
-  before_action :set_offer, except: :download_pdf
+  before_action :set_offer, except: [:download_pdf, :index]
   before_action :check_order_authorized, only: [:edit, :checkout, :update, :payment]
 
   before_action :set_customer, only: [:checkout, :payment]
+
+  def index
+    @orders = Order.all
+  end
 
   def new
     @order = current_user.orders.build(
