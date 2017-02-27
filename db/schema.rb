@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213023827) do
+ActiveRecord::Schema.define(version: 20170215125454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -371,6 +371,7 @@ ActiveRecord::Schema.define(version: 20170213023827) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "country"
+    t.boolean  "created_from_ax", default: false
   end
 
   add_index "customers", ["user_id"], name: "index_customers_on_user_id", using: :btree
@@ -741,10 +742,12 @@ ActiveRecord::Schema.define(version: 20170213023827) do
     t.datetime "updated_at"
     t.string   "shopify_order_id"
     t.integer  "status",               default: 0
-    t.boolean  "voucher_sent",         default: false
     t.boolean  "request_installments", default: false
     t.json     "px_response",          default: {}
     t.integer  "customer_id"
+    t.boolean  "voucher_sent",         default: false
+    t.string   "ax_sales_id"
+    t.boolean  "created_from_ax",      default: false
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
@@ -1380,6 +1383,8 @@ ActiveRecord::Schema.define(version: 20170213023827) do
     t.string   "gender"
     t.string   "mobile"
     t.string   "home_phone"
+    t.boolean  "created_from_ax",        default: true
+    t.string   "ax_cust_account"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
