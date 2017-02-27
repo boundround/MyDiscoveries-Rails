@@ -1203,10 +1203,10 @@ ActiveRecord::Schema.define(version: 20170215125454) do
     t.text     "seo_friendly_url"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",      default: 0
-    t.string   "hero_image"
     t.text     "focus_keyword"
     t.text     "seo_title"
     t.text     "meta_description"
+    t.string   "hero_image"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
@@ -1346,12 +1346,12 @@ ActiveRecord::Schema.define(version: 20170215125454) do
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "",   null: false
-    t.string   "encrypted_password",     default: "",   null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,    null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -1383,7 +1383,7 @@ ActiveRecord::Schema.define(version: 20170215125454) do
     t.string   "gender"
     t.string   "mobile"
     t.string   "home_phone"
-    t.boolean  "created_from_ax",        default: true
+    t.boolean  "created_from_ax",        default: false
     t.string   "ax_cust_account"
   end
 
