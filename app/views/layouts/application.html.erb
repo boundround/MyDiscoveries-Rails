@@ -31,6 +31,9 @@
 		<meta property="og:image"         content="<%= yield(:og_image) %>" />
 		<meta property='og:image:secure_url' content="<%= yield(:og_secure_image) %>" />
 		<meta property='og:image:type' content='image/jpeg' />
+		<% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
+			<meta name="p:domain_verify" content="686be2abe0a940c9850d1d44857ce726">
+		<% end %>
 	  <%= render "/layouts/ga" %>
 
     <style>
