@@ -90,6 +90,14 @@
 	</div>
 <% else %>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
+		<% if !user_signed_in? || (user_signed_in? && !current_user.admin?) %>
+			<div class="no-admin-page">
+				<h2>COMING SOON!</h2>
+				<a data-toggle="modal" data-target="#singIn" href="#">sign
+				in</a>
+			</div>
+
+		<% end %>
 		<div id="environment" data-environment="<%= Rails.env %>">
     <div id="place-holder"></div>
     <% flash.each do |type, message| %>
@@ -146,4 +154,18 @@
 		<%# end %>
 		<% end %>
 	</body>
+	<script>
+			const pressed = [];
+			const secretCode = 'goaway';
+
+			window.addEventListener('keyup', (e) => {
+			  console.log(e.key);
+			  pressed.push(e.key);
+			  pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+			  if (pressed.join('').includes(secretCode)) {
+			    document.querySelector('.no-admin-page').style = "display:none"
+			  }
+			  console.log(pressed);
+			});
+</script>
 </html>

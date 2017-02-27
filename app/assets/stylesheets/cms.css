@@ -2,13 +2,13 @@
   position: absolute;
   height: 5000px;
   width: 100%;
-  z-index: 9999;
+  z-index: 100;
   background-color: #aaa;
+  text-align: center;
 }
 
 .no-admin-page h2 {
   padding-top: 300px;
-  text-align: center;
 }
 .table-container {
   background-color: #eeeeee;
