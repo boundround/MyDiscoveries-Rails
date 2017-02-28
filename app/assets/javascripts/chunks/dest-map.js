@@ -1,5 +1,10 @@
-google.maps.event.addDomListener(window, 'load', init);
-var map;
+init();
+$('#dest-map').on('hidden.bs.collapse', function () {
+  init();
+})
+$('#dest-map').on('shown.bs.collapse', function () {
+  init(); 
+})
 
 function init() {
     var mapElement = document.getElementById('dest-map');

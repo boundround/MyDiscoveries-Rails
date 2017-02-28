@@ -148,9 +148,6 @@
                       <%= simple_format @offer.description %>
                   </div>
                 <% end %>
-                <div class="ci-map-block">
-                    <div id='dest-map' data-map="<%= create_marker @offer %>"></div>
-                </div>
                 <div id="product-accordion" class="accordion-block">
 
                     <h3>Highlights</h3>
@@ -197,6 +194,10 @@
                             <a class="pagination__link-right" href="#"></a>
                         </div>
                     </div> -->
+                    <h3>map</h3>
+                    <div class="ci-map-block">
+                      <div id='dest-map' data-map="<%= create_marker @offer %>"></div>
+                    </div>
                     <% if @offer.customStr3.present? %>
                       <h3>fine print</h3>
                       <div class="fint-print">
