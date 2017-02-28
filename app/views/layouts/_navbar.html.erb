@@ -1,6 +1,7 @@
 <div class="header desktop-only">
     <div class="width-limiter">
         <a href="<%= root_path %>" class="header__logo"></a>
+        <i class="fa-phone fa-2x"></i>
         <nav class="header-navigation">
             <a class="header-navigation__link header-navigation__link--home" href="<%= root_path %>">&nbsp;</a>
             <a class="header-navigation__link js-change-navigation-drop-down" href="#">destinations</a>
@@ -171,16 +172,7 @@
             <a class="mobile-header-drop-down__link" href="#">destinations</a>
 
             <div class="navigation-drop-down__small-column-wrapper clear-self">
-              <% if @featured_nav_destinations.present? %>
-                <% @featured_nav_destinations.each do |country| %>
-                    <div class="navigation-drop-down__small-column">
-                        <a href="<%= country_path(country) %>" class="navigation-drop-down__region-header"><%= country.display_name %></a>
-                        <% country.places.last(4).each do |place| %>
-                            <a href="<%= place_path(place) %>" class="navigation-drop-down__region-list-item"><%= place.display_name %></a>
-                        <% end %>
-                    </div>
-                <% end %>
-              <% end %>
+              
             </div>
         </div>
     </div>
