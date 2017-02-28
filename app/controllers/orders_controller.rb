@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   before_action :set_customer, only: [:checkout, :payment]
 
   def index
-    @orders = Order.all
+    @orders = Order.authorized
   end
 
   def new
