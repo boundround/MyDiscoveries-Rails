@@ -6,7 +6,7 @@
     <thead>
     <tr>
       <th>Offer</th>
-      <th>Description</th>
+      <th>SKU</th>
       <th>Status</th>
       <th>Operator</th>
       <th>Start Date</th>
@@ -19,7 +19,7 @@
     <tfoot>
       <tr>
         <th>Offer</th>
-        <th>Description</th>
+        <th>SKU</th>
         <th>Operator</th>
         <th>Created At</th>
         <th></th>
@@ -30,7 +30,7 @@
     <% @offers.each do |offer| %>
         <tr>
           <td><%= link_to "#{offer.name} || #{offer.id}", edit_offer_path(offer) %></td>
-          <td><%= offer.description %></td>
+          <td><%= offer.item_id + " / " + offer.child_item_id %></td>
           <td><%= offer.status %></td>
           <td><%= offer.operator.name %></td>
           <td><%= offer.startDate.strftime("%m-%d-%Y") %></td>
