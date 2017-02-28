@@ -54,20 +54,25 @@
   <div class="container">
     <div class="row">
       <% if @offers.present? %>
-        <div id="offers-list">
-          <%= render partial: "offers/all_homepage_offers", collection: @offers, as: :offer %>
-        </div>
-          <%# unless last_page? @offers %>
-          <div class="row hidden-xs single-pagination-container" id="offers-single-pagination-container">
-            <div class="hidden single-pagination-loader" align="center">
-              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-            </div>
-            <div class="col-xs-12" align="center">
-              <%= link_to "SEE MORE", offers_path, class: 'see-more__link' %>
-              <%#= link_to "SEE MORE", paginate_on_idx_offers_path(offer_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_homepage_offers', collection_object: 'offers'), class: 'see-more__link', remote: true %>
-            </div>
+        <div class="package-offers">
+          <div class="package-offers-block width-limiter">
+              <ul>
+              <div id="featured_offers-list">
+                <%= render partial: "offers/all_homepage_offers", collection: @offers, as: :offer %>
+              </div>
+                <% unless last_page? @offers %>
+                <div class="row hidden-xs single-pagination-container" id="featured_offers-single-pagination-container">
+                  <div class="hidden single-pagination-loader" align="center">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                  </div>
+                  <div class="col-xs-12" align="center">
+                    <%= link_to "search for more holidays", offers_path, class: 'see-more__link' %>
+                  </div>
+                </div>
+              <% end %>
+              </ul>
           </div>
-        <%# end %>
+        </div>
       <% end %>
   </div>
   </div>

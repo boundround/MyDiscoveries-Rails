@@ -9,6 +9,12 @@ body.homepage {
   font-weight: bold;
 }
 
+.homepage-cover.cover-bg {
+  background-size: cover !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .red-text {
   color: #ff0000;
 }
