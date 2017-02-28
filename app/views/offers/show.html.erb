@@ -77,7 +77,9 @@
                             <div class="poict-nights"><%= create_duration(@offer) %></div>
                             <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
-                            <a href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                            <div class="book-now">
+                              <a href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                            </div>
                         </div>
 
                         <!-- <div class="poi-content-bottom">
@@ -106,7 +108,9 @@
                                 <div class="poict-nights"><%= create_duration(offer.related_offer) %></div>
                                 <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
-                                <a href="<%= new_offer_order_path(offer.related_offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                                <div class="book-now">
+                                  <a href="<%= new_offer_order_path(offer.related_offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                                </div>
                             </div>
 
                             <!-- <div class="poi-content-bottom">
@@ -144,9 +148,6 @@
                       <%= simple_format @offer.description %>
                   </div>
                 <% end %>
-                <div class="ci-map-block">
-                    <div id='dest-map' data-map="<%= create_marker @offer %>"></div>
-                </div>
                 <div id="product-accordion" class="accordion-block">
 
                     <h3>Highlights</h3>
@@ -193,6 +194,10 @@
                             <a class="pagination__link-right" href="#"></a>
                         </div>
                     </div> -->
+                    <h3>map</h3>
+                    <div class="ci-map-block">
+                      <div id='dest-map' data-map="<%= create_marker @offer %>"></div>
+                    </div>
                     <% if @offer.customStr3.present? %>
                       <h3>fine print</h3>
                       <div class="fint-print">

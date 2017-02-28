@@ -7821,7 +7821,11 @@ input[type="text"]::-ms-clear {
   width: 100%;
   height: 39px;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.4); }
+  background-color: rgba(0, 0, 0, 0.4); 
+  font-family: Larsseit-Light, sans-serif;
+  color: #fff;
+  padding: 10px;
+  font-size: 16px;}
 
 .featured-thing__image-currency {
   color: #ffffff;
@@ -10013,8 +10017,8 @@ a:hover, a:focus, a:active {
       .product .hero .hero-content .hc-info .hci-price{
         font-size: 32px;}
     }
-    .product .po-item .poict-price{
-      margin-bottom: 30px;}
+   /* .product .po-item .poict-price{
+      margin-bottom: 30px;}*/
 
 .small-video-component .player-vimeo{
   width: 100%;
@@ -11729,14 +11733,21 @@ span.arrow {
         .product .product-content aside .package-options ul li.po-item{
           list-style: none;}
         .product .product-content aside .package-options ul li .poi-content-top {
-          background-color: #bbe0e6;
+          /*background-color: #bbe0e6;*/
           color: #000060;
+          border: 1px solid #000060;
           font-size: 16px;
           font-family: Larsseit-Medium, sans-serif;
           padding: 20px 30px 30px 30px;
-          height: 223px; }
+          /*height: 223px;*/
+        }
+        .poi-content-top .book-now{
+          text-align: center;
+          margin-top: 30px;
+        }
           .product .product-content aside .package-options ul li .poi-content-top a{
-            width: inherit !important;}
+            /*width: inherit !important;*/
+            width: 90%;}
           .product .product-content aside .package-options ul li .poi-content-top .poict-price span {
             font-size: 36px;
             font-family: Baghdad, serif;
@@ -11779,10 +11790,10 @@ span.arrow {
             padding-left: 15px;}
           .product .product-content aside .package-options ul li .poi-content-bottom ul li{
             margin-bottom: 0}
-        .product .product-content aside .package-options ul li a.btn-bordered {
+        /*.product .product-content aside .package-options ul li a.btn-bordered {
           position: absolute;
           top: 60px;
-          right: 20px; }
+          right: 20px; }*/
   @media screen and (min-width: 1201px) {
     .product .product-content section {
       padding-left: 30px;
