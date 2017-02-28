@@ -215,40 +215,37 @@
                 </div>
 
                 <h3 class="sm-heading lars">Videos & Photos</h3>
-                <% unless @videos.blank? %>
-                  <div class="destinations">
-                    <div class="videos-block place-video">
-                      <% if !@last_video.youtube_id.blank? %>
-                        <div class="video-embed-wrapper">
-                          <div class="small-video-component">
-                            <iframe class="player-vimeo" src="<%= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                          </div>
-                        </div>
-                      <% end %>
-                    <%= render partial: "shared/videos_list", locals:{container: "" } %>
-                  </div>
-                </div>
-                <% end %>
-                <% unless @photos.blank? %>
-                <div class="gallery">
+                <% unless @galeries.blank? %>
+                  <div class="gallery">
                     <div class="slider-mobile-wrapper">
                         <div class="slider-for">
-                            <% @photos.each do |photo| %>
-                                <div>
-                                  <img src="<%= photo.path_url(:large) %>" alt="" width="100%">
-                                  <div class="photo-credit">Credit: <%= photo.credit %></div>
-                                </div>
+                          <% @galeries.each do |galery| %>
+                            <% if galery.class.name == "Video" %>
+                              <iframe class="player-vimeo" src="<%= galery.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            <% else %>
+                              <div>
+                                <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
+                                <div class="photo-credit">Credit: <%= galery.credit %></div>
+                              </div>
                             <% end %>
+                          <% end %>
                         </div>
                     </div>
                     <div class="slider-nav xs-invisible">
-                        <% @photos.each do |photo| %>
-                            <div>
-                              <img src="<%= photo.path_url(:large) %>" alt="" width="100%">
+                        <% @galeries.each do |galery| %>
+                          <% if galery.class.name == "Video" %>
+                            <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="<%= galery.title %>">
+                                <img src="<%= galery.vimeo_thumbnail %>" alt="" width="100%">
+                                <div class="overlay-nav-video"></div>
                             </div>
+                          <% else %>
+                            <div>
+                                <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
+                            </div>
+                          <% end %>
                         <% end %>
                     </div>
-                </div>
+                  </div>
                 <% end %>
 
                 </div>

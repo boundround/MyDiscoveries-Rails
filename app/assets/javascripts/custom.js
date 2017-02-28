@@ -71,6 +71,14 @@ $(document).ready(function(){
     console.log("aaaa")
   })
 
+  function addClassVideo(){
+    if($('iframe.slick-active').length > 0){
+      $('.slider-for').addClass('video-frame')
+    }else{
+      $('.slider-for').removeClass('video-frame')
+    }
+  }
+
   // Gallery Carousel Size
   setTimeout(function(){
     $('.slider-for .slick-slide').each(function(){
@@ -82,7 +90,18 @@ $(document).ready(function(){
       var src_img = $(this).find('img').attr('src');
       $(this).css('background-image','url('+src_img+')');
     })
+ 
+    addClassVideo()
+
+    $('.slider-for button').click(function(){
+      addClassVideo()
+    })
+
+    $('.slick-slide.slick-active').click(function(){
+      addClassVideo()
+    })
   }, 100)
+
 
   $('.js-add-places-tag').on('click', function(e){
     e.preventDefault()

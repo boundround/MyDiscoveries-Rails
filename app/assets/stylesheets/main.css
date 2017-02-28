@@ -10020,6 +10020,15 @@ a:hover, a:focus, a:active {
   width: 100%;
 }
 
+.overlay-nav-video{
+  background: url(/assets/all_videos_icon.png) rgba(0,0,0,0.3);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
 .destinations .small-videos-component-wrapper{
   padding-bottom: 0;
 }
@@ -11079,6 +11088,18 @@ span.arrow {
   z-index: 1;
   transition: 1s;
   opacity: 0.5; }
+
+.slick-slider.video-frame .slick-next, .slick-slider.video-frame .slick-prev{
+  height: 90%;
+}
+
+.slick-slider.video-frame .slick-next{
+  background-position: 50% 56%;
+}
+
+.slick-slider.video-frame .slick-prev{
+  background-position: 50% 44%;
+}
 
 .slick-slider .slick-next:hover, .slick-slider .slick-prev:hover{
   background-color: rgba(0,0,0,0.5);

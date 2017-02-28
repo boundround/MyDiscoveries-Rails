@@ -8,8 +8,8 @@ class OffersController < ApplicationController
   def show
     #@map_marker = Attraction.first
     @photos = @offer.photos.active
-    @videos = @offer.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
-    @last_video = @offer.videos.active.order(:priority).first
+    @videos = @offer.videos.active.order(:priority)
+    @galeries = @videos + @photos
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @review  = @offer.reviews.build
     @book_guarantee = Configurable.book_guarantee
@@ -96,17 +96,8 @@ class OffersController < ApplicationController
   def paginate_offers
     @featured_offers = Offer.featured_offers.paginate(per_page: 2, page: params[:featured_offers_page])
   end
+  
   def paginate_media
-  end
-
-  def paginate_photos
-    @offer = Offer.find_by_slug(params[:id])
-    @photos = @offer.photos.paginate(:page => params[:active_photos], per_page: 3)
-  end
-
-  def paginate_videos
-    @offer = Offer.find_by_slug(params[:id])
-    @videos = @offer.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
   end
 
   def destroy

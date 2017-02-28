@@ -168,12 +168,12 @@ class PlacesController < ApplicationController
     @deals = @place.deals.active
     @offers = @place.offers.paginate(page: params[:offers_page], per_page: 3)
     @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
-    @photos = @place.active_user_photos
-    @photos_hero = @photos.first(6)
     @map_marker = @place.markers
     @review = @place.reviews.build
-    @videos = @place.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
-    @last_video = @place.videos.active.order(:priority).first
+    @videos = @place.videos.active.order(:priority)
+    @photos = @place.active_user_photos
+    @galeries = @videos + @photos
+    @photos_hero = @photos.first(6)
     @fun_facts = @place.fun_facts
     @country_currency, @languages = @place.country_extra_data
 
@@ -188,19 +188,9 @@ class PlacesController < ApplicationController
     @offers = @place.offers.paginate(page: params[:offers_page], per_page: 3)
   end
 
-  def paginate_photos
-    @place = Place.find_by_slug(params[:id])
-    @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 3)
-  end
-
   def paginate_deals
     @place = Place.find_by_slug(params[:id])
     @deals = @place.deals.active.paginate(:page => params[:active_photos], per_page: 4)
-  end
-
-  def paginate_videos
-    @place = Place.find_by_slug(params[:id])
-    @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page: 3)
   end
 
   def paginate_place_to_visit
