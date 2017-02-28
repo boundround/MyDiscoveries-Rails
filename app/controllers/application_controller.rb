@@ -46,11 +46,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
-    if last_url_is_not_auth
+    # if last_url_is_not_auth
       URI(request.referer || '').path
-    else
-      root_path
-    end
+    # else
+      # root_path
+    # end
   end
 
   def configure_permitted_parameters
