@@ -158,6 +158,8 @@ class Ax::Upload
           xml.AddressOne  customer.address_one
           if customer.address_two.present?
             xml.AddressTwo customer.address_two
+          else
+            xml.AddressTwo ''
           end
           if customer.address_three.present?
             xml.AddressThree customer.address_three
@@ -173,7 +175,7 @@ class Ax::Upload
               xml.ItemId       offer.item_id
               xml.ItemDesc     offer.name
               xml.Quantity     '1'
-              xml.UnitPrice    offer.maxRateAdult
+              xml.UnitPrice    offer.minRateAdult
               xml.OSSPaymSched oss_payment_sched
             end
           end
@@ -182,7 +184,7 @@ class Ax::Upload
               xml.ItemId       offer.child_item_id
               xml.ItemDesc     offer.name
               xml.Quantity     '1'
-              xml.UnitPrice    (offer.maxRateChild.presence || offer.maxRateAdult)
+              xml.UnitPrice    (offer.minRateChild.presence || offer.minRateAdult)
               xml.OSSPaymSched oss_payment_sched
             end
           end
