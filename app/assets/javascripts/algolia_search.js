@@ -54,10 +54,10 @@ $(document).ready(function() {
     var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
     var algoliaHelperMobile = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
-    var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'subcategory', 'places_visited'];
+    var FACETS_ORDER_OF_DISPLAY = ['places_visited'];
     var FACETS_LABELS = {
         subcategory: 'Subcategory',
-        places_visited: 'Place Visited'
+        places_visited: 'Places Visited'
     };
 
     var INSTANT_SEARCH_PARAMS = {

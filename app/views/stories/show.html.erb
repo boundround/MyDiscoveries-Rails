@@ -7,13 +7,6 @@
 <div class="story">
     <div class="story-content-block width-limiter">
         <aside>
-            <!-- <div class="share-story">
-                <img src="../images/up-dash-img1.jpg" alt="">
-                <div class="ss-content">
-                    <p>We love traveller’s tales. Share yours to unlock holiday discounts.</p>
-                    <a href="<%= new_story_path %>" class="btn-bordered white invert">share a story</a>
-                </div>
-            </div> -->
             <h5 class="xs-heading lars blue">Latest stories</h5>
             <ul class="featured-articles">
                 <%= render partial: "stories/all_stories_white", collection: @latest_stories, as: :story %>
@@ -50,7 +43,7 @@
                     <img class="cover-bg" style="background: url('<%= @story.user.avatar_url.present? ? @story.user.avatar_url : asset_path('favicons/mydiscoveries/favicon-32x32.png') %>') center no-repeat;">
                     <span class="ab-author">
                       <% if @story.user.is_private? %>
-                        <%= @story.user.username rescue "" %>
+                        <%= @story.user.name rescue "" %>
                       <% else %>
                         <%= link_to @story.user.name, public_profile_user_path(@story.user) %>
                       <% end %>

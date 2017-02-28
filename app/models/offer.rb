@@ -99,6 +99,18 @@ class Offer < ActiveRecord::Base
       tags.blank? ? [] : tags[0..1]
     end
 
+    attribute :item_id do
+      item_id
+    end
+
+    attribute :child_item_id do
+      child_item_id
+    end
+
+    attribute :related_item_id do
+      related_offers.map{|r| {id: (r.related_offer_id if r.related_offer_id), item_id: (r.related_offer.item_id if r.related_offer), child_item_id: (r.related_offer.child_item_id if r.related_offer)} }
+    end
+
     attribute :is_country do
       false
     end
@@ -122,6 +134,11 @@ class Offer < ActiveRecord::Base
       'regions',
       'publish_date',
       'tags',
+      'item_id',
+      'child_item_id',
+      'related_item_id',
+      'tags',
+      'places_visited'
     ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
@@ -224,6 +241,18 @@ class Offer < ActiveRecord::Base
         tags.blank? ? [] : tags[0..1]
       end
 
+      attribute :item_id do
+        item_id
+      end
+
+      attribute :child_item_id do
+        child_item_id
+      end
+
+      attribute :related_item_id do
+        related_offers.map{|r| {id: (r.related_offer_id if r.related_offer_id), item_id: (r.related_offer.item_id if r.related_offer), child_item_id: (r.related_offer.child_item_id if r.related_offer)} }
+      end
+
       attribute :inclusions do
         inclusions.map(&:name)
       end
@@ -258,7 +287,10 @@ class Offer < ActiveRecord::Base
         'attractions',
         'countries',
         'regions',
-        'publish_date'
+        'publish_date',
+        'item_id',
+        'child_item_id',
+        'related_item_id'
       ]
 
       # the `customRanking` setting defines the ranking criteria use to compare two matching

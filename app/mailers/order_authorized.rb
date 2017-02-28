@@ -14,7 +14,7 @@ class OrderAuthorized < ActionMailer::Base
     if response[:success]
       @order.update(voucher_sent: true)
       attachments[response[:file_name]] = response[:file]
-      mail(to: @customer.email, subject: "The voucher for the trip")
+      mail(to: @customer.email, bcc: "mydiscoveries_booking@boundround.com", subject: "Your MyDiscoveries Holiday Voucher")
     end
   end
 end

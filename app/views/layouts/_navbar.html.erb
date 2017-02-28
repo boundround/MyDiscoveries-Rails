@@ -4,7 +4,7 @@
         <nav class="header-navigation">
             <a class="header-navigation__link header-navigation__link--home" href="<%= root_path %>">&nbsp;</a>
             <a class="header-navigation__link js-change-navigation-drop-down" href="#">destinations</a>
-            <a class="header-navigation__link" href="/offers">deals</a>
+            <a class="header-navigation__link" href="/offers">holidays</a>
             <a class="header-navigation__link" href="/posts/all_posts">travel stories</a>
         </nav>
 
@@ -56,47 +56,35 @@
 <!-- BEGIN - navigation drop down -->
 <div class="navigation-drop-down js-navigation-drop-down hidden clear-self desktop-only">
 
-    <div class="navigation-drop-down__column">
+    <!-- <div class="navigation-drop-down__column">
 
         <h3 class="navigation-drop-down__header">Featured things to do</h3>
         <div class="navigation-drop-down__small-column-wrapper clear-self">
-          <% if @featured_nav_destinations.present? %>
-            <% @featured_nav_destinations.each do |offer| %>
+          <%# if @featured_nav_destinations.present? %>
+            <%# @featured_nav_destinations.each do |place| %>
                 <div class="navigation-drop-down__small-column">
-                    <a href="<%= offer_path(offer) %>" class="navigation-drop-down__region-header"><%= offer.name %></a>
+                    <a href="<%#= place_path(place) %>" class="navigation-drop-down__region-header"><%#= place.display_name %></a>
                 </div>
-            <% end %>
-          <% end %>
+            <%# end %>
+          <%# end %>
         </div>
-    </div>
+    </div> -->
 
     <div class="navigation-drop-down__column">
 
-        <h3 class="navigation-drop-down__header">Featured places to go</h3>
-          <% if @featured_nav_places.present? %>
-            <% @featured_nav_places.each do |place| %>
-                <a href="<%= place_path(place) %>" class="featured-thing clear-self">
+        <h3 class="navigation-drop-down__header">Featured holidays</h3>
+          <% if @featured_nav_offers.present? %>
+            <% @featured_nav_offers.each do |offer| %>
+                <a href="<%= offer_path(offer) %>" class="featured-thing clear-self">
                     <div class="featured-thing__image-wrapper">
-                        <img src="<%= draw_small_background(place)%>" class="featured-thing__image" alt="">
+                        <img src="<%= draw_small_background(offer)%>" class="featured-thing__image" alt="">
                         <p class="featured-thing__image-paragraph">
                         </p>
                     </div>
-                    <h5 class="featured-thing__header"><%= place.display_name %></h5>
+                    <h5 class="featured-thing__header"><%= offer.name %></h5>
                 </a>
             <% end %>
           <% end %>
-<!--         <a href="#" class="featured-thing clear-self">
-            <div class="featured-thing__image-wrapper">
-                <img src="http://lorempixel.com/144/114/nature?03" class="featured-thing__image" alt="">
-                <p class="featured-thing__image-paragraph">
-                    <span class="featured-thing__image-currency">$</span>
-                    <span class="featured-thing__image-book">book</span>
-                </p>
-            </div>
-            <h5 class="featured-thing__header">Tropical Fruit World</h5>
-            <span class="featured-thing__country">Japan</span>
-        </a> -->
-
     </div>
 
 </div>
@@ -171,16 +159,7 @@
             <a class="mobile-header-drop-down__link" href="#">destinations</a>
 
             <div class="navigation-drop-down__small-column-wrapper clear-self">
-              <% if @featured_nav_destinations.present? %>
-                <% @featured_nav_destinations.each do |country| %>
-                    <div class="navigation-drop-down__small-column">
-                        <a href="<%= country_path(country) %>" class="navigation-drop-down__region-header"><%= country.display_name %></a>
-                        <% country.places.last(4).each do |place| %>
-                            <a href="<%= place_path(place) %>" class="navigation-drop-down__region-list-item"><%= place.display_name %></a>
-                        <% end %>
-                    </div>
-                <% end %>
-              <% end %>
+
             </div>
         </div>
     </div>

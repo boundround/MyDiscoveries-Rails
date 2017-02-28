@@ -6,9 +6,9 @@
             <div class="sici-author">
                 <img style="background: url(<%= showing_image(story.user.avatar_url)%>) center no-repeat;" class="cover-bg" >
                 <% if story.user.is_private? %>
-                    <span><%= story.user.username %></span>
+                    <span><%= story.user.name %></span>
                 <% else %>
-                  <span><%= link_to story.user.username, public_profile_user_path(story.user) %></span>
+                  <span><%= link_to story.user.name, public_profile_user_path(story.user) %></span>
                 <% end %>
             </div>
             <div class="sici-date">

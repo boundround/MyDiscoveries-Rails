@@ -8,6 +8,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
 
     if transaction_valid?
       update_order
+      Ax::Upload.call(order) if Rails.env.production?
       send_notification
     end
 
@@ -139,6 +140,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
       xml.MerchantReference merchant_reference
       xml.TxnId             transaction_id
       xml.AvsAction         address_verification_system
+      xml.EnableAddBillCard '1'
     end
   end
 

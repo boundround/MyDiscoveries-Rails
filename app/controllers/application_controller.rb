@@ -39,8 +39,8 @@ class ApplicationController < ActionController::Base
   end
 
   def get_header
-    @featured_nav_places = Place.where(show_in_mega_menu: true)
-    @featured_nav_destinations = Offer.where(show_in_mega_menu: true)
+    @featured_nav_offers = Offer.where(show_in_mega_menu: true)
+    @featured_nav_destinations = Place.where(show_in_mega_menu: true)
   end
 
   protected
