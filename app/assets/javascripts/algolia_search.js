@@ -370,6 +370,14 @@ $(document).ready(function() {
                 if($(this)[0].where_destinations == "Offers"){
                     $(this)[0]["is_offer"] = true
                     $(this)[0]["is_story"] = false
+
+                    var startDate = $(this)[0].startDate.split("-"),
+                        newDate   = new Date(Date.parse(startDate)),
+                        date      = newDate.getDate(),
+                        month     = newDate.getMonth()+1,
+                        year      = newDate.getFullYear();
+
+                    $(this)[0].startDate = date+"-"+month+"-"+year
                 }else if($(this)[0].where_destinations == "Stories"){
                     $(this)[0]["is_offer"] = false
                     $(this)[0]["is_story"] = true
