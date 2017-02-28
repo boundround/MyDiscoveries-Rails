@@ -4,7 +4,7 @@
 	  <div class="user-dp"
            style="background: url(<%= showing_image(story.respond_to?('hero_image_url') ? story.hero_image_url : "" ) %>) no-repeat;"
            role="img"
-           aria-label="User: <%= story.user.username %>">
+           aria-label="User: <%= story.user.name %>">
       </div>
 	  <h3 class="best-of-adventure-card__title"><a href="#" class="best-of-adventure-card__link"><%= story.title.size > 51? story.title[0..50]+"..." : story.title %></a></h3>
 	</div>
