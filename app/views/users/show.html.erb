@@ -341,7 +341,7 @@
                         </div>
 
                         <div class="form-group clear private-profile">
-                            <input id="up-plan-private" type="checkbox" name="user[is_private]" checked="<%= @user.is_private==true ? true : false %>">
+                            <input id="up-plan-private" type="checkbox" name="user[is_private]" <%= @user.is_private== true ? "checked" : "" %>>
                             <label for="up-plan-private">Keep my profile private</label>
                         </div>
 
