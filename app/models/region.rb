@@ -84,6 +84,7 @@ class Region < ActiveRecord::Base
     attributesToIndex [
       'display_name',
       'unordered(description)',
+      'tags',
       'age_range',
       'accessible',
       'subcategories',

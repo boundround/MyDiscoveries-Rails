@@ -110,6 +110,7 @@ class Story < ActiveRecord::Base
     attributesToIndex [
       'display_name',
       'unordered(description)',
+      'tags',
       'unordered(content)',
       'accessible',
       'subcategories',

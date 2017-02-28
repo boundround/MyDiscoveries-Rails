@@ -156,6 +156,7 @@ class Place < ActiveRecord::Base
     attributesToIndex [
       'display_name',
       'unordered(description)',
+      'tags',
       'age_range',
       'accessible',
       'subcategories',

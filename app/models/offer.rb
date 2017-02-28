@@ -133,6 +133,7 @@ class Offer < ActiveRecord::Base
       'countries',
       'regions',
       'publish_date',
+      'tags',
       'item_id',
       'child_item_id',
       'related_item_id',
@@ -279,6 +280,7 @@ class Offer < ActiveRecord::Base
       attributesToIndex [
         'display_name',
         'unordered(description)',
+        'tags',
         'accessible',
         'subcategories',
         'places',
@@ -310,7 +312,6 @@ class Offer < ActiveRecord::Base
         'duration',
         'minUnits',
         'maxUnits',
-        'tags',
         'places_visited'
       ]
     end
