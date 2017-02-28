@@ -72,7 +72,7 @@
 
     <div class="navigation-drop-down__column">
 
-        <h3 class="navigation-drop-down__header">Featured places to go</h3>
+        <h3 class="navigation-drop-down__header">Featured holidays</h3>
           <% if @featured_nav_offers.present? %>
             <% @featured_nav_offers.each do |offer| %>
                 <a href="<%= offer_path(offer) %>" class="featured-thing clear-self">
