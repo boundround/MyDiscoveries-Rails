@@ -77,7 +77,9 @@
                             <div class="poict-nights"><%= create_duration(@offer) %></div>
                             <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
-                            <a href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                            <div class="book-now">
+                              <a href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                            </div>
                         </div>
 
                         <!-- <div class="poi-content-bottom">
@@ -106,7 +108,9 @@
                                 <div class="poict-nights"><%= create_duration(offer.related_offer) %></div>
                                 <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
-                                <a href="<%= new_offer_order_path(offer.related_offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                                <div class="book-now">
+                                  <a href="<%= new_offer_order_path(offer.related_offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                                </div>
                             </div>
 
                             <!-- <div class="poi-content-bottom">
