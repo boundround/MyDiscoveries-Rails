@@ -56,19 +56,19 @@
 <!-- BEGIN - navigation drop down -->
 <div class="navigation-drop-down js-navigation-drop-down hidden clear-self desktop-only">
 
-    <!-- <div class="navigation-drop-down__column">
+    <div class="navigation-drop-down__column">
 
         <h3 class="navigation-drop-down__header">Featured things to do</h3>
         <div class="navigation-drop-down__small-column-wrapper clear-self">
-          <%# if @featured_nav_destinations.present? %>
-            <%# @featured_nav_destinations.each do |place| %>
+          <% if @featured_nav_destinations.present? %>
+            <% @featured_nav_destinations.each do |place| %>
                 <div class="navigation-drop-down__small-column">
-                    <a href="<%#= place_path(place) %>" class="navigation-drop-down__region-header"><%#= place.display_name %></a>
+                    <a href="<%#= place_path(place) %>" class="navigation-drop-down__region-header"><%= place.display_name %></a>
                 </div>
-            <%# end %>
-          <%# end %>
+            <% end %>
+          <% end %>
         </div>
-    </div> -->
+    </div>
 
     <div class="navigation-drop-down__column">
 
