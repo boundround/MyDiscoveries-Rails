@@ -8598,7 +8598,11 @@ input[type="submit"].modal-content__btn-access  {
 }
 
 .padding-medium{
-  padding: 80px 0 86px;
+  padding: 50px 0;
+}
+
+.package-offers.padding-medium .package-offers-block{
+  padding: 0
 }
 
 .wrap-background-region-country{
@@ -8630,11 +8634,15 @@ input[type="submit"].modal-content__btn-access  {
 }
 
 .section-white .thing-wrapper{
-  margin: 57px 0 48px;
+  margin: 0;
 }
 
 .load-more{
   margin: 0 0 10px;
+}
+
+.padding-medium.section-grey .head-title{
+  margin: 0;
 }
 
 [data-page="user-page"] .img-rounded.edit-profile{
@@ -8747,7 +8755,6 @@ input[type="submit"].modal-content__btn-access  {
 
 .proposals-wrapper {
   position: relative;
-  margin: 57px 0 48px;
   height: 559px; }
 
 .proposal-item {
@@ -9044,8 +9051,8 @@ a.see-more__link {
   font-size: 24px;
   background-image: url(/assets/mydiscoveries_icon/i/logo-short.svg);
   background-repeat: no-repeat;
-  background-position: center 122px;
-  padding: 220px 0 50px;
+  background-position: center 80px;
+  padding: 200px 0 50px;
   margin: 0 auto;
   width: 1000px;
   font-family: Larsseit-Light, sans-serif;
@@ -9061,7 +9068,7 @@ a.see-more__link {
     line-height: 20px; } }
 
 .follow-the-journey {
-  padding: 72px 0 0;
+  padding: 50px 0 0;
   margin-bottom: -103px;
   z-index: 1;
   position: relative; }
