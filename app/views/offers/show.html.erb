@@ -243,7 +243,7 @@
                     </div>
                     <div class="slider-nav xs-invisible">
                         <% @photos.each do |photo| %>
-                            <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="Credit: <%= photo.credit %>">
+                            <div>
                               <img src="<%= photo.path_url(:large) %>" alt="" width="100%">
                             </div>
                         <% end %>
