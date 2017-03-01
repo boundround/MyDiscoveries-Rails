@@ -1,10 +1,10 @@
-init();
-$('#dest-map').on('hidden.bs.collapse', function () {
-  init();
-})
-$('#dest-map').on('shown.bs.collapse', function () {
-  init(); 
-})
+init()
+setTimeout(function(){
+    $('h3.ui-accordion-header').on('click', function () {
+      console.log("aaa")
+        init()
+    })
+}, 50)
 
 function init() {
     var mapElement = document.getElementById('dest-map');

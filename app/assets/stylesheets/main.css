@@ -9333,8 +9333,8 @@ a.see-more__link {
   /*position: relative; }*/
 
 .search-page-card__cost-from {
-  text-transform: uppercase;
-  font-family: Larsseit-Bold, sans-serif;
+  /*text-transform: uppercase;*/
+  font-family: Larsseit, sans-serif;
   color: #000060;
   font-size: 16px;
   line-height: 16px;
@@ -9344,7 +9344,7 @@ a.see-more__link {
 .search-page-card__cost-value {
   color: #000060;
   margin: 0;
-  font-family: Baghdad, serif;
+  font-family: Baghdad, serif !important;
   font-size: 52px;
   line-height: 52px;
   letter-spacing: 4px; }
@@ -11111,8 +11111,8 @@ span.arrow {
   opacity: 1;
 }
 
-.package-offers p {
-  font-family: Larsseit, sans-serif; }
+/*.package-offers p {
+  font-family: Larsseit, sans-serif; }*/
 
 .package-offers .package-offers-block {
   padding-top: 75px;
@@ -11186,18 +11186,25 @@ span.arrow {
               .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price span {
                 font-weight: bold;
                 color: white; }
-                .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price span.lg {
+                .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price .lg{
+                  display: inline-block;}
+                .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price .lg span {
                   font-family: Baghdad, serif;
                   font-size: 52px;
-                  display: block; }
-                  .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price span.lg .po-price-self {
+                  line-height: 1; }
+                  .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price .lg span .po-price-self {
                     position: relative;
                     top: 10px;
                     left: -10px; }
                 .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price span.sm {
                   font-size: 18px;
                   text-transform: uppercase;
-                  font-family: Larsseit-Bold, sans-serif; }
+                  font-family: Larsseit-Bold, sans-serif;
+                  display: block; }
+                .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price span.sm-info{
+                  font-size: 16px;
+                  font-family: Larsseit-Bold, sans-serif;
+                  vertical-align: bottom;}
             .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info {
               width: 100%;
               position: absolute;
