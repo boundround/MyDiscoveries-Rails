@@ -28,7 +28,7 @@
                   <tr>
                     <td>Price per person (Adults)</td>
                     <td>
-                      $<%= offer.maxRateAdult %>
+                      $<%= offer.minRateAdult %>
                     </td>
                   </tr>
                 <% end %>
@@ -36,7 +36,7 @@
                   <tr>
                     <td>Price per person (Children)</td>
                     <td>
-                      $<%= unit_price(offer.maxRateChild, offer.maxRateAdult) %>
+                      $<%= unit_price(offer.minRateChild, offer.minRateAdult) %>
                     </td>
                   </tr>
                 <% end %>
@@ -44,7 +44,7 @@
                   <tr>
                     <td>Price per person (Infants)</td>
                     <td>
-                      $<%= unit_price(offer.maxRateInfant, offer.maxRateAdult) %>
+                      $<%= unit_price(offer.minRateInfant, offer.minRateAdult) %>
                     </td>
                   </tr>
                 <% end %>
