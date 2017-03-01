@@ -43,7 +43,6 @@ class OrdersController < ApplicationController
     redirect_to offers_path unless @order.authorized?
     @operator   = @offer.operator
     @hero_photo = @order.offer.photos.where(hero: true).last
-    @passengers = @order.passengers
     @customer   = @order.customer
   end
 

@@ -17,4 +17,11 @@ class Customer < ActiveRecord::Base
   def uniq_number
     "M#{1000000 + id}"
   end
+
+  def country_name
+    (
+      ISO3166::Country.find_country_by_alpha2(country) ||
+      ISO3166::Country.find_country_by_alpha3(country)
+    ).try(:name)
+  end
 end

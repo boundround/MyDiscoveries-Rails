@@ -48,8 +48,4 @@ class Order < ActiveRecord::Base
   def set_ax_sales_id!
     update_column(:ax_sales_id, "WM#{1000000 + id}") unless created_from_ax
   end
-
-  def purchase_date
-    Date.parse px_response['Txn']['Transaction']['RxDate']
-  end
 end
