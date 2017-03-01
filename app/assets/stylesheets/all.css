@@ -143,7 +143,10 @@ h4 {
     box-shadow: 0 0 2px 2px #d2d2d2
 }
 .owl-carousel {
-    display: block !important
+    display: block !important;
+}
+#stories-list.owl-carousel{
+    margin: auto;
 }
 .owl-carousel .owl-nav .nav-next {
     background: url(/assets/new-images/carousel-nav-arrow-blue.png) no-repeat;
@@ -151,7 +154,8 @@ h4 {
     width: 15px;
     position: absolute;
     top: 50%;
-    right: 15px;
+    /*right: 15px;*/
+    right: 0;
     transform: rotateY(180deg)
 }
 .owl-carousel .owl-nav .nav-next.orange {
@@ -163,7 +167,8 @@ h4 {
     width: 15px;
     position: absolute;
     top: 50%;
-    left: 15px;
+    /*left: 15px;*/
+    left: 0;
     transform: rotateY(0deg)
 }
 .owl-carousel .owl-nav .disabled .nav-next,
@@ -1151,8 +1156,8 @@ h4 {
     color: #333
 }
 .thing-wrapper .thing-item {
-    padding-left: 30px;
-    padding-right: 30px
+    padding-left: 15px;
+    padding-right: 15px
 }
 .thing-wrapper .thing-image {
     display: inline-block;

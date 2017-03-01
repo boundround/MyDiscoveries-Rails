@@ -1,10 +1,10 @@
 <div id="stories">
-  <div class="row">
-    <div class="col-xs-12">
+  <!-- <div class="row"> -->
+    <!-- <div class="col-xs-12"> -->
       <% @stories = @stories_like_this if (action_name.eql? 'show') && (controller_name.eql? 'stories')%>
-    </div>
-  </div>
-    <div class="owl-carousel carousel" id ="stories-list">
+    <!-- </div> -->
+  <!-- </div> -->
+    <div class="row owl-carousel carousel" id ="stories-list">
       <%= render partial: "stories/all_stories_list", collection: @stories, as: :story %>
   </div> <!-- row -->
   <% unless last_page? @stories %>
