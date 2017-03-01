@@ -63,7 +63,7 @@
           <% if @featured_nav_destinations.present? %>
             <% @featured_nav_destinations.each do |place| %>
                 <div class="navigation-drop-down__small-column">
-                    <a href="<%#= place_path(place) %>" class="navigation-drop-down__region-header"><%= place.display_name %></a>
+                    <a href="<%= place_path(place) %>" class="navigation-drop-down__region-header"><%= place.display_name %></a>
                 </div>
             <% end %>
           <% end %>
