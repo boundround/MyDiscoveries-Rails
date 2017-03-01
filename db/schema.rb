@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215125454) do
+ActiveRecord::Schema.define(version: 20170228105629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -438,8 +438,10 @@ ActiveRecord::Schema.define(version: 20170215125454) do
     t.string   "sluggable_type", limit: 50
     t.string   "scope"
     t.datetime "created_at"
+    t.datetime "deleted_at"
   end
 
+  add_index "friendly_id_slugs", ["deleted_at"], name: "index_friendly_id_slugs_on_deleted_at", using: :btree
   add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
@@ -748,6 +750,7 @@ ActiveRecord::Schema.define(version: 20170215125454) do
     t.boolean  "voucher_sent",         default: false
     t.string   "ax_sales_id"
     t.boolean  "created_from_ax",      default: false
+    t.datetime "purchase_date"
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
@@ -1203,10 +1206,10 @@ ActiveRecord::Schema.define(version: 20170215125454) do
     t.text     "seo_friendly_url"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",      default: 0
+    t.string   "hero_image"
     t.text     "focus_keyword"
     t.text     "seo_title"
     t.text     "meta_description"
-    t.string   "hero_image"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
@@ -1346,12 +1349,12 @@ ActiveRecord::Schema.define(version: 20170215125454) do
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                             default: "",   null: false
+    t.string   "encrypted_password",                default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                     default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -1378,12 +1381,12 @@ ActiveRecord::Schema.define(version: 20170215125454) do
     t.string   "post_code"
     t.integer  "min_age"
     t.integer  "max_age"
-    t.boolean  "is_private",             default: true
+    t.boolean  "is_private",                        default: true
     t.text     "description"
     t.string   "gender"
     t.string   "mobile"
     t.string   "home_phone"
-    t.boolean  "created_from_ax",        default: false
+    t.boolean  "created_from_ax",                   default: false
     t.string   "ax_cust_account"
   end
 

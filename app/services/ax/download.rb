@@ -11,9 +11,13 @@ class Ax::Download
 
   def process
     if !order_present?
-      user     = process_user
-      customer = save_customer(user)        if user && user.persisted?
-      order    = save_order(user, customer) if customer && customer.persisted?
+      ActiveRecord::Base.transaction do
+        user     = process_user
+        customer = save_customer(user)        if user && user.persisted?
+        @order   = save_order(user, customer) if customer && customer.persisted?
+      end
+
+      OrderAuthorized.delay.notification(@order.id) if @order && @order.persisted?
     end
   end
 
@@ -124,7 +128,7 @@ class Ax::Download
       created_from_ax: true
     )
 
-    customer.save
+    customer.save(validate: false)
     customer
   end
 
@@ -141,11 +145,19 @@ class Ax::Download
   end
 
   def xml_item_ids
-    @xml_item_ids ||= xml_order['Items']['Item'].map{ |i| i['ItemId'] }.uniq
+    @xml_item_ids ||= if xml_order['Items']['Item'].is_a?(Hash)
+      [xml_order['Items']['Item']['ItemId']]
+    else
+      xml_order['Items']['Item'].map{ |i| i['ItemId'] }.uniq
+    end
   end
 
   def order_sales_id
     @order ||= xml_order['SalesId']
+  end
+
+  def purchase_date
+    @purchase_date ||= DateTime.parse("#{xml_order['OrderDate']} #{xml_order['OrderTime']}")
   end
 
   def save_order(user, customer)
@@ -158,6 +170,7 @@ class Ax::Download
       ax_sales_id:        order_sales_id,
       number_of_adults:   xml_item_ids.count(offer.item_id),
       number_of_children: xml_item_ids.count(offer.child_item_id),
+      purchase_date:      purchase_date,
       status:             :authorized
     )
 

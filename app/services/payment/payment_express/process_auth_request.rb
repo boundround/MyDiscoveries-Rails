@@ -22,7 +22,15 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def update_order
-    order.update(status: :authorized, px_response: px_response_json)
+    order.update(
+      status: :authorized,
+      px_response: px_response_json,
+      purchase_date: purchase_date
+    )
+  end
+
+  def purchase_date
+    @purchase_date ||= DateTime.parse(px_response_json['Txn']['Transaction']['RxDate'])
   end
 
   def response

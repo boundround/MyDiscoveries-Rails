@@ -4,8 +4,7 @@
       <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
     </td>
   <% end %>
-
-  <% passengers.each_with_index do |passenger, index| %>
+  <% order.total_people_count.times do |index| %>
     <tr class="<%= index == 0 ? '' : 'add-page-break' %> " style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>">
       <tr>
         <td colspan="2" style="padding: 40px 40px 0px;">
@@ -25,7 +24,7 @@
         </td>
         <td style="padding: 20px 40px; text-align: right; vertical-align: top;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px">
-            <%= "Voucher #{index + 1} of #{passengers.count}" %>
+            <%= "Voucher #{index + 1} of #{order.total_people_count}" %>
           </span>
         </td>
       </tr>
@@ -51,7 +50,7 @@
             <%=
               "#{customer.address_one}, \
               #{customer.city} #{customer.state}, \
-              #{ISO3166::Country[customer.country].name}, \
+              #{customer.country_name}, \
               #{customer.postal_code}"
             %>
           </p>
