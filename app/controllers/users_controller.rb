@@ -135,7 +135,7 @@ class UsersController < ApplicationController
   end
 
   def paginate_stories
-    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 4)
+    @stories = @user.stories.paginate(page: params[:stories_page], per_page: 3)
   end
 
   def paginate_offers
