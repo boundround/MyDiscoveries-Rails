@@ -8961,7 +8961,7 @@ a.see-more__link {
 
 .inspiration-item {
   padding: 15px;
-  float: left;
+  /*float: left;*/
   width: 100%;
   margin: 15px 0px;
   height: 380px;
@@ -9043,8 +9043,8 @@ a.see-more__link {
     padding-left: 17px;
     padding-right: 17px; }
   .inspiration-item__header {
-    padding: 20px 15px;
-    font-size: 24px; }
+    padding: 15px;
+    font-size: 20px; }
   .inspiration-item__link {
     left: 15px;
     bottom: 20px; } }
@@ -9944,6 +9944,7 @@ a:hover, a:focus, a:active {
 
 .wrap_link_card{
   position: relative;
+  margin: 15px auto;
 }
 
 .wrap_link_card .link_card{
