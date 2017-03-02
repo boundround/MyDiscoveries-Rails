@@ -10943,8 +10943,7 @@ span.arrow {
     height: auto; }
 
 .region.stories {
-  padding-bottom: 90px;
-  text-align: center; }
+  padding-bottom: 90px; }
   @media screen and (max-width: 1200px) {
     .region.stories {
       padding-bottom: 30px; } }

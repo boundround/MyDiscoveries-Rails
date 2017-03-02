@@ -167,7 +167,12 @@
 </div> -->
 
 <% if @stories.present? %>
-  <%= render partial: "stories/all_stories_regional" %>
+  <div class="region stories grey">
+    <div class="width-limiter">
+      <h3 class="proposal__header">Stories</h3>
+      <%= render partial: "stories/all_stories"%>
+    </div>
+  </div>
 <% end %>
 
 <% if @fun_facts.present? %>
