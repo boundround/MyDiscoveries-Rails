@@ -10426,8 +10426,7 @@ span.arrow {
     text-align: center; } }
 
 .region .proposal__header {
-  padding-bottom: 50px;
-  padding-top: 80px; }
+  padding-bottom: 50px; }
   @media screen and (max-width: 1200px) {
     .region .proposal__header {
       padding-bottom: 25px;
@@ -10684,9 +10683,6 @@ span.arrow {
   @media screen and (max-width: 1200px) {
     .region.package-offers {
       padding-bottom: 30px; } }
-  .region.package-offers ul {
-    margin-bottom: 60px;
-    height: 320px; }
     .region.package-offers ul::after {
       clear: both;
       content: "";
@@ -10698,6 +10694,7 @@ span.arrow {
     .region.package-offers ul li {
       float: left;
       display: block;
+      margin: 15px 0;
       margin-right: 2.35765%;
       width: 23.23176%;
       display: block;
@@ -11230,6 +11227,8 @@ span.arrow {
                 #offers-list .xs-heading{
                   font-size: 16px;
                   margin-top: 10px;}
+                #offers-list .wrap_link_card{
+                  margin: 0;}
             .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .label-crown {
               position: absolute;
               top: 20px;
