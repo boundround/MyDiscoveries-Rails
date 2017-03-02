@@ -27,7 +27,10 @@ Rails.application.routes.draw do
   end
 
   resources :stories do
-    collection { get 'paginate' }
+    collection do
+      get 'paginate'
+      post 'featured'
+    end
     member do
       get 'seo_analysis'
       get 'paginate_place'

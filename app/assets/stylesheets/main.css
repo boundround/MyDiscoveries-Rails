@@ -13144,7 +13144,48 @@ ul.featured-articles{
   .featured-articles li .label-article {
     position: absolute;
     top: 30px;
-    left: 0; }
+    left: 0; }                                                                                                                                                                                     
 .story .medium-insert-buttons{
   display: none !important;
+}
+
+input[type=checkbox].css-checkbox.featured-story {
+  position:absolute;
+  z-index:-1000;
+  left:-1000px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height:1px;
+  width:1px;
+  margin:-1px;
+  padding:0;
+  border:0;
+}
+
+input[type=checkbox].css-checkbox.featured-story + label.css-label.label-featured {
+  padding-left:25px;
+  height:25px; 
+  display:inline-block;
+  line-height:40px;
+  background-repeat:no-repeat;
+  background-position: 0 0;
+  font-size:40px;
+  vertical-align:middle;
+  cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox.featured-story:checked + label.css-label.label-featured {
+  background-position: 50% 90%;
+}
+            
+label.css-label.label-featured{
+  background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_019807af606f0dea9eb28a8d35a7afc6.png);
+  background-size: cover;
+  margin-bottom: 0; 
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
