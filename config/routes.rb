@@ -90,6 +90,7 @@ Rails.application.routes.draw do
   get 'booking-guarantee' => 'posts#show', :defaults => { :id => 'booking-guarantee' }
   get 'frequently-asked-questions' => 'posts#show', :defaults => { :id => 'frequently-asked-questions' }
   get 'about-us' => 'posts#show', :defaults => { :id => 'about-us' }
+  get 'privacy' => 'posts#show', :defaults => { :id => 'privacy' }
 
   get 'factual_places/search' => 'factual_places#search'
 
