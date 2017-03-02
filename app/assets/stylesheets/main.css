@@ -8606,7 +8606,8 @@ input[type="submit"].modal-content__btn-access  {
 }
 
 .package-offers.padding-medium .package-offers-block{
-  padding: 0
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .wrap-background-region-country{
