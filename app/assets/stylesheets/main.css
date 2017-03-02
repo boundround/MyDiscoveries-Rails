@@ -7738,10 +7738,17 @@ input[type="text"]::-ms-clear {
   border-right: 1px solid #ffffff;
   border-left: 1px solid #ffffff;
   /*min-width: 335px;*/
-  /*max-width: 335px;*/
   padding: 33px 35px 11px 0;
   float: left;
   margin-right: -1px; }
+
+.navigation-drop-down__column:first-child{
+  max-width: 335px;
+}
+
+.navigation-drop-down__column:first-child .navigation-drop-down__region-header{
+  text-transform: none;
+}
 
 .navigation-drop-down__small-column-wrapper {
   padding-left: 49px; }
