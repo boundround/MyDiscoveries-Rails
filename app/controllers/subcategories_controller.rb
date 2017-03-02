@@ -9,7 +9,7 @@ class SubcategoriesController < ApplicationController
   	@subcategory = Subcategory.friendly.find(params[:id])
     @stories = @subcategory.stories.paginate(page: params[:stories_page], per_page: 3)
     # @subcategories = @subcategory.subcategory_related
-    @offers = @subcategory.offers.paginate(page: params[:offers_page], per_page: 4)
+    @offers = @subcategory.offers.active.paginate(page: params[:offers_page], per_page: 4)
 	end
 
   def new
@@ -60,7 +60,7 @@ class SubcategoriesController < ApplicationController
 
   def paginate_offers
     @subcategory = Subcategory.friendly.find(params[:id])
-    @offers = @subcategory.offers.paginate(page: params[:offers_page], per_page: 4)
+    @offers = @subcategory.offers.active.paginate(page: params[:offers_page], per_page: 4)
   end
 
   def paginate_stories
