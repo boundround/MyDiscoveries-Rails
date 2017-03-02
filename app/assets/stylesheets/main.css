@@ -8214,10 +8214,7 @@ input[type="text"]::-ms-clear {
 /* related-product-adventure */
 .related-product-adventure {
   background-color: #f4efed;
-  padding: 69px 0 60px; }
-
-.related-product-adventure__header {
-  margin-bottom: 35px; }
+  padding: 69px 0 0; }
 
 .related-product-adventure-card {
   height: 320px;
@@ -8251,6 +8248,9 @@ input[type="text"]::-ms-clear {
   color: #3d3a38;
   font-family: Larsseit-light, serif;
   color: #000060; }
+
+.related-product-adventure #offers-list .xs-heading{
+  font-size: 26px;}
 
 /* interest-related-adventure */
 .interest-related-adventure {
@@ -8613,7 +8613,8 @@ input[type="submit"].modal-content__btn-access  {
 }
 
 .package-offers.padding-medium .package-offers-block{
-  padding: 0
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .wrap-background-region-country{
@@ -10432,8 +10433,7 @@ span.arrow {
     text-align: center; } }
 
 .region .proposal__header {
-  padding-bottom: 50px;
-  padding-top: 80px; }
+  padding-bottom: 50px; }
   @media screen and (max-width: 1200px) {
     .region .proposal__header {
       padding-bottom: 25px;
@@ -10690,9 +10690,6 @@ span.arrow {
   @media screen and (max-width: 1200px) {
     .region.package-offers {
       padding-bottom: 30px; } }
-  .region.package-offers ul {
-    margin-bottom: 60px;
-    height: 320px; }
     .region.package-offers ul::after {
       clear: both;
       content: "";
@@ -10704,6 +10701,7 @@ span.arrow {
     .region.package-offers ul li {
       float: left;
       display: block;
+      margin: 15px 0;
       margin-right: 2.35765%;
       width: 23.23176%;
       display: block;
@@ -11236,6 +11234,8 @@ span.arrow {
                 #offers-list .xs-heading{
                   font-size: 16px;
                   margin-top: 10px;}
+                #offers-list .wrap_link_card{
+                  margin: 0;}
             .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .label-crown {
               position: absolute;
               top: 20px;
