@@ -20,17 +20,17 @@
                 <div class="info-block">
                     <ul class="social-icons-block">
                         <li class="fb">
-                            <a href="#"></a>
+                            <a id="shareBtn" data-url="<%= post_url(@story) %>" style="cursor: pointer;"></a>
                         </li>
                         <li class="twitter">
-                            <a href="#"></a>
+                            <a href="https://twitter.com/intent/tweet?source=&text=<%= "#{@story.title} #{post_url(@story)}"%>" target="_blank"></a>
                         </li>
                         <li class="google">
-                            <a href="#"></a>
+                            <a href="https://plus.google.com/share?url=<%= post_url(@story)%>" target="_blank"></a>
                         </li>
-                        <li class="zuzu">
+                        <!-- <li class="zuzu">
                             <a href="#"></a>
-                        </li>
+                        </li> -->
                     </ul>
                     <div class="help-block">
                         <p>Send this</p>
@@ -68,11 +68,4 @@
 		});
 	}, 1000);
 })();
-document.getElementById('shareBtn').onclick = function() {
-  FB.ui({
-    method: 'share',
-    display: 'popup',
-    href: "<%= post_url(@story) %>"
-  }, function(response){});
-}
 </script>
