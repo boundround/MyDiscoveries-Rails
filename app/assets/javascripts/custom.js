@@ -151,6 +151,12 @@ $(document).ready(function(){
     })
   }
 
+
+  $('#shareBtn').click(function(){
+    window.open("https://www.facebook.com/sharer/sharer.php?u="+ $(this).data('url') +"", "pop", "width=600, height=400, scrollbars=no");
+  })
+
+
   $('.kic-item.short.currency table tr:nth-child(even),\
       .kic-item.short.currency table tr:nth-child(7)').addClass('col-xs-6');
   if($('.kic-item.currency .kici-heading').data('currency') != ""){
