@@ -164,7 +164,7 @@ module ApplicationHelper
     base_title = "MyDiscoveries"
     if category.empty?
       if page_title.empty?
-        "MyDiscoveries: make one day today. Where over 55s can find holidays experiences they've always wanted to do"
+        "MyDiscoveries: make one day today. Where over 50s can find holidays experiences they've always wanted to do"
         # "Activities, Reviews and Things To Do For Kids: " + base_title
         #base_title + " | Fun Travel and Activities for Kids"
       else
@@ -188,7 +188,7 @@ module ApplicationHelper
   end
 
   def body_title(title= '', category='')
-    "MyDiscoveries: make one day today. Where over 55s can find holidays experiences they've always wanted to do"
+    "MyDiscoveries: make one day today. Where over 50s can find holidays experiences they've always wanted to do"
   end
 
   def meta_description(title='', description='')
