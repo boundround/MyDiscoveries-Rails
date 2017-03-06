@@ -174,6 +174,7 @@ class Story < ActiveRecord::Base
   scope :active, -> { where(status: "live").where(public: true) }
   scope :draft, -> { where(status: "draft") }
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }
+  scope :featured, -> { where(featured: true) }
 
   attr_accessor :age_bracket
 

@@ -6,5 +6,7 @@
     </div>
     <p class="xs-heading"><%= raw story.title.blank? ? story.title : story.title.truncate(50) %></p>
     <a class="btn-bordered red small" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>">READ MORE</a>
-    <span class="label-article">Featured Article</span>
+    <% if story.featured %>
+    <span class="inspiration-item__mark">Featured Article</span>
+  <% end %>
 </li>
