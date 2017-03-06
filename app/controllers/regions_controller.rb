@@ -7,7 +7,7 @@ class RegionsController < ApplicationController
 
   def show
     @videos = Video.first
-    @stories  = @region.stories.active.reverse.paginate(page: params[:stories_page], per_page: 4 )
+    @stories  = @region.stories.active.reverse.paginate(page: params[:stories_page], per_page: 6 )
     @areas  = Place.first
     @photos = Photo.first
     @countries = @region.children.select {|child| child.class.to_s == "Country"}.paginate(page: params[:countries_page], per_page: 12 )
@@ -94,7 +94,7 @@ class RegionsController < ApplicationController
 
   def paginate_stories
     @region = Region.find_by_slug(params[:id])
-    @stories  = @region.stories.active.reverse.paginate(page: params[:stories_page], per_page: 4 )
+    @stories  = @region.stories.active.reverse.paginate(page: params[:stories_page], per_page: 6 )
   end
 
   def paginate_countries

@@ -9,6 +9,8 @@
       </div>
       <h4 class="inspiration-item__header"><%= raw story.title.blank? ? story.title : story.title.truncate(50) %></h4>
       <a class="inspiration-item__link" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>">read more</a>
-      <span class="inspiration-item__mark">Featured Article</span>
+      <% if story.featured %>
+        <span class="inspiration-item__mark">Featured Article</span>
+      <% end %>
   </div>
 </div>
