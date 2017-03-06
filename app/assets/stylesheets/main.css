@@ -11438,6 +11438,16 @@ span.arrow {
                   margin-top: 20px;
                   margin-bottom: 0;
                   line-height: 30px; }
+      .destinations .package-offers-block{
+        padding: 0;}
+        .destinations .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price{
+          bottom: 100px;}
+        .destinations .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info{
+          margin:0;
+          bottom:0;}
+          .destinations .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info span.posi-date{
+            float: left;
+            padding: 0px 20px;}
       .destination-details .favourites-wrapper .icon-favourite{
         background: url(/assets/new-images/icon-favourite-unfilled.png) no-repeat center;
         background-size: contain !important;
