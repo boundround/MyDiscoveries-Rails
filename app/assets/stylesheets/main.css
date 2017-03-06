@@ -7347,6 +7347,19 @@ input[type="text"]::-ms-clear {
   border-bottom: 1px solid #f4efed;
   position: relative;
   z-index: 15; }
+  .header .phone-text,
+  .mobile-header .phone-text{
+    font-family: Larsseit-Light, sans-serif;
+    font-size: 24px;
+    display: inline-block;
+    margin-top: 25px;
+    margin-left: 70px;}
+  .mobile-header .phone-text{
+    display: block;
+    margin: 0;
+    margin-top: 67px;
+    background: #fff;
+    padding: 15px;}
   .mobile-header.mobile-header--open {
     background-color: #f4efec; }
   .mobile-header .header__search {
@@ -7359,6 +7372,12 @@ input[type="text"]::-ms-clear {
     background-size: 100% auto;
     margin-top: 19px;
     margin-left: 16px; }
+  @media(max-width: 320px){
+    .mobile-header .header__logo{
+      width: 180px;
+      margin-top: 23px;
+    }}
+
   .mobile-header .mobile-header__search-wrapper {
     width: 100%;
     position: absolute;
@@ -7389,7 +7408,16 @@ input[type="text"]::-ms-clear {
   background-repeat: no-repeat;
   margin-top: 19px;
   margin-right: 6px; }
-
+.mobile-header__open-call-button{
+  background-image: url(/assets/mydiscoveries_icon/i/phone.png);
+  float: right;
+  background-size: 25px 25px;
+  background-position: center center;
+  width: 32px;
+  height: 32px;
+  background-repeat: no-repeat;
+  margin-top: 19px;
+  margin-right: 6px;}
 .mobile-header__menu-button {
   position: relative;
   width: 32px;
