@@ -6,18 +6,20 @@
                 <p class="xs-heading">
                     <%= offer.name %>
                 </p>
-                <div class="po-price">
-                    <span class="sm-info">From</span>
-                    <div class="lg">
-                        <span>$</span>
-                        <span class="po-price-self"><%= offer.minRateAdult %></span>
+                <div class="offer-info">
+                    <div class="col-xs-12 po-price">
+                        <span class="sm-info">From</span>
+                        <div class="lg">
+                            <span>$</span>
+                            <span class="po-price-self"><%= offer.minRateAdult %></span>
+                        </div>
+                        <span class="sm-info">or 5 monthly payments of <%= number_to_currency(offer.minRateAdult / 5.0) %></span>
+                        <span class="sm">per person</span>
                     </div>
-                    <span class="sm-info">or 5 monthly payments of <%= number_to_currency(offer.minRateAdult / 5.0) %></span>
-                    <span class="sm">per person</span>
-                </div>
-                <div class="po-stay-info">
-                    <span class="posi-nights"><%= create_duration(offer) %></span>
-                    <span class="posi-date"><%= simple_format offer.operatingSchedule %></span>
+                    <div class="col-xs-12 po-stay-info">
+                        <span class="col-xs-12 col-md-4 posi-nights"><%= create_duration(offer) %></span>
+                        <span class="col-xs-12 col-md-8 posi-date"><%= simple_format offer.operatingSchedule %></span>
+                    </div>
                 </div>
             </div>
         </div>

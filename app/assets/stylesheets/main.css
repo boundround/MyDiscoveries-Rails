@@ -9035,9 +9035,12 @@ a.see-more__link {
   padding: 11px 15px 9px;
   color: #ff4d1a;
   font-family: Larsseit-Bold, sans-serif; }
+  .user-pages .inspiration-item__link:hover,
   .inspiration-item__link:hover {
     color: #ffffff;
     background-color: #ff4d1a; }
+    .user-pages .inspiration-item__link{
+      color: #ff4d1a;}
 
 .inspiration-item__mark {
   font-size: 16px;
@@ -11211,10 +11214,14 @@ span.arrow {
             .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .xs-heading {
               padding-left: 20px;
               padding-top: 20px; }
-            .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price {
+              .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .offer-info{
+                position: absolute;
+                bottom: 0;
+                left: 0;}
+            /*.package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price {
               position: absolute;
               left: 20px;
-              bottom: 40px; }
+              bottom: 40px; }*/
               .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price span {
                 font-weight: bold;
                 color: white; }
@@ -11237,10 +11244,10 @@ span.arrow {
                   font-size: 16px;
                   font-family: Larsseit-Bold, sans-serif;
                   vertical-align: bottom;}
-            .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info {
+            /*.package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info {
               width: 100%;
               position: absolute;
-              bottom: 10px; }
+              bottom: 10px; }*/
               .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info::after {
                 clear: both;
                 content: "";
@@ -11250,14 +11257,15 @@ span.arrow {
                 font-family: Larsseit-Bold, sans-serif;
                 color: white; }
                 .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info span.posi-nights {
-                  float: left;
-                  padding-left: 20px;
+                  /*float: left;*/
+                  /*padding-left: 20px;*/
                   padding-left: 25px;
-                  background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat;
-                  margin-left: 20px; }
-                .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info span.posi-date {
-                  float: right;
-                  padding-right: 20px; }
+                  background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat;}
+                  /*margin-left: 20px; }*/
+                  @media(max-width:1200px ){
+                    .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info span.posi-date{
+                      padding-left: 25px;}
+                  }
                 #offers-list .xs-heading{
                   font-size: 16px;
                   margin-top: 10px;}
@@ -11468,14 +11476,9 @@ span.arrow {
                   line-height: 30px; }
       .destinations .package-offers-block{
         padding: 0;}
-        .destinations .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price{
-          bottom: 100px;}
         .destinations .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info{
           margin:0;
           bottom:0;}
-          .destinations .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info span.posi-date{
-            float: left;
-            padding: 0px 20px;}
       .destination-details .favourites-wrapper .icon-favourite{
         background: url(/assets/new-images/icon-favourite-unfilled.png) no-repeat center;
         background-size: contain !important;
@@ -12730,7 +12733,10 @@ td a.ui-state-default.ui-state-hover {
             .user-pages section .up-tabs-item.up-bucket-list ul li:nth-child(2n) {
               margin-right: 0; }
             .user-pages section .up-tabs-item.up-bucket-list ul li:nth-child(2n+1) {
-              clear: left; } }
+              clear: left; } 
+              #favorite_stories-list .w-50{
+                width: 50%;
+                padding: 0 30px 0 0;}}
         .user-pages section .up-tabs-item.up-bucket-list ul li a {
           display: block; }
           .user-pages section .up-tabs-item.up-bucket-list ul li a:hover .th-content {
