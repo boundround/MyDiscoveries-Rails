@@ -6,7 +6,7 @@
     <div class="modal-content modal-content--container">
       <button type="button" class="close" data-dismiss="modal">&times;</button>
       <div class="modal-content__header text-center">
-        <img src="<%= @operator.logo.url %>" class="modal-content__logo-short" alt="logo-short">
+        <% if @operator.logo.url.present? %><img src="<%= @operator.logo.url %>" class="modal-content__logo-short" alt="logo-short"><%end%>
         <p class="modal-content__sing"><%= @operator.name %></p>
       </div>
       <div class="modal-content__body">

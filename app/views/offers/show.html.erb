@@ -93,6 +93,7 @@
                     </li>
                     <% if @offer.related_offers.present? %>
                       <% @offer.related_offers.each do |offer| %>
+                        <% if offer.related_offer.present? %>
                         <li class="po-item">
                             <div class="poi-content-top">
                               <%= offer.related_offer.name %>
@@ -121,6 +122,7 @@
                                 </p>
                             </div> -->
                         </li>
+                        <% end %>
                       <% end %>
                     <% end %>
                 </ul>
