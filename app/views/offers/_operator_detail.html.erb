@@ -1,0 +1,21 @@
+<!-- ## MODAL LOGIN ACCOUNT -->
+<div id="operatorDetail" class="modal fade in" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog--margin-top" role="document">
+
+    <!-- Modal content-->
+    <div class="modal-content modal-content--container">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div class="modal-content__header text-center">
+        <img src="<%= @operator.logo.url %>" class="modal-content__logo-short" alt="logo-short">
+        <p class="modal-content__sing"><%= @operator.name %></p>
+      </div>
+      <div class="modal-content__body">
+      <p><%= @operator.description %></p>
+      </div>
+      <div class="modal-content__footer text-center">
+        <a href="<%= @operator.website %>"><%= @operator.website %></a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ## END MODAL LOGIN ACCOUNT -->

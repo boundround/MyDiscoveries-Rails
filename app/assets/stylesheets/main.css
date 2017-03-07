@@ -11760,9 +11760,16 @@ span.arrow {
       .product .product-content aside:last-child {
         margin-right: 0; } }
   .product .product-content aside .hotel-name {
-    font-family: Baghdad, serif;
+    /*font-family: Baghdad, serif;
     color: #ff4b1a;
-    font-size: 21px; }
+    font-size: 21px; }*/
+    font-family: Larsseit-Bold, sans-serif !important;
+    text-transform: uppercase;
+    font-size: 16px;
+    width: 50%;
+    display: block;
+    padding: 7px;
+    text-align: center;}
   .destinations aside .point-card__header{
     margin-bottom: 35px;}
   .product .product-content aside .point-card__header {
@@ -13195,6 +13202,43 @@ ul.featured-articles{
   display: none !important;
 }
 
+#operatorDetail .modal-content__header{
+  padding: 38px 50px 6px;
+  overflow: hidden;
+}
+#operatorDetail .modal-content__logo-short{
+  height: 100px;
+  width: auto;
+}
+#operatorDetail .modal-content__sing{
+  font-size: 22px;
+}
+#operatorDetail .modal-content__body{
+  padding: 10px 50px;
+}
+#operatorDetail .modal-content__body p{
+  font-family: Larsseit, sans-serif;
+  color: #000060;
+  font-size: 16px;
+  text-align: center;
+}
+#operatorDetail .modal-content__footer{
+  padding: 6px 0 37px;
+}
+#operatorDetail .modal-content__footer a{
+  font-family: Larsseit-Bold, sans-serif;
+  color: #ff4d1a;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+#operatorDetail .modal-content__footer a:hover{
+  border-bottom: 1px solid #ff4d1a;
+}
+#operatorDetail button.close{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
 input[type=checkbox].css-checkbox.featured-story {
   position:absolute;
   z-index:-1000;
