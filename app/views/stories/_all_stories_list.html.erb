@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-lg-4">
+<div class="col-sm-6 <%= controller_name.eql?("users") && (action_name.eql?("show") || action_name.eql?("paginate_favorite_stories"))? "w-50" : "col-lg-4" %>">
   <div class="inspiration-item wrap_link_card">
   <a class="link_card" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>"></a>
       <div class="user-dp"

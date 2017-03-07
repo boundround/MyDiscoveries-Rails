@@ -9035,9 +9035,12 @@ a.see-more__link {
   padding: 11px 15px 9px;
   color: #ff4d1a;
   font-family: Larsseit-Bold, sans-serif; }
+  .user-pages .inspiration-item__link:hover,
   .inspiration-item__link:hover {
     color: #ffffff;
     background-color: #ff4d1a; }
+    .user-pages .inspiration-item__link{
+      color: #ff4d1a;}
 
 .inspiration-item__mark {
   font-size: 16px;
@@ -12730,7 +12733,10 @@ td a.ui-state-default.ui-state-hover {
             .user-pages section .up-tabs-item.up-bucket-list ul li:nth-child(2n) {
               margin-right: 0; }
             .user-pages section .up-tabs-item.up-bucket-list ul li:nth-child(2n+1) {
-              clear: left; } }
+              clear: left; } 
+              #favorite_stories-list .w-50{
+                width: 50%;
+                padding: 0 30px 0 0;}}
         .user-pages section .up-tabs-item.up-bucket-list ul li a {
           display: block; }
           .user-pages section .up-tabs-item.up-bucket-list ul li a:hover .th-content {
