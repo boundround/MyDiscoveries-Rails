@@ -56,7 +56,7 @@
       <div class="package-offers-block width-limiter">
           <ul>
           <div id="featured_offers-list">
-            <%= render partial: "offers/all_homepage_offers", collection: @offers, as: :offer %>
+            <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
           </div>
             <% unless last_page? @offers %>
             <div class="row hidden-xs single-pagination-container" id="featured_offers-single-pagination-container">

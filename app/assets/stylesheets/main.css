@@ -8553,8 +8553,8 @@ input[type="submit"].modal-content__btn-access  {
 
 .home-promo__search-wrapper {
   margin: 90px auto 0;
-  position: relative;
-  width: 770px; }
+  position: relative;}
+  /*width: 770px; }*/
 
 .home-promo__search {
   font-size: 24px;
@@ -8594,7 +8594,7 @@ input[type="submit"].modal-content__btn-access  {
     padding-top: 131px;
     font-size: 36px; }
   .home-promo__search-wrapper {
-    margin: 26px 30px 0;
+    margin: 26px 0 0;
     width: auto; }
   .home-promo__search {
     height: 44px;
@@ -11474,7 +11474,8 @@ span.arrow {
                   margin-top: 20px;
                   margin-bottom: 0;
                   line-height: 30px; }
-      .destinations .package-offers-block{
+      .destinations .package-offers-block,
+      .user-pages .package-offers-block{
         padding: 0;}
         .destinations .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info{
           margin:0;
@@ -13277,4 +13278,9 @@ label.css-label.label-featured{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+.blog-container ol,
+.blog-container ul,
+.blog-container dl{
+  padding: 0 40px;
 }
