@@ -3,7 +3,7 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
 
   before_action :redirect_if_not_admin, only: [:index, :draft_content]
-  before_action :set_user, only: [:show, :public_profile, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews, :paginate_offers, :paginate_places, :paginate_regions, :paginate_favorite_stories]
+  before_action :set_user, only: [:show, :public_profile, :edit,  :destroy, :update, :paginate_photos, :paginate_stories, :paginate_reviews, :paginate_offers, :paginate_places, :paginate_regions, :paginate_favorite_stories, :paginate_orders]
   before_action :check_user_authorization, only: [:index, :show]
 
   def index
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     verify_current_user
 
     @reviews = @user.reviews.paginate(page: params[:user_reviews_page], per_page: 3)
-    @orders  = @user.orders.last(2)
+    @orders  = @user.orders.paginate(page: params[:orders_page], per_page: 4)
     @countries = Country.all
     @favorite_offers = @user.favorite_offers.paginate(page: params[:favorite_offers_page], per_page: 2)
     @favorite_regions = @user.favorite_regions.paginate(page: params[:favorite_regions_page], per_page: 2)
@@ -144,6 +144,10 @@ class UsersController < ApplicationController
 
   def paginate_regions
     @favorite_regions = @user.favorite_regions.paginate(page: params[:favorite_regions_page], per_page: 2)
+  end
+
+  def paginate_orders
+    @orders  = @user.orders.paginate(page: params[:orders_page], per_page: 4)
   end
 
   def videos

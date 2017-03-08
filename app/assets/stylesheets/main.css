@@ -11474,7 +11474,8 @@ span.arrow {
                   margin-top: 20px;
                   margin-bottom: 0;
                   line-height: 30px; }
-      .destinations .package-offers-block{
+      .destinations .package-offers-block,
+      .user-pages .package-offers-block{
         padding: 0;}
         .destinations .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info{
           margin:0;

@@ -1,7 +1,8 @@
+<% offer = order.offer if local_assigns[:variable].present? && variable == "order" %>
 <li>
     <a href="<%= offer_path(offer) %>">
         <div class="po-content-wrapper">
-            <img style="background: url(<%= showing_image(draw_hero_background(offer)) %>)center center no-repeat;" class="cover-bg">
+            <img style="background: url(<%= showing_image(draw_hero_background(offer)) %>)center center no-repeat;" class="homepage-cover cover-bg">
             <div class="po-content-block">
                 <p class="xs-heading">
                     <%= offer.name %>   
