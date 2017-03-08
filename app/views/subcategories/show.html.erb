@@ -63,7 +63,7 @@
       <div class="package-offers-block">
         <ul>
           <div id="offers-list">
-            <%= render partial: "offers/all_homepage_offers", collection: @offers, as: :offer %>
+            <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
           </div>
         </ul>
         <% unless last_page? @offers %>
@@ -72,7 +72,7 @@
               <div class="hidden single-pagination-loader" align="center">
                 <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
               </div>
-            <%= link_to "see more", paginate_offers_subcategory_path(@subcategory, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_homepage_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
+            <%= link_to "see more", paginate_offers_subcategory_path(@subcategory, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_index_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
             </div>
           </div>
         <% end %>

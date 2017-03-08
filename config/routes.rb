@@ -186,19 +186,22 @@ Rails.application.routes.draw do
 
   resources :users do
     collection { get 'leaderboard' }
-    member { get 'paginate_stories'}
-    member { get 'paginate_favorite_stories'}
-    member { get 'paginate_places'}
-    member { get 'paginate_offers'}
-    member { get 'paginate_regions'}
-    member { get 'paginate_place_to_visit'}
-    member { get 'favourites' }
-    member { get 'paginate_reviews' }
-    member { get 'paginate_photos' }
-    member { get 'photos' }
-    member { get 'reviews' }
-    member { get 'stories' }
-    member { get 'public_profile' }
+    member do 
+      get 'paginate_stories'
+      get 'paginate_favorite_stories'
+      get 'paginate_places'
+      get 'paginate_offers'
+      get 'paginate_regions'
+      get 'paginate_place_to_visit'
+      get 'favourites'
+      get 'paginate_reviews'
+      get 'paginate_photos'
+      get 'paginate_orders'
+      get 'photos'
+      get 'reviews'
+      get 'stories'
+      get 'public_profile'
+    end
   end
 
 
