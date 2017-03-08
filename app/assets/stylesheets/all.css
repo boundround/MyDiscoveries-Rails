@@ -526,11 +526,11 @@ h4 {
     }
 }
 @media (max-width: 991px) {
-    .mega-menu .search-results {
+/*    .mega-menu .search-results {
         top: calc(100% + 62px);
         right: 130px;
         width: 370px
-    }
+    }*/
     .mega-menu .menu-bar .menu-items .menu-item {
         padding: 10px
     }
