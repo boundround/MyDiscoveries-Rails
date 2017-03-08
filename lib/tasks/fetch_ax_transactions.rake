@@ -7,7 +7,7 @@ namespace :ax do
         ENV['AX_USERNAME'],
         password: ENV['AX_PASSWORD']
       ) do |sftp|
-        extn = '.xml'
+        extn = '.XML'
         all_files      = sftp.dir.entries("/#{ENV['AX_DOWNLOAD_DIR']}").map { |e| e.name }
         xml_files      = all_files.select{ |f| f.ends_with?(extn) }
         xml_file_names = xml_files.map{ |f| File.basename(f, extn)  }
