@@ -54,8 +54,8 @@
     <div class="product-content width-limiter">
 
         <aside>
-            <h3 class="point-card__header"><%= @offer.operator.city rescue "" %></h3>
-            <p class="hotel-name"><%= @offer.operator.name rescue "" %></p>
+            <h3 class="point-card__header"><%= @operator.city rescue "" %></h3>
+            <a  data-toggle="modal" data-target="#operatorDetail" href="#" class="hotel-name"><%= @operator.name rescue "" %></a>
 
             <div class="package-options">
                 <h4 class="xs-heading lars">Package Options</h4>
@@ -93,6 +93,7 @@
                     </li>
                     <% if @offer.related_offers.present? %>
                       <% @offer.related_offers.each do |offer| %>
+                        <% if offer.related_offer.present? %>
                         <li class="po-item">
                             <div class="poi-content-top">
                               <%= offer.related_offer.name %>
@@ -121,6 +122,7 @@
                                 </p>
                             </div> -->
                         </li>
+                        <% end %>
                       <% end %>
                     <% end %>
                 </ul>
@@ -260,3 +262,4 @@
     </div>
 </div>
 </div>
+<%= render "operator_detail"%>

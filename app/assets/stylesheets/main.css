@@ -8553,8 +8553,8 @@ input[type="submit"].modal-content__btn-access  {
 
 .home-promo__search-wrapper {
   margin: 90px auto 0;
-  position: relative;
-  width: 770px; }
+  position: relative;}
+  /*width: 770px; }*/
 
 .home-promo__search {
   font-size: 24px;
@@ -8594,7 +8594,7 @@ input[type="submit"].modal-content__btn-access  {
     padding-top: 131px;
     font-size: 36px; }
   .home-promo__search-wrapper {
-    margin: 26px 30px 0;
+    margin: 26px 0 0;
     width: auto; }
   .home-promo__search {
     height: 44px;
@@ -11474,7 +11474,8 @@ span.arrow {
                   margin-top: 20px;
                   margin-bottom: 0;
                   line-height: 30px; }
-      .destinations .package-offers-block{
+      .destinations .package-offers-block,
+      .user-pages .package-offers-block{
         padding: 0;}
         .destinations .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info{
           margin:0;
@@ -13201,6 +13202,43 @@ ul.featured-articles{
   display: none !important;
 }
 
+#operatorDetail .modal-content__header{
+  padding: 38px 50px 6px;
+  overflow: hidden;
+}
+#operatorDetail .modal-content__logo-short{
+  height: 100px;
+  width: auto;
+}
+#operatorDetail .modal-content__sing{
+  font-size: 22px;
+}
+#operatorDetail .modal-content__body{
+  padding: 10px 50px;
+}
+#operatorDetail .modal-content__body p{
+  font-family: Larsseit, sans-serif;
+  color: #000060;
+  font-size: 16px;
+  text-align: center;
+}
+#operatorDetail .modal-content__footer{
+  padding: 6px 0 37px;
+}
+#operatorDetail .modal-content__footer a{
+  font-family: Larsseit-Bold, sans-serif;
+  color: #ff4d1a;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+#operatorDetail .modal-content__footer a:hover{
+  border-bottom: 1px solid #ff4d1a;
+}
+#operatorDetail button.close{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
 input[type=checkbox].css-checkbox.featured-story {
   position:absolute;
   z-index:-1000;
@@ -13241,7 +13279,6 @@ label.css-label.label-featured{
   -ms-user-select: none;
   user-select: none;
 }
-
 .blog-container ol,
 .blog-container ul,
 .blog-container dl{

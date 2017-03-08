@@ -12,6 +12,7 @@ class OffersController < ApplicationController
     @galeries = @videos + @photos
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @review  = @offer.reviews.build
+    @operator = @offer.operator
     @book_guarantee = Configurable.book_guarantee
   end
 
