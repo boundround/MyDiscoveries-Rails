@@ -11763,16 +11763,9 @@ span.arrow {
       .product .product-content aside:last-child {
         margin-right: 0; } }
   .product .product-content aside .hotel-name {
-    /*font-family: Baghdad, serif;
+    font-family: Baghdad, serif;
     color: #ff4b1a;
-    font-size: 21px; }*/
-    font-family: Larsseit-Bold, sans-serif !important;
-    text-transform: uppercase;
-    font-size: 16px;
-    width: 50%;
-    display: block;
-    padding: 7px;
-    text-align: center;}
+    font-size: 21px; }
   .destinations aside .point-card__header{
     margin-bottom: 35px;}
   .product .product-content aside .point-card__header {
