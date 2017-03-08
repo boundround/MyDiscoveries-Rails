@@ -13241,3 +13241,9 @@ label.css-label.label-featured{
   -ms-user-select: none;
   user-select: none;
 }
+
+.blog-container ol,
+.blog-container ul,
+.blog-container dl{
+  padding: 0 40px;
+}
