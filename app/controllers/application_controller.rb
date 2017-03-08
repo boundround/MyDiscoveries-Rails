@@ -47,10 +47,14 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     # if last_url_is_not_auth
-      URI(request.referer || '').path
     # else
       # root_path
     # end
+      if session[:previous_url].present?
+        session[:previous_url]
+      else
+        URI(request.referer || '').path
+      end
   end
 
   def configure_permitted_parameters
