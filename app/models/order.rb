@@ -26,7 +26,7 @@ class Order < ActiveRecord::Base
   end
 
   def monthly_price
-    total_price / 5
+    total_price / 5.0
   end
 
   def update_total_price!

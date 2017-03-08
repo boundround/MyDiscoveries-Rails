@@ -14,8 +14,8 @@ jQuery ->
     $('.js-order-total-price').html("$#{total}")
 
     if $('.js-order-monthly-price')
-      monthly_price = total / 5
-      monthly_label = "Or 5 monthly payments of $#{monthly_price}"
+      monthly_price = (total / 5)
+      monthly_label = "Or 5 monthly payments of $#{monthly_price.toFixed(2)}"
       $('.js-order-monthly-price').html(monthly_label)
 
   recalculate_price()

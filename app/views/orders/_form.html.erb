@@ -108,7 +108,7 @@
                       <% if offer.allow_installments? %>
                         <li class="request_installments">
                             <%= f.label :request_installments,
-                              "Or 5 monthly payments of $#{order.monthly_price}",
+                              "Or 5 monthly payments of $#{number_to_currency(order.monthly_price)}",
                               class: 'js-order-monthly-price monthly-payments-label'
                             %>
                             <%= f.check_box :request_installments, label: false, class: 'monthly-payments-checkbox' %>
