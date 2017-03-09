@@ -441,6 +441,7 @@ Rails.application.routes.draw do
 
   get 'orders/:id/view_confirmation' => 'orders#view_confirmation'
   get 'orders/:id/cms_edit' => 'orders#cms_edit'
+  get 'orders/:id/customer_info' => 'orders#customer_info'
   patch 'orders/:id/cms_update' => 'orders#cms_update'
 
   get 'pdfs/:shopify_order_id' => 'orders#download_pdf'

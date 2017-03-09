@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_user_authorization, except: [:index, :view_confirmation, :cms_edit, :cms_update]
+  before_action :check_user_authorization, except: [:index, :view_confirmation, :cms_edit, :cms_update, :customer_info]
   before_action :set_order, only: [
     :edit, :update, :checkout, :payment, :confirmation,
     :add_passengers, :edit_passengers, :update_passengers
   ]
-  before_action :set_offer, except: [:download_pdf, :index, :view_confirmation, :cms_edit, :cms_update]
+  before_action :set_offer, except: [:download_pdf, :index, :view_confirmation, :cms_edit, :cms_update, :customer_info]
   before_action :check_order_authorized, only: [:edit, :checkout, :update, :payment]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -33,6 +33,10 @@ class OrdersController < ApplicationController
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
       render :new
     end
+  end
+
+  def customer_info
+    @order = Order.find(params[:id])
   end
 
   def checkout
