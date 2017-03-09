@@ -128,7 +128,7 @@ class Ax::Upload
   end
 
   def oss_payment_sched
-    order.request_installments? ? '5' : '0'
+    order.request_installments? ? '5' : ''
   end
 
   def shipping_cost

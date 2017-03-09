@@ -1,0 +1,12 @@
+<div class="confirmation-container">
+  <%= render 'vouchers/body_table',
+    pdf_page:   false,
+    email_page: false,
+    order:      @order,
+    offer:      @offer,
+    operator:   @operator,
+    hero_photo: @hero_photo,
+    passengers: @passengers,
+    customer:   @customer
+  %>
+</div>

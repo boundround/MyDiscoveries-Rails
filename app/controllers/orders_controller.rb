@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_user_authorization, except: :index
+  before_action :check_user_authorization, except: [:index, :view_confirmation, :cms_edit, :cms_update]
   before_action :set_order, only: [
     :edit, :update, :checkout, :payment, :confirmation,
     :add_passengers, :edit_passengers, :update_passengers
   ]
-  before_action :set_offer, except: [:download_pdf, :index]
+  before_action :set_offer, except: [:download_pdf, :index, :view_confirmation, :cms_edit, :cms_update]
   before_action :check_order_authorized, only: [:edit, :checkout, :update, :payment]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -39,11 +39,42 @@ class OrdersController < ApplicationController
     @customer.credit_card = CreditCard.new()
   end
 
+  def cms_edit
+    @order = Order.find(params[:id])
+    @offer = @order.offer
+  end
+
+  def cms_update
+    @order = Order.find params[:id]
+    @offer = @order.offer
+    if @order.update(order_params)
+      flash[:notice] = "Order updated"
+      render nothing: true
+    else
+      flash[:notice] = "Error"
+    end
+  end
+
   def confirmation
     redirect_to offers_path unless @order.authorized?
     @operator   = @offer.operator
     @hero_photo = @order.offer.photos.where(hero: true).last
     @customer   = @order.customer
+  end
+
+  def view_confirmation
+    @order = Order.find(params[:id])
+    @offer = @order.offer
+    redirect_to offers_path unless @order.authorized?
+    @operator   = @offer.operator
+    @hero_photo = @order.offer.photos.where(hero: true).last
+    @customer   = @order.customer
+  end
+
+  def resend_confirmation
+    OrderAuthorized.delay.notification(params[:order_id])
+    flash.now[:notice] = "Confirmation Re-sent"
+    render nothing: true
   end
 
   def payment

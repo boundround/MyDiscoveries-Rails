@@ -60,7 +60,7 @@
           </p>
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Purchase Date</span>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= order.purchase_date.strftime("%d/%m/%Y") %>
+            <%= order.purchase_date.try(:strftime, "%d/%m/%Y") %>
           </p>
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Offer Description</span>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">

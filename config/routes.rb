@@ -186,7 +186,7 @@ Rails.application.routes.draw do
 
   resources :users do
     collection { get 'leaderboard' }
-    member do 
+    member do
       get 'paginate_stories'
       get 'paginate_favorite_stories'
       get 'paginate_places'
@@ -423,6 +423,7 @@ Rails.application.routes.draw do
         get :checkout
         get :confirmation
         post :payment
+        get :resend_confirmation
       end
     end
     resources :places, controller: :places_offers
@@ -437,6 +438,10 @@ Rails.application.routes.draw do
     end
     resources :reviews
   end
+
+  get 'orders/:id/view_confirmation' => 'orders#view_confirmation'
+  get 'orders/:id/cms_edit' => 'orders#cms_edit'
+  patch 'orders/:id/cms_update' => 'orders#cms_update'
 
   get 'pdfs/:shopify_order_id' => 'orders#download_pdf'
   get 'orders' => 'orders#index'

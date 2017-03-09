@@ -1,0 +1,130 @@
+<div class="container">
+  <%= simple_form_for @order, :url => "/orders/#{@order.id}/cms_update",
+    html: {
+      role: 'form',
+      class: 'top20 js-order-form',
+      data: {
+        'infants-price' => unit_price(@offer.minRateInfant, @offer.minRateAdult),
+        'children-price' => unit_price(@offer.minRateChild, @offer.minRateAdult),
+        'adults-price' => @offer.minRateAdult
+      }
+    } do |f| %>
+    <%= f.input :title, as: :hidden %>
+    <div class="row">
+      <div class="form-group">
+        <%= f.input :number_of_infants, as: :hidden,
+            label: "Number Of Infants (price per unit: #{unit_price(@offer.minRateInfant, @offer.minRateAdult)}$)",
+            input_html: { class: 'form-control js-order-people-count', min: 0 }
+        %>
+      </div>
+    </div>
+  <div class="booking-block">
+
+      <div class="width-limiter">
+          <!-- <div class="booking-steps">
+              <ul class="xs-invisible">
+                  <li class="active">
+                      <a href="#">Prices and availability</a>
+                  </li>
+                  <li>
+                      <a href="#">Passenger details</a>
+                  </li>
+                  <li>
+                      <a href="#">Booking summary</a>
+                  </li>
+                  <li>
+                      <a href="#">Checkout</a>
+                  </li>
+              </ul>
+
+              <p class="lg-invisible">Step 1 of 4  Prices and availability</p>
+
+          </div> -->
+
+          <section class="prices-and-availability-block">
+
+              <div class="paab-header">
+                  <h1><%= @offer.name %></h1>
+                  <h4 class="heading">PRICES</h4>
+                  <!-- <a class="change-selection xs-invisible" href="#">Change selection</a> -->
+              </div>
+
+              <div class="form-block">
+                  <ul>
+                      <!-- <li>
+                          <h5>Departure date</h5>
+                          <div>
+                              <input type="text" id="departure-date">
+                          </div>
+                      </li> -->
+                      <li>
+                          <h5>Duration</h5>
+                          <div><%= create_duration(@offer) %></div>
+
+                      </li>
+                      <!-- <li>
+                          <h5>DEPARTING FROM</h5>
+                          <div>Melbourne (Tullamarine), Australia</div>
+                      </li> -->
+                      <li class="quantity">
+                          <h5># of adults</h5>
+                          <div>
+                            <%= f.input :number_of_adults,
+                                as: :select,
+                                collection: 1..6,
+                                include_blank: false,
+                                label: false,
+                                selected: @offer.minUnits,
+                                input_html: { class: 'form-control js-order-people-count', min: 1 }
+                            %>
+                          </div>
+                      </li>
+                      <li>
+                        <h5>PRICE PER ADULT</h5>
+                        <div>$<%= @offer.minRateAdult %> AUD</div>
+                      </li>
+                      <% if @offer.minRateChild.present? %>
+                      <li class="quantity">
+                          <h5># of children</h5>
+                          <div>
+                            <%= f.input :number_of_children,
+                                as: :select,
+                                collection: 0..6,
+                                include_blank: false,
+                                label: false,
+                                input_html: { class: 'form-control js-order-people-count', min: 0 }
+                            %>
+                          </div>
+                      </li>
+                        <li>
+                          <h5>PRICE PER CHILD</h5>
+                          <div>$<%= unit_price(@offer.minRateChild, @offer.minRateAdult) %> AUD</div>
+                        </li>
+                      <% end %>
+                        <li class="total-price">
+                            <h5>Total price</h5>
+                            <div class="js-order-total-price"><%= "$#{@order.total_price.to_i}" %></div>
+                        </li>
+                      <% if @offer.allow_installments? %>
+                        <li class="request_installments">
+                            <%= f.label :request_installments,
+                              "Or 5 monthly payments of $#{number_to_currency(@order.monthly_price)}",
+                              class: 'js-order-monthly-price monthly-payments-label'
+                            %>
+                            <%= f.check_box :request_installments, label: false, class: 'monthly-payments-checkbox' %>
+                        </li>
+                      <% end %>
+                  </ul>
+                  <div class="form-group">
+                    <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
+                      <span>CONTINUE</span>
+                    <% end %>
+                  </div>
+              </div>
+
+          </section>
+      </div>
+  </div>
+</div>
+
+<% end %>
