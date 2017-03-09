@@ -13,10 +13,10 @@
   <p>Total Price: $<%= @order.total_price %></p>
   <p>Number of Adults: <%= @order.number_of_adults %></p>
   <p>Number of Children: <%= @order.number_of_children %></p>
-  <p>Tour Operator: <%= @order.offer.operator.name %></p>
+  <p>Tour Operator: <%= @order.product.operator.name %></p>
   <p>Payment Status: <%= @order.status %></p>
   <p>Requested Installments?: <%= @order.request_installments? ? "yes" : "no" %></p>
 
   <h2>Offer Info</h2>
-  <p>Product Info: <%= link_to @order.offer.name, offer_path(@order.offer), target: "blank" %></p>
+  <p>Product Info: <%= link_to @order.product.name, offer_path(@order.product), target: "blank" %></p>
 </div>

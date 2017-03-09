@@ -463,7 +463,7 @@ class Place < ActiveRecord::Base
 
   def markers
     marker = []
-    self.offers.each do |offer|
+    self.products.each do |offer|
       marker << offer.attraction
     end
     return marker

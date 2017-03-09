@@ -40,7 +40,7 @@ class Ax::Upload
   end
 
   def offer
-    @offer ||= order.offer
+    @offer ||= order.product
   end
 
   def user

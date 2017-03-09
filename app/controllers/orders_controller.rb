@@ -45,12 +45,12 @@ class OrdersController < ApplicationController
 
   def cms_edit
     @order = Order.find(params[:id])
-    @offer = @order.offer
+    @offer = @order.product
   end
 
   def cms_update
     @order = Order.find params[:id]
-    @offer = @order.offer
+    @offer = @order.product
     if @order.update(order_params)
       flash[:notice] = "Order updated"
       render nothing: true
@@ -68,10 +68,10 @@ class OrdersController < ApplicationController
 
   def view_confirmation
     @order = Order.find(params[:id])
-    @offer = @order.offer
+    @offer = @order.product
     redirect_to offers_path unless @order.authorized?
     @operator   = @offer.operator
-    @hero_photo = @order.offer.photos.where(hero: true).last
+    @hero_photo = @order.product.photos.where(hero: true).last
     @customer   = @order.customer
   end
 

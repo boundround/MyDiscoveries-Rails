@@ -221,7 +221,7 @@ class Region < ActiveRecord::Base
           "#offer" => []
         }
 
-        place.offers.each do |place_offer|
+        place.products.each do |place_offer|
           hero_photo_offer = place_offer.photos.where(hero: true)
           data_offer_objs = {
             "@country" => "",
