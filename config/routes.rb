@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :posts do
     collection { get 'all_posts' }
     collection { get 'paginate' }
-    member { get 'paginate_place_to_visit'}
+    member     { get 'paginate_place_to_visit' }
     resources :places, controller: :places_posts
     resources :countries, controller: :countries_posts
     resources :subcategories, controller: :posts_subcategories
@@ -67,11 +67,10 @@ Rails.application.routes.draw do
   get 'pages/privacy' => 'pages#privacy'
   get '/robots.txt' => 'pages#robots'
 
-
   resources :transactions
 
   resources :custom_reports do
-    collection { get "photo_errors"}
+    collection { get "photo_errors" }
   end
 
   require 'sidekiq/web'
@@ -82,7 +81,7 @@ Rails.application.routes.draw do
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
 
-  mount Soulmate::Server, :at => "/sm"
+  mount Soulmate::Server, at: "/sm"
 
   mount ConfigurableEngine::Engine => '/admin/configurable', as: 'configurable'
 

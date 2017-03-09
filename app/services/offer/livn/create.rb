@@ -60,8 +60,8 @@ class Offer::Livn::Create
   end
 
   def validate_and_create_offer(product)
-    response.offer = Offer.new
-    attributes = Offer.attribute_names - except_attributes
+    response.offer = Spree::Product.new
+    attributes = Spree::Product.attribute_names - except_attributes
 
     attributes.each do |attribute|
       response.offer.send "#{attribute}=", product.try(:[], attribute)

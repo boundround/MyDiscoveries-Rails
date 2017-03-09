@@ -1,11 +1,11 @@
 <div class="container">
   <div class="hidden">
-    <div id="similar-places-js" data-similar="<%= array_countries_offers_ids(@offer.offers_countries) %>" data-controllers="countries">
+    <div id="similar-places-js" data-similar="<%= array_countries_offers_ids(@offer.products_countries) %>" data-controllers="countries">
     </div>
   </div>
   <h1>Add To Countries</h1>
   <%= render "/offers/admin_tabs" %>
-  <%= simple_form_for [@offer, @countries_offers] do |f| %>
+  <%= simple_form_for [@offer, @countries_offers], url: offer_countries_path do |f| %>
     <div id="dual-list-box-offers-countries" class="form-group row">
       <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="offers-countries" name="countries_offer[country_ids][]">
         <%= @countries.each do |country| %>

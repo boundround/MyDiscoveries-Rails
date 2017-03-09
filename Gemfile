@@ -177,7 +177,7 @@ gem 'geocomplete_rails', github: 'guyisra/geocomplete_rails'
 
 # FriendlyId is the "Swiss Army bulldozer" of slugging and permalink plugins for Active Record.
 # It lets you create pretty URLs and work with human-friendly strings as if they were numeric ids.
-gem 'friendly_id'
+gem 'friendly_id', '~> 5.0.4'
 
 gem 'sitemap_generator'
 
@@ -232,3 +232,8 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'wkhtmltopdf-heroku', group: :production
 gem 'configurable_engine'
+
+gem 'ffaker', '1.16'
+
+# Spree
+gem 'spree', '~> 2.4.10'

@@ -12,15 +12,15 @@ class OrdersController < ApplicationController
 
   def new
     @order = current_user.orders.build(
-      offer: @offer,
+      product: @offer,
       title: @offer.name,
       number_of_adults: params[:number_of_adults].to_i
     )
   end
 
   def create
-    @order       = current_user.orders.build(order_params)
-    @order.offer = @offer
+    @order         = current_user.orders.build(order_params)
+    @order.product = @offer
 
     if @order.save
       @order.update_total_price!
@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
   def confirmation
     redirect_to offers_path unless @order.authorized?
     @operator   = @offer.operator
-    @hero_photo = @order.offer.photos.where(hero: true).last
+    @hero_photo = @order.product.photos.where(hero: true).last
     @passengers = @order.passengers
     @customer   = @order.customer
   end
@@ -110,11 +110,11 @@ class OrdersController < ApplicationController
   end
 
   def set_order
-    @order = current_user.orders.find(params[:id])
+    @order = current_user.orders.find_by(number: params[:id].upcase)
   end
 
   def set_offer
-    @offer = Offer.friendly.find(params[:offer_id])
+    @offer = Spree::Product.friendly.find(params[:offer_id])
   end
 
   def is_units_count_changed?

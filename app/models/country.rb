@@ -147,6 +147,9 @@ class Country < ActiveRecord::Base
   has_many :offers_countries, dependent: :destroy
   has_many :offers, through: :offers_countries
 
+  has_many :products_countries, class_name: Spree::ProductsCountry, dependent: :destroy
+  has_many :products, through: :products_countries, class_name: Spree::Product
+
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
   accepts_nested_attributes_for :fun_facts, allow_destroy: true

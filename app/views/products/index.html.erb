@@ -1,0 +1,68 @@
+<div data-page="offer" data-controller="index">
+
+<!-- BEGIN - breadcrumbs -->
+<div class="breadcrumbs width-limiter">
+    <a href="#" class="breadcrumbs__link">home</a>
+    <a href="#" class="breadcrumbs__link">Package products</a>
+</div>
+<!-- END - breadcrumbs -->
+
+<div class="package-offers">
+
+    <div class="hero" style="background: url('/assets/default-hero.jpg')center center no-repeat;">
+        <h1>Package products</h1>
+    </div>
+
+    <div class="package-offers-block width-limiter">
+        <ul>
+        <div id="featured_offers-list">
+          <%= render partial: "products/all_index_products", collection: @featured_products, as: :product %>
+        </div>
+          <% unless last_page? @featured_products %>
+          <div class="row hidden-xs single-pagination-container" id="featured_offers-single-pagination-container">
+            <div class="hidden single-pagination-loader" align="center">
+              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+            </div>
+            <div class="col-xs-12" align="center">
+              <%= link_to "more featured products", paginate_products_products_path(featured_products_page: @featured_products.next_page, resources: 'featured_products', pagination_template: 'products/all_index_products', collection_object: 'products'), class: 'more-link', remote: true %>
+            </div>
+          </div>
+        <% end %>
+        </ul>
+    </div>
+     <div class="section-grey">
+        <div class="container sidebar-result-search">
+        <div class="row">
+
+            <div class="col-md-3 filter-box">
+              <div id="facets-instant-search2" style="padding-bottom: 5px;"></div>
+                <div class="main-header">
+                  <h3 class="search-page-filter__header">Filter</h3>
+                </div>
+              <div id="facets-instant-search3"></div>
+              <div id="facets-instant-search"></div>
+            </div>
+            <div class="col-md-9" id="instant-search-container">
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group input-search-nav refine">
+                      <%= form_tag searching_path, id: '', method: :get  do %>
+                        <%= text_field_tag "search[common]", params.traverse('search', 'common'), id: "squery" ,class: 'search-page-main-search__search instant-search', autocomplete: "off" %>
+                        <%= submit_tag "", class: "search-page-main-search__search-icon" %>
+                      <% end %>
+                    </div><!-- /input-group -->
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+              <div class="row">
+                <div class="col-md-12" id="instant-search-results">
+                  <div id="dataBucketOffer" data-bucketlist="<%= current_user.favorite_products.map(&:id) if user_signed_in? %>"></div>
+                  <%= render partial: 'search_suggestions/instant_search_results' %>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+</div>

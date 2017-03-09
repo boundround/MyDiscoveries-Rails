@@ -1,4 +1,6 @@
 <div class="container">
   <h1>Create New Offer</h1>
-  <%= render 'form' %>
+  <%= simple_form_for @offer, url: offers_path, html: { role: 'form'} do |f| %>
+    <%= render 'form', f: f %>
+  <% end %>
 </div>

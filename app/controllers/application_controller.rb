@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   def get_header
     @featured_nav_places = Place.where(show_in_mega_menu: true)
-    @featured_nav_destinations = Offer.where(show_in_mega_menu: true)
+    @featured_nav_destinations = Spree::Product.where(show_in_mega_menu: true)
   end
 
   protected
@@ -103,6 +103,7 @@ class ApplicationController < ActionController::Base
 
   def check_user_authorization
     model_name = params[:controller].classify
+    model_name = model_name == 'Product' ? 'Spree::Product' : model_name
     authorize model_name.camelize.constantize
   end
 

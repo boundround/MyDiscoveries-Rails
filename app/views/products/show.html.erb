@@ -1,0 +1,254 @@
+<% provide(:title, @product.name) %>
+<div data-page="offer">
+
+<!-- BEGIN - breadcrumbs -->
+<div class="breadcrumbs width-limiter">
+  <%= raw create_breadcrumb_product(@product) %>
+  <% if user_signed_in? and current_user.admin? %>
+    <%= link_to "Edit Product", edit_product_path(@product), class: "breadcrumbs__link" %>
+  <% end %>
+</div>
+<!-- END - breadcrumbs -->
+
+
+<div class="product">
+
+    <!-- <div class="hero" style="background: url(<%= main_product_photo_url(@product)[:url] %>) center no-repeat;" > -->
+    <div class="hero" style="background: url( <%= showing_image(draw_hero_background(@product)) %>) 50% 50% no-repeat;" >
+        <div class="hero-content width-limiter">
+            <div class="location">
+              <% if user_signed_in? and current_user.admin? %>
+                <p align="center"><%= link_to "Edit Product", edit_product_path(@product) %></p>
+              <% end %>
+            </div>
+            <h2 class="lg-heading"><%= @product.name %></h2>
+            <span class="info-text"><!--LOCATION--></span>
+            <div class="hc-info">
+                <span class="hci-price">
+                    <span>$</span>
+                    <span class="hci-price-self"><%= @product.minRateAdult %></span>
+                    <% if @product.allow_installments? %>
+                      <br><span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(@product.minRateAdult / 5) %></span><br>
+                    <% end %>
+                </span>
+                <% if @product.duration.present? %>
+                  <span class="hci-nights">
+                      <span><%#= @product.duration / 1000 / 60 / 60 / 24 %></span>
+                      <span class="xs-invisible"><%= create_duration(@product) %></span>
+                  </span>
+                <% end %>
+                <div class="info-text">Per Adult</div>
+                <!-- <span class="hci-people">
+                    <span>2</span>
+                    <span class="xs-invisible">people</span>
+                </span> -->
+                <span class="hci-info"><%= simple_format @product.specialNotes %></span>
+            </div>
+            <a class="btn-bordered red invert" href="<%= new_product_order_path(@product, number_of_adults: 1)%>">buy now</a>
+            <div class="destination-details">
+            </div>
+        </div>
+    </div>
+
+    <div class="product-content width-limiter">
+
+        <aside>
+            <h3 class="point-card__header"><%= @product.operator.city rescue "" %></h3>
+            <p class="hotel-name"><%= @product.operator.name rescue "" %></p>
+
+            <div class="package-options">
+                <h4 class="xs-heading lars">Package Options</h4>
+
+                <ul>
+                    <li class="po-item">
+
+                        <div class="poi-content-top">
+                          <%= @product.name %>
+                            <div class="poict-price">
+                                <span>$</span>
+                                <span class="poict-price-self"><%= @product.minRateAdult %></span>
+                                <br>
+                                <% if @product.allow_installments? %>
+                                  or 5 monthly payments of <%= number_to_currency(@product.minRateAdult / 5) %>
+                                <% end %>
+                            </div>
+                            <!-- <div class="poict-valued">Valued up to $3,441</div> -->
+                            <div class="poict-people">per Adult</div>
+                            <div class="poict-nights"><%= create_duration(@product) %></div>
+                            <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
+
+                            <a href="<%= new_product_order_path(@product, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                        </div>
+
+                        <!-- <div class="poi-content-bottom">
+                            <p>
+                                <span class="head-highlight">Highlights:</span>
+                                <%#= simple_format @product.highlightsStr %>
+                            </p>
+                        </div> -->
+
+                    </li>
+                    <% if @product.related_products.present? %>
+                      <% @product.related_products.each do |product| %>
+                        <li class="po-item">
+                            <div class="poi-content-top">
+                              <%= product.related_product.name %>
+                                <div class="poict-price">
+                                    <span>$</span>
+                                    <span class="poict-price-self"><%= product.related_product.minRateAdult %></span>
+                                    <br>
+                                    <% if product.related_product.allow_installments? %>
+                                      or 5 monthly payments of <%= number_to_currency(product.related_product.minRateAdult / 5) %>
+                                    <% end %>
+                                </div>
+                                <!-- <div class="poict-valued">Valued up to $3,441</div> -->
+                                <div class="poict-people">per Adult</div>
+                                <div class="poict-nights"><%= create_duration(product.related_product) %></div>
+                                <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
+
+                                <a href="<%= new_product_order_path(product.related_product, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                            </div>
+
+                            <!-- <div class="poi-content-bottom">
+                                <p>
+                                    <span class="head-highlight">Highlights:</span>
+                                    <%#= simple_format product.related_product.highlightsStr %>
+                                </p>
+                            </div> -->
+                        </li>
+                      <% end %>
+                    <% end %>
+                </ul>
+
+                <!-- <a href="#" class="more-link">see more</a> -->
+
+            </div>
+
+        </aside>
+
+        <section>
+
+            <div class="country-info main-article">
+                <h2 class="lg-heading"><%= @product.name %></h2>
+                <% if @product.description.size > 301 %>
+                  <div class="destination-desc " style="display:none;">
+                      <%= simple_format @product.description %>
+                  </div>
+                  <div class="destination-desc">
+                      <%= simple_format @product.description[0..300]+"..." %>
+                  </div>
+                  <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
+                  <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+                <% else %>
+                  <div class="destination-desc">
+                      <%= simple_format @product.description %>
+                  </div>
+                <% end %>
+                <div class="ci-map-block">
+                    <div id='dest-map' data-map="<%= create_marker @product %>"></div>
+                </div>
+                <div id="product-accordion" class="accordion-block">
+
+                    <h3>Highlights</h3>
+                    <div class="highlights">
+                        <p><%= simple_format @product.highlightsStr %></p>
+                    </div>
+                    <% if @product.itineraryStr.present? %>
+                      <h3 id="ci-itinarary-map-loader">Itinerary</h3>
+                      <div class="itinerary">
+                        <%= simple_format @product.itineraryStr %>
+                      </div>
+                    <% end %>
+
+                    <% if @product.customStr2.present? %>
+                      <h3>FACILITIES</h3>
+                      <div class="FACILITIES">
+                          <%= simple_format @product.customStr2 %>
+                      </div>
+                    <% end %>
+
+                    <% if @product.includes.present? %>
+                      <h3>INCLUDES</h3>
+                      <div class="includes">
+                          <%= simple_format @product.includes %>
+                      </div>
+                    <% end %>
+
+                    <!-- <h3>Reviews &nbsp; (2)</h3>
+                    <div class="reviews">
+                        <div class="heading">Hotel Port Denia Signature Scores 8.2 out of 10 based on 2 reviews</div>
+                        <div class="review-block">
+                            <h5>JANE SNOW 10 / 10</h5>
+                            <p>Not a particularly fancy hotel but with staff ALL trained to a very high standard and happy to help which more than makes up for minor weeknesses elsewhere. That is why I spend two x four weeks there per year.</p>
+                        </div>
+                        <div class="review-block">
+                            <h5>KATE BLACK     10 / 10</h5>
+                            <p>This is a good hotel a decent walk, or a bus ride, from Denia centre. Nearby is the marina and also some bars and a supermarket. Remember you are in Spain, so there will be a lot of Spanish guests in the hotel. Outside school times they are mainly elderly and good fun, but exuberant as the Spanish are. At weekends and definitely in school holidays there are a lot of children in the hotel and they keep late hours and can be very noisy.</p>
+                        </div>
+                        <div class=" pagination">
+                            <a class="pagination__link-left" href="#"></a>
+                            <a class="pagination__link" href="#">1</a>
+                            <a class="pagination__link" href="#">2</a>
+                            <a class="pagination__link" href="#">3</a>
+                            <a class="pagination__link-right" href="#"></a>
+                        </div>
+                    </div> -->
+                    <% if @product.customStr3.present? %>
+                      <h3>fine print</h3>
+                      <div class="fint-print">
+                        <%= simple_format @product.customStr3 %>
+                      </div>
+                    <% end %>
+                    <% if @product.customStr1.present? %>
+                      <h3>booking essentials</h3>
+                      <div class="details">
+                        <%= simple_format @product.customStr1 %>
+                      </div>
+                    <% end %>
+                    <h3>booking guarantee</h3>
+                    <div class="guarantee">
+                        <p><%= simple_format(@product.customStr4.present?? @product.customStr4 : @book_guarantee) %></p>
+
+                    </div>
+
+
+                </div>
+
+                <h3 class="sm-heading lars">Videos & Photos</h3>
+                <% unless @videos.blank? %>
+                  <div class="destinations">
+                    <div class="videos-block place-video">
+                      <% if !@last_video.youtube_id.blank? %>
+                        <div class="video-embed-wrapper">
+                          <div class="small-video-component">
+                            <iframe class="player-vimeo" src="<%= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                          </div>
+                        </div>
+                      <% end %>
+                    <%= render partial: "shared/videos_list", locals:{container: "" } %>
+                  </div>
+                </div>
+                <% end %>
+                <% unless @photos.blank? %>
+                <div class="gallery">
+                    <div class="slider-mobile-wrapper">
+                        <div class="slider-for">
+                            <% @photos.each do |photo| %>
+                                <div><img src="<%= photo.path_url(:large) %>" alt="" width="100%"></div>
+                            <% end %>
+                        </div>
+                    </div>
+                    <div class="slider-nav xs-invisible">
+                        <% @photos.each do |photo| %>
+                            <div><img src="<%= photo.path_url(:large) %>" alt="" width="100%"   ></div>
+                        <% end %>
+                    </div>
+                </div>
+                <% end %>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>

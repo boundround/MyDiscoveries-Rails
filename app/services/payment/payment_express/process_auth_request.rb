@@ -21,7 +21,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def update_order
-    order.update(status: :authorized, px_response: px_response_json)
+    order.update(authorized: true, px_response: px_response_json)
   end
 
   def response

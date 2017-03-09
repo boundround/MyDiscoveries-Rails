@@ -1,7 +1,7 @@
 class Passenger < ActiveRecord::Base
   TITLES = ['Mrs', 'Mr']
 
-  belongs_to :order
+  belongs_to :order, class_name: Spree::Order
 
   validates :first_name, :last_name, :order, presence: true
   validate  :valid_date_of_birth

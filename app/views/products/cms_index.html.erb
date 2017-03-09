@@ -1,0 +1,48 @@
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+<div id="table-container">
+  <h1>All Products</h1>
+
+  <table class="table table-striped" id="place-table">
+    <thead>
+    <tr>
+      <th>Product</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Operator</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Created At</th>
+      <th>Edit Link</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Product</th>
+        <th>Description</th>
+        <th>Operator</th>
+        <th>Created At</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </tfoot>
+    <tbody>
+    <% @products.each do |product| %>
+        <tr>
+          <td><%= link_to "#{product.name} || #{product.id}", edit_product_path(product) %></td>
+          <td><%= product.description %></td>
+          <td><%= product.status %></td>
+          <td><%= product.operator.name %></td>
+          <td><%= product.startDate.try(:strftime, "%m-%d-%Y") %></td>
+          <td><%= product.endDate.try(:strftime, "%m-%d-%Y") %></td>
+          <td><%= product.created_at.strftime("%F") %></td>
+          <td><%= link_to 'Edit product', edit_product_path(product), target: "_blank" %></td>
+          <td><%= link_to 'Destroy', product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% else %>
+<h3>You are not signed in or do not have the proper permissions to view this page</h3>
+<% end %>

@@ -2,42 +2,34 @@ class RelatedOffersController < ApplicationController
   include ApplicationHelper
 
   def create
-    @offer = Offer.friendly.find(params[:offer_id])
-    @offer.related_offers = []
+    @offer = Spree::Product.friendly.find(params[:offer_id])
+    @offer.related_products = []
     if params[:related_offer]
-      @related_place_ids = params[:related_offer][:related_offer_ids]
-      @related_place_ids.each do |id|
-        @offer.related_offers.create(offer_id: @offer.id, related_offer_id: id)
+      @related_offer_ids = params[:related_offer][:related_offer_ids]
+      @related_offer_ids.each do |id|
+        @offer.related_products.create(spree_related_product_id: id)
       end
     end
-
     redirect_to :back
-
   end
 
   def edit
   end
 
   def update
-     @offer = Offer.friendly.find(params[:offer_id])
+    @offer = Spree::Product.friendly.find(params[:offer_id])
   end
 
   def index
-    @offer = Offer.friendly.find(params[:offer_id])
-    @related_offers = @offer.related_offers.build
-    all_related_offers = @offer.related_offers
-    @relates = destination_available(Offer.where("offers.name != ?", @offer.name), all_related_offers)
+    @offer = Spree::Product.friendly.find(params[:offer_id])
+    @related_offers = @offer.related_products.build
+    all_related_offers = @offer.related_products
+    @relates = destination_available(Spree::Product.where("spree_products.name != ?", @offer.name), all_related_offers)
   end
 
   def destroy
-    @related_offer = RelatedOffer.find_by(offer_id: params["related_offer"]["offer_id"], related_offer_id: params["related_offer"]["related_offer_id"])
+    @related_offer = Spree::RelatedProduct.find_by(product_id: params["related_offer"]["offer_id"], spree_related_product_id: params["related_offer"]["related_offer_id"])
     @related_offer.destroy
     render nothing: true
   end
-
-  private
-    def related_offers_params
-      params.require(:related_offer).permit(:offer_id, :related_offer_ids => [])
-    end
-
 end

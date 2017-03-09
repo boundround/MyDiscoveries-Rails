@@ -1,0 +1,13 @@
+<div class="col-md-4 col-sm-6 dest-thing-wrapper">
+  <div class="new-offer-promo-item wrap_link_card">
+    <a class="link_card" href="<%= product_path(product) %>"></a>
+    <div class="things-img" style="background: url(<%= draw_small_background(product) %>) no-repeat;" role="img"
+         aria-label="Bondi">
+      <h3 class="new-offer-promo-item__header"><%= product.name %></h3>
+    </div>
+    <div class="dest-thing-content">
+        <p class="new-offer-promo-item__description"><%= product.description[0..75] %>...</p>
+        <a href="<%= product_path(product) %>" class="new-offer-promo-item__link">go to product</a>
+    </div>
+  </div>
+</div>

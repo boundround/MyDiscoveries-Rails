@@ -88,31 +88,31 @@
                         </div> -->
 
                     </li>
-                    <% if @offer.related_offers.present? %>
-                      <% @offer.related_offers.each do |offer| %>
+                    <% if @offer.related_products.present? %>
+                      <% @offer.related_products.each do |offer| %>
                         <li class="po-item">
                             <div class="poi-content-top">
-                              <%= offer.related_offer.name %>
+                              <%= offer.related_product.name %>
                                 <div class="poict-price">
                                     <span>$</span>
-                                    <span class="poict-price-self"><%= offer.related_offer.minRateAdult %></span>
+                                    <span class="poict-price-self"><%= offer.related_product.minRateAdult %></span>
                                     <br>
-                                    <% if offer.related_offer.allow_installments? %>
-                                      or 5 monthly payments of <%= number_to_currency(offer.related_offer.minRateAdult / 5) %>
+                                    <% if offer.related_product.allow_installments? %>
+                                      or 5 monthly payments of <%= number_to_currency(offer.related_product.minRateAdult / 5) %>
                                     <% end %>
                                 </div>
                                 <!-- <div class="poict-valued">Valued up to $3,441</div> -->
                                 <div class="poict-people">per Adult</div>
-                                <div class="poict-nights"><%= create_duration(offer.related_offer) %></div>
+                                <div class="poict-nights"><%= create_duration(offer.related_product) %></div>
                                 <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
-                                <a href="<%= new_offer_order_path(offer.related_offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                                <a href="<%= new_offer_order_path(offer.related_product, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
                             </div>
 
                             <!-- <div class="poi-content-bottom">
                                 <p>
                                     <span class="head-highlight">Highlights:</span>
-                                    <%#= simple_format offer.related_offer.highlightsStr %>
+                                    <%#= simple_format offer.related_product.highlightsStr %>
                                 </p>
                             </div> -->
                         </li>

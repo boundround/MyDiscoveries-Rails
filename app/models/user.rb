@@ -19,8 +19,15 @@ class User < ActiveRecord::Base
   has_many :favorite_regions, through: :regions_users, source: :region
   has_many :countries_users
   has_many :favorite_countries, through: :countries_users, source: :country
+
   has_many :offers_users
   has_many :favorite_offers, through: :offers_users, source: :offer
+  has_many :products_users, class_name: Spree::ProductsUser
+  has_many :favorite_products,
+    through: :products_users,
+    class_name: Spree::Product,
+    source: :product
+
   has_many :fun_facts_users
   has_many :fun_facts, through: :fun_facts_users
   has_many :posts_users
@@ -42,7 +49,8 @@ class User < ActiveRecord::Base
   has_one :points_balance
   has_many :transactions
 
-  has_many :orders
+  # has_many :orders
+  has_many :orders, class_name: Spree::Order
 
   has_many :customers
 

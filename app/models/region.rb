@@ -122,6 +122,9 @@ class Region < ActiveRecord::Base
   has_many :offers_regions
   has_many :offers, through: :offers_regions
 
+  has_many :products_regions, class_name: Spree::ProductsRegion, dependent: :destroy
+  has_many :products, through: :products_regions, class_name: Spree::Product
+
   has_many :fun_facts, -> { order "created_at ASC"}, as: :fun_factable
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
@@ -203,10 +206,10 @@ class Region < ActiveRecord::Base
       children_collect.each do |place|
         hero_photo = place.photos.where(hero: true)
         data_objs = {
-          "#place" => place.display_name, 
-          "#lat" => place.latitude, 
-          "#lng" => place.longitude, 
-          "#description" => place.description, 
+          "#place" => place.display_name,
+          "#lat" => place.latitude,
+          "#lng" => place.longitude,
+          "#description" => place.description,
           "#country" => place.country.present?? place.country.display_name : "",
           "#path" => place_path(place),
           "#photo" => hero_photo.present?? hero_photo.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg",
@@ -230,10 +233,10 @@ class Region < ActiveRecord::Base
     else
       hero_photo = self.photos.where(hero: true)
       data_objs = {
-        "#place" => self.display_name, 
-        "#lat" => self.latitude.to_f, 
-        "#lng" => self.longitude.to_f, 
-        "#description" => self.description, 
+        "#place" => self.display_name,
+        "#lat" => self.latitude.to_f,
+        "#lng" => self.longitude.to_f,
+        "#description" => self.description,
         "#country" => "",
         "#path" => region_path(self),
         "#photo" => hero_photo.present?? hero_photo.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg",

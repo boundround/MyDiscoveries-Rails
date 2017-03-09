@@ -195,6 +195,9 @@ class Place < ActiveRecord::Base
   has_many :offers_places, dependent: :destroy
   has_many :offers, through: :offers_places
 
+  has_many :products_places, class_name: Spree::ProductsPlace, dependent: :destroy
+  has_many :products, through: :products_places, class_name: Spree::Product
+
   # reverse_geocoded_by :latitude, :longitude
   # after_validation :reverse_geocode
 
