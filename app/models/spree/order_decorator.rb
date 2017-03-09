@@ -15,6 +15,8 @@ Spree::Order.class_eval do
 
   validate :check_total_people_count
 
+  after_commit :set_ax_sales_id!, on: :create
+
   accepts_nested_attributes_for :passengers
 
   def total_people_count
@@ -22,13 +24,13 @@ Spree::Order.class_eval do
   end
 
   def monthly_price
-    total_price / 5
+    total_price / 5.0
   end
 
   def update_total_price!
-    total_price = number_of_adults * product.maxRateAdult +
-      number_of_children * (product.maxRateChild || product.maxRateAdult) +
-      number_of_infants * (product.maxRateInfant || product.maxRateAdult)
+    total_price = number_of_adults * product.minRateAdult +
+      number_of_children * (product.minRateChild || product.minRateAdult) +
+      number_of_infants * (product.minRateInfant || product.minRateAdult)
 
     update(total_price: total_price) if self.total_price != total_price
   end
@@ -41,8 +43,7 @@ Spree::Order.class_eval do
     end
   end
 
-  # salesId for Innovations
-  def uniq_number
-    "WM#{1000000 + id}"
+  def set_ax_sales_id!
+    update_column(:ax_sales_id, "WM#{1000000 + id}") unless created_from_ax
   end
 end

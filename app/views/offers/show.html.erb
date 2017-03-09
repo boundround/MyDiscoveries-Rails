@@ -91,9 +91,9 @@
                         </div> -->
 
                     </li>
-                    <% if @offer.related_offers.present? %>
-                      <% @offer.related_offers.each do |offer| %>
-                        <% if offer.related_offer.present? %>
+                    <% if @offer.related_products.present? %>
+                      <% @offer.related_products.each do |offer| %>
+                        <% if offer.related_product.present? %>
                           <li class="po-item">
                               <div class="poi-content-top">
                                 <%= offer.related_product.name %>
@@ -111,7 +111,7 @@
                                   <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
                                   <div class="book-now">
-                                    <a href="<%= new_offer_order_path(offer.related_offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                                    <a href="<%= new_offer_order_path(offer.related_product, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
                                   </div>
                               </div>
 

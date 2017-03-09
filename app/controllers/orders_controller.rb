@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   before_action :set_customer, only: [:checkout, :payment]
 
   def index
-    @orders = Spree::Order.authorized
+    @orders = Spree::Order.where(authorized: true)
   end
 
   def new
@@ -62,7 +62,7 @@ class OrdersController < ApplicationController
   def confirmation
     redirect_to offers_path unless @order.authorized?
     @operator   = @offer.operator
-    @hero_photo = @order.products.photos.where(hero: true).last
+    @hero_photo = @offer.photos.where(hero: true).last
     @customer   = @order.customer
   end
 

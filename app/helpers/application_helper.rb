@@ -231,7 +231,7 @@ module ApplicationHelper
     else
       if place.photos.find_by(hero: true)
         "Credit: #{place.photos.find_by(hero: true).credit}"
-      elsif place.user_photos.find_by(hero: true)
+      elsif place.try(:user_photos).try(:find_by, { hero: true })
         "Credit: #{place.user_photos.find_by(hero: true).credit}"
       else
         ""

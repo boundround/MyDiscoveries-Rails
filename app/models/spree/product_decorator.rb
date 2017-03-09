@@ -99,6 +99,18 @@ Spree::Product.class_eval do
       tags.blank? ? [] : tags[0..1]
     end
 
+    attribute :item_id do
+      item_id
+    end
+
+    attribute :child_item_id do
+      child_item_id
+    end
+
+    attribute :related_item_id do
+      related_offers.map{|r| {id: (r.related_offer_id if r.related_offer_id), item_id: (r.related_offer.item_id if r.related_offer), child_item_id: (r.related_offer.child_item_id if r.related_offer)} }
+    end
+
     attribute :is_country do
       false
     end
@@ -120,7 +132,13 @@ Spree::Product.class_eval do
       'attractions',
       'countries',
       'regions',
-      'publish_date'
+      'publish_date',
+      'tags',
+      'item_id',
+      'child_item_id',
+      'related_item_id',
+      'tags',
+      'places_visited'
     ]
 
     # the `customRanking` setting defines the ranking criteria use to compare two matching
@@ -141,11 +159,10 @@ Spree::Product.class_eval do
       'duration',
       'minUnits',
       'maxUnits',
-      'tags',
       'places_visited'
     ]
 
-    add_index "mydiscoveries_offers_#{Rails.env}", if: :published? do
+    add_index "mydiscoveries_offers_#{Rails.env}", id: :algolia_id, if: :published? do
       attributes :minAge,
                  :maxAge,
                  :minRateAdult,
@@ -224,6 +241,18 @@ Spree::Product.class_eval do
         tags.blank? ? [] : tags[0..1]
       end
 
+      attribute :item_id do
+        item_id
+      end
+
+      attribute :child_item_id do
+        child_item_id
+      end
+
+      attribute :related_item_id do
+        related_offers.map{|r| {id: (r.related_offer_id if r.related_offer_id), item_id: (r.related_offer.item_id if r.related_offer), child_item_id: (r.related_offer.child_item_id if r.related_offer)} }
+      end
+
       attribute :inclusions do
         inclusions.map(&:name)
       end
@@ -251,13 +280,17 @@ Spree::Product.class_eval do
       attributesToIndex [
         'display_name',
         'unordered(description)',
+        'tags',
         'accessible',
         'subcategories',
         'places',
         'attractions',
         'countries',
         'regions',
-        'publish_date'
+        'publish_date',
+        'item_id',
+        'child_item_id',
+        'related_item_id'
       ]
 
       # the `customRanking` setting defines the ranking criteria use to compare two matching
@@ -279,18 +312,18 @@ Spree::Product.class_eval do
         'duration',
         'minUnits',
         'maxUnits',
-        'tags',
         'places_visited'
       ]
     end
 
   end
-
+  
+  extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
   acts_as_taggable_on :inclusions
 
-  scope :active, -> { where("status = ? OR (publishstartdate <= ? AND publishenddate >= ?)", "live", Date.today, Date.today) }
+  scope :active, -> { where("status = ?", "live") }
 
   belongs_to :attraction
   belongs_to :operator
