@@ -1,7 +1,7 @@
-<% content_for :title, "Activities, Reviews and Things To Do For Kids and Families: Bound Round"%>
-<% content_for :og_image, "http://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
-<% content_for :og_secure_image, "https://d1w99recw67lvf.cloudfront.net/images/home-page-heroes/hero-slider-1.jpg"%>
-<% content_for :description, "Find things to do, reviews and activities to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards." %>
+<% content_for :title, "MyDiscoveries: make one day today. Where over 50s can find holidays experiences they've always wanted to do"%>
+<% content_for :og_image, "http://dqgr5tph2zdxx.cloudfront.net/pages/home/LaosHiking_JK1.jpg"%>
+<% content_for :og_secure_image, "https://dqgr5tph2zdxx.cloudfront.net/pages/home/LaosHiking_JK1.jpg"%>
+<% content_for :description, "Find things to do, reviews and activities to do in destinations around the world, see videos and share stories." %>
 <div class="banner-wrapper dismiss-mega-menu-search">
     <div class="banner-image" style="background-image: url('<%= @page.hero_image_url rescue "https://placehold.it/1920x1080" %>')" role="img" aria-label=""></div>
     <div class="overlay"></div>
@@ -50,165 +50,151 @@
     </div>
 </div>
 
-<div class="section-grey padding-medium">
-  <div class="container">
-    <div class="row">
-      <% if @offers.present? %>
-        <div id="offers-list">
-          <%= render partial: "offers/all_homepage_offers", collection: @offers, as: :offer %>
-        </div>
-          <% unless last_page? @offers %>
-          <div class="row hidden-xs single-pagination-container" id="offers-single-pagination-container">
-            <div class="hidden single-pagination-loader" align="center">
-              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-            </div>
-            <div class="col-xs-12" align="center">
-              <%= link_to "SEE MORE", paginate_on_idx_offers_path(offer_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_homepage_offers', collection_object: 'offers'), class: 'see-more__link', remote: true %>
-            </div>
+<div class="section-grey">
+  <% if @offers.present? %>
+    <div class="package-offers padding-medium">
+      <div class="package-offers-block width-limiter">
+          <ul>
+          <div id="featured_offers-list">
+            <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
           </div>
-        <% end %>
-      <% end %>
-  </div>
-  </div>
+            <% unless last_page? @offers %>
+            <div class="row hidden-xs single-pagination-container" id="featured_offers-single-pagination-container">
+              <div class="hidden single-pagination-loader" align="center">
+                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+              </div>
+              <div class="col-xs-12" align="center">
+                <%= link_to "search for more holidays", offers_path, class: 'see-more__link' %>
+              </div>
+            </div>
+          <% end %>
+          </ul>
+      </div>
+    </div>
+  <% end %>
 </div>
-<% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
-  <div class="adsense-home">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <!-- BR first go -->
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-3125270010093298"
-           data-ad-slot="1632886169"
-           data-ad-format="auto"></ins>
-      <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </div>
-<% end %>
 
-<div class="section-white padding-big">
+<div class="section-white padding-medium">
   <div class="container">
     <div class="row">
-      <div class="row">
-          <div class="col-md-12 text-center">
-              <h3 class="proposal__header">Holiday styles to suit you</h3>
-              <p class="proposal__description"></p>
-          </div>
-      </div>
-      <br/>
-      <div class="thing-wrapper">
-          <div class="row hidden-sm hidden-xs proposals-wrapper clear-self">
-          <% if @category1.present?  %>
-              <div class="col-md-4">
-                  <%= link_to subcategory_path(@category1) do %>
-                      <div class="thing-tall-card-wrapper proposal-item">
-                        <div class="thing-image" style="background-image: url('<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name rescue nil %>">
-                            <div class="overlay"></div>
-                              <div class="proposal-item__description">
-                                  <h4 class="proposal-item__header"><%= @category1.name %></h4>
-                              </div>
-                          </div>
-                      </div>
-                      <p class="proposal-item__link-wrapper">
-                        <a class="proposal-item__link" href="<%= subcategory_path(@category1) %>">see all</a>
-                      </p>
-                  <% end %>
-              </div>
-              <% end %>
-              <div class="col-md-8">
-                  <div class="row">
-                  <% if @category2.present?  %>
-                      <div class="col-md-6">
-                          <%= link_to subcategory_path(@category2) do %>
-                              <div class="thing-medium-card-wrapper proposal-item">
-                                <div class="thing-image" style="background-image: url('<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name rescue nil %>">
-                                      <div class="overlay"></div>
-                                      <div class="proposal-item__description">
-                                          <h4 class="proposal-item__header"><%= @category2.name %></h4>
-                                      </div>
+        <div class="col-md-12 text-center">
+            <h3 class="proposal__header">Holiday styles to suit you</h3>
+            <p class="proposal__description"></p>
+        </div>
+    </div>
+    <br/>
+    <div class="thing-wrapper">
+        <div class="row hidden-sm hidden-xs proposals-wrapper clear-self">
+        <% if @category1.present?  %>
+            <div class="col-md-4">
+                <%= link_to subcategory_path(@category1) do %>
+                    <div class="thing-tall-card-wrapper proposal-item">
+                      <div class="thing-image" style="background-image: url('<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name rescue nil %>">
+                          <div class="overlay"></div>
+                            <div class="proposal-item__description">
+                                <h4 class="proposal-item__header"><%= @category1.name %></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="proposal-item__link-wrapper">
+                      <a class="proposal-item__link" href="<%= subcategory_path(@category1) %>">see all</a>
+                    </p>
+                <% end %>
+            </div>
+            <% end %>
+            <div class="col-md-8">
+                <div class="row">
+                <% if @category2.present?  %>
+                    <div class="col-md-6">
+                        <%= link_to subcategory_path(@category2) do %>
+                            <div class="thing-medium-card-wrapper proposal-item">
+                              <div class="thing-image" style="background-image: url('<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name rescue nil %>">
+                                    <div class="overlay"></div>
+                                    <div class="proposal-item__description">
+                                        <h4 class="proposal-item__header"><%= @category2.name %></h4>
                                     </div>
-                              </div>
-                              <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
-                              <a class="proposal-item__link" href="<%= subcategory_path(@category2) %>">see all</a>
-                              </p>
-                          <% end %>
-                      </div>
-                      <% end %>
-                      <% if @category3.present?  %>
-                      <div class="col-md-6">
-                          <%= link_to subcategory_path(@category3) do %>
-                              <div class="thing-medium-card-wrapper proposal-item">
-                                <div class="thing-image" style="background-image: url('<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name rescue nil %>">
-                                      <div class="overlay"></div>
-                                      <div class="proposal-item__description">
-                                          <h4 class="proposal-item__header"><%= @category3.name %></h4>
-                                      </div>
-                                    </div>
-                              </div>
-                              <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
-                              <a class="proposal-item__link" href="<%= subcategory_path(@category3) %>">see all</a>
-                              </p>
-                          <% end %>
-                      </div>
-                      <% end %>
-                  </div>
-                  <!-- row -->
-                  <% if @category4.present?  %>
-                  <div class="row">
-                      <div class="col-md-12">
-                          <%= link_to subcategory_path(@category4) do %>
-                              <div class="thing-wide-card-wrapper proposal-item">
-                                <div class="thing-image" style="background-image: url('<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
-                                      <div class="overlay"></div>
-                                      <div class="proposal-item__description">
-                                          <h4 class="proposal-item__header"><%= @category4.name %></h4>
-                                      </div>
-                                    </div>
-                              </div>
-                              <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
-                              <a class="proposal-item__link" href="<%= subcategory_path(@category4) %>">see all</a>
-                              </p>
-                          <% end %>
-                      </div>
-                  </div>
-                  <% end %>
-                  <!-- row -->
-              </div>
-          </div>
-          <div class="row hidden-md hidden-lg">
-              <div class="owl-carousel carousel">
-                  <% @subcategories.each do |category| %>
-                    <%= link_to subcategory_path(category) do %>
-                      <div class="thing-item">
-                          <div class="col-sm-3">
-                              <div class="thing-medium-card-wrapper">
-                                  <div class="thing-image" style="background-image: url('<%= category.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= category.name %>">
-                                      <div class="overlay"></div>
-                                      <div class="thing-text">
-                                          <h4><%= category.name %></h4>
-                                          <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
-                                      </div>
                                   </div>
-                              </div>
-                          </div>
-                      </div>
+                            </div>
+                            <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
+                            <a class="proposal-item__link" href="<%= subcategory_path(@category2) %>">see all</a>
+                            </p>
+                        <% end %>
+                    </div>
                     <% end %>
+                    <% if @category3.present?  %>
+                    <div class="col-md-6">
+                        <%= link_to subcategory_path(@category3) do %>
+                            <div class="thing-medium-card-wrapper proposal-item">
+                              <div class="thing-image" style="background-image: url('<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name rescue nil %>">
+                                    <div class="overlay"></div>
+                                    <div class="proposal-item__description">
+                                        <h4 class="proposal-item__header"><%= @category3.name %></h4>
+                                    </div>
+                                  </div>
+                            </div>
+                            <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
+                            <a class="proposal-item__link" href="<%= subcategory_path(@category3) %>">see all</a>
+                            </p>
+                        <% end %>
+                    </div>
+                    <% end %>
+                </div>
+                <!-- row -->
+                <% if @category4.present?  %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <%= link_to subcategory_path(@category4) do %>
+                            <div class="thing-wide-card-wrapper proposal-item">
+                              <div class="thing-image" style="background-image: url('<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
+                                    <div class="overlay"></div>
+                                    <div class="proposal-item__description">
+                                        <h4 class="proposal-item__header"><%= @category4.name %></h4>
+                                    </div>
+                                  </div>
+                            </div>
+                            <p class="proposal-item__link-wrapper proposal-item__link-wrapper--lower">
+                            <a class="proposal-item__link" href="<%= subcategory_path(@category4) %>">see all</a>
+                            </p>
+                        <% end %>
+                    </div>
+                </div>
+                <% end %>
+                <!-- row -->
+            </div>
+        </div>
+        <div class="hidden-md hidden-lg">
+            <div class="owl-carousel carousel">
+                <% @subcategories.each do |category| %>
+                  <%= link_to subcategory_path(category) do %>
+                    <div class="thing-item">
+                        <div class="col-sm-3">
+                            <div class="thing-medium-card-wrapper">
+                                <div class="thing-image" style="background-image: url('<%= category.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= category.name %>">
+                                    <div class="overlay"></div>
+                                    <div class="thing-text">
+                                        <h4><%= category.name %></h4>
+                                        <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png" /></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                   <% end %>
-              </div>
-          </div>
-      </div>
-      <div class="row hidden-sm hidden-xs">
-          <div class="col-md-12">
-              <div class="see-more">
-                  <%= link_to 'SEE MORE', subcategories_path, :class => 'see-more__link' %>
-              </div>
-          </div>
-      </div>
-  </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="row hidden-sm hidden-xs">
+        <div class="col-md-12">
+            <div class="see-more">
+                <%= link_to 'SEE MORE', subcategories_path, :class => 'see-more__link' %>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 <% if @stories.present? %>
-<div class="padding-big section-grey">
+<div class="padding-medium section-grey">
   <div class="container">
     <div class="row">
       <div class="head-title">
@@ -217,10 +203,8 @@
     </div>
 
   <section class="video-show">
-    <div class="container">
-      <div class="row">
-        <%= render partial: "stories/all_stories"%>
-      </div>
+    <div class="">
+      <%= render partial: "stories/all_stories"%>
     </div>
   </section>
 <% end %>
@@ -231,6 +215,7 @@
   <div class="section-white">
     <div class="promo-text-block">
         MyDiscoveries is a travel inspiration and booking site for the over 50s. Someone in our community has tried and tested the tour operators and visited all the destinations we include.  You can book directly on the website or call our customer service team who are on-hand to answer your questions and complete your holiday booking.
+        <p class="phone-text">Call 1300 404 606</p>
     </div>
   </div>
     <!-- END - promo-text-block -->

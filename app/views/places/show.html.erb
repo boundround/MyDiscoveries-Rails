@@ -14,7 +14,7 @@
 <div class="hero-image-wrapper hero dismiss-mega-menu-search"
          style="background: url( <%= showing_image(draw_hero_background(@place)) %>) no-repeat;" role="img"
          aria-label="">
-   <div class="photo-credit"><%= get_hero_image_credit(@place) %></div>
+  <div class="photo-credit"><%= get_hero_image_credit(@place) %></div>
   <div class="overlay"></div>
   <div class="container">
       <div class="row">
@@ -63,21 +63,25 @@
         <% end %>
       </div>
       <% if @offers.present? %>
-        <div id="offers" class="top-holidays">
-          <h3 class="sm-heading lars">Top <%= @place.display_name %> Holidays</h3>
-          <ul id="offers-list">
-            <%= render partial: 'offers/all_offers', collection: @offers, as: :offer %>
-          </ul>
-          <% unless last_page? @offers %>
-            <div class="single-pagination-container" id="offers-single-pagination-container">
-              <div class="load-more region">
-                <div class="hidden single-pagination-loader" align="center">
-                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                </div>
-              <%= link_to "load more", paginate_offers_place_path(@place, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_offers', collection_object: 'offer'), class: 'load-more single-pagination', remote: true %>
+        <h3 class="sm-heading lars">Top <%= @place.display_name %> Holidays</h3>
+        <div class="package-offers">
+          <div class="package-offers-block">
+              <ul>
+              <div id="offers-list">
+                <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
               </div>
-            </div>
-          <% end %>
+                <% unless last_page? @offers %>
+                <div class="row hidden-xs single-pagination-container" id="offers-single-pagination-container">
+                  <div class="hidden single-pagination-loader" align="center">
+                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                  </div>
+                  <div class="col-xs-12" align="center">
+                    <%= link_to "load more", paginate_offers_place_path(@place, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_index_offers', collection_object: 'offer'), class: 'load-more single-pagination', remote: true %>
+                  </div>
+                </div>
+              <% end %>
+              </ul>
+          </div>
         </div>
       <% end %>
 
@@ -119,33 +123,37 @@
             </div>
 
           <h3 class="sm-heading lars">Videos & Photos</h3>
-          <% unless @videos.blank? %>
-            <div class="videos-block place-video">
-              <% if !@last_video.youtube_id.blank? %>
-                <div class="video-embed-wrapper">
-                  <div class="small-video-component">
-                    <iframe class="player-vimeo" src="<%= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                  </div>
-                </div>
-              <% end %>
-            <%= render partial: "shared/videos_list", locals:{container: "" } %>
-          </div>
-          <% end %>
-          <% unless @photos.blank? %>
-          <div class="gallery">
+          <% unless @galeries.blank? %>
+            <div class="gallery">
               <div class="slider-mobile-wrapper">
                   <div class="slider-for">
-                      <% @photos.each do |photo| %>
-                          <div><img src="<%= photo.path_url(:large) %>" alt="" width="100%"></div>
+                    <% @galeries.each do |galery| %>
+                      <% if galery.class.name == "Video" %>
+                        <iframe class="player-vimeo" src="<%= galery.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                      <% else %>
+                        <div>
+                          <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
+                          <div class="photo-credit">Credit: <%= galery.credit %></div>
+                        </div>
                       <% end %>
+                    <% end %>
                   </div>
               </div>
               <div class="slider-nav xs-invisible">
-                  <% @photos.each do |photo| %>
-                      <div><img src="<%= photo.path_url(:large) %>" alt="" width="100%"   ></div>
+                  <% @galeries.each do |galery| %>
+                    <% if galery.class.name == "Video" %>
+                      <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="<%= galery.title %>">
+                        <img src="<%= galery.vimeo_thumbnail %>" alt="" width="100%">
+                        <div class="overlay-nav-video"></div>
+                      </div>
+                    <% else %>
+                      <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="Credit: <%= galery.credit %>">
+                        <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
+                      </div>
+                    <% end %>
                   <% end %>
               </div>
-          </div>
+            </div>
           <% end %>
         </section>
       </div>

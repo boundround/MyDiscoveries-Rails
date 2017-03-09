@@ -8,11 +8,13 @@ class OffersController < ApplicationController
   before_action :set_media, only: [:show, :paginate_media]
 
   def show
+    #@map_marker = Attraction.first
     @photos = @offer.photos.active
-    @videos = @offer.videos.active.order(:priority).paginate(page: params[:active_videos], per_page:3)
-    @last_video = @offer.videos.active.order(:priority).first
+    @videos = @offer.videos.active.order(:priority)
+    @galeries = @videos + @photos
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
     @review  = @offer.reviews.build
+    @operator = @offer.operator
     @book_guarantee = Configurable.book_guarantee
   end
 
@@ -80,7 +82,7 @@ class OffersController < ApplicationController
   end
 
   def paginate_on_idx
-    @offers = Spree::Product.all.paginate(per_page: 3, page: params[:product_page])
+    @offers = Spree::Product.active.paginate(per_page: 4, page: params[:product_page])
   end
 
   def clone
@@ -106,24 +108,15 @@ class OffersController < ApplicationController
   end
 
   def paginate_offers
-    @featured_offers = Spree::Product.where(featured: true).paginate(per_page: 2, page: params[:featured_products_page])
+    @featured_offers = Spree::Product.featured_products.paginate(per_page: 2, page: params[:featured_products_page])
   end
+
   def paginate_media
-  end
-
-  def paginate_photos
-    @offer = Spree::Product.find_by_slug(params[:id])
-    @photos = @offer.photos.paginate(:page => params[:active_photos], per_page: 3)
-  end
-
-  def paginate_videos
-    @offer = Spree::Product.find_by_slug(params[:id])
-    @videos = @offer.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
   end
 
   def destroy
     @offer.destroy
-    redirect_to offers_path, notice: "Product Deleted"
+    redirect_to cms_index_offers_path, notice: "Offer Deleted"
   end
 
   def edit

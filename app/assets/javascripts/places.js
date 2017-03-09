@@ -62,6 +62,21 @@ function addToFav() {
     });
 }
 
+function setFeaturedStory(){
+    $('.featured-story').change(function(){
+        var id_story = $(this).data("id"),
+            is_featured = $(this).prop("checked"),
+            data = {};
+            
+        data["story"] = {id: id_story, featured: is_featured}
+        $.ajax({
+            type: "POST",
+            url: '/stories/featured',
+            data: data
+        });
+    });
+}
+
 function setUpLoadMore() {
     var sec_card = $("section.cards")
     $.each(sec_card, function(index, val) {
@@ -212,6 +227,7 @@ $(document).ready(function() {
     setUpfileUpload();
     setUpLoadMore();
     responsiveModalVideo();
+    setFeaturedStory();
 
     if ($('#map').length) {
         var map = new google.maps.Map(document.getElementById('map'), {

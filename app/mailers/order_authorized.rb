@@ -1,5 +1,5 @@
 class OrderAuthorized < ActionMailer::Base
-  default from: "website@mydiscoveries.herokuapp.com"
+  default from: "My Discoveries <info@mydiscoveries.herokuapp.com>"
 
   def notification(order_id)
     @order  = Spree::Order.find(order_id)
@@ -14,7 +14,11 @@ class OrderAuthorized < ActionMailer::Base
     if response[:success]
       @order.update(voucher_sent: true)
       attachments[response[:file_name]] = response[:file]
-      mail(to: @customer.email, subject: "The voucher for the trip")
+      if @offer.itinerary.url.present?
+        attachments["offer_itinerary.pdf"] = @offer.itinerary.file.read
+      end
+
+      mail(to: @customer.email, bcc: "mydiscoveries_booking@boundround.com", subject: "Your MyDiscoveries Holiday Voucher")
     end
   end
 end

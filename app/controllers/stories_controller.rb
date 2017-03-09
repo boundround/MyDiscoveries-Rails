@@ -118,6 +118,13 @@ class StoriesController < ApplicationController
     redirect_to choose_hero_story_photos_path(@story)
   end
 
+  def featured
+    @story = Story.find(params[:story][:id])
+    if @story.update(story_params)
+      render nothing: true
+    end
+  end
+
   private
     def set_story
       @story = Story.find_by_slug(params[:id])
@@ -133,7 +140,7 @@ class StoriesController < ApplicationController
                                     :focus_keyword,
                                     :meta_description,
                                     :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
-                                    :seo_friendly_url, :primary_category_id, :hero_image,
+                                    :seo_friendly_url, :primary_category_id, :hero_image, :featured,
                                     photos_attributes: [:id, :photoable_id, :photoable_type, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],
                                     subcategory_ids: [])
     end

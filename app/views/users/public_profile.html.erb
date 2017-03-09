@@ -9,7 +9,7 @@
       <div class="row leftmin16" align="center">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm25">
           <h4 class="hitam top20 align-left left40">Member profile</h4>
-          <h2 class="abu-abu align-left left40"><%= @user.username %></h2>
+          <h2 class="abu-abu align-left left40"><%= @user.name %></h2>
           <p class="abu-abu align-left left40"><%= @user.description.html_safe rescue ''%></p>
           <div class="img-rounded-profile visible-xs" style="background: url('<%= showing_image(@user.avatar_url) %>')">
           </div>

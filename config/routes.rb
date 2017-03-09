@@ -27,7 +27,10 @@ Rails.application.routes.draw do
   end
 
   resources :stories do
-    collection { get 'paginate' }
+    collection do
+      get 'paginate'
+      post 'featured'
+    end
     member do
       get 'seo_analysis'
       get 'paginate_place'
@@ -85,6 +88,12 @@ Rails.application.routes.draw do
 
   mount ConfigurableEngine::Engine => '/admin/configurable', as: 'configurable'
 
+  get 'terms-conditions' => 'posts#show', :defaults => { :id => 'terms-conditions' }
+  get 'booking-guarantee' => 'posts#show', :defaults => { :id => 'booking-guarantee' }
+  get 'frequently-asked-questions' => 'posts#show', :defaults => { :id => 'frequently-asked-questions' }
+  get 'about-us' => 'posts#show', :defaults => { :id => 'about-us' }
+  get 'privacy' => 'posts#show', :defaults => { :id => 'privacy' }
+
   get 'factual_places/search' => 'factual_places#search'
 
   get 'results' => 'search_suggestions#index', as: 'searching'
@@ -112,7 +121,7 @@ Rails.application.routes.draw do
   get "places/programsearchresultslist" => 'places#programsearchresultslist' #xyrin search.html
   get "places/programsearchresultsmap" => 'places#programsearchresultsmap' #xyrin map.html
 
-  get "/sitemap" => redirect("https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz")
+  # get "/sitemap" => redirect("https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz")
 
   post 'fun_facts_users/create' => 'fun_facts_users#create'
   post 'fun_facts_users/destroy' => 'fun_facts_users#destroy'
@@ -176,19 +185,22 @@ Rails.application.routes.draw do
 
   resources :users do
     collection { get 'leaderboard' }
-    member { get 'paginate_stories'}
-    member { get 'paginate_favorite_stories'}
-    member { get 'paginate_places'}
-    member { get 'paginate_offers'}
-    member { get 'paginate_regions'}
-    member { get 'paginate_place_to_visit'}
-    member { get 'favourites' }
-    member { get 'paginate_reviews' }
-    member { get 'paginate_photos' }
-    member { get 'photos' }
-    member { get 'reviews' }
-    member { get 'stories' }
-    member { get 'public_profile' }
+    member do
+      get 'paginate_stories'
+      get 'paginate_favorite_stories'
+      get 'paginate_places'
+      get 'paginate_offers'
+      get 'paginate_regions'
+      get 'paginate_place_to_visit'
+      get 'favourites'
+      get 'paginate_reviews'
+      get 'paginate_photos'
+      get 'paginate_orders'
+      get 'photos'
+      get 'reviews'
+      get 'stories'
+      get 'public_profile'
+    end
   end
 
 
@@ -410,6 +422,7 @@ Rails.application.routes.draw do
         get :checkout
         get :confirmation
         post :payment
+        get :resend_confirmation
       end
     end
     resources :places, controller: :places_offers
@@ -425,7 +438,12 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
-  get 'pdfs/:shopify_order_id' => 'orders#download_pdf'
+  get 'orders/:id/view_confirmation' => 'orders#view_confirmation'
+  get 'orders/:id/cms_edit' => 'orders#cms_edit'
+  get 'orders/:id/customer_info' => 'orders#customer_info'
+  patch 'orders/:id/cms_update' => 'orders#cms_update'
+
+  get 'orders' => 'orders#index'
 
   get '/places/:id/update_hero/:type/:photo_id' => 'places#update_hero'
   get '/attractions/:id/update_hero/:type/:photo_id' => 'attractions#update_hero'

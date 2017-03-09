@@ -15,6 +15,8 @@ class Order < ActiveRecord::Base
 
   validate :check_total_people_count
 
+  after_commit :set_ax_sales_id!, on: :create
+
   enum status: { created_in_boundround: 0, authorized: 1 }
 
   accepts_nested_attributes_for :passengers
@@ -24,28 +26,26 @@ class Order < ActiveRecord::Base
   end
 
   def monthly_price
-    total_price / 5
+    total_price / 5.0
   end
 
   def update_total_price!
-    total_price = number_of_adults * offer.maxRateAdult +
-      number_of_children * (offer.maxRateChild || offer.maxRateAdult) +
-      number_of_infants * (offer.maxRateInfant || offer.maxRateAdult)
+    total_price = number_of_adults * offer.minRateAdult +
+      number_of_children * (offer.minRateChild || offer.minRateAdult) +
+      number_of_infants * (offer.minRateInfant || offer.minRateAdult)
 
     update(total_price: total_price) if self.total_price != total_price
   end
 
   def check_total_people_count
     if !offer.try(:minUnits).to_i.zero? && total_people_count < offer.try(:minUnits)
-      errors.add(:total_people_count, "should be great than #{offer.minUnits}")
+      errors.add(:total_people_count, "should be greater than #{offer.minUnits}")
     elsif !offer.try(:maxUnits).to_i.zero? && total_people_count > offer.try(:maxUnits)
       errors.add(:total_people_count, "should be less than #{offer.maxUnits}")
     end
   end
 
-  # salesId for Innovations
-  def uniq_number
-    "WM#{1000000 + id}"
+  def set_ax_sales_id!
+    update_column(:ax_sales_id, "WM#{1000000 + id}") unless created_from_ax
   end
-
 end

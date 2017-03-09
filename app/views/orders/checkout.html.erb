@@ -2,7 +2,7 @@
   <div class="form-block">
     <%= simple_form_for(@customer, url: payment_offer_order_path(@offer, @order), method: :post, html: { class: 'customer_form' }) do |cf| %>
       <div class="checkout-form">
-        <h2 class="title"> Customer information </h2>
+        <h2 class="title"> Billing details </h2>
         <div class="customer-fields">
           <div class="form-group customer-title">
             <%= cf.input :title,

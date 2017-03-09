@@ -227,6 +227,8 @@ gem 'grape-swagger-rails'
 # handle authorized to perform some of controller action
 gem 'pundit'
 
+gem 'net-sftp'
+
 # PDF generation
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'

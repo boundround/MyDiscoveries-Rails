@@ -8,6 +8,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
 
     if transaction_valid?
       update_order
+      Ax::Upload.call(order) if Rails.env.production?
       send_notification
     end
 
@@ -21,7 +22,15 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def update_order
-    order.update(authorized: true, px_response: px_response_json)
+    order.update(
+      status: :authorized,
+      px_response: px_response_json,
+      purchase_date: purchase_date
+    )
+  end
+
+  def purchase_date
+    @purchase_date ||= DateTime.parse(px_response_json['Txn']['Transaction']['RxDate'])
   end
 
   def response
@@ -139,6 +148,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
       xml.MerchantReference merchant_reference
       xml.TxnId             transaction_id
       xml.AvsAction         address_verification_system
+      xml.EnableAddBillCard '1'
     end
   end
 

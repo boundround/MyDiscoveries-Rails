@@ -23,9 +23,9 @@
           <p class="search-page-card__image-description">{{hero_photo.alt_tag}}</p>
           <h4 class="search-page-card-places-visited__header">Places Visited</h4>
           <ul>
-          {{#tags}}
+          {{#places_visited}}
           <li class="search-page-card-places-visited__place">{{.}}</li>
-          {{/tags}}
+          {{/places_visited}}
           </ul>
       </div>
 
@@ -58,6 +58,7 @@
         <p class="search-page-card__cost-from desktop-only">from</p>
         <p class="search-page-card__cost-value"><span class="search-page-card__cost-currency">$</span>{{minRateAdult}}</p>
         <p class="search-page-card__cost-value-per-person mobile-only"><span class="search-page-card__cost-per-person-currency">$</span>{{minRateAdult}}</p>
+        <p class="search-page-card__cost-from desktop-only">or 5 monthly payments of ${{monthlyPayments}}</p>
         <p class="search-page-card__cost-per-person">per person</p>
 
         <a class="search-page-card__cost-details" href="{{ url }}">details</a>

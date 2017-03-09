@@ -5,16 +5,16 @@
       role: 'form',
       class: 'top20 js-order-form',
       data: {
-        'infants-price' => unit_price(offer.maxRateInfant, offer.maxRateAdult),
-        'children-price' => unit_price(offer.maxRateChild, offer.maxRateAdult),
-        'adults-price' => offer.maxRateAdult
+        'infants-price' => unit_price(offer.minRateInfant, offer.minRateAdult),
+        'children-price' => unit_price(offer.minRateChild, offer.minRateAdult),
+        'adults-price' => offer.minRateAdult
       }
     } do |f| %>
     <%= f.input :title, as: :hidden %>
     <div class="row">
       <div class="form-group">
         <%= f.input :number_of_infants, as: :hidden,
-            label: "Number Of Infants (price per unit: #{unit_price(offer.maxRateInfant, offer.maxRateAdult)}$)",
+            label: "Number Of Infants (price per unit: #{unit_price(offer.minRateInfant, offer.minRateAdult)}$)",
             input_html: { class: 'form-control js-order-people-count', min: 0 }
         %>
       </div>
@@ -46,7 +46,7 @@
 
               <div class="paab-header">
                   <h1><%= offer.name %></h1>
-                  <h4 class="heading">PRICES AND AVAILABILITY</h4>
+                  <h4 class="heading">PRICES</h4>
                   <!-- <a class="change-selection xs-invisible" href="#">Change selection</a> -->
               </div>
 
@@ -75,14 +75,16 @@
                                 collection: 1..6,
                                 include_blank: false,
                                 label: false,
+                                selected: offer.minUnits,
                                 input_html: { class: 'form-control js-order-people-count', min: 1 }
                             %>
                           </div>
                       </li>
                       <li>
                         <h5>PRICE PER ADULT</h5>
-                        <div>$<%= offer.maxRateAdult %> AUD</div>
+                        <div>$<%= offer.minRateAdult %> AUD</div>
                       </li>
+                      <% if offer.minRateChild.present? %>
                       <li class="quantity">
                           <h5># of children</h5>
                           <div>
@@ -95,18 +97,19 @@
                             %>
                           </div>
                       </li>
-                      <li>
-                        <h5>PRICE PER CHILD</h5>
-                        <div>$<%= unit_price(offer.maxRateChild, offer.maxRateAdult) %> AUD</div>
-                      </li>
-                      <li class="total-price">
-                          <h5>Total price</h5>
-                          <div class="js-order-total-price"><%= "$#{order.total_price.to_i}" %></div>
-                      </li>
+                        <li>
+                          <h5>PRICE PER CHILD</h5>
+                          <div>$<%= unit_price(offer.minRateChild, offer.minRateAdult) %> AUD</div>
+                        </li>
+                      <% end %>
+                        <li class="total-price">
+                            <h5>Total price</h5>
+                            <div class="js-order-total-price"><%= "$#{order.total_price.to_i}" %></div>
+                        </li>
                       <% if offer.allow_installments? %>
                         <li class="request_installments">
                             <%= f.label :request_installments,
-                              "Or 5 monthly payments of $#{order.monthly_price}",
+                              "Or 5 monthly payments of $#{number_to_currency(order.monthly_price)}",
                               class: 'js-order-monthly-price monthly-payments-label'
                             %>
                             <%= f.check_box :request_installments, label: false, class: 'monthly-payments-checkbox' %>

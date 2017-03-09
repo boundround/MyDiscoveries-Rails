@@ -17,7 +17,7 @@
                     <%= order.total_people_count %> guests
                   </li>
                   <li>
-                    <%= duration_in_days(offer.duration) %> nights
+                    <%= create_duration(offer) %>
                   </li>
                 </ul>
               </div>
@@ -28,7 +28,7 @@
                   <tr>
                     <td>Price per person (Adults)</td>
                     <td>
-                      $<%= offer.maxRateAdult %>
+                      $<%= offer.minRateAdult %>
                     </td>
                   </tr>
                 <% end %>
@@ -36,7 +36,7 @@
                   <tr>
                     <td>Price per person (Children)</td>
                     <td>
-                      $<%= unit_price(offer.maxRateChild, offer.maxRateAdult) %>
+                      $<%= unit_price(offer.minRateChild, offer.minRateAdult) %>
                     </td>
                   </tr>
                 <% end %>
@@ -44,7 +44,7 @@
                   <tr>
                     <td>Price per person (Infants)</td>
                     <td>
-                      $<%= unit_price(offer.maxRateInfant, offer.maxRateAdult) %>
+                      $<%= unit_price(offer.minRateInfant, offer.minRateAdult) %>
                     </td>
                   </tr>
                 <% end %>
@@ -99,16 +99,17 @@
                         <%= pf.label :last_name, 'Last Name' %>
                         <%= pf.input :last_name,
                           placeholder: 'Smith',
-                          label: false
+                          label: false,
+                          required: true
                         %>
                       </div>
                       <div class="form-group sm">
                         <%= pf.label :date_of_birth, 'Date of birth' %>
                         <%= pf.input :date_of_birth,
-                          placeholder: 'dd/mm/yyyy',
-                          as: :string,
+                          as: :date,
+                          html5: true,
                           label: false,
-                          input_html: { value: pf.object.date_of_birth.present? ? localize(pf.object.date_of_birth, format: :date_month_year_concise) : '' }
+                          required: true
                         %>
                       </div>
                       <div class="form-group sm">

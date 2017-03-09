@@ -1,5 +1,10 @@
-google.maps.event.addDomListener(window, 'load', init);
-var map;
+init()
+setTimeout(function(){
+    $('h3.ui-accordion-header').on('click', function () {
+      console.log("aaa")
+        init()
+    })
+}, 50)
 
 function init() {
     var mapElement = document.getElementById('dest-map');
@@ -7,9 +12,9 @@ function init() {
         var locations = JSON.parse(mapElement.getAttribute("data-map"));
         var lat_first = locations[0][5];
         var lng_first = locations[0][6];
-        if(mapElement.getAttribute("data-zoom") == ""){
+        if(mapElement.getAttribute("data-zoom") == "" ||
+           mapElement.getAttribute("data-zoom") == null){
             var zoom_level = 4;
-            console.log("aaa")
         }else{
             var zoom_level = JSON.parse(mapElement.getAttribute("data-zoom"));
         }

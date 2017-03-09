@@ -1,142 +1,8 @@
 class Post < ActiveRecord::Base
   extend FriendlyId
-  include AlgoliaSearch
   include Searchable
 
   mount_uploader :hero_photo, PostHeroPhotoUploader
-  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id, if: :published? do
-
-    # list of attribute used to build an Algolia record
-    attributes :title,
-               :content,
-               :status,
-               :slug,
-               :minimum_age,
-               :maximum_age,
-               :description,
-               :primary_category_priority,
-               :page_ranking_weight,
-               :age_range,
-               :weather,
-               :price,
-               :best_time_to_visit,
-               :subcategories,
-               :accessibility,
-               :main_category,
-               :subcategory
-
-    synonyms [
-        ["active", "water sports", "sports", "sport", "adventurous", "adventure", "snow", "beach", "camping"],
-        ["disabled", "wheelchair access", "accessible"]
-      ]
-
-    attribute :url do
-      Rails.application.routes.url_helpers.post_path(self)
-    end
-
-    attribute :display_name do
-      title
-    end
-
-    attribute :display_address do
-      "Bound Round Story"
-    end
-
-    attribute :viator_link do
-      ""
-    end
-
-    attribute :is_country do
-      false
-    end
-
-    attribute :is_area do
-      false
-    end
-
-    attribute :subcategories do
-      subcategories.map { |sub| { name: sub.name, identifier: sub.identifier } }
-    end
-
-    attribute :primary_category do
-      if self.primary_category
-        { name: "#{primary_category.name}", identifier: primary_category.identifier}
-      else
-        ""
-      end
-    end
-
-    attribute :result_type do
-      "Story"
-    end
-
-    attribute :result_icon do
-      "book"
-    end
-
-    attribute :name do
-      title
-    end
-
-    attribute :photos do
-      story_images.map do |photo|
-        { url: photo, alt_tag: photo }
-      end
-    end
-
-    attribute :hero_photo do
-      if hero_photo_url.blank?
-        if story_images.blank?
-          { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
-        else
-          { url: story_images.first, alt_tag: story_images.first }
-        end
-      else
-        { url: hero_photo_url, alt_tag: hero_photo_url }
-      end
-    end
-
-    attribute :has_hero_image do
-      hero_photo.present?
-    end
-
-     #country and url
-
-    # the attributesToIndex` setting defines the attributes
-    # you want to search in: here `title`, `subtitle` & `description`.
-    # You need to list them by order of importance. `description` is tagged as
-    # `unordered` to avoid taking the position of a match into account in that attribute.
-    # attributesToIndex ['display_name', 'unordered(content)', 'unordered(display_address)', 'primary_category', 'subcategories']
-    attributesToIndex [
-      'display_name',
-      'unordered(description)',
-      'age_range',
-      'unordered(content)',
-      'accessible',
-      'subcategories',
-      'unordered(parents)',
-      'unordered(display_address)',
-      'unordered(primary_category)',
-      'publish_date',
-    ]
-
-    customRanking Searchable.custom_ranking
-
-    # the `customRanking` setting defines the ranking criteria use to compare two matching
-    # records in case their text-relevance is equal. It should reflect your record popularity.
-    # customRanking ['desc(likes_count)']
-
-    attributesForFaceting [
-      'is_area',
-      'main_category',
-      'age_range',
-      'subcategory',
-      'weather',
-      'price',
-      'best_time_to_visit',
-      'accessibility',
-    ]
-  end
 
   before_update :regenerate_slug
 
@@ -229,10 +95,6 @@ class Post < ActiveRecord::Base
   end
 
   private
-
-  def algolia_id
-    "post_#{id}" # ensure the place, post & country IDs are not conflicting
-  end
 
   def slug_candidates
     :seo_friendly_url

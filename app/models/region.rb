@@ -82,8 +82,9 @@ class Region < ActiveRecord::Base
     end
 
     attributesToIndex [
-      'ame',
+      'display_name',
       'unordered(description)',
+      'tags',
       'age_range',
       'accessible',
       'subcategories',
@@ -91,6 +92,11 @@ class Region < ActiveRecord::Base
       'unordered(display_address)',
       'unordered(primary_category)',
       'publish_date',
+      'item_id',
+      'child_item_id',
+      'related_item_id',
+      'tags',
+      'places_visited'
     ]
 
     customRanking Searchable.custom_ranking
@@ -105,7 +111,6 @@ class Region < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
-      'tags',
       'places_visited'
     ]
   end

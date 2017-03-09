@@ -18,6 +18,7 @@ RailsAdmin.config do |config|
 
   Rails.application.eager_load!
   config.included_models = ActiveRecord::Base.descendants.map!(&:name)
+  config.main_app_name = ["Mydiscoveries Web"]
 
   config.actions do
     dashboard                     # mandatory

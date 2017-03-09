@@ -5,7 +5,6 @@ class OrdersController < ApplicationController
     :edit, :update, :checkout, :payment, :confirmation,
     :add_passengers, :edit_passengers, :update_passengers
   ]
-  before_action :set_offer, except: :download_pdf
   before_action :check_order_authorized, only: [:edit, :checkout, :update, :payment]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -91,15 +90,6 @@ class OrdersController < ApplicationController
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
       render :edit
-    end
-  end
-
-  def download_pdf
-    @order = Order.find_by(shopify_order_id: params[:shopify_order_id])
-    if @order
-      render json: { status: :success, body: { id: @order.id, title: @order.title } }
-    else
-      render json: { status: :not_found }
     end
   end
 

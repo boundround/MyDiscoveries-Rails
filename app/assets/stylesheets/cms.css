@@ -1,3 +1,15 @@
+.no-admin-page {
+  position: absolute;
+  height: 5000px;
+  width: 100%;
+  z-index: 100;
+  background-color: #aaa;
+  text-align: center;
+}
+
+.no-admin-page h2 {
+  padding-top: 300px;
+}
 .table-container {
   background-color: #eeeeee;
   border: 1px solid grey;

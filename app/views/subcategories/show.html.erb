@@ -59,19 +59,25 @@
           </p>
       </div>
     </div>
-    <div class="row related-product-adventure__content" id="offers-list">
-    <%= render partial: 'offers/subcategory_offers', collection: @offers, as: :offer %>
-    </div>
-    <% unless last_page? @offers %>
-      <div class="single-pagination-container" id="offers-single-pagination-container">
-        <div class="load-more region">
-          <div class="hidden single-pagination-loader" align="center">
-            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+    <div class="package-offers padding-medium">
+      <div class="package-offers-block">
+        <ul>
+          <div id="offers-list">
+            <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
           </div>
-        <%= link_to "see more", paginate_offers_subcategory_path(@subcategory, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/subcategory_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
-        </div>
+        </ul>
+        <% unless last_page? @offers %>
+          <div class="single-pagination-container" id="offers-single-pagination-container">
+            <div class="load-more region">
+              <div class="hidden single-pagination-loader" align="center">
+                <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+              </div>
+            <%= link_to "see more", paginate_offers_subcategory_path(@subcategory, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_index_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
+            </div>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
 </section>
 <% end %>
@@ -98,16 +104,3 @@
       </div>
   </section>
 <% end %>
-
-<section class="call-to-action-bottom text-center">
-  <div class="background" style="background-image: url('/assets/call-to-action-bottom-banner.png')">
-  <div class="container call-to-action-top__container">
-    <div class="row">
-      <div class="col-sm-12 col-xs-12">
-        <p class="call-to-action-bottom__text">We love traveller’s tales. Share yours to unlock holiday discounts.</p>
-        <a href="<%= new_story_path %>" class="call-to-action-bottom__btn">share a story</a>
-      </div>
-    </div>
-  </div>
-  </div>
-</section>

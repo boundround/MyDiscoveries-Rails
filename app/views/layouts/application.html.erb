@@ -31,7 +31,11 @@
 		<meta property="og:image"         content="<%= yield(:og_image) %>" />
 		<meta property='og:image:secure_url' content="<%= yield(:og_secure_image) %>" />
 		<meta property='og:image:type' content='image/jpeg' />
+		<% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
+			<meta name="p:domain_verify" content="686be2abe0a940c9850d1d44857ce726">
+		<% end %>
 	  <%= render "/layouts/ga" %>
+	  <%= render "/layouts/facebook_pixel" %>
 
     <style>
         html,
@@ -82,13 +86,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
 	</head>
-<% if ENV["MAINTENANCE"] == "maintenance" %>
-	<div class="container">
-		<h3 class="center">
-			Sorry, we are currently under maintenance.
-		</h3>
-	</div>
-<% else %>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<div id="environment" data-environment="<%= Rails.env %>">
     <div id="place-holder"></div>
@@ -141,9 +138,8 @@
     </script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
-		<%# if %>
-			<%#= render '/layouts/hubspot_tracking' %>
-		<%# end %>
+		<% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
+			<%= render '/layouts/hubspot_tracking' %>
 		<% end %>
 	</body>
 </html>

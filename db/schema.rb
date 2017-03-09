@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223131509) do
+ActiveRecord::Schema.define(version: 20170302084225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -745,13 +745,13 @@ ActiveRecord::Schema.define(version: 20170223131509) do
     t.datetime "updated_at"
     t.string   "shopify_order_id"
     t.integer  "status",               default: 0
-    t.boolean  "is_voucher_sent",      default: false
     t.boolean  "request_installments", default: false
     t.json     "px_response",          default: {}
     t.integer  "customer_id"
     t.boolean  "voucher_sent",         default: false
     t.string   "ax_sales_id"
     t.boolean  "created_from_ax",      default: false
+    t.datetime "purchase_date"
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
@@ -2316,10 +2316,11 @@ ActiveRecord::Schema.define(version: 20170223131509) do
     t.text     "seo_friendly_url"
     t.decimal  "page_ranking_weight"
     t.integer  "algolia_clicks",      default: 0
-    t.string   "hero_image"
     t.text     "focus_keyword"
     t.text     "seo_title"
     t.text     "meta_description"
+    t.string   "hero_image"
+    t.boolean  "featured",            default: false
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
@@ -2496,7 +2497,7 @@ ActiveRecord::Schema.define(version: 20170223131509) do
     t.string   "gender"
     t.string   "mobile"
     t.string   "home_phone"
-    t.boolean  "created_from_ax",                   default: true
+    t.boolean  "created_from_ax",                   default: false
     t.string   "ax_cust_account"
     t.string   "spree_api_key",          limit: 48
     t.integer  "ship_address_id"

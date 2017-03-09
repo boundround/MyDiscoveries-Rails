@@ -74,7 +74,7 @@
 <% if @offers.present? %>
 <div class="region package-offers">
     <div class="width-limiter">
-        <h3 class="proposal__header">Package Offers</h3>
+        <h3 class="proposal__header">Holidays for you</h3>
         <ul class="cs-package" id="offers-list">
             <%= render partial: 'offers/region_offers', collection: @offers, as: :offer %>
             <!-- <li class="recl-block">
@@ -167,7 +167,12 @@
 </div> -->
 
 <% if @stories.present? %>
-  <%= render partial: "stories/all_stories_regional" %>
+  <div class="region stories grey">
+    <div class="width-limiter">
+      <h3 class="proposal__header">Stories</h3>
+      <%= render partial: "stories/all_stories"%>
+    </div>
+  </div>
 <% end %>
 
 <% if @fun_facts.present? %>

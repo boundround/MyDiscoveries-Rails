@@ -15,6 +15,14 @@ class OrderPolicy < ApplicationPolicy
     new?
   end
 
+  def cms_edit?
+    user.admin?
+  end
+
+  def cms_update?
+    user.admin?
+  end
+
   def checkout?
     new?
   end
@@ -27,8 +35,8 @@ class OrderPolicy < ApplicationPolicy
     new?
   end
 
-  def download_pdf?
-    new?
+  def resend_confirmation?
+    user.admin?
   end
 
   def add_passengers?

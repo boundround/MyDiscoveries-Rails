@@ -32,14 +32,13 @@
         offer:      offer,
         operator:   operator,
         hero_photo: hero_photo,
-        passengers: passengers,
         customer:   customer
       }
     )
   end
 
   def file_name
-    @file_name ||= "mydiscoveries_#{'voucher'.pluralize(passengers.count)}.pdf"
+    @file_name ||= "mydiscoveries_#{'voucher'.pluralize(order.total_people_count)}.pdf"
   end
 
   def hero_photo
@@ -52,10 +51,6 @@
 
   def operator
     @operator ||= offer.operator
-  end
-
-  def passengers
-    @passenger ||= order.passengers
   end
 
   def success

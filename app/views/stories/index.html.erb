@@ -5,18 +5,22 @@
       <table class="table table-striped" id="transactions-table">
         <thead>
       <tr>
-      <th>Title</th>
-          <th>Status</th>
-          <th>SEO Rating</th>
-          <th>Publish Date</th>
-          <th>View Story</th>
-      <th>Edit</th>
-      <th>Delete</th>
+        <th></th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>SEO Rating</th>
+        <th>Publish Date</th>
+        <th>View Story</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </tr>
       </thead>
       <tbody>
         <% @stories.each do |story| %>
           <tr>
+            <td>
+            <input type="checkbox" id="featured-<%= story.id %>" class="featured-story css-checkbox" data-id="<%= story.id %>" <%= "checked" if story.featured %> /><label for="featured-<%= story.id %>" class="css-label label-featured"></label>
+            <!-- <input type="checkbox" class="featured-story" data-id="<%= story.id %>" <%= "checked" if story.featured %>></td> -->
             <td><%= story.title %></td>
             <td><%= story.status %></td>
             <td><%= link_to story.seo_complete_percentage, seo_analysis_story_path(story) %></td>

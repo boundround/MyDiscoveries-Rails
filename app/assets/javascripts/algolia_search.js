@@ -54,11 +54,10 @@ $(document).ready(function() {
     var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
     var algoliaHelperMobile = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
-    var FACETS_ORDER_OF_DISPLAY = ['where_destinations', 'subcategory', 'tags', 'places_visited'];
+    var FACETS_ORDER_OF_DISPLAY = ['places_visited'];
     var FACETS_LABELS = {
         subcategory: 'Subcategory',
-        tags: 'Tags',
-        places_visited: 'Place Visited'
+        places_visited: 'Places Visited'
     };
 
     var INSTANT_SEARCH_PARAMS = {
@@ -313,10 +312,10 @@ $(document).ready(function() {
         setTimeout(function(){
             $('.search-page-card__info-side.search-page-card__info-side--right').each(function(){
                 var wrap_text = $(this).find(".search-page-card__description"),
-                    text_old_h2 = $(this).find("h2")
-                    text_old_h3 = $(this).find("h3").not('.search-page-card__header')
-                    text_old_p = $(this).find("p").not('.search-page-card__description').not('.search-page-card__short-details-key').not('.search-page-card__short-details-value')
-                    text_old_span = $(this).find("span").not('.search-page-card__category-item')
+                    text_old_h2 = $(this).find("h2"),
+                    text_old_h3 = $(this).find("h3").not('.search-page-card__header'),
+                    text_old_p = $(this).find("p").not('.search-page-card__description').not('.search-page-card__short-details-key').not('.search-page-card__short-details-value'),
+                    text_old_span = $(this).find("span").not('.search-page-card__category-item'),
                     text_new = "";
                 if(text_old_h2.length > 0){
                     text_old_h2.hide();
@@ -340,6 +339,20 @@ $(document).ready(function() {
                     wrap_text.append(text_new);
                 }
             })
+
+            var text_old_b = $('.search-page-card').find("b")
+            if(text_old_b.length > 0){
+                text_old_b.each(function(){
+                    $(this).replaceWith($('<span>' + this.innerHTML + '</span>'));
+                })    
+            }
+
+            var text_gen_b = $('.instant-hits-result').find("b")
+            if(text_gen_b.length > 0){
+                text_gen_b.each(function(){
+                    $(this).replaceWith($('<span>' + this.innerHTML + '</span>'));
+                })    
+            }
         }, 100)
     }
 
@@ -371,6 +384,16 @@ $(document).ready(function() {
                 if($(this)[0].where_destinations == "Offers"){
                     $(this)[0]["is_offer"] = true
                     $(this)[0]["is_story"] = false
+
+                    var startDate = $(this)[0].startDate.split("-"),
+                        newDate   = new Date(Date.parse(startDate)),
+                        date      = newDate.getDate(),
+                        month     = newDate.getMonth()+1,
+                        year      = newDate.getFullYear();
+
+                    $(this)[0].startDate = date+"-"+month+"-"+year
+                    $(this)[0].monthlyPayments = ($(this)[0].minRateAdult/5.0).toFixed(2)
+
                 }else if($(this)[0].where_destinations == "Stories"){
                     $(this)[0]["is_offer"] = false
                     $(this)[0]["is_story"] = true

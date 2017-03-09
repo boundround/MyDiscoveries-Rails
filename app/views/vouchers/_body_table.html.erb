@@ -12,7 +12,11 @@
   <% end %>
   <tr>
     <td colspan="2" style="padding: 40px 40px 30px;">
-      <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.svg') %>" style="width: 230px;">
+      <% if email_page %>
+        <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.png') %>" style="width: 230px;">
+      <% else %>
+        <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.svg') %>" style="width: 230px;">
+      <% end %>
     </td>
   </tr>
   <tr>
@@ -24,19 +28,8 @@
     <td colspan="2" style="font-family: Arial; font-size: 16px; color: #333; padding-bottom: 15px; padding: 0; padding-bottom: 25px;">
       <ul style="padding: 0 40px; padding-left: 55px;">
         <li style="margin: 15px 0; line-height: 20px">
-          The voucher(s) below are your proof of purchase.
-          Treat your prepaid voucher(s) as you would cash and keep it in a safe place
-        </li>
-        <li style="margin: 15px 0; line-height: 20px"">
-          Many tours / activities accept both printed vouchers and
-          e-vouchers (check the 'Voucher Information' details listed below).
-          If your tour accepts e-vouchers,
-          on the day of travel you can choose to present this voucher on your phone.
-          A printed copy is not required
-        </li>
-        <li style="margin: 15px 0; line-height: 20px"">
-          If your tour / activity is listed as "Paper Voucher Required",
-          then you must print the voucher and present it on the day of travel.
+          This voucher is your proof of purchase.
+          Treat your prepaid voucher as you would cash and keep it in a safe place
         </li>
       </ul>
     </td>
@@ -46,8 +39,7 @@
     email_page: email_page,
     order:      order,
     offer:      offer,
-    customer:   customer,
-    passengers: passengers
+    customer:   customer
   %>
   <tbody>
   <% if !email_page %>
@@ -95,13 +87,7 @@
     <tr>
       <td colspan="2" style="padding: 0 40px 40px;">
         <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-          Directions
-        </span>
-        <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-          <%= offer.directions %>
-        </p>
-        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-          Supplier name
+          Operator name
         </span>
         <p style="font-family: Arial; font-size: 16px; margin-top: 0">
           <%= operator.name %>
@@ -116,26 +102,13 @@
           Inclusions
         </span>
         <ul style="margin: 0;padding-left: 0;list-style: none;margin-bottom: 15px; margin-top: 10px;">
-          <% offer.inclusions.each do |inclusion| %>
-            <span>
-              <img src="<%= asset_url(inclusion.name.gsub('/assets/', '')) %>" style="width: 35px; margin-right: 5px;">
-            </span>
-          <% end %>
+          <%= simple_format offer.includes %>
         </ul>
         <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-          Terms and Conditions
+          Fine Print
         </span>
         <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
-          If you cancel at least 7 day(s) in advance of the scheduled departure,
-          there is no cancellation fee.
-        </p>
-        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
-          If you cancel between 3 and 6 day(s) in advance of the scheduled departure,
-          there is a 50 percent cancellation fee.
-        </p>
-        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
-          If you cancel within 2 day(s) of the scheduled departure,
-          there is a 100 percent cancellation fee.
+          <%= simple_format offer.customStr3 %>
         </p>
       </td>
     </tr>
@@ -144,24 +117,24 @@
     <tr style="background-color: #000060;">
       <td style="font-family:'Rubik'; font-size: 16px; color: #fff; background-color: #000060; padding: 40px 0;">
         <a href="<%= ENV['HOME_URL'] %>" style="text-decoration: underline; color: #fff; display: block;">mydiscoveries.com.au</a>
-        <span style="font-family:Arial; display: block;margin-top: 10px;">20/94 Oxford Street, Darlinghurst NSW 2010<br>
-          (02) 9000 000</span>
+        <span style="font-family:Arial; display: block;margin-top: 10px;">431 Warringah Road, Frenchs Forest, NSW 2086<br>
+          1300 404 606</span>
       </td>
       <td style="background-color: #000060;  padding: 40px 0;" valign="top" align="right">
         <%= link_to 'https://www.facebook.com/BoundRound', style: "text-decoration: none;" do %>
-          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/fb.svg') %>" style="height: 20px;margin: 0 5px;">
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/fb.png') %>" style="height: 20px;margin: 0 5px;">
         <% end %>
         <%= link_to 'http://instagram.com/boundround', style: "text-decoration: none;" do %>
-          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/insta.svg') %>" style="height: 20px;margin: 0 5px;">
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/insta.png') %>" style="height: 20px;margin: 0 5px;">
         <% end %>
         <%= link_to 'https://twitter.com/BoundRoundAus', style: "text-decoration: none;" do %>
-          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/twitter.svg') %>" style="height: 20px;margin: 0 5px;">
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/twitter.png') %>" style="height: 20px;margin: 0 5px;">
         <% end %>
         <%= link_to 'https://www.youtube.com/user/BoundRoundGuides', style: "text-decoration: none;" do %>
-          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/youtube.svg') %>" style="height: 20px;margin: 0 5px;">
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/youtube.png') %>" style="height: 20px;margin: 0 5px;">
         <% end %>
         <%= link_to 'https://au.pinterest.com/boundround', style: "text-decoration: none;" do %>
-          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/pinterest.svg') %>" style="height: 20px;margin: 0 5px;">
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/pinterest.png') %>" style="height: 20px;margin: 0 5px;">
         <% end %>
       </td>
     </tr>

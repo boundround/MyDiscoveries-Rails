@@ -6,7 +6,7 @@
           <li class="up-my-dashboard-link"><a href="#up-my-dashboard">My Dashboard</a></li>
           <li class="up-my-bookings-link"><a href="#up-my-bookings">my bookings</a></li>
           <li class="up-bucket-list-link"><a href="#up-bucket-list">bucket list</a></li>
-          <li class="up-my-content-link"><a href="#up-my-content">my content</a></li>
+          <!-- <li class="up-my-content-link"><a href="#up-my-content">my content</a></li> -->
           <li class="up-my-settings-link"><a href="#up-my-settings">my settings</a></li>
       </ul>
 
@@ -68,66 +68,25 @@
                 <h1 class="lars">Bookings</h1>
 
                 <% if @orders.present? %>
-                  <% @orders.each do |order| %>
-                  <div class="search-page-card clear-self wrap_link_card">
-                    <a class="link_card" href="<%= offer_path(order.offer) %>"></a>
-                    <div class="container-left">
-                      <h3 class="search-page-card__header"><%= order.title %></h3>
-                      <div class="search-page-card__info-side search-page-card__info-side--left">
-                          <p class="search-page-card__country"></p>
-                          <img src="<%= draw_small_background(order.offer) %>" class="search-page-card__image" alt="">
-                          <span class="search-page-card__more-info mobile-only js-show-more-card-info">more info</span>
-                          <p class="search-page-card__image-description"></p>
-                          <h4 class="search-page-card-places-visited__header">Places Visited</h4>
-                          <ul class="tags">
-                            <% order.offer.tags.last(2).each do |tag| %>
-                            <li class="search-page-card-places-visited__place"><%= tag %></li>
-                            <% end %>
-                          </ul>
+                  <div class="package-offers">
+                  <div class="package-offers-block">
+                    <ul>
+                      <div id="orders-list">
+                        <%= render partial: "offers/all_index_offers", collection: @orders, as: :order, locals:{variable: "order"} %>
                       </div>
-
-                      <div class="search-page-card__info-side search-page-card__info-side--right">
-                          <p class="search-page-card__description" style="min-height: 200px"><%= order.offer.description %></p>
-
-                          <p class="search-page-card__short-details-key">Date</p>
-                          <p class="search-page-card__short-details-value"><%= order.start_date %></p>
-                          <p class="search-page-card__short-details-key">Inclusions</p>
-                          <p class="search-page-card__short-details-value">
-                            <% order.offer.inclusions.each do |inclusion| %>
-                              <img src="<%= inclusion %>" class="search-page-card__short-details-icon" alt="">
-                            <% end %>
-                          </p>
-
-                      </div>
-                    </div>
-
-                      <div class="search-page-card__cost-side">
-
-                          <p class="search-page-card__short-details-for-cost mobile-only">
-                            <img class="search-page-card__short-details-for-cost-icon" src="/assets/mydiscoveries_icon/i/inclusions/kids-club.svg" alt="">
-                            <span class="search-page-card__short-details-for-cost-text">2</span>
-                            <img class="search-page-card__short-details-for-cost-icon search-page-card__short-details-for-cost-icon--nights" src="/assets/mydiscoveries_icon/i/inclusions/nights.svg" alt="">
-                            <span class="search-page-card__short-details-for-cost-text">7</span>
-                        </p>
-
-                          <p class="search-page-card__cost-value"><span class="search-page-card__cost-currency">$</span><%= order.total_price %></p>
-                          <p class="search-page-card__per-person">$<%= order.offer.minRateAdult %> per person</p>
-                          <p class="search-page-card__person-quantity  desktop-only"> <%= order.number_of_children + order.number_of_adults %> people </p>
-                          <p class="search-page-card__nights-quantity  desktop-only"> nights</p>
-
-                          <a class="search-page-card__cost-details" href="<%= offer_path(order.offer) %>">details</a>
-
-                          <div class="favourites-wrapper">
-                          <a class="search-page-card__cost-details" href="{{ url }}">details</a>
-                            <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
-
+                        <% unless last_page? @orders %>
+                        <div class="row single-pagination-container" id="orders-single-pagination-container">
+                          <div class="hidden single-pagination-loader" align="center">
+                            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                          </div>
+                          <div class="col-xs-12" align="center">
+                            <%= link_to "all orders", paginate_orders_user_path(@user, orders_page: @orders.next_page, resources: 'orders', pagination_template: 'offers/all_index_offers', collection_object: 'order'), class: 'more-link single-pagination', remote: true %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </ul>
                   </div>
-
-                      </div>
-
-
-                  </div>
-                  <% end %>
+                </div>
                 <% end %>
             </div>
             <!-- END - My Bookings -->
@@ -136,109 +95,112 @@
             <!-- BEGIN - Bucket List -->
             <div class="up-tabs-item up-bucket-list" id="up-bucket-list">
 
-                <h1 class="lars">Bucket list</h1>
-                <% if @favorite_offers.present? %>
-                <div class="region package-offers">
-                  <h3 class="search-page-card__header">Offers</h3>
-                  <ul class="cs-package" id="favorite_offers-list">
-                    <%= render partial: 'offers/region_offers', collection: @favorite_offers, as: :offer %>
-                  </ul>
-                  <% unless last_page? @favorite_offers %>
-                    <div class="single-pagination-container" id="favorite_offers-single-pagination-container">
-                      <div class="region" align="center">
-                        <div class="hidden single-pagination-loader" align="center">
-                          <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                        </div>
-                      <%= link_to "all offers", paginate_offers_user_path(@user, favorite_offers_page: @favorite_offers.next_page, resources: 'favorite_offers', pagination_template: 'offers/region_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
+              <h1 class="lars">Bucket list</h1>
+              <% if @favorite_offers.present? %>
+                <div class="package-offers">
+                  <div class="package-offers-block">
+                    <ul>
+                      <div id="favorite_offers-list">
+                        <%= render partial: "offers/all_index_offers", collection: @favorite_offers, as: :offer, locals:{variable: "favorite_offers"} %>
                       </div>
+                        <% unless last_page? @favorite_offers %>
+                        <div class="row hidden-xs single-pagination-container" id="favorite_offers-single-pagination-container">
+                          <div class="hidden single-pagination-loader" align="center">
+                            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                          </div>
+                          <div class="col-xs-12" align="center">
+                            <%= link_to "all offers", paginate_offers_user_path(@user, favorite_offers_page: @favorite_offers.next_page, resources: 'favorite_offers', pagination_template: 'offers/all_index_offers', collection_object: 'offer'), class: 'more-link single-pagination', remote: true %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              <% end %>
+              <% if @favorite_regions.present? %>
+                <div class="region places-to-go">
+                  <h3 class="search-page-card__header">Regions</h3>
+                  <div class="block-wrapper" id="favorite_regions-list">
+                      <%= render partial: 'regions/place_to_go_list', collection: @favorite_regions, as: :place %>
+                  </div>
+                  <% unless last_page? @favorite_regions %>
+                    <div class="single-pagination-container" id="favorite_regions-single-pagination-container">
+                        <div class="load-more">
+                          <div class="hidden single-pagination-loader" align="center">
+                            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                          </div>
+                        <%= link_to "load more", paginate_regions_user_path(@user, favorite_regions_page: @favorite_regions.next_page, resources: 'favorite_regions', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
+                        </div>
                     </div>
                   <% end %>
                 </div>
-                <% end %>
-                <% if @favorite_regions.present? %>
-                  <div class="region places-to-go">
-                    <h3 class="search-page-card__header">Regions</h3>
-                    <div class="block-wrapper" id="favorite_regions-list">
-                        <%= render partial: 'regions/place_to_go_list', collection: @favorite_regions, as: :place %>
-                    </div>
-                    <% unless last_page? @favorite_regions %>
-                      <div class="single-pagination-container" id="favorite_regions-single-pagination-container">
-                          <div class="load-more">
-                            <div class="hidden single-pagination-loader" align="center">
-                              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                            </div>
-                          <%= link_to "load more", paginate_regions_user_path(@user, favorite_regions_page: @favorite_regions.next_page, resources: 'favorite_regions', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
-                          </div>
-                      </div>
-                    <% end %>
+              <% end %>
+              <% if @favorite_places.present? %>
+                <div class="region places-to-go">
+                  <h3 class="search-page-card__header">Places</h3>
+                  <div class="block-wrapper" id="favorite_places-list">
+                      <%= render partial: 'regions/place_to_go_list', collection: @favorite_places, as: :place %>
                   </div>
-                <% end %>
-                <% if @favorite_places.present? %>
-                  <div class="region places-to-go">
-                    <h3 class="search-page-card__header">Places</h3>
-                    <div class="block-wrapper" id="favorite_places-list">
-                        <%= render partial: 'regions/place_to_go_list', collection: @favorite_places, as: :place %>
-                    </div>
-                    <% unless last_page? @favorite_places %>
-                      <div class="single-pagination-container" id="favorite_places-single-pagination-container">
-                          <div class="load-more">
-                            <div class="hidden single-pagination-loader" align="center">
-                              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                            </div>
-                          <%= link_to "load more", paginate_places_user_path(@user, favorite_places_page: @favorite_places.next_page, resources: 'favorite_places', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
+                  <% unless last_page? @favorite_places %>
+                    <div class="single-pagination-container" id="favorite_places-single-pagination-container">
+                        <div class="load-more">
+                          <div class="hidden single-pagination-loader" align="center">
+                            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
                           </div>
-                      </div>
-                    <% end %>
-                  </div>
-                <% end %>
-                <% if @favorite_stories.present? %>
-                  <div class="region places-to-go">
-                    <h3 class="search-page-card__header">Stories</h3>
-                    <div class="block-wrapper" id="favorite_stories-list">
-                        <%= render partial: 'stories/all_stories_list', collection: @favorite_stories, as: :story %>
+                        <%= link_to "load more", paginate_places_user_path(@user, favorite_places_page: @favorite_places.next_page, resources: 'favorite_places', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
+                        </div>
                     </div>
-                    <% unless last_page? @favorite_stories %>
-                      <div class="single-pagination-container" id="favorite_stories-single-pagination-container">
-                          <div class="load-more">
-                            <div class="hidden single-pagination-loader" align="center">
-                              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                            </div>
-                          <%= link_to "load more", paginate_favorite_stories_user_path(@user, favorite_stories_page: @favorite_stories.next_page, resources: 'favorite_stories', pagination_template: 'stories/all_stories_list', collection_object: 'story'), class: 'load-more single-pagination', remote: true %>
-                          </div>
-                      </div>
-                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+              <% if @favorite_stories.present? %>
+                <div class="region places-to-go">
+                  <h3 class="search-page-card__header">Stories</h3>
+                  <div class="block-wrapper" id="favorite_stories-list">
+                      <%= render partial: 'stories/all_stories_list', collection: @favorite_stories, as: :story %>
                   </div>
-                <% end %>
+                  <% unless last_page? @favorite_stories %>
+                    <div class="single-pagination-container" id="favorite_stories-single-pagination-container">
+                        <div class="load-more">
+                          <div class="hidden single-pagination-loader" align="center">
+                            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                          </div>
+                        <%= link_to "load more", paginate_favorite_stories_user_path(@user, favorite_stories_page: @favorite_stories.next_page, resources: 'favorite_stories', pagination_template: 'stories/all_stories_list', collection_object: 'story'), class: 'load-more single-pagination', remote: true %>
+                        </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
             <!-- END - Bucket List -->
 
 
             <!-- BEGIN - My Content -->
-            <div class="up-tabs-item up-my-content" id="up-my-content">
+            <!-- <div class="up-tabs-item up-my-content" id="up-my-content"> -->
 
-                <h1 class="lars">My content</h1>
+                <!-- <h1 class="lars">My content</h1> -->
 
-                <div id="up-mc-tabs">
+                <!-- <div id="up-mc-tabs"> -->
 
-                    <ul class="up-mc-tabs-links" >
-                        <li><a href="#up-mc-stories">Stories</a></li>
+                    <!-- <ul class="up-mc-tabs-links" > -->
+                        <!-- <li><a href="#up-mc-stories">Stories</a></li> -->
                         <!-- <li><a href="#up-mc-comments">Comments</a></li>
                         <li><a href="#up-mc-reviews">Reviews</a></li> -->
-                    </ul>
+                    <!-- </ul> -->
 
 
                     <!-- BEGIN - Stories -->
-                    <div class="up-mc-tabs-item up-mc-stories" id="up-mc-stories">
+                    <!-- <div class="up-mc-tabs-item up-mc-stories" id="up-mc-stories"> -->
 
-                        <div class="up-mc-tabs-header">
-                            <p>We love traveller’s tales. Share yours to unlock holiday discounts.</p>
-                            <a href="<%= new_story_path %>" class="btn-bordered red small invert">share a story</a>
-                        </div>
-                        <ul class="up-mc-stories-content">
-                          <%= render partial: "stories/all_stories"%>
-                        </ul>
+                        <!-- <div class="up-mc-tabs-header"> -->
+                            <!-- <p>We love traveller’s tales. Share yours to unlock holiday discounts.</p> -->
+                            <!-- <a href="<%= new_story_path %>" class="btn-bordered red small invert">share a story</a> -->
+                        <!-- </div> -->
+                        <!-- <ul class="up-mc-stories-content"> -->
+                          <%#= render partial: "stories/all_stories"%>
+                        <!-- </ul> -->
 
-                    </div>
+                    <!-- </div> -->
                     <!-- END - Stories -->
 
 
@@ -261,9 +223,9 @@
                     </div> -->
                     <!-- END - Reviews -->
 
-                </div>
+                <!-- </div> -->
 
-            </div>
+            <!-- </div> -->
             <!-- END - My Content -->
 
 
@@ -319,7 +281,7 @@
                           <%= f.text_area :description, placeholder: 'e.g. Your interests, places travelled, etc.' %>
                         </div>
 
-                        <div class="form-group user-ava">
+                        <div class="form-group user-ava col-sm-12">
                           <div class="col-xs-12 col-sm-2">
                             <div class="img-rounded edit-profile" align="center">
                               <% if @user.avatar.url %>
@@ -340,14 +302,13 @@
                           </div>
                         </div>
 
-                        <div class="form-group">
-                            <input id="up-plan-private" type="checkbox" name="user[is_private]" checked="<%= @user.is_private==true ? true : false %>">
+                        <!-- <div class="form-group clear private-profile">
+                            <input id="up-plan-private" type="checkbox" name="user[is_private]" <%#= @user.is_private== true ? "checked" : "" %>>
                             <label for="up-plan-private">Keep my profile private</label>
-                        </div>
+                        </div> -->
 
                         <button class="btn-bordered red invert small">save</button>
 
-                        <!-- <a href="#" class="edit">Change password</a> -->
                         <% if user_signed_in? && current_user.admin? %>
                           <div class="col-xs-12 col-sm-12 top5">
                             <p class="pink left15">User Roles</p>

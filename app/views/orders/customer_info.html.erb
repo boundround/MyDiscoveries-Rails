@@ -1,0 +1,22 @@
+<div class="container">
+  <h2>Customer Info</h2>
+  <p>Customer Name: <%= "#{@order.customer.first_name} #{@order.customer.last_name}" %></p>
+  <p>Customer Email: <%= "#{@order.customer.email}" %></p>
+  <p>Customer Phone: <%= "#{@order.customer.phone_number}" %></p>
+  <p>Customer Address Line One: <%= "#{@order.customer.address_one}" %></p>
+  <p>Customer Address Line Two: <%= "#{@order.customer.address_two}" %></p>
+  <p>Customer City: <%= "#{@order.customer.city}" %></p>
+  <p>Customer State: <%= "#{@order.customer.state}" %></p>
+  <p>Customer Postal Code: <%= "#{@order.customer.postal_code}" %></p>
+  <h2>Order Info</h2>
+  <p>AX SALES ID: <%= @order.ax_sales_id %></p>
+  <p>Total Price: $<%= @order.total_price %></p>
+  <p>Number of Adults: <%= @order.number_of_adults %></p>
+  <p>Number of Children: <%= @order.number_of_children %></p>
+  <p>Tour Operator: <%= @order.offer.operator.name %></p>
+  <p>Payment Status: <%= @order.status %></p>
+  <p>Requested Installments?: <%= @order.request_installments? ? "yes" : "no" %></p>
+
+  <h2>Offer Info</h2>
+  <p>Product Info: <%= link_to @order.offer.name, offer_path(@order.offer), target: "blank" %></p>
+</div>

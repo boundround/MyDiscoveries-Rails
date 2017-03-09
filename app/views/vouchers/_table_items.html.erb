@@ -4,12 +4,11 @@
       <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
     </td>
   <% end %>
-
-  <% passengers.each_with_index do |passenger, index| %>
+  <% order.total_people_count.times do |index| %>
     <tr class="<%= index == 0 ? '' : 'add-page-break' %> " style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>">
       <tr>
         <td colspan="2" style="padding: 40px 40px 0px;">
-          <% if pdf_page %>
+          <% if pdf_page || email_page %>
             <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.png') %>" style="width: 230px;">
           <% else %>
             <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.svg') %>" style="width: 230px;">
@@ -20,12 +19,12 @@
         <td style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px">Booking Reference</span><br>
           <span style="font-family: 'Georgia'; font-size: 26px"">
-            <%= "##{passenger.id}" %>
+            <%= "#{offer.item_id}US#{order.user_id}MD#{order.id}" %>
           </span>
         </td>
         <td style="padding: 20px 40px; text-align: right; vertical-align: top;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px">
-            <%= "Voucher #{index + 1} of #{passengers.count}" %>
+            <%= "Voucher #{index + 1} of #{order.total_people_count}" %>
           </span>
         </td>
       </tr>
@@ -48,19 +47,28 @@
           </p>
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Address</span>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= customer.address_one %>
+            <%=
+              "#{customer.address_one}, \
+              #{customer.city} #{customer.state}, \
+              #{customer.country_name}, \
+              #{customer.postal_code}"
+            %>
           </p>
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">MyDiscoveries Customer No.</span><br>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
             <%= customer.uniq_number %>
           </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Holiday Name</span>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Purchase Date</span>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= offer.name %>
+            <%= order.purchase_date.try(:strftime, "%d/%m/%Y") %>
           </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Description</span>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Offer Description</span>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
             <%= offer.description %>
+          </p>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Valid Until</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= offer.validityEndDate.try(:strftime, "%d/%m/%Y") %>
           </p>
         </td>
       </tr>

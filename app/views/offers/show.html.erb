@@ -15,6 +15,7 @@
 
     <!-- <div class="hero" style="background: url(<%= main_offer_photo_url(@offer)[:url] %>) center no-repeat;" > -->
     <div class="hero" style="background: url( <%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat;" >
+      <div class="photo-credit"><%= get_hero_image_credit(@offer) %></div>
         <div class="hero-content width-limiter">
             <div class="location">
               <% if user_signed_in? and current_user.admin? %>
@@ -28,7 +29,7 @@
                     <span>$</span>
                     <span class="hci-price-self"><%= @offer.minRateAdult %></span>
                     <% if @offer.allow_installments? %>
-                      <br><span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5) %></span><br>
+                      <br><span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5.0) %></span><br>
                     <% end %>
                 </span>
                 <% if @offer.duration.present? %>
@@ -53,8 +54,8 @@
     <div class="product-content width-limiter">
 
         <aside>
-            <h3 class="point-card__header"><%= @offer.operator.city rescue "" %></h3>
-            <p class="hotel-name"><%= @offer.operator.name rescue "" %></p>
+            <h3 class="point-card__header"><%= @operator.city rescue "" %></h3>
+            <a  data-toggle="modal" data-target="#operatorDetail" href="#" class="hotel-name"><%= @operator.name rescue "" %></a>
 
             <div class="package-options">
                 <h4 class="xs-heading lars">Package Options</h4>
@@ -69,7 +70,7 @@
                                 <span class="poict-price-self"><%= @offer.minRateAdult %></span>
                                 <br>
                                 <% if @offer.allow_installments? %>
-                                  or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5) %>
+                                  or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5.0) %>
                                 <% end %>
                             </div>
                             <!-- <div class="poict-valued">Valued up to $3,441</div> -->
@@ -77,7 +78,9 @@
                             <div class="poict-nights"><%= create_duration(@offer) %></div>
                             <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
-                            <a href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                            <div class="book-now">
+                              <a href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                            </div>
                         </div>
 
                         <!-- <div class="poi-content-bottom">
@@ -88,34 +91,38 @@
                         </div> -->
 
                     </li>
-                    <% if @offer.related_products.present? %>
-                      <% @offer.related_products.each do |offer| %>
-                        <li class="po-item">
-                            <div class="poi-content-top">
-                              <%= offer.related_product.name %>
-                                <div class="poict-price">
-                                    <span>$</span>
-                                    <span class="poict-price-self"><%= offer.related_product.minRateAdult %></span>
-                                    <br>
-                                    <% if offer.related_product.allow_installments? %>
-                                      or 5 monthly payments of <%= number_to_currency(offer.related_product.minRateAdult / 5) %>
-                                    <% end %>
-                                </div>
-                                <!-- <div class="poict-valued">Valued up to $3,441</div> -->
-                                <div class="poict-people">per Adult</div>
-                                <div class="poict-nights"><%= create_duration(offer.related_product) %></div>
-                                <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
+                    <% if @offer.related_offers.present? %>
+                      <% @offer.related_offers.each do |offer| %>
+                        <% if offer.related_offer.present? %>
+                          <li class="po-item">
+                              <div class="poi-content-top">
+                                <%= offer.related_product.name %>
+                                  <div class="poict-price">
+                                      <span>$</span>
+                                      <span class="poict-price-self"><%= offer.related_product.minRateAdult %></span>
+                                      <br>
+                                      <% if offer.related_product.allow_installments? %>
+                                        or 5 monthly payments of <%= number_to_currency(offer.related_product.minRateAdult / 5.0) %>
+                                      <% end %>
+                                  </div>
+                                  <!-- <div class="poict-valued">Valued up to $3,441</div> -->
+                                  <div class="poict-people">per Adult</div>
+                                  <div class="poict-nights"><%= create_duration(offer.related_product) %></div>
+                                  <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
-                                <a href="<%= new_offer_order_path(offer.related_product, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
-                            </div>
+                                  <div class="book-now">
+                                    <a href="<%= new_offer_order_path(offer.related_offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                                  </div>
+                              </div>
 
-                            <!-- <div class="poi-content-bottom">
-                                <p>
-                                    <span class="head-highlight">Highlights:</span>
-                                    <%#= simple_format offer.related_product.highlightsStr %>
-                                </p>
-                            </div> -->
-                        </li>
+                              <!-- <div class="poi-content-bottom">
+                                  <p>
+                                      <span class="head-highlight">Highlights:</span>
+                                      <%#= simple_format offer.related_product.highlightsStr %>
+                                  </p>
+                              </div> -->
+                          </li>
+                        <% end %>
                       <% end %>
                     <% end %>
                 </ul>
@@ -144,9 +151,6 @@
                       <%= simple_format @offer.description %>
                   </div>
                 <% end %>
-                <div class="ci-map-block">
-                    <div id='dest-map' data-map="<%= create_marker @offer %>"></div>
-                </div>
                 <div id="product-accordion" class="accordion-block">
 
                     <h3>Highlights</h3>
@@ -193,6 +197,10 @@
                             <a class="pagination__link-right" href="#"></a>
                         </div>
                     </div> -->
+                    <h3>map</h3>
+                    <div class="ci-map-block">
+                      <div id='dest-map' data-map="<%= create_marker @offer %>"></div>
+                    </div>
                     <% if @offer.customStr3.present? %>
                       <h3>fine print</h3>
                       <div class="fint-print">
@@ -215,35 +223,37 @@
                 </div>
 
                 <h3 class="sm-heading lars">Videos & Photos</h3>
-                <% unless @videos.blank? %>
-                  <div class="destinations">
-                    <div class="videos-block place-video">
-                      <% if !@last_video.youtube_id.blank? %>
-                        <div class="video-embed-wrapper">
-                          <div class="small-video-component">
-                            <iframe class="player-vimeo" src="<%= @last_video.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                          </div>
-                        </div>
-                      <% end %>
-                    <%= render partial: "shared/videos_list", locals:{container: "" } %>
-                  </div>
-                </div>
-                <% end %>
-                <% unless @photos.blank? %>
-                <div class="gallery">
+                <% unless @galeries.blank? %>
+                  <div class="gallery">
                     <div class="slider-mobile-wrapper">
                         <div class="slider-for">
-                            <% @photos.each do |photo| %>
-                                <div><img src="<%= photo.path_url(:large) %>" alt="" width="100%"></div>
+                          <% @galeries.each do |galery| %>
+                            <% if galery.class.name == "Video" %>
+                              <iframe class="player-vimeo" src="<%= galery.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            <% else %>
+                              <div>
+                                <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
+                                <div class="photo-credit">Credit: <%= galery.credit %></div>
+                              </div>
                             <% end %>
+                          <% end %>
                         </div>
                     </div>
                     <div class="slider-nav xs-invisible">
-                        <% @photos.each do |photo| %>
-                            <div><img src="<%= photo.path_url(:large) %>" alt="" width="100%"   ></div>
+                        <% @galeries.each do |galery| %>
+                          <% if galery.class.name == "Video" %>
+                            <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="<%= galery.title %>">
+                                <img src="<%= galery.vimeo_thumbnail %>" alt="" width="100%">
+                                <div class="overlay-nav-video"></div>
+                            </div>
+                          <% else %>
+                            <div>
+                                <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
+                            </div>
+                          <% end %>
                         <% end %>
                     </div>
-                </div>
+                  </div>
                 <% end %>
 
                 </div>
@@ -252,3 +262,4 @@
     </div>
 </div>
 </div>
+<%= render "operator_detail"%>

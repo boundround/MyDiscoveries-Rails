@@ -11,7 +11,9 @@ $(function () {
     var $mobileHeaderDropDownBackground = $('.js-mobile-header-drop-down-background');
     var $mobileHeader = $('.js-mobile-header');
     var $mobileShowHideSearch = $('.js-mobile-show-hide-search');
+    var $mobileShowHideCall = $('.js-mobile-show-hide-call');
     var $mobileHeaderMenuButton = $('.js-mobile-header__menu-button');
+    var $mobileHeaderMenuCall = $('.mobile-header .phone-text')
 
     function showNavigationDropDown() {
         $navigationDropDown.removeClass('hidden');
@@ -77,6 +79,10 @@ $(function () {
 
     $mobileHeaderDropDownBackground.on('touchmove', function (e) {
         e.preventDefault();
+    });
+
+    $mobileShowHideCall.on('click', function(){
+        $mobileHeaderMenuCall.toggleClass('hidden')
     });
 
 });

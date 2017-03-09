@@ -1,32 +1,16 @@
-<div class="col-md-4 col-lg-4">
+<div class="col-sm-6 <%= controller_name.eql?("users") && (action_name.eql?("show") || action_name.eql?("paginate_favorite_stories"))? "w-50" : "col-lg-4" %>">
   <div class="inspiration-item wrap_link_card">
   <a class="link_card" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>"></a>
       <div class="user-dp"
-           style="background: url(<%= showing_image(story.hero_image_url)%>) no-repeat;"
+           style="background: url(<%= showing_image(story.hero_image_url)%>) no-repeat;
+                  background-size: cover !important;"
            role="img"
-           aria-label="User: <%= story.user.username %>">
+           aria-label="User: <%= story.user.name %>">
       </div>
-      <!-- <img class="inspiration-item__image" src="<%= showing_image(story.user.avatar_url)%>" alt="" aria-label="User: <%= story.user.username %>"> -->
       <h4 class="inspiration-item__header"><%= raw story.title.blank? ? story.title : story.title.truncate(50) %></h4>
       <a class="inspiration-item__link" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>">read more</a>
-      <span class="inspiration-item__mark">Featured Article</span>
-      <!-- <div class="username">
-        <% if story.user.is_private? %>
-          <%= story.user.username %>
-        <% else %>
-          <%= link_to story.user.username, public_profile_user_path(story.user) %>
-        <% end %>
-      </div> -->
-      <!-- <div class="date hidden-xs"><%= story.publish_date.strftime("%d %B %Y") %></div> -->
-    <!-- <div class="story-content">
-      <h4 class="story-title"><%= raw story.title.blank? ? story.title : story.title.truncate(65) %></h4>
-      <p><%= raw story.teaser %></p>
-      <% image = story.is_a?(Story) ? story.hero_image_url : story.story_images.first %>
-      <div  class="story-img"
-            style="background: url(<%= showing_image( image || asset_path('generic-hero-small.jpg') ) %>) no-repeat;"
-            role="img"
-            aria-label="Story Image">
-      </div>
-    </div> -->
+      <% if story.featured %>
+        <span class="inspiration-item__mark">Featured Article</span>
+      <% end %>
   </div>
 </div>

@@ -34,7 +34,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     if session[:previous_path].blank?
-      user_path(resource)
+      URI(request.referer || '').path
     else
       session.delete(:previous_path)
     end

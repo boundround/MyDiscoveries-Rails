@@ -69,6 +69,8 @@ class User < ActiveRecord::Base
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
   validates :password, confirmation: true
 
+  after_commit :set_ax_cust_account!, on: :create
+
   def self.find_for_oauth(auth, signed_in_resource = nil)
     # Get the identity and user if they exist
     identity = Identity.find_for_oauth(auth)
@@ -146,4 +148,7 @@ class User < ActiveRecord::Base
     stories += self.favourite_stories
   end
 
+  def set_ax_cust_account!
+    update_column(:ax_cust_account, "M#{1000000 + id}") unless created_from_ax
+  end
 end

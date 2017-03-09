@@ -166,23 +166,16 @@ class PlacesController < ApplicationController
   def show
     @places_to_visit = @place.places_to_visits.paginate( page: params[:places_to_visit_page], per_page: 6 )
     @deals = @place.deals.active
-    @offers = @place.offers.paginate(page: params[:offers_page], per_page: 3)
+    @offers = @place.offers.paginate(page: params[:offers_page], per_page: 4)
     @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
-    @photos = @place.active_user_photos
-    @photos_hero = @photos.first(6)
     @map_marker = @place.markers
     @review = @place.reviews.build
-
-    @videos = @place.videos.active.order(:priority).paginate(:page => params[:active_videos], per_page:3)
-    @last_video = @place.videos.active.order(:priority).first
-
+    @videos = @place.videos.active.order(:priority)
+    @photos = @place.active_user_photos
+    @galeries = @videos + @photos
+    @photos_hero = @photos.first(6)
     @fun_facts = @place.fun_facts
-
-    if @place.country
-      country_languages = ISO3166::Country.find_country_by_name(@place.country.display_name).languages
-      @country_currency = ISO3166::Country.find_country_by_name(@place.country.display_name).currency.code
-      @languages = country_languages.collect{|l| ISO_639.find(l).english_name }
-    end
+    @country_currency, @languages = @place.country_extra_data
 
     respond_to do |format|
       format.html #{ render view, :layout => !request.xhr? }
@@ -192,22 +185,12 @@ class PlacesController < ApplicationController
 
   def paginate_offers
     @place = Place.find_by_slug(params[:id])
-    @offers = @place.offers.paginate(page: params[:offers_page], per_page: 3)
-  end
-
-  def paginate_photos
-    @place = Place.find_by_slug(params[:id])
-    @photos = @place.active_user_photos.paginate(:page => params[:active_photos], per_page: 3)
+    @offers = @place.offers.paginate(page: params[:offers_page], per_page: 4)
   end
 
   def paginate_deals
     @place = Place.find_by_slug(params[:id])
     @deals = @place.deals.active.paginate(:page => params[:active_photos], per_page: 4)
-  end
-
-  def paginate_videos
-    @place = Place.find_by_slug(params[:id])
-    @videos = @place.videos.active.paginate(:page => params[:active_videos], per_page: 3)
   end
 
   def paginate_place_to_visit

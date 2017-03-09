@@ -110,6 +110,7 @@ class Story < ActiveRecord::Base
     attributesToIndex [
       'display_name',
       'unordered(description)',
+      'tags',
       'unordered(content)',
       'accessible',
       'subcategories',
@@ -117,6 +118,11 @@ class Story < ActiveRecord::Base
       'unordered(display_address)',
       'unordered(primary_category)',
       'publish_date',
+      'item_id',
+      'child_item_id',
+      'related_item_id',
+      'tags',
+      'places_visited'
     ]
 
     customRanking Searchable.custom_ranking
@@ -134,7 +140,6 @@ class Story < ActiveRecord::Base
       'price',
       'best_time_to_visit',
       'accessibility',
-      'tags',
       'places_visited'
     ]
   end
@@ -169,6 +174,7 @@ class Story < ActiveRecord::Base
   scope :active, -> { where(status: "live").where(public: true) }
   scope :draft, -> { where(status: "draft") }
   scope :user_already_notified_today, -> { where('user_notified_at > ?', Time.now.at_beginning_of_day) }
+  scope :featured, -> { where(featured: true) }
 
   attr_accessor :age_bracket
 
