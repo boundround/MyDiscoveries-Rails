@@ -11,8 +11,8 @@
   <h2>Order Info</h2>
   <p>AX SALES ID: <%= @order.ax_sales_id %></p>
   <p>Total Price: $<%= @order.total_price %></p>
-  <p>Number of Adults: $<%= @order.number_of_adults %></p>
-  <p>Number of Children: $<%= @order.number_of_children %></p>
+  <p>Number of Adults: <%= @order.number_of_adults %></p>
+  <p>Number of Children: <%= @order.number_of_children %></p>
   <p>Tour Operator: <%= @order.offer.operator.name %></p>
   <p>Payment Status: <%= @order.status %></p>
   <p>Requested Installments?: <%= @order.request_installments? ? "yes" : "no" %></p>
