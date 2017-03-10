@@ -30,7 +30,8 @@ class Offer < ActiveRecord::Base
                :startDate,
                :endDate,
                :inclusions,
-               :places_visited
+               :places_visited,
+               :subcategory
 
     attribute :display_name do
       name
@@ -184,7 +185,8 @@ class Offer < ActiveRecord::Base
                  :startDate,
                  :endDate,
                  :inclusions,
-                 :places_visited
+                 :places_visited,
+                 :subcategory
 
       attribute :display_name do
         name
