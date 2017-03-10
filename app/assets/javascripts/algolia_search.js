@@ -62,7 +62,6 @@ $(document).ready(function() {
 
     var INSTANT_SEARCH_PARAMS = {
         hitsPerPage: 6,
-        maxValuesPerFacet: 8,
         facets: ['is_area'],
         disjunctiveFacets: FACETS_ORDER_OF_DISPLAY
     };
