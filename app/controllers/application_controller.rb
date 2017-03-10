@@ -97,6 +97,10 @@ class ApplicationController < ActionController::Base
       "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_grey.png')}'>"
   end
 
+  def current_store
+    Spree::Store.first
+  end
+
   private
   def correct_domain!
     if request.host == 'mydiscoveries.com.au'

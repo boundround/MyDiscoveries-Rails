@@ -1,4 +1,4 @@
-namespace :spree_products do
+namespace :spree do
   desc "migrate all offers to spree_products"
   task migrate_offers_to_spree_products: :environment do
 

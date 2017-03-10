@@ -1,11 +1,18 @@
 class OrdersController < ApplicationController
+  include Spree::Core::ControllerHelpers::Auth
+  include Spree::Core::ControllerHelpers::Order
+
   before_action :authenticate_user!
-  before_action :check_user_authorization, except: [:index, :view_confirmation, :cms_edit, :cms_update, :customer_info]
+  before_action :check_user_authorization, except: [
+    :index, :view_confirmation, :cms_edit, :cms_update, :customer_info
+  ]
   before_action :set_order, only: [
     :edit, :update, :checkout, :payment, :confirmation,
     :add_passengers, :edit_passengers, :update_passengers
   ]
-  before_action :set_offer, except: [:index, :view_confirmation, :cms_edit, :cms_update, :customer_info]
+  before_action :set_offer, except: [
+    :index, :view_confirmation, :cms_edit, :cms_update, :customer_info
+  ]
   before_action :check_order_authorized, only: [:edit, :checkout, :update, :payment]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -28,6 +35,9 @@ class OrdersController < ApplicationController
 
     if @order.save
       @order.update_total_price!
+      populator = Spree::OrderPopulator.new @order, current_currency
+      # @order.varinats.each{ |v| populator.populate(v.id, 1) }
+
       redirect_to add_passengers_offer_order_path(@offer, @order)
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')

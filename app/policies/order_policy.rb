@@ -39,6 +39,10 @@ class OrderPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def index?
+    user.admin?
+  end
+
   def add_passengers?
     new?
   end

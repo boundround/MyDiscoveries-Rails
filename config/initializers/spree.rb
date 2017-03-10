@@ -10,6 +10,7 @@ Spree.config do |config|
   # Uncomment to stop tracking inventory levels in the application
   # config.track_inventory_levels = false
   config.require_master_price = false
+  config.currency = "AUD"
 end
 
 Spree.user_class = "User"

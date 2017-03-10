@@ -5,9 +5,9 @@ Spree::Order.class_eval do
 
   has_many :passengers
 
-  validates_presence_of :product
-  validates_presence_of :user
-  validates_presence_of :title
+  validates_presence_of :product, on: :update
+  validates_presence_of :user, on: :update
+  validates_presence_of :title, on: :update
 
   validates :number_of_infants,  numericality: { greater_than_or_equal: 0 }
   validates :number_of_children, numericality: { greater_than_or_equal: 0 }
