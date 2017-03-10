@@ -221,21 +221,15 @@ module ApplicationHelper
     end
   end
 
-  def get_hero_image_credit(place)
-    if place.class.to_s == "Country"
-      if place.photos.find_by country_hero: true
-        "Credit: #{place.photos.find_by(country_hero: true).credit}"
-      else
-        ""
-      end
+  def get_hero_image_credit(entity)
+    hero_credit =
+      entity.try(:photos).try(:find_by, { country_hero: true }).try(:credit) ||
+      entity.try(:user_photos).try(:find_by, { hero: true }).try(:credit)
+
+    if hero_credit
+      "Credit: #{hero_credit}"
     else
-      if place.photos.find_by(hero: true)
-        "Credit: #{place.photos.find_by(hero: true).credit}"
-      elsif place.try(:user_photos).try(:find_by, { hero: true })
-        "Credit: #{place.user_photos.find_by(hero: true).credit}"
-      else
-        ""
-      end
+      ""
     end
   end
 

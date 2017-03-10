@@ -187,7 +187,7 @@ gem 'mixpanel-ruby'
 gem 'google-api-client', '~> 0.9'
 
 group :development do
-  gem 'letter_opener', group: :development
+  gem 'letter_opener_web', group: :development
   gem 'railroady'
   gem 'brakeman', :require => false
   gem "rubycritic", :require => false #for test code rating

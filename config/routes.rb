@@ -14,6 +14,10 @@ require 'api_constraints'
 require 'routes/constraints/subcategories'
 
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   resources :operators
   resources :competitions
 
