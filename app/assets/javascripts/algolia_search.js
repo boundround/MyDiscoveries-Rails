@@ -54,7 +54,7 @@ $(document).ready(function() {
     var algoliaHelperBottom = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
     var algoliaHelperMobile = algoliasearchHelper(algolia, INDEX_NAME, PARAMS);
 
-    var FACETS_ORDER_OF_DISPLAY = ['places_visited'];
+    var FACETS_ORDER_OF_DISPLAY = ['places_visited', 'subcategory'];
     var FACETS_LABELS = {
         subcategory: 'Subcategory',
         places_visited: 'Places Visited'
