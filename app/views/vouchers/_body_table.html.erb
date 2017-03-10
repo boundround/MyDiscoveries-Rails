@@ -113,6 +113,19 @@
       </td>
     </tr>
   </tr>
+  <% if offer.itinerary.url.present? %>
+    <% if email_page %>
+      <tr style="background-color: #000060;">
+    <% else %>
+      <tr style="background-color: #eaeaea">
+    <% end %>
+      <td colspan="2" style="padding: 25px 40px 40px;">
+        <a href=<%= offer.itinerary.url %> style="background-color: #ff4a1a;width: 100%;display: block;padding: 20px 0;text-align: center;font-size: 18px;font-family: Arial;color: #fff;text-decoration: none;">
+          VIEW HOLIDAY PDF
+        </a>
+      </td>
+    </tr>
+  <% end %>
   <% if email_page %>
     <tr style="background-color: #000060;">
       <td style="font-family:'Rubik'; font-size: 16px; color: #fff; background-color: #000060; padding: 40px 0;">
