@@ -44,6 +44,6 @@ Spree::Order.class_eval do
   end
 
   def set_ax_sales_id!
-    update_column(:ax_sales_id, "WM#{1000000 + id}") unless created_from_ax
+    update_column(:ax_sales_id, "WM#{1000000 + id}") unless created_from_ax && ax_sales_id.present?
   end
 end

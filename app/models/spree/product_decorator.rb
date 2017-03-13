@@ -30,7 +30,8 @@ Spree::Product.class_eval do
                :startDate,
                :endDate,
                :inclusions,
-               :places_visited
+               :places_visited,
+               :subcategory
 
     attribute :display_name do
       name
@@ -108,7 +109,13 @@ Spree::Product.class_eval do
     end
 
     attribute :related_item_id do
-      related_offers.map{|r| {id: (r.related_offer_id if r.related_offer_id), item_id: (r.related_offer.item_id if r.related_offer), child_item_id: (r.related_offer.child_item_id if r.related_offer)} }
+      related_products.map do |r|
+        {
+          id:            (r.spree_related_product_id if r.spree_related_product_id),
+          item_id:       (r.related_product.item_id if r.related_product),
+          child_item_id: (r.related_product.child_item_id if r.related_product)
+        }
+      end
     end
 
     attribute :is_country do
@@ -184,7 +191,8 @@ Spree::Product.class_eval do
                  :startDate,
                  :endDate,
                  :inclusions,
-                 :places_visited
+                 :places_visited,
+                 :subcategory
 
       attribute :display_name do
         name
@@ -250,7 +258,13 @@ Spree::Product.class_eval do
       end
 
       attribute :related_item_id do
-        related_offers.map{|r| {id: (r.related_offer_id if r.related_offer_id), item_id: (r.related_offer.item_id if r.related_offer), child_item_id: (r.related_offer.child_item_id if r.related_offer)} }
+        related_products.map do |r|
+          {
+            id:            (r.spree_related_product_id if r.spree_related_product_id),
+            item_id:       (r.related_product.item_id if r.related_product),
+            child_item_id: (r.related_product.child_item_id if r.related_product)
+          }
+        end
       end
 
       attribute :inclusions do
@@ -317,7 +331,7 @@ Spree::Product.class_eval do
     end
 
   end
-  
+
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 

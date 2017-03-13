@@ -2461,12 +2461,12 @@ ActiveRecord::Schema.define(version: 20170309153202) do
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                             default: "",    null: false
-    t.string   "encrypted_password",                default: "",    null: false
+    t.string   "email",                             default: "",   null: false
+    t.string   "encrypted_password",                default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                     default: 0,     null: false
+    t.integer  "sign_in_count",                     default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -2498,11 +2498,11 @@ ActiveRecord::Schema.define(version: 20170309153202) do
     t.string   "gender"
     t.string   "mobile"
     t.string   "home_phone"
+    t.boolean  "created_from_ax",                   default: true
+    t.string   "ax_cust_account"
     t.string   "spree_api_key",          limit: 48
     t.integer  "ship_address_id"
     t.integer  "bill_address_id"
-    t.boolean  "created_from_ax",                   default: false
-    t.string   "ax_cust_account"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

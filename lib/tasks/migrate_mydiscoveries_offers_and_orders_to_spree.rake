@@ -1,6 +1,6 @@
 namespace :spree do
-  desc "migrate all offers to spree_products"
-  task migrate_offers_to_spree_products: :environment do
+  desc "migrate all offers to spree_products and orders to spree_orders"
+  task md_migrate: :environment do
 
     Offer.all.each do |offer|
       product             = Spree::Product.new
@@ -44,7 +44,7 @@ namespace :spree do
         product.users << user
       end
 
-      product.save
+      product.save(validate: false)
     end
 
     RelatedOffer.all.each do |ro|
@@ -55,6 +55,26 @@ namespace :spree do
         product: product,
         related_product: related_product
       )
+    end
+
+    Order.all.each do |order|
+      spree_order            = Spree::Order.new
+      order_attributes       = order.attributes.keys
+      rejected_attributes    = ['id', 'offer_id', 'status', 'shopify_order_id', 'is_voucher_sent']
+      spree_order_attributes = order_attributes - rejected_attributes
+
+      spree_order_attributes.each do |attribute|
+        spree_order.send("#{attribute}=", order.send("#{attribute}"))
+      end
+
+      related_product        = Spree::Product.find_by(slug: order.offer.slug)
+      spree_order.product    = related_product
+      spree_order.authorized = true if order.authorized?
+
+      passengers             = Passenger.where(order_id: order.id)
+      spree_order.passengers = passengers
+
+      spree_order.save
     end
   end
 end
