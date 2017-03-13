@@ -89,6 +89,7 @@ class OperatorsController < ApplicationController
       :hubspot_id,
       :xero_id,
       :logo,
+      :booking_essentials,
       { tags: [] }
     )
   end
