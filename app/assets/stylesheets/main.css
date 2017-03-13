@@ -8433,6 +8433,25 @@ input[type="submit"].modal-content__btn-access  {
     background-color: #fff;
     border: 2px solid #ff4d1a; }
 
+.modal-content__btn-sign-up  {
+  display: block;
+  width: 100%;
+  padding: 11px 0 7px !important;
+  font-family: Larsseit-Bold, sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid #ff4d1a;
+  color: #ff4d1a;
+  background-color: #fff;
+  border-radius: 0; }
+  .modal-content__btn-sign-up:hover,
+  .modal-content__btn-sign-up:focus {
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff4d1a;
+    border: 2px solid #ff4d1a; }
+
 .modal-content__text-divider {
   font-family: Larsseit-Bold, sans-serif;
   font-size: 16px;

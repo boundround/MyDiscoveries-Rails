@@ -50,7 +50,9 @@ class ApplicationController < ActionController::Base
     # else
       # root_path
     # end
-      if session[:previous_url].present?
+      if session[:user_return_to].present? && session[:user_return_to].split("/orders/new").size == 2
+        session[:user_return_to]
+      elsif session[:previous_url].present?
         session[:previous_url]
       else
         URI(request.referer || '').path

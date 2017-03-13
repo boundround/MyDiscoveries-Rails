@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
   before_action :check_order_authorized, only: [:edit, :checkout, :update, :payment]
 
   before_action :set_customer, only: [:checkout, :payment]
+  before_action :set_user, only:[:add_passengers, :update_passengers, :edit_passengers]
 
   def index
     @orders = Spree::Order.where(authorized: true)
@@ -121,6 +122,8 @@ class OrdersController < ApplicationController
 
   def update_passengers
     if @order.update(order_params)
+      @user.update(user_params)
+
       redirect_to checkout_offer_order_path(@offer, @order)
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
@@ -146,6 +149,10 @@ class OrdersController < ApplicationController
 
   def set_customer
     @customer = @order.customer || @order.build_customer(user: current_user)
+  end
+
+  def set_user
+    @user = current_user
   end
 
   def set_order
@@ -185,6 +192,14 @@ class OrdersController < ApplicationController
         :email
       ]
     )
+  end
+
+  def user_params
+    user_first = order_params[:passengers_attributes][:"0"]
+    user_first.delete("id")
+    user_first[:gender] = user_first.delete(:title)
+    user_first[:home_phone] = user_first.delete(:telephone)
+    user_first
   end
 
   def customer_params

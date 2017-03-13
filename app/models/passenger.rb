@@ -1,5 +1,5 @@
 class Passenger < ActiveRecord::Base
-  TITLES = ['Mrs', 'Mr']
+  TITLES = [[ 'Mrs', 'mrs' ],[ 'Ms', 'ms' ],[ 'Mr', 'mr' ]]
 
   belongs_to :order, class_name: Spree::Order
 

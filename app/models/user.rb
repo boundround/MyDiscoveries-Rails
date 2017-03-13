@@ -131,9 +131,9 @@ class User < ActiveRecord::Base
     true
   end
 
-  def email_changed?
-    true
-  end
+  # def email_changed?
+  #   true
+  # end
 
   def timeout_in
     if self.admin?

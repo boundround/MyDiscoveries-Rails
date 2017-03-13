@@ -1,43 +1,49 @@
 <div class="br_sign_style_modal" id="signup_modal" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <%= simple_form_for(@user) do |f| %>
+  <div class="modal-dialog modal-dialog--margin-top" role="document">
+    <div class="modal-content modal-content--container">
         <div class="modal-header">
           <div class="text-center img-logo-area">
-            <img src="/assets/mydiscoveries_icon/i/logo-short.svg" width="100">
+            <img src="/assets/mydiscoveries_icon/i/logo-short.svg" class="modal-content__logo-short">
+            <p class="modal-content__sing">Sign Up</p>
           </div>
-           <%= link_to "  ",  root_path, class: "close cs-close close-signup"  %>
-        </div>
-        <div class="modal-body sign-in-pad">
-        <div class="row">
-          <div>
-            <%= f.input_field :email, required: true, autofocus: true, placeholder: "Email", class: "form-control" %>
-            <span class="error-fields"><%= (@user.errors[:email].present? ? '* Email ' : '') + @user.errors[:email].join(", ") %></span>
-          </div><br>
-        </div>
-        <div class="row">
-          <div>
-            <%= f.password_field :password, required: true, placeholder: "Password", class: "form-control"%>
-            <span class="error-fields"><%= (@user.errors[:password].present? ? '* Password ' : '') + @user.errors[:password].join(", ") %></span>
-          </div><br>
-          <div>
-            <%= f.password_field :password_confirmation, required: true, placeholder: "Password Confirmation",class: "form-control" %>
-            <span class="error-fields"><%= (@user.errors[:password_confirmation].present? ? '* ' : '') + @user.errors[:password_confirmation].first.to_s %></span>
-          </div><br>
-        </div>
-        <div class="row">
-          <div class="form-group">
-            <%= f.button :submit, "Join", :class=>'btn btn-default border-rgba btn-block btn-radius btn-height fontbig-button brw-blue' %>
-          </div>
-        </div>
-        <div class="row">
-          <hr>
         </div>
 
+        <div class="modal-content__body">
+        <%= simple_form_for(@user) do |f| %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <%= f.label :email, "Email address", class: "modal-content__title control-label" %>
+              <%= f.input :email, required: true, label:false, autofocus: true, placeholder: "Email", :input_html => { class: "modal-content__input form-control" } %>
+            <span class="error-fields"><%= (@user.errors[:email].present? ? '* Email ' : '') + @user.errors[:email].join(", ") %></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <%= f.label :password, "Password", class: "modal-content__title control-label" %><br>
+              <%= f.password_field :password, required: true, placeholder: "Password", class: "modal-content__input form-control" %>
+              <span class="error-fields"><%= (@user.errors[:password].present? ? '* Password ' : '') + @user.errors[:password].join(", ") %></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <%= f.label :password_confirmation, "Password Confirmation", class: "modal-content__title control-label" %><br>
+              <%= f.password_field :password_confirmation, required: true, placeholder: "Password Confirmation",class: "modal-content__input form-control" %>
+              <span class="error-fields"><%= (@user.errors[:password_confirmation].present? ? '* ' : '') + @user.errors[:password_confirmation].first.to_s %></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="modal-content__btn text-center">
+              <%= f.button :submit, "Join", :class=>'modal-content__btn-access' %>
         <% end %> <!--/simple form -->
                   
-        <div class="row">
-          <p>Or sign up with...</p>
+          <p class="modal-content__text-divider">Or sign up with...</p>
           <%- if devise_mapping.omniauthable? %>
             <%- resource_class.omniauth_providers.each do |provider| %>
               <% if provider.to_s == "facebook" %>
@@ -55,16 +61,18 @@
           <% end %>
         </div>
       </div><!--/modal body -->
+      </div>
 
-      <div class="modal-footer">
+      <div class="modal-content__footer text-center">
         <div class="row">
-          <div class="col-xs-12">
-            <div class="left">
-              <p class="text-center">We're committed to protecting your privacy. By proceeding, you agree to our <%= link_to "Privacy Policy", pages_privacy_path, target: "_blank" %> and <%= link_to "Terms and Conditions", pages_terms_path, target: "_blank" %></p>
-            </div>
-          </div>
+          <div class="col-xs-12 col-sm-12" align="center">
+          <p class="modal-content__footer-text modal-content__footer-text--up">
+            <p class="modal-content__footer-text">By creating an account, you're agreeing with our
+                <br><a href="/terms-conditions" class="modal-content__footer-terms">Terms and Conditions</a> and <a href="privacy" class="modal-content__footer-terms">Privacy Statement</a>
+            </p>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </div><!--/modal-->
