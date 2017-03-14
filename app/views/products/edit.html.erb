@@ -1,0 +1,10 @@
+<div class="container">
+   <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
+    <%= render "/products/admin_tabs" %>
+    <h2>Edit <%= @product.name + ' (ID: ' + @product.id.to_s + ')' %></h2>
+    <%= render 'form' %>
+  <% else %>
+    <h2>You do not have sufficient privileges to view this page</h2>
+    <%= link_to "Home", root_path %>
+  <% end %>
+</div>

@@ -1,8 +1,10 @@
 class OffersController < ApplicationController
-  # before_action :check_user_authorization, except: [:show, :paginate_on_idx]
-
-  before_action :check_user_authorization, except: [:show, :paginate_reviews, :paginate_media, :paginate_on_idx, :clone, :paginate_offers]
-  before_action :set_offer, only: [:show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :update_hero, :clone]
+  before_action :check_user_authorization, except: [
+    :show, :paginate_reviews, :paginate_media, :paginate_on_idx, :clone, :paginate_offers
+  ]
+  before_action :set_offer, only: [
+    :show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :update_hero, :clone
+  ]
   before_action :set_media, only: [:show, :paginate_media]
 
   def show
@@ -17,12 +19,12 @@ class OffersController < ApplicationController
   end
 
   def new
-    @offer = Offer.new(tags: [""])
+    @offer = Spree::Product.new(tags: [""])
     @book_guarantee = Configurable.book_guarantee
   end
 
   def all_offers
-    @featured_offers = Offer.all
+    @featured_offers = Spree::Product.all
   end
 
   def paginate_reviews
@@ -39,7 +41,7 @@ class OffersController < ApplicationController
     response = Offer::Livn::Create.call(params[:livn_product_id])
 
     if response.success?
-      redirect_to offers_path, notice: "Offer '#{response.offer.name}' successfully created"
+      redirect_to offers_path, notice: "Product '#{response.offer.name}' successfully created"
     else
       flash.now[:alert] = response.errors.join(', ')
       render :new_livn_offer
@@ -47,57 +49,68 @@ class OffersController < ApplicationController
   end
 
   def index
-    @offers = Offer.active
-    @featured_offers = Offer.featured_offers.paginate(per_page: 2, page: params[:featured_offers_page])
+    @offers = Spree::Product.active
+    @featured_offers = Spree::Product.featured_products.paginate(per_page: 2, page: params[:featured_products_page])
   end
 
   def cms_index
-    @offers = Offer.all
+    @offers = Spree::Product.all
   end
 
   def create
-    @offer = Offer.new(offer_params)
+    @offer = Spree::Product.new(product_params)
     @offer.tags.select!(&:present?)
     if @offer.save
-      redirect_to(edit_offer_path(@offer), notice: 'Offer succesfully saved')
+      redirect_to(edit_offer_path(@offer), notice: 'Product succesfully saved')
     else
-      flash.now[:alert] = 'Offer not saved!'
+      flash.now[:alert] = 'Product not saved!'
       render :new
     end
   end
 
   def update
-    @offer.assign_attributes(offer_params)
+    @offer.assign_attributes(product_params)
     @offer.tags.select!(&:present?)
     @offer.places_visited.select!(&:present?)
-    @offer.inclusion_list = params[:offer][:inclusions] if params[:offer][:inclusions].present?
+    @offer.inclusion_list = params[:product][:inclusions] if params[:product][:inclusions].present?
     if @offer.save
-      redirect_to edit_offer_path(@offer), notice: "Offer Updated"
+      redirect_to edit_offer_path(@offer), notice: "Product Updated"
     else
-      flash.now[:alert] = 'Sorry, there was an error updating this Offer'
+      flash.now[:alert] = 'Sorry, there was an error updating this Product'
       render :edit
     end
   end
 
   def paginate_on_idx
-    @offers = Offer.active.paginate(per_page: 4, page: params[:offers_page])
+    @offers = Spree::Product.active.paginate(per_page: 4, page: params[:product_page])
   end
 
   def clone
-    @offer = Offer.find_by_slug(params[:id])
-    @clone_offer = @offer.deep_clone include: [:photos, :videos, :regions, :places, :related_offers, :subcategories]
+    @offer = Spree::Product.find_by_slug(params[:id])
+    @clone_offer = @offer.deep_clone(
+      include: [
+        :photos,
+        :videos,
+        :regions,
+        :places,
+        :related_products,
+        :subcategories,
+        :variants,
+        :master
+      ]
+    )
     if @clone_offer.save
-      redirect_to(edit_offer_path(@clone_offer), notice: 'Offer succesfully duplicated')
+      redirect_to(edit_offer_path(@clone_offer), notice: 'Product succesfully duplicated')
     else
-      flash.now[:alert] = 'Offer not duplicated!'
+      flash.now[:alert] = 'Product not duplicated!'
       render :edit
     end
   end
 
   def paginate_offers
-    @featured_offers = Offer.featured_offers.paginate(per_page: 2, page: params[:featured_offers_page])
+    @featured_offers = Spree::Product.featured_products.paginate(per_page: 2, page: params[:featured_products_page])
   end
-  
+
   def paginate_media
   end
 
@@ -129,7 +142,7 @@ class OffersController < ApplicationController
   private
 
   def set_offer
-    @offer = Offer.friendly.find(params[:id])
+    @offer = Spree::Product.friendly.find(params[:id])
   end
 
   def set_media
@@ -139,8 +152,8 @@ class OffersController < ApplicationController
     @media = media.flatten.compact.paginate(page: params[:active_media], per_page: 4)
   end
 
-  def offer_params
-    params.require(:offer).permit(
+  def product_params
+    params.require(:product).permit(
       :id,
       :place_id,
       :status,

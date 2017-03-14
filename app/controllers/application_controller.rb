@@ -39,8 +39,8 @@ class ApplicationController < ActionController::Base
   end
 
   def get_header
-    @featured_nav_offers = Offer.where(show_in_mega_menu: true)
-    @featured_nav_destinations = Place.where(show_in_mega_menu: true)
+    @featured_nav_places = Place.where(show_in_mega_menu: true)
+    @featured_nav_destinations = Spree::Product.where(show_in_mega_menu: true)
   end
 
   protected
@@ -99,6 +99,10 @@ class ApplicationController < ActionController::Base
       "<img class='like-icon' src='#{ActionController::Base.helpers.asset_path ('star_grey.png')}'>"
   end
 
+  def current_store
+    Spree::Store.first
+  end
+
   private
   def correct_domain!
     if request.host == 'mydiscoveries.com.au'
@@ -117,6 +121,7 @@ class ApplicationController < ActionController::Base
 
   def check_user_authorization
     model_name = params[:controller].classify
+    model_name = model_name == 'Product' ? 'Spree::Product' : model_name
     authorize model_name.camelize.constantize
   end
 

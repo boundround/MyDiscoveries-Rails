@@ -1,0 +1,24 @@
+<li>
+    <a href="<%= product_path(product) %>">
+        <div class="po-content-wrapper">
+            <img style="background: url('/assets/br_15_main.jpg')center center no-repeat;" class="cover-bg">
+            <div class="po-content-block">
+                <p class="xs-heading">
+                    <%= product.name %>
+                </p>
+                <div class="po-price">
+                    <span class="lg">
+                        <span>$</span>
+                        <span class="po-price-self"><%= product.minRateAdult %></span>
+                    </span>
+                    <span class="sm">per person</span>
+                </div>
+                <div class="po-stay-info">
+                    <span class="posi-nights"><%= create_duration(product) %></span>
+                    <span class="posi-date">Book by <%= product.startDate.strftime("%d %B %Y") rescue ""%></span>
+                </div>
+                <div class="label-crown"></div>
+            </div>
+        </div>
+    </a>
+</li>

@@ -22,6 +22,9 @@ class Subcategory < ActiveRecord::Base
 	has_many :offers_subcategories, dependent: :destroy
 	has_many :offers, through: :offers_subcategories
 
+	has_many :products_subcategories, class_name: Spree::ProductsSubcategory, dependent: :destroy
+	has_many :products, through: :products_subcategories, class_name: Spree::Product
+
 	has_many :stories_subcategories
 	has_many :stories, through: :stories_subcategories
 

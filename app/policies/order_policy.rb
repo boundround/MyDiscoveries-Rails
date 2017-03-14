@@ -39,8 +39,8 @@ class OrderPolicy < ApplicationPolicy
     user.admin?
   end
 
-  def download_pdf?
-    new?
+  def index?
+    user.admin?
   end
 
   def add_passengers?

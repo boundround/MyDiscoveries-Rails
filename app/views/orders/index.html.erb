@@ -1,4 +1,4 @@
-<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+.product<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
   <div id="table-container">
     <h1>All Places</h1>
 
@@ -42,12 +42,12 @@
             <td><%= (order.customer.first_name.to_s + ' ' + order.customer.last_name.to_s) rescue "Error finding name" %></td>
             <td><%= order.customer.email rescue "Error finding email" %></td>
             <td><%= link_to "View Order Info", "/orders/#{order.id}/customer_info" %></td>
-            <td><%= link_to order.offer.name, offer_path(order.offer) %></td>
-            <td><%= order.offer.operator.name %></td>
-            <td><%= "#{order.number_of_adults} - $#{order.offer.minRateAdult}" %></td>
-            <td><%= "#{order.number_of_children} - $#{order.offer.minRateChild}" %></td>
+            <td><%= link_to order.product.name, offer_path(order.product) %></td>
+            <td><%= order.product.operator.name %></td>
+            <td><%= "#{order.number_of_adults} - $#{order.product.minRateAdult}" %></td>
+            <td><%= "#{order.number_of_children} - $#{order.product.minRateChild}" %></td>
             <td><%= "$#{order.total_price}" %></td>
-            <td><%= link_to "Resend Confirmation", resend_confirmation_offer_order_path(order.offer, order, order_id: order.id) %></td>
+            <td><%= link_to "Resend Confirmation", resend_confirmation_offer_order_path(order.product, order, order_id: order.id) %></td>
             <td><%= link_to "View Confirmation", "/orders/#{order.id}/view_confirmation" %></td>
           </tr>
         <% end %>

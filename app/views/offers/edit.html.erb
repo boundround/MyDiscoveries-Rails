@@ -2,7 +2,9 @@
    <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
     <%= render "/offers/admin_tabs" %>
     <h2>Edit <%= @offer.name + ' (ID: ' + @offer.id.to_s + ')' %></h2>
-    <%= render 'form' %>
+    <%= simple_form_for @offer, url: offer_path, html: { role: 'form' } do |f| %>
+      <%= render 'form', f: f %>
+    <% end %>
   <% else %>
     <h2>You do not have sufficient privileges to view this page</h2>
     <%= link_to "Home", root_path %>

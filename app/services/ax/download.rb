@@ -22,7 +22,7 @@ class Ax::Download
   end
 
   def order_present?
-    Order.find_by(ax_sales_id: order_sales_id).present?
+    Spree::Order.find_by(ax_sales_id: order_sales_id).present?
   end
 
   def converted_xml
@@ -137,7 +137,7 @@ class Ax::Download
   end
 
   def offer
-    @offer ||= Offer.where(
+    @offer ||= Spree::Product.where(
       'item_id IN (?) OR child_item_id IN (?)',
       xml_item_ids,
       xml_item_ids

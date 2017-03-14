@@ -294,6 +294,9 @@ module ApplicationHelper
       if map_marker.class.to_s == "Offer"
         marker.push([map_marker.name||"", map_marker.description||"",
                       "", "", "", map_marker.latitudeStart.to_f||"", map_marker.longitudeStart.to_f||"", '/assets/mydiscoveries_icon/i/map/map-point.png'])
+      elsif map_marker.class.to_s == "Spree::Product"
+        marker.push([map_marker.name||"", map_marker.description||"",
+                      "", "", "", map_marker.latitudeStart.to_f||"", map_marker.longitudeStart.to_f||"", '/assets/mydiscoveries_icon/i/map/map-point.png'])
       else
         marker.push([map_marker.display_name||"", map_marker.description||"",
                        map_marker.phone_number||"", map_marker.email||"", map_marker.website||"", map_marker.latitude||"", map_marker.longitude||"", '/assets/mydiscoveries_icon/i/map/map-point.png'])
@@ -480,8 +483,8 @@ module ApplicationHelper
     if self.class.name == "RelatedOffersController"
       collections = []
       collection.each do |offer|
-        id = offer.related_offer_id
-        collections << Offer.find(id) if id.present?
+        id = offer.spree_related_product_id
+        collections << Spree::Product.find(id) if id.present?
       end
       collection = collections
     end

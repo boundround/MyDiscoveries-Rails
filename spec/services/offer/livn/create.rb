@@ -32,12 +32,12 @@ RSpec.describe Offer::Livn::Create do
       it 'creates valid offer' do
         expect(service.response.offer.valid?).to eql(true)
         expect(service.response.offer.persisted?).to eql(true)
-        expect(Offer.count).to_not eql(0)
+        expect(Spree::Product.count).to_not eql(0)
       end
 
       it 'adds livn_product_id to offer' do
         expect(service.response.offer.livn_product_id).to_not eql(nil)
-        expect(service.response.offer.livn_product_id).to eql(Offer.last.livn_product_id)
+        expect(service.response.offer.livn_product_id).to eql(Spree::Product.last.livn_product_id)
       end
 
       it 'has not errors' do
@@ -52,7 +52,7 @@ RSpec.describe Offer::Livn::Create do
 
       it 'does not create valid offer' do
         expect(service.response.offer).to eql(nil)
-        expect(Offer.count).to eql(0)
+        expect(Spree::Product.count).to eql(0)
       end
 
       it 'has errors' do

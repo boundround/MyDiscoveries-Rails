@@ -1,34 +1,44 @@
 class OrdersController < ApplicationController
+  include Spree::Core::ControllerHelpers::Auth
+  include Spree::Core::ControllerHelpers::Order
+
   before_action :authenticate_user!
-  before_action :check_user_authorization, except: [:index, :view_confirmation, :cms_edit, :cms_update, :customer_info]
+  before_action :check_user_authorization, except: [
+    :index, :view_confirmation, :cms_edit, :cms_update, :customer_info
+  ]
   before_action :set_order, only: [
     :edit, :update, :checkout, :payment, :confirmation,
     :add_passengers, :edit_passengers, :update_passengers
   ]
-  before_action :set_offer, except: [:download_pdf, :index, :view_confirmation, :cms_edit, :cms_update, :customer_info]
+  before_action :set_offer, except: [
+    :index, :view_confirmation, :cms_edit, :cms_update, :customer_info
+  ]
   before_action :check_order_authorized, only: [:edit, :checkout, :update, :payment]
 
   before_action :set_customer, only: [:checkout, :payment]
   before_action :set_user, only:[:add_passengers, :update_passengers, :edit_passengers]
 
   def index
-    @orders = Order.authorized
+    @orders = Spree::Order.where(authorized: true)
   end
 
   def new
     @order = current_user.orders.build(
-      offer: @offer,
+      product: @offer,
       title: @offer.name,
       number_of_adults: params[:number_of_adults].to_i
     )
   end
 
   def create
-    @order       = current_user.orders.build(order_params)
-    @order.offer = @offer
+    @order         = current_user.orders.build(order_params)
+    @order.product = @offer
 
     if @order.save
       @order.update_total_price!
+      populator = Spree::OrderPopulator.new @order, current_currency
+      # @order.varinats.each{ |v| populator.populate(v.id, 1) }
+
       redirect_to add_passengers_offer_order_path(@offer, @order)
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
@@ -46,12 +56,12 @@ class OrdersController < ApplicationController
 
   def cms_edit
     @order = Order.find(params[:id])
-    @offer = @order.offer
+    @offer = @order.product
   end
 
   def cms_update
     @order = Order.find params[:id]
-    @offer = @order.offer
+    @offer = @order.product
     if @order.update(order_params)
       flash[:notice] = "Order updated"
       render nothing: true
@@ -63,16 +73,16 @@ class OrdersController < ApplicationController
   def confirmation
     redirect_to offers_path unless @order.authorized?
     @operator   = @offer.operator
-    @hero_photo = @order.offer.photos.where(hero: true).last
+    @hero_photo = @offer.photos.where(hero: true).last
     @customer   = @order.customer
   end
 
   def view_confirmation
     @order = Order.find(params[:id])
-    @offer = @order.offer
+    @offer = @order.product
     redirect_to offers_path unless @order.authorized?
     @operator   = @offer.operator
-    @hero_photo = @order.offer.photos.where(hero: true).last
+    @hero_photo = @order.product.photos.where(hero: true).last
     @customer   = @order.customer
   end
 
@@ -135,15 +145,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def download_pdf
-    @order = Order.find_by(shopify_order_id: params[:shopify_order_id])
-    if @order
-      render json: { status: :success, body: { id: @order.id, title: @order.title } }
-    else
-      render json: { status: :not_found }
-    end
-  end
-
   private
 
   def set_customer
@@ -155,11 +156,11 @@ class OrdersController < ApplicationController
   end
 
   def set_order
-    @order = current_user.orders.find(params[:id])
+    @order = current_user.orders.find_by(number: params[:id].upcase)
   end
 
   def set_offer
-    @offer = Offer.friendly.find(params[:offer_id])
+    @offer = Spree::Product.friendly.find(params[:offer_id])
   end
 
   def is_units_count_changed?

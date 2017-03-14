@@ -127,6 +127,9 @@ class Region < ActiveRecord::Base
   has_many :offers_regions
   has_many :offers, through: :offers_regions
 
+  has_many :products_regions, class_name: Spree::ProductsRegion, dependent: :destroy
+  has_many :products, through: :products_regions, class_name: Spree::Product
+
   has_many :fun_facts, -> { order "created_at ASC"}, as: :fun_factable
   has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
@@ -218,7 +221,7 @@ class Region < ActiveRecord::Base
           "#offer" => []
         }
 
-        place.offers.each do |place_offer|
+        place.products.each do |place_offer|
           hero_photo_offer = place_offer.photos.where(hero: true)
           data_offer_objs = {
             "@country" => "",

@@ -1,0 +1,18 @@
+<p class="top20">
+  <a href="<%= product_path(@product) %>" class="btn btn-primary"
+    target="_blank">View Product Page</a>
+  <a href="<%= product_related_products_path(@product) %>" class="btn btn-primary"
+    target="_blank">Related Products</a>
+  <a href="<%= product_places_path(@product) %>" class="btn btn-primary"
+    target="_blank">Associated Places</a>
+  <a href="<%= product_regions_path(@product) %>" class="btn btn-primary"
+    target="_blank">Associated Regions</a>
+  <a href="<%= product_subcategories_path(@product) %>" class="btn btn-primary"
+    target="_blank">Choose Categories</a>
+  <a href="<%= choose_hero_product_photos_path(@product) %>"
+    class="btn btn-primary">Edit / Add Photos</a>
+  <a href="<%= all_product_videos_path(@product) %>"
+    class="btn btn-primary">Videos</a>
+  <a href="<%= clone_product_path(@product) %>"
+    class="btn btn-success">Create a Copy</a>
+</p>
