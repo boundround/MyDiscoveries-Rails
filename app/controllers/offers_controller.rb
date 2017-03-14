@@ -50,7 +50,7 @@ class OffersController < ApplicationController
 
   def index
     @offers = Spree::Product.active
-    @featured_offers = Spree::Product.featured_products.paginate(per_page: 2, page: params[:featured_products_page])
+    @featured_offers = Spree::Product.featured_products.paginate(per_page: 2, page: params[:featured_offers_page])
   end
 
   def cms_index
@@ -108,7 +108,7 @@ class OffersController < ApplicationController
   end
 
   def paginate_offers
-    @featured_offers = Spree::Product.featured_products.paginate(per_page: 2, page: params[:featured_products_page])
+    @featured_offers = Spree::Product.featured_products.paginate(per_page: 2, page: params[:featured_offers_page])
   end
 
   def paginate_media

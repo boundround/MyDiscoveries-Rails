@@ -343,10 +343,10 @@ Spree::Product.class_eval do
   belongs_to :operator
   belongs_to :place
 
-  # has_many :products_photos, dependent: :destroy
-  # has_many :photos, through: :products_photos
+  has_many :products_photos, dependent: :destroy
+  has_many :photos, through: :products_photos
 
-  has_many :photos, -> { order "created_at ASC"}, as: :photoable
+  # has_many :photos, -> { order "created_at ASC"}, as: :photoable
   has_many :videos, -> { order "created_at ASC"}, as: :videoable
 
   has_many :products_attractions, dependent: :destroy
@@ -413,7 +413,7 @@ Spree::Product.class_eval do
     products = self.active.where(featured: true)
 
     if products.blank?
-      products = active.limit(4)
+      products = Spree::Product.active.limit(4)
     end
 
     products

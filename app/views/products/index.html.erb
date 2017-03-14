@@ -24,7 +24,7 @@
               <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
             </div>
             <div class="col-xs-12" align="center">
-              <%= link_to "more featured products", paginate_products_products_path(featured_products_page: @featured_products.next_page, resources: 'featured_products', pagination_template: 'products/all_index_products', collection_object: 'products'), class: 'more-link', remote: true %>
+              <%= link_to "more featured products", paginate_products_products_path(featured_offers_page: @featured_products.next_page, resources: 'featured_products', pagination_template: 'products/all_index_products', collection_object: 'products'), class: 'more-link', remote: true %>
             </div>
           </div>
         <% end %>

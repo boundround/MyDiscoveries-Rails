@@ -205,7 +205,7 @@ module ApplicationHelper
 
   def draw_hero_background(place)
     if place.photos.find_by(hero: true)
-      place.photos.find_by(hero: true).path_url(:large)
+      place.photos.where(hero: true).last.path_url(:large)
     elsif place.class.to_s == "Place" && place.user_photos.find_by(hero: true)
       place.user_photos.find_by(hero: true).path_url(:large)
     else

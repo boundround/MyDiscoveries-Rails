@@ -2,6 +2,9 @@ namespace :spree do
   desc "migrate all offers to spree_products and orders to spree_orders"
   task md_migrate: :environment do
 
+    # remove offers from algolia index
+    Offer.all.each{ |o| o.remove_from_index! }
+
     # offers => spree_products
     Offer.all.each do |offer|
       product             = Spree::Product.new
@@ -50,13 +53,15 @@ namespace :spree do
 
     # related_offers => related_products
     RelatedOffer.all.each do |ro|
-      product =         Spree::Product.find_by(slug: ro.offer.slug)
-      related_product = Spree::Product.find_by(slug: ro.related_offer.slug)
+      if ro.offer && ro.related_offer
+        product =         Spree::Product.find_by(slug: ro.offer.slug)
+        related_product = Spree::Product.find_by(slug: ro.related_offer.slug)
 
-      Spree::RelatedProduct.create(
-        product: product,
-        related_product: related_product
-      )
+        Spree::RelatedProduct.create(
+          product: product,
+          related_product: related_product
+        )
+      end
     end
 
     # orders => spree_orders
@@ -70,14 +75,18 @@ namespace :spree do
         spree_order.send("#{attribute}=", order.send("#{attribute}"))
       end
 
-      related_product        = Spree::Product.find_by(slug: order.offer.slug)
-      spree_order.product    = related_product
+      if order.offer
+        related_product        = Spree::Product.find_by(slug: order.offer.slug)
+        spree_order.product    = related_product
+      end
       spree_order.authorized = true if order.authorized?
 
       passengers             = Passenger.where(order_id: order.id)
       spree_order.passengers = passengers
 
-      spree_order.save
+      spree_order.generate_order_number
+
+      spree_order.save(validate: false)
     end
 
     # creates spree_variants based on products data
