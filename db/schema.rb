@@ -728,6 +728,7 @@ ActiveRecord::Schema.define(version: 20170313163419) do
     t.string   "logo"
     t.string   "xero_id"
     t.string   "hubspot_id"
+    t.text     "booking_essentials"
   end
 
   add_index "operators", ["slug"], name: "index_operators_on_slug", using: :btree

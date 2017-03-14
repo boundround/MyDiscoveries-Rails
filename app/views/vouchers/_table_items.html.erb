@@ -81,4 +81,47 @@
       <tr>
     <% end %>
   <% end %>
+  <% if pdf_page %>
+  <tr style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>" >
+    <tr>
+      <td colspan="2" style="padding: 40px 40px 30px; padding-bottom: 15px;">
+        <span style="font-family: 'Georgia'; font-size: 26px">
+          Tour information
+        </span>
+        <br>
+        <span style="font-family: Arial; font-weight: bold; font-size: 20px;">
+          <%= order.title %>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding: 0 40px 40px;">
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+          Operator name
+        </span>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+          <%= operator.name %>
+        </p>
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+          Contact number
+        </span>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+          <%= operator.phone %>
+        </p>
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+          Inclusions
+        </span>
+        <ul style="margin: 0;padding-left: 0;list-style: none;margin-bottom: 15px; margin-top: 10px;">
+          <%= simple_format offer.includes %>
+        </ul>
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+          Fine Print
+        </span>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
+          <%= simple_format offer.customStr3 %>
+        </p>
+      </td>
+    </tr>
+  </tr>
+  <% end %>
 </tbody>

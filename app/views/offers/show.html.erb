@@ -207,12 +207,10 @@
                         <%= simple_format @offer.customStr3 %>
                       </div>
                     <% end %>
-                    <% if @offer.customStr1.present? %>
-                      <h3>booking essentials</h3>
-                      <div class="details">
-                        <%= simple_format @offer.customStr1 %>
-                      </div>
-                    <% end %>
+                    <h3>booking essentials</h3>
+                    <div class="details">
+                      <%= simple_format(@offer.customStr1.present?? @offer.customStr1 : @offer.operator.booking_essentials) %>
+                    </div>
                     <h3>booking guarantee</h3>
                     <div class="guarantee">
                         <p><%= simple_format(@offer.customStr4.present?? @offer.customStr4 : @book_guarantee) %></p>
