@@ -13,13 +13,18 @@ class Ax::Upload
   private
 
   def process
+    upload(ENV['AX_HOSTNAME'], "/#{ENV['AX_UPLOAD_DIR']}/#{filename}")
+    upload(ENV['AX_FTP_HOSTNAME'], "/data/#{ENV['AX_UPLOAD_DIR']}/#{filename}")
+  end
+
+  def upload(hostname, path)
     Net::SFTP.start(
-      ENV['AX_HOSTNAME'],
+      hostname,
       ENV['AX_USERNAME'],
       password: ENV['AX_PASSWORD']
     ) do |sftp|
       io = StringIO.new(build_xml)
-      sftp.upload!(io, "/#{ENV['AX_UPLOAD_DIR']}/#{filename}")
+      sftp.upload!(io, path)
     end
   end
 
