@@ -2,6 +2,7 @@ namespace :spree do
   desc "migrate all offers to spree_products and orders to spree_orders"
   task md_migrate: :environment do
 
+    # offers => spree_products
     Offer.all.each do |offer|
       product             = Spree::Product.new
       offer_attributes    = offer.attributes.keys
@@ -47,6 +48,7 @@ namespace :spree do
       product.save(validate: false)
     end
 
+    # related_offers => related_products
     RelatedOffer.all.each do |ro|
       product =         Spree::Product.find_by(slug: ro.offer.slug)
       related_product = Spree::Product.find_by(slug: ro.related_offer.slug)
@@ -57,6 +59,7 @@ namespace :spree do
       )
     end
 
+    # orders => spree_orders
     Order.all.each do |order|
       spree_order            = Spree::Order.new
       order_attributes       = order.attributes.keys
@@ -75,6 +78,40 @@ namespace :spree do
       spree_order.passengers = passengers
 
       spree_order.save
+    end
+
+    # creates spree_variants based on products data
+    Spree::Product.all.each do |product|
+      Spree::Variant.maturities.keys.each do |maturity|
+        Spree::Variant.bed_types.keys.each do |bed_type|
+
+          amount = if maturity == 'adult'
+            product.minRateAdult
+          else
+            if product.minRateChild.blank? || product.minRateChild.zero?
+              product.minRateAdult
+            else
+              product.minRateChild
+            end
+          end
+
+          item_code = if maturity == 'adult'
+            product.item_id
+          else
+            product.child_item_id
+          end
+
+          variant = product.variants.create(
+            bed_type: bed_type,
+            maturity: maturity,
+            product: product,
+            price: amount,
+            departure_city: product.locationStart,
+            track_inventory: false,
+            item_code: item_code
+          )
+        end
+      end
     end
   end
 end
