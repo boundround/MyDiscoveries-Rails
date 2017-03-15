@@ -22,8 +22,9 @@ class CreditCard
   end
 
   def cvv_format
-    cvv_length = cvv.to_i.to_s.length
-    errors.add(:cvv, 'is not valid') unless cvv_length.in?(3..4)
+    if !(/\A\d+\z/ === cvv) || !cvv.length.in?(3..4)
+      errors.add(:cvv, 'is not valid')
+    end
   end
 
   def date_format
