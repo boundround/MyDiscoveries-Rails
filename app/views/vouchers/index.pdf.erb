@@ -9,7 +9,8 @@
         offer:      offer,
         operator:   operator,
         hero_photo: hero_photo,
-        customer:   customer
+        customer:   customer,
+        collection: order.ax_line_items.any? ? order.ax_line_items : (1..order.total_people_count).to_a
       %>
     </table>
   </body>

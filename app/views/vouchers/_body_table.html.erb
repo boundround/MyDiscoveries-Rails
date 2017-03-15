@@ -40,7 +40,8 @@
     order:      order,
     offer:      offer,
     customer:   customer,
-    operator:   operator
+    operator:   operator,
+    collection: order.ax_line_items.any? ? order.ax_line_items : (1..order.total_people_count).to_a
   %>
   <tbody>
   <% if !email_page %>
