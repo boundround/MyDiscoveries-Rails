@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313042629) do
+ActiveRecord::Schema.define(version: 20170315115133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -750,6 +750,7 @@ ActiveRecord::Schema.define(version: 20170313042629) do
     t.string   "ax_sales_id"
     t.boolean  "created_from_ax",      default: false
     t.datetime "purchase_date"
+    t.json     "ax_data",              default: {}
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
