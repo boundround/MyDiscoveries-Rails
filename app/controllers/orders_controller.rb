@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
   end
 
   def customer_info
-    @order = Order.find(params[:id])
+    @order = Spree::Order.find(params[:id])
   end
 
   def checkout
@@ -55,12 +55,12 @@ class OrdersController < ApplicationController
   end
 
   def cms_edit
-    @order = Order.find(params[:id])
+    @order = Spree::Order.find(params[:id])
     @offer = @order.product
   end
 
   def cms_update
-    @order = Order.find params[:id]
+    @order = Spree::Order.find params[:id]
     @offer = @order.product
     if @order.update(order_params)
       flash[:notice] = "Order updated"
@@ -78,7 +78,7 @@ class OrdersController < ApplicationController
   end
 
   def view_confirmation
-    @order = Order.find(params[:id])
+    @order = Spree::Order.find(params[:id])
     @offer = @order.product
     redirect_to offers_path unless @order.authorized?
     @operator   = @offer.operator
