@@ -171,6 +171,7 @@ class Ax::Download
       number_of_adults:   xml_item_ids.count(offer.item_id),
       number_of_children: xml_item_ids.count(offer.child_item_id),
       purchase_date:      purchase_date,
+      ax_data:            converted_xml,
       status:             :authorized
     )
 
