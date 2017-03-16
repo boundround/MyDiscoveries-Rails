@@ -48,7 +48,7 @@ class OffersController < ApplicationController
 
   def index
     @offers = Offer.active
-    @featured_offers = Offer.featured_offers.paginate(per_page: 2, page: params[:featured_offers_page])
+    @featured_offers = Offer.featured_offers.active.paginate(per_page: 2, page: params[:featured_offers_page])
   end
 
   def cms_index
@@ -97,7 +97,7 @@ class OffersController < ApplicationController
   def paginate_offers
     @featured_offers = Offer.featured_offers.paginate(per_page: 2, page: params[:featured_offers_page])
   end
-  
+
   def paginate_media
   end
 

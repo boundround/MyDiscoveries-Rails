@@ -166,7 +166,7 @@ class PlacesController < ApplicationController
   def show
     @places_to_visit = @place.places_to_visits.paginate( page: params[:places_to_visit_page], per_page: 6 )
     @deals = @place.deals.active
-    @offers = @place.offers.paginate(page: params[:offers_page], per_page: 4)
+    @offers = @place.offers.active.paginate(page: params[:offers_page], per_page: 4)
     @stories = @place.place_stories.reverse.paginate(page: params[:stories_page], per_page: 4)
     @map_marker = @place.markers
     @review = @place.reviews.build
@@ -647,8 +647,8 @@ class PlacesController < ApplicationController
         :top_100,
         :viator_link,
         :trip_advisor_url,
-        :description_heading, 
-        :focus_keyword, 
+        :description_heading,
+        :focus_keyword,
         :seo_title,
         :meta_description,
         :show_in_mega_menu,
