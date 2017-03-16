@@ -9354,7 +9354,23 @@ a.see-more__link {
 .search-page-card__short-details{
   position: absolute;
   bottom: 0;
-  width: 342px;
+  width: 295px;
+}
+@media(max-width: 1200px){
+  .search-page-card__description{
+    min-height: inherit;
+  }
+  .search-page-card__short-details{
+    position: relative;
+  }
+  .search-offer .search-page-card__info-side--right{
+    width: inherit;
+  }
+  .search-page-card__cost-details.mobile-only{
+    margin-bottom: 0;
+    margin:0 auto;
+    width: 90%;
+  }
 }
 
 .search-page-card__short-details-key {
@@ -9636,7 +9652,9 @@ h3.search-page-card__header {
   background-position: right 16px;
   background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-down-ff4d1a.svg);
   background-size: auto 17px;
-  cursor: pointer; }
+  cursor: pointer;
+  position: relative;
+  z-index: 1; }
   .search-page-card__more-info.search-page-card__more-info--open {
     background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-up-ff4d1a.svg); }
 
