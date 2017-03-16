@@ -13303,3 +13303,15 @@ label.css-label.label-featured{
 .blog-container dl{
   padding: 0 40px;
 }
+
+/*Temporary Styling, Remove if Health Information implemented*/
+@media(min-width: 1201px){
+  .destinations .destinations-content-block section .key-info .ki-content .kic-item{
+    width: 47.6%;
+  }
+  .destinations .destinations-content-block section .key-info .ki-content .kic-item.long{
+    width: 100%;
+    margin-top: 0
+  }
+}
+/*end Temporary Styling*/
