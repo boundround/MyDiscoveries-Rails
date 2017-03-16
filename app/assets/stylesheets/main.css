@@ -11256,17 +11256,12 @@ span.arrow {
                     left: -10px; }
                 .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price span.sm {
                   font-size: 18px;
-                  text-transform: uppercase;
                   font-family: Larsseit-Bold, sans-serif;
                   display: block; }
                 .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price span.sm-info{
                   font-size: 16px;
                   font-family: Larsseit-Bold, sans-serif;
                   vertical-align: bottom;}
-            /*.package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info {
-              width: 100%;
-              position: absolute;
-              bottom: 10px; }*/
               .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info::after {
                 clear: both;
                 content: "";
