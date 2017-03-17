@@ -14,7 +14,7 @@ namespace :ax do
 
         xml_file_names.each do |ax_sales_id|
           if !Order.exists?(ax_sales_id: ax_sales_id)
-            data = sftp.download!("/from_ax/#{ax_sales_id}#{extn}")
+            data = sftp.download!("/data/from_ax/#{ax_sales_id}#{extn}")
             Ax::Download.call data
           end
         end
