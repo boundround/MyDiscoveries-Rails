@@ -109,10 +109,10 @@
       <%= render "layouts/navbar" %>
     <% end %>
 
-    <%= javascript_include_tag 'application' %>
     <div class="app-wrap">
       <%= yield %>
     </div>
+    <%= javascript_include_tag 'application' %>
     <%= render 'layouts/signin_modal' %>
     <% if controller_name != "registrations" %>
       <%= render 'layouts/signup_modal' %>
