@@ -112,6 +112,7 @@
     <div class="app-wrap">
       <%= yield %>
     </div>
+    <%= javascript_include_tag 'application' %>
     <%= render 'layouts/signin_modal' %>
     <% if controller_name != "registrations" %>
       <%= render 'layouts/signup_modal' %>
@@ -121,7 +122,6 @@
     <% end %>
     <%= render "/layouts/video_modal" %>
 
-    <%= javascript_include_tag 'application' %>
     <% if (controller_name == "regions") && (action_name == "show") %>
       <%= javascript_include_tag 'region_map' %>
     <% end %>

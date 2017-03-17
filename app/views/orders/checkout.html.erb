@@ -129,5 +129,44 @@
         </div>
       </div>
     <% end %>
+    <input type="hidden" value="<%= @order.ax_sales_id %>" id="ax_sales_id">
+    <input type="hidden" value="<%= @offer.name %>" id="name">
+    <input type="hidden" value="<%= @offer.item_id %>" id="item_id">
+    <input type="hidden" value="<%= @offer.child_item_id %>" id="child_item_id">
+    <input type="hidden" value="<%= @order.total_people_count %>" id="quantity">
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var ax_sales_id_analytics   = $('#ax_sales_id').val(),
+            name_analytics          = $('#name').val(),
+            item_id_analytics       = $('#item_id').val(),
+            child_item_id_analytics = $('#child_item_id').val(),
+            quantity_analytics      = $('#quantity').val(),
+            sku_analytics;
+
+        if((item_id_analytics != "" && child_item_id_analytics != "") || 
+           (item_id_analytics != "" && child_item_id_analytics == "")){
+          sku_analytics = item_id_analytics;
+        }
+
+        ga('ecommerce:addTransaction', {
+          'id': ax_sales_id_analytics,                     // Transaction ID. Required.
+          'affiliation': '',                               // Affiliation or store name.
+          'revenue': '',                                   // Grand Total.
+          'shipping': '',                                  // Shipping.
+          'tax': '',                                       // Tax.
+          'currency': 'AUD'
+        });
+
+        ga('ecommerce:addItem', {
+          'id': ax_sales_id_analytics,                     // Transaction ID. Required.
+          'name': name_analytics,                          // Product name. Required.
+          'sku': sku_analytics,                            // SKU/code.
+          'category': '',                                  // Category or variation.
+          'price': '',                                     // Unit price.
+          'quantity': quantity_analytics                   // Quantity.
+        });
+    })
+</script>
