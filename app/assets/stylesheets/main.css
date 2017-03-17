@@ -13328,3 +13328,11 @@ label.css-label.label-featured{
   }
 }
 /*end Temporary Styling*/
+
+#download-itinerary{
+  width: auto !important;
+  background: #fff;
+}
+#download-itinerary:hover{
+  background: #ff4b1a;
+}
