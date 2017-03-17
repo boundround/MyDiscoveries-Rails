@@ -1,5 +1,5 @@
 class Customer < ActiveRecord::Base
-  TITLES = ['Mrs', 'Mr']
+  TITLES = [[ 'Mrs', 'mrs' ],[ 'Ms', 'ms' ],[ 'Mr', 'mr' ]]
 
   belongs_to :user
   has_many :orders

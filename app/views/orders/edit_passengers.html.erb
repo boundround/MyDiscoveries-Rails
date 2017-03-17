@@ -68,9 +68,9 @@
 
           <div class="passenger-info-block">
             <%= simple_form_for(@order, url: update_passengers_offer_order_path(@offer, @order), method: :patch, html: { class: 'horizontal' }) do |of| %>
-              <% @order.passengers.each_with_index do |passenger, n| %>
+              <% @passengers.each_with_index do |passenger, n| %>
                 <%= of.simple_fields_for :passengers, passenger do |pf| %>
-                  <div class="passanger-info-item">
+                  <div class="passenger-info-item">
                     <h4 class="heading">
                       PASSENGER DETAILS
                       <%= "##{n + 1}"%>
