@@ -13,7 +13,7 @@ class Ax::Upload
   private
 
   def process
-    upload(ENV['AX_HOSTNAME'], "/#{ENV['AX_UPLOAD_DIR']}/#{filename}")
+    upload(ENV['AX_HOSTNAME'], "/data/#{ENV['AX_UPLOAD_DIR']}/#{filename}")
     # upload(ENV['AX_FTP_HOSTNAME'], "/data/#{ENV['AX_UPLOAD_DIR']}/#{filename}")
   end
 
