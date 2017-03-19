@@ -3,7 +3,7 @@
     <%= simple_form_for(@customer, url: payment_offer_order_path(@offer, @order), method: :post, html: { class: 'customer_form' }) do |cf| %>
       <div class="checkout-form">
         <h2 class="title"> Billing details </h2>
-        <div class="populate-passenger"><input type="checkbox" id="populate-passenger" data-offer="<%= @offer.id %>" data-order="<%= @order.id %>" > <label for="populate-passenger">Populate Data From Passenger?</label></div>
+        <div class="populate-passenger"><input type="checkbox" id="populate-passenger" data-offer="<%= @offer.id %>" data-order="<%= @order.id %>" > <label for="populate-passenger">Populate Name/Email From Passenger Info</label></div>
         <div class="customer-fields">
           <div class="form-group customer-title">
             <%= cf.input :title,
@@ -65,7 +65,7 @@
           <div class="payment-fields">
             <h2 class="title"> Credit card details </h2>
             <div class="card-container"></div>
-            
+
             <% flash.each do |type, message| %>
               <% if !bootstrap_class_for(type).eql?("timedout")%>
                 <% if is_flash_key_for_tracking?(type) %>
@@ -78,7 +78,7 @@
                 <% end %>
               <% end %>
             <% end %>
-            
+
             <div class="form-group sm">
               <div class="control-group string optional">
                 <%= pf.input :number,
@@ -146,7 +146,7 @@
             quantity_analytics      = $('#quantity').val(),
             sku_analytics;
 
-        if((item_id_analytics != "" && child_item_id_analytics != "") || 
+        if((item_id_analytics != "" && child_item_id_analytics != "") ||
            (item_id_analytics != "" && child_item_id_analytics == "")){
           sku_analytics = item_id_analytics;
         }
