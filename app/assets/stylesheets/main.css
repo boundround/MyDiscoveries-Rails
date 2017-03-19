@@ -13317,6 +13317,15 @@ label.css-label.label-featured{
   padding: 0 40px;
 }
 
+.populate-passenger{
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.populate-passenger input{
+  margin-right: 10px !important;
+}
+
 /*Temporary Styling, Remove if Health Information implemented*/
 @media(min-width: 1201px){
   .destinations .destinations-content-block section .key-info .ki-content .kic-item{
