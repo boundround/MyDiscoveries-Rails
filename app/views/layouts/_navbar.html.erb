@@ -132,10 +132,10 @@
 
         <div class="mobile-header-drop-down__expanded-block">
 
-            <a class="mobile-header-drop-down__link" href="#">home</a>
+            <a class="mobile-header-drop-down__link" href="<%= root_path %>">home</a>
             <a class="mobile-header-drop-down__link mobile-header-drop-down__link--expand js-mobile-header-drop-down--to-right" href="#">destinations</a>
             <a class="mobile-header-drop-down__link" href="/offers">deals</a>
-            <a class="mobile-header-drop-down__link" href="#">travel stories</a>
+            <a class="mobile-header-drop-down__link" href="/posts/all_posts">travel stories</a>
             <% if !user_signed_in? %>
                 <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" href="<%= new_user_registration_path %>">join</a>
                 <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" data-toggle="modal" data-target="#singIn" href="#">sign in</a>
@@ -162,10 +162,33 @@
         </div>
         <div class="mobile-header-drop-down__expanded-block">
             <a class="mobile-header-drop-down__link mobile-header-drop-down__link--back js-mobile-header-drop-down--to-left" href="#">back</a>
-            <a class="mobile-header-drop-down__link" href="#">destinations</a>
 
             <div class="navigation-drop-down__small-column-wrapper clear-self">
+                <h3 class="navigation-drop-down__header">Featured destinations</h3>
+                <div class="navigation-drop-down__small-column-wrapper clear-self">
+                  <% if @featured_nav_destinations.present? %>
+                    <% @featured_nav_destinations.each do |place| %>
+                        <div class="navigation-drop-down__small-column">
+                            <a href="<%= place_path(place) %>" class="navigation-drop-down__region-header"><%= place.display_name %></a>
+                        </div>
+                    <% end %>
+                  <% end %>
+                </div>
 
+                <h3 class="navigation-drop-down__header">Featured holidays</h3>
+                <% if @featured_nav_offers.present? %>
+                    <% @featured_nav_offers.each do |offer| %>
+                        <a href="<%= offer_path(offer) %>" class="featured-thing clear-self">
+                            <div class="featured-thing__image-wrapper">
+                                <img src="<%= draw_small_background(offer)%>" class="featured-thing__image" alt="">
+                                <p class="featured-thing__image-paragraph">
+                                    <%= "From $#{offer.minRateAdult}pp" if offer.minRateAdult.present? %>
+                                </p>
+                            </div>
+                            <h5 class="featured-thing__header"><%= offer.name %></h5>
+                        </a>
+                    <% end %>
+                 <% end %>
             </div>
         </div>
     </div>

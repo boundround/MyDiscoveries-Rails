@@ -13311,6 +13311,15 @@ label.css-label.label-featured{
   -ms-user-select: none;
   user-select: none;
 }
+
+.navigation-drop-down__small-column-wrapper .navigation-drop-down__header{
+  padding: 15px;
+}
+.navigation-drop-down__small-column-wrapper .featured-thing{
+  width: auto;
+  margin-left: 0;
+}
+
 .blog-container ol,
 .blog-container ul,
 .blog-container dl{
