@@ -1,7 +1,7 @@
 class Ax::Download
   include Service
 
-  initialize_with_parameter_assignment :xml_file
+  initialize_with_parameter_assignment :xml_file, :filename
 
   def call
     process
@@ -136,8 +136,8 @@ class Ax::Download
     @total_price ||= xml_order['Total'].to_i
   end
 
-  def offer
-    @offer ||= Spree::Product.where(
+  def product
+    @product ||= Spree::Product.where(
       'item_id IN (?) OR child_item_id IN (?)',
       xml_item_ids,
       xml_item_ids
@@ -163,16 +163,17 @@ class Ax::Download
   def save_order(user, customer)
     order = user.orders.build(
       customer:           customer,
-      offer:              offer,
-      title:              offer.name,
+      product:            product,
+      title:              product.name,
       created_from_ax:    true,
       total_price:        total_price,
       ax_sales_id:        order_sales_id,
-      number_of_adults:   xml_item_ids.count(offer.item_id),
-      number_of_children: xml_item_ids.count(offer.child_item_id),
+      number_of_adults:   xml_item_ids.count(product.item_id),
+      number_of_children: xml_item_ids.count(product.child_item_id),
       purchase_date:      purchase_date,
+      authorized:         true,
       ax_data:            converted_xml,
-      status:             :authorized
+      ax_filename:        filename
     )
 
     order.save
