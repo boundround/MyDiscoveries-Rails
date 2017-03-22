@@ -1,7 +1,7 @@
 class Ax::Download
   include Service
 
-  initialize_with_parameter_assignment :xml_file
+  initialize_with_parameter_assignment :xml_file, :filename
 
   def call
     process
@@ -172,6 +172,7 @@ class Ax::Download
       number_of_children: xml_item_ids.count(offer.child_item_id),
       purchase_date:      purchase_date,
       ax_data:            converted_xml,
+      ax_filename:        filename,
       status:             :authorized
     )
 
