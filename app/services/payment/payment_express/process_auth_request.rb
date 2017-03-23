@@ -9,6 +9,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
     if transaction_valid?
       update_order
       Ax::Upload.call(order) if Rails.env.production?
+      SNA::Send.call(order) if Rails.env.production?
       send_notification
     end
 
