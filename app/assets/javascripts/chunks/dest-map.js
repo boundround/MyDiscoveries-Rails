@@ -1,10 +1,9 @@
-init()
 setTimeout(function(){
+    init()
     $('h3.ui-accordion-header').on('click', function () {
-      console.log("aaa")
         init()
     })
-}, 50)
+}, 50)  
 
 function init() {
     var mapElement = document.getElementById('dest-map');
