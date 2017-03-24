@@ -1,7 +1,7 @@
 require 'rails_helper'
 describe OrderPolicy do
   subject     { described_class.new(user, order) }
-  let(:order) { Order.create(title: Faker::Lorem.sentence) }
+  let(:order) { Spree::Order.create(title: Faker::Lorem.sentence) }
 
   context "for a regular user" do
     let(:user) { build(:user, :regular) }

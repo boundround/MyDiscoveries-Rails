@@ -1,0 +1,19 @@
+<li>
+    <div class="po-content-wrapper wrap_link_card">
+        <a class="link_card" href="<%= product_path(product) %>"></a>
+        <div class="hero-product-region" style="background-image: url('<%= draw_small_background(product) %>')">
+        </div>
+        <div class="po-content-block">
+            <div class="po-stay-info">
+                <span>From $<%= product.minRateAdult %></span>
+                <span class="posi-nights"><%= create_duration(product) %></span>
+            </div>
+            <p class="sm-heading">
+                <%= product.name.size > 31? product.name[0..30]+" ..." : product.name %>
+            </p>
+            <p><%= product.description[0..50] %> ...</p>
+            <p class="info-text">Offer ends <%= product.endDate %></p>
+            <a class="see-more-offer" href="<%= product_path(product) %>">see product</a>
+        </div>
+    </div>
+</li>

@@ -198,6 +198,9 @@ class Attraction < ActiveRecord::Base
   has_many :offers_attractions, dependent: :destroy
   has_many :offers, through: :offers_attractions
 
+  has_many :products_attractions, class_name: Spree::ProductsAttraction, dependent: :destroy
+  has_many :products, through: :products_attractions, class_name: Spree::Product
+
   has_many :fun_facts, -> { order "created_at ASC"}
 
   has_many :programs, -> { order "created_at ASC"}

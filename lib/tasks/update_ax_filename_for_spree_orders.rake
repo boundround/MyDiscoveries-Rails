@@ -15,8 +15,8 @@ namespace :update do
         json_data = Hash.from_xml(data)
         ax_sales_id = json_data["Envelope"]["Order"]["SalesId"]
 
-        order = Order.find_by(ax_sales_id: ax_sales_id)
-        order.update(ax_filename: file_name) if order
+        order = Spree::Order.find_by(ax_sales_id: ax_sales_id)
+        order.update(ax_filename: file_name, ax_data: json_data) if order
       end
     end
   end

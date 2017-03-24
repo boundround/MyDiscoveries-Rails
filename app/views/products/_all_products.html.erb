@@ -1,0 +1,12 @@
+<li>
+  <a href="<%= product_path(product) %>">
+    <div class="th-img-block" style="background-image: url('<%= draw_small_background(product) %>')">
+    </div>
+    <div class="th-content">
+      <span class="posi-nights"> <%= create_duration(product) %></span>
+      <span>From $<%= product.minRateAdult %> </span>
+      <p class="xs-heading"><%= product.name %></p>
+      <span class="arrow"></span>
+    </div>
+  </a>
+</li>

@@ -24,8 +24,8 @@ RSpec.describe OrdersController, type: :controller do
       end
 
       it 'creates an order' do
-        expect{post(:create, params)}.to change{Order.count}.from(0).to(1)
-        created_order = Order.last
+        expect{post(:create, params)}.to change{Spree::Order.count}.from(0).to(1)
+        created_order = Spree::Order.last
         expect(created_order.title).to eql(params[:order][:title])
       end
 

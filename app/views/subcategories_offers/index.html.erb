@@ -1,7 +1,7 @@
 <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
 <div class="container">
   <%= render "/offers/admin_tabs" %>
-  <%= simple_form_for @offer, html: { role: 'form'} do |f| %>
+  <%= simple_form_for @product, url: offer_path(@product), html: { role: 'form' } do |f| %>
         <% category_types = Subcategory.all.map {|subcat| subcat.category_type } %>
         <% category_types.uniq! %>
         <% category_types.each do |type| %>
@@ -9,8 +9,8 @@
             <strong><%= type %></strong><br>
             <% Subcategory.all.each do |category| %>
                 <% if category.category_type == type %>
-                <%= hidden_field_tag "offer[subcategory_ids][]", nil%>
-                <%= check_box_tag "offer[subcategory_ids][]", category.id, @offer.subcategory_ids.include?(category.id), id: dom_id(category) %>
+                <%= hidden_field_tag "product[subcategory_ids][]", nil%>
+                <%= check_box_tag "product[subcategory_ids][]", category.id, @product.subcategory_ids.include?(category.id), id: dom_id(category) %>
                 <%= label_tag dom_id(category), category.name %><br/>
               <% end %>
             <% end %>

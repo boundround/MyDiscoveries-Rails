@@ -1,13 +1,13 @@
 <div class="container">
   <div class="hidden">
 
-    <div id="similar-places-js" data-controllers="related_offers" data-similar="<%= array_related_offer_ids(@offer.related_offers) %>">
+    <div id="similar-places-js" data-controllers="related_offers" data-similar="<%= array_related_offer_ids(@offer.related_products) %>">
     </div>
   </div>
   <h1>Related Offers</h1>
   <%= link_to "Back To Edit #{@offer.name}", edit_offer_path(@offer)%>
   <%= render "/offers/admin_tabs" %>
-  <%= simple_form_for [@offer, @related_offers] do |f| %>
+  <%= simple_form_for [@offer, @related_offers], url: offer_related_offers_path do |f| %>
     <div id="dual-list-box-employees" class="form-group row">
       <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="related-offer" name="related_offer[related_offer_ids][]">
         <%= @relates.each do |relate| %>

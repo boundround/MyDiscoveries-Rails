@@ -205,7 +205,7 @@ module ApplicationHelper
 
   def draw_hero_background(place)
     if place.photos.find_by(hero: true)
-      place.photos.find_by(hero: true).path_url(:large)
+      place.photos.where(hero: true).last.path_url(:large)
     elsif place.class.to_s == "Place" && place.user_photos.find_by(hero: true)
       place.user_photos.find_by(hero: true).path_url(:large)
     else
@@ -292,6 +292,9 @@ module ApplicationHelper
       end
     else
       if map_marker.class.to_s == "Offer"
+        marker.push([map_marker.name||"", map_marker.description||"",
+                      "", "", "", map_marker.latitudeStart.to_f||"", map_marker.longitudeStart.to_f||"", '/assets/mydiscoveries_icon/i/map/map-point.png'])
+      elsif map_marker.class.to_s == "Spree::Product"
         marker.push([map_marker.name||"", map_marker.description||"",
                       "", "", "", map_marker.latitudeStart.to_f||"", map_marker.longitudeStart.to_f||"", '/assets/mydiscoveries_icon/i/map/map-point.png'])
       else
@@ -480,8 +483,8 @@ module ApplicationHelper
     if self.class.name == "RelatedOffersController"
       collections = []
       collection.each do |offer|
-        id = offer.related_offer_id
-        collections << Offer.find(id) if id.present?
+        id = offer.spree_related_product_id
+        collections << Spree::Product.find(id) if id.present?
       end
       collection = collections
     end

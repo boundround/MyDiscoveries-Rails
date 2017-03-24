@@ -1,0 +1,9 @@
+<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <div class="related-product-adventure-card adventure-thumbnail wrap_link_card">
+      <a class="link_card" href="<%= product_path(product) %>"></a>
+      <div class="related-product-adventure-card__city-photo" style="background-image: url('<%= draw_small_background(product) %>')">
+      </div>
+      <h3 class="related-product-adventure-card__title"><a href="#" class="related-product-adventure-card__link"><%= product.name.size > 26? product.name[0..25]+" ..." : product.name %></a></h3>
+      <p class="related-product-adventure-card__content"><%= product.description[0..75] %>...</p>
+    </div>
+ </div>

@@ -2,10 +2,10 @@ class OrderAuthorized < ActionMailer::Base
   default from: "My Discoveries <info@mydiscoveries.herokuapp.com>"
 
   def notification(order_id)
-    @order  = Order.find(order_id)
-    @hero_photo = @order.offer.photos.where(hero: true).last
+    @order  = Spree::Order.find(order_id)
+    @hero_photo = @order.product.photos.where(hero: true).last
     @passengers = @order.passengers
-    @offer      = @order.offer
+    @offer      = @order.product
     @operator   = @offer.operator
     @customer   = @order.customer
 

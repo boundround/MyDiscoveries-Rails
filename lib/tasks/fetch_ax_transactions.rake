@@ -12,7 +12,7 @@ namespace :ax do
         xml_files      = all_files.select{ |f| f.upcase.ends_with?(extn) }
 
         xml_files.each do |filename|
-          if !Order.exists?(ax_filename: filename)
+          if !Spree::Order.exists?(ax_filename: filename)
             data = sftp.download!("/#{ENV['AX_DOWNLOAD_DIR']}/#{filename}")
             Ax::Download.call(data, filename)
           end

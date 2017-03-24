@@ -40,7 +40,11 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   config.action_controller.asset_host = ENV['HOME_URL']
   config.action_mailer.asset_host = ENV['HOME_URL']
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = if ENV['USER'] == 'vagrant'
+                                           :letter_opener_web
+                                         else
+                                           :letter_opener
+                                         end
   # config.action_mailer.smtp_settings = {
   #     address: 'smtp.sendgrid.net',
   #     port: '587',

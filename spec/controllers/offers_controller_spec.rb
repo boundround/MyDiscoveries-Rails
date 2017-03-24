@@ -63,15 +63,15 @@ RSpec.describe OffersController, type: :controller do
       end
 
       it 'creates offer' do
-        expect{post(:create, params)}.to change{Offer.count}.from(0).to(1)
+        expect{post(:create, params)}.to change{Spree::Product.count}.from(0).to(1)
 
-        created_offer = Offer.last
+        created_offer = Spree::Product.last
         expect(created_offer.name).to eql(params[:offer][:name])
       end
 
       it 'rejects blank tags' do
         post(:create, params)
-        created_offer = Offer.last
+        created_offer = Spree::Product.last
         expect(created_offer.tags).to_not eql(params[:offer][:tags])
         expect(created_offer.tags).to eql(params[:offer][:tags].select!(&:present?))
       end
@@ -155,12 +155,12 @@ RSpec.describe OffersController, type: :controller do
       let (:params) { { livn_product_id: 997 } }
 
       it 'creates offer' do
-        expect{post(:create_livn_offer, params)}.to change{Offer.count}.from(0).to(1)
+        expect{post(:create_livn_offer, params)}.to change{Spree::Product.count}.from(0).to(1)
       end
 
       it 'shows right flash message' do
         post(:create_livn_offer, params)
-        expected_message = "Offer '#{Offer.last.name}' successfully created"
+        expected_message = "Offer '#{Spree::Product.last.name}' successfully created"
         expect(flash[:notice]).to eql(expected_message)
       end
     end

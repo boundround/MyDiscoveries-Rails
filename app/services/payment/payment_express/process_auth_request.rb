@@ -23,7 +23,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
 
   def update_order
     order.update(
-      status: :authorized,
+      authorized: true,
       px_response: px_response_json,
       purchase_date: purchase_date
     )

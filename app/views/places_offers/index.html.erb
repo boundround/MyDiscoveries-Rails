@@ -1,12 +1,12 @@
 <div class="container">
   <div class="hidden">
 
-    <div id="similar-places-js" data-similar="<%= array_places_offers_ids(@offer.offers_places) %>" data-controllers="places">
+    <div id="similar-places-js" data-similar="<%= array_places_offers_ids(@offer.products_places) %>" data-controllers="places">
     </div>
   </div>
   <h1>Similar Destinations</h1>
   <%= render "/offers/admin_tabs" %>
-  <%= simple_form_for [@offer, @places_offers] do |f| %>
+  <%= simple_form_for [@offer, @places_offers], url: offer_places_path do |f| %>
     <div id="dual-list-box-offers-places" class="form-group row">
       <select multiple="true" id="js-area-dual-box" class="dualbox" data-json="false" data-title="offers-places" name="places_offers[place_ids][]">
         <%= @places.each do |place| %>

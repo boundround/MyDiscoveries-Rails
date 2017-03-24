@@ -1,4 +1,4 @@
-class GeneratePdf
+  class GeneratePdf
   include Service
 
   initialize_with_parameter_assignment :order
@@ -42,11 +42,11 @@ class GeneratePdf
   end
 
   def hero_photo
-    @hero_photo ||= order.offer.photos.where(hero: true).last
+    @hero_photo ||= order.product.photos.where(hero: true).last
   end
 
   def offer
-    @offer ||= order.offer
+    @offer ||= order.product
   end
 
   def operator

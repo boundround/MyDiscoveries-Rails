@@ -1,5 +1,6 @@
 <div class="container">
   <%= simple_form_for [offer, order],
+    url: offer_orders_path,
     html: {
       role: 'form',
       class: 'top20 js-order-form',
@@ -44,7 +45,7 @@
           <section class="prices-and-availability-block">
 
               <div class="paab-header">
-                  <h1><%= @offer.name %></h1>
+                  <h1><%= offer.name %></h1>
                   <h4 class="heading">PRICES</h4>
                   <!-- <a class="change-selection xs-invisible" href="#">Change selection</a> -->
               </div>
@@ -59,7 +60,7 @@
                       </li> -->
                       <li>
                           <h5>Duration</h5>
-                          <div><%= create_duration(@offer) %></div>
+                          <div><%= create_duration(offer) %></div>
 
                       </li>
                       <!-- <li>
