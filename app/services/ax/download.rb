@@ -87,7 +87,7 @@ class Ax::Download
   end
 
   def customer_state
-    @customer_city ||= shipping_address['State']
+    @customer_state ||= shipping_address['State']
   end
 
   def customer_postal_code
