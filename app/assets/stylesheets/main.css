@@ -9573,10 +9573,42 @@ h3.search-page-card__header {
   padding-bottom: 37px;
   position: relative; }
 
+.show-more-faceting{
+  width: 90%;
+  border: 1px solid #333333;
+  background-color: #ffffff;
+  display: block;
+  text-align: center;
+  clear: both;
+  cursor: pointer;}
+
+.show-more-faceting:hover{
+  background-color: #333333;}
+.show-more-faceting:hover span{
+  color: #fff;}
+
+.show-more-faceting span{
+  padding: 10px 0;
+  font-weight: bold;
+  color: #333333;}
+
+.show-more-faceting span:after{
+  font-size: 30px;
+  margin-left: 10px;
+  font-weight: normal;
+  vertical-align: middle;}
+  .show-more-faceting span.more:after{
+    content: "+";
+  }
+  .show-more-faceting span.less:after{
+    content: "-";
+  }
+
 .search-page-filter__label {
   margin: 0;
   display: block;
-  clear: both; }
+  clear: both;
+  display: none; }
 
 .search-page-filter__sub-header {
   font-family: Larsseit-Bold, sans-serif;
