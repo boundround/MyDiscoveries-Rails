@@ -45,7 +45,10 @@
                 </span> -->
                 <span class="hci-info"><%= simple_format @offer.specialNotes %></span>
             </div>
-            <a class="btn-bordered red invert" href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>">buy now</a>
+            <a class="btn-bordered red invert" id="book-now" href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>">buy now</a>
+            <% if @offer.itinerary.present? %>
+              <a class="btn-bordered red" id="download-itinerary" download href="<%= @offer.itinerary %>">download itinerary</a>
+            <% end %>
             <div class="destination-details">
             </div>
         </div>
