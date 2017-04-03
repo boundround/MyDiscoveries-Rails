@@ -8,12 +8,12 @@ namespace :ax do
         password: ENV['AX_PASSWORD']
       ) do |sftp|
         extn = '.XML'
-        all_files      = sftp.dir.entries("/#{ENV['AX_DOWNLOAD_DIR']}").map { |e| e.name }
+        all_files      = sftp.dir.entries("/data/#{ENV['AX_DOWNLOAD_DIR']}").map { |e| e.name }
         xml_files      = all_files.select{ |f| f.upcase.ends_with?(extn) }
 
         xml_files.each do |filename|
           if !Spree::Order.exists?(ax_filename: filename)
-            data = sftp.download!("/#{ENV['AX_DOWNLOAD_DIR']}/#{filename}")
+            data = sftp.download!("/data/#{ENV['AX_DOWNLOAD_DIR']}/#{filename}")
             Ax::Download.call(data, filename)
           end
         end
