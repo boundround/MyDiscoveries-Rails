@@ -213,6 +213,7 @@ class OffersController < ApplicationController
       :child_item_id,
       :number_of_days,
       :number_of_nights,
+      :test_product,
       :itinerary,
       { tags: [] },
       photos_attributes: [
