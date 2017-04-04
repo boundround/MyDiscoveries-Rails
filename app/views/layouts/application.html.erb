@@ -109,7 +109,6 @@
       <%= render "layouts/navbar" %>
     <% end %>
 
-    <%= javascript_include_tag 'application' %>
     <div class="app-wrap">
       <%= yield %>
     </div>
@@ -122,6 +121,7 @@
     <% end %>
     <%= render "/layouts/video_modal" %>
 
+    <%= javascript_include_tag 'application' %>
     <% if (controller_name == "regions") && (action_name == "show") %>
       <%= javascript_include_tag 'region_map' %>
     <% end %>
