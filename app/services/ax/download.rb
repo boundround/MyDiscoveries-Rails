@@ -173,8 +173,7 @@ class Ax::Download
       purchase_date:      purchase_date,
       authorized:         true,
       ax_data:            converted_xml,
-      ax_filename:        filename,
-      status:             :authorized
+      ax_filename:        filename
     )
 
     order.save
