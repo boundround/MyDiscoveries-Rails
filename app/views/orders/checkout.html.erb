@@ -3,7 +3,7 @@
     <%= simple_form_for(@customer, url: payment_offer_order_path(@offer, @order), method: :post, html: { class: 'customer_form' }) do |cf| %>
       <div class="checkout-form">
         <h2 class="title"> Billing details </h2>
-        <div class="populate-passenger"><input type="checkbox" id="populate-passenger" data-offer="<%= @offer.id %>" data-order="<%= @order.id %>" > <label for="populate-passenger">Populate Name/Email From Passenger Info</label></div>
+        <div class="populate-passenger"><input type="checkbox" id="populate-passenger" data-offer="<%= @offer.id %>" data-order="<%= @order.number %>" > <label for="populate-passenger">Populate Name/Email From Passenger Info</label></div>
         <div class="customer-fields">
           <div class="form-group customer-title">
             <%= cf.input :title,
