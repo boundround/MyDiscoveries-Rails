@@ -9571,7 +9571,11 @@ h3.search-page-card__header {
 .search-page-filter__field-set {
   display: block;
   padding-bottom: 37px;
-  position: relative; }
+  position: relative;
+  padding: 10px;
+  background-color: #eee;
+  border-bottom: 10px solid #f4efed;
+   }
 
 .show-more-faceting{
   width: 90%;
@@ -9652,6 +9656,7 @@ h3.search-page-card__header {
 
 .filter-box{
   margin-top: 115px;
+  background-color: #eee;
 }
 
 .filter-result__button {
