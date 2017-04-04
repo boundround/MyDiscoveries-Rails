@@ -1,4 +1,4 @@
-<div class="container" data-controller='offers'>
+<div class="container" data-controller='product'>
    <% if user_signed_in? && (current_user.has_role?("publisher") || current_user.has_role?("editor") || current_user.admin?) %>
     <%= render "/offers/admin_tabs" %>
     <h2>Edit <%= @offer.name + ' (ID: ' + @offer.id.to_s + ')' %></h2>

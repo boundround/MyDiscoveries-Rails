@@ -7,7 +7,7 @@
   <%= f.label :seo_friendly_url %>
   <%= f.text_field :seo_friendly_url, class: "form-control" %>
   <%= f.label :user_id %>
-  <%= f.select(:user_id, User.all.collect{ |x| [x.email, x.id]})%><br>
+  <%= f.select(:user_id, options_for_select(User.all.map {|user| [user.email, user.id]}, [current_user.email, current_user.id]))%><br>
   <%= f.label :status %>
   <%= f.select :status, ["draft", "live", "removed"] %><br>
   <%= f.label :publish_date %>
