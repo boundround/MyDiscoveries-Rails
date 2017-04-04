@@ -233,7 +233,14 @@ Devise.setup do |config|
   require 'omniauth-facebook'
   require 'omniauth-instagram'
   require 'omniauth-google-oauth2'
-  config.omniauth :facebook, ENV['FACEBOOK_ID'], ENV['FACEBOOK_SECRET']
+  config.omniauth :facebook, ENV['FACEBOOK_ID'], ENV['FACEBOOK_SECRET'],
+    :client_options => {
+      :site => 'https://graph.facebook.com/v2.8',
+      :authorize_url => "https://www.facebook.com/v2.8/dialog/oauth"
+    },
+    :token_params => {
+      parse: :json
+    }
   config.omniauth :instagram, ENV['INSTAGRAM_ID'], ENV['INSTAGRAM_SECRET']
   config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH2_ID'], ENV['GOOGLE_OAUTH2_SECRET']
 

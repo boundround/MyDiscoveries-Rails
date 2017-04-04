@@ -87,7 +87,7 @@ class Ax::Download
   end
 
   def customer_state
-    @customer_city ||= shipping_address['State']
+    @customer_state ||= shipping_address['State']
   end
 
   def customer_postal_code
@@ -173,7 +173,8 @@ class Ax::Download
       purchase_date:      purchase_date,
       authorized:         true,
       ax_data:            converted_xml,
-      ax_filename:        filename
+      ax_filename:        filename,
+      status:             :authorized
     )
 
     order.save

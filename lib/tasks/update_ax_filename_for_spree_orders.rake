@@ -7,8 +7,8 @@ namespace :update do
       password: ENV['AX_PASSWORD']
     ) do |sftp|
       extn = '.XML'
-      all_files      = sftp.dir.entries("/#{ENV['AX_DOWNLOAD_DIR']}").map { |e| e.name }
-      xml_files      = all_files.select{ |f| f.upcase.ends_with?(extn) }
+      all_files = sftp.dir.entries("/#{ENV['AX_DOWNLOAD_DIR']}").map { |e| e.name }
+      xml_files = all_files.select{ |f| f.upcase.ends_with?(extn) }
 
       xml_files.each do |file_name|
         data = sftp.download!("/#{ENV['AX_DOWNLOAD_DIR']}/#{file_name}")

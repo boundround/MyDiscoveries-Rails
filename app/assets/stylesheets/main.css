@@ -7856,7 +7856,7 @@ input[type="text"]::-ms-clear {
   width: 100%;
   height: 39px;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.4); 
+  background-color: rgba(0, 0, 0, 0.4);
   font-family: Larsseit-Light, sans-serif;
   color: #fff;
   padding: 10px;
@@ -12798,7 +12798,7 @@ td a.ui-state-default.ui-state-hover {
             .user-pages section .up-tabs-item.up-bucket-list ul li:nth-child(2n) {
               margin-right: 0; }
             .user-pages section .up-tabs-item.up-bucket-list ul li:nth-child(2n+1) {
-              clear: left; } 
+              clear: left; }
               #favorite_stories-list .w-50{
                 width: 50%;
                 padding: 0 30px 0 0;}}
@@ -13318,7 +13318,7 @@ input[type=checkbox].css-checkbox.featured-story {
 
 input[type=checkbox].css-checkbox.featured-story + label.css-label.label-featured {
   padding-left:25px;
-  height:25px; 
+  height:25px;
   display:inline-block;
   line-height:40px;
   background-repeat:no-repeat;
@@ -13331,11 +13331,11 @@ input[type=checkbox].css-checkbox.featured-story + label.css-label.label-feature
 input[type=checkbox].css-checkbox.featured-story:checked + label.css-label.label-featured {
   background-position: 50% 90%;
 }
-            
+
 label.css-label.label-featured{
   background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_019807af606f0dea9eb28a8d35a7afc6.png);
   background-size: cover;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -13378,3 +13378,11 @@ label.css-label.label-featured{
   }
 }
 /*end Temporary Styling*/
+
+#download-itinerary{
+  width: auto !important;
+  background: #fff;
+}
+#download-itinerary:hover{
+  background: #ff4b1a;
+}
