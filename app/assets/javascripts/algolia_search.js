@@ -230,6 +230,7 @@ $(document).ready(function() {
             bucketlist();
             addToFav();
         }, 1000)
+            fewerFaceting();
     })
 
     function viatorLink(hits) {
@@ -353,6 +354,28 @@ $(document).ready(function() {
                 })    
             }
         }, 100)
+    }
+
+    function fewerFaceting(){
+        $.each($('#facets-instant-search .facet'), function(){
+            if($(this).find('label').length > 5){
+                $(this).find('label').each(function(i, val){
+                    if(i < 5){
+                        $(this).addClass('show')
+                    }
+                })
+            }else{
+                $(this).find('.show-more-faceting').addClass('hide')
+            }
+        })
+
+        $('.show-more-faceting').click(function(){
+            var hiddenFacet = $(this).siblings('label').slice(5, $(this).siblings().length);
+            var buttonTextFacet = $(this).find('span.search-page-filter__label-text');
+          
+            hiddenFacet.toggleClass('show')
+            buttonTextFacet.toggleClass('hide')
+        })
     }
 
     function seText(hits) {
