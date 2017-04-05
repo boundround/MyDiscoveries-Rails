@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class OrderAuthorized < ActionMailer::Base
   default from: "My Discoveries <info@mydiscoveries.herokuapp.com>"
 
@@ -15,7 +17,8 @@ class OrderAuthorized < ActionMailer::Base
       @order.update(voucher_sent: true)
       attachments[response[:file_name]] = response[:file]
       if @offer.itinerary.url.present?
-        attachments["offer_itinerary.pdf"] = @offer.itinerary.file.read
+        file_contents = open(@offer.itinerary.url) {|f| f.read }
+        attachments["offer_itinerary.pdf"] = file_contents
       end
 
       mail(to: @customer.email, bcc: "mydiscoveries_booking@boundround.com", subject: "Your MyDiscoveries Holiday Voucher")
