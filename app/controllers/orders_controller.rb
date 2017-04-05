@@ -76,10 +76,16 @@ class OrdersController < ApplicationController
   end
 
   def confirmation
-    redirect_to offers_path unless @order.authorized?
-    @operator   = @offer.operator
-    @hero_photo = @offer.photos.where(hero: true).last
-    @customer   = @order.customer
+    if @order.product.test_product
+      @operator   = @offer.operator
+      @hero_photo = @offer.photos.where(hero: true).last
+      @customer   = @order.customer
+    else
+      redirect_to offers_path unless @order.authorized?
+      @operator   = @offer.operator
+      @hero_photo = @offer.photos.where(hero: true).last
+      @customer   = @order.customer
+    end
   end
 
   def view_confirmation
@@ -98,20 +104,27 @@ class OrdersController < ApplicationController
   end
 
   def payment
-    @customer.credit_card = CreditCard.new(credit_card_params)
-    credit_card_valid     = @customer.credit_card.valid?
-
-    if @customer.update(customer_params) && credit_card_valid
-      response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.credit_card, @order)
-      if response[:success]
-        flash[:notice] = response[:message]
+    if @offer.test_product
+      @customer.credit_card = CreditCard.new(credit_card_params)
+      if @customer.update(customer_params)
         redirect_to confirmation_offer_order_path(@offer, @order)
-      else
-        flash.now[:alert] = response[:message]
-        render :checkout
       end
     else
-      render :checkout
+      @customer.credit_card = CreditCard.new(credit_card_params)
+      credit_card_valid     = @customer.credit_card.valid?
+
+      if @customer.update(customer_params) && credit_card_valid
+        response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.credit_card, @order)
+        if response[:success]
+          flash[:notice] = response[:message]
+          redirect_to confirmation_offer_order_path(@offer, @order)
+        else
+          flash.now[:alert] = response[:message]
+          render :checkout
+        end
+      else
+        render :checkout
+      end
     end
   end
 
@@ -176,7 +189,9 @@ class OrdersController < ApplicationController
   end
 
   def check_order_authorized
-    redirect_to confirmation_offer_order_path(@offer, @order) if @order.authorized?
+    unless @order.product.test_product
+      redirect_to confirmation_offer_order_path(@offer, @order) if @order.authorized?
+    end
   end
 
   def order_params

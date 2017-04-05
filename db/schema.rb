@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316112629) do
+ActiveRecord::Schema.define(version: 20170403010221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -608,6 +608,7 @@ ActiveRecord::Schema.define(version: 20170316112629) do
     t.integer  "number_of_days"
     t.integer  "number_of_nights"
     t.string   "itinerary"
+    t.boolean  "test_product",                                                  default: false
   end
 
   add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree
@@ -1638,6 +1639,7 @@ ActiveRecord::Schema.define(version: 20170316112629) do
     t.integer  "number_of_days"
     t.integer  "number_of_nights"
     t.string   "itinerary"
+    t.boolean  "test_product",                                                  default: false
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree

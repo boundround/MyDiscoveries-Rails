@@ -43,6 +43,16 @@ Spree::Order.class_eval do
     end
   end
 
+  def ax_line_items
+    line_items = ax_data.try(:[], 'Envelope').
+      try(:[], 'Order').
+      try(:[], 'Items').
+      try(:[], 'Item')
+
+    return [] if line_items.blank?
+    line_items.is_a?(Hash) ? [line_items] : line_items
+  end
+
   def set_ax_sales_id!
     update_column(:ax_sales_id, "WM#{1000000 + id}") unless created_from_ax && ax_sales_id.present?
   end
