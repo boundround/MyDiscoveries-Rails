@@ -80,6 +80,7 @@ class OrdersController < ApplicationController
       @operator   = @offer.operator
       @hero_photo = @offer.photos.where(hero: true).last
       @customer   = @order.customer
+      debugger
     else
       redirect_to offers_path unless @order.authorized?
       @operator   = @offer.operator
@@ -107,6 +108,8 @@ class OrdersController < ApplicationController
     if @offer.test_product
       @customer.credit_card = CreditCard.new(credit_card_params)
       if @customer.update(customer_params)
+        @order.save!
+        debugger
         redirect_to confirmation_offer_order_path(@offer, @order)
       end
     else
@@ -114,6 +117,7 @@ class OrdersController < ApplicationController
       credit_card_valid     = @customer.credit_card.valid?
 
       if @customer.update(customer_params) && credit_card_valid
+        @order.save!
         response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.credit_card, @order)
         if response[:success]
           flash[:notice] = response[:message]
@@ -236,7 +240,13 @@ class OrdersController < ApplicationController
       :country,
       :state,
       :postal_code,
-      :is_primary
+      :is_primary,
+      :credit_card => [
+        :number,
+        :holder_name,
+        :date,
+        :cvv
+      ]
     )
   end
 
