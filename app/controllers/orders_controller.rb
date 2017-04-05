@@ -80,7 +80,6 @@ class OrdersController < ApplicationController
       @operator   = @offer.operator
       @hero_photo = @offer.photos.where(hero: true).last
       @customer   = @order.customer
-      debugger
     else
       redirect_to offers_path unless @order.authorized?
       @operator   = @offer.operator
