@@ -49,6 +49,49 @@ $(document).ready(function(){
     } );
   }
 
+  if (document.getElementById('orders-table')){
+    var placeTable = $('#orders-table').DataTable({
+      // ajax: ...,
+      // autoWidth: false,
+      // pagingType: 'full_numbers',
+      pageLength: 50,
+      order: [[1, 'desc']]
+      // processing: true,
+      // serverSide: true,
+
+      // Optional, if you want full pagination controls.
+      // Check dataTables documentation to learn more about available options.
+      // http://datatables.net/reference/option/pagingType
+    });
+
+    tableTools = new $.fn.dataTable.TableTools( placeTable, {
+      "buttons": [
+        "copy",
+        "csv",
+        "xls",
+        "pdf"
+      ]
+    });
+
+    $( tableTools.fnContainer() ).insertBefore('table#orders-table');
+    $('#orders-table thead th').each( function () {
+      var title = $(this).text();
+      $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+    // Apply the search
+    placeTable.columns().every( function () {
+      var that = this;
+      $( 'input', this.header() ).on( 'keyup change', function () {
+        if ( that.search() !== this.value ) {
+          that
+          .search( this.value )
+          .draw();
+        }
+      } );
+    } );
+  }
+
 
 
   $('#post-table').DataTable({
