@@ -38,7 +38,7 @@
       <% @orders.each do |order| %>
           <tr>
             <td><%= order.ax_sales_id %></td>
-            <td><%= order.created_at.strftime("%d/%m/%Y") %></td>
+            <td><%= order.created_at.strftime("%Y/%m/%d") %></td>
             <td><%= (order.customer.first_name.to_s + ' ' + order.customer.last_name.to_s) rescue "Error finding name" %></td>
             <td><%= order.customer.email rescue "Error finding email" %></td>
             <td><%= link_to "View Order Info", "/orders/#{order.id}/customer_info" %></td>
