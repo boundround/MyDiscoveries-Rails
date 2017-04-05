@@ -6,7 +6,7 @@
 <!-- KEEP THE CODE ABOVE -->
 <div class="story">
     <div class="story-content-block width-limiter">
-        <aside>
+        <aside class="desktop-only">
             <h5 class="xs-heading lars blue">Latest stories</h5>
             <ul class="featured-articles">
                 <%= render partial: "stories/all_stories_white", collection: @latest_stories, as: :story %>
@@ -55,6 +55,14 @@
             </article>
 
         </section>
+
+        <aside class="mobile-only">
+            <h5 class="xs-heading lars blue">Latest stories</h5>
+            <ul class="featured-articles">
+                <%= render partial: "stories/all_stories_white", collection: @latest_stories, as: :story %>
+            </ul>
+
+        </aside>
     </div>
 
 </div>
