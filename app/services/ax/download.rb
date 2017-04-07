@@ -17,7 +17,14 @@ class Ax::Download
         @order   = save_order(user, customer) if customer && customer.persisted?
       end
 
-      OrderAuthorized.delay.notification(@order.id) if @order && @order.persisted?
+      if @order && @order.persisted?
+        OrderAuthorized.delay.notification(@order.id)
+
+        if order.operator_id.present? && order.operator_id == 1
+          SNA::Send.call(@order)
+        end
+      end
+
     end
   end
 
