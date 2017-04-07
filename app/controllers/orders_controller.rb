@@ -228,6 +228,7 @@ class OrdersController < ApplicationController
   end
 
   def customer_params
+    # doesn't include credit_card params for accept as customer relation(defined below)
     params.require(:customer).permit(
       :title,
       :email,
@@ -240,13 +241,7 @@ class OrdersController < ApplicationController
       :country,
       :state,
       :postal_code,
-      :is_primary,
-      :credit_card => [
-        :number,
-        :holder_name,
-        :date,
-        :cvv
-      ]
+      :is_primary
     )
   end
 
