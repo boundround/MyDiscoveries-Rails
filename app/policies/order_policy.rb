@@ -54,4 +54,16 @@ class OrderPolicy < ApplicationPolicy
   def edit_passengers?
     new?
   end
+
+  def add?
+    new?
+  end
+
+  def populate?
+    new?
+  end
+
+  def delete_line_item?
+    new?
+  end
 end

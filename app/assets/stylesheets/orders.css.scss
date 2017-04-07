@@ -136,3 +136,43 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.form-variants {
+  min-width: 370px;
+}
+
+.add-button {
+  width: auto;
+  min-width: 0;
+  display: table;
+}
+
+.already-added-variants {
+  ul {
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
+  }
+}
+
+.padding-top-50p {
+  padding-top: 50px;
+}
+
+.padding-top-30p {
+  padding-top: 30px;
+}
+
+.booking-block {
+  .block-inside {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.variants-divider {
+  border-top: 1px solid #fff;
+}
+
+li.subtotal {
+  min-width: 150px;
+}

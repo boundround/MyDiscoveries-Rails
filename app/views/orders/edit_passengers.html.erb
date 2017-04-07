@@ -14,7 +14,7 @@
                <h4 class="heading">your booking:</h4>
                 <ul>
                   <li>
-                    <%= @order.total_people_count %> guests
+                    <%= @order.total_quantity %> guests
                   </li>
                   <li>
                     <%= create_duration(@offer) %>
@@ -24,34 +24,22 @@
             </div>
             <div class="bi-bottom">
               <table>
-                <% if @order.number_of_adults > 0 %>
+                <% @line_items.each do |line_item| %>
                   <tr>
-                    <td>Price per person (Adults)</td>
+                    <td><%= "#{line_item.variant.select_label} (Qty: #{line_item.quantity})" %></td>
                     <td>
-                      $<%= @offer.minRateAdult %>
-                    </td>
-                  </tr>
-                <% end %>
-                <% if @order.number_of_children > 0 %>
-                  <tr>
-                    <td>Price per person (Children)</td>
-                    <td>
-                      $<%= unit_price(@offer.minRateChild, @offer.minRateAdult) %>
-                    </td>
-                  </tr>
-                <% end %>
-                <% if @order.number_of_infants > 0 %>
-                  <tr>
-                    <td>Price per person (Infants)</td>
-                    <td>
-                      $<%= unit_price(@offer.minRateInfant, @offer.minRateAdult) %>
+                      <% if line_item.request_installments? %>
+                        <%= "5 x #{number_to_currency(total_line_item_price(line_item).to_f / 5.to_f)}" %>
+                      <% else %>
+                        <%= "#{number_to_currency(total_line_item_price(line_item))}" %>
+                      <% end %>
                     </td>
                   </tr>
                 <% end %>
                 <tr>
                   <td>Total price</td>
                   <td>
-                    $<%= @order.total_price %>
+                    $<%= total_line_items_price(@line_items) %>
                   </td>
                 </tr>
               </table>
@@ -70,7 +58,8 @@
             <%= simple_form_for(@order, url: update_passengers_offer_order_path(@offer, @order), method: :patch, html: { class: 'horizontal' }) do |of| %>
               <% @passengers.each_with_index do |passenger, n| %>
                 <%= of.simple_fields_for :passengers, passenger do |pf| %>
-                  <div class="passenger-info-item">
+                  <%= pf.input :line_item_id, as: :hidden %>
+                  <div class="passanger-info-item">
                     <h4 class="heading">
                       PASSENGER DETAILS
                       <%= "##{n + 1}"%>
@@ -83,7 +72,7 @@
                           collection: Passenger::TITLES,
                           include_blank: false,
                           label: false,
-                          input_html: { 
+                          input_html: {
                             class: "select optional form-control select2-hidden-accessible",
                           }
                         %>
@@ -146,7 +135,7 @@
             </div>
 
             <div class="btns-block">
-              <%= link_to 'back', edit_offer_order_path(@offer, @order), class: 'btn-bordered red no-border' %>
+              <%= link_to 'back', add_offer_orders_path(@offer), class: 'btn-bordered red no-border' %>
               <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
                 <span>CONTINUE</span>
               <% end %>

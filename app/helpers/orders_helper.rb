@@ -14,4 +14,22 @@ module OrdersHelper
       ""
     end
   end
+
+  def variant_prices(variants)
+    variants.map do |v|
+      {
+        id:            v.id,
+        price:         v.price,
+        monthly_price: v.monthly_price
+      }
+    end
+  end
+
+  def total_line_items_price(line_items)
+    line_items.map{ |li| li.quantity * li.price }.reduce(:+)
+  end
+
+  def total_line_item_price(line_item)
+    line_item.quantity * line_item.price
+  end
 end

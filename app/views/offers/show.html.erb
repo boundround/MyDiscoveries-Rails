@@ -82,7 +82,7 @@
                             <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
                             <div class="book-now">
-                              <a href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                              <a href="<%= add_offer_orders_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
                             </div>
                         </div>
 
@@ -114,7 +114,7 @@
                                   <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
 
                                   <div class="book-now">
-                                    <a href="<%= new_offer_order_path(offer.related_product, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
+                                    <a href="<%= add_offer_orders_path(offer.related_product, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
                                   </div>
                               </div>
 

@@ -1,0 +1,7 @@
+<div class="container" data-controller='vouchers'>
+  <h2>Edit <%= 'Variant (ID: ' + @variant.id.to_s + ')' %></h2>
+  <%= simple_form_for [@product, @variant],
+    url: offer_variant_path, method: :patch, html: { role: 'form' } do |f| %>
+      <%= render 'form', f: f %>
+  <% end %>
+</div>

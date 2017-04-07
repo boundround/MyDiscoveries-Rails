@@ -29,28 +29,13 @@
       template: 'vouchers/index.pdf.erb',
       locals: {
         order:      order,
-        offer:      offer,
-        operator:   operator,
-        hero_photo: hero_photo,
         customer:   customer
       }
     )
   end
 
   def file_name
-    @file_name ||= "mydiscoveries_#{'voucher'.pluralize(order.total_people_count)}.pdf"
-  end
-
-  def hero_photo
-    @hero_photo ||= order.product.photos.where(hero: true).last
-  end
-
-  def offer
-    @offer ||= order.product
-  end
-
-  def operator
-    @operator ||= offer.operator
+    @file_name ||= "mydiscoveries_#{'voucher'.pluralize(order.total_quantity)}.pdf"
   end
 
   def success

@@ -424,9 +424,13 @@ Rails.application.routes.draw do
         get :edit_passengers
         patch :update_passengers
         get :checkout
-        get :confirmation
         post :payment
-        get :resend_confirmation
+      end
+
+      collection do
+        get :add
+        post :populate
+        patch :delete_line_item
       end
     end
     resources :places, controller: :places_offers
@@ -440,12 +444,21 @@ Rails.application.routes.draw do
       get 'paginate_reviews'
     end
     resources :reviews
+    resources :variants
   end
 
-  get 'orders/:id/view_confirmation' => 'orders#view_confirmation'
-  get 'orders/:id/cms_edit' => 'orders#cms_edit'
-  get 'orders/:id/customer_info' => 'orders#customer_info'
-  patch 'orders/:id/cms_update' => 'orders#cms_update'
+  get 'orders/:id/view_confirmation' => 'orders#view_confirmation',
+    as: :order_view_confirmation
+  get 'orders/:id/cms_edit' => 'orders#cms_edit',
+    as: :order_cms_edit
+  get 'orders/:id/customer_info' => 'orders#customer_info',
+    as: :order_customer_info
+  patch 'orders/:id/cms_update' => 'orders#cms_update',
+    as: :order_cms_update
+  get 'orders/:id/confirmation' => 'orders#confirmation',
+    as: :order_confirmation
+  get 'orders/:id/resend_confirmation' => 'orders#resend_confirmation',
+    as: :order_resend_confirmation
 
   get 'orders' => 'orders#index'
 

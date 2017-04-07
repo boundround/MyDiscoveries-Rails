@@ -7,19 +7,82 @@ class OrdersController < ApplicationController
     :index, :view_confirmation, :cms_edit, :cms_update, :customer_info
   ]
   before_action :set_order, only: [
-    :edit, :update, :checkout, :payment, :confirmation,
-    :add_passengers, :edit_passengers, :update_passengers
+    :edit, :update, :confirmation
   ]
+
+  before_action :set_current_order, only: [
+    :add, :populate, :delete_line_item, :add_passengers,
+    :add_passengers, :edit_passengers, :update_passengers,
+    :checkout, :payment
+  ]
+
   before_action :set_offer, except: [
-    :index, :view_confirmation, :cms_edit, :cms_update, :customer_info
+    :index,
+    :view_confirmation,
+    :cms_edit,
+    :cms_update,
+    :customer_info,
+    :confirmation,
+    :resend_confirmation
   ]
-  before_action :check_order_authorized, only: [:edit, :checkout, :update, :payment]
 
   before_action :set_customer, only: [:checkout, :payment]
-  before_action :set_user, only:[:add_passengers, :update_passengers, :edit_passengers]
+  before_action :set_user, only: [
+    :add_passengers, :update_passengers, :edit_passengers
+  ]
+
+  before_action :set_variants, only: [:add, :populate]
+  before_action :set_line_items, only: [
+    :add, :populate, :add_passengers, :update_passengers, :edit_passengers
+  ]
+
+  before_action :check_order_completed, only: [:edit, :checkout, :update, :payment]
+
+  before_action :set_order_for_admin, only: [
+    :cms_update, :cms_edit, :view_confirmation, :customer_info, :resend_confirmation
+  ]
 
   def index
     @orders = Spree::Order.where(authorized: true)
+  end
+
+  # Adds a new item to the order (creating a new order if none already exists)
+  def populate
+    populator = Spree::OrderPopulator.new(
+      current_order(create_order_if_necessary: true),
+      current_currency
+    )
+    if populator.populate(
+        order_populate_params[:variant_id],
+        order_populate_params[:quantity],
+        order_populate_params[:options]
+      )
+      if order_populate_params[:request_installments] == "1"
+        line_item = @order.line_items.find_by(
+          variant_id: order_populate_params[:variant_id]
+        )
+        line_item.set_request_installments!
+      end
+      @order.set_cart_state!
+      variant = Spree::Variant.find_by(id: order_populate_params[:variant_id])
+      flash.now[:notice] = "#{variant.select_label} successfully added"
+      redirect_to add_offer_orders_path(@offer)
+    else
+      flash.now[:error] = populator.errors.full_messages.join(" ")
+      redirect_to add_offer_orders_path(@offer)
+    end
+  end
+
+  def delete_line_item
+    variant = Spree::Variant.find_by(id: params[:variant_id])
+    if @order.contents.remove(variant, params[:quantity].to_i)
+      @order.set_cart_state!
+      flash.now[:error] = variant.errors.full_messages.join(" ")
+      redirect_to add_offer_orders_path(@offer)
+    else
+      flash.now[:notice] = "#{variant.select_label} successfully deleted"
+      redirect_to add_offer_orders_path(@offer)
+    end
   end
 
   def new
@@ -30,15 +93,16 @@ class OrdersController < ApplicationController
     )
   end
 
+  def add
+    associate_user
+  end
+
   def create
     @order         = current_user.orders.build(order_params)
     @order.product = @offer
 
     if @order.save
-      @order.update_total_price!
       populator = Spree::OrderPopulator.new @order, current_currency
-      # @order.varinats.each{ |v| populator.populate(v.id, 1) }
-
       redirect_to add_passengers_offer_order_path(@offer, @order)
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
@@ -47,25 +111,17 @@ class OrdersController < ApplicationController
   end
 
   def customer_info
-    @order = Spree::Order.find(params[:id])
   end
 
   def checkout
-    @customer.credit_card = CreditCard.new()
-
-    respond_to do |format|
-      format.html {render "checkout"}
-      format.json { render json: { status: :success, passenger: @order.passengers.first } }
-    end
+    @customer.credit_card = CreditCard.new
   end
 
   def cms_edit
-    @order = Spree::Order.find(params[:id])
     @offer = @order.product
   end
 
   def cms_update
-    @order = Spree::Order.find params[:id]
     @offer = @order.product
     if @order.update(order_params)
       flash[:notice] = "Order updated"
@@ -76,59 +132,37 @@ class OrdersController < ApplicationController
   end
 
   def confirmation
-    if @order.product.test_product
-      @operator   = @offer.operator
-      @hero_photo = @offer.photos.where(hero: true).last
-      @customer   = @order.customer
-      debugger
-    else
-      redirect_to offers_path unless @order.authorized?
-      @operator   = @offer.operator
-      @hero_photo = @offer.photos.where(hero: true).last
-      @customer   = @order.customer
-    end
+    redirect_to offers_path unless @order.completed?
+    @customer   = @order.customer
   end
 
   def view_confirmation
-    @order = Spree::Order.find(params[:id])
-    @offer = @order.product
-    redirect_to offers_path unless @order.authorized?
-    @operator   = @offer.operator
-    @hero_photo = @order.product.photos.where(hero: true).last
+    redirect_to :back unless @order.authorized?
     @customer   = @order.customer
   end
 
   def resend_confirmation
-    OrderAuthorized.delay.notification(params[:order_id])
+    OrderAuthorized.delay.notification(@order.id)
     flash.now[:notice] = "Confirmation Re-sent"
-    render nothing: true
+    redirect_to :back
   end
 
   def payment
-    if @offer.test_product
-      @customer.credit_card = CreditCard.new(credit_card_params)
-      if @customer.update(customer_params)
-        @order.save!
-        debugger
-        redirect_to confirmation_offer_order_path(@offer, @order)
-      end
-    else
-      @customer.credit_card = CreditCard.new(credit_card_params)
-      credit_card_valid     = @customer.credit_card.valid?
+    @customer.credit_card = CreditCard.new(credit_card_params)
+    credit_card_valid     = @customer.credit_card.valid?
 
-      if @customer.update(customer_params) && credit_card_valid
-        @order.save!
-        response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.credit_card, @order)
-        if response[:success]
-          flash[:notice] = response[:message]
-          redirect_to confirmation_offer_order_path(@offer, @order)
-        else
-          flash.now[:alert] = response[:message]
-          render :checkout
-        end
+    if @customer.update(customer_params) && credit_card_valid
+      response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.credit_card, @order)
+      if response[:success]
+        @order.next if @order.px_payment?
+        flash[:notice] = response[:message]
+        redirect_to order_confirmation_path(@order)
       else
+        flash.now[:alert] = response[:message]
         render :checkout
       end
+    else
+      render :checkout
     end
   end
 
@@ -136,18 +170,29 @@ class OrdersController < ApplicationController
   end
 
   def add_passengers
-    @order.total_people_count.times { @order.passengers.build }
+    @order.next if @order.cart?
+    @line_items.each do |li|
+      new_passengers_count = li.quantity - @order.passengers.where(line_item: li).count
+      new_passengers_count.times do
+        @order.passengers.build(line_item: li)
+      end
+    end
   end
 
   def edit_passengers
-    @passengers = @order.passengers.order(id: :asc)
+    @passengers = Passenger.where(line_item: @line_items).order(id: :asc)
   end
 
   def update_passengers
     if @order.update(order_params)
       @user.update(user_params)
-
-      redirect_to checkout_offer_order_path(@offer, @order)
+      if @order.add_passengers? && !@order.next
+        next_product = @order.line_items_without_passengers.first.product
+        flash.now[:notice] = "It is necessary to fill out the passenger form before payment"
+        redirect_to add_passengers_offer_order_path(next_product, @order)
+      else
+        redirect_to checkout_offer_order_path(@offer, @order)
+      end
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
       render :edit_passengers
@@ -159,7 +204,6 @@ class OrdersController < ApplicationController
     is_units_count_changed = is_units_count_changed?
 
     if @order.save
-      @order.update_total_price!
       @order.passengers.destroy_all if is_units_count_changed
       redirect_to add_passengers_offer_order_path(@offer, @order)
     else
@@ -170,12 +214,22 @@ class OrdersController < ApplicationController
 
   private
 
+  def set_current_order
+    @order = current_order || Spree::Order.incomplete.find_or_initialize_by(
+      guest_token: cookies.signed[:guest_token]
+    )
+  end
+
   def set_customer
     @customer = @order.customer || @order.build_customer(user: current_user)
   end
 
   def set_user
     @user = current_user
+  end
+
+  def set_order_for_admin
+    @order = Spree::Order.find_by(number: params[:id].upcase)
   end
 
   def set_order
@@ -186,16 +240,23 @@ class OrdersController < ApplicationController
     @offer = Spree::Product.friendly.find(params[:offer_id])
   end
 
+  def set_variants
+    @variants = @offer.variants
+  end
+
+  def set_line_items
+    line_item_ids = @order.line_items.pluck(:id)
+    @line_items   = @offer.line_items.where(id: line_item_ids)
+  end
+
   def is_units_count_changed?
     @order.number_of_children_changed? ||
     @order.number_of_infants_changed?  ||
     @order.number_of_adults_changed?
   end
 
-  def check_order_authorized
-    unless @order.product.test_product
-      redirect_to confirmation_offer_order_path(@offer, @order) if @order.authorized?
-    end
+  def check_order_completed
+    redirect_to order_confirmation_path(@order) if @order.completed?
   end
 
   def order_params
@@ -214,7 +275,8 @@ class OrdersController < ApplicationController
         :date_of_birth,
         :telephone,
         :mobile,
-        :email
+        :email,
+        :line_item_id
       ]
     )
   end
@@ -222,6 +284,7 @@ class OrdersController < ApplicationController
   def user_params
     user_first = order_params[:passengers_attributes][:"0"]
     user_first.delete("id")
+    user_first.delete("line_item_id")
     user_first[:gender] = user_first.delete(:title)
     user_first[:home_phone] = user_first.delete(:telephone)
     user_first
@@ -242,6 +305,15 @@ class OrdersController < ApplicationController
       :state,
       :postal_code,
       :is_primary
+    )
+  end
+
+  def order_populate_params
+    params.require(:order_populate).permit(
+      :options,
+      :variant_id,
+      :quantity,
+      :request_installments
     )
   end
 
