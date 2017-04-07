@@ -88,6 +88,11 @@
   <% if pdf_page %>
   <tr style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>" >
     <tr>
+      <td colspan="2" style="width: 400px; padding: 40px; text-align: center;">
+        <img src="<%= asset_url('assets/pdf_voucher.jpg') %>" style="width: 300px;">
+      </td>
+    </tr>
+    <tr>
       <td colspan="2" style="padding: 40px 40px 30px; padding-bottom: 15px;">
         <span style="font-family: 'Georgia'; font-size: 26px">
           Tour information

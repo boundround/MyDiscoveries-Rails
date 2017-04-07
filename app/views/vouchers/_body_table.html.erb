@@ -60,14 +60,12 @@
     </tr>
   <tr>
     <tr>
-      <td colspan="2" style="padding: 40px;">
-        <div style="background-color: #ccc; width: 300px; height: 300px; margin: auto;">
-          <% if hero_photo.present? %>
-            <img src="<%= hero_photo.path_url(:medium) %>" style="width: 300px; height: 300px;">
-          <% else %>
-            <img src="<%= asset_url('generic-hero.jpg') %>" style="width: 300px; height: 300px;">
-          <% end %>
-        </div>
+      <td colspan="2" style="padding: 40px; text-align: center;">
+        <% if email_page || !pdf_page %>
+          <a href="https://www.insureandgo.com.au/?affiliateid=384&promocode=discovery10&utm_source=MyDiscoveries&utm_medium=referral&utm_campaign=affiliate" target="_blank"><img src="<%= asset_url('assets/email_confirmation.jpg') %>" style="width: 300px;"></a>
+        <% else %>
+          <img src="<%= asset_url('assets/pdf_voucher.jpg') %>" style="width: 300px;">
+        <% end %>
       </td>
     </tr>
       <tr>
