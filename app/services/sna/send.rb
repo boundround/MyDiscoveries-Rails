@@ -16,7 +16,7 @@ class SNA::Send
   end
 
   def offer
-    @offer ||= order.offer
+    @offer ||= order.product
   end
 
   def user
