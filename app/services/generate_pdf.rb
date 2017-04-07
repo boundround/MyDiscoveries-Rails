@@ -68,7 +68,7 @@
       if (models_name.columns_hash[col].type == :text || 
           models_name.columns_hash[col].type == :string) &&
           datas[col].present?
-        datas[col] = datas[col].gsub(/[”“]/,"\"")
+        datas[col] = datas[col].gsub(/[”“’]/, "”" => "\"", "“" => "\"", "’" => "\'")
       end
     end
     datas
