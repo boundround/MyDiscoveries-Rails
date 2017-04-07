@@ -1332,8 +1332,8 @@ ActiveRecord::Schema.define(version: 20170403010221) do
   create_table "spree_line_items", force: true do |t|
     t.integer  "variant_id"
     t.integer  "order_id"
-    t.integer  "quantity",                                                      null: false
-    t.decimal  "price",                precision: 10, scale: 2,                 null: false
+    t.integer  "quantity",                                                    null: false
+    t.decimal  "price",                precision: 10, scale: 2,               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "currency"
@@ -1342,7 +1342,7 @@ ActiveRecord::Schema.define(version: 20170403010221) do
     t.decimal  "adjustment_total",     precision: 10, scale: 2, default: 0.0
     t.decimal  "additional_tax_total", precision: 10, scale: 2, default: 0.0
     t.decimal  "promo_total",          precision: 10, scale: 2, default: 0.0
-    t.decimal  "included_tax_total",   precision: 10, scale: 2, default: 0.0,   null: false
+    t.decimal  "included_tax_total",   precision: 10, scale: 2, default: 0.0, null: false
     t.decimal  "pre_tax_amount",       precision: 8,  scale: 2, default: 0.0
   end
 

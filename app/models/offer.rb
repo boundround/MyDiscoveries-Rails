@@ -326,6 +326,7 @@ class Offer < ActiveRecord::Base
   acts_as_taggable_on :inclusions
 
   scope :active, -> { where("status = ?", "live") }
+  scope :featured, -> { where("featured = ?", true) }
 
   belongs_to :attraction
   belongs_to :operator

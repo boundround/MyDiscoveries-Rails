@@ -338,6 +338,7 @@ Spree::Product.class_eval do
   acts_as_taggable_on :inclusions
 
   scope :active, -> { where("status = ?", "live") }
+  scope :featured, -> { where("featured = ?", true) }
 
   belongs_to :attraction
   belongs_to :operator

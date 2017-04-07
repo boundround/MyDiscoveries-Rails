@@ -13,7 +13,7 @@ class PagesController < ApplicationController
     @category2 = @subcategories[1]
     @category3 = @subcategories[2]
     @category4 = @subcategories[3]
-    @offers = Spree::Product.active.paginate(per_page: 4, page: params[:offers_page])
+    @offers = Spree::Product.active.featured.paginate(per_page: 4, page: params[:offers_page])
     @stories = Story.active.includes(:user).order(publish_date: :desc).order(created_at: :desc)
     @stories = @stories.paginate(page: params[:stories_page], per_page: 6)
 
