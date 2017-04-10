@@ -3,6 +3,7 @@
 	<head>
 	  <title><%= full_title(yield(:title), yield(:category)) %></title>
 
+      <%= analytics_init if GoogleAnalytics.valid_tracker? %>
 	  <%= stylesheet_link_tag( 'application', media: 'all') %>
 	  <%= csrf_meta_tags %>
 
@@ -80,11 +81,14 @@
             background: transparent !important;
         }
     </style>
-<%# unless params[:controller] == "places" %>
-<script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyDk49bKAZAXex-UBN5AbFnvkjlaptQNtiM&amp;libraries=places"></script>
-<%# end %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
+    <%# unless params[:controller] == "places" %>
+    <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyDk49bKAZAXex-UBN5AbFnvkjlaptQNtiM&amp;libraries=places"></script>
+    <%# end %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
+    <%# if Rails.env.production? %>
+      <%= render partial: "layouts/google_analytics" %>
+    <%# end %>
 	</head>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<div id="environment" data-environment="<%= Rails.env %>">
