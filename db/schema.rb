@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403010221) do
+ActiveRecord::Schema.define(version: 20170410111805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -381,11 +381,6 @@ ActiveRecord::Schema.define(version: 20170403010221) do
     t.integer "attraction_id"
   end
 
-  create_table "customers_places", force: true do |t|
-    t.integer "user_id"
-    t.integer "place_id"
-  end
-
   create_table "deals", force: true do |t|
     t.string   "url"
     t.string   "hero_image"
@@ -400,11 +395,6 @@ ActiveRecord::Schema.define(version: 20170403010221) do
   end
 
   add_index "deals", ["dealable_id", "dealable_type"], name: "index_deals_on_dealable_id_and_dealable_type", using: :btree
-
-  create_table "deals_users", force: true do |t|
-    t.integer "user_id"
-    t.integer "deal_id"
-  end
 
   create_table "discounts", force: true do |t|
     t.text     "description"
@@ -1332,8 +1322,8 @@ ActiveRecord::Schema.define(version: 20170403010221) do
   create_table "spree_line_items", force: true do |t|
     t.integer  "variant_id"
     t.integer  "order_id"
-    t.integer  "quantity",                                                    null: false
-    t.decimal  "price",                precision: 10, scale: 2,               null: false
+    t.integer  "quantity",                                                      null: false
+    t.decimal  "price",                precision: 10, scale: 2,                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "currency"
@@ -1342,7 +1332,7 @@ ActiveRecord::Schema.define(version: 20170403010221) do
     t.decimal  "adjustment_total",     precision: 10, scale: 2, default: 0.0
     t.decimal  "additional_tax_total", precision: 10, scale: 2, default: 0.0
     t.decimal  "promo_total",          precision: 10, scale: 2, default: 0.0
-    t.decimal  "included_tax_total",   precision: 10, scale: 2, default: 0.0, null: false
+    t.decimal  "included_tax_total",   precision: 10, scale: 2, default: 0.0,   null: false
     t.decimal  "pre_tax_amount",       precision: 8,  scale: 2, default: 0.0
   end
 
