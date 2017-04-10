@@ -4,9 +4,6 @@ class Deal < ActiveRecord::Base
   belongs_to :dealable, polymorphic: true
   validates :dealable, presence: true
 
-  has_many :deals_users
-  has_many :users, through: :deals_users
-
   mount_uploader :hero_image, DealHeroUploader
 
   scope :active, -> { where(status: "live") }

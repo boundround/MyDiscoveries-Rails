@@ -258,9 +258,6 @@ class Place < ActiveRecord::Base
   has_many :places_stories
   has_many :stories, through: :places_stories
 
-  has_many :customers_places
-  has_many :owners, through: :customers_places, :source => :user
-
   has_many :reviews, as: :reviewable
   has_many :deals, as: :dealable
 
