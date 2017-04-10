@@ -40,12 +40,11 @@ class SNA::Send
   end
 
   def process
-    # response = HTTParty.post(
-    #   ENV['SNA_WEBHOOK_URL'],
-    #   basic_auth: credentials,
-    #   headers: { 'Accept' => 'application/json' },
-    #   body: order_body)
-    puts order_body
+    response = HTTParty.post(
+      ENV['SNA_WEBHOOK_URL'],
+      basic_auth: credentials,
+      headers: { 'Accept' => 'application/json' },
+      body: order_body)
   end
 
   def credentials
