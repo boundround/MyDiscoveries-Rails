@@ -86,9 +86,6 @@
     <%# end %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
-    <%# if Rails.env.production? %>
-      <%= render partial: "layouts/google_analytics" %>
-    <%# end %>
 	</head>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<div id="environment" data-environment="<%= Rails.env %>">
