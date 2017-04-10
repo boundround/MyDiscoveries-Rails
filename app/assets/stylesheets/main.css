@@ -13160,6 +13160,17 @@ td a.ui-state-default.ui-state-hover {
       border-top: 1px solid #f4efed; }
     .story .story-content-block section p span{
     font-size: inherit !important; }
+      @media(max-width: 1200px){
+        .story .story-content-block section{
+          border-top: 30px solid #f4efed;
+        }
+        .story .story-content-block aside .xs-heading{
+          margin-top: 0;
+        }
+        .story .story-content-block aside.mobile-only{
+          border-bottom: 20px solid #f4efed;
+        }
+      }
       @media screen and (min-width: 1201px) {
         .story .story-content-block section {
           padding-left: 30px;
