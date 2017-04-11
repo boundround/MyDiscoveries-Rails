@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
     )
 
     #temporary empty order before fill it
-    @order.empty!
+    @order.empty! if @order.persisted?
 
     if populator.populate(
         order_populate_params[:variant_id],
