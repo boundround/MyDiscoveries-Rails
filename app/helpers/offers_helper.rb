@@ -31,7 +31,7 @@ module OffersHelper
         attraction_ids.push({attraction_id: attraction.id, attraction_name: attraction.display_name})
       end
     end
-    
+
     attraction_ids.to_json
   end
 
@@ -81,7 +81,12 @@ module OffersHelper
       end
       breadcrumb += link_to "#{place.display_name.upcase rescue ''}", place_path(place), class: "breadcrumbs__link"
     end
-  
+
     breadcrumb += "<span class='breadcrumbs__link'>" + offer.name.upcase + "</span>"
+  end
+
+  def price_range(offer)
+    prices = offer.variants.map{ |v| v.price }.sort
+    "$#{sprintf("%.2f", prices.first)} - $#{sprintf("%.2f", prices.last)}"
   end
 end

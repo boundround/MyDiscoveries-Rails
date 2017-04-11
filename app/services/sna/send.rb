@@ -20,7 +20,7 @@ class SNA::Send
   end
 
   def user
-    @user ||= order.user
+    @user ||= User.find_by id: order.user_id
   end
 
   def order_date
@@ -59,7 +59,7 @@ class SNA::Send
           json.SalesId order.ax_sales_id
           json.OrderDate order_date
           json.OrderTime order_time
-          json.EmailAddress customer.email
+          json.EmailAddress customer.email.presence || 'info@mydiscoveries.com'
           json.ShippingCost shipping_cost
           json.ShippingMethod ENV["AX_SHIPPING METHOD"]
           json.Brand ENV["AX_BRAND"]

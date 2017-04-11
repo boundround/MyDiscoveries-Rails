@@ -32,8 +32,6 @@ class User < ActiveRecord::Base
   has_many :fun_facts, through: :fun_facts_users
   has_many :posts_users
   has_many :posts, through: :posts_users
-  has_many :deals_users
-  has_many :deals, through: :deals_users
 
   has_many :places
   has_many :attractions

@@ -12,255 +12,294 @@
 
 
 <div class="product">
-
-    <!-- <div class="hero" style="background: url(<%= main_offer_photo_url(@offer)[:url] %>) center no-repeat;" > -->
-    <div class="hero" style="background: url( <%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat;" >
-      <div class="photo-credit"><%= get_hero_image_credit(@offer) %></div>
-        <div class="hero-content width-limiter">
-            <div class="location">
-              <% if user_signed_in? and current_user.admin? %>
-                <p align="center"><%= link_to "Edit Offer", edit_offer_path(@offer) %></p>
-              <% end %>
-            </div>
-            <h2 class="lg-heading"><%= @offer.name %></h2>
-            <span class="info-text"><!--LOCATION--></span>
-            <div class="hc-info">
-                <span class="hci-price">
-                    <span>$</span>
-                    <span class="hci-price-self"><%= @offer.minRateAdult %></span>
-                    <% if @offer.allow_installments? %>
-                      <br><span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5.0) %></span><br>
-                    <% end %>
-                </span>
-                <% if @offer.duration.present? %>
-                  <span class="hci-nights">
-                      <span><%#= @offer.duration / 1000 / 60 / 60 / 24 %></span>
-                      <span class="xs-invisible"><%= create_duration(@offer) %></span>
-                  </span>
-                <% end %>
-                <div class="info-text">Per Adult</div>
-                <!-- <span class="hci-people">
-                    <span>2</span>
-                    <span class="xs-invisible">people</span>
-                </span> -->
-                <span class="hci-info"><%= simple_format @offer.specialNotes %></span>
-            </div>
-            <!-- <a class="btn-bordered red invert" id="book-now" href="<%= new_offer_order_path(@offer, number_of_adults: 1)%>">buy now</a> -->
-            <% if @offer.itinerary.present? %>
-              <a class="btn-bordered red" id="download-itinerary" download href="<%= @offer.itinerary %>">download itinerary</a>
-            <% end %>
-            <div class="destination-details">
-            </div>
+  <div class="hero" style="background: url( <%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat;" >
+    <div class="photo-credit"><%= get_hero_image_credit(@offer) %></div>
+      <div class="hero-content width-limiter">
+        <div class="location">
+          <% if user_signed_in? and current_user.admin? %>
+            <p align="center"><%= link_to "Edit Offer", edit_offer_path(@offer) %></p>
+          <% end %>
         </div>
+        <h2 class="lg-heading"><%= @offer.name %></h2>
+        <span class="info-text"><!--LOCATION--></span>
+        <div class="hc-info">
+          <span class="hci-price">
+            <span>$</span>
+            <span class="hci-price-self"><%= @offer.minRateAdult %></span>
+            <% if @offer.allow_installments? %>
+              <br><span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5.0) %></span><br>
+            <% end %>
+          </span>
+          <% if @offer.duration.present? %>
+            <span class="hci-nights">
+              <span><%#= @offer.duration / 1000 / 60 / 60 / 24 %></span>
+              <span class="xs-invisible"><%= create_duration(@offer) %></span>
+            </span>
+          <% end %>
+          <div class="info-text">Per Adult</div>
+          <span class="hci-info"><%= simple_format @offer.specialNotes %></span>
+        </div>
+        <% if @offer.itinerary.present? %>
+          <a class="btn-bordered red" id="download-itinerary" download href="<%= @offer.itinerary %>">download itinerary</a>
+        <% end %>
+        <div class="destination-details">
+        </div>
+      </div>
     </div>
 
     <div class="product-content width-limiter">
+      <aside>
+        <h3 class="point-card__header"><%= @operator.city rescue "" %></h3>
+        <a  data-toggle="modal" data-target="#operatorDetail" href="#" class="hotel-name"><%= @operator.name rescue "" %></a>
 
-        <aside>
-            <h3 class="point-card__header"><%= @operator.city rescue "" %></h3>
-            <a  data-toggle="modal" data-target="#operatorDetail" href="#" class="hotel-name"><%= @operator.name rescue "" %></a>
-
-            <div class="package-options">
-                <h4 class="xs-heading lars">Package Options</h4>
-
-                <ul>
-                    <li class="po-item">
-
-                        <div class="poi-content-top">
-                          <%= @offer.name %>
-                            <div class="poict-price">
-                                <span>$</span>
-                                <span class="poict-price-self"><%= @offer.minRateAdult %></span>
-                                <br>
-                                <% if @offer.allow_installments? %>
-                                  or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5.0) %>
-                                <% end %>
-                            </div>
-                            <!-- <div class="poict-valued">Valued up to $3,441</div> -->
-                            <div class="poict-people">per Adult</div>
-                            <div class="poict-nights"><%= create_duration(@offer) %></div>
-                            <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
-
-                            <div class="book-now">
-                              <a href="<%= add_offer_orders_path(@offer, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
-                            </div>
+        <div class="package-options">
+          <h3 class="xs-heading lars">Package Options</h3>
+          <ul>
+            <li class="po-item">
+              <div class="poi-content-top">
+                <h4><%= @offer.name %></h4>
+                <div class="poict-nights"><%= create_duration(@offer) %></div>
+                <div class="book-now hidden">
+                  <%= simple_form_for :order_populate,
+                    url: populate_offer_orders_path(@offer),
+                    method: :post,
+                    html: {
+                      role: 'form',
+                      class: 'top20 package-options-form',
+                      data: {
+                        offer_id: "#{@offer.slug}",
+                        allow_installments: @offer.allow_installments
+                      }
+                    } do |f| %>
+                      <div>
+                        <%= f.input :variant_id,
+                            input_html: { class: 'form-control' },
+                            as: :hidden
+                        %>
+                        <div class="quantity top10">
+                          <h5>Departure City</h5>
+                          <div>
+                            <%= f.input :departure_city,
+                                as: :select,
+                                collection: @departure_cities,
+                                include_blank: false,
+                                label: false,
+                                prompt: 'Please Select',
+                                input_html: {
+                                  class: 'form-control js-variant-option'
+                                }
+                            %>
+                          </div>
                         </div>
+                        <div class="quantity top10">
+                          <h5>Adult / Child</h5>
+                          <div>
+                            <%= f.input :maturity,
+                                as: :select,
+                                collection: @maturities,
+                                include_blank: false,
+                                label: false,
+                                prompt: 'Please Select',
+                                input_html: {
+                                  class: 'form-control js-variant-option'
+                                }
+                            %>
+                          </div>
+                        </div>
+                        <div class="quantity top10">
+                          <h5>Twin / Single</h5>
+                          <div>
+                            <%= f.input :bed_type,
+                                as: :select,
+                                collection: @bed_types,
+                                include_blank: false,
+                                label: false,
+                                prompt: 'Please Select',
+                                input_html: {
+                                  class: 'form-control js-variant-option'
+                                }
+                            %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class='js-variant-quantity hidden'>
+                        <h5>Quantity</h5>
+                        <div>
+                          <%= f.input :quantity,
+                              as: :integer,
+                              include_blank: false,
+                              label: false,
+                              input_html: {
+                                class: 'form-control',
+                                min: 0
+                              }
+                          %>
+                        </div>
+                      </div>
+                      <div class='top20'>
+                        <span class='js-selected-variants-options'>
+                          Selection:
+                        </span>
+                      </div>
+                      <div class='top20 js-price-range'>
+                        Prices:
+                        <span>
+                          <%= "#{price_range(@offer)}" %>
+                        </span>
+                        <br>
+                      </div>
+                      <div class='top20 js-price hidden'>
+                        Prices
+                      </div>
+                      <div class='top20 js-total-price hidden'>
+                        Price: $
+                      </div>
+                      <% if @offer.allow_installments? %>
+                        <div class="js-request-installments top20 hidden">
+                          <%= f.label :request_installments,
+                            "Or 5 monthly payments of",
+                            class: 'js-order-monthly-price monthly-payments-label'
+                          %>
+                          <%= f.check_box :request_installments, label: false, class: 'monthly-payments-checkbox' %>
+                        </div>
+                      <% end %>
+                      <%= button_tag(
+                          'buy now',
+                          type: 'submit',
+                          hidden: true,
+                          disabled: true,
+                          class: 'btn-bordered red small top20 js-submit-button'
+                        )
+                      %>
+                    <% end %>
+                    </div>
+                </div>
+            </li>
+          </ul>
+        </div>
+      </aside>
+      <section>
+          <div class="country-info main-article">
+            <h2 class="lg-heading"><%= @offer.name %></h2>
+            <% if @offer.description.size > 301 %>
+              <div class="destination-desc " style="display:none;">
+                  <%= simple_format @offer.description %>
+              </div>
+              <div class="destination-desc">
+                  <%= simple_format @offer.description[0..300]+"..." %>
+              </div>
+              <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
+              <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+            <% else %>
+              <div class="destination-desc">
+                  <%= simple_format @offer.description %>
+              </div>
+            <% end %>
+            <div id="product-accordion" class="accordion-block">
+              <h3>Highlights</h3>
+              <div class="highlights">
+                  <p><%= simple_format @offer.highlightsStr %></p>
+              </div>
+              <% if @offer.itineraryStr.present? %>
+                <h3 id="ci-itinarary-map-loader">Itinerary</h3>
+                <div class="itinerary">
+                  <%= simple_format @offer.itineraryStr %>
+                </div>
+              <% end %>
 
-                        <!-- <div class="poi-content-bottom">
-                            <p>
-                                <span class="head-highlight">Highlights:</span>
-                                <%#= simple_format @offer.highlightsStr %>
-                            </p>
-                        </div> -->
+              <% if @offer.customStr2.present? %>
+                <h3>FACILITIES</h3>
+                <div class="FACILITIES">
+                    <%= simple_format @offer.customStr2 %>
+                </div>
+              <% end %>
 
-                    </li>
-                    <% if @offer.related_products.present? %>
-                      <% @offer.related_products.each do |offer| %>
-                        <% if offer.related_product.present? %>
-                          <li class="po-item">
-                              <div class="poi-content-top">
-                                <%= offer.related_product.name %>
-                                  <div class="poict-price">
-                                      <span>$</span>
-                                      <span class="poict-price-self"><%= offer.related_product.minRateAdult %></span>
-                                      <br>
-                                      <% if offer.related_product.allow_installments? %>
-                                        or 5 monthly payments of <%= number_to_currency(offer.related_product.minRateAdult / 5.0) %>
-                                      <% end %>
-                                  </div>
-                                  <!-- <div class="poict-valued">Valued up to $3,441</div> -->
-                                  <div class="poict-people">per Adult</div>
-                                  <div class="poict-nights"><%= create_duration(offer.related_product) %></div>
-                                  <!-- <div class="poict-room">TSHELL room, TS Suites Seminyak</div> -->
+              <% if @offer.includes.present? %>
+                <h3>INCLUDES</h3>
+                <div class="includes">
+                    <%= simple_format @offer.includes %>
+                </div>
+              <% end %>
+              <h3>map</h3>
+              <div class="ci-map-block">
+                <div id='dest-map' data-map="<%= create_marker @offer %>">
+                </div>
+              </div>
+              <% if @offer.customStr3.present? %>
+                <h3>fine print</h3>
+                <div class="fint-print">
+                  <%= simple_format @offer.customStr3 %>
+                </div>
+              <% end %>
+              <h3>booking essentials</h3>
+              <div class="details">
+                <%= simple_format(
+                    @offer.customStr1.presence || @offer.operator.booking_essentials
+                  )
+                %>
+              </div>
+              <h3>booking guarantee</h3>
+              <div class="guarantee">
+                <p>
+                  <%= simple_format(
+                      @offer.customStr4.presence || @book_guarantee
+                    )
+                  %>
+                </p>
+              </div>
+            </div>
 
-                                  <div class="book-now">
-                                    <a href="<%= add_offer_orders_path(offer.related_product, number_of_adults: 1)%>" class="btn-bordered red small">buy now</a>
-                                  </div>
-                              </div>
-
-                              <!-- <div class="poi-content-bottom">
-                                  <p>
-                                      <span class="head-highlight">Highlights:</span>
-                                      <%#= simple_format offer.related_product.highlightsStr %>
-                                  </p>
-                              </div> -->
-                          </li>
-                        <% end %>
+            <h3 class="sm-heading lars">Videos & Photos</h3>
+            <% unless @galeries.blank? %>
+              <div class="gallery">
+                <div class="slider-mobile-wrapper">
+                  <div class="slider-for">
+                    <% @galeries.each do |galery| %>
+                      <% if galery.class.name == "Video" %>
+                        <iframe
+                          class="player-vimeo"
+                          src="<%= galery.url %>"
+                          frameborder="0"
+                          webkitallowfullscreen
+                          mozallowfullscreen
+                          allowfullscreen
+                        >
+                        </iframe>
+                      <% else %>
+                        <div>
+                          <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
+                          <div class="photo-credit">Credit: <%= galery.credit %></div>
+                        </div>
                       <% end %>
                     <% end %>
-                </ul>
-
-                <!-- <a href="#" class="more-link">see more</a> -->
-
-            </div>
-
-        </aside>
-
-        <section>
-
-            <div class="country-info main-article">
-                <h2 class="lg-heading"><%= @offer.name %></h2>
-                <% if @offer.description.size > 301 %>
-                  <div class="destination-desc " style="display:none;">
-                      <%= simple_format @offer.description %>
                   </div>
-                  <div class="destination-desc">
-                      <%= simple_format @offer.description[0..300]+"..." %>
-                  </div>
-                  <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
-                  <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
-                <% else %>
-                  <div class="destination-desc">
-                      <%= simple_format @offer.description %>
-                  </div>
-                <% end %>
-                <div id="product-accordion" class="accordion-block">
-
-                    <h3>Highlights</h3>
-                    <div class="highlights">
-                        <p><%= simple_format @offer.highlightsStr %></p>
-                    </div>
-                    <% if @offer.itineraryStr.present? %>
-                      <h3 id="ci-itinarary-map-loader">Itinerary</h3>
-                      <div class="itinerary">
-                        <%= simple_format @offer.itineraryStr %>
-                      </div>
-                    <% end %>
-
-                    <% if @offer.customStr2.present? %>
-                      <h3>FACILITIES</h3>
-                      <div class="FACILITIES">
-                          <%= simple_format @offer.customStr2 %>
-                      </div>
-                    <% end %>
-
-                    <% if @offer.includes.present? %>
-                      <h3>INCLUDES</h3>
-                      <div class="includes">
-                          <%= simple_format @offer.includes %>
-                      </div>
-                    <% end %>
-
-                    <!-- <h3>Reviews &nbsp; (2)</h3>
-                    <div class="reviews">
-                        <div class="heading">Hotel Port Denia Signature Scores 8.2 out of 10 based on 2 reviews</div>
-                        <div class="review-block">
-                            <h5>JANE SNOW 10 / 10</h5>
-                            <p>Not a particularly fancy hotel but with staff ALL trained to a very high standard and happy to help which more than makes up for minor weeknesses elsewhere. That is why I spend two x four weeks there per year.</p>
-                        </div>
-                        <div class="review-block">
-                            <h5>KATE BLACK     10 / 10</h5>
-                            <p>This is a good hotel a decent walk, or a bus ride, from Denia centre. Nearby is the marina and also some bars and a supermarket. Remember you are in Spain, so there will be a lot of Spanish guests in the hotel. Outside school times they are mainly elderly and good fun, but exuberant as the Spanish are. At weekends and definitely in school holidays there are a lot of children in the hotel and they keep late hours and can be very noisy.</p>
-                        </div>
-                        <div class=" pagination">
-                            <a class="pagination__link-left" href="#"></a>
-                            <a class="pagination__link" href="#">1</a>
-                            <a class="pagination__link" href="#">2</a>
-                            <a class="pagination__link" href="#">3</a>
-                            <a class="pagination__link-right" href="#"></a>
-                        </div>
-                    </div> -->
-                    <h3>map</h3>
-                    <div class="ci-map-block">
-                      <div id='dest-map' data-map="<%= create_marker @offer %>"></div>
-                    </div>
-                    <% if @offer.customStr3.present? %>
-                      <h3>fine print</h3>
-                      <div class="fint-print">
-                        <%= simple_format @offer.customStr3 %>
-                      </div>
-                    <% end %>
-                    <h3>booking essentials</h3>
-                    <div class="details">
-                      <%= simple_format(@offer.customStr1.present?? @offer.customStr1 : @offer.operator.booking_essentials) %>
-                    </div>
-                    <h3>booking guarantee</h3>
-                    <div class="guarantee">
-                        <p><%= simple_format(@offer.customStr4.present?? @offer.customStr4 : @book_guarantee) %></p>
-
-                    </div>
-
-
                 </div>
-
-                <h3 class="sm-heading lars">Videos & Photos</h3>
-                <% unless @galeries.blank? %>
-                  <div class="gallery">
-                    <div class="slider-mobile-wrapper">
-                        <div class="slider-for">
-                          <% @galeries.each do |galery| %>
-                            <% if galery.class.name == "Video" %>
-                              <iframe class="player-vimeo" src="<%= galery.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                            <% else %>
-                              <div>
-                                <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
-                                <div class="photo-credit">Credit: <%= galery.credit %></div>
-                              </div>
-                            <% end %>
-                          <% end %>
-                        </div>
-                    </div>
-                    <div class="slider-nav xs-invisible">
-                        <% @galeries.each do |galery| %>
-                          <% if galery.class.name == "Video" %>
-                            <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="<%= galery.title %>">
-                                <img src="<%= galery.vimeo_thumbnail %>" alt="" width="100%">
-                                <div class="overlay-nav-video"></div>
-                            </div>
-                          <% else %>
-                            <div>
-                                <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
-                            </div>
-                          <% end %>
-                        <% end %>
-                    </div>
-                  </div>
-                <% end %>
-
+                <div class="slider-nav xs-invisible">
+                  <% @galeries.each do |galery| %>
+                    <% if galery.class.name == "Video" %>
+                      <div
+                        data-toggle="popover"
+                        data-trigger="hover"
+                        data-container="body"
+                        data-placement="bottom"
+                        data-content="<%= galery.title %>"
+                      >
+                        <img src="<%= galery.vimeo_thumbnail %>" alt="" width="100%">
+                        <div class="overlay-nav-video"></div>
+                      </div>
+                    <% else %>
+                      <div>
+                        <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
+                      </div>
+                    <% end %>
+                  <% end %>
                 </div>
+              </div>
+            <% end %>
             </div>
-        </section>
+          </div>
+      </section>
     </div>
-</div>
+  </div>
 </div>
 <%= render "operator_detail"%>

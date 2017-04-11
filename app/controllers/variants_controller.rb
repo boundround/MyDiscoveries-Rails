@@ -17,6 +17,12 @@ class VariantsController < ApplicationController
     @variants = @product.variants
   end
 
+  def fill_packages_options
+    result = Variant::FindPackagesOptions.call(@product, params)
+    @variants         = result[:variants]
+    @options_selected = result[:options_selected]
+  end
+
   def create
     @variant = @product.variants.build(variant_params)
     if @variant.save

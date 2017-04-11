@@ -185,6 +185,7 @@ gem 'sitemap_generator'
 gem 'mixpanel-ruby'
 
 gem 'google-api-client', '~> 0.9'
+gem 'google-analytics-rails', '1.1.0'
 
 group :development do
   gem 'letter_opener_web', group: :development

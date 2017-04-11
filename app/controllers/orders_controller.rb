@@ -52,6 +52,10 @@ class OrdersController < ApplicationController
       current_order(create_order_if_necessary: true),
       current_currency
     )
+
+    #temporary empty order before fill it
+    @order.empty!
+
     if populator.populate(
         order_populate_params[:variant_id],
         order_populate_params[:quantity],
@@ -64,9 +68,12 @@ class OrdersController < ApplicationController
         line_item.set_request_installments!
       end
       @order.set_cart_state!
+
       variant = Spree::Variant.find_by(id: order_populate_params[:variant_id])
       flash.now[:notice] = "#{variant.select_label} successfully added"
-      redirect_to add_offer_orders_path(@offer)
+
+      # redirect_to add_offer_orders_path(@offer)
+      redirect_to add_passengers_offer_order_path(@offer, @order)
     else
       flash.now[:error] = populator.errors.full_messages.join(" ")
       redirect_to add_offer_orders_path(@offer)
@@ -313,7 +320,10 @@ class OrdersController < ApplicationController
       :options,
       :variant_id,
       :quantity,
-      :request_installments
+      :request_installments,
+      :maturity,
+      :bed_type,
+      :departure_city
     )
   end
 

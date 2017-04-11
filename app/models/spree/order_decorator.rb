@@ -1,7 +1,12 @@
 Spree::Order.class_eval do
   belongs_to :product
-  belongs_to :user
   belongs_to :customer
+
+  # override spree relations
+  belongs_to :user,       class_name: Spree.user_class.to_s
+  belongs_to :created_by, class_name: Spree.user_class.to_s
+  belongs_to :approver,   class_name: Spree.user_class.to_s
+  belongs_to :canceler,   class_name: Spree.user_class.to_s
 
   has_many :passengers
 

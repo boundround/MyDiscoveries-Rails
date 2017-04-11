@@ -31,4 +31,8 @@ class Spree::VariantPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def fill_packages_options?
+    true
+  end
 end

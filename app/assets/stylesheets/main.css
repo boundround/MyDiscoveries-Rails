@@ -9997,6 +9997,7 @@ a:hover, a:focus, a:active {
       color: white;
       background-color: #ff4b1a; }
   .btn-bordered.red {
+    background-color: #fff;
     border: 2px solid #ff4b1a;
     color: #ff4b1a; }
     .btn-bordered.red:hover {

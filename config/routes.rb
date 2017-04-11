@@ -444,7 +444,11 @@ Rails.application.routes.draw do
       get 'paginate_reviews'
     end
     resources :reviews
-    resources :variants
+    resources :variants do
+      collection do
+        post :fill_packages_options
+      end
+    end
   end
 
   get 'orders/:id/view_confirmation' => 'orders#view_confirmation',
