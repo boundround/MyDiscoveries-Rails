@@ -22,11 +22,22 @@ jQuery ->
 
   $('.js-print-vouchers-button').on 'click', (e) ->
     console.log('hey')
-    e.preventDefault()
-    printContents    = $('.js-print-vouchers').html()
-    originalContents = $(document.body).html()
-    $(document.body).html(printContents)
+    for_print = $(@).data("toprint")
 
+    console.log(for_print == true)
+
+    e.preventDefault()
+    originalContents = $(document.body).html()
+    if for_print == true
+      $('#for-print').show()
+      printContents    = $('#for-print').html()
+    else
+      printContents    = $('#not-print').html()
+
+    $(document.body).html(printContents)
+    $('#for-print').hide()
+    
     window.print()
+
 
     $(document.body).html(originalContents)
