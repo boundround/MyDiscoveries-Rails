@@ -109,4 +109,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # config.force_ssl = true
+  GA.tracker = "UA-91823234-1"
 end
