@@ -20,7 +20,7 @@ class SNA::Send
   end
 
   def user
-    @user ||= order.user
+    @user ||= User.find_by id: order.user_id
   end
 
   def order_date
