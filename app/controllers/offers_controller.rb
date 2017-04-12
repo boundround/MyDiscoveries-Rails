@@ -19,7 +19,7 @@ class OffersController < ApplicationController
 
     @maturities       = @offer.variants.map{ |v| v.maturity.titleize }.uniq
     @bed_types        = @offer.variants.map{ |v| v.bed_type.titleize }.uniq
-    @departure_cities = @offer.variants.map{ |v| v.departure_city.titleize }.uniq
+    @departure_cities = @offer.variants.map{ |v| v.departure_city }.uniq
   end
 
   def new

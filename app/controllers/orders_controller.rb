@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
     )
 
     #temporary empty order before fill it
-    @order.empty! if @order.persisted?
+    current_order.empty! if current_order.persisted?
 
     if populator.populate(
         order_populate_params[:variant_id],
@@ -62,18 +62,15 @@ class OrdersController < ApplicationController
         order_populate_params[:options]
       )
       if order_populate_params[:request_installments] == "1"
-        line_item = @order.line_items.find_by(
+        line_item = current_order.line_items.find_by(
           variant_id: order_populate_params[:variant_id]
         )
         line_item.set_request_installments!
       end
-      @order.set_cart_state!
-
-      variant = Spree::Variant.find_by(id: order_populate_params[:variant_id])
-      flash.now[:notice] = "#{variant.select_label} successfully added"
+      current_order.set_cart_state!
 
       # redirect_to add_offer_orders_path(@offer)
-      redirect_to add_passengers_offer_order_path(@offer, @order)
+      redirect_to add_passengers_offer_order_path(@offer, current_order)
     else
       flash.now[:error] = populator.errors.full_messages.join(" ")
       redirect_to add_offer_orders_path(@offer)

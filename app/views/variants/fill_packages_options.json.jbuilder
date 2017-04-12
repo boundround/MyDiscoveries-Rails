@@ -7,7 +7,7 @@ json.options do
     json.array! @variants.map{ |v| v.bed_type.titleize }.uniq
   end
   json.departure_cities do
-    json.array! @variants.map{ |v| v.departure_city.titleize }.uniq
+    json.array! @variants.map{ |v| v.departure_city }.uniq
   end
   if @options_selected && @variants.one?
     json.variant_id @variants.last.id
