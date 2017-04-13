@@ -43,8 +43,8 @@ class Photo < ActiveRecord::Base
   end
 
   def update_spree_product_photos
-    if @photo.photoable.class.to_s == "Spree::Product"
-      @photo.photoable.photos << @photo
+    if self.photoable.class.to_s == "Spree::Product"
+      self.photoable.photos << @photo
     end
   end
 
