@@ -144,6 +144,9 @@ class PhotosController < ApplicationController
 
   def update
     @photo = Photo.find(params[:id])
+    if @photo.photoable.class.to_s == "Spree::Product"
+      @photo.photoable.photos << @photo
+    end
     if @photo.update(photo_params)
       @photo.save
     end
