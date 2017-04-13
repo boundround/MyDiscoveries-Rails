@@ -139,3 +139,21 @@ a:hover {
 /* Custom Input Placeholder End*/
 
 /*CUSTOM MAIN END*/
+
+
+.hbspt-form {
+	.hs_email {
+		label {
+			display: inline;
+		    position: absolute;
+		    margin-left: -50px;
+		    color: #fff;
+		}
+	}
+	.hs_submit>.actions {
+		float: right !important;
+	    margin-top: -32px;
+	    margin-right: 28px;
+	    margin-bottom: 0;
+	} 
+}

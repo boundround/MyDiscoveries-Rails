@@ -1,55 +1,55 @@
 <footer class="footer">
-    <div class="container">
-      <!-- <div class="row">
-        <div class="col-md-12">Ratings and Reviews Powered by<br><img src="<%# = asset_path('ta_logo.png') %>" alt="Trip Advisor Logo"></div>
-      </div> -->
-        <div class="row wrapper-footer">
-            <div class="col-xs-6 col-sm-4 col-md-3 nav-footer">
-                <ul>
-                     <li><h5 class="footer__header">&nbsp;</h5></li>
-                    <li><a href="/about-us" class="footer__link">About Us</a></li>
-                    <li><a href="/terms-conditions" class="footer__link">Terms And Conditions</a></li>
-                    <li><a href="/frequently-asked-questions" class="footer__link">Frequently Asked Questions</a></li>
-                    <li><a href="/privacy" class="footer__link">Privacy</a></li>
-                </ul>
-            </div>
-            <div class="hidden-xs col-sm-5 col-md-4 nav-footer">
-                <ul>
-                  <li><h5 class="footer__header">Popular Searches</h5></li>
-                  <li><a href="/regions/asia" class="footer__link">Travel in Asia for the over 50s</a></li>
-                  <li><a href="/places/northern-territory" class="footer__link">Northern Territory for the over 50s</a></li>
-                  <li><a href="/places/new-zealand" class="footer__link">Holidays to New Zealand</a></li>
-                  <li><a href="/subcategories/adventure-travel" class="footer__link">Adventure travel for the over 50s</a></li>
-                </ul>
-            </div>
-            <div class="hidden-xs col-sm-4 col-md-3 nav-footer">
-                <ul>
-                    <li><h5 class="footer__header">Countries</h5></li>
-                    <% @footer_countries = Place.find([6, 4, 18, 17, 3, 5]).sort {|x, y| x.display_name <=> y.display_name } %>
-                    <% @footer_countries.each do |country| %>
-                      <li><%= link_to country.display_name, place_path(country), class: "footer__link" %></li>
-                    <% end %>
-
-                </ul>
-            </div>
-            <div class="hidden-xs col-sm-5 col-md-2">
-                <h5 class="footer__header">Connect with us</h5>
-                <a class="footer__link footer__link--social footer__link--fb" target="_blank" href="https://www.facebook.com/MyDiscoveries.com.au/">Facebook</a>
-                <a class="footer__link footer__link--social footer__link--insta" target="_blank" href="https://www.instagram.com/mydiscoveries.com.au/">Instagram</a>
-                <!-- <a class="footer__link footer__link--social footer__link--twitter" href="https://twitter.com/BoundRoundAus">Twitter</a>
-                <a class="footer__link footer__link--social footer__link--yt" href="https://www.youtube.com/user/BoundRoundGuides">YouTube</a>
-                <a class="footer__link footer__link--social footer__link--pint" href="https://au.pinterest.com/boundround/">Pinterest</a> -->
-            </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-3">
-                    <p class="footer__copyright">&copy; 2017 My Discoveries</p>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <!-- <div class="row">
+      <div class="col-md-12">Ratings and Reviews Powered by<br><img src="<%# = asset_path('ta_logo.png') %>" alt="Trip Advisor Logo"></div>
+    </div> -->
+    <div class="row wrapper-footer">
+      <div class="col-xs-6 col-sm-4 col-md-3 nav-footer">
+        <ul>
+          <li><h5 class="footer__header">&nbsp;</h5></li>
+          <li><a href="/about-us" class="footer__link">About Us</a></li>
+          <li><a href="/terms-conditions" class="footer__link">Terms And Conditions</a></li>
+          <li><a href="/frequently-asked-questions" class="footer__link">Frequently Asked Questions</a></li>
+          <li><a href="/privacy" class="footer__link">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="hidden-xs col-sm-5 col-md-4 nav-footer">
+        <ul>
+          <li><h5 class="footer__header">Popular Searches</h5></li>
+          <li><a href="/regions/asia" class="footer__link">Travel in Asia for the over 50s</a></li>
+          <li><a href="/places/northern-territory" class="footer__link">Northern Territory for the over 50s</a></li>
+          <li><a href="/places/new-zealand" class="footer__link">Holidays to New Zealand</a></li>
+          <li><a href="/subcategories/adventure-travel" class="footer__link">Adventure travel for the over 50s</a></li>
+        </ul>
+      </div>
+      <div class="hidden-xs col-sm-4 col-md-3 nav-footer">
+        <ul>
+          <li><h5 class="footer__header">Countries</h5></li>
+          <% @footer_countries = Place.find([6, 4, 18, 17, 3, 5]).sort {|x, y| x.display_name <=> y.display_name } %>
+          <% @footer_countries.each do |country| %>
+            <li><%= link_to country.display_name, place_path(country), class: "footer__link" %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="hidden-xs col-sm-5 col-md-2">
+        <h5 class="footer__header">Connect with us</h5>
+        <a class="footer__link footer__link--social footer__link--fb" target="_blank" href="https://www.facebook.com/MyDiscoveries.com.au/">Facebook</a>
+        <a class="footer__link footer__link--social footer__link--insta" target="_blank" href="https://www.instagram.com/mydiscoveries.com.au/">Instagram</a>
+        <!-- <a class="footer__link footer__link--social footer__link--twitter" href="https://twitter.com/BoundRoundAus">Twitter</a>
+        <a class="footer__link footer__link--social footer__link--yt" href="https://www.youtube.com/user/BoundRoundGuides">YouTube</a>
+        <a class="footer__link footer__link--social footer__link--pint" href="https://au.pinterest.com/boundround/">Pinterest</a> -->
       </div>
     </div>
-  </footer>
-<!--[if lte IE 8]> <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script> <![endif]-->
-<script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
-<script> hbspt.forms.create({ portalId: '2967645', formId: '5b6750f9-749a-48bb-a9ac-7bdd0a169ee5' });</script>
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-3">
+        <p class="footer__copyright">&copy; 2017 My Discoveries</p>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-4"></div>
+      <div class="col-xs-6 col-sm-6 col-md-5">
+        <!--[if lte IE 8]> <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2-legacy.js"></script> <![endif]-->
+        <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+        <script> hbspt.forms.create({ portalId: '2967645', formId: '5b6750f9-749a-48bb-a9ac-7bdd0a169ee5' });</script>
+      </div>
+    </div>
+  </div>
+</footer>
