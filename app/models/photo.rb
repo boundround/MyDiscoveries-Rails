@@ -44,7 +44,7 @@ class Photo < ActiveRecord::Base
 
   def update_spree_product_photos
     if self.photoable.class.to_s == "Spree::Product"
-      self.photoable.photos << @photo
+      self.photoable.photos << self
     end
   end
 
