@@ -30,7 +30,8 @@ class Payment::PaymentExpress::ProcessAuthRequest
     order.update(
       authorized: true,
       px_response: px_response_json,
-      purchase_date: purchase_date
+      purchase_date: purchase_date,
+      completed_at:  purchase_date
     )
   end
 
@@ -103,7 +104,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def order_price
-    @order_price ||= order.request_installments? ? order.monthly_price : order.total_price
+    @order_price ||= order.total_price
   end
 
   # value that uniquely identifies the transaction

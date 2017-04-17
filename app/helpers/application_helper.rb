@@ -502,4 +502,17 @@ module ApplicationHelper
     text += offer.number_of_nights.present?? pluralize(offer.number_of_nights, "night") : ""
   end
 
+  def clean_text(datas)
+    models_name = datas.class
+    columns = models_name.column_names
+    columns.each do |col|
+      if (models_name.columns_hash[col].type == :text ||
+          models_name.columns_hash[col].type == :string) &&
+          datas[col].present?
+        datas[col] = datas[col].gsub(/[”“’]/, "”" => "\"", "“" => "\"", "’" => "\'")
+      end
+    end
+    datas
+  end
+
 end

@@ -119,9 +119,8 @@ class ApplicationController < ActionController::Base
     request.path != "/users/sign_out"
   end
 
-  def check_user_authorization
-    model_name = params[:controller].classify
-    model_name = model_name == 'Product' ? 'Spree::Product' : model_name
+  def check_user_authorization(model_name = nil)
+    model_name = model_name || params[:controller].classify
     authorize model_name.camelize.constantize
   end
 

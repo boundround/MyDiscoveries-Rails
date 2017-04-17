@@ -132,10 +132,6 @@ class Ax::Upload
     @payment_type ||= sage_pay_card_type.first
   end
 
-  def oss_payment_sched
-    order.request_installments? ? '5' : ''
-  end
-
   def shipping_cost
     '0'
   end
@@ -175,22 +171,13 @@ class Ax::Upload
           xml.Country  ENV['AX_COUNTRY']
         end
         xml.Items do
-          order.number_of_adults.times do
+          order.line_items.each do |li|
             xml.Item do
-              xml.ItemId       offer.item_id
-              xml.ItemDesc     offer.name
-              xml.Quantity     '1'
-              xml.UnitPrice    offer.minRateAdult
-              xml.OSSPaymSched oss_payment_sched
-            end
-          end
-          order.number_of_children.times do
-            xml.Item do
-              xml.ItemId       offer.child_item_id
-              xml.ItemDesc     offer.name
-              xml.Quantity     '1'
-              xml.UnitPrice    (offer.minRateChild.presence || offer.minRateAdult)
-              xml.OSSPaymSched oss_payment_sched
+              xml.ItemId       li.variant.item_code
+              xml.ItemDesc     li.variant.select_label
+              xml.Quantity     li.quantity
+              xml.UnitPrice    sprintf("%.2f", li.price)
+              xml.OSSPaymSched li.request_installments? ? '5' : ''
             end
           end
         end

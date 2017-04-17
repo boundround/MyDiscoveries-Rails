@@ -4,7 +4,7 @@
       <td colspan="2" style="font-family:'Rubik'; font-size: 16px; color: #fff; background-color: #000060; padding: 30px 0">
         Having trouble viewing this email? View it in your
         <%= link_to 'browser',
-          confirmation_offer_order_url(offer, order),
+          order_confirmation_url(order),
           style: "text-decoration: underline; color: #fff"
         %>
       </td>
@@ -38,10 +38,8 @@
     pdf_page:   pdf_page,
     email_page: email_page,
     order:      order,
-    offer:      offer,
     customer:   customer,
-    operator:   operator,
-    collection: order.ax_line_items.any? ? order.ax_line_items : (1..order.total_people_count).to_a
+    collection: order.line_items
   %>
   <tbody>
   <% if !email_page %>
@@ -53,12 +51,12 @@
       </td>
     </tr>
   <% end %>
+  <% order.products.uniq.each do |product| %>
     <tr>
       <td colspan="2" style="padding: 0">
         <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
       </td>
     </tr>
-  <tr>
     <tr>
       <td colspan="2" style="padding: 40px; text-align: center;">
         <% if email_page || !pdf_page %>
@@ -68,69 +66,70 @@
         <% end %>
       </td>
     </tr>
+        <tr>
+          <td colspan="2" style="padding: 0">
+            <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+          </td>
+        </tr>
       <tr>
-        <td colspan="2" style="padding: 0">
-          <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+        <td colspan="2" style="padding: 40px 40px 30px; padding-bottom: 15px;">
+          <span style="font-family: 'Georgia'; font-size: 26px">
+            Tour information
+          </span>
+          <br>
+          <span style="font-family: Arial; font-weight: bold; font-size: 20px;">
+            <%= product.name %>
+          </span>
         </td>
       </tr>
-    <tr>
-      <td colspan="2" style="padding: 40px 40px 30px; padding-bottom: 15px;">
-        <span style="font-family: 'Georgia'; font-size: 26px">
-          Tour information
-        </span>
-        <br>
-        <span style="font-family: Arial; font-weight: bold; font-size: 20px;">
-          <%= order.title %>
-        </span>
-      </td>
+      <tr>
+        <td colspan="2" style="padding: 0 40px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+            Operator name
+          </span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= product.operator.name %>
+          </p>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+            Contact number
+          </span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= product.operator.phone %>
+          </p>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+            Inclusions
+          </span>
+          <ul style="margin: 0;padding-left: 0;list-style: none;margin-bottom: 15px; margin-top: 10px;">
+            <%= simple_format product.includes %>
+          </ul>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+            Fine Print
+          </span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
+            <%= simple_format product.customStr3 %>
+          </p>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
+            Booking Essentials
+          </span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
+            <%= simple_format product.customStr1 %>
+          </p>
+        </td>
+      </tr>
     </tr>
-    <tr>
-      <td colspan="2" style="padding: 0 40px 40px;">
-        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-          Operator name
-        </span>
-        <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-          <%= operator.name %>
-        </p>
-        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-          Contact number
-        </span>
-        <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-          <%= operator.phone %>
-        </p>
-        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-          Inclusions
-        </span>
-        <ul style="margin: 0;padding-left: 0;list-style: none;margin-bottom: 15px; margin-top: 10px;">
-          <%= simple_format offer.includes %>
-        </ul>
-        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-          Fine Print
-        </span>
-        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
-          <%= simple_format offer.customStr3 %>
-        </p>
-        <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-          Booking Essentials
-        </span>
-        <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
-          <%= simple_format offer.customStr1 %>
-        </p>
-      </td>
-    </tr>
-  </tr>
-  <% if offer.itinerary.url.present? %>
-    <% if email_page %>
-      <tr style="background-color: #000060;">
-    <% else %>
-      <tr style="background-color: #eaeaea">
+    <% if product.itinerary.url.present? %>
+      <% if email_page %>
+        <tr style="background-color: #000060;">
+      <% else %>
+        <tr style="background-color: #eaeaea">
+      <% end %>
+        <td colspan="2" style="padding: 25px 40px 40px;">
+          <a href=<%= product.itinerary.url %> style="background-color: #ff4a1a;width: 100%;display: block;padding: 20px 0;text-align: center;font-size: 18px;font-family: Arial;color: #fff;text-decoration: none;">
+            VIEW HOLIDAY PDF
+          </a>
+        </td>
+      </tr>
     <% end %>
-      <td colspan="2" style="padding: 25px 40px 40px;">
-        <a href=<%= offer.itinerary.url %> style="background-color: #ff4a1a;width: 100%;display: block;padding: 20px 0;text-align: center;font-size: 18px;font-family: Arial;color: #fff;text-decoration: none;">
-          VIEW HOLIDAY PDF
-        </a>
-      </td>
-    </tr>
   <% end %>
   <% if email_page %>
     <tr style="background-color: #000060;">

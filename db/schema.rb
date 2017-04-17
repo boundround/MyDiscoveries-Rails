@@ -781,8 +781,10 @@ ActiveRecord::Schema.define(version: 20170410111805) do
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "line_item_id"
   end
 
+  add_index "passengers", ["line_item_id"], name: "index_passengers_on_line_item_id", using: :btree
   add_index "passengers", ["order_id"], name: "index_passengers_on_order_id", using: :btree
 
   create_table "pg_search_documents", force: true do |t|
@@ -1322,8 +1324,8 @@ ActiveRecord::Schema.define(version: 20170410111805) do
   create_table "spree_line_items", force: true do |t|
     t.integer  "variant_id"
     t.integer  "order_id"
-    t.integer  "quantity",                                                    null: false
-    t.decimal  "price",                precision: 10, scale: 2,               null: false
+    t.integer  "quantity",                                                      null: false
+    t.decimal  "price",                precision: 10, scale: 2,                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "currency"
@@ -1332,8 +1334,9 @@ ActiveRecord::Schema.define(version: 20170410111805) do
     t.decimal  "adjustment_total",     precision: 10, scale: 2, default: 0.0
     t.decimal  "additional_tax_total", precision: 10, scale: 2, default: 0.0
     t.decimal  "promo_total",          precision: 10, scale: 2, default: 0.0
-    t.decimal  "included_tax_total",   precision: 10, scale: 2, default: 0.0, null: false
+    t.decimal  "included_tax_total",   precision: 10, scale: 2, default: 0.0,   null: false
     t.decimal  "pre_tax_amount",       precision: 8,  scale: 2, default: 0.0
+    t.boolean  "request_installments",                          default: false
   end
 
   add_index "spree_line_items", ["order_id"], name: "index_spree_line_items_on_order_id", using: :btree
