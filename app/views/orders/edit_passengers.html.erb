@@ -39,7 +39,7 @@
                 <tr>
                   <td>Total price</td>
                   <td>
-                    $<%= total_line_items_price(@line_items) %>
+                    <%= number_to_currency(total_line_items_price(@line_items)) %>
                   </td>
                 </tr>
               </table>
@@ -56,7 +56,7 @@
 
           <div class="passenger-info-block">
             <%= simple_form_for(@order, url: update_passengers_offer_order_path(@offer, @order), method: :patch, html: { class: 'horizontal' }) do |of| %>
-              <% @passengers.each_with_index do |passenger, n| %>
+              <% @order.passengers.each_with_index do |passenger, n| %>
                 <%= of.simple_fields_for :passengers, passenger do |pf| %>
                   <%= pf.input :line_item_id, as: :hidden %>
                   <div class="passanger-info-item">
@@ -135,7 +135,7 @@
             </div>
 
             <div class="btns-block">
-              <%= link_to 'back', add_offer_orders_path(@offer), class: 'btn-bordered red no-border' %>
+              <%= link_to 'back', offer_path(@offer), class: 'btn-bordered red no-border' %>
               <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
                 <span>CONTINUE</span>
               <% end %>

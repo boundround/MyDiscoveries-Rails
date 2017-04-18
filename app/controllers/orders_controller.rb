@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   ]
 
   before_action :set_current_order, only: [
-    :add, :populate, :delete_line_item, :add_passengers,
+    :add, :populate, :delete_line_item,
     :add_passengers, :edit_passengers, :update_passengers,
     :checkout, :payment
   ]
@@ -191,7 +191,6 @@ class OrdersController < ApplicationController
   end
 
   def edit_passengers
-    @passengers = Passenger.where(line_item: @line_items).order(id: :asc)
   end
 
   def update_passengers
