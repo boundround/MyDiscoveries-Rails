@@ -189,7 +189,6 @@ class OrdersController < ApplicationController
 
   def update_passengers
     if @order.update(order_params)
-      @user.update(user_params)
       if @order.add_passengers? && !@order.next
         next_product = @order.line_items_without_passengers.first.product
         flash.now[:notice] = "It is necessary to fill out the passenger form before payment"
@@ -283,15 +282,6 @@ class OrdersController < ApplicationController
         :line_item_id
       ]
     )
-  end
-
-  def user_params
-    user_first = order_params[:passengers_attributes][:"0"]
-    user_first.delete("id")
-    user_first.delete("line_item_id")
-    user_first[:gender] = user_first.delete(:title)
-    user_first[:home_phone] = user_first.delete(:telephone)
-    user_first
   end
 
   def customer_params
