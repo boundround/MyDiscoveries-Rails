@@ -119,6 +119,13 @@ class OrdersController < ApplicationController
 
   def checkout
     @customer.credit_card = CreditCard.new
+
+    respond_to do |format|
+      format.html { render 'checkout' }
+      format.json {
+        render json: { status: :success, passenger: @order.passengers.first }
+      }
+    end
   end
 
   def cms_edit
