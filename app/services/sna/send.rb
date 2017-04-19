@@ -15,10 +15,6 @@ class SNA::Send
     @customer ||= order.customer
   end
 
-  def offer
-    @offer ||= order.product
-  end
-
   def user
     @user ||= User.find_by id: order.user_id
   end
@@ -29,10 +25,6 @@ class SNA::Send
 
   def order_time
     @order_time ||= order.created_at.strftime('%H:%M:%S')
-  end
-
-  def oss_payment_sched
-    order.request_installments? ? '5' : ''
   end
 
   def shipping_cost
@@ -87,29 +79,20 @@ class SNA::Send
   def items
     all_items = []
 
-    order.number_of_adults.times do
-      all_items.push({
-        "Item": {
-          "ItemId": offer.item_id,
-          "ItemDesc": offer.name,
-          "Quantity": 1,
-          "UnitPrice": offer.minRateAdult,
-          "SupplierProductCode": offer.supplier_product_code.presence || ""
-        }
-      })
+    order.line_items.each do |line_item|
+      if line_item.product.operator_id == 1
+        all_items.push({
+          "Item": {
+            "ItemId": line_item.variant.item_code,
+            "ItemDesc": line_item.product.name,
+            "Quantity": line_item.quantity,
+            "UnitPrice": line_item.price.to_s,
+            "SupplierProductCode": line_item.product.supplier_product_code.presence.to_s
+          }
+        })
+      end
     end
 
-    order.number_of_children.times do
-      all_items.push({
-        "Item": {
-          "ItemId": offer.child_item_id,
-          "ItemDesc": offer.name,
-          "Quantity": 1,
-          "UnitPrice": (offer.minRateChild.presence || offer.minRateAdult),
-          "SupplierProductCode": offer.supplier_product_code.presence || ""
-        }
-      })
-    end
     all_items
   end
 

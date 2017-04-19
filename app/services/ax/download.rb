@@ -20,11 +20,10 @@ class Ax::Download
       if @order && @order.persisted?
         OrderAuthorized.delay.notification(@order.id)
 
-        if @order.product.operator_id.present? && @order.product.operator_id == 1
+        if @order.products.where(operator_id: 1).any?
           SNA::Send.call(@order)
         end
       end
-
     end
   end
 
