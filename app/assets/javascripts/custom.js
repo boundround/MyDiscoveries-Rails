@@ -62,11 +62,8 @@ $(document).ready(function(){
   // Start Billing Autopupulate
   $("#populate-passenger").change(function() {
     if(this.checked) {
-      var offer = $(this).data("offer"),
-          order = $(this).data("order");
-
       $.ajax({
-        url: "/offers/"+ offer +"/orders/"+ order +"/checkout",
+        url: "/checkout",
         dataType: 'json',
         success: function(data) {
           $('#customer_first_name').val(data.passenger.first_name);
@@ -117,7 +114,7 @@ $(document).ready(function(){
       var src_img = $(this).find('img').attr('src');
       $(this).css('background-image','url('+src_img+')');
     })
- 
+
     addClassVideo()
 
     $('.slider-for button').click(function(){
@@ -165,7 +162,7 @@ $(document).ready(function(){
     $('#user_crop_x').val(coords.x);
     $('#user_crop_y').val(coords.y);
     $('#user_crop_w').val(coords.w);
-    $('#user_crop_h').val(coords.h);  
+    $('#user_crop_h').val(coords.h);
     updatePreview(coords);
   }
 

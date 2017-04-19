@@ -1,0 +1,26 @@
+@media screen and (min-width: 1201px) {
+  .cart-product-value {
+    min-width: 250px;
+  }
+
+  .right-align-button {
+    float: right;
+  }
+
+  .inline-buttons {
+    display: inline-block;
+  }
+
+  .cart-delete-product-btn {
+    margin-top: 10px;
+  }
+
+  .buttons-group {
+    width: 100%;
+  }
+}
+
+.cart-product-photo {
+  float: left;
+  margin: 0px 15px 15px 0px;
+}

@@ -419,14 +419,6 @@ Rails.application.routes.draw do
       collection { get 'all_photos' }
     end
     resources :orders, only: [ :new, :edit, :create, :update ] do
-      member do
-        get :add_passengers
-        get :edit_passengers
-        patch :update_passengers
-        get :checkout
-        post :payment
-      end
-
       collection do
         get :add
         post :populate
@@ -451,6 +443,17 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'cart' => 'orders#cart'
+  put 'empty_cart' => 'orders#empty'
+  get 'offers/:offer_id/line_items/:line_item_id/add_passengers' => 'orders#add_passengers',
+    as: :line_item_add_passengers
+  patch 'offers/:offer_id/line_items/:line_item_id' => 'orders#update_passengers',
+    as: :line_item_update_passengers
+  get 'offers/:offer_id/line_items/:line_item_id/edit_passengers' => 'orders#edit_passengers',
+    as: :line_item_edit_passengers
+  get 'checkout' => 'orders#checkout', as: :checkout
+  post 'payment' => 'orders#payment', as: :payment
+  put 'orders/update_line_items' => 'orders#update_line_items', as: :update_cart
   get 'orders/:id/view_confirmation' => 'orders#view_confirmation',
     as: :order_view_confirmation
   get 'orders/:id/cms_edit' => 'orders#cms_edit',

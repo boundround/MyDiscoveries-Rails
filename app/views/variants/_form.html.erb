@@ -2,7 +2,7 @@
   <%= f.input :sku, label: 'SKU', input_html: { class: 'form-control' } %>
 </div>
 <div class="form-group">
-  <%=
+  <%#
     f.input :stock_items_count,
     label: 'Stock Item Count',
     input_html: { class: 'form-control' }
@@ -60,7 +60,7 @@
   </div>
   <div class="form-group">
     <%= f.check_box :track_inventory, label: false %>
-    <%= f.label :track_inventory, "Track Inventory" %>
+    <%# f.label :track_inventory, "Track Inventory" %>
   </div>
 </div>
 <div class="form-group">

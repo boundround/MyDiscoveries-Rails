@@ -66,4 +66,16 @@ class OrderPolicy < ApplicationPolicy
   def delete_line_item?
     new?
   end
+
+  def cart?
+    new?
+  end
+
+  def update_line_items?
+    new?
+  end
+
+  def empty?
+    new?
+  end
 end

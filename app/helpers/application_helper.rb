@@ -515,4 +515,16 @@ module ApplicationHelper
     datas
   end
 
+  def shopping_cart_label(mobile=false)
+    total_count = current_order.try(:line_items).try(:count)
+    if total_count.to_i > 0
+      if mobile
+        " #{pluralize(total_count, 'item')} "
+      else
+        " #{pluralize(total_count, 'item')} - #{number_to_currency(current_order.total)} "
+      end
+    else
+      ' Empty '
+    end
+  end
 end

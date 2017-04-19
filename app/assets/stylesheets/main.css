@@ -10894,7 +10894,7 @@ span.arrow {
             color: #5f8389;
             font-size: 14px;
             font-weight: 200; }
-  .region.package-offers a.btn-bordered {
+  .region.package-offers .btn-bordered {
     margin: 0 auto;
     width: 140px;
     display: block; }
@@ -11035,7 +11035,7 @@ span.arrow {
           position: absolute;
           left: 20px;
           bottom: 15px; }
-  .region.itinerary-offers a.btn-bordered {
+  .region.itinerary-offers .btn-bordered {
     margin: 0 auto;
     width: 140px;
     display: block; }
@@ -12224,11 +12224,11 @@ span.arrow {
       color: #000060;
       font-family: Larsseit-Bold, sans-serif; }
     @media screen and (max-width: 1200px) {
-      .booking-block .prices-and-availability-block .form-block a.btn-bordered {
+      .booking-block .prices-and-availability-block .form-block .btn-bordered {
         width: 100%;
         margin-top: 20px; } }
     @media screen and (min-width: 1201px) {
-      .booking-block .prices-and-availability-block .form-block a.btn-bordered {
+      .booking-block .prices-and-availability-block .form-block .btn-bordered {
         float: right; } }
     .booking-block .prices-and-availability-block .form-block #departure-date {
       width: 130px;
@@ -12899,7 +12899,7 @@ td a.ui-state-default.ui-state-hover {
       padding: 30px;
       position: relative; }
       @media screen and (min-width: 1201px) {
-        .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-item .up-mc-tabs-header a.btn-bordered {
+        .user-pages section .up-tabs-item.up-my-content .up-mc-tabs-item .up-mc-tabs-header .btn-bordered {
           position: absolute;
           right: 30px;
           top: 30px; } }
@@ -13148,7 +13148,7 @@ td a.ui-state-default.ui-state-hover {
             font-size: 34px;
             font-weight: bold;
             padding-top: 190px; }
-          .story .story-content-block aside .share-story .ss-content a.btn-bordered {
+          .story .story-content-block aside .share-story .ss-content .btn-bordered {
             position: absolute;
             bottom: 30px;
             left: 20px; }
