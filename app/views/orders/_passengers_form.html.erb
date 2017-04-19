@@ -14,7 +14,7 @@
                <h4 class="heading">your booking:</h4>
                 <ul>
                   <li>
-                    <%= line_items.pluck(:quantity).reduce(:+) %> guests
+                    <%= line_item.quantity %> guests
                   </li>
                   <li>
                     <%= create_duration(offer) %>
@@ -24,22 +24,20 @@
             </div>
             <div class="bi-bottom">
               <table>
-                <% line_items.each do |line_item| %>
-                  <tr>
-                    <td><%= "#{line_item.variant.select_label} (Qty: #{line_item.quantity})" %></td>
-                    <td>
-                      <% if line_item.request_installments? %>
-                        <%= "5 x #{number_to_currency(total_line_item_price(line_item).to_f / 5.to_f)}" %>
-                      <% else %>
-                        <%= "#{number_to_currency(total_line_item_price(line_item))}" %>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
+                <tr>
+                  <td><%= "#{line_item.variant.select_label} (Qty: #{line_item.quantity})" %></td>
+                  <td>
+                    <% if line_item.request_installments? %>
+                      <%= "5 x #{number_to_currency(total_line_item_price(line_item).to_f / 5.to_f)}" %>
+                    <% else %>
+                      <%= "#{number_to_currency(total_line_item_price(line_item))}" %>
+                    <% end %>
+                  </td>
+                </tr>
                 <tr>
                   <td>Total price</td>
                   <td>
-                    $<%= total_line_items_price(line_items) %>
+                    $<%= total_line_items_price([line_item]) %>
                   </td>
                 </tr>
               </table>
@@ -55,10 +53,10 @@
           </div>
 
           <div class="passenger-info-block">
-            <%= simple_form_for(order, url: update_passengers_offer_order_path(offer, order), method: :patch, html: { class: 'horizontal' }) do |of| %>
-              <% @order.passengers.each_with_index do |passenger, n| %>
+            <%= simple_form_for(line_item, url: line_item_update_passengers_path(offer, line_item), method: :patch, html: { class: 'horizontal' }) do |of| %>
+              <% line_item.passengers.each_with_index do |passenger, n| %>
                 <%= of.simple_fields_for :passengers, passenger do |pf| %>
-                <%= pf.input :line_item_id, as: :hidden %>
+                <%= pf.input :order_id, as: :hidden %>
                   <div class="passanger-info-item">
                     <h4 class="heading">
                       PASSENGER DETAILS

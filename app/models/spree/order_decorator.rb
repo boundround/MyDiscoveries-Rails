@@ -20,6 +20,7 @@ Spree::Order.class_eval do
   after_commit :set_ax_sales_id!, on: :create
 
   accepts_nested_attributes_for :passengers
+  accepts_nested_attributes_for :line_items
 
   # customizes checkout flow
   checkout_flow do
@@ -77,6 +78,10 @@ end
 
   def set_cart_state!
     update(state: 'cart') unless cart?
+  end
+
+  def set_cart_add_passengers!
+    update(state: 'add_passengers') unless add_passengers?
   end
 
   def total_quantity

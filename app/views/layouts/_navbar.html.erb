@@ -36,6 +36,14 @@
                     </ul>
                 </li>
             </ul>
+            <ul class="nav signin_dropdown right10">
+              <li class="">
+                <%= link_to cart_path do %>
+                  <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                  <%= shopping_cart_label %>
+                <% end %>
+              </li>
+            </ul>
         <% end %>
         <div class="search-container">
                 <form accept-charset="UTF-8" action="/results" method="get">
@@ -131,11 +139,14 @@
     <div class="mobile-header-drop-down_container js-mobile-header-drop-down_container">
 
         <div class="mobile-header-drop-down__expanded-block">
-
             <a class="mobile-header-drop-down__link" href="<%= root_path %>">home</a>
             <a class="mobile-header-drop-down__link mobile-header-drop-down__link--expand js-mobile-header-drop-down--to-right" href="#">destinations</a>
             <a class="mobile-header-drop-down__link" href="/offers">deals</a>
             <a class="mobile-header-drop-down__link" href="/posts/all_posts">travel stories</a>
+            <a class="mobile-header-drop-down__link" href="/posts/all_posts">travel stories</a>
+            <%= link_to cart_path, class: 'mobile-header-drop-down__link' do %>
+              <%= "Shopping Cart (#{shopping_cart_label(mobile=true)})" %>
+            <% end %>
             <% if !user_signed_in? %>
                 <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" href="<%= new_user_registration_path %>">join</a>
                 <a class="mobile-header-drop-down__link mobile-header-drop-down__link--signing" data-toggle="modal" data-target="#singIn" href="#">sign in</a>

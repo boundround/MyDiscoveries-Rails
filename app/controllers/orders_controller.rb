@@ -1,6 +1,4 @@
 class OrdersController < ApplicationController
-  include Spree::Core::ControllerHelpers::Auth
-  include Spree::Core::ControllerHelpers::Order
 
   before_action :authenticate_user!
   before_action :check_user_authorization, except: [
@@ -13,7 +11,8 @@ class OrdersController < ApplicationController
   before_action :set_current_order, only: [
     :add, :populate, :delete_line_item,
     :add_passengers, :edit_passengers, :update_passengers,
-    :checkout, :payment
+    :checkout, :payment, :cart, :update_line_items,
+    :empty
   ]
 
   before_action :set_offer, except: [
@@ -23,7 +22,12 @@ class OrdersController < ApplicationController
     :cms_update,
     :customer_info,
     :confirmation,
-    :resend_confirmation
+    :resend_confirmation,
+    :cart,
+    :empty,
+    :checkout,
+    :payment,
+    :update_line_items
   ]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -33,17 +37,43 @@ class OrdersController < ApplicationController
 
   before_action :set_variants, only: [:add, :populate]
   before_action :set_line_items, only: [
-    :add, :populate, :add_passengers, :update_passengers, :edit_passengers
+    :add,
+    :populate,
+    :cart,
+    :update_line_items
   ]
 
-  before_action :check_order_completed, only: [:edit, :checkout, :update, :payment]
+  before_action :set_line_item, only: [
+    :add_passengers,
+    :edit_passengers,
+    :update_passengers
+  ]
 
   before_action :set_order_for_admin, only: [
-    :cms_update, :cms_edit, :view_confirmation, :customer_info, :resend_confirmation
+    :cms_update,
+    :cms_edit,
+    :view_confirmation,
+    :customer_info,
+    :resend_confirmation
   ]
 
   def index
     @orders = Spree::Order.where(authorized: true)
+  end
+
+  def cart
+    associate_user
+  end
+
+  def update_line_items
+    if @order.update(order_params)
+      @order.set_cart_state! unless @order.total_quantity.to_i > 0
+      @order.update!
+      redirect_to cart_path
+    else
+      flash.now[:error] = @order.errors.full_messages.join(' ')
+      redirect_to cart_path
+    end
   end
 
   # Adds a new item to the order (creating a new order if none already exists)
@@ -53,39 +83,44 @@ class OrdersController < ApplicationController
       current_currency
     )
 
-    #temporary empty order before fill it
-    current_order.empty! if current_order.persisted?
-
     if populator.populate(
         order_populate_params[:variant_id],
         order_populate_params[:quantity],
         order_populate_params[:options]
       )
+      @line_item = current_order.line_items.find_by(
+        variant_id: order_populate_params[:variant_id]
+      )
       if order_populate_params[:request_installments] == "1"
-        line_item = current_order.line_items.find_by(
-          variant_id: order_populate_params[:variant_id]
-        )
-        line_item.set_request_installments!
+        @line_item.set_request_installments!
       end
       current_order.set_cart_state!
-
-      # redirect_to add_offer_orders_path(@offer)
-      redirect_to add_passengers_offer_order_path(@offer, current_order)
+      redirect_to line_item_add_passengers_path(@offer, @line_item)
     else
       flash.now[:error] = populator.errors.full_messages.join(" ")
-      redirect_to add_offer_orders_path(@offer)
+      redirect_to :back
     end
   end
 
   def delete_line_item
     variant = Spree::Variant.find_by(id: params[:variant_id])
     if @order.contents.remove(variant, params[:quantity].to_i)
-      @order.set_cart_state!
+      @order.set_cart_state! if @order.line_items.empty?
       flash.now[:error] = variant.errors.full_messages.join(" ")
-      redirect_to add_offer_orders_path(@offer)
+      redirect_to cart_path
     else
       flash.now[:notice] = "#{variant.select_label} successfully deleted"
-      redirect_to add_offer_orders_path(@offer)
+      redirect_to cart_path
+    end
+  end
+
+  def empty
+    if @order.empty!
+      @order.set_cart_state!
+      redirect_to cart_path
+    else
+      flash.now[:error] = @order.errors.full_messages.join(" ")
+      redirect_to cart_path
     end
   end
 
@@ -118,13 +153,17 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    @customer.credit_card = CreditCard.new
+    if @order.try(:px_payment?)
+      @customer.credit_card = CreditCard.new
 
-    respond_to do |format|
-      format.html { render 'checkout' }
-      format.json {
-        render json: { status: :success, passenger: @order.passengers.first }
-      }
+      respond_to do |format|
+        format.html { render 'checkout' }
+        format.json {
+          render json: { status: :success, passenger: @order.passengers.first }
+        }
+      end
+    else
+      redirect_to cart_path
     end
   end
 
@@ -148,7 +187,7 @@ class OrdersController < ApplicationController
   end
 
   def view_confirmation
-    redirect_to :back unless @order.authorized?
+    redirect_to :back unless @order.completed?
     @customer   = @order.customer
   end
 
@@ -159,6 +198,7 @@ class OrdersController < ApplicationController
   end
 
   def payment
+    redirect_to :cart unless @order.try(:px_payment?)
     @customer.credit_card = CreditCard.new(credit_card_params)
     credit_card_valid     = @customer.credit_card.valid?
 
@@ -182,38 +222,27 @@ class OrdersController < ApplicationController
 
   def add_passengers
     @order.next if @order.cart?
-    @line_items.each do |li|
-      new_passengers_count = li.quantity - @order.passengers.where(line_item: li).count
-      new_passengers_count.times do
-        @order.passengers.build(line_item: li)
-      end
-    end
+    new_passengers_count = @line_item.quantity - @line_item.passengers.count
+    new_passengers_count.times { @line_item.passengers.build(order: @order) }
   end
 
   def edit_passengers
   end
 
   def update_passengers
-    if @order.update(order_params)
-      if @order.add_passengers? && !@order.next
-        next_product = @order.line_items_without_passengers.first.product
-        flash.now[:notice] = "It is necessary to fill out the passenger form before payment"
-        redirect_to add_passengers_offer_order_path(next_product, @order)
-      else
-        redirect_to checkout_offer_order_path(@offer, @order)
-      end
+    if @line_item.update(line_item_params)
+      @order.next
+      redirect_to cart_path
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
-      render :edit_passengers
+      render :add_passengers
     end
   end
 
   def update
     @order.assign_attributes(order_params)
-    is_units_count_changed = is_units_count_changed?
 
     if @order.save
-      @order.passengers.destroy_all if is_units_count_changed
       redirect_to add_passengers_offer_order_path(@offer, @order)
     else
       flash.now[:alert] = "See problems below: " + @order.errors.full_messages.join(', ')
@@ -255,17 +284,11 @@ class OrdersController < ApplicationController
 
   def set_line_items
     line_item_ids = @order.line_items.pluck(:id)
-    @line_items   = @offer.line_items.where(id: line_item_ids)
+    @line_items   = @offer ? @offer.line_items.where(id: line_item_ids) : @order.line_items
   end
 
-  def is_units_count_changed?
-    @order.number_of_children_changed? ||
-    @order.number_of_infants_changed?  ||
-    @order.number_of_adults_changed?
-  end
-
-  def check_order_completed
-    redirect_to order_confirmation_path(@order) if @order.completed?
+  def set_line_item
+    @line_item = @order.line_items.find_by(id: params[:line_item_id])
   end
 
   def order_params
@@ -276,16 +299,9 @@ class OrdersController < ApplicationController
       :number_of_adults,
       :start_date,
       :request_installments,
-      passengers_attributes: [
+      line_items_attributes: [
         :id,
-        :title,
-        :first_name,
-        :last_name,
-        :date_of_birth,
-        :telephone,
-        :mobile,
-        :email,
-        :line_item_id
+        :quantity
       ]
     )
   end
@@ -326,6 +342,22 @@ class OrdersController < ApplicationController
       :holder_name,
       :date,
       :cvv
+    )
+  end
+
+  def line_item_params
+    params.require(:line_item).permit(
+      passengers_attributes: [
+        :id,
+        :title,
+        :first_name,
+        :last_name,
+        :date_of_birth,
+        :telephone,
+        :mobile,
+        :email,
+        :order_id
+      ]
     )
   end
 end
