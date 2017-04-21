@@ -2,6 +2,7 @@ class Photo < ActiveRecord::Base
   include CustomerApprovable
 
   before_save :set_approval_time, :check_customer_approved
+  after_save :update_spree_product_photos
 
   belongs_to :photoable, polymorphic: true
 
@@ -38,6 +39,12 @@ class Photo < ActiveRecord::Base
       if row.length > 0
         self.countries.delete(country)
       end
+    end
+  end
+
+  def update_spree_product_photos
+    if self.photoable.class.to_s == "Spree::Product"
+      self.photoable.photos << self
     end
   end
 

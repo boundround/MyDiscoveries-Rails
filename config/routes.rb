@@ -486,4 +486,7 @@ Rails.application.routes.draw do
   get '/admin/configurable/booking_guarantee' => 'admin/configurables#book_guarantee'
   get '/admin/configurable/terms_and_conditions' => 'admin/configurables#terms_and_conditions'
   post '/admin/configurable' => 'admin/configurables#create', as: :configurables
+
+  #temporary redirect to landing page for competitions
+  get '/win' => redirect('http://offers.mydiscoveries.com.au/win-my-discoveries-5-night-stay')
 end
