@@ -87,7 +87,7 @@ class SNA::Send
             "ItemDesc": line_item.product.name,
             "Quantity": line_item.quantity,
             "UnitPrice": line_item.price.to_s,
-            "SupplierProductCode": line_item.product.supplier_product_code.presence.to_s
+            "SupplierProductCode": line_item.variant.sku
           }
         })
       end

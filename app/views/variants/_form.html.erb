@@ -1,5 +1,5 @@
 <div class="form-group">
-  <%= f.input :sku, label: 'SKU', input_html: { class: 'form-control' } %>
+  <%= f.input :sku, label: 'Supplier Product Code', input_html: { class: 'form-control' } %>
 </div>
 <div class="form-group">
   <%#
@@ -11,7 +11,7 @@
 <div class="form-group">
   <%=
     f.input :maturity,
-    label: 'Maturity',
+    label: 'Adult/Child',
     as: :select,
     collection: Spree::Variant.maturities.keys,
     include_blank: false,
@@ -50,10 +50,10 @@
     input_html: { class: 'form-control' }
   %>
   <div class="form-group">
-    <%= f.input :sumcode, label: 'Sumcode', input_html: { class: 'form-control' } %>
+    <%= f.input :sumcode, label: 'Sumcode (AX Item Code without variant - ex. MSN005)', input_html: { class: 'form-control' } %>
   </div>
   <div class="form-group">
-    <%= f.input :item_code, label: 'Item Code', input_html: { class: 'form-control' } %>
+    <%= f.input :item_code, label: 'AX Item Code', input_html: { class: 'form-control' } %>
   </div>
   <div class="form-group">
     <%= f.input :room_type, label: 'Room Type', input_html: { class: 'form-control' } %>
