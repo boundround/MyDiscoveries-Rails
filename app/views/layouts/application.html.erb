@@ -90,7 +90,7 @@
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
 		<% if !user_signed_in? || (user_signed_in? && !current_user.admin?) %>
            <div class="no-admin-page">
-                   <h2>COMING SOON!</h2>
+                   <h2>Sorry, MyDiscoveries is currently undergoing routine maintenance. We will be back online shortly.</h2>
            </div>
    <% end %>
 		<div id="environment" data-environment="<%= Rails.env %>">
