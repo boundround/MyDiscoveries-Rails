@@ -84,7 +84,8 @@ class VariantsController < ApplicationController
       :sumcode,
       :item_code,
       :description,
-      :room_type
+      :room_type,
+      :supplier_product_code
     )
   end
 end
