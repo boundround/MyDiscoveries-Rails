@@ -20,9 +20,12 @@ Spree::LineItem.class_eval do
   private
 
   def check_passengers
-    if quantity != passengers.count && passengers.any?
-      passengers.destroy_all
-      order.set_cart_add_passengers!
-    end
+    remove_extra_passengers if passengers.count > quantity
+    order.set_cart_add_passengers! if passengers.count != quantity
+  end
+
+  def remove_extra_passengers
+    count_difference = passengers.count - quantity
+    passengers.last(count_difference).each(&:destroy)
   end
 end

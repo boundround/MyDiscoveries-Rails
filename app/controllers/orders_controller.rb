@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
 
   before_action :set_current_order, only: [
     :add, :populate, :delete_line_item,
-    :add_passengers, :edit_passengers, :update_passengers,
+    :add_passengers, :update_passengers,
     :checkout, :payment, :cart, :update_line_items,
     :empty
   ]
@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
 
   before_action :set_customer, only: [:checkout, :payment]
   before_action :set_user, only: [
-    :add_passengers, :update_passengers, :edit_passengers
+    :add_passengers, :update_passengers
   ]
 
   before_action :set_variants, only: [:add, :populate]
@@ -45,7 +45,6 @@ class OrdersController < ApplicationController
 
   before_action :set_line_item, only: [
     :add_passengers,
-    :edit_passengers,
     :update_passengers
   ]
 
@@ -222,11 +221,7 @@ class OrdersController < ApplicationController
 
   def add_passengers
     @order.next if @order.cart?
-    new_passengers_count = @line_item.quantity - @line_item.passengers.count
-    new_passengers_count.times { @line_item.passengers.build(order: @order) }
-  end
-
-  def edit_passengers
+    build_passengers
   end
 
   def update_passengers
@@ -251,6 +246,11 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def build_passengers
+    new_passengers_count = @line_item.quantity - @line_item.passengers.count
+    new_passengers_count.times { @line_item.passengers.build(order: @order) }
+  end
 
   def set_current_order
     @order = current_order || Spree::Order.incomplete.find_or_initialize_by(

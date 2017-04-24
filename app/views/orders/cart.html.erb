@@ -78,25 +78,18 @@
                         <% if index.zero? %>
                           <h5>Actions</h5>
                         <% end %>
-                        <% if line_item.passengers_added? %>
-                          <div>
-                            <%= link_to(
-                                line_item_edit_passengers_path(offer_id: line_item.product.id, line_item_id: line_item.id),
-                                class: 'btn-bordered red small invert',
-                              ) do %>
+                        <div>
+                          <%= link_to(
+                              line_item_add_passengers_path(offer_id: line_item.product.id, line_item_id: line_item.id),
+                              class: 'btn-bordered red small invert',
+                            ) do %>
+                              <% if line_item.passengers_added? %>
                                 <span>Edit Passengers</span>
-                            <% end %>
-                          </div>
-                        <% else %>
-                          <div>
-                            <%= link_to(
-                                line_item_add_passengers_path(offer_id: line_item.product.id, line_item_id: line_item.id),
-                                class: 'btn-bordered red small invert',
-                              ) do %>
+                              <% else %>
                                 <span>Add Passengers</span>
-                            <% end %>
-                          </div>
-                        <% end %>
+                              <% end %>
+                          <% end %>
+                        </div>
                         <div>
                           <%= link_to(
                               delete_line_item_offer_orders_path(
