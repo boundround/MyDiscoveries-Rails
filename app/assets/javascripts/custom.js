@@ -60,26 +60,18 @@ $(document).ready(function(){
   }
 
   // Start Billing Autopupulate
-  $("#populate-passenger").change(function() {
-    if(this.checked) {
-      $.ajax({
-        url: "/checkout",
-        dataType: 'json',
-        success: function(data) {
-          $('#customer_first_name').val(data.passenger.first_name);
-          $('#customer_last_name').val(data.passenger.last_name);
-          $('#customer_email').val(data.passenger.email);
-          $('#customer_phone_number').val(data.passenger.telephone);
-          $('#customer_title').val(data.passenger.title)
-        }
-      });
-    }else{
-      $('#customer_first_name').val("");
-      $('#customer_last_name').val("");
-      $('#customer_email').val("");
-      $('#customer_phone_number').val("");
-      $('#customer_title option').removeAttr("selected");
-    }
+  $("#populate-passenger").on('click', function() {
+    $.ajax({
+      url: "/checkout",
+      dataType: 'json',
+      success: function(data) {
+        $('#customer_first_name').val(data.passenger.first_name);
+        $('#customer_last_name').val(data.passenger.last_name);
+        $('#customer_email').val(data.passenger.email);
+        $('#customer_phone_number').val(data.passenger.telephone);
+        $('#customer_title').val(data.passenger.title)
+      }
+    });
   });
   // End Billing Autopupulate
 
