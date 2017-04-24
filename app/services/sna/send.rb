@@ -32,11 +32,12 @@ class SNA::Send
   end
 
   def process
-    response = HTTParty.post(
-      ENV['SNA_WEBHOOK_URL'],
-      basic_auth: credentials,
-      headers: { 'Accept' => 'application/json' },
-      body: order_body)
+    # response = HTTParty.post(
+    #   ENV['SNA_WEBHOOK_URL'],
+    #   basic_auth: credentials,
+    #   headers: { 'Accept' => 'application/json' },
+    #   body: order_body)
+    order_body
   end
 
   def credentials
@@ -58,6 +59,7 @@ class SNA::Send
           json.CustGroup ENV["AX_CUST_GROUP"]
           json.Currency "AUD"
           json.Total order.total_price
+          json.Items items
           json.ShippingAddress do
             json.Title customer.title.presence || ''
             json.FirstName customer.first_name.presence || ''
@@ -70,7 +72,6 @@ class SNA::Send
             json.PostCode customer.postal_code
             json.Country ENV["AX_COUNTRY"]
           end
-            json.Items items
         end
       end
     end
