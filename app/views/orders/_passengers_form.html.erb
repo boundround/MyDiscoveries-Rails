@@ -70,7 +70,11 @@
                           collection: Passenger::TITLES,
                           include_blank: false,
                           label: false,
-                          selected: n > 0 ? "" : @user.gender,
+                          selected: selected_input_value(
+                            n,
+                            pf.object.title.presence,
+                            @user.gender
+                          ),
                           input_html: {
                             class: "select optional form-control select2-hidden-accessible",
                           }
@@ -83,7 +87,11 @@
                           label: false,
                           required: true,
                           input_html: {
-                             value: n > 0 ? "" : @user.first_name
+                            value: selected_input_value(
+                              n,
+                              pf.object.first_name.presence,
+                              @user.first_name
+                            )
                           }
                         %>
                       </div>
@@ -94,7 +102,11 @@
                           label: false,
                           required: true,
                           input_html: {
-                             value: n > 0 ? "" : @user.last_name
+                            value: selected_input_value(
+                              n,
+                              pf.object.last_name.presence,
+                              @user.last_name
+                            )
                           }
                         %>
                       </div>
@@ -106,7 +118,11 @@
                           label: false,
                           required: true,
                           input_html: {
-                             value: n > 0 ? "" : @user.date_of_birth
+                            value: selected_input_value(
+                              n,
+                              pf.object.date_of_birth.presence,
+                              @user.date_of_birth
+                            )
                           }
                         %>
                       </div>
@@ -118,7 +134,11 @@
                             as: :tel,
                             label: false,
                             input_html: {
-                               value: @user.home_phone
+                              value: selected_input_value(
+                                n,
+                                pf.object.telephone.presence,
+                                @user.home_phone
+                              )
                             }
                           %>
                         </div>
@@ -129,7 +149,11 @@
                             as: :tel,
                             label: false,
                             input_html: {
-                               value: @user.mobile
+                              value: selected_input_value(
+                                n,
+                                pf.object.mobile.presence,
+                                @user.mobile
+                              )
                             }
                           %>
                         </div>
@@ -140,7 +164,11 @@
                             as: :email,
                             label: false,
                             input_html: {
-                               value: @user.email
+                              value: selected_input_value(
+                                n,
+                                pf.object.email.presence,
+                                @user.email
+                              )
                             }
                           %>
                         </div>

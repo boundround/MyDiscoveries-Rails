@@ -449,8 +449,6 @@ Rails.application.routes.draw do
     as: :line_item_add_passengers
   patch 'offers/:offer_id/line_items/:line_item_id' => 'orders#update_passengers',
     as: :line_item_update_passengers
-  get 'offers/:offer_id/line_items/:line_item_id/edit_passengers' => 'orders#edit_passengers',
-    as: :line_item_edit_passengers
   get 'checkout' => 'orders#checkout', as: :checkout
   post 'payment' => 'orders#payment', as: :payment
   put 'orders/update_line_items' => 'orders#update_line_items', as: :update_cart
