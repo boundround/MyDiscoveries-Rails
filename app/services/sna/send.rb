@@ -69,8 +69,8 @@ class SNA::Send
             json.State customer.state
             json.PostCode customer.postal_code
             json.Country ENV["AX_COUNTRY"]
-            json.Items items
           end
+            json.Items items
         end
       end
     end
