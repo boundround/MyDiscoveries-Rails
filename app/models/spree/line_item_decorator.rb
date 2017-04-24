@@ -26,6 +26,6 @@ Spree::LineItem.class_eval do
 
   def remove_extra_passengers
     count_difference = passengers.count - quantity
-    passengers.limit(count_difference).destroy_all
+    passengers.last(count_difference).each(&:destroy)
   end
 end
