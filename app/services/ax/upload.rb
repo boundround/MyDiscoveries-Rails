@@ -1,5 +1,6 @@
 require 'net/sftp'
 require 'stringio'
+require 'rexml/document'
 
 class Ax::Upload
   include Service
@@ -8,6 +9,11 @@ class Ax::Upload
 
   def call
     process
+  end
+
+  def print
+    doc = REXML::Document.new(build_xml)
+    doc.write($stdout, 2)
   end
 
   private

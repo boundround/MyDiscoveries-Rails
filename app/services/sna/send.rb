@@ -9,6 +9,10 @@ class SNA::Send
     process
   end
 
+  def print
+    puts JSON.pretty_generate(JSON.parse(order_body))
+  end
+
   private
 
   def customer
