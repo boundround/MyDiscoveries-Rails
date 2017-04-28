@@ -23,18 +23,6 @@ class OrderPolicy < ApplicationPolicy
     user.admin?
   end
 
-  def checkout?
-    new?
-  end
-
-  def payment?
-    new?
-  end
-
-  def confirmation?
-    new?
-  end
-
   def resend_confirmation?
     user.admin?
   end
@@ -43,39 +31,15 @@ class OrderPolicy < ApplicationPolicy
     user.admin?
   end
 
-  def add_passengers?
-    new?
-  end
-
-  def update_passengers?
-    new?
-  end
-
-  def edit_passengers?
-    new?
-  end
-
   def add?
     new?
   end
 
-  def populate?
-    new?
+  def view_confirmation?
+    user.admin?
   end
 
-  def delete_line_item?
-    new?
-  end
-
-  def cart?
-    new?
-  end
-
-  def update_line_items?
-    new?
-  end
-
-  def empty?
-    new?
+  def customer_info?
+    user.admin?
   end
 end

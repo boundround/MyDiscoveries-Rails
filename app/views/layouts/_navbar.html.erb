@@ -14,47 +14,54 @@
             <a class="header__signing header__signing--join" data-toggle="modal" data-target="#signup_modal" href="#">Join
             </a>
             <% else %>
-            <a class="header__signing header__signing--join" href="<%= new_user_registration_path %>">join</a>
+              <a class="header__signing header__signing--join" href="<%= new_user_registration_path %>">join</a>
             <% end %>
-            <a class="header__signing header__signing--sign-in" data-toggle="modal" data-target="#singIn" href="#">sign
-            in</a>
+            <a class="header__signing header__signing--sign-in" data-toggle="modal" data-target="#singIn" href="#">
+              sign in
+            </a>
         <% else %>
-            <ul class="nav signin_dropdown">
-                <li class="dropdown pull-right">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
-                    <div class="outer-profile" style="background: url('<%= current_user.avatar_url.present? ? current_user.avatar_url : asset_path('favicons/mydiscoveries/favicon-32x32.png') %>') no-repeat;" >
-                    </div>
-                    </a>
-                    <ul class="dropdown-menu">
-                    <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
-                    <!-- <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li> -->
-                    <% if current_user.admin? %>
-                      <li><a href="<%= new_story_path %>">Add A Story</a></li>
-                      <li><a href="<%= stories_user_path(current_user) %>">My Stories</a></li>
-                    <% end %>
-                    <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav signin_dropdown right10">
-              <li class="">
-                <%= link_to cart_path do %>
-                  <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                  <%= shopping_cart_label %>
-                <% end %>
+          <ul class="nav signin_dropdown">
+              <li class="dropdown pull-right">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span>
+                  <div class="outer-profile" style="background: url('<%= current_user.avatar_url.present? ? current_user.avatar_url : asset_path('favicons/mydiscoveries/favicon-32x32.png') %>') no-repeat;" >
+                  </div>
+                  </a>
+                  <ul class="dropdown-menu">
+                  <li><a href="<%= user_path(current_user) %>">My Profile</a></li>
+                  <!-- <li><a href="<%= favourites_user_path(current_user) %>">My Favourites</a></li> -->
+                  <% if current_user.admin? %>
+                    <li><a href="<%= new_story_path %>">Add A Story</a></li>
+                    <li><a href="<%= stories_user_path(current_user) %>">My Stories</a></li>
+                  <% end %>
+                  <li><a href="<%= destroy_user_session_path %>">Sign Out</a></li>
+                  </ul>
               </li>
-            </ul>
+          </ul>
+          <ul class="nav signin_dropdown right10">
+            <li class="">
+              <%= link_to cart_path do %>
+                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                <%= shopping_cart_label %>
+              <% end %>
+            </li>
+          </ul>
         <% end %>
         <div class="search-container">
-                <form accept-charset="UTF-8" action="/results" method="get">
-                    <div style="display:none">
-                    <input name="utf8" value="✓" type="hidden">
-                    </div>
-                    <input type="text" name="search[common]" class="search-box header__search" placeholder="Search" autocomplete="off">
-                </form>
-                <div class="search-results" id="search-results-container" style="display:none;">
-                  <%= render :partial=> "search_suggestions/search_results" %>
+            <form accept-charset="UTF-8" action="/results" method="get">
+                <div style="display:none">
+                <input name="utf8" value="✓" type="hidden">
                 </div>
+                <input type="text" name="search[common]" class="search-box header__search" placeholder="Search" autocomplete="off">
+            </form>
+            <div class="search-results" id="search-results-container" style="display:none;">
+              <%= render :partial=> "search_suggestions/search_results" %>
+            </div>
+            <% if current_order && !user_signed_in? %>
+              <%= link_to cart_path, class: 'header__signing header__signing--join right10 top10' do %>
+                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                <%= shopping_cart_label %>
+              <% end %>
+            <% end %>
         </div>
         <!-- <input class="header__search" placeholder="Search" type="text"> -->
 

@@ -3,10 +3,6 @@ Spree::LineItem.class_eval do
 
   accepts_nested_attributes_for :passengers
 
-  def set_request_installments!
-    update(request_installments: true)
-  end
-
   after_commit :check_passengers, on: :update
 
   def total_price
@@ -15,6 +11,10 @@ Spree::LineItem.class_eval do
 
   def passengers_added?
     quantity == passengers.count
+  end
+
+  def set_request_installments!
+    update(request_installments: true)
   end
 
   private

@@ -73,7 +73,7 @@
                           selected: selected_input_value(
                             n,
                             pf.object.title.presence,
-                            @user.gender
+                            @user.try(:gender)
                           ),
                           input_html: {
                             class: "select optional form-control select2-hidden-accessible",
@@ -90,7 +90,7 @@
                             value: selected_input_value(
                               n,
                               pf.object.first_name.presence,
-                              @user.first_name
+                              @user.try(:first_name)
                             )
                           }
                         %>
@@ -105,7 +105,7 @@
                             value: selected_input_value(
                               n,
                               pf.object.last_name.presence,
-                              @user.last_name
+                              @user.try(:last_name)
                             )
                           }
                         %>
@@ -121,7 +121,7 @@
                             value: selected_input_value(
                               n,
                               pf.object.date_of_birth.presence,
-                              @user.date_of_birth
+                              @user.try(:date_of_birth)
                             )
                           }
                         %>
@@ -137,7 +137,7 @@
                               value: selected_input_value(
                                 n,
                                 pf.object.telephone.presence,
-                                @user.home_phone
+                                @user.try(:home_phone)
                               )
                             }
                           %>
@@ -152,7 +152,7 @@
                               value: selected_input_value(
                                 n,
                                 pf.object.mobile.presence,
-                                @user.mobile
+                                @user.try(:mobile)
                               )
                             }
                           %>
@@ -167,7 +167,7 @@
                               value: selected_input_value(
                                 n,
                                 pf.object.email.presence,
-                                @user.email
+                                @user.try(:email)
                               )
                             }
                           %>

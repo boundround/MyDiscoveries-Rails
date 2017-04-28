@@ -4,7 +4,7 @@
       <td colspan="2" style="font-family:'Rubik'; font-size: 16px; color: #fff; background-color: #000060; padding: 30px 0">
         Having trouble viewing this email? View it in your
         <%= link_to 'browser',
-          order_confirmation_url(order),
+          order_confirmation_url(id: order.number, order_token: order.guest_token),
           style: "text-decoration: underline; color: #fff"
         %>
       </td>
