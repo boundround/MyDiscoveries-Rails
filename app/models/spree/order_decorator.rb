@@ -11,12 +11,6 @@ Spree::Order.class_eval do
 
   has_many :passengers
 
-  validates_presence_of :user, on: :update
-
-  validates :number_of_infants,  numericality: { greater_than_or_equal: 0 }
-  validates :number_of_children, numericality: { greater_than_or_equal: 0 }
-  validates :number_of_adults,   numericality: { greater_than_or_equal: 0 }
-
   after_commit :set_ax_sales_id!, on: :create
 
   accepts_nested_attributes_for :passengers
@@ -35,7 +29,7 @@ Spree::Order.class_eval do
     end
 
     add_transition from: :add_passengers, to: :px_payment, if: ->(order) do
-      order.passengers.count == order.line_items.pluck(:quantity).reduce(:+)
+      order.passengers.count == order.total_quantity
     end
 
     add_transition from: :px_payment, to: :completed, if: ->(order) do
@@ -46,16 +40,6 @@ Spree::Order.class_eval do
   # overrides spree method
   def completed?
     state == 'completed'
-  end
-
-  def ax_line_items
-    line_items = ax_data.try(:[], 'Envelope').
-      try(:[], 'Order').
-      try(:[], 'Items').
-      try(:[], 'Item')
-
-    return [] if line_items.blank?
-    line_items.is_a?(Hash) ? [line_items] : line_items
   end
 
   def set_ax_sales_id!
@@ -90,5 +74,12 @@ end
 
   def total_price
     line_items.map(&:total_price).reduce(:+)
+  end
+
+  private
+
+  # overrides Spree method
+  def require_email
+    false
   end
 end

@@ -22,16 +22,30 @@ class Payment::PaymentExpress::ProcessAuthRequest
 
   private
 
+  def user_from_db
+    @user_from_db ||= User.find_by(email: order.customer.email)
+  end
+
+  def new_user
+    user = User.new
+
+    # skip email & password validation
+    user.save(validate: false)
+
+    user
+  end
+
   def send_notification
     OrderAuthorized.delay.notification(order.id)
   end
 
   def update_order
     order.update(
-      authorized: true,
-      px_response: px_response_json,
+      authorized:    true,
+      px_response:   px_response_json,
       purchase_date: purchase_date,
-      completed_at:  purchase_date
+      completed_at:  purchase_date,
+      user:          order.user || user_from_db || new_user
     )
   end
 

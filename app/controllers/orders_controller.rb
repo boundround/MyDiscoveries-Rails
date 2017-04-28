@@ -1,11 +1,33 @@
 class OrdersController < ApplicationController
 
-  before_action :authenticate_user!
-  before_action :check_user_authorization, except: [
-    :index, :view_confirmation, :cms_edit, :cms_update, :customer_info
+  before_action :authenticate_user!, except: [
+    :populate,
+    :cart,
+    :add_passengers,
+    :update_passengers,
+    :checkout,
+    :empty,
+    :payment,
+    :update_line_items,
+    :delete_line_item,
+    :confirmation
   ]
+
+  before_action :check_user_authorization, except: [
+    :populate,
+    :confirmation,
+    :cart,
+    :add_passengers,
+    :update_passengers,
+    :checkout,
+    :empty,
+    :payment,
+    :update_line_items,
+    :delete_line_item
+  ]
+
   before_action :set_order, only: [
-    :edit, :update, :confirmation
+    :edit, :update
   ]
 
   before_action :set_current_order, only: [
@@ -21,13 +43,13 @@ class OrdersController < ApplicationController
     :cms_edit,
     :cms_update,
     :customer_info,
-    :confirmation,
     :resend_confirmation,
     :cart,
     :empty,
     :checkout,
     :payment,
-    :update_line_items
+    :update_line_items,
+    :confirmation
   ]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -66,7 +88,7 @@ class OrdersController < ApplicationController
 
   def update_line_items
     if @order.update(order_params)
-      @order.set_cart_state! unless @order.total_quantity.to_i > 0
+      @order.set_cart_state! if @order.line_items.empty?
       @order.update!
       redirect_to cart_path
     else
@@ -181,6 +203,16 @@ class OrdersController < ApplicationController
   end
 
   def confirmation
+    guest_token = params[:order_token].presence || cookies.signed[:guest_token]
+
+    guest_order = Spree::Order.find_by(
+      guest_token: guest_token, number: params[:id].upcase
+    )
+
+    @order = guest_order || Spree::Order.find_by(
+      user: current_user, number: params[:id].upcase
+    )
+
     redirect_to offers_path unless @order.completed?
     @customer   = @order.customer
   end
