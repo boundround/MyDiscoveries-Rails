@@ -58,7 +58,7 @@ class OffersController < ApplicationController
   end
 
   def cms_index
-    @offers = Spree::Product.all
+    @offers = Spree::Product.where("status != ?", "removed")
   end
 
   def create
