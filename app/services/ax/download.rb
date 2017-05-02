@@ -160,7 +160,7 @@ class Ax::Download
 
   def assign_variants(order)
     json_line_items.each do |line_item|
-      variant = Spree::Variant.find_by(item_code: line_item['ItemId'])
+      variant = Spree::Variant.joins(:product).where(spree_products: {:status => "live"}).find_by(item_code: line_item['ItemId'])
       order.contents.add(variant, line_item['Quantity'].to_i)
     end
 
