@@ -40,7 +40,7 @@ class SNA::Send
       ENV['SNA_WEBHOOK_URL'],
       basic_auth: credentials,
       headers: { 'Accept' => 'application/json' },
-      body: JSON.parse(order_body))
+      body: order_body)
   end
 
   def credentials
