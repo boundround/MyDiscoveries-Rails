@@ -8,13 +8,13 @@ class Payment::PaymentExpress::ProcessAuthRequest
 
     if transaction_valid?
       update_order
+      send_notification
       if ENV["MYDISCOVERIES_ENV"] == "mydiscoveries_production"
         if Rails.env.production?
-          Ax::Upload.call(order)
           SNA::Send.call(order) if order.products.where(operator_id: 1).any?
+          Ax::Upload.call(order)
         end
       end
-      send_notification
     end
 
     response
