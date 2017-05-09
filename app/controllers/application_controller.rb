@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   include Pundit
+  include Spree::Core::ControllerHelpers::Order
+  include Spree::Core::ControllerHelpers::Auth
 
   before_filter :get_header
 
@@ -119,9 +121,8 @@ class ApplicationController < ActionController::Base
     request.path != "/users/sign_out"
   end
 
-  def check_user_authorization
-    model_name = params[:controller].classify
-    model_name = model_name == 'Product' ? 'Spree::Product' : model_name
+  def check_user_authorization(model_name = nil)
+    model_name = model_name || params[:controller].classify
     authorize model_name.camelize.constantize
   end
 

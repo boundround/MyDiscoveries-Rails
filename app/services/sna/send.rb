@@ -9,18 +9,18 @@ class SNA::Send
     process
   end
 
+  def print
+    puts JSON.pretty_generate(JSON.parse(order_body))
+  end
+
   private
 
   def customer
     @customer ||= order.customer
   end
 
-  def offer
-    @offer ||= order.product
-  end
-
   def user
-    @user ||= order.user
+    @user ||= User.find_by id: order.user_id
   end
 
   def order_date
@@ -29,10 +29,6 @@ class SNA::Send
 
   def order_time
     @order_time ||= order.created_at.strftime('%H:%M:%S')
-  end
-
-  def oss_payment_sched
-    order.request_installments? ? '5' : ''
   end
 
   def shipping_cost
@@ -66,6 +62,7 @@ class SNA::Send
           json.CustGroup ENV["AX_CUST_GROUP"]
           json.Currency "AUD"
           json.Total order.total_price
+          json.Items items
           json.ShippingAddress do
             json.Title customer.title.presence || ''
             json.FirstName customer.first_name.presence || ''
@@ -77,7 +74,6 @@ class SNA::Send
             json.State customer.state
             json.PostCode customer.postal_code
             json.Country ENV["AX_COUNTRY"]
-            json.Items items
           end
         end
       end
@@ -87,29 +83,20 @@ class SNA::Send
   def items
     all_items = []
 
-    order.number_of_adults.times do
-      all_items.push({
-        "Item": {
-          "ItemId": offer.item_id,
-          "ItemDesc": offer.name,
-          "Quantity": 1,
-          "UnitPrice": offer.minRateAdult,
-          "SupplierProductCode": offer.supplier_product_code.presence || ""
-        }
-      })
+    order.line_items.each do |line_item|
+      if line_item.product.operator_id == 1
+        all_items.push({
+          "Item": {
+            "ItemId": line_item.variant.item_code,
+            "ItemDesc": line_item.product.name,
+            "Quantity": line_item.quantity,
+            "UnitPrice": line_item.price.to_s,
+            "SupplierProductCode": line_item.variant.supplier_product_code
+          }
+        })
+      end
     end
 
-    order.number_of_children.times do
-      all_items.push({
-        "Item": {
-          "ItemId": offer.child_item_id,
-          "ItemDesc": offer.name,
-          "Quantity": 1,
-          "UnitPrice": (offer.minRateChild.presence || offer.minRateAdult),
-          "SupplierProductCode": offer.supplier_product_code.presence || ""
-        }
-      })
-    end
     all_items
   end
 

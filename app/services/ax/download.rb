@@ -20,11 +20,10 @@ class Ax::Download
       if @order && @order.persisted?
         OrderAuthorized.delay.notification(@order.id)
 
-        if @order.product.operator_id.present? && @order.product.operator_id == 1
+        if @order.products.where(operator_id: 1).any?
           SNA::Send.call(@order)
         end
       end
-
     end
   end
 
@@ -143,19 +142,11 @@ class Ax::Download
     @total_price ||= xml_order['Total'].to_i
   end
 
-  def product
-    @product ||= Spree::Product.where(
-      'item_id IN (?) OR child_item_id IN (?)',
-      xml_item_ids,
-      xml_item_ids
-    ).first
-  end
-
-  def xml_item_ids
-    @xml_item_ids ||= if xml_order['Items']['Item'].is_a?(Hash)
-      [xml_order['Items']['Item']['ItemId']]
+  def json_line_items
+    @json_line_items ||= if xml_order['Items']['Item'].is_a?(Hash)
+      [xml_order['Items']['Item']]
     else
-      xml_order['Items']['Item'].map{ |i| i['ItemId'] }.uniq
+      xml_order['Items']['Item']
     end
   end
 
@@ -167,23 +158,29 @@ class Ax::Download
     @purchase_date ||= DateTime.parse("#{xml_order['OrderDate']} #{xml_order['OrderTime']}")
   end
 
+  def assign_variants(order)
+    json_line_items.each do |line_item|
+      variant = Spree::Variant.joins(:product).where(spree_products: {:status => "live"}).find_by(item_code: line_item['ItemId'])
+      order.contents.add(variant, line_item['Quantity'].to_i)
+    end
+
+  end
+
   def save_order(user, customer)
     order = user.orders.build(
       customer:           customer,
-      product:            product,
-      title:              product.name,
       created_from_ax:    true,
-      total_price:        total_price,
       ax_sales_id:        order_sales_id,
-      number_of_adults:   xml_item_ids.count(product.item_id),
-      number_of_children: xml_item_ids.count(product.child_item_id),
       purchase_date:      purchase_date,
-      authorized:         true,
+      completed_at:       purchase_date,
       ax_data:            converted_xml,
-      ax_filename:        filename
+      email:              user.email,
+      created_by:         user,
+      state:              'completed',
+      authorized:         true
     )
 
-    order.save
+    assign_variants(order)
     order
   end
 end

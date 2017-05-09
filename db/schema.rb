@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410111805) do
+ActiveRecord::Schema.define(version: 20170505082129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -781,8 +781,10 @@ ActiveRecord::Schema.define(version: 20170410111805) do
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "line_item_id"
   end
 
+  add_index "passengers", ["line_item_id"], name: "index_passengers_on_line_item_id", using: :btree
   add_index "passengers", ["order_id"], name: "index_passengers_on_order_id", using: :btree
 
   create_table "pg_search_documents", force: true do |t|
@@ -1322,8 +1324,8 @@ ActiveRecord::Schema.define(version: 20170410111805) do
   create_table "spree_line_items", force: true do |t|
     t.integer  "variant_id"
     t.integer  "order_id"
-    t.integer  "quantity",                                                    null: false
-    t.decimal  "price",                precision: 10, scale: 2,               null: false
+    t.integer  "quantity",                                                      null: false
+    t.decimal  "price",                precision: 10, scale: 2,                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "currency"
@@ -1332,8 +1334,9 @@ ActiveRecord::Schema.define(version: 20170410111805) do
     t.decimal  "adjustment_total",     precision: 10, scale: 2, default: 0.0
     t.decimal  "additional_tax_total", precision: 10, scale: 2, default: 0.0
     t.decimal  "promo_total",          precision: 10, scale: 2, default: 0.0
-    t.decimal  "included_tax_total",   precision: 10, scale: 2, default: 0.0, null: false
+    t.decimal  "included_tax_total",   precision: 10, scale: 2, default: 0.0,   null: false
     t.decimal  "pre_tax_amount",       precision: 8,  scale: 2, default: 0.0
+    t.boolean  "request_installments",                          default: false
   end
 
   add_index "spree_line_items", ["order_id"], name: "index_spree_line_items_on_order_id", using: :btree
@@ -2230,35 +2233,36 @@ ActiveRecord::Schema.define(version: 20170410111805) do
   add_index "spree_users", ["email"], name: "email_idx_unique", unique: true, using: :btree
 
   create_table "spree_variants", force: true do |t|
-    t.string   "sku",                                        default: "",    null: false
-    t.decimal  "weight",            precision: 8,  scale: 2, default: 0.0
-    t.decimal  "height",            precision: 8,  scale: 2
-    t.decimal  "width",             precision: 8,  scale: 2
-    t.decimal  "depth",             precision: 8,  scale: 2
+    t.string   "sku",                                            default: "",    null: false
+    t.decimal  "weight",                precision: 8,  scale: 2, default: 0.0
+    t.decimal  "height",                precision: 8,  scale: 2
+    t.decimal  "width",                 precision: 8,  scale: 2
+    t.decimal  "depth",                 precision: 8,  scale: 2
     t.datetime "deleted_at"
-    t.boolean  "is_master",                                  default: false
+    t.boolean  "is_master",                                      default: false
     t.integer  "product_id"
-    t.decimal  "cost_price",        precision: 10, scale: 2
+    t.decimal  "cost_price",            precision: 10, scale: 2
     t.integer  "position"
     t.string   "cost_currency"
-    t.boolean  "track_inventory",                            default: true
+    t.boolean  "track_inventory",                                default: true
     t.integer  "tax_category_id"
     t.datetime "updated_at"
-    t.integer  "stock_items_count",                          default: 0,     null: false
-    t.integer  "maturity",                                   default: 0
-    t.integer  "bed_type",                                   default: 0
+    t.integer  "stock_items_count",                              default: 0,     null: false
+    t.integer  "maturity",                                       default: 0
+    t.integer  "bed_type",                                       default: 0
     t.string   "departure_city"
     t.string   "sumcode"
     t.string   "item_code"
     t.string   "description"
     t.string   "room_type"
+    t.string   "supplier_product_code",                          default: ""
   end
 
   add_index "spree_variants", ["deleted_at"], name: "index_spree_variants_on_deleted_at", using: :btree
   add_index "spree_variants", ["is_master"], name: "index_spree_variants_on_is_master", using: :btree
   add_index "spree_variants", ["position"], name: "index_spree_variants_on_position", using: :btree
+  add_index "spree_variants", ["product_id", "maturity", "bed_type", "departure_city"], name: "index_variants_on_product_maturity_bed_type_departure_city", using: :btree
   add_index "spree_variants", ["product_id"], name: "index_spree_variants_on_product_id", using: :btree
-  add_index "spree_variants", ["sku"], name: "index_spree_variants_on_sku", using: :btree
   add_index "spree_variants", ["tax_category_id"], name: "index_spree_variants_on_tax_category_id", using: :btree
   add_index "spree_variants", ["track_inventory"], name: "index_spree_variants_on_track_inventory", using: :btree
 

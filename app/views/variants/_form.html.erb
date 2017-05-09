@@ -1,0 +1,71 @@
+<!-- <div class="form-group">
+  <%#= f.input :sku, label: 'Supplier Product Code', input_html: { class: 'form-control' } %>
+</div> -->
+<div class="form-group">
+  <%= f.input :supplier_product_code, label: 'Supplier Product Code', input_html: { class: 'form-control' } %>
+</div>
+<div class="form-group">
+  <%#
+    f.input :stock_items_count,
+    label: 'Stock Item Count',
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :maturity,
+    label: 'Adult/Child',
+    as: :select,
+    collection: Spree::Variant.maturities.keys,
+    include_blank: false,
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :bed_type,
+    label: 'Bed Type',
+    as: :select,
+    collection: Spree::Variant.bed_types.keys,
+    include_blank: false,
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :departure_city,
+    label: 'Departure City',
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :price,
+    label: 'Price',
+    input_html: { class: 'form-control', value: number_with_precision(f.object.price.to_f, precision: 2) }
+  %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :description,
+    label: 'Description',
+    as: :text,
+    input_html: { class: 'form-control' }
+  %>
+  <div class="form-group">
+    <%= f.input :sumcode, label: 'Sumcode (AX Item Code without variant - ex. MSN005)', input_html: { class: 'form-control' } %>
+  </div>
+  <div class="form-group">
+    <%= f.input :item_code, label: 'AX Item Code', input_html: { class: 'form-control' } %>
+  </div>
+  <div class="form-group">
+    <%= f.input :room_type, label: 'Room Type', input_html: { class: 'form-control' } %>
+  </div>
+  <div class="form-group">
+    <%= f.check_box :track_inventory, label: false %>
+    <%# f.label :track_inventory, "Track Inventory" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.submit 'Submit', class: 'btn btn-success' %>
+</div>

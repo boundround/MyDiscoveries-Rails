@@ -1,5 +1,5 @@
 class OffersController < ApplicationController
-  before_action :check_user_authorization, except: [
+  before_action -> { check_user_authorization('Spree::Product') }, except: [
     :show, :paginate_reviews, :paginate_media, :paginate_on_idx, :clone, :paginate_offers
   ]
   before_action :set_offer, only: [
@@ -16,6 +16,10 @@ class OffersController < ApplicationController
     @review  = @offer.reviews.build
     @operator = @offer.operator
     @book_guarantee = Configurable.book_guarantee
+
+    @maturities       = @offer.variants.map{ |v| v.maturity.titleize }.uniq
+    @bed_types        = @offer.variants.map{ |v| v.bed_type.titleize }.uniq
+    @departure_cities = @offer.variants.map{ |v| v.departure_city }.uniq
   end
 
   def new
@@ -54,7 +58,7 @@ class OffersController < ApplicationController
   end
 
   def cms_index
-    @offers = Spree::Product.all
+    @offers = Spree::Product.where("status != ?", "removed")
   end
 
   def create

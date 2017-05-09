@@ -1,0 +1,7 @@
+<div class="container" data-controller='vouchers'>
+  <h2>New Variant</h2>
+  <%= simple_form_for [@product, @variant],
+    url: offer_variants_path, method: :post, html: { role: 'form' } do |f| %>
+      <%= render 'form', f: f %>
+  <% end %>
+</div>

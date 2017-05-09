@@ -1,9 +1,15 @@
 <div class="checkout-page">
   <div class="form-block">
-    <%= simple_form_for(@customer, url: payment_offer_order_path(@offer, @order), method: :post, html: { class: 'customer_form' }) do |cf| %>
+    <%= simple_form_for(@customer, url: payment_path, method: :post, html: { class: 'customer_form' }) do |cf| %>
       <div class="checkout-form">
         <h2 class="title"> Billing details </h2>
-        <div class="populate-passenger"><input type="checkbox" id="populate-passenger" data-offer="<%= @offer.id %>" data-order="<%= @order.number %>" > <label for="populate-passenger">Populate Name/Email From Passenger Info</label></div>
+        <div class="populate-passenger">
+          <%= link_to 'Populate Name/Email From Passenger Info',
+            '#',
+            class: 'btn-bordered red small invert',
+            id: 'populate-passenger'
+          %>
+        </div>
         <div class="customer-fields">
           <div class="form-group customer-title">
             <%= cf.input :title,
@@ -121,7 +127,7 @@
         <% end %>
         <div class="btns-block">
           <%= link_to 'back',
-            edit_passengers_offer_order_path(@offer, @order),
+            cart_path,
             class: 'btn-bordered red no-border'
           %>
           <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
@@ -131,10 +137,10 @@
       </div>
     <% end %>
     <input type="hidden" value="<%= @order.ax_sales_id %>" id="ax_sales_id">
-    <input type="hidden" value="<%= @offer.name %>" id="name">
-    <input type="hidden" value="<%= @offer.item_id %>" id="item_id">
-    <input type="hidden" value="<%= @offer.child_item_id %>" id="child_item_id">
-    <input type="hidden" value="<%= @order.total_people_count %>" id="quantity">
+    <input type="hidden" value="<%= @order.products.first.name %>" id="name">
+    <input type="hidden" value="<%= @order.products.first.item_id %>" id="item_id">
+    <input type="hidden" value="<%= @order.products.first.child_item_id %>" id="child_item_id">
+    <input type="hidden" value="<%= @order.total_quantity %>" id="quantity">
   </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

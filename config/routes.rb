@@ -419,14 +419,10 @@ Rails.application.routes.draw do
       collection { get 'all_photos' }
     end
     resources :orders, only: [ :new, :edit, :create, :update ] do
-      member do
-        get :add_passengers
-        get :edit_passengers
-        patch :update_passengers
-        get :checkout
-        get :confirmation
-        post :payment
-        get :resend_confirmation
+      collection do
+        get :add
+        post :populate
+        patch :delete_line_item
       end
     end
     resources :places, controller: :places_offers
@@ -440,12 +436,34 @@ Rails.application.routes.draw do
       get 'paginate_reviews'
     end
     resources :reviews
+    resources :variants do
+      collection do
+        post :fill_packages_options
+      end
+    end
   end
 
-  get 'orders/:id/view_confirmation' => 'orders#view_confirmation'
-  get 'orders/:id/cms_edit' => 'orders#cms_edit'
-  get 'orders/:id/customer_info' => 'orders#customer_info'
-  patch 'orders/:id/cms_update' => 'orders#cms_update'
+  get 'cart' => 'orders#cart'
+  put 'empty_cart' => 'orders#empty'
+  get 'offers/:offer_id/line_items/:line_item_id/add_passengers' => 'orders#add_passengers',
+    as: :line_item_add_passengers
+  patch 'offers/:offer_id/line_items/:line_item_id' => 'orders#update_passengers',
+    as: :line_item_update_passengers
+  get 'checkout' => 'orders#checkout', as: :checkout
+  post 'payment' => 'orders#payment', as: :payment
+  put 'orders/update_line_items' => 'orders#update_line_items', as: :update_cart
+  get 'orders/:id/view_confirmation' => 'orders#view_confirmation',
+    as: :order_view_confirmation
+  get 'orders/:id/cms_edit' => 'orders#cms_edit',
+    as: :order_cms_edit
+  get 'orders/:id/customer_info' => 'orders#customer_info',
+    as: :order_customer_info
+  patch 'orders/:id/cms_update' => 'orders#cms_update',
+    as: :order_cms_update
+  get 'orders/:id/confirmation' => 'orders#confirmation',
+    as: :order_confirmation
+  get 'orders/:id/resend_confirmation' => 'orders#resend_confirmation',
+    as: :order_resend_confirmation
 
   get 'orders' => 'orders#index'
 
@@ -466,4 +484,7 @@ Rails.application.routes.draw do
   get '/admin/configurable/booking_guarantee' => 'admin/configurables#book_guarantee'
   get '/admin/configurable/terms_and_conditions' => 'admin/configurables#terms_and_conditions'
   post '/admin/configurable' => 'admin/configurables#create', as: :configurables
+
+  #temporary redirect to landing page for competitions
+  get '/win' => redirect('http://offers.mydiscoveries.com.au/win-my-discoveries-5-night-stay')
 end

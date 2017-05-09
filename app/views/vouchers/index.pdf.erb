@@ -6,11 +6,8 @@
         pdf_page:   true,
         email_page: false,
         order:      order,
-        offer:      offer,
-        operator:   operator,
-        hero_photo: hero_photo,
         customer:   customer,
-        collection: order.ax_line_items.any? ? order.ax_line_items : (1..order.total_people_count).to_a
+        collection: order.line_items
       %>
     </table>
   </body>

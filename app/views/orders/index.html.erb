@@ -1,6 +1,6 @@
-.product<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
+<% if (user_signed_in?) && ( current_user.try(:admin) || current_user.has_role?("editor") || current_user.has_role?("publisher") ) %>
   <div id="table-container">
-    <h1>All Places</h1>
+    <h1>All Orders</h1>
 
     <table class="table table-striped" id="orders-table">
       <thead>
@@ -10,10 +10,8 @@
         <th>User</th>
         <th>User Email</th>
         <th>View Order Info</th>
-        <th>Offer</th>
+        <th>Offers</th>
         <th>Operator</th>
-        <th># of Adults - Price</th>
-        <th># of Children - Price</th>
         <th>Total Price</th>
         <th>Resend Confirm</th>
         <th>View Confirm</th>
@@ -27,9 +25,7 @@
           <th>User Email</th>
           <th>View Order Info</th>
           <th>Offer</th>
-          <th>Operator</th>
-          <th># of Adults - Price</th>
-          <th># of Children - Price</th>
+          <th>Operators</th>
           <th>Total Price</th>
           <th>Resend Confirm</th>
         </tr>
@@ -41,14 +37,24 @@
             <td><%= order.created_at.strftime("%Y/%m/%d") %></td>
             <td><%= (order.customer.first_name.to_s + ' ' + order.customer.last_name.to_s) rescue "Error finding name" %></td>
             <td><%= order.customer.email rescue "Error finding email" %></td>
-            <td><%= link_to "View Order Info", "/orders/#{order.id}/customer_info" %></td>
-            <td><%= link_to order.product.name, offer_path(order.product) %></td>
-            <td><%= order.product.operator.name %></td>
-            <td><%= "#{order.number_of_adults} - $#{order.product.minRateAdult}" %></td>
-            <td><%= "#{order.number_of_children} - $#{order.product.minRateChild}" %></td>
+            <td><%= link_to "View Order Info", order_customer_info_path(order) %></td>
+            <td>
+              <% order.products.each do |product| %>
+                <span>
+                  <%= link_to product.name, offer_path(product) %>
+                </span>
+              <% end %>
+            </td>
+            <td>
+              <% order.products.each do |product| %>
+                <span>
+                  <%= product.operator.name %>
+                </span>
+              <% end %>
+            </td>
             <td><%= "$#{order.total_price}" %></td>
-            <td><%= link_to "Resend Confirmation", resend_confirmation_offer_order_path(order.product, order, order_id: order.id) %></td>
-            <td><%= link_to "View Confirmation", "/orders/#{order.id}/view_confirmation" %></td>
+            <td><%= link_to "Resend Confirmation", order_resend_confirmation_path(order) %></td>
+            <td><%= link_to "View Confirmation", order_view_confirmation_path(order) %></td>
           </tr>
         <% end %>
       </tbody>

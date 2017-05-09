@@ -11,7 +11,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
       if ENV["MYDISCOVERIES_ENV"] == "mydiscoveries_production"
         if Rails.env.production?
           Ax::Upload.call(order)
-          SNA::Send.call(order) if order.product.operator_id == 1
+          SNA::Send.call(order) if order.products.where(operator_id: 1).any?
         end
       end
       send_notification
@@ -22,15 +22,30 @@ class Payment::PaymentExpress::ProcessAuthRequest
 
   private
 
+  def user_from_db
+    @user_from_db ||= User.find_by(email: order.customer.email)
+  end
+
+  def new_user
+    user = User.new
+
+    # skip email & password validation
+    user.save(validate: false)
+
+    user
+  end
+
   def send_notification
     OrderAuthorized.delay.notification(order.id)
   end
 
   def update_order
     order.update(
-      authorized: true,
-      px_response: px_response_json,
-      purchase_date: purchase_date
+      authorized:    true,
+      px_response:   px_response_json,
+      purchase_date: purchase_date,
+      completed_at:  purchase_date,
+      user:          order.user || user_from_db || new_user
     )
   end
 
@@ -103,7 +118,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def order_price
-    @order_price ||= order.request_installments? ? order.monthly_price : order.total_price
+    @order_price ||= order.total_price
   end
 
   # value that uniquely identifies the transaction

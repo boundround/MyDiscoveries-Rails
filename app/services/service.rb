@@ -7,6 +7,10 @@ module Service
       new(*args).call
     end
 
+    def print(*args)
+      new(*args).print
+    end
+
     def initialize_with_parameter_assignment(*parameter_names, &block)
       parameter_names = *parameter_names
       attr_reader(*parameter_names)

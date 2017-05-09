@@ -94,7 +94,7 @@ namespace :spree do
       Spree::Variant.maturities.keys.each do |maturity|
         Spree::Variant.bed_types.keys.each do |bed_type|
 
-          amount = if maturity == 'adult'
+          amount = if maturity == 'adult' && bed_type == 'single'
             product.minRateAdult
           else
             if product.minRateChild.blank? || product.minRateChild.zero?
@@ -104,7 +104,7 @@ namespace :spree do
             end
           end
 
-          item_code = if maturity == 'adult'
+          item_code = if maturity == 'adult' && bed_type == 'single'
             product.item_id
           else
             product.child_item_id
