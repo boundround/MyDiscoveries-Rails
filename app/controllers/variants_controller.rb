@@ -31,7 +31,7 @@ class VariantsController < ApplicationController
         notice: 'Variant succesfully saved'
       )
     else
-      flash.now[:alert] = 'Product not saved!'
+      flash.now[:alert] = @variant.errors.full_messages.join(', ')
       render :new
     end
   end
@@ -46,7 +46,7 @@ class VariantsController < ApplicationController
         notice: "Variant Updated"
       )
     else
-      flash.now[:alert] = 'Sorry, there was an error updating this Variant'
+      flash.now[:alert] = @variant.errors.full_messages.join(', ')
       render :edit
     end
   end

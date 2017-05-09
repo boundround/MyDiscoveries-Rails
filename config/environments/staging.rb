@@ -111,3 +111,5 @@ Rails.application.configure do
   # config.force_ssl = true
   GA.tracker = "UA-91823234-1"
 end
+
+Rails.logger = Le.new(ENV['LOGENTRIES_TOKEN'], local: true)

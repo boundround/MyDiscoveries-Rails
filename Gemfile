@@ -240,3 +240,6 @@ gem 'ffaker', '1.16'
 
 # Spree
 gem 'spree', '~> 2.4.10'
+
+# Logentries
+gem 'le'
