@@ -87,6 +87,11 @@ module OffersHelper
 
   def price_range(offer)
     prices = offer.variants.map{ |v| v.price }.sort
+    prices = prices.blank? ? [0] : prices
     "$#{sprintf("%.2f", prices.first)} - $#{sprintf("%.2f", prices.last)}"
+  end
+
+  def voucher_total_paid(quantity, price)
+    total_paid = "$#{sprintf("%.2f", (quantity * price))}"
   end
 end

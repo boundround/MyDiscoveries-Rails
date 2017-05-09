@@ -35,7 +35,8 @@
           </span>
           <br>
           <span style="font-family: Arial; font-weight: bold; font-size: 20px;">
-            <%= "Qty: #{line_item.quantity} / #{number_to_currency(line_item.price)}" %>
+            <%= "Qty: #{line_item.quantity} / #{number_to_currency(line_item.price)}" %><br>
+            <%= "Total paid: #{voucher_total_paid(line_item.quantity, line_item.price)} "%>
           </span>
         </td>
       </tr>
