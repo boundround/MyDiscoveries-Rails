@@ -19,7 +19,7 @@
         <td style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px">Booking Reference</span><br>
           <span style="font-family: 'Georgia'; font-size: 26px">
-            <%= "#{line_item.variant.item_code}US#{order.user_id}MD#{order.id}" %>
+            <%= "#{line_item.order.ax_sales_id}-#{index + 1}" %>
           </span>
         </td>
         <td style="padding: 20px 40px; text-align: right; vertical-align: top;">
@@ -35,7 +35,8 @@
           </span>
           <br>
           <span style="font-family: Arial; font-weight: bold; font-size: 20px;">
-            <%= "Qty: #{line_item.quantity} / #{number_to_currency(line_item.price)}" %>
+            <%= "Qty: #{line_item.quantity} / #{number_to_currency(line_item.price)}" %><br>
+            <%= "Total paid: #{voucher_total_paid(line_item.quantity, line_item.price)} "%>
           </span>
         </td>
       </tr>
