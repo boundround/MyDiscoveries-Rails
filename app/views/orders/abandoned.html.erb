@@ -30,8 +30,13 @@
           <tr>
             <td><%= order.ax_sales_id %></td>
             <td><%= order.created_at.strftime("%Y/%m/%d") %></td>
-            <td><%= (order.customer.first_name.to_s + ' ' + order.customer.last_name.to_s) rescue "Error finding name" %></td>
-            <td><%= order.customer.email rescue "Error finding email" %></td>
+            <% if order.customer.present? %>
+              <td><%= (order.customer.first_name.to_s + ' ' + order.customer.last_name.to_s) rescue "Error finding name" %></td>
+              <td><%= order.customer.email rescue "Error finding email" %></td>
+            <% else %>
+              <td><%= (order.user.first_name.to_s + ' ' + order.user.last_name.to_s) rescue "Nil Name" %></td>
+              <td><%= order.user.email rescue "Nil email" %></td>
+            <% end %>
             <td><%= link_to "View Order Info", order_customer_info_path(order) %></td>
             <td>
               <% order.products.each do |product| %>
