@@ -23,6 +23,10 @@ class OrderPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def abandoned?
+    user.admin?
+  end
+
   def resend_confirmation?
     user.admin?
   end

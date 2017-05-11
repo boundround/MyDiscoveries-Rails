@@ -1,13 +1,17 @@
 <div class="container">
   <h2>Customer Info</h2>
-  <p>Customer Name: <%= "#{@order.customer.first_name} #{@order.customer.last_name}" %></p>
-  <p>Customer Email: <%= "#{@order.customer.email}" %></p>
-  <p>Customer Phone: <%= "#{@order.customer.phone_number}" %></p>
-  <p>Customer Address Line One: <%= "#{@order.customer.address_one}" %></p>
-  <p>Customer Address Line Two: <%= "#{@order.customer.address_two}" %></p>
-  <p>Customer City: <%= "#{@order.customer.city}" %></p>
-  <p>Customer State: <%= "#{@order.customer.state}" %></p>
-  <p>Customer Postal Code: <%= "#{@order.customer.postal_code}" %></p>
+  <% if @order.customer.present? %>
+    <p>Customer Name: <%= "#{@order.customer.first_name} #{@order.customer.last_name}" %></p>
+    <p>Customer Email: <%= "#{@order.customer.email}" %></p>
+    <p>Customer Phone: <%= "#{@order.customer.phone_number}" %></p>
+    <p>Customer Address Line One: <%= "#{@order.customer.address_one}" %></p>
+    <p>Customer Address Line Two: <%= "#{@order.customer.address_two}" %></p>
+    <p>Customer City: <%= "#{@order.customer.city}" %></p>
+    <p>Customer State: <%= "#{@order.customer.state}" %></p>
+    <p>Customer Postal Code: <%= "#{@order.customer.postal_code}" %></p>
+  <% else %>
+    <p>Customer Info Not Available</p>
+  <% end %>
   <h2>Order Info</h2>
   <p>AX SALES ID: <%= @order.ax_sales_id %></p>
   <p>Total Price: $<%= @order.total_price %></p>

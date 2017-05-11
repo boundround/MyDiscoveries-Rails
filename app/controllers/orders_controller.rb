@@ -49,7 +49,8 @@ class OrdersController < ApplicationController
     :checkout,
     :payment,
     :update_line_items,
-    :confirmation
+    :confirmation,
+    :abandoned
   ]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -80,6 +81,11 @@ class OrdersController < ApplicationController
 
   def index
     @orders = Spree::Order.where(authorized: true)
+  end
+
+  def abandoned
+    puts "YEAH"
+    @orders = Spree::Order.where(authorized: false)
   end
 
   def cart
