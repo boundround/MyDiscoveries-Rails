@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505082129) do
+ActiveRecord::Schema.define(version: 20170511125010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2510,6 +2510,7 @@ ActiveRecord::Schema.define(version: 20170505082129) do
     t.string   "spree_api_key",          limit: 48
     t.integer  "ship_address_id"
     t.integer  "bill_address_id"
+    t.boolean  "guest",                             default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

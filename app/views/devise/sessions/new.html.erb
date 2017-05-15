@@ -32,6 +32,8 @@
               <div class="modal-content__btn text-center">
                 <%= f.button :submit, "access my account", :class=>'modal-content__btn-access' %>
                 <p class="modal-content__text-divider">or</p>
+                <%= link_to "Didn't receive confirmation instructions?", new_user_confirmation_path, class: "modal-content__btn-sign-up" %>
+                <p class="modal-content__text-divider">or</p>
                 <%- if devise_mapping.omniauthable? %>
                   <%- resource_class.omniauth_providers.each do |provider| %>
                     <%# if provider.to_s == "facebook" %>
