@@ -27,9 +27,13 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def new_user
-    user = User.new(email: order.customer.email)
+    user = User.new(
+      email: order.customer.email,
+      guest: true
+    )
+    user.skip_confirmation_notification!
 
-    # skip email & password validation
+    # skip password validation
     user.save(validate: false)
 
     user

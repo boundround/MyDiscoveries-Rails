@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
 
   rolify
   # Include default devise modules. Others available are:
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :omniauthable, :authentication_keys => [:email],
          :omniauth_providers => [:facebook, :twitter, :google_oauth2]
 
@@ -68,6 +68,9 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true
 
   after_commit :set_ax_cust_account!, on: :create
+  after_commit :unset_guest_user,
+    on: :update,
+    if: -> (user) { user.guest? && user.encrypted_password? && !user.confirmed? }
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
     # Get the identity and user if they exist
@@ -144,6 +147,10 @@ class User < ActiveRecord::Base
   def user_stories
     stories = self.posts
     stories += self.favourite_stories
+  end
+
+  def unset_guest_user
+    update(guest: false, confirmed_at: DateTime.now)
   end
 
   def set_ax_cust_account!
