@@ -161,7 +161,13 @@ Rails.application.routes.draw do
   get 'stamp_transactions/stamp_error' => 'stamp_transactions#stamp_error'
   resources :stamp_transactions
 
-  devise_for :users, :controllers => { :passwords => "passwords", :registrations => "registrations", :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "sessions"}
+  devise_for :users, controllers: {
+    passwords:          'passwords',
+    registrations:      'registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    sessions:           'sessions',
+    confirmations:      'confirmations'
+  }
 
   devise_scope :user do
     get "/sign_in" => "devise/sessions#new"

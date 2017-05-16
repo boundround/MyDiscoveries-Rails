@@ -72,7 +72,11 @@
                   <div class="package-offers-block">
                     <ul>
                       <div id="orders-list">
-                        <%= render partial: "offers/all_index_offers", collection: @orders, as: :order, locals:{variable: "order"} %>
+                        <%= render partial: 'offers/all_index_offers',
+                          collection: @orders,
+                          as: :order,
+                          locals: { variable: 'order' }
+                        %>
                       </div>
                         <% unless last_page? @orders %>
                         <div class="row single-pagination-container" id="orders-single-pagination-container">
