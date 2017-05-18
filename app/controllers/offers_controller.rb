@@ -20,6 +20,24 @@ class OffersController < ApplicationController
     @maturities       = @offer.variants.map{ |v| v.maturity.titleize }.uniq
     @bed_types        = @offer.variants.map{ |v| v.bed_type.titleize }.uniq
     @departure_cities = @offer.variants.map{ |v| v.departure_city }.uniq
+
+    respond_to do |format|
+      format.html
+      # format.pdf do
+      #   render pdf: "Offer"   # Excluding ".pdf" extension.
+      # end
+      format.pdf do
+      # @example_text = "some text"
+      render :pdf => "Offer",
+             # :template => 'offers/show.pdf.erb',
+             # :layout => 'pdf',
+             :footer => {
+                :center => "Center",
+                :left => "Left",
+                :right => "Right"
+             }
+      end
+    end
   end
 
   def new

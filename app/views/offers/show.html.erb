@@ -40,8 +40,9 @@
           <span class="hci-info"><%= simple_format @offer.specialNotes %></span>
         </div>
         <% if @offer.itinerary.present? %>
-          <a class="btn-bordered red" id="download-itinerary" download href="<%= @offer.itinerary %>">download itinerary</a>
+          <!-- <a class="btn-bordered red" id="download-itinerary" download href="<%= @offer.itinerary %>">download itinerary</a> -->
         <% end %>
+        <%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %>
         <div class="destination-details">
         </div>
       </div>
