@@ -13,118 +13,64 @@
 	    background-size: cover; }
 	</style>
     <title>My Discoveries Itinerary</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- Bootstrap Latest compiled and minified CSS -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <link type="text/css" rel="stylesheet" href="/assets/pdf.css"  media="screen,projection"/> -->
 
 </head>
 <body class="itinerary-page">
-<header class="main-header" id="main-header">
 
-</header>
+<header class="main-header" id="main-header"></header>
+
 <section class="intro">
-    <div class="banner" style="background:url(<%= wicked_pdf_asset_base64('pdf/shutterstock_501214834.jpg') %>) 50% 50% no-repeat !important;"></div>
+    <div class="banner" style="background:url(<%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat !important;">
+    </div>
     <div class="container">
-        <h1>The Best of Bruny Island & Hobart</h1>
-        <h3>5 DAYS/4 NIGHTS - WORLD EXPEDITIONS</h3>
-
+        <h1><%= @offer.name %></h1>
+        <h3><%= create_duration(@offer) %> - <%= @operator.name rescue "" %></h3>
         <div class="row">
-            <div class="col-sm-7">
-                <p>Combine a luxury three-day guided tour of Bruny Island with two nights in Tasmania’s capital, Hobart. As one of no more than 8 guests on each trip, you’ll be treated to coastal walks, produce direct from the source, luxury camping and exquisite meals.</p>
-                <p>At the end of each day, you can relax and unwind at the private camp with king-sized beds, crisp sheets and an outdoor shower framed by towering eucalypts.</p>
-                <p>Filled with foodie activity, this weekend is delivered in a relaxed style that will leave you feeling restored in a way only Bruny can. Spend one night on either side of the tour in luxurious 4-star accommodation in central Hobart.</p>
+            <div class="col-xs-7">
+                <p><%= simple_format @offer.description %></p>
                 <div class="img-waves waves-sm">
-                    <%#= wicked_pdf_image_tag('pdf/shutterstock_518514841.jpg')%>
-                    <%= image_tag(wicked_pdf_asset_base64('pdf/shutterstock_518514841.jpg'), class: "img-responsive") %>
+                    <%= image_tag(@photos.first.path_url, class: "img-responsive") %>
                 </div>
             </div>
-            <div class="col-sm-5 orange-block">
+            <div class="col-xs-5 orange-block">
                 <div class="img-waves waves-sm">
                     <%= image_tag(wicked_pdf_asset_base64('pdf/Bruny Island_print-01.jpg'), class: "img-responsive") %>
                 </div>
                 <h3>HIGHLIGHTS</h3>
-                <ul>
-                    <li>Bruny Island has plenty of gourmet attractions, and is set in a beautiful location with an abundance of wildlife</li>
-                    <li>This trip includes return transfers from Hobart to Bruny Island by private boat and we even throw in a Bruny Island wildlife cruise which showcases the seascape and rugged coastline.</li>
-                    <li>You will also get to enjoy 2 nights in Bruny Islands luxury Safari tented camps</li>
-                    <li>The local gourmet food prepared by famous Ross O’Meara and a visit to one of the islands renowned oyster farms will make this trip truly memorable.</li>
-                    <li>By combing 4 star hotel in the centre of Hobart at either end of your trip, you get the bene ts of relaxing before you go to Bruny Island and also before you return home!</li>
-                </ul>
+                	<%= simple_format @offer.highlightsStr %>
             </div>
         </div>
     </div>
-
 </section>
 
 
 <section class="itinerary container">
     <h2>Itinerary</h2>
     <div class="itinerary-item">
-        <p class="heading">DAY 1 - HOBART</p>
-        <p>Start your trip with a nights accommodation in a 4 star hotel in the centre of Hobart.</p>
-        <p><strong>Meals: Breakfast</strong></p>
-    </div>
-    <div class="itinerary-item">
-        <p class="heading">DAY 2 - BOAT TRANSFER TO BRUNY ISLAND, WALK EAST COAST & VISIT OYSTER FARM</p>
-        <p>After an early breakfast at your hotel, you will meet your tour guides and fellow guests at 7:30am on the waterfront of Tasmania’s capital city, Hobart. Step aboard your private boat and let the adventure begin with a cruise down the Derwent river to Bruny Island. Today our goal is to walk out to a spectacular cape on the east coast of Bruny Island. On returning from our walk we will wade out into the crystal clear waters of Great Bay to learn how the famous Bruny Island oysters are farmed and shuck them straight out of the water. Next stop; our camp. Join us in the dining house for a drink and to share stories of the day’s adventures as the guides busy themselves preparing your dinner, sourced from either on the island or in the waters surrounding it.</p>
-        <p>Walk: 12km, 5-6 hours return</p>
-        <p><strong>Meals: Lunch / Dinner</strong></p>
-    </div>
-    <div class="itinerary-item">
-        <p class="heading">DAY 3 - WALK ALONG EAST CLOUDY HEAD, VISIT BRUNY ISLAND FOOD</p>
-        <p>An inquisitive wallaby, or the promise of warm croissants might lure you from your crisp sheets of king- size luxury to reunite with us at the rustic wooden dining table once more. Today’s walk is East Cloudy Head for views of Tasmania’s far south and the wild Southern Ocean. The  ve-hour journey begins by walking the length of Cloudy Bay Beach. Windswept and beautiful, the walk then leads us into coastal heath and up toward spectacular views of Bruny Island’s rugged south coast. Next we drop in on Ross and Emma O’Meara’s farm to collect the free range pork that they have had slow cooking in their smoker for us overnight. Back at camp enjoy time to sit on the deck, walk among the ferns, partake in another lavish shower or simply read a book while your guides prepare the evening meal.</p>
-        <p>Walk: 12km return, 5-6hrs (don’t worry, you wont need to carry a pack)</p>
-        <p><strong>Meals: Breakfast / Lunch / Dinner</strong></p>
-    </div>
-    <div class="itinerary-item">
-        <p class="heading">DAY 4 - MORNING WILDLIFE CRUISE, AFTERNOON RETURN TO HOBART</p>
-        <p>The  nal day promises much exhilaration. After a short rainforest walk and a search for Bruny’s famous white wallabies, we board Rob Pennicott’s award-winning wilderness and wildlife adventure cruise. We journey along the stunning coastline past some of the highest sea cliffs in the southern hemisphere and out to the Friars Rocks we’d seen while walking the day before. Playful dolphins, bold fur seals, cruising albatross and the taste of salty lips complete the thrilling experience. To  nish your long weekend in style, enjoy lunch on The Jetty Café’s deck, awaiting the arrival of your private boat on the beach below. The return trip to Hobart offers a scenic farewell to your adventure. Before you know it you’ll be back at the Tasmanian capital, around 6pm, likely wondering if the long weekend was one big thrilling daydream from your of ce chair.</p>
-        <p><strong>Meals: Breakfast / Lunch / Dinner</strong></p>
-    </div>
-    <div class="itinerary-item">
-        <p class="heading">DAY 5 - HOBART</p>
-        <p>Finish your trip with a nights accommodation in a 4 star hotel in the centre of Hobart with breakfast the following morning before you fly return home, or continue to travel around beautiful Tasmania.</p>
+        <!-- <p class="heading">DAY 1 - HOBART</p> -->
+        <p><%= simple_format @offer.itineraryStr %></p>
+        <!-- <p><strong>Meals: Breakfast</strong></p> -->
     </div>
 </section>
 
 
 <section class="includes container">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-xs-6">
             <h3>INCLUDES:</h3>
-            <ul>
-                <li>Two nights twin/double share accommodation in a luxury tent with a king-size bed</li>
-                <li>Return transfers from Hobart to Bruny Island by private boat</li>
-                <li>The award winning Bruny Island Cruise</li>
-                <li>Expert quali ed guides</li>
-                <li>All national parks passes</li>
-            </ul>
-            <p><strong>Meals</strong></p>
-            <ul>
-                <li>5 x Breakfasts</li>
-                <li>3 x Lunches</li>
-                <li>3 x Dinners</li>
-            </ul>
+            <%= simple_format @offer.includes.split("EXCLUDES").first.gsub("INCLUDES", "").gsub("<br>", "") %>
         </div>
-        <div class="col-sm-6">
+        <div class="col-xs-6">
             <h3>EXCLUDES:</h3>
-            <ul>
-                <li>Flights to/from Hobart</li>
-                <li>Travel insurance</li>
-                <li>Items of a personal nature - hire gear, car parking etc</li>
-            </ul>
+            <%= simple_format @offer.includes.split("EXCLUDES").last.gsub("<br>", "") %>
         </div>
     </div>
-
 </section>
 
-
-<section class="dates container">
-    <h3>DEPARTURE DATES</h3>
+<section class="dates container alwaysbreak">
+    <!-- <h3>DEPARTURE DATES</h3>
     <div class="row">
-        <div class="col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-5">
+        <div class="col-xs-6 col-xs-offset-3">
             <table>
                 <tr>
                     <th>MAY</th>
@@ -153,58 +99,34 @@
             </table>
 
         </div>
-    </div>
+    </div> -->
     <div class="img-waves waves-lg">
-        <%= image_tag(wicked_pdf_asset_base64('pdf/shutterstock_41459977.jpg'), class: "img-responsive") %>
+        <%= image_tag(@photos.second.path_url, class: "img-responsive") %>
     </div>
 </section>
-
 
 <section class="facilities container">
     <h3>FACILITIES</h3>
     <ul>
-        <li>This itinerary is subject to change with any change in Community regulations as well as Governmental changes and natural circumstances beyond our control.</li>
-        <li>There are many reasons why you may not be able to join your desired departure and limited space on our small group departures is just one of them.</li>
-        <li>Many of our adventures require us to secure services on your behalf; such as permits.</li>
-        <li>The demand is increasing each year making it dif cult to join a trip last minute.</li>
-        <li>Fee for cancellations more than 70 days prior to your departure date is $400</li>
-        <li>If cancellation takes place between 70 & 35 days prior to your departure date 50% of the tour price will be forfeited.</li>
-        <li>If cancellation takes place less than 35 days prior to your departure date 100% of the tour price will be forfeited.</li>
-        <li>The tour price is quoted as a package.</li>
-        <li>No partial refunds or credit will be given for services not used.</li>
-        <li>Full cancellation policy is available on World Expeditions website</li>
+		<%= simple_format @offer.customStr2 %>
     </ul>
     <div class="img-waves waves-lg">
-        <%= image_tag(wicked_pdf_asset_base64('pdf/shutterstock_572921599.jpg'), class: "img-responsive") %>
+        <%= image_tag(@photos.third.path_url, class: "img-responsive") %>
     </div>
 </section>
 
 <section class="essentials container">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-xs-6">
             <h3>BOOKING ESSENTIALS</h3>
-            <ul>
-                <li>Once your MyDiscoveries voucher has been purchased, you will be contacted by the MyDiscoveries Reservations team who will work with Captain Cook Cruises and the hotel Denarau to get you booked onto your preferred tour dates.</li>
-                <li>If for any reason we are unable to book you onto your preferred dates please refer to the MyDiscoveries 30 Day Booking Guarantee to understand our refund policy</li>
-                <li>When booking your travel dates, make sure you have your travel voucher number, traveller names (as they appear on their passport)
-                    and details of any special requirements (e.g. vegetarian etc.)</li>
-                <li>The MyDiscoveries team will send an email to you con rming all of your booking information.</li>
-            </ul>
+            <%= simple_format(
+	            @offer.customStr1.presence || @offer.operator.booking_essentials
+	          )
+	        %>
         </div>
-        <div class="col-sm-6">
+        <div class="col-xs-6">
             <h3>FINE PRINT</h3>
-            <ul>
-                <li>This itinerary is subject to change with any change in Community regulations as well as Governmental changes and natural circumstances beyond our control.</li>
-                <li>There are many reasons why you may not be able to join your desired departure and limited space on our small group departures is just one of them.</li>
-                <li>Many of our adventures require us to secure services on your behalf; such as permits.</li>
-                <li>The demand is increasing each year making it dif cult to join a trip last minute.</li>
-                <li>Fee for cancellations more than 70 days prior to your departure date is $400</li>
-                <li>If cancellation takes place between 70 & 35 days prior to your departure date 50% of the tour price will be forfeited.</li>
-                <li>If cancellation takes place less than 35 days prior to your departure date 100% of the tour price will be forfeited.</li>
-                <li>The tour price is quoted as a package.</li>
-                <li>No partial refunds or credit will be given for services not used.</li>
-                <li>Full cancellation policy is available on World Expeditions website</li>
-            </ul>
+            <%= simple_format @offer.customStr3 %>
         </div>
     </div>
 </section>
@@ -212,40 +134,15 @@
 <section class="info container">
     <p class="small">Promotional prices and offers valid from 01/03/2017 until 14/05/2017 or while stocks last. Note: While all due care has been taken in the preparation of this document, MyDiscoveries shall not be liable for any inaccuracies or omissions which may occur. This document has been prepared from material supplied by our Travel Suppliers and from their websites.MyDiscoveries reserves the right to change information without notice and the most up to date version will always be found on www.mydiscoveries.com.au Reproduction without permission is strictly prohibited.</p>
     <div class="row">
-        <div class="col-sm-6">
-            <div class="img-waves waves-sm">
-                <%= image_tag(wicked_pdf_asset_base64('pdf/shutterstock_572921599.jpg'), class: "img-responsive") %>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="img-waves waves-sm">
-                <%= image_tag(wicked_pdf_asset_base64('pdf/shutterstock_518514841.jpg'), class: "img-responsive") %>
-            </div>
-        </div>
+    	<% @photos.last(2).each do |photo|  %>
+	        <div class="col-xs-6">
+	            <div class="img-waves waves-sm">
+	                <%= image_tag(photo.path_url, class: "img-responsive") %>
+	            </div>
+	        </div>
+        <% end %>
     </div>
 </section>
-
-<!-- <footer class="main-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <p>Make one day, today!</p>
-            </div>
-            <div class="col-sm-4 text-center">
-                <a href="www.mydiscoveries.com.au">www.mydiscoveries.com.au</a>
-            </div>
-            <div class="col-sm-4 text-right">
-                <%#= image_tag(wicked_pdf_asset_base64('pdf/logo-full.svg'), class: "img-responsive") %>
-            </div>
-        </div>
-    </div>
-
-
-</footer> -->
-
-
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
-<!-- <script type="text/javascript" src="js/app.js"></script> -->
 
 </body>
 </html>
