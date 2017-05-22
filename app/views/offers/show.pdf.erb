@@ -1,148 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <%= wicked_pdf_stylesheet_link_tag "bootstrap.min" %>
-	<%= wicked_pdf_stylesheet_link_tag "pdf" -%>
-	<style>
-	  .itinerary-page .img-waves.waves-sm:before {
-	    background: url("<%= wicked_pdf_asset_base64('pdf/japanese-waves-pattern_LARGE.jpg') %>") 0 0 repeat;
-	    background-size: cover; }
-	  .itinerary-page .img-waves.waves-lg:before {
-	    background: url("<%= wicked_pdf_asset_base64('pdf/japanese-wave-wallpaper-background-1471183286fyQ.jpg') %>") 0 0 repeat;
-	    background-size: cover; }
-	</style>
+  	<%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+  	<style>
+  	  .itinerary-page .img-waves.waves-sm:before {
+  	    background: url("<%= wicked_pdf_asset_base64('pdf/japanese-waves-pattern_LARGE.jpg') %>") 0 0 repeat;
+  	    background-size: cover; }
+  	  .itinerary-page .img-waves.waves-lg:before {
+  	    background: url("<%= wicked_pdf_asset_base64('pdf/japanese-wave-wallpaper-background-1471183286fyQ.jpg') %>") 0 0 repeat;
+  	    background-size: cover; }
+  	</style>
     <title>My Discoveries Itinerary</title>
 
-</head>
-<body class="itinerary-page">
+  </head>
 
-<header class="main-header" id="main-header"></header>
+  <body class="itinerary-page">
 
-<section class="intro">
-    <div class="banner" style="background:url(<%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat !important;">
-    </div>
-    <div class="container">
+    <header class="main-header" id="main-header"></header>
+
+    <section class="intro">
+      <div class="banner" style="background:url(<%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat !important;">
+      </div>
+      <div class="container">
         <h1><%= @offer.name %></h1>
         <h3><%= create_duration(@offer) %> - <%= @operator.name rescue "" %></h3>
         <div class="row">
-            <div class="col-xs-7">
-                <p><%= simple_format @offer.description %></p>
-                <div class="img-waves waves-sm">
-                    <%= image_tag(@photos.first.path_url, class: "img-responsive") %>
-                </div>
-            </div>
-            <div class="col-xs-5 orange-block">
-                <div class="img-waves waves-sm">
-                    <%= image_tag(wicked_pdf_asset_base64('pdf/Bruny Island_print-01.jpg'), class: "img-responsive") %>
-                </div>
-                <h3>HIGHLIGHTS</h3>
-                	<%= simple_format @offer.highlightsStr %>
-            </div>
-        </div>
-    </div>
-</section>
+          <div class="col-xs-6">
+            <p><%= simple_format @offer.description %></p>
+            <% unless @photos.blank? %>
+              <div class="img-waves waves-sm">
+                <%= image_tag(all_offer_photos(@offer).blank? ? @photos.last.path_url : all_offer_photos(@offer)[0][:url], class: "img-responsive") %>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-xs-6 orange-block">
+            <% unless @photos.blank? %>
+              <div class="img-waves waves-sm">
+                <%= image_tag(all_offer_photos(@offer).blank? ? @photos.last.path_url : all_offer_photos(@offer)[1][:url], class: "img-responsive") %>
+              </div>
+            <% end %>
+            <h3>HIGHLIGHTS</h3>
+            <%= simple_format @offer.highlightsStr %>
+          </div>
+          </div>
+      </div>
+    </section>
 
-
-<section class="itinerary container">
-    <h2>Itinerary</h2>
-    <div class="itinerary-item">
-        <!-- <p class="heading">DAY 1 - HOBART</p> -->
+    <section class="itinerary container">
+      <h2>Itinerary</h2>
+      <div class="itinerary-item">
         <p><%= simple_format @offer.itineraryStr %></p>
-        <!-- <p><strong>Meals: Breakfast</strong></p> -->
-    </div>
-</section>
+      </div>
+    </section>
 
-
-<section class="includes container">
-    <div class="row">
-        <div class="col-xs-6">
-            <h3>INCLUDES:</h3>
-            <%= simple_format @offer.includes.split("EXCLUDES").first.gsub("INCLUDES", "").gsub("<br>", "") %>
+    <% unless @offer.includes.blank? %>
+      <section class="includes container">
+        <div class="row">
+          <% if !@inc_exc.blank? %>
+            <div class="col-xs-6">
+            <%= simple_format(@offer.includes) %>
+            </div>
+          <% else %>
+            <div class="col-xs-6">
+              <!-- <h3>INCLUDES:</h3> -->
+              <%= simple_format(offer_includes(@offer)['includes']) rescue 'No includes' %>
+            </div>
+            <div class="col-xs-6">
+              <!-- <h3>EXCLUDES:</h3> -->
+               <%= simple_format(offer_includes(@offer)['excludes']) rescue 'No excludes' %>
+            </div>
+          <% end %>
         </div>
-        <div class="col-xs-6">
-            <h3>EXCLUDES:</h3>
-            <%= simple_format @offer.includes.split("EXCLUDES").last.gsub("<br>", "") %>
-        </div>
-    </div>
-</section>
+      </section>
+    <% end %>
 
-<section class="dates container alwaysbreak">
-    <!-- <h3>DEPARTURE DATES</h3>
-    <div class="row">
-        <div class="col-xs-6 col-xs-offset-3">
+    <!-- alwaysbreak -->
+    <section class="dates container">
+      <% unless @offer.departure_dates.blank? %>
+        <h3>DEPARTURE DATES</h3>
+        <div class="row">
+          <div class="col-xs-6 col-xs-offset-3">
             <table>
+              <% offer_departure_dates(@offer).each do |key, val|%>
                 <tr>
-                    <th>MAY</th>
-                    <td>4, 11, 18, 25</td>
+                  <th width="30%"><%= key %></th>
+                  <td width="70%"><%= val %></td>
                 </tr>
-                <tr>
-                    <th>JUNE</th>
-                    <td>1, 8, 15, 22, 29</td>
-                </tr>
-                <tr>
-                    <th>JULY</th>
-                    <td>6, 13, 20, 27</td>
-                </tr>
-                <tr>
-                    <th>AUG</th>
-                    <td>3, 10, 17, 24, 31</td>
-                </tr>
-                <tr>
-                    <th>SEPT</th>
-                    <td>7, 14, 28</td>
-                </tr>
-                <tr>
-                    <th>OCT</th>
-                    <td>5, 12, 19, 26</td>
-                </tr>
+              <% end %>
             </table>
-
+          </div>
         </div>
-    </div> -->
-    <div class="img-waves waves-lg">
-        <%= image_tag(@photos.second.path_url, class: "img-responsive") %>
-    </div>
-</section>
+      <% end %>
+      <% unless @photos.blank? %>
+        <div class="img-waves waves-lg">
+          <%= image_tag(all_offer_photos(@offer).blank? ? @photos.last.path_url : all_offer_photos(@offer)[2][:url], class: "img-responsive") %>
+        </div>
+      <% end %>
+    </section>
 
-<section class="facilities container">
-    <h3>FACILITIES</h3>
-    <ul>
-		<%= simple_format @offer.customStr2 %>
-    </ul>
-    <div class="img-waves waves-lg">
-        <%= image_tag(@photos.third.path_url, class: "img-responsive") %>
-    </div>
-</section>
+    <section class="facilities container">
+      <h3>FACILITIES</h3>
+      <ul>
+    	 <%= simple_format @offer.customStr2 %>
+      </ul>
+      <% unless @photos.blank? %>
+        <div class="img-waves waves-lg">
+          <%= image_tag(all_offer_photos(@offer).blank? ? @photos.last.path_url : all_offer_photos(@offer)[3][:url], class: "img-responsive") %>
+        </div>
+      <% end %>
+    </section>
 
-<section class="essentials container">
-    <div class="row">
-        <div class="col-xs-6">
+    <section class="essentials container">
+      <div class="row">
+        <% unless @offer.customStr1.blank? || @offer.operator.booking_essentials.blank? %>
+          <div class="col-xs-6">
             <h3>BOOKING ESSENTIALS</h3>
-            <%= simple_format(
-	            @offer.customStr1.presence || @offer.operator.booking_essentials
-	          )
-	        %>
-        </div>
-        <div class="col-xs-6">
+            <%= simple_format(@offer.customStr1.presence || @offer.operator.booking_essentials) %>
+          </div>
+        <% end %>
+        <% unless @offer.customStr3.blank? %>
+          <div class="col-xs-6">
             <h3>FINE PRINT</h3>
             <%= simple_format @offer.customStr3 %>
-        </div>
-    </div>
-</section>
-
-<section class="info container">
-    <p class="small">Promotional prices and offers valid from 01/03/2017 until 14/05/2017 or while stocks last. Note: While all due care has been taken in the preparation of this document, MyDiscoveries shall not be liable for any inaccuracies or omissions which may occur. This document has been prepared from material supplied by our Travel Suppliers and from their websites.MyDiscoveries reserves the right to change information without notice and the most up to date version will always be found on www.mydiscoveries.com.au Reproduction without permission is strictly prohibited.</p>
-    <div class="row">
-    	<% @photos.last(2).each do |photo|  %>
-	        <div class="col-xs-6">
-	            <div class="img-waves waves-sm">
-	                <%= image_tag(photo.path_url, class: "img-responsive") %>
-	            </div>
-	        </div>
+          </div>
         <% end %>
-    </div>
-</section>
+      </div>
+    </section>
 
-</body>
+    <section class="info container">
+      <p class="small">Promotional prices and offers valid from - until - or while stocks last. Note: While all due care has been taken in the preparation of this document, MyDiscoveries shall not be liable for any inaccuracies or omissions which may occur. This document has been prepared from material supplied by our Travel Suppliers and from their websites.MyDiscoveries reserves the right to change information without notice and the most up to date version will always be found on www.mydiscoveries.com.au Reproduction without permission is strictly prohibited.</p>
+      <div class="row">
+        <% exc =  all_offer_photos(@offer).blank? ? [] : all_offer_photos(@offer).map{|key, val| val[:id]} %>
+      	<% @photos.each do |photo|  %>
+          <% unless exc.include?(photo.id) %>
+            <div class="col-xs-6">
+              <div class="img-waves waves-sm" style="min-height: 250px;">
+                <%= image_tag(photo.path_url, class: "img-responsive") %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+
+  </body>
 </html>

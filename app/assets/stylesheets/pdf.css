@@ -44,8 +44,8 @@ body {
     color: #fff; }
 .itinerary-page .banner {
   background-size: cover;
-  height: 200px;
-  width: 100%;
+  height: 150px;
+  width: 100% !important;
   -webkit-box-shadow: 0px 10px 0px 0px #ff4d1a;
   -moz-box-shadow: 0px 10px 0px 0px #ff4d1a;
   box-shadow: 0px 10px 0px 0px #ff4d1a;
@@ -58,7 +58,8 @@ body {
   margin: 0 auto; }
   .itinerary-page .img-waves img {
     z-index: 1;
-    position: relative; }
+    position: relative;
+  }
 /*  .itinerary-page .img-waves.waves-sm:before {
     background: url("<%= wicked_pdf_asset_base64('pdf/japanese-waves-pattern_LARGE.jpg') %>") 0 0 repeat;
     background-size: cover; }
