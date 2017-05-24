@@ -24,6 +24,11 @@ class OffersController < ApplicationController
       format.html
       format.pdf do
       render pdf: @offer.name,
+        dpi:  100,
+        lowquality: true,
+        disable_internal_links: true,
+        disable_external_links: true,
+        image_quality: 20,
         margin: {bottom:30,top: 10},
         footer: { html: { template: 'offers/footer.pdf.erb' }}
       end
