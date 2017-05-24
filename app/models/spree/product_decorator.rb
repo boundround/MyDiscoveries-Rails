@@ -392,6 +392,8 @@ Spree::Product.class_eval do
 
   has_many :related_products
 
+  serialize :departure_dates
+
   validates_presence_of :operator, unless: -> { livn_product_id? }
   validates_presence_of :startDate, :endDate, unless: -> { livn_product_id? }
 

@@ -35,12 +35,10 @@
           <span class="hci-info"><%= simple_format(specialNotes_txt) %></span>
         </div>
         <div class="location">
-          <% if @offer.itinerary.present? %>
-            <a class="btn-bordered red" id="download-itinerary" download href="<%= @offer.itinerary %>">download itinerary</a>
-          <% end %> 
+          <%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), target: "_blank", class: "btn-bordered red", id:"download-itinerary" %>
           <% if user_signed_in? and current_user.admin? %>
             &nbsp;&nbsp;&nbsp;<%= link_to "Edit Offer", edit_offer_path(@offer) %>
-          <% end %>
+          <% end %>            
         </div>
       </div>
     </div>
