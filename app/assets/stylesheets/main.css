@@ -13406,3 +13406,33 @@ label.css-label.label-featured{
 #download-itinerary:hover{
   background: #ff4b1a;
 }
+
+.hero-content-offer {
+  padding-top: 45px !important;
+}
+
+.offer-grey-box {
+  background-color: rgba(127, 140, 141, 0.8);
+  display: table;
+  padding: 0px 21px 21px 21px;
+  /*margin: auto;*/
+  text-shadow: 1px 1px #696969 !important;
+}
+
+.offer-grey-box h2 {
+  margin-bottom: 0px;
+}
+
+.offer-grey-box h2, .hc-info span, .hci-nights span {
+  font-weight: normal !important;
+}
+
+.offer-grey-box .hc-info {
+  margin-top: 0px !important;
+}
+
+@media(min-width: 1201px){
+  .offer-grey-box .location {
+    margin-top: -25px !important;
+  }
+}
