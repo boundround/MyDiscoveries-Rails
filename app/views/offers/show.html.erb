@@ -14,38 +14,38 @@
 <div class="product">
   <div class="hero" style="background: url( <%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat;" >
     <div class="photo-credit"><%= get_hero_image_credit(@offer) %></div>
-      <div class="hero-content width-limiter">
-        <div class="location">
-          <% if user_signed_in? and current_user.admin? %>
-            <p align="center"><%= link_to "Edit Offer", edit_offer_path(@offer) %></p>
-          <% end %>
-        </div>
-        <h2 class="lg-heading"><%= @offer.name %></h2>
-        <span class="info-text"><!--LOCATION--></span>
-        <div class="hc-info">
-          <span class="hci-price">
-            <span>$</span>
-            <span class="hci-price-self"><%= @offer.minRateAdult %></span>
-            <% if @offer.allow_installments? %>
-              <br><span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5.0) %></span><br>
-            <% end %>
-          </span>
-          <% if @offer.duration.present? %>
-            <span class="hci-nights">
-              <span><%#= @offer.duration / 1000 / 60 / 60 / 24 %></span>
-              <span class="xs-invisible"><%= create_duration(@offer) %></span>
-            </span>
-          <% end %>
-          <div class="info-text">Per Adult</div>
-          <span class="hci-info"><%= simple_format @offer.specialNotes %></span>
-        </div>
-        <% if @offer.itinerary.present? %>
-          <a class="btn-bordered red" id="download-itinerary" download href="<%= @offer.itinerary %>">download itinerary</a>
+    <div class="hero-content width-limiter">
+      <div class="location">
+        <% if user_signed_in? and current_user.admin? %>
+          <p align="center"><%= link_to "Edit Offer", edit_offer_path(@offer) %></p>
         <% end %>
-        <div class="destination-details">
-        </div>
       </div>
+      <h2 class="lg-heading"><%= @offer.name %></h2>
+      <span class="info-text"><!--LOCATION--></span>
+      <div class="hc-info">
+        <span class="hci-price">
+          <span>$</span>
+          <span class="hci-price-self"><%= @offer.minRateAdult %></span>
+          <% if @offer.allow_installments? %>
+            <br><span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5.0) %></span><br>
+          <% end %>
+        </span>
+        <% if @offer.duration.present? %>
+          <span class="hci-nights">
+            <span><%#= @offer.duration / 1000 / 60 / 60 / 24 %></span>
+            <span class="xs-invisible"><%= create_duration(@offer) %></span>
+          </span>
+        <% end %>
+        <div class="info-text">Per Adult</div>
+        <% specialNotes_txt = @offer.specialNotes.blank? ? '' : @offer.specialNotes.gsub(/\r?\n/, '') %>
+        <span class="hci-info"><%= simple_format(specialNotes_txt) %></span>
+      </div>
+      <% if @offer.itinerary.present? %>
+        <a class="btn-bordered red" id="download-itinerary" download href="<%= @offer.itinerary %>">download itinerary</a>
+      <% end %>
+      <div class="destination-details"></div>
     </div>
+  </div>
 
     <div class="product-content width-limiter">
       <aside>
