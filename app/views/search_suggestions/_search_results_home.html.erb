@@ -13,6 +13,7 @@
                alt="{{ photos.0.alt_tag }}"
                data-link="{{ url }}"
                >
+               <span class="search-result-type"><i class="fa fa-{{ result_icon }}"></i>&nbsp;{{ result_type }}</span>
           </div>
           <div class="search-results-card-content">
               <h4 class="highlighting">{{{ _highlightResult.display_name.value }}}</h4>

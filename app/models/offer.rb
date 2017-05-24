@@ -41,6 +41,14 @@ class Offer < ActiveRecord::Base
       'Offers'
     end
 
+    attribute :result_type do
+      "Offer"
+    end
+
+    attribute :result_icon do
+      "tags"
+    end
+
     attribute :url do
       Rails.application.routes.url_helpers.offer_path(self)
     end
@@ -221,6 +229,14 @@ class Offer < ActiveRecord::Base
           { url: photo.path_url(:small), alt_tag: photo.alt_tag, caption: photo.caption }
         end
         photo_array
+      end
+
+      attribute :result_type do
+        "Offer"
+      end
+
+      attribute :result_icon do
+        "tags"
       end
 
       attribute :has_hero_image do

@@ -41,6 +41,14 @@ Spree::Product.class_eval do
       'Offers'
     end
 
+    attribute :result_type do
+      "Offer"
+    end
+
+    attribute :result_icon do
+      "tags"
+    end
+
     attribute :url do
       Rails.application.routes.url_helpers.offer_path(self)
     end
@@ -154,6 +162,8 @@ Spree::Product.class_eval do
 
     attributesForFaceting [
       'where_destinations',
+      'result_type',
+      'result_icon',
       'is_offer',
       'subcategory',
       'weather',
@@ -200,6 +210,14 @@ Spree::Product.class_eval do
 
       attribute :where_destinations do
         'Offers'
+      end
+
+      attribute :result_type do
+        "Offer"
+      end
+
+      attribute :result_icon do
+        "tags"
       end
 
       attribute :url do
@@ -313,6 +331,8 @@ Spree::Product.class_eval do
 
       attributesForFaceting [
         'where_destinations',
+        'result_type',
+        'result_icon',
         'is_offer',
         'age_range',
         'subcategory',
