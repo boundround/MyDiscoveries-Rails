@@ -3130,3 +3130,14 @@ h4 {
     /*width: 100%;*/
   }
 }
+
+.posi-absolute {
+  position: absolute;
+  top: -5px;
+}
+
+@media (max-width: 425px){
+  .posi-absolute {
+    left: 32%
+  }
+}

@@ -11292,7 +11292,9 @@ span.arrow {
               .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .offer-info{
                 position: absolute;
                 bottom: 0;
-                left: 0;}
+                left: 0;
+                top: 55%;
+              }
             /*.package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price {
               position: absolute;
               left: 20px;
