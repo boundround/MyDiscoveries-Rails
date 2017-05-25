@@ -94,4 +94,49 @@ module OffersHelper
   def voucher_total_paid(quantity, price)
     total_paid = "$#{sprintf("%.2f", (quantity * price))}"
   end
+
+  def all_offer_photos(offer)
+    photo_h = Hash.new
+    unless offer.photos.blank? 
+      offer.photos.where("hero = false or hero is null").uniq.each_with_index do |photo, idx|
+        if idx < 4
+          photo_h[idx] = {url: photo.path_url, id: photo.id}
+        end
+      end
+    end
+
+    return photo_h
+  end
+
+  def offer_includes(offer)
+    @inc_exc = Hash.new
+    
+    str = offer.includes.split('EXCLUSIONS')
+    str = offer.includes.split('EXCLUDES') if str.size.eql?(1)
+
+    @inc_exc['includes'] = str.first
+    @inc_exc['excludes'] = "</b><b>#{str.size.eql?(1) ? 'EXCLUSIONS' : 'EXCLUDES'}" + str.last
+
+    return @inc_exc
+  end
+
+  def offer_departure_dates(offer)
+    data = Hash.new
+
+    offer.departure_dates.group_by do |dtd|
+      split = dtd.split('/')
+      new_dtd = split[2]+'-'+split[0]+'-'+split[1]
+      test =  new_dtd.to_date.strftime('%d/%b/%Y').split('/')
+      
+      all_key = data.map{|k| k[0]}
+      if all_key.include?("#{test[1]+'-'+test[2]}")
+        data["#{test[1]+'-'+test[2]}"] << ", #{test[0]}"
+      else
+        data["#{test[1]+'-'+test[2]}"] = test[0]
+      end
+    end
+
+    return data
+  end
+
 end

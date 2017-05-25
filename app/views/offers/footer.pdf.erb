@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <%= wicked_pdf_stylesheet_link_tag "bootstrap.min" %>
+    <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+</head>
+<body class="itinerary-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12" style="background:#fff;height:10px;"></div>
+        </div>
+    </div>
+<footer class="main-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4">
+                <p>Make one day, today!</p>
+            </div>
+            <div class="col-xs-4 text-center">
+                <a href="www.mydiscoveries.com.au">www.mydiscoveries.com.au</a>
+            </div>
+            <div class="col-xs-4 text-right">
+                <%= image_tag(wicked_pdf_asset_base64('pdf/logo-full.png'), class: "img-responsive") %>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

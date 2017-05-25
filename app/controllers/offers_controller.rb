@@ -20,6 +20,19 @@ class OffersController < ApplicationController
     @maturities       = @offer.variants.map{ |v| v.maturity.titleize }.uniq
     @bed_types        = @offer.variants.map{ |v| v.bed_type.titleize }.uniq
     @departure_cities = @offer.variants.map{ |v| v.departure_city }.uniq
+    respond_to do |format|
+      format.html
+      format.pdf do
+      render pdf: @offer.name,
+        dpi:  100,
+        lowquality: true,
+        disable_internal_links: true,
+        disable_external_links: true,
+        image_quality: 20,
+        margin: {bottom:30,top: 10},
+        footer: { html: { template: 'offers/footer.pdf.erb' }}
+      end
+    end
   end
 
   def new
@@ -64,6 +77,7 @@ class OffersController < ApplicationController
   def create
     @offer = Spree::Product.new(product_params)
     @offer.tags.select!(&:present?)
+    @offer.departure_dates = params[:product][:departure_dates][:dates] unless params[:product][:departure_dates].blank?
     if @offer.save
       redirect_to(edit_offer_path(@offer), notice: 'Product succesfully saved')
     else
@@ -77,6 +91,7 @@ class OffersController < ApplicationController
     @offer.tags.select!(&:present?)
     @offer.places_visited.select!(&:present?)
     @offer.inclusion_list = params[:product][:inclusions] if params[:product][:inclusions].present?
+    @offer.departure_dates = params[:product][:departure_dates][:dates] unless params[:product][:departure_dates].blank?
     if @offer.save
       redirect_to edit_offer_path(@offer), notice: "Product Updated"
     else
