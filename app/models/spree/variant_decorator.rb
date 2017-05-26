@@ -5,8 +5,8 @@ Spree::Variant.class_eval do
 
   validates :product,
     uniqueness: {
-      scope: [:bed_type, :departure_city, :maturity],
-      message: 'variant should contain a unique combination of Bed Type, Maturity and Departure City' 
+      scope: [:bed_type, :departure_city, :maturity, :room_type],
+      message: 'variant should contain a unique combination of Bed Type, Maturity, Departure City, and Room Type'
     }
 
   # overrides default getter
