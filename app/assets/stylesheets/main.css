@@ -13412,7 +13412,8 @@ label.css-label.label-featured{
 }
 
 .offer-grey-box {
-  background-color: rgba(127, 140, 141, 0.8);
+  /*background-color: rgba(127, 140, 141, 0.8);*/
+  background-image: url('/assets/offer-box-bg.png');
   display: table;
   padding: 0px 21px 21px 21px;
   /*margin: auto;*/
