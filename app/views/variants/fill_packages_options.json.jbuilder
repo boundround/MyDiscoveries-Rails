@@ -9,6 +9,13 @@ json.options do
   json.departure_cities do
     json.array! @variants.map{ |v| v.departure_city }.uniq
   end
+
+  if @variants.pluck(:room_type).any?(&:present?)
+    json.room_types do
+      json.array! @variants.map{ |v| v.room_type.titleize }.uniq
+    end
+  end
+
   if @options_selected && @variants.one?
     json.variant_id @variants.last.id
     json.price sprintf('%.2f', @variants.last.price)

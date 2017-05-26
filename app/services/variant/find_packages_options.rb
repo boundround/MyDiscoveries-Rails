@@ -23,6 +23,10 @@ class Variant::FindPackagesOptions
       search_params[:departure_city] = options[:departure_city]
     end
 
+    if product.room_type_present? && room_type_present?
+      search_params[:room_type] = options[:room_type]
+    end
+
     product.variants.where(search_params)
   end
 
@@ -34,13 +38,25 @@ class Variant::FindPackagesOptions
     @departure_city_present ||= options[:departure_city].present?
   end
 
+  def room_type_present?
+    @room_type_present ||= options[:room_type].present?
+  end
+
   def maturity_present?
     @maturity_present ||= options[:maturity].present?
   end
 
-  def options_selected?
-    @options_selected ||= departure_city_present? &&
+  def options_without_room_type_present?
+    departure_city_present? &&
       maturity_present? &&
-      departure_city_present?
+      bed_type_present?
+  end
+
+  def options_selected?
+    @options_selected ||= if product.room_type_present?
+      options_without_room_type_present? && room_type_present?
+    else
+      options_without_room_type_present?
+    end
   end
 end
