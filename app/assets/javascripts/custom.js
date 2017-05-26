@@ -556,6 +556,16 @@ $(document).ready(function(){
     }
   }
 
+  $('#download-itinerary').click(function(){
+    $("#waitMeee").waitMe({
+      effect: 'roundBounce',
+      text: "Generating...",
+      color: '#ff4b1a',
+      maxSize: '',
+      fontSize: '18px',
+    });
+  })
+
 });
 
 function countChars(countfrom,displayto) {
