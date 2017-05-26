@@ -3,6 +3,8 @@ Spree::Variant.class_eval do
   enum maturity: { adult: 0, child: 1 } unless instance_methods.include? :maturity
   enum bed_type: { single: 0, twin: 1, triple: 2 } unless instance_methods.include? :bed_type
 
+  before_validation :strip_fields
+
   validates :product,
     uniqueness: {
       scope: [:bed_type, :departure_city, :maturity, :room_type],
@@ -37,7 +39,7 @@ Spree::Variant.class_eval do
     "Departure city: #{departure_city.capitalize}, \
      Maturity: #{maturity.capitalize}, \
      Bed Type: #{bed_type.capitalize}"
-   end
+  end
 
   def monthly_price
     price / 5.0
@@ -45,5 +47,10 @@ Spree::Variant.class_eval do
 
   def product_room_type_present?
     product.room_type_present?
+  end
+
+  def strip_fields
+    departure_city.strip! unless departure_city.nil?
+    room_type.strip!      unless room_type.nil?
   end
 end
