@@ -239,16 +239,16 @@
       <div class="form-group">
         <%= f.input :highlightsStr, as: :bootsy, label: 'Hightlights', input_html: { class: 'width100' } %>
       </div>
-      <!-- <div class="form-group">
-        <%#= f.input :itineraryStr, as: :bootsy, label: 'Itinerary', input_html: { class: 'width100' } %>
+      <<div class="form-group">
+        <%= f.input :itineraryStr, as: :bootsy, label: 'Itinerary', input_html: { class: 'width100' } %>
       </div>
-      <%# if @offer.itinerary.present? %>
+      <% if @offer.itinerary.present? %>
         <label>Current Itinerary File</label>
         <iframe src="<%= @offer.itinerary.url %>" width="600px" height="400px" style="margin: auto; display: block;" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-      <%# end %>
+      <% end %>
       <div class="form-group">
-        <%#= f.input :itinerary, as: :file, label: 'Upload Itinerary File' %>
-      </div> -->
+        <%= f.input :itinerary, as: :file, label: 'Upload Itinerary File' %>
+      </div>
       <div class="form-group">
         <%= f.input :includes, as: :bootsy, label: 'Includes/Excludes', input_html: { class: 'width100' } %>
       </div>
@@ -257,22 +257,6 @@
       </div>
       <div class="form-group">
         <%= f.input :customStr3, as: :bootsy, label: 'Fine Print', input_html: { class: 'width100' } %>
-      </div>
-      <div class="form-group departure_dates">
-        <% if @offer.departure_dates.blank? %>
-          <%= f.input :departure_dates, as: :array, label: 'Departure Dates' %>
-          <div class="departure_datessssss"></div>
-          <%= link_to '+ Add', '#', class: 'js-add-product-departure-dates' %>
-        <% else %>
-          <label>Departure Dates</label><br>
-          <% @offer.departure_dates.each do |ddt|%>
-            <% da = ddt.split('/') %>
-            <label>Month</label>&nbsp;<input class="text optional product_departure_dates_month js-edit-product-departure-dates" name="product[departure_dates][month][]" type="text" value="<%= da.last+'-'+da.first%>"> &nbsp;&nbsp;
-            <label>Dates</label>&nbsp;<input class="text optional product_departure_dates_dates js-edit-product-departure-dates" name="product[departure_dates][dates][]" type="text" value="<%= ddt %>"><br>
-          <% end %>
-          <div class="departure_datessssss"></div>
-          <%= link_to '+ Add', '#', class: 'js-add-product-departure-dates' %>
-        <% end %>
       </div>
     </div>
   </div>
