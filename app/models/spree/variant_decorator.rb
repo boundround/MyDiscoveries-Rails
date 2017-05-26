@@ -5,9 +5,15 @@ Spree::Variant.class_eval do
 
   validates :product,
     uniqueness: {
+      scope: [:bed_type, :departure_city, :maturity, :room_type],
+      message: 'variant should contain a unique combination of Bed Type, Maturity, Departure City and Room Type'
+    }, if: :product_room_type_present?
+
+  validates :product,
+    uniqueness: {
       scope: [:bed_type, :departure_city, :maturity],
-      message: 'variant should contain a unique combination of Bed Type, Maturity and Departure City' 
-    }
+      message: 'variant should contain a unique combination of Bed Type, Maturity and Departure City'
+    }, unless: :product_room_type_present?
 
   # overrides default getter
   def description
@@ -20,12 +26,24 @@ Spree::Variant.class_eval do
   end
 
   def select_label
+    if room_type.present?
+      select_label_without_room_type + ", Room Type: #{room_type.capitalize}"
+    else
+      select_label_without_room_type
+    end
+  end
+
+  def select_label_without_room_type
     "Departure city: #{departure_city.capitalize}, \
      Maturity: #{maturity.capitalize}, \
      Bed Type: #{bed_type.capitalize}"
-  end
+   end
 
   def monthly_price
     price / 5.0
+  end
+
+  def product_room_type_present?
+    product.room_type_present?
   end
 end

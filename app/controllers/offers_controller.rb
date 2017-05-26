@@ -20,6 +20,11 @@ class OffersController < ApplicationController
     @maturities       = @offer.variants.map{ |v| v.maturity.titleize }.uniq
     @bed_types        = @offer.variants.map{ |v| v.bed_type.titleize }.uniq
     @departure_cities = @offer.variants.map{ |v| v.departure_city }.uniq
+
+    if @offer.room_type_present?
+      @room_types = @offer.variants.map{ |v| v.room_type.titleize }.uniq
+    end
+
     respond_to do |format|
       format.html
       format.pdf do
@@ -235,6 +240,7 @@ class OffersController < ApplicationController
       :number_of_nights,
       :test_product,
       :itinerary,
+      :room_type,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,

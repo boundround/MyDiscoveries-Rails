@@ -450,6 +450,10 @@ Spree::Product.class_eval do
     (locationEnd.present? && locationStart != locationEnd) ? "#{locationStart} - #{locationEnd}" : locationStart
   end
 
+  def room_type_present?
+    variants.pluck(:room_type).any?(&:present?)
+  end
+
   private
 
   def hero_photo

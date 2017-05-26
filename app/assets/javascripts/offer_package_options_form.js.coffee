@@ -3,10 +3,17 @@ jQuery(window).load ->
 
   offer_id = $('.package-options-form').data('offerId')
   prompt_text = 'Please Select'
+  room_type_present = $('form.package-options-form').data('roomTypePresent')
+
   $('.js-variant-option').on 'change', (e) ->
     bed_type       = $('#order_populate_bed_type').val()
     maturity       = $('#order_populate_maturity').val()
     departure_city = $('#order_populate_departure_city').val()
+
+    room_type      = if room_type_present
+      $('#order_populate_room_type').val()
+    else
+      ''
 
     $.ajax "/offers/#{offer_id}/variants/fill_packages_options.json",
       type: 'POST'
@@ -14,10 +21,11 @@ jQuery(window).load ->
         bed_type:       bed_type
         maturity:       maturity
         departure_city: departure_city
+        room_type:      room_type if room_type_present
       dataType: 'json'
       success: (data) ->
         update_options(data)
-        update_conclusions(bed_type, maturity, departure_city)
+        update_conclusions(bed_type, maturity, departure_city, room_type)
         update_quantity()
         update_submit_button()
         update_variant_id(data['options']['variant_id'])
@@ -27,10 +35,17 @@ jQuery(window).load ->
     update_option(params['options']['bed_types'], $('#order_populate_bed_type'))
     update_option(params['options']['maturities'], $('#order_populate_maturity'))
     update_option(params['options']['departure_cities'], $('#order_populate_departure_city'))
+    if room_type_present
+      update_option(params['options']['room_types'], $('#order_populate_room_type'))
 
-  update_conclusions = (bed_type, maturity, departure_city) ->
+  update_conclusions = (bed_type, maturity, departure_city, room_type) ->
     if options_selected()
-      value = "#{departure_city}, #{maturity}, #{bed_type}"
+
+      value = if room_type_present
+        "#{departure_city}, #{maturity}, #{bed_type}, #{room_type}"
+      else
+        "#{departure_city}, #{maturity}, #{bed_type}"
+
       $('.js-selected-variants-options').html("Selection: #{value}")
     else
       $('.js-selected-variants-options').html("Selection: ")
@@ -71,6 +86,13 @@ jQuery(window).load ->
       $('.js-submit-button').prop('disabled', 'disabled')
 
   options_selected = () ->
+    if room_type_present
+      options_without_room_type_selected() &&
+      $('#order_populate_room_type').val().length
+    else
+      options_without_room_type_selected()
+
+  options_without_room_type_selected = () ->
     $('#order_populate_bed_type').val().length &&
     $('#order_populate_maturity').val().length &&
     $('#order_populate_departure_city').val().length
@@ -94,7 +116,6 @@ jQuery(window).load ->
     value = parseInt($('#order_populate_quantity').val())
     update_price(value)
     update_submit_button()
-
 
   update_price = (quantity) ->
     allow_installments = $('.package-options-form').data('allowInstallments')
