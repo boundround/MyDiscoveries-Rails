@@ -9,7 +9,7 @@ class OffersController < ApplicationController
 
   def show
     #@map_marker = Attraction.first
-    @photos = @offer.photos.active
+    @photos = @offer.photos.active.uniq
     @videos = @offer.videos.active.order(:priority)
     @galeries = @videos + @photos
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)
@@ -144,18 +144,19 @@ class OffersController < ApplicationController
 
   def update_hero
     photo_id = params[:photo_id]
-    @offer.photos.each do |photo|
-      if photo.id.to_s.eql? photo_id
-         photo.hero = true
-      else
-        photo.hero = false
+
+    old_hero = @offer.photos.where(hero: true)
+    unless old_hero.blank?
+      old_hero.each do |old_h|
+        old_h.update!(hero: false)
       end
-        photo.save
     end
+
+    new_hero = Photo.find(photo_id.to_i)
+    new_hero.update!(hero: true)
     @offer.save
 
     redirect_to choose_hero_offer_photos_path(@offer)
-
   end
 
   private
@@ -165,7 +166,7 @@ class OffersController < ApplicationController
   end
 
   def set_media
-    photos = @offer.photos.active
+    photos = @offer.photos.active.uniq
     videos = @offer.videos.active
     media  = videos.count >= photos.count ? videos.zip(photos) : photos.zip(videos)
     @media = media.flatten.compact.paginate(page: params[:active_media], per_page: 4)

@@ -105,7 +105,7 @@ class PhotosController < ApplicationController
       @collect_photos = @attraction.photos.where.not(status: "removed")
     elsif params[:offer_id]
       @offer = Spree::Product.friendly.find(params[:offer_id])
-      @collect_photos = @offer.photos.where.not(status: "removed")
+      @collect_photos = @offer.photos.where.not(status: "removed").uniq
     elsif params[:story_id]
       @story = Story.friendly.find(params[:story_id])
       @collect_photos = @story.photos.where.not(status: "removed")
