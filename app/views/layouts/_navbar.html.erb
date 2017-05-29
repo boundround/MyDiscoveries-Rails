@@ -95,7 +95,7 @@
                     <div class="featured-thing__image-wrapper">
                         <img src="<%= draw_small_background(offer)%>" class="featured-thing__image" alt="">
                         <p class="featured-thing__image-paragraph">
-                            <%= "From $#{offer_minimum_price(offer)}pp" %>
+                            <%= "From #{number_to_currency(offer_minimum_price(offer))}pp" %>
                         </p>
                     </div>
                     <h5 class="featured-thing__header"><%= offer.name %></h5>
