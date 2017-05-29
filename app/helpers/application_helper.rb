@@ -58,6 +58,14 @@ module ApplicationHelper
     # Only $299 / month for 5 months or $1,495 upfront.
   end
 
+  def offer_minimum_price(offer)
+    prices = []
+    offer.variants.each do |variant|
+      prices << variant.price
+    end
+    prices.min
+  end
+
   def draw_fun_fact_photo(funfact, place)
     if funfact.hero_photo_url.blank?
       showing_image(get_random_place_photo(place))

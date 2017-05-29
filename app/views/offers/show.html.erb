@@ -25,9 +25,9 @@
         <div class="hc-info">
           <span class="hci-price">
             <span>$</span>
-            <span class="hci-price-self"><%= @offer.minRateAdult %></span>
+            <span class="hci-price-self"><%= offer_minimum_price(@offer).round %></span>
             <% if @offer.allow_installments? %>
-              <br><span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(@offer.minRateAdult / 5.0) %></span><br>
+              <br><span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(offer_minimum_price(@offer) / 5.0) %></span><br>
             <% end %>
           </span>
           <% if @offer.duration.present? %>

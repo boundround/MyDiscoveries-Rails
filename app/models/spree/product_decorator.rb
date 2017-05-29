@@ -420,6 +420,14 @@ Spree::Product.class_eval do
     end
   end
 
+  def minRateAdult
+    prices = []
+    variants.each do |variant|
+      prices << variant.price
+    end
+    prices.min.round rescue 0
+  end
+
   def published?
     if self.status == "live"
       true
