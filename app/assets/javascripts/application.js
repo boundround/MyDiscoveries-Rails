@@ -94,6 +94,7 @@
 //= require orders
 //= require operators
 //= require jquery.Jcrop.min
+//= require waitMe.min
 
 //= require card/jquery.card
 //= require checkout
