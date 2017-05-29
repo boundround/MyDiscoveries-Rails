@@ -19,15 +19,18 @@ class Variant::FindPackagesOptions
       search_params[:maturity] =
         Spree::Variant.maturities[options[:maturity].downcase.to_sym]
     end
+
+    result = product.variants.where(search_params)
+
     if departure_city_present?
-      search_params[:departure_city] = options[:departure_city]
+      result = result.where('lower(departure_city) = ?', options[:departure_city].downcase)
     end
 
     if product.room_type_present? && room_type_present?
-      search_params[:room_type] = options[:room_type]
+      result = result.where('lower(room_type) = ?', options[:room_type].downcase)
     end
 
-    product.variants.where(search_params)
+    result
   end
 
   def bed_type_present?
