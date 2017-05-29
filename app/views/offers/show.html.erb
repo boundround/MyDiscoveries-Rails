@@ -11,7 +11,7 @@
 <!-- END - breadcrumbs -->
 
 
-<div class="product">
+<div class="product" id="waitMeee">
   <div class="hero" style="background: url( <%= showing_image(draw_hero_background(@offer)) %>) 50% 50% no-repeat;" >
     <div class="photo-credit"><%= get_hero_image_credit(@offer) %></div>
     <div class="hero-content width-limiter hero-content-offer">
@@ -35,7 +35,7 @@
           <span class="hci-info"><%= simple_format(specialNotes_txt) %></span>
         </div>
         <div class="location">
-          <%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), target: "_blank", class: "btn-bordered red", id:"download-itinerary" %>
+          <%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %>
           <% if user_signed_in? and current_user.admin? %>
             &nbsp;&nbsp;&nbsp;<%= link_to "Edit Offer", edit_offer_path(@offer) %>
           <% end %>
