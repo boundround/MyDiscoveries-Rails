@@ -10117,13 +10117,13 @@ a:hover, a:focus, a:active {
   -moz-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
   -o-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%); 
+  transform: translateX(-50%) translateY(-50%);
 }
 .hero h2 {
   color: white;
   font-family: Baghdad, serif;
   font-weight: bold;
-  font-size: 50px; 
+  font-size: 50px;
 }
 @media(max-width: 1200px){
   .hero h2{
@@ -13418,6 +13418,7 @@ label.css-label.label-featured{
   padding: 0px 21px 21px 21px;
   /*margin: auto;*/
   text-shadow: 1px 1px #696969 !important;
+  max-width: 62%;
 }
 
 .offer-grey-box h2 {
