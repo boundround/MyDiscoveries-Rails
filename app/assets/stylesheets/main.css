@@ -10101,39 +10101,40 @@ a:hover, a:focus, a:active {
   text-shadow: 1px 1px grey;
   min-height: 500px;
   width: 100%;
-  position: relative;
-  background: url("/assets/mydiscoveries_icon/images/hero.jpg") center center no-repeat;
-  background-size: cover;
-  margin-top: 10px;}
+  background-position: center !important;
+  margin-top: 10px;
+}
+.hero h1 {
+  font-family: Bagnard, serif;
+  font-size: 80px;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  text-align: center;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%); 
+}
+.hero h2 {
+  color: white;
+  font-family: Baghdad, serif;
+  font-weight: bold;
+  font-size: 50px; 
+}
+@media(max-width: 1200px){
+  .hero h2{
+    font-size: 30px;}
   .hero h1 {
-    font-family: Bagnard, serif;
-    font-size: 80px;
-    color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    text-align: center;
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -ms-transform: translateX(-50%) translateY(-50%);
-    -o-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%); }
-      .hero h2 {
-    color: white;
-    font-family: Baghdad, serif;
-    font-weight: bold;
-    font-size: 50px; }
-    @media(max-width: 1200px){
-      .hero h2{
-        font-size: 30px;}
-      .hero h1 {
-        font-size: 60px;}
-      .product .hero .hero-content .hc-info .hci-price{
-        font-size: 32px;}
-    }
-   /* .product .po-item .poict-price{
-      margin-bottom: 30px;}*/
+    font-size: 60px;}
+  .product .hero .hero-content .hc-info .hci-price{
+    font-size: 32px;}
+}
+/* .product .po-item .poict-price{
+  margin-bottom: 30px;}*/
 
 .small-video-component .player-vimeo{
   width: 100%;
@@ -13404,4 +13405,35 @@ label.css-label.label-featured{
 }
 #download-itinerary:hover{
   background: #ff4b1a;
+}
+
+.hero-content-offer {
+  padding-top: 45px !important;
+}
+
+.offer-grey-box {
+  /*background-color: rgba(127, 140, 141, 0.8);*/
+  background-image: url('/assets/offer-box-bg.png');
+  display: table;
+  padding: 0px 21px 21px 21px;
+  /*margin: auto;*/
+  text-shadow: 1px 1px #696969 !important;
+}
+
+.offer-grey-box h2 {
+  margin-bottom: 0px;
+}
+
+.offer-grey-box h2, .hc-info span, .hci-nights span {
+  font-weight: normal !important;
+}
+
+.offer-grey-box .hc-info {
+  margin-top: 0px !important;
+}
+
+@media(min-width: 1201px){
+  .offer-grey-box .location {
+    margin-top: -25px !important;
+  }
 }
