@@ -44,8 +44,8 @@ $(document).ready(function() {
         var INDEX_NAME_BOTTOM = 'mydiscoveries_' + production_environment;
     }
     var PARAMS = {
-        hitsPerPage: 3,
-        maxValuesPerFacet: 8,
+        hitsPerPage: 5,
+        maxValuesPerFacet: 10,
     };
 
 

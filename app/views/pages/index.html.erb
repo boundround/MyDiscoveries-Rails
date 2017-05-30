@@ -26,24 +26,42 @@
                       </div>
                   </div>
                   <div class="row">
-                      <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12">
-                          <form accept-charset="UTF-8" action="/results" method="get">
-                              <div>
-                                  <div style="display:none">
-                                      <input name="utf8" value="✓" type="hidden">
-                                  </div>
-                                  <div class="home-promo__search-wrapper">
-                                    <input placeholder="Search" class="home-promo__search search-box-bottom" name="search[common]" type="text" autocomplete="off" />
-                                    <span class="home-promo__search-icon"></span>
-                                </div>
+                    <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12">
+                      <form accept-charset="UTF-8" action="/results" method="get">
+                        <div>
+                          <div style="display:none"><input name="utf8" value="✓" type="hidden"></div>
+                          <div class="home-promo__search-wrapper">
+                            <input placeholder="Search" class="home-promo__search search-box-bottom" name="search[common]" type="text" autocomplete="off" />
+                            <div class="within-position hidden-xs">
+                              <div class="dropdown-home">
+                                <button type="button" class="btn btn-selectedd btn-default dropdown-toggle search-button-home"
+                                        data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">Within
+                                  <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                  <li>
+                                    <a href="javascript:void(0)" data-value="destinations">Destinations</a>
+                                  </li>
+                                  <li>
+                                    <a href="javascript:void(0)" data-value="stories">Holidays</a>
+                                  </li>
+                                  <li>
+                                    <a href="javascript:void(0)" data-value="deals">Stories</a>
+                                  </li>
+                                </ul>
                               </div>
-                          </form>
-                          <div class="search-results-container mega-menu" id="search-results-bottom-container" style="display: none">
-                              <div class="search-results ">
-                                  <%= render :partial=> "search_suggestions/search_results_home" %>
-                              </div>
+                              <button class="btn search-btn" type="submit"><span class="home-promo__search-icon"></span></button>
+                            </div>
                           </div>
+                        </div>
+                      </form>
+                      <div class="search-results-container mega-menu" id="search-results-bottom-container" style="display: none">
+                        <div class="search-results ">
+                          <%= render :partial=> "search_suggestions/search_results_home" %>
+                        </div>
                       </div>
+                    </div>
                   </div>
               </div>
           </div>
