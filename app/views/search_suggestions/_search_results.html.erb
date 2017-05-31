@@ -6,20 +6,22 @@
 <script type="text/template" id="hit-template-home">
 {{#hits}}
   <div class="search-results-card-wrapper">
+    <div class="show-hide-within" data-destinations="{{ where_destinations }}">
       <a class="search-results-card" href="{{ url }}" data-object-id="{{ objectID }}">
-          <div class="search-results-img hit-result"
-               style="background: url({{ hero_photo.url }}) no-repeat;"
-               role="img" aria-label="{{{ display_name }}}"
-               alt="{{ hero_photo.alt_tag }}"
-               data-link="{{ url }}"
-               >
-               <span class="search-result-type"><i class="fa fa-{{ result_icon }}"></i>&nbsp;{{ result_type }}</span>
-          </div>
-          <div class="search-results-card-content">
-              <h4 class="highlighting" >{{{ _highlightResult.display_name.value }}} </h4>
-              <h5 class="highlighting" >{{{ _highlightResult.display_address.value }}}</h5>
-          </div>
+        <div class="search-results-img hit-result"
+             style="background: url({{ hero_photo.url }}) no-repeat;"
+             role="img" aria-label="{{{ display_name }}}"
+             alt="{{ hero_photo.alt_tag }}"
+             data-link="{{ url }}"
+             >
+             <span class="search-result-type"><i class="fa fa-{{ result_icon }}"></i>&nbsp;{{ result_type }}</span>
+        </div>
+        <div class="search-results-card-content">
+          <h4 class="highlighting" >{{{ _highlightResult.display_name.value }}} </h4>
+          <h5 class="highlighting" >{{{ _highlightResult.display_address.value }}}</h5>
+        </div>
       </a>
+    </div>
   </div>
   {{/hits}}
 </script>
