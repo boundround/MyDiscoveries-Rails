@@ -20,33 +20,6 @@
     </div>
   </div>
 </section>
- <% if @stories.present? %>
-<section class="best-of-adventure section-white">
-  <div class="container width-limiter">
-    <div class="row best-of-adventure__header">
-      <div class="col-sm-12 col-md-12 col-xs-12">
-          <h2 class="adventure-block__title">Best of <%= @subcategory.name.titleize %></h2>
-          <p class="adventure-see__link-wrapper">
-              <a href="<%= all_posts_posts_path %>" class="adventure-see__link hidden-xs">see all</a>
-          </p>
-      </div>
-    </div>
-    <div class="row best-of-adventure__content" id="stories-list">
-      <%= render partial: 'stories/all_stories_subcategory', collection: @stories, as: :story %>
-    </div>
-    <% unless last_page? @stories %>
-      <div class="single-pagination-container" id="stories-single-pagination-container">
-        <div class="load-more region">
-          <div class="hidden single-pagination-loader" align="center">
-            <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-          </div>
-        <%= link_to "see more", paginate_stories_subcategory_path(@subcategory, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_subcategory', collection_object: 'story'), class: 'see-more__link single-pagination', remote: true %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</section>
-<% end %>
 
  <% if @offers.present? %>
 <section class="related-product-adventure">
@@ -79,6 +52,34 @@
       </div>
     </div>
   </div>
+</section>
+<% end %>
+
+<% if @stories.present? %>
+<section class="best-of-adventure section-white">
+ <div class="container width-limiter">
+   <div class="row best-of-adventure__header">
+     <div class="col-sm-12 col-md-12 col-xs-12">
+         <h2 class="adventure-block__title">Best of <%= @subcategory.name.titleize %></h2>
+         <p class="adventure-see__link-wrapper">
+             <a href="<%= all_posts_posts_path %>" class="adventure-see__link hidden-xs">see all</a>
+         </p>
+     </div>
+   </div>
+   <div class="row best-of-adventure__content" id="stories-list">
+     <%= render partial: 'stories/all_stories_subcategory', collection: @stories, as: :story %>
+   </div>
+   <% unless last_page? @stories %>
+     <div class="single-pagination-container" id="stories-single-pagination-container">
+       <div class="load-more region">
+         <div class="hidden single-pagination-loader" align="center">
+           <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+         </div>
+       <%= link_to "see more", paginate_stories_subcategory_path(@subcategory, stories_page: @stories.next_page, resources: 'stories', pagination_template: 'stories/all_stories_subcategory', collection_object: 'story'), class: 'see-more__link single-pagination', remote: true %>
+       </div>
+     </div>
+   <% end %>
+ </div>
 </section>
 <% end %>
 
