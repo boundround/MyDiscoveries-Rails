@@ -566,6 +566,41 @@ $(document).ready(function(){
     });
   })
 
+  $(".dropdown-menu li a").click(function(){
+    $(".btn-selectedd:first-child").html($(this).text()  + "&nbsp;&nbsp;<span class='caret'></span>" );
+    $(".btn-selectedd:first-child").val($(this).data('value'));
+  });
+
+  $(".search-box-bottom").on('keyup', function() {
+    var within  = $(".btn-selectedd").text().replace(/\s/g, '').toLowerCase();
+    if (within != 'within') {
+      setTimeout(function() {
+        $dataDes = $(".show-hide-within");
+        
+        $.each($dataDes, function() {
+          destination = $(this).data('destinations').toLowerCase();
+
+          if (within == 'destinations') {
+            if (destination == 'places' || destination == 'region') {
+              $(this).css('display', '');
+            } else {
+              $(this).css('display', 'none');
+            }
+          } else if (within == 'holidays') {
+            within = 'offers'
+            if (destination != within) {
+              $(this).css('display', 'none');
+            }
+          } else {
+            if (destination != within) {
+              $(this).css('display', 'none');
+            }
+          }
+        })
+      }, 700);
+    }
+  });
+
 });
 
 function countChars(countfrom,displayto) {
