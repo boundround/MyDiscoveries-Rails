@@ -493,5 +493,5 @@ Rails.application.routes.draw do
   post '/admin/configurable' => 'admin/configurables#create', as: :configurables
 
   #temporary redirect to landing page for competitions
-  get '/win' => redirect('http://offers.mydiscoveries.com.au/win-my-discoveries-5-night-stay')
+  get '/win' => redirect('http://offers.mydiscoveries.com.au/win-my-discoveries-3-night-stay-perth')
 end
