@@ -37,6 +37,19 @@
         AX Item Code: <%= line_item.variant.item_code %> <br>
         Supplier Product Code: <%= line_item.variant.supplier_product_code %> <br>
       </p>
+      <div class="col-md-1"></div>
+      <div class="col-md-11">
+        <% line_item.passengers.each_with_index do |passenger, index| %>
+          <h4>Passenger <%= index + 1 %></h4>
+          First Name: <%= passenger.first_name %><br>
+          Last Name: <%= passenger.last_name %><br>
+          DOB: <%= passenger.date_of_birth.strftime("%d/%m/%Y")%><br>
+          Phone: <%= passenger.telephone %><br>
+          Mobile: <%= passenger.mobile %><br>
+          Email: <%= passenger.email %><br>
+          <hr>
+        <% end %>
+      </div>
     <% end %>
   </p>
 </div>
