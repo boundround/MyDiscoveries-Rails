@@ -109,7 +109,6 @@ class OrdersController < ApplicationController
       current_order(create_order_if_necessary: true),
       current_currency
     )
-
     if populator.populate(
         order_populate_params[:variant_id],
         order_populate_params[:quantity],
@@ -121,6 +120,8 @@ class OrdersController < ApplicationController
       if order_populate_params[:request_installments] == "1"
         @line_item.set_request_installments!
       end
+
+      debugger
       current_order.set_cart_state!
       redirect_to line_item_add_passengers_path(@offer, @line_item)
     else
