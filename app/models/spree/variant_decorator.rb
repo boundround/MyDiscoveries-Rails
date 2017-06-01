@@ -5,17 +5,17 @@ Spree::Variant.class_eval do
 
   before_validation :strip_fields
 
-  # validates :product,
-  #   uniqueness: {
-  #     scope: [:bed_type, :departure_city, :maturity, :room_type],
-  #     message: 'variant should contain a unique combination of Bed Type, Maturity, Departure City and Room Type'
-  #   }, if: :product_room_type_present?
-  #
-  # validates :product,
-  #   uniqueness: {
-  #     scope: [:bed_type, :departure_city, :maturity],
-  #     message: 'variant should contain a unique combination of Bed Type, Maturity and Departure City'
-  #   }, unless: :product_room_type_present?
+  validates :product,
+    uniqueness: {
+      scope: [:bed_type, :departure_city, :maturity, :room_type],
+      message: 'variant should contain a unique combination of Bed Type, Maturity, Departure City and Room Type'
+    }, if: :product_room_type_present?
+
+  validates :product,
+    uniqueness: {
+      scope: [:bed_type, :departure_city, :maturity],
+      message: 'variant should contain a unique combination of Bed Type, Maturity and Departure City'
+    }, unless: :product_room_type_present?
 
   # overrides default getter
   def description
