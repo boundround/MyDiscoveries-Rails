@@ -11,7 +11,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
       send_notification
       if ENV["MYDISCOVERIES_ENV"] == "mydiscoveries_production"
         if Rails.env.production?
-          SNA::Send.call(order) if order.products.where(operator_id: 1).any?
+          SNA::RequestProcessor.perform_async(order.id) if order.products.where(operator_id: 1).any?
           Ax::Upload.call(order)
         end
       end
