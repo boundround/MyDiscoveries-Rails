@@ -55,21 +55,21 @@ class SNA::Send
           json.SalesId order.ax_sales_id
           json.OrderDate order_date
           json.OrderTime order_time
-          json.EmailAddress customer.email.presence || 'info@mydiscoveries.com.au'
+          json.EmailAddress customer.try(:email).presence || 'info@mydiscoveries.com.au'
           json.ShippingCost shipping_cost
-          json.ShippingMethod ENV["AX_SHIPPING METHOD"]
+          json.ShippingMethod ENV["AX_SHIPPING_METHOD"]
           json.Brand ENV["AX_BRAND"]
           json.CustGroup ENV["AX_CUST_GROUP"]
           json.Currency "AUD"
           json.Total order.total_price
           json.Items items
           json.ShippingAddress do
-            json.Title customer.title.presence || ''
-            json.FirstName customer.first_name.presence || ''
-            json.LastName customer.last_name.presence || ''
-            json.PhoneNumber customer.phone_number
-            json.AddressOne customer.address_one
-            json.AddressTwo (customer.address_two.presence || '')
+            json.Title customer.try(:title).to_s
+            json.FirstName customer.try(:first_name).to_s
+            json.LastName customer.try(:last_name).to_s
+            json.PhoneNumber customer.try(:phone_number).to_s
+            json.AddressOne customer.try(:address_one).to_s
+            json.AddressTwo customer.try(:address_two).to_s
             json.City customer.city
             json.State customer.state
             json.PostCode customer.postal_code
