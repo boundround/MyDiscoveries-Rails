@@ -61,7 +61,9 @@ module ApplicationHelper
   def offer_minimum_price(offer)
     prices = []
     offer.variants.each do |variant|
-      prices << variant.price
+      if variant.maturity.downcase.strip != "child"
+        prices << variant.price
+      end
     end
     prices.min
   end
