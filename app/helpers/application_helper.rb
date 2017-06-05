@@ -535,4 +535,15 @@ module ApplicationHelper
       ' Empty '
     end
   end
+
+  def convert_url(url)
+    link = url.split(':')
+    if link.include?('http') || link.include?('https')
+      curl = url
+    else
+      curl = 'http://'+url
+    end
+
+    return curl
+  end
 end

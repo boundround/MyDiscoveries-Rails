@@ -3,11 +3,11 @@
   <section>
     <div id="up-tabs" class="up-tabs">
       <ul class="up-tabs-main">
-          <li class="up-my-dashboard-link"><a href="#up-my-dashboard">My Dashboard</a></li>
-          <li class="up-my-bookings-link"><a href="#up-my-bookings">my bookings</a></li>
-          <li class="up-bucket-list-link"><a href="#up-bucket-list">bucket list</a></li>
-          <!-- <li class="up-my-content-link"><a href="#up-my-content">my content</a></li> -->
-          <li class="up-my-settings-link"><a href="#up-my-settings">my settings</a></li>
+        <li class="up-my-dashboard-link"><a href="#up-my-dashboard">My Dashboard</a></li>
+        <li class="up-my-bookings-link"><a href="#up-my-bookings">my bookings</a></li>
+        <li class="up-bucket-list-link"><a href="#up-bucket-list">bucket list</a></li>
+        <!-- <li class="up-my-content-link"><a href="#up-my-content">my content</a></li> -->
+        <li class="up-my-settings-link"><a href="#up-my-settings">my settings</a></li>
       </ul>
 
       <!-- BEGIN - My Dashboard -->
@@ -17,7 +17,8 @@
             <h1><%= @user.name %></h1>
             <h4 class="heading">Hi <%= @user.name.split(" ").first %>, it's nice to see you!</h4>
           <% end %>
-            <a class="change-selection xs-invisible" id="change-location" href="#up-my-settings">Change your settings</a>
+          <a class="change-selection xs-invisible" id="change-location" href="#up-my-settings">Change your settings</a> &nbsp;&nbsp;&nbsp;&nbsp; 
+          <a class="change-landing xs-invisible" href="<%= user_landings_path(@user) %>">Landing</a>
         </div>
 
         <div class="upmd-img-block">

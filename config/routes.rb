@@ -211,6 +211,7 @@ Rails.application.routes.draw do
       get 'stories'
       get 'public_profile'
     end
+    resources :landings
   end
 
 

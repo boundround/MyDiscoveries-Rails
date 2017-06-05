@@ -1,0 +1,42 @@
+<% if @user == current_user || current_user.admin %>
+	<div class="user-pages width-limiter" data-page="user-page">
+		<section>
+			<%= link_to 'New Landing', new_user_landing_path(@user) %>
+    	<% if (user_signed_in?) %>
+			  <div id="table-container">
+			    <h1>All Landing</h1>
+			    <table class="table table-striped" id="place-table">
+			      <thead>
+			        <tr>
+			          <th>From URL</th>
+			          <th>To URL</th>
+			          <th>Action</th>
+			        </tr>
+			      </thead>
+			      <tfoot>
+			        <tr>
+			          <th>From URL</th>
+			          <th>To URL</th>
+			          <th>Action</th>
+			        </tr>
+			      </tfoot>
+			      <tbody>
+			        <% @landings.each do |landing| %>
+			          <tr>
+			            <td><%= link_to "#{landing.from_url} || #{landing.id}", edit_user_landing_path(@user, landing) %></td>
+			            <td><%= link_to landing.to_url, convert_url(landing.from_url), target: '_blank' %></td>
+			            <td>
+			            	<%= link_to 'Destroy', user_landing_path(@user, landing), method: :delete, data: { confirm: 'Are you sure?' } %>
+			            </td>
+			          </tr>
+			        <% end %>
+			      </tbody>
+			    </table>
+			  </div>
+			<% else %>
+			  <h3>You are not signed in or do not have the proper permissions to view this page</h3>
+			<% end %>
+			<link href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css" type="text/css">
+    </section>
+	</div>
+<% end %>

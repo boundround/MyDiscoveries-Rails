@@ -1,0 +1,13 @@
+<div class="form-group">
+  <%= f.input :from_url, label: "From URl", input_html: { class: 'form-control' } %><br>
+</div>
+
+<div class="form-group">
+  <%= f.input :to_url, label: "To URL", input_html: { class: 'form-control' } %><br>
+</div>
+
+<br>
+<div class="form-group">
+  <%= f.button :submit, 'Submit' %>
+  <%= link_to "Cancel", :back, {:class=>"btn"} %>
+</div>
