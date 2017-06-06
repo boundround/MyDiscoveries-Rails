@@ -363,6 +363,7 @@ Spree::Product.class_eval do
   belongs_to :attraction
   belongs_to :operator
   belongs_to :place
+  belongs_to :ship
 
   has_many :products_photos, dependent: :destroy
   has_many :photos, through: :products_photos

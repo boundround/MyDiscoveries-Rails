@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   resources :operators
   resources :competitions
+  resources :ships
 
   resources :posts do
     collection { get 'all_posts' }

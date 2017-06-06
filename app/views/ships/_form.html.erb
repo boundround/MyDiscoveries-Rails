@@ -1,0 +1,33 @@
+<br>
+<%= simple_form_for ship, html: { role: 'form'} do |f| %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group lat-lng">
+        <div class="row">
+          
+          <div class="form-group col-xs-12 col-sm-6">
+            <%= f.input :name, label: 'Name', input_html: { class: 'width100'} %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-6">
+            <%= f.input :cruise_line, label: 'Cruise Line:', input_html: { class: 'width100'} %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.input :overview, as: :bootsy, label: 'Overview', input_html: { class: 'width100' } %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.input :facilities, as: :bootsy, label: 'Facilities', input_html: { class: 'width100' } %>
+          </div>
+          <div class="col-xs-12 col-sm-12">
+            <%= f.input :map, as: :file, label: 'Map' %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </br>
+  <div class="form-group">
+    <%= f.submit :submit, class: 'btn btn-default' %>
+    <%= link_to "Cancle", ships_path, class: 'btn' %>
+  </div>
+<% end %>

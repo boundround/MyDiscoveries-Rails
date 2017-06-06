@@ -1,0 +1,38 @@
+<div id="table-container">
+  <h1>All Ships</h1>
+
+  <table class="table table-striped" id="place-table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Cruise line</th>
+      <th>Overview</th>
+      <th>Facilities</th>
+      <th>Map</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Name</th>
+        <th>Cruise line</th>
+        <th>Overview</th>
+        <th>Facilities</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% @ships.each do |ship| %>
+        <tr>
+          <td><%= link_to "#{ship.name} || #{ship.id}", edit_ship_path(ship) %></td>
+          <td><%= ship.cruise_line %></td>
+          <td><%= simple_format(ship.overview) %></td>
+          <td><%= simple_format(ship.facilities) %></td>
+          <td><%= image_tag(ship.map.blank? ? 'https://dummyimage.com/100x100/000000/ffffff&text=no-map' : ship.map, style: 'height: 50px;') %></td>
+          <td><%= link_to 'Destroy', ship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

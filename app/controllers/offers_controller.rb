@@ -231,6 +231,7 @@ class OffersController < ApplicationController
       :supplier_product_code,
       :innovations_transaction_id,
       :operator_id,
+      :ship_id,
       :show_in_mega_menu,
       :featured,
       :allow_installments,
