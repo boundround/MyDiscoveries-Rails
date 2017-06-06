@@ -423,9 +423,11 @@ Spree::Product.class_eval do
   def minRateAdult
     prices = []
     variants.each do |variant|
-      prices << variant.price
+      if variant.maturity.downcase.strip != "child"
+        prices << variant.price
+      end
     end
-    prices.min.round rescue 0
+    prices.min
   end
 
   def published?

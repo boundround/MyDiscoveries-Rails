@@ -344,14 +344,14 @@ $(document).ready(function() {
             if(text_old_b.length > 0){
                 text_old_b.each(function(){
                     $(this).replaceWith($('<span>' + this.innerHTML + '</span>'));
-                })    
+                })
             }
 
             var text_gen_b = $('.instant-hits-result').find("b")
             if(text_gen_b.length > 0){
                 text_gen_b.each(function(){
                     $(this).replaceWith($('<span>' + this.innerHTML + '</span>'));
-                })    
+                })
             }
         }, 100)
     }
@@ -372,7 +372,7 @@ $(document).ready(function() {
         $('.show-more-faceting').click(function(){
             var hiddenFacet = $(this).siblings('label').slice(5, $(this).siblings().length);
             var buttonTextFacet = $(this).find('span.search-page-filter__label-text');
-          
+
             hiddenFacet.toggleClass('show')
             buttonTextFacet.toggleClass('hide')
         })
@@ -415,6 +415,7 @@ $(document).ready(function() {
 
                     $(this)[0].startDate = date+"-"+month+"-"+year
                     $(this)[0].monthlyPayments = ($(this)[0].minRateAdult/5.0).toFixed(2)
+                    $(this)[0].minRateAdult = ($(this)[0].minRateAdult/1.0).toFixed(2)
 
                 }else if($(this)[0].where_destinations == "Stories"){
                     $(this)[0]["is_offer"] = false
