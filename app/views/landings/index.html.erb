@@ -24,7 +24,7 @@
 			        <% @landings.each do |landing| %>
 			          <tr>
 			            <td><%= link_to "#{landing.from_url} || #{landing.id}", edit_user_landing_path(@user, landing) %></td>
-			            <td><%= link_to landing.to_url, convert_url(landing.from_url), target: '_blank' %></td>
+			            <td><%= link_to landing.to_url, landing.to_url, target: '_blank' %></td>
 			            <td>
 			            	<%= link_to 'Destroy', user_landing_path(@user, landing), method: :delete, data: { confirm: 'Are you sure?' } %>
 			            </td>
