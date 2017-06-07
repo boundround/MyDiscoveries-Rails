@@ -52,7 +52,7 @@ class OffersController < ApplicationController
   end
 
   def all_ships
-    @featured_offers = Spree::Product.all
+    @ships = Ship.all.reorder(:name)
   end
 
   def paginate_reviews
