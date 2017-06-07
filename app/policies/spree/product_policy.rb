@@ -44,6 +44,14 @@ class Spree::ProductPolicy < ApplicationPolicy
     true
   end
 
+  def all_ships?
+    true
+  end
+
+  def autocomplete_ship_name?
+    true
+  end
+
   def new_livn_offer?
     cms_index?
   end

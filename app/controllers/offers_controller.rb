@@ -1,9 +1,11 @@
 class OffersController < ApplicationController
+  autocomplete :ship, :name
+
   before_action -> { check_user_authorization('Spree::Product') }, except: [
     :show, :paginate_reviews, :paginate_media, :paginate_on_idx, :clone, :paginate_offers
   ]
   before_action :set_offer, only: [
-    :show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :update_hero, :clone
+    :show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :update_hero, :clone, :all_ships
   ]
   before_action :set_media, only: [:show, :paginate_media]
 
@@ -46,6 +48,10 @@ class OffersController < ApplicationController
   end
 
   def all_offers
+    @featured_offers = Spree::Product.all
+  end
+
+  def all_ships
     @featured_offers = Spree::Product.all
   end
 

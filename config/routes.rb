@@ -410,9 +410,11 @@ Rails.application.routes.draw do
       get 'paginate_videos', as: :paginate_videos
       get 'paginate_photos', as: :paginate_photos
       get 'clone'
+      get 'all_ships'
     end
     collection { get 'paginate_on_idx' }
     collection { get 'paginate_offers' }
+    get :autocomplete_ship_name, :on => :collection
     collection do
       get 'new_livn_offer'
       post 'create_livn_offer'
