@@ -5,7 +5,17 @@
         <!-- <img src="http://lorempixel.com/400/200/city" alt=""> -->
     </div>
     <p class="xs-heading"><%= raw story.title.blank? ? story.title : story.title.truncate(50) %></p>
-    <a class="btn-bordered red small" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>">READ MORE</a>
+    <div style="float: left;">
+      <div class="hidden-xs hidden-sm">
+        <p><%= story.user.name.truncate(26) rescue "" %></p>
+      </div>
+      <div class="hidden-lg hidden-xl">
+        <p><%= story.user.name rescue "" %></p>
+      </div>
+    </div>
+    <div style="float: right;">
+      <a class="btn-bordered red small" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>">READ MORE</a>
+    </div>
     <% if story.featured %>
     <span class="inspiration-item__mark">Featured Article</span>
   <% end %>
