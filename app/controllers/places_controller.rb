@@ -176,7 +176,8 @@ class PlacesController < ApplicationController
     @photos_hero = @photos.first(6)
     @fun_facts = @place.fun_facts
     @country_currency, @languages = @place.country_extra_data
-
+    @tab_infos = @place.tab_infos.reorder(:created_at)
+    
     respond_to do |format|
       format.html #{ render view, :layout => !request.xhr? }
       format.json { render json: @place }
