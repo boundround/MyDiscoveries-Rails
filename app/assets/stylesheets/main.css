@@ -13448,6 +13448,18 @@ label.css-label.label-featured{
   font-size: 15px !important;
 }
 
+.posi-nightsaaa {
+  padding-left: 25px;
+  padding-top: 5px;
+  background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat;
+  font-family: Larsseit, sans-serif;
+  color: #000060;
+  font-size: 16px;
+  line-height: 16px;
+  margin: 0;
+  padding-bottom: 16px;
+}
+
 .dropdown-home{
   position: relative;
   right: 55px;
