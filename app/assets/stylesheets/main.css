@@ -13451,11 +13451,11 @@ label.css-label.label-featured{
 .posi-nightsaaa {
   padding-left: 25px;
   padding-top: 5px;
-  background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat;
+  background: url(/assets/mydiscoveries_icon/i/inclusions/nights.svg) 0 -2px no-repeat;
+  background-size: 25px 22px;
   font-family: Larsseit, sans-serif;
   color: #000060;
   font-size: 16px;
-  line-height: 16px;
   margin: 0;
   padding-bottom: 16px;
 }
