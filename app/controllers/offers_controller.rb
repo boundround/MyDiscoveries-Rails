@@ -100,7 +100,7 @@ class OffersController < ApplicationController
     if @offer.save
       redirect_to edit_offer_path(@offer), notice: "Product Updated"
     else
-      flash.now[:alert] = 'Sorry, there was an error updating this Product'
+      flash.now[:alert] = @offer.errors.full_messages.to_sentence
       render :edit
     end
   end
