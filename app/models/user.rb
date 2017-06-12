@@ -161,17 +161,7 @@ class User < ActiveRecord::Base
   end
 
   def store_to_hubspot
-    Hubspot::Contact.create_or_update!([
-      { email: self.email, 
-        firstname: self.first_name.blank? ? self.email : self.first_name, 
-        lastname: self.last_name, 
-        phone: self.mobile.blank? ? self.home_phone : self.mobile 
-      }
-    ])
-  end
-
-  def update_hubspot_info
-    if first_name_changed? || last_name_changed? || home_phone_changed? || mobile_changed?
+    unless Rails.env.development?
       Hubspot::Contact.create_or_update!([
         { email: self.email, 
           firstname: self.first_name.blank? ? self.email : self.first_name, 
@@ -179,6 +169,20 @@ class User < ActiveRecord::Base
           phone: self.mobile.blank? ? self.home_phone : self.mobile 
         }
       ])
+    end
+  end
+
+  def update_hubspot_info
+    unless Rails.env.development?
+      if first_name_changed? || last_name_changed? || home_phone_changed? || mobile_changed?
+        Hubspot::Contact.create_or_update!([
+          { email: self.email, 
+            firstname: self.first_name.blank? ? self.email : self.first_name, 
+            lastname: self.last_name, 
+            phone: self.mobile.blank? ? self.home_phone : self.mobile 
+          }
+        ])
+      end
     end
   end
 end
