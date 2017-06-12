@@ -243,3 +243,6 @@ gem 'spree', '~> 2.4.10'
 
 # Logentries
 gem 'le'
+
+# integrate rails with hubspot (api)
+gem "hubspot-ruby"
