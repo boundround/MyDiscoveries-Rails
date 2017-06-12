@@ -171,7 +171,7 @@ class User < ActiveRecord::Base
   end
 
   def update_hubspot_info
-    if first_name_changed? || last_name_changed? || home_phone_changed?
+    if first_name_changed? || last_name_changed? || home_phone_changed? || mobile_changed?
       Hubspot::Contact.create_or_update!([
         { email: self.email, 
           firstname: self.first_name.blank? ? self.email : self.first_name, 
