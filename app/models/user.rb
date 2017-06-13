@@ -66,7 +66,10 @@ class User < ActiveRecord::Base
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
   validates :password, confirmation: true
+  
+  before_update :update_hubspot_info
 
+  after_create :store_to_hubspot
   after_commit :set_ax_cust_account!, on: :create
   after_commit :unset_guest_user,
     on: :update,
@@ -155,5 +158,31 @@ class User < ActiveRecord::Base
 
   def set_ax_cust_account!
     update_column(:ax_cust_account, "M#{1000000 + id}") unless created_from_ax
+  end
+
+  def store_to_hubspot
+    unless Rails.env.development?
+      Hubspot::Contact.create_or_update!([
+        { email: self.email, 
+          firstname: self.first_name.blank? ? self.email : self.first_name, 
+          lastname: self.last_name, 
+          phone: self.mobile.blank? ? self.home_phone : self.mobile 
+        }
+      ])
+    end
+  end
+
+  def update_hubspot_info
+    unless Rails.env.development?
+      if first_name_changed? || last_name_changed? || home_phone_changed? || mobile_changed?
+        Hubspot::Contact.create_or_update!([
+          { email: self.email, 
+            firstname: self.first_name.blank? ? self.email : self.first_name, 
+            lastname: self.last_name, 
+            phone: self.mobile.blank? ? self.home_phone : self.mobile 
+          }
+        ])
+      end
+    end
   end
 end
