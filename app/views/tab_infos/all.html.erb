@@ -1,0 +1,59 @@
+<%
+  if !@place.blank?
+    variable = @place
+    path = 'place'
+  end
+%>
+
+<div class="container">
+  <%= render "#{path}s/admin_tabs" %>
+
+  <h2>All Tab Info</h2>
+  <p><%= link_to "Back To Edit #{variable.has_attribute?(:display_name)? variable.display_name : variable.name}", eval("edit_#{path}_path(variable)") %></p>
+
+  <% if @tab_infos.blank? %>
+  	<h3>Tab Info is empty!</h3>
+  <% else %>
+	  <div id="table-container">
+		  <table class="table table-striped" id="place-table">
+		    <thead>
+		    <tr>
+		      <th>Title</th>
+		      <th>Description</th>
+		      <th>Image</th>
+		      <th>Delete</th>
+		    </tr>
+		    </thead>
+		    <tfoot>
+		      <tr>
+		        <th>Title</th>
+		        <th>Description</th>
+		        <th>Image</th>
+		        <th></th>
+		      </tr>
+		    </tfoot>
+		    <tbody>
+		      <% @tab_infos.each do |tab_info| %>
+		        <tr>
+		          <td><%= link_to "#{tab_info.title} || #{tab_info.id}", edit_place_tab_info_path(variable, tab_info) %></td>
+		          <td><%= tab_info.description.truncate(100) %></td>
+		          <td><%= image_tag(tab_info.image.blank? ? 'https://dummyimage.com/100x100/000000/ffffff&text=no-map' : tab_info.image, style: 'height: 50px;') %></td>
+		          <td><%= link_to 'Destroy', place_tab_info_path(variable, tab_info), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		        </tr>
+		      <% end %>
+		    </tbody>
+		  </table>
+		</div>
+  <% end %>
+
+  <h2>Create New "Tab Info"</h2>
+  <%= simple_form_for [variable, @tab_info] do |f|%>
+  	<%= f.input :title, input_html: { class: 'form-control' } %><br>
+    <%= f.input :description, input_html: { class: 'form-control', rows: "10" } %><br>
+    <%= f.input :image, as: :file %><br>
+    <%= f.hidden_field :tab_infoable_id, value: variable.id %>
+    <%= f.hidden_field :tab_infoable_type, value: variable.class %>
+    <%= f.submit "Save", class: "btn btn-primary" %>
+  <% end %>
+</div>
+<br><br>

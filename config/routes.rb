@@ -14,6 +14,7 @@ require 'api_constraints'
 require 'routes/constraints/subcategories'
 
 Rails.application.routes.draw do
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
@@ -335,12 +336,14 @@ Rails.application.routes.draw do
     resources :photos do
       collection { get 'all_photos' }
       collection { get 'choose_hero', as: :choose_hero }
-
     end
     resources :videos do
       collection { get 'all' }
     end
     resources :fun_facts do
+      collection { get 'all' }
+    end
+    resources :tab_infos do
       collection { get 'all' }
     end
     resources :discounts

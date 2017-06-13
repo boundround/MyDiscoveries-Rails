@@ -3141,3 +3141,33 @@ h4 {
     left: 32%
   }
 }
+
+/*tab info - place show*/
+.collapse {
+  display: block; 
+}
+.ages {
+  font-size: 16px; 
+}
+.ages .nav-tabs a {
+  text-transform: uppercase;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333; 
+}
+.ages .tab-content {
+  padding-top: 40px; 
+}
+.ages .nav-tabs.nav-justified > .active > a, .ages .nav-tabs.nav-justified > .active > a:focus, .ages .nav-tabs.nav-justified > .active > a:hover {
+  border: none;
+  border-bottom: 4px solid #6cb7ca;
+  color: #333; 
+}
+.ages .nav > li > a:focus, .ages .nav > li > a:hover {
+  background-color: #fff;
+  color: #333; 
+}
+.ages .nav-tabs > li > a:hover {
+  border-color: transparent;
+  border-bottom-color: #ddd; 
+}
+/* end tab info - place show*/

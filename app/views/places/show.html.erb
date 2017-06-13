@@ -5,160 +5,183 @@
 <% provide(:og_secure_image, open_graph_image) %>
 
 <div id="place-data" class="area-content" data-lat="<%= @place.latitude %>" data-long="<%= @place.longitude %>">
-<div class="breadcrumbs container">
-<%= raw create_breadcrumb_for(@place) %>
-<% if user_signed_in? and current_user.admin? %>
-  <%= link_to "Edit Place", edit_place_path(@place), class: "breadcrumbs__link" %>
-<% end %>
-</div>
-<div class="hero-image-wrapper hero dismiss-mega-menu-search"
-         style="background: url( <%= showing_image(draw_hero_background(@place)) %>) no-repeat;" role="img"
-         aria-label="">
-  <div class="photo-credit"><%= get_hero_image_credit(@place) %></div>
-  <div class="overlay"></div>
-  <div class="container">
-      <div class="row">
-          <div class="col-xs-12">
-              <div class="location">
-                <% if user_signed_in? and current_user.admin? %>
-                  <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
-                <% end %>
-              </div>
-              <h1><%= @place.display_name %></h1>
-              <div class="destination-details">
-
-              </div>
-          </div>
-      </div>
+  <div class="breadcrumbs container">
+    <%= raw create_breadcrumb_for(@place) %>
+    <% if user_signed_in? and current_user.admin? %>
+      <%= link_to "Edit Place", edit_place_path(@place), class: "breadcrumbs__link" %>
+    <% end %>
   </div>
-</div>
-<div class="destinations">
-  <div class="destinations-content-block width-limiter">
-    <aside>
-      <h3 class="point-card__header"><%= @place.display_name %></h3>
-      <ul class="featured-articles">
-        <%= render partial: "stories/all_stories_white", collection: @stories, as: :story %>
-      </ul>
-    </aside>
-    <section>
-      <div class="main-article">
-        <h2 class="lg-heading"><%= @place.try(:description_heading) %></h2>
-        <%if @place.description.size > 280 %>
-          <main>
-            <div class="destination-desc " style="display:none;">
-                <%= simple_format @place.description %>
-            </div>
-            <div class="destination-desc">
-                <%= simple_format @place.description[0..280]+"..." %>
-            </div>
-          </main>
-          <div>
-            <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
-            <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+  <div class="hero-image-wrapper hero dismiss-mega-menu-search" style="background: url( <%= showing_image(draw_hero_background(@place)) %>) no-repeat;" role="img" aria-label="">
+    <div class="photo-credit"><%= get_hero_image_credit(@place) %></div>
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="location">
+            <% if user_signed_in? and current_user.admin? %>
+              <p><%= link_to "Edit Place", edit_place_path(@place) %></p>
+            <% end %>
           </div>
-        <% else %>
-          <div class="destination-desc ">
-              <%= raw @place.description %>
-          </div>
-        <% end %>
-      </div>
-      <% if @offers.present? %>
-        <h3 class="sm-heading lars">Top <%= @place.display_name %> Holidays</h3>
-        <div class="package-offers">
-          <div class="package-offers-block">
-              <ul>
-              <div id="offers-list">
-                <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
-              </div>
-                <% unless last_page? @offers %>
-                <div class="row hidden-xs single-pagination-container" id="offers-single-pagination-container">
-                  <div class="hidden single-pagination-loader" align="center">
-                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                  </div>
-                  <div class="col-xs-12" align="center">
-                    <%= link_to "load more", paginate_offers_place_path(@place, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_index_offers', collection_object: 'offer'), class: 'load-more single-pagination', remote: true %>
-                  </div>
-                </div>
-              <% end %>
-              </ul>
-          </div>
+          <h1><%= @place.display_name %></h1>
+          <div class="destination-details"></div>
         </div>
-      <% end %>
-
-      <div class="map-block hidden-sm">
-        <h3 class="sm-heading lars">Map of <%= @place.display_name %></h3>
-        <div id='dest-map' data-zoom="<%= @place.zoom_level %>" data-map="<%= create_marker @place %>" ></div>
-        <!-- <script async defer  src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAqfBj1CzMc-sshEJHETwDKtGTAlQA2pcM'></script> -->
-      </div>
-      <div class="key-info">
-                <h3 class="sm-heading lars">Key Travel Information</h3>
-
-                <div class="ki-content">
-                    <!-- <div class="kic-item health">
-                        <h4 class="kici-heading ">Health</h4>
-                        <p>Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Sociis natoque penatibus magnis dis parturient montes nascetur.</p>
-                    </div> -->
-                    <div class="kic-item short currency">
-                        <h4 class="kici-heading " data-currency="<%= @country_currency %>">currency</h4>
-                        <div class="row">
-                          <script type="text/javascript" src="//www.exchangeratewidget.com/converter.php?l=en&f=AUD&t=AUD&a=1&d=F0F0F0&n=FFFFFF&o=000000&v=1"></script>
-                        </div>
-                    </div>
-                    <div class="kic-item short language">
-                      <% if @languages.present? %>
-                        <h4 class="kici-heading "><%= @languages.size > 1? "languages" : "language" %></h4>
-                        <ul>
-                          <% @languages.each do |language| %>
-                            <li><%= language %></li>
-                          <% end %>
-                        </ul>
-                      <% end %>
-                    </div>
-                    <div class="kic-item long weather">
-                            <h4 class="kici-heading ">weather</h4>
-                            <ul class="t-block">
-                            </ul>
-                        </div>
-                </div>
-            </div>
-
-          <h3 class="sm-heading lars">Videos & Photos</h3>
-          <% unless @galeries.blank? %>
-            <div class="gallery">
-              <div class="slider-mobile-wrapper">
-                  <div class="slider-for">
-                    <% @galeries.each do |galery| %>
-                      <% if galery.class.name == "Video" %>
-                        <iframe class="player-vimeo" src="<%= galery.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                      <% else %>
-                        <div>
-                          <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
-                          <div class="photo-credit">Credit: <%= galery.credit %></div>
-                        </div>
-                      <% end %>
-                    <% end %>
-                  </div>
-              </div>
-              <div class="slider-nav xs-invisible">
-                  <% @galeries.each do |galery| %>
-                    <% if galery.class.name == "Video" %>
-                      <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="<%= galery.title %>">
-                        <img src="<%= galery.vimeo_thumbnail %>" alt="" width="100%">
-                        <div class="overlay-nav-video"></div>
-                      </div>
-                    <% else %>
-                      <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="Credit: <%= galery.credit %>">
-                        <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
-                      </div>
-                    <% end %>
-                  <% end %>
-              </div>
-            </div>
-          <% end %>
-        </section>
       </div>
     </div>
   </div>
+  <div class="destinations">
+    <div class="destinations-content-block width-limiter">
+      <aside>
+        <h3 class="point-card__header"><%= @place.display_name %></h3>
+        <ul class="featured-articles">
+          <%= render partial: "stories/all_stories_white", collection: @stories, as: :story %>
+        </ul>
+      </aside>
+      <section>
+        <div class="main-article">
+          <h2 class="lg-heading"><%= @place.try(:description_heading) %></h2>
+          <%if @place.description.size > 280 %>
+            <main>
+              <div class="destination-desc " style="display:none;">
+                  <%= simple_format @place.description %>
+              </div>
+              <div class="destination-desc">
+                  <%= simple_format @place.description[0..280]+"..." %>
+              </div>
+            </main>
+            <div>
+              <a href="javascript:void()" class="readmore-area more-link">READ MORE</a>
+              <a href="javascript:void()" class="readmore-area more-link" style="display:none;">LESS</a>
+            </div>
+          <% else %>
+            <div class="destination-desc ">
+                <%= raw @place.description %>
+            </div>
+          <% end %>
+        </div>
+        <% if @offers.present? %>
+          <h3 class="sm-heading lars">Top <%= @place.display_name %> Holidays</h3>
+          <div class="package-offers">
+            <div class="package-offers-block">
+              <ul>
+                <div id="offers-list">
+                  <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
+                </div>
+                <% unless last_page? @offers %>
+                  <div class="row hidden-xs single-pagination-container" id="offers-single-pagination-container">
+                    <div class="hidden single-pagination-loader" align="center">
+                      <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                    </div>
+                    <div class="col-xs-12" align="center">
+                      <%= link_to "load more", paginate_offers_place_path(@place, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_index_offers', collection_object: 'offer'), class: 'load-more single-pagination', remote: true %>
+                    </div>
+                  </div>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="map-block hidden-sm">
+          <h3 class="sm-heading lars">Map of <%= @place.display_name %></h3>
+          <div id='dest-map' data-zoom="<%= @place.zoom_level %>" data-map="<%= create_marker @place %>" ></div>
+          <!-- <script async defer  src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAqfBj1CzMc-sshEJHETwDKtGTAlQA2pcM'></script> -->
+        </div>
+        <div class="key-info">
+          <h3 class="sm-heading lars">Key Travel Information</h3>
+
+          <div class="ki-content">
+            <div class="kic-item short currency">
+              <h4 class="kici-heading " data-currency="<%= @country_currency %>">currency</h4>
+              <div class="row">
+                <script type="text/javascript" src="//www.exchangeratewidget.com/converter.php?l=en&f=AUD&t=AUD&a=1&d=F0F0F0&n=FFFFFF&o=000000&v=1"></script>
+              </div>
+            </div>
+            <div class="kic-item short language">
+              <% if @languages.present? %>
+                <h4 class="kici-heading "><%= @languages.size > 1? "languages" : "language" %></h4>
+                <ul>
+                  <% @languages.each do |language| %>
+                    <li><%= language %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+            <div class="kic-item long weather">
+              <h4 class="kici-heading ">weather</h4>
+              <ul class="t-block"></ul>
+            </div>
+          </div>
+        </div>
+
+        <% unless @tab_infos.blank? %>
+          <div class="key-info">
+            <h3 class="sm-heading lars"><%= @place.display_name %> for every age</h3>
+            <div class="ages">
+              <ul class="nav nav-tabs nav-justified" role="tablist">
+                <% @tab_infos.each_with_index do |tab_info, idx| %>
+                  <li role="presentation" class="<%= (idx+1).eql?(1) ? 'active' : '' %>">
+                    <a href="#<%= tab_info.title.downcase.gsub(' ', '_') %>" id="<%= tab_info.title.downcase.gsub(' ', '_') %>-tab" role="tab"
+                         data-toggle="tab" aria-controls="<%= tab_info.title.downcase.gsub(' ', '_') %>"
+                         aria-expanded="true"><%= tab_info.title.upcase %></a>
+                  </li>
+                <% end %>
+              </ul>
+
+              <div class="tab-content">
+                <% @tab_infos.each_with_index do |tab_info, idx| %>
+                  <div class="tab-pane fade <%= (idx+1).eql?(1) ? 'active' : '' %> in" role="tabpanel" id="<%= tab_info.title.downcase.gsub(' ', '_') %>" aria-labelledby="<%= tab_info.title.downcase.gsub(' ', '_') %>-tab">
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <p style="font-weight: normal;"><%= tab_info.description %></p>
+                      </div>
+                      <div class="col-sm-4">
+                        <img src="<%= tab_info.image.blank? ? 'https://dummyimage.com/200x200/000000/ffffff&text=no-image' : tab_info.image %>" alt="" class="img-circle img-responsive" style="width: 150px;height: 150px;">
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <% unless @galeries.blank? %>
+          <h3 class="sm-heading lars">Videos & Photos</h3>
+          <div class="gallery">
+            <div class="slider-mobile-wrapper">
+              <div class="slider-for">
+                <% @galeries.each do |galery| %>
+                  <% if galery.class.name == "Video" %>
+                    <iframe class="player-vimeo" src="<%= galery.url %>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                  <% else %>
+                    <div>
+                      <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
+                      <div class="photo-credit">Credit: <%= galery.credit %></div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <div class="slider-nav xs-invisible">
+              <% @galeries.each do |galery| %>
+                <% if galery.class.name == "Video" %>
+                  <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="<%= galery.title %>">
+                    <img src="<%= galery.vimeo_thumbnail %>" alt="" width="100%">
+                    <div class="overlay-nav-video"></div>
+                  </div>
+                <% else %>
+                  <div data-toggle="popover" data-trigger="hover" data-container="body" data-placement="bottom" data-content="Credit: <%= galery.credit %>">
+                    <img src="<%= galery.path_url(:large) %>" alt="" width="100%">
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </section>
+    </div>
+  </div>
+</div>
 
 <%= render 'layouts/all_modal' %>
 <%= render partial: 'shared/blueimp_gallery_modal' %>
