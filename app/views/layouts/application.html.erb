@@ -16,22 +16,22 @@
 		<link rel="icon" type="image/png" href="<%= asset_path('favicons/mydiscoveries/favicon.ico')%>">
 		<link rel="manifest" href="<%= asset_path('favicons/mydiscoveries/manifest.json')%>">
 		<meta name="description" content="<%= meta_description(yield(:title), yield(:description)) %>">
-		<meta name="author" content="Bound Round Pty Ltd">
+		<meta name="author" content="MyDiscoveries">
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="msapplication-TileImage" content="<%= asset_path('favicons/mydiscoveries/mstile-150x150.png')%>">
 		<meta name="theme-color" content="#ffffff">
-
-	  <meta name="viewport" content="width=device-width,
-	                                     initial-scale=1.0,
-	                                     maximum-scale=1.0,
-	                                     user-scalable=no">
-
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<meta property="og:type"          content="website" />
-		<meta property="og:title"         content="<%= yield(:title) %>" />
-		<meta property="og:description"   content="<%= yield(:description) %>" />
-		<meta property="og:image"         content="<%= yield(:og_image) %>" />
-		<meta property='og:image:secure_url' content="<%= yield(:og_secure_image) %>" />
+		<meta property="og:title"         content="<%= yield(:title).blank? ? body_title : yield(:title) %>" />
+		<meta property="og:description"   content="<%= yield(:description).blank? ? meta_description : yield(:description) %>" />
+		<meta property="og:image"         content="<%= yield(:og_image).blank? ? open_graph_image : yield(:og_image) %>" />
+		<meta property='og:image:secure_url' content="<%= yield(:og_secure_image).blank? ? open_graph_image : yield(:og_secure_image) %>" />
 		<meta property='og:image:type' content='image/jpeg' />
+        <meta name="twitter:type"          content="website" />
+        <meta name="twitter:title"         content="<%= yield(:title).blank? ? body_title : yield(:title) %>" />
+        <meta name="twitter:description"   content="<%= yield(:description).blank? ? meta_description : yield(:description) %>" />
+        <meta name="twitter:image"         content="<%= yield(:og_image).blank? ? open_graph_image : yield(:og_image) %>" />
+        <meta name='twitter:image:secure_url' content="<%= yield(:og_secure_image).blank? ? open_graph_image : yield(:og_secure_image) %>" />
 		<% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
 			<meta name="p:domain_verify" content="686be2abe0a940c9850d1d44857ce726">
 		<% end %>

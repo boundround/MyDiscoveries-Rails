@@ -264,19 +264,26 @@ module ApplicationHelper
   end
 
   def open_graph_image
-      placeholder = "https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/br_logo_new-30eb3b9bb0267503159d6cab93191844.png"
+    placeholder = "https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/br_logo_new-30eb3b9bb0267503159d6cab93191844.png"
 
-      if @place && !@place.photos.blank?
-        photo = @place.photos.first.path_url :large
-      elsif @country && !@country.photos.blank?
-        photo = @country.photos.first.path_url :large
-      end
-
-      if photo.present?
-        photo
+    if @place && !@place.photos.blank?
+      photo = @place.photos.first.path_url :large
+    elsif @country && !@country.photos.blank?
+      photo = @country.photos.first.path_url :large
+    elsif @offer && !@offer.photos.blank?
+      hero = @offer.photos.select{|p_hero| p_hero.hero.eql?(true) }
+      photo = if hero.blank?
+        @offer.photos.first.path_url :large
       else
-        placeholder
+        hero.first.path_url :large
       end
+    end
+
+    if photo.present?
+      photo
+    else
+      placeholder
+    end
   end
 
   def get_random_place_photo(place)
