@@ -1,5 +1,4 @@
 class Landing < ActiveRecord::Base
-  belongs_to :user
   after_save :reload_routes
   validates_uniqueness_of :from_url
 

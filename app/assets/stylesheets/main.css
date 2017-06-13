@@ -12621,14 +12621,6 @@ td a.ui-state-default.ui-state-hover {
         position: absolute;
         top: 9px;
         left: 400px; }
-      .user-pages .change-landing {
-        position: absolute;
-        top: 9px;
-        right: 100px;
-        text-decoration: underline;
-        color: #ff4b1a; 
-        font-family: Larsseit-Light, sans-serif;
-      }
     .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block {
       padding-bottom: 50px;
       border-bottom: 1px solid white; }

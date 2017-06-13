@@ -1,23 +1,23 @@
 class LandingsController < ApplicationController
 
-	before_action :set_user
 	before_action :set_landing, only: [:edit, :update, :destroy]
-
+  before_action :check_user_authorization
+  
   def index
-    @landings = @user.landings
+    @landings = Landing.all
   end
 
   def new
-  	@landing = @user.landings.build
+  	@landing = Landing.new()
   end
 
   def create
-  	@landing = @user.landings.build(landing_params)
+  	@landing = Landing.new(landing_params)
 
   	if !@landing.unique_routes(params[:landing][:from_url])
 	    if @landing.save
 	      respond_to do |format|
-	        format.html { redirect_to user_landings_path(@user), notice: 'Landing succesfully created.' }
+	        format.html { redirect_to landings_path, notice: 'Landing succesfully created.' }
 	        format.json { render :show, status: :ok, location: @landing }
 	      end
 	    else
@@ -37,7 +37,7 @@ class LandingsController < ApplicationController
 	      respond_to do |format|
 	        format.json { render json: @landing }
 	        format.html do
-	          redirect_to user_landings_path(@user), notice: 'Landing succesfully updated'
+	          redirect_to landings_path, notice: 'Landing succesfully updated'
 	        end
 	      end
 	    else
@@ -51,19 +51,15 @@ class LandingsController < ApplicationController
 
   def destroy
     @landing.destroy
-    redirect_to user_landings_path(@user), notice: "Landing Deleted"
+    redirect_to landings_path, notice: "Landing Deleted"
   end
 
   private
-  def set_user
-  	@user =  User.find(params[:user_id])
-  end
-
   def set_landing
-  	@landing = @user.landings.find(params[:id])
+  	@landing = Landing.find(params[:id])
   end
 
   def landing_params
-  	params.require(:landing).permit(:from_url, :to_url, :user_id )
+  	params.require(:landing).permit(:from_url, :to_url)
   end
 end

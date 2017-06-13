@@ -2,12 +2,14 @@ class DynamicRouter
 
 	class << self
 	  def load
-	    BoundRoundWeb::Application.routes.draw do
-	      Landing.all.each do |landing|
-	      	puts "Routing #{landing.from_url}"
-	      	get "/#{landing.from_url}" => redirect("#{landing.to_url}")
-	      end
-	    end
+	  	if ActiveRecord::Base.connection.table_exists? :landings
+		    BoundRoundWeb::Application.routes.draw do
+		      Landing.all.each do |landing|
+		      	puts "Routing #{landing.from_url}"
+		      	get "/#{landing.from_url}" => redirect("#{landing.to_url}")
+		      end
+		    end
+		  end
 	  end
 
 	  def reload

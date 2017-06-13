@@ -1,4 +1,5 @@
-<div class="container" data-controller='regions' data-action="onload">
+<div class="container">
+  <h1>New Landing</h1><br>
   <% if @landing.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@landing.errors.count, "error") %> prohibited this landing from being updated:</h2>
@@ -9,18 +10,10 @@
       <% end %>
       </ul>
     </div>
-  <% end %>
-  <% if user_signed_in? %>
-    <h2 class="top20">Create A New Landing</h2>
-    <%= simple_form_for @landing, url: user_landings_path(@user), method: :post, html: { role: 'form'} do |f| %>
-	    <%= render 'form', f: f %>
-	  <% end %>
-    <hr>
-  <% else %>
-    <h2>You do not have sufficient privileges to view this page</h2>
-    <%= link_to "Home", root_path %>
-  <% end %>
-  <p></p>
-  <br>
-  <p></p>
+  <% end %><br>
+  <div class="row">
+    <%= simple_form_for @landing, url: landings_path(@landing), method: :post, html: { role: 'form'} do |f| %>
+      <%= render 'form', f: f %>
+    <% end %>
+  </div>
 </div>

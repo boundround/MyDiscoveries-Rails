@@ -51,7 +51,6 @@ class User < ActiveRecord::Base
   has_many :orders, class_name: Spree::Order
 
   has_many :customers
-  has_many :landings
 
   mount_uploader :avatar, UserAvatarUploader
   process_in_background :avatar
