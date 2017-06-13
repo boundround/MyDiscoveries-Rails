@@ -213,6 +213,7 @@ Rails.application.routes.draw do
       get 'public_profile'
     end
   end
+  resources :landings
 
 
 
@@ -497,4 +498,9 @@ Rails.application.routes.draw do
 
   #temporary redirect to landing page for competitions
   get '/win' => redirect('http://offers.mydiscoveries.com.au/win-my-discoveries-3-night-stay-perth')
+end
+
+# add dynamic routes
+BoundRoundWeb::Application.routes.draw do
+  DynamicRouter.load
 end

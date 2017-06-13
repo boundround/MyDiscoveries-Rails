@@ -566,7 +566,7 @@ $(document).ready(function(){
     });
   })
 
-  $(".dropdown-menu li a").click(function(){
+  $(".dropdown-home .dropdown-menu li a").click(function(){
     $(".btn-selectedd:first-child").html($(this).text()  + "&nbsp;&nbsp;<span class='caret'></span>" );
     $(".btn-selectedd:first-child").val($(this).data('value'));
   });
