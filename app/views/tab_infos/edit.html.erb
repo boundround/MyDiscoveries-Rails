@@ -1,0 +1,13 @@
+<div class="container">
+  <%= render "/places/admin_tabs" %>
+  <h2>Edit Tab Info</h2>
+  <%= simple_form_for [@place, @tab_info] do |f| %>
+    <%= f.input :title, input_html: { class: 'form-control' } %><br>
+    <%= f.input :description, input_html: { class: 'form-control', rows: '10' } %><br>
+    <%= f.input :image, as: :file %><br>
+    <%= f.hidden_field :tab_infoable_id, value: @place.id %>
+    <%= f.hidden_field :tab_infoable_type, value: @place.class %>
+    <%= f.submit :submit %>
+  <% end %>
+</div>
+<br><br>
