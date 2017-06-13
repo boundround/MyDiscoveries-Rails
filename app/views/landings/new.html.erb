@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>New Landing</h1><br>
+  <% if @landing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@landing.errors.count, "error") %> prohibited this landing from being updated:</h2>
+
+      <ul>
+      <% @landing.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %><br>
+  <div class="row">
+    <%= simple_form_for @landing, url: landings_path(@landing), method: :post, html: { role: 'form'} do |f| %>
+      <%= render 'form', f: f %>
+    <% end %>
+  </div>
+</div>
