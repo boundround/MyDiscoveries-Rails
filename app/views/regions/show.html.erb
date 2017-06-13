@@ -12,13 +12,13 @@
 
   <!-- BEGIN - map -->
   <div class="promo-map js-promo-map">
-        <div class="location" style="text-align: center; margin-top: -30px;">
-          <% if user_signed_in? and current_user.admin? %>
-            <p><%= link_to "Edit Region", edit_region_path(@region) %></p>
-          <% end %>
-        </div>
-        <div class="google-promo-map js-google-promo-map"></div>
-        <input type="hidden" data-zoom="<%= @region.zoom_level %>" data-marker="<%= @places_to_visit_map %>" name="region">
+    <div class="location" style="text-align: center; margin-top: -30px;">
+      <% if user_signed_in? and current_user.admin? %>
+        <p><%= link_to "Edit Region", edit_region_path(@region) %></p>
+      <% end %>
+    </div>
+    <div class="google-promo-map js-google-promo-map"></div>
+    <input type="hidden" data-zoom="<%= (@region.zoom_level <= 1) ? 2 : @region.zoom_level %>" data-marker="<%= @places_to_visit_map %>" name="region">
   </div>
 
 <!-- END - map -->
