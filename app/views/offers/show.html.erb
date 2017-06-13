@@ -240,6 +240,12 @@
                 <div id='dest-map' data-map="<%= create_marker @offer %>">
                 </div>
               </div>
+              <% if @offer.other.present? %>
+                <h3>Other</h3>
+                <div class="other">
+                  <%= simple_format @offer.other %>
+                </div>
+              <% end %>
               <% if @offer.customStr3.present? %>
                 <h3>fine print</h3>
                 <div class="fint-print">

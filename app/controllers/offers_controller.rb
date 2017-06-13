@@ -241,6 +241,7 @@ class OffersController < ApplicationController
       :test_product,
       :itinerary,
       :room_type,
+      :other,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
