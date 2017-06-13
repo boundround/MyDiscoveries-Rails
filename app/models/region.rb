@@ -221,19 +221,31 @@ class Region < ActiveRecord::Base
           "#offer" => []
         }
 
-        place.products.each do |place_offer|
-          hero_photo_offer = place_offer.photos.where(hero: true)
+        if place.products.blank?
           data_offer_objs = {
-            "@country" => "",
-            "@name" => place_offer.name,
-            "@photo_offer" => hero_photo_offer.present?? hero_photo_offer.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg"
+            "@country" => "Country",
+            "@name" => "Products is empty!",
+            "@photo_offer" => "/assets/generic-hero-thumb.jpg"
           }
           data_objs["#offer"] << data_offer_objs
           data_objs["#offer"] << ["#"]
+        else
+          place.products.each do |place_offer|
+            hero_photo_offer = place_offer.photos.where(hero: true)
+            data_offer_objs = {
+              "@country" => place_offer.countries.blank? ? 'No Country' : place_offer,
+              "@name" => place_offer.name,
+              "@photo_offer" => hero_photo_offer.present?? hero_photo_offer.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg"
+            }
+            data_objs["#offer"] << data_offer_objs
+            data_objs["#offer"] << ["#"]
+          end
         end
+
         data_marker << data_objs
         data_marker << ["@"]
       end
+
       return data_marker
     else
       hero_photo = self.photos.where(hero: true)
@@ -247,8 +259,18 @@ class Region < ActiveRecord::Base
         "#photo" => hero_photo.present?? hero_photo.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg",
         "#offer" => []
       }
+
+      data_offer_objs = {
+        "@country" => "Country",
+        "@name" => "Products is empty!",
+        "@photo_offer" => "/assets/generic-hero-thumb.jpg"
+      }
+      data_objs["#offer"] << data_offer_objs
+      data_objs["#offer"] << ["#"]
+
       data_marker << data_objs
       data_marker << ["@"]
+      
       return data_marker
     end
   end
