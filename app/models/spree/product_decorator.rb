@@ -29,6 +29,8 @@ Spree::Product.class_eval do
                :tags,
                :startDate,
                :endDate,
+               :number_of_days,
+               :number_of_nights,
                :inclusions,
                :places_visited,
                :subcategory
@@ -71,6 +73,14 @@ Spree::Product.class_eval do
 
     attribute :startDate do
       startDate
+    end
+
+    attribute :number_of_days do
+      number_of_days
+    end
+
+    attribute :number_of_nights do
+      number_of_nights
     end
 
     attribute :endDate do
@@ -199,6 +209,8 @@ Spree::Product.class_eval do
                  :accessible,
                  :tags,
                  :startDate,
+                 :number_of_days,
+                 :number_of_nights,
                  :endDate,
                  :inclusions,
                  :places_visited,
@@ -295,6 +307,14 @@ Spree::Product.class_eval do
 
       attribute :endDate do
         endDate
+      end
+
+      attribute :number_of_days do
+        number_of_days
+      end
+
+      attribute :number_of_nights do
+        number_of_nights
       end
 
       attribute :is_country do

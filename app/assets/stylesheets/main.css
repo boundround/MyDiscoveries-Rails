@@ -9047,8 +9047,8 @@ a.see-more__link {
   font-size: 14px;
   line-height: 14px;
   text-transform: uppercase;
-  position: absolute;
-  left: 28px;
+  /*position: absolute;*/
+  /*left: 28px;*/
   bottom: 29px;
   border: 2px solid #ff4d1a;
   padding: 11px 15px 9px;
@@ -9418,19 +9418,20 @@ a.see-more__link {
 .search-page-card__cost-value {
   color: #000060;
   margin: 0;
-  font-family: Baghdad, serif !important;
+  font-family: Larsseit, sans-serif !important;
   font-size: 52px;
   line-height: 52px;
   letter-spacing: 4px; }
 
 .search-page-card__cost-currency {
   position: relative;
-  top: -10px; }
+  /*top: -10px; */
+}
 
 .search-page-card__cost-per-person {
   color: #000060;
   margin: 0;
-  font-family: Baghdad, serif;
+  font-family: Larsseit, sans-serif;
   font-size: 27px;
   line-height: 27px;
   letter-spacing: 2px;
@@ -9496,7 +9497,7 @@ a.see-more__link {
 
 h3.search-page-card__header {
   margin: 0;
-  font-family: Bagnard, serif;
+  font-family: Larsseit, sans-serif;
   font-size: 34px;
   line-height: 34px;
   color: #ff4d1a;
@@ -9932,9 +9933,10 @@ a:hover, a:focus, a:active {
   font-size: 26px;
   color: white;
   font-weight: bold;
-  font-family: Baghdad, serif; }
+  font-family: Larsseit, sans-serif; 
+}
   .xs-heading.lars, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .lars.xs-heading, .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.lars.xs-heading {
-    font-family: Larsseit-Bold, sans-serif;
+    font-family: Larsseit, sans-serif;
     font-weight: normal;
     margin: 55px auto 35px; }
   .xs-heading.blue, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .blue.xs-heading, .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.blue.xs-heading {
@@ -10121,7 +10123,7 @@ a:hover, a:focus, a:active {
 }
 .hero h2 {
   color: white;
-  font-family: Baghdad, serif;
+  font-family: Larsseit, sans-serif;
   font-weight: bold;
   font-size: 50px;
 }
@@ -11301,12 +11303,12 @@ span.arrow {
               left: 20px;
               bottom: 40px; }*/
               .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price span {
-                font-weight: bold;
+                /*font-weight: bold;*/
                 color: white; }
                 .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price .lg{
                   display: inline-block;}
                 .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price .lg span {
-                  font-family: Baghdad, serif;
+                  font-family: Larsseit, sans-serif;
                   font-size: 52px;
                   line-height: 1; }
                   .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-price .lg span .po-price-self {
@@ -11780,18 +11782,21 @@ span.arrow {
       color: white;
       font-size: 16px;
       font-family: Larsseit-Bold, sans-serif; }
+    .info-text, .hci-info, hci-info div {
+      font-family: Larsseit, sans-serif;
+    }
     .product .hero .hero-content .hc-info {
       margin-top: 30px;
       color: white; }
       .product .hero .hero-content .hc-info .hci-price {
-        font-family: Baghdad, serif;
+        font-family: Larsseit, sans-serif;
         font-size: 52px; }
         .product .hero .hero-content .hc-info .hci-price span {
           font-weight: bold;
           color: white; }
           .product .hero .hero-content .hc-info .hci-price span.hci-price-self {
             position: relative;
-            top: 10px;
+            top: 5px;
             left: -10px; }
       .product .hero .hero-content .hc-info .hci-info {
         display: block; }
@@ -13433,6 +13438,10 @@ label.css-label.label-featured{
   margin-top: 0px !important;
 }
 
+.location a {
+  font-family: Larsseit, sans-serif;
+}
+
 @media(min-width: 1201px){
   .offer-grey-box .location {
     margin-top: -25px !important;
@@ -13446,6 +13455,18 @@ label.css-label.label-featured{
   border-color: #fff !important;
   text-shadow: none !important;
   font-size: 15px !important;
+}
+
+.posi-nightsaaa {
+  padding-left: 25px;
+  padding-top: 5px;
+  background: url(/assets/mydiscoveries_icon/i/inclusions/nights.svg) 0 -2px no-repeat;
+  background-size: 25px 22px;
+  font-family: Larsseit, sans-serif;
+  color: #000060;
+  font-size: 16px;
+  margin: 0;
+  padding-bottom: 16px;
 }
 
 .dropdown-home{
@@ -13475,4 +13496,12 @@ label.css-label.label-featured{
     padding: 14px 0 0 0 !important;
   }
 
+}
+
+.card-story-height {
+  height: 92% !important;
+}
+
+.card-story-height-show {
+  height: 90% !important;
 }

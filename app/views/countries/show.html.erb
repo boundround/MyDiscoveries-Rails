@@ -69,7 +69,17 @@
             </div>
           </div>
           <p class="xs-heading"><%= raw story.title.blank? ? story.title : story.title.truncate(65) %></p>
-          <a href="<%= story_path(story) %>" class="btn-bordered red small">READ MORE</a>
+          <div style="float: left;">
+            <div class="hidden-xs hidden-sm">
+              <p><%= story.user.name.truncate(28) rescue "" %></p>
+            </div>
+            <div class="hidden-lg hidden-xl">
+              <p><%= story.user.name.truncate(18) rescue "" %></p>
+            </div>
+          </div>
+          <div style="float: right;">
+            <a href="<%= story_path(story) %>" class="btn-bordered red small">READ MORE</a>
+          </div>
           <span class="label-article">Featured Article</span>
         </li>
         <% end %>
