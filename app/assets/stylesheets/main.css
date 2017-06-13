@@ -13476,3 +13476,11 @@ label.css-label.label-featured{
   }
 
 }
+
+.card-story-height {
+  height: 92% !important;
+}
+
+.card-story-height-show {
+  height: 90% !important;
+}

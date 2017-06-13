@@ -1,10 +1,12 @@
 <li class="wrap_link_card">
+  <div class="card-story-height-show">
     <a class="link_card" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>"></a>
     <div class="fa-img-block">
-        <img  style="background: url(<%= showing_image(story.respond_to?('hero_image_url') ? story.hero_image_url : "" ) %>) center no-repeat;" class="cover-bg" >
-        <!-- <img src="http://lorempixel.com/400/200/city" alt=""> -->
+      <img  style="background: url(<%= showing_image(story.respond_to?('hero_image_url') ? story.hero_image_url : "" ) %>) center no-repeat;" class="cover-bg" >
     </div>
     <p class="xs-heading"><%= raw story.title.blank? ? story.title : story.title.truncate(50) %></p>
+  </div>
+  <div>
     <div style="float: left;">
       <div class="hidden-xs hidden-sm">
         <p><%= story.user.name.truncate(26) rescue "" %></p>
@@ -13,10 +15,11 @@
         <p><%= story.user.name rescue "" %></p>
       </div>
     </div>
-    <div style="float: right;">
-      <a class="btn-bordered red small" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>">READ MORE</a>
-    </div>
-    <% if story.featured %>
+  </div>
+  <div style="float: right;">
+    <a class="btn-bordered red small" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>">READ MORE</a>
+  </div>
+  <% if story.featured %>
     <span class="inspiration-item__mark">Featured Article</span>
   <% end %>
 </li>
