@@ -223,7 +223,7 @@ class Region < ActiveRecord::Base
 
         if place.products.blank?
           data_offer_objs = {
-            "@country" => "Country",
+            "@country" => place.country.present?? place.country.display_name : "",
             "@name" => "Products is empty!",
             "@photo_offer" => "/assets/generic-hero-thumb.jpg"
           }
@@ -231,9 +231,17 @@ class Region < ActiveRecord::Base
           data_objs["#offer"] << ["#"]
         else
           place.products.each do |place_offer|
+            # latitude  = place_offer.latitudeStart.blank? ? place_offer.latitudeEnd.to_f : place_offer.latitudeStart.to_f
+            # longitude = place_offer.longitudeStart.blank? ? place_offer.longitudeEnd.to_f : place_offer.longitudeStart.to_f
+            # get_country = 'No Country'
+            # if (latitude and longitude)
+            #   geo_localization = "#{latitude},#{longitude}"
+            #   query = Geocoder.search(geo_localization).first
+            #   get_country = query.country
+            # end
             hero_photo_offer = place_offer.photos.where(hero: true)
             data_offer_objs = {
-              "@country" => place_offer.countries.blank? ? 'No Country' : place_offer,
+              "@country" => place.country.present?? place.country.display_name : "",
               "@name" => place_offer.name,
               "@photo_offer" => hero_photo_offer.present?? hero_photo_offer.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg"
             }
