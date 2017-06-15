@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522065520) do
+ActiveRecord::Schema.define(version: 20170608013559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -527,6 +527,16 @@ ActiveRecord::Schema.define(version: 20170522065520) do
     t.datetime "updated_at"
     t.integer  "place_id"
   end
+
+  create_table "landings", force: true do |t|
+    t.string   "from_url"
+    t.string   "to_url"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "landings", ["user_id"], name: "index_landings_on_user_id", using: :btree
 
   create_table "offers", force: true do |t|
     t.integer  "attraction_id"
@@ -1634,6 +1644,7 @@ ActiveRecord::Schema.define(version: 20170522065520) do
     t.string   "itinerary"
     t.boolean  "test_product",                                                  default: false
     t.string   "departure_dates"
+    t.text     "other"
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
@@ -2379,6 +2390,16 @@ ActiveRecord::Schema.define(version: 20170522065520) do
     t.string   "place"
     t.string   "city"
     t.string   "country"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tab_infos", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.integer  "tab_infoable_id"
+    t.string   "tab_infoable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
