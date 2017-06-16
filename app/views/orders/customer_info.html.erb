@@ -39,6 +39,16 @@
       </p>
       <div class="col-md-1"></div>
       <div class="col-md-11">
+        <% line_item.add_ons.each do |add_on| %>
+          <h4>Add-On Name: <%= add_on.name %></h4>
+          Description: <%= add_on.description %><br>
+          Item Code: <%= add_on.item_code %><br>
+          Amount: <%= number_to_currency(add_on.amount) %><br>
+          <hr>
+        <% end %>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-11">
         <% line_item.passengers.each_with_index do |passenger, index| %>
           <h4>Passenger <%= index + 1 %></h4>
           First Name: <%= passenger.first_name %><br>

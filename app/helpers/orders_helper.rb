@@ -30,6 +30,6 @@ module OrdersHelper
   end
 
   def total_line_item_price(line_item)
-    line_item.quantity * line_item.price
+    line_item.quantity * line_item.single_money_with_add_ons.money.to_f
   end
 end

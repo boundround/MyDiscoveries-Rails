@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522065520) do
+ActiveRecord::Schema.define(version: 20170612152010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -527,6 +527,16 @@ ActiveRecord::Schema.define(version: 20170522065520) do
     t.datetime "updated_at"
     t.integer  "place_id"
   end
+
+  create_table "landings", force: true do |t|
+    t.string   "from_url"
+    t.string   "to_url"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "landings", ["user_id"], name: "index_landings_on_user_id", using: :btree
 
   create_table "offers", force: true do |t|
     t.integer  "attraction_id"
@@ -1166,6 +1176,31 @@ ActiveRecord::Schema.define(version: 20170522065520) do
   add_index "similar_places", ["place_id"], name: "index_similar_places_on_place_id", using: :btree
   add_index "similar_places", ["similar_place_id"], name: "index_similar_places_on_similar_place_id", using: :btree
 
+  create_table "spree_add_on_prices", force: true do |t|
+    t.integer  "add_on_id"
+    t.decimal  "amount",     precision: 8, scale: 2
+    t.string   "currency"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spree_add_ons", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "product_id"
+    t.string   "type"
+    t.boolean  "default",            default: false
+    t.integer  "expiration_days"
+    t.string   "add_on_type"
+    t.boolean  "show_embroidery",    default: false
+    t.string   "embroidery_options"
+    t.string   "item_code",          default: ""
+  end
+
+  add_index "spree_add_ons", ["product_id"], name: "index_spree_add_ons_on_product_id", using: :btree
+
   create_table "spree_addresses", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
@@ -1321,6 +1356,18 @@ ActiveRecord::Schema.define(version: 20170522065520) do
   add_index "spree_inventory_units", ["shipment_id"], name: "index_inventory_units_on_shipment_id", using: :btree
   add_index "spree_inventory_units", ["variant_id"], name: "index_inventory_units_on_variant_id", using: :btree
 
+  create_table "spree_line_item_add_ons", force: true do |t|
+    t.integer  "add_on_id"
+    t.integer  "line_item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "price",            precision: 8, scale: 2
+    t.datetime "expiration_date"
+    t.string   "embroidery_text"
+    t.string   "embroidery_font"
+    t.string   "embroidery_color"
+  end
+
   create_table "spree_line_items", force: true do |t|
     t.integer  "variant_id"
     t.integer  "order_id"
@@ -1337,6 +1384,8 @@ ActiveRecord::Schema.define(version: 20170522065520) do
     t.decimal  "included_tax_total",   precision: 10, scale: 2, default: 0.0,   null: false
     t.decimal  "pre_tax_amount",       precision: 8,  scale: 2, default: 0.0
     t.boolean  "request_installments",                          default: false
+    t.string   "name"
+    t.text     "description"
   end
 
   add_index "spree_line_items", ["order_id"], name: "index_spree_line_items_on_order_id", using: :btree
@@ -1634,6 +1683,8 @@ ActiveRecord::Schema.define(version: 20170522065520) do
     t.string   "itinerary"
     t.boolean  "test_product",                                                  default: false
     t.string   "departure_dates"
+    t.text     "other"
+    t.boolean  "add_on",                                                        default: false
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
@@ -2379,6 +2430,16 @@ ActiveRecord::Schema.define(version: 20170522065520) do
     t.string   "place"
     t.string   "city"
     t.string   "country"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tab_infos", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.integer  "tab_infoable_id"
+    t.string   "tab_infoable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

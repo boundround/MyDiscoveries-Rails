@@ -451,6 +451,7 @@ Rails.application.routes.draw do
         post :fill_packages_options
       end
     end
+    resources :add_ons
   end
 
   get 'cart' => 'orders#cart'

@@ -185,6 +185,15 @@ class Ax::Upload
               xml.UnitPrice    sprintf("%.2f", li.price)
               xml.OSSPaymSched li.request_installments? ? '5' : ''
             end
+            li.add_ons.each do |add_on|
+              xml.Item do
+                xml.ItemId       add_on.item_code
+                xml.ItemDesc     add_on.name
+                xml.Quantity     li.quantity
+                xml.UnitPrice    sprintf("%.2f", add_on.amount)
+                xml.OSSPaymSched li.request_installments? ? '5' : ''
+              end
+            end
           end
         end
         xml.Payment do

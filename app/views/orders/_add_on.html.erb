@@ -1,0 +1,14 @@
+<label class='add-on-checkbox'>
+  <%= hidden_field_tag(
+    "#{f.object_name}[add_on_ids][]",
+    nil,
+    id: "#{"#{f.object_name}[add_on_ids][]".parameterize(sep='_')}_#{add_on.id}_hidden"
+  ) %>
+  <%= check_box_tag(
+    "#{f.object_name}[add_on_ids][]",
+    add_on.id,
+    f.object.add_on_ids.include?(add_on.id),
+    id: "#{"#{f.object_name}[add_on_ids][]".parameterize(sep='_')}_#{add_on.id}"
+  ) %>
+  <%= "#{add_on.name} (#{number_to_currency(add_on.amount)})" %>
+</label>
