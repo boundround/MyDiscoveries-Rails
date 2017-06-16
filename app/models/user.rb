@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
   validates :password, confirmation: true
-  
+
   before_update :update_hubspot_info
 
   after_create :store_to_hubspot
@@ -162,13 +162,15 @@ class User < ActiveRecord::Base
 
   def store_to_hubspot
     unless Rails.env.development?
-      Hubspot::Contact.create_or_update!([
-        { email: self.email, 
-          firstname: self.first_name.blank? ? self.email : self.first_name, 
-          lastname: self.last_name, 
-          phone: self.mobile.blank? ? self.home_phone : self.mobile 
-        }
-      ])
+      if self.email.present?
+        Hubspot::Contact.create_or_update!([
+          { email: self.email,
+            firstname: self.first_name.blank? ? self.email : self.first_name,
+            lastname: self.last_name,
+            phone: self.mobile.blank? ? self.home_phone : self.mobile
+          }
+        ])
+      end
     end
   end
 
@@ -176,10 +178,10 @@ class User < ActiveRecord::Base
     unless Rails.env.development?
       if first_name_changed? || last_name_changed? || home_phone_changed? || mobile_changed?
         Hubspot::Contact.create_or_update!([
-          { email: self.email, 
-            firstname: self.first_name.blank? ? self.email : self.first_name, 
-            lastname: self.last_name, 
-            phone: self.mobile.blank? ? self.home_phone : self.mobile 
+          { email: self.email,
+            firstname: self.first_name.blank? ? self.email : self.first_name,
+            lastname: self.last_name,
+            phone: self.mobile.blank? ? self.home_phone : self.mobile
           }
         ])
       end
