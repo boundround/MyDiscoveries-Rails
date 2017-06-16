@@ -246,3 +246,5 @@ gem 'le'
 
 # integrate rails with hubspot (api)
 gem "hubspot-ruby"
+
+gem 'spree_add_on', github: 'boundround/spree-add-on'

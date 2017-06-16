@@ -538,7 +538,7 @@ module ApplicationHelper
       if mobile
         " #{pluralize(total_count, 'item')} "
       else
-        " #{pluralize(total_count, 'item')} - #{number_to_currency(current_order.total)} "
+        " #{pluralize(total_count, 'item')} - #{number_to_currency(current_order.total_price_without_installments)} "
       end
     else
       ' Empty '

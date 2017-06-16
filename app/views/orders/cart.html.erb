@@ -24,12 +24,23 @@
                         <h5>Product</h5>
                       <% end %>
                       <p>
-                        <%= image_tag draw_hero_background(line_item.product),
-                              size: '100x100',
-                              class: 'cart-product-photo'
-                        %>
-                        <%= line_item.product.name %>
-                        <br style="clear: both;" /></p>
+                        <div class='col-md-4'>
+                          <%= image_tag draw_hero_background(line_item.product),
+                                size: '100x100',
+                                class: 'cart-product-photo'
+                          %>
+                        </div>
+                        <div class='col-md-8'>
+                          <%= line_item.product.name %>
+                          <% if line_item.product.add_ons.any? %>
+                            <h5> Available Add-Ons</h5>
+                              <% line_item.product.add_ons.each do |add_on| %>
+                                  <%= render 'orders/add_on', add_on: add_on, f: lnf %>
+                              <% end %>
+                          <% end %>
+                        </div>
+                        <br style="clear: both;" />
+                      </p>
                       </p>
                     </li>
                     <li>
@@ -112,7 +123,7 @@
               <div class='padding-top-30p'>
                 <% if @line_items.any? %>
                   <h4>
-                    <%= "Total: #{number_to_currency(total_line_items_price(@line_items))}" %>
+                    <%= "Total: #{number_to_currency(@order.total_price_without_installments)}" %>
                   </h4>
                   <div class='padding-top-30p'>
                     <div class='inline-buttons'>

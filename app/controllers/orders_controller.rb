@@ -121,7 +121,6 @@ class OrdersController < ApplicationController
         @line_item.set_request_installments!
       end
 
-      debugger
       current_order.set_cart_state!
       redirect_to line_item_add_passengers_path(@offer, @line_item)
     else
@@ -340,7 +339,8 @@ class OrdersController < ApplicationController
       :request_installments,
       line_items_attributes: [
         :id,
-        :quantity
+        :quantity,
+        add_on_ids: []
       ]
     )
   end

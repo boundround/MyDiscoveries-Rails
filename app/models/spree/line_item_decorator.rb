@@ -6,7 +6,15 @@ Spree::LineItem.class_eval do
   after_commit :check_passengers, on: :update
 
   def total_price
-    request_installments ? (price * quantity / 5.0) : (price * quantity)
+    if request_installments?
+      single_money_with_add_ons.money.to_f * quantity / 5.0
+    else
+      single_money_with_add_ons.money.to_f * quantity
+    end
+  end
+
+  def total_price_without_installments
+    single_money_with_add_ons.money.to_f * quantity
   end
 
   def passengers_added?
@@ -15,6 +23,10 @@ Spree::LineItem.class_eval do
 
   def set_request_installments!
     update(request_installments: true)
+  end
+
+  def add_on_names
+    add_ons.pluck(:name).join(', ')
   end
 
   private
