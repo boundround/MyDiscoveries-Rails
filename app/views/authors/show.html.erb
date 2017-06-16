@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-lg-4 hidden-xs top20" align="center">
+      <div class="img-rounded-big"  style="background: url('<%= showing_image(@author.image) %>')" ></div>
+    </div>
+    <div class="col-md-8 col-sm-12 col-xs-12 leftmin16">
+	    <div class="head-title">
+	      <div class="row leftmin16" align="center">
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btm25">
+	          <h4 class="hitam top20 align-left left40">Author profile</h4>
+	          <h2 class="abu-abu align-left left40"><%= @author.name %></h2>
+	          <p class="abu-abu align-left left40"><%= @author.description.html_safe rescue ''%></p>
+	          <div class="img-rounded-profile visible-xs" style="background: url('<%= showing_image(@author.image) %>')"></div>
+	        </div>
+	      </div>
+	    </div>
+    </div>
+  </div>
+  <br>
+  <% if @stories.blank? %>
+  	<h1>Author Stories Empty!</h1>
+  <% else %>
+    <%= render partial: "stories/all_stories" %>
+  <% end %>
+</div>

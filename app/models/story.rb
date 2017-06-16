@@ -145,6 +145,7 @@ class Story < ActiveRecord::Base
   end
 
   belongs_to :user
+  belongs_to :author
   belongs_to :storiable, polymorphic: true
 
   has_many :stories_users
