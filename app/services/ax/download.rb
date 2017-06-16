@@ -21,7 +21,7 @@ class Ax::Download
         OrderAuthorized.delay.notification(@order.id)
 
         if @order.products.where(operator_id: 1).any?
-          SNA::Send.call(@order)
+          SNA::RequestProcessor.perform_async(@order.id)
         end
       end
     end
