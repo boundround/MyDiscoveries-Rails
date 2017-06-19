@@ -76,6 +76,10 @@ end
     line_items.map(&:total_price).reduce(:+)
   end
 
+  def total_price_without_installments
+    line_items.map(&:total_price_without_installments).reduce(:+)
+  end  
+
   private
 
   # overrides Spree method

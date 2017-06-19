@@ -1,0 +1,24 @@
+<div class="form-group">
+  <%= f.input :name, label: 'Name', input_html: { class: 'form-control' } %>
+</div>
+<div class="form-group">
+  <%= f.input :item_code, label: 'Item Code', input_html: { class: 'form-control' } %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :amount,
+    label: 'Amount',
+    input_html: { class: 'form-control', value: number_with_precision(f.object.amount.to_f, precision: 2) }
+  %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :description,
+    label: 'Description',
+    as: :text,
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<div class="form-group">
+  <%= f.submit 'Submit', class: 'btn btn-success' %>
+</div>

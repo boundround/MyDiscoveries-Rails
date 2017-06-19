@@ -1,0 +1,74 @@
+<div id="table-container">
+  <h1>
+    <%= link_to(
+        "Product ##{@product.id}",
+        edit_offer_path(@product)
+      )
+    %> Add Ons
+    <%= link_to(
+        'Create New Add-on',
+        new_offer_add_on_path(@product),
+        class: 'btn btn-success'
+      )
+    %>
+  </h1>
+
+  <table class="table table-striped" id="place-table">
+    <thead>
+    <tr>
+      <th>Add-On</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Updated At</th>
+      <th>Edit Link</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tfoot>
+      <tr>
+      <th>Add-On</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Updated At</th>
+      <th></th>
+      <th></th>
+      </tr>
+    </tfoot>
+    <tbody>
+    <% @add_ons.each do |add_on| %>
+        <tr>
+          <td>
+            <%= link_to(
+                "Add-On ##{add_on.id}",
+                edit_offer_add_on_path(@product, add_on)
+              )
+            %>
+          </td>
+          <td><%= add_on.name %></td>
+          <td><%= add_on.amount.to_s %></td>
+          <td><%= add_on.description %></td>
+          <td><%= add_on.updated_at.strftime("%F") %></td>
+          <td>
+            <%= link_to(
+                'Edit',
+                edit_offer_add_on_path(@product, add_on),
+                target: "_blank"
+              )
+            %>
+          </td>
+          <td>
+            <%= link_to(
+                'Destroy',
+                offer_add_on_path(@product, add_on),
+                method: :delete,
+                data: { confirm: 'Are you sure?' }
+              )
+            %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

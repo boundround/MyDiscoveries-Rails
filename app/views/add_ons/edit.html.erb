@@ -1,0 +1,7 @@
+<div class="container" data-controller='vouchers'>
+  <h2>Edit <%= 'Add-On (ID: ' + @add_on.id.to_s + ')' %></h2>
+  <%= simple_form_for [@product, @add_on],
+    url: offer_add_on_path, method: :patch, html: { role: 'form' } do |f| %>
+      <%= render 'form', f: f %>
+  <% end %>
+</div>

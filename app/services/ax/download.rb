@@ -21,7 +21,7 @@ class Ax::Download
         OrderAuthorized.delay.notification(@order.id)
 
         if @order.products.where(operator_id: 1).any?
-          SNA::Send.call(@order)
+          SNA::RequestProcessor.perform_async(@order.id)
         end
       end
     end
@@ -174,6 +174,7 @@ class Ax::Download
       purchase_date:      purchase_date,
       completed_at:       purchase_date,
       ax_data:            converted_xml,
+      ax_filename:        filename,
       email:              user.email,
       created_by:         user,
       state:              'completed',

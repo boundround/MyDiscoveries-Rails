@@ -32,10 +32,13 @@
         <td colspan="2" style="padding: 40px; padding-bottom: 15px;">
           <span style="font-family: 'Georgia'; font-size: 26px">
             <%= line_item.product.name %>
+            <% if line_item.add_ons.any? %>
+              <%= " (+ #{line_item.add_on_names}) " %>
+            <% end %>
           </span>
           <br>
           <span style="font-family: Arial; font-weight: bold; font-size: 20px;">
-            <%= "Qty: #{line_item.quantity} / #{number_to_currency(line_item.price)}" %><br>
+            <%= "Qty: #{line_item.quantity} / #{number_to_currency(line_item.amount)}" %><br>
           </span>
         </td>
       </tr>
