@@ -15,6 +15,7 @@ Spree::Order.class_eval do
 
   accepts_nested_attributes_for :passengers
   accepts_nested_attributes_for :line_items
+  accepts_nested_attributes_for :customer
 
   # customizes checkout flow
   checkout_flow do
@@ -68,6 +69,10 @@ end
     update(state: 'add_passengers') unless add_passengers?
   end
 
+  def set_completed_state!
+    update(state: 'completed') unless completed?
+  end
+
   def total_quantity
     line_items.pluck(:quantity).reduce(:+)
   end
@@ -78,7 +83,11 @@ end
 
   def total_price_without_installments
     line_items.map(&:total_price_without_installments).reduce(:+)
-  end  
+  end
+
+  def set_miscellaneous_charges!
+    update(miscellaneous_charges: true)
+  end
 
   private
 

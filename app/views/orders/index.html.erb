@@ -9,6 +9,7 @@
         <th>Created At</th>
         <th>User</th>
         <th>User Email</th>
+        <th>Miscellaneous Charge</th>
         <th>View Order Info</th>
         <th>Offers</th>
         <th>Operator</th>
@@ -23,6 +24,7 @@
           <th>Created At</th>
           <th>User</th>
           <th>User Email</th>
+          <th>Miscellaneous Charge</th>
           <th>View Order Info</th>
           <th>Offer</th>
           <th>Operators</th>
@@ -37,6 +39,7 @@
             <td><%= order.created_at.strftime("%Y/%m/%d") %></td>
             <td><%= (order.customer.first_name.to_s + ' ' + order.customer.last_name.to_s) rescue "Error finding name" %></td>
             <td><%= order.customer.email rescue "Error finding email" %></td>
+            <td><%= order.miscellaneous_charges? ? 'Yes' : 'No' %></td>
             <td><%= link_to "View Order Info", order_customer_info_path(order) %></td>
             <td>
               <% order.products.each do |product| %>

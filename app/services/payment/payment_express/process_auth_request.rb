@@ -40,7 +40,11 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def send_notification
-    OrderAuthorized.delay.notification(order.id)
+    if order.miscellaneous_charges?
+      MiscellaneousCharge.delay.notification(order.id)
+    else
+      OrderAuthorized.delay.notification(order.id)
+    end
   end
 
   def update_order

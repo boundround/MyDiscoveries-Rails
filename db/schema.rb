@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612152010) do
+ActiveRecord::Schema.define(version: 20170613111447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.integer  "primary_category_id"
     t.text     "focus_keyword"
     t.text     "seo_title"
+    t.string   "tag_line"
   end
 
   add_index "attractions", ["country_id"], name: "index_attractions_on_country_id", using: :btree
@@ -455,6 +456,7 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.integer  "attraction_id"
     t.integer  "fun_factable_id"
     t.string   "fun_factable_type"
+    t.string   "url"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -888,7 +890,6 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.boolean  "is_area",                   default: false
     t.text     "meta_description"
     t.string   "weather_conditions"
-    t.integer  "primary_category_id"
     t.integer  "minimum_age"
     t.integer  "maximum_age"
     t.text     "special_requirements"
@@ -909,6 +910,7 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.boolean  "is_country",                default: false
     t.boolean  "show_in_mega_menu",         default: false
     t.string   "tags",                      default: [],    array: true
+    t.string   "tag_line"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -916,7 +918,6 @@ ActiveRecord::Schema.define(version: 20170612152010) do
   add_index "places", ["country_id"], name: "index_places_on_country_id", using: :btree
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
   add_index "places", ["parent_id"], name: "index_places_on_parent_id", using: :btree
-  add_index "places", ["primary_category_id"], name: "index_places_on_primary_category_id", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
   add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
 
@@ -1490,6 +1491,8 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.datetime "purchase_date"
     t.string   "ax_filename"
     t.json     "ax_data",                                                    default: {}
+    t.boolean  "miscellaneous_charges",                                      default: false
+    t.text     "description"
   end
 
   add_index "spree_orders", ["approver_id"], name: "index_spree_orders_on_approver_id", using: :btree
@@ -2308,6 +2311,7 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.string   "description"
     t.string   "room_type"
     t.string   "supplier_product_code",                          default: ""
+    t.boolean  "miscellaneous_charges",                          default: false
   end
 
   add_index "spree_variants", ["deleted_at"], name: "index_spree_variants_on_deleted_at", using: :btree
@@ -2381,6 +2385,7 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.text     "meta_description"
     t.string   "hero_image"
     t.boolean  "featured",            default: false
+    t.string   "canonical_url"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
@@ -2572,6 +2577,8 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.string   "spree_api_key",          limit: 48
     t.integer  "ship_address_id"
     t.integer  "bill_address_id"
+    t.string   "twitter_url"
+    t.string   "facebook_url"
     t.boolean  "guest",                             default: false
   end
 
