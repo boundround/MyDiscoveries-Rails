@@ -28,6 +28,14 @@ class Spree::VariantPolicy < ApplicationPolicy
     index?
   end
 
+  def miscellaneous_charge?
+    index?
+  end
+
+  def process_miscellaneous_charge?
+    index?
+  end
+
   def show?
     true
   end
