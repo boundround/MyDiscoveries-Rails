@@ -1684,10 +1684,7 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.boolean  "test_product",                                                  default: false
     t.string   "departure_dates"
     t.text     "other"
-<<<<<<< HEAD
-=======
     t.boolean  "add_on",                                                        default: false
->>>>>>> 068b51bd42b39e417431bb1c3222cc8a7d9de71c
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
