@@ -69,7 +69,8 @@
                       data: {
                         room_type_present: @offer.room_type_present?,
                         offer_id: "#{@offer.slug}",
-                        allow_installments: @offer.allow_installments
+                        allow_installments: @offer.allow_installments,
+                        user_signed_in: current_user.present?
                       }
                     } do |f| %>
                       <div>
@@ -326,4 +327,6 @@
     </div>
   </div>
 </div>
-<%= render "operator_detail"%>
+
+<%= render "operator_detail" %>
+<%= render "layouts/guest_modal" %>
