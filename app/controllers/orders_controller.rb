@@ -109,23 +109,32 @@ class OrdersController < ApplicationController
       current_order(create_order_if_necessary: true),
       current_currency
     )
-    if populator.populate(
-        order_populate_params[:variant_id],
-        order_populate_params[:quantity],
-        order_populate_params[:options]
-      )
-      @line_item = current_order.line_items.find_by(
-        variant_id: order_populate_params[:variant_id]
-      )
-      if order_populate_params[:request_installments] == "1"
-        @line_item.set_request_installments!
-      end
 
-      current_order.set_cart_state!
-      redirect_to line_item_add_passengers_path(@offer, @line_item)
-    else
-      flash.now[:error] = populator.errors.full_messages.join(" ")
-      redirect_to :back
+    respond_to do |format|
+      if populator.populate(
+          order_populate_params[:variant_id],
+          order_populate_params[:quantity],
+          order_populate_params[:options]
+        )
+        @line_item = current_order.line_items.find_by(
+          variant_id: order_populate_params[:variant_id]
+        )
+        if order_populate_params[:request_installments] == "1"
+          @line_item.set_request_installments!
+        end
+
+        current_order.set_cart_state!
+        format.html { redirect_to line_item_add_passengers_path(@offer, @line_item) }
+        format.json { render json: { success: true }, status: :created }
+      else
+        format.html do
+          flash.now[:error] = populator.errors.full_messages.join(" ")
+          redirect_to :back
+        end
+        format.json do
+          render json: { success: false }, status: :unprocessable_entity
+        end
+      end
     end
   end
 

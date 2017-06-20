@@ -1,9 +1,11 @@
 jQuery(window).load ->
+  $('.modal-guest-sign-up-content').hide()
   $('.book-now').removeClass('hidden') if $('.book-now').hasClass('hidden')
 
-  offer_id = $('.package-options-form').data('offerId')
-  prompt_text = 'Please Select'
+  offer_id          = $('.package-options-form').data('offerId')
+  prompt_text       = 'Please Select'
   room_type_present = $('form.package-options-form').data('roomTypePresent')
+  user_signed_in    = $('form.package-options-form').data('userSignedIn')
 
   $('.js-variant-option').on 'change', (e) ->
     bed_type       = $('#order_populate_bed_type').val()
@@ -117,6 +119,56 @@ jQuery(window).load ->
     update_price(value)
     update_submit_button()
 
+  $('form.package-options-form').submit (e) ->
+    e.preventDefault();
+    if !user_signed_in
+      $("#guestModal").modal()
+    else
+      submit_offer_form()
+
+  $('.js-submit-current-offer').on 'click', (e) ->
+    e.preventDefault()
+    submit_offer_form()
+
+  $('.js-show-sign-in').on 'click', (e) ->
+    e.preventDefault()
+    $('.modal-guest-sign-up-content').hide()
+    $('.modal-guest-sign-in-content').show()
+
+  $('.js-show-sign-up').on 'click', (e) ->
+    e.preventDefault()
+    $('.modal-guest-sign-in-content').hide()
+    $('.modal-guest-sign-up-content').show()
+
+  $('.js-submit-guest-sign-in-form').on 'click', (e) ->
+    e.preventDefault()
+    if ajax_offer_form()['success']
+      $('form.guest-sign-in-form')[0].submit()
+
+  $('.js-submit-guest-sign-up-form').on 'click', (e) ->
+    e.preventDefault()
+    if ajax_offer_form()['success']
+      $('form.guest-sign-up-form')[0].submit()
+
+  submit_offer_form = () ->
+    $('form.package-options-form')[0].submit()
+
+  ajax_offer_form = () ->
+    $.ajax
+      type: 'POST',
+      url:  $('form.package-options-form').attr("action"),
+      data: $('form.package-options-form').serialize(),
+      error: (jqXHR, text_status, error_thrown) ->
+        return {
+          success: false,
+          status:  text_status
+        }
+      success: (message) ->
+        return {
+          success: true,
+          status:  message
+        }
+
   update_price = (quantity) ->
     allow_installments = $('.package-options-form').data('allowInstallments')
     if window.price > 0
@@ -131,7 +183,6 @@ jQuery(window).load ->
         $('.js-price-range').removeClass('hidden')
       if !$('.js-total-price').hasClass('hidden')
         $('.js-total-price').addClass('hidden')
-
 
     if allow_installments && window.monthly_price > 0
       if $('.js-request-installments').hasClass('hidden')
