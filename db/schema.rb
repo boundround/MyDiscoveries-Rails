@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20170612152010) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "areas", force: true do |t|
@@ -379,6 +380,11 @@ ActiveRecord::Schema.define(version: 20170612152010) do
   create_table "customers_attractions", force: true do |t|
     t.integer "user_id"
     t.integer "attraction_id"
+  end
+
+  create_table "customers_places", force: true do |t|
+    t.integer "user_id"
+    t.integer "place_id"
   end
 
   create_table "deals", force: true do |t|
@@ -1684,10 +1690,7 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.boolean  "test_product",                                                  default: false
     t.string   "departure_dates"
     t.text     "other"
-<<<<<<< HEAD
-=======
     t.boolean  "add_on",                                                        default: false
->>>>>>> 068b51bd42b39e417431bb1c3222cc8a7d9de71c
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
@@ -1740,6 +1743,13 @@ ActiveRecord::Schema.define(version: 20170612152010) do
   create_table "spree_products_regions", force: true do |t|
     t.integer  "product_id"
     t.integer  "region_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spree_products_stories", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "story_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -2043,6 +2053,17 @@ ActiveRecord::Schema.define(version: 20170612152010) do
   add_index "spree_shipping_rates", ["selected"], name: "index_spree_shipping_rates_on_selected", using: :btree
   add_index "spree_shipping_rates", ["shipment_id", "shipping_method_id"], name: "spree_shipping_rates_join_index", unique: true, using: :btree
   add_index "spree_shipping_rates", ["tax_rate_id"], name: "index_spree_shipping_rates_on_tax_rate_id", using: :btree
+
+  create_table "spree_skrill_transactions", force: true do |t|
+    t.string   "email"
+    t.float    "amount"
+    t.string   "currency"
+    t.integer  "transaction_id"
+    t.integer  "customer_id"
+    t.string   "payment_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "spree_state_changes", force: true do |t|
     t.string   "name"
