@@ -48,17 +48,16 @@ class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
-    # if last_url_is_not_auth
-    # else
-      # root_path
-    # end
-      if session[:user_return_to].present? && session[:user_return_to].split("/orders/new").size == 2
-        session[:user_return_to]
-      elsif session[:previous_url].present?
-        session[:previous_url]
-      else
-        URI(request.referer || '').path
-      end
+    if session[:user_return_to].present? && session[:user_return_to].split("/orders/new").size == 2
+      session[:user_return_to]
+    elsif current_order.present? && current_order.line_items_without_passengers.any?
+      line_item = current_order.line_items_without_passengers.last
+      line_item_add_passengers_path(line_item.product, line_item)
+    elsif session[:previous_url].present?
+      session[:previous_url]
+    else
+      URI(request.referer || '').path
+    end
   end
 
   def configure_permitted_parameters
