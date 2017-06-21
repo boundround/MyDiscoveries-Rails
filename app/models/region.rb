@@ -278,7 +278,7 @@ class Region < ActiveRecord::Base
 
       data_marker << data_objs
       data_marker << ["@"]
-      
+
       return data_marker
     end
   end
