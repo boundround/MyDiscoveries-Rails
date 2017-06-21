@@ -221,19 +221,39 @@ class Region < ActiveRecord::Base
           "#offer" => []
         }
 
-        place.products.each do |place_offer|
-          hero_photo_offer = place_offer.photos.where(hero: true)
+        if place.products.blank?
           data_offer_objs = {
-            "@country" => "",
-            "@name" => place_offer.name,
-            "@photo_offer" => hero_photo_offer.present?? hero_photo_offer.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg"
+            "@country" => place.country.present?? place.country.display_name : "",
+            "@name" => "Products is empty!",
+            "@photo_offer" => "/assets/generic-hero-thumb.jpg"
           }
           data_objs["#offer"] << data_offer_objs
           data_objs["#offer"] << ["#"]
+        else
+          place.products.each do |place_offer|
+            # latitude  = place_offer.latitudeStart.blank? ? place_offer.latitudeEnd.to_f : place_offer.latitudeStart.to_f
+            # longitude = place_offer.longitudeStart.blank? ? place_offer.longitudeEnd.to_f : place_offer.longitudeStart.to_f
+            # get_country = 'No Country'
+            # if (latitude and longitude)
+            #   geo_localization = "#{latitude},#{longitude}"
+            #   query = Geocoder.search(geo_localization).first
+            #   get_country = query.country
+            # end
+            hero_photo_offer = place_offer.photos.where(hero: true)
+            data_offer_objs = {
+              "@country" => place.country.present?? place.country.display_name : "",
+              "@name" => place_offer.name,
+              "@photo_offer" => hero_photo_offer.present?? hero_photo_offer.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg"
+            }
+            data_objs["#offer"] << data_offer_objs
+            data_objs["#offer"] << ["#"]
+          end
         end
+
         data_marker << data_objs
         data_marker << ["@"]
       end
+
       return data_marker
     else
       hero_photo = self.photos.where(hero: true)
@@ -247,8 +267,18 @@ class Region < ActiveRecord::Base
         "#photo" => hero_photo.present?? hero_photo.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg",
         "#offer" => []
       }
+
+      data_offer_objs = {
+        "@country" => "Country",
+        "@name" => "Products is empty!",
+        "@photo_offer" => "/assets/generic-hero-thumb.jpg"
+      }
+      data_objs["#offer"] << data_offer_objs
+      data_objs["#offer"] << ["#"]
+
       data_marker << data_objs
       data_marker << ["@"]
+      
       return data_marker
     end
   end
