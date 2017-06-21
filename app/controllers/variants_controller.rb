@@ -1,7 +1,8 @@
 class VariantsController < ApplicationController
   before_action -> { check_user_authorization('Spree::Variant') }
   before_action :set_product
-  before_action :set_variant, only: [:show, :edit, :update, :destroy]
+  before_action :set_variant,
+    except: [:fill_packages_options, :new, :create, :index]
 
   def show
   end
@@ -13,8 +14,31 @@ class VariantsController < ApplicationController
     )
   end
 
+  def miscellaneous_charge
+    @order    = Spree::Order.new
+    @order.build_customer
+  end
+
+  def process_miscellaneous_charge
+    response = Order::ProcessMiscellaneousCharge.call(
+      order_params,
+      credit_card_params,
+      @variant
+    )
+
+    @order = response[:order]
+
+    if response[:success]
+      flash[:notice] = response[:message]
+      redirect_to order_view_confirmation_path(@order)
+    else
+      flash.now[:alert] = response[:message]
+      render :miscellaneous_charge
+    end
+  end
+
   def index
-    @variants = @product.variants
+    @variants = Spree::Variant.unscoped.where(product: @product, is_master: false)
   end
 
   def fill_packages_options
@@ -66,7 +90,7 @@ class VariantsController < ApplicationController
   end
 
   def set_variant
-    @variant = @product.variants.find(params[:id])
+    @variant = Spree::Variant.unscoped.find_by(product: @product, id: params[:id])
   end
 
   def variant_params
@@ -85,7 +109,37 @@ class VariantsController < ApplicationController
       :item_code,
       :description,
       :room_type,
-      :supplier_product_code
+      :supplier_product_code,
+      :miscellaneous_charges
+    )
+  end
+
+  def order_params
+    params.require(:order).permit(
+      :total,
+      :description,
+      customer_attributes: [
+        :title,
+        :email,
+        :first_name,
+        :last_name,
+        :phone_number,
+        :address_one,
+        :address_two,
+        :city,
+        :country,
+        :state,
+        :postal_code
+      ]
+    )
+  end
+
+  def credit_card_params
+    params.require(:order).require(:customer_attributes).require(:credit_card).permit(
+      :number,
+      :holder_name,
+      :date,
+      :cvv
     )
   end
 end

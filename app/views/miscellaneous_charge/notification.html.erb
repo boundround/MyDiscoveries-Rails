@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <p>
+      <%= @customer.full_name %>!
+    </p>
+    <p>
+      Miscellaneous charge was processed succesfully.
+    </p>
+    <p>
+      Price: <%= @order.total %>
+    </p>
+    <% if @order.description.present? %>
+      <p>
+        Description: <%= @order.description %>
+      </p>
+    <% end %>
+  </body>
+</html>

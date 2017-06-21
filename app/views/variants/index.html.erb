@@ -26,6 +26,7 @@
       <th>Supplier Product Code</th>
       <th>Created At</th>
       <th>Edit Link</th>
+      <th>Miscellaneous Charges</th>
       <th>Delete</th>
     </tr>
     </thead>
@@ -41,6 +42,7 @@
       <th>Updated At</th>
       <th></th>
       <th></th>
+      <th></th>
       </tr>
     </tfoot>
     <tbody>
@@ -48,7 +50,7 @@
         <tr>
           <td>
             <%= link_to(
-                "Variant ##{variant.id}",
+                variant_edit_link_label(variant),
                 edit_offer_variant_path(@product, variant)
               )
             %>
@@ -68,6 +70,16 @@
                 target: "_blank"
               )
             %>
+          </td>
+          <td>
+            <% if variant.miscellaneous_charges? %>
+              <%= link_to(
+                  'Miscellaneous Charge',
+                  miscellaneous_charge_offer_variant_path(@product, variant),
+                  target: "_blank"
+                )
+              %>
+            <% end %>
           </td>
           <td>
             <%= link_to(

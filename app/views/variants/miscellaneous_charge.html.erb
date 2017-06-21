@@ -1,0 +1,148 @@
+<div class="checkout-page">
+  <h3>
+    <%= "#{@product.name} (#{@variant.select_label})" %>
+  </h3>
+  <div class="form-block">
+    <%= simple_form_for(
+      @order,
+      url: process_miscellaneous_charge_offer_variant_path(@product, @variant),
+      method: :post,
+      html: { class: 'customer_form' }) do |of|
+    %>
+      <div class="checkout-form">
+        <h2 class="title"> Order details </h2>
+
+        <div class="form-group sm">
+          <div class="control-group string optional">
+            <%= of.input :total,
+              as: :float,
+              required: true,
+              min: 0.01,
+              step: 0.5,
+              input_html: {
+                class: 'width100',
+                value: number_with_precision(of.object.total.to_f, precision: 2)
+              }
+            %>
+          </div>
+        </div>
+
+        <div class="form-group sm">
+          <div class="control-group string optional">
+            <%= of.input :description, as: :text %>
+          </div>
+        </div>
+
+        <%= of.simple_fields_for :customer, @order.customer do |cf| %>
+
+          <h2 class="title"> Billing details </h2>
+          <div class="customer-fields">
+            <div class="form-group customer-title">
+              <%= cf.input :title,
+                as: :select,
+                collection: Customer::TITLES,
+                include_blank: false,
+                label: false,
+                input_html: { class: 'select optional form-control select2-hidden-accessible checkout-select-box' }
+              %>
+            </div>
+            <div class="form-group customer-first-name">
+              <%= cf.input :first_name, required: true, label: false, placeholder: 'First name' %>
+            </div>
+            <div class="form-group customer-last-name">
+              <%= cf.input :last_name, required: true, label: false, placeholder: 'Last name' %>
+            </div>
+            <div class="form-group sm">
+              <div class="control-group string optional">
+                <%= cf.input :email, as: :email, required: true, label: false, placeholder: 'your@mail.com' %>
+              </div>
+            </div>
+            <div class="form-group sm">
+              <div class="control-group string optional">
+                <%= cf.input :phone_number, as: :tel, required: true, label: false, placeholder: 'Phone number' %>
+              </div>
+            </div>
+            <div class="form-group sm">
+              <div class="control-group string optional">
+                <%= cf.country_select :country, priority_countries: ['AU', 'US'],
+                  required: true,
+                  label: false,
+                  include_blank: false,
+                  input_html: { class: "select optional form-control select2-hidden-accessible checkout-select-box" } %>
+              </div>
+            </div>
+            <div class="form-group sm">
+              <div class="control-group string optional">
+                <%= cf.input :address_one, as: :string, required: true, label: false, placeholder: 'First address' %>
+              </div>
+            </div>
+            <div class="form-group sm">
+              <div class="control-group string optional">
+                <%= cf.input :address_two, as: :string, label: false, placeholder: 'Second address' %>
+              </div>
+            </div>
+            <div class="form-group customer-city">
+              <%= cf.input :city, required: true, label: false, placeholder: 'City' %>
+            </div>
+            <div class="form-group customer-state">
+              <%= cf.input :state, required: true, label: false, placeholder: 'State' %>
+            </div>
+            <div class="form-group customer-postal-code">
+              <%= cf.input :postal_code, required: true, label: false, placeholder: 'Postal Code' %>
+            </div>
+          </div>
+
+          <%= cf.simple_fields_for :credit_card, @order.customer.credit_card do |pf| %>
+            <div class="payment-fields">
+              <h2 class="title"> Credit card details </h2>
+              <div class="card-container"></div>
+              <div class="form-group sm">
+                <div class="control-group string optional">
+                  <%= pf.input :number,
+                    as: :string,
+                    label: false,
+                    placeholder: 'Card Number',
+                    required: true,
+                    input_html: { value: '', class: 'credit_card_number' }
+                  %>
+                </div>
+              </div>
+              <div class="form-group card-holder-name">
+                <%= pf.input :holder_name,
+                  as: :string,
+                  label: false,
+                  placeholder: 'Name on card',
+                  required: true,
+                  input_html: { value: '', class: 'credit_card_name' }
+                %>
+              </div>
+              <div class="form-group card-date">
+                <%= pf.input :date,
+                  as: :string,
+                  label: false,
+                  placeholder: 'MM/YY',
+                  required: true,
+                  input_html: { value: '', class: 'credit_card_date' }
+                %>
+              </div>
+              <div class="form-group card-cvv">
+                <%= pf.input :cvv,
+                  as: :string,
+                  label: false,
+                  placeholder: 'CVV',
+                  required: true,
+                  input_html: { value: '', class: 'credit_card_cvv' }
+                %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <div class="btns-block">
+          <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
+            <span>Create Order</span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
