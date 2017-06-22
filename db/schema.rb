@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612152010) do
+ActiveRecord::Schema.define(version: 20170622031352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1023,6 +1023,16 @@ ActiveRecord::Schema.define(version: 20170612152010) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "products_stickers", id: false, force: true do |t|
+    t.integer "product_id"
+    t.integer "sticker_id"
+  end
+
+  add_index "products_stickers", ["product_id", "sticker_id"], name: "index_products_stickers_on_product_id_and_sticker_id", using: :btree
+  add_index "products_stickers", ["product_id"], name: "index_products_stickers_on_product_id", using: :btree
+  add_index "products_stickers", ["sticker_id", "product_id"], name: "index_products_stickers_on_sticker_id_and_product_id", using: :btree
+  add_index "products_stickers", ["sticker_id"], name: "index_products_stickers_on_sticker_id", using: :btree
 
   create_table "programs", force: true do |t|
     t.string   "name"
@@ -2354,6 +2364,12 @@ ActiveRecord::Schema.define(version: 20170612152010) do
   end
 
   add_index "stamps", ["place_id"], name: "index_stamps_on_place_id", using: :btree
+
+  create_table "stickers", force: true do |t|
+    t.string   "file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "stories", force: true do |t|
     t.text     "title",               default: ""
