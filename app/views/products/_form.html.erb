@@ -28,9 +28,26 @@
           </div>
         </div>
 
-        <div class="form-group"><%= f.check_box :featured, label: false %>  <%= f.label :featured, "Featured" %></div>
-        <div class="form-group"><%= f.check_box :show_in_mega_menu, label: false %>  <%= f.label :show_in_mega_menu, "Show in mega menu?" %></div>
-
+        <div class="form-group">
+          <%= f.check_box :featured, label: false %>
+           <%= f.label :featured, "Featured" %>
+        </div>
+        <div class="form-group">
+          <%= f.check_box :show_in_mega_menu, label: false %>
+          <%= f.label :show_in_mega_menu, "Show in mega menu?" %>
+        </div>
+        <div class="form-group">
+          <%= f.check_box :disable_room_type, label: false %>
+          <%= f.label :disable_room_type, "Disable Room Type" %>
+        </div>
+        <div class="form-group">
+          <%= f.check_box :disable_maturity, label: false %>
+          <%= f.label :disable_maturity, "Disable Maturity" %>
+        </div>
+        <div class="form-group">
+          <%= f.check_box :disable_bed_type, label: false %>
+          <%= f.label :disable_bed_type, "Disable Bed Type" %>
+        </div>
         <div class="form-group">
           <%= f.association :operator,
             label_method: :name,

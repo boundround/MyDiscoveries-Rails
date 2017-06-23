@@ -11,23 +11,34 @@ class Variant::FindPackagesOptions
 
   def variants
     search_params = {}
-     if bed_type_present?
+     if !product.disable_bed_type? && bed_type_present?
        search_params[:bed_type] =
         Spree::Variant.bed_types[options[:bed_type].downcase.to_sym]
      end
-    if maturity_present?
+    if !product.disable_maturity? && maturity_present?
       search_params[:maturity] =
         Spree::Variant.maturities[options[:maturity].downcase.to_sym]
     end
+    if departure_date_present?
+      search_params[:departure_date] = DateTime.parse(options[:departure_date])
+    end
 
     result = product.variants.where(search_params)
+
+    if !product.disable_room_type? && room_type_present?
+      result = result.where('lower(room_type) = ?', options[:room_type].downcase)
+    end
 
     if departure_city_present?
       result = result.where('lower(departure_city) = ?', options[:departure_city].downcase)
     end
 
-    if product.room_type_present? && room_type_present?
-      result = result.where('lower(room_type) = ?', options[:room_type].downcase)
+    if package_option_present?
+      result = result.where('lower(package_option) = ?', options[:package_option].downcase)
+    end
+
+    if accommodation_present?
+      result = result.where('lower(accommodation) = ?', options[:accommodation].downcase)
     end
 
     result
@@ -49,17 +60,29 @@ class Variant::FindPackagesOptions
     @maturity_present ||= options[:maturity].present?
   end
 
-  def options_without_room_type_present?
+  def package_option_present?
+    @package_option_present ||= options[:package_option].present?
+  end
+
+  def accommodation_present?
+    @accommodation_present ||= options[:accommodation].present?
+  end
+
+  def departure_date_present?
+    @departure_date_present ||= options[:departure_date].present?
+  end
+
+  def base_options_present?
     departure_city_present? &&
-      maturity_present? &&
-      bed_type_present?
+    departure_date_present? &&
+    package_option_present? &&
+    accommodation_present?
   end
 
   def options_selected?
-    @options_selected ||= if product.room_type_present?
-      options_without_room_type_present? && room_type_present?
-    else
-      options_without_room_type_present?
-    end
+    bed_type  = (!product.disable_bed_type? ? bed_type_present? : true)
+    maturity  = (!product.disable_maturity? ? maturity_present? : true)
+    room_type = (!product.disable_room_type? ? room_type_present? : true)
+    bed_type && maturity && room_type && base_options_present?
   end
 end
