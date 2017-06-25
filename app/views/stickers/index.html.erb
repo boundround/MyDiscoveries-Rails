@@ -1,2 +1,18 @@
-<h1>Stickers#index</h1>
-<p>Find me in app/views/stickers/index.html.erb</p>
+<div class="container">
+  <% @stickers.each do |sticker| %>
+    <div>
+      <img src="<%= sticker.file_url %>"><br/>
+    </div>
+  <% end %>
+  <div class="photo-container">
+    <h2>Add New Sticker</h2>
+    <%= simple_form_for @sticker do |f| %>
+      <div class="form-group">
+        <p><%= f.input :file, label: false%></p>
+      </div>
+      <div class="form-group">
+        <%= f.button :submit%>
+      </div>
+    <% end %>
+  </div>
+</div>

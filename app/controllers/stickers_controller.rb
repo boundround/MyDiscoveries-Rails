@@ -3,6 +3,7 @@ class StickersController < ApplicationController
 
   def new
     @sticker = Sticker.new
+    redirect_to stickers_path
   end
 
   def create
@@ -37,6 +38,7 @@ class StickersController < ApplicationController
 
   def index
     @stickers = Sticker.all
+    @sticker = Sticker.new
   end
 
   def show
