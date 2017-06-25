@@ -455,6 +455,8 @@ Rails.application.routes.draw do
     resources :add_ons
   end
 
+  resources :stickers
+
   get 'cart' => 'orders#cart'
   put 'empty_cart' => 'orders#empty'
   get 'offers/:offer_id/line_items/:line_item_id/add_passengers' => 'orders#add_passengers',

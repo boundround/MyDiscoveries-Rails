@@ -257,7 +257,8 @@ class OffersController < ApplicationController
       region_ids: [],
       subcategory_ids: [],
       inclusion_list: [],
-      places_visited: []
+      places_visited: [],
+      sticker_ids: []
     )
   end
 end

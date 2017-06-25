@@ -9,9 +9,9 @@ class StickersController < ApplicationController
     @sticker = Sticker.new(sticker_params)
 
     if @sticker.save
-      redirect_to stickers_path, notice: "Sticker Created"
+      redirect_to :back, notice: "Sticker Created"
     else
-      render :new, notice: "Sorry, there was an error created your \"Sticker\"."
+      redirect_to :back, alert: @sticker.errors.full_messages.join(', ')
     end
   end
 

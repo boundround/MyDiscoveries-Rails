@@ -16,6 +16,7 @@ class ProductsStickersController < ApplicationController
 
   def index
     @stickers = Sticker.all
+    @offer = Spree::Product.friendly.find(params[:offer_id])
     @sticker = Sticker.new
   end
 
