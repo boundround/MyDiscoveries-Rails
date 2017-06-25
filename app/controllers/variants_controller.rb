@@ -9,7 +9,6 @@ class VariantsController < ApplicationController
 
   def new
     @variant = @product.variants.build(
-      track_inventory: false,
       departure_city: @product.locationStart
     )
   end
@@ -110,7 +109,10 @@ class VariantsController < ApplicationController
       :description,
       :room_type,
       :supplier_product_code,
-      :miscellaneous_charges
+      :miscellaneous_charges,
+      :departure_date,
+      :package_option,
+      :accommodation
     )
   end
 

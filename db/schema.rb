@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613111447) do
+ActiveRecord::Schema.define(version: 20170622091240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1686,8 +1686,11 @@ ActiveRecord::Schema.define(version: 20170613111447) do
     t.string   "itinerary"
     t.boolean  "test_product",                                                  default: false
     t.string   "departure_dates"
-    t.text     "other"
     t.boolean  "add_on",                                                        default: false
+    t.text     "other"
+    t.boolean  "disable_maturity",                                              default: false
+    t.boolean  "disable_bed_type",                                              default: false
+    t.boolean  "disable_room_type",                                             default: false
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
@@ -2312,6 +2315,9 @@ ActiveRecord::Schema.define(version: 20170613111447) do
     t.string   "room_type"
     t.string   "supplier_product_code",                          default: ""
     t.boolean  "miscellaneous_charges",                          default: false
+    t.string   "package_option"
+    t.string   "accommodation"
+    t.datetime "departure_date"
   end
 
   add_index "spree_variants", ["deleted_at"], name: "index_spree_variants_on_deleted_at", using: :btree

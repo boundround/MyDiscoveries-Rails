@@ -17,13 +17,27 @@ class OffersController < ApplicationController
     @operator = @offer.operator
     @book_guarantee = Configurable.book_guarantee
 
-    @maturities       = @offer.variants.map{ |v| v.maturity.titleize }.uniq
-    @bed_types        = @offer.variants.map{ |v| v.bed_type.titleize }.uniq
-    @departure_cities = @offer.variants.map{ |v| v.departure_city }.uniq
-
-    if @offer.room_type_present?
-      @room_types = @offer.variants.map{ |v| v.room_type.titleize }.uniq
+    if !@offer.disable_maturity?
+      @maturities = @offer.variants.
+        map{ |v| v.maturity.try(:titleize) }.compact.uniq
     end
+    if !@offer.disable_bed_type?
+      @bed_types = @offer.variants.
+        map{ |v| v.bed_type.try(:titleize) }.compact.uniq
+    end
+    if !@offer.disable_room_type?
+      @room_types = @offer.variants.
+        map{ |v| v.room_type.try(:titleize) }.compact.uniq
+    end
+
+    @departure_cities = @offer.variants.
+      map{ |v| v.departure_city.try(:titleize) }.compact.uniq
+    @package_options  = @offer.variants.
+      map{ |v| v.package_option.try(:titleize) }.compact.uniq
+    @departure_dates  = @offer.variants.
+      map{ |v| v.departure_date.try(:to_date).try(:to_s) }.uniq
+    @accommodations   = @offer.variants.
+      map{ |v| v.accommodation.try(:titleize) }.compact.uniq
 
     respond_to do |format|
       format.html
@@ -242,6 +256,9 @@ class OffersController < ApplicationController
       :itinerary,
       :room_type,
       :other,
+      :disable_bed_type,
+      :disable_maturity,
+      :disable_room_type,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,

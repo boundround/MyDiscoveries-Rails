@@ -7,17 +7,14 @@ Spree::Variant.class_eval do
 
   before_validation :strip_fields
 
-  validates :product,
-    uniqueness: {
-      scope: [:bed_type, :departure_city, :maturity, :room_type],
-      message: 'variant should contain a unique combination of Bed Type, Maturity, Departure City and Room Type'
-    }, if: Proc.new { |v| (v.product_room_type_present? && !v.miscellaneous_charges?) }
+  validates_presence_of :room_type, if: Proc.new { |v| !v.product.disable_room_type }
+  validates_presence_of :departure_city
+  validates_presence_of :departure_date
+  validates_presence_of :package_option
+  validates_presence_of :accommodation
 
-  validates :product,
-    uniqueness: {
-      scope: [:bed_type, :departure_city, :maturity],
-      message: 'variant should contain a unique combination of Bed Type, Maturity and Departure City'
-    }, if: Proc.new { |v| (!v.product_room_type_present? && !v.miscellaneous_charges?) }
+  validate :uniqueness,
+    if: Proc.new { |v| !v.miscellaneous_charges? }
 
   # overrides default getter
   def description
@@ -30,29 +27,41 @@ Spree::Variant.class_eval do
   end
 
   def select_label
-    if room_type.present?
-      select_label_without_room_type + ", Room Type: #{room_type.capitalize}"
-    else
-      select_label_without_room_type
-    end
-  end
+    label =
+      "Departure city: #{departure_city.capitalize}, \
+       Departure Date: #{departure_date.try(:to_date).try(:to_s)}, \
+       Package Option: #{package_option.try(:capitalize)}, \
+       Hotel / Accommodation: #{accommodation.try(:capitalize)}"
 
-  def select_label_without_room_type
-    "Departure city: #{departure_city.capitalize}, \
-     Maturity: #{maturity.capitalize}, \
-     Bed Type: #{bed_type.capitalize}"
+    if !product.disable_room_type
+      label << ", Room Type: #{room_type.try(:capitalize)}"
+    end
+
+    if !product.disable_bed_type
+      label << ", Bed Type: #{bed_type.try(:capitalize)}"
+    end
+
+    if !product.disable_maturity
+      label << ", Maturity: #{maturity.try(:capitalize)}"
+    end
+
+    label
   end
 
   def monthly_price
     price / 5.0
   end
 
-  def product_room_type_present?
-    product.room_type_present?
-  end
-
   def strip_fields
     departure_city.strip! unless departure_city.nil?
     room_type.strip!      unless room_type.nil?
+    package_option.strip! unless package_option.nil?
+    accommodation.strip!  unless accommodation.nil?
+  end
+
+  private
+
+  def uniqueness
+    Variant::UniquenessValidator.call(self)
   end
 end

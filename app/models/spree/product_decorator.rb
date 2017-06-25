@@ -443,8 +443,8 @@ Spree::Product.class_eval do
   def minRateAdult
     prices = []
     variants.each do |variant|
-      if variant.maturity.downcase.strip != "child"
-        prices << variant.price
+      if variant.maturity.present? && variant.maturity.downcase.strip != "child"
+        prices << variant.price.to_f
       end
     end
     prices.min
@@ -478,10 +478,6 @@ Spree::Product.class_eval do
 
   def directions
     (locationEnd.present? && locationStart != locationEnd) ? "#{locationStart} - #{locationEnd}" : locationStart
-  end
-
-  def room_type_present?
-    variants.pluck(:room_type).any?(&:present?)
   end
 
   private
