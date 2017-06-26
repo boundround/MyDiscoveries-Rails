@@ -40,6 +40,11 @@
 
 }(window, window.document));
 
+function chooseStickers() {
+  $('#sticker_form input[type=checkbox]').click(function() {
+        alert("checkbox ticked");
+  });
+}
 
 $(document).ready(function() {
   $(".readmore-area").click(function(event) {
@@ -48,4 +53,6 @@ $(document).ready(function() {
       text === "SHOW MORE" ? "LESS" : "SHOW MORE";
     })
   });
+
+  chooseStickers();
 });

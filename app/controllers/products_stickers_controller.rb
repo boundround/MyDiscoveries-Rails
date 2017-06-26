@@ -8,7 +8,8 @@ class ProductsStickersController < ApplicationController
     redirect_to :back
   end
 
-  def edit;end
+  def edit
+  end
 
   def update
     @product = Spree::Product.friendly.find(params[:product_id])
@@ -18,6 +19,11 @@ class ProductsStickersController < ApplicationController
     @stickers = Sticker.all
     @offer = Spree::Product.friendly.find(params[:offer_id])
     @sticker = Sticker.new
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def destroy

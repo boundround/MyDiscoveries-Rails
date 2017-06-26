@@ -5,9 +5,9 @@
 
   <% if @stickers.present? %>
     <div class="row">
-      <%= simple_form_for @offer, url: offer_path(@offer), html: { role: 'form' } do |f| %>
+      <%= simple_form_for @offer, remote: true, url: offer_path(@offer), html: { role: 'form', id: 'sticker_form'} do |f| %>
         <% @stickers.each do |sticker| %>
-          <div class="col-xs-12 col-sm-3 col-md-3 col-hero-list">
+          <div class="col-xs-12 col-sm-3 col-md-3">
             <%= hidden_field_tag "product[sticker_ids][]", nil%>
             <%= check_box_tag "product[sticker_ids][]", sticker.id, @offer.sticker_ids.include?(sticker.id), id: dom_id(sticker) %>
             <img src="<%= sticker.file_url %>"><br/>
