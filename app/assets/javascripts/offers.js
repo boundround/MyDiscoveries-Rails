@@ -40,9 +40,31 @@
 
 }(window, window.document));
 
+// Find which stickers that are currently "checked"
+// Load the array of sticker_ids into a tmp variable
+// If box is checked or unchecked change the content of array
+// Then submit the changes on the form
+// Additionally, if length of this array is == 2 then user can no longer tick another Checkbox
+
 function chooseStickers() {
+  var arr = [];
   $('#sticker_form input[type=checkbox]').click(function() {
-        alert("checkbox ticked");
+        console.log(this.value);
+        if($(this).prop("checked") == true){
+          var i = 0;
+          console.log("Checkbox is checked.");
+          arr.push(this.value);
+          console.log(arr);
+          i = arr.indexOf(this.value);
+          console.log(i);
+        }
+        else if($(this).prop("checked") == false){
+          console.log("Checkbox is unchecked.");
+          arr.splice(arr.indexOf(this.value), 1);
+          console.log(arr);
+          i = arr.indexOf(this.value);
+          console.log(i);
+        };
   });
 }
 

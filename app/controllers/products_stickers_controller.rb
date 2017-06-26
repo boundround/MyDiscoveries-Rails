@@ -20,10 +20,10 @@ class ProductsStickersController < ApplicationController
     @offer = Spree::Product.friendly.find(params[:offer_id])
     @sticker = Sticker.new
 
-    respond_to do |format|
-      format.html
-      format.json
-    end
+    # respond_to do |format|
+    #   format.html {render something? }
+    #   format.json
+    # end
   end
 
   def destroy
