@@ -37,6 +37,10 @@
           <% specialNotes_txt = @offer.specialNotes.blank? ? '' : @offer.specialNotes.gsub(/\r?\n/, '') %>
           <span class="hci-info"><%= simple_format(specialNotes_txt) %></span>
         </div>
+        <div class="info-text">
+          <img src="<%= @offer.stickers.first.file_url %>">
+          <img src="<%= @offer.stickers.second.file_url %>">
+        </div>
         <div class="location">
           <%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %>
           <% if user_signed_in? and current_user.admin? %>
