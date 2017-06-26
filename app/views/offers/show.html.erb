@@ -39,7 +39,9 @@
         </div>
         <div class="info-text">
           <img src="<%= @offer.stickers.first.file_url %>">
-          <img src="<%= @offer.stickers.second.file_url %>">
+          <% if @offer.stickers.second.present? %>
+            <img src="<%= @offer.stickers.second.file_url %>">
+          <% end %>
         </div>
         <div class="location">
           <%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %>
