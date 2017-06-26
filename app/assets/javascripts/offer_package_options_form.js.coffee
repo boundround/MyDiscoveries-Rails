@@ -9,23 +9,36 @@ jQuery(window).load ->
   room_type_present = $('form.package-options-form').data('roomTypePresent')
   bed_type_present  = $('form.package-options-form').data('bedTypePresent')
   maturity_present  = $('form.package-options-form').data('maturityPresent')
+  departure_city_present  = $('form.package-options-form').data('departureCityPresent')
+  package_option_present  = $('form.package-options-form').data('packageOptionPresent')
+  departure_date_present  = $('form.package-options-form').data('departureDatePresent')
+  accommodation_present  = $('form.package-options-form').data('accommodationPresent')
 
   $('.js-variant-option').on 'change', (e) ->
-    departure_city = $('#order_populate_departure_city').val()
-    package_option = $('#order_populate_package_option').val()
-    departure_date = $('#order_populate_departure_date').val()
-    accommodation  = $('#order_populate_accommodation').val()
-
+    departure_city = if departure_city_present
+      $('#order_populate_departure_city').val()
+    else
+      ''
+    package_option = if package_option_present
+      $('#order_populate_package_option').val()
+    else
+      ''
+    departure_date = if departure_date_present
+      $('#order_populate_departure_date').val()
+    else
+      ''
+    accommodation = if accommodation_present
+      $('#order_populate_accommodation').val()
+    else
+      ''
     room_type = if room_type_present
       $('#order_populate_room_type').val()
     else
       ''
-
     bed_type = if bed_type_present
       $('#order_populate_bed_type').val()
     else
       ''
-
     maturity = if maturity_present
       $('#order_populate_maturity').val()
     else
@@ -52,10 +65,14 @@ jQuery(window).load ->
         update_current_price(data['options']['price'], data['options']['monthly_price'])
 
   update_options = (params) ->
-    update_option(params['options']['departure_dates'], $('#order_populate_departure_date'))
-    update_option(params['options']['package_options'], $('#order_populate_package_option'))
-    update_option(params['options']['accommodations'], $('#order_populate_accommodation'))
-    update_option(params['options']['departure_cities'], $('#order_populate_departure_city'))
+    if departure_date_present
+      update_option(params['options']['departure_dates'], $('#order_populate_departure_date'))
+    if package_option_present
+      update_option(params['options']['package_options'], $('#order_populate_package_option'))
+    if accommodation_present
+      update_option(params['options']['accommodations'], $('#order_populate_accommodation'))
+    if departure_city_present
+      update_option(params['options']['departure_cities'], $('#order_populate_departure_city'))
     if room_type_present
       update_option(params['options']['room_types'], $('#order_populate_room_type'))
     if bed_type_present
@@ -63,19 +80,23 @@ jQuery(window).load ->
     if maturity_present
       update_option(params['options']['maturities'], $('#order_populate_maturity'))
 
-
-
   update_conclusions = (bed_type, maturity, departure_city, room_type, departure_date, package_option, accommodation) ->
     if options_selected()
-
-      value = "#{departure_city}, #{package_option}, #{accommodation}, #{departure_date}"
+      value = ""
+      if departure_city_present
+        value += ", #{departure_city}"
+      if package_option_present
+        value += ", #{package_option}"
+      if accommodation_present
+        value += ", #{accommodation}"
+      if departure_date_present
+        value += ", #{departure_date}"
       if room_type_present
         value += ", #{room_type}"
       if maturity_present
         value += ", #{maturity}"
       if bed_type_present
         value += ", #{bed_type}"
-
       $('.js-selected-variants-options').html("Selection: #{value}")
     else
       $('.js-selected-variants-options').html("Selection: ")
@@ -119,6 +140,10 @@ jQuery(window).load ->
     room_type = false
     maturity = false
     bed_type = false
+    departure_city = false
+    departure_date = false
+    accommodation = false
+    package_option = false
 
     if room_type_present
       room_type = $('#order_populate_room_type').val().length
@@ -135,13 +160,27 @@ jQuery(window).load ->
     else
       bed_type = true
 
-    base_options_selected() && bed_type && maturity && room_type
+    if package_option_present
+      package_option = $('#order_populate_package_option').val().length
+    else
+      package_option = true
 
-  base_options_selected = () ->
-    $('#order_populate_package_option').val().length &&
-    $('#order_populate_accommodation').val().length &&
-    $('#order_populate_departure_date').val().length &&
-    $('#order_populate_departure_city').val().length
+    if accommodation_present
+      accommodation = $('#order_populate_accommodation').val().length
+    else
+      accommodation = true
+
+    if departure_date_present
+      departure_date = $('#order_populate_departure_date').val().length
+    else
+      departure_date = true
+
+    if departure_city_present
+      departure_city = $('#order_populate_departure_city').val().length
+    else
+      departure_city = true
+
+    departure_city && departure_date && accommodation && package_option && bed_type && maturity && room_type
 
   update_variant_id = (variant_id) ->
     if variant_id != undefined && options_selected()

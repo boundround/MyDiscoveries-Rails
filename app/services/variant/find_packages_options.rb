@@ -19,7 +19,7 @@ class Variant::FindPackagesOptions
       search_params[:maturity] =
         Spree::Variant.maturities[options[:maturity].downcase.to_sym]
     end
-    if departure_date_present?
+    if !product.disable_departure_date && departure_date_present?
       search_params[:departure_date] = DateTime.parse(options[:departure_date])
     end
 
@@ -29,15 +29,15 @@ class Variant::FindPackagesOptions
       result = result.where('lower(room_type) = ?', options[:room_type].downcase)
     end
 
-    if departure_city_present?
+    if !product.disable_departure_city && departure_city_present?
       result = result.where('lower(departure_city) = ?', options[:departure_city].downcase)
     end
 
-    if package_option_present?
+    if !product.disable_package_option && package_option_present?
       result = result.where('lower(package_option) = ?', options[:package_option].downcase)
     end
 
-    if accommodation_present?
+    if !product.disable_accommodation && accommodation_present?
       result = result.where('lower(accommodation) = ?', options[:accommodation].downcase)
     end
 
@@ -72,17 +72,21 @@ class Variant::FindPackagesOptions
     @departure_date_present ||= options[:departure_date].present?
   end
 
-  def base_options_present?
-    departure_city_present? &&
-    departure_date_present? &&
-    package_option_present? &&
-    accommodation_present?
-  end
+  # def base_options_present?
+  #   departure_city_present? &&
+  #   departure_date_present? &&
+  #   package_option_present? &&
+  #   accommodation_present?
+  # end
 
   def options_selected?
     bed_type  = (!product.disable_bed_type? ? bed_type_present? : true)
     maturity  = (!product.disable_maturity? ? maturity_present? : true)
     room_type = (!product.disable_room_type? ? room_type_present? : true)
-    bed_type && maturity && room_type && base_options_present?
+    departure_city = (!product.disable_departure_city? ? departure_city_present? : true)
+    package_option = (!product.disable_package_option? ? package_option_present? : true)
+    accommodation = (!product.disable_accommodation? ? accommodation_present? : true)
+    departure_date = (!product.disable_departure_date? ? departure_date_present? : true)
+    bed_type && maturity && room_type && departure_city && departure_date && package_option && accommodation
   end
 end

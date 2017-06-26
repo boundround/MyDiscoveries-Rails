@@ -70,6 +70,10 @@
                         room_type_present: !@offer.disable_room_type?,
                         bed_type_present:  !@offer.disable_bed_type?,
                         maturity_present:  !@offer.disable_maturity?,
+                        accommodation_present:  !@offer.disable_accommodation?,
+                        package_option_present:  !@offer.disable_package_option?,
+                        departure_city_present:  !@offer.disable_departure_city?,
+                        departure_date_present:  !@offer.disable_departure_date?,
                         offer_id: "#{@offer.slug}",
                         allow_installments: @offer.allow_installments,
                         user_signed_in: current_user.present?
@@ -80,66 +84,74 @@
                             input_html: { class: 'form-control' },
                             as: :hidden
                         %>
-                        <div class="quantity top10">
-                          <h5>Departure City</h5>
-                          <div>
-                            <%= f.input :departure_city,
-                                as: :select,
-                                collection: @departure_cities,
-                                include_blank: false,
-                                label: false,
-                                prompt: 'Please Select',
-                                input_html: {
-                                  class: 'form-control js-variant-option'
-                                }
-                            %>
+                        <% if !@offer.disable_departure_city %>
+                          <div class="quantity top10">
+                            <h5>Departure City</h5>
+                            <div>
+                              <%= f.input :departure_city,
+                                  as: :select,
+                                  collection: @departure_cities,
+                                  include_blank: false,
+                                  label: false,
+                                  prompt: 'Please Select',
+                                  input_html: {
+                                    class: 'form-control js-variant-option'
+                                  }
+                              %>
+                            </div>
                           </div>
-                        </div>
-                        <div class="quantity top10">
-                          <h5>Departure Date</h5>
-                          <div>
-                            <%= f.input :departure_date,
-                                as: :select,
-                                collection: @departure_dates,
-                                include_blank: false,
-                                label: false,
-                                prompt: 'Please Select',
-                                input_html: {
-                                  class: 'form-control js-variant-option'
-                                }
-                            %>
+                        <% end %>
+                        <% if !@offer.disable_departure_date %>
+                          <div class="quantity top10">
+                            <h5>Departure Date</h5>
+                            <div>
+                              <%= f.input :departure_date,
+                                  as: :select,
+                                  collection: @departure_dates,
+                                  include_blank: false,
+                                  label: false,
+                                  prompt: 'Please Select',
+                                  input_html: {
+                                    class: 'form-control js-variant-option'
+                                  }
+                              %>
+                            </div>
                           </div>
-                        </div>
-                        <div class="quantity top10">
-                          <h5>Package Option</h5>
-                          <div>
-                            <%= f.input :package_option,
-                                as: :select,
-                                collection: @package_options,
-                                include_blank: false,
-                                label: false,
-                                prompt: 'Please Select',
-                                input_html: {
-                                  class: 'form-control js-variant-option'
-                                }
-                            %>
+                        <% end %>
+                        <% if !@offer.disable_package_option %>
+                          <div class="quantity top10">
+                            <h5>Package Option</h5>
+                            <div>
+                              <%= f.input :package_option,
+                                  as: :select,
+                                  collection: @package_options,
+                                  include_blank: false,
+                                  label: false,
+                                  prompt: 'Please Select',
+                                  input_html: {
+                                    class: 'form-control js-variant-option'
+                                  }
+                              %>
+                            </div>
                           </div>
-                        </div>
-                        <div class="quantity top10">
-                          <h5>Hotel / Accommodation</h5>
-                          <div>
-                            <%= f.input :accommodation,
-                                as: :select,
-                                collection: @accommodations,
-                                include_blank: false,
-                                label: false,
-                                prompt: 'Please Select',
-                                input_html: {
-                                  class: 'form-control js-variant-option'
-                                }
-                            %>
+                        <% end %>
+                        <% if !@offer.disable_accommodation %>
+                          <div class="quantity top10">
+                            <h5>Hotel / Accommodation</h5>
+                            <div>
+                              <%= f.input :accommodation,
+                                  as: :select,
+                                  collection: @accommodations,
+                                  include_blank: false,
+                                  label: false,
+                                  prompt: 'Please Select',
+                                  input_html: {
+                                    class: 'form-control js-variant-option'
+                                  }
+                              %>
+                            </div>
                           </div>
-                        </div>
+                        <% end %>
                         <% if !@offer.disable_maturity? %>
                           <div class="quantity top10">
                             <h5>Adult / Child</h5>
@@ -164,23 +176,6 @@
                               <%= f.input :bed_type,
                                   as: :select,
                                   collection: @bed_types,
-                                  include_blank: false,
-                                  label: false,
-                                  prompt: 'Please Select',
-                                  input_html: {
-                                    class: 'form-control js-variant-option'
-                                  }
-                              %>
-                            </div>
-                          </div>
-                        <% end %>
-                        <% if !@offer.disable_room_type? %>
-                          <div class="quantity top10">
-                            <h5>Room Type</h5>
-                            <div>
-                              <%= f.input :room_type,
-                                  as: :select,
-                                  collection: @room_types,
                                   include_blank: false,
                                   label: false,
                                   prompt: 'Please Select',

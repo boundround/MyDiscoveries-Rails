@@ -7,14 +7,14 @@ Spree::Variant.class_eval do
 
   before_validation :strip_fields
 
-  validates_presence_of :room_type, if: Proc.new { |v| !v.product.disable_room_type }
-  validates_presence_of :departure_city
-  validates_presence_of :departure_date
-  validates_presence_of :package_option
-  validates_presence_of :accommodation
+  # validates_presence_of :room_type, if: Proc.new { |v| !v.product.disable_room_type }
+  # validates_presence_of :departure_city, if: Proc.new { |v| !v.product.disable_departure_city }
+  # validates_presence_of :departure_date, if: Proc.new { |v| !v.product.disable_departure_date }
+  # validates_presence_of :package_option, if: Proc.new { |v| !v.product.disable_package_option }
+  # validates_presence_of :accommodation, if: Proc.new { |v| !v.product.disable_accommodation }
 
-  validate :uniqueness,
-    if: Proc.new { |v| !v.miscellaneous_charges? }
+  # validate :uniqueness,
+  #   if: Proc.new { |v| !v.miscellaneous_charges? }
 
   # overrides default getter
   def description
@@ -27,11 +27,23 @@ Spree::Variant.class_eval do
   end
 
   def select_label
-    label =
-      "Departure city: #{departure_city.capitalize}, \
-       Departure Date: #{departure_date.try(:to_date).try(:to_s)}, \
-       Package Option: #{package_option.try(:capitalize)}, \
-       Hotel / Accommodation: #{accommodation.try(:capitalize)}"
+    label = ""
+
+    if !product.disable_departure_city
+      label << "Departure city: #{departure_city.capitalize}"
+    end
+
+    if !product.disable_departure_date
+      label << ", Departure Date: #{departure_date.try(:to_date).try(:to_s)}"
+    end
+
+    if !product.disable_package_option
+      label << ", Package Option: #{package_option.try(:capitalize)}"
+    end
+
+    if !product.disable_accommodation
+      ", Hotel / Accommodation: #{accommodation.try(:capitalize)}"
+    end
 
     if !product.disable_room_type
       label << ", Room Type: #{room_type.try(:capitalize)}"

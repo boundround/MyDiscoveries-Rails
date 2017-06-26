@@ -6,4 +6,14 @@ namespace :update do
       product.update(disable_room_type: true) unless room_type_present
     end
   end
+
+  task disable_all_new_options: :environment do
+    Spree::Product.all.each do |product|
+      product.disable_departure_date = true
+      product.disable_departure_city = true
+      product.disable_package_option = true
+      product.disable_accommodation = true
+      product.save
+    end
+  end
 end

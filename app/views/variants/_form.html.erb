@@ -31,36 +31,44 @@
     %>
   </div>
 <% end %>
-<div class="form-group">
-  <%=
-    f.input :departure_city,
-    label: 'Departure City',
-    input_html: { class: 'form-control' }
-  %>
-</div>
-<div class="form-group">
-  <%=
-    f.input :departure_date,
-    label: 'Departure Date',
-    as: :date,
-    html5: true,
-    input_html: { class: 'form-control' }
-  %>
-</div>
-<div class="form-group">
-  <%=
-    f.input :package_option,
-    label: 'Package Option',
-    input_html: { class: 'form-control' }
-  %>
-</div>
-<div class="form-group">
-  <%=
-    f.input :accommodation,
-    label: 'Hotel / Accommodation',
-    input_html: { class: 'form-control' }
-  %>
-</div>
+<% if !product.disable_departure_city %>
+  <div class="form-group">
+    <%=
+      f.input :departure_city,
+      label: 'Departure City',
+      input_html: { class: 'form-control' }
+    %>
+  </div>
+<% end %>
+<% if !product.disable_departure_date %>
+  <div class="form-group">
+    <%=
+      f.input :departure_date,
+      label: 'Departure Date',
+      as: :date,
+      html5: true,
+      input_html: { class: 'form-control' }
+    %>
+  </div>
+<% end %>
+<% if !product.disable_package_option %>
+  <div class="form-group">
+    <%=
+      f.input :package_option,
+      label: 'Package Option',
+      input_html: { class: 'form-control' }
+    %>
+  </div>
+<% end %>
+<% if !product.disable_accommodation %>
+  <div class="form-group">
+    <%=
+      f.input :accommodation,
+      label: 'Hotel / Accommodation',
+      input_html: { class: 'form-control' }
+    %>
+  </div>
+<% end %>
 
 <div class="form-group">
   <%=

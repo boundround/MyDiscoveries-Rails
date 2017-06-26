@@ -30,14 +30,25 @@ class OffersController < ApplicationController
         map{ |v| v.room_type.try(:titleize) }.compact.uniq
     end
 
-    @departure_cities = @offer.variants.
-      map{ |v| v.departure_city.try(:titleize) }.compact.uniq
-    @package_options  = @offer.variants.
-      map{ |v| v.package_option.try(:titleize) }.compact.uniq
-    @departure_dates  = @offer.variants.
-      map{ |v| v.departure_date.try(:to_date).try(:to_s) }.uniq
-    @accommodations   = @offer.variants.
-      map{ |v| v.accommodation.try(:titleize) }.compact.uniq
+    if !@offer.disable_departure_city?
+      @departure_cities = @offer.variants.
+        map{ |v| v.departure_city.try(:titleize) }.compact.uniq
+    end
+
+    if !@offer.disable_package_option?
+      @package_options  = @offer.variants.
+        map{ |v| v.package_option.try(:titleize) }.compact.uniq
+    end
+
+    if !@offer.disable_departure_date?
+      @departure_dates  = @offer.variants.
+        map{ |v| v.departure_date.try(:to_date).try(:to_s) }.uniq
+    end
+
+    if !@offer.disable_accommodation?
+      @accommodations   = @offer.variants.
+        map{ |v| v.accommodation.try(:titleize) }.compact.uniq
+    end
 
     respond_to do |format|
       format.html
@@ -259,6 +270,10 @@ class OffersController < ApplicationController
       :disable_bed_type,
       :disable_maturity,
       :disable_room_type,
+      :disable_package_option,
+      :disable_accommodation,
+      :disable_departure_date,
+      :disable_departure_city,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
