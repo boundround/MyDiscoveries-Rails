@@ -7,14 +7,19 @@ Spree::Variant.class_eval do
 
   before_validation :strip_fields
 
-  # validates_presence_of :room_type, if: Proc.new { |v| !v.product.disable_room_type }
-  # validates_presence_of :departure_city, if: Proc.new { |v| !v.product.disable_departure_city }
-  # validates_presence_of :departure_date, if: Proc.new { |v| !v.product.disable_departure_date }
-  # validates_presence_of :package_option, if: Proc.new { |v| !v.product.disable_package_option }
-  # validates_presence_of :accommodation, if: Proc.new { |v| !v.product.disable_accommodation }
+  validates_presence_of :room_type,
+    if: Proc.new { |v| !v.product.disable_room_type? && !v.is_master? }
+  validates_presence_of :departure_city,
+    if: Proc.new { |v| !v.product.disable_departure_city? && !v.is_master? }
+  validates_presence_of :departure_date,
+    if: Proc.new { |v| !v.product.disable_departure_date? && !v.is_master? }
+  validates_presence_of :package_option,
+    if: Proc.new { |v| !v.product.disable_package_option? && !v.is_master? }
+  validates_presence_of :accommodation,
+    if: Proc.new { |v| !v.product.disable_accommodation? && !v.is_master? }
 
-  # validate :uniqueness,
-  #   if: Proc.new { |v| !v.miscellaneous_charges? }
+  validate :uniqueness,
+    if: Proc.new { |v| !v.miscellaneous_charges? && !v.is_master? }
 
   # overrides default getter
   def description
@@ -34,30 +39,30 @@ Spree::Variant.class_eval do
     end
 
     if !product.disable_departure_date
-      label << ", Departure Date: #{departure_date.try(:to_date).try(:to_s)}"
+      label << " Departure Date: #{departure_date.try(:to_date).try(:to_s)},"
     end
 
     if !product.disable_package_option
-      label << ", Package Option: #{package_option.try(:capitalize)}"
+      label << " Package Option: #{package_option.try(:capitalize)},"
     end
 
     if !product.disable_accommodation
-      ", Hotel / Accommodation: #{accommodation.try(:capitalize)}"
+      " Hotel / Accommodation: #{accommodation.try(:capitalize)},"
     end
 
     if !product.disable_room_type
-      label << ", Room Type: #{room_type.try(:capitalize)}"
+      label << " Room Type: #{room_type.try(:capitalize)},"
     end
 
     if !product.disable_bed_type
-      label << ", Bed Type: #{bed_type.try(:capitalize)}"
+      label << " Bed Type: #{bed_type.try(:capitalize)},"
     end
 
     if !product.disable_maturity
-      label << ", Maturity: #{maturity.try(:capitalize)}"
+      label << " Maturity: #{maturity.try(:capitalize)},"
     end
 
-    label
+    label.gsub(/\,$/, '')
   end
 
   def monthly_price

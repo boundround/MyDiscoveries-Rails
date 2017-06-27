@@ -47,13 +47,13 @@ jQuery(window).load ->
     $.ajax "/offers/#{offer_id}/variants/fill_packages_options.json",
       type: 'POST'
       data:
-        departure_city: departure_city
-        accommodation:  accommodation
-        departure_date: departure_date
-        package_option: package_option
-        room_type:      room_type if room_type_present
-        bed_type:       bed_type  if bed_type_present
-        maturity:       maturity  if maturity_present
+        departure_city: departure_city if departure_city_present
+        accommodation:  accommodation  if accommodation_present
+        departure_date: departure_date if departure_date_present
+        package_option: package_option if package_option_present
+        room_type:      room_type      if room_type_present
+        bed_type:       bed_type       if bed_type_present
+        maturity:       maturity       if maturity_present
 
       dataType: 'json'
       success: (data) ->
@@ -84,19 +84,21 @@ jQuery(window).load ->
     if options_selected()
       value = ""
       if departure_city_present
-        value += ", #{departure_city}"
+        value += "#{departure_city},"
       if package_option_present
-        value += ", #{package_option}"
+        value += " #{package_option},"
       if accommodation_present
-        value += ", #{accommodation}"
+        value += " #{accommodation},"
       if departure_date_present
-        value += ", #{departure_date}"
+        value += " #{departure_date},"
       if room_type_present
-        value += ", #{room_type}"
+        value += " #{room_type},"
       if maturity_present
-        value += ", #{maturity}"
+        value += " #{maturity},"
       if bed_type_present
-        value += ", #{bed_type}"
+        value += " #{bed_type}"
+
+      value = value.replace(/,\s*$/, "");
       $('.js-selected-variants-options').html("Selection: #{value}")
     else
       $('.js-selected-variants-options').html("Selection: ")

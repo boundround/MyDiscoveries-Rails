@@ -72,13 +72,6 @@ class Variant::FindPackagesOptions
     @departure_date_present ||= options[:departure_date].present?
   end
 
-  # def base_options_present?
-  #   departure_city_present? &&
-  #   departure_date_present? &&
-  #   package_option_present? &&
-  #   accommodation_present?
-  # end
-
   def options_selected?
     bed_type  = (!product.disable_bed_type? ? bed_type_present? : true)
     maturity  = (!product.disable_maturity? ? maturity_present? : true)
