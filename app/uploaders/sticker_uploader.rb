@@ -8,7 +8,7 @@ class StickerUploader < CarrierWave::Uploader::Base
 
   process :quality => 70
 
-  process :resize_to_fit => [100, 100]
+  process :resize_to_fit => [50, 50]
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
