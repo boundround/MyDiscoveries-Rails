@@ -19,7 +19,10 @@ class Variant::UniquenessValidator
       false
     elsif variants.empty?
       true
-    elsif (variants.count > 1) || (variants.last != variant)
+    elsif variants.count > 1
+      variant.errors.add(:base, error_message)
+      false
+    elsif variants.last != variant
       variant.errors.add(:base, error_message)
       false
     end
@@ -32,9 +35,19 @@ class Variant::UniquenessValidator
   def query
     options = {}
 
-    options[:room_type] = variant.room_type unless product.disable_room_type
-    options[:maturity]  = variant.maturity  unless product.disable_maturity
-    options[:bed_type]  = variant.bed_type  unless product.disable_bed_type
+    if !product.disable_room_type
+      options[:room_type] = variant.room_type
+    end
+
+    if !product.disable_maturity
+      options[:maturity] =
+        Spree::Variant.maturities[variant.maturity.downcase.to_sym]
+    end
+
+    if !product.disable_bed_type
+      options[:bed_type] =
+        Spree::Variant.bed_types[variant.bed_type.downcase.to_sym]
+    end
 
     if !product.disable_departure_city
       options[:departure_city] = variant.departure_city
