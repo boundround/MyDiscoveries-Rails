@@ -17,11 +17,11 @@ class Variant::UniquenessValidator
     if query.empty?
       variant.errors.add(:base, error_empty_variant)
       false
+    elsif variants.empty?
+      true
     elsif (variants.count > 1) || (variants.last != variant)
       variant.errors.add(:base, error_message)
       false
-    else
-      true
     end
   end
 

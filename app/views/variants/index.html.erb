@@ -67,7 +67,9 @@
             <td><%= variant.room_type %></td>
           <% end %>
           <% if !@product.disable_departure_date %>
-            <td><%= variant.departure_date.strftime("%Y-%m-%d") %></td>
+            <td>
+              <%=variant.departure_date.try(:strftime, "%Y-%m-%d") %>
+            </td>
           <% end %>
           <% if !@product.disable_package_option %>
             <td><%= variant.package_option %></td>
