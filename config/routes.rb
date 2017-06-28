@@ -451,6 +451,10 @@ Rails.application.routes.draw do
       collection do
         post :fill_packages_options
       end
+      member do
+        get :miscellaneous_charge
+        post :process_miscellaneous_charge
+      end
     end
     resources :add_ons
   end

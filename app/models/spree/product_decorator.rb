@@ -419,6 +419,7 @@ Spree::Product.class_eval do
 
   validates_presence_of :operator, unless: -> { livn_product_id? }
   validates_presence_of :startDate, :endDate, unless: -> { livn_product_id? }
+  validate :at_least_one_options_allowed
 
   # override default spree validations
   _validators.reject!{ |key, value| key == :shipping_category_id }
@@ -447,8 +448,8 @@ Spree::Product.class_eval do
   def minRateAdult
     prices = []
     variants.each do |variant|
-      if variant.maturity.downcase.strip != "child"
-        prices << variant.price
+      if variant.maturity.present? && variant.maturity.downcase.strip != "child"
+        prices << variant.price.to_f
       end
     end
     prices.min
@@ -463,7 +464,11 @@ Spree::Product.class_eval do
   end
 
   def slug_candidates
-    :name
+    if status == 'live'
+      :name
+    else
+      [[:name, :status]]
+    end
   end
 
   def self.featured_products
@@ -477,18 +482,30 @@ Spree::Product.class_eval do
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || name_changed?
+    slug.blank? || name_changed? || status_changed?
   end
 
   def directions
     (locationEnd.present? && locationStart != locationEnd) ? "#{locationStart} - #{locationEnd}" : locationStart
   end
 
-  def room_type_present?
-    variants.pluck(:room_type).any?(&:present?)
+  def all_options_disabled?
+    disable_maturity?       &&
+    disable_bed_type?       &&
+    disable_room_type?      &&
+    disable_package_option? &&
+    disable_accommodation?  &&
+    disable_departure_date? &&
+    disable_departure_city?
   end
 
   private
+
+  def at_least_one_options_allowed
+    if all_options_disabled?
+      errors.add(:base, 'At least one variant option must be allowed')
+    end
+  end
 
   def hero_photo
     hero_h = photos.where(photos: { hero: true })

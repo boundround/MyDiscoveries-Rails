@@ -24,7 +24,11 @@
     <% end %>
   </p>
   <p>Payment Status: <%= @order.authorized? ? "Authorized" : "Not Authorized" %></p>
-  <p>Requested Installments?: <%= @order.request_installments? ? "yes" : "no" %></p>
+  <p>Requested Installments?: <%= @order.request_installments? ? "Yes" : "No" %></p>
+  <p>Miscellaneous Charges?: <%= @order.miscellaneous_charges? ? 'Yes' : 'No' %></p>
+  <% if @order.miscellaneous_charges? %>
+    <p>Description: <%= @order.description %></p>
+  <% end %>
   <p>
     <strong>Line Items:</strong><br>
     <% @order.line_items.each do |line_item| %>

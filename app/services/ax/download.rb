@@ -120,7 +120,7 @@ class Ax::Download
     customer = Customer.new(
       user:            user,
       country:         customer_country,
-      email:           customer_email,
+      email:           customer_email.present? ? customer_email : 'booking@mydiscoveries.com.au',
       title:           customer_title,
       first_name:      customer_first_name,
       last_name:       customer_last_name,
@@ -160,8 +160,10 @@ class Ax::Download
 
   def assign_variants(order)
     json_line_items.each do |line_item|
-      variant = Spree::Variant.joins(:product).where(spree_products: {:status => "live"}).find_by(item_code: line_item['ItemId'])
-      order.contents.add(variant, line_item['Quantity'].to_i)
+      variant = Spree::Variant.joins(:product).
+        where(spree_products: {:status => "live"}).
+        find_by(item_code: line_item['ItemId'])
+      order.contents.add(variant, line_item['Quantity'].to_i) if variant
     end
 
   end
