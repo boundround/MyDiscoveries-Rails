@@ -416,6 +416,7 @@ Spree::Product.class_eval do
 
   validates_presence_of :operator, unless: -> { livn_product_id? }
   validates_presence_of :startDate, :endDate, unless: -> { livn_product_id? }
+  validate :at_least_one_options_allowed
 
   # override default spree validations
   _validators.reject!{ |key, value| key == :shipping_category_id }
@@ -484,7 +485,23 @@ Spree::Product.class_eval do
     (locationEnd.present? && locationStart != locationEnd) ? "#{locationStart} - #{locationEnd}" : locationStart
   end
 
+  def all_options_disabled?
+    disable_maturity?       &&
+    disable_bed_type?       &&
+    disable_room_type?      &&
+    disable_package_option? &&
+    disable_accommodation?  &&
+    disable_departure_date? &&
+    disable_departure_city?
+  end
+
   private
+
+  def at_least_one_options_allowed
+    if all_options_disabled?
+      errors.add(:base, 'At least one variant option must be allowed')
+    end
+  end
 
   def hero_photo
     hero_h = photos.where(photos: { hero: true })

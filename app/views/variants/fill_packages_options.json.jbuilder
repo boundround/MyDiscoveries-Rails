@@ -36,7 +36,7 @@ json.options do
     end
   end
 
-  if @options_selected && @variants.one?
+  if @options_selected
     json.variant_id @variants.last.id
     json.price sprintf('%.2f', @variants.last.price)
     json.monthly_price sprintf('%.2f', @variants.last.monthly_price)

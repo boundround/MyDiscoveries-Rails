@@ -69,10 +69,10 @@
                       role: 'form',
                       class: 'top20 package-options-form',
                       data: {
-                        room_type_present: !@offer.disable_room_type?,
-                        bed_type_present:  !@offer.disable_bed_type?,
-                        maturity_present:  !@offer.disable_maturity?,
-                        accommodation_present:  !@offer.disable_accommodation?,
+                        room_type_present:       !@offer.disable_room_type?,
+                        bed_type_present:        !@offer.disable_bed_type?,
+                        maturity_present:        !@offer.disable_maturity?,
+                        accommodation_present:   !@offer.disable_accommodation?,
                         package_option_present:  !@offer.disable_package_option?,
                         departure_city_present:  !@offer.disable_departure_city?,
                         departure_date_present:  !@offer.disable_departure_date?,
@@ -86,7 +86,7 @@
                             input_html: { class: 'form-control' },
                             as: :hidden
                         %>
-                        <% if !@offer.disable_departure_city %>
+                        <% if !@offer.disable_departure_city? %>
                           <div class="quantity top10">
                             <h5>Departure City</h5>
                             <div>
@@ -103,7 +103,7 @@
                             </div>
                           </div>
                         <% end %>
-                        <% if !@offer.disable_departure_date %>
+                        <% if !@offer.disable_departure_date? %>
                           <div class="quantity top10">
                             <h5>Departure Date</h5>
                             <div>
@@ -120,7 +120,7 @@
                             </div>
                           </div>
                         <% end %>
-                        <% if !@offer.disable_package_option %>
+                        <% if !@offer.disable_package_option? %>
                           <div class="quantity top10">
                             <h5>Package Option</h5>
                             <div>
@@ -137,7 +137,7 @@
                             </div>
                           </div>
                         <% end %>
-                        <% if !@offer.disable_accommodation %>
+                        <% if !@offer.disable_accommodation? %>
                           <div class="quantity top10">
                             <h5>Hotel / Accommodation</h5>
                             <div>
