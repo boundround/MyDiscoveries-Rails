@@ -1025,6 +1025,16 @@ ActiveRecord::Schema.define(version: 20170626024743) do
     t.datetime "updated_at"
   end
 
+  create_table "products_stickers", id: false, force: true do |t|
+    t.integer "product_id"
+    t.integer "sticker_id"
+  end
+
+  add_index "products_stickers", ["product_id", "sticker_id"], name: "index_products_stickers_on_product_id_and_sticker_id", using: :btree
+  add_index "products_stickers", ["product_id"], name: "index_products_stickers_on_product_id", using: :btree
+  add_index "products_stickers", ["sticker_id", "product_id"], name: "index_products_stickers_on_sticker_id_and_product_id", using: :btree
+  add_index "products_stickers", ["sticker_id"], name: "index_products_stickers_on_sticker_id", using: :btree
+
   create_table "programs", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -1686,7 +1696,7 @@ ActiveRecord::Schema.define(version: 20170626024743) do
     t.string   "itinerary"
     t.boolean  "test_product",                                                  default: false
     t.string   "departure_dates"
-    t.boolean  "add_on",                                                        default: false
+    t.boolean  "add_on",  
     t.text     "other"
     t.boolean  "disable_maturity",                                              default: false
     t.boolean  "disable_bed_type",                                              default: false
@@ -2368,6 +2378,12 @@ ActiveRecord::Schema.define(version: 20170626024743) do
   end
 
   add_index "stamps", ["place_id"], name: "index_stamps_on_place_id", using: :btree
+
+  create_table "stickers", force: true do |t|
+    t.string   "file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "stories", force: true do |t|
     t.text     "title",               default: ""

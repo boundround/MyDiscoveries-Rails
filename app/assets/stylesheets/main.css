@@ -9933,7 +9933,7 @@ a:hover, a:focus, a:active {
   font-size: 26px;
   color: white;
   font-weight: bold;
-  font-family: Larsseit, sans-serif; 
+  font-family: Larsseit, sans-serif;
 }
   .xs-heading.lars, .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .lars.xs-heading, .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.lars.xs-heading {
     font-family: Larsseit, sans-serif;
@@ -13423,7 +13423,7 @@ label.css-label.label-featured{
   padding: 0px 21px 21px 21px;
   /*margin: auto;*/
   text-shadow: 1px 1px #696969 !important;
-  max-width: 62%;
+  max-width: 73%;
 }
 
 .offer-grey-box h2 {

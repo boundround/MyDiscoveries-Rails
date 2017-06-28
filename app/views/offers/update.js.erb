@@ -1,0 +1,11 @@
+$.wait = function(ms) {
+    var defer = $.Deferred();
+    setTimeout(function() { defer.resolve(); }, ms);
+    return defer;
+};
+
+$("#update_product_sticker_js").removeClass("hidden");
+
+$.wait(4000).then(function(){
+  $("#update_product_sticker_js").addClass("hidden");
+});

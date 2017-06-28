@@ -1,0 +1,23 @@
+<div class="container">
+  <br>
+  <div class="row">
+    <% @stickers.each do |sticker| %>
+      <div class="col-xs-12 col-sm-3 col-md-3 col-hero-list">
+        <img src="<%= sticker.file_url %>"><br/>
+        <%= link_to 'Edit', edit_sticker_path(sticker) %>
+        <%= link_to 'Destroy', sticker, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+  </div>
+    <div class="photo-container">
+      <h2>Add New Sticker</h2>
+      <%= simple_form_for @sticker do |f| %>
+        <div class="form-group">
+          <p><%= f.input :file, label: false%></p>
+        </div>
+        <div class="form-group">
+          <%= f.button :submit%>
+        </div>
+      <% end %>
+    </div>
+</div>

@@ -408,6 +408,9 @@ Spree::Product.class_eval do
   has_many :products_users
   has_many :users, through: :products_users
 
+  has_many :products_stickers
+  has_many :stickers, through: :products_stickers
+
   has_many :orders
 
   has_many :related_products
@@ -426,6 +429,7 @@ Spree::Product.class_eval do
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :videos, allow_destroy: true
+  accepts_nested_attributes_for :stickers, allow_destroy: true
 
   mount_uploader :itinerary, ProductItineraryUploader
 

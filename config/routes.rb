@@ -441,6 +441,7 @@ Rails.application.routes.draw do
     resources :countries, controller: :countries_offers
     resources :subcategories, controller: :subcategories_offers
     resources :related_offers
+    resources :stickers, controller: :products_stickers
     member do
       get 'paginate_media'
       get 'paginate_reviews'
@@ -457,6 +458,8 @@ Rails.application.routes.draw do
     end
     resources :add_ons
   end
+
+  resources :stickers
 
   get 'cart' => 'orders#cart'
   put 'empty_cart' => 'orders#empty'

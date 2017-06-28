@@ -1,0 +1,11 @@
+<div class="photo-container">
+  <h2>Add New Sticker</h2>
+  <%= simple_form_for @sticker do |f| %>
+    <div class="form-group">
+      <p><%= f.input :file, label: false%></p>
+    </div>
+    <div class="form-group">
+      <%= f.button :submit%>
+    </div>
+</div>
+  <% end %>

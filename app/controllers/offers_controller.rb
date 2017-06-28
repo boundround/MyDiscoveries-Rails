@@ -122,11 +122,17 @@ class OffersController < ApplicationController
     @offer.places_visited.select!(&:present?)
     @offer.inclusion_list = params[:product][:inclusions] if params[:product][:inclusions].present?
     @offer.departure_dates = params[:product][:departure_dates][:dates] unless params[:product][:departure_dates].blank?
-    if @offer.save
-      redirect_to edit_offer_path(@offer), notice: "Product Updated"
-    else
-      flash.now[:alert] = @offer.errors.full_messages.to_sentence
-      render :edit
+
+    respond_to do |format|
+      format.html do
+        if @offer.save
+          redirect_to edit_offer_path(@offer), notice: "Product Updated"
+        else
+          flash.now[:alert] = @offer.errors.full_messages.to_sentence
+          render :edit
+        end
+      end
+      format.js
     end
   end
 
@@ -289,7 +295,8 @@ class OffersController < ApplicationController
       region_ids: [],
       subcategory_ids: [],
       inclusion_list: [],
-      places_visited: []
+      places_visited: [],
+      sticker_ids: []
     )
   end
 end
