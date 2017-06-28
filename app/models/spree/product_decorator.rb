@@ -459,7 +459,11 @@ Spree::Product.class_eval do
   end
 
   def slug_candidates
-    :name
+    if status == 'live'
+      :name
+    else
+      [[:name, :status]]
+    end
   end
 
   def self.featured_products

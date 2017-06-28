@@ -160,11 +160,15 @@ class Region < ActiveRecord::Base
   end
 
   def slug_candidates
-    :display_name
+    if status == 'live'
+      :display_name
+    else
+      [[:display_name, :status]]
+    end
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || display_name_changed?
+    slug.blank? || display_name_changed? || status_changed?
   end
 
   def children
