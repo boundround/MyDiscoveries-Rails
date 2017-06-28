@@ -177,7 +177,7 @@ class Ax::Download
       completed_at:       purchase_date,
       ax_data:            converted_xml,
       ax_filename:        filename,
-      email:              (user.email.present? ? user.email : 'booking@mydiscoveries.com'),
+      email:              (user.email.present? ? user.email : 'booking@mydiscoveries.com.au'),
       created_by:         user,
       state:              'completed',
       authorized:         true
