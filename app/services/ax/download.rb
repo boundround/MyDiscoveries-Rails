@@ -120,7 +120,7 @@ class Ax::Download
     customer = Customer.new(
       user:            user,
       country:         customer_country,
-      email:           customer_email,
+      email:           customer_email.present? ? customer_email : 'booking@mydiscoveries.com.au',
       title:           customer_title,
       first_name:      customer_first_name,
       last_name:       customer_last_name,
@@ -177,7 +177,7 @@ class Ax::Download
       completed_at:       purchase_date,
       ax_data:            converted_xml,
       ax_filename:        filename,
-      email:              (user.email.present? ? user.email : 'booking@mydiscoveries.com.au'),
+      email:              user.email,
       created_by:         user,
       state:              'completed',
       authorized:         true
