@@ -13,8 +13,7 @@ namespace :ax do
 
         xml_files.each do |filename|
           if !Spree::Order.exists?(ax_filename: filename)
-            data = sftp.download!("/data/#{ENV['AX_DOWNLOAD_DIR']}/#{filename}")
-            Ax::Download.call(data, filename)
+            AX::FileDownloader.perform_async(filename)
           end
         end
       end

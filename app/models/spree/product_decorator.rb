@@ -460,7 +460,11 @@ Spree::Product.class_eval do
   end
 
   def slug_candidates
-    :name
+    if status == 'live'
+      :name
+    else
+      [[:name, :status]]
+    end
   end
 
   def self.featured_products
@@ -474,7 +478,7 @@ Spree::Product.class_eval do
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || name_changed?
+    slug.blank? || name_changed? || status_changed?
   end
 
   def directions

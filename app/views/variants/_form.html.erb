@@ -101,7 +101,7 @@
       input_html: { class: 'form-control' }
     %>
   </div>
-  <% if !product.disable_room_type? %>
+  <% if !product.disable_room_type %>
     <div class="form-group">
       <%=
         f.input :room_type,
