@@ -47,13 +47,13 @@ jQuery(window).load ->
     $.ajax "/offers/#{offer_id}/variants/fill_packages_options.json",
       type: 'POST'
       data:
-        departure_city: departure_city if departure_city_present
-        accommodation:  accommodation  if accommodation_present
-        departure_date: departure_date if departure_date_present
-        package_option: package_option if package_option_present
-        room_type:      room_type      if room_type_present
-        bed_type:       bed_type       if bed_type_present
-        maturity:       maturity       if maturity_present
+        departure_city: departure_city
+        accommodation:  accommodation
+        departure_date: departure_date
+        package_option: package_option
+        room_type:      room_type if room_type_present
+        bed_type:       bed_type  if bed_type_present
+        maturity:       maturity  if maturity_present
 
       dataType: 'json'
       success: (data) ->
