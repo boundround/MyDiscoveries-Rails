@@ -3,6 +3,8 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :customer
 
+  # after_create :send_to_hubspot
+
   has_many :passengers
 
   validates_presence_of :offer
@@ -20,6 +22,11 @@ class Order < ActiveRecord::Base
   enum status: { created_in_boundround: 0, authorized: 1 }
 
   accepts_nested_attributes_for :passengers
+
+  # def send_to_hubspot
+  #   hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.customer)
+  #   HubspotService::Send.order_to_hubspot(self.customer.email, hubspot_id)
+  # end
 
   def total_people_count
     number_of_infants + number_of_children + number_of_adults
