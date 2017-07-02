@@ -7,7 +7,7 @@ class Region < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, :use => [:slugged, :history]
 
-  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id do
+  algoliasearch index_name: "mydiscoveries_#{Rails.env}", id: :algolia_id, if: :published? do
     # list of attribute used to build an Algolia record
     attributes :display_name,
                :slug,
@@ -284,6 +284,14 @@ class Region < ActiveRecord::Base
       data_marker << ["@"]
 
       return data_marker
+    end
+  end
+
+  def published?
+    if self.status == "live"
+      true
+    else
+      false
     end
   end
 
