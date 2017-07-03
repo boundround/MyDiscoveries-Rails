@@ -48,7 +48,7 @@
             </span>
           <% end %>
           <div class="info-text">
-            <%= @offer.disable_package_option ? "Per Adult" : "Per Package" %>
+            <%= @offer.disable_package_option && @offer.package_option_label.blank? ? "Per Adult" : "Per Package" %>
           </div>
           <% specialNotes_txt = @offer.specialNotes.blank? ? '' : @offer.specialNotes.gsub(/\r?\n/, '') %>
           <span class="hci-info"><%= simple_format(specialNotes_txt) %></span>
@@ -135,21 +135,39 @@
                           </div>
                         <% end %>
                         <% if !@offer.disable_package_option? %>
+                        <% if @offer.package_option_label.present? %>
                           <div class="quantity top10">
-                            <h5>Package Option</h5>
-                            <div>
-                              <%= f.input :package_option,
-                                  as: :select,
-                                  collection: @package_options,
-                                  include_blank: false,
-                                  label: false,
-                                  prompt: 'Please Select',
-                                  input_html: {
-                                    class: 'form-control js-variant-option'
-                                  }
-                              %>
+                            <h5><%= @offer.package_option_label %></h5>
+                              <div>
+                                <%= f.input :package_option,
+                                    as: :select,
+                                    collection: @package_options,
+                                    include_blank: false,
+                                    label: false,
+                                    prompt: 'Please Select',
+                                    input_html: {
+                                      class: 'form-control js-variant-option'
+                                    }
+                                %>
+                              </div>
                             </div>
-                          </div>
+                          <% else %>
+                            <div class="quantity top10">
+                              <h5>Package Option</h5>
+                              <div>
+                                <%= f.input :package_option,
+                                    as: :select,
+                                    collection: @package_options,
+                                    include_blank: false,
+                                    label: false,
+                                    prompt: 'Please Select',
+                                    input_html: {
+                                      class: 'form-control js-variant-option'
+                                    }
+                                %>
+                              </div>
+                            </div>
+                          <% end %>
                         <% end %>
                         <% if !@offer.disable_accommodation? %>
                           <div class="quantity top10">
@@ -203,21 +221,39 @@
                           </div>
                         <% end %>
                         <% if !@offer.disable_room_type? %>
-                          <div class="quantity top10">
-                            <h5>Room Type</h5>
-                            <div>
-                              <%= f.input :room_type,
-                                  as: :select,
-                                  collection: @room_types,
-                                  include_blank: false,
-                                  label: false,
-                                  prompt: 'Please Select',
-                                  input_html: {
-                                    class: 'form-control js-variant-option'
-                                  }
-                              %>
+                          <% if @offer.room_type_label.present? %>
+                            <div class="quantity top10">
+                              <h5><%= @offer.room_type_label %></h5>
+                              <div>
+                                <%= f.input :room_type,
+                                    as: :select,
+                                    collection: @room_types,
+                                    include_blank: false,
+                                    label: false,
+                                    prompt: 'Please Select',
+                                    input_html: {
+                                      class: 'form-control js-variant-option'
+                                    }
+                                %>
+                              </div>
                             </div>
-                          </div>
+                          <% else %>
+                            <div class="quantity top10">
+                              <h5>Room Type</h5>
+                              <div>
+                                <%= f.input :room_type,
+                                    as: :select,
+                                    collection: @room_types,
+                                    include_blank: false,
+                                    label: false,
+                                    prompt: 'Please Select',
+                                    input_html: {
+                                      class: 'form-control js-variant-option'
+                                    }
+                                %>
+                              </div>
+                            </div>
+                          <% end %>
                         <% end %>
                       </div>
                       <div class='js-variant-quantity hidden'>

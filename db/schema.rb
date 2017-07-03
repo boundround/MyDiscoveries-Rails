@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626024743) do
+ActiveRecord::Schema.define(version: 20170703091021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,7 +112,6 @@ ActiveRecord::Schema.define(version: 20170626024743) do
     t.integer  "primary_category_id"
     t.text     "focus_keyword"
     t.text     "seo_title"
-    t.string   "tag_line"
   end
 
   add_index "attractions", ["country_id"], name: "index_attractions_on_country_id", using: :btree
@@ -456,7 +455,6 @@ ActiveRecord::Schema.define(version: 20170626024743) do
     t.integer  "attraction_id"
     t.integer  "fun_factable_id"
     t.string   "fun_factable_type"
-    t.string   "url"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -890,6 +888,7 @@ ActiveRecord::Schema.define(version: 20170626024743) do
     t.boolean  "is_area",                   default: false
     t.text     "meta_description"
     t.string   "weather_conditions"
+    t.integer  "primary_category_id"
     t.integer  "minimum_age"
     t.integer  "maximum_age"
     t.text     "special_requirements"
@@ -910,7 +909,6 @@ ActiveRecord::Schema.define(version: 20170626024743) do
     t.boolean  "is_country",                default: false
     t.boolean  "show_in_mega_menu",         default: false
     t.string   "tags",                      default: [],    array: true
-    t.string   "tag_line"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -918,6 +916,7 @@ ActiveRecord::Schema.define(version: 20170626024743) do
   add_index "places", ["country_id"], name: "index_places_on_country_id", using: :btree
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
   add_index "places", ["parent_id"], name: "index_places_on_parent_id", using: :btree
+  add_index "places", ["primary_category_id"], name: "index_places_on_primary_category_id", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
   add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
 
@@ -1696,8 +1695,8 @@ ActiveRecord::Schema.define(version: 20170626024743) do
     t.string   "itinerary"
     t.boolean  "test_product",                                                  default: false
     t.string   "departure_dates"
-    t.boolean  "add_on",                                                        default: false
     t.text     "other"
+    t.boolean  "add_on",                                                        default: false
     t.boolean  "disable_maturity",                                              default: false
     t.boolean  "disable_bed_type",                                              default: false
     t.boolean  "disable_room_type",                                             default: false
@@ -1705,6 +1704,8 @@ ActiveRecord::Schema.define(version: 20170626024743) do
     t.boolean  "disable_accommodation",                                         default: false
     t.boolean  "disable_departure_date",                                        default: false
     t.boolean  "disable_departure_city",                                        default: false
+    t.string   "room_type_label",                                               default: ""
+    t.string   "package_option_label",                                          default: ""
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
@@ -2411,7 +2412,6 @@ ActiveRecord::Schema.define(version: 20170626024743) do
     t.text     "meta_description"
     t.string   "hero_image"
     t.boolean  "featured",            default: false
-    t.string   "canonical_url"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
@@ -2603,8 +2603,6 @@ ActiveRecord::Schema.define(version: 20170626024743) do
     t.string   "spree_api_key",          limit: 48
     t.integer  "ship_address_id"
     t.integer  "bill_address_id"
-    t.string   "twitter_url"
-    t.string   "facebook_url"
     t.boolean  "guest",                             default: false
   end
 

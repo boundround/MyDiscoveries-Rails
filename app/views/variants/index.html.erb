@@ -17,7 +17,9 @@
     <thead>
     <tr>
       <th>Variant</th>
-      <th>Bed Type</th>
+      <% if !@product.disable_bed_type %>
+        <th>Bed Type</th>
+      <% end %>
       <% if !@product.disable_maturity %>
         <th>Maturity</th>
       <% end %>
@@ -26,13 +28,21 @@
         <th>Departure City</th>
       <% end %>
       <% if !@product.disable_room_type %>
-        <th>Room Type</th>
+        <% if @product.room_type_label.blank? %>
+          <th>Room Type</th>
+        <% else %>
+          <th><%= @product.room_type_label %></th>
+        <% end %>
       <% end %>
       <% if !@product.disable_departure_date %>
         <th>Departure Date</th>
       <% end %>
       <% if !@product.disable_package_option %>
-        <th>Package Option</th>
+        <% if @product.room_type_label.blank? %>
+          <th>Package Option</th>
+        <% else %>
+          <th><%= @product.package_option_label %></th>
+        <% end %>
       <% end %>
       <% if !@product.disable_accommodation %>
         <th>Accommodation / Hotel</th>
@@ -55,7 +65,9 @@
               )
             %>
           </td>
-          <td><%= variant.bed_type %></td>
+          <% if @product.disable_bed_type %>
+            <td><%= variant.bed_type %></td>
+          <% end %>
           <% if !@product.disable_maturity %>
             <td><%= variant.maturity %></td>
           <% end %>

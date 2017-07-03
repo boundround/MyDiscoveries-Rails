@@ -280,6 +280,8 @@ class OffersController < ApplicationController
       :disable_accommodation,
       :disable_departure_date,
       :disable_departure_city,
+      :room_type_label,
+      :package_option_label,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
