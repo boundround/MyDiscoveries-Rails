@@ -6,6 +6,7 @@
       role: 'form',
       class: 'top20 js-order-form',
     } do |f| %>
+      <%= render 'orders/flash_message', flash: flash %>
       <div class="booking-block">
         <div class="block-inside">
           <section class="prices-and-availability-block">
@@ -122,8 +123,11 @@
               <% end %>
               <div class='padding-top-30p'>
                 <% if @line_items.any? %>
+                  <% @order.adjustments.eligible.group_by(&:label).each do |label, adjustments| %>
+                    <%= "Adjustment #{label}: #{number_to_currency(adjustments.sum(&:amount))}" %>
+                  <% end %>
                   <h4>
-                    <%= "Total: #{number_to_currency(@order.total_price_without_installments)}" %>
+                    <%= "Total: #{number_to_currency(@order.total)}" %>
                   </h4>
                   <div class='padding-top-30p'>
                     <div class='inline-buttons'>
@@ -132,12 +136,6 @@
                         <span>EMPTY CART</span>
                       <% end %>
                     </div>
-                    <div class='inline-buttons'>
-                      <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
-                        <span>UPDATE</span>
-                      <% end %>
-                    </div>
-                    <% end %>
                     <div class='inline-buttons'>
                       <%= link_to offers_path,
                         class: 'btn-bordered red invert' do %>
@@ -151,6 +149,22 @@
                           <span>CHECKOUT</span>
                         <% end %>
                       </div>
+                    <% end %>
+                    <div class='inline-buttons right-align-button update-cart-button'>
+                      <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
+                        <span>UPDATE</span>
+                      <% end %>
+                    </div>
+                    <div class='inline-buttons right-align-button'>
+                      <%= f.input :coupon_code,
+                          as: :string,
+                          label: false,
+                          input_html: {
+                            placeholder: 'Promo Code',
+                            class: 'form-control promo-code-input'
+                          }
+                      %>
+                    </div>
                     <% end %>
                   </div>
                 </div>

@@ -79,6 +79,8 @@ class OrdersController < ApplicationController
     :resend_confirmation
   ]
 
+  before_action :apply_coupon_code
+
   def index
     @orders = Spree::Order.where(authorized: true)
   end
@@ -294,6 +296,21 @@ class OrdersController < ApplicationController
 
   private
 
+  def apply_coupon_code
+    if params[:order] && params[:order][:coupon_code]
+      @order.coupon_code = params[:order][:coupon_code]
+
+      handler = Spree::PromotionHandler::Coupon.new(@order).apply
+
+      if handler.error.present?
+        flash.now[:error] = handler.error
+        render(:cart) && return
+      elsif handler.success
+        flash[:success] = handler.success
+      end
+    end
+  end
+
   def build_passengers
     new_passengers_count = @line_item.quantity - @line_item.passengers.count
     new_passengers_count.times { @line_item.passengers.build(order: @order) }
@@ -346,6 +363,7 @@ class OrdersController < ApplicationController
       :number_of_adults,
       :start_date,
       :request_installments,
+      :coupon_code,
       line_items_attributes: [
         :id,
         :quantity,
