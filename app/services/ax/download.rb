@@ -77,7 +77,7 @@ class Ax::Download
   end
 
   def customer_first_name
-    @customer_first_name ||= shipping_address['FirstName']
+    @customer_first_name ||= shipping_address['FirstName'].presence || '-'
   end
 
   def customer_last_name
