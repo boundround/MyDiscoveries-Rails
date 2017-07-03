@@ -14,10 +14,6 @@ class HubspotService::Send
       end
     end
   end
-
-  def self.get_dealstage()
-    return dealstage
-  end
   
   def self.order_to_hubspot(order, hubspot_id, dealstage)
     unless Rails.env.development?
