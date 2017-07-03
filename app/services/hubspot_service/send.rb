@@ -23,17 +23,16 @@ class HubspotService::Send
     unless Rails.env.development?
       if user.email.present?
         response = Hubspot::Deal.create!(
-          "3450808", 
-          "483432591", 
+          ENV['HUBSPOT_PORTAL_ID'], 
+          ENV['HUBSPOT_COMPANY_ID'], 
           hubspot_id,{
             "amount" =>  order.total, 
-            "createdate" => order.last.created_at.to_time.to_i,
-            "description" => order.last.description,
-            "dealname" => order.last.title,
+            "description" => order.line_items[0].variant.product.description,
+            "dealname" => order.line_items[0].variant.product.name,
             "dealstage" => dealstage,
-            "holiday_type" => order.last.product_type,
-            "pipeline" => "f1eeb762-48e2-4150-ae79-81075972fb10",
-            "hubspot_owner_id" => 27537933,
+            "holiday_type" => order.line_items[0].variant.product.product_type,
+            "pipeline" => ENV['HUBSPOT_PIPELINE_ID'],
+            "hubspot_owner_id" => ENV['HUBSPOT_OWNER_ID'],
             "bed_type" => order.line_items[0].variant.bed_type,
             "date_variant" => order.line_items[0].variant.departure_date,
             "departure_city" => order.line_items[0].variant.departure_city,
@@ -50,4 +49,3 @@ class HubspotService::Send
 end
 
 #"pipeline" => "mdfulfilmentpipeline" f1eeb762-48e2-4150-ae79-81075972fb10
-#https://api.hubapi.com/contacts/v1/contact/email/testingapis@hubspot.com/profile?hapikey=demo

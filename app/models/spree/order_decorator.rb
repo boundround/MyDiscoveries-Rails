@@ -127,12 +127,12 @@ Spree::Order.class_eval do
     hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.customer)
     
     if self.authorized == true 
-      dealstage = "orderreceived" #change this later
+      dealstage = ENV['HUBSPOT_STAGE_ID_ORDER_RECEIVED']
     else
-      dealstage = "abandonedcart"
+      dealstage = ENV['HUBSPOT_STAGE_ID_ABANDONED_CART']
     end
 
-    HubspotService::Send.order_to_hubspot(self.customer.email, hubspot_id,dealstage)
+    HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage)
   end
 
   private
