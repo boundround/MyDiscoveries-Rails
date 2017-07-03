@@ -1,0 +1,78 @@
+<div class="form-group">
+  <%=
+    f.input :name,
+    label: 'Name',
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :code,
+    label: 'Code',
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :description,
+    label: 'Description',
+    as: :text,
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :usage_limit,
+    label: 'Usage Limit',
+    as: :integer,
+    input_html: { class: 'form-control', min: 0 }
+  %>
+  <% if promotion.persisted? %>
+    <span class='info'>
+      <%= "Current Usage: #{promotion.credits_count}" %>
+    </span>
+  <% end %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :starts_at,
+    label: 'Starts At',
+    as: :date,
+    html5: true,
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<div class="form-group">
+  <%=
+    f.input :expires_at,
+    label: 'Expires At',
+    as: :date,
+    html5: true,
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<%= f.simple_fields_for :promotion_actions do |pf| %>
+  <div class="form-group">
+    <%=
+      pf.input :type,
+      label: 'Flat Percent',
+      as: :hidden,
+      input_html: { class: 'form-control' }
+    %>
+  </div>
+<% end %>
+
+<div class="form-group">
+  <%= label_tag :calculator_flat_percent, 'Flat Percent' %>
+  <%= number_field_tag :calculator_flat_percent,
+    calculator_flat_percent || params[:calculator_flat_percent],
+    class: 'form-control',
+    min: 1,
+    max: 100
+  %>
+</div>
+
+
+<div class="form-group">
+  <%= f.submit 'Submit', class: 'btn btn-success' %>
+</div>

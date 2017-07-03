@@ -10,6 +10,7 @@ Spree::Order.class_eval do
 
 
   has_many :passengers
+  has_many :add_ons, through: :line_items
 
   after_commit :set_ax_sales_id!, on: :create
 
@@ -78,7 +79,23 @@ end
   end
 
   def total_price
+    if promotions.any?
+      total      = total_amount
+      adjustment = (total / 100).to_f * total_flat_percent
+
+      (total - adjustment).to_f
+    else
+      total_amount
+    end
+  end
+
+  def total_amount
     line_items.map(&:total_price).reduce(:+)
+  end
+
+  def total_flat_percent
+    promotions.map(&:promotion_actions).flatten.
+      map(&:calculator).sum{ |c| c.preferences[:flat_percent] }
   end
 
   def total_price_without_installments
@@ -89,10 +106,23 @@ end
     update(miscellaneous_charges: true)
   end
 
+  def total_add_ons_amount
+    add_ons.map(&:amount).reduce(:+) || 0
+  end
+
+  # overrides Spree method
+  def update!
+    updater.update
+    update(
+      total: self.reload.amount + self.reload.adjustments.eligible.sum(:amount)
+    )
+  end
+
   private
 
   # overrides Spree method
   def require_email
     false
   end
+
 end
