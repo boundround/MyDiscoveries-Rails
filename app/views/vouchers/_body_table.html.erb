@@ -111,9 +111,15 @@
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
             Booking Essentials
           </span>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
-            <%= simple_format product.voucher_booking_essentials %>
-          </p>
+          <% if product.voucher_booking_essentials.present? %>
+            <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
+              <%= simple_format product.voucher_booking_essentials %>
+            </p>
+          <% else %>
+            <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
+              <%= simple_format product.customStr1 %>
+            </p>
+          <% end %>
         </td>
       </tr>
     </tr>
