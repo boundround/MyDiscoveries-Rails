@@ -60,6 +60,11 @@ module ApplicationHelper
 
   def offer_minimum_price(offer)
     prices = []
+    
+    if offer.variants.blank?
+      return 0
+    end
+
     offer.variants.each do |variant|
       if variant.maturity.present? && variant.maturity.downcase.strip != "child"
         prices << variant.price.to_f
