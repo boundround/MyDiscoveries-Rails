@@ -282,6 +282,7 @@ class OffersController < ApplicationController
       :disable_departure_city,
       :room_type_label,
       :package_option_label,
+      :voucher_booking_essentials,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
