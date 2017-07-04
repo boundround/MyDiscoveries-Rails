@@ -1,0 +1,12 @@
+<div class="container" data-controller='vouchers'>
+  <h2>Edit <%= "Promotion (ID: #{@promotion.id})" %></h2>
+  <%= simple_form_for @promotion,
+    url: promotion_path, method: :patch, html: { role: 'form' } do |f| %>
+      <%=
+        render 'form',
+          f: f,
+          promotion: @promotion,
+          calculator_flat_percent: @calculator_flat_percent
+        %>
+  <% end %>
+</div>

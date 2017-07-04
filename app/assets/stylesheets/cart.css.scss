@@ -5,6 +5,7 @@
 
   .right-align-button {
     float: right;
+    margin-left: 3px;
   }
 
   .inline-buttons {
@@ -23,4 +24,19 @@
 .cart-product-photo {
   float: left;
   margin: 0px 15px 15px 0px;
+}
+
+.promo-code-input {
+  height: 46px !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .update-cart-button {
+    margin-top: 20px;
+  }
+
+  .promo-code-input {
+    margin-top: 20px;
+    width: 90% !important;
+  }
 }

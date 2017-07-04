@@ -460,6 +460,7 @@ Rails.application.routes.draw do
   end
 
   resources :stickers
+  resources :promotions
 
   get 'cart' => 'orders#cart'
   put 'empty_cart' => 'orders#empty'

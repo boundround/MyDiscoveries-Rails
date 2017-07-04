@@ -1,0 +1,59 @@
+<div id="table-container">
+  <h1>
+    Promotions
+    <%= link_to(
+        'Create New Promotion',
+        new_promotion_path,
+        class: 'btn btn-success'
+      )
+    %>
+  </h1>
+
+  <table class="table table-striped" id="place-table">
+    <thead>
+    <tr>
+      <th>Promotion</th>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Current Usage</th>
+      <th>Created At</th>
+      <th>Edit Link</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @promotions.each do |promotion| %>
+        <tr>
+          <td>
+            <%= link_to(
+                "Promotion ##{promotion.id}",
+                edit_promotion_path(promotion)
+              )
+            %>
+          </td>
+          <td><%= promotion.name %></td>
+          <td><%= promotion.code %></td>
+          <td><%= promotion.credits_count %></td>
+          <td><%= promotion.updated_at.strftime("%F") %></td>
+          <td>
+            <%= link_to(
+                'Edit',
+                edit_promotion_path(promotion),
+                target: "_blank"
+              )
+            %>
+          </td>
+          <td>
+            <%= link_to(
+                'Destroy',
+                promotion_path(promotion),
+                method: :delete,
+                data: { confirm: 'Are you sure?' }
+              )
+            %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

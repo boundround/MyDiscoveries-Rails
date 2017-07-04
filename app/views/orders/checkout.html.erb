@@ -71,20 +71,7 @@
           <div class="payment-fields">
             <h2 class="title"> Credit card details </h2>
             <div class="card-container"></div>
-
-            <% flash.each do |type, message| %>
-              <% if !bootstrap_class_for(type).eql?("timedout")%>
-                <% if is_flash_key_for_tracking?(type) %>
-                  <div class="hidden <%= type %>"></div>
-                <% else %>
-                  <div class="alert <%= bootstrap_class_for(type) %> fade in">
-                    <button class="close" data-dismiss="alert">×</button>
-                    <%= message %>
-                  </div>
-                <% end %>
-              <% end %>
-            <% end %>
-
+            <%= render 'orders/flash_message', flash: flash %>
             <div class="form-group sm">
               <div class="control-group string optional">
                 <%= pf.input :number,
