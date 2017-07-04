@@ -266,4 +266,24 @@ $(document).ready(function(){
       countChars("#meta-description", "#meta-description-count");
     });
   }
+
+  if (document.querySelector('.confirm-user-button')){
+    $(".confirm-user-button").on('click', function(e){
+      var parent = $(this).parent('span');
+      var id = $(this).data("user-id");
+      var data = {};
+      data["user_id"] = id;
+      console.log($(parent));
+      e.preventDefault();
+      $.ajax({
+        url: "/users/confirm",
+        type: "POST",
+        dataType: 'json',
+        data: data,
+        success: function(){
+          $(parent).html("Confirmed");
+        }
+      });
+    })
+  }
 });

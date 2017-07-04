@@ -7,6 +7,7 @@
           <th>ID</th>
           <th>Name</th>
           <th>Email</th>
+          <th>Confirmed?</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -17,6 +18,11 @@
             <td><%= user.id %></td>
             <td><%= user.name if user.name %></td>
             <td><%= user.email if user.email %></td>
+            <% if user.confirmed? %>
+              <td><span class="user-confirm">Confirmed</span></td>
+            <% else %>
+              <td><span class="user-confirm"><input data-user-id="<%= user.id %>" class="confirm-user-button btn btn-primary" value="Confirm User"></span></td>
+            <% end %>
             <td><%= link_to 'Edit', user_path(user) %></td>
             <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>

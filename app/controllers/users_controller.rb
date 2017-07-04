@@ -109,6 +109,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def confirm
+    @user = User.find(params[:user_id].to_i)
+
+    if !@user.confirmed?
+      @user.confirm
+    end
+
+    respond_to do |format|
+      format.json { render json: @user}
+    end
+  end
+
 
   def paginate_reviews
     @reviews = @user.reviews.paginate(:page => params[:active_reviews_user], per_page: 3)
