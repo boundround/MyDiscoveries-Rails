@@ -29,7 +29,13 @@
                                     <span>$</span>
                                     <span class="po-price-self"><%= product.minRateAdult %></span>
                                 </span>
-                                <span class="sm">per person</span>
+                                <span class="sm">
+                                  <% if !product.disable_package_offer %>
+                                    Per Package
+                                  <% else %>
+                                    Per Person
+                                  <% end %>
+                                </span>
                             </div>
                             <div class="po-stay-info">
                                 <span class="posi-nights"><%= create_duration(product) %></span>
