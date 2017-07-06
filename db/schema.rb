@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704045052) do
+ActiveRecord::Schema.define(version: 20170706011540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2334,6 +2334,7 @@ ActiveRecord::Schema.define(version: 20170704045052) do
     t.string   "package_option"
     t.string   "accommodation"
     t.datetime "departure_date"
+    t.boolean  "featured",                                       default: false
   end
 
   add_index "spree_variants", ["deleted_at"], name: "index_spree_variants_on_deleted_at", using: :btree

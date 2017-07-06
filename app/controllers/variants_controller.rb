@@ -112,7 +112,8 @@ class VariantsController < ApplicationController
       :miscellaneous_charges,
       :departure_date,
       :package_option,
-      :accommodation
+      :accommodation,
+      :featured
     )
   end
 
