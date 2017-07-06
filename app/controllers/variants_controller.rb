@@ -37,7 +37,7 @@ class VariantsController < ApplicationController
   end
 
   def index
-    @variants = Spree::Variant.where(product: @product, is_master: false)
+    @variants = Spree::Variant.unscoped.where(product: @product, is_master: false)
   end
 
   def fill_packages_options
