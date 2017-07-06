@@ -23,7 +23,7 @@
       <% if !@product.disable_maturity %>
         <th>Maturity</th>
       <% end %>
-      <th>Price</th>
+      
       <% if !@product.disable_departure_city %>
         <th>Departure City</th>
       <% end %>
@@ -65,7 +65,7 @@
               )
             %>
           </td>
-          <% if @product.disable_bed_type %>
+          <% if !@product.disable_bed_type %>
             <td><%= variant.bed_type %></td>
           <% end %>
           <% if !@product.disable_maturity %>
