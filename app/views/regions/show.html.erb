@@ -1,12 +1,12 @@
 <div data-page="region">
 
-<div class="breadcrumbs width-limiter">
+  <div class="breadcrumbs width-limiter">
     <a href="<%= root_path %>" class="breadcrumbs__link">home</a>
     <%= raw create_breadcrumb_for(@region) %>
     <% if user_signed_in? and current_user.admin? %>
       <%= link_to "Edit Region", edit_region_path(@region), class: "breadcrumbs__link" %>
     <% end %>
-</div>
+  </div>
 
   <h1 class="home-promo__header blue"><%= @region.display_name %></h1>
 
@@ -21,166 +21,140 @@
     <input type="hidden" data-zoom="<%= (@region.zoom_level <= 1) ? 2 : @region.zoom_level %>" data-marker="<%= @places_to_visit_map %>" name="region">
   </div>
 
-<!-- END - map -->
-<% if @countries.present? %>
-  <div class="region destinations">
-      <div class="width-limiter">
-          <ul id="countries-list">
-            <%= render partial: 'countries_list', collection: @countries, as: :country %>
-          </ul>
-          <% unless last_page? @countries %>
-            <div class="single-pagination-container" id="countries-single-pagination-container">
-                <div align="center">
-                  <div class="hidden single-pagination-loader" align="center">
-                    <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+  <!-- END - map -->
+  <% if @countries.present? %>
+    <div class="region destinations">
+        <div class="width-limiter">
+            <ul id="countries-list">
+              <%= render partial: 'countries_list', collection: @countries, as: :country %>
+            </ul>
+            <% unless last_page? @countries %>
+              <div class="single-pagination-container" id="countries-single-pagination-container">
+                  <div align="center">
+                    <div class="hidden single-pagination-loader" align="center">
+                      <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+                    </div>
+                  <%= link_to "load more", paginate_countries_region_path(@region, countries_page: @countries.next_page, resources: 'countries', pagination_template: 'countries_list', collection_object: 'country'), class: 'load-more single-pagination', remote: true %>
                   </div>
-                <%= link_to "load more", paginate_countries_region_path(@region, countries_page: @countries.next_page, resources: 'countries', pagination_template: 'countries_list', collection_object: 'country'), class: 'load-more single-pagination', remote: true %>
-                </div>
-            </div>
-          <% end %>
-      </div>
-  </div>
-<% end %>
+              </div>
+            <% end %>
+        </div>
+    </div>
+  <% end %>
 
-<% unless @place_to_go.blank? %>
-<div class="region places-to-go">
-    <div class="width-limiter">
+  <% unless @place_to_go.blank? %>
+    <div class="region places-to-go">
+      <div class="width-limiter">
         <h3 class="proposal__header">Places to go</h3>
         <div class="block-wrapper" id="place_to_go-list">
             <%= render partial: 'place_to_go_list', collection: @place_to_go, as: :place %>
         </div>
-      <% unless last_page? @place_to_go %>
-        <div class="single-pagination-container" id="place_to_go-single-pagination-container">
+        <% unless last_page? @place_to_go %>
+          <div class="single-pagination-container" id="place_to_go-single-pagination-container">
             <div class="load-more">
               <div class="hidden single-pagination-loader" align="center">
                 <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
               </div>
             <%= link_to "load more", paginate_place_to_go_region_path(@region, place_to_go_page: @place_to_go.next_page, resources: 'place_to_go', pagination_template: 'regions/place_to_go_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
             </div>
-        </div>
-      <% end %>
-    </div>
-</div>
-<% end %>
-<% if @fun_facts.present? %>
-  <div class="region did-you-know">
-      <div class="width-limiter">
-          <h4>Did you know?</h4>
-          <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
+          </div>
+        <% end %>
       </div>
-  </div>
-<% end %>
+    </div>
+  <% end %>
 
-<% if @offers.present? %>
-<div class="region package-offers">
-    <div class="width-limiter">
+  <% if @fun_facts.present? %>
+    <div class="region did-you-know">
+      <div class="width-limiter">
+        <h4>Did you know?</h4>
+        <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @offers.present? %>
+    <div class="package-offers grey">
+      <div class="package-offers-block width-limiter">
         <h3 class="proposal__header">Holidays for you</h3>
-        <ul class="cs-package" id="offers-list">
-            <%= render partial: 'offers/region_offers', collection: @offers, as: :offer %>
-            <!-- <li class="recl-block">
-                <a  href="#">
-                    <img src="/assets/mydiscoveries_icon/reclama.jpg" alt="">
-                </a>
-            </li> -->
-        </ul>
-        <% unless last_page? @offers %>
-          <div class="single-pagination-container" id="offers-single-pagination-container">
+        <ul>
+          <div id="offers-list">
+            <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
+          </div>
+          <% unless last_page? @offers %>
+            <div class="single-pagination-container" id="offers-single-pagination-container">
             <div class="region" align="center">
               <div class="hidden single-pagination-loader" align="center">
                 <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
               </div>
-            <%= link_to "all offers", paginate_offers_region_path(@region, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/region_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
+              <%= link_to "all offers", paginate_offers_region_path(@region, offers_page: @offers.next_page, resources: 'offers', pagination_template: 'offers/all_index_offers', collection_object: 'offer'), class: 'see-more__link single-pagination', remote: true %>
             </div>
           </div>
-        <% end %>
-        <!-- <a href="#" class="btn-bordered">all offers</a> -->
+          <% end %>
+        </ul>
+      </div>
     </div>
-</div>
-<% end %>
-<% unless @places_to_visit.blank? %>
-<div class="region things-to-do">
-    <div class="width-limiter">
+  <% end %>
+
+  <% unless @places_to_visit.blank? %>
+    <div class="region things-to-do">
+      <div class="width-limiter">
         <h3 class="proposal__header">Things to do in <%= @region.display_name %></h3>
         <ul class="" id="places_to_visit-list">
-            <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
-            <li class="recl-block">
-                <a  href="#x">
-                    <img src="/assets/mydiscoveries_icon/reclama.jpg" alt="">
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- BR first go -->
-                    <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-3125270010093298"
-                    data-ad-slot="1632886169"
-                    data-ad-format="auto"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                  <p class="wild-ad-banner__paragraph">Sponsored</p>
-                </a>
-            </li>
+          <%= render partial: 'areas_list', collection: @places_to_visit, as: :place %>
+          <li class="recl-block">
+            <a  href="#x">
+              <img src="/assets/mydiscoveries_icon/reclama.jpg" alt="">
+              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              <!-- BR first go -->
+              <ins class="adsbygoogle"
+              style="display:block"
+              data-ad-client="ca-pub-3125270010093298"
+              data-ad-slot="1632886169"
+              data-ad-format="auto"></ins>
+              <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+              <p class="wild-ad-banner__paragraph">Sponsored</p>
+            </a>
+          </li>
         </ul>
         <% unless last_page? @places_to_visit %>
           <div class="row single-pagination-container" id="places_to_visit-single-pagination-container">
-                <div class="hidden single-pagination-loader" align="center">
-                  <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
-                </div>
-              <%= link_to "load more", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
+            <div class="hidden single-pagination-loader" align="center">
+              <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
+            </div>
+            <%= link_to "load more", paginate_place_to_visit_region_path(@region, places_to_visit_page: @places_to_visit.next_page, resources: 'places_to_visit', pagination_template: 'regions/areas_list', collection_object: 'place'), class: 'load-more single-pagination', remote: true %>
           </div>
         <% end %>
-    </div>
-</div>
-<% end %>
-
-<% if @fun_facts.present? %>
-  <div class="region did-you-know grey">
-      <div class="width-limiter">
-          <h4>Did you know?</h4>
-          <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
       </div>
-  </div>
-<% end %>
-
-<!-- <div class="region itinerary-offers">
-    <div class="width-limiter">
-        <h3 class="proposal__header">Itinerary offers</h3>
-        <ul class="slick-slider">
-            <li>
-                <img src="/assets/mydiscoveries_icon/i/follow-the-journey-item-bg.png" alt="">
-                <div class="io-item-content">
-                    <span>3 DAYS</span>
-                    <p class="sm-heading">Beijing to Tokyo</p>
-                    <a href="#">see full itinerary</a>
-                </div>
-            </li>
-            <li class="recl-block">
-                <a  href="#">
-                    <img src="/assets/mydiscoveries_icon/reclama.jpg" alt="">
-                </a>
-            </li>
-        </ul>
-        <a href="#" class="btn-bordered">all offers</a>
     </div>
-</div>
-<div class="region advertise">
-    <img src="/assets/mydiscoveries_icon/emirates.jpg" alt="">
-</div> -->
+  <% end %>
 
-<% if @stories.present? %>
-  <div class="region stories grey">
-    <div class="width-limiter">
-      <h3 class="proposal__header">Stories</h3>
-      <%= render partial: "stories/all_stories"%>
-    </div>
-  </div>
-<% end %>
-
-<% if @fun_facts.present? %>
-  <div class="region did-you-know">
+  <% if @fun_facts.present? %>
+    <div class="region did-you-know grey">
       <div class="width-limiter">
-          <h4>Did you know?</h4>
-          <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
+        <h4>Did you know?</h4>
+        <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
       </div>
-  </div>
-<% end %>
+    </div>
+  <% end %>
+
+  <% if @stories.present? %>
+    <div class="region stories grey">
+      <div class="width-limiter">
+        <h3 class="proposal__header">Stories</h3>
+        <%= render partial: "stories/all_stories"%>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @fun_facts.present? %>
+    <div class="region did-you-know">
+      <div class="width-limiter">
+        <h4>Did you know?</h4>
+        <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
+      </div>
+    </div>
+  <% end %>
+
 </div>
