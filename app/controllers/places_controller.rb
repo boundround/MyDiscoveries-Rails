@@ -22,6 +22,9 @@ class PlacesController < ApplicationController
     if @place.save
       redirect_to edit_place_path(@place), notice: 'Place succesfully saved'
     else
+      @places = Place.active.where(is_area: true).order(display_name: :asc)
+      @countries = Country.all
+      @regions = Region.all
       render action: :new, notice: 'Place not saved!'
     end
   end
