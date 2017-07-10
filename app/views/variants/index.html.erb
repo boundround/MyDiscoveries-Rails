@@ -15,48 +15,105 @@
 
   <table class="table table-striped" id="place-table">
     <thead>
-    <tr>
-      <th>Variant</th>
-      <% if !@product.disable_bed_type %>
-        <th>Bed Type</th>
-      <% end %>
-      <% if !@product.disable_maturity %>
-        <th>Maturity</th>
-      <% end %>
-      
-      <% if !@product.disable_departure_city %>
-        <th>Departure City</th>
-      <% end %>
-      <% if !@product.disable_room_type %>
-        <% if @product.room_type_label.blank? %>
-          <th>Room Type</th>
-        <% else %>
-          <th><%= @product.room_type_label %></th>
+      <tr>
+        <th>Variant</th>
+
+        <% unless @product.disable_bed_type %>
+          <th>Bed Type</th>
         <% end %>
-      <% end %>
-      <% if !@product.disable_departure_date %>
-        <th>Departure Date</th>
-      <% end %>
-      <% if !@product.disable_package_option %>
-        <% if @product.room_type_label.blank? %>
-          <th>Package Option</th>
-        <% else %>
-          <th><%= @product.package_option_label %></th>
+
+        <% unless @product.disable_maturity %>
+          <th>Maturity</th>
         <% end %>
-      <% end %>
-      <% if !@product.disable_accommodation %>
-        <th>Accommodation / Hotel</th>
-      <% end %>
-      <th>Item Code</th>
-      <th>Supplier Product Code</th>
-      <th>Created At</th>
-      <th>Edit Link</th>
-      <th>Miscellaneous Charges</th>
-      <th>Delete</th>
-    </tr>
+
+        <% unless @product.disable_departure_city %>
+          <th>Departure City</th>
+        <% end %>
+
+        <% unless @product.disable_departure_date %>
+          <th>Departure Date</th>
+        <% end %>
+
+        <% unless @product.disable_accommodation %>
+          <th>Accommodation / Hotel</th>
+        <% end %>
+
+        <% unless @product.disable_room_type %>
+          <% if @product.room_type_label.blank? %>
+            <th>Room Type</th>
+          <% else %>
+            <th><%= @product.room_type_label %></th>
+          <% end %>
+        <% end %>
+
+        <% unless @product.disable_package_option %>
+          <% if @product.room_type_label.blank? %>
+            <th>Package Option</th>
+          <% else %>
+            <th><%= @product.package_option_label %></th>
+          <% end %>
+        <% end %>
+
+        <th>Price</th>
+        <th>Item Code</th>
+        <th>Supplier Product Code</th>
+        <th>Created At</th>
+        <th>Edit Link</th>
+        <th>Miscellaneous Charges</th>
+        <th>Delete</th>
+      </tr>
     </thead>
+    <tfoot>
+      <tr>
+        <th>Variant</th>
+
+        <% unless @product.disable_bed_type %>
+          <th>Bed Type</th>
+        <% end %>
+
+        <% unless @product.disable_maturity %>
+          <th>Maturity</th>
+        <% end %>
+
+        <% unless @product.disable_departure_city %>
+          <th>Departure City</th>
+        <% end %>
+
+        <% unless @product.disable_departure_date %>
+          <th>Departure Date</th>
+        <% end %>
+
+        <% unless @product.disable_accommodation %>
+          <th>Accommodation / Hotel</th>
+        <% end %>
+
+        <% unless @product.disable_room_type %>
+          <% if @product.room_type_label.blank? %>
+            <th>Room Type</th>
+          <% else %>
+            <th><%= @product.room_type_label %></th>
+          <% end %>
+        <% end %>
+
+        <% unless @product.disable_package_option %>
+          <% if @product.room_type_label.blank? %>
+            <th>Package Option</th>
+          <% else %>
+            <th><%= @product.package_option_label %></th>
+          <% end %>
+        <% end %>
+
+        <th>Price</th>
+        <th>Item Code</th>
+        <th>Supplier Product Code</th>
+        <th>Created At</th>
+        <th>Edit Link</th>
+        <th>Miscellaneous Charges</th>
+        <th>Delete</th>
+      </tr>
+    </tfoot>
     <tbody>
-    <% @variants.each do |variant| %>
+      <% @variants.each do |variant| %>
         <tr>
           <td>
             <%= link_to(
@@ -65,30 +122,36 @@
               )
             %>
           </td>
-          <% if !@product.disable_bed_type %>
+
+          <% unless @product.disable_bed_type %>
             <td><%= variant.bed_type %></td>
           <% end %>
-          <% if !@product.disable_maturity %>
+
+          <% unless @product.disable_maturity %>
             <td><%= variant.maturity %></td>
           <% end %>
-          <td><%= variant.price.to_s %></td>
-          <% if !@product.disable_departure_city %>
+
+          <% unless @product.disable_departure_city %>
             <td><%= variant.departure_city %></td>
           <% end %>
-          <% if !@product.disable_room_type %>
-            <td><%= variant.room_type %></td>
+
+          <% unless @product.disable_departure_date %>
+            <td><%=variant.departure_date.try(:strftime, "%Y-%m-%d") %></td>
           <% end %>
-          <% if !@product.disable_departure_date %>
-            <td>
-              <%=variant.departure_date.try(:strftime, "%Y-%m-%d") %>
-            </td>
-          <% end %>
-          <% if !@product.disable_package_option %>
-            <td><%= variant.package_option %></td>
-          <% end %>
-          <% if !@product.disable_accommodation %>
+
+          <% unless @product.disable_accommodation %>
             <td><%= variant.accommodation %></td>
           <% end %>
+
+          <% unless @product.disable_room_type %>
+            <td><%= variant.room_type %></td>
+          <% end %>
+
+          <% unless @product.disable_package_option %>
+            <td><%= variant.package_option %></td>
+          <% end %>
+          
+          <td><%= variant.price %></td>
           <td><%= variant.item_code %></td>
           <td><%= variant.supplier_product_code %></td>
           <td><%= variant.updated_at.strftime("%F") %></td>
