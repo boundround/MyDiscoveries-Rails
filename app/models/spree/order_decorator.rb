@@ -124,15 +124,37 @@ Spree::Order.class_eval do
   end
   # method to update hubspot deals
   def send_to_hubspot
-    hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.customer)
+    if self.customer.present?
+      person = self.customer
+      #get hubspot_id – needed for creating deal
+      hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(person)
     
-    if self.authorized == true 
-      dealstage = ENV['HUBSPOT_STAGE_ID_ORDER_RECEIVED']
-    else
-      dealstage = ENV['HUBSPOT_STAGE_ID_ABANDONED_CART']
-    end
+      #check if payment is received? 
+      if self.authorized == true 
+        dealstage = ENV['HUBSPOT_STAGE_ID_ORDER_RECEIVED']
+      else
+        dealstage = ENV['HUBSPOT_STAGE_ID_ABANDONED_CART']
+      end
 
-    HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage)
+      # if deal id exists – update deal otherwise create new deal
+
+      # HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage)
+    elsif self.user.present?
+      person = self.user
+      #get hubspot_id – needed for creating deal
+      hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(person)
+    
+      #check if payment is received? 
+      if self.authorized == true 
+        dealstage = ENV['HUBSPOT_STAGE_ID_ORDER_RECEIVED']
+      else
+        dealstage = ENV['HUBSPOT_STAGE_ID_ABANDONED_CART']
+      end
+
+      # HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage)
+    else
+      return 
+    end
   end
 
   private
