@@ -1,15 +1,8 @@
 class HubspotService::Send
   def self.user_to_hubspot_and_retrieve_hubspot_id(user)
     # TODO: change env variables and uncomment Rails.env.development? 
-    #unless Rails.env.development?
+    # unless Rails.env.development?
       if user.email.present?
-        Hubspot::Contact.create_or_update!([
-          { email: user.email,
-            firstname: user.first_name.blank? ? user.email : user.first_name,
-            lastname: user.last_name,
-            phone: user.mobile.blank? ? user.home_phone : user.mobile
-          }
-        ])
         hubspot_id = Hubspot::Contact.find_by_email(user.email).vid #find the Hubspot user id (called vid)
         return hubspot_id
       end
@@ -19,10 +12,16 @@ class HubspotService::Send
   def self.order_to_hubspot(order, hubspot_id, dealstage)
     # TODO: change env variables and uncomment Rails.env.development? 
     #unless Rails.env.development?
+      deal_hubspot_id = ENV['HUBSPOT_DEFAULT_VID']
+
+      if hubspot_id != ENV['HUBSPOT_DEFAULT_VID']
+        deal_hubspot_id = hubspot_id
+      end
+
       response = Hubspot::Deal.create!(
         ENV['HUBSPOT_PORTAL_ID'], 
         ENV['HUBSPOT_COMPANY_ID'], 
-        hubspot_id,{
+        deal_hubspot_id,{
           "amount" =>  order.total, 
           "description" => order.line_items[0].variant.product.description,
           "dealname" => order.line_items[0].variant.product.name,

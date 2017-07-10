@@ -124,11 +124,9 @@ Spree::Order.class_eval do
   end
   # method to update hubspot deals
   def send_to_hubspot
-    if self.customer.present?
-      person = self.customer
-      #get hubspot_id – needed for creating deal
-      hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(person)
-    
+    if self.customer.present? #if customer is not a user then use the default ID to create order  
+      hubspot_id = ENV['HUBSPOT_DEFAULT_VID']
+
       #check if payment is received? 
       if self.authorized == true 
         dealstage = ENV['HUBSPOT_STAGE_ID_ORDER_RECEIVED']
@@ -136,24 +134,24 @@ Spree::Order.class_eval do
         dealstage = ENV['HUBSPOT_STAGE_ID_ABANDONED_CART']
       end
 
-      # if deal id exists – update deal otherwise create new deal
+      #create hubspot deals
+      HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage)
 
-      # HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage)
-    elsif self.user.present?
-      person = self.user
-      #get hubspot_id – needed for creating deal
-      hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(person)
+    # elsif self.user.present? #if user is present find the hubspot id by email
+    #   hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.user)
     
-      #check if payment is received? 
-      if self.authorized == true 
-        dealstage = ENV['HUBSPOT_STAGE_ID_ORDER_RECEIVED']
-      else
-        dealstage = ENV['HUBSPOT_STAGE_ID_ABANDONED_CART']
-      end
+    #   #check if payment is received? 
+    #   if self.authorized == true 
+    #     dealstage = ENV['HUBSPOT_STAGE_ID_ORDER_RECEIVED']
+    #   else
+    #     dealstage = ENV['HUBSPOT_STAGE_ID_ABANDONED_CART']
+    #   end
 
-      # HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage)
+    #   # create hubspot deal
+    #   HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage)
+
     else
-      return 
+      return "ERROR"
     end
   end
 
