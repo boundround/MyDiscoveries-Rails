@@ -10,7 +10,29 @@
       html: { class: 'customer_form' }) do |of|
     %>
       <div class="checkout-form">
-        <h2 class="title"> Order details </h2>
+        <h2 class="title"> Details </h2>
+
+        <div class="form-group sm">
+          <div class="control-group string optional">
+            <%= label_tag :order_type do %>
+              <%= radio_button_tag :order_type, :new_order, true %>
+              <%= 'New Order' %>
+            <% end %>
+            <%= label_tag :order_type do %>
+              <%= radio_button_tag :order_type, :created_order, false %>
+              <%= 'Select created order' %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group sm selected-order-form hidden">
+          <div class="control-group string optional">
+            <%= label_tag :selected_order, 'Add to order (Only with px_payment state)' %>
+            <%= select_tag :selected_order,
+              options_from_collection_for_select(@orders, :id, :miscellaneous_charge_label)
+            %>
+          </div>
+        </div>
 
         <div class="form-group sm">
           <div class="control-group string optional">
@@ -19,6 +41,7 @@
               required: true,
               min: 0.01,
               step: 0.5,
+              label: 'Amount',
               input_html: {
                 class: 'width100',
                 value: number_with_precision(of.object.total.to_f, precision: 2)
@@ -139,7 +162,7 @@
         <% end %>
         <div class="btns-block">
           <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
-            <span>Create Order</span>
+            <span>Process Order</span>
           <% end %>
         </div>
       </div>

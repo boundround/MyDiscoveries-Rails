@@ -39,7 +39,7 @@
     email_page: email_page,
     order:      order,
     customer:   customer,
-    collection: order.line_items
+    collection: order.line_items.not_miscellaneous_charges
   %>
   <tbody>
   <% if !email_page %>
