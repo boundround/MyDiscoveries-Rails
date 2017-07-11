@@ -18,7 +18,6 @@ class HubspotService::Send
   def self.order_to_hubspot(order, hubspot_id, dealstage, deal_id)
     # TODO: change env variables and uncomment Rails.env.development? 
     #unless Rails.env.development
-    # TODO: need to create or update instead of just create
     if deal_id.present? == true
       deal = Hubspot::Deal.find(deal_id)
       response = deal.update!(
