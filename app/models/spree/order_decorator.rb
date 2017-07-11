@@ -143,20 +143,28 @@ Spree::Order.class_eval do
         response = HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage,"")
         @hubspot_deal_id = response
       end
-    # elsif self.user.present? #if user is present find the hubspot id by email
-    #   hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.user)
+    elsif self.user.present? #if user is present find the hubspot id by email
+      hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.user)
     
-    #   #check if payment is received? 
-    #   if self.authorized == true 
-    #     dealstage = ENV['HUBSPOT_STAGE_ID_ORDER_RECEIVED']
-    #   else
-    #     dealstage = ENV['HUBSPOT_STAGE_ID_ABANDONED_CART']
-    #   end
+      #check if payment is received? 
+      if self.authorized == true 
+        dealstage = ENV['HUBSPOT_STAGE_ID_ORDER_RECEIVED']
+      else
+        dealstage = ENV['HUBSPOT_STAGE_ID_ABANDONED_CART']
+      end
 
-    #   # create hubspot deal
-    #   HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage)
+      # create hubspot deal
+      if @hubspot_deal_id.present? == true
+        #update 
+        response = HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage,@hubspot_deal_id)
+        @hubspot_deal_id = response
+      else
+        #create hubspot deals
+        response = HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage,"")
+        @hubspot_deal_id = response
+      end
     else
-      return "ERROR"
+      return "ERROR CREATING HUBSPOT DEAL"
     end
   end
 

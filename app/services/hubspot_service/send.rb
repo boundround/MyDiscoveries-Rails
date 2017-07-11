@@ -3,6 +3,12 @@ class HubspotService::Send
     # TODO: change env variables and uncomment Rails.env.development? 
     # unless Rails.env.development?
       if user.email.present?
+        Hubspot::Contact.create_or_update!([
+          { email: user.email,
+            firstname: user.first_name.blank? ? user.email : user.first_name,
+            lastname: user.last_name
+          }
+        ])
         hubspot_id = Hubspot::Contact.find_by_email(user.email).vid #find the Hubspot user id (called vid)
         return hubspot_id
       end
@@ -14,10 +20,9 @@ class HubspotService::Send
     #unless Rails.env.development
     # TODO: need to create or update instead of just create
     if deal_id.present? == true
-      response = Hubspot::Deal.update!(
-        ENV['HUBSPOT_PORTAL_ID'], 
-        ENV['HUBSPOT_COMPANY_ID'], 
-        hubspot_id,{
+      deal = Hubspot::Deal.find(deal_id)
+      response = deal.update!(
+      {
           "amount" =>  order.total, 
           "description" => order.line_items[0].variant.product.description,
           "dealname" => order.line_items[0].variant.product.name,
