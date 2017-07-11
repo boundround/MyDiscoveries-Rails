@@ -37,7 +37,7 @@
                 <tr>
                   <td>Total price</td>
                   <td>
-                    $<%= total_line_item_price(line_item) %>
+                    <%= number_to_currency(total_line_item_price(line_item)) %>
                   </td>
                 </tr>
               </table>
