@@ -4,6 +4,14 @@ class VariantsController < ApplicationController
   before_action :set_variant,
     except: [:fill_packages_options, :new, :create, :index]
 
+  before_action :set_orders, only: [
+    :miscellaneous_charge, :process_miscellaneous_charge
+  ]
+
+  before_action :set_order, only: [
+    :miscellaneous_charge, :process_miscellaneous_charge
+  ]
+
   def show
   end
 
@@ -14,14 +22,13 @@ class VariantsController < ApplicationController
   end
 
   def miscellaneous_charge
-    @order    = Spree::Order.new
-    @order.build_customer
   end
 
   def process_miscellaneous_charge
     response = Order::ProcessMiscellaneousCharge.call(
       order_params,
       credit_card_params,
+      order_type_params,
       @variant
     )
 
@@ -92,6 +99,15 @@ class VariantsController < ApplicationController
     @variant = Spree::Variant.unscoped.find_by(product: @product, id: params[:id])
   end
 
+  def set_orders
+    @orders = Spree::Order.where(state: "px_payment")
+  end
+
+  def set_order
+    @order    = Spree::Order.new
+    @order.build_customer    
+  end
+
   def variant_params
     params.require(:variant).permit(
       :id,
@@ -115,6 +131,10 @@ class VariantsController < ApplicationController
       :accommodation,
       :featured
     )
+  end
+
+  def order_type_params
+    params.permit(:order_type, :selected_order)
   end
 
   def order_params

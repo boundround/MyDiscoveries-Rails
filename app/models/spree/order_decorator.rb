@@ -110,6 +110,10 @@ end
     add_ons.map(&:amount).reduce(:+) || 0
   end
 
+  def miscellaneous_charge_label
+    "#{ax_sales_id} (#{user.first_name} #{user.last_name})"
+  end
+
   # overrides Spree method
   def update!
     updater.update

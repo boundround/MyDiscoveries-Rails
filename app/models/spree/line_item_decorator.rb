@@ -5,6 +5,12 @@ Spree::LineItem.class_eval do
 
   after_commit :check_passengers, on: :update
 
+  scope :not_miscellaneous_charges,
+    -> {
+      includes(:variant).
+        where(spree_variants: { miscellaneous_charges: false }) 
+    }
+
   def total_price
     if request_installments?
       single_money_with_add_ons.money.to_f * quantity / 5.0
