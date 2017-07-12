@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :photos, through: :photos_users
   has_many :videos_users
   has_many :videos, through: :videos_users
+  has_many :authors_users
+  has_many :authors, through: :authors_users
   has_many :places_users
   has_many :favorite_places, through: :places_users, source: :place
   has_many :attractions_users
