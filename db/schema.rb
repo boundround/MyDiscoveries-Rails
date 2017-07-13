@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706011540) do
+ActiveRecord::Schema.define(version: 20170710235319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,7 +112,6 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.integer  "primary_category_id"
     t.text     "focus_keyword"
     t.text     "seo_title"
-    t.string   "tag_line"
   end
 
   add_index "attractions", ["country_id"], name: "index_attractions_on_country_id", using: :btree
@@ -157,6 +156,22 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.integer "user_id"
     t.integer "attraction_id"
   end
+
+  create_table "authors", force: true do |t|
+    t.string   "name"
+    t.string   "link"
+    t.string   "image"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "authors_users", force: true do |t|
+    t.integer "author_id"
+    t.integer "user_id"
+  end
+
+  add_index "authors_users", ["author_id", "user_id"], name: "index_authors_users_on_author_id_and_user_id", unique: true, using: :btree
 
   create_table "average_caches", force: true do |t|
     t.integer  "rater_id"
@@ -456,7 +471,6 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.integer  "attraction_id"
     t.integer  "fun_factable_id"
     t.string   "fun_factable_type"
-    t.string   "url"
   end
 
   add_index "fun_facts", ["area_id"], name: "index_fun_facts_on_area_id", using: :btree
@@ -890,6 +904,7 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.boolean  "is_area",                   default: false
     t.text     "meta_description"
     t.string   "weather_conditions"
+    t.integer  "primary_category_id"
     t.integer  "minimum_age"
     t.integer  "maximum_age"
     t.text     "special_requirements"
@@ -910,7 +925,6 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.boolean  "is_country",                default: false
     t.boolean  "show_in_mega_menu",         default: false
     t.string   "tags",                      default: [],    array: true
-    t.string   "tag_line"
   end
 
   add_index "places", ["area_id"], name: "index_places_on_area_id", using: :btree
@@ -918,6 +932,7 @@ ActiveRecord::Schema.define(version: 20170706011540) do
   add_index "places", ["country_id"], name: "index_places_on_country_id", using: :btree
   add_index "places", ["display_name"], name: "index_places_on_display_name", using: :btree
   add_index "places", ["parent_id"], name: "index_places_on_parent_id", using: :btree
+  add_index "places", ["primary_category_id"], name: "index_places_on_primary_category_id", using: :btree
   add_index "places", ["slug"], name: "index_places_on_slug", using: :btree
   add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
 
@@ -1503,6 +1518,7 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.json     "ax_data",                                                    default: {}
     t.boolean  "miscellaneous_charges",                                      default: false
     t.text     "description"
+    t.string   "hubspot_id",                                                 default: ""
   end
 
   add_index "spree_orders", ["approver_id"], name: "index_spree_orders_on_approver_id", using: :btree
@@ -1696,8 +1712,8 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.string   "itinerary"
     t.boolean  "test_product",                                                  default: false
     t.string   "departure_dates"
-    t.boolean  "add_on",                                                        default: false
     t.text     "other"
+    t.boolean  "add_on",                                                        default: false
     t.boolean  "disable_maturity",                                              default: false
     t.boolean  "disable_bed_type",                                              default: false
     t.boolean  "disable_room_type",                                             default: false
@@ -1708,6 +1724,7 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.string   "room_type_label",                                               default: ""
     t.string   "package_option_label",                                          default: ""
     t.text     "voucher_booking_essentials",                                    default: ""
+    t.string   "product_type",                                                  default: ""
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
@@ -2415,7 +2432,7 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.text     "meta_description"
     t.string   "hero_image"
     t.boolean  "featured",            default: false
-    t.string   "canonical_url"
+    t.integer  "author_id"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
@@ -2607,8 +2624,6 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.string   "spree_api_key",          limit: 48
     t.integer  "ship_address_id"
     t.integer  "bill_address_id"
-    t.string   "twitter_url"
-    t.string   "facebook_url"
     t.boolean  "guest",                             default: false
   end
 
