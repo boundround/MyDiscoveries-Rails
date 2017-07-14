@@ -36,8 +36,8 @@ class HubspotService::Send
           "instalments_selected" => order.line_items[0].request_installments,
           "md_operator" => order.line_items[0].variant.product.operator.name,
           "purchase_quantity" => order.line_items.length,
-          "supplier_product_code" => order.line_items[0].variant.supplier_product_code,
-          "order_info_link" => order.order_customer_info_path(order)
+          "supplier_product_code" => order.line_items[0].variant.supplier_product_code
+          # "order_info_link" => order.order_customer_info_path(self)
         })
       return response.deal_id
     else  
@@ -60,8 +60,8 @@ class HubspotService::Send
           "instalments_selected" => order.line_items[0].request_installments,
           "md_operator" => order.line_items[0].variant.product.operator.name,
           "purchase_quantity" => order.line_items.length,
-          "supplier_product_code" => order.line_items[0].variant.supplier_product_code,
-          "order_info_link" => order.order_customer_info_path(order)
+          "supplier_product_code" => order.line_items[0].variant.supplier_product_code
+          # "order_info_link" => order.order_customer_info_path(order)
         })
       return response.deal_id
     end
