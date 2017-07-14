@@ -121,8 +121,8 @@
         <%= f.input :number_of_nights, as: :integer, label: 'Number of Nights', input_html: { class: 'width100' } %>
       </div>
       <!-- Package, Cruise, Tour, Hotel/accommodation, Event, Other -->
-      <div class="form-group">
-        <%= f.input :product_type, as: :text, label: 'Product Type', input_html: { class: 'width100' } %> 
+      <div class="form-group"> 
+        <%= f.input :product_type, label: 'Holiday Type', as: :select, collection: ["Package", "Cruise", "Tour", "Hotel/accommodation", "Event", "Other"], input_html: { class: 'width100' } %>
       </div>
 
       <!-- <div class="form-group">
