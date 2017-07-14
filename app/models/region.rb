@@ -124,8 +124,8 @@ class Region < ActiveRecord::Base
   has_many :regions_stories
   has_many :stories, through: :regions_stories
 
-  has_many :offers_regions
-  has_many :offers, through: :offers_regions
+  # has_many :offers_regions
+  # has_many :offers, through: :offers_regions
 
   has_many :products_regions, class_name: Spree::ProductsRegion, dependent: :destroy
   has_many :products, through: :products_regions, class_name: Spree::Product
@@ -234,7 +234,7 @@ class Region < ActiveRecord::Base
           data_objs["#offer"] << data_offer_objs
           data_objs["#offer"] << ["#"]
         else
-          place.products.each do |place_offer|
+          # place.products.each do |place_offer|
             # latitude  = place_offer.latitudeStart.blank? ? place_offer.latitudeEnd.to_f : place_offer.latitudeStart.to_f
             # longitude = place_offer.longitudeStart.blank? ? place_offer.longitudeEnd.to_f : place_offer.longitudeStart.to_f
             # get_country = 'No Country'
@@ -243,15 +243,15 @@ class Region < ActiveRecord::Base
             #   query = Geocoder.search(geo_localization).first
             #   get_country = query.country
             # end
-            hero_photo_offer = place_offer.photos.where(hero: true)
-            data_offer_objs = {
-              "@country" => place.country.present?? place.country.display_name : "",
-              "@name" => place_offer.name,
-              "@photo_offer" => hero_photo_offer.present?? hero_photo_offer.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg"
-            }
-            data_objs["#offer"] << data_offer_objs
-            data_objs["#offer"] << ["#"]
-          end
+            # hero_photo_offer = place_offer.photos.where(hero: true)
+            # data_offer_objs = {
+            #   "@country" => place.country.present?? place.country.display_name : "",
+            #   "@name" => place_offer.name,
+            #   "@photo_offer" => hero_photo_offer.present?? hero_photo_offer.last.path_url(:thumb) : "/assets/generic-hero-thumb.jpg"
+            # }
+            # data_objs["#offer"] << data_offer_objs
+            # data_objs["#offer"] << ["#"]
+          # end
         end
 
         data_marker << data_objs
