@@ -1,3 +1,5 @@
+include Rails.application.routes.url_helpers
+
 class HubspotService::Send
   def self.user_to_hubspot_and_retrieve_hubspot_id(user)
     # TODO: change env variables and uncomment Rails.env.development? 
