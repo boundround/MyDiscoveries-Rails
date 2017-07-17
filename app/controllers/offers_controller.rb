@@ -140,28 +140,6 @@ class OffersController < ApplicationController
     @offers = Spree::Product.active.paginate(per_page: 4, page: params[:product_page])
   end
 
-  def clone
-    @offer = Spree::Product.find_by_slug(params[:id])
-    @clone_offer = @offer.deep_clone(
-      include: [
-        :photos,
-        :videos,
-        :regions,
-        :places,
-        :related_products,
-        :subcategories,
-        :variants,
-        :master
-      ]
-    )
-    if @clone_offer.save
-      redirect_to(edit_offer_path(@clone_offer), notice: 'Product succesfully duplicated')
-    else
-      flash.now[:alert] = 'Product not duplicated!'
-      render :edit
-    end
-  end
-
   def paginate_offers
     @featured_offers = Spree::Product.featured_products.paginate(per_page: 2, page: params[:featured_offers_page])
   end
