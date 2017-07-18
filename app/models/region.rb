@@ -234,15 +234,7 @@ class Region < ActiveRecord::Base
           data_objs["#offer"] << data_offer_objs
           data_objs["#offer"] << ["#"]
         else
-          place.products.each do |place_offer|
-            # latitude  = place_offer.latitudeStart.blank? ? place_offer.latitudeEnd.to_f : place_offer.latitudeStart.to_f
-            # longitude = place_offer.longitudeStart.blank? ? place_offer.longitudeEnd.to_f : place_offer.longitudeStart.to_f
-            # get_country = 'No Country'
-            # if (latitude and longitude)
-            #   geo_localization = "#{latitude},#{longitude}"
-            #   query = Geocoder.search(geo_localization).first
-            #   get_country = query.country
-            # end
+          place.products.active.each do |place_offer|
             hero_photo_offer = place_offer.photos.where(hero: true)
             data_offer_objs = {
               "@country" => place.country.present?? place.country.display_name : "",
