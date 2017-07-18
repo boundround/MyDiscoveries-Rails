@@ -15,7 +15,6 @@ class RegionsController < ApplicationController
     @fun_facts  = ''
     @fun_facts = @region.fun_facts
     @places_to_visit_map = @region.all_place_children
-    #@places_to_visit = @region.attractions.paginate(page: params[:places_to_visit_page], per_page: 3 )
     @place_to_go = @region.places.paginate(page: params[:places_to_go_page], per_page: 3 )
     @offers = @region.products.active.order(:name).paginate(page: params[:offers_page], per_page: 4)
   end
