@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="padding-top:50px;" id="table-container">
+      <table class="table table-striped" id="transactions-table">
+       <thead>
+          <tr>
+            <th>Name</th>
+            <th>Link</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Name</th>
+            <th>Link</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <% @authors.each do |author| %>
+            <tr>
+              <td><%= link_to "#{author.name} || #{author.id}", author_path(author) %></td>
+              <td><%= author.link %></td>
+              <td><%= image_tag(author.image.blank? ? 'https://dummyimage.com/200x200/000000/ffffff&text=no-image' : author.image.url(:thumb), size: '50x50') %></td>
+              <td><%= author.description %></td>
+              <td>
+                <%= link_to 'Edit', edit_author_path(author) %> | 
+                <%= link_to 'Destroy', author_path(author), method: :delete, data: { confirm: 'Are you sure?' } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<link href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css" type="text/css">

@@ -410,7 +410,8 @@ Rails.application.routes.draw do
   end
 
   resources :deals
-
+  resources :authors
+  
   resources :offers do
     member do
       get 'paginate_videos', as: :paginate_videos

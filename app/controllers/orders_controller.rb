@@ -251,7 +251,7 @@ class OrdersController < ApplicationController
     credit_card_valid     = @customer.credit_card.valid?
 
     if @customer.update(customer_params) && credit_card_valid
-      response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.credit_card, @order)
+      response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.credit_card, @order, nil)
       if response[:success]
         @order.next if @order.px_payment?
         flash[:notice] = response[:message]

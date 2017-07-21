@@ -7,7 +7,7 @@
         email_page: false,
         order:      order,
         customer:   customer,
-        collection: order.line_items
+        collection: order.line_items.not_miscellaneous_charges
       %>
     </table>
   </body>

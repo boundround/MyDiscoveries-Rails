@@ -1,7 +1,7 @@
 class Payment::PaymentExpress::ProcessAuthRequest
   include Service
 
-  initialize_with_parameter_assignment :credit_card, :order
+  initialize_with_parameter_assignment :credit_card, :order, :order_type
 
   def call
     process_request
@@ -40,7 +40,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def send_notification
-    if order.miscellaneous_charges?
+    if order.miscellaneous_charges? && new_order_type?
       MiscellaneousCharge.delay.notification(order.id)
     else
       OrderAuthorized.delay.notification(order.id)
@@ -178,6 +178,10 @@ class Payment::PaymentExpress::ProcessAuthRequest
       xml.AvsAction         address_verification_system
       xml.EnableAddBillCard '1'
     end
+  end
+
+  def new_order_type?
+    order_type == 'new_order'
   end
 
 end
