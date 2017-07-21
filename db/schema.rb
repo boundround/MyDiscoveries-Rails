@@ -157,6 +157,22 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.integer "attraction_id"
   end
 
+  create_table "authors", force: true do |t|
+    t.string   "name"
+    t.string   "link"
+    t.string   "image"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "authors_users", force: true do |t|
+    t.integer "author_id"
+    t.integer "user_id"
+  end
+
+  add_index "authors_users", ["author_id", "user_id"], name: "index_authors_users_on_author_id_and_user_id", unique: true, using: :btree
+
   create_table "average_caches", force: true do |t|
     t.integer  "rater_id"
     t.integer  "rateable_id"
@@ -2414,6 +2430,7 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.text     "meta_description"
     t.string   "hero_image"
     t.boolean  "featured",            default: false
+    t.integer  "author_id"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree

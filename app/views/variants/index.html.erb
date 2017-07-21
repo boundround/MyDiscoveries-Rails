@@ -114,75 +114,77 @@
     </tfoot>
     <tbody>
       <% @variants.each do |variant| %>
-        <tr>
-          <td>
-            <%= link_to(
-                variant_edit_link_label(variant),
-                edit_offer_variant_path(@product, variant)
-              )
-            %>
-          </td>
-
-          <% unless @product.disable_bed_type %>
-            <td><%= variant.bed_type %></td>
-          <% end %>
-
-          <% unless @product.disable_maturity %>
-            <td><%= variant.maturity %></td>
-          <% end %>
-
-          <% unless @product.disable_departure_city %>
-            <td><%= variant.departure_city %></td>
-          <% end %>
-
-          <% unless @product.disable_departure_date %>
-            <td><%=variant.departure_date.try(:strftime, "%Y-%m-%d") %></td>
-          <% end %>
-
-          <% unless @product.disable_accommodation %>
-            <td><%= variant.accommodation %></td>
-          <% end %>
-
-          <% unless @product.disable_room_type %>
-            <td><%= variant.room_type %></td>
-          <% end %>
-
-          <% unless @product.disable_package_option %>
-            <td><%= variant.package_option %></td>
-          <% end %>
-          
-          <td><%= variant.price %></td>
-          <td><%= variant.item_code %></td>
-          <td><%= variant.supplier_product_code %></td>
-          <td><%= variant.updated_at.strftime("%F") %></td>
-          <td>
-            <%= link_to(
-                'Edit',
-                edit_offer_variant_path(@product, variant),
-                target: "_blank"
-              )
-            %>
-          </td>
-          <td>
-            <% if variant.miscellaneous_charges? %>
+        <% if variant.deleted_at.blank? %>
+          <tr>
+            <td>
               <%= link_to(
-                  'Miscellaneous Charge',
-                  miscellaneous_charge_offer_variant_path(@product, variant),
+                  variant_edit_link_label(variant),
+                  edit_offer_variant_path(@product, variant)
+                )
+              %>
+            </td>
+
+            <% unless @product.disable_bed_type %>
+              <td><%= variant.bed_type %></td>
+            <% end %>
+
+            <% unless @product.disable_maturity %>
+              <td><%= variant.maturity %></td>
+            <% end %>
+
+            <% unless @product.disable_departure_city %>
+              <td><%= variant.departure_city %></td>
+            <% end %>
+
+            <% unless @product.disable_departure_date %>
+              <td><%=variant.departure_date.try(:strftime, "%Y-%m-%d") %></td>
+            <% end %>
+
+            <% unless @product.disable_accommodation %>
+              <td><%= variant.accommodation %></td>
+            <% end %>
+
+            <% unless @product.disable_room_type %>
+              <td><%= variant.room_type %></td>
+            <% end %>
+
+            <% unless @product.disable_package_option %>
+              <td><%= variant.package_option %></td>
+            <% end %>
+
+            <td><%= variant.price %></td>
+            <td><%= variant.item_code %></td>
+            <td><%= variant.supplier_product_code %></td>
+            <td><%= variant.updated_at.strftime("%F") %></td>
+            <td>
+              <%= link_to(
+                  'Edit',
+                  edit_offer_variant_path(@product, variant),
                   target: "_blank"
                 )
               %>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to(
-                'Destroy',
-                offer_variant_path(@product, variant),
-                method: :delete,
-                data: { confirm: 'Are you sure?' }
-              )
-            %>
-          </td>
-        </tr>
+            </td>
+            <td>
+              <% if variant.miscellaneous_charges? %>
+                <%= link_to(
+                    'Miscellaneous Charge',
+                    miscellaneous_charge_offer_variant_path(@product, variant),
+                    target: "_blank"
+                  )
+                %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to(
+                  'Destroy',
+                  offer_variant_path(@product, variant),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' }
+                )
+              %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

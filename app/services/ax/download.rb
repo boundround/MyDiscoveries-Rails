@@ -85,7 +85,7 @@ class Ax::Download
   end
 
   def customer_phone_number
-    @customer_phone_number ||= shipping_address['PhoneNumber']
+    @customer_phone_number ||= shipping_address['PhoneNumber'] || '0'
   end
 
   def customer_city
@@ -163,6 +163,22 @@ class Ax::Download
       variant = Spree::Variant.joins(:product).
         where(spree_products: {:status => "live"}).
         find_by(item_code: line_item['ItemId'])
+      puts "***********************************************"
+      puts "***********************************************"
+      puts "***********************************************"
+      puts "***********************************************"
+      puts "***********************************************"
+      puts "VARIANT FOUND: #{variant.id}"
+      puts "VARIANT FOUND: #{variant.id}"
+      puts "VARIANT FOUND: #{variant.id}"
+      puts "VARIANT FOUND: #{variant.id}"
+      puts "VARIANT FOUND: #{variant.id}"
+      puts "***********************************************"
+      puts "***********************************************"
+      puts "***********************************************"
+      puts "***********************************************"
+      puts "***********************************************"
+      debugger
       order.contents.add(variant, line_item['Quantity'].to_i) if variant
     end
 
