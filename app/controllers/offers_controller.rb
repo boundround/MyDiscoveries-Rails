@@ -1,9 +1,9 @@
 class OffersController < ApplicationController
   before_action -> { check_user_authorization('Spree::Product') }, except: [
-    :show, :paginate_reviews, :paginate_media, :paginate_on_idx, :clone, :paginate_offers
+    :show, :paginate_reviews, :paginate_media, :paginate_on_idx, :paginate_offers
   ]
   before_action :set_offer, only: [
-    :show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :update_hero, :clone
+    :show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :update_hero
   ]
   before_action :set_media, only: [:show, :paginate_media]
 
@@ -138,28 +138,6 @@ class OffersController < ApplicationController
 
   def paginate_on_idx
     @offers = Spree::Product.active.paginate(per_page: 4, page: params[:product_page])
-  end
-
-  def clone
-    @offer = Spree::Product.find_by_slug(params[:id])
-    @clone_offer = @offer.deep_clone(
-      include: [
-        :photos,
-        :videos,
-        :regions,
-        :places,
-        :related_products,
-        :subcategories,
-        :variants,
-        :master
-      ]
-    )
-    if @clone_offer.save
-      redirect_to(edit_offer_path(@clone_offer), notice: 'Product succesfully duplicated')
-    else
-      flash.now[:alert] = 'Product not duplicated!'
-      render :edit
-    end
   end
 
   def paginate_offers
