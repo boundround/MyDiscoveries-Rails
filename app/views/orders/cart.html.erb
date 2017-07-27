@@ -98,7 +98,7 @@
                               <% if line_item.passengers_added? %>
                                 <span>Edit Passengers</span>
                               <% else %>
-                                <span>Add Passengers</span>
+                                <span>Checkout</span>
                               <% end %>
                           <% end %>
                         </div>
@@ -109,7 +109,7 @@
                                 variant_id: line_item.variant.id,
                                 quantity: line_item.quantity
                               ),
-                              class: 'btn-bordered red small invert cart-delete-product-btn',
+                              class: 'btn-bordered small cart-delete-product-btn',
                               method: :patch
                             ) do %>
                               <span>Delete</span>
@@ -130,12 +130,6 @@
                     <%= "Total: #{number_to_currency(@order.total)}" %>
                   </h4>
                   <div class='padding-top-30p'>
-                    <div class='inline-buttons'>
-                      <%= link_to empty_cart_path, method: :put,
-                        class: 'btn-bordered red invert' do %>
-                        <span>EMPTY CART</span>
-                      <% end %>
-                    </div>
                     <div class='inline-buttons'>
                       <%= link_to offers_path,
                         class: 'btn-bordered red invert' do %>
