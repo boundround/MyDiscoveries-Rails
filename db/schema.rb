@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706011540) do
+ActiveRecord::Schema.define(version: 20170710235319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1518,6 +1518,7 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.json     "ax_data",                                                    default: {}
     t.boolean  "miscellaneous_charges",                                      default: false
     t.text     "description"
+    t.string   "hubspot_id",                                                 default: ""
   end
 
   add_index "spree_orders", ["approver_id"], name: "index_spree_orders_on_approver_id", using: :btree
@@ -1723,6 +1724,7 @@ ActiveRecord::Schema.define(version: 20170706011540) do
     t.string   "room_type_label",                                               default: ""
     t.string   "package_option_label",                                          default: ""
     t.text     "voucher_booking_essentials",                                    default: ""
+    t.string   "product_type",                                                  default: ""
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree

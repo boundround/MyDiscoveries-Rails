@@ -77,7 +77,7 @@
             <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
           </div>
             <% unless last_page? @offers %>
-            <div class="row hidden-xs single-pagination-container" id="featured_offers-single-pagination-container">
+            <div class="row single-pagination-container" id="featured_offers-single-pagination-container">
               <div class="hidden single-pagination-loader" align="center">
                 <img src="<%= asset_path('loading.gif') %>" width="64" height="64">
               </div>
