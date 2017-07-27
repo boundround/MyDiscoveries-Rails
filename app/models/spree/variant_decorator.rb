@@ -59,7 +59,7 @@ Spree::Variant.class_eval do
     end
 
     if !product.disable_maturity
-      label << " Maturity: #{maturity.try(:capitalize)},"
+      label << " Adult/Child: #{maturity.try(:capitalize)},"
     end
 
     label.gsub(/\,$/, '')
