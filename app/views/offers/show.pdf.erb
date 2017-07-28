@@ -114,17 +114,11 @@
 
     <section class="essentials container">
       <div class="row">
-        <% if @offer.voucher_booking_essentials.blank? %>
-          <div class="col-xs-6">
-            <h3>BOOKING ESSENTIALS</h3>
-            <%= simple_format(@offer.customStr1) %>
-          </div>
-        <% else %>
-          <div class="col-xs-6">
-            <h3>BOOKING ESSENTIALS</h3>
-            <%= simple_format(@offer.voucher_booking_essentials) %>
-          </div>
-        <% end %>
+        <div class="col-xs-6">
+          <h3>BOOKING ESSENTIALS</h3>
+          <%= simple_format(@offer.voucher_booking_essentials) if @offer.voucher_booking_essentials.present? %>
+          <%= simple_format(@offer.customStr1) if @offer.customStr1.present? %>
+        </div>
         <% unless @offer.customStr3.blank? %>
           <div class="col-xs-6">
             <h3>FINE PRINT</h3>

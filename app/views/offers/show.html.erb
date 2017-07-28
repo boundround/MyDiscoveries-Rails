@@ -54,9 +54,10 @@
           <span class="hci-info"><%= simple_format(specialNotes_txt) %></span>
         </div>
         <div class="location">
-          <%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %>
+          <!-- TODO Remove booking essentials for vpoucher for this download (as opposed to customer voucher email attachment) -->
+          <%#= link_to 'download itinerary', offer_path(@offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %>
           <% if user_signed_in? and current_user.admin? %>
-            &nbsp;&nbsp;&nbsp;<%= link_to "Edit Offer", edit_offer_path(@offer) %>
+            <p><br>&nbsp;&nbsp;&nbsp;<%= link_to "Edit Offer", edit_offer_path(@offer) %></p>
           <% end %>
         </div>
       </div>
