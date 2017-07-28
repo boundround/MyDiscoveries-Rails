@@ -12,6 +12,7 @@
       <th>Start Date</th>
       <th>End Date</th>
       <th>Created At</th>
+      <th>Itinerary</th>
       <th>Edit Link</th>
       <th>Delete</th>
     </tr>
@@ -36,6 +37,7 @@
           <td><%= offer.startDate.try(:strftime, "%m-%d-%Y") %></td>
           <td><%= offer.endDate.try(:strftime, "%m-%d-%Y") %></td>
           <td><%= offer.created_at.strftime("%F") %></td>
+          <td><%= link_to 'download itinerary', offer_path(offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %></td>
           <td><%= link_to 'Edit offer', edit_offer_path(offer), target: "_blank" %></td>
           <td><%= link_to 'Destroy', offer_path(offer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

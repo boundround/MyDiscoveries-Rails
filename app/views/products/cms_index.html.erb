@@ -11,6 +11,7 @@
       <th>Operator</th>
       <th>Start Date</th>
       <th>End Date</th>
+      <th>Itinerary</th>
       <th>Created At</th>
       <th>Edit Link</th>
       <th>Delete</th>
@@ -35,6 +36,7 @@
           <td><%= product.operator.name %></td>
           <td><%= product.startDate.try(:strftime, "%m-%d-%Y") %></td>
           <td><%= product.endDate.try(:strftime, "%m-%d-%Y") %></td>
+          <td><%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %></td>
           <td><%= product.created_at.strftime("%F") %></td>
           <td><%= link_to 'Edit product', edit_product_path(product), target: "_blank" %></td>
           <td><%= link_to 'Destroy', product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
