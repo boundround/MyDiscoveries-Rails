@@ -198,7 +198,7 @@ module ApplicationHelper
       elsif  category.eql?("transport")
         page_title+" : Cableway Things To Do : MyDiscoveries"
       elsif  category.eql?("area")
-        page_title+" : Things To Do By Kids For Kids : MyDiscoveries"
+        page_title+" : Things To Do : MyDiscoveries"
       else
         page_title + " Things To Do : MyDiscoveries"
       end
@@ -210,15 +210,7 @@ module ApplicationHelper
   end
 
   def meta_description(title='', description='')
-    if title.blank? && description.blank?
-      "Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards."
-    elsif title.blank?
-      "#{description}"
-    elsif description.blank?
-      "#{title} - Find things for kids to do, reviews and activies to do in destinations around the world, see videos and share stories to earn points and redeem them for great rewards."
-    else
-      "#{title} - #{description}"
-    end
+    "MyDiscoveries: make one day today. Where over 50s can find holidays experiences they've always wanted to do"
   end
 
   def draw_hero_background(place)
@@ -272,7 +264,7 @@ module ApplicationHelper
   end
 
   def open_graph_image
-    placeholder = "https://blooming-earth-8066-herokuapp-com.global.ssl.fastly.net/assets/br_logo_new-30eb3b9bb0267503159d6cab93191844.png"
+    placeholder = "https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/logos/logo-full.svg"
 
     if @place && !@place.photos.blank?
       photo = @place.photos.first.path_url :large
