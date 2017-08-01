@@ -260,6 +260,7 @@ class OffersController < ApplicationController
       :disable_departure_city,
       :room_type_label,
       :package_option_label,
+      :per_adult_overwrite,
       :voucher_booking_essentials,
       { tags: [] },
       photos_attributes: [

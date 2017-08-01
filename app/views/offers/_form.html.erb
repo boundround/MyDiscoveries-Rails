@@ -71,6 +71,13 @@
       </div>
       <div class="row">
         <div class="col-md-4">
+          <div class="form-group">
+            <%= f.input :per_adult_overwrite, label: 'Overwrite "Per Adult" label', input_html: { class: "form-control" } %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
           <%= f.input :room_type_label, label: "Display Room Type As:", :input_html => { class: 'form-control' } %>
         </div>
         <div class="col-md-4">

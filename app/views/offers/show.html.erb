@@ -48,7 +48,7 @@
             </span>
           <% end %>
           <div class="info-text">
-            <%= @offer.disable_package_option && @offer.package_option_label.blank? ? "Per Adult" : "Per Package" %>
+            <%= @offer.per_adult_overwrite.present? ? @offer.per_adult_overwrite : "Per Adult" %>
           </div>
           <% specialNotes_txt = @offer.specialNotes.blank? ? '' : @offer.specialNotes.gsub(/\r?\n/, '') %>
           <span class="hci-info"><%= simple_format(specialNotes_txt) %></span>

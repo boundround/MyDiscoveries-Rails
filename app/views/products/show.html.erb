@@ -37,7 +37,7 @@
                       <span class="xs-invisible"><%= create_duration(@product) %></span>
                   </span>
                 <% end %>
-                <div class="info-text">Per Adult</div>
+                <div class="info-text"><%= @product.per_adult_overwrite.present? @product.per_adult_overwrite : "Per Adult" %></div>
                 <!-- <span class="hci-people">
                     <span>2</span>
                     <span class="xs-invisible">people</span>
