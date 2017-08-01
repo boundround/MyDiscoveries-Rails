@@ -281,7 +281,7 @@ class Story < ActiveRecord::Base
   def hero_image_url
     if hero_image.present?
       if hero_image.is_a?(Photo)
-        hero_image.path_url(:medium)
+        hero_image.path_url(:large)
       else
         hero_image.url
       end

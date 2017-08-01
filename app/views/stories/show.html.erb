@@ -1,8 +1,8 @@
 <% provide(:title, @story.title) %>
 <% provide(:category, @story.teaser) %>
 <% provide(:description, @story.description) %>
-<% provide(:og_image, @story.hero_image.url.gsub("https://", "http://")) rescue "" %>
-<% provide(:og_secure_image, @story.hero_image.try(:url)) %>
+<% provide(:og_image, @story.hero_image_url.gsub("https://", "http://")) rescue "" %>
+<% provide(:og_secure_image, @story.hero_image_url) %>
 <!-- KEEP THE CODE ABOVE -->
 <div class="story">
     <div class="story-content-block width-limiter">
