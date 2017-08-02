@@ -1726,7 +1726,6 @@ ActiveRecord::Schema.define(version: 20170801061151) do
     t.text     "voucher_booking_essentials",                                    default: ""
     t.string   "product_type",                                                  default: ""
     t.string   "per_adult_overwrite",                                           default: ""
-    t.string   "product_type",                                                  default: ""
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
@@ -2354,6 +2353,7 @@ ActiveRecord::Schema.define(version: 20170801061151) do
     t.string   "package_option"
     t.string   "accommodation"
     t.datetime "departure_date"
+    t.boolean  "featured",                                       default: false
   end
 
   add_index "spree_variants", ["deleted_at"], name: "index_spree_variants_on_deleted_at", using: :btree
