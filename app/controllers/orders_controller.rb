@@ -252,13 +252,12 @@ class OrdersController < ApplicationController
 
     if @customer.update(customer_params) && credit_card_valid
       response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.credit_card, @order, nil)
+      Hubspot::SendDealWorker.perform_async(@order.id)
       if response[:success]
-        send_to_hubspot
         @order.next if @order.px_payment?
         flash[:notice] = response[:message]
         redirect_to order_confirmation_path(@order)
       else
-        send_to_hubspot
         flash.now[:alert] = response[:message]
         render :checkout
       end
