@@ -8,12 +8,11 @@ Spree::Order.class_eval do
   belongs_to :approver,   class_name: 'User'
   belongs_to :canceler,   class_name: 'User'
 
-  after_update :send_to_hubspot
-
   has_many :passengers
   has_many :add_ons, through: :line_items
 
   after_commit :set_ax_sales_id!, on: :create
+  after_save :send_to_hubspot, on: [ :create, :update ] if :check_if_customer_is_present 
 
   accepts_nested_attributes_for :passengers
   accepts_nested_attributes_for :line_items
@@ -122,10 +121,26 @@ Spree::Order.class_eval do
       total: self.reload.amount + self.reload.adjustments.eligible.sum(:amount)
     )
   end
+
+  def check_if_customer_is_present?
+    if self.customer.is_present? 
+      return true
+    else
+      return false
+    end
+  end
+
   # method to update hubspot deals
   def send_to_hubspot
+    hubspot_id = ""
     if self.customer.present? #&& self.user.blank? #if customer is not a user then use the default ID to create order  
-      hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.customer)
+      #find the Hubspot user id (called vid)
+      hubspot_id = Hubspot::Contact.find_by_email(self.customer.email).vid
+
+      #if not present then create new hubspot id and assigned the new id to hubspot_id
+      if hubspot_id.is_present? != true
+        hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.customer)
+      end
 
       #check if payment is received? 
       if self.authorized == true 
@@ -136,12 +151,10 @@ Spree::Order.class_eval do
 
       if @hubspot_deal_id.present? == true
         #update 
-        response = HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage,@hubspot_deal_id)
-        @hubspot_deal_id = response
+        HubspotService::Send.order_to_hubspot(self, hubspot_id, dealstage, @hubspot_deal_id)
       else
         #create hubspot deals
-        response = HubspotService::Send.order_to_hubspot(self, hubspot_id,dealstage,"")
-        @hubspot_deal_id = response
+        HubspotService::Send.order_to_hubspot(self, hubspot_id, dealstage, "")
       end
     else
       return "ERROR CREATING HUBSPOT DEAL"
