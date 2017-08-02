@@ -364,6 +364,7 @@ class OrdersController < ApplicationController
       :start_date,
       :request_installments,
       :coupon_code,
+      :hubspot_id,
       line_items_attributes: [
         :id,
         :quantity,
@@ -386,7 +387,7 @@ class OrdersController < ApplicationController
       :country,
       :state,
       :postal_code,
-      :is_primary
+      :is_primary,
     )
   end
 
@@ -398,7 +399,7 @@ class OrdersController < ApplicationController
       :request_installments,
       :maturity,
       :bed_type,
-      :departure_city
+      :departure_city,
     )
   end
 

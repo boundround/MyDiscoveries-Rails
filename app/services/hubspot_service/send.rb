@@ -18,6 +18,7 @@ class HubspotService::Send
         deal_hubspot_id = hubspot_id
       end
 
+    # TODO: need to create or update instead of just create
       response = Hubspot::Deal.create!(
         ENV['HUBSPOT_PORTAL_ID'], 
         ENV['HUBSPOT_COMPANY_ID'], 
@@ -39,6 +40,7 @@ class HubspotService::Send
           "purchase_quantity" => order.line_items.length,
           "supplier_product_code" => order.line_items[0].variant.supplier_product_code
         })
+      return response.deal_id
     #end
   end
 end
