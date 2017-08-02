@@ -253,10 +253,12 @@ class OrdersController < ApplicationController
     if @customer.update(customer_params) && credit_card_valid
       response = Payment::PaymentExpress::ProcessAuthRequest.call(@customer.credit_card, @order, nil)
       if response[:success]
+        send_to_hubspot
         @order.next if @order.px_payment?
         flash[:notice] = response[:message]
         redirect_to order_confirmation_path(@order)
       else
+        send_to_hubspot
         flash.now[:alert] = response[:message]
         render :checkout
       end
@@ -266,6 +268,43 @@ class OrdersController < ApplicationController
   end
 
   def edit
+  end
+
+    # method to update hubspot deals
+  def send_to_hubspot
+    hubspot_id = ""
+    if @order.customer.present? #&& self.user.blank? #if customer is not a user then use the default ID to create order  
+      #find the Hubspot user id (called vid)
+      response = Hubspot::Contact.find_by_email(@order.customer.email)
+
+      if response.nil? == false
+        hubspot_id = response.vid
+      end
+
+      #if not present then create new hubspot id and assigned the new id to hubspot_id
+      if hubspot_id.blank? == true
+        HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(@order.customer)
+        hubspot_id = Hubspot::Contact.find_by_email(@order.customer.email).vid 
+      end
+
+      #check if payment is received? 
+      if @order.authorized == true 
+        dealstage = ENV['HUBSPOT_STAGE_ID_ORDER_RECEIVED']
+      else
+        dealstage = ENV['HUBSPOT_STAGE_ID_ABANDONED_CART']
+      end
+
+      if @hubspot_deal_id.present? == true
+        #update 
+        response = HubspotService::Send.order_to_hubspot(@order, hubspot_id, dealstage, @hubspot_deal_id) 
+      else
+        #create hubspot deals
+        response = HubspotService::Send.order_to_hubspot(@order, hubspot_id, dealstage, "")
+        @hubspot_deal_id = response
+      end
+    else
+      return "ERROR CREATING HUBSPOT DEAL"
+    end
   end
 
   def add_passengers
@@ -400,6 +439,7 @@ class OrdersController < ApplicationController
       :maturity,
       :bed_type,
       :departure_city,
+      :hubspot_id
     )
   end
 

@@ -9,8 +9,7 @@ class HubspotService::Send
             lastname: user.last_name
           }
         ])
-        hubspot_id = Hubspot::Contact.find_by_email(user.email).vid #find the Hubspot user id (called vid)
-        return hubspot_id
+        #find the Hubspot user id (called vid)
       end
     #end
   end

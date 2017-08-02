@@ -12,7 +12,6 @@ Spree::Order.class_eval do
   has_many :add_ons, through: :line_items
 
   after_commit :set_ax_sales_id!, on: :create
-  after_save :send_to_hubspot, on: [ :create, :update ] if :check_if_customer_is_present 
 
   accepts_nested_attributes_for :passengers
   accepts_nested_attributes_for :line_items
