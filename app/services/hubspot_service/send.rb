@@ -1,6 +1,5 @@
 
 class HubspotService::Send
-  include Rails.application.routes.url_helpers
   
   def self.user_to_hubspot_and_retrieve_hubspot_id(user)
     # TODO: change env variables and uncomment Rails.env.development? 
@@ -40,7 +39,7 @@ class HubspotService::Send
           "md_operator" => order.line_items[0].variant.product.operator.name,
           "purchase_quantity" => order.line_items.length,
           "supplier_product_code" => order.line_items[0].variant.supplier_product_code,
-          "order_info_link" => order_customer_info_path(order, :host => "www.mydiscoveries.com.au")
+          "order_info_link" => Rails.application.routes.url_helpers.order_customer_info_path(order, :host => "www.mydiscoveries.com.au")
         })
       return response.deal_id
     else  
@@ -64,7 +63,7 @@ class HubspotService::Send
           "md_operator" => order.line_items[0].variant.product.operator.name,
           "purchase_quantity" => order.line_items.length,
           "supplier_product_code" => order.line_items[0].variant.supplier_product_code,
-          "order_info_link" => order_customer_info_path(order, :host => "www.mydiscoveries.com.au")
+          "order_info_link" => Rails.application.routes.url_helpers.order_customer_info_path(order, :host => "www.mydiscoveries.com.au")
         })
       return response.deal_id
     end

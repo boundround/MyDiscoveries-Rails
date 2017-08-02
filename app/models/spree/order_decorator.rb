@@ -137,7 +137,7 @@ Spree::Order.class_eval do
       hubspot_id = Hubspot::Contact.find_by_email(self.customer.email).vid
 
       #if not present then create new hubspot id and assigned the new id to hubspot_id
-      if hubspot_id.is_present? != true
+      if hubspot_id.present? != true
         hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.customer)
       end
 

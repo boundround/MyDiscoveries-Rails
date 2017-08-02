@@ -275,7 +275,6 @@ class OrdersController < ApplicationController
     if @order.customer.present? #&& self.user.blank? #if customer is not a user then use the default ID to create order  
       #find the Hubspot user id (called vid)
       response = Hubspot::Contact.find_by_email(@order.customer.email)
-
       if response.nil? == false
         hubspot_id = response.vid
       end
@@ -283,7 +282,7 @@ class OrdersController < ApplicationController
       #if not present then create new hubspot id and assigned the new id to hubspot_id
       if hubspot_id.blank? == true
         HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(@order.customer)
-        hubspot_id = Hubspot::Contact.find_by_email(@order.customer.email).vid 
+        hubspot_id = Hubspot::Contact.find_by_email(@order.customer.email).vid
       end
 
       #check if payment is received? 
