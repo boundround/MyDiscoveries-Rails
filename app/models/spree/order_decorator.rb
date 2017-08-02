@@ -8,6 +8,7 @@ Spree::Order.class_eval do
   belongs_to :approver,   class_name: 'User'
   belongs_to :canceler,   class_name: 'User'
 
+  after_update :send_to_hubspot
 
   has_many :passengers
   has_many :add_ons, through: :line_items
@@ -53,14 +54,14 @@ Spree::Order.class_eval do
   end
 
   def ax_line_items
-  items = ax_data.try(:[], 'Envelope').
-    try(:[], 'Order').
-    try(:[], 'Items').
-    try(:[], 'Item')
+    items = ax_data.try(:[], 'Envelope').
+      try(:[], 'Order').
+      try(:[], 'Items').
+      try(:[], 'Item')
 
-  return [] if items.blank?
-  items.is_a?(Hash) ? [items] : items
-end
+    return [] if items.blank?
+    items.is_a?(Hash) ? [items] : items
+  end
 
   def set_cart_state!
     update(state: 'cart') unless cart?
@@ -120,6 +121,18 @@ end
     update(
       total: self.reload.amount + self.reload.adjustments.eligible.sum(:amount)
     )
+  end
+  # method to update hubspot deals
+  def send_to_hubspot
+    hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.customer)
+    
+    if self.authorized == true 
+      dealstage = "orderreceived" #change this later
+    else
+      dealstage = "abandonedcart"
+    end
+
+    HubspotService::Send.order_to_hubspot(self.customer.email, hubspot_id,dealstage)
   end
 
   private

@@ -200,6 +200,7 @@ group :development do
   gem 'byebug'
   gem 'bullet'
   gem 'quiet_assets'
+  gem "awesome_print", require:"ap"
 end
 
 
