@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801061151) do
+ActiveRecord::Schema.define(version: 20170807045830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1223,6 +1223,7 @@ ActiveRecord::Schema.define(version: 20170801061151) do
     t.boolean  "show_embroidery",    default: false
     t.string   "embroidery_options"
     t.string   "item_code",          default: ""
+    t.boolean  "active",             default: false
   end
 
   add_index "spree_add_ons", ["product_id"], name: "index_spree_add_ons_on_product_id", using: :btree
@@ -1724,8 +1725,9 @@ ActiveRecord::Schema.define(version: 20170801061151) do
     t.string   "room_type_label",                                               default: ""
     t.string   "package_option_label",                                          default: ""
     t.text     "voucher_booking_essentials",                                    default: ""
-    t.string   "product_type",                                                  default: ""
     t.string   "per_adult_overwrite",                                           default: ""
+    t.string   "product_type",                                                  default: ""
+    t.string   "marketing_headline",                                            default: ""
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
