@@ -1,8 +1,10 @@
 <div class="row">
   <% if @competitions.size == 1 %>
-    <a class="comp-hero" href="<%= @competitions.first.url%>">
-      <img src="<%= showing_image(@competitions.first.image_url(:large)) %>" />
-    </a>
+    <div class="col-md-12 text-center">
+      <a class="comp-hero" href="<%= @competitions.first.url%>">
+        <img src="<%= showing_image(@competitions.first.image_url(:large)) %>" />
+      </a>
+    </div>
   <% else %>
     <% @competitions.each do |comp| %>
       <div class="col-md-12 text-center">
