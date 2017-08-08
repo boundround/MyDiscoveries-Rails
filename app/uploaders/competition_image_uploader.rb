@@ -14,8 +14,15 @@ class CompetitionImageUploader < CarrierWave::Uploader::Base
   end
 
   # Process files as they are uploaded:
-  process :resize_to_fit => [500, 500]
   process :quality => 70
+
+  version :small do
+    process :resize_to_fit => [500, 500]
+  end
+
+  version :large do
+    process :resize_to_fit => [1400, 1400]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -23,3 +30,4 @@ class CompetitionImageUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg gif png)
   end
 end
+

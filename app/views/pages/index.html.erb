@@ -92,6 +92,14 @@
   <% end %>
 </div>
 
+<div class="container">
+  <div class="row">
+    <% if @competitions.present? %>
+      <%= render 'competitions' %>
+    <% end %>
+  </div>
+</div>
+
 <div class="section-white padding-medium">
   <div class="container">
     <div class="row">
