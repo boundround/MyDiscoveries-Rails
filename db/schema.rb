@@ -1,13 +1,4 @@
-              <li class="dropdown">
-                <a class="dropdown-toggle" type="button" data-toggle="dropdown">
-                  Promotions
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><%= link_to 'All Promotions', promotions_path %></li>
-                  <li><%= link_to 'New Promotion', new_promotion_path %></li>
-                </ul>
-              </li># encoding: UTF-8
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
