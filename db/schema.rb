@@ -1724,8 +1724,8 @@ ActiveRecord::Schema.define(version: 20170801061151) do
     t.string   "room_type_label",                                               default: ""
     t.string   "package_option_label",                                          default: ""
     t.text     "voucher_booking_essentials",                                    default: ""
-    t.string   "product_type",                                                  default: ""
     t.string   "per_adult_overwrite",                                           default: ""
+    t.string   "product_type",                                                  default: ""
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree

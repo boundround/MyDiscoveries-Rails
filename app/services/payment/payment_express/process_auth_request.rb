@@ -48,12 +48,13 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def update_order
+    debugger
     order.update(
       authorized:    true,
       px_response:   px_response_json,
       purchase_date: purchase_date,
       completed_at:  purchase_date,
-      user:          order.user || user_from_db || new_user
+      user:          user_from_db || new_user
     )
   end
 
