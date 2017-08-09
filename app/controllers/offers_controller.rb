@@ -262,6 +262,7 @@ class OffersController < ApplicationController
       :package_option_label,
       :per_adult_overwrite,
       :voucher_booking_essentials,
+      :marketing_headline,
       :product_type,
       { tags: [] },
       photos_attributes: [

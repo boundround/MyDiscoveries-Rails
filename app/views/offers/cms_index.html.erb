@@ -6,6 +6,7 @@
     <thead>
     <tr>
       <th>Offer</th>
+      <th>Marketing Headline</th>
       <th>SKU</th>
       <th>Status</th>
       <th>Operator</th>
@@ -20,6 +21,7 @@
     <tfoot>
       <tr>
         <th>Offer</th>
+        <th>Marketing Headline</th>
         <th>SKU</th>
         <th>Operator</th>
         <th>Created At</th>
@@ -31,6 +33,7 @@
     <% @offers.each do |offer| %>
         <tr>
           <td><%= link_to "#{offer.name} || #{offer.id}", edit_offer_path(offer) %></td>
+          <td><%= offer.marketing_headline %></td>
           <td><%= offer.item_id + " / " + offer.child_item_id %></td>
           <td><%= offer.status %></td>
           <td><%= offer.operator.name %></td>
