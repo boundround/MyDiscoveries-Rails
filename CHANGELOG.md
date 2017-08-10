@@ -1,5 +1,6 @@
 # ** Unreleased **
 
+# ** 10/08/2017 **
 Bugs Fixed
 - Fix customer_id on orders sent to Innovations AX
 
