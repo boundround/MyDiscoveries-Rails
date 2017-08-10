@@ -16,7 +16,6 @@ class Payment::PaymentExpress::ProcessAuthRequest
         end
       end
     end
-
     response
   end
 
@@ -48,7 +47,6 @@ class Payment::PaymentExpress::ProcessAuthRequest
   end
 
   def update_order
-    debugger
     order.update(
       authorized:    true,
       px_response:   px_response_json,
@@ -184,5 +182,4 @@ class Payment::PaymentExpress::ProcessAuthRequest
   def new_order_type?
     order_type == 'new_order'
   end
-
 end

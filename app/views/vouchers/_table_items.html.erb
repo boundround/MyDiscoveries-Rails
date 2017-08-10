@@ -1,22 +1,91 @@
 <tbody class="js-print-vouchers" style="<%= (pdf_page) ? 'page-break-inside: avoid; display: block;' : '' %>" id="not-print">
-  <% if !pdf_page %>
-    <td colspan="2" style="padding: 0">
-      <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
-    </td>
-  <% end %>
   <% collection.each_with_index do |line_item, index| %>
     <tr class="<%= index == 0 ? '' : 'add-page-break' %> " style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>">
       <tr>
-        <td colspan="2" style="padding: 40px 40px 0px;">
-          <% if pdf_page || email_page %>
-            <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.png') %>" style="width: 230px;">
-          <% else %>
-            <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.svg') %>" style="width: 230px;">
-          <% end %>
+        <td colspan="2" style="padding: 20px 40px;">
+        <span style="font-family: Arial; font-weight: bold; font-size: 18px">Dear <%= customer.full_name %>,</span>
+        <br>
+        <p style="font-family: Arial; font-size: 16px; margin-top: 5px">Thank you for booking with MyDiscoveries. Your booking details are listed below. Enjoy your trip!
+        </p>
         </td>
       </tr>
       <tr>
         <td style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 18px">Booking details</span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 0px 40px">
+          <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Name</span>
+        </td>
+        <td>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= customer.full_name %>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Address</span>
+        </td>
+        <td>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%=
+              "#{customer.address_one}, \
+              #{customer.city} #{customer.state}, \
+              #{customer.country_name}, \
+              #{customer.postal_code}"
+            %>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Customer No.</span><br>
+        </td>
+        <td>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= customer.uniq_number %>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Purchase Date</span>
+        </td>
+        <td>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= order.purchase_date.try(:strftime, "%d/%m/%Y") %>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Offer Description</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
+            <%= line_item.product.description %>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Valid Until</span>
+        </td>
+        <td>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%= line_item.product.validityEndDate.try(:strftime, "%d/%m/%Y") %>
+          </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px">Booking Reference</span><br>
           <span style="font-family: 'Georgia'; font-size: 26px">
             <%= "#{line_item.order.ax_sales_id}-#{index + 1}" %>
@@ -24,7 +93,7 @@
         </td>
         <td style="padding: 20px 40px; text-align: right; vertical-align: top;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px">
-            <%= "Voucher #{index + 1} of #{collection.count}" %>
+            <%= "Package #{index + 1}" %>
           </span>
         </td>
       </tr>
@@ -42,6 +111,7 @@
           </span>
         </td>
       </tr>
+
       <tr>
         <td colspan="2" style="padding: 0 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Name</span>
@@ -75,64 +145,11 @@
           </p>
         </td>
       </tr>
-    </tr>
-    <% if !pdf_page %>
+
       <tr>
         <td colspan="2" style="padding: 0">
           <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
         </td>
-      <tr>
-    <% end %>
-  <% end %>
-  <% if pdf_page %>
-  <% order.products.uniq.each do |product| %>
-    <tr style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>" >
-      <tr>
-        <td colspan="2" style="padding: 40px 40px 30px; padding-bottom: 15px;">
-          <span style="font-family: 'Georgia'; font-size: 26px">
-            Tour information
-          </span>
-          <br>
-          <span style="font-family: Arial; font-weight: bold; font-size: 20px;">
-            <%= product.name %>
-          </span>
-        </td>
       </tr>
-      <tr>
-        <td colspan="2" style="padding: 0 40px 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-            Operator name
-          </span>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= product.operator.name %>
-          </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-            Contact number
-          </span>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= product.operator.phone %>
-          </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-            Inclusions
-          </span>
-          <ul style="margin: 0;padding-left: 0;list-style: none;margin-bottom: 15px; margin-top: 10px;">
-            <%= simple_format product.includes %>
-          </ul>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-            Fine Print
-          </span>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
-            <%= simple_format product.customStr3 %>
-          </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">
-            Booking Essentials
-          </span>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0; margin-bottom: 5px;">
-            <%= simple_format product.customStr1 %>
-          </p>
-        </td>
-      </tr>
-    <% end %>
-  </tr>
   <% end %>
 </tbody>
