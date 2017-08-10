@@ -107,7 +107,6 @@ GEM
       execjs
     awesome_nested_set (3.0.3)
       activerecord (>= 4.0.0, < 5)
-    awesome_print (1.8.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -778,7 +777,6 @@ DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
   algoliasearch-rails
   authority
-  awesome_print
   better_errors
   binding_of_caller
   bootstrap-glyphicons
