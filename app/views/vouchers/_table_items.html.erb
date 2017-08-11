@@ -11,7 +11,7 @@
       </tr>
       <tr>
         <td colspan="3" style="padding: 8px 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 18px">Booking details</span>
+          <span style="font-family: Arial; font-weight: bold; font-size: 18px">Booking Details</span>
         </td>
       </tr>
       <tr>
@@ -87,38 +87,45 @@
         </td>
       </tr>
       <tr>
+        <td colspan="3" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 18px;">Your Purchase Details</span>
+        </td>
+      </tr>
+      <tr>
         <td colspan="3" style="padding: 0px 40px">
           <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
         </td>
       </tr>
+
       <tr>
-        <td colspan="3" style="padding: 20px 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Your purchase details</span>
+        <td colspan="1" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Holiday Name</span> 
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
+            <%= line_item.variant.name %>
+          </p>
+        </td>
+        <td colspan="1" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Quantity</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
+            <%= line_item.quantity %>
+          </p>       
+        </td>
+        <td colspan="1" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Total Price</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
+            <%= number_to_currency(line_item.amount) %>
+          </p>            
         </td>
       </tr>
       <tr>
-        <td colspan="1" style="padding: 20px 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Test</span>          
-        </td>
-        <td colspan="1" style="padding: 20px 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Test</span>          
-        </td>
-        <td colspan="1" style="padding: 20px 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Test</span>          
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3" style="padding: 20px 40px;">
+        <td colspan="3" style="padding: 10px 40px;">
           <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
         </td>
       </tr>
       <tr>
         <td colspan="3" style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">How to book</span>
-          <p style="font-family: Arial; font-size: 16px; margin-top:5px">
-            Booking Essentials
-          </p>
-          <span style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
+          <span style="font-family: Arial; font-size: 16px; margin-top: 0;">
             <%= simple_format line_item.variant.product.customStr1 %>
           </span>
         </td>
@@ -135,7 +142,12 @@
       </tr>
       <tr>
         <td colspan="2" style="padding: 0px 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Additional information</span>
+          <span style="font-family: Arial; font-weight: bold; font-size: 18px;">Additional Information</span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" style="padding: 10px 40px;">
+          <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
         </td>
       </tr>
       <tr>
@@ -156,6 +168,15 @@
         </td>
       </tr>
       <tr>
+        <td colspan="3" style="padding: 40px; text-align: center;">
+          <% if email_page || !pdf_page %>
+            <a href="https://www.insureandgo.com.au/?affiliateid=384&promocode=discovery10&utm_source=MyDiscoveries&utm_medium=referral&utm_campaign=affiliate" target="_blank"><img src="<%= asset_url('assets/email_confirmation.jpg') %>" style="width: 300px;"></a>
+          <% else %>
+            <img src="<%= asset_url('assets/pdf_voucher.jpg') %>" style="width: 300px;">
+          <% end %>
+        </td>
+      </tr>
+      <tr>
         <td colspan="3" style="padding: 0px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Need help?</span>
         </td>
@@ -172,10 +193,10 @@
       </tr>
       <tr>
         <td colspan="3" style="padding: 8px 40px;">
-        <span style="font-family: Arial; font-weight: bold; font-size: 16px">Cancellations</span>
-        <br>
-        <p style="font-family: Arial; font-size: 16px; margin-top: 5px">If you are no longer able to travel and would like a refund or if you would simply prefer to change your travel dates, please contact <a href='mailto:bookings@mydiscoveries.com.au'>bookings@mydiscoveries.com.au</a> and our customer support team will provide further guidance.
-        </p>
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px">Cancellations</span>
+          <br>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 5px">If you are no longer able to travel and would like a refund or if you would simply prefer to change your travel dates, please contact <a href='mailto:bookings@mydiscoveries.com.au'>bookings@mydiscoveries.com.au</a> and our customer support team will provide further guidance.
+          </p>
         </td>
       </tr>
       <tr>
