@@ -1223,7 +1223,6 @@ ActiveRecord::Schema.define(version: 20170807045830) do
     t.boolean  "show_embroidery",    default: false
     t.string   "embroidery_options"
     t.string   "item_code",          default: ""
-    t.boolean  "active",             default: false
   end
 
   add_index "spree_add_ons", ["product_id"], name: "index_spree_add_ons_on_product_id", using: :btree

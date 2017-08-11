@@ -105,7 +105,7 @@ class VariantsController < ApplicationController
 
   def set_order
     @order    = Spree::Order.new
-    @order.build_customer    
+    @order.build_customer
   end
 
   def variant_params

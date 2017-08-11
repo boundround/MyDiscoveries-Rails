@@ -19,25 +19,25 @@ class OffersController < ApplicationController
 
     if !@offer.disable_maturity?
       @maturities = @offer.variants.
-        map{ |v| v.maturity.try(:titleize) }.compact.uniq
+        map{ |v| v.maturity }.compact.uniq
     end
     if !@offer.disable_bed_type?
       @bed_types = @offer.variants.
-        map{ |v| v.bed_type.try(:titleize) }.compact.uniq
+        map{ |v| v.bed_type }.compact.uniq
     end
     if !@offer.disable_room_type?
       @room_types = @offer.variants.
-        map{ |v| v.room_type.try(:titleize) }.compact.uniq
+        map{ |v| v.room_type }.compact.uniq
     end
 
     if !@offer.disable_departure_city?
       @departure_cities = @offer.variants.
-        map{ |v| v.departure_city.try(:titleize) }.compact.uniq
+        map{ |v| v.departure_city }.compact.uniq
     end
 
     if !@offer.disable_package_option?
       @package_options  = @offer.variants.
-        map{ |v| v.package_option.try(:titleize) }.compact.uniq
+        map{ |v| v.package_option }.compact.uniq
     end
 
     if !@offer.disable_departure_date?
@@ -47,7 +47,7 @@ class OffersController < ApplicationController
 
     if !@offer.disable_accommodation?
       @accommodations   = @offer.variants.
-        map{ |v| v.accommodation.try(:titleize) }.compact.uniq
+        map{ |v| v.accommodation }.compact.uniq
     end
 
     respond_to do |format|
