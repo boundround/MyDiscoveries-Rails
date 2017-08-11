@@ -2,7 +2,7 @@
   <% collection.each_with_index do |line_item, index| %>
     <tr class="<%= index == 0 ? '' : 'add-page-break' %> " style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>">
       <tr>
-        <td colspan="2" style="padding: 20px 40px;">
+        <td colspan="3" style="padding: 8px 40px;">
         <span style="font-family: Arial; font-weight: bold; font-size: 18px">Dear <%= customer.full_name %>,</span>
         <br>
         <p style="font-family: Arial; font-size: 16px; margin-top: 5px">Thank you for booking with MyDiscoveries. Your booking details are listed below. Enjoy your trip!
@@ -10,33 +10,38 @@
         </td>
       </tr>
       <tr>
-        <td style="padding: 20px 40px;">
+        <td colspan="3" style="padding: 8px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 18px">Booking details</span>
         </td>
       </tr>
       <tr>
-        <td colspan="2" style="padding: 0px 40px">
+        <td colspan="3" style="padding: 0px 40px">
           <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
         </td>
       </tr>
 
+      <td style="padding: 8px 40px;">
+        <span style="font-family: Arial; font-weight: bold; font-size: 16px">
+          <%= "Package #{index + 1}" %>
+        </span>
+      </td>
       <tr>
-        <td style="padding: 20px 40px;">
+        <td colspan="1" style="padding: 8px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Name</span>
         </td>
         <td>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= customer.full_name %>
+          <p colspan="2" style="font-family: Arial; font-size: 16px; margin-top: 0">
+            <%=": " + customer.full_name %>
           </p>
         </td>
       </tr>
       <tr>
-        <td style="padding: 20px 40px;">
+        <td colspan="1" style="padding: 8px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Address</span>
         </td>
         <td>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%=
+            <%= ": " + 
               "#{customer.address_one}, \
               #{customer.city} #{customer.state}, \
               #{customer.country_name}, \
@@ -46,44 +51,25 @@
         </td>
       </tr>
       <tr>
-        <td style="padding: 20px 40px;">
+        <td style="padding: 8px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Customer No.</span><br>
         </td>
         <td>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= customer.uniq_number %>
+            <%= ": " + customer.uniq_number %>
           </p>
         </td>
       </tr>
       <tr>
-        <td style="padding: 20px 40px;">
+        <td style="padding: 8px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Purchase Date</span>
         </td>
         <td>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= order.purchase_date.try(:strftime, "%d/%m/%Y") %>
+            <%= ": " +  order.purchase_date.try(:strftime, "%d/%m/%Y") %>
           </p>
         </td>
       </tr>
-      <tr>
-        <td colspan="2" style="padding: 20px 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Offer Description</span>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
-            <%= line_item.product.description %>
-          </p>
-        </td>
-      </tr>
-      <tr>
-        <td style="padding: 20px 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Valid Until</span>
-        </td>
-        <td>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= line_item.product.validityEndDate.try(:strftime, "%d/%m/%Y") %>
-          </p>
-        </td>
-      </tr>
-
       <tr>
         <td colspan="2" style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px">Booking Reference</span><br>
@@ -91,14 +77,13 @@
             <%= "#{line_item.order.ax_sales_id}-#{index + 1}" %>
           </span>
         </td>
-        <td style="padding: 20px 40px; text-align: right; vertical-align: top;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px">
-            <%= "Package #{index + 1}" %>
-          </span>
-        </td>
       </tr>
       <tr>
-        <td colspan="2" style="padding: 40px; padding-bottom: 15px;">
+        <td colspan="2" style="padding: 0px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Holiday Name</span>
+        </td>
+      <tr>
+        <td colspan="2" style="padding: 8px 40px; padding-bottom: 15px;">
           <span style="font-family: 'Georgia'; font-size: 26px">
             <%= line_item.product.name %>
             <% if line_item.add_ons.any? %>
@@ -106,48 +91,68 @@
             <% end %>
           </span>
           <br>
-          <span style="font-family: Arial; font-weight: bold; font-size: 20px;">
-            <%= "Qty: #{line_item.quantity} / #{number_to_currency(line_item.amount)}" %><br>
-          </span>
         </td>
       </tr>
-
       <tr>
-        <td colspan="2" style="padding: 0 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Name</span>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= customer.full_name %>
-          </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Address</span>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%=
-              "#{customer.address_one}, \
-              #{customer.city} #{customer.state}, \
-              #{customer.country_name}, \
-              #{customer.postal_code}"
-            %>
-          </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">MyDiscoveries Customer No.</span><br>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= customer.uniq_number %>
-          </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Purchase Date</span>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= order.purchase_date.try(:strftime, "%d/%m/%Y") %>
-          </p>
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Offer Description</span>
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+        <td colspan="3" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Holiday Description</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <%= line_item.product.description %>
           </p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" style="padding: 0px 40px">
+          <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Your purchase details</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="1" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Test</span>          
+        </td>
+        <td colspan="1" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Test</span>          
+        </td>
+        <td colspan="1" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Test</span>          
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="3" style="padding: 20px 40px;">
+          <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="3" style="padding: 20px 40px;">
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">How to book</span>
+          <p style="font-family: Arial; font-size: 16px; margin-top: 5px"><%= simple_format(line_item.offer.voucher_booking_essentials) if @offer.voucher_booking_essentials.present? %>
+          </p>
+            
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Valid Until</span>
+        </td>
+        <td>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-            <%= line_item.product.validityEndDate.try(:strftime, "%d/%m/%Y") %>
+            <%= ": " + line_item.product.validityEndDate.try(:strftime, "%d/%m/%Y") %>
           </p>
         </td>
       </tr>
 
       <tr>
-        <td colspan="2" style="padding: 0">
+        <td colspan="3" style="padding: 20px 40px;">
           <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
         </td>
       </tr>
