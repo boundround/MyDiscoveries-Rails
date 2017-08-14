@@ -1,6 +1,12 @@
 # ** Unreleased **
+
+Bugs Fixed
+New Features
+
+#**14/08/2017**
 New features
 - Redesign of Voucher and PDF attachment / Download Itinerary
+- Download Itinerary added back to products page ("Booking essentials for voucher" removed)
 
 # ** 10/08/2017 **
 Bugs Fixed
