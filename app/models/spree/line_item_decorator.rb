@@ -35,6 +35,40 @@ Spree::LineItem.class_eval do
     add_ons.pluck(:name).join(', ')
   end
 
+  def product_options
+    options = ""
+
+    unless product.disable_room_type
+      options << variant.room_type.titleize + '/'
+    end
+
+    unless product.disable_maturity
+      options << variant.maturity.titleize + '/'
+    end
+
+    unless product.disable_bed_type
+      options << variant.bed_type.titleize + '/'
+    end
+
+    unless product.disable_departure_city
+      options << variant.departure_city.titleize + '/'
+    end
+
+    unless product.disable_departure_date
+      options << variant.departure_date.titleize + '/'
+    end
+
+    unless product.disable_package_option
+      options << variant.package_option.titleize + '/'
+    end
+
+    if options[-1] == '/'
+      options = options[0...-1]
+    end
+
+    options
+  end
+
   private
 
   def check_passengers
