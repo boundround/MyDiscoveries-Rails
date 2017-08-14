@@ -1,6 +1,7 @@
 class CompetitionsController < ApplicationController
   before_action :set_competition, only: [:show, :edit, :update, :destroy]
-
+  before_action :check_user_authorization, only: [:index, :create, :new, :update, :edit, :destroy]
+    
   # GET /competitions
   # GET /competitions.json
   def index
