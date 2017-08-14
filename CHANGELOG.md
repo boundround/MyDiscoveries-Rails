@@ -2,7 +2,6 @@
 New features
 - Redesign of Voucher and PDF attachment / Download Itinerary
 
-
 # ** 10/08/2017 **
 Bugs Fixed
 - Fix customer_id on orders sent to Innovations AX
