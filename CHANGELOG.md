@@ -1,4 +1,11 @@
 # ** Unreleased **
+New features
+- Redesign of Voucher and PDF attachment / Download Itinerary
+
+# ** 13/08/2017
+Bugs Fixed
+- Meta Description for Stories is back on the stories/edit page.
+
 
 # ** 10/08/2017 **
 Bugs Fixed
