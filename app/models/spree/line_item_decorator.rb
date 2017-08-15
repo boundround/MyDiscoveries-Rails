@@ -39,31 +39,27 @@ Spree::LineItem.class_eval do
     options = ""
 
     unless product.disable_room_type
-      options << variant.room_type.titleize + '/'
+      options << '<li>' + variant.room_type.titleize + '</li>'
     end
 
     unless product.disable_maturity
-      options << variant.maturity.titleize + '/'
+      options << '<li>' + variant.maturity.titleize + '</li>'
     end
 
     unless product.disable_bed_type
-      options << variant.bed_type.titleize + '/'
+      options << '<li>' + variant.bed_type.titleize + '</li>'
     end
 
     unless product.disable_departure_city
-      options << variant.departure_city.titleize + '/'
+      options << '<li>' + variant.departure_city.titleize + '</li>'
     end
 
     unless product.disable_departure_date
-      options << variant.departure_date.titleize + '/'
+      options << '<li>' + variant.departure_date.titleize + '</li>'
     end
 
     unless product.disable_package_option
-      options << variant.package_option.titleize + '/'
-    end
-
-    if options[-1] == '/'
-      options = options[0...-1]
+      options << '<li>' + variant.package_option.titleize + '</li>'
     end
 
     options

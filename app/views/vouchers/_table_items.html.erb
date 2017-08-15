@@ -70,11 +70,7 @@
       <tr>
         <td colspan="3" style="padding: 8px 40px; padding-bottom: 15px;">
           <span style="font-family: 'Georgia'; font-size: 26px">
-            <%= line_item.product.name %><br>
-            <%= line_item.product_options %>
-            <% if line_item.add_ons.any? %>
-              <%= " (+ #{line_item.add_on_names}) " %>
-            <% end %>
+            <%= line_item.product.name %>
           </span>
           <br>
         </td>
@@ -100,10 +96,9 @@
       <!-- TODO: Add ons in here --> 
       <tr>
         <td colspan="1" style="padding: 20px 40px;">
-          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Holiday Name</span> 
+          <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Purchased Options</span> 
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
-            <%= line_item.variant.name %><br>
-            <%= line_item.product_options %>
+            <ul><%= simple_format(line_item.product_options) %></ul>
           </p>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <% if line_item.add_ons.any? %>
