@@ -10,7 +10,7 @@ class Customer < ActiveRecord::Base
   attr_accessor :credit_card
 
   def full_name
-    "#{title} #{first_name} #{last_name}"
+    "#{title.titleize} #{first_name} #{last_name}"
   end
 
   # CustAccount for Innovations
