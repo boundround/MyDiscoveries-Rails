@@ -2,6 +2,7 @@
 ## ** Unreleased **
 
 ### Bugs Fixed
+- Fixed strange color on hover of "download itinerary" link on confirmation page
 ### New Features
 
 ## **14/08/2017**
