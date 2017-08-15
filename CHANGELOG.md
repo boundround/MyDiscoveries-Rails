@@ -4,6 +4,7 @@
 ### Bugs Fixed
 - Fixed strange color on hover of "download itinerary" link on confirmation page
 ### New Features
+- New status of private available on Offers. Allow AX to process orders that are not live.
 
 ## **14/08/2017**
 ### New features
