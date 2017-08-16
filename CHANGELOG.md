@@ -1,8 +1,10 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
 
+## **16/08/2017**
 ### Bugs Fixed
 ### New Features
+- Added Traveller Feedback Survey to posts and link in footer
 
 ## **15/08/2017**
 ### Bugs Fixed
