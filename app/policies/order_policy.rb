@@ -43,6 +43,10 @@ class OrderPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def edit_confirmation?
+    user.admin?
+  end
+
   def customer_info?
     user.admin?
   end
