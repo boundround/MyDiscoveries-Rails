@@ -3,6 +3,7 @@
 
 ### Bugs Fixed
 ### New Features
+- Implement ability to update customer details attached to an order. 
 
 ## **15/08/2017**
 ### Bugs Fixed
