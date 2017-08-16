@@ -1,5 +1,8 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
+### Bugs Fixed
+- Fix inconsistent font on confirmation page
+### New Features
 
 ## **16/08/2017**
 ### Bugs Fixed
