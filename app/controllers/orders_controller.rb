@@ -51,7 +51,8 @@ class OrdersController < ApplicationController
     :update_line_items,
     :confirmation,
     :abandoned,
-    :edit_confirmation
+    :edit_confirmation,
+    :update_customer
   ]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -78,7 +79,8 @@ class OrdersController < ApplicationController
     :view_confirmation,
     :customer_info,
     :resend_confirmation,
-    :edit_confirmation
+    :edit_confirmation,
+    :update_customer
   ]
 
   before_action :apply_coupon_code
@@ -243,6 +245,12 @@ class OrdersController < ApplicationController
 
   def edit_confirmation
     @customer   = @order.customer
+  end
+
+  def update_customer
+    @customer   = @order.customer
+    @customer.save
+    redirect_to orders_url
   end
 
   def resend_confirmation
