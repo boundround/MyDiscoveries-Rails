@@ -3,6 +3,11 @@
 
 ## **16/08/2017**
 ### Bugs Fixed
+- Removed Booking Essentials from Voucher
+- Added Voucher Booking Essentials to Voucher
+- Added Accommodation Option to Voucher
+
+## **16/08/2017**
 ### New Features
 - Added Traveller Feedback Survey to posts and link in footer
 
