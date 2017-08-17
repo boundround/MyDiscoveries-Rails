@@ -53,6 +53,7 @@ class OrdersController < ApplicationController
     :abandoned,
     :edit_confirmation,
     :update_customer
+
   ]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -78,9 +79,7 @@ class OrdersController < ApplicationController
     :cms_edit,
     :view_confirmation,
     :customer_info,
-    :resend_confirmation,
-    :edit_confirmation,
-    :update_customer
+    :resend_confirmation
   ]
 
   before_action :apply_coupon_code
@@ -244,13 +243,19 @@ class OrdersController < ApplicationController
   end
 
   def edit_confirmation
-    @customer   = @order.customer
+    set_order_for_admin
+    @customer = @order.customer
   end
 
   def update_customer
-    @customer   = @order.customer
-    @customer.save
-    redirect_to orders_url
+    set_order_for_admin
+    @customer = @order.customer
+    if @customer.update(customer_params)
+      flash[:notice] = "Customer updated"
+      redirect_to orders_url
+    else
+      flash[:notice] = @customer.errors.full_messages.join(', ')
+    end
   end
 
   def resend_confirmation

@@ -478,7 +478,7 @@ Rails.application.routes.draw do
     as: :order_view_confirmation
   get 'orders/:id/edit_confirmation' => 'orders#edit_confirmation',
     as: :order_edit_confirmation
-  patch 'orders/:id/edit_confirmation' => 'orders#update_customer',
+  patch 'orders/:id/update_customer' => 'orders#update_customer',
     as: :order_update_customer
   get 'orders/:id/cms_edit' => 'orders#cms_edit',
     as: :order_cms_edit
