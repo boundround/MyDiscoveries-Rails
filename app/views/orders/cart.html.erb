@@ -35,12 +35,13 @@
                           <%= line_item.product.name %>
                           <% if line_item.product.add_ons.any? %>
                             <h5> Available Add-Ons</h5>
-                            <% line_item.product.add_ons.select{ |add_on| add_on.admin_only_active == false }.each do |add_on| %>
-                                <%= render 'orders/add_on', add_on: add_on, f: lnf %>
-                            <% end %>
                             <% if user_signed_in? && current_user.admin? %>
-                              <% line_item.product.add_ons.select{ |add_on| add_on.admin_only_active == true }.each do |add_on| %>
-                                  <%= render 'orders/add_on_admin', add_on: add_on, f: lnf %>
+                              <% line_item.product.add_ons.each do |add_on| %>
+                                  <%= render 'orders/add_on', add_on: add_on, f: lnf %>
+                              <% end %>
+                            <% else %>
+                              <% line_item.product.add_ons.select{ |add_on| add_on.admin_only_active == false }.each do |add_on| %>
+                                  <%= render 'orders/add_on', add_on: add_on, f: lnf %>
                               <% end %>
                             <% end %>
                           <% end %>
