@@ -58,7 +58,7 @@ class OrdersController < ApplicationController
 
   before_action :set_customer, only: [:checkout, :payment]
   before_action :set_user, only: [
-    :add_passengers, :update_passengers
+    :add_passengers, :update_passengers, :cart
   ]
 
   before_action :set_variants, only: [:add, :populate]
