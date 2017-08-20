@@ -2,6 +2,7 @@
 ## ** Unreleased **
 ### Bugs Fixed
 - Customer Title (Mr, Mrs, etc.) now capitalised on voucher
+- Competitions Card now centred on home page
 ### New Features
 - "As Per Passport" copy added to passenger details form
 - Voucher footer restyled
