@@ -1,11 +1,20 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
 ### Bugs Fixed
-- Fix inconsistent font on confirmation page
+- Fix inconsistent font on confirmation/voucher page
+- Customer Title (Mr, Mrs, etc.) now capitalised on voucher
+- Competitions Card now centred on home page
 ### New Features
+- "As Per Passport" copy added to passenger details form
+- Voucher footer restyled
 
 ## **16/08/2017**
 ### Bugs Fixed
+- Removed Booking Essentials from Voucher
+- Added Voucher Booking Essentials to Voucher
+- Added Accommodation Option to Voucher
+
+## **16/08/2017**
 ### New Features
 - Added Traveller Feedback Survey to posts and link in footer
 
