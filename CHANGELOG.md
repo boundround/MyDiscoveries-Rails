@@ -1,5 +1,10 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
+### Bugs Fixed
+- Customer Title (Mr, Mrs, etc.) now capitalised on voucher
+### New Features
+- "As Per Passport" copy added to passenger details form
+- Voucher footer restyled
 
 ## **16/08/2017**
 ### Bugs Fixed
