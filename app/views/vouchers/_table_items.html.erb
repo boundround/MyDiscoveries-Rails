@@ -97,9 +97,9 @@
       <tr>
         <td colspan="1" style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Purchased Options</span> 
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
-            <ul><%= simple_format(line_item.product_options) %></ul>
-          </p>
+          <ul style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
+            <%= simple_format(line_item.product_options) %>
+          </ul>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <% if line_item.add_ons.any? %>
               <%= " (+ #{line_item.add_on_names}) " %>

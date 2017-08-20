@@ -1,6 +1,7 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
 ### Bugs Fixed
+- Fix inconsistent font on confirmation/voucher page
 - Customer Title (Mr, Mrs, etc.) now capitalised on voucher
 - Competitions Card now centred on home page
 ### New Features
