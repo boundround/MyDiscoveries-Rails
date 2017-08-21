@@ -1,0 +1,70 @@
+<div class="checkout-page">
+  <div class="form-block">
+    <%= simple_form_for(@customer, url: order_update_customer_path, method: :patch, html: { class: 'customer_form' }) do |cf| %>
+      <div class="checkout-form">
+        <h2 class="title"> Customer information </h2>
+        <div class="customer-fields">
+          <div class="form-group customer-title">
+            <%= cf.input :title,
+              as: :select,
+              collection: Customer::TITLES,
+              include_blank: false,
+              label: false,
+              input_html: { class: "select optional form-control select2-hidden-accessible checkout-select-box" }
+            %>
+          </div>
+          <div class="form-group customer-first-name">
+            <%= cf.input :first_name, required: true, label: false, placeholder: 'First name' %>
+          </div>
+          <div class="form-group customer-last-name">
+            <%= cf.input :last_name, required: true, label: false, placeholder: 'Last name' %>
+          </div>
+          <div class="form-group sm">
+            <div class="control-group string optional">
+              <%= cf.input :email, as: :email, required: true, label: false, placeholder: 'your@mail.com' %>
+            </div>
+          </div>
+          <div class="form-group sm">
+            <div class="control-group string optional">
+              <%= cf.input :phone_number, as: :tel, required: true, label: false, placeholder: 'Phone number' %>
+            </div>
+          </div>
+          <div class="form-group sm">
+            <div class="control-group string optional">
+              <%= cf.country_select :country, priority_countries: ['AU', 'US'],
+                required: true,
+                label: false,
+                include_blank: false,
+                input_html: { class: "select optional form-control select2-hidden-accessible checkout-select-box" } %>
+            </div>
+          </div>
+          <div class="form-group sm">
+            <div class="control-group string optional">
+              <%= cf.input :address_one, as: :string, required: true, label: false, placeholder: 'First address' %>
+            </div>
+          </div>
+          <div class="form-group sm">
+            <div class="control-group string optional">
+              <%= cf.input :address_two, as: :string, label: false, placeholder: 'Second address' %>
+            </div>
+          </div>
+          <div class="form-group customer-city">
+            <%= cf.input :city, required: true, label: false, placeholder: 'City' %>
+          </div>
+          <div class="form-group customer-state">
+            <%= cf.input :state, required: true, label: false, placeholder: 'State' %>
+          </div>
+          <div class="form-group customer-postal-code">
+            <%= cf.input :postal_code, required: true, label: false, placeholder: 'Postal Code' %>
+          </div>
+        </div>
+        <div>
+          <%= button_tag(type: 'submit', class: 'btn btn-primary no-border') do %>
+            <span>Update customer</span>
+          <% end %>
+        </div>
+        <%= link_to 'Back', orders_path, class: 'btn btn-primary'%>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -50,7 +50,10 @@ class OrdersController < ApplicationController
     :payment,
     :update_line_items,
     :confirmation,
-    :abandoned
+    :abandoned,
+    :edit_confirmation,
+    :update_customer
+
   ]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -237,6 +240,22 @@ class OrdersController < ApplicationController
   def view_confirmation
     redirect_to :back unless @order.completed?
     @customer   = @order.customer
+  end
+
+  def edit_confirmation
+    set_order_for_admin
+    @customer = @order.customer
+  end
+
+  def update_customer
+    set_order_for_admin
+    @customer = @order.customer
+    if @customer.update(customer_params)
+      flash[:notice] = "Customer updated"
+      redirect_to orders_url
+    else
+      flash[:notice] = @customer.errors.full_messages.join(', ')
+    end
   end
 
   def resend_confirmation

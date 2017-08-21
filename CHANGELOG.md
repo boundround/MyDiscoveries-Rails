@@ -1,6 +1,8 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
 ### Bugs Fixed
+### New Features
+- Implement ability to update customer details attached to an order.
 - Fix inconsistent font on confirmation/voucher page
 - Customer Title (Mr, Mrs, etc.) now capitalised on voucher
 - Competitions Card now centred on home page
