@@ -17,7 +17,7 @@
         <th>Total Price</th>
         <th>Resend Confirm</th>
         <th>View Confirm</th>
-        <th>Edit Confirm</th>
+        <th>Edit Customer Info</th>
       </tr>
       </thead>
       <tfoot>
@@ -63,7 +63,7 @@
             <td><%= link_to "Resend Confirmation", order_resend_confirmation_path(order) %></td>
             <td><%= link_to "View Confirmation", order_view_confirmation_path(order) %>
             </td>
-            <td><%= link_to "Edit Confirmation", order_edit_confirmation_path(order) %></td>
+            <td><%= link_to "Edit Customer Info", order_edit_confirmation_path(order) %></td>
           </tr>
         <% end %>
       </tbody>
