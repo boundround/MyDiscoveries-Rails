@@ -62,6 +62,10 @@ Spree::LineItem.class_eval do
       options << '<li>' + variant.package_option.titleize + '</li>'
     end
 
+    unless product.disable_accommodation
+      options << '<li>' + variant.accommodation.titleize + '</li>'
+    end
+
     options
   end
 

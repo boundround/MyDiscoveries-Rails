@@ -91,14 +91,16 @@
     </div>
   <% end %>
 </div>
-
-<section>
-  <div class="container" style="justify-content: center">
-    <% if @competitions.present? %>
-      <%= render 'competitions' %>
-    <% end %>
+    
+<div class="package-offers padding-medium">
+  <div class="package-offers-block width-limiter">
+    <div class="row">
+      <% if @competitions.present? %>
+        <%= render 'competitions' %>
+      <% end %>
+    </div>
   </div>
-</section>
+</div>
 
 <div class="section-white padding-medium">
   <div class="container">

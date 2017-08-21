@@ -1,7 +1,7 @@
 <table style="background-color: #fff; width: 600px; margin: auto; border-collapse: collapse;" border="0">
   <% if email_page %>
     <tr>
-      <td colspan="2" style="font-family:'Rubik'; font-size: 16px; color: #fff; background-color: #000060; padding: 30px 0">
+      <td colspan="3" style="font-family:'Rubik'; font-size: 16px; color: #fff; background-color: #000060; padding: 30px 0">
         Having trouble viewing this email? View it in your
         <%= link_to 'browser',
           order_confirmation_url(id: order.number, order_token: order.guest_token),
@@ -11,7 +11,7 @@
     </tr>
   <% end %>
   <tr>
-    <td colspan="2" style="padding: 40px 40px 30px;">
+    <td colspan="3" style="padding: 40px 40px 30px;">
       <% if email_page %>
         <img src="<%= asset_url('assets/mydiscoveries_icon/i/logo-full.png') %>" style="width: 230px;">
       <% else %>
@@ -27,4 +27,31 @@
     customer:   customer,
     collection: order.line_items.not_miscellaneous_charges
   %>
+
+  <% if email_page %>
+    <tr style="background-color: #000060;">
+      <td colspan="2" style="font-family:'Rubik'; font-size: 16px; color: #fff; background-color: #000060; padding: 40px 0;">
+        <span style="font-family:Arial; display: block;margin-top: 10px;"> For assistance, please contact us at <a href="mailto:info@mydiscoveries.com.au">info@mydiscoveries.com.au</a></span>
+        <span style="font-family:Arial; display: block;margin-top: 10px;">431 Warringah Road, Frenchs Forest, NSW 2086<br>
+          1300 404 606</span>
+      </td>
+      <td colspan="1" style="background-color: #000060;  padding: 40px 0;" valign="top" align="right">
+        <%= link_to 'https://www.facebook.com/BoundRound', style: "text-decoration: none;" do %>
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/fb.png') %>" style="height: 20px;margin: 0 5px;">
+        <% end %>
+        <%= link_to 'http://instagram.com/boundround', style: "text-decoration: none;" do %>
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/insta.png') %>" style="height: 20px;margin: 0 5px;">
+        <% end %>
+        <%= link_to 'https://twitter.com/BoundRoundAus', style: "text-decoration: none;" do %>
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/twitter.png') %>" style="height: 20px;margin: 0 5px;">
+        <% end %>
+        <%= link_to 'https://www.youtube.com/user/BoundRoundGuides', style: "text-decoration: none;" do %>
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/youtube.png') %>" style="height: 20px;margin: 0 5px;">
+        <% end %>
+        <%= link_to 'https://au.pinterest.com/boundround', style: "text-decoration: none;" do %>
+          <img src="<%= asset_url('assets/mydiscoveries_icon/i/footer/pinterest.png') %>" style="height: 20px;margin: 0 5px;">
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
 </table>
