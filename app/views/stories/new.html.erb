@@ -9,8 +9,6 @@
             <% if current_user.admin? %>
               <%= f.label "Publish Date" %><br>
               <%= f.date_field :publish_date %><br>
-              <%= f.label "Change User" %><br>
-              <%= f.select :user_id, options_for_select(User.all.map {|user| [user.email, user.id]}, [current_user.email, current_user.id]) %><br>
             <% end %>
             <% if current_user.admin? || current_user.has_role?("contributor") %>
               <%= f.label "SEO Friendly URL" %><br>
@@ -20,8 +18,8 @@
             <% end %>
             <% if current_user.has_role? "contributor" %>
               <%= f.hidden_field :publish_date, :value => Time.now %><br>
-              <%= f.hidden_field :user_id, :value => current_user.id %>
             <% end %>
+            <%= f.hidden_field :user_id, :value => current_user.id %>
           </p>
         </div>
       </div>
