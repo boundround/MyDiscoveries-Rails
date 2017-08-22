@@ -17,7 +17,6 @@
               <%= f.label "Publish Date" %><br>
               <%= f.date_field :publish_date %><br>
               <%= f.label "Change Author" %><br>
-              <%#= f.select :user_id, User.order(email: :asc).map { |user| [user.email, user.id] } %>
               <%= f.select :author_id, Author.order(name: :asc).map { |user| [user.name, user.id] } %><br>
             <% end %>
             <% if current_user.admin? || current_user.has_role?("contributor") %>
