@@ -9,6 +9,7 @@
 ### New Features
 - "As Per Passport" copy added to passenger details form
 - Voucher footer restyled
+- Remove "Choose User" dropdown from new stories form. Story User defaults to current user.
 
 ## **16/08/2017**
 ### Bugs Fixed
