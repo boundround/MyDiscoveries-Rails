@@ -146,7 +146,7 @@ class Ax::Upload
     xml = ::Builder::XmlMarkup.new
     xml.Envelope do
       xml.Order do
-        xml.CustAccount    user.ax_cust_account
+        xml.CustAccount    customer.uniq_number
         xml.SalesId        order.ax_sales_id
         xml.OrderDate      order_date
         xml.OrderTime      order_time
