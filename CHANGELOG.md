@@ -2,6 +2,14 @@
 ## ** Unreleased **
 ### Bugs Fixed
 ### New Features
+
+
+## **28/08/2017**
+### Bugs Fixed
+- "Landing" forwarded URL's will now show a "404 Not Found" when the URL is destroyed.
+ 
+## **22/08/2017**
+### New Features
 - Implement ability to update customer details attached to an order.
 - Fix inconsistent font on confirmation/voucher page
 - Customer Title (Mr, Mrs, etc.) now capitalised on voucher
