@@ -57,7 +57,7 @@ class AddOnsController < ApplicationController
       :name,
       :description,
       :amount,
-      :admin_only_active
+      :active_for_admin
     )
   end
 end
