@@ -40,7 +40,7 @@
                                   <%= render 'orders/add_on', add_on: add_on, f: lnf %>
                               <% end %>
                             <% else %>
-                              <% line_item.product.add_ons.select{ |add_on| add_on.admin_only_active == false }.each do |add_on| %>
+                              <% line_item.product.add_ons.select{ |add_on| add_on.active_for_admin == false }.each do |add_on| %>
                                   <%= render 'orders/add_on', add_on: add_on, f: lnf %>
                               <% end %>
                             <% end %>
