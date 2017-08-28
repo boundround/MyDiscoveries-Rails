@@ -1,6 +1,7 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
 ### Bugs Fixed
+- Fix installment flag on order_info page to show correct request_installments 
 ### New Features
 
 
