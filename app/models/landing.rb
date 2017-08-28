@@ -2,6 +2,10 @@ class Landing < ActiveRecord::Base
   after_save :reload_routes
   validates_uniqueness_of :from_url
 
+  after_destroy :reload_routes
+
+  has_paper_trail
+
   def reload_routes
     DynamicRouter.reload  		
   end
@@ -12,5 +16,4 @@ class Landing < ActiveRecord::Base
 
   	return paths.include?('/'+new_routes+'(.:format)')
   end
-
 end

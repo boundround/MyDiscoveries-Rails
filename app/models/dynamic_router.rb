@@ -1,5 +1,4 @@
 class DynamicRouter
-
 	class << self
 	  def load
 	  	if ActiveRecord::Base.connection.table_exists? :landings
@@ -11,10 +10,9 @@ class DynamicRouter
 		    end
 		  end
 	  end
-
+	  
 	  def reload
 	    BoundRoundWeb::Application.routes_reloader.reload!
 	  end
 	end
-
 end

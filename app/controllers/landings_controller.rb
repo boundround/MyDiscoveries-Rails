@@ -2,6 +2,7 @@ class LandingsController < ApplicationController
 
 	before_action :set_landing, only: [:edit, :update, :destroy]
   before_action :check_user_authorization
+  before_action :set_paper_trail_whodunnit
   
   def index
     @landings = Landing.all
