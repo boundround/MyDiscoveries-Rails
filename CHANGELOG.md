@@ -1,8 +1,6 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
 ### Bugs Fixed
-- Fix installment flag on order_info page to show correct request_installments
-- Fix titleize error for Customer full_name method
 ### New Features
 
 ## **29/08/2017**
