@@ -1,6 +1,7 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
 ### Bugs Fixed
+- Fix titleize error for Customer full_name method 
 ### New Features
 
 
