@@ -64,7 +64,7 @@ class Place < ActiveRecord::Base
     end
 
     attribute :description do
-      description.blank? ? "" : description
+      description.blank? ? "" : description.strip_html_tags
     end
 
     attribute :primary_category do
