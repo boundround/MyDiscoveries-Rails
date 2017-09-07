@@ -10,6 +10,7 @@
   <tr>
   <% collection.each_with_index do |line_item, index| %>
     <tr class="<%= index == 0 ? '' : 'add-page-break' %> " style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>">
+      <tr> 
         <td colspan="3" style="padding: 8px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 18px">Booking Details</span>
         </td>
@@ -154,7 +155,6 @@
           </p>            
         </td>
       </tr>
-      <tr>
       <tr>
         <td colspan="2" style="padding: 00px 40px; text-align: right;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Amount paid today</span>
