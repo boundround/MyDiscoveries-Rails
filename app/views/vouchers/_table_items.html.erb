@@ -97,8 +97,12 @@
       </tr>
       <!-- TODO: Add ons in here --> 
       <tr >
-        <td colspan="1" style="padding: 20px 40px;">
+        <td colspan="3" style="padding: 20px 40px 10px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Purchased Options</span> 
+        <td>
+      </tr>
+      <tr>
+        <td colspan="3" style="padding: 5px 60px">
           <ul style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <%= simple_format(line_item.product_options) %>
           </ul>
@@ -110,11 +114,15 @@
         </td>
       </tr>
       <tr>
-        <td colspan="1" style="padding: 20px 40px;">
+        <td colspan="2" style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Quantity</span>
+        </td>
+        <td colspan="1" style="padding: 20px 40px;">
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <%= line_item.quantity %>
           </p> 
+        </td>
+        <td colspan="2" style="padding: 20px 40px;">
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <% if line_item.add_ons.any? %>
               <%= line_item.add_on.quantity %>
@@ -123,11 +131,15 @@
         </td>
       </tr>
       <tr>
-        <td colspan="1" style="padding: 20px 40px;">
+        <td colspan="2" style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Total Price</span>
+        </td>
+        <td colspan="1" style="padding: 20px 40px;">
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <%= number_to_currency(line_item.amount) %>
           </p>
+        </td>
+        <td colspan="2" style="padding: 20px 40px;">
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <% if line_item.add_ons.any? %>
               <%= line_item.add_on.quantity * line_item.add_on.price %>
