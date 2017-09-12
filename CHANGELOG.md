@@ -3,6 +3,11 @@
 ### Bugs Fixed
 ### New Features
 
+## **12/09/2017**
+### Bugs Fixed
+- Fixed minor layout bug in pdf voucher
+- Removed duplicate "Travel Stories" menu item on mobile layout
+
 ## **29/08/2017**
 ### Bugs Fixed
 - Fix installment flag on order_info page to show correct request_installments
