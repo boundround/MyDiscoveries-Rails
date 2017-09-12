@@ -10,6 +10,7 @@
   <tr>
   <% collection.each_with_index do |line_item, index| %>
     <tr class="<%= index == 0 ? '' : 'add-page-break' %> " style="<%= (pdf_page) ? 'page-break-after: always; display:block;' : '' %>">
+      <tr> 
         <td colspan="3" style="padding: 8px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 18px">Booking Details</span>
         </td>
@@ -67,6 +68,7 @@
         <td colspan="3" style="padding: 0px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Holiday Name</span>
         </td>
+      </tr>
       <tr>
         <td colspan="3" style="padding: 8px 40px; padding-bottom: 15px;">
           <span style="font-family: 'Georgia'; font-size: 26px">
@@ -94,9 +96,13 @@
         </td>
       </tr>
       <!-- TODO: Add ons in here --> 
-      <tr>
-        <td colspan="1" style="padding: 20px 40px;">
+      <tr >
+        <td colspan="3" style="padding: 20px 40px 10px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Purchased Options</span> 
+        <td>
+      </tr>
+      <tr>
+        <td colspan="3" style="padding: 5px 60px">
           <ul style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <%= simple_format(line_item.product_options) %>
           </ul>
@@ -106,22 +112,34 @@
             <% end %>
           </p>
         </td>
-        <td colspan="1" style="padding: 20px 40px;">
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Quantity</span>
+        </td>
+        <td colspan="1" style="padding: 20px 40px;">
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <%= line_item.quantity %>
           </p> 
+        </td>
+        <td colspan="2" style="padding: 20px 40px;">
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <% if line_item.add_ons.any? %>
               <%= line_item.add_on.quantity %>
             <% end %>
           </p>      
         </td>
-        <td colspan="1" style="padding: 20px 40px;">
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 20px 40px;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Total Price</span>
+        </td>
+        <td colspan="1" style="padding: 20px 40px;">
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <%= number_to_currency(line_item.amount) %>
           </p>
+        </td>
+        <td colspan="2" style="padding: 20px 40px;">
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <% if line_item.add_ons.any? %>
               <%= line_item.add_on.quantity * line_item.add_on.price %>
@@ -153,7 +171,6 @@
           </p>            
         </td>
       </tr>
-      <tr>
       <tr>
         <td colspan="2" style="padding: 00px 40px; text-align: right;">
           <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Amount paid today</span>
