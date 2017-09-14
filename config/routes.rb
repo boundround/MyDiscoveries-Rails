@@ -416,6 +416,7 @@ Rails.application.routes.draw do
     member do
       get 'paginate_videos', as: :paginate_videos
       get 'paginate_photos', as: :paginate_photos
+      get 'load_options'
     end
     collection { get 'paginate_on_idx' }
     collection { get 'paginate_offers' }

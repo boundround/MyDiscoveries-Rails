@@ -3,7 +3,7 @@ class OffersController < ApplicationController
     :show, :paginate_reviews, :paginate_media, :paginate_on_idx, :paginate_offers
   ]
   before_action :set_offer, only: [
-    :show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :update_hero
+    :show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :update_hero, :load_options
   ]
   before_action :set_media, only: [:show, :paginate_media]
 
@@ -17,6 +17,36 @@ class OffersController < ApplicationController
     @operator = @offer.operator
     @book_guarantee = Configurable.book_guarantee
 
+    check_product_options
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+      render pdf: @offer.name,
+        dpi:  100,
+        lowquality: true,
+        disable_internal_links: true,
+        disable_external_links: true,
+        image_quality: 20,
+        margin: {bottom:30,top: 10},
+        footer: { html: { template: 'offers/footer.pdf.erb' }}
+      end
+    end
+  end
+
+  def new
+    @offer = Spree::Product.new(tags: [""])
+    @book_guarantee = Configurable.book_guarantee
+  end
+
+  def load_options
+    check_product_options
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def check_product_options
     if !@offer.disable_maturity?
       @maturities = @offer.variants.
         map{ |v| v.maturity }.compact.uniq
@@ -49,25 +79,6 @@ class OffersController < ApplicationController
       @accommodations   = @offer.variants.
         map{ |v| v.accommodation }.compact.uniq
     end
-
-    respond_to do |format|
-      format.html
-      format.pdf do
-      render pdf: @offer.name,
-        dpi:  100,
-        lowquality: true,
-        disable_internal_links: true,
-        disable_external_links: true,
-        image_quality: 20,
-        margin: {bottom:30,top: 10},
-        footer: { html: { template: 'offers/footer.pdf.erb' }}
-      end
-    end
-  end
-
-  def new
-    @offer = Spree::Product.new(tags: [""])
-    @book_guarantee = Configurable.book_guarantee
   end
 
   def all_offers
