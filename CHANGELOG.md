@@ -4,6 +4,10 @@
 ### New Features
 
 ## **12/09/2017**
+### New Features
+- Added a "Reset Options" button to product pages
+
+## **12/09/2017**
 ### Bugs Fixed
 - Fixed minor layout bug in pdf voucher
 - Removed duplicate "Travel Stories" menu item on mobile layout
