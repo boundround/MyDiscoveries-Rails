@@ -494,6 +494,10 @@ Rails.application.routes.draw do
     as: :order_confirmation
   get 'orders/:id/resend_confirmation' => 'orders#resend_confirmation',
     as: :order_resend_confirmation
+  get 'orders/:id/edit_line_items' => 'orders#edit_line_items',
+    as: :order_edit_line_items
+  get 'orders/:id/update_line_items' => 'orders#update_line_items',
+    as: :order_update_line_items
 
   get 'orders' => 'orders#index'
   get 'orders/abandoned' => 'orders#abandoned', as: :abandoned_orders

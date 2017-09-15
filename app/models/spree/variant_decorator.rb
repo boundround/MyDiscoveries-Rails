@@ -26,6 +26,38 @@ Spree::Variant.class_eval do
     super
   end
 
+  def display_departure_date
+    if !product.disable_departure_date?
+      if departure_date < DateTime.new(2049)
+        departure_date.strftime('%d %b %Y')
+      else
+        'Unknown'
+      end
+    else
+      'Departure date disabled for this product'
+    end
+  end
+
+  def similar_variants
+    options = {}
+
+    options[:room_type] = room_type unless product.disable_room_type
+
+    options[:maturity] =
+      Spree::Variant.maturities[maturity.downcase.to_sym] unless product.disable_maturity
+
+    options[:bed_type] =
+      Spree::Variant.bed_types[bed_type.downcase.to_sym] unless product.disable_bed_type
+
+    options[:departure_city] = departure_city unless product.disable_departure_city
+
+    options[:package_option] = package_option unless product.disable_package_option
+
+    options[:accommodation] =  accommodation unless product.disable_accommodation
+
+    product.variants.where(options)
+  end
+
   # overrides default setter
   def description=(value)
     super(value)

@@ -51,11 +51,11 @@ Spree::LineItem.class_eval do
     end
 
     unless product.disable_departure_city
-      options << '<li>' + variant.departure_city.titleize + '</li>'
+      options << '<li>Depart From: ' + variant.departure_city.titleize + '</li>'
     end
 
     unless product.disable_departure_date
-      options << '<li>' + variant.departure_date.titleize + '</li>'
+      options << '<li> Depart On: ' + variant.departure_date.strftime('%d %b %Y') + '</li>'
     end
 
     unless product.disable_package_option
