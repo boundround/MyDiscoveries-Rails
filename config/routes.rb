@@ -464,6 +464,9 @@ Rails.application.routes.draw do
   end
 
   resources :stickers
+  resources :variants do
+    collection { post :import }
+  end
   resources :promotions
 
   get 'cart' => 'orders#cart'

@@ -1,8 +1,8 @@
 class VariantsController < ApplicationController
   before_action -> { check_user_authorization('Spree::Variant') }
-  before_action :set_product
+  before_action :set_product, except: [:import]
   before_action :set_variant,
-    except: [:fill_packages_options, :new, :create, :index]
+    except: [:fill_packages_options, :new, :create, :index, :import]
 
   before_action :set_orders, only: [
     :miscellaneous_charge, :process_miscellaneous_charge
@@ -87,6 +87,11 @@ class VariantsController < ApplicationController
       offer_variants_path(offer: @offer),
       notice: "Variant Deleted"
     )
+  end
+
+  def import
+    Spree::Variant.import(params[:file])
+    redirect_to :back, notice: "Variants imported."
   end
 
   private

@@ -47,6 +47,14 @@
       <% end %>
     </tbody>
   </table>
+  <% if current_user.try(:admin) && current_user.email == "donovan.whitworth@gmail.com" %>
+    <h3>Import Variants From Excel</h3>
+    <%= form_tag import_variants_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag "Import" %>
+    <% end %>
+    <br />
+  <% end %>
 </div>
 <% else %>
 <h3>You are not signed in or do not have the proper permissions to view this page</h3>
