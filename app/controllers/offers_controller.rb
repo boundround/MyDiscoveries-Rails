@@ -72,7 +72,9 @@ class OffersController < ApplicationController
 
     if !@offer.disable_departure_date?
       @departure_dates  = @offer.variants.
-        map{ |v| v.departure_date.try(:to_date).try(:to_s) }.uniq
+        map{ |v| v.departure_date.try(:to_date).try(:to_s) }.
+        uniq.sort{ |x, y| x <=> y}
+
     end
 
     if !@offer.disable_accommodation?

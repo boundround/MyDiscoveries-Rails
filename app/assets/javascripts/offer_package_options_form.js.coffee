@@ -58,6 +58,7 @@ jQuery(window).load ->
 
         dataType: 'json'
         success: (data) ->
+          console.log(data)
           update_options(data)
           update_conclusions(bed_type, maturity, departure_city, room_type, departure_date, package_option, accommodation)
           update_quantity()
