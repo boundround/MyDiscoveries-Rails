@@ -279,6 +279,19 @@ class OrdersController < ApplicationController
     end
   end
 
+  def send_to_sna
+    order = Spree::Order.find_by(params[:id])
+    if order
+      result = SNA::Send.call(order)
+      if result.response.code != '200'
+        raise "SNA response: #{result.response.message}"
+      else
+        order.update!(sent_to_sna: true)
+        redirect_to :back, flash[:notice] = 'Send to SNA Successful'
+      end
+    end
+  end
+
   def resend_confirmation
     OrderAuthorized.delay.notification(@order.id)
     flash.now[:notice] = "Confirmation Re-sent"
