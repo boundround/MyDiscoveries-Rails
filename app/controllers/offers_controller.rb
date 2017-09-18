@@ -76,8 +76,8 @@ class OffersController < ApplicationController
         uniq.sort{ |x, y| x <=> y}
 
       @departure_dates = @departure_dates.map{ |date| DateTime.parse(date).strftime('%d %B %Y') }.zip(@departure_dates)
-
-      if Date.parse(@departure_dates.last[1]) > DateTime.new(2049)
+      debugger
+      if @departure_dates.present? && Date.parse(@departure_dates.last[1]) > DateTime.new(2049)
         @departure_dates.last[0] = 'I don\'t know yet'
       end
 
