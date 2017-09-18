@@ -2,6 +2,7 @@ class Operator < ActiveRecord::Base
   STATUSES = ["live", "draft", "removed"]
 
   has_many :offers
+  has_many :products, class_name: Spree::Product
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
