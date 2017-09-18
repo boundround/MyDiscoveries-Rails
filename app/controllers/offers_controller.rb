@@ -75,6 +75,12 @@ class OffersController < ApplicationController
         map{ |v| v.departure_date.try(:to_date).try(:to_s) }.
         uniq.sort{ |x, y| x <=> y}
 
+      @departure_dates = @departure_dates.map{ |date| DateTime.parse(date).strftime('%d %B %Y') }.zip(@departure_dates)
+
+      if Date.parse(@departure_dates.last[1]) > DateTime.new(2049)
+        @departure_dates.last[0] = 'I don\'t know yet'
+      end
+
     end
 
     if !@offer.disable_accommodation?
