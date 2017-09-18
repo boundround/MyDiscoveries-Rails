@@ -59,7 +59,7 @@ class OrderPolicy < ApplicationPolicy
     user.admin?
   end
 
-  def update_line_items?
+  def update_departure_date?
     user.admin?
   end
 end

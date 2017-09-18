@@ -49,6 +49,7 @@ class OrdersController < ApplicationController
     :checkout,
     :payment,
     :update_line_items,
+    :update_departure_date,
     :confirmation,
     :abandoned,
     :edit_confirmation,
@@ -264,13 +265,13 @@ class OrdersController < ApplicationController
     @line_items = @order.line_items
   end
 
-  def update_line_items
+  def update_departure_date
     set_order_for_admin
     @line_item = Spree::LineItem.find params[:line_item_id]
     respond_to do |format|
       format.json do
         if @line_item.update(variant_id: params[:variant_id])
-          flash[:notice] = "Line item updated"
+          flash[:notice] = "Departure Date updated"
           redirect_to order_edit_line_items_path(@line_item.order)
         else
           flash[:notice] = @line_item.errors.full_messages.join(', ')

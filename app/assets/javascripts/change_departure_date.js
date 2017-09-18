@@ -6,7 +6,7 @@
 		order_number = $(this).data('order-number');
 		$.ajax({
 			type: 'get',
-			url: '/orders/' + order_number + '/update_line_items',
+			url: '/orders/' + order_number + '/update_departure_date',
 			data: {line_item_id: line_item_id, variant_id: variant_id},
 			success: function(){
 				location.reload();

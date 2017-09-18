@@ -29,7 +29,7 @@
     <% if @order.miscellaneous_charges? %>
       <p>Description: <%= @order.description %></p>
     <% end %>
-    <%= simple_form_for(@order, url: order_update_line_items_path, method: :patch) do |f| %>
+    <%= simple_form_for(@order, url: order_update_departure_date_path, method: :patch) do |f| %>
       <div class="">
         <h2 class="title"> Edit Departure Dates </h2>
         <div class="customer-fields">
