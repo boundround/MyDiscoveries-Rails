@@ -67,6 +67,7 @@
                   <% end %>
                   <%= link_to 'Send/Resend To SNA', order_send_to_sna_path(@order), class: 'btn btn-default' %>
                 <% end %>
+                <%= link_to "Resend Confirmation", order_resend_confirmation_path(@order), class: 'btn btn-default' %>
               </div>
             <% end %>
           </div>
