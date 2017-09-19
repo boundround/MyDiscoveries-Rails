@@ -55,7 +55,7 @@ class SNA::Send
           json.SalesId order.ax_sales_id
           json.OrderDate order_date
           json.OrderTime order_time
-          json.EmailAddress customer.try(:email).presence || 'info@mydiscoveries.com.au'
+          json.EmailAddress customer.try(:email).presence || 'noemail@snatours.com'
           json.ShippingCost shipping_cost
           json.ShippingMethod ENV["AX_SHIPPING_METHOD"]
           json.Brand ENV["AX_BRAND"]
