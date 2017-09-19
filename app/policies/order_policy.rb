@@ -59,6 +59,10 @@ class OrderPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def send_to_sna?
+    user.admin?
+  end
+
   def update_departure_date?
     user.admin?
   end

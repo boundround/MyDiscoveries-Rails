@@ -59,8 +59,13 @@
                     <% end %>
                   </select>
                 </div>
-                <% if @order.products.where(operator_id: 1).any? && @order.created_at > Date.new(2017, 9, 18) %>
-                  <div>Already Sent to SNA? <span style="color:red"><%= @order.sent_to_sna %></span></div>
+                <% if @order.products.where(operator_id: 1).any? %>
+                  <% if @order.created_at > Date.new(2017, 9, 18) %>
+                    <div>Already Sent to SNA? <span style="color:red"><%= true %></span></div>
+                  <% else %>
+                    <div>Already Sent to SNA? <span style="color:red"><%= @order.sent_to_sna %></span></div>
+                  <% end %>
+                  <%= link_to 'Send/Resend To SNA', order_send_to_sna_path(@order), class: 'btn btn-default' %>
                 <% end %>
               </div>
             <% end %>

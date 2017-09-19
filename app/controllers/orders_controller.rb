@@ -281,14 +281,15 @@ class OrdersController < ApplicationController
   end
 
   def send_to_sna
-    order = Spree::Order.find_by(params[:id])
-    if order
-      result = SNA::Send.call(order)
+    set_order_for_admin
+    if @order
+      result = SNA::Send.call(@order)
       if result.response.code != '200'
-        raise "SNA response: #{result.response.message}"
+        flash[:notice] = "SNA response: #{result.response.message}"
+        redirect_to :back
       else
-        order.update!(sent_to_sna: true)
-        redirect_to :back, flash[:notice] = 'Send to SNA Successful'
+        @order.update!(sent_to_sna: true)
+        redirect_to :back
       end
     end
   end
