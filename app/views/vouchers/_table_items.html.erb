@@ -122,13 +122,6 @@
             <%= line_item.quantity %>
           </p> 
         </td>
-        <td colspan="2" style="padding: 20px 40px;">
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
-            <% if line_item.add_ons.any? %>
-              <%= line_item.add_on.quantity %>
-            <% end %>
-          </p>      
-        </td>
       </tr>
       <tr>
         <td colspan="2" style="padding: 20px 40px;">
@@ -138,13 +131,6 @@
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <%= number_to_currency(line_item.amount) %>
           </p>
-        </td>
-        <td colspan="2" style="padding: 20px 40px;">
-          <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
-            <% if line_item.add_ons.any? %>
-              <%= line_item.add_on.quantity * line_item.add_on.price %>
-            <% end %>
-          </p>         
         </td>
       </tr>
       <tr>
