@@ -1,7 +1,7 @@
 require 'open-uri'
 
 class OrderAuthorized < ActionMailer::Base
-  default from: "My Discoveries <info@mydiscoveries.herokuapp.com>"
+  default from: "My Discoveries <info@mydiscoveries.com.au>"
 
   def notification(order_id)
     @order  = Spree::Order.find(order_id)

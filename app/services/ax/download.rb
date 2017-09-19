@@ -120,7 +120,7 @@ class Ax::Download
     customer = Customer.new(
       user:            user,
       country:         customer_country,
-      email:           customer_email.present? ? customer_email : 'booking@mydiscoveries.com.au',
+      email:           customer_email.present? ? customer_email : 'noemail@snatours.com',
       title:           customer_title,
       first_name:      customer_first_name,
       last_name:       customer_last_name,
