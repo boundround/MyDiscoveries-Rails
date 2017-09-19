@@ -59,7 +59,9 @@
                     <% end %>
                   </select>
                 </div>
-                <div>Already Sent to SNA? <span style="color:red"><%= @order.sent_to_sna %></span></div>
+                <% if @order.products.where(operator_id: 1).any? && @order.created_at > Date.new(2017, 9, 18) %>
+                  <div>Already Sent to SNA? <span style="color:red"><%= @order.sent_to_sna %></span></div>
+                <% end %>
               </div>
             <% end %>
           </div>

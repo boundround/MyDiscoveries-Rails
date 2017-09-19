@@ -11,7 +11,7 @@
         <th>User Email</th>
         <th>State</th>
         <th>Miscellaneous Charge</th>
-        <th>View Order Info</th>
+        <th>View/Edit Order Info</th>
         <th>Offers</th>
         <th>Operator</th>
         <th>Total Price</th>
@@ -28,7 +28,7 @@
           <th>User Email</th>
           <th>State</th>
           <th>Miscellaneous Charge</th>
-          <th>View Order Info</th>
+          <th>View/Edit Order Info</th>
           <th>Offer</th>
           <th>Operators</th>
           <th>Total Price</th>
@@ -44,7 +44,7 @@
             <td><%= order.customer.email rescue "Error finding email" %></td>
             <td><%= order.state %></td>
             <td><%= order.miscellaneous_charges? ? 'Yes' : 'No' %></td>
-            <td><%= link_to "View Order Info", order_customer_info_path(order) %></td>
+            <td><%= link_to "View/Edit Order Info", order_edit_line_items_path(order) %></td>
             <td>
               <% order.products.each do |product| %>
                 <span>
