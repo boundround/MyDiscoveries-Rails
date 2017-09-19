@@ -35,6 +35,14 @@ Spree::LineItem.class_eval do
     add_ons.pluck(:name).join(', ')
   end
 
+  def add_ons_info
+    solution = []
+    add_ons.each do |ao|
+      solution << { name: ao.name, price: ao.prices.first.amount }
+    end
+    solution
+  end
+
   def product_options
     options = ""
 

@@ -108,7 +108,9 @@
           </ul>
           <p style="font-family: Arial; font-size: 16px; margin-top: 0; text-align: justify; text-justify: inter-word;">
             <% if line_item.add_ons.any? %>
-              <%= " (+ #{line_item.add_on_names}) " %>
+              <% line_item.add_ons_info.each do |add_on| %>
+                <%= "#{add_on[:name]} \@#{number_to_currency(add_on[:price])} per person" %>
+              <% end %>
             <% end %>
           </p>
         </td>
