@@ -112,13 +112,23 @@ jQuery(window).load ->
 
     update_option = (values, element) ->
       selected = element.val()
+      option_type = element.data('type')
       prompt   = "<option value=>#{prompt_text}</option>"
       element.html('')
       element.append(prompt)
 
       if values.length
+        values.sort() if option_type == 'date'
         for value in values
-          option = "<option value='#{value}'>#{value}</option>"
+          if option_type == 'date'
+            date = new Date(value)
+            if date < new Date('2049')
+              date_string = $.format.date(date, 'dd MMMM yyyy')
+            else
+              date_string = "Undecided. Please call"
+            option = "<option value='#{value}' label='#{date_string}'>#{date_string}</option>"
+          else
+            option = "<option value='#{value}'>#{value}</option>"
           element.append(option)
 
       element.val(selected)
