@@ -20,7 +20,7 @@ class Ax::Download
       if @order && @order.persisted?
         OrderAuthorized.delay.notification(@order.id) unless @order.products.any? { |product| product.operator_id == 1 && product.disable_departure_date == false }
 
-        if !@order.products.sna_product_with_date.any? && !@order.sent_to_sna?
+        if !@order.sent_to_sna? && @order.products.any? { |product| product.operator_id == 1 && product.disable_departure_date == false } 
           SNA::RequestProcessor.perform_async(@order.id)
         end
       end
