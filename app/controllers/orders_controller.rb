@@ -49,9 +49,11 @@ class OrdersController < ApplicationController
     :checkout,
     :payment,
     :update_line_items,
+    :update_departure_date,
     :confirmation,
     :abandoned,
     :edit_confirmation,
+    :edit_line_items,
     :update_customer
 
   ]
@@ -79,7 +81,8 @@ class OrdersController < ApplicationController
     :cms_edit,
     :view_confirmation,
     :customer_info,
-    :resend_confirmation
+    :resend_confirmation,
+    :edit_line_items
   ]
 
   before_action :apply_coupon_code
@@ -89,7 +92,6 @@ class OrdersController < ApplicationController
   end
 
   def abandoned
-    puts "YEAH"
     @orders = Spree::Order.where(authorized: false)
   end
 
@@ -255,6 +257,40 @@ class OrdersController < ApplicationController
       redirect_to orders_url
     else
       flash[:notice] = @customer.errors.full_messages.join(', ')
+    end
+  end
+
+  def edit_line_items
+    set_order_for_admin
+    @line_items = @order.line_items
+  end
+
+  def update_departure_date
+    set_order_for_admin
+    @line_item = Spree::LineItem.find params[:line_item_id]
+    respond_to do |format|
+      format.json do
+        if @line_item.update(variant_id: params[:variant_id])
+          flash[:notice] = "Departure Date updated"
+          redirect_to order_edit_line_items_path(@line_item.order)
+        else
+          flash[:notice] = @line_item.errors.full_messages.join(', ')
+        end
+      end
+    end
+  end
+
+  def send_to_sna
+    set_order_for_admin
+    if @order
+      result = SNA::Send.call(@order)
+      if result.response.code != '200'
+        flash[:notice] = "SNA response: #{result.response.message}"
+        redirect_to :back
+      else
+        @order.update!(sent_to_sna: true)
+        redirect_to :back
+      end
     end
   end
 

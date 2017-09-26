@@ -24,7 +24,6 @@
     <% end %>
   </p>
   <p>Payment Status: <%= @order.authorized? ? "Authorized" : "Not Authorized" %></p>
-  <p>Requested Installments?: <%= @order.request_installments? ? "Yes" : "No" %></p>
   <p>Miscellaneous Charges?: <%= @order.miscellaneous_charges? ? 'Yes' : 'No' %></p>
   <% if @order.miscellaneous_charges? %>
     <p>Description: <%= @order.description %></p>
@@ -33,13 +32,14 @@
     <strong>Line Items:</strong><br>
     <% @order.line_items.each do |line_item| %>
       <p>
-        Product: <%= link_to line_item.product.name, offer_path(line_item.product), target: "blank" %><br>
-        Quantity: <%= line_item.quantity%><br>
-        Price: <%= number_to_currency(line_item.price) %><br>
-        Departure City: <%= line_item.variant.departure_city %> <br>
-        Bed Type: <%= line_item.variant.bed_type %> <br>
-        AX Item Code: <%= line_item.variant.item_code %> <br>
-        Supplier Product Code: <%= line_item.variant.supplier_product_code %> <br>
+        Product: <%= link_to line_item.product.name, offer_path(line_item.product), target: "blank" %><br></p>
+        Quantity: <%= line_item.quantity%><br></p>
+        Price: <%= number_to_currency(line_item.price) %><br></p>
+        Requested Installments?: <%= line_item.request_installments? ? "Yes" : "No" %><br></p>
+        Departure City: <%= line_item.variant.departure_city %> <br></p>
+        Bed Type: <%= line_item.variant.bed_type %> <br></p>
+        AX Item Code: <%= line_item.variant.item_code %> <br></p>
+        Supplier Product Code: <%= line_item.variant.supplier_product_code %> <br></p>
       </p>
       <div class="col-md-1"></div>
       <div class="col-md-11">

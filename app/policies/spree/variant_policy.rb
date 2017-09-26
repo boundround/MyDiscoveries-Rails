@@ -43,4 +43,8 @@ class Spree::VariantPolicy < ApplicationPolicy
   def fill_packages_options?
     true
   end
+
+  def import?
+    index?
+  end
 end

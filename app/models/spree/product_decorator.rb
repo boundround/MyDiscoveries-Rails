@@ -502,6 +502,10 @@ Spree::Product.class_eval do
     disable_departure_city?
   end
 
+  def sna_product_with_date
+    operator_id == 1 && disable_departure_date == false
+  end
+
   private
 
   def at_least_one_options_allowed

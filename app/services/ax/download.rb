@@ -18,9 +18,9 @@ class Ax::Download
       end
 
       if @order && @order.persisted?
-        OrderAuthorized.delay.notification(@order.id)
+        OrderAuthorized.delay.notification(@order.id) unless @order.products.any? { |product| product.operator_id == 1 && product.disable_departure_date == false }
 
-        if @order.products.where(operator_id: 1).any?
+        if !@order.sent_to_sna? && @order.products.any? { |product| product.operator_id == 1 && product.disable_departure_date == false } 
           SNA::RequestProcessor.perform_async(@order.id)
         end
       end
@@ -120,7 +120,7 @@ class Ax::Download
     customer = Customer.new(
       user:            user,
       country:         customer_country,
-      email:           customer_email.present? ? customer_email : 'booking@mydiscoveries.com.au',
+      email:           customer_email.present? ? customer_email : 'bookings@mydiscoveries.com.au',
       title:           customer_title,
       first_name:      customer_first_name,
       last_name:       customer_last_name,

@@ -10,5 +10,6 @@
     f.object.add_on_ids.include?(add_on.id),
     id: "#{"#{f.object_name}[add_on_ids][]".parameterize(sep='_')}_#{add_on.id}"
   ) %>
-  <%= "#{add_on.name} (#{number_to_currency(add_on.amount)})" %>
+  <%= "#{add_on.name} (#{number_to_currency(add_on.amount)})" %><br>
+  <button class="btn btn-default">Update Total</button>
 </label>

@@ -95,8 +95,9 @@
 //= require operators
 //= require jquery.Jcrop.min
 //= require waitMe.min
-
+//= require date-format.min
 //= require card/jquery.card
 //= require checkout
 //= require offer_package_options_form
 //= require miscellaneous_charges
+//= require change_departure_date

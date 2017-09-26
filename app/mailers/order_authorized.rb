@@ -1,12 +1,21 @@
 require 'open-uri'
 
 class OrderAuthorized < ActionMailer::Base
-  default from: "My Discoveries <info@mydiscoveries.herokuapp.com>"
+  default from: "My Discoveries <info@mydiscoveries.com.au>"
 
   def notification(order_id)
     @order  = Spree::Order.find(order_id)
     @passengers = @order.passengers
     @customer   = @order.customer
+    @email = @customer.email
+
+    if !@email
+      if @order.products.where(operator_id: 1).any?
+        @email = "noemail@snatours.com"
+      else
+        @email = "bookings@mydiscoveries.com.au"
+      end
+    end
 
     response = GeneratePdf.call(@order)
 
@@ -20,7 +29,7 @@ class OrderAuthorized < ActionMailer::Base
         end
       end
 
-      mail(to: @customer.email, bcc: "mydiscoveries_booking@boundround.com", subject: "Your MyDiscoveries Holiday Voucher")
+      mail(to: @email, bcc: "mydiscoveries_booking@boundround.com", subject: "Your MyDiscoveries Holiday Voucher")
     end
   end
 end

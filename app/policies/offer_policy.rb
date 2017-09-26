@@ -55,4 +55,8 @@ class OfferPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def load_options?
+    true
+  end
 end

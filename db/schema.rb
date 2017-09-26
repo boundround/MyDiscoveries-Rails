@@ -1520,6 +1520,7 @@ ActiveRecord::Schema.define(version: 20170828031047) do
     t.boolean  "miscellaneous_charges",                                      default: false
     t.text     "description"
     t.string   "hubspot_id",                                                 default: ""
+    t.boolean  "sent_to_sna",                                                default: false
   end
 
   add_index "spree_orders", ["approver_id"], name: "index_spree_orders_on_approver_id", using: :btree

@@ -1,14 +1,24 @@
 class OffersController < ApplicationController
   before_action -> { check_user_authorization('Spree::Product') }, except: [
-    :show, :paginate_reviews, :paginate_media, :paginate_on_idx, :paginate_offers
+    :show,
+    :paginate_reviews,
+    :paginate_media,
+    :paginate_on_idx,
+    :paginate_offers
   ]
   before_action :set_offer, only: [
-    :show, :update, :edit, :destroy, :paginate_reviews, :paginate_media, :update_hero
+    :show,
+    :update,
+    :edit,
+    :destroy,
+    :paginate_reviews,
+    :paginate_media,
+    :update_hero,
+    :load_options
   ]
-  before_action :set_media, only: [:show, :paginate_media]
+  before_action :set_media, only: %i[show paginate_media]
 
   def show
-    #@map_marker = Attraction.first
     @photos = @offer.photos.active.uniq
     @videos = @offer.videos.active.order(:priority)
     @galeries = @videos + @photos
@@ -17,57 +27,59 @@ class OffersController < ApplicationController
     @operator = @offer.operator
     @book_guarantee = Configurable.book_guarantee
 
-    if !@offer.disable_maturity?
-      @maturities = @offer.variants.
-        map{ |v| v.maturity }.compact.uniq
-    end
-    if !@offer.disable_bed_type?
-      @bed_types = @offer.variants.
-        map{ |v| v.bed_type }.compact.uniq
-    end
-    if !@offer.disable_room_type?
-      @room_types = @offer.variants.
-        map{ |v| v.room_type }.compact.uniq
-    end
+    check_product_options
 
-    if !@offer.disable_departure_city?
-      @departure_cities = @offer.variants.
-        map{ |v| v.departure_city }.compact.uniq
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render  pdf: @offer.name,
+                dpi:  100,
+                lowquality: true,
+                disable_internal_links: true,
+                disable_external_links: true,
+                image_quality: 20,
+                margin: { bottom: 30, top: 10 },
+                footer: { html: { template: 'offers/footer.pdf.erb' } }
+      end
     end
+  end
 
-    if !@offer.disable_package_option?
-      @package_options  = @offer.variants.
-        map{ |v| v.package_option }.compact.uniq
+  def new
+    @offer = Spree::Product.new(tags: [''])
+    @book_guarantee = Configurable.book_guarantee
+  end
+
+  def load_options
+    check_product_options
+    respond_to do |format|
+      format.js
     end
+  end
 
-    if !@offer.disable_departure_date?
-      @departure_dates  = @offer.variants.
-        map{ |v| v.departure_date.try(:to_date).try(:to_s) }.uniq
+  def check_product_options
+    
+    @maturities = @offer.variants.map(&:maturity).compact.uniq unless @offer.disable_maturity?
+    @bed_types = @offer.variants.map(&:bed_type).compact.uniq unless @offer.disable_bed_type?
+    @room_types = @offer.variants.map(&:room_type).compact.uniq unless @offer.disable_room_type?
+    @departure_cities = @offer.variants.map(&:departure_city).compact.uniq unless @offer.disable_departure_city?
+    @package_options  = @offer.variants.map(&:package_option).compact.uniq unless @offer.disable_package_option?
+    
+    unless @offer.disable_departure_date?
+      @departure_dates  = @offer.variants
+                                .map { |v| v.departure_date.try(:to_date).try(:to_s) }
+                                .uniq.sort { |x, y| x <=> y }
+
+      @departure_dates = @departure_dates.map { |date| DateTime.parse(date).strftime('%d %B %Y') }.zip(@departure_dates)
+      if @departure_dates.present? && Date.parse(@departure_dates.last[1]) > DateTime.new(2049)
+        @departure_dates.last[0] = 'Undecided. Please call.'
+      end
+
     end
 
     if !@offer.disable_accommodation?
       @accommodations   = @offer.variants.
         map{ |v| v.accommodation }.compact.uniq
     end
-
-    respond_to do |format|
-      format.html
-      format.pdf do
-      render pdf: @offer.name,
-        dpi:  100,
-        lowquality: true,
-        disable_internal_links: true,
-        disable_external_links: true,
-        image_quality: 20,
-        margin: {bottom:30,top: 10},
-        footer: { html: { template: 'offers/footer.pdf.erb' }}
-      end
-    end
-  end
-
-  def new
-    @offer = Spree::Product.new(tags: [""])
-    @book_guarantee = Configurable.book_guarantee
   end
 
   def all_offers

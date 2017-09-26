@@ -55,7 +55,7 @@ class SNA::Send
           json.SalesId order.ax_sales_id
           json.OrderDate order_date
           json.OrderTime order_time
-          json.EmailAddress customer.try(:email).presence || 'info@mydiscoveries.com.au'
+          json.EmailAddress customer.try(:email).presence || 'noemail@snatours.com'
           json.ShippingCost shipping_cost
           json.ShippingMethod ENV["AX_SHIPPING_METHOD"]
           json.Brand ENV["AX_BRAND"]
@@ -91,7 +91,8 @@ class SNA::Send
             "ItemDesc": line_item.product.name,
             "Quantity": line_item.quantity,
             "UnitPrice": line_item.price.to_s,
-            "SupplierProductCode": line_item.variant.supplier_product_code
+            "SupplierProductCode": line_item.variant.supplier_product_code,
+            "DepartureDate": line_item.variant.product.disable_departure_date? ? '' : line_item.variant.departure_date.strftime('%Y-%m-%d')
           }
         })
       end

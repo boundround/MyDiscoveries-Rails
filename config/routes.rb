@@ -416,6 +416,7 @@ Rails.application.routes.draw do
     member do
       get 'paginate_videos', as: :paginate_videos
       get 'paginate_photos', as: :paginate_photos
+      get 'load_options'
     end
     collection { get 'paginate_on_idx' }
     collection { get 'paginate_offers' }
@@ -463,6 +464,9 @@ Rails.application.routes.draw do
   end
 
   resources :stickers
+  resources :variants do
+    collection { post :import }
+  end
   resources :promotions
 
   get 'cart' => 'orders#cart'
@@ -474,6 +478,7 @@ Rails.application.routes.draw do
   get 'checkout' => 'orders#checkout', as: :checkout
   post 'payment' => 'orders#payment', as: :payment
   put 'orders/update_line_items' => 'orders#update_line_items', as: :update_cart
+  get 'orders/:id/send_to_sna' => 'orders#send_to_sna', as: :order_send_to_sna
   get 'orders/:id/view_confirmation' => 'orders#view_confirmation',
     as: :order_view_confirmation
   get 'orders/:id/edit_confirmation' => 'orders#edit_confirmation',
@@ -490,6 +495,10 @@ Rails.application.routes.draw do
     as: :order_confirmation
   get 'orders/:id/resend_confirmation' => 'orders#resend_confirmation',
     as: :order_resend_confirmation
+  get 'orders/:id/edit_line_items' => 'orders#edit_line_items',
+    as: :order_edit_line_items
+  get 'orders/:id/update_departure_date' => 'orders#update_departure_date',
+    as: :order_update_departure_date
 
   get 'orders' => 'orders#index'
   get 'orders/abandoned' => 'orders#abandoned', as: :abandoned_orders

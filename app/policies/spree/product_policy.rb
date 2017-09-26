@@ -55,4 +55,8 @@ class Spree::ProductPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def load_options?
+    true
+  end
 end

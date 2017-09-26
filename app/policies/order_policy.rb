@@ -54,4 +54,16 @@ class OrderPolicy < ApplicationPolicy
   def customer_info?
     user.admin?
   end
+
+  def edit_line_items?
+    user.admin?
+  end
+
+  def send_to_sna?
+    user.admin?
+  end
+
+  def update_departure_date?
+    user.admin?
+  end
 end

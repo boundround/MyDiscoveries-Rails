@@ -4,6 +4,42 @@
 ### New Features
 - Add admin-only add_on flag
 
+## **18/09/2017**
+### Bugs Fixed
+- Fixed a bug where you could not properly look up Operators through Offers (database only)
+### New Features
+- Variants for SNA Yangtze have been scripted in
+- Variants for SNA Yangtze + Beijing have been scripted in
+- Variants for SNA India have been scripted in
+- Supplier Product Codes for SNA Yangtze have been scripted in
+- Supplier Product Codes for SNA Yangtze + Beijing have been scripted in
+- Supplier Product Codes for SNA India have been scripted in
+- Add-ons now display on voucher
+- If customer has no email and order has an SNA product, email is sent to "noemail@snatours.com"
+- Departure Date can now be modified after purchase by admin users
+- Orders are now marked "Sent To SNA" true or false
+- Orders can now be manually sent to SNA API (via a button)
+- Confirmation emails can now be manually re-sent on the "edit departure date" screen
+- Orders that contain SNA products that have departure dates are now no longer automatically sent to SNA API
+- Added ability to create new variants via Excel import
+- Departure dates on product form are sorted chronologically
+- If variant has a departure date > the year 2049, it will display "I don't know yet" on the departure date picker on the product page
+- Added a button to update order total in shopping cart (so user can update price after choosing add-on)
+
+
+## **12/09/2017**
+### New Features
+- Added a "Reset Options" button to product pages
+
+## **12/09/2017**
+### Bugs Fixed
+- Fixed minor layout bug in pdf voucher
+- Removed duplicate "Travel Stories" menu item on mobile layout
+
+## **29/08/2017**
+### Bugs Fixed
+- Fix installment flag on order_info page to show correct request_installments
+- Fix titleize error for Customer full_name method
 
 ## **28/08/2017**
 ### Bugs Fixed
