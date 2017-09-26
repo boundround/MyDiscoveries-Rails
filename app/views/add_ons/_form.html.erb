@@ -12,6 +12,10 @@
   %>
 </div>
 <div class="form-group">
+  <%= f.label :activate_admin_only_add_on? %>
+  <%= f.check_box :active_for_admin, label: false %>
+</div>
+<div class="form-group">
   <%=
     f.input :description,
     label: 'Description',

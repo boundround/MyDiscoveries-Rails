@@ -2,6 +2,7 @@
 ## ** Unreleased **
 ### Bugs Fixed
 ### New Features
+- Add admin-only add_on flag
 
 ## **18/09/2017**
 ### Bugs Fixed
