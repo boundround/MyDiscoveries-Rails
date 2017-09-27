@@ -4,6 +4,7 @@ SitemapGenerator::Sitemap.sitemaps_host = "https://s3.amazonaws.com/#{ENV['AS3_B
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
+#TODO this carrierwave uploader using SitemapGenerator gem is broken
 
 SitemapGenerator::Sitemap.create do
 
@@ -54,7 +55,7 @@ end
 
 #SitemapGenerator::Sitemap.ping_search_engines('https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz')
 #SitemapGenerator::Sitemap.ping_search_engines('https://s3-ap-southeast-2.amazonaws.com/#{ENV['AS3_BUCKET_NAME']}/sitemaps/sitemap.xml.gz')
-SitemapGenerator::Sitemap.ping_search_engines('https://www.boundround.com/sitemap')
+SitemapGenerator::Sitemap.ping_search_engines('https://www.mydiscoveries.com.au/sitemap')
 
   # Put links creation logic here.
   #
