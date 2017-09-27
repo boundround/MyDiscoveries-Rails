@@ -126,7 +126,7 @@ Rails.application.routes.draw do
   get "places/programsearchresultslist" => 'places#programsearchresultslist' #xyrin search.html
   get "places/programsearchresultsmap" => 'places#programsearchresultsmap' #xyrin map.html
 
-  # get "/sitemap" => redirect("https://s3-ap-southeast-2.amazonaws.com/brwebproduction/sitemaps/sitemap.xml.gz")
+  get "/sitemap" => redirect("https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/sitemaps/sitemap.xml.gz")
 
   post 'fun_facts_users/create' => 'fun_facts_users#create'
   post 'fun_facts_users/destroy' => 'fun_facts_users#destroy'
