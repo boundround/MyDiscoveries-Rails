@@ -141,7 +141,7 @@
     </section>
 
     <section class="info container">
-      <p class="small">Promotional prices and offers valid from <%= @offer.validityStartDate %> until <%= @offer.validityEndDate %> or while stocks last. Note: While all due care has been taken in the preparation of this document, MyDiscoveries shall not be liable for any inaccuracies or omissions which may occur. This document has been prepared from material supplied by our Travel Suppliers and from their websites.MyDiscoveries reserves the right to change information without notice and the most up to date version will always be found on www.mydiscoveries.com.au Reproduction without permission is strictly prohibited.</p>
+      <p class="small">Promotional prices and offers valid from <%= @offer.validityStartDate.strftime('%d-%m-%Y') %> until <%= @offer.validityEndDate.strftime('%d-%m-%Y') %> or while stocks last. Note: While all due care has been taken in the preparation of this document, MyDiscoveries shall not be liable for any inaccuracies or omissions which may occur. This document has been prepared from material supplied by our Travel Suppliers and from their websites.MyDiscoveries reserves the right to change information without notice and the most up to date version will always be found on www.mydiscoveries.com.au Reproduction without permission is strictly prohibited.</p>
       <div class="row">
         <% exc =  all_offer_photos(@offer).blank? ? [] : all_offer_photos(@offer).map{|key, val| val[:id]} %>
       	<% @photos.each do |photo|  %>

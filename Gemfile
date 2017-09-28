@@ -20,6 +20,7 @@ gem 'rack-rewrite'
 gem 'route_downcaser'
 
 gem 'turnout'
+gem 'local_time'
 
 gem 'deep_cloneable', '~> 2.2.2'
 

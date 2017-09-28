@@ -101,3 +101,4 @@
 //= require offer_package_options_form
 //= require miscellaneous_charges
 //= require change_departure_date
+//= require local-time
