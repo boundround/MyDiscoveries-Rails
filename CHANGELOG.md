@@ -2,7 +2,11 @@
 ## ** Unreleased **
 ### Bugs Fixed
 ### New Features
-- Add admin-only add_on flag
+- Add admin-only add_on flag to Add Ons
+- Fixed validity dates in vouchers
+- Added operating schedule to vouchers
+- Replaced "Created At" with "Purchase Date" on all orders screen
+- Added PaperTrail to Orders, Products, Variants, Line Items, Add Ons
 
 ## **18/09/2017**
 ### Bugs Fixed
