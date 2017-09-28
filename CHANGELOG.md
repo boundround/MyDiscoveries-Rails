@@ -8,6 +8,7 @@
 - Replaced "Created At" with "Purchase Date" on all orders screen
 - Added PaperTrail to Orders, Products, Variants, Line Items, Add Ons
 - Purchase date on All Orders page is now localised (when possible)
+- Competition partial is now fixed
 
 ## **18/09/2017**
 ### Bugs Fixed
