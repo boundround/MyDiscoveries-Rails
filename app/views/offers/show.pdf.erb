@@ -58,20 +58,14 @@
     <% unless @offer.includes.blank? %>
       <section class="includes container">
         <div class="row">
-          <% if !@inc_exc.blank? %>
-            <div class="col-xs-6">
-            <%= simple_format(@offer.includes) %>
-            </div>
-          <% else %>
-            <div class="col-xs-6">
-              <!-- <h3>INCLUDES:</h3> -->
-              <%= simple_format(offer_includes(@offer)['includes']) rescue 'No includes' %>
-            </div>
-            <div class="col-xs-6">
-              <!-- <h3>EXCLUDES:</h3> -->
-               <%= simple_format(offer_includes(@offer)['excludes']) rescue 'No excludes' %>
-            </div>
-          <% end %>
+          <div class="col-xs-12">
+            <!-- <h3>INCLUDES:</h3> -->
+            <%= simple_format(offer_includes(@offer)['includes']) rescue 'No includes' %>
+          </div>
+          <div class="col-xs-12">
+            <!-- <h3>EXCLUDES:</h3> -->
+             <%= simple_format(offer_includes(@offer)['excludes']) rescue 'No excludes' %>
+          </div>
         </div>
       </section>
     <% end %>
@@ -81,7 +75,7 @@
       <% unless @offer.departure_dates.blank? %>
         <h3>DEPARTURE DATES</h3>
         <div class="row">
-          <div class="col-xs-6 col-xs-offset-3">
+          <div class="col-xs-12 col-xs-offset-3">
             <table>
               <% offer_departure_dates(@offer).each do |key, val|%>
                 <tr>
@@ -93,11 +87,6 @@
           </div>
         </div>
       <% end %>
-      <% unless @photos.blank? %>
-        <div class="img-waves waves-lg">
-          <%= image_tag(all_offer_photos(@offer).blank? ? @photos.last.path_url : all_offer_photos(@offer)[2][:url], class: "img-responsive") %>
-        </div>
-      <% end %>
     </section>
 
     <section class="facilities container">
@@ -105,11 +94,6 @@
       <ul>
     	 <%= simple_format @offer.customStr2 %>
       </ul>
-      <% unless @photos.blank? %>
-        <div class="img-waves waves-lg">
-          <%= image_tag(all_offer_photos(@offer).blank? ? @photos.last.path_url : all_offer_photos(@offer)[3][:url], class: "img-responsive") %>
-        </div>
-      <% end %>
     </section>
     
     <section class="info container">
@@ -121,12 +105,12 @@
 
     <section class="essentials container">
       <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-12">
           <h3>BOOKING ESSENTIALS</h3>
           <%= simple_format(@offer.customStr1) if @offer.customStr1.present? %>
         </div>
         <% unless @offer.customStr3.blank? %>
-          <div class="col-xs-6">
+          <div class="col-xs-12">
             <h3>FINE PRINT</h3>
             <%= simple_format @offer.customStr3 %>
           </div>
@@ -135,8 +119,10 @@
     </section>
 
     <section class="info container">
-      <div class="col-xs-6">
-        <%= simple_format(@offer.customStr4.presence || @book_guarantee) %>
+      <div class="row">
+        <div class="col-xs-12">
+          <%= simple_format(@offer.customStr4.presence || @book_guarantee) %>
+        </div>
       </div>
     </section>
 
