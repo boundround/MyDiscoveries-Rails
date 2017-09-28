@@ -2,19 +2,25 @@
 ## ** Unreleased **
 ### Bugs Fixed
 ### New Features
-- Add admin-only add_on flag to Add Ons
-- Validity dates are now shoing in itinerary (content will most likely need updating)
-- Added operating schedule to itinerary
-- Replaced "Created At" with "Purchase Date" on all orders screen
-- Added PaperTrail to Orders, Products, Variants, Line Items, Add Ons
-- Purchase date on All Orders page is now localised (when possible)
-- Competition partial is now fixed
-- Information for voucher is now in one column
+
+## **28/09/2017**
+### Bugs Fixed
+- If there are multiple active competitions, they now display properly on the home page
 - Fixed author attribution for Stories
+
+### New Features
+- Added admin-only add_on flag to Add Ons
+- Validity (valid from and valid to) dates are now showing in downloadable itinerary (content will most likely need updating)
+- Added operating schedule to downloadable itinerary
+- CMS - Replaced "Created At" with "Purchase Date" on all orders screen
+- Backend - Added PaperTrail to Orders, Products, Variants, Line Items, Add Ons
+- CMS - Purchase date on All Orders page is now localised (when possible)
+- Column layouts have been removed from the downloadable itinerary
 
 ## **18/09/2017**
 ### Bugs Fixed
 - Fixed a bug where you could not properly look up Operators through Offers (database only)
+
 ### New Features
 - Variants for SNA Yangtze have been scripted in
 - Variants for SNA Yangtze + Beijing have been scripted in
