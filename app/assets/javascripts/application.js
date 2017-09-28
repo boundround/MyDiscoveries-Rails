@@ -64,13 +64,11 @@
 //= require blueimp-gallery/blueimp-gallery-vimeo
 //= require custom
 //= require trip_advisor
-//= require loading
 //= require rest_in_place
 //= require place_videos
 //= require area
 //= require cms_offers
 //= require places
-
 //= require lib/fastclick
 //= require lib/swiper.jquery
 //= require lib/tweenlite/TweenLite.min
@@ -78,7 +76,6 @@
 //= require lib/tweenlite/EasePack.min
 //= require lib/tweenlite/jquery.gsap.min
 //= require lib/tweenlite/CSSPlugin.min
-
 //= require service/mediator
 //= require service/device
 //= require service/device-detector
