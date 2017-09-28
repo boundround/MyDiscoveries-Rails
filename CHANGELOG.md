@@ -10,6 +10,7 @@
 - Purchase date on All Orders page is now localised (when possible)
 - Competition partial is now fixed
 - Information for voucher is now in one column
+- Fixed author attribution for Stories
 
 ## **18/09/2017**
 ### Bugs Fixed
