@@ -1,13 +1,3 @@
-<% @competitions.each do |comp| %>
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <a class="comp-hero" href="<%= comp.url%>">
-        <img src="<%= showing_image(comp.image_url(:large)) %>" />
-      </a>
-    </div>
-  </div>
-  <hr>
-<% end %>
 <div class="row">
   <% if @competitions.size == 1 %>
     <div class="col-md-12 text-center">
@@ -18,20 +8,19 @@
   <% else %>
     <% @competitions.each do |comp| %>
       <div class="col-md-4 col-sm-6 dest-thing-wrapper">
-          <div class="dest-thing">
-            <a class="link_card" href="<%= comp.url %>"></a>
-              <div class="dest-thing-overlay-wrapper">
-
-              </div>
-              <div class="things-img" style="background: url(<%= showing_image(comp.image_url(:small)) %>) no-repeat;" role="img"
-                   aria-label="Bondi"></div>
-              <div class="dest-thing-content">
-                  <h4><%= comp.title %></h4>
-                  <div class="tags">
-
-                  </div>
-              </div>
+        <div class="dest-thing">
+          <a class="link_card" href="<%= comp.url %>"></a>
+          <div class="dest-thing-overlay-wrapper">
           </div>
+          <div class="things-img" style="background: url(<%= showing_image(comp.image_url(:small)) %>) no-repeat;" role="img"
+                aria-label="Bondi">
+          </div>
+          <div class="dest-thing-content">
+            <h4><%= comp.title %></h4>
+            <div class="tags">
+            </div>
+          </div>
+        </div>
       </div>
     <% end %>
   <% end %>
