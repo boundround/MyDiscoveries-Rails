@@ -2,7 +2,12 @@
 ## ** Unreleased **
 ### Bugs Fixed
 ### New Features
-- Add admin-only add_on flag
+- Add admin-only add_on flag to Add Ons
+- Validity dates are now shoing in itinerary (content will most likely need updating)
+- Added operating schedule to itinerary
+- Replaced "Created At" with "Purchase Date" on all orders screen
+- Added PaperTrail to Orders, Products, Variants, Line Items, Add Ons
+- Purchase date on All Orders page is now localised (when possible)
 
 ## **18/09/2017**
 ### Bugs Fixed

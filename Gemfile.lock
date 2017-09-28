@@ -365,6 +365,7 @@ GEM
       letter_opener (~> 1.0)
       railties (>= 3.2)
     little-plugger (1.1.4)
+    local_time (2.0.0)
     logging (2.1.0)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
@@ -829,6 +830,7 @@ DEPENDENCIES
   lazyload-rails
   le
   letter_opener_web
+  local_time
   mandrill-api
   memcachier
   mini_magick
