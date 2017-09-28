@@ -40,13 +40,13 @@
                 </div>
 
                 <div class="author-block">
-                    <img class="cover-bg" style="background: url('<%= @story.user.avatar_url.present? ? @story.user.avatar_url : asset_path('favicons/mydiscoveries/favicon-32x32.png') %>') center no-repeat;">
+                    <img class="cover-bg" style="background: url('<%= @story.author.present? ? @story.author.image : asset_path('mydiscoveries_icon/logo-short.png') %>') center no-repeat;">
                     <span class="ab-author">
-                      <% if @story.user.is_private? %>
-                        <%= @story.user.name rescue "" %>
-                      <% else %>
-                        <%= link_to @story.user.name, public_profile_user_path(@story.user) %>
-                      <% end %>
+                        <% if @story.author.blank? %>
+                            <%= @story.user.name.present? ? story.user.name.truncate(28) : "MyDiscoveries" %>
+                        <% else %>
+                            <%= link_to @story.author.name, author_path(@story.author) %>
+                        <% end %>
                     </span>
                     <span class="ab-date"><%= @story.publish_date.strftime("%d %B %Y") %></span>
                 </div>

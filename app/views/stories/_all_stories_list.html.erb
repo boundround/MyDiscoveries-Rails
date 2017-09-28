@@ -8,10 +8,10 @@
     <div>
       <div style="float: left; padding-left: 1.5rem">
         <div class="hidden-xs hidden-sm">
-          <p><%= story.user.name.present? ? story.user.name.truncate(28) : "MyDiscoveries" %></p>
+          <p><%= story.author.name.present? ? story.author.name.truncate(28) : "MyDiscoveries" %></p>
         </div>
         <div class="hidden-lg hidden-xl">
-          <p><%= story.user.name.present? ? story.user.name.truncate(18) : "MyDiscoveries" %></p>
+          <p><%= story.author.name.present? ? story.author.name.truncate(18) : "MyDiscoveries" %></p>
         </div>
       </div>
       <div style="float: right;">
