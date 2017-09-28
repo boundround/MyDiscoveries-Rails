@@ -2,16 +2,16 @@
   <div class="inspiration-item wrap_link_card">
   <a class="link_card" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>"></a>
     <div class="card-story-height">
-      <div class="user-dp" style="background: url(<%= showing_image(story.hero_image_url)%>) no-repeat; background-size: cover !important;" role="img"aria-label="User: <%= story.user.name %>"></div>
+      <div class="user-dp" style="background: url(<%= showing_image(story.hero_image_url)%>) no-repeat; background-size: cover !important;" role="img"; aria-label="User: <%=  story.user.name %>"></div>
       <h4 class="inspiration-item__header"><%= raw story.title.blank? ? story.title : story.title.truncate(50) %></h4>
     </div>
     <div>
-      <div style="float: left;">
+      <div style="float: left; padding-left: 1.5rem">
         <div class="hidden-xs hidden-sm">
-          <p><%= story.user.name.truncate(28) rescue "" %></p>
+          <p><%= story.user.name.present? ? story.user.name.truncate(28) : "MyDiscoveries" %></p>
         </div>
         <div class="hidden-lg hidden-xl">
-          <p><%= story.user.name.truncate(18) rescue "" %></p>
+          <p><%= story.user.name.present? ? story.user.name.truncate(18) : "MyDiscoveries" %></p>
         </div>
       </div>
       <div style="float: right;">
