@@ -67,34 +67,32 @@ Spree::Variant.class_eval do
     label = ""
 
     if !product.disable_departure_city
-      label << "Departure city: #{departure_city.capitalize}"
+      label << "Departure city: #{departure_city.capitalize} <br>" 
     end
 
     if !product.disable_departure_date
-      label << " Departure Date: #{departure_date.try(:to_date).try(:to_s)},"
+      label << " Departure Date: #{departure_date.try(:to_date).try(:to_s)}, <br>"
     end
 
     if !product.disable_package_option
-      label << " Package Option: #{package_option.try(:capitalize)},"
+      label << " Package Option: #{package_option.try(:capitalize)}, <br>"
     end
 
     if !product.disable_accommodation
-      " Hotel / Accommodation: #{accommodation.try(:capitalize)},"
+      label << " Hotel / Accommodation: #{accommodation.try(:capitalize)}, <br>"
     end
 
     if !product.disable_room_type
-      label << " Room Type: #{room_type.try(:capitalize)},"
+      label << " Room Type: #{room_type.try(:capitalize)}, <br>"
     end
 
     if !product.disable_bed_type
-      label << " Bed Type: #{bed_type.try(:capitalize)},"
+      label << " Bed Type: #{bed_type.try(:capitalize)}, <br>"
     end
 
     if !product.disable_maturity
-      label << " Adult/Child: #{maturity.try(:capitalize)},"
+      label << " Adult/Child: #{maturity.try(:capitalize)}, <br>"
     end
-
-    label.gsub(/\,$/, '')
   end
 
   def monthly_price
