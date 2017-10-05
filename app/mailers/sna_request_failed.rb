@@ -4,6 +4,6 @@ class SnaRequestFailed < ActionMailer::Base
   def notification(order_id)
     @order  = Spree::Order.find(order_id)
 
-    mail(to: 'info@mydiscoveries.com.au', subject: 'Send SNA request problems')
+    mail(to: 'donovan@boundround.com', subject: 'Send SNA request problems')
   end
 end
