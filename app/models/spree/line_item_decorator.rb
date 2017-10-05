@@ -80,8 +80,10 @@ Spree::LineItem.class_eval do
   private
 
   def check_passengers
-    remove_extra_passengers if passengers.count > quantity
-    order.set_cart_add_passengers! if passengers.count != quantity
+    if !departure_date_changed?
+      remove_extra_passengers if passengers.count > quantity
+      order.set_cart_add_passengers! if passengers.count != quantity
+    end
   end
 
   def remove_extra_passengers
