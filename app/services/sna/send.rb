@@ -91,7 +91,7 @@ class SNA::Send
             "ItemDesc": line_item.product.name,
             "Quantity": line_item.quantity,
             "UnitPrice": line_item.price.to_s,
-            "SupplierProductCode": line_item.variant.supplier_product_code,
+            "SupplierProductCode": "#{line_item.variant.supplier_product_code}#{line_item.add_ons.map{|x| x.add_on_code}.join('')}",
             "DepartureDate": line_item.variant.product.disable_departure_date? ? '' : line_item.variant.departure_date.strftime('%Y-%m-%d')
           }
         })
