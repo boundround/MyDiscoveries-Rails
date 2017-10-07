@@ -74,5 +74,10 @@
         </div>
       </div>
     <% end %>
+    <% if @order.ax_data.present? %>
+      <div>
+        <pre><%= JSON.pretty_generate(JSON.parse(@order.ax_data.to_json)) %></pre>
+      </div>
+    <% end %>
   </div>
 </div>

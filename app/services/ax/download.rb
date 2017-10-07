@@ -17,12 +17,9 @@ class Ax::Download
         @order   = save_order(user, customer) if customer && customer.persisted?
       end
 
-      if @order && @order.persisted?
-        OrderAuthorized.delay.notification(@order.id) unless @order.products.any? { |product| product.operator_id == 1 && product.disable_departure_date == false }
-
-        if !@order.sent_to_sna? && @order.products.any? { |product| product.operator_id == 1 && product.disable_departure_date == false } 
-          SNA::RequestProcessor.perform_async(@order.id)
-        end
+      if @order && @order.persisted? && @order.sna_voucher_ready?
+        OrderAuthorized.delay.notification(@order.id)
+        SNA::RequestProcessor.perform_async(@order.id) unless @order.sent_to_sna?
       end
     end
   end
