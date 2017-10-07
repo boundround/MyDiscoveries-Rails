@@ -37,7 +37,7 @@
       </tfoot>
       <tbody>
       <% @orders.each do |order| %>
-          <tr>
+          <tr style="background-color:<%= (order.products.where(operator_id: 1).any? && !order.sent_to_sna) ? 'lightblue' : '' %>">
             <td><%= order.ax_sales_id %></td>
             <td><%= local_time(order.purchase_date, '%Y-%m-%d') rescue '' %></td>
             <td><%= (order.customer.first_name.to_s + ' ' + order.customer.last_name.to_s) rescue "Error finding name" %></td>

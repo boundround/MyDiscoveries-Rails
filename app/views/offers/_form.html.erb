@@ -128,9 +128,9 @@
         <%= f.input :product_type, label: 'Holiday Type', as: :select, collection: ["Package", "Cruise", "Tour", "Hotel/accommodation", "Event", "Other"], input_html: { class: 'width100' } %>
       </div>
 
-      <!-- <div class="form-group">
-        <%#= f.input :supplier_product_code, as: :string, label: 'Supplier Product Code', input_html: { class: 'width100' } %>
-      </div> -->
+      <div class="form-group">
+        <%= f.input :supplier_product_code, as: :string, label: 'Supplier Product Code', input_html: { class: 'width100' } %>
+      </div>
 
     </div>
   </div>

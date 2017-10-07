@@ -12,6 +12,13 @@
   %>
 </div>
 <div class="form-group">
+  <%=
+    f.input :add_on_code,
+    label: 'Add On Code (Supplier)',
+    input_html: { class: 'form-control' }
+  %>
+</div>
+<div class="form-group">
   <%= f.label :activate_admin_only_add_on? %>
   <%= f.check_box :active_for_admin, label: false %>
 </div>

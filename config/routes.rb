@@ -478,7 +478,6 @@ Rails.application.routes.draw do
   get 'checkout' => 'orders#checkout', as: :checkout
   post 'payment' => 'orders#payment', as: :payment
   put 'orders/update_line_items' => 'orders#update_line_items', as: :update_cart
-  get 'orders/:id/send_to_sna' => 'orders#send_to_sna', as: :order_send_to_sna
   get 'orders/:id/view_confirmation' => 'orders#view_confirmation',
     as: :order_view_confirmation
   get 'orders/:id/edit_confirmation' => 'orders#edit_confirmation',
@@ -497,6 +496,8 @@ Rails.application.routes.draw do
     as: :order_resend_confirmation
   get 'orders/:id/edit_line_items' => 'orders#edit_line_items',
     as: :order_edit_line_items
+  patch 'orders/:id/send_to_sna' => 'orders#send_to_sna',
+    as: :order_send_to_sna
   get 'orders/:id/update_departure_date' => 'orders#update_departure_date',
     as: :order_update_departure_date
 
