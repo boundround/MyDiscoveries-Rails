@@ -130,8 +130,8 @@ Spree::Order.class_eval do
   end
 
   def sna_voucher_ready?
-    if @order.products.any? { |product| product.operator_id == 1 }
-      return @order.ax_data['Envelope']['Order']['Total'].to_f == @order.total && !product.disable_departure_date
+    if products.any? { |product| product.operator_id == 1 && !product.disable_departure_date }
+      return ax_data['Envelope']['Order']['Total'].to_f == total
     end
     true
   end
