@@ -13,7 +13,7 @@ class Payment::PaymentExpress::ProcessAuthRequest
         if Rails.env.production?
           result = SNA::Send.call(order) if order.products.where(operator_id: 1).any?
           if result.response.code != '200'
-            SnaRequestFailed.delay.notification(order_id)
+            SnaRequestFailed.delay.notification(order_id, result)
             raise "SNA response: #{result.response.message}"
           else
             order.update!(sent_to_sna: true)
