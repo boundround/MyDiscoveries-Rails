@@ -11,7 +11,7 @@
                 <%= offer.name %>
               </p>
               <div class="bit-info">
-               <h4 class="heading">your booking:</h4>
+               <h4 class="heading">your purchase:</h4>
                 <ul>
                   <li>
                     <%= line_item.quantity %> guests
@@ -21,19 +21,27 @@
                   </li>
                 </ul>
               </div>
+              <div class="bit-info">
+               <h4 class="heading">variant details:</h4>
+               <table>
+                 <tr>
+                   <td style="padding-right: 22px"><%= simple_format "#{line_item.variant.select_label} (Qty: #{line_item.quantity})" %></td>
+                 </tr>
+                 <tr></tr>
+                 <tr>
+                   <td style="font-weight: bold; padding-right: 22px">
+                     <% if line_item.request_installments? %>
+                       <%= "5 x installments of #{number_to_currency(total_line_item_price(line_item).to_f / 5.to_f)}" %>
+                     <% else %>
+                       <%= "#{number_to_currency(total_line_item_price(line_item))}" %>
+                     <% end %>
+                   </td>
+                 </tr>
+               </table>
+              </div>
             </div>
             <div class="bi-bottom">
               <table>
-                <tr>
-                  <td><%= "#{line_item.variant.select_label} (Qty: #{line_item.quantity})" %></td>
-                  <td>
-                    <% if line_item.request_installments? %>
-                      <%= "5 x #{number_to_currency(total_line_item_price(line_item).to_f / 5.to_f)}" %>
-                    <% else %>
-                      <%= "#{number_to_currency(total_line_item_price(line_item))}" %>
-                    <% end %>
-                  </td>
-                </tr>
                 <tr>
                   <td>Total price</td>
                   <td>
