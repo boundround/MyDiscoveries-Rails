@@ -19,7 +19,8 @@ class Ax::Download
 
       if @order && @order.persisted? && @order.sna_voucher_ready?
         OrderAuthorized.delay.notification(@order.id)
-        SNA::RequestProcessor.perform_async(@order.id) unless @order.sent_to_sna?
+        SNA::RequestProcessor.perform_async(@order.id) if @order.products.any? { |product| product.operator_id == 1 }
+        end
       end
     end
   end
