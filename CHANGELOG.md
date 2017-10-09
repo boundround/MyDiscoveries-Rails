@@ -1,6 +1,7 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
 ### Bugs Fixed
+- Fix error while trying to edit stories
 ### New Features
 
 ## **28/09/2017**
