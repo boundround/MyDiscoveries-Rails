@@ -3,6 +3,14 @@
 ### Bugs Fixed
 ### New Features
 
+## **10/10/2017**
+### Bugs Fixed
+- Fixed a bug where order status would change if you edited departure date
+- Fixed a bug where SNA would receive multiple copies of orders
+### New Features
+- Change Email address for failed SNA Data Send to donovan@boundround.com
+- Added product codes for Add-Ons
+
 ## **28/09/2017**
 ### Bugs Fixed
 - If there are multiple active competitions, they now display properly on the home page
