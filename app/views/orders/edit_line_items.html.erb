@@ -48,8 +48,8 @@
                   Departure Date: <%= line_item.variant.display_departure_date %>
                 </div>
                 <div>
-                  Change Departure Date (page will refresh after choice):<br> 
-                  <select class="order_line_item_variant_id" 
+                  <h3>Change Departure Date</h3>
+                  <select class="order_line_item_variant_id form-control"
                           name="order[line_item][variant_id]" 
                           data-line-item-id="<%= line_item.id %>"
                           data-variant-id="<%= line_item.variant_id %>"
@@ -59,11 +59,15 @@
                     <% end %>
                   </select>
                 </div>
+                <% if @order.created_from_ax? %>
+                  <h4>Add Add-Ons</h4>
+                  <%= line_item.product.add_ons.map{|x| x.name }.join(',') %>
+                <% end %>
                 <% if @order.products.where(operator_id: 1).any? %>
                   <% if @order.created_at < Date.new(2017, 9, 18) %>
-                    <div>Already Sent to SNA? <span style="color:red"><%= true %></span></div>
+                    <h4>Already Sent to SNA? <span style="color:red"><%= true %></span></h4>
                   <% else %>
-                    <div>Already Sent to SNA? <span style="color:red"><%= @order.sent_to_sna %></span></div>
+                    <h4>Already Sent to SNA? <span style="color:red"><%= @order.sent_to_sna %></span></h4>
                   <% end %>
                   <%= link_to 'Send/Resend To SNA', order_send_to_sna_path(@order), class: 'btn btn-default' %>
                 <% end %>
