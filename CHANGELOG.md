@@ -1,6 +1,7 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
 ### Bugs Fixed
+- Fixed region page region description not showing
 ### New Features
 
 ## **28/09/2017**
