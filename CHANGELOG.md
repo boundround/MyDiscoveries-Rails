@@ -1,7 +1,9 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
 ### Bugs Fixed
-- Fixed region page region description not showing
+- Fix error while trying to edit stories
+- Fix text in Cart for the view add_passenger_form
+- Fix region page region description not showing
 ### New Features
 
 ## **28/09/2017**

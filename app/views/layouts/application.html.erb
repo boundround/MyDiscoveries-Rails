@@ -16,7 +16,7 @@
 		<link rel="icon" type="image/png" href="<%= asset_path('favicons/mydiscoveries/favicon.ico')%>">
 		<link rel="manifest" href="<%= asset_path('favicons/mydiscoveries/manifest.json')%>">
     <meta name="google-site-verification" content="4KjYN-5D_S7gsXgeFtXFgdkMw6-Dz4_dtwgiDQdRtaY" />
-		<meta name="description" content="<%= meta_description(yield(:title), yield(:description)) %>">
+		<meta name="description" content="<%= yield(:description).blank? ? meta_description : yield(:description) %>">
 		<meta name="author" content="MyDiscoveries">
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="msapplication-TileImage" content="<%= asset_path('favicons/mydiscoveries/mstile-150x150.png')%>">
