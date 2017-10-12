@@ -43,7 +43,7 @@
                     <img class="cover-bg" style="background: url('<%= @story.author.present? ? @story.author.image : asset_path('mydiscoveries_icon/logo-short.png') %>') center no-repeat;">
                     <span class="ab-author">
                         <% if @story.author.blank? %>
-                            <%= @story.user.name.present? ? story.user.name.truncate(28) : "MyDiscoveries" %>
+                            <%= @story.author_name_truncated(28) %>
                         <% else %>
                             <%= link_to @story.author.name, author_path(@story.author) %>
                         <% end %>
