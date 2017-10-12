@@ -1,36 +1,5 @@
 module ApplicationHelper
-
-  def draw_prices(prices)
-    prices_string = ""
-
-    if prices.any? {|price| price.name == "Free"}
-      prices_string += "<span data-toggle='tooltip' title data-original-title='Free' class='green-font price'>Free</span>"
-    else
-      prices_string += "<span data-toggle='tooltip' title data-original-title='Free' class='grey-font price'>Free</span>"
-    end
-
-    if prices.any? {|price| price.name == "$"}
-      prices_string += "<span data-toggle='tooltip' title data-original-title='Inexpensive' class='green-font price'>$</span>"
-    else
-      prices_string += "<span data-toggle='tooltip' title data-original-title='Inexpensive' class='grey-font price'>$</span>"
-    end
-
-    if prices.any? {|price| price.name == "$$"}
-      prices_string += "<span data-toggle='tooltip' title data-original-title='Midrange' class='green-font price'>$$</span>"
-    else
-      prices_string += "<span data-toggle='tooltip' title data-original-title='Midrange' class='grey-font price'>$$</span>"
-    end
-
-    if prices.any? {|price| price.name == "$$$"}
-      prices_string += "<span data-toggle='tooltip' title data-original-title='Expensive' class='green-font price'>$$$</span>"
-    else
-      prices_string += "<span data-toggle='tooltip' title data-original-title='Expensive' class='grey-font price'>$$$</span>"
-    end
-
-    prices_string
-
-  end
-
+  
   def draw_accessibilty_icons(category)
     if category.identifier == "hearing-impaired"
       "<i data-toggle='tooltip' title data-original-title='Hearing impaired' class='fa fa-deaf accessibility'></i>"

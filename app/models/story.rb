@@ -321,6 +321,14 @@ class Story < ActiveRecord::Base
     return places_to_visit
   end
 
+  def author_name_truncated(num)
+    if author.present? && author.name.present?
+      author.name.truncate(num)
+    else
+      "MyDiscoveries"
+    end
+  end
+
   protected
 
     def determine_age_bracket
