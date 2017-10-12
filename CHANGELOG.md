@@ -3,6 +3,7 @@
 ### Bugs Fixed
 - Fix error while trying to edit stories
 - Fix text in Cart for the view add_passenger_form
+- Fixed a bug where if a story card did not have an author, the view would break
 ### New Features
 
 ## **28/09/2017**
