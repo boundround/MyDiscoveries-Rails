@@ -1,3 +1,6 @@
+<% provide(:description, @region.description.present? ? @region.description : "") %>
+<% provide(:slug, @region.slug.present? ? "regions/" + @region.slug : "") %>
+
 <div data-page="region">
 
   <div class="breadcrumbs width-limiter">
