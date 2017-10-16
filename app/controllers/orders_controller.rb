@@ -55,7 +55,8 @@ class OrdersController < ApplicationController
     :edit_confirmation,
     :edit_line_items,
     :update_customer,
-    :update_add_ons
+    :update_add_ons,
+    :send_to_sna
 
   ]
 
@@ -301,6 +302,7 @@ class OrdersController < ApplicationController
     set_order_for_admin
     if @order
       result = SNA::Send.call(@order)
+      @order.update!(sna_response: result)
       if result.response.code != '200'
         flash[:notice] = "SNA response: #{result.response.message}"
         redirect_to :back
