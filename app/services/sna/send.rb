@@ -10,7 +10,7 @@ class SNA::Send
   end
 
   def print
-    puts JSON.pretty_generate(JSON.parse(order_body))
+    JSON.pretty_generate(JSON.parse(order_body))
   end
 
   private
@@ -90,7 +90,7 @@ class SNA::Send
             "ItemId": line_item.variant.item_code,
             "ItemDesc": line_item.product.name,
             "Quantity": line_item.quantity,
-            "UnitPrice": line_item.price.to_s,
+            "UnitPrice": line_item.price_with_add_ons.to_s,
             "SupplierProductCode": "#{line_item.variant.supplier_product_code}#{line_item.add_ons.map{|x| x.add_on_code}.join('')}",
             "DepartureDate": line_item.variant.product.disable_departure_date? ? '' : line_item.variant.departure_date.strftime('%Y-%m-%d')
           }

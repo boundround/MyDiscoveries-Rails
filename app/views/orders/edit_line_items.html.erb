@@ -54,7 +54,14 @@
                         data-variant-id="<%= line_item.variant_id %>"
                         data-order-number="<%= line_item.order.number %>">
                   <% line_item.variant.similar_variants.order(departure_date: :asc).each do |variant| %>
-                    <option value="<%= variant.id %>"><%= variant.display_departure_date %></option>
+                    <option 
+                      value="<%= variant.id %>"
+                      <% if variant.display_departure_date == line_item.variant.display_departure_date %>
+                        selected
+                      <% end %>
+                    >
+                      <%= variant.display_departure_date %>
+                    </option>
                   <% end %>
                 </select>
               </div>
@@ -87,8 +94,15 @@
       </div>
     </div>
     <% if @order.ax_data.present? %>
+      <h3>Data from AX</h3>
       <div>
         <pre><%= JSON.pretty_generate(JSON.parse(@order.ax_data.to_json)) %></pre>
+      </div>
+    <% end %>
+    <% if @order.products.any? { |product| product.operator.id == 1 } %>
+      <h3>Data for SNA</h3>
+      <div>
+        <pre><%= JSON.pretty_generate(JSON.parse(SNA::Send.print @order)) %></pre>
       </div>
     <% end %>
   </div>
