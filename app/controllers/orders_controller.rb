@@ -54,7 +54,8 @@ class OrdersController < ApplicationController
     :abandoned,
     :edit_confirmation,
     :edit_line_items,
-    :update_customer
+    :update_customer,
+    :update_add_ons
 
   ]
 
@@ -78,6 +79,7 @@ class OrdersController < ApplicationController
 
   before_action :set_order_for_admin, only: [
     :cms_update,
+    :update_add_ons,
     :cms_edit,
     :view_confirmation,
     :customer_info,
@@ -97,6 +99,21 @@ class OrdersController < ApplicationController
 
   def cart
     associate_user
+  end
+
+  def update_add_ons
+    set_order_for_admin
+    @line_item = Spree::LineItem.find params[:line_item_id]
+    respond_to do |format|
+      format.json do
+        if @line_item.update(add_on_ids: params[:add_on_ids])
+          flash[:notice] = "Add Ons Updated"
+          redirect_to order_edit_line_items_path(@line_item.order)
+        else
+          flash[:notice] = @line_item.errors.full_messages.join(', ')
+        end
+      end
+    end
   end
 
   def update_line_items

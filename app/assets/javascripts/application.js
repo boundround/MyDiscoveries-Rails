@@ -81,7 +81,7 @@
 //= require service/device-detector
 //= require service/swiper
 //= require service/modal-filter
-
+//= require edit_line_items
 //= require chunks/fast-click-enable
 //= require chunks/navigation-drop-down
 //= require chunks/search-page-card

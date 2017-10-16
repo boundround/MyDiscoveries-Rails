@@ -478,6 +478,7 @@ Rails.application.routes.draw do
   get 'checkout' => 'orders#checkout', as: :checkout
   post 'payment' => 'orders#payment', as: :payment
   put 'orders/update_line_items' => 'orders#update_line_items', as: :update_cart
+  get 'orders/:id/update_add_ons' => 'orders#update_add_ons', as: :order_update_add_ons
   get 'orders/:id/view_confirmation' => 'orders#view_confirmation',
     as: :order_view_confirmation
   get 'orders/:id/edit_confirmation' => 'orders#edit_confirmation',

@@ -41,7 +41,7 @@
                 Price: <%= number_to_currency(line_item.price) %><br></p>
                 Requested Installments?: <%= line_item.request_installments? ? "Yes" : "No" %><br></p>
                 AX Item Code: <%= line_item.variant.item_code %> <br></p>
-                Supplier Product Code: <%= line_item.variant.supplier_product_code %> <br></p>
+                Supplier Product Code: <%= "#{line_item.variant.supplier_product_code}#{line_item.add_ons.map{|x| x.add_on_code}.join('')}" %> <br></p>
               </p>
               <div id=<%= "line_item_#{line_item.id}_departure_date" %>>
                 Departure Date: <%= line_item.variant.display_departure_date %>
@@ -60,7 +60,17 @@
               </div>
               <% if @order.created_from_ax? %>
                 <h4>Add Add-Ons</h4>
-                <%= line_item.product.add_ons.map{|x| x.name }.join(',') %>
+                <% line_item.product.add_ons.each do |add_on| %>
+                  <input  type="checkbox" 
+                          <% if line_item.add_ons.include?(add_on) %>
+                            checked
+                          <% end %>
+                          value="<%= add_on.id %>" 
+                          class="line_item_update_add_ons"
+                          data-line-item-id="<%= line_item.id %>"
+                          name="add_ons">
+                  <%= add_on.name %>
+                <% end %>
               <% end %>
               <% if @order.products.where(operator_id: 1).any? %>
                 <% if @order.created_at < Date.new(2017, 9, 18) %>

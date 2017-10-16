@@ -23,6 +23,10 @@ class OrderPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def update_add_ons?
+    user.admin?
+  end
+
   def abandoned?
     user.admin?
   end
