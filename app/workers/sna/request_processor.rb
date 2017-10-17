@@ -14,7 +14,7 @@ class SNA::RequestProcessor
       if result.response.code != '200'
         raise "SNA response: #{result.response.message}"
       else
-        order.update!(sent_to_sna: true)
+        order.update(sent_to_sna: true)
       end
     end
   end

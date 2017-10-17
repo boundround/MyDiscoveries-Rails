@@ -302,12 +302,12 @@ class OrdersController < ApplicationController
     set_order_for_admin
     if @order
       result = SNA::Send.call(@order)
-      @order.update!(sna_response: result)
+      @order.update(sna_response: result)
       if result.response.code != '200'
         flash[:notice] = "SNA response: #{result.response.message}"
         redirect_to :back
       else
-        @order.update!(sent_to_sna: true)
+        @order.update(sent_to_sna: true)
         redirect_to :back
       end
     end
