@@ -83,7 +83,7 @@
                 <% if @order.created_at < Date.new(2017, 9, 18) %>
                   <h4>Already Sent to SNA? <span style="color:red"><%= true %></span></h4>
                 <% else %>
-                  <h4>Already Sent to SNA? <span style="color:red"><%= @order.sent_to_sna %></span></h4>
+                  <h4>Already Sent to SNA? <span style="color:red"><%= "#{@order.sent_to_sna?} | SNA Response: #{@order.sna_response}" %></span></h4>
                 <% end %>
                 <%= link_to 'Send/Resend To SNA', order_send_to_sna_path(@order), class: 'btn btn-default' %>
               <% end %>
