@@ -79,7 +79,7 @@
                   <%= add_on.name %>
                 <% end %>
               <% end %>
-              <% if @order.products.where(operator_id: 1).any? %>
+              <% if @order.has_sna_product? %>
                 <% if @order.created_at < Date.new(2017, 9, 18) %>
                   <h4>Already Sent to SNA? <span style="color:red"><%= true %></span></h4>
                 <% else %>
@@ -99,7 +99,7 @@
         <pre><%= JSON.pretty_generate(JSON.parse(@order.ax_data.to_json)) %></pre>
       </div>
     <% end %>
-    <% if @order.products.any? { |product| product.operator.id == 1 } %>
+    <% if @order.has_sna_product? %>
       <h3>Data for SNA</h3>
       <div>
         <pre><%= JSON.pretty_generate(JSON.parse(SNA::Send.print @order)) %></pre>

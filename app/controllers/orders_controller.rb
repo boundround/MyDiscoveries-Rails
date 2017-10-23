@@ -91,7 +91,7 @@ class OrdersController < ApplicationController
   before_action :apply_coupon_code
 
   def index
-    @orders = Spree::Order.where(authorized: true)
+    @orders = Spree::Order.includes(:line_items).where(authorized: true)
   end
 
   def abandoned

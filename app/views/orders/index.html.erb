@@ -31,16 +31,16 @@
             <td><%= order.miscellaneous_charges? ? 'Yes' : 'No' %></td>
             <td><%= link_to "View/Edit Order Info", order_edit_line_items_path(order) %></td>
             <td>
-              <% order.products.each do |product| %>
+              <% order.line_items.each do |line_item| %>
                 <span>
-                  <%= link_to product.name, offer_path(product) %>
+                  <%= link_to line_item.product.name[0..20] + '...', offer_path(line_item.product) %>
                 </span>
               <% end %>
             </td>
             <td>
-              <% order.products.each do |product| %>
+              <% order.line_items.each do |line_item| %>
                 <span>
-                  <%= product.operator.name %>
+                  <%= line_item.product.operator.name %>
                 </span>
               <% end %>
             </td>

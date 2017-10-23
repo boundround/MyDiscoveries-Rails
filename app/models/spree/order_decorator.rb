@@ -136,6 +136,10 @@ Spree::Order.class_eval do
     true
   end
 
+  def has_sna_product?
+    line_items.map(&:product).any? { |product| product.operator.id == 1 }
+  end
+
   # method to update hubspot deals
   def send_to_hubspot
     hubspot_id = ""
