@@ -506,6 +506,34 @@ Spree::Product.class_eval do
     operator_id == 1 && disable_departure_date == false
   end
 
+  def draw_variants_table
+    if all_options_disabled?
+      return ''
+    end
+
+    if !disable_departure_city
+      #draw cities column
+      draw_city_table
+    elsif !disable_bed_type
+      #draw bed_type column
+    elsif !disable_room_type
+      #draw room_type column
+    elsif !disable_package_option
+      #draw package_option column
+    elsif !disable_accommodation
+      #draw disable_accommodation column
+    elsif !disable_maturity
+      #draw disable_maturity column
+    end
+  end
+
+  def draw_city_table
+    solution = []
+    cities = variants.map { |variant| variant.departure_city }.uniq.sort
+    solution << cities
+
+  end
+
   private
 
   def at_least_one_options_allowed
