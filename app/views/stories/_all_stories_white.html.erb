@@ -9,10 +9,18 @@
   <div>
     <div style="float: left;">
       <div class="hidden-xs hidden-sm">
-        <p><%= story.user.name.truncate(26) rescue "" %></p>
+        <% if story.author.blank? %>
+          <p><%= story.user.name.truncate(26) rescue "" %></p>
+        <% else %>
+          <p><%= story.author.name.truncate(26) rescue "" %></p>
+        <% end %>
       </div>
       <div class="hidden-lg hidden-xl">
-        <p><%= story.user.name rescue "" %></p>
+        <% if story.author.blank? %>
+          <p><%= story.user.name rescue "" %></p>
+        <% else %>
+          <p><%= story.author.name rescue "" %></p>
+        <% end %>
       </div>
     </div>
   </div>
