@@ -9,9 +9,16 @@
         <aside class="desktop-only">
             <h5 class="xs-heading lars blue">Latest stories</h5>
             <ul class="featured-articles">
-                <%= render partial: "stories/all_stories_white", collection: @latest_stories, as: :story %>
+                <%= render partial: "stories/all_stories_red", collection: @latest_stories, as: :story %>
             </ul>
-
+            <h5 class="xs-heading lars blue">Related stories</h5>
+            <ul class="featured-articles">
+                <%= render partial: "stories/all_stories_white", collection: @stories_like_this, as: :story %>
+            </ul>
+            <h5 class="xs-heading lars blue">Related Places</h5>
+            <ul class="featured-articles">
+                <%= render partial: 'stories/place_to_go_list', collection: @place_to_go, as: :place %>
+            </ul>
         </aside>
 
         <section>
@@ -51,9 +58,7 @@
                     <span class="ab-date"><%= @story.publish_date.strftime("%d %B %Y") %></span>
                 </div>
                 <%= @story.content.html_safe %>
-
             </article>
-
         </section>
 
         <aside class="mobile-only">
@@ -61,7 +66,6 @@
             <ul class="featured-articles">
                 <%= render partial: "stories/all_stories_white", collection: @latest_stories, as: :story %>
             </ul>
-
         </aside>
     </div>
 

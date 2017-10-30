@@ -9,10 +9,11 @@ class StoriesController < ApplicationController
   def show
     @set_body_class = "white-background"
     @story = Story.find_by_slug(params[:id])
-    @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 6)
-    @places_to_visit = @story.attractions.active.paginate( page: params[:places_to_visit_page], per_page: 6 )
-    @region_stories = @story.regions.paginate( page: params[:places_to_visit_page], per_page: 3 )
-    @latest_stories = Story.active.order(created_at: :desc).limit(3)
+    @stories_like_this = @story.stories_like_this.paginate(page: params[:stories_page], per_page: 2)
+    @places_to_visit = @story.attractions.active.paginate( page: params[:places_to_visit_page], per_page: 6 ) #this is not being used
+    @region_stories = @story.regions.paginate( page: params[:stories_page], per_page: 3 )
+    @latest_stories = Story.active.order(created_at: :desc).limit(2)
+    @place_to_go = @story.regions[0].places.paginate(page: params[:places_to_go_page], per_page: 2 )
   end
 
   def paginate_place
