@@ -26,6 +26,7 @@ class RegionsStoriesController < ApplicationController
     @regions_stories = @story.regions.build
     all_regions_stories = @story.regions
     @regions = destination_available(Region.all, all_regions_stories)
+    authorize @regions_stories
   end
 
   def destroy

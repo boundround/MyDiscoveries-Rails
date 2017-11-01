@@ -24,7 +24,6 @@ class VideosController < ApplicationController
       @offer = Spree::Product.friendly.find(params[:offer_id])
       variable = @offer
     end
-
     @videos = variable.videos
   end
 

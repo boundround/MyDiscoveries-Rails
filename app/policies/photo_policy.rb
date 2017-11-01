@@ -1,5 +1,5 @@
-class Spree::RelatedProductPolicy < ApplicationPolicy
-  def index?
+class PhotoPolicy < ApplicationPolicy
+  def choose_hero?
     if @user.blank?
       false
     else
