@@ -1,3 +1,4 @@
+<% provide(:title, @subcategory.name ? @subcategory.name : "") %>
 <!-- #hardcode -->
 <section class="adventure-header">
   <div class="banner-image" style="background-image: url('<%= @subcategory.icon.url.to_s rescue "https://placehold.it/1920x1080" %>')" role="img" aria-label=""></div>
