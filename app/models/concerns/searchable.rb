@@ -3,7 +3,7 @@ module Searchable
   include Rails.application.routes.url_helpers
 
   def self.custom_ranking
-    [
+    [ 'asc(minRateAdult)',
       'desc(is_country)',
       'desc(is_area)',
       'desc(primary_category_priority)',
