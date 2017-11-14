@@ -19,6 +19,7 @@ class ProductsStickersController < ApplicationController
     @stickers = Sticker.all
     @offer = Spree::Product.friendly.find(params[:offer_id])
     @sticker = Sticker.new
+    authorize @stickers
   end
 
   def destroy

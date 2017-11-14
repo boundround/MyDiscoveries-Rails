@@ -1,6 +1,6 @@
 class PlacesOffersController < ApplicationController
   include ApplicationHelper
-
+  
   def create
     @offer = Spree::Product.friendly.find(params[:offer_id])
     @offer.places = []
@@ -14,7 +14,8 @@ class PlacesOffersController < ApplicationController
     redirect_to :back
   end
 
-  def edit;end
+  def edit
+  end
 
   def update
     @offer = Spree::Product.friendly.find(params[:offer_id])
@@ -25,6 +26,7 @@ class PlacesOffersController < ApplicationController
     @places_offers = @offer.places.build
     all_places_offers = @offer.places
     @places = destination_available(Place.active.where(is_area: true), all_places_offers)
+    authorize @places_offers
   end
 
   def destroy

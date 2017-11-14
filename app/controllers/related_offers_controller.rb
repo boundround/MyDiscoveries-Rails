@@ -25,6 +25,7 @@ class RelatedOffersController < ApplicationController
     @related_offers = @offer.related_products.build
     all_related_offers = @offer.related_products
     @relates = destination_available(Spree::Product.active.where("spree_products.name != ?", @offer.name), all_related_offers)
+    authorize @related_offers
   end
 
   def destroy

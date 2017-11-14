@@ -27,6 +27,7 @@ class PlacesStoriesController < ApplicationController
     @places_stories = @story.places.build
     all_places_stories = @story.places
     @places = destination_available(Place.active.where(is_area: true), all_places_stories)
+    authorize @places_stories
   end
 
   def destroy

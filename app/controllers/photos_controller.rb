@@ -110,8 +110,8 @@ class PhotosController < ApplicationController
       @story = Story.friendly.find(params[:story_id])
       @collect_photos = @story.photos.where.not(status: "removed")
     end
-
-      @photo = Photo.new
+    @photo = Photo.new
+    authorize @photo
   end
 
   def new
