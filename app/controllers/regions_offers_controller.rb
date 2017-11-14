@@ -14,7 +14,8 @@ class RegionsOffersController < ApplicationController
     redirect_to :back
   end
 
-  def edit;end
+  def edit
+  end
 
   def update
     @offer = Spree::Product.friendly.find(params[:offer_id])
@@ -25,6 +26,7 @@ class RegionsOffersController < ApplicationController
     @regions_offers = @offer.regions.build
     all_regions_offers = @offer.regions
     @regions = destination_available(Region.all, all_regions_offers)
+    authorize @regions_offers
   end
 
   def destroy

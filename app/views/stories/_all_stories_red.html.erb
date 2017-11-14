@@ -1,0 +1,28 @@
+<li style="background-color: transparent; padding-left: 0; padding-right: 0; padding-bottom: 20px;">
+  <div class="col-sm-12 <%= controller_name.eql?("users") && (action_name.eql?("show") || action_name.eql?("paginate_favorite_stories"))? "w-50" : "col-lg-12" %>" 
+    style="padding-left: 0; padding-right: 0">
+    <div class="inspiration-item wrap_link_card">
+    <a class="link_card" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>"></a>
+      <div class="card-story-height">
+        <div class="user-dp" style="background: url(<%= showing_image(story.hero_image_url)%>) no-repeat; background-size: cover !important;" role="img"; aria-label="User: <%=  story.user.name %>"></div>
+        <h4 class="inspiration-item__header"><%= raw story.title.blank? ? story.title : story.title.truncate(50) %></h4>
+      </div>
+      <div>
+        <div style="float: left; padding-left: 1.5rem">
+          <div class="hidden-xs hidden-sm">
+            <p><%= story.author_name_truncated(28) %></p>
+          </div>
+          <div class="hidden-lg hidden-xl">
+            <p><%= story.author_name_truncated(18) %></p>
+          </div>
+        </div>
+        <div style="float: right;">
+          <a class="inspiration-item__link" href="<%= story.class.to_s == "Story" ? story_path(story) : post_path(story) %>">read more</a>
+        </div>
+      </div>
+      <% if story.featured %>
+        <span class="inspiration-item__mark">Featured Article</span>
+      <% end %>
+    </div>
+  </div>
+</li>

@@ -39,6 +39,7 @@ class StickersController < ApplicationController
   def index
     @stickers = Sticker.all
     @sticker = Sticker.new
+    authorize @stickers
   end
 
   def show

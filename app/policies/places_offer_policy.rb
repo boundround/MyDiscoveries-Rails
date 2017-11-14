@@ -1,4 +1,4 @@
-class StoryPolicy < ApplicationPolicy
+class PlacesOfferPolicy < ApplicationPolicy
   def index?
     if @user.blank?
       false
@@ -24,10 +24,6 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def destroy?
-    index?
-  end
-
-  def seo_analysis?
     index?
   end
 end

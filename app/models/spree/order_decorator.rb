@@ -129,6 +129,17 @@ Spree::Order.class_eval do
     end
   end
 
+  def sna_voucher_ready?
+    if products.any? { |product| product.operator_id == 1 && !product.disable_departure_date }
+      return ax_data['Envelope']['Order']['Total'].to_f == total
+    end
+    true
+  end
+
+  def has_sna_product?
+    line_items.map(&:product).any? { |product| product.operator.id == 1 }
+  end
+
   # method to update hubspot deals
   def send_to_hubspot
     hubspot_id = ""

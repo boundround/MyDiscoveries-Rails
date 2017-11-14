@@ -24,7 +24,7 @@
             <h2 class=""><%= @offer.marketing_headline.present? ? @offer.marketing_headline : @offer.name  %></h2>
           </div>
           <div class="col-xs-2 col-sm-1 col-md-1" style="padding-top:20px">
-            <% if @offer.stickers.second.present? %>
+            <% if @offer.stickers.first.present? %>
               <img src="<%= @offer.stickers.first.file_url %>">
             <% end %>
           </div>

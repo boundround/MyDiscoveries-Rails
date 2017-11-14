@@ -23,6 +23,16 @@ Spree::LineItem.class_eval do
     single_money_with_add_ons.money.to_f * quantity
   end
 
+  def price_with_add_ons
+    add_ons_total = BigDecimal.new(0)
+    if add_ons.present?
+      add_ons.each do |add_on|
+        add_ons_total += add_on.prices.first.amount
+      end
+    end
+    self.price + add_ons_total
+  end
+
   def passengers_added?
     quantity == passengers.count
   end
@@ -80,7 +90,7 @@ Spree::LineItem.class_eval do
   private
 
   def check_passengers
-    if !departure_date_changed?
+    if order.state != 'completed'
       remove_extra_passengers if passengers.count > quantity
       order.set_cart_add_passengers! if passengers.count != quantity
     end

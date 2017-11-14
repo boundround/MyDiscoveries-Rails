@@ -4,7 +4,18 @@
 - Fix error while trying to edit stories
 - Fix text in Cart for the view add_passenger_form
 - Fix region page region description not showing
+- Fixed a bug where if a story card did not have an author, the view would break
 ### New Features
+
+## **10/10/2017**
+### Bugs Fixed
+- Fixed a bug where order status would change if you edited departure date
+- Fixed a bug where SNA would receive multiple copies of orders
+- Fixed duplicate meta descriptions on some pages
+### New Features
+- Change Email address for failed SNA Data Send to donovan@boundround.com
+- Added product codes for Add-Ons
+- Added correct meta descriptions for regions pages
 
 ## **28/09/2017**
 ### Bugs Fixed
