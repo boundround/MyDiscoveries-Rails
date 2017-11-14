@@ -1,0 +1,34 @@
+<% offer = order.products.first if local_assigns[:variable].present? && variable == "order" %>
+<% if offer %>
+  <li style="width:100%">
+    <a href="<%= offer_path(offer) %>">
+      <div class="po-content-wrapper">
+        <img style="background: url(<%= showing_image(draw_hero_background(offer)) %>)center center no-repeat;" class="homepage-cover cover-bg">
+        <div class="po-content-block">
+          <p class="xs-heading">
+              <%= offer.name %>
+          </p>
+          <div class="offer-info">
+              <div class="col-xs-12 po-price">
+                  <span class="sm-info">From</span>
+                  <div class="lg">
+                      <span>$</span>
+                      <span class="po-price-self"><%= offer_minimum_price(offer).round %></span>
+                  </div>
+                  <span class="sm-info"></span>
+                  <span class="sm">or 5 monthly payments of <%= number_to_currency(offer_minimum_price(offer) / 5.0) %></span>
+              </div>
+              <div class="col-xs-12 po-stay-info">
+                  <span class="col-xs-12 col-md-4 posi-nights" style="margin-bottom: 10px"><%= create_duration(offer) %></span>
+                  <span class="col-xs-12 col-md-8 posi-date posi-absolute <%= (controller_name.eql?('offers') && action_name.eql?('index')) ? '' : 'truncate-text' %>" ><%= simple_format offer.operatingSchedule %></span>
+              </div>
+          </div>
+        </div>
+        <div class="col-xs-12 po-stay-info">
+          <span class="col-xs-12 col-md-4 posi-nights"><%= create_duration(offer) %></span>
+          <span class="col-xs-12 col-md-8 posi-date"><%= simple_format offer.operatingSchedule %></span>
+        </div>
+      </div>
+    </a>
+  </li>
+<% end %>

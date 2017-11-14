@@ -64,7 +64,7 @@
             <div class="package-offers-block">
               <ul>
                 <div id="offers-list">
-                  <%= render partial: "offers/all_index_offers", collection: @offers, as: :offer %>
+                  <%= render partial: "offers/all_index_offers_for_places", collection: @offers, as: :offer %>
                 </div>
                 <% unless last_page? @offers %>
                   <div class="row hidden-xs single-pagination-container" id="offers-single-pagination-container">
