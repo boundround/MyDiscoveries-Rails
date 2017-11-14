@@ -1,3 +1,4 @@
+<% provide(:title, @region.display_name.present? ? @region.display_name : "") %>
 <% provide(:description, @region.description.present? ? @region.description : "") %>
 <% provide(:slug, @region.slug.present? ? "regions/" + @region.slug : "") %>
 
