@@ -13,6 +13,10 @@
   </div>
 
   <h1 class="home-promo__header blue"><%= @region.display_name %></h1>
+  <div class="width-limiter" style="text-align: justify;">
+    <h4><%= @region.description %></h4>
+    <br>
+  </div>
 
   <!-- BEGIN - map -->
   <div class="promo-map js-promo-map">
@@ -45,9 +49,9 @@
         </div>
     </div>
   <% end %>
-
+  
   <% unless @place_to_go.blank? %>
-    <div class="region places-to-go">
+    <div class="region places-to-go" style="padding-top: 2em; background-color: white;">
       <div class="width-limiter">
         <h3 class="proposal__header">Places to go</h3>
         <div class="block-wrapper" id="place_to_go-list">
@@ -68,7 +72,7 @@
   <% end %>
 
   <% if @fun_facts.present? %>
-    <div class="region did-you-know">
+    <div class="region did-you-know" style="padding-top: 2em">
       <div class="width-limiter">
         <h4>Did you know?</h4>
         <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
@@ -77,7 +81,7 @@
   <% end %>
 
   <% if @offers.present? %>
-    <div class="package-offers grey">
+    <div class="package-offers grey" style="padding-top: 2em">
       <div class="package-offers-block width-limiter">
         <h3 class="proposal__header">Holidays for you</h3>
         <ul>
@@ -100,7 +104,7 @@
   <% end %>
 
   <% unless @places_to_visit.blank? %>
-    <div class="region things-to-do">
+    <div class="region things-to-do" style="padding-top: 2em">
       <div class="width-limiter">
         <h3 class="proposal__header">Things to do in <%= @region.display_name %></h3>
         <ul class="" id="places_to_visit-list">
@@ -135,7 +139,7 @@
   <% end %>
 
   <% if @fun_facts.present? %>
-    <div class="region did-you-know grey">
+    <div class="region did-you-know grey" style="padding-top: 2em">
       <div class="width-limiter">
         <h4>Did you know?</h4>
         <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
@@ -144,7 +148,7 @@
   <% end %>
 
   <% if @stories.present? %>
-    <div class="region stories grey">
+    <div class="region stories grey" style="padding-top: 2em">
       <div class="width-limiter">
         <h3 class="proposal__header">Stories</h3>
         <%= render partial: "stories/all_stories"%>
@@ -153,12 +157,11 @@
   <% end %>
 
   <% if @fun_facts.present? %>
-    <div class="region did-you-know">
+    <div class="region did-you-know" style="padding-top: 2em">
       <div class="width-limiter">
         <h4>Did you know?</h4>
         <%= render partial: 'shared/fun_facts', collection: @fun_facts, as: :funfact %>
       </div>
     </div>
   <% end %>
-
 </div>
