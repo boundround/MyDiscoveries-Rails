@@ -19,7 +19,20 @@ class Ax::Download
 
       if @order && @order.persisted? && @order.sna_voucher_ready?
         OrderAuthorized.delay.notification(@order.id)
-        SNA::RequestProcessor.perform_async(@order.id) if @order.has_sna_product?
+        begin
+          if order.has_sna_product?
+            result = SNA::Send.call(order) 
+            order.update(sna_response: result.response.message)
+            if result.response.code != '200'
+              SnaRequestFailed.delay.notification(order_id, result)
+              raise "SNA response: #{result.response.message}"
+            else
+              order.update(sent_to_sna: true)
+            end
+          end
+        rescue
+          ''
+        end
       end
     end
   end
