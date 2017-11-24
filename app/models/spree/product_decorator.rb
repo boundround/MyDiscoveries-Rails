@@ -84,7 +84,7 @@ Spree::Product.class_eval do
     end
 
     attribute :endDate do
-      endDate
+      publishenddate
     end
 
     attribute :photos do
