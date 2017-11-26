@@ -1,5 +1,11 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
+- Added "Publish End Date" to product search results
+- Change copy on "Undecided" departure date in options pull down menu
+- Stories can now be associated with regions and places
+- Product cards now show on places and regions pages
+- "Stickers" now show on product cards
+
 ### Bugs Fixed
 - Fix error while trying to edit stories
 - Fix text in Cart for the view add_passenger_form
