@@ -83,7 +83,7 @@ class OffersController < ApplicationController
   end
 
   def all_offers
-    @featured_offers = Spree::Product.all
+    @featured_offers = Spree::Product.active.where('publishenddate >= ?', Date.today)
   end
 
   def paginate_reviews
@@ -108,8 +108,7 @@ class OffersController < ApplicationController
   end
 
   def index
-    @offers = Spree::Product.active
-    @featured_offers = Spree::Product.featured_products.active.paginate(per_page: 2, page: params[:featured_offers_page])
+    @featured_offers = Spree::Product.featured_products.active.where('publishenddate >= ?', Date.today).paginate(per_page: 2, page: params[:featured_offers_page])
   end
 
   def cms_index

@@ -459,7 +459,7 @@ Spree::Product.class_eval do
   end
 
   def published?
-    if self.status == "live"
+    if self.status == "live" &&  self.publishenddate >= Date.today
       true
     else
       false
