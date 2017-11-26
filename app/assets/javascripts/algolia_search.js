@@ -417,6 +417,15 @@ $(document).ready(function() {
                     $(this)[0].monthlyPayments = ($(this)[0].minRateAdult/5.0).toFixed(2)
                     $(this)[0].minRateAdult = ($(this)[0].minRateAdult/1.0).toFixed(2)
 
+
+                    var endDate = $(this)[0].endDate.split("-"),
+                        newEndDate   = new Date(Date.parse(endDate)),
+                        end_date      = newDate.getDate(),
+                        end_month     = newDate.getMonth()+1,
+                        end_year      = newDate.getFullYear();
+
+                    $(this)[0].endDate = end_date+"-"+end_month+"-"+end_year
+
                 }else if($(this)[0].where_destinations == "Stories"){
                     $(this)[0]["is_offer"] = false
                     $(this)[0]["is_story"] = true
