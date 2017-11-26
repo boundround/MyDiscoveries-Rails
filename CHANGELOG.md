@@ -1,5 +1,11 @@
 # ***MyDiscoveries***
 ## ** Unreleased **
+### New Features
+
+### Bugs Fixed
+
+## **27/11/2017**
+### New Features
 - Added "Publish End Date" to product search results
 - Change copy on "Undecided" departure date in options pull down menu
 - Stories can now be associated with regions and places
@@ -11,7 +17,6 @@
 - Fix text in Cart for the view add_passenger_form
 - Fix region page region description not showing
 - Fixed a bug where if a story card did not have an author, the view would break
-### New Features
 
 ## **10/10/2017**
 ### Bugs Fixed
