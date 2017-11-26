@@ -125,7 +125,7 @@ jQuery(window).load ->
             if date < new Date('2049')
               date_string = $.format.date(date, 'dd MMMM yyyy')
             else
-              date_string = "Undecided. Please call"
+              date_string = "Undecided – will decide later"
             option = "<option value='#{value}' label='#{date_string}'>#{date_string}</option>"
           else
             option = "<option value='#{value}'>#{value}</option>"
