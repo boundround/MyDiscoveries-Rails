@@ -71,7 +71,7 @@ class OffersController < ApplicationController
 
       @departure_dates = @departure_dates.map { |date| DateTime.parse(date).strftime('%d %B %Y') }.zip(@departure_dates)
       if @departure_dates.present? && Date.parse(@departure_dates.last[1]) > DateTime.new(2049)
-        @departure_dates.last[0] = 'Undecided. Please call.'
+        @departure_dates.last[0] = 'Undecided – will decide later'
       end
 
     end
