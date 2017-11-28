@@ -71,7 +71,7 @@ class OffersController < ApplicationController
 
       @departure_dates = @departure_dates.map { |date| DateTime.parse(date).strftime('%d %B %Y') }.zip(@departure_dates)
       if @departure_dates.present? && Date.parse(@departure_dates.last[1]) > DateTime.new(2049)
-        @departure_dates.last[0] = 'Undecided – will decide later'
+        @departure_dates.last[0] = 'Undecided. Please call.'
       end
 
     end
@@ -80,10 +80,6 @@ class OffersController < ApplicationController
       @accommodations   = @offer.variants.
         map{ |v| v.accommodation }.compact.uniq
     end
-  end
-
-  def all_offers
-    @featured_offers = Spree::Product.active.where('publishenddate >= ?', Date.today)
   end
 
   def paginate_reviews

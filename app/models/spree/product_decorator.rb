@@ -306,7 +306,7 @@ Spree::Product.class_eval do
       end
 
       attribute :endDate do
-        endDate
+        publishenddate
       end
 
       attribute :number_of_days do
