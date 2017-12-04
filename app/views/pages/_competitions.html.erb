@@ -2,7 +2,7 @@
   <% if @competitions.size == 1 %>
     <div class="col-md-12 text-center">
       <a class="comp-hero" href="<%= @competitions.first.url%>">
-        <img src="<%= showing_image(@competitions.first.image_url(:large)) %>" />
+        <img style="width: 100%;" src="<%= showing_image(@competitions.first.image_url(:large)) %>" />
       </a>
     </div>
   <% else %>
