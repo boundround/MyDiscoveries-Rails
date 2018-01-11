@@ -71,7 +71,7 @@ class OffersController < ApplicationController
 
       @departure_dates = @departure_dates.map { |date| DateTime.parse(date).strftime('%d %B %Y') }.zip(@departure_dates)
       if @departure_dates.present? && Date.parse(@departure_dates.last[1]) > DateTime.new(2049)
-        @departure_dates.last[0] = 'Undecided – will decide later'
+        @departure_dates.last[0] = 'Undecided. Please call.'
       end
 
     end
@@ -80,10 +80,6 @@ class OffersController < ApplicationController
       @accommodations   = @offer.variants.
         map{ |v| v.accommodation }.compact.uniq
     end
-  end
-
-  def all_offers
-    @featured_offers = Spree::Product.all
   end
 
   def paginate_reviews
@@ -108,8 +104,7 @@ class OffersController < ApplicationController
   end
 
   def index
-    @offers = Spree::Product.active
-    @featured_offers = Spree::Product.featured_products.active.paginate(per_page: 2, page: params[:featured_offers_page])
+    @featured_offers = Spree::Product.featured_products.active.where('publishenddate >= ?', Date.today).paginate(per_page: 2, page: params[:featured_offers_page])
   end
 
   def cms_index

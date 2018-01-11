@@ -306,7 +306,7 @@ Spree::Product.class_eval do
       end
 
       attribute :endDate do
-        endDate
+        publishenddate
       end
 
       attribute :number_of_days do
@@ -377,7 +377,7 @@ Spree::Product.class_eval do
 
   acts_as_taggable_on :inclusions
 
-  scope :active, -> { where("status = ?", "live") }
+  scope :active, -> { where("status = ?", "live").where('publishenddate >= ?', Date.today).where('publishstartdate <= ?', Date.today) }
   scope :featured, -> { where("featured = ?", true) }
 
   belongs_to :attraction
@@ -459,11 +459,7 @@ Spree::Product.class_eval do
   end
 
   def published?
-    if self.status == "live"
-      true
-    else
-      false
-    end
+    self.status == "live" &&  self.publishenddate >= Date.today && self.publishstartdate <= Date.today
   end
 
   def slug_candidates
