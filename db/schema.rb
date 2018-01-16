@@ -11,44 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016234016) do
+ActiveRecord::Schema.define(version: 20180112115650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_stat_statements"
 
-  create_table "areas", force: true do |t|
-    t.string   "code"
-    t.string   "identifier"
-    t.string   "country"
-    t.string   "display_name"
-    t.string   "short_intro"
-    t.text     "description"
-    t.float    "latitude"
-    t.float    "longitude"
+  create_table "attraction_types", force: true do |t|
+    t.string   "name",       default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "address"
-    t.string   "slug"
-    t.string   "published_status"
-    t.float    "view_latitude"
-    t.float    "view_longitude"
-    t.float    "view_height"
-    t.float    "view_heading"
-    t.integer  "country_id"
-    t.string   "google_place_id"
   end
-
-  add_index "areas", ["country_id"], name: "index_areas_on_country_id", using: :btree
-  add_index "areas", ["display_name"], name: "index_areas_on_display_name", using: :btree
-  add_index "areas", ["slug"], name: "index_areas_on_slug", using: :btree
-
-  create_table "areas_users", force: true do |t|
-    t.integer "user_id", null: false
-    t.integer "area_id", null: false
-  end
-
-  add_index "areas_users", ["area_id", "user_id"], name: "index_areas_users_on_area_id_and_user_id", unique: true, using: :btree
 
   create_table "attractions", force: true do |t|
     t.text     "description"
@@ -113,8 +86,10 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.integer  "primary_category_id"
     t.text     "focus_keyword"
     t.text     "seo_title"
+    t.integer  "attraction_type_id"
   end
 
+  add_index "attractions", ["attraction_type_id"], name: "index_attractions_on_attraction_type_id", using: :btree
   add_index "attractions", ["country_id"], name: "index_attractions_on_country_id", using: :btree
   add_index "attractions", ["primary_category_id"], name: "index_attractions_on_primary_category_id", using: :btree
   add_index "attractions", ["user_id"], name: "index_attractions_on_user_id", using: :btree
@@ -437,6 +412,8 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.datetime "updated_at"
     t.string   "photo_credit"
     t.string   "status"
+    t.integer  "famous_faceable_id"
+    t.string   "famous_faceable_type"
   end
 
   create_table "friendly_id_slugs", force: true do |t|
@@ -555,145 +532,6 @@ ActiveRecord::Schema.define(version: 20171016234016) do
 
   add_index "landings", ["user_id"], name: "index_landings_on_user_id", using: :btree
 
-  create_table "offers", force: true do |t|
-    t.integer  "attraction_id"
-    t.string   "status",                                                        default: ""
-    t.text     "name",                                                          default: ""
-    t.text     "description",                                                   default: ""
-    t.integer  "minRateAdult",                                                  default: 0
-    t.integer  "minRateChild",                                                  default: 0
-    t.integer  "minRateInfant",                                                 default: 0
-    t.integer  "maxRateAdult",                                                  default: 0
-    t.integer  "maxRateChild",                                                  default: 0
-    t.integer  "maxRateInfant",                                                 default: 0
-    t.integer  "duration",                   limit: 8,                          default: 0
-    t.text     "specialNotes",                                                  default: ""
-    t.integer  "operatingDays",                                                 default: 0
-    t.text     "operatingDaysStr",                                              default: ""
-    t.text     "operatingSchedule",                                             default: ""
-    t.text     "locationStart",                                                 default: ""
-    t.decimal  "latitudeStart",                        precision: 10, scale: 6
-    t.decimal  "longitudeStart",                       precision: 10, scale: 6
-    t.integer  "distanceStartToRef",                                            default: 0
-    t.text     "locationEnd",                                                   default: ""
-    t.decimal  "latitudeEnd",                          precision: 10, scale: 6
-    t.decimal  "longitudeEnd",                         precision: 10, scale: 6
-    t.string   "tags",                                                          default: [],    array: true
-    t.integer  "minAge",                                                        default: 0
-    t.integer  "maxAge",                                                        default: 0
-    t.integer  "requiredMultiple",                                              default: 0
-    t.integer  "minUnits",                                                      default: 0
-    t.integer  "maxUnits",                                                      default: 0
-    t.text     "pickupNotes",                                                   default: ""
-    t.text     "dropoffNotes",                                                  default: ""
-    t.text     "highlightsStr",                                                 default: ""
-    t.text     "itineraryStr",                                                  default: ""
-    t.text     "includes",                                                      default: ""
-    t.text     "sellVouchers",                                                  default: ""
-    t.text     "onlyVouchers",                                                  default: ""
-    t.text     "voucherInstructions",                                           default: ""
-    t.integer  "voucherValidity",                                               default: 0
-    t.text     "customStr1",                                                    default: ""
-    t.text     "customStr2",                                                    default: ""
-    t.text     "customStr3",                                                    default: ""
-    t.text     "customStr4",                                                    default: ""
-    t.boolean  "pickupRequired",                                                default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "livn_product_id"
-    t.date     "startDate"
-    t.date     "endDate"
-    t.decimal  "page_ranking_weight"
-    t.text     "focus_keyword"
-    t.text     "seo_title"
-    t.string   "shopify_product_id"
-    t.string   "slug"
-    t.integer  "operator_id"
-    t.date     "validityStartDate"
-    t.date     "validityEndDate"
-    t.date     "publishstartdate"
-    t.date     "publishenddate"
-    t.integer  "place_id"
-    t.string   "supplier_product_code"
-    t.string   "innovations_transaction_id"
-    t.boolean  "show_in_mega_menu",                                             default: false
-    t.boolean  "featured",                                                      default: false
-    t.boolean  "allow_installments",                                            default: false
-    t.string   "child_item_id",                                                 default: ""
-    t.string   "item_id",                                                       default: ""
-    t.string   "places_visited",                                                default: [],    array: true
-    t.integer  "number_of_days"
-    t.integer  "number_of_nights"
-    t.string   "itinerary"
-    t.boolean  "test_product",                                                  default: false
-  end
-
-  add_index "offers", ["attraction_id"], name: "index_offers_on_attraction_id", using: :btree
-  add_index "offers", ["place_id"], name: "index_offers_on_place_id", using: :btree
-  add_index "offers", ["shopify_product_id"], name: "index_offers_on_shopify_product_id", using: :btree
-
-  create_table "offers_attractions", force: true do |t|
-    t.integer "offer_id"
-    t.integer "attraction_id"
-  end
-
-  add_index "offers_attractions", ["offer_id", "attraction_id"], name: "index_offers_attractions_on_offer_id_and_attraction_id", unique: true, using: :btree
-  add_index "offers_attractions", ["offer_id"], name: "index_offers_attractions_on_offer_id", using: :btree
-
-  create_table "offers_countries", force: true do |t|
-    t.integer "offer_id"
-    t.integer "country_id"
-  end
-
-  add_index "offers_countries", ["offer_id", "country_id"], name: "index_offers_countries_on_offer_id_and_country_id", unique: true, using: :btree
-  add_index "offers_countries", ["offer_id"], name: "index_offers_countries_on_offer_id", using: :btree
-
-  create_table "offers_photos", force: true do |t|
-    t.integer "photo_id"
-    t.integer "offer_id"
-    t.string  "shopify_image_id"
-  end
-
-  add_index "offers_photos", ["offer_id", "photo_id"], name: "index_offers_photos_on_offer_id_and_photo_id", unique: true, using: :btree
-  add_index "offers_photos", ["offer_id"], name: "index_offers_photos_on_offer_id", using: :btree
-
-  create_table "offers_places", force: true do |t|
-    t.integer "offer_id"
-    t.integer "place_id"
-  end
-
-  add_index "offers_places", ["offer_id", "place_id"], name: "index_offers_places_on_offer_id_and_place_id", unique: true, using: :btree
-  add_index "offers_places", ["offer_id"], name: "index_offers_places_on_offer_id", using: :btree
-
-  create_table "offers_regions", force: true do |t|
-    t.integer "offer_id"
-    t.integer "region_id"
-  end
-
-  add_index "offers_regions", ["offer_id", "region_id"], name: "index_offers_regions_on_offer_id_and_region_id", unique: true, using: :btree
-  add_index "offers_regions", ["offer_id"], name: "index_offers_regions_on_offer_id", using: :btree
-
-  create_table "offers_subcategories", force: true do |t|
-    t.integer "offer_id"
-    t.integer "subcategory_id"
-  end
-
-  add_index "offers_subcategories", ["offer_id", "subcategory_id"], name: "index_offers_subcategories_on_offer_id_and_subcategory_id", unique: true, using: :btree
-  add_index "offers_subcategories", ["offer_id"], name: "index_offers_subcategories_on_offer_id", using: :btree
-
-  create_table "offers_users", force: true do |t|
-    t.integer "user_id"
-    t.integer "offer_id"
-  end
-
-  create_table "offers_videos", force: true do |t|
-    t.integer "offer_id"
-    t.integer "video_id"
-  end
-
-  add_index "offers_videos", ["offer_id", "video_id"], name: "index_offers_videos_on_offer_id_and_video_id", unique: true, using: :btree
-  add_index "offers_videos", ["offer_id"], name: "index_offers_videos_on_offer_id", using: :btree
-
   create_table "one_minute_forms", force: true do |t|
     t.string   "results"
     t.integer  "user_id"
@@ -751,7 +589,7 @@ ActiveRecord::Schema.define(version: 20171016234016) do
   add_index "operators", ["slug"], name: "index_operators_on_slug", using: :btree
 
   create_table "orders", force: true do |t|
-    t.integer  "offer_id"
+    t.integer  "product_id"
     t.integer  "user_id"
     t.string   "title"
     t.integer  "number_of_children",   default: 0
@@ -775,7 +613,7 @@ ActiveRecord::Schema.define(version: 20171016234016) do
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
-  add_index "orders", ["offer_id", "user_id"], name: "index_orders_on_offer_id_and_user_id", using: :btree
+  add_index "orders", ["product_id", "user_id"], name: "index_orders_on_product_id_and_user_id", using: :btree
 
   create_table "overall_averages", force: true do |t|
     t.integer  "rateable_id"
@@ -1041,6 +879,130 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.datetime "updated_at"
   end
 
+  create_table "product_types", force: true do |t|
+    t.string   "name",       default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "products", force: true do |t|
+    t.integer  "attraction_id"
+    t.string   "status",                                                        default: ""
+    t.text     "name",                                                          default: ""
+    t.text     "description",                                                   default: ""
+    t.integer  "minRateAdult",                                                  default: 0
+    t.integer  "minRateChild",                                                  default: 0
+    t.integer  "minRateInfant",                                                 default: 0
+    t.integer  "maxRateAdult",                                                  default: 0
+    t.integer  "maxRateChild",                                                  default: 0
+    t.integer  "maxRateInfant",                                                 default: 0
+    t.integer  "duration",                   limit: 8,                          default: 0
+    t.text     "specialNotes",                                                  default: ""
+    t.integer  "operatingDays",                                                 default: 0
+    t.text     "operatingDaysStr",                                              default: ""
+    t.text     "operatingSchedule",                                             default: ""
+    t.text     "locationStart",                                                 default: ""
+    t.decimal  "latitudeStart",                        precision: 10, scale: 6
+    t.decimal  "longitudeStart",                       precision: 10, scale: 6
+    t.integer  "distanceStartToRef",                                            default: 0
+    t.text     "locationEnd",                                                   default: ""
+    t.decimal  "latitudeEnd",                          precision: 10, scale: 6
+    t.decimal  "longitudeEnd",                         precision: 10, scale: 6
+    t.string   "tags",                                                          default: [],    array: true
+    t.integer  "minAge",                                                        default: 0
+    t.integer  "maxAge",                                                        default: 0
+    t.integer  "requiredMultiple",                                              default: 0
+    t.integer  "minUnits",                                                      default: 0
+    t.integer  "maxUnits",                                                      default: 0
+    t.text     "pickupNotes",                                                   default: ""
+    t.text     "dropoffNotes",                                                  default: ""
+    t.text     "highlightsStr",                                                 default: ""
+    t.text     "itineraryStr",                                                  default: ""
+    t.text     "includes",                                                      default: ""
+    t.text     "sellVouchers",                                                  default: ""
+    t.text     "onlyVouchers",                                                  default: ""
+    t.text     "voucherInstructions",                                           default: ""
+    t.integer  "voucherValidity",                                               default: 0
+    t.text     "customStr1",                                                    default: ""
+    t.text     "customStr2",                                                    default: ""
+    t.text     "customStr3",                                                    default: ""
+    t.text     "customStr4",                                                    default: ""
+    t.boolean  "pickupRequired",                                                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "livn_product_id"
+    t.date     "startDate"
+    t.date     "endDate"
+    t.decimal  "page_ranking_weight"
+    t.text     "focus_keyword"
+    t.text     "seo_title"
+    t.string   "shopify_product_id"
+    t.string   "slug"
+    t.integer  "operator_id"
+    t.date     "validityStartDate"
+    t.date     "validityEndDate"
+    t.date     "publishstartdate"
+    t.date     "publishenddate"
+    t.integer  "place_id"
+    t.string   "supplier_product_code"
+    t.string   "innovations_transaction_id"
+    t.boolean  "show_in_mega_menu",                                             default: false
+    t.boolean  "featured",                                                      default: false
+    t.boolean  "allow_installments",                                            default: false
+    t.string   "child_item_id",                                                 default: ""
+    t.string   "item_id",                                                       default: ""
+    t.string   "places_visited",                                                default: [],    array: true
+    t.integer  "number_of_days"
+    t.integer  "number_of_nights"
+    t.string   "itinerary"
+    t.boolean  "test_product",                                                  default: false
+  end
+
+  add_index "products", ["attraction_id"], name: "index_products_on_attraction_id", using: :btree
+  add_index "products", ["place_id"], name: "index_products_on_place_id", using: :btree
+  add_index "products", ["shopify_product_id"], name: "index_products_on_shopify_product_id", using: :btree
+
+  create_table "products_attractions", force: true do |t|
+    t.integer "product_id"
+    t.integer "attraction_id"
+  end
+
+  add_index "products_attractions", ["product_id", "attraction_id"], name: "index_products_attractions_on_product_id_and_attraction_id", unique: true, using: :btree
+  add_index "products_attractions", ["product_id"], name: "index_products_attractions_on_product_id", using: :btree
+
+  create_table "products_countries", force: true do |t|
+    t.integer "product_id"
+    t.integer "country_id"
+  end
+
+  add_index "products_countries", ["product_id", "country_id"], name: "index_products_countries_on_product_id_and_country_id", unique: true, using: :btree
+  add_index "products_countries", ["product_id"], name: "index_products_countries_on_product_id", using: :btree
+
+  create_table "products_photos", force: true do |t|
+    t.integer "photo_id"
+    t.integer "product_id"
+    t.string  "shopify_image_id"
+  end
+
+  add_index "products_photos", ["product_id", "photo_id"], name: "index_products_photos_on_product_id_and_photo_id", unique: true, using: :btree
+  add_index "products_photos", ["product_id"], name: "index_products_photos_on_product_id", using: :btree
+
+  create_table "products_places", force: true do |t|
+    t.integer "product_id"
+    t.integer "place_id"
+  end
+
+  add_index "products_places", ["product_id", "place_id"], name: "index_products_places_on_product_id_and_place_id", unique: true, using: :btree
+  add_index "products_places", ["product_id"], name: "index_products_places_on_product_id", using: :btree
+
+  create_table "products_regions", force: true do |t|
+    t.integer "product_id"
+    t.integer "region_id"
+  end
+
+  add_index "products_regions", ["product_id", "region_id"], name: "index_products_regions_on_product_id_and_region_id", unique: true, using: :btree
+  add_index "products_regions", ["product_id"], name: "index_products_regions_on_product_id", using: :btree
+
   create_table "products_stickers", id: false, force: true do |t|
     t.integer "product_id"
     t.integer "sticker_id"
@@ -1050,6 +1012,27 @@ ActiveRecord::Schema.define(version: 20171016234016) do
   add_index "products_stickers", ["product_id"], name: "index_products_stickers_on_product_id", using: :btree
   add_index "products_stickers", ["sticker_id", "product_id"], name: "index_products_stickers_on_sticker_id_and_product_id", using: :btree
   add_index "products_stickers", ["sticker_id"], name: "index_products_stickers_on_sticker_id", using: :btree
+
+  create_table "products_subcategories", force: true do |t|
+    t.integer "product_id"
+    t.integer "subcategory_id"
+  end
+
+  add_index "products_subcategories", ["product_id", "subcategory_id"], name: "index_products_subcategories_on_product_id_and_subcategory_id", unique: true, using: :btree
+  add_index "products_subcategories", ["product_id"], name: "index_products_subcategories_on_product_id", using: :btree
+
+  create_table "products_users", force: true do |t|
+    t.integer "user_id"
+    t.integer "product_id"
+  end
+
+  create_table "products_videos", force: true do |t|
+    t.integer "product_id"
+    t.integer "video_id"
+  end
+
+  add_index "products_videos", ["product_id", "video_id"], name: "index_products_videos_on_product_id_and_video_id", unique: true, using: :btree
+  add_index "products_videos", ["product_id"], name: "index_products_videos_on_product_id", using: :btree
 
   create_table "programs", force: true do |t|
     t.string   "name"
@@ -1119,9 +1102,9 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.integer "region_id"
   end
 
-  create_table "related_offers", force: true do |t|
-    t.integer  "offer_id"
-    t.integer  "related_offer_id"
+  create_table "related_products", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "related_product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1183,6 +1166,17 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.integer  "popularity"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "secondary_tab_infos", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.integer  "secondary_tab_infoable_id"
+    t.string   "secondary_tab_infoable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "credit",                      default: ""
   end
 
   create_table "similar_attractions", force: true do |t|
@@ -1730,8 +1724,8 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.string   "package_option_label",                                          default: ""
     t.text     "voucher_booking_essentials",                                    default: ""
     t.string   "per_adult_overwrite",                                           default: ""
-    t.string   "product_type",                                                  default: ""
     t.string   "marketing_headline",                                            default: ""
+    t.integer  "product_type_id"
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
@@ -2440,10 +2434,12 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.string   "hero_image"
     t.boolean  "featured",            default: false
     t.integer  "author_id"
+    t.integer  "story_type_id"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
   add_index "stories", ["slug"], name: "index_stories_on_slug", using: :btree
+  add_index "stories", ["story_type_id"], name: "index_stories_on_story_type_id", using: :btree
   add_index "stories", ["user_id"], name: "index_stories_on_user_id", using: :btree
 
   create_table "stories_subcategories", force: true do |t|
@@ -2466,6 +2462,12 @@ ActiveRecord::Schema.define(version: 20171016234016) do
   create_table "story_images", force: true do |t|
     t.string  "file"
     t.integer "story_id"
+  end
+
+  create_table "story_types", force: true do |t|
+    t.string   "name",       default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "subcategories", force: true do |t|
