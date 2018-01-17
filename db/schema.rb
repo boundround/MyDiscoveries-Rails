@@ -11,44 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016234016) do
+ActiveRecord::Schema.define(version: 20180117033421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_stat_statements"
 
-  create_table "areas", force: true do |t|
-    t.string   "code"
-    t.string   "identifier"
-    t.string   "country"
-    t.string   "display_name"
-    t.string   "short_intro"
-    t.text     "description"
-    t.float    "latitude"
-    t.float    "longitude"
+  create_table "attraction_types", force: true do |t|
+    t.string   "name",       default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "address"
-    t.string   "slug"
-    t.string   "published_status"
-    t.float    "view_latitude"
-    t.float    "view_longitude"
-    t.float    "view_height"
-    t.float    "view_heading"
-    t.integer  "country_id"
-    t.string   "google_place_id"
   end
-
-  add_index "areas", ["country_id"], name: "index_areas_on_country_id", using: :btree
-  add_index "areas", ["display_name"], name: "index_areas_on_display_name", using: :btree
-  add_index "areas", ["slug"], name: "index_areas_on_slug", using: :btree
-
-  create_table "areas_users", force: true do |t|
-    t.integer "user_id", null: false
-    t.integer "area_id", null: false
-  end
-
-  add_index "areas_users", ["area_id", "user_id"], name: "index_areas_users_on_area_id_and_user_id", unique: true, using: :btree
 
   create_table "attractions", force: true do |t|
     t.text     "description"
@@ -113,8 +86,10 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.integer  "primary_category_id"
     t.text     "focus_keyword"
     t.text     "seo_title"
+    t.integer  "attraction_type_id"
   end
 
+  add_index "attractions", ["attraction_type_id"], name: "index_attractions_on_attraction_type_id", using: :btree
   add_index "attractions", ["country_id"], name: "index_attractions_on_country_id", using: :btree
   add_index "attractions", ["primary_category_id"], name: "index_attractions_on_primary_category_id", using: :btree
   add_index "attractions", ["user_id"], name: "index_attractions_on_user_id", using: :btree
@@ -437,6 +412,8 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.datetime "updated_at"
     t.string   "photo_credit"
     t.string   "status"
+    t.integer  "famous_faceable_id"
+    t.string   "famous_faceable_type"
   end
 
   create_table "friendly_id_slugs", force: true do |t|
@@ -1041,6 +1018,12 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.datetime "updated_at"
   end
 
+  create_table "product_types", force: true do |t|
+    t.string   "name",       default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products_stickers", id: false, force: true do |t|
     t.integer "product_id"
     t.integer "sticker_id"
@@ -1183,6 +1166,17 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.integer  "popularity"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "secondary_tab_infos", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.integer  "secondary_tab_infoable_id"
+    t.string   "secondary_tab_infoable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "credit",                      default: ""
   end
 
   create_table "similar_attractions", force: true do |t|
@@ -1730,8 +1724,8 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.string   "package_option_label",                                          default: ""
     t.text     "voucher_booking_essentials",                                    default: ""
     t.string   "per_adult_overwrite",                                           default: ""
-    t.string   "product_type",                                                  default: ""
     t.string   "marketing_headline",                                            default: ""
+    t.integer  "product_type_id"
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
@@ -2440,10 +2434,12 @@ ActiveRecord::Schema.define(version: 20171016234016) do
     t.string   "hero_image"
     t.boolean  "featured",            default: false
     t.integer  "author_id"
+    t.integer  "story_type_id"
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree
   add_index "stories", ["slug"], name: "index_stories_on_slug", using: :btree
+  add_index "stories", ["story_type_id"], name: "index_stories_on_story_type_id", using: :btree
   add_index "stories", ["user_id"], name: "index_stories_on_user_id", using: :btree
 
   create_table "stories_subcategories", force: true do |t|
@@ -2466,6 +2462,12 @@ ActiveRecord::Schema.define(version: 20171016234016) do
   create_table "story_images", force: true do |t|
     t.string  "file"
     t.integer "story_id"
+  end
+
+  create_table "story_types", force: true do |t|
+    t.string   "name",       default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "subcategories", force: true do |t|
