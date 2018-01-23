@@ -28,6 +28,8 @@ function fixMobileOverflowTags() {
     });
 }
 
+// 
+
 $(window).resize(function(event) {
     fixMobileOverflowTags();
 });
