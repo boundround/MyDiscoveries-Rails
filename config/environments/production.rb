@@ -75,7 +75,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => ENV['HOME_URL'], :protocol => 'https' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    from: "My Discoveries <info@mydiscoveries.herokuapp.com>",
+    from: "My Discoveries <info@mydiscoveries.com.au>",
     via: :smtp,
     via_options: {
       address: 'smtp.sendgrid.net',
@@ -83,7 +83,7 @@ Rails.application.configure do
       enable_starttls_auto: true,
       user_name: ENV['SENDGRID_USERNAME'],
       password: ENV['SENDGRID_PASSWORD'],
-      domain: 'mydiscoveries.herokuapp.com',
+      domain: 'www.mydiscoveries.com.au',
       authentication: :plain
     }
   }
