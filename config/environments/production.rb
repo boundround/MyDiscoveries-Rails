@@ -66,7 +66,7 @@ Rails.application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   config.action_controller.asset_host = ENV['FASTLY_CDN_URL']
-  config.action_mailer.asset_host = ENV['FASTLY_CDN_URL']
+  config.action_mailer.asset_host = ENV['HOME_URL']
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
