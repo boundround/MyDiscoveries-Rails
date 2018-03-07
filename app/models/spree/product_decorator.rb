@@ -526,4 +526,39 @@ Spree::Product.class_eval do
     "product_#{id}"
   end
 
+  def variants_table
+    all_variants.uniq.map do |item|
+      item.select { |k, _| item[k].present? }
+    end
+  end
+
+  def variants_table_keys
+    replacements = {
+      maturity: 'Adult/Child',
+      bed_type: 'Bed Type',
+      room_type: 'Room Type',
+      package_option: 'Package Option',
+      accommodation: 'Accommodation',
+      departure_city: 'Departure City'
+    }
+    variants_table.
+      first.
+      keys.
+      reject { |el| el == :price }.
+      map { |el| replacements.fetch(el, el) }
+  end
+
+  def all_variants
+    variants.map { |variant| variant_data(variant) }
+  end
+
+  def variant_data(variant)
+    columns = %i(maturity bed_type room_type package_option accommodation departure_city)
+    default_data = columns.each_with_object({}) do |el, h|
+      h[el] = variant.send(el) unless send("disable_#{el}")
+    end
+
+    default_data.merge(price: variant.price.to_s)
+  end
+
 end
