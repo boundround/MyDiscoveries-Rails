@@ -209,6 +209,30 @@
       </section>
     </div>
   </div>
+  <div class="container">
+    <% if @product.variants_table.present? %>
+      <table>
+        <thead>
+          <tr>
+            <% @product.variants_table.first.keys.each do |key| %>
+              <% unless key == :price %>
+                <th><%= key.to_s.titleize %></th>
+              <% end %>
+            <% end %>
+              <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Adult</td>
+            <td>Suite</td>
+            <td>Sydney</td>
+            <td>$1699</td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
 </div>
 
 <%= render "operator_detail" %>
