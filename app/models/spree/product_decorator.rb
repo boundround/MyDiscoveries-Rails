@@ -502,30 +502,6 @@ Spree::Product.class_eval do
     operator_id == 1 && disable_departure_date == false
   end
 
-  private
-
-  def at_least_one_options_allowed
-    if all_options_disabled?
-      errors.add(:base, 'At least one variant option must be allowed')
-    end
-  end
-
-  def hero_photo
-    hero_h = photos.where(photos: { hero: true })
-    hero_h = hero_h.first
-    hero = {}
-    if hero_h.present?
-      hero = { url: hero_h.path_url(:medium), alt_tag: hero_h.caption }
-    else
-      hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
-    end
-    hero
-  end
-
-  def algolia_id
-    "product_#{id}"
-  end
-
   def variants_table
     all_variants.uniq.map do |item|
       item.select { |k, _| item[k].present? }
@@ -560,5 +536,30 @@ Spree::Product.class_eval do
 
     default_data.merge(price: variant.price.to_s)
   end
+
+  private
+
+  def at_least_one_options_allowed
+    if all_options_disabled?
+      errors.add(:base, 'At least one variant option must be allowed')
+    end
+  end
+
+  def hero_photo
+    hero_h = photos.where(photos: { hero: true })
+    hero_h = hero_h.first
+    hero = {}
+    if hero_h.present?
+      hero = { url: hero_h.path_url(:medium), alt_tag: hero_h.caption }
+    else
+      hero = { url: ActionController::Base.helpers.asset_path('generic-hero.jpg'), alt_tag: "Activity Collage"}
+    end
+    hero
+  end
+
+  def algolia_id
+    "product_#{id}"
+  end
+
 
 end
