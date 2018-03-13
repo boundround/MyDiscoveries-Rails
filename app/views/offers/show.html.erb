@@ -154,6 +154,46 @@
                   %>
                 </p>
               </div>
+              <h3>product options</h3>
+              <div class="product-options">
+                <p>
+                  <% if @offer.variants_table.present? %>
+                    <table style="margin-top: 20px;
+                                  margin-bottom: 40px;
+                                  border-collapse: collapse;
+                                  border-spacing: 0;
+                                  width: 100%;">
+                      <thead>
+                        <tr>
+                          <% @offer.variants_table.first.keys.each do |key| %>
+                            <% unless key == :price %>
+                              <th><%= key.to_s.titleize %></th>
+                            <% end %>
+                          <% end %>
+                            <th>Price</th>
+                        </tr>
+                      </thead>
+                      <tbody style="display: table-row-group;
+                                    vertical-align: middle;
+                                    border-color: inherit;">
+                        <% @offer.variants_table.each do |variant_hash| %>
+                          <tr>
+                            <% variant_hash.each do |k,v| %>
+                              <% unless k == :price %>
+                                <td><%= v.titleize %></td>
+                              <% end %>
+                            <% end %>
+                            <td><%= number_to_currency(variant_hash[:price]) %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  <% end %>
+                  <style>
+                    tr:nth-child(even) {background-color: #f2f2f2;}
+                  </style>
+                </p>
+              </div>
 
             </div>
 
