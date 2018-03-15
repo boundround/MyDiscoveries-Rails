@@ -510,10 +510,10 @@ Spree::Product.class_eval do
 
   def variants_table_keys
     replacements = {
-      maturity: 'Adult/Child',
-      bed_type: 'Bed Type',
-      room_type: 'Room Type',
-      package_option: 'Package Option',
+      maturity: 'Adult / Child',
+      bed_type: 'Twin / Single',
+      room_type: room_type_label.present? ? room_type_label : 'Room Type',
+      package_option: package_option_label.present? ? package_option_label : 'Package Option',
       accommodation: 'Accommodation',
       departure_city: 'Departure City'
     }
@@ -532,6 +532,10 @@ Spree::Product.class_eval do
     columns = %i(maturity bed_type room_type package_option accommodation departure_city)
     default_data = columns.each_with_object({}) do |el, h|
       h[el] = variant.send(el) unless send("disable_#{el}")
+      if respond_to?("#{el}_label".to_sym) && send("#{el}_label").present?
+        h[send("#{el}_label")] = h.delete(el)
+      end
+      h['Twin / Single'] = h.delete(el) if el == :bed_type
     end
 
     default_data.merge(price: variant.price.to_s)

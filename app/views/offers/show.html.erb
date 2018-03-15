@@ -180,7 +180,7 @@
                           <tr>
                             <% variant_hash.each do |k,v| %>
                               <% unless k == :price %>
-                                <td><%= v.titleize %></td>
+                                <td><%= v %></td>
                               <% end %>
                             <% end %>
                             <td><%= number_to_currency(variant_hash[:price]) %></td>
