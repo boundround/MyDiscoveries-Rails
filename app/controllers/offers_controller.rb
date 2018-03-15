@@ -19,7 +19,7 @@ class OffersController < ApplicationController
   before_action :set_media, only: %i[show paginate_media]
 
   def show
-    @photos = @offer.photos.active.uniq
+    @photos = @offer.photos.active.uniq.order(:priority)
     @videos = @offer.videos.active.order(:priority)
     @galeries = @videos + @photos
     @reviews = @offer.reviews.active.paginate(page: params[:reviews_page], per_page: 6)

@@ -31,7 +31,7 @@
             <p><%= simple_format @offer.description %></p>
             <% unless @photos.blank? %>
               <div class="img-waves waves-sm">
-                <%= image_tag(all_offer_photos(@offer).blank? ? @photos.last.path_url : all_offer_photos(@offer)[0][:url], class: "img-responsive") %>
+                <%= image_tag(all_offer_photos(@offer).blank? ? @photos.first.path_url : all_offer_photos(@offer)[0][:url], class: "img-responsive") %>
               </div>
             <% end %>
           </div>

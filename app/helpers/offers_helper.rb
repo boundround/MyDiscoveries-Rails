@@ -98,7 +98,7 @@ module OffersHelper
   def all_offer_photos(offer)
     photo_h = Hash.new
     unless offer.photos.blank? 
-      offer.photos.where("hero = false or hero is null").uniq.each_with_index do |photo, idx|
+      offer.photos.active.where("hero = false or hero is null").uniq.each_with_index do |photo, idx|
         if idx < 4
           photo_h[idx] = {url: photo.path_url, id: photo.id}
         end
