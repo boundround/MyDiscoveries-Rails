@@ -248,6 +248,20 @@
           </div>
       </section>
     </div>
+    <% if @related_offers.present? %>
+      <div class="package-offers padding-medium">
+        <div class="head-title">
+          <h3 class="proposal__header">You also might like</h3>
+        </div>
+        <div class="package-offers-block width-limiter">
+            <ul>
+              <div id="featured_offers-list">
+                <%= render partial: "offers/all_index_offers", collection: @related_offers, as: :offer %>
+              </div>
+            </ul>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 
