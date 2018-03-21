@@ -26,7 +26,8 @@ class OffersController < ApplicationController
     @review  = @offer.reviews.build
     @operator = @offer.operator
     @book_guarantee = Configurable.book_guarantee
-    @related_offers = Spree::Product.find @offer.related_products.map{|x| x.spree_related_product_id}
+    @related_offers = Spree::Product.find @offer.related_products.map{ |x| x.spree_related_product_id }
+    @related_offers.delete_if { |x| x.status != 'live' }
 
     check_product_options
 
