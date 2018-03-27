@@ -222,18 +222,17 @@ class Story < ActiveRecord::Base
   end
 
   def teaser
-    teaser_text = content.scan(/<p.*?>.*?<\/p>/).map do |paragraph|
-      '<p>' + Nokogiri::HTML(paragraph) + '</p>'
+      return excerpt.truncate(183) if excerpt.present?
+      return meta_description.truncate(183) if meta_description.present?
+      teaser_text = content.scan(%r{<p.*?>.*?<\/p>}).map do |paragraph|
+        '<p>' + Nokogiri::HTML(paragraph) + '</p>'
+      end
+
+      return "" unless teaser_text.present?
+      teaser_text.reduce(:+)&.truncate(183)
     end
 
-    if teaser_text.present?
-      teaser_text = teaser_text.reduce(:+)[0..180] + "..."
-    else
-      ""
-    end
-  end
-
-  def story_text
+    def story_text
     string = ""
     content = Nokogiri::HTML::Document.parse self.content
     content.css('p').each do |paragraph|
@@ -319,6 +318,66 @@ class Story < ActiveRecord::Base
     places_to_visit = (story_places + story_places_parents).uniq.flatten.sort_by(&:display_name)
 
     return places_to_visit
+  end
+
+  def content_for_feed
+    story_content = Nokogiri::HTML(content)
+    story_content.css('div').each do |div|
+      div.remove if div['class'].include?('medium-insert-button')
+    end
+    feed = story_content.to_xhtml
+  end
+
+  def date_fields
+    {
+      dateTimeWritten: created_at.strftime("%Y%m%dT%H%M%S%z"),
+      published: publish_date.strftime("%Y%m%dT%H%M%S%z"),
+      updated: updated_at.strftime("%Y%m%dT%H%M%S%z")
+    }
+  end
+
+  def links
+    { 
+      rel: "self", 
+      type: "text/html", 
+      href: Rails.application.routes.url_helpers.story_url(self, host: 'www.mydiscoveries.com.au', protocol: 'https')
+    }
+  end
+
+  def images_for_feed
+    solution = []
+    story_content = Nokogiri::HTML(content_for_feed)
+    story_content.css('figure').each do |element|
+      solution << { 
+        url: element.children.css('img').attr('src').text, 
+        hasSyndicationRights: 1,
+        author: parse_caption_for_author(element.children.css('figcaption').text)
+      }
+    end
+    solution
+  end
+
+  def parse_caption_for_author(string)
+    return "MyDiscoveries" unless string
+    str = ""
+    if string.include?('Image:')
+      str = string[/Image:.*/, 0]
+      str.slice! "Image:"
+    elsif string.include?("©")
+      str = string[/©.*/, 0]
+      str.slice! "©"
+    else
+      str = "MyDiscoveries"
+    end
+    str
+  end
+
+  def author_name
+    if author.present? && author.name.present?
+      author.name
+    else
+      "MyDiscoveries"
+    end
   end
 
   def author_name_truncated(num)

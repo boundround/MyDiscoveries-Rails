@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117033421) do
+ActiveRecord::Schema.define(version: 20180327004925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2435,6 +2435,7 @@ ActiveRecord::Schema.define(version: 20180117033421) do
     t.boolean  "featured",            default: false
     t.integer  "author_id"
     t.integer  "story_type_id"
+    t.text     "excerpt",             default: ""
   end
 
   add_index "stories", ["primary_category_id"], name: "index_stories_on_primary_category_id", using: :btree

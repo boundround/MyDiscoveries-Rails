@@ -15,6 +15,10 @@ class StoryPolicy < ApplicationPolicy
     index?
   end
 
+  def feed
+    true
+  end
+
   def update?
     index?
   end

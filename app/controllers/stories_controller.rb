@@ -16,6 +16,10 @@ class StoriesController < ApplicationController
     @place_to_go = @story.regions[0].places.paginate(page: params[:places_to_go_page], per_page: 2 )
   end
 
+  def feed
+    @stories = Story.active.order(updated_at: :desc)[0..5]
+  end
+
   def paginate_place
     @story = Story.find_by_slug(params[:id])
     @places_to_visit = @story.attractions.active.paginate( page: params[:places_to_visit_page], per_page: 6 )
@@ -139,6 +143,7 @@ class StoriesController < ApplicationController
     def story_params
       params.require(:story).permit(:content, :title, :user_id, :author_id, :status, :google_place_id, :storiable_id, :country_id,
                                     :seo_title,
+                                    :excerpt,
                                     :focus_keyword,
                                     :meta_description,
                                     :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
