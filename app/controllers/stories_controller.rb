@@ -17,7 +17,7 @@ class StoriesController < ApplicationController
   end
 
   def feed
-    @stories = Story.active.order(updated_at: :desc)[0..5]
+    @stories = Story.active.where('updated_at > ?', 3.days.ago).order(updated_at: :desc)
   end
 
   def paginate_place

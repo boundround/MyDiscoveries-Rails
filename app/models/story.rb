@@ -323,9 +323,10 @@ class Story < ActiveRecord::Base
   def content_for_feed
     story_content = Nokogiri::HTML(content)
     story_content.css('div').each do |div|
-      div.remove if div['class'].include?('medium-insert-button')
+      div.remove if div['class'] && div['class'].include?('medium-insert-button')
     end
-    feed = story_content.to_xhtml
+    #story_content.internal_subset.remove
+    feed = story_content.at('body').to_xhtml
   end
 
   def date_fields
