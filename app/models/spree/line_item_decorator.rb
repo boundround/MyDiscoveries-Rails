@@ -56,6 +56,11 @@ Spree::LineItem.class_eval do
   def product_options
     options = ""
 
+    if product.pickup_dropoff
+      options << "<li>Pickup Address: #{pickup_address}</li>\
+                  <li>Airport Dropoff: #{dropoff_airport}</li>"
+    end
+
     unless product.disable_room_type
       options << '<li>' + variant.room_type.titleize + '</li>'
     end
