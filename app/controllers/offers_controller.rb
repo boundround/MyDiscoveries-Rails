@@ -273,6 +273,7 @@ class OffersController < ApplicationController
       :voucher_booking_essentials,
       :marketing_headline,
       :product_type,
+      :pickup_dropoff,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,

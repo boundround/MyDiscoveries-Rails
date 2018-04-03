@@ -18,6 +18,7 @@ function mapAdmin(){
       types: ['geocode', 'establishment'],
       map: "#map-canvas",
       location: latLong,
+      geolocate: true,
       markerOptions: {
         draggable: true
       },
@@ -62,6 +63,23 @@ $(window).load(function(){
       mapAdmin()
     })
   }
+
+  if (document.querySelector('#pickup-address-autocomplete')){
+    $("#pickup-address-autocomplete").geocomplete({
+      map: "#map-canvas",
+      geolocate: true,
+      details: "body"
+    });
+  }
+
+  if (document.querySelector('#pickup-address-autocomplete')){
+    $("#dropoff-airport-autocomplete").geocomplete({
+      map: "#map-canvas-2",
+      geolocate: true,
+      details: "body"
+    });
+  }
+
 })
 
 function detailsArea(){

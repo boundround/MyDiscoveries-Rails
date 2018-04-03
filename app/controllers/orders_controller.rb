@@ -476,6 +476,7 @@ class OrdersController < ApplicationController
       :request_installments,
       :coupon_code,
       :hubspot_id,
+      :pickup_dropoff,
       line_items_attributes: [
         :id,
         :quantity,
@@ -526,6 +527,8 @@ class OrdersController < ApplicationController
 
   def line_item_params
     params.require(:line_item).permit(
+      :pickup_address,
+      :dropoff_airport,
       passengers_attributes: [
         :id,
         :title,

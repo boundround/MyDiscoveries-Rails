@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327004925) do
+ActiveRecord::Schema.define(version: 20180403041556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1409,6 +1409,8 @@ ActiveRecord::Schema.define(version: 20180327004925) do
     t.boolean  "request_installments",                          default: false
     t.string   "name"
     t.text     "description"
+    t.text     "pickup_address",                                default: ""
+    t.text     "dropoff_airport",                               default: ""
   end
 
   add_index "spree_line_items", ["order_id"], name: "index_spree_line_items_on_order_id", using: :btree
@@ -1726,6 +1728,7 @@ ActiveRecord::Schema.define(version: 20180327004925) do
     t.string   "per_adult_overwrite",                                           default: ""
     t.string   "marketing_headline",                                            default: ""
     t.integer  "product_type_id"
+    t.boolean  "pickup_dropoff",                                                default: false
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree

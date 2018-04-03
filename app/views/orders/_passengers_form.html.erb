@@ -58,11 +58,19 @@
         <section class="passenger-details">
           <div class="pdb-header">
             <h1 class="lars">Passenger details</h1>
-            <span style="font-weight: bold; padding-bottom: 0">Please ensure passenger names and date of births match exactly as per passports. Amendment fees may apply for changes to this information.</span>
+            <span style="font-weight: bold; padding-bottom: 0">Please ensure passenger names and dates of birth match exactly as per passports. Amendment fees may apply for changes to this information.</span>
           </div>
 
           <div class="passenger-info-block">
             <%= simple_form_for(line_item, url: line_item_update_passengers_path(offer, line_item), method: :patch, html: { class: 'horizontal' }) do |of| %>
+              <% if line_item.product.pickup_dropoff %>
+                <div class="pickup-dropoff">
+                  <%= of.input :pickup_address, input_html: { id: 'pickup-address-autocomplete', class: 'form-control'} %>
+                  <div id="map-canvas" style="display:none;"></div>
+                  <div id="map-canvas-2" style="display:none;"></div>
+                  <%= of.input :dropoff_airport, input_html: { id: 'dropoff-airport-autocomplete', class: 'form-control'} %>
+                </div>
+              <% end %>
               <% line_item.passengers.each_with_index do |passenger, n| %>
                 <%= of.simple_fields_for :passengers, passenger do |pf| %>
                 <%= pf.input :order_id, as: :hidden %>
