@@ -459,7 +459,7 @@ Spree::Product.class_eval do
   end
 
   def published?
-    self.status == "live" &&  self.publishenddate >= Date.today && self.publishstartdate <= Date.today
+    self.status == "live"
   end
 
   def slug_candidates

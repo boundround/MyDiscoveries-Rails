@@ -67,8 +67,6 @@
                 <div class="pickup-dropoff">
                   <%= of.input :pickup_address, input_html: { id: 'pickup-address-autocomplete', class: 'form-control'} %>
                   <div id="map-canvas" style="display:none;"></div>
-                  <div id="map-canvas-2" style="display:none;"></div>
-                  <%= of.input :dropoff_airport, input_html: { id: 'dropoff-airport-autocomplete', class: 'form-control'} %>
                 </div>
               <% end %>
               <% line_item.passengers.each_with_index do |passenger, n| %>

@@ -402,11 +402,7 @@ class Offer < ActiveRecord::Base
   end
 
   def published?
-    if self.status == "live"
-      true
-    else
-      false
-    end
+    self.status == 'live'
   end
 
   def slug_candidates

@@ -57,8 +57,7 @@ Spree::LineItem.class_eval do
     options = ""
 
     if product.pickup_dropoff
-      options << "<li>Pickup Address: #{pickup_address}</li>\
-                  <li>Airport Dropoff: #{dropoff_airport}</li>"
+      options << "<li>Pickup Address: #{pickup_address}</li>"
     end
 
     unless product.disable_room_type
