@@ -142,13 +142,13 @@ Spree::Order.class_eval do
 
   # method to update hubspot deals
   def send_to_hubspot
-    hubspot_id = ""
     if self.customer.present? #&& self.user.blank? #if customer is not a user then use the default ID to create order  
       #find the Hubspot user id (called vid)
-      hubspot_id = Hubspot::Contact.find_by_email(self.customer.email).vid
+      hubspot_customer_response = Hubspot::Contact.find_by_email(self.customer.email)
+      hubspot_id = hubspot_customer_response.vid if hubspot_customer_response.present?
 
       #if not present then create new hubspot id and assigned the new id to hubspot_id
-      if hubspot_id.present? != true
+      if hubspot_id.blank?
         hubspot_id = HubspotService::Send.user_to_hubspot_and_retrieve_hubspot_id(self.customer)
       end
 
