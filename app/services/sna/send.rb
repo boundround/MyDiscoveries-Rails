@@ -92,7 +92,9 @@ class SNA::Send
             "Quantity": line_item.quantity,
             "UnitPrice": line_item.price_with_add_ons.to_s,
             "SupplierProductCode": "#{line_item.variant.supplier_product_code}#{line_item.add_ons.map{|x| x.add_on_code}.join('')}",
-            "DepartureDate": line_item.variant.product.disable_departure_date? ? '' : line_item.variant.departure_date.strftime('%Y-%m-%d')
+            "DepartureDate": line_item.variant.product.disable_departure_date? ? '' : line_item.variant.departure_date.strftime('%Y-%m-%d'),
+            "DepartureCity": line_item.variant.product.disable_departure_city? ? '' : line_item.variant.departure_city,
+            "Basis": line_item.variant.product.disable_room_type? ? '' : line_item.variant.room_type
           }
         })
       end
