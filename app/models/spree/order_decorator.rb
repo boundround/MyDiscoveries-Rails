@@ -113,6 +113,14 @@ Spree::Order.class_eval do
     "#{ax_sales_id} (#{user.first_name} #{user.last_name})"
   end
 
+  def print_line_items
+    str = ''
+    line_items.each do |li|
+      str << "#{li.product.name} - $#{li.total}\n"
+    end
+    str
+  end
+
   # overrides Spree method
   def update!
     updater.update

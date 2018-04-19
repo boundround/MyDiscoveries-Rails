@@ -8,7 +8,13 @@ class HubspotService::Send
         Hubspot::Contact.create_or_update!([
           { email: user.email,
             firstname: user.first_name.blank? ? user.email : user.first_name,
-            lastname: user.last_name
+            lastname: user.last_name,
+            phone: user.phone_number,
+            address: "#{user.address_one}\n#{user.address_two}\n#{user.address_three}\n",
+            city: user.city,
+            state: user.state,
+            zip: user.postal_code,
+            country: user.country
           }
         ])
         #find the Hubspot user id (called vid)
@@ -24,8 +30,8 @@ class HubspotService::Send
       response = deal.update!(
       {
           'amount' =>  order.total, 
-          'description' => order.line_items[0].variant.product.description,
-          'dealname' => order.line_items[0].variant.product.name,
+          'description' => order.print_line_items,
+          'dealname' => "#{order.ax_sales_id} - #{order.customer.last_name} - #{order.line_items[0].variant.item_code}",
           'dealstage' => dealstage,
           'holiday_type' => 'holiday',
           'pipeline' => ENV['HUBSPOT_PIPELINE_ID'],
@@ -48,8 +54,8 @@ class HubspotService::Send
         ENV['HUBSPOT_COMPANY_ID'], 
         hubspot_id,{
           'amount' =>  order.total, 
-          'description' => order.line_items[0].variant.product.description,
-          'dealname' => order.line_items[0].variant.product.name,
+          'description' => order.print_line_items,
+          'dealname' => "#{order.ax_sales_id} - #{order.customer.last_name} - #{order.line_items[0].variant.item_code}",
           'dealstage' => dealstage,
           'holiday_type' => 'holiday',
           'pipeline' => ENV['HUBSPOT_PIPELINE_ID'],
