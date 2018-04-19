@@ -325,6 +325,18 @@ class Story < ActiveRecord::Base
     story_content.css('div').each do |div|
       div.remove if div['class'] && div['class'].include?('medium-insert-button')
     end
+    image_information = images_for_feed(story_content)
+    story_content.css('img').each_with_index do |image, index|
+      image['alt'] = image_information[index]['title']
+      image['data-portal-copyright'] = image_information[index]['author']
+      image['data-has-syndication-rights'] = '1'
+    end
+
+    story_content.css('figure').each do |element|
+      img = element.children.at_css('img')
+      element.add_next_sibling(img)
+      element.remove
+    end
     #story_content.internal_subset.remove
     feed = story_content.at('body').to_xhtml
   end
@@ -345,32 +357,36 @@ class Story < ActiveRecord::Base
     }
   end
 
-  def images_for_feed
+  def images_for_feed(story_content)
     solution = []
-    story_content = Nokogiri::HTML(content_for_feed)
     story_content.css('figure').each do |element|
-      solution << { 
-        url: element.children.css('img').attr('src').text, 
-        hasSyndicationRights: 1,
-        author: parse_caption_for_author(element.children.css('figcaption').text)
-      }
+      solution << image_info(element.children.css('figcaption').text)
     end
     solution
   end
 
-  def parse_caption_for_author(string)
+  def image_info(string)
     return "MyDiscoveries" unless string
-    str = ""
+    options = {}
     if string.include?('Image:')
-      str = string[/Image:.*/, 0]
-      str.slice! "Image:"
+      options['author'] = string[/Image:.*/, 0]
+      options['author'].slice! "Image:" if options['author']
+      options['title'] = string[/.*Image:/, 0]
+      options['title'].slice! "Image:" if options['title']
+    elsif string.include?('Picture:')
+      options['author'] = string[/Picture:.*/, 0]
+      options['author'].slice! "Picture:" if options['author']
+      options['title'] = string[/.*Picture:/, 0]
+      options['title'].slice! "Picture:" if options['title']
     elsif string.include?("©")
-      str = string[/©.*/, 0]
-      str.slice! "©"
+      options['author'] = string[/©.*/, 0]
+      options['author'].slice! "©" if options['author']
+      options['title'] = string[/.*©:/, 0]
+      options['title'].slice! "©" if options['title']
     else
-      str = "MyDiscoveries"
+      options['author'] = "MyDiscoveries"
     end
-    str
+    options
   end
 
   def author_name

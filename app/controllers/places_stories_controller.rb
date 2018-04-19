@@ -12,7 +12,6 @@ class PlacesStoriesController < ApplicationController
     end
 
     redirect_to :back
-
   end
 
   def edit
