@@ -149,7 +149,7 @@
     <div id="commercials-collapse" class="panel-collapse collapse">
       <!--  STUFF GOES HERE -->
       <div class="form-group margin-left-20">
-        <%= f.input_field :allow_installments, as: :boolean, inline_label: 'Allow Installments', label: false %>
+        <%= f.input :allow_installments, as: :boolean, label: 'Allow Installments' %>
       </div>
       <div class="row">
         <div class="col-xs-12 col-sm-6">
@@ -171,7 +171,12 @@
         </div>
         <div class="col-xs-12 col-sm-6">
           <div class="form-group">
-            <%= f.input :publishenddate, label: 'Publish End Date', as: :date, input_html: { class: '' } %>
+            <%= f.input :publishenddate_active, label: 'Expires?',
+              input_html: { class: 'form-check-input', id: 'js-expires-checkbox' }, label_html: { class: 'form-check-label' } %>
+            <span class="js-expires-section <%= @offer.publishenddate_active ? '' : 'hidden' %>">
+              <%= f.input :publishenddate, label: 'Publish End Date', as: :date, input_html: { class: '' } %>
+              <%= f.input :publishenddate_status, label: 'Change Status To:', collection: ['draft', 'removed'], input_html: { class: '' } %>
+            </span>
           </div>
         </div>
       </div>
@@ -339,3 +344,10 @@
 <div class="form-group">
   <%= f.submit :submit, class: 'btn' %>
 </div>
+<script>
+  const expires = document.querySelector('#js-expires-checkbox');
+  const expiresSection = document.querySelector('.js-expires-section');
+  expires.addEventListener('click', (e) => {
+    expiresSection.classList.toggle('hidden');
+  });
+</script>

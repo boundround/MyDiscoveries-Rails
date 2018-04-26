@@ -271,6 +271,8 @@ class OffersController < ApplicationController
       :package_option_label,
       :per_adult_overwrite,
       :voucher_booking_essentials,
+      :publishenddate_status,
+      :publishenddate_active,
       :marketing_headline,
       :product_type,
       :pickup_dropoff,

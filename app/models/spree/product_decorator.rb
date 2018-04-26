@@ -377,8 +377,10 @@ Spree::Product.class_eval do
 
   acts_as_taggable_on :inclusions
 
-  scope :active, -> { where("status = ?", "live").where('publishenddate >= ?', Date.today).where('publishstartdate <= ?', Date.today) }
+  scope :active, -> { where("status = ?", "live") }
   scope :featured, -> { where("featured = ?", true) }
+  scope :publishing_queue, -> { where("publishstartdate = ?", Date.today) }
+  scope :expiring_queue, -> { where("publishenddate_active = ?", true).where("publishenddate = ?", Date.today) }
 
   belongs_to :attraction
   belongs_to :operator
