@@ -77,7 +77,7 @@ Spree::LineItem.class_eval do
     end
 
     unless product.disable_departure_date
-      options << '<li> Depart On: ' + variant.departure_date.strftime('%d %b %Y') + '</li>'
+      options << '<li> Depart On: ' + variant.display_departure_date + '</li>'
     end
 
     unless product.disable_package_option
