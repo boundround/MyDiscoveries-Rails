@@ -379,8 +379,8 @@ Spree::Product.class_eval do
 
   scope :active, -> { where("status = ?", "live") }
   scope :featured, -> { where("featured = ?", true) }
-  scope :publishing_queue, -> { where("publishstartdate = ?", Date.today) }
-  scope :expiring_queue, -> { where("publishenddate_active = ?", true).where("publishenddate = ?", Date.today) }
+  scope :publishing_queue, -> { where("publishstartdate = ?", (Time.now - 10.hours)) }
+  scope :expiring_queue, -> { where("publishenddate_active = ?", true).where("publishenddate = ?", (Time.now - 10.hours)) }
 
   belongs_to :attraction
   belongs_to :operator
