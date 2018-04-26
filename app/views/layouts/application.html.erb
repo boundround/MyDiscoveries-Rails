@@ -8,7 +8,7 @@
 	  <%= csrf_meta_tags %>
       <%= yield :head %>
 	  <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet"> -->
-		<link href="<%= request.original_url %>" rel="canonical" />
+		<link href="<%= @story.present? && @story.canonical_url.present?? @story.canonical_url : request.original_url %>" rel="canonical" />
 
 		<link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('favicons/mydiscoveries/apple-touch-icon.png')%>">
 		<link rel="icon" type="image/png" href="<%= asset_path('favicons/mydiscoveries/favicon-16x16.png')%>" sizes="16x16">

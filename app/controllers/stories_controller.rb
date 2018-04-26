@@ -145,7 +145,7 @@ class StoriesController < ApplicationController
                                     :seo_title,
                                     :excerpt,
                                     :focus_keyword,
-                                    :meta_description,
+                                    :meta_description, :canonical_url,
                                     :age_bracket, :author_name, :public, :date, :publish_date, :minimum_age, :maximum_age,
                                     :seo_friendly_url, :primary_category_id, :hero_image, :featured,
                                     photos_attributes: [:id, :photoable_id, :photoable_type, :hero, :title, :path, :caption, :alt_tag, :credit, :caption_source, :priority, :status, :customer_approved, :customer_review, :approved_at, :country_include, :_destroy],

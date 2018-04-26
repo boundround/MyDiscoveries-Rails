@@ -13,6 +13,8 @@
               <%= f.label "SEO Friendly URL" %><br>
               <%= f.text_field :seo_friendly_url, class: "form-control" %><br>
               <%= f.label "Choose a title for this story" %><br>
+              <%= f.label "Canonical URL" %><br>
+              <%= f.text_field :canonical_url, class: "form-control" %><br>
               <%= f.text_field :title, class: "form-control story-title-edit" %>
             <% end %>
             <% if current_user.has_role? "contributor" %>

@@ -20,6 +20,8 @@
             <% end %>
             <%= f.label "SEO Friendly URL" %><br>
             <%= f.text_field :seo_friendly_url, class: "form-control" %><br>
+            <%= f.label "Canonical URL - Prefix with http(s)://" %><br>
+            <%= f.text_field :canonical_url, class: "form-control" %><br>
             <%= f.label "Choose a title for this story" %><br>
             <%= f.text_field :title, class: "form-control story-title-edit" %>
             <%= f.label "Excerpt" %><br>
