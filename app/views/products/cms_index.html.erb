@@ -34,8 +34,8 @@
           <td><%= product.description %></td>
           <td><%= product.status %></td>
           <td><%= product.operator.name %></td>
-          <td><%= product.startDate.try(:strftime, "%m-%d-%Y") %></td>
-          <td><%= product.endDate.try(:strftime, "%m-%d-%Y") %></td>
+          <td><%= product.startDate.try(:strftime, "%Y-%m-%d") %></td>
+          <td><%= product.endDate.try(:strftime, "%Y-%m-%d") %></td>
           <td><%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %></td>
           <td><%= product.created_at.strftime("%F") %></td>
           <td><%= link_to 'Edit product', edit_product_path(product), target: "_blank" %></td>
