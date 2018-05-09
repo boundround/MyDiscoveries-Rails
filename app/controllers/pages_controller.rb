@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   def index
     @page = Page.find_by title: "home"
     @set_body_class = "home-page background"
-    @subcategories = Subcategory.find([26,27,28,29])
+    @subcategories = Subcategory.find([7,33,31,32])
     @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
     @category1 = @subcategories[0]
     @category2 = @subcategories[1]
