@@ -379,6 +379,7 @@ Spree::Product.class_eval do
 
   scope :active, -> { where("status = ?", "live") }
   scope :featured, -> { where("featured = ?", true) }
+  scope :prioritized, -> { reorder(priority: :asc) }
   scope :publishing_queue, -> { where("publishstartdate = ?", (Time.now - 10.hours)) }
   scope :expiring_queue, -> { where("publishenddate_active = ?", true).where("publishenddate = ?", (Time.now - 10.hours)) }
 
