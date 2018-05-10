@@ -276,6 +276,7 @@ class OffersController < ApplicationController
       :marketing_headline,
       :product_type,
       :pickup_dropoff,
+      :priority,
       { tags: [] },
       photos_attributes: [
         :id, :title, :path, :caption, :alt_tag, :credit, :caption_source,
