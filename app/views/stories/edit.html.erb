@@ -17,6 +17,10 @@
               <%= f.date_field :publish_date %><br>
               <%= f.label "Change Author" %><br>
               <%= f.select :author_id, Author.order(name: :asc).map { |user| [user.name, user.id] } %><br>
+              <div class="form-group">
+                <%= f.check_box :featured, label: false %>
+                 <%= f.label :featured, "Featured" %>
+              </div>
             <% end %>
             <%= f.label "SEO Friendly URL" %><br>
             <%= f.text_field :seo_friendly_url, class: "form-control" %><br>
