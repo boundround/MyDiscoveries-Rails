@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
 
   def get_header
     @featured_nav_destinations = Place.active.where(show_in_mega_menu: true)
-    @featured_nav_offers = Spree::Product.active.where(show_in_mega_menu: true)
+    @featured_nav_offers = Spree::Product.active.where(show_in_mega_menu: true).limit(6)
   end
 
   protected

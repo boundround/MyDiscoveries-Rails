@@ -184,9 +184,9 @@ module ApplicationHelper
 
   def draw_hero_background(place)
     if place.photos.find_by(hero: true)
-      place.photos.where(hero: true).last.path_url(:large)
+      place.photos.where(hero: true).last.path_url(:medium)
     elsif place.class.to_s == "Place" && place.user_photos.find_by(hero: true)
-      place.user_photos.find_by(hero: true).path_url(:large)
+      place.user_photos.find_by(hero: true).path_url(:medium)
     else
       asset_path('generic-hero.jpg')
     end
@@ -194,7 +194,7 @@ module ApplicationHelper
 
   def draw_hero_background_region(region)
     if region.photos.find_by(hero: true)
-      region.photos.find_by(hero: true).path_url(:large)
+      region.photos.find_by(hero: true).path_url(:medium)
     else
       asset_path('generic-hero.jpg')
     end
