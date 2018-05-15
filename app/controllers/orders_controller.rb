@@ -10,7 +10,8 @@ class OrdersController < ApplicationController
     :payment,
     :update_line_items,
     :delete_line_item,
-    :confirmation
+    :confirmation,
+    :update_campaign_code
   ]
 
   before_action :check_user_authorization, except: [
@@ -23,7 +24,8 @@ class OrdersController < ApplicationController
     :empty,
     :payment,
     :update_line_items,
-    :delete_line_item
+    :delete_line_item,
+    :update_campaign_code
   ]
 
   before_action :set_order, only: [
@@ -34,7 +36,7 @@ class OrdersController < ApplicationController
     :add, :populate, :delete_line_item,
     :add_passengers, :update_passengers,
     :checkout, :payment, :cart, :update_line_items,
-    :empty
+    :empty, :update_campaign_code
   ]
 
   before_action :set_offer, except: [
@@ -56,8 +58,8 @@ class OrdersController < ApplicationController
     :edit_line_items,
     :update_customer,
     :update_add_ons,
-    :send_to_sna
-
+    :send_to_sna,
+    :update_campaign_code
   ]
 
   before_action :set_customer, only: [:checkout, :payment]
@@ -405,6 +407,12 @@ class OrdersController < ApplicationController
     end
   end
 
+  def update_campaign_code
+    set_order
+    @order.update(campaign_code: params[:campaign_code])
+    #redirect_to checkout 
+  end
+
   private
 
   def apply_coupon_code
@@ -477,6 +485,7 @@ class OrdersController < ApplicationController
       :coupon_code,
       :hubspot_id,
       :pickup_dropoff,
+      :campaign_code,
       line_items_attributes: [
         :id,
         :quantity,
