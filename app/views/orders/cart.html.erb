@@ -6,172 +6,182 @@
       role: 'form',
       class: 'top20 js-order-form',
     } do |f| %>
-      <%= render 'orders/flash_message', flash: flash %>
-      <div class="booking-block">
-        <div class="block-inside">
-          <section class="prices-and-availability-block">
-            <div class="form-block already-added-variants">
-              <% if @line_items.empty? %>
-                <h3 class="heading">
-                  Your shopping cart is currently empty.
-                </h3>
-              <% end %>
-              <% @order.line_items.each_with_index do |line_item, index| %>
-                <%= f.simple_fields_for :line_items, line_item do |lnf| %>
-                  <%= lnf.input :id, as: :hidden %>
-                  <ul>
-                    <li class='cart-product-value'>
-                      <% if index.zero? %>
-                        <h5>Product</h5>
-                      <% end %>
-                      <p>
-                        <div class='col-md-4'>
-                          <%= image_tag draw_hero_background(line_item.product),
-                                size: '100x100',
-                                class: 'cart-product-photo'
-                          %>
-                        </div>
-                        <div class='col-md-8'>
-                          <%= line_item.product.name %>
-                          <% if line_item.product.add_ons.any? %>
-                            <h5> Available Add-Ons</h5>
-                            <% if user_signed_in? && current_user.admin? %>
-                              <% line_item.product.add_ons.each do |add_on| %>
-                                  <%= render 'orders/add_on', add_on: add_on, f: lnf %>
-                              <% end %>
-                            <% else %>
-                              <% line_item.product.add_ons.select{ |add_on| add_on.active_for_admin == false }.each do |add_on| %>
-                                  <%= render 'orders/add_on', add_on: add_on, f: lnf %>
-                              <% end %>
-                            <% end %>
-                          <% end %>
-                        </div>
-                        <br style="clear: both;" />
-                      </p>
-                      </p>
-                    </li>
-                    <li>
-                      <% if index.zero? %>
-                        <h5>Duration</h5>
-                      <% end %>
-                      <div><%= create_duration(line_item.product) %></div>
-                    </li>
-                    <li class="quantity">
-                      <% if index.zero? %>
-                        <h5>Variant</h5>
-                      <% end %>
-                      <div>
-                        <%= line_item.variant.select_label %>
-                      </div>
-                    </li>
-                    <li class="quantity">
-                      <% if index.zero? %>
-                        <h5>Quantity</h5>
-                      <% end %>
-                      <div>
-                        <%= lnf.input :quantity,
-                            as: :integer,
-                            label_method: :select_label,
-                            include_blank: false,
-                            label: false,
-                            input_html: {
-                              class: 'form-control',
-                              min: 1
-                            }
+    <%= render 'orders/flash_message', flash: flash %>
+    <div class="booking-block">
+      <div class="block-inside">
+        <section class="prices-and-availability-block">
+          <div class="form-block already-added-variants">
+            <% if @line_items.empty? %>
+              <h3 class="heading">
+                Your shopping cart is currently empty.
+              </h3>
+            <% end %>
+            <% @order.line_items.each_with_index do |line_item, index| %>
+              <%= f.simple_fields_for :line_items, line_item do |lnf| %>
+                <%= lnf.input :id, as: :hidden %>
+                <ul>
+                  <li class='cart-product-value'>
+                    <% if index.zero? %>
+                      <h5>Product</h5>
+                    <% end %>
+                    <p>
+                      <div class='col-md-4'>
+                        <%= image_tag draw_hero_background(line_item.product),
+                              size: '100x100',
+                              class: 'cart-product-photo'
                         %>
                       </div>
-                    </li>
-                    <li class="subtotal">
-                      <% if index.zero? %>
-                        <h5>Subtotal</h5>
-                      <% end %>
-                      <% if line_item.request_installments? %>
-                        <%= "5 x #{number_to_currency(total_line_item_price(line_item).to_f / 5.to_f)}" %>
-                      <% else %>
-                        <%= "#{number_to_currency(total_line_item_price(line_item))}" %>
-                      <% end %>
-                    </li>
-                    <li class="quantity">
-                      <div>
-                        <% if index.zero? %>
-                          <h5>Actions</h5>
-                        <% end %>
-                        <div>
-                          <%= link_to(
-                              line_item_add_passengers_path(offer_id: line_item.product.id, line_item_id: line_item.id),
-                              class: 'btn-bordered red small invert',
-                            ) do %>
-                              <% if line_item.passengers_added? %>
-                                <span>Edit Passengers</span>
-                              <% else %>
-                                <span>Checkout</span>
-                              <% end %>
+                      <div class='col-md-8'>
+                        <%= line_item.product.name %>
+                        <% if line_item.product.add_ons.any? %>
+                          <h5> Available Add-Ons</h5>
+                          <% if user_signed_in? && current_user.admin? %>
+                            <% line_item.product.add_ons.each do |add_on| %>
+                                <%= render 'orders/add_on', add_on: add_on, f: lnf %>
+                            <% end %>
+                          <% else %>
+                            <% line_item.product.add_ons.select{ |add_on| add_on.active_for_admin == false }.each do |add_on| %>
+                                <%= render 'orders/add_on', add_on: add_on, f: lnf %>
+                            <% end %>
                           <% end %>
-                        </div>
-                        <div>
-                          <%= link_to(
-                              delete_line_item_offer_orders_path(
-                                offer_id: line_item.product.id,
-                                variant_id: line_item.variant.id,
-                                quantity: line_item.quantity
-                              ),
-                              class: 'btn-bordered small cart-delete-product-btn',
-                              method: :patch
-                            ) do %>
-                              <span>Delete</span>
-                          <% end %>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                <% end %>
-                <hr class='variants-divider' />
-              <% end %>
-              <div class='padding-top-30p'>
-                <% if @line_items.any? %>
-                  <% @order.adjustments.eligible.group_by(&:label).each do |label, adjustments| %>
-                    <%= "Adjustment #{label}: #{number_to_currency(adjustments.sum(&:amount))}" %>
-                  <% end %>
-                  <h4>
-                    <%= "Total: #{number_to_currency(@order.total)}" %>
-                  </h4>
-                  <div class='padding-top-30p'>
-                    <div class='inline-buttons'>
-                      <%= link_to offers_path,
-                        class: 'btn-bordered red invert' do %>
-                        <span>CONTINUE SHOPPING</span>
-                      <% end %>
-                    </div>
-                    <% if @order.px_payment? %>
-                      <div class='inline-buttons right-align-button'>
-                        <%= link_to checkout_path,
-                          class: 'btn-bordered red invert' do %>
-                          <span>CHECKOUT</span>
                         <% end %>
                       </div>
+                      <br style="clear: both;" />
+                    </p>
+                    </p>
+                  </li>
+                  <li>
+                    <% if index.zero? %>
+                      <h5>Duration</h5>
                     <% end %>
-                    <div class='inline-buttons right-align-button update-cart-button'>
-                      <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
-                        <span>UPDATE</span>
-                      <% end %>
+                    <div><%= create_duration(line_item.product) %></div>
+                  </li>
+                  <li class="quantity">
+                    <% if index.zero? %>
+                      <h5>Variant</h5>
+                    <% end %>
+                    <div>
+                      <%= line_item.variant.select_label %>
                     </div>
-                    <div class='inline-buttons right-align-button'>
-                      <%= f.input :coupon_code,
-                          as: :string,
+                  </li>
+                  <li class="quantity">
+                    <% if index.zero? %>
+                      <h5>Quantity</h5>
+                    <% end %>
+                    <div>
+                      <%= lnf.input :quantity,
+                          as: :integer,
+                          label_method: :select_label,
+                          include_blank: false,
                           label: false,
                           input_html: {
-                            placeholder: 'Promo Code',
-                            class: 'form-control promo-code-input'
+                            class: 'form-control',
+                            min: 1
                           }
                       %>
                     </div>
+                  </li>
+                  <li class="subtotal">
+                    <% if index.zero? %>
+                      <h5>Subtotal</h5>
+                    <% end %>
+                    <% if line_item.request_installments? %>
+                      <%= "5 x #{number_to_currency(total_line_item_price(line_item).to_f / 5.to_f)}" %>
+                    <% else %>
+                      <%= "#{number_to_currency(total_line_item_price(line_item))}" %>
+                    <% end %>
+                  </li>
+                  <li class="quantity">
+                    <div>
+                      <% if index.zero? %>
+                        <h5>Actions</h5>
+                      <% end %>
+                      <div>
+                        <%= link_to(
+                            line_item_add_passengers_path(offer_id: line_item.product.id, line_item_id: line_item.id),
+                            class: 'btn-bordered red small invert',
+                          ) do %>
+                            <% if line_item.passengers_added? %>
+                              <span>Edit Passengers</span>
+                            <% else %>
+                              <span>Checkout</span>
+                            <% end %>
+                        <% end %>
+                      </div>
+                      <div>
+                        <%= link_to(
+                            delete_line_item_offer_orders_path(
+                              offer_id: line_item.product.id,
+                              variant_id: line_item.variant.id,
+                              quantity: line_item.quantity
+                            ),
+                            class: 'btn-bordered small cart-delete-product-btn',
+                            method: :patch
+                          ) do %>
+                            <span>Delete</span>
+                        <% end %>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              <% end %>
+              <hr class='variants-divider' />
+            <% end %>
+            <div class='padding-top-30p'>
+              <% if @line_items.any? %>
+                <% @order.adjustments.eligible.group_by(&:label).each do |label, adjustments| %>
+                  <%= "Adjustment #{label}: #{number_to_currency(adjustments.sum(&:amount))}" %>
+                <% end %>
+                <h4>
+                  <%= "Total: #{number_to_currency(@order.total)}" %>
+                </h4>
+                <select class='form-control promo-code-input' name="campaignCode" id="campaign_code_field">
+                  <option value="-1">Please let us know how you heard about us:</option>
+                  <option>Innovations Catalogue</option>
+                  <option>MyDiscoveries Website</option>
+                  <option>Friends</option>
+                  <option>Facebook</option>
+                  <option>Google</option>
+                  <option>Bing</option>
+                  <option>Others</option>
+                </select>
+                <div class='padding-top-30p'>
+                  <div class='inline-buttons'>
+                    <%= link_to offers_path,
+                      class: 'btn-bordered red invert' do %>
+                      <span>CONTINUE SHOPPING</span>
                     <% end %>
                   </div>
+                  <% if @order.px_payment? %>
+                    <div class='inline-buttons right-align-button'>
+                      
+                      <div class="btn-bordered red invert" id="update-campaign-code" data-order-id="<%= @order.id %>">
+                        <span>CHECKOUT</span>
+                        </div>
+                    </div>
+                  <% end %>
+                  <div class='inline-buttons right-align-button update-cart-button'>
+                    <%= button_tag(type: 'submit', class: 'btn-bordered red invert') do %>
+                      <span>APPLY COUPON</span>
+                    <% end %>
+                  </div>
+                  <div class='inline-buttons right-align-button'>
+                    <%= f.input :coupon_code,
+                        as: :string,
+                        label: false,
+                        input_html: {
+                          placeholder: 'Promo Code',
+                          class: 'form-control promo-code-input'
+                        }
+                    %>
+                  </div>
+                  <% end %>
                 </div>
               </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 </div>

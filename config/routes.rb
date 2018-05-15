@@ -502,6 +502,7 @@ Rails.application.routes.draw do
     as: :order_send_to_sna
   get 'orders/:id/update_departure_date' => 'orders#update_departure_date',
     as: :order_update_departure_date
+  get 'orders/:id/update_campaign_code' => 'orders#update_campaign_code'
 
   get 'orders' => 'orders#index'
   get 'orders/abandoned' => 'orders#abandoned', as: :abandoned_orders
