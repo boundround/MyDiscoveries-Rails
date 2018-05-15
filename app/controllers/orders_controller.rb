@@ -164,7 +164,7 @@ class OrdersController < ApplicationController
   end
 
   def delete_line_item
-    variant = Spree::Variant.find_by(id: params[:variant_id])
+    variant = Spree::Variant.unscoped.find_by(id: params[:variant_id])
     if @order.contents.remove(variant, params[:quantity].to_i)
       @order.set_cart_state! if @order.line_items.empty?
       flash.now[:error] = variant.errors.full_messages.join(" ")
