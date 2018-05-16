@@ -135,16 +135,19 @@
                 <h4>
                   <%= "Total: #{number_to_currency(@order.total)}" %>
                 </h4>
-                <select class='form-control promo-code-input' name="campaignCode" id="campaign_code_field">
+                <select class='form-control promo-code-input' name="campaigncodes" id="campaign-code-field">
                   <option value="-1">Please let us know how you heard about us:</option>
-                  <option>Innovations Catalogue</option>
-                  <option>MyDiscoveries Website</option>
-                  <option>Friends</option>
-                  <option>Facebook</option>
-                  <option>Google</option>
-                  <option>Bing</option>
-                  <option>Others</option>
+                  <option value="1">Innovations Catalogue</option>
+                  <option value="2">MyDiscoveries Website</option>
+                  <option value="3">Friends</option>
+                  <option value="4">Facebook</option>
+                  <option value="5">Google</option>
+                  <option value="6">Bing</option>
+                  <option value="7">Others</option>
                 </select>
+                <div class="hidden" id="others-code-field">
+                  <input class="form-control promo-code-input" type="text" name="others" id="others-input" placeholder="Enter source" size="60">
+                </div>
                 <div class='padding-top-30p'>
                   <div class='inline-buttons'>
                     <%= link_to offers_path,
@@ -154,10 +157,9 @@
                   </div>
                   <% if @order.px_payment? %>
                     <div class='inline-buttons right-align-button'>
-                      
                       <div class="btn-bordered red invert" id="update-campaign-code" data-order-id="<%= @order.id %>">
                         <span>CHECKOUT</span>
-                        </div>
+                      </div>
                     </div>
                   <% end %>
                   <div class='inline-buttons right-align-button update-cart-button'>

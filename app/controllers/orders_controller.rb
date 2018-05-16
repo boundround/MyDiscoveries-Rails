@@ -72,7 +72,8 @@ class OrdersController < ApplicationController
     :add,
     :populate,
     :cart,
-    :update_line_items
+    :update_line_items,
+    :update_campaign_code
   ]
 
   before_action :set_line_item, only: [
@@ -408,9 +409,9 @@ class OrdersController < ApplicationController
   end
 
   def update_campaign_code
-    set_order
     @order.update(campaign_code: params[:campaign_code])
-    #redirect_to checkout 
+    @order.update!
+    render :js => "window.location = '/checkout'"
   end
 
   private
