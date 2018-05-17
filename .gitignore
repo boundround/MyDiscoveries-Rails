@@ -1,6 +1,7 @@
 # Ignore keys
 /config/application.yml
 /config/newrelic.yml
+/config/cloudinary.yml
 
 # Ignore uploaded files
 /public/uploads

@@ -2,7 +2,7 @@
   <% if @competitions.size == 1 %>
     <div class="col-md-12 text-center">
       <a class="comp-hero" href="<%= @competitions.first.url%>">
-        <img style="width: 100%;" src="<%= showing_image(@competitions.first.image_url(:large)) %>" />
+        <img style="width: 100%;" src="https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/<%= showing_image(@competitions.first.image_url(:large)) %>" />
       </a>
     </div>
   <% else %>
@@ -12,7 +12,7 @@
           <a class="link_card" href="<%= comp.url %>"></a>
           <div class="dest-thing-overlay-wrapper">
           </div>
-          <div class="things-img" style="background: url(<%= showing_image(comp.image_url(:small)) %>) no-repeat;" role="img"
+          <div class="things-img" style="background: url('https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/<%= showing_image(comp.image_url(:small)) %>) no-repeat;" role="img"
                 aria-label="Bondi">
           </div>
           <div class="dest-thing-content">

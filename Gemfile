@@ -147,6 +147,9 @@ gem 'iso-639'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'carrierwave_backgrounder'
 
+# Cloudinary image management
+gem 'cloudinary'
+
 gem 'sidekiq'
 gem 'sidekiq-history'
 gem 'sidekiq-throttler'
