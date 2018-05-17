@@ -93,7 +93,7 @@
             <% @featured_nav_offers.each do |offer| %>
                 <a href="<%= offer_path(offer) %>" class="featured-thing clear-self">
                     <div class="featured-thing__image-wrapper">
-                        <img src="<%= draw_small_background(offer)%>" class="featured-thing__image" alt="">
+                        <img src="https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto,w_150/<%= draw_small_background(offer)%>" class="featured-thing__image" alt="">
                         <p class="featured-thing__image-paragraph">
                             <%= "From #{number_to_currency(offer_minimum_price(offer))}pp" %>
                         </p>
