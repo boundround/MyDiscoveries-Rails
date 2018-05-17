@@ -3,7 +3,7 @@
 <% content_for :og_secure_image, "https://dqgr5tph2zdxx.cloudfront.net/pages/home/LaosHiking_JK1.jpg"%>
 <% content_for :description, "Find things to do, reviews and activities to do in destinations around the world, see videos and share stories." %>
 <div class="banner-wrapper dismiss-mega-menu-search">
-    <div class="banner-image" style="background-image: url('<%= @page.hero_image_url rescue "https://placehold.it/1920x1080" %>')" role="img" aria-label=""></div>
+    <div class="banner-image" style="background-image: url('https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/<%= @page.hero_image_url rescue "https://placehold.it/1920x1080" %>')" role="img" aria-label=""></div>
     <!-- <div class="overlay"></div> -->
       <div class="container">
           <div class="row">
@@ -74,10 +74,10 @@
   <div class="width-limiter" style="margin-bottom: -20px;">
     <a href='https://issuu.com/travelboundapac/docs/fullpage'>
       <div class="twk-banner" style="padding-top:20px; padding-left: 0; padding-right: 0;">
-        <img class="hidden-xs" style="width:100%;" src='https://s3-ap-southeast-2.amazonaws.com/brwebproduction/images/md-e-catalogue-banner.png' alt="e-magazine banner">
+        <img class="hidden-xs" style="width:100%;" src='https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/https://s3-ap-southeast-2.amazonaws.com/brwebproduction/images/md-e-catalogue-banner.png' alt="e-magazine banner">
       </div>
       <div class="twk-banner" style="padding-left: 0; padding-right: 0;">
-        <img class="hidden-md hidden-lg hidden-sm visible-xs" style="width:100%;" src='https://s3-ap-southeast-2.amazonaws.com/brwebproduction/images/md-e-catalog-e-banner-mobile.png' alt="e-magazine mobile banner">
+        <img class="hidden-md hidden-lg hidden-sm visible-xs" style="width:100%;" src='https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/https://s3-ap-southeast-2.amazonaws.com/brwebproduction/images/md-e-catalog-e-banner-mobile.png' alt="e-magazine mobile banner">
       </div>
     </a>
   </div>
@@ -129,7 +129,7 @@
             <div class="col-md-4">
                 <%= link_to subcategory_path(@category1) do %>
                     <div class="thing-tall-card-wrapper proposal-item">
-                      <div class="thing-image" style="background-image: url('<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name rescue nil %>">
+                      <div class="thing-image" style="background-image: url('https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/<%= @category1.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category1.name rescue nil %>">
                           <div class="overlay"></div>
                             <div class="proposal-item__description">
                                 <h4 class="proposal-item__header"><%= @category1.name %></h4>
@@ -148,7 +148,7 @@
                     <div class="col-md-6">
                         <%= link_to subcategory_path(@category2) do %>
                             <div class="thing-medium-card-wrapper proposal-item">
-                              <div class="thing-image" style="background-image: url('<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name rescue nil %>">
+                              <div class="thing-image" style="background-image: url('https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/<%= @category2.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category2.name rescue nil %>">
                                     <div class="overlay"></div>
                                     <div class="proposal-item__description">
                                         <h4 class="proposal-item__header"><%= @category2.name %></h4>
@@ -165,7 +165,7 @@
                     <div class="col-md-6">
                         <%= link_to subcategory_path(@category3) do %>
                             <div class="thing-medium-card-wrapper proposal-item">
-                              <div class="thing-image" style="background-image: url('<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name rescue nil %>">
+                              <div class="thing-image" style="background-image: url('https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/<%= @category3.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category3.name rescue nil %>">
                                     <div class="overlay"></div>
                                     <div class="proposal-item__description">
                                         <h4 class="proposal-item__header"><%= @category3.name %></h4>
@@ -185,7 +185,7 @@
                     <div class="col-md-12">
                         <%= link_to subcategory_path(@category4) do %>
                             <div class="thing-wide-card-wrapper proposal-item">
-                              <div class="thing-image" style="background-image: url('<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
+                              <div class="thing-image" style="background-image: url('https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/<%= @category4.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= @category4.name rescue nil %>">
                                     <div class="overlay"></div>
                                     <div class="proposal-item__description">
                                         <h4 class="proposal-item__header"><%= @category4.name %></h4>
@@ -209,7 +209,7 @@
                     <div class="thing-item">
                         <div class="col-sm-3">
                             <div class="thing-medium-card-wrapper">
-                                <div class="thing-image" style="background-image: url('<%= category.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= category.name %>">
+                                <div class="thing-image" style="background-image: url('https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/<%= category.icon.url.to_s rescue nil %>')" role="img" aria-label="<%= category.name %>">
                                     <div class="overlay"></div>
                                     <div class="thing-text">
                                         <h4><%= category.name %></h4>
@@ -269,26 +269,26 @@
     <div class="follow-the-journey__image-list clear-self">
 
         <a href="#" class="follow-the-journey-item">
-            <img class="follow-the-journey-item__image" src="https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/1.jpg" alt="">
+            <img class="follow-the-journey-item__image" src="https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/1.jpg" alt="">
         </a>
         <!-- <a href="#" class="follow-the-journey-item follow-the-journey-item--type-1">
             <img class="follow-the-journey-item__image follow-the-journey-item__image--type-1" src="https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/2.png" alt="">
             <p class="follow-the-journey-item__paragraph follow-the-journey-item__paragraph--type-1">See Kolkata</p>
         </a> -->
         <a href="#" class="follow-the-journey-item">
-            <img class="follow-the-journey-item__image" src="https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/2.png" alt="">
+            <img class="follow-the-journey-item__image" src="https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/2.png" alt="">
         </a>
         <a href="#" class="follow-the-journey-item">
-            <img class="follow-the-journey-item__image" src="https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/6.png" alt="">
+            <img class="follow-the-journey-item__image" src="https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/6.png" alt="">
         </a>
         <a href="#" class="follow-the-journey-item">
-            <img class="follow-the-journey-item__image" src="https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/4.jpg" alt="">
+            <img class="follow-the-journey-item__image" src="https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/4.jpg" alt="">
         </a>
         <a href="#" class="follow-the-journey-item">
-            <img class="follow-the-journey-item__image" src="https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/5.png" alt="">
+            <img class="follow-the-journey-item__image" src="https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/5.png" alt="">
         </a>
         <a href="#" class="follow-the-journey-item">
-            <img class="follow-the-journey-item__image" src="https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/3.png" alt="">
+            <img class="follow-the-journey-item__image" src="https://res.cloudinary.com/familytravel-com-au/image/fetch/f_auto,q_auto/https://s3-ap-southeast-2.amazonaws.com/mydiscoveries/instafeed/3.png" alt="">
         </a>
 
     </div>
