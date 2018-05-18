@@ -26,5 +26,5 @@ $('#update-campaign-code').on('click', function() {
         type: 'get',
         url: '/orders/' + id + '/update_campaign_code',
         data: data
-    });
+    }).done(function(){window.location = '/checkout'});
 })
