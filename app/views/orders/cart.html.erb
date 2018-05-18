@@ -135,7 +135,7 @@
                 <h4>
                   <%= "Total: #{number_to_currency(@order.total)}" %>
                 </h4>
-                <select class='form-control promo-code-input' name="campaigncodes" id="campaign-code-field">
+                <!-- <select class='form-control promo-code-input' name="campaigncodes" id="campaign-code-field">
                   <option value="-1">Please let us know how you heard about us:</option>
                   <option value="1">Innovations Catalogue</option>
                   <option value="2">MyDiscoveries Website</option>
@@ -147,7 +147,7 @@
                 </select>
                 <div class="hidden" id="others-code-field">
                   <input class="form-control promo-code-input" type="text" name="others" id="others-input" placeholder="Enter source" size="60">
-                </div>
+                </div> -->
                 <div class='padding-top-30p'>
                   <div class='inline-buttons'>
                     <%= link_to offers_path,
@@ -156,10 +156,16 @@
                     <% end %>
                   </div>
                   <% if @order.px_payment? %>
-                    <div class='inline-buttons right-align-button'>
+                    <!-- <div class='inline-buttons right-align-button'>
                       <div class="btn-bordered red invert" id="update-campaign-code" data-order-id="<%= @order.id %>">
                         <span>CHECKOUT</span>
                       </div>
+                    </div> -->
+                    <div class='inline-buttons right-align-button'>
+                      <%= link_to checkout_path,
+                        class: 'btn-bordered red invert' do %>
+                        <span>CHECKOUT</span>
+                      <% end %>
                     </div>
                   <% end %>
                   <div class='inline-buttons right-align-button update-cart-button'>

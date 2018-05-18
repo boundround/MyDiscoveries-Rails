@@ -99,4 +99,3 @@
 //= require miscellaneous_charges
 //= require change_departure_date
 //= require local-time
-//= require update_campaign
