@@ -16,7 +16,7 @@ $('#update-campaign-code').on('click', function() {
     } else {
         var campaignCode = $('#campaign-code-field option:selected').text();
     }
-
+    console.log('clicked');
     var data = {};
     var id = $(this).data('order-id');
     data['id'] = id;
