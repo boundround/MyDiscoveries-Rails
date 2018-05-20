@@ -11,6 +11,7 @@ Spree.config do |config|
   # config.track_inventory_levels = false
   config.require_master_price = false
   config.currency = "AUD"
+  config.admin_interface_logo = ''
 end
 
 Spree.user_class = "User"
