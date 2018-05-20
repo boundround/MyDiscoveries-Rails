@@ -134,6 +134,9 @@
                 <% end %>
                 <h4>
                   <%= "Total: #{number_to_currency(@order.total)}" %>
+                  <% if @order.line_items.any? { |li| li.request_installments == true } %>
+                    <p><%= "First Monthly Installment: #{number_to_currency(@order.total_price)}" %></p>
+                  <% end %>
                 </h4>
                 <!-- <select class='form-control promo-code-input' name="campaigncodes" id="campaign-code-field">
                   <option value="-1">Please let us know how you heard about us:</option>

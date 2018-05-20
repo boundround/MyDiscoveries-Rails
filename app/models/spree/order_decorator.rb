@@ -77,15 +77,28 @@ Spree::Order.class_eval do
     line_items.pluck(:quantity).reduce(:+)
   end
 
-  def total_price
-    if promotions.any?
-      total      = total_amount
-      adjustment = (total / 100).to_f * total_flat_percent
+  # def total_price
+  #   if promotions.any?
+  #     total      = total_amount
+  #     adjustment = (total / 100).to_f * total_flat_percent
 
-      (total - adjustment).to_f
-    else
-      total_amount
+  #     (total - adjustment).to_f
+  #   else
+  #     total_amount
+  #   end
+  # end
+
+  def total_price
+    total = total_price_without_installments
+    if promotions.any?
+      adjustment = adjustments.eligible.map(&:amount).sum
+
+      (total += adjustment).to_f
     end
+    if line_items.any? { |li| li.request_installments == true }
+      total = total / 5
+    end
+    total
   end
 
   def total_amount

@@ -111,6 +111,7 @@
               %>
             </div>
           </div>
+          <div>Total to be charged: <%= number_to_currency(@order.total_price) %></div>
         <% end %>
         <div class="btns-block">
           <%= link_to 'back',
