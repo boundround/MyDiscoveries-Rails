@@ -40,3 +40,7 @@ Spree::Store.first_or_create.update(
   code: "MD",
   mail_from_address: "info@mydiscoveries.com.au"
 )
+
+
+Spree::Core::Engine.load_seed if defined?(Spree::Core)
+Spree::Auth::Engine.load_seed if defined?(Spree::Auth)
