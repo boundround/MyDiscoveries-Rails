@@ -22,16 +22,19 @@
               <div class="col-xs-12 po-price">
                   <span class="sm-info">From</span>
                   <div class="lg">
-                      <span>$</span>
-                      <span class="po-price-self"><%= offer_minimum_price(offer).round %></span>
+                      <span class="po-price-self"><%= number_to_currency(offer_minimum_price(offer), precision: 0) %></span>
                   </div>
                   <span class="sm-info"></span>
                   <span class="sm">or 5 monthly payments of <%= number_to_currency(offer_minimum_price(offer) / 5.0) %></span>
               </div>
               <div class="col-xs-12 po-stay-info">
                   <span class="col-xs-12 col-md-4 posi-nights" style="margin-bottom: 10px"><%= create_duration(offer) %></span>
-                  <span class="col-xs-12 col-md-8 posi-date posi-absolute <%= (controller_name.eql?('offers') && action_name.eql?('index')) ? '' : 'truncate-text' %>" ><%= simple_format offer.operatingSchedule %></span>
               </div>
+              <% if offer.full_price > 0 %>
+                <div class="col-xs-12 po-price">
+                  <span class="sm">Valued at <%= number_to_currency(offer.full_price, precision: 0) %></span>
+                </div>
+              <% end %>
           </div>
         </div>
       </div>

@@ -26,6 +26,9 @@
         </div>
       </div>
       <div class="form-group">
+        <%= f.input :full_price, as: :decimal, label: 'RRP Price', input_html: { class: 'width10' } %>
+      </div>
+      <div class="form-group">
         <%= f.input :priority, as: :integer, label: 'Priority (1 for highest priority)', input_html: { class: 'width10' } %>
       </div>
       <div class="form-group">
