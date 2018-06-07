@@ -453,6 +453,7 @@ Rails.application.routes.draw do
     resources :countries, controller: :countries_offers
     resources :subcategories, controller: :subcategories_offers
     resources :related_offers
+    resources :stories, controller: :products_stories, only: %i(index create destroy)
     resources :stickers, controller: :products_stickers
     member do
       get 'paginate_media'

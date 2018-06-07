@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180511043000) do
+ActiveRecord::Schema.define(version: 20180607004624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1034,6 +1034,16 @@ ActiveRecord::Schema.define(version: 20180511043000) do
   add_index "products_stickers", ["sticker_id", "product_id"], name: "index_products_stickers_on_sticker_id_and_product_id", using: :btree
   add_index "products_stickers", ["sticker_id"], name: "index_products_stickers_on_sticker_id", using: :btree
 
+  create_table "products_stories", id: false, force: true do |t|
+    t.integer "product_id"
+    t.integer "story_id"
+  end
+
+  add_index "products_stories", ["product_id", "story_id"], name: "index_products_stories_on_product_id_and_story_id", using: :btree
+  add_index "products_stories", ["product_id"], name: "index_products_stories_on_product_id", using: :btree
+  add_index "products_stories", ["story_id", "product_id"], name: "index_products_stories_on_story_id_and_product_id", using: :btree
+  add_index "products_stories", ["story_id"], name: "index_products_stories_on_story_id", using: :btree
+
   create_table "programs", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -1733,6 +1743,7 @@ ActiveRecord::Schema.define(version: 20180511043000) do
     t.boolean  "publishenddate_active",                                         default: false
     t.string   "publishenddate_status",                                         default: ""
     t.integer  "priority",                                                      default: 10
+    t.decimal  "full_price",                           precision: 8,  scale: 2, default: 0.0
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree

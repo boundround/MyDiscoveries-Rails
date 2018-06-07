@@ -57,6 +57,17 @@ module OffersHelper
     region_ids.to_json
   end
 
+  def array_stories_products_ids(stories_products)
+    story_ids = []
+    stories_products.each do |stories_product|
+      if !stories_product.region_id.blank?
+        story = Story.find(stories_product.story_id)
+        story_ids.push({story_id: story.id, story_name: story.display_name})
+      end
+    end
+    story_ids.to_json
+  end
+
   def create_breadcrumb_offer(offer)
     breadcrumb = ""
     if offer.place.present?
