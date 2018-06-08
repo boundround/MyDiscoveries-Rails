@@ -20,16 +20,16 @@
               <% if offer.full_price > 0 %>
                 <div  style=" position: relative;
                               margin: 10px auto;
-                              width: 130px;
+                              width: 140px;
                               height: 80px;
                               background: linear-gradient(moccasin, #FF9102);
                               border-radius: 15px 2px;
                               float: right;
-                              -ms-transform: rotate(-2deg); 
-                              -webkit-transform: rotate(-2deg);
-                              transform: rotate(-2deg);">
-                  <p style="text-align: center; padding: 10px 0 0 0; font-size: 120%; color: #00014B;">Valued up to</p>
-                  <p style="text-align: center; padding: 0 0 10px 0; font-weight: bold; font-size: 180%; color: #00014B; text-shadow: 0.5px 0.5px darkgrey;"><%= number_to_currency(offer.full_price, precision: 0) %></p>
+                              -ms-transform: rotate(-4deg); 
+                              -webkit-transform: rotate(-4deg);
+                              transform: rotate(-4deg);">
+                  <p style="text-align: center; padding: 0; padding-top: 5px; margin: 0; font-size: 140%; color: #00014B;">Valued up to</p>
+                  <p style="text-align: center; padding: 0 0 10px 0; font-weight: bold; font-size: 250%; color: #00014B; text-shadow: 0.5px 0.5px darkgrey;"><%= number_to_currency(offer.full_price, precision: 0) %></p>
                 </div>
               <% end %>
             </div>
