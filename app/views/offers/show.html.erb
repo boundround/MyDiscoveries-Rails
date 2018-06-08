@@ -47,17 +47,18 @@
           <div class="info-text">
             <%= @offer.per_adult_overwrite.present? ? @offer.per_adult_overwrite : "Per Adult" %>
           </div>
-          <div class="info-text" style="padding-top:10px;">
-            <% if @offer.full_price > 0 %>
-              <span class="payments-text-hero">Valued at <%= number_to_currency(@offer.full_price, precision: 0) %></span>
-            <% end %>
-          </div>
           <% specialNotes_txt = @offer.specialNotes.blank? ? '' : @offer.specialNotes.gsub(/\r?\n/, '') %>
           <span class="hci-info"><%= simple_format(specialNotes_txt) %></span>
         </div>
         <div class="location">
           <!-- TODO Remove booking essentials for vpoucher for this download (as opposed to customer voucher email attachment) -->
           <%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %>
+          <% if @offer.full_price > 0 %>
+            <div class="special-price">
+              <p class="special-price-info-text">Valued up to</p>
+              <p class="special-price-info-price"><%= number_to_currency(@offer.full_price, precision: 0) %></p>
+            </div>
+          <% end %>
           <% if user_signed_in? and current_user.admin? %>
             <p><br>&nbsp;&nbsp;&nbsp;<%= link_to "Edit Offer", edit_offer_path(@offer) %></p>
           <% end %>
