@@ -25,12 +25,6 @@
       <div class="clearfix"></div>
       <div class="row">
         <div class="col-md-12" id="instant-search-results">
-          <% if current_user.present? %>
-          <div id="dataBucketOffer" data-bucketlist="<%= current_user.favorite_offers.map(&:id) %>"></div>
-          <div id="dataBucketPlace" data-bucketlist="<%= current_user.favorite_places.map(&:id) %>"></div>
-          <div id="dataBucketRegion" data-bucketlist="<%= current_user.favorite_regions.map(&:id) %>"></div>
-          <div id="dataBucketStory" data-bucketlist="<%= current_user.favourite_stories.map(&:id) %>"></div>
-          <% end %>
           <%= render partial: 'search_suggestions/instant_search_results' %>
         </div>
       </div>
