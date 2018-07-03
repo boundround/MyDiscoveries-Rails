@@ -2,67 +2,67 @@
 /* begin - font-face css */
 @font-face {
   font-family: 'Bagnard';
-  src: url("/assets/font_mydiscoveries/larsseit/bagnard.otf"), url("/assets/font_mydiscoveries/larsseit/bagnard.ttf"), url(/home/elvin-al/Downloads/bagnard.eot) format("embedded-opentype"); }
+  src: asset-url("font_mydiscoveries/larsseit/bagnard.otf"), asset-url("font_mydiscoveries/larsseit/bagnard.ttf") format("embedded-opentype"); }
 
 @font-face {
   font-family: 'Larsseit-Light';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_0_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_0_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_0_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_0_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_0_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_0_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_0_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_0_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_0_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_0_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit-BoldItalic';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_1_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_1_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_1_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_1_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_1_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_1_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_1_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_1_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_1_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_1_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit-ExtraBoldItalic';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_2_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_2_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_2_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_2_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_2_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_2_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_2_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_2_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_2_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_2_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit-LightItalic';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_3_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_3_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_3_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_3_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_3_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_3_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_3_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_3_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_3_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_3_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit-Bold';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_4_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_4_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_4_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_4_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_4_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_4_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_4_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_4_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_4_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_4_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit-ExtraBold';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_5_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_5_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_5_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_5_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_5_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_5_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_5_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_5_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_5_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_5_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit-Medium';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_6_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_6_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_6_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_6_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_6_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_6_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_6_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_6_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_6_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_6_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit-MediumItalic';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_7_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_7_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_7_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_7_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_7_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_7_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_7_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_7_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_7_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_7_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit-Italic';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_8_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_8_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_8_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_8_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_8_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_8_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_8_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_8_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_8_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_8_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit-Thin';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_9_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_9_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_9_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_9_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_9_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_9_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_9_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_9_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_9_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_9_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit-ThinItalic';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_A_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_A_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_A_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_A_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_A_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_A_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_A_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_A_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_A_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_A_0.ttf") format("truetype"); }
 
 @font-face {
   font-family: 'Larsseit';
-  src: url("/assets/font_mydiscoveries/larsseit/329136_B_0.eot");
-  src: url("/assets/font_mydiscoveries/larsseit/329136_B_0.eot?#iefix") format("embedded-opentype"), url("/assets/font_mydiscoveries/larsseit/329136_B_0.woff2") format("woff2"), url("/assets/font_mydiscoveries/larsseit/329136_B_0.woff") format("woff"), url("/assets/font_mydiscoveries/larsseit/329136_B_0.ttf") format("truetype"); }
+  src: asset-url("font_mydiscoveries/larsseit/329136_B_0.eot");
+  src: asset-url("font_mydiscoveries/larsseit/329136_B_0.eot?#iefix") format("embedded-opentype"), asset-url("font_mydiscoveries/larsseit/329136_B_0.woff2") format("woff2"), asset-url("font_mydiscoveries/larsseit/329136_B_0.woff") format("woff"), asset-url("font_mydiscoveries/larsseit/329136_B_0.ttf") format("truetype"); }
 
 /* end - font-face css */
 /*
@@ -7390,7 +7390,7 @@ input[type="text"]::-ms-clear {
     padding: 19px 15px 0; }
   .mobile-header .mobile-header__search-icon {
     position: absolute;
-    background-image: url(/assets/mydiscoveries_icon/i/search-icon.svg);
+    background-image: image-url('mydiscoveries_icon/i/search-icon.svg');
     width: 32px;
     height: 32px;
     right: 19px;
@@ -7399,7 +7399,7 @@ input[type="text"]::-ms-clear {
     background-position: center center; }
 
 .mobile-header__open-search-button {
-  background-image: url(/assets/mydiscoveries_icon/i/search-icon.svg);
+  background-image: image-url('mydiscoveries_icon/i/search-icon.svg');
   float: right;
   background-size: 21px 21px;
   background-position: center center;
@@ -7409,7 +7409,7 @@ input[type="text"]::-ms-clear {
   margin-top: 19px;
   margin-right: 6px; }
 .mobile-header__open-call-button{
-  background-image: url(/assets/mydiscoveries_icon/i/phone.png);
+  background-image: image-url('mydiscoveries_icon/i/phone.png');
   float: right;
   background-size: 25px 25px;
   background-position: center center;
@@ -7463,7 +7463,7 @@ input[type="text"]::-ms-clear {
   left: 4px; }
 
 .header__logo {
-  background-image: url(/assets/mydiscoveries_icon/i/logo-full.svg);
+  background-image: image-url('mydiscoveries_icon/i/logo-full.svg');
   float: left;
   width: 261px;
   height: 37px;
@@ -7502,7 +7502,7 @@ input[type="text"]::-ms-clear {
   top: 0; }
 
 .header-navigation__link--home {
-  background-image: url(/assets/mydiscoveries_icon/i/icon-header-home.svg);
+  background-image: image-url('mydiscoveries_icon/i/icon-header-home.svg');
   background-repeat: no-repeat;
   width: 17px;
   height: 18px;
@@ -7545,7 +7545,7 @@ input[type="text"]::-ms-clear {
   border: none;
   margin: 0;
   padding: 4px 44px 0 13px;
-  background-image: url(/assets/mydiscoveries_icon/i/search-icon.svg);
+  background-image: image-url('mydiscoveries_icon/i/search-icon.svg');
   background-repeat: no-repeat;
   background-size: 21px 21px;
   background-position: 298px 6px;
@@ -7594,7 +7594,7 @@ input[type="text"]::-ms-clear {
     color: #3d3a38; }
   .breadcrumbs__link:before {
     content: '';
-    background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-right-979695.svg);
+    background-image: image-url('mydiscoveries_icon/i/arrow/separator-right-979695.svg');
     width: 13px;
     height: 13px;
     background-size: 13px 13px;
@@ -7635,7 +7635,7 @@ input[type="text"]::-ms-clear {
   content: '';
   width: 100%;
   height: 50px;
-  background-image: url(/assets/mydiscoveries_icon/i/footer-bg.png);
+  background-image: image-url('mydiscoveries_icon/i/footer-bg.png');
   background-repeat: repeat-x;
   bottom: -62px;
   background-size: auto 100%; }
@@ -7692,24 +7692,24 @@ input[type="text"]::-ms-clear {
 
 .footer__link--fb {
   background-position: 4px 3px;
-  background-image: url(/assets/mydiscoveries_icon/i/footer/fb.svg); }
+  background-image: image-url('mydiscoveries_icon/i/footer/fb.svg'); }
 
 .footer__link--insta {
   background-position: 0 3px;
-  background-image: url(/assets/mydiscoveries_icon/i/footer/insta.svg); }
+  background-image: image-url('mydiscoveries_icon/i/footer/insta.svg'); }
 
 .footer__link--twitter {
   background-position: -1px 3px;
-  background-image: url(/assets/mydiscoveries_icon/i/footer/twitter.svg); }
+  background-image: image-url('mydiscoveries_icon/i/footer/twitter.svg'); }
 
 .footer__link--yt {
   background-position: 0 3px;
-  background-image: url(/assets/mydiscoveries_icon/i/footer/youtube.svg);
+  background-image: image-url('mydiscoveries_icon/i/footer/youtube.svg');
   background-size: auto 66%; }
 
 .footer__link--pint {
   background-position: 3px 3px;
-  background-image: url(/assets/mydiscoveries_icon/i/footer/pinterest.svg); }
+  background-image: image-url('mydiscoveries_icon/i/footer/pinterest.svg'); }
 
 .footer__copyright {
   color: #ff4d1a;
@@ -7821,7 +7821,7 @@ input[type="text"]::-ms-clear {
   opacity: 0;
   content: '';
   position: absolute;
-  background-image: url(/assets/mydiscoveries_icon/i/arrow/big-right-000060.svg);
+  background-image: image-url('mydiscoveries_icon/i/arrow/big-right-000060.svg');
   background-repeat: no-repeat;
   background-size: auto 15px;
   width: 34px;
@@ -7945,7 +7945,7 @@ input[type="text"]::-ms-clear {
   left: 13px;
   top: 18px;
   background-size: 100% 100%;
-  background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-left-000060.svg); }
+  background-image: image-url('mydiscoveries_icon/i/arrow/separator-left-000060.svg'); }
 
 .mobile-header-drop-down__link--signing {
   color: #ff4d1a; }
@@ -7962,7 +7962,7 @@ input[type="text"]::-ms-clear {
   right: 17px;
   top: 14px;
   background-size: 100% 100%;
-  background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-right-000060.svg); }
+  background-image: image-url('mydiscoveries_icon/i/arrow/separator-right-000060.svg'); }
 
 .mobile-header-drop-down_container {
   width: 200%; }
@@ -8016,14 +8016,14 @@ input[type="text"]::-ms-clear {
   top: 4px; }
 
 .pagination__link-left {
-  background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-left-ff4d1a.svg); }
+  background-image: image-url('mydiscoveries_icon/i/arrow/separator-left-ff4d1a.svg'); }
   .pagination__link-left:hover {
-    background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-left-000060.svg); }
+    background-image: image-url('mydiscoveries_icon/i/arrow/separator-left-000060.svg'); }
 
 .pagination__link-right {
-  background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-right-ff4d1a.svg); }
+  background-image: image-url('mydiscoveries_icon/i/arrow/separator-right-ff4d1a.svg'); }
   .pagination__link-right:hover {
-    background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-right-000060.svg); }
+    background-image: image-url('mydiscoveries_icon/i/arrow/separator-right-000060.svg'); }
 
 @media only screen and (max-width: 1200px) {
   .pagination {
@@ -8148,7 +8148,7 @@ input[type="text"]::-ms-clear {
     width: 46px;
     height: 100%;
     content: '';
-    background-image: url(/assets/mydiscoveries_icon/i/arrow/big-right-ff4d1a.svg);
+    background-image: image-url('mydiscoveries_icon/i/arrow/big-right-ff4d1a.svg');
     background-repeat: no-repeat; }
   .adventure-see__link:hover {
     color: #ff4d1a;
@@ -8484,7 +8484,7 @@ input[type="submit"].modal-content__btn-access  {
   color: #ff4d1a;
   background-color: #fff;
   border: 2px solid #ff4d1a;
-  background-image: url(/assets/mydiscoveries_icon/i/social-icon-orange-fb.svg);
+  background-image: image-url('mydiscoveries_icon/i/social-icon-orange-fb.svg');
   background-repeat: no-repeat;
   background-size: 8px 16px;
   background-position: 12px 9px; }
@@ -8589,7 +8589,7 @@ input[type="submit"].modal-content__btn-access  {
   padding-top: 11px; }
 
 .home-promo__search-icon {
-  background-image: url(/assets/mydiscoveries_icon/i/search-icon.svg);
+  background-image: image-url('mydiscoveries_icon/i/search-icon.svg');
   background-size: 28px 28px;
   background-repeat: no-repeat;
   background-position: center center;
@@ -8757,7 +8757,7 @@ input[type="submit"].modal-content__btn-access  {
     bottom: 2px;
     width: 38px;
     height: 15px;
-    background-image: url(/assets/mydiscoveries_icon/i/arrow/big-right-ff4d1a.svg);
+    background-image: image-url('mydiscoveries_icon/i/arrow/big-right-ff4d1a.svg');
     background-repeat: no-repeat;
     background-size: auto 15px;
     background-position: right center; }
@@ -8819,7 +8819,7 @@ input[type="submit"].modal-content__btn-access  {
 .proposal-item {
   overflow: hidden;
   position: absolute;
-  background-image: url(/assets/mydiscoveries_icon/i/promo-image-background.jpg);
+  background-image: image-url('mydiscoveries_icon/i/promo-image-background.jpg');
   background-size: cover; }
   .proposal-item:hover .proposal-item__image {
     left: 15px;
@@ -8889,7 +8889,7 @@ input[type="submit"].modal-content__btn-access  {
     width: 46px;
     height: 100%;
     content: '';
-    background-image: url(/assets/mydiscoveries_icon/i/arrow/big-right-white.svg);
+    background-image: image-url('mydiscoveries_icon/i/arrow/big-right-white.svg');
     background-repeat: no-repeat; }
 
 .proposal-item_type-1 {
@@ -9021,7 +9021,7 @@ a.see-more__link {
   margin: 15px 0px;
   height: 380px;
   position: relative;
-  background-image: url(/assets/gradient_background.svg);
+  background-image: image-url('gradient_background.svg');
   background-image: -webkit-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
   background-image: -moz-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
   background-image: -ms-linear-gradient(top, #ff4d1a 0, #ff4d1a 190px, #ffffff 190px);
@@ -9111,7 +9111,7 @@ a.see-more__link {
   text-align: center;
   color: #3d3a38;
   font-size: 24px;
-  background-image: url(/assets/mydiscoveries_icon/i/logo-short.svg);
+  background-image: image-url('mydiscoveries_icon/i/logo-short.svg');
   background-repeat: no-repeat;
   background-position: center 80px;
   padding: 200px 0 50px;
@@ -9158,7 +9158,7 @@ a.see-more__link {
   width: 170px;
   height: 170px;
   margin: 15px;
-  background-image: url(/assets/mydiscoveries_icon/i/follow-the-journey-item-bg.png);
+  background-image: image-url('mydiscoveries_icon/i/follow-the-journey-item-bg.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative; }
@@ -9251,7 +9251,7 @@ a.see-more__link {
 }
 
 .input-group.input-search-nav.refine .search-page-main-search__search-icon {
-  background-image: url(/assets/mydiscoveries_icon/i/search-icon.svg);
+  background-image: image-url('mydiscoveries_icon/i/search-icon.svg');
   position: absolute;
   border: 0;
   background-color: transparent;
@@ -9337,7 +9337,7 @@ a.see-more__link {
   background-position: center center;
   background-size: auto 50%;
   background-color: #bbe0e6;
-  background-image: url(/assets/mydiscoveries_icon/i/weather/weather-cloud.svg);
+  background-image: image-url('mydiscoveries_icon/i/weather/weather-cloud.svg');
   border-radius: 50%;
   margin-right: 7px; }
 
@@ -9466,16 +9466,16 @@ a.see-more__link {
   padding: 10px 10px 10px 37px;
   background-repeat: no-repeat;
   background-position: 2px 7px;
-  background-image: url(/assets/mydiscoveries_icon/i/bucket-list/inactive.svg);
+  background-image: image-url('mydiscoveries_icon/i/bucket-list/inactive.svg');
   background-size: auto 57%;
   position: absolute;
   bottom: 17px;
   z-index: 1 }
   .search-page-card__to-bucket-list:hover {
-    background-image: url(/assets/mydiscoveries_icon/i/bucket-list/hover.svg);
+    background-image: image-url('mydiscoveries_icon/i/bucket-list/hover.svg');
     color: #ff4d1a; }
   .search-page-card__to-bucket-list.search-page-card__to-bucket-list--liked {
-    background-image: url(/assets/mydiscoveries_icon/i/bucket-list/liked.svg);
+    background-image: image-url('mydiscoveries_icon/i/bucket-list/liked.svg');
     color: #ff4d1a; }
 
 .category-card{
@@ -9629,7 +9629,7 @@ h3.search-page-card__header {
   .search-page-filter__checkbox:checked + .search-page-filter__custom-checkbox {
     background-color: #000060;
     border-color: #000060;
-    background-image: url(/assets/mydiscoveries_icon/i/tick-small-white.svg);
+    background-image: image-url('mydiscoveries_icon/i/tick-small-white.svg');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 14px 10px; }
@@ -9688,16 +9688,16 @@ h3.search-page-card__header {
   letter-spacing: 1px;
   background-repeat: no-repeat;
   background-position: right 16px;
-  background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-down-ff4d1a.svg);
+  background-image: image-url('mydiscoveries_icon/i/arrow/separator-down-ff4d1a.svg');
   background-size: auto 17px;
   cursor: pointer;
   position: relative;
   z-index: 1; }
   .search-page-card__more-info.search-page-card__more-info--open {
-    background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-up-ff4d1a.svg); }
+    background-image: image-url('mydiscoveries_icon/i/arrow/separator-up-ff4d1a.svg'); }
 
 .search-page-card--show-more-info .search-page-card__more-info {
-  background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-up-ff4d1a.svg); }
+  background-image: image-url('mydiscoveries_icon/i/arrow/separator-up-ff4d1a.svg'); }
 
 .search-page-card__short-details-for-cost {
   display: block;
@@ -9743,14 +9743,14 @@ h3.search-page-card__header {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: auto 49%;
-  background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-up-3d3a38.svg);
+  background-image: image-url('mydiscoveries_icon/i/arrow/separator-up-3d3a38.svg');
   right: 14px;
   top: 6px;
   cursor: pointer; }
 
 .search-page-filter__close-button {
   position: absolute;
-  background-image: url(/assets/mydiscoveries_icon/i/cross-close.png);
+  background-image: image-url('mydiscoveries_icon/i/cross-close.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 21px 21px;
@@ -9884,7 +9884,7 @@ h3.search-page-card__header {
   .search-page-filter__field-set--mobile-opened {
     padding-bottom: 6px; }
     .search-page-filter__field-set--mobile-opened .search-page-filter__category-opener {
-      background-image: url(/assets/mydiscoveries_icon/i/arrow/separator-down-3d3a38.svg); }
+      background-image: image-url('mydiscoveries_icon/i/arrow/separator-down-3d3a38.svg'); }
     .search-page-filter__field-set--mobile-opened .search-page-filter__sub-header {
       padding-bottom: 12px; }
     .search-page-filter__field-set--mobile-opened .search-page-filter__label {
@@ -10092,7 +10092,7 @@ a:hover, a:focus, a:active {
     display: block;
     width: 38px;
     height: 16px;
-    background-image: url("/assets/mydiscoveries_icon/i/icon-arrow-orange-right.png");
+    background-image: image-url("mydiscoveries_icon/i/icon-arrow-orange-right.png");
     position: absolute;
     right: -48px;
     bottom: 5px; }
@@ -10143,7 +10143,7 @@ a:hover, a:focus, a:active {
 }
 
 .overlay-nav-video{
-  background: url(/assets/all_videos_icon.png) rgba(0,0,0,0.3);
+  background: image-url('all_videos_icon.png') rgba(0,0,0,0.3);
   position: absolute;
   width: 100%;
   height: 100%;
@@ -10158,7 +10158,7 @@ a:hover, a:focus, a:active {
 .label-crown {
   width: 46px;
   height: 46px;
-  background: url("/assets/mydiscoveries_icon/i/label_crown.png") 0 0 no-repeat; }
+  background: url(image-path("mydiscoveries_icon/i/label_crown.png")) 0 0 no-repeat; }
 
 .label-article {
   color: #ff4b1a;
@@ -10189,7 +10189,7 @@ a:hover, a:focus, a:active {
     margin-top: -2px;
     position: absolute;
     top: 46%;
-    background: url("/assets/mydiscoveries_icon/i/select-arrow.png") 0 0 no-repeat; }
+    background: image-url(image-path("mydiscoveries_icon/i/select-arrow.png")) 0 0 no-repeat; }
   [data-page="user-page"] .select2-container--default .select2-selection--single .select2-selection__rendered {
     font-size: 16px;
     padding: 7px 10px; }
@@ -10225,7 +10225,7 @@ a:hover, a:focus, a:active {
   color: #454545; }
 
 .ui-icon, .ui-widget-content .ui-icon {
-  background-image: url(/assets/mydiscoveries_icon/i/select-arrow.png);
+  background-image: image-url('mydiscoveries_icon/i/select-arrow.png');
   float: right;
   top: 5px;
   position: relative;
@@ -10236,7 +10236,7 @@ a:hover, a:focus, a:active {
   transition: all 0.3s ease; }
 
 .ui-state-active .ui-icon, .ui-button:active .ui-icon {
-  background-image: url(/assets/mydiscoveries_icon/i/select-arrow.png);
+  background-image: image-url('mydiscoveries_icon/i/select-arrow.png');
   float: right;
   top: 2px;
   position: relative;
@@ -10247,7 +10247,7 @@ a:hover, a:focus, a:active {
   transform: rotate(180deg); }
 
 .ui-state-hover .ui-icon, .ui-button:hover .ui-icon {
-  background-image: url(/assets/mydiscoveries_icon/i/select-arrow.png);
+  background-image: image-url('mydiscoveries_icon/i/select-arrow.png');
   float: right;
   top: 2px;
   position: relative; }
@@ -10259,7 +10259,7 @@ a:hover, a:focus, a:active {
   background-position: 0 0; }
 
 span.arrow {
-  background: url("/assets/mydiscoveries_icon/i/icon-arrow-orange-right.png");
+  background: image-url("mydiscoveries_icon/i/icon-arrow-orange-right.png");
   display: block;
   width: 38px;
   height: 15px;
@@ -10299,7 +10299,7 @@ span.arrow {
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-  background: url("/assets/mydiscoveries_icon/i/map-border.png") 0 0 repeat-x;
+  background: image-url("mydiscoveries_icon/i/map-border.png") 0 0 repeat-x;
   padding-top: 40px; }
   @media screen and (max-width: 1200px) {
     .promo-map {
@@ -10380,7 +10380,7 @@ span.arrow {
   font-size: 16px;
   font-family: Larsseit-Bold, sans-serif;
   color: #000060;
-  background-image: url(/assets/mydiscoveries_icon/i/point-card/pin.png);
+  background-image: image-url('mydiscoveries_icon/i/point-card/pin.png');
   background-repeat: no-repeat;
   text-transform: uppercase;
   padding: 7px 0 13px 34px;
@@ -10444,7 +10444,7 @@ span.arrow {
       display: block;
       width: 37px;
       height: 15px;
-      background-image: url("/assets/mydiscoveries_icon/i/icon-arrow-white-right.png ");
+      background-image: image-url("/mydiscoveries_icon/i/icon-arrow-white-right.png ");
       position: absolute;
       right: 0;
       bottom: 2px;
@@ -10503,7 +10503,7 @@ span.arrow {
 .places-to-go-card__header {
   text-align: left;
   font-size: 18px;
-  background-image: url(/assets/mydiscoveries_icon/i/places-to-go/pin-white.png);
+  background-image: image-url('mydiscoveries_icon/i/places-to-go/pin-white.png');
   background-repeat: no-repeat;
   text-transform: uppercase;
   padding: 20px 0 13px 49px;
@@ -10594,7 +10594,7 @@ span.arrow {
 .places-to-go-card__header {
   text-align: left;
   font-size: 16px;
-  background-image: url(/assets/mydiscoveries_icon/i/pin_white.png);
+  background-image: image-url('mydiscoveries_icon/i/pin_white.png');
   background-repeat: no-repeat;
   text-transform: uppercase;
   padding: 20px 0 25px 49px;
@@ -10735,7 +10735,7 @@ span.arrow {
     overflow: hidden; }
     .region.places-to-go .ptgc-content:before {
       content: '';
-      background: url("/assets/mydiscoveries_icon/i/icon-arrow-white-right.png");
+      background: image-url("mydiscoveries_icon/i/icon-arrow-white-right.png");
       display: block;
       width: 37px;
       height: 15px;
@@ -10785,7 +10785,7 @@ span.arrow {
       display: block;
       width: 73px;
       height: 75px;
-      background: url("/assets/mydiscoveries_icon/i/bulb.png") no-repeat; }
+      background: url(image-path("mydiscoveries_icon/i/bulb.png")) no-repeat; }
   .region.did-you-know p.text-to-know {
     padding: 0 110px;
     font-family: Larsseit-Light, sans-serif; }
@@ -10877,7 +10877,7 @@ span.arrow {
             font-family: Larsseit-Bold, sans-serif; }
             .region.package-offers ul li .po-content-block .po-stay-info span.posi-nights {
               padding-left: 25px;
-              background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat;
+              background: image-url('mydiscoveries_icon/i/moon.png') 0 -2px no-repeat;
               margin-left: 20px; }
         .region.package-offers ul li .po-content-block p {
           color: #000060;
@@ -10964,7 +10964,7 @@ span.arrow {
           -o-transition: all 0.3s ease;
           transition: all 0.3s ease; }
           .region.things-to-do ul li a .ttd-item-content span.arrow {
-            background: url("/assets/mydiscoveries_icon/i/icon-arrow-orange-right.png");
+            background: image-url("mydiscoveries_icon/i/icon-arrow-orange-right.png");
             display: block;
             width: 38px;
             height: 15px;
@@ -11141,7 +11141,7 @@ span.arrow {
         .region.stories ul li .s-item-content p {
           font-size: 16px; }
         .region.stories ul li .s-item-content span.arrow {
-          background: url("/assets/mydiscoveries_icon/i/icon-arrow-orange-right.png");
+          background: image-url("mydiscoveries_icon/i/icon-arrow-orange-right.png");
           display: block;
           width: 38px;
           height: 15px;
@@ -11179,14 +11179,14 @@ span.arrow {
 .slick-slider .slick-prev {
   position: absolute;
   left: 0;
-  background: url("/assets/mydiscoveries_icon/i/arrow-right.png") 50% 50% no-repeat;
+  background: url(image-path("mydiscoveries_icon/i/arrow-right.png")) 50% 50% no-repeat;
   background-size: 100%;
   transform: rotate(180deg); }
 
 .slick-slider .slick-next {
   position: absolute;
   right: 0;
-  background: url("/assets/mydiscoveries_icon/i/arrow-right.png") 50% 50% no-repeat;
+  background: url(image-path("mydiscoveries_icon/i/arrow-right.png")) 50% 50% no-repeat;
   background-size: 100%; }
 
 .slick-slider .slick-next, .slick-slider .slick-prev {
@@ -11335,7 +11335,7 @@ span.arrow {
                   /*float: left;*/
                   /*padding-left: 20px;*/
                   padding-left: 25px;
-                  background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat;}
+                  background: image-url('mydiscoveries_icon/i/moon.png') 0 -2px no-repeat;}
                   /*margin-left: 20px; }*/
                   @media(max-width:1200px ){
                     .package-offers .package-offers-block ul li a .po-content-wrapper .po-content-block .po-stay-info span.posi-date{
@@ -11363,7 +11363,7 @@ span.arrow {
     display: block;
     width: 13px;
     height: 13px;
-    background: url("/assets/mydiscoveries_icon/i/filter-clear.png") 0 0 no-repeat;
+    background: url(image-path("mydiscoveries_icon/i/filter-clear.png")) 0 0 no-repeat;
     cursor: pointer; }
   .package-offers .search-page-filter__field-set .form-group {
     margin-bottom: 6px; }
@@ -11414,7 +11414,7 @@ span.arrow {
         position: absolute;
         right: 0;
         top: 3px;
-        background: url("/assets/mydiscoveries_icon/i/select-arrow.png") 0 0 no-repeat; }
+        background: url(image-path("mydiscoveries_icon/i/select-arrow.png")) 0 0 no-repeat; }
 
 @media only screen and (max-width: 1200px) {
   .search-page-filter__field-set .search-page-filter__label {
@@ -11543,7 +11543,7 @@ span.arrow {
                   .destinations .destinations-content-block section .top-holidays ul li a .th-content span.posi-nights {
                     padding-left: 25px;
                     padding-top: 5px;
-                    background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat; }
+                    background: url(image-path("mydiscoveries_icon/i/moon.png")) 0 -2px no-repeat; }
                 .destinations .destinations-content-block section .top-holidays ul li a .th-content .xs-heading, .destinations .destinations-content-block .user-pages section .top-holidays ul li a .th-content .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading, .user-pages .destinations .destinations-content-block section .top-holidays ul li a .th-content .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content p.xs-heading, .destinations .destinations-content-block .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content .top-holidays ul li a .th-content p.xs-heading, .user-pages .destinations .destinations-content-block section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item .upmd-ibi-content .top-holidays ul li a .th-content p.xs-heading {
                   color: #000060;
                   margin-top: 20px;
@@ -11556,18 +11556,18 @@ span.arrow {
           margin:0;
           bottom:0;}
       .destination-details .favourites-wrapper .icon-favourite{
-        background: url(/assets/new-images/icon-favourite-unfilled.png) no-repeat center;
+        background: url(image-path("new-images/icon-favourite-unfilled.png")) no-repeat center;
         background-size: contain !important;
         height: 53px;
         width: 51px;
         margin: 0 auto;
       }
       .destination-details .favourites-wrapper .icon-favourite:hover:not(.selected){
-        background: url(/assets/new-images/icon-favourite-hover.png) no-repeat center;
+        background: url(image-path("new-images/icon-favourite-hover.png")) no-repeat center;
         cursor: pointer;
       }
       .destination-details .favourites-wrapper .icon-favourite.selected{
-        background: url(/assets/new-images/icon-favourite.png) no-repeat center;
+        background: url(image-path("new-images/icon-favourite.png")) no-repeat center;
       }
       [data-page="offer"] .destination-details{
         position: absolute;
@@ -11634,23 +11634,23 @@ span.arrow {
           color: #000060; }
 
           .destinations .destinations-content-block section .key-info .ki-content .health .kici-heading {
-            background: url("/assets/mydiscoveries_icon/i/health.png") 0 0 no-repeat; }
+            background: url(image-path("mydiscoveries_icon/i/health.png")) 0 0 no-repeat; }
         .destinations .destinations-content-block section .key-info .ki-content .currency {
           background-color: #000060;
           color: white; }
           .destinations .destinations-content-block section .key-info .ki-content .currency .kici-heading {
-            background: url("/assets/mydiscoveries_icon/i/currency.png") 0 0 no-repeat; }
+            background: url(image-path("mydiscoveries_icon/i/currency.png")) 0 0 no-repeat; }
         .destinations .destinations-content-block section .key-info .ki-content .language {
           background-color: #ff4b1a;
           color: white; }
           .destinations .destinations-content-block section .key-info .ki-content .language ul {
           margin-left: 20px; }
           .destinations .destinations-content-block section .key-info .ki-content .language .kici-heading {
-            background: url("/assets/mydiscoveries_icon/i/language.png") 0 0 no-repeat; }
+            background: url(image-path("mydiscoveries_icon/i/language.png")) 0 0 no-repeat; }
         .destinations .destinations-content-block section .key-info .ki-content .weather {
           color: #000060; }
           .destinations .destinations-content-block section .key-info .ki-content .weather .kici-heading {
-            background: url("/assets/mydiscoveries_icon/i/weather.png") 0 0 no-repeat; }
+            background: url(image-path("mydiscoveries_icon/i/weather.png")) 0 0 no-repeat; }
 
           .destinations .destinations-content-block section .key-info .ki-content .weather ul.t-block {
             display: block; }
@@ -11759,7 +11759,7 @@ span.arrow {
 }
 
 .product .hero {
-  background-image: url("/assets/mydiscoveries_icon/images/hero.jpg"); }
+  background-image: url(image-path("mydiscoveries_icon/images/hero.jpg")); }
   @media screen and (max-width: 1200px) {
     .product .hero {
       min-height: 400px; } }
@@ -11811,9 +11811,9 @@ span.arrow {
         position: relative;
         top: 7px; }
       .product .hero .hero-content .hc-info .hci-people {
-        background-image: url("/assets/mydiscoveries_icon/i/inclusions/kids-club-white.svg"); }
+        background-image: url(image-path("mydiscoveries_icon/i/inclusions/kids-club-white.svg")); }
       .product .hero .hero-content .hc-info .hci-nights {
-        background-image: url("/assets/mydiscoveries_icon/i/inclusions/nights-white.svg");
+        background-image: url(image-path("mydiscoveries_icon/i/inclusions/nights-white.svg"));
         margin-right: 20px; }
     .product .hero .hero-content .btn-bordered {
       width: 200px !important;
@@ -11904,11 +11904,11 @@ span.arrow {
             padding-top: 2px;
             margin-bottom: 5px; }
           .product .product-content aside .package-options ul li .poi-content-top .poict-people {
-            background-image: url("/assets/mydiscoveries_icon/i/inclusions/kids-club.svg"); }
+            background-image: url(image-path("mydiscoveries_icon/i/inclusions/kids-club.svg")); }
           .product .product-content aside .package-options ul li .poi-content-top .poict-nights {
-            background-image: url("/assets/mydiscoveries_icon/i/inclusions/nights.svg"); }
+            background-image: url(image-path("mydiscoveries_icon/i/inclusions/nights.svg")); }
           .product .product-content aside .package-options ul li .poi-content-top .poict-room {
-            background-image: url("/assets/mydiscoveries_icon/i/inclusions/beds.svg"); }
+            background-image: url(image-path("mydiscoveries_icon/i/inclusions/beds.svg")); }
         .product .product-content aside .package-options ul li .poi-content-bottom {
           background-color: #f4efed;
           padding: 30px;
@@ -11968,7 +11968,7 @@ span.arrow {
       padding-left: 30px;
       background-size: auto 15px;
       background-repeat: no-repeat;
-      background-image: url("/assets/mydiscoveries_icon/i/inclusions/hairdryer.svg"); }
+      background-image: url(image-path("mydiscoveries_icon/i/inclusions/hairdryer.svg")); }
     .product .product-content section .country-info .accordion-block.ui-accordion ul li {
       /*display: block;*/
       font-family: Larsseit-Light, sans-serif;
@@ -12138,7 +12138,7 @@ span.arrow {
         content: ''; }
       .booking-block .booking-steps ul li.active a {
         color: #ff4b1a;
-        background: url("/assets/mydiscoveries_icon/i/logo-short.svg") 0 2px no-repeat;
+        background: url(image-path("mydiscoveries_icon/i/logo-short.svg")) 0 2px no-repeat;
         background-size: auto 20px; }
       .booking-block .booking-steps ul li a {
         display: block;
@@ -12148,7 +12148,7 @@ span.arrow {
         padding-right: 30px;
         padding-top: 3px;
         margin-right: 20px;
-        background: url("/assets/mydiscoveries_icon/i/logo-short-grey.svg") 0 2px no-repeat;
+        background: url(image-path("mydiscoveries_icon/i/logo-short-grey.svg")) 0 2px no-repeat;
         background-size: auto 20px; }
         .booking-block .booking-steps ul li a:after {
           content: '>';
@@ -12242,7 +12242,7 @@ span.arrow {
       width: 130px;
       border: none;
       padding: 5px;
-      background: white url(/assets/mydiscoveries_icon/i/calendar-icon.png) 104px 8px no-repeat; }
+      background: white url(image-path("mydiscoveries_icon/i/calendar-icon.png")) 104px 8px no-repeat; }
   @media screen and (min-width: 1201px) {
     .booking-block .passenger-details-block aside {
       padding-top: 90px; } }
@@ -12322,11 +12322,11 @@ span.arrow {
   color: #ff4b1a; }
 
 .ui-datepicker .ui-datepicker-prev {
-  background: url("/assets/mydiscoveries_icon/i/slick-arrow-prev.png") 0 0 no-repeat;
+  background: url(image-path("mydiscoveries_icon/i/slick-arrow-prev.png")) 0 0 no-repeat;
   border: none; }
 
 .ui-datepicker .ui-datepicker-next {
-  background: url("/assets/mydiscoveries_icon/i/slick-arrow-next.png") 0 0 no-repeat;
+  background: url(image-path("mydiscoveries_icon/i/slick-arrow-next.png")) 0 0 no-repeat;
   border: none; }
 
 .ui-datepicker .ui-datepicker-next-hover, .ui-datepicker .ui-datepicker-next-active,
@@ -12474,7 +12474,7 @@ td a.ui-state-default.ui-state-hover {
           -o-transition: all 0.3s ease;
           transition: all 0.3s ease; }
     .user-pages .form-block form .form-group input:checked + label:before {
-      background: #000060 url("/assets/mydiscoveries_icon/i/booking/input-check-icon.png") 2px 3px no-repeat; }
+      background: #000060 url(image-path("mydiscoveries_icon/i/booking/input-check-icon.png")) 2px 3px no-repeat; }
   .user-pages .form-block form .form-group .btn-bordered {
     width: 100%; }
   .user-pages .form-block a.edit {
@@ -12553,35 +12553,35 @@ td a.ui-state-default.ui-state-hover {
           border-right: 1px solid white;
           margin: 0; } }
       .user-pages section .up-tabs ul.up-tabs-main li.up-my-dashboard-link a:before {
-        background-image: url("/assets/mydiscoveries_icon/i/booking/my-dashboard-white.png"); }
+        background-image: url(image-path("mydiscoveries_icon/i/booking/my-dashboard-white.png")); }
       .user-pages section .up-tabs ul.up-tabs-main li.up-my-dashboard-link.ui-tabs-active a {
         color: #000060; }
         .user-pages section .up-tabs ul.up-tabs-main li.up-my-dashboard-link.ui-tabs-active a:before {
-          background-image: url("/assets/mydiscoveries_icon/i/booking/my-dashboard.png"); }
+          background-image: url(image-path("mydiscoveries_icon/i/booking/my-dashboard.png")); }
       .user-pages section .up-tabs ul.up-tabs-main li.up-my-bookings-link a:before {
-        background-image: url("/assets/mydiscoveries_icon/i/booking/my-bookings-white.png"); }
+        background-image: url(image-path("mydiscoveries_icon/i/booking/my-bookings-white.png")); }
       .user-pages section .up-tabs ul.up-tabs-main li.up-my-bookings-link.ui-tabs-active a {
         color: #000060; }
         .user-pages section .up-tabs ul.up-tabs-main li.up-my-bookings-link.ui-tabs-active a:before {
-          background-image: url("/assets/mydiscoveries_icon/i/booking/my-bookings.png"); }
+          background-image: url(image-path("mydiscoveries_icon/i/booking/my-bookings.png")); }
       .user-pages section .up-tabs ul.up-tabs-main li.up-bucket-list-link a:before {
-        background-image: url("/assets/mydiscoveries_icon/i/booking/bucket-list-white.png"); }
+        background-image: url(image-path("mydiscoveries_icon/i/booking/bucket-list-white.png")); }
       .user-pages section .up-tabs ul.up-tabs-main li.up-bucket-list-link.ui-tabs-active a {
         color: #000060; }
         .user-pages section .up-tabs ul.up-tabs-main li.up-bucket-list-link.ui-tabs-active a:before {
-          background-image: url("/assets/mydiscoveries_icon/i/booking/bucket-list.png"); }
+          background-image: url(image-path("mydiscoveries_icon/i/booking/bucket-list.png")); }
       .user-pages section .up-tabs ul.up-tabs-main li.up-my-content-link a:before {
-        background-image: url("/assets/mydiscoveries_icon/i/booking/my-content-white.png"); }
+        background-image: url(image-path("mydiscoveries_icon/i/booking/my-content-white.png")); }
       .user-pages section .up-tabs ul.up-tabs-main li.up-my-content-link.ui-tabs-active a {
         color: #000060; }
         .user-pages section .up-tabs ul.up-tabs-main li.up-my-content-link.ui-tabs-active a:before {
-          background-image: url("/assets/mydiscoveries_icon/i/booking/my-content.png"); }
+          background-image: url(image-path("mydiscoveries_icon/i/booking/my-content.png")); }
       .user-pages section .up-tabs ul.up-tabs-main li.up-my-settings-link a:before {
-        background-image: url("/assets/mydiscoveries_icon/i/booking/my-settings-white.png"); }
+        background-image: url(image-path("mydiscoveries_icon/i/booking/my-settings-white.png")); }
       .user-pages section .up-tabs ul.up-tabs-main li.up-my-settings-link.ui-tabs-active a {
         color: #000060; }
         .user-pages section .up-tabs ul.up-tabs-main li.up-my-settings-link.ui-tabs-active a:before {
-          background-image: url("/assets/mydiscoveries_icon/i/booking/my-settings.png"); }
+          background-image: url(image-path("mydiscoveries_icon/i/booking/my-settings.png")); }
       .user-pages section .up-tabs ul.up-tabs-main li a {
         display: block;
         width: 100%;
@@ -12666,12 +12666,12 @@ td a.ui-state-default.ui-state-hover {
           -o-transform: translateX(-50%) scale(1.1);
           transform: translateX(-50%) scale(1.1); }
         .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item.find-deals .upmd-ibi-content:before {
-          background: url("/assets/mydiscoveries_icon/i/booking/up-dash-icon1.png") 0 0 no-repeat;
+          background: url(image-path("mydiscoveries_icon/i/booking/up-dash-icon1.png")) 0 0 no-repeat;
           width: 61px;
           height: 61px;
           top: 36px; }
         .user-pages section .up-tabs-item.up-my-dashboard .upmd-img-block .upmd-img-block-item.add-details .upmd-ibi-content:before {
-          background: url("/assets/mydiscoveries_icon/i/booking/up-dash-icon2.png") 0 0 no-repeat;
+          background: url(image-path("mydiscoveries_icon/i/booking/up-dash-icon2.png")) 0 0 no-repeat;
           width: 92px;
           height: 38px;
           top: 47px; }
@@ -12759,10 +12759,10 @@ td a.ui-state-default.ui-state-hover {
       padding-top: 2px;
       margin-bottom: 5px; }
     .user-pages section .up-tabs-item.up-my-bookings .search-page-card__person-quantity {
-      background-image: url(/assets/mydiscoveries_icon/i/inclusions/kids-club.svg);
+      background-image: image-url('mydiscoveries_icon/i/inclusions/kids-club.svg');
       margin-top: 30px; }
     .user-pages section .up-tabs-item.up-my-bookings .search-page-card__nights-quantity {
-      background-image: url(/assets/mydiscoveries_icon/i/inclusions/nights.svg); }
+      background-image: image-url('mydiscoveries_icon/i/inclusions/nights.svg'); }
     .user-pages section .up-tabs-item.up-my-bookings .search-page-card__cost-side {
       padding: 30px 18px; }
     .user-pages section .up-tabs-item.up-my-bookings .search-page-card__cost-details {
@@ -12858,7 +12858,7 @@ td a.ui-state-default.ui-state-hover {
               .user-pages section .up-tabs-item.up-bucket-list ul li a .th-content span.posi-nights {
                 padding-left: 25px;
                 padding-top: 5px;
-                background: url(/assets/mydiscoveries_icon/i/moon.png) 0 -2px no-repeat; }
+                background: image-url('mydiscoveries_icon/i/moon.png') 0 -2px no-repeat; }
             .user-pages section .up-tabs-item.up-bucket-list ul li a .th-content h4.heading {
               color: #000060;
               margin-top: 20px;
@@ -13210,7 +13210,7 @@ td a.ui-state-default.ui-state-hover {
             display: block;
             width: 32px;
             height: 32px;
-            background-image: url("/assets/mydiscoveries_icon/i/social-icons.png");
+            background-image: image-url("mydiscoveries_icon/i/social-icons.png");
             background-repeat: no-repeat;
             margin-right: 2px; }
           .story .story-content-block section article .info-block ul.social-icons-block li.fb a {
@@ -13234,7 +13234,7 @@ td a.ui-state-default.ui-state-hover {
           display: inline-block;
           width: 20px;
           height: 21px;
-          background: url("/assets/mydiscoveries_icon/i/print-icon.png") 0 0 no-repeat;
+          background: url(image-path("mydiscoveries_icon/i/print-icon.png")) 0 0 no-repeat;
           position: relative;
           top: 6px;
           margin-left: 6px; }
@@ -13242,7 +13242,7 @@ td a.ui-state-default.ui-state-hover {
           display: inline-block;
           width: 20px;
           height: 21px;
-          background: url("/assets/mydiscoveries_icon/i/email-icon.png") 0 0 no-repeat;
+          background: url(image-path("mydiscoveries_icon/i/email-icon.png")) 0 0 no-repeat;
           position: relative;
           top: 9px;
           margin-left: 6px; }
@@ -13418,7 +13418,7 @@ label.css-label.label-featured{
 
 .offer-grey-box {
   /*background-color: rgba(127, 140, 141, 0.8);*/
-  background-image: url('/assets/offer-box-bg.png');
+  background-image: image-url('offer-box-bg.png');
   display: table;
   padding: 0px 21px 21px 21px;
   /*margin: auto;*/
@@ -13460,7 +13460,7 @@ label.css-label.label-featured{
 .posi-nightsaaa {
   padding-left: 25px;
   padding-top: 5px;
-  background: url(/assets/mydiscoveries_icon/i/inclusions/nights.svg) 0 -2px no-repeat;
+  background: url(image-path('mydiscoveries_icon/i/inclusions/nights.svg')) 0 -2px no-repeat;
   background-size: 25px 22px;
   font-family: Larsseit, sans-serif;
   color: #000060;
