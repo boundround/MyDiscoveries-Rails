@@ -7463,7 +7463,7 @@ input[type="text"]::-ms-clear {
   left: 4px; }
 
 .header__logo {
-  background-image: image-url('mydiscoveries_icon/i/logo-full.svg');
+  background-image: url(image-path('mydiscoveries_icon/i/logo-full.svg'));
   float: left;
   width: 261px;
   height: 37px;
