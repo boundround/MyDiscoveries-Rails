@@ -6,12 +6,12 @@ class PagesController < ApplicationController
   def index
     @page = Page.find_by title: "home"
     @set_body_class = "home-page background"
-    @subcategories = Subcategory.find([7,33,31,32])
+    @subcategories = Subcategory.find([7,25,29,32])
     @subcategories = @subcategories.paginate(per_page: 4, page: params[:subcategories_page])
     @category1 = @subcategories[0]
     @category2 = @subcategories[1]
-    @category3 = @subcategories[2]
-    @category4 = @subcategories[3]
+    @category3 = @subcategories[3]
+    @category4 = @subcategories[2]
     @offers = Spree::Product.active.featured.prioritized.paginate(per_page: 8, page: params[:offers_page])
     @stories = Story.active.includes(:user).order(publish_date: :desc).order(created_at: :desc)
     @stories = @stories.paginate(page: params[:stories_page], per_page: 6)
