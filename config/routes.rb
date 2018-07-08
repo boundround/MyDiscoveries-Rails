@@ -30,8 +30,10 @@ Rails.application.routes.draw do
   resources :competitions
 
   resources :posts do
-    collection { get 'all_posts' }
-    collection { get 'paginate' }
+    collection do
+      get 'all_posts'
+      get 'paginate'
+    end
     member     { get 'paginate_place_to_visit' }
     resources :places, controller: :places_posts
     resources :countries, controller: :countries_posts
@@ -187,7 +189,10 @@ Rails.application.routes.draw do
   end
 
   resources :pages do
-    collection { get 'all_pages' }
+    collection do 
+      get 'all_pages'
+      get :wp_feed
+    end
     member { get 'paginate_places'}
     member { get 'paginate_stories'}
     member { get 'paginate_offers'}
@@ -421,7 +426,9 @@ Rails.application.routes.draw do
   end
 
   resources :deals
-  resources :authors
+  resources :authors do
+    collection { get :wp_feed }
+  end
   
   resources :offers do
     member do

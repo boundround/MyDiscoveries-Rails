@@ -37,7 +37,7 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :countries
 
   def self.active
-    where(status: "live").where('publish_date < ?', Date.today + 10.hours) #Sydney Time
+    where(status: "live")
   end
 
   def story_title

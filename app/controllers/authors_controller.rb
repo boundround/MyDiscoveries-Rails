@@ -14,6 +14,10 @@ class AuthorsController < ApplicationController
     @author = Author.new()
   end
 
+  def wp_feed
+    @authors = Author.all
+  end
+
   def create
     @author = Author.new(author_params)
     

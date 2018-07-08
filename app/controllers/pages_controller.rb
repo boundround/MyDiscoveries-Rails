@@ -23,6 +23,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def wp_feed
+    @pages = Post.where(status: 'live')
+  end
+
   def paginate_places
     @areas = Place.home_page_areas.paginate(page: params[:areas_page], per_page: 3)
   end
