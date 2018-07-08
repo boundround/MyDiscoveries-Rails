@@ -343,6 +343,7 @@ Rails.application.routes.draw do
       post :import
       post :import_update
       post :import_subcategories
+      get :wp_feed
     end
 
     resources :stamps

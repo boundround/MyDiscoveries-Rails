@@ -294,6 +294,36 @@ class Place < ActiveRecord::Base
     update_at
   end
 
+  def self.wp_api_feed
+    Rails.cache.fetch("wp_api_places") do
+      @places = 
+        Place.active.includes(
+          :photos, 
+          :videos, 
+          :tab_infos,
+          :fun_facts,
+          :stories,
+          :regions
+          )
+        .order(updated_at: :desc).uniq
+    end
+  end
+
+  def links
+    { 
+      rel: "self", 
+      type: "text/html", 
+      href: Rails.application.routes.url_helpers.place_url(self, host: 'www.mydiscoveries.com.au', protocol: 'https')
+    }
+  end
+
+  def parent_for_wp_feed
+    {
+      post_type: '',
+      id: ''
+    }
+  end
+
   def place_sub_subcategory
     self.places_subcategories.select { |s| true }.map do |s|
       { name: s.subcategory.name, attr: s.subcategory.name }

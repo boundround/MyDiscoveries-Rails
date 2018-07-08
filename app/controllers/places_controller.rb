@@ -29,6 +29,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def wp_feed
+    @places = Place.wp_api_feed
+  end
+
   def stamp_confirmation
     @place = Place.find_by_slug params[:id]
     @photo = @place.photos.where(hero: true).first
