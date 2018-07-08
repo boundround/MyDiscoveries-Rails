@@ -199,6 +199,27 @@ class Region < ActiveRecord::Base
 
   end
 
+  def links
+    { 
+      rel: "self", 
+      type: "text/html", 
+      href: Rails.application.routes.url_helpers.region_url(self, host: 'www.mydiscoveries.com.au', protocol: 'https')
+    }
+  end
+
+  def self.wp_api_feed
+    Rails.cache.fetch("wp_api_regions") do
+      Region.includes(
+            :photos, 
+            :videos, 
+            :fun_facts,
+            :places,
+            :stories
+            )
+          .order(updated_at: :desc).uniq
+    end
+  end
+
   def fill_places
     self.places = []
     self.places = self.get_places

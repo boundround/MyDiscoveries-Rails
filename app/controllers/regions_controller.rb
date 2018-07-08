@@ -19,6 +19,10 @@ class RegionsController < ApplicationController
     @offers = @region.products.active.order(:name).paginate(page: params[:offers_page], per_page: 4)
   end
 
+  def wp_feed
+    @regions = Region.wp_api_feed
+  end
+
   def new
     @region = Region.new
     @countries = Country.all

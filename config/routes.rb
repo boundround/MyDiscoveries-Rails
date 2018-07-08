@@ -417,6 +417,7 @@ Rails.application.routes.draw do
     resources :fun_facts do
       collection { get 'all' }
     end
+    collection { get :wp_feed }
   end
 
   resources :deals
