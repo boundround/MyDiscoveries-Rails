@@ -207,6 +207,21 @@ class Story < ActiveRecord::Base
     end
   end
 
+  def self.wp_api_feed
+    Rails.cache.fetch("wp_api_stories") do
+      Story.active
+        .includes(
+          :places,
+          :countries,
+          :attractions,
+          :regions,
+          :story_images,
+          :photos
+          )
+        .order(updated_at: :desc).uniq
+    end
+  end
+
   def self.active
     where(status: "live").where('publish_date < ?', Date.today + 10.hours) #Sydney Time
   end

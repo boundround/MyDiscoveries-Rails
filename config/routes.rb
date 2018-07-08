@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       get 'paginate'
       post 'featured'
       get 'feed'
+      get 'wp_feed'
     end
     member do
       get 'seo_analysis'

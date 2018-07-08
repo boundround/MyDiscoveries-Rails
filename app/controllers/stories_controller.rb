@@ -20,6 +20,10 @@ class StoriesController < ApplicationController
     @stories = Story.active.where('updated_at > ?', 3.days.ago).order(updated_at: :desc)
   end
 
+  def wp_feed
+    @stories = Story.wp_api_feed
+  end
+
   def paginate_place
     @story = Story.find_by_slug(params[:id])
     @places_to_visit = @story.attractions.active.paginate( page: params[:places_to_visit_page], per_page: 6 )
