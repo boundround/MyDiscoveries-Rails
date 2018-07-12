@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180511043000) do
+ActiveRecord::Schema.define(version: 20180529053200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1733,6 +1733,7 @@ ActiveRecord::Schema.define(version: 20180511043000) do
     t.boolean  "publishenddate_active",                                         default: false
     t.string   "publishenddate_status",                                         default: ""
     t.integer  "priority",                                                      default: 10
+    t.decimal  "full_price",                           precision: 8,  scale: 2, default: 0.0
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree
