@@ -42,11 +42,11 @@ class ProgramsController < ApplicationController
     redirect_to @program  
   end
 
-  def tags
-    params[:sort] ||= "id"
-    params[:direction] ||= "asc"
-    @programs = Program.order(params[:sort] + " " + params[:direction]).paginate(:per_page => 30, :page => params[:page])
-  end
+  # def tags
+  #   params[:sort] ||= "id"
+  #   params[:direction] ||= "asc"
+  #   @programs = Program.order(params[:sort] + " " + params[:direction]).paginate(:per_page => 30, :page => params[:page])
+  # end
   
   def import
     Program.validate_import(params[:file],params[:import])
