@@ -422,9 +422,9 @@ $(document).ready(function() {
 
                     var endDate = $(this)[0].endDate.split("-"),
                         newEndDate   = new Date(Date.parse(endDate)),
-                        end_date      = newDate.getDate(),
-                        end_month     = newDate.getMonth()+1,
-                        end_year      = newDate.getFullYear();
+                        end_date      = newEndDate.getDate(),
+                        end_month     = newEndDate.getMonth()+1,
+                        end_year      = newEndDate.getFullYear();
 
                     $(this)[0].endDate = end_date+"-"+end_month+"-"+end_year
 
