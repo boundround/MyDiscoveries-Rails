@@ -61,7 +61,7 @@
                       <h5>Variant</h5>
                     <% end %>
                     <div>
-                      <%= line_item.variant.select_label.html_safe %>
+                      <%= line_item.variant.select_label.html_safe rescue '' %>
                     </div>
                   </li>
                   <li class="quantity">
