@@ -54,7 +54,6 @@
         <p class="search-page-card__cost-per-person"></p>
         <p class="search-page-card__cost-from mobile-only clear">or 5 monthly payments of ${{monthlyPayments}}</p>
         <a class="search-page-card__cost-details" href="{{ url }}">details</a>
-          <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="offers_users" data-klass="offer" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
     </div>
   </div>
 {{/is_offer}}
@@ -63,7 +62,6 @@
     <a class="link_card" href="{{ url }}"></a>
     <div class="search-page-card__info-side search-page-card__info-side--left">
         <h3 class="search-page-card__header mobile-only">{{{ _highlightResult.display_name.value }}}</h3>
-        <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer mobile-only" id="favouriteType" data-post-path="{{#is_story}}stories{{/is_story}}{{^is_story}}{{object}}s{{/is_story}}_users" data-klass="{{object}}" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
         <div class="search-photo search-page-card__image wrap_link_card">
           <a class="link_card" href="{{ url }}" style="z-index: 1"></a>
           <div class="category-card" style="{{#is_story}}background-image: url(/assets/mydiscoveries_icon/i/map/story.svg){{/is_story}}{{^is_story}}background-image: url(/assets/mydiscoveries_icon/i/map/map-point.png){{/is_story}}" >{{where_destinations}}</div>
@@ -80,8 +78,6 @@
     <a class="search-page-card__cost-details mobile-only" href="{{ url }}">read more</a>
     <br>
     <div class="result-action desktop-only" align="right">
-      <!-- <span class="search-page-card__to-bucket-list js-search-page-card__to-bucket-list">Bucket List</span> -->
-      <span class="search-page-card__to-bucket-list icon-favourite js-search-page-card__to-bucket-list viator_link bucket-list-offer" id="favouriteType" data-post-path="{{#is_story}}stories{{/is_story}}{{^is_story}}{{object}}s{{/is_story}}_users" data-klass="{{object}}" data-liked="false" data-place-id="{{ ID }}" data-user-id="<%= user_signed_in? ? current_user.id.to_s : 'no-user' %>">Bucket List</span>
       <a class="search-page-card__cost-details" href="{{ url }}">read more</a>
     </div>
   </div>
