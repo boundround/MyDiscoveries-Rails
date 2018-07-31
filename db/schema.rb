@@ -1731,6 +1731,7 @@ ActiveRecord::Schema.define(version: 20180710101146) do
     t.string   "publishenddate_status",                                         default: ""
     t.integer  "priority",                                                      default: 10
     t.datetime "discontinue_on"
+    t.decimal  "full_price",                           precision: 8,  scale: 2, default: 0.0
   end
 
   add_index "spree_products", ["attraction_id"], name: "index_spree_products_on_attraction_id", using: :btree

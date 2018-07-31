@@ -36,16 +36,13 @@
         </div>
         <div class="hc-info">
           <span class="hci-price">
-            <span>$</span>
-            <span class="hci-price-self"><%= offer_minimum_price(@offer).round %></span>
+            <span class="hci-price-self"><%= number_to_currency(offer_minimum_price(@offer), precision: 0) %></span>
             <% if @offer.allow_installments? %>
               <span class="payments-text-hero">or 5 monthly payments of <%= number_to_currency(offer_minimum_price(@offer) / 5.0) %></span><br>
             <% end %>
           </span>
           <% if @offer.duration.present? %>
-            <span class="hci-nights">
-              <span class="xs-invisible"><%= create_duration(@offer) %></span>
-            </span>
+            <span class="hci-nights"><%= create_duration(@offer) %></span>
           <% end %>
           <div class="info-text">
             <%= @offer.per_adult_overwrite.present? ? @offer.per_adult_overwrite : "Per Adult" %>
@@ -56,6 +53,12 @@
         <div class="location">
           <!-- TODO Remove booking essentials for vpoucher for this download (as opposed to customer voucher email attachment) -->
           <%= link_to 'download itinerary', offer_path(@offer, :format => :pdf), class: "btn-bordered red", id:"download-itinerary" %>
+          <% if @offer.full_price > 0 %>
+            <div class="special-price">
+              <p class="special-price-info-text">Valued up to</p>
+              <p class="special-price-info-price"><%= number_to_currency(@offer.full_price, precision: 0) %></p>
+            </div>
+          <% end %>
           <% if user_signed_in? and current_user.admin? %>
             <p><br>&nbsp;&nbsp;&nbsp;<%= link_to "Edit Offer", edit_offer_path(@offer) %></p>
           <% end %>
