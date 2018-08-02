@@ -6,8 +6,8 @@
       pdf_page:   false,
       email_page: true,
       order:      @order,
-      passengers: @passengers,
-      customer:   @customer
+      passengers: @order.passengers,
+      customer:   @order.customer
     %>
   </body>
 </html>

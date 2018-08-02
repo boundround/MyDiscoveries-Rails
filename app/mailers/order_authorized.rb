@@ -4,32 +4,42 @@ class OrderAuthorized < ActionMailer::Base
   default from: "My Discoveries <info@mydiscoveries.com.au>"
 
   def notification(order_id)
-    @order  = Spree::Order.find(order_id)
-    @passengers = @order.passengers
-    @customer   = @order.customer
-    @email = @customer.email
+    @order = Spree::Order.find(order_id)
+    generated_pdf = GeneratePdf.call(@order)
+    return unless generated_pdf[:success]
 
-    if !@email
-      if @order.products.where(operator_id: 1).any?
-        @email = "noemail@snatours.com"
-      else
-        @email = "bookings@mydiscoveries.com.au"
-      end
+    @order.update(voucher_sent: true)
+    send_email(@order, generated_pdf)
+  end
+
+  private
+
+  def send_email(order, generated_pdf)
+    add_attachments(order, generated_pdf)
+
+    mail(
+      to: to_email(order),
+      bcc: "mydiscoveries_booking@boundround.com",
+      subject: "Your MyDiscoveries Holiday Voucher"
+    )
+  end
+
+  def add_attachments(order, generated_pdf)
+    attachments[generated_pdf[:file_name]] = generated_pdf[:file]
+
+    products_with_itinerary(order).each do |product|
+      file_contents = open(product.itinerary.url) { |file| file.read }
+      attachments["offer_itinerary_#{product.id}.pdf"] = file_contents
     end
+  end
 
-    response = GeneratePdf.call(@order)
+  def products_with_itinerary(order)
+    order.products.select { |product| product.itinerary.url.present? }
+  end
 
-    if response[:success]
-      @order.update(voucher_sent: true)
-      attachments[response[:file_name]] = response[:file]
-      @order.products.each do |product|
-        if product.itinerary.url.present?
-          file_contents = open(product.itinerary.url) {|f| f.read }
-          attachments["offer_itinerary_#{product.id}.pdf"] = file_contents
-        end
-      end
-
-      mail(to: @email, bcc: "mydiscoveries_booking@boundround.com", subject: "Your MyDiscoveries Holiday Voucher")
-    end
+  def to_email(order)
+    order.customer.email.presence ||
+     (order.products.where(operator_id: 1).any? && "noemail@snatours.com") ||
+    "bookings@mydiscoveries.com.au"
   end
 end
