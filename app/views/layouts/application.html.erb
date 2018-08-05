@@ -2,8 +2,6 @@
 <html lang="en">
 	<head>
 	  <title><%= full_title(yield(:title), yield(:category)) %></title>
-
-      <%= analytics_init if GoogleAnalytics.valid_tracker? %>
 	  <%= stylesheet_link_tag( 'application', media: 'all') %>
 	  <%= csrf_meta_tags %>
       <%= yield :head %>
@@ -21,22 +19,23 @@
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="msapplication-TileImage" content="<%= asset_path('favicons/mydiscoveries/mstile-150x150.png')%>">
 		<meta name="theme-color" content="#ffffff">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8"/>
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<meta property="og:type"          content="website" />
 		<meta property="og:title"         content="<%= yield(:title).blank? ? body_title : yield(:title) %>" />
 		<meta property="og:description"   content="<%= yield(:description).blank? ? meta_description : yield(:description) %>" />
 		<meta property="og:image"         content="<%= yield(:og_image).blank? ? open_graph_image : yield(:og_image) %>" />
 		<meta property='og:image:secure_url' content="<%= yield(:og_secure_image).blank? ? open_graph_image : yield(:og_secure_image) %>" />
 		<meta property='og:image:type' content='image/jpeg' />
-        <meta name="twitter:type"          content="website" />
-        <meta name="twitter:title"         content="<%= yield(:title).blank? ? body_title : yield(:title) %>" />
-        <meta name="twitter:description"   content="<%= yield(:description).blank? ? meta_description : yield(:description) %>" />
-        <meta name="twitter:image"         content="<%= yield(:og_image).blank? ? open_graph_image : yield(:og_image) %>" />
-        <meta name='twitter:image:secure_url' content="<%= yield(:og_secure_image).blank? ? open_graph_image : yield(:og_secure_image) %>" />
+    <meta name="twitter:type"          content="website" />
+    <meta name="twitter:title"         content="<%= yield(:title).blank? ? body_title : yield(:title) %>" />
+    <meta name="twitter:description"   content="<%= yield(:description).blank? ? meta_description : yield(:description) %>" />
+    <meta name="twitter:image"         content="<%= yield(:og_image).blank? ? open_graph_image : yield(:og_image) %>" />
+    <meta name='twitter:image:secure_url' content="<%= yield(:og_secure_image).blank? ? open_graph_image : yield(:og_secure_image) %>" />
 		<% if ENV["BOUNDROUND_ENV"] == "boundround_production" %>
 			<meta name="p:domain_verify" content="686be2abe0a940c9850d1d44857ce726">
 		<% end %>
-	  <%= render "/layouts/ga" %>
+	  <%= render "/layouts/gtag_manager" %>
 	  <%= render "/layouts/facebook_pixel" %>
 
     <style>
@@ -89,6 +88,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
 	</head>
 	<body class="<%= @set_body_class ? @set_body_class : 'homepage' %>">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PW8Q8WX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 		<div id="environment" data-environment="<%= Rails.env %>">
     <div id="place-holder"></div>
     <% flash.each do |type, message| %>
