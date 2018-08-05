@@ -3,53 +3,48 @@ SitemapGenerator::Sitemap.default_host = "https://www.mydiscoveries.com.au/"
 SitemapGenerator::Sitemap.sitemaps_host = "https://s3.amazonaws.com/#{ENV['AS3_BUCKET_NAME']}/"
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
-SitemapGenerator::Sitemap.adapter = SitemapGenerator::WaveAdapter.new
+SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(
+  fog_provider: 'AWS',
+  aws_access_key_id: ENV['AS3_ACCESS_KEY'],
+  aws_secret_access_key: ENV['AS3_SECRET_ACCESS_KEY'],
+  fog_directory: ENV['AS3_BUCKET_NAME'],
+  fog_region: ENV['AWS_REGION']
+)
 #TODO this carrierwave uploader using SitemapGenerator gem is broken
 
 SitemapGenerator::Sitemap.create do
 
   # Add all places:
-  Place.find_each do |place|
-    if place.status.downcase == "live"
-      puts
-      video_array = Array.new
-      photo_array = Array.new
-      place.photos.find_each do |photo|
-        puts photo.path
-#        a_photo = { :loc => photo.path, :title => photo.title, :caption => photo.caption, :license => photo.credit, :geo_location => }
-        a_photo = { :loc => photo.path_url, :title => photo.title, :caption => photo.caption }
-        photo_array.push(a_photo)
-      end
-      place.videos.find_each do |video|
-        puts video.vimeo_thumbnail
-#        a_video = { :thumbnail => video.vimeo_thumbnail, :content_loc => "https://vimeo.com/"+video.vimeo_id, :tags => :title => TBD, :description => TBD, }
-        a_video = { :thumbnail_loc => video.vimeo_thumbnail, :title => place.display_name, :description => ActionView::Base.full_sanitizer.sanitize(place.description), :content_loc => "https://vimeo.com/"+video.vimeo_id.to_s }
-        video_array.push(a_video)
-      end
-
-      add place_path(place), :lastmod => place.updated_at, :images => photo_array, :videos => video_array
-    end
+  Place.active.each do |place|
+    add place_path(place),
+      lastmod: place.updated_at,
+      changefreq: 'monthly',
+      priority: 0.9,
+      mobile: true
   end
 
-  # Add all countries:
-  Country.find_each do |country|
-    if country.published_status == 'live'
-      add country_path(country), :lastmod => country.updated_at
-    end
+  Region.all.each do |region|
+    add region_path(region),
+      lastmod: region.updated_at,
+      changefreq: 'monthly',
+      priority: 0.5
   end
 
-  Post.find_each do |post|
-    if post.status == 'live'
-      add post_path(post), :lastmod => post.updated_at
-    end
+  Spree::Product.active.each do |product|
+    add offer_path(product),
+      lastmod: product.updated_at,
+      changefreq: 'daily',
+      priority: 1.0,
+      mobile: true
   end
 
-  Story.find_each do |story|
-    if story.status == 'live'
-      add story_path(story), :lastmod => story.updated_at
-    end
+  Story.active.each do |story|
+    add story_path(story),
+      lastmod: story.updated_at,
+      changefreq: 'daily',
+      priority: 1.0,
+      mobile: true
   end
-
 end
 
 
