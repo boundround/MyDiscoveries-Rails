@@ -31,7 +31,7 @@ class PromotionsController < ApplicationController
   end
 
   def edit
-    @promoted_product_ids = @promotion.promotion_rules.first&.products&.map(&:id)
+    @promoted_product_ids = promoted_product_ids
     @calculator_flexi_rate = @calculator.preferences[:amount]
   end
 
@@ -61,11 +61,11 @@ class PromotionsController < ApplicationController
   private
 
   def set_promotion
-    @promotion = Spree::Promotion.find(params[:id])
+    @promotion ||= Spree::Promotion.find(params[:id])
   end
 
   def set_calculator
-    @calculator = @promotion.promotion_actions.last.calculator
+    @calculator ||= @promotion.promotion_actions.last.calculator
   end
 
   def set_active_products
@@ -94,6 +94,10 @@ class PromotionsController < ApplicationController
     @calculator.update(
       preferred_amount: params[:calculator_flexi_rate].to_f
     )
+  end
+
+  def promoted_product_ids
+    @promotion.promotion_rules.first&.products&.map(&:id) || []
   end
 
   def promotion_params
