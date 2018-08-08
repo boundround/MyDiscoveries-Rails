@@ -36,18 +36,14 @@ class PromotionsController < ApplicationController
   end
 
   def update
-    ActiveRecord::Base.transaction do
-      if @promotion.update(promotion_params)
-        update_rules
-        update_calculator
-        redirect_to(
-          promotions_path,
-          notice: "Promotion Updated"
-        )
-      else
-        flash.now[:alert] = @promotion.errors.full_messages.join(', ')
-        render :edit
-      end
+    if successfully_updated?
+      redirect_to(
+        promotions_path,
+        notice: "Promotion Updated"
+      )
+    else
+      flash.now[:alert] = @promotion.errors.full_messages.join(', ')
+      render :edit
     end
   end
 
@@ -85,9 +81,12 @@ class PromotionsController < ApplicationController
   end
 
   def update_rules
-    @promotion.promotion_rules.first.products = Spree::Product.find(
-      params[:promoted_product_ids]
-    )
+    @promotion.promotion_rules.first.products = promoted_products
+  end
+
+  def promoted_products
+    return [] unless params[:promoted_product_ids]
+    Spree::Product.find(params[:promoted_product_ids])
   end
 
   def update_calculator
@@ -98,6 +97,14 @@ class PromotionsController < ApplicationController
 
   def promoted_product_ids
     @promotion.promotion_rules.first&.products&.map(&:id) || []
+  end
+
+  def successfully_updated?
+    ActiveRecord::Base.transaction do
+      @promotion.update(promotion_params)
+      update_rules
+      update_calculator
+    end
   end
 
   def promotion_params
