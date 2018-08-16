@@ -193,51 +193,53 @@
             <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
           </td>
         </tr>
-        <tr>
-          <td colspan="3" style="padding: 20px 40px;">
-            <span style="font-family: Arial; font-weight: bold; font-size: 16px;">How to book</span>
-            <span style="font-family: Arial; font-size: 16px; margin-top: 0;">
-              <%= simple_format line_item.variant.product.voucher_booking_essentials %>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" style="padding: 20px 40px;">
-            <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Valid Until</span>
-          </td>
-          <td colspan="1" style="padding: 20px 40px; text-align: right;">
-            <p style="font-family: Arial; font-size: 16px; margin-top: 0">
-              <%= line_item.variant.product.validityEndDate.try(:strftime, "%d/%m/%Y") %>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" style="padding: 0px 40px;">
-            <span style="font-family: Arial; font-weight: bold; font-size: 18px;">Additional Information</span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="padding: 10px 40px;">
-            <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
-          </td>
-        </tr>
-        <tr>
-          <td colspan="1" style="padding: 20px 40px;">
-            <p style="font-family: Arial; font-size: 16px; margin-top:">
-              Package Details & Fine Print:
-            </p>
-          </td>
-          <td colspan="2" style="padding: 20px 40px; text-align: right;">
-            <span style="font-family: Arial; font-size: 16px; margin-top: 0;">
-              <%= link_to 'download itinerary', "https://www.mydiscoveries.com.au/offers/#{line_item.variant.product.slug}.pdf", id:"download-itinerary" %>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" style="padding: 20px 40px;">
-            <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
-          </td>
-        </tr>
+        <% if !order.line_items.any? { |line_item| line_item.product == Spree::Product.find(136) } %>
+          <tr>
+            <td colspan="3" style="padding: 20px 40px;">
+              <span style="font-family: Arial; font-weight: bold; font-size: 16px;">How to book</span>
+              <span style="font-family: Arial; font-size: 16px; margin-top: 0;">
+                <%= simple_format line_item.variant.product.voucher_booking_essentials %>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding: 20px 40px;">
+              <span style="font-family: Arial; font-weight: bold; font-size: 16px;">Valid Until</span>
+            </td>
+            <td colspan="1" style="padding: 20px 40px; text-align: right;">
+              <p style="font-family: Arial; font-size: 16px; margin-top: 0">
+                <%= line_item.variant.product.validityEndDate.try(:strftime, "%d/%m/%Y") %>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding: 0px 40px;">
+              <span style="font-family: Arial; font-weight: bold; font-size: 18px;">Additional Information</span>
+            </td>
+          </tr>
+            <tr>
+              <td colspan="3" style="padding: 10px 40px;">
+                <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+              </td>
+            </tr>
+            <tr>
+            <td colspan="1" style="padding: 20px 40px;">
+              <p style="font-family: Arial; font-size: 16px; margin-top:">
+                Package Details & Fine Print:
+              </p>
+            </td>
+            <td colspan="2" style="padding: 20px 40px; text-align: right;">
+              <span style="font-family: Arial; font-size: 16px; margin-top: 0;">
+                <%= link_to 'download itinerary', "https://www.mydiscoveries.com.au/offers/#{line_item.variant.product.slug}.pdf", id:"download-itinerary" %>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" style="padding: 20px 40px;">
+              <hr style="margin:0; height: 1px; background-color: #000060; border: 0;">
+            </td>
+          </tr>
+      <% end %>
     <% end %>
   <% end %>
   <tr>
