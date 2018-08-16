@@ -8,11 +8,14 @@
            role="img">
           <div class="overlay"></div>
           <div class="geolocation">
-            <img src="/assets/new-images/icon-geolocator.png"/><span><%= place.country.display_name %></span>
+            <%=image_tag'new-images/icon-geolocator.png', class: "geolocation_img" %>
+            <span><%= place.country.display_name %></span>
           </div>
           <div class="destination-city">
             <h2><%= place.display_name %></h2>
-            <div class="arrow"><img src="/assets/new-images/hover-state-arrow.png"/></div>
+            <div class="arrow">
+              <%=image_tag'new-images/hover-state-arrow.png', class: "arrow_img" %>
+            </div>
           </div>
         </div>
       </div>
