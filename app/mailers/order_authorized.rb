@@ -19,7 +19,7 @@ class OrderAuthorized < ActionMailer::Base
 
     mail(
       to: to_email(order),
-      bcc: "mydiscoveries_booking@boundround.com",
+      bcc: "mydiscoveries@boundround.com",
       subject: "Your MyDiscoveries Holiday Voucher"
     )
   end
