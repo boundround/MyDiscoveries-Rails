@@ -1,6 +1,5 @@
 class OffersController < ApplicationController
   before_action -> { check_user_authorization('Spree::Product') }, except: [
-    :show,
     :paginate_reviews,
     :paginate_media,
     :paginate_on_idx,

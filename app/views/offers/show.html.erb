@@ -1,3 +1,4 @@
+<% if @offer.status == 'live' || (user_signed_in? && current_user.admin?) %>
 <% provide(:title, @offer.name) %>
 <% provide(:description, @offer.description) %>
 <% provide(:og_image, open_graph_image.gsub("https://", "http://")) %>
@@ -270,3 +271,7 @@
 
 <%= render "operator_detail" %>
 <%= render "layouts/guest_modal" %>
+
+<% else %>
+  <h1>Not Authorized</h1>
+<% end %>
